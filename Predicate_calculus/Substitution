@@ -5,15 +5,7 @@ $(
 $)
 
 $(
-   Now we come to the concept of proper substitution.  Logic texts
-   usually introduce substitution as a new primitive notion described
-   informally, such as "replace all free occurrences of variable ` x ` with
-   variable ` y `, renaming bound variables as needed."  The technical
-   details of the standard definition are somewhat complex and
-   effectively introduce additional underlying axioms.  Rather than
-   introduce a new primitive notion, we will define substitution using the
-   existing language.  Then we will show that our definition has the
-   properties we expect of substitution.
+   Now we come to the concept of proper substitution.
 
    For our notation, we use ` ( ph x | y ) ` to mean "the wff that results
    when ` y ` is properly substituted for ` x ` in the wff ` ph `."  The
@@ -22,8 +14,7 @@ $(
    ambiguous for us:  for example, we don't know whether ` -. ph ( x | y ) ` is
    to be interpreted as ` -. ( ph x | y ) ` or ` ( -. ph x | y ) `.  (Because
    of the way we have defined ` wff `, this is the case with all "postfix"
-   wff operators.)  Some authors use the notation ` [ y / x ] ph `, which
-   would also work for us without ambiguity.
+   wff operators.)
 $)
 
   $( Declare a new symbol first used by the substitution notation. $)
@@ -33,11 +24,22 @@ $)
      results when ` y ` is properly substituted for ` x ` in wff ` ph `"). $)
   wsb $a wff ( ph x | y ) $.
 
-  $( Define proper substitution.  Note that this definition is valid even
-     when ` x ` and ` y ` are replaced with the same variable.  The first
-     conjunct is a "trick" used to achieve this property, making the
-     definition look somewhat counterintutive at first.  Remark 9.1 of Megill,
-     p. 447. $)
+  $( Define proper substitution.    Remark 9.1 in Megill,
+   p. 447.  For our notation, we use ` ( ph x | y ) ` to
+   mean "the wff that results when ` y ` is properly substituted for ` x ` in
+   the wff ` ph `."  Some authors use the notation ` [ y / x ] ph `, which
+   would also work for us without ambiguity (and is used in the Metamath
+   Solitaire applet).  Logic texts usually introduce substitution as a new
+   primitive notion described informally, such as "replace all free
+   occurrences of variable ` x ` with variable ` y `, renaming bound variables
+   as needed."  The technical details of the standard definition are somewhat
+   complex for what is supposed to be a primitive notion.  Rather than
+   introduce a new primitive notion, we will define substitution using the
+   existing language.  Then we will show that our definition has the
+   properties we expect of substitution (see theorems ~sbid , ~sbequ , ~sbcocv
+   and ~sbco0v ).  Note that our definition is valid even when ` x ` and ` y `
+   are replaced with the same variable.  The first conjunct is a trick used to
+   achieve this property, making the definition look somewhat odd at first. $)
   df-sb $a |- ( ( ph x | y ) <->
               ( ( x = y -> ph ) /\ E. x ( x = y /\ ph ) ) ) $.
 
@@ -47,6 +49,7 @@ $)
     sbim   $p |- ( ( ph x | y ) -> ( ps x | y ) ) $=
       ( weq wi wa wex wsb syl3 imlan 19.22i im2an df-sb 3imtr4 ) CDFZAGZQAHZCIZ
       HQBGZQBHZCIZHACDJBCDJRUATUCABQEKSUBCABQELMNACDOBCDOP $.
+      $([25-Jun-98]$)
   $}
 
   ${
@@ -54,78 +57,92 @@ $)
     $( Infer substitution into both sides of a logical equivalence. $)
     bisb   $p |- ( ( ph x | y ) <-> ( ps x | y ) ) $=
       ( wsb biimp sbim biimpr impbi ) ACDFBCDFABCDABEGHBACDABEIHJ $.
+      $([5-Aug-93]$)
   $}
 
   $( A distinctor elimination lemma for substitution. $)
   del43 $p |- ( A. x x = y -> ( ( ph x | z ) -> ( ph y | z ) ) ) $=
-      ( weq wal wi wa wex wsb del25 eq4s syl4d imrand del40 del39 df-sb
-      3imtr4g ) BCEBFZBDEZAGZTAHZBIZHCDEZAGZUDAHZCIZHABDJACDJUAUEUCUGBCSUDTAUDT
-      GCBCBDKLMUBUFBCSTUDABCDKNOPABDQACDQR $.
+    ( weq wal wi wa wex wsb del25 eq4s syl4d imrand del40 del39 df-sb 3imtr4g
+    ) BCEBFZBDEZAGZTAHZBIZHCDEZAGZUDAHZCIZHABDJACDJUAUEUCUGBCSUDTAUDTGCBCBDKLMU
+    BUFBCSTUDABCDKNOPABDQACDQR $.
+    $([5-Aug-93]$)
 
   $( A distinctor elimination lemma for substitution. $)
   del43b $p |- ( A. x x = y -> ( ( ph x | z ) <-> ( ph y | z ) ) ) $=
-      ( weq wal wsb del43 wi eq4s impbid ) BCEBFABDGZACDGZABCDHMLICBACBDHJK $.
+    ( weq wal wsb del43 wi eq4s impbid ) BCEBFABDGZACDGZABCDHMLICBACBDHJK $.
+    $([5-Aug-93]$)
 
   $( One direction of a simplified definition for substitution. $)
   sb1 $p |- ( ( ph x | y ) -> E. x ( x = y /\ ph ) ) $=
-      ( wsb weq wi wa wex df-sb pm3.27 sylbi ) ABCDBCEZAFZLAGBHZGNABCIMNJK $.
+    ( wsb weq wi wa wex df-sb pm3.27bd ) ABCDBCEZAFKAGBHABCIJ $.
+    $([5-Aug-93]$)
 
   $( One direction of a simplified definition for substitution. $)
   sb2 $p |- ( A. x ( x = y -> ph ) -> ( ph x | y ) ) $=
-      ( weq wi wal wa wex wsb ax-4 eqs4 jca df-sb sylibr ) BCDZAEZBFZPOAGBHZGAB
-      CIQPRPBJABCKLABCMN $.
+    ( weq wi wal wa wex wsb ax-4 eqs4 jca df-sb sylibr ) BCDZAEZBFZPOAGBHZGABCI
+    QPRPBJABCKLABCMN $.
+    $([5-Aug-93]$)
 
   $( One direction of a simplified definition for substitution when variables
      are distinct. $)
   sb3 $p |- ( -. A. x x = y -> ( E. x ( x = y /\ ph ) -> ( ph x | y ) ) ) $=
-      ( weq wal wn wa wex wi wsb eqs5 sb2 syl6 ) BCDZBEFNAGBHNAIBEABCJABCKABCLM
-      $.
+    ( weq wal wn wa wex wi wsb eqs5 sb2 syl6 ) BCDZBEFNAGBHNAIBEABCJABCKABCLM
+    $.
+    $([5-Aug-93]$)
 
   $( One direction of a simplified definition for substitution when variables
      are distinct. $)
   sb4 $p |- ( -. A. x x = y -> ( ( ph x | y ) -> A. x ( x = y -> ph ) ) ) $=
-      ( weq wal wn wa wex wi wsb eqs5 sb1 syl5 ) BCDZBEFNAGBHNAIBEABCJABCKABCLM
-      $.
+    ( weq wal wn wa wex wi wsb eqs5 sb1 syl5 ) BCDZBEFNAGBHNAIBEABCJABCKABCLM
+    $.
+    $([5-Aug-93]$)
 
   $( Simplified definition for substitution when variables are distinct. $)
   sb4b $p |- ( -. A. x x = y -> ( ( ph x | y ) <-> A. x ( x = y -> ph ) ) ) $=
-      ( weq wal wn wsb wi sb4 sb2 a1i impbid ) BCDZBEFZABCGZMAHBEZABCIPOHNABCJK
-      L $.
-      $([27-May-97]$)
+    ( weq wal wn wsb wi sb4 sb2 a1i impbid ) BCDZBEFZABCGZMAHBEZABCIPOHNABCJKL
+    $.
+    $([27-May-97]$)
 
   $( An equality theorem for substitution. $)
   sbequ1 $p |- ( x = y -> ( ph -> ( ph x | y ) ) ) $=
-      ( weq wsb wa wi wex pm3.4 19.8a jca df-sb sylibr exp ) BCDZAABCEZOAFZOAGZ
-      QBHZFPQRSOAIQBJKABCLMN $.
+    ( weq wsb wa wi wex pm3.4 19.8a jca df-sb sylibr exp ) BCDZAABCEZOAFZOAGZQB
+    HZFPQRSOAIQBJKABCLMN $.
+    $([5-Aug-93]$)
 
   $( An equality theorem for substitution. $)
   sbequ2 $p |- ( x = y -> ( ( ph x | y ) -> ph ) ) $=
-      ( weq wi wa wex wsb pm3.26 comm df-sb syl5ib ) BCDZMAEZMAFBGZFZAABCHPMANO
-      IJABCKL $.
+    ( weq wi wa wex wsb pm3.26 comm df-sb syl5ib ) BCDZMAEZMAFBGZFZAABCHPMANOIJ
+    ABCKL $.
+    $([5-Aug-93]$)
 
   $( An equality theorem for substitution. $)
   sbequ12 $p |- ( x = y -> ( ph <-> ( ph x | y ) ) ) $=
-      ( weq wsb sbequ1 sbequ2 impbid ) BCDAABCEABCFABCGH $.
+    ( weq wsb sbequ1 sbequ2 impbid ) BCDAABCEABCFABCGH $.
+    $([5-Aug-93]$)
 
   $( An equality theorem for substitution. $)
   sbequ12a $p |- ( x = y -> ( ( ph x | y ) <-> ( ph y | x ) ) ) $=
-      ( weq wsb sbequ12 wb eqcoms bitr3d ) BCDAABCEACBEZABCFAJGCBACBFHI $.
+    ( weq wsb sbequ12 wb eqcoms bitr3d ) BCDAABCEACBEZABCFAJGCBACBFHI $.
+    $([5-Aug-93]$)
 
-  $( An identity theorem for substitution.  Remark 9.1 of Megill, p. 447. $)
+  $( An identity theorem for substitution.  Remark 9.1 in Megill, p. 447. $)
   sbid $p |- ( ph <-> ( ph x | x ) ) $=
-      ( weq wsb wb sbequ12 eqid ax-mp ) BBCAABBDEABBFBGH $.
+    ( weq wsb wb eqid sbequ12 ax-mp ) BBCAABBDEBFABBGH $.
+    $([5-Aug-93]$)
 
   $( The specialization axiom of standard predicate calculus.  Axiom 4 of
      Mendelson, p. 59. $)
   stdpc4 $p |- ( A. x ph -> ( ph x | y ) ) $=
-      ( wal weq wi wsb ax-1 19.20i sb2 syl ) ABDBCEZAFZBDABCGAMBALHIABCJK $.
+    ( wal weq wi wsb ax-1 19.20i sb2 syl ) ABDBCEZAFZBDABCGAMBALHIABCJK $.
+    $([5-Aug-93]$)
 
   ${
     sbf1.1 $e |- ( ph -> A. x ph ) $.
     $( Substitution of a variable not free does not affect a wff. $)
     sbf1   $p |- ( ph <-> ( ph x | y ) ) $=
-      ( wsb wal stdpc4 syl weq wex wa sb1 19.41 sylib pm3.27d impbi ) AABCEZAA
-      BFQDABCGHQBCIZBJZAQRAKBJSAKABCLRABDMNOP $.
+      ( wsb wal stdpc4 syl weq wex wa sb1 19.41 sylib pm3.27d impbi ) AABCEZAAB
+      FQDABCGHQBCIZBJZAQRAKBJSAKABCLRABDMNOP $.
+      $([5-Aug-93]$)
   $}
 
   ${
@@ -134,6 +151,7 @@ $)
     sb6x   $p |- ( ( ph x | y ) <-> A. x ( x = y -> ph ) ) $=
       ( wsb weq wi wal sbf1 ax-1 19.21ai sylbir sb2 impbi ) ABCEZBCFZAGZBHZOARA
       BCDIAQBDAPJKLABCMN $.
+      $([5-Aug-93]$)
   $}
 
   ${
@@ -143,20 +161,23 @@ $)
       ( wsb weq wi wal sbequ2 a4s ax-10 eq4s ax-1 19.20i syl6 syl5 syld sb4
       pm2.61i sb2 impbi ) ABCEZBCFZAGZBHZUCBHZUBUEGUFUBAUEUCUBAGBABCIJUFACHZUEA
       UFUGABHZUEUGUHGCBACBKLAUDBAUCMNODPQABCRSABCTUA $.
+      $([5-Aug-93]$)
   $}
 
   $( Substitution with a distinct variable makes the substituted variable not
      free. $)
   hbsb $p |- ( -. A. x x = y -> ( ( ph x | y ) -> A. x ( ph x | y ) ) ) $=
-      ( weq wal wn wsb wi sb4 sb2 a5i syl6 ) BCDZBEFABCGZMAHZBENBEABCIONBABCJKL
-      $.
+    ( weq wal wn wsb wi sb4 sb2 a5i syl6 ) BCDZBEFABCGZMAHZBENBEABCIONBABCJKL
+    $.
+    $([5-Aug-93]$)
 
   ${
     hbsba.1 $e |- ( ph -> A. x ph ) $.
     $( If ` x ` is not free in ` ph `, it is not free in ` ( ph x | y ) `. $)
     hbsba   $p |- ( ( ph x | y ) -> A. x ( ph x | y ) ) $=
-      ( wsb wal weq wex wa sb1 19.41 sylib pm3.27d stdpc4 a5i 3syl ) ABCEZAABF
-      QBFQBCGZBHZAQRAIBHSAIABCJRABDKLMDAQBABCNOP $.
+      ( wsb wal weq wex wa sb1 19.41 sylib pm3.27d stdpc4 a5i 3syl ) ABCEZAABFQ
+      BFQBCGZBHZAQRAIBHSAIABCJRABDKLMDAQBABCNOP $.
+      $([5-Aug-93]$)
   $}
 
   ${
@@ -167,6 +188,7 @@ $)
       ( weq wal wsb wi sbequ2 a4s ax-10 eq4s syl5 syld sbequ1 19.20ii hbsb
       pm2.61i ) BCEZBFZABCGZUABFZHTUAABFZUBTUAAUCSUAAHBABCIJTACFZUCAUDUCHCBACBK
       LDMNSAUABABCOPNABCQR $.
+      $([5-Aug-93]$)
   $}
 
   ${
@@ -177,54 +199,60 @@ $)
               $=
       ( weq wal wn wsb wi del25 eq4s del35 del32 hbsb ax-10 syl9r syld wa
       ax-12 imp comm a4s sbequ2 sbequ1 19.20ii syl5 syl6 sb4 eq6 hban a1i
-      hbimd syl sb2 19.20i a7s syl9 pm2.61i exp ) DBFDGZDCFZDGZHZABCIZVEDGZJZ
-      JVAVDBCFZBGZHZVGVIVCDBVHVBDBVHVBJBDBDCKLMNVJVEVEBGZVAVFABCOVKVFJBDVEBDPLQ
-      RVAHZVDVGVIVLVDSZVGJVIVMVHDGZVGVHVMVNJBVMVHVNVLVDVHVNJBCDTUAZUBUCVNVEAVFV
-      HVEAJDABCUDUCVNADGZVFAVHAVEDABCUEUFEUGRUHVJVEVHAJZBGZVMVFABCUIVMVRVQDGZBG
-      ZVFVMVMBGVRVTJVLVDBDBBUJDCBUJUKVMVQVSBVMVMDGVQVSJVLVDDDBDUJDCDUJUKVMVHADV
-      OAVPJVMEULUMUNUFUNVQVFDBVRVEDABCUOUPUQUHURUSUTUS $.
+      hbimd syl sb2 19.20i a7s syl9 pm2.61i exp ) DBFDGZDCFZDGZHZABCIZVEDGZJZJV
+      AVDBCFZBGZHZVGVIVCDBVHVBDBVHVBJBDBDCKLMNVJVEVEBGZVAVFABCOVKVFJBDVEBDPLQRV
+      AHZVDVGVIVLVDSZVGJVIVMVHDGZVGVHVMVNJBVMVHVNVLVDVHVNJBCDTUAZUBUCVNVEAVFVHV
+      EAJDABCUDUCVNADGZVFAVHAVEDABCUEUFEUGRUHVJVEVHAJZBGZVMVFABCUIVMVRVQDGZBGZV
+      FVMVMBGVRVTJVLVDBDBBUJDCBUJUKVMVQVSBVMVMDGVQVSJVLVDDDBDUJDCDUJUKVMVHADVOA
+      VPJVMEULUMUNUFUNVQVFDBVRVEDABCUOUPUQUHURUSUTUS $.
+      $([5-Aug-93]$)
   $}
 
   $( An equality theorem for substitution. $)
   sbequi $p |- ( x = y -> ( ( ph z | x ) -> ( ph z | y ) ) ) $=
-      ( weq wal wsb wi wn wa wex hbsb eqvin.l1a sbequ2 eqcoms sbequ1 sylan9
-      19.22i syl 19.35 sylib eq6 19.9d syl9 exp com23 a4s adantr del43 eq4s
-      sylan9r syld pm2.61ii ) DBEZDFZDCEZDFZBCEZADBGZADCGZHZHUOIZURUQIZVAVBURV
-      CVAHVBURJUSUTDKZVCUTVBUSUSDFZURVDADBLURVADKZVEVDHURBDEZUPJZDKVFBCDMVHVADV
-      GUSAUPUTUSAHZDBADBNZOADCPZQRSUSUTDTUAQUTVCDDCDUBADCLUCUDUEUFUOURVAUOURJUS
-      AUTUOVIURUNVIDVJUGUHURAABCGZUOUTABCPVLUTHBDABDCUIUJUKULUEUQURVAUQURJUSAUT
-      UQUSACBGZURAADCBUIVMAHCBACBNOQUQAUTHZURUPVNDVKUGUHULUEUM $.
+    ( weq wal wsb wi wn wa wex hbsb eqvin.l1a sbequ2 eqcoms sbequ1 sylan9
+    19.22i syl 19.35 sylib eq6 19.9d syl9 exp com23 a4s adantr del43 eq4s
+    sylan9r syld pm2.61ii ) DBEZDFZDCEZDFZBCEZADBGZADCGZHZHUOIZURUQIZVAVBURVCVA
+    HVBURJUSUTDKZVCUTVBUSUSDFZURVDADBLURVADKZVEVDHURBDEZUPJZDKVFBCDMVHVADVGUSAU
+    PUTUSAHZDBADBNZOADCPZQRSUSUTDTUAQUTVCDDCDUBADCLUCUDUEUFUOURVAUOURJUSAUTUOVI
+    URUNVIDVJUGUHURAABCGZUOUTABCPVLUTHBDABDCUIUJUKULUEUQURVAUQURJUSAUTUQUSACBGZ
+    URAADCBUIVMAHCBACBNOQUQAUTHZURUPVNDVKUGUHULUEUM $.
+    $([5-Aug-93]$)
 
   $( An equality theorem for substitution.  Used in proof of Theorem 9.7
-     of Megill, p. 449. $)
+     in Megill, p. 449. $)
   sbequ $p |- ( x = y -> ( ( ph z | x ) <-> ( ph z | y ) ) ) $=
-      ( weq wsb sbequi wi eqcoms impbid ) BCEADBFZADCFZABCDGLKHCBACBDGIJ $.
+    ( weq wsb sbequi wi eqcoms impbid ) BCEADBFZADCFZABCDGLKHCBACBDGIJ $.
+    $([5-Aug-93]$)
 
   $( A distinctor elimination lemma for substitution. $)
   del44 $p |- ( A. x x = y -> ( ( ph z | x ) -> ( ph z | y ) ) ) $=
-      ( weq wsb wi sbequi a4s ) BCEADBFADCFGBABCDHI $.
+    ( weq wsb wi sbequi a4s ) BCEADBFADCFGBABCDHI $.
+    $([5-Aug-93]$)
 
   $( A distinctor elimination lemma for substitution. $)
   del45 $p |- ( A. x x = y -> ( ( ph z | y ) -> ( ph z | x ) ) ) $=
-      ( weq wsb wi sbequi eqcoms a4s ) BCEADCFADBFGZBKCBACBDHIJ $.
+    ( weq wsb wi sbequi eqcoms a4s ) BCEADCFADBFGZBKCBACBDHIJ $.
+    $([5-Aug-93]$)
 
   $( Removal of negation from substitution. $)
   sbn1 $p |- ( ( -. ph x | y ) -> -. ( ph x | y ) ) $=
-      ( weq wal wn wsb wi sbequ2 pm2.16d syld a4s sb4 wa wex sb1 eqs3 sylib
-      con2 syl6 pm2.61i ) BCDZBEZAFZBCGZABCGZFZHZUBUHBUBUEUDUGUDBCIUBUFAABCIJKL
-      UCFUEUBUDHBEZUGUDBCMUFUIUFUBANBOUIFABCPABCQRSTUA $.
-      $([7-Aug-94]$)
+    ( weq wal wn wsb wi sbequ2 pm2.16d syld a4s sb4 wa wex sb1 eqs3 sylib con2
+    syl6 pm2.61i ) BCDZBEZAFZBCGZABCGZFZHZUBUHBUBUEUDUGUDBCIUBUFAABCIJKLUCFUEUB
+    UDHBEZUGUDBCMUFUIUFUBANBOUIFABCPABCQRSTUA $.
+    $([7-Aug-94]$)
 
   $( Introduction of negation into substitution. $)
   sbn2 $p |- ( -. ( ph x | y ) -> ( -. ph x | y ) ) $=
-      ( wsb wn weq wi wa wex sbequ1 pm2.16d comm wal sb2 pm4.13 bisb sylibr
-      con3 eqs3 jca df-sb ) ABCDZEZBCFZAEZGZUDUEHBIZHUEBCDUCUFUGUDUCUEUDAUBABCJ
-      KLUCUDUEEZGBMZEUGUIUBUIUHBCDUBUHBCNAUHBCAOPQRUEBCSQTUEBCUAQ $.
-      $([7-Aug-94]$)
+    ( wsb wn weq wi wa wex sbequ1 pm2.16d comm wal sb2 pm4.13 bisb sylibr con3
+    eqs3 jca df-sb ) ABCDZEZBCFZAEZGZUDUEHBIZHUEBCDUCUFUGUDUCUEUDAUBABCJKLUCUDU
+    EEZGBMZEUGUIUBUIUHBCDUBUHBCNAUHBCAOPQRUEBCSQTUEBCUAQ $.
+    $([7-Aug-94]$)
 
   $( Negation inside and outside of substitution are equivalent. $)
   sbn $p |- ( ( -. ph x | y ) <-> -. ( ph x | y ) ) $=
-      ( wn wsb sbn1 sbn2 impbi ) ADBCEABCEDABCFABCGH $.
+    ( wn wsb sbn1 sbn2 impbi ) ADBCEABCEDABCFABCGH $.
+    $([5-Aug-93]$)
 
   ${
     sb5y.1 $e |- ( ph -> A. y ph ) $.
@@ -232,23 +260,27 @@ $)
     sb5y  $p |- ( ( ph x | y ) <-> E. x ( x = y /\ ph ) ) $=
       ( wsb weq wn wi wal wa wex hbne sb6y sbn bitr3 bicon2 eqs3 bitr4 ) ABCEZB
       CFZAGZHBIZGTAJBKUBSUBUABCESGUABCACDLMABCNOPABCQR $.
+      $([5-Aug-93]$)
   $}
 
   $( Removal of implication from substitution. $)
   sbi1 $p |- ( ( ( ph -> ps ) x | y ) -> ( ( ph x | y ) -> ( ps x | y ) ) ) $=
-      ( weq wal wi wsb sbequ2 syl5d sbequ1 syl6d a4s wn sb4 ax-2 19.20ii sb2
-      syl6 pm2.61i ) CDEZCFZABGZCDHZACDHZBCDHZGGZUAUGCUAUDUEBUFUAUDABUEUCCDIACD
-      IJBCDKLMUBNZUDUAAGZCFZUFUEUHUDUAUCGZCFZUJUFGUCCDOULUJUABGZCFUFUKUIUMCUAAB
-      PQBCDRSSACDOJT $.
+    ( weq wal wi wsb sbequ2 syl5d sbequ1 syl6d a4s wn sb4 ax-2 19.20ii sb2
+    syl6 pm2.61i ) CDEZCFZABGZCDHZACDHZBCDHZGGZUAUGCUAUDUEBUFUAUDABUEUCCDIACDIJ
+    BCDKLMUBNZUDUAAGZCFZUFUEUHUDUAUCGZCFZUJUFGUCCDOULUJUABGZCFUFUKUIUMCUAABPQBC
+    DRSSACDOJT $.
+    $([5-Aug-93]$)
 
   $( Introduction of implication into substitution. $)
   sbi2 $p |- ( ( ( ph x | y ) -> ( ps x | y ) ) -> ( ( ph -> ps ) x | y ) ) $=
-      ( wsb wi wn sbn pm2.21 sbim sylbir ax-1 ja ) ACDEZBCDEABFZCDEZNGAGZCDEPAC
-      DHQOCDABIJKBOCDBALJM $.
+    ( wsb wi wn sbn pm2.21 sbim sylbir ax-1 ja ) ACDEZBCDEABFZCDEZNGAGZCDEPACDH
+    QOCDABIJKBOCDBALJM $.
+    $([5-Aug-93]$)
 
   $( Implication inside and outside of substitution are equivalent. $)
   sbi $p |- ( ( ( ph -> ps ) x | y ) <-> ( ( ph x | y ) -> ( ps x | y ) ) ) $=
-      ( wi wsb sbi1 sbi2 impbi ) ABECDFACDFBCDFEABCDGABCDHI $.
+    ( wi wsb sbi1 sbi2 impbi ) ABECDFACDFBCDFEABCDGABCDHI $.
+    $([5-Aug-93]$)
 
   ${
     sb19.21.1 $e |- ( ph -> A. x ph ) $.
@@ -256,20 +288,23 @@ $)
        consequent. $)
     sb19.21   $p |- ( ( ( ph -> ps ) x | y ) <-> ( ph -> ( ps x | y ) ) ) $=
       ( wi wsb sbi sbf1 birim bitr4 ) ABFCDGACDGZBCDGZFAMFABCDHALMACDEIJK $.
+      $([5-Aug-93]$)
   $}
 
   $( Conjunction inside and outside of a substitution are equivalent. $)
   sba $p |- ( ( ( ph /\ ps ) x | y ) <-> ( ( ph x | y ) /\ ( ps x | y ) ) ) $=
-      ( wn wi wsb wa sbn sbi bilim bitr bineg df-an bisb 3bitr4 ) ABEZFZEZCDGZA
-      CDGZBCDGZEZFZEZABHZCDGUAUBHTRCDGZEUERCDIUGUDUGUAQCDGZFUDAQCDJUHUCUABCDIKL
-      MLUFSCDABNOUAUBNP $.
+    ( wn wi wsb wa sbn sbi bilim bitr bineg df-an bisb 3bitr4 ) ABEZFZEZCDGZACD
+    GZBCDGZEZFZEZABHZCDGUAUBHTRCDGZEUERCDIUGUDUGUAQCDGZFUDAQCDJUHUCUABCDIKLMLUF
+    SCDABNOUAUBNP $.
+    $([5-Aug-93]$)
 
   $( Equivalence inside and outside of a substitution are equivalent. $)
   sbb $p |- ( ( ( ph <-> ps ) x | y ) <-> ( ( ph x | y ) <-> ( ps x | y ) ) )
             $=
-      ( wb wsb wi wa bi bisb sbi bi2an sba 3bitr4 bitr ) ABEZCDFABGZBAGZHZCDFZA
-      CDFZBCDFZEZPSCDABIJQCDFZRCDFZHUAUBGZUBUAGZHTUCUDUFUEUGABCDKBACDKLQRCDMUAU
-      BINO $.
+    ( wb wsb wi wa bi bisb sbi bi2an sba 3bitr4 bitr ) ABEZCDFABGZBAGZHZCDFZACD
+    FZBCDFZEZPSCDABIJQCDFZRCDFZHUAUBGZUBUAGZHTUCUDUFUEUGABCDKBACDKLQRCDMUAUBINO
+    $.
+    $([5-Aug-93]$)
 
   ${
     sblbis.1 $e |- ( ( ph x | y ) <-> ps ) $.
@@ -298,16 +333,19 @@ $)
 
   $( A specialization theorem. $)
   sbea4 $p |- ( ( ph x | y ) -> E. x ph ) $=
-      ( wsb wn wal wex stdpc4 sbn sylib con2 df-ex sylibr ) ABCDZAEZBFZEABGPNPO
-      BCDNEOBCHABCIJKABLM $.
+    ( wsb wn wal wex stdpc4 sbn sylib con2 df-ex sylibr ) ABCDZAEZBFZEABGPNPOBC
+    DNEOBCHABCIJKABLM $.
+    $([5-Aug-93]$)
 
   $( Specialization of implication. $)
   sbia4 $p |- ( A. x ( ph -> ps ) -> ( ( ph x | y ) -> ( ps x | y ) ) ) $=
-      ( wi wal wsb stdpc4 sbi sylib ) ABEZCFKCDGACDGBCDGEKCDHABCDIJ $.
+    ( wi wal wsb stdpc4 sbi sylib ) ABEZCFKCDGACDGBCDGEKCDHABCDIJ $.
+    $([5-Aug-93]$)
 
   $( Specialization of biconditional. $)
   sbba4 $p |- ( A. x ( ph <-> ps ) -> ( ( ph x | y ) <-> ( ps x | y ) ) ) $=
-      ( wb wal wsb stdpc4 sbb sylib ) ABEZCFKCDGACDGBCDGEKCDHABCDIJ $.
+    ( wb wal wsb stdpc4 sbb sylib ) ABEZCFKCDGACDGBCDGEKCDHABCDIJ $.
+    $([5-Aug-93]$)
 
   ${
     bisbd.1 $e |- ( ph -> A. x ph ) $.
@@ -315,35 +353,43 @@ $)
     $( Deduction substituting both sides of a biconditional. $)
     bisbd   $p |- ( ph -> ( ( ps x | y ) <-> ( ch x | y ) ) ) $=
       ( wb wal wsb 19.21ai sbba4 syl ) ABCHZDIBDEJCDEJHANDFGKBCDELM $.
+      $([5-Aug-93]$)
   $}
 
   $( Substitution does not change a complemented distinctor. $)
   sbequ5 $p |- ( A. x x = y <-> ( A. x x = y z | w ) ) $=
-      ( weq wal eq5 sbf1 ) ABEAFCDABCGH $.
+    ( weq wal eq5 sbf1 ) ABEAFCDABCGH $.
+    $([5-Aug-93]$)
 
   $( Substitution does not change a distinctor. $)
   sbequ6 $p |- ( -. A. x x = y <-> ( -. A. x x = y z | w ) ) $=
-      ( weq wal wn eq6 sbf1 ) ABEAFGCDABCHI $.
+    ( weq wal wn eq6 sbf1 ) ABEAFGCDABCHI $.
+    $([5-Aug-93]$)
 
   $( Substitution applied to atomic wff. $)
   sbeq1 $p |- ( x = x x | y ) $=
-      ( weq wi wsb sb2 eqid a1i mpg ) ABCZAACZDKABEAKABFKJAGHI $.
+    ( weq wi wsb sb2 eqid a1i mpg ) ABCZAACZDKABEAKABFKJAGHI $.
+    $([5-Aug-93]$)
 
   $( Substitution applied to atomic wff. $)
   sbeq2 $p |- ( x = y x | y ) $=
-      ( weq wi wsb sb2 id mpg ) ABCZIDIABEAIABFIGH $.
+    ( weq wi wsb sb2 id mpg ) ABCZIDIABEAIABFIGH $.
+    $([5-Aug-93]$)
 
   $( Substitution applied to atomic wff. $)
   sbeq3 $p |- ( y = x x | y ) $=
-      ( weq wi wsb sb2 eqcom mpg ) ABCBACZDIABEAIABFABGH $.
+    ( weq wi wsb sb2 eqcom mpg ) ABCBACZDIABEAIABFABGH $.
+    $([5-Aug-93]$)
 
   $( Substitution applied to atomic wff. $)
   sbeq4 $p |- ( y = y x | y ) $=
-      ( weq wi wsb sb2 eqid a1i mpg ) ABCZBBCZDKABEAKABFKJBGHI $.
+    ( weq wi wsb sb2 eqid a1i mpg ) ABCZBBCZDKABEAKABFKJBGHI $.
+    $([5-Aug-93]$)
 
   $( Elimination of equality from antecedent after substitution. $)
   sbequ8 $p |- ( ( ph x | y ) <-> ( ( x = y -> ph ) x | y ) ) $=
-      ( wsb weq wi sbeq2 a1bi sbi bitr4 ) ABCDZBCEZBCDZKFLAFBCDMKBCGHLABCIJ $.
+    ( wsb weq wi sbeq2 a1bi sbi bitr4 ) ABCDZBCEZBCDZKFLAFBCDMKBCGHLABCIJ $.
+    $([5-Aug-93]$)
 
   ${
     ddel1.1 $e |- ( ph -> A. x ph ) $.
@@ -352,8 +398,8 @@ $)
     $( Conversion of implicit substitution to explicit substitution. $)
     ddel1   $p |- ( ph -> ( ( ps x | y ) -> ch ) ) $=
       ( wal wsb wi wex weq wa imp3a 19.20i 19.22 syl sb1 syl5 hba1 19.23 sylib
-      ax-4 syl6 syld ) AADIZBDEJZCKFUGUHCDLZCUGDEMZBNZDLZUIUHUGUKCKZDIULUIKAUM
-      DAUJBCHOPUKCDQRBDESTUGUICDIZCUGCUNKZDIUIUNKAUODGPCUNDCDUAUBUCCDUDUEUFR $.
+      ax-4 syl6 syld ) AADIZBDEJZCKFUGUHCDLZCUGDEMZBNZDLZUIUHUGUKCKZDIULUIKAUMD
+      AUJBCHOPUKCDQRBDESTUGUICDIZCUGCUNKZDIUIUNKAUODGPCUNDCDUAUBUCCDUDUEUFR $.
       $([30-Jun-94]$)
   $}
 
@@ -363,8 +409,8 @@ $)
     ddel2.3 $e |- ( ph -> ( x = y -> ( ch -> ps ) ) ) $.
     $( Conversion of implicit substitution to explicit substitution. $)
     ddel2   $p |- ( ph -> ( ch -> ( ps x | y ) ) ) $=
-      ( wal wsb wi a4s weq com23 19.20ii sb2 syl6 syld syl ) AADIZCBDEJZKFTCCD
-      IZUAACUBKDGLTUBDEMZBKZDIUAACUDDAUCCBHNOBDEPQRS $.
+      ( wal wsb wi a4s weq com23 19.20ii sb2 syl6 syld syl ) AADIZCBDEJZKFTCCDI
+      ZUAACUBKDGLTUBDEMZBKZDIUAACUDDAUCCBHNOBDEPQRS $.
       $([30-Jun-94]$)
   $}
 
@@ -374,8 +420,8 @@ $)
     ddel3.3 $e |- ( ph -> ( x = y -> ( ps <-> ch ) ) ) $.
     $( Conversion of implicit substitution to explicit substitution. $)
     ddel3   $p |- ( ph -> ( ( ps x | y ) <-> ch ) ) $=
-      ( wsb weq wb wi df-bi1 syl6 ddel1 df-bi2 ddel2 impbid ) ABDEICABCDEFGADE
-      JZBCKZBCLHBCMNOABCDEFGASTCBLHBCPNQR $.
+      ( wsb weq wb wi bi1 syl6 ddel1 bi2 ddel2 impbid ) ABDEICABCDEFGADEJZBCKZB
+      CLHBCMNOABCDEFGASTCBLHBCPNQR $.
       $([30-Jun-94]$)
   $}
 
@@ -384,38 +430,40 @@ $)
     ddel4.2 $e |- ( x = y -> ( ph <-> ps ) ) $.
     $( Conversion of implicit substitution to explicit substitution. $)
     ddel4   $p |- ( ( ph x | y ) <-> ps ) $=
-      ( wi wsb wb id hbth wal a1i weq ddel3 ax-mp ) AAGZACDHBIQABCDQCAJZKBBCLGQ
-      EMCDNABIGQFMORP $.
+      ( wi wsb wb id hbth wal a1i weq ddel3 ax-mp ) AAGZACDHBIAJZQABCDQCRKBBCLG
+      QEMCDNABIGQFMOP $.
       $([30-Jun-94]$)
   $}
 
   $( A composition law for substitution. $)
   sbco  $p |- ( ( ph x | y ) <-> ( ( ph y | x ) x | y ) ) $=
-      ( wsb wb sbb weq sbequ12 eqcoms sbim sbeq2 ax-mp mpbi ) AACBDZEZBCDZABCDN
-      BCDEANBCFBCGZBCDPQOBCOCBACBHIJBCKLM $.
+    ( wsb wb sbb weq sbeq2 sbequ12 eqcoms sbim ax-mp mpbi ) AACBDZEZBCDZABCDNBC
+    DEANBCFBCGZBCDPBCHQOBCOCBACBIJKLM $.
+    $([5-Aug-93]$)
 
   ${
     sbco0.1 $e |- ( ph -> A. x ph ) $.
     $( A composition law for substitution. $)
     sbco0   $p |- ( ph <-> ( ( ph y | x ) x | y ) ) $=
       ( wsb sbf1 sbco bitr ) AABCEACBEBCEABCDFABCGH $.
+      $([5-Aug-93]$)
   $}
 
   $( A composition law for substitution. $)
   sbco1  $p |- ( ( ph x | y ) <-> ( ( ph x | y ) x | y ) ) $=
-      ( weq wal wsb wb sbequ12 a4s wn eq6 hbsb wi pm4.2i a1i ddel3 bicomd
-      pm2.61i ) BCDZBEZABCFZUABCFZGZSUCBUABCHITJZUBUAUDUAUABCBCBKABCLSUAUAGMUDS
-      UANOPQR $.
-      $([30-Jun-94]$)
+    ( weq wal wsb wb sbequ12 a4s wn eq6 hbsb wi pm4.2i a1i ddel3 bicomd
+    pm2.61i ) BCDZBEZABCFZUABCFZGZSUCBUABCHITJZUBUAUDUAUABCBCBKABCLSUAUAGMUDSUA
+    NOPQR $.
+    $([30-Jun-94]$)
 
   ${
     sbco2.1 $e |- ( ph -> A. z ph ) $.
     $( A composition law for substitution. $)
     sbco2   $p |- ( ( ph x | y ) <-> ( ( ph x | z ) z | y ) ) $=
       ( wsb weq wal wb sbequ sbco0 syl5bb sbequ12 bitr3d a4s wn eq6 hbsbb
-      hbsbc wi a1i ddel3 bicomd pm2.61i bicom ) ABDFZDCFZABCFZBCGZBHZUGUHIZUIU
-      KBUIAUGUHUIUFDBFUGAUFBCDJADBEKLZABCMNOUJPZUHUGUMAUGBCBCBQUFDCBABDERSUIAUG
-      ITUMULUAUBUCUDUE $.
+      hbsbc wi a1i ddel3 bicomd pm2.61i bicom ) ABDFZDCFZABCFZBCGZBHZUGUHIZUIUK
+      BUIAUGUHUIUFDBFUGAUFBCDJADBEKLZABCMNOUJPZUHUGUMAUGBCBCBQUFDCBABDERSUIAUGI
+      TUMULUAUBUCUDUE $.
       $([30-Jun-94]$)
   $}
 
@@ -428,31 +476,33 @@ $)
       ( wsb wi hbim1 sbco2 sb19.21 bisb bitr 3bitr3 pm5.74ri ) ABCDIZBCEIZEDIZA
       BJZCDIUACEIZEDIZARJATJZUACDEABEGHKLABCDFMUCASJZEDIUDUBUEEDABCEFMNASEDGMOP
       Q $.
+      $([5-Aug-93]$)
   $}
 
   $( A composition law for substitution. $)
   sbco3 $p |- ( ( ( ph x | y ) y | z ) <-> ( ( ph y | x ) x | z ) ) $=
-      ( weq wal wsb wb del43b sbequ12a 19.20i sbba4 syl bitr3d wn eq6 hbsb
-      sbco2d sbco bisb syl6bbr pm2.61i ) BCEZBFZABCGZCDGZACBGZBDGZHUDUEBDGZUFU
-      HUEBCDIUDUEUGHZBFUIUHHUCUJBABCJKUEUGBDLMNUDOZUFUECBGZBDGUHUKUECDBBCCPBCBP
-      ABCQRUGULBDACBSTUAUB $.
+    ( weq wal wsb wb del43b sbequ12a 19.20i sbba4 syl bitr3d wn eq6 hbsb
+    sbco2d sbco bisb syl6bbr pm2.61i ) BCEZBFZABCGZCDGZACBGZBDGZHUDUEBDGZUFUHUE
+    BCDIUDUEUGHZBFUIUHHUCUJBABCJKUEUGBDLMNUDOZUFUECBGZBDGUHUKUECDBBCCPBCBPABCQR
+    UGULBDACBSTUAUB $.
+    $([5-Aug-93]$)
 
   $( A composition commutation law for substitution. $)
   sbcoc $p |- ( ( ( ph x | y ) z | y ) <-> ( ( ph z | y ) x | y ) ) $=
-      ( weq wal wsb wb wn wa wi del43b eq5 bisbd bitr3d a1d eq6 hban ax-12 imp
-      19.20i 19.21g 3syl biald adantarr eq4 con3 syl bi2.04 bial syl5bb 19.5
-      adantarl sb4b bilimd sylan9rbb adantl sylan9bb 3bitr4d exp pm2.61i
-      sbequ12 a4s pm2.61ii ) BCEZBFZDCEZDFZABCGZDCGZADCGZBCGZHZVFIZVHIZVMBDEBFZ
-      VNVOJZVMKVPVMVQVPVIBCGVJVLVIBDCLVPVIVKBCBDBMABDCLNOPVPIZVQVMVRVQJZVGVEAKZ
-      BFZKZDFZVEVGAKZDFZKZBFZVJVLVSVGVTKZBFZDFZWCWGVRVNWJWCHVOVRVNJZWIWBDVRVNDB
-      DDQZBCDQZRWKWKBFVGVGBFKZBFWIWBHVRVNBBDBQZBCBQRWKWNBVRVNWNDCBSTUAVGVTBUBUC
-      UDUEVRVOWJWGHVNVRVOJZWHDFZBFWGWJWPWQWFBVRVOBWODCBQZRWPVEWDKZDFZWFWQWPWPDF
-      VEVEDFKZDFWTWFHVRVODWLDCDQRWPXADVRVOXAVRDBEDFZIVOXAKXBVPDBUFUGBCDSUHTUAVE
-      WDDUBUCWHWSDVGVEAUIUJUKUDWHDBULUKUMOVQVJWCHVRVOVJVGVIKZDFVNWCVIDCUNVNXCWB
-      DWMVNVIWAVGABCUNUOUDUPUQVQVLWGHVRVNVLVEVKKZBFVOWGVKBCUNVOXDWFBWRVOVKWEVEA
-      DCUNUOUDURUQUSUTVAUTVFVKVJVLVFAVIDCBCDMVEAVIHBABCVBVCNVEVKVLHBVKBCVBVCOVH
-      VIVJVLVGVIVJHDVIDCVBVCVHAVKBCDCBMVGAVKHDADCVBVCNOVD $.
-      $([27-May-97]$)
+    ( weq wal wsb wb wn wa wi del43b eq5 bisbd bitr3d a1d eq6 hban ax-12 imp
+    19.20i 19.21g 3syl biald adantarr eq4 con3 syl bi2.04 bial syl5bb 19.5
+    adantarl sb4b bilimd sylan9bbr adantl sylan9bb 3bitr4d exp pm2.61i sbequ12
+    a4s pm2.61ii ) BCEZBFZDCEZDFZABCGZDCGZADCGZBCGZHZVFIZVHIZVMBDEBFZVNVOJZVMKV
+    PVMVQVPVIBCGVJVLVIBDCLVPVIVKBCBDBMABDCLNOPVPIZVQVMVRVQJZVGVEAKZBFZKZDFZVEVG
+    AKZDFZKZBFZVJVLVSVGVTKZBFZDFZWCWGVRVNWJWCHVOVRVNJZWIWBDVRVNDBDDQZBCDQZRWKWK
+    BFVGVGBFKZBFWIWBHVRVNBBDBQZBCBQRWKWNBVRVNWNDCBSTUAVGVTBUBUCUDUEVRVOWJWGHVNV
+    RVOJZWHDFZBFWGWJWPWQWFBVRVOBWODCBQZRWPVEWDKZDFZWFWQWPWPDFVEVEDFKZDFWTWFHVRV
+    ODWLDCDQRWPXADVRVOXAVRDBEDFZIVOXAKXBVPDBUFUGBCDSUHTUAVEWDDUBUCWHWSDVGVEAUIU
+    JUKUDWHDBULUKUMOVQVJWCHVRVOVJVGVIKZDFVNWCVIDCUNVNXCWBDWMVNVIWAVGABCUNUOUDUP
+    UQVQVLWGHVRVNVLVEVKKZBFVOWGVKBCUNVOXDWFBWRVOVKWEVEADCUNUOUDURUQUSUTVAUTVFVK
+    VJVLVFAVIDCBCDMVEAVIHBABCVBVCNVEVKVLHBVKBCVBVCOVHVIVJVLVGVIVJHDVIDCVBVCVHAV
+    KBCDCBMVGAVKHDADCVBVCNOVD $.
+    $([27-May-97]$)
 
   ${
     sb5f1.1 $e |- ( ph -> A. x ph ) $.
@@ -461,6 +511,7 @@ $)
     sb5f1   $p |- ( ph <-> A. x ( x = y -> ( ph y | x ) ) ) $=
       ( weq wsb wi wal sbequ1 eqcoms comm 19.21ai sb2 sbco sylibr sbf1 impbi )
       ABCEZACBFZGZBHZATBDRASASGCBACBIJKLUAABCFZAUASBCFUBSBCMABCNOABCDPOQ $.
+      $([5-Aug-93]$)
   $}
 
   ${
@@ -469,6 +520,7 @@ $)
     sb8   $p |- ( A. x ph <-> A. y ( ph x | y ) ) $=
       ( wal wsb hbal stdpc4 19.21ai hbsbb sbco0 sylibr impbi ) ABEZABCFZCEZNOCA
       CBDGABCHIPABOBCABCDJGPOCBFAOCBHACBDKLIM $.
+      $([5-Aug-93]$)
   $}
 
   ${
@@ -482,13 +534,15 @@ $)
 
   $( Commutation of quantification and substitution variables. $)
   sb9i $p |- ( A. x ( ph y | x ) -> A. y ( ph x | y ) ) $=
-      ( weq wal wsb wi del43 del45 syld del35 wn hbsb 19.20ii eq6s stdpc4
-      sbco sylibr 19.20i a7s syl6 pm2.61i ) CBDCEZACBFZBEZABCFZCEZGUDUFCBUCUDAB
-      BFUFACBBHACBBIJKUCLZUEUDCEZBEZUGUEUJGCBBUHUDUIBACBMNOUDUGCBUEUFCUEUDBCFUF
-      UDBCPABCQRSTUAUB $.
+    ( weq wal wsb wi del43 del45 syld del35 wn hbsb 19.20ii eq6s stdpc4 sbco
+    sylibr 19.20i a7s syl6 pm2.61i ) CBDCEZACBFZBEZABCFZCEZGUDUFCBUCUDABBFUFACB
+    BHACBBIJKUCLZUEUDCEZBEZUGUEUJGCBBUHUDUIBACBMNOUDUGCBUEUFCUEUDBCFUFUDBCPABCQ
+    RSTUAUB $.
+    $([5-Aug-93]$)
 
   $( Commutation of quantification and substitution variables. $)
   sb9 $p |- ( A. x ( ph y | x ) <-> A. y ( ph x | y ) ) $=
-      ( wsb wal sb9i impbi ) ACBDBEABCDCEABCFACBFG $.
+    ( wsb wal sb9i impbi ) ACBDBEABCDCEABCFACBFG $.
+    $([5-Aug-93]$)
 
 

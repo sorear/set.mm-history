@@ -28,16 +28,19 @@ deduction and usually doubles or triples the number of these microscopic
 steps for each hypothesis that is eliminated.  We will look at a special case
 of this problem, without appealing to the Deduction Theorem.
 
-We need two lemmas.  We assume ZF with class notation.  A and B are
-arbitrary (possibly proper) classes.  P, Q, R, S and T are wffs.
+We assume ZF with class notation.  A and B are arbitrary (possibly
+proper) classes.  P, Q, R, S and T are wffs.
 
-Lemma 1.  Assume x does not occur in A, B, or P.  Then
-  A = { x | (x \in B -> P) -> (x \in A & P) } -> (P <-> R),
-  B = { x | (x \in B -> P) -> (x \in A & P) } -> (S <-> R), S |- R
+We define a "deduction class" ded(P,A,B) as follows:
+  ded(P,A,B) =def= { x | (x \in A & P) v (x \in B & ~P) }
+(where x does not occur in A, B, or P).
+
+Lemma 1.
+  A = ded(P,A,B) -> (P <-> R), B = ded(P,A,B) -> (S <-> R), S |- R
 Proof:  Logic and Axiom of Extensionality.
 
-Lemma 2.  Assume x does not occur in A or P.  Then
-  A = { x | (x \in B -> P) -> (x \in A & P) } -> (Q <-> T), T |- P -> Q
+Lemma 2.
+  A = ded(P,A,B) -> (Q <-> T), T |- P -> Q
 Proof:  Logic and Axiom of Extensionality.
 
 Here's a simple example that illustrates how it works.  Suppose we have
@@ -50,201 +53,238 @@ expression, so this is really a deduction scheme.
 We want to convert this to a proof of the theorem (scheme)
   |- Ord A -> Tr A.
 
-The catch is that we must be able to prove "Ord A" for at least one object A
-(and this is what makes it weaker than the ordinary Deduction Theorem).
-However it is easy to prove |- Ord 0 (the empty set is ordinal).  (For a
-typical textbook "theorem", i.e. deduction, there is usually at least one
-object satisfying each hypothesis, otherwise the theorem would not be very
-useful.  We can always go back to the standard Deduction Theorem for those
-hypotheses where this is not the case.)  Continuing with the example:
+The catch is that we must be able to prove "Ord A" for at least one
+object A (and this is what makes it weaker than the ordinary Deduction
+Theorem).  However it is easy to prove |- Ord 0 (the empty set is
+ordinal).  (For a typical textbook "theorem", i.e. deduction, there is
+usually at least one object satisfying each hypothesis, otherwise the
+theorem would not be very useful.  We can always go back to the standard
+Deduction Theorem for those hypotheses where this is not the case.)
+Continuing with the example:
 
 Equality axioms (and Extensionality) yield
-  |- A = { x | (x \in 0 -> Ord A) -> (x \in A & Ord A)} ->
-     (Ord A <-> Ord { x | (x \in 0 -> Ord A) -> (x \in A & Ord A)})  (1)
-  |- 0 = { x | (x \in 0 -> Ord A) -> (x \in A & Ord A)} ->
-     (Ord 0 <-> Ord { x | (x \in 0 -> Ord A) -> (x \in A & Ord A)})  (2)
+  |- A = ded( Ord A, A, 0) -> (Ord A <-> Ord ded( Ord A, A, 0))  (1)
+  |- 0 = ded( Ord A, A, 0) -> (Ord 0 <-> Ord ded( Ord A, A, 0))  (2)
 From (1), (2) and |- Ord 0, Lemma 1 yields
-  |- Ord { x | (x \in 0 -> Ord A) -> (x \in A & Ord A)}              (3)
-From (3) and substituting { x | (x \in 0 -> Ord A) -> (x \in A & Ord A) } for
+  |- Ord ded( Ord A, A, 0)                                       (3)
+From (3) and substituting ded( Ord A, A, 0) for
 A in the original deduction,
-  |- Tr { x | (x \in 0 -> Ord A) -> (x \in A & Ord A)}               (4)
+  |- Tr ded( Ord A, A, 0)                                        (4)
 Equality axioms (and Extensionality) yield
-  |- A = { x | (x \in 0 -> Ord A) -> (x \in A & Ord A)} ->
-     (Tr A <-> Tr { x | (x \in 0 -> Ord A) -> (x \in A & Ord A)})    (5)
+  |- A = ded( Ord A, A, 0) -> (Tr A <-> Tr ded( Ord A, A, 0))    (5)
 From (4) and (5), Lemma 2 yields
   |- Ord A -> Tr A                                               (Q.E.D.)
 $)
 
 
+  $( Declare new constant symbol. $)
+  $c ded $.  $( Deduction class. $)
+  $c , $.  $( Comma (also used for unordered pair notation later) $)
+
+  $( Extend class notation to include deduction class. $)
+  cded $a class ded ( ph , A , B ) $.
+
   ${
-    $d x A $.  $d x B $.
-    $( A lemma used in converting certain deductions involving classes into
-       theorems (useful when ` B ` contains the empty set). $)
-    clded1 $p |- ( A e. B -> A = { x | ( x e. A /\ A e. B ) } ) $=
-      ( wcel cv wa iba birabdv ) BCDZAEBDZIFABIJGH $.
-      $([1-Apr-94]$)
+    $d x ph $.  $d x A $.  $d x B $.
+    $( Define deduction class.  ` ph ` is the hypothesis we want to
+       eliminate; ` A ` is the class variable in the hypothesis; and
+       ` B ` is a constant class for which the hypothesis is true. $)
+    df-ded $a |- ded ( ph , A , B ) =
+                 { x | ( ( x e. A /\ ph ) \/ ( x e. B /\ -. ph ) ) } $.
   $}
 
   ${
-    $d x A $.  $d x B $.
-    clded2.1 $e |- (/) e. B $.
-    $( A lemma used in converting certain deductions involving classes into
-       theorems (useful when ` B ` contains the empty set). $)
-    clded2 $p |- { x | ( x e. A /\ A e. B ) } e. B $=
-      ( wcel cv wa cab wi wb ibib clded1 cleq3d mpbir wn c0 weq eqid ninba
-      biabdv dfnul2 syl5eq mpbii pm2.61i ) BCEZAFBEZUEGZAHZCEZUEUIIUEUEUIJIUEU
-      IKUEBUHCABCLMNUEOZPCEUIUJPUHCUJAAQZOZAHUHPUJULUGAUKUEUFARSTAUAUBMDUCUD $.
-      $([1-Apr-94]$)
+    $d x ph $.  $d x A $.  $d x B $.  $( ` x ` is dummy. $)
+    $( Lemma for deduction theorem. $)
+    dedlem1 $p |- ( ph -> A = ded ( ph , A , B ) ) $=
+      ( vx cv wcel wa wn wo cab cded pm3.21 orc syl6 wi pm3.26 a1i pm2.21
+      com3l imp3a jaod impbid birabdv df-ded syl6eqr ) ABDEZBFZAGZUFCFZAHZGZIZD
+      JABCKAULDBAUGULAUGUHULAUGLUHUKMNAUHUGUKUHUGOAUGAPQAUIUJUGUJAUIUGAUIUGORST
+      UAUBUCADBCUDUE $.
+      $([15-May-99]$)
   $}
 
   ${
-    $d x A $.  $d x B $.
-    clded3.1 $e |- ( A = { x | ( x e. A /\ A e. B ) } -> ( ph <-> ps ) ) $.
-    clded3.2 $e |- ps $.
-    $( A lemma used in converting certain deductions involving classes into
-       theorems (useful when ` B ` contains the empty set). $)
-    clded3 $p |- ( A e. B -> ph ) $=
-      ( wcel cv wa cab wceq wb clded1 syl mpbiri ) DEHZABQDCIDHQJCKLABMCDENFOGP
-      $.
-      $([1-Apr-94]$)
+    $d x ph $.  $d x A $.  $d x B $.  $( ` x ` is dummy. $)
+    $( Lemma for deduction theorem. $)
+    dedlem2 $p |- ( -. ph -> B = ded ( ph , A , B ) ) $=
+      ( vx wn cv wcel wa wo cab cded nibaoa birabdv df-ded syl6eqr ) AEZCDFZBGZ
+      AHQCGZPHIZDJABCKPTDCASRLMADBCNO $.
+      $([14-Aug-99]$)
   $}
 
   ${
-    $d x A $.  $d x B $.  $d x C $.
-    clded32.1 $e |- ( A = { x | ( x e. A /\ A e. C ) } -> ( ph <-> ps ) ) $.
-    clded32.2 $e |- ( B = { x | ( x e. B /\ B e. C ) } -> ( ps <-> ch ) ) $.
-    clded32.3 $e |- ch $.
-    $( A lemma used in converting certain deductions involving classes into
-       theorems (useful when ` C ` contains the empty set). $)
-    clded32 $p |- ( ( A e. C /\ B e. C ) -> ph ) $=
-      ( wcel wi cv wa cab wceq bilimd clded3 imp ) EGKZFGKZAUAALUABLDEGEDMEKTN
-      DOPABUAHQBCDFGIJRRS $.
-      $([5-Dec-95]$)
+    $d x A $.  $d x B $.  $d x ph $.  $( ` x ` is dummy. $)
+    dedth.1 $e |- ( A = ded ( ph , A , B ) -> ( ps <-> ch ) ) $.
+    dedth.2 $e |- ch $.
+    $( A deduction theorem that eliminates a hypothesis ` ph ` , making it
+       become an antecedent.  We assume that a proof exists for ` ph ` when
+       the class variable ` A ` is replaced with a specific class ` B ` .
+       The hypothesis ` ch ` should be assigned to the inference, and the
+       inference's hypothesis eliminated with ~elimhyp .  If the inference
+       has other hypotheses with class variable ` A ` , these can be
+       kept by assigning ~keephyp to them. $)
+    dedth $p |- ( ph -> ps ) $=
+      ( cded wceq wb dedlem1 syl mpbiri ) ABCADADEHIBCJADEKFLGM $.
+      $([15-May-99]$)
   $}
 
   ${
-    $d x A $.  $d x ph $.
-    $( A lemma used in converting certain deductions involving classes into
-       theorems (generalized version). $)
-    cldedgg1 $p |- ( ph ->
-                   A = { x | ( ( x e. B -> ph ) -> ( x e. A /\ ph ) ) } ) $=
-      ( cv wcel wi wa ibiia birabdv ) ABEZDFZAGKCFZAHGBCAMLIJ $.
-      $([11-Jan-95]$)
+    dedth2v.1 $e |- ( A = ded ( ph , A , C ) -> ( ps <-> ch ) ) $.
+    dedth2v.2 $e |- ( B = ded ( ph , B , D ) -> ( ch <-> th ) ) $.
+    dedth2v.3 $e |- th $.
+    $( Deduction theorem for eliminating hypotheses with 2 class variables. $)
+    dedth2v $p |- ( ph -> ps ) $=
+      ( cded wceq wb dedlem1 syl bitrd mpbiri ) ABDABCDAEAEGLMBCNAEGOIPAFAFHLMC
+      DNAFHOJPQKR $.
+      $([13-Aug-99]$)
   $}
 
   ${
-    $d x A $.  $d x B $.  $d x ph $.
-    cldedgg2.1 $e |- ( A = { x | ( ( x e. B -> ph ) -> ( x e. A /\ ph ) ) } ->
-                     ( ph <-> ps ) ) $.
-    cldedgg2.2 $e |- ( B = { x | ( ( x e. B -> ph ) -> ( x e. A /\ ph ) ) } ->
-                     ( ch <-> ps ) ) $.
-    cldedgg2.3 $e |- ch $.
-    $( A lemma used in converting certain deductions involving classes into
-       theorems (generalized version). $)
-    cldedgg2 $p |- ps $=
-      ( wi wb ibib cv wcel wa cab wceq cldedgg1 syl mpbir wn nibiia birabdv
-      mpbii pm2.61i ) ABABJAABKZJABLAEDMZFNZAJUGENZAOJZDPZQUFADEFRGSTAUAZCBULFU
-      KQCBKULUJDFAUHUIUBUCHSIUDUE $.
-      $([11-Jan-95]$)
+    dedth3v.1 $e |- ( A = ded ( ph , A , D ) -> ( ps <-> ch ) ) $.
+    dedth3v.2 $e |- ( B = ded ( ph , B , R ) -> ( ch <-> th ) ) $.
+    dedth3v.3 $e |- ( C = ded ( ph , C , S ) -> ( th <-> ta ) ) $.
+    dedth3v.4 $e |- ta $.
+    $( Deduction theorem for eliminating hypothesis with 3 class variables. $)
+    dedth3v $p |- ( ph -> ps ) $=
+      ( cded wceq wb dedlem1 syl 3bitrd mpbiri ) ABEABCDEAFAFIPQBCRAFISLTAGAGJP
+      QCDRAGJSMTAHAHKPQDERAHKSNTUAOUB $.
+      $([13-Aug-99]$)
   $}
 
   ${
-    $d x A $.  $d x ph $.
-    cldedgg3.1 $e |- ( A = { x | ( ( x e. B -> ph ) ->
-                    ( x e. A /\ ph ) ) } -> ( ps <-> ch ) ) $.
-    cldedgg3.2 $e |- ch $.
-    $( A lemma used in converting certain deductions involving classes into
-       theorems (generalized version). $)
-    cldedgg3 $p |- ( ph -> ps ) $=
-      ( cv wcel wi wa cab wceq wb cldedgg1 syl mpbiri ) ABCAEDIZFJAKSEJALKDMNBC
-      OADEFPGQHR $.
-      $([11-Jan-95]$)
+    dedth2h.1 $e |- ( A = ded ( ph , A , C ) -> ( ch <-> th ) ) $.
+    dedth2h.2 $e |- ( B = ded ( ps , B , D ) -> ( th <-> ta ) ) $.
+    dedth2h.3 $e |- ta $.
+    $( Deduction theorem eliminating two hypotheses. $)
+    dedth2h $p |- ( ( ph /\ ps ) -> ch ) $=
+      ( wi cded wceq bilimd dedth imp ) ABCABCMBDMFHFAFHNOCDBJPBDEGIKLQQR $.
+      $([15-May-99]$)
   $}
 
   ${
-    $d x A $.  $d x B $.  $d x th $.
-    cldedgg4.1 $e |- ( A = { x | ( ( x e. B -> th ) -> ( x e. A /\ th ) ) } ->
-                     ( ph <-> ch ) ) $.
-    cldedgg4.2 $e |- ( B = { x | ( ( x e. B -> th ) -> ( x e. A /\ th ) ) } ->
-                     ( ps <-> ch ) ) $.
-    cldedgg4.3 $e |- ph $.
-    cldedgg4.4 $e |- ps $.
-    $( A lemma used in converting certain deductions involving classes into
-       theorems (generalized version).  This lemma is used to make
-       substitutions into hyptotheses of the deduction that are not being
-       eliminated. $)
-    cldedgg4 $p |- ch $=
-      ( cv wcel wi wa cab wceq wb cldedgg1 syl mpbii wn nibiia birabdv
-      pm2.61i ) DCDACDFELZGMZDNUFFMZDONZEPZQACRDEFGSHTJUADUBZBCUKGUJQBCRUKUIEGD
-      UGUHUCUDITKUAUE $.
-      $([29-Jan-95]$)
+    $v et $. $( Greek eta $)
+    $v ze $. $( Greek zeta $)
+    dedth3h.we $f wff et $.
+    dedth3h.wz $f wff ze $.
+    dedth3h.1 $e |- ( A = ded ( ph , A , D ) -> ( th <-> ta ) ) $.
+    dedth3h.2 $e |- ( B = ded ( ps , B , R ) -> ( ta <-> et ) ) $.
+    dedth3h.3 $e |- ( C = ded ( ch , C , S ) -> ( et <-> ze ) ) $.
+    dedth3h.4 $e |- ze $.
+    $( Deduction theorem eliminating three hypotheses. $)
+    dedth3h $p |- ( ( ph /\ ps /\ ch ) -> th ) $=
+      ( wa wi cded wceq bilimd dedth2h dedth exp3a 3imp ) ABCDABCDABCRZDSUGESFI
+      FAFITUADEUGNUBBCELMGHJKOPQUCUDUEUF $.
+      $([15-May-99]$)
   $}
 
   ${
-    $d x A $.  $d x B $.  $d x C $.
-    $( A lemma used in converting certain deductions involving classes into
-       theorems (generalized version). $)
-    cldedg1 $p |- ( A e. B ->
-              A = { x | ( ( x e. C -> A e. B ) -> ( x e. A /\ A e. B ) ) } ) $=
-      ( wcel cldedgg1 ) BCEABDF $.
-      $([2-Apr-94]$)
+    $v et $. $( Greek eta $)
+    $v ze $. $( Greek zeta $)
+    $v si $. $( Greek sigma $)
+    $v rh $. $( Greek rho $)
+    $v F $.
+    $v G $.
+    dedth4h.we $f wff et $.
+    dedth4h.wz $f wff ze $.
+    dedth4h.ws $f wff si $.
+    dedth4h.wr $f wff rh $.
+    dedth4h.F $f class F $.
+    dedth4h.G $f class G $.
+    dedth4h.1 $e |- ( A = ded ( ph , A , R ) -> ( ta <-> et ) ) $.
+    dedth4h.2 $e |- ( B = ded ( ps , B , S ) -> ( et <-> ze ) ) $.
+    dedth4h.3 $e |- ( C = ded ( ch , C , F ) -> ( ze <-> si ) ) $.
+    dedth4h.4 $e |- ( D = ded ( th , D , G ) -> ( si <-> rh ) ) $.
+    dedth4h.5 $e |- rh $.
+    $( Deduction theorem eliminating four hypotheses. $)
+    dedth4h $p |- ( ( ( ph /\ ps ) /\ ( ch /\ th ) ) -> ta ) $=
+      ( wa wi cded wceq bilimd dedth2h imp ) ABUCCDUCZEABUJEUDUJLUDUJMUDFGJKFAF
+      JUEUFELUJRUGGBGKUEUFLMUJSUGCDMNOHIPQTUAUBUHUHUI $.
+      $([16-May-99]$)
   $}
 
   ${
-    $d x A $.  $d x B $.  $d x C $.
-    cldedg2.1 $e |- C e. B $.
-    $( A lemma used in converting certain deductions involving classes into
-       theorems (generalized version). $)
-    cldedg2 $p |- { x | ( ( x e. C -> A e. B ) -> ( x e. A /\ A e. B ) ) }
-                  e. B $=
-      ( wcel cv wi wa cab wb ibib cldedg1 cleq3d mpbir wn nibiia birabdv
-      mpbii pm2.61i ) BCFZAGZDFZUAHUBBFZUAIHZAJZCFZUAUGHUAUAUGKHUAUGLUABUFCABCD
-      MNOUAPZDCFUGUHDUFCUHUEADUAUCUDQRNEST $.
-      $([2-Apr-94]$)
+    elimhyp.1 $e |- ( A = ded ( ph , A , B ) -> ( ph <-> ps ) ) $.
+    elimhyp.2 $e |- ( B = ded ( ph , A , B ) -> ( ch <-> ps ) ) $.
+    elimhyp.3 $e |- ch $.
+    $( Eliminate a hypothesis containing class variable ` A ` when it is known
+       for a specific class ` B ` . $)
+    elimhyp $p |- ps $=
+      ( wi wb ibib cded wceq dedlem1 syl mpbir wn dedlem2 mpbii pm2.61i ) ABABI
+      AABJZIABKADADELZMUAADENFOPAQZCBUCEUBMCBJADERGOHST $.
+      $([15-May-99]$)
   $}
 
   ${
-    $d x A $.  $d x B $.  $d x C $.
-    cldedg3.1 $e |- ( A = { x | ( ( x e. C -> A e. B ) ->
-                    ( x e. A /\ A e. B ) ) } -> ( ph <-> ps ) ) $.
-    cldedg3.2 $e |- ps $.
-    $( A lemma used in converting certain deductions involving classes into
-       theorems (generalized version). $)
-    cldedg3 $p |- ( A e. B -> ph ) $=
-      ( wcel cldedgg3 ) DEIABCDFGHJ $.
-      $([2-Apr-94]$)
+    $v et $. $( Greek eta $)
+    elimhyp2v.we $f wff et $.
+    elimhyp2v.1 $e |- ( A = ded ( ph , A , C ) -> ( ph <-> ch ) ) $.
+    elimhyp2v.2 $e |- ( B = ded ( ph , B , D ) -> ( ch <-> th ) ) $.
+    elimhyp2v.3 $e |- ( C = ded ( ph , A , C ) -> ( ta <-> et ) ) $.
+    elimhyp2v.4 $e |- ( D = ded ( ph , B , D ) -> ( et <-> th ) ) $.
+    elimhyp2v.5 $e |- ta $.
+    $( Eliminate a hypothesis containing 2 class variables. $)
+    elimhyp2v $p |- th $=
+      ( wi wb ibib cded wceq dedlem1 syl bitrd mpbir wn dedlem2 mpbii pm2.61i
+      ) ACACOAACPOACQAABCAEAEGRZSABPAEGTJUAAFAFHRZSBCPAFHTKUAUBUCAUDZDCUJDICUJG
+      UHSDIPAEGUELUAUJHUISICPAFHUEMUAUBNUFUG $.
+      $([14-Aug-99]$)
   $}
 
   ${
-    $d x A $.  $d x B $.  $d x C $.  $d x D $.
-    cldedg32.1 $e |- ( A = { x | ( ( x e. D -> A e. C ) ->
-                    ( x e. A /\ A e. C ) ) } -> ( ph <-> ps ) ) $.
-    cldedg32.2 $e |- ( B = { x | ( ( x e. D -> B e. C ) ->
-                    ( x e. B /\ B e. C ) ) } -> ( ps <-> ch ) ) $.
-    cldedg32.3 $e |- ch $.
-    $( A lemma used in converting certain deductions involving classes into
-       theorems (generalized version). $)
-    cldedg32 $p |- ( ( A e. C /\ B e. C ) -> ph ) $=
-      ( wcel wi cv wa cab wceq bilimd cldedg3 imp ) EGLZFGLZAUBAMUBBMDEGHEDNZH
-      LUAMUCELUAOMDPQABUBIRBCDFGHJKSST $.
-      $([22-Nov-94]$)
+    $v et $. $( Greek eta $)
+    $v ze $. $( Greek zeta $)
+    $v si $. $( Greek sigma $)
+    elimhyp3v.we $f wff et $.
+    elimhyp3v.wz $f wff ze $.
+    elimhyp3v.ws $f wff si $.
+    elimhyp3v.1 $e |- ( A = ded ( ph , A , D ) -> ( ph <-> ch ) ) $.
+    elimhyp3v.2 $e |- ( B = ded ( ph , B , R ) -> ( ch <-> th ) ) $.
+    elimhyp3v.3 $e |- ( C = ded ( ph , C , S ) -> ( th <-> ta ) ) $.
+    elimhyp3v.4 $e |- ( D = ded ( ph , A , D ) -> ( et <-> ze ) ) $.
+    elimhyp3v.5 $e |- ( R = ded ( ph , B , R ) -> ( ze <-> si ) ) $.
+    elimhyp3v.6 $e |- ( S = ded ( ph , C , S ) -> ( si <-> ta ) ) $.
+    elimhyp3v.7 $e |- et $.
+    $( Eliminate a hypothesis containing 3 class variables. $)
+    elimhyp3v $p |- ta $=
+      ( wi wb ibib cded wceq dedlem1 syl 3bitrd mpbir wn dedlem2 mpbii pm2.61i
+      ) ADADUAAADUBUAADUCAABCDAEAEHUDZUEABUBAEHUFNUGAFAFIUDZUEBCUBAFIUFOUGAGAGJ
+      UDZUECDUBAGJUFPUGUHUIAUJZKDUQKLMDUQHUNUEKLUBAEHUKQUGUQIUOUELMUBAFIUKRUGUQ
+      JUPUEMDUBAGJUKSUGUHTULUM $.
+      $([14-Aug-99]$)
   $}
 
   ${
-    $d x A $.  $d x B $.  $d x C $.  $d x D $.  $d x R $.
-    cldedg33.1 $e |- ( A = { x | ( ( x e. D -> A e. R ) ->
-                    ( x e. A /\ A e. R ) ) } -> ( ph <-> ps ) ) $.
-    cldedg33.2 $e |- ( B = { x | ( ( x e. D -> B e. R ) ->
-                    ( x e. B /\ B e. R ) ) } -> ( ps <-> ch ) ) $.
-    cldedg33.3 $e |- ( C = { x | ( ( x e. D -> C e. R ) ->
-                    ( x e. C /\ C e. R ) ) } -> ( ch <-> th ) ) $.
-    cldedg33.4 $e |- th $.
-    $( A lemma used in converting certain deductions involving classes into
-       theorems (generalized version). $)
-    cldedg33 $p |- ( ( A e. R /\ B e. R /\ C e. R ) -> ph ) $=
-      ( wcel wa wi cv cab wceq bilimd cldedg32 cldedg3 exp3a 3imp ) FJOZGJOZHJ
-      OZAUFUGUHAUGUHPZAQUIBQEFJIFERZIOUFQUJFOUFPQESTABUIKUABCDEGHJILMNUBUCUDUE
-      $.
-      $([22-Nov-94]$)
+    elimel.1 $e |- B e. C $.
+    $( Eliminate a membership hypothesis for deduction theorem, when
+       special case ` B e. C ` is provable. $)
+    elimel $p |- ded ( A e. C , A , B ) e. C $=
+      ( wcel cded eleq1 elimhyp ) ACEZIABFZCEBCEABAJCGBJCGDH $.
+      $([15-May-99]$)
   $}
+
+  ${
+    keephyp.1 $e |- ( A = ded ( ph , A , B ) -> ( ps <-> th ) ) $.
+    keephyp.2 $e |- ( B = ded ( ph , A , B ) -> ( ch <-> th ) ) $.
+    keephyp.3 $e |- ps $.
+    keephyp.4 $e |- ch $.
+    $( Transform a hypothesis ` ps ` that we want to keep (but contains the
+       same class variable ` A ` used in the eliminated hypothesis) for use
+       with the deduction theorem. $)
+    keephyp $p |- th $=
+      ( cded wceq wb dedlem1 syl mpbii wn dedlem2 pm2.61i ) ADABDAEAEFKZLBDMAEF
+      NGOIPAQZCDUAFTLCDMAEFRHOJPS $.
+      $([15-May-99]$)
+  $}
+
+  ${
+    keepel.1 $e |- A e. C $.
+    keepel.2 $e |- B e. C $.
+    $( Keep a membership hypothesis for deduction theorem, when
+       special case ` B e. C ` is provable. $)
+    keepel $p |- ded ( ph , A , B ) e. C $=
+      ( wcel cded eleq1 keephyp ) ABDGCDGABCHZDGBCBKDICKDIEFJ $.
+      $([14-Aug-99]$)
+  $}
+
 

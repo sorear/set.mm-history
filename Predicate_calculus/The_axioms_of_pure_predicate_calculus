@@ -37,19 +37,19 @@ $(
 $)
 
   $( Axiom of Specialization.  One of the 4 axioms of pure predicate calculus.
-     Axiom scheme C5' of Megill, p. 448. $)
+     Axiom scheme C5' in Megill, p. 448. $)
   ax-4 $a |- ( A. x ph -> ph ) $.
 
   $( Axiom of Quantified Implication.  One of the 4 axioms of pure predicate
-     calculus.  Axiom scheme C4' of Megill, p. 448. $)
+     calculus.  Axiom scheme C4' in Megill, p. 448. $)
   ax-5 $a |- ( A. x ( A. x ph -> ps ) -> ( A. x ph -> A. x ps ) ) $.
 
   $( Axiom of Quantified Negation.  One of the 4 axioms of pure predicate
-     calculus.  Compare axiom scheme C7' of Megill, p. 448. $)
+     calculus.  Compare axiom scheme C7' in Megill, p. 448. $)
   ax-6 $a |- ( -. A. x -. A. x ph -> ph ) $.
 
   $( Axiom of Quantifier Commutation.  One of the 4 axioms of pure predicate
-     calculus.  Axiom scheme C6' of Megill, p. 448. $)
+     calculus.  Axiom scheme C6' in Megill, p. 448. $)
   ax-7 $a |- ( A. x A. y ph -> A. y A. x ph ) $.
 
   ${
@@ -74,7 +74,16 @@ $)
     a4i.1 $e |- A. x ph $.
     $( Inference rule reversing generalization. $)
     a4i   $p |- ph $=
-      ( wal ax-4 ax-mp ) ABDAABECF $.
+      ( wal ax-4 ax-mp ) ABDACABEF $.
+      $([5-Aug-93]$)
+  $}
+
+  ${
+    gen2.1 $e |- ph $.
+    $( Generalization applied twice. $)
+    gen2 $p |- A. x A. y ph $=
+      ( wal ax-gen ) ACEBACDFF $.
+      $([30-Apr-98]$)
   $}
 
   ${
@@ -82,6 +91,7 @@ $)
     $( Generalization of antecedent. $)
     a4s   $p |- ( A. x ph -> ps ) $=
       ( wal ax-4 syl ) ACEABACFDG $.
+      $([5-Aug-93]$)
   $}
 
   ${
@@ -97,7 +107,7 @@ $)
     mpg.2 $e |- ph $.
     $( Modus ponens combined with generalization. $)
     mpg   $p |- ps $=
-      ( wal ax-gen ax-mp ) ACFBDACEGH $.
+      ( wal ax-gen ax-mp ) ACFBACEGDH $.
       $([24-May-94]$)
   $}
 
@@ -124,29 +134,34 @@ $)
     $( Inference from ~ax-5 . $)
     a5i   $p |- ( A. x ph -> A. x ps ) $=
       ( wal wi ax-5 mpg ) ACEZBFIBCEFCABCGDH $.
+      $([5-Aug-93]$)
   $}
 
   $( Abbreviated version of ~ax-6 . $)
   a6e $p |- ( E. x A. x ph -> ph ) $=
-      ( wal wex wn df-ex ax-6 sylbi ) ABCZBDIEBCEAIBFABGH $.
+    ( wal wex wn df-ex ax-6 sylbi ) ABCZBDIEBCEAIBFABGH $.
+    $([5-Aug-93]$)
 
   ${
     a7s.1 $e |- ( A. x A. y ph -> ps ) $.
     $( Swap quantifiers in an antecedent. $)
     a7s   $p |- ( A. y A. x ph -> ps ) $=
       ( wal ax-7 syl ) ACFDFADFCFBADCGEH $.
+      $([5-Aug-93]$)
   $}
 
   $( Theorem 19.20, p. 90, of Margaris. $)
   19.20 $p |- ( A. x ( ph -> ps ) -> ( A. x ph -> A. x ps ) ) $=
-      ( wi wal ax-4 syl4 a4s a5i ax-5 syl ) ABDZCEACEZBDZCEMBCEDLNCLNCMABACFGHI
-      ABCJK $.
+    ( wi wal ax-4 syl4 a4s a5i ax-5 syl ) ABDZCEACEZBDZCEMBCEDLNCLNCMABACFGHIAB
+    CJK $.
+    $([5-Aug-93]$)
 
   ${
     19.20i.1 $e |- ( ph -> ps ) $.
     $( Inference quantifying both antecedent and conjunct. $)
     19.20i   $p |- ( A. x ph -> A. x ps ) $=
       ( a4s a5i ) ABCABCDEF $.
+      $([5-Aug-93]$)
   $}
 
   ${
@@ -154,11 +169,13 @@ $)
     $( Inference quantifying antecedent, nested antecedent, and conjunct. $)
     19.20ii   $p |- ( A. x ph -> ( A. x ps -> A. x ch ) ) $=
       ( wal wi 19.20i 19.20 syl ) ADFBCGZDFBDFCDFGAKDEHBCDIJ $.
+      $([5-Aug-93]$)
   $}
 
   $( Theorem 19.15, p. 90, of Margaris. $)
   19.15 $p |- ( A. x ( ph <-> ps ) -> ( A. x ph <-> A. x ps ) ) $=
-      ( wb wal df-bi1 19.20ii df-bi2 impbid ) ABDZCEACEBCEJABCABFGJBACABHGI $.
+    ( wb wal bi1 19.20ii bi2 impbid ) ABDZCEACEBCEJABCABFGJBACABHGI $.
+    $([5-Aug-93]$)
 
   ${
     bial.1 $e |- ( ph <-> ps ) $.
@@ -186,94 +203,112 @@ $)
     $( No variable is (effectively) free in a theorem. $)
     hbth   $p |- ( ph -> A. x ph ) $=
       ( wal ax-gen a1i ) ABDAABCEF $.
+      $([5-Aug-93]$)
   $}
 
-  $( ` x ` is not free in ` A. x ph `.  Appendix example of Megill, p. 450. $)
+  $( ` x ` is not free in ` A. x ph `.  Appendix example in Megill, p. 450. $)
   hba1 $p |- ( A. x ph -> A. x A. x ph ) $=
-      ( wal id a5i ) AABCZBFDE $.
+    ( wal id a5i ) AABCZBFDE $.
+    $([5-Aug-93]$)
 
   ${
     hb.1 $e |- ( ph -> A. x ph ) $.
     $( If ` x ` is not free in ` ph `, it is not free in ` -. ph `. $)
     hbne $p |- ( -. ph -> A. x -. ph ) $=
       ( wal wn con3 19.20i ax-6 nsyl4 ) ABDZEZBDAEZBDAKLBAJCFGABHI $.
+      $([5-Aug-93]$)
 
     $( If ` x ` is not free in ` ph `, it is not free in ` A. y ph `. $)
     hbal $p |- ( A. y ph -> A. x A. y ph ) $=
       ( wal 19.20i ax-7 syl ) ACEZABEZCEIBEAJCDFACBGH $.
+      $([5-Aug-93]$)
 
     $( If ` x ` is not free in ` ph `, it is not free in ` E. y ph `. $)
     hbex $p |- ( E. y ph -> A. x E. y ph ) $=
       ( wn wal wex hbne hbal df-ex bial 3imtr4 ) AEZCFZEZOBFACGZPBFNBMBCABDHIHA
       CJZPOBQKL $.
+      $([5-Aug-93]$)
     ${
 
       hb.2 $e |- ( ps -> A. x ps ) $.
       $( If ` x ` is not free in ` ph ` and ` ps `, it is not free in
          ` ( ph -> ps ) `. $)
       hbim $p |- ( ( ph -> ps ) -> A. x ( ph -> ps ) ) $=
-      ( wi wal wn hbne pm2.21 19.20i syl ax-1 ja ) ABABFZCGZAHZQCGPACDIQOCABJKL
-      BBCGPEBOCBAMKLN $.
+        ( wi wal wn hbne pm2.21 19.20i syl ax-1 ja ) ABABFZCGZAHZQCGPACDIQOCABJ
+        KLBBCGPEBOCBAMKLN $.
+        $([5-Aug-93]$)
 
       $( If ` x ` is not free in ` ph ` and ` ps `, it is not free in
          ` ( ph \/ ps ) `. $)
       hbor $p |- ( ( ph \/ ps ) -> A. x ( ph \/ ps ) ) $=
-      ( wn wi wal wo hbne hbim df-or bial 3imtr4 ) AFZBGZPCHABIZQCHOBCACDJEKABL
-      ZQPCRMN $.
+        ( wn wi wal wo hbne hbim df-or bial 3imtr4 ) AFZBGZPCHABIZQCHOBCACDJEKA
+        BLZQPCRMN $.
+        $([5-Aug-93]$)
 
       $( If ` x ` is not free in ` ph ` and ` ps `, it is not free in
          ` ( ph /\ ps ) `. $)
       hban $p |- ( ( ph /\ ps ) -> A. x ( ph /\ ps ) ) $=
-      ( wn wi wal wa hbne hbim df-an bial 3imtr4 ) ABFZGZFZQCHABIZRCHPCAOCDBCEJ
-      KJABLZRQCSMN $.
+        ( wn wi wal wa hbne hbim df-an bial 3imtr4 ) ABFZGZFZQCHABIZRCHPCAOCDBC
+        EJKJABLZRQCSMN $.
+        $([5-Aug-93]$)
 
       $( If ` x ` is not free in ` ph ` and ` ps `, it is not free in
          ` ( ph <-> ps ) `. $)
       hbbi $p |- ( ( ph <-> ps ) -> A. x ( ph <-> ps ) ) $=
-      ( wi wa wal wb hbim hban bi bial 3imtr4 ) ABFZBAFZGZQCHABIZRCHOPCABCDEJBA
-      CEDJKABLZRQCSMN $.
+        ( wi wa wal wb hbim hban bi bial 3imtr4 ) ABFZBAFZGZQCHABIZRCHOPCABCDEJ
+        BACEDJKABLZRQCSMN $.
+        $([5-Aug-93]$)
     $}
   $}
 
   $( ` x ` is not free in ` -. A. x ph `. $)
   hbn1 $p |- ( -. A. x ph -> A. x -. A. x ph ) $=
-      ( wal hba1 hbne ) ABCBABDE $.
+    ( wal hba1 hbne ) ABCBABDE $.
+    $([5-Aug-93]$)
 
   $( ` x ` is not free in ` E. x ph `. $)
   hbe1 $p |- ( E. x ph -> A. x E. x ph ) $=
-      ( wn wal wex hbn1 df-ex bial 3imtr4 ) ACZBDCZKBDABEZLBDJBFABGZLKBMHI $.
+    ( wn wal wex hbn1 df-ex bial 3imtr4 ) ACZBDCZKBDABEZLBDJBFABGZLKBMHI $.
+    $([5-Aug-93]$)
 
   $( A closed form of hypothesis builder ~hbne . $)
   hbnt $p |- ( A. x ( ph -> A. x ph ) -> ( -. ph -> A. x -. ph ) ) $=
-      ( wal wi wn pm2.16 19.20ii ax-6 con1 syl5 ) AABCZDZBCKEZBCZAEZBCOLMOBAKFG
-      NAABHIJ $.
+    ( wal wi wn pm2.16 19.20ii ax-6 con1 syl5 ) AABCZDZBCKEZBCZAEZBCOLMOBAKFGNA
+    ABHIJ $.
+    $([5-Aug-93]$)
 
   $( If a wff is true, it is true for at least one instance. $)
   19.8a $p |- ( ph -> E. x ph ) $=
-      ( wn wal wex ax-4 con2 df-ex sylibr ) AACZBDZCABEKAJBFGABHI $.
+    ( wn wal wex ax-4 con2 df-ex sylibr ) AACZBDZCABEKAJBFGABHI $.
+    $([5-Aug-93]$)
 
   $( Theorem 19.2, p. 89, of Margaris. $)
   19.2 $p |- ( A. x ph -> E. x ph ) $=
-      ( wex 19.8a a4s ) AABCBABDE $.
+    ( wex 19.8a a4s ) AABCBABDE $.
+    $([5-Aug-93]$)
 
   ${
     19.3r.1 $e |- ( ph -> A. x ph ) $.
     $( A wff may be quantified with a variable not free in it. $)
     19.3r   $p |- ( ph <-> A. x ph ) $=
       ( wal ax-4 impbi ) AABDCABEF $.
+      $([5-Aug-93]$)
   $}
 
   $( Theorem 19.5, p. 89, of Margaris. $)
   19.5 $p |- ( A. x A. y ph <-> A. y A. x ph ) $=
-      ( wal ax-7 impbi ) ACDBDABDCDABCEACBEF $.
+    ( wal ax-7 impbi ) ACDBDABDCDABCEACBEF $.
+    $([5-Aug-93]$)
 
   $( Theorem 19.7, p. 89, of Margaris. $)
   19.7 $p |- ( A. x -. ph <-> -. E. x ph ) $=
-      ( wex wn wal df-ex bicon2 ) ABCADBEABFG $.
+    ( wex wn wal df-ex bicon2 ) ABCADBEABFG $.
+    $([5-Aug-93]$)
 
   $( Theorem 19.6, p. 89, of Margaris. $)
   19.6 $p |- ( A. x ph <-> -. E. x -. ph ) $=
-      ( wal wn wex pm4.13 bial 19.7 bitr ) ABCADZDZBCJBEDAKBAFGJBHI $.
+    ( wal wn wex pm4.13 bial 19.7 bitr ) ABCADZDZBCJBEDAKBAFGJBHI $.
+    $([5-Aug-93]$)
 
   ${
     19.9r.1 $e |- ( ph -> A. x ph ) $.
@@ -281,12 +316,14 @@ $)
     19.9r   $p |- ( ph <-> E. x ph ) $=
       ( wex 19.8a wn wal df-ex con3 19.20i ax-6 syl sylbi impbi ) AABDZABEOAFZB
       GZFZAABHRABGZFZBGZFAUAQTPBASCIJIABKLMN $.
+      $([5-Aug-93]$)
   $}
 
   $( A closed version of one direction of ~19.9r . $)
   19.9t $p |- ( A. x ( ph -> A. x ph ) -> ( E. x ph -> ph ) ) $=
-      ( wal wi wn wex hbnt pm2.15d df-ex syl5ib ) AABCDBCZAEBCZEAABFKALABGHABI
-      J $.
+    ( wal wi wn wex hbnt pm2.15d df-ex syl5ib ) AABCDBCZAEBCZEAABFKALABGHABIJ
+    $.
+    $([5-Aug-93]$)
 
   ${
     19.9d.1 $e |- ( ps -> A. x ps ) $.
@@ -294,64 +331,73 @@ $)
     $( A deduction version of one direction of ~19.9r . $)
     19.9d   $p |- ( ps -> ( E. x ph -> ph ) ) $=
       ( wal wi wex 19.20i 19.9t 3syl ) BBCFAACFGZCFACHAGDBLCEIACJK $.
+      $([5-Aug-93]$)
   $}
 
   $( Theorem 19.14, p. 90, of Margaris. $)
   19.14 $p |- ( E. x -. ph <-> -. A. x ph ) $=
-      ( wal wn wex 19.6 bicon2 ) ABCADBEABFG $.
+    ( wal wn wex 19.6 bicon2 ) ABCADBEABFG $.
+    $([5-Aug-93]$)
 
   $( Theorem 19.22, p. 90, of Margaris. $)
   19.22 $p |- ( A. x ( ph -> ps ) -> ( E. x ph -> E. x ps ) ) $=
-      ( wi wal wn wex pm2.16 19.20ii pm2.16d df-ex 3imtr4g ) ABDZCEZAFZCEZFBFZ
-      CEZFACGBCGNRPMQOCABHIJACKBCKL $.
+    ( wi wal wn wex pm2.16 19.20ii pm2.16d df-ex 3imtr4g ) ABDZCEZAFZCEZFBFZCEZ
+    FACGBCGNRPMQOCABHIJACKBCKL $.
+    $([5-Aug-93]$)
 
   ${
     19.22i.1 $e |- ( ph -> ps ) $.
     $( Inference adding existential quantifier to antecedent and conjunct. $)
     19.22i   $p |- ( E. x ph -> E. x ps ) $=
       ( wi wex 19.22 mpg ) ABEACFBCFECABCGDH $.
+      $([5-Aug-93]$)
   $}
 
   $( A transformation of quantifiers and logical connectives. $)
   alnex $p |- ( A. x ( ph -> -. ps ) <-> -. E. x ( ph /\ ps ) ) $=
-      ( wn wi wal wa wex imnan bial 19.7 bitr ) ABDEZCFABGZDZCFNCHDMOCABIJNCKL
-      $.
-      $([19-Aug-93]$)
+    ( wn wi wal wa wex imnan bial 19.7 bitr ) ABDEZCFABGZDZCFNCHDMOCABIJNCKL $.
+    $([19-Aug-93]$)
 
   $( A transformation of quantifiers and logical connectives. $)
   exnal $p |- ( E. x ( ph /\ -. ps ) <-> -. A. x ( ph -> ps ) ) $=
-      ( wi wal wn wa wex iman bial 19.7 bitr bicon2 ) ABDZCEZABFGZCHZOPFZCEQFNR
-      CABIJPCKLM $.
-      $([25-Mar-96]$)
+    ( wi wal wn wa wex iman bial 19.7 bitr bicon2 ) ABDZCEZABFGZCHZOPFZCEQFNRCA
+    BIJPCKLM $.
+    $([25-Mar-96]$)
 
   $( A relationship between two quantifiers and negation. $)
   alexn $p |- ( A. x E. y -. ph <-> -. E. x A. y ph ) $=
-      ( wn wex wal 19.14 bial 19.7 bitr ) ADCEZBFACFZDZBFLBEDKMBACGHLBIJ $.
-      $([18-Aug-93]$)
+    ( wn wex wal 19.14 bial 19.7 bitr ) ADCEZBFACFZDZBFLBEDKMBACGHLBIJ $.
+    $([18-Aug-93]$)
 
   $( One direction of Theorem 19.11, p. 89, of Margaris. $)
   19.11a $p |- ( E. x E. y ph -> E. y E. x ph ) $=
-      ( wex 19.8a 19.22i hbe1 hbex 19.9r sylibr ) ACDZBDABDZCDZBDMKMBALCABEFFMB
-      LBCABGHIJ $.
+    ( wex 19.8a 19.22i hbe1 hbex 19.9r sylibr ) ACDZBDABDZCDZBDMKMBALCABEFFMBLB
+    CABGHIJ $.
+    $([5-Aug-93]$)
 
   $( Theorem 19.11, p. 89, of Margaris. $)
   19.11 $p |- ( E. x E. y ph <-> E. y E. x ph ) $=
-      ( wex 19.11a impbi ) ACDBDABDCDABCEACBEF $.
+    ( wex 19.11a impbi ) ACDBDABDCDABCEACBEF $.
+    $([5-Aug-93]$)
 
-  $( Theorem 19.12, p. 89, of Margaris. $)
+  $( Theorem 19.12, p. 89, of Margaris. Assuming the converse is a mistake
+     sometimes made by beginners! $)
   19.12 $p |- ( E. x A. y ph -> A. y E. x ph ) $=
-      ( wal wex hba1 hbex ax-4 19.22i 19.20i syl ) ACDZBEZMCDABEZCDLCBACFGMNCLA
-      BACHIJK $.
+    ( wal wex hba1 hbex ax-4 19.22i 19.20i syl ) ACDZBEZMCDABEZCDLCBACFGMNCLABA
+    CHIJK $.
+    $([5-Aug-93]$)
 
   $( Theorem 19.13, p. 89, of Margaris. $)
   19.13 $p |- ( E. x ph <-> -. A. x -. ph ) $=
-      ( df-ex ) ABC $.
+    ( df-ex ) ABC $.
+    $([5-Aug-93]$)
 
   ${
     19.16.1 $e |- ( ph -> A. x ph ) $.
     $( Theorem 19.16, p. 90, of Margaris. $)
     19.16   $p |- ( A. x ( ph <-> ps ) -> ( ph <-> A. x ps ) ) $=
       ( wb wal 19.15 19.3r syl5bb ) ABECFACFBCFAABCGACDHI $.
+      $([5-Aug-93]$)
   $}
 
   ${
@@ -359,12 +405,14 @@ $)
     $( Theorem 19.17, p. 90, of Margaris. $)
     19.17   $p |- ( A. x ( ph <-> ps ) -> ( A. x ph <-> ps ) ) $=
       ( wb wal 19.15 19.3r syl6bbr ) ABECFACFBCFBABCGBCDHI $.
+      $([5-Aug-93]$)
   $}
 
   $( Theorem 19.18, p. 90, of Margaris. $)
   19.18 $p |- ( A. x ( ph <-> ps ) -> ( E. x ph <-> E. x ps ) ) $=
-      ( wb wal wex wi df-bi1 19.20i 19.22 syl df-bi2 impbid ) ABDZCEZACFZBCFZO
-      ABGZCEPQGNRCABHIABCJKOBAGZCEQPGNSCABLIBACJKM $.
+    ( wb wal wex wi bi1 19.20i 19.22 syl bi2 impbid ) ABDZCEZACFZBCFZOABGZCEPQG
+    NRCABHIABCJKOBAGZCEQPGNSCABLIBACJKM $.
+    $([5-Aug-93]$)
 
   ${
     biex.1 $e |- ( ph <-> ps ) $.
@@ -395,14 +443,15 @@ $)
 
   $( Commutation of conjunction inside an existential quantifier. $)
   exancom $p |- ( E. x ( ph /\ ps ) <-> E. x ( ps /\ ph ) ) $=
-      ( wa ancom biex ) ABDBADCABEF $.
-      $([18-Aug-93]$)
+    ( wa ancom biex ) ABDBADCABEF $.
+    $([18-Aug-93]$)
 
   ${
     19.19.1 $e |- ( ph -> A. x ph ) $.
     $( Theorem 19.19, p. 90, of Margaris. $)
     19.19   $p |- ( A. x ( ph <-> ps ) -> ( ph <-> E. x ps ) ) $=
       ( wb wal wex 19.18 19.9r syl5bb ) ABECFACGBCGAABCHACDIJ $.
+      $([5-Aug-93]$)
   $}
 
   ${
@@ -411,6 +460,7 @@ $)
     19.21   $p |- ( A. x ( ph -> ps ) <-> ( ph -> A. x ps ) ) $=
       ( wi wal 19.20 syl5 hba1 hbim ax-4 syl3 19.20i syl impbi ) ABEZCFZABCFZEZ
       QACFRAABCGDHSSCFQARCDBCIJSPCRBABCKLMNO $.
+      $([5-Aug-93]$)
   $}
 
   ${
@@ -428,6 +478,7 @@ $)
     $( Inference from Theorem 19.21, p. 90, of Margaris. $)
     19.21ai   $p |- ( ph -> A. x ps ) $=
       ( wal 19.20i syl ) AACFBCFDABCEGH $.
+      $([5-Aug-93]$)
   $}
 
   ${
@@ -445,6 +496,7 @@ $)
     $( Inference from Theorem 19.21, p. 90, of Margaris. $)
     19.21bi   $p |- ( ph -> ps ) $=
       ( wal ax-4 syl ) ABCEBDBCFG $.
+      $([5-Aug-93]$)
   $}
 
   ${
@@ -470,6 +522,7 @@ $)
     19.23   $p |- ( A. x ( ph -> ps ) <-> ( E. x ph -> ps ) ) $=
       ( wi wal wex 19.22 19.9r syl6ibr hbe1 hbim 19.8a syl4 19.21ai impbi ) ABE
       ZCFZACGZBEZRSBCGBABCHBCDIJTQCSBCACKDLASBACMNOP $.
+      $([5-Aug-93]$)
   $}
 
   ${
@@ -478,6 +531,7 @@ $)
     $( Inference from Theorem 19.23, p. 90, of Margaris. $)
     19.23ai   $p |- ( E. x ph -> ps ) $=
       ( wex 19.22i 19.9r sylibr ) ACFBCFBABCEGBCDHI $.
+      $([5-Aug-93]$)
   $}
 
   ${
@@ -485,6 +539,7 @@ $)
     $( Inference from Theorem 19.23, p. 90, of Margaris. $)
     19.23bi   $p |- ( ph -> ps ) $=
       ( wex 19.8a syl ) AACEBACFDG $.
+      $([5-Aug-93]$)
   $}
 
   ${
@@ -499,14 +554,16 @@ $)
 
   $( Theorem 19.26, p. 90, of Margaris. $)
   19.26 $p |- ( A. x ( ph /\ ps ) <-> ( A. x ph /\ A. x ps ) ) $=
-      ( wa wal pm3.26 19.20i pm3.27 jca pm3.2 19.20ii imp impbi ) ABDZCEZACEZBC
-      EZDOPQNACABFGNBCABHGIPQOABNCABJKLM $.
+    ( wa wal pm3.26 19.20i pm3.27 jca pm3.2 19.20ii imp impbi ) ABDZCEZACEZBCEZ
+    DOPQNACABFGNBCABHGIPQOABNCABJKLM $.
+    $([5-Aug-93]$)
 
   ${
     19.27.1 $e |- ( ps -> A. x ps ) $.
     $( Theorem 19.27, p. 90, of Margaris. $)
     19.27   $p |- ( A. x ( ph /\ ps ) <-> ( A. x ph /\ ps ) ) $=
       ( wa wal 19.26 19.3r bilan bitr4 ) ABECFACFZBCFZEKBEABCGBLKBCDHIJ $.
+      $([5-Aug-93]$)
   $}
 
   ${
@@ -514,31 +571,35 @@ $)
     $( Theorem 19.28, p. 90, of Margaris. $)
     19.28   $p |- ( A. x ( ph /\ ps ) <-> ( ph /\ A. x ps ) ) $=
       ( wa wal 19.26 19.3r biran bitr4 ) ABECFACFZBCFZEALEABCGAKLACDHIJ $.
+      $([5-Aug-93]$)
   $}
 
   $( Theorem 19.29, p. 90, of Margaris. $)
   19.29 $p |- ( ( A. x ph /\ E. x ps ) -> E. x ( ph /\ ps ) ) $=
-      ( wal wex wa wn wi 19.20 19.7 syl6ib con3 df-an 19.14 3imtr4 biex sylibr
-      ) ACDZBCEZFZABGZHZGZCEZABFZCERSGZHZGUBCDZGTUDUHUGUHRUACDUFAUACIBCJKLRSMUB
-      CNOUEUCCABMPQ $.
+    ( wal wex wa wn wi 19.20 19.7 syl6ib con3 df-an 19.14 3imtr4 biex sylibr )
+    ACDZBCEZFZABGZHZGZCEZABFZCERSGZHZGUBCDZGTUDUHUGUHRUACDUFAUACIBCJKLRSMUBCNOU
+    EUCCABMPQ $.
+    $([5-Aug-93]$)
 
   $( Variation of Theorem 19.29, p. 90, of Margaris. $)
   19.29r $p |- ( ( E. x ph /\ A. x ps ) -> E. x ( ph /\ ps ) ) $=
-      ( wal wex wa 19.29 ancom exancom 3imtr4 ) BCDZACEZFBAFCELKFABFCEBACGLKHAB
-      CIJ $.
-      $([18-Aug-93]$)
+    ( wal wex wa 19.29 ancom exancom 3imtr4 ) BCDZACEZFBAFCELKFABFCEBACGLKHABCI
+    J $.
+    $([18-Aug-93]$)
 
   $( Theorem 19.35, p. 90, of Margaris. $)
   19.35 $p |- ( E. x ( ph -> ps ) <-> ( A. x ph -> E. x ps ) ) $=
-      ( wal wn wi wex wa iman bicom bicon1 bial 19.26 df-an 3bitr bicon2 df-ex
-      bilim 3bitr4r ) ACDZBEZCDZEZFZABFZEZCDZETBCGZFUECGUGUDUGAUAHZCDTUBHUDEUFU
-      ICUIUEUEUIEABIJKLAUACMTUBNOPUHUCTBCQRUECQS $.
+    ( wal wn wi wex wa iman bicom bicon1 bial 19.26 df-an 3bitr bicon2 df-ex
+    bilim 3bitr4r ) ACDZBEZCDZEZFZABFZEZCDZETBCGZFUECGUGUDUGAUAHZCDTUBHUDEUFUIC
+    UIUEUEUIEABIJKLAUACMTUBNOPUHUCTBCQRUECQS $.
+    $([5-Aug-93]$)
 
   ${
     19.35i.1 $e |- E. x ( ph -> ps ) $.
     $( Inference from Theorem 19.35, p. 90, of Margaris. $)
     19.35i   $p |- ( A. x ph -> E. x ps ) $=
       ( wi wex wal 19.35 mpbi ) ABECFACGBCFEABCHDI $.
+      $([5-Aug-93]$)
   $}
 
   ${
@@ -546,6 +607,7 @@ $)
     $( Inference from Theorem 19.35, p. 90, of Margaris. $)
     19.35ri   $p |- E. x ( ph -> ps ) $=
       ( wi wex wal 19.35 mpbir ) ABECFACGBCFEABCHDI $.
+      $([5-Aug-93]$)
   $}
 
   ${
@@ -553,6 +615,7 @@ $)
     $( Theorem 19.36, p. 90, of Margaris. $)
     19.36   $p |- ( E. x ( ph -> ps ) <-> ( A. x ph -> ps ) ) $=
       ( wi wex wal 19.35 19.9r bilim bitr4 ) ABECFACGZBCFZELBEABCHBMLBCDIJK $.
+      $([5-Aug-93]$)
   $}
 
   ${
@@ -561,6 +624,7 @@ $)
     $( Inference from Theorem 19.36, p. 90, of Margaris. $)
     19.36i   $p |- ( A. x ph -> ps ) $=
       ( wi wex wal 19.36 mpbi ) ABFCGACHBFABCDIEJ $.
+      $([5-Aug-93]$)
   $}
 
   ${
@@ -568,32 +632,38 @@ $)
     $( Theorem 19.37, p. 90, of Margaris. $)
     19.37   $p |- ( E. x ( ph -> ps ) <-> ( ph -> E. x ps ) ) $=
       ( wi wex wal 19.35 19.3r birim bitr4 ) ABECFACGZBCFZEAMEABCHALMACDIJK $.
+      $([5-Aug-93]$)
   $}
 
   $( Theorem 19.38, p. 90, of Margaris. $)
   19.38 $p |- ( ( E. x ph -> A. x ps ) -> A. x ( ph -> ps ) ) $=
-      ( wex wal wi hbe1 hba1 hbim 19.8a ax-4 syl34 19.21ai ) ACDZBCEZFABFCNOCAC
-      GBCHIANOBACJBCKLM $.
+    ( wex wal wi hbe1 hba1 hbim 19.8a ax-4 syl34 19.21ai ) ACDZBCEZFABFCNOCACGB
+    CHIANOBACJBCKLM $.
+    $([5-Aug-93]$)
 
   $( Theorem 19.39, p. 90, of Margaris. $)
   19.39 $p |- ( ( E. x ph -> E. x ps ) -> E. x ( ph -> ps ) ) $=
-      ( wex wi wal 19.2 syl4 19.35 sylibr ) ACDZBCDZEACFZLEABECDMKLACGHABCIJ $.
+    ( wex wi wal 19.2 syl4 19.35 sylibr ) ACDZBCDZEACFZLEABECDMKLACGHABCIJ $.
+    $([5-Aug-93]$)
 
   $( Theorem 19.24, p. 90, of Margaris. $)
   19.24 $p |- ( ( A. x ph -> A. x ps ) -> E. x ( ph -> ps ) ) $=
-      ( wal wi wex 19.2 syl3 19.35 sylibr ) ACDZBCDZEKBCFZEABECFLMKBCGHABCIJ $.
+    ( wal wi wex 19.2 syl3 19.35 sylibr ) ACDZBCDZEKBCFZEABECFLMKBCGHABCIJ $.
+    $([5-Aug-93]$)
 
   $( Theorem 19.25, p. 90, of Margaris. $)
   19.25 $p |- ( A. y E. x ( ph -> ps ) ->
               ( E. y A. x ph -> E. y E. x ps ) ) $=
-      ( wi wex wal 19.35 biimp 19.20i 19.22 syl ) ABECFZDGACGZBCFZEZDGNDFODFEMP
-      DMPABCHIJNODKL $.
+    ( wi wex wal 19.35 biimp 19.20i 19.22 syl ) ABECFZDGACGZBCFZEZDGNDFODFEMPDM
+    PABCHIJNODKL $.
+    $([5-Aug-93]$)
 
   $( Theorem 19.30, p. 90, of Margaris. $)
   19.30 $p |- ( A. x ( ph \/ ps ) -> ( A. x ph \/ E. x ps ) ) $=
-      ( wn wi wal wo wex 19.20 orcom df-or bitr bial df-ex bilor imor 3bitr4
-      3imtr4 ) BDZAEZCFSCFZACFZEZABGZCFUBBCHZGZSACIUDTCUDBAGTABJBAKLMUBUADZGUGU
-      BGUFUCUBUGJUEUGUBBCNOUAUBPQR $.
+    ( wn wi wal wo wex 19.20 orcom df-or bitr bial df-ex bilor imor 3bitr4
+    3imtr4 ) BDZAEZCFSCFZACFZEZABGZCFUBBCHZGZSACIUDTCUDBAGTABJBAKLMUBUADZGUGUBG
+    UFUCUBUGJUEUGUBBCNOUAUBPQR $.
+    $([5-Aug-93]$)
 
   ${
     19.32.1 $e |- ( ph -> A. x ph ) $.
@@ -601,6 +671,7 @@ $)
     19.32   $p |- ( A. x ( ph \/ ps ) <-> ( ph \/ A. x ps ) ) $=
       ( wn wi wal wo hbne 19.21 df-or bial 3bitr4 ) AEZBFZCGNBCGZFABHZCGAPHNBCA
       CDIJQOCABKLAPKM $.
+      $([5-Aug-93]$)
   $}
 
   ${
@@ -609,19 +680,22 @@ $)
     19.31   $p |- ( A. x ( ph \/ ps ) <-> ( A. x ph \/ ps ) ) $=
       ( wo wal 19.32 orcom bial 3bitr4 ) BAEZCFBACFZEABEZCFLBEBACDGMKCABHILBHJ
       $.
+      $([5-Aug-93]$)
   $}
 
   $( Theorem 19.43, p. 90, of Margaris. $)
   19.43 $p |- ( E. x ( ph \/ ps ) <-> ( E. x ph \/ E. x ps ) ) $=
-      ( wo wn wal wex wa ioran bial 19.26 19.7 bi2an 3bitr bineg df-ex oran
-      3bitr4 ) ABDZEZCFZEACGZEZBCGZEZHZESCGUBUDDUAUFUAAEZBEZHZCFUGCFZUHCFZHUFTU
-      ICABIJUGUHCKUJUCUKUEACLBCLMNOSCPUBUDQR $.
+    ( wo wn wal wex wa ioran bial 19.26 19.7 bi2an 3bitr bineg df-ex oran
+    3bitr4 ) ABDZEZCFZEACGZEZBCGZEZHZESCGUBUDDUAUFUAAEZBEZHZCFUGCFZUHCFZHUFTUIC
+    ABIJUGUHCKUJUCUKUEACLBCLMNOSCPUBUDQR $.
+    $([5-Aug-93]$)
 
   ${
     19.44.1 $e |- ( ps -> A. x ps ) $.
     $( Theorem 19.44, p. 90, of Margaris. $)
     19.44   $p |- ( E. x ( ph \/ ps ) <-> ( E. x ph \/ ps ) ) $=
       ( wo wex 19.43 19.9r bilor bitr4 ) ABECFACFZBCFZEKBEABCGBLKBCDHIJ $.
+      $([5-Aug-93]$)
   $}
 
   ${
@@ -629,21 +703,24 @@ $)
     $( Theorem 19.45, p. 90, of Margaris. $)
     19.45   $p |- ( E. x ( ph \/ ps ) <-> ( ph \/ E. x ps ) ) $=
       ( wo wex 19.43 19.9r biror bitr4 ) ABECFACFZBCFZEALEABCGAKLACDHIJ $.
+      $([5-Aug-93]$)
   $}
 
   $( Theorem 19.33, p. 90, of Margaris. $)
   19.33 $p |- ( ( A. x ph \/ A. x ps ) -> A. x ( ph \/ ps ) ) $=
-      ( wn wex wal wi wo 19.38 df-or 19.14 birim bitr4 bial 3imtr4 ) ADZCEZBCFZ
-      GZPBGZCFACFZRHZABHZCFPBCIUBUADZRGSUARJQUDRACKLMUCTCABJNO $.
+    ( wn wex wal wi wo 19.38 df-or 19.14 birim bitr4 bial 3imtr4 ) ADZCEZBCFZGZ
+    PBGZCFACFZRHZABHZCFPBCIUBUADZRGSUARJQUDRACKLMUCTCABJNO $.
+    $([5-Aug-93]$)
 
   $( Theorem 19.34, p. 90, of Margaris. $)
   19.34 $p |- ( ( A. x ph \/ E. x ps ) -> E. x ( ph \/ ps ) ) $=
-      ( wal wex wo 19.2 imror 19.43 sylibr ) ACDZBCEZFACEZLFABFCEKMLACGHABCIJ
-      $.
+    ( wal wex wo 19.2 imror 19.43 sylibr ) ACDZBCEZFACEZLFABFCEKMLACGHABCIJ $.
+    $([5-Aug-93]$)
 
   $( Theorem 19.40, p. 90, of Margaris. $)
   19.40 $p |- ( E. x ( ph /\ ps ) -> ( E. x ph /\ E. x ps ) ) $=
-      ( wa wex pm3.26 19.22i pm3.27 jca ) ABDZCEACEBCEJACABFGJBCABHGI $.
+    ( wa wex pm3.26 19.22i pm3.27 jca ) ABDZCEACEBCEJACABFGJBCABHGI $.
+    $([5-Aug-93]$)
 
   ${
     19.41.1 $e |- ( ps -> A. x ps ) $.
@@ -652,6 +729,7 @@ $)
       ( wa wex wn wal df-ex wo hbne 19.31 ianor bial 19.7 biror bitr4 3bitr4
       bicon2 ) ABEZCFTGZCHZGACFZBEZTCIUBUDAGZBGZJZCHUECHZUFJZUBUDGZUEUFCBCDKLUA
       UGCABMNUJUCGZUFJUIUCBMUHUKUFACOPQRSQ $.
+      $([5-Aug-93]$)
   $}
 
   ${
@@ -664,18 +742,18 @@ $)
 
   $( Swap 1st and 3rd existential quantifiers. $)
   excom13 $p |- ( E. x E. y E. z ph <-> E. z E. y E. x ph ) $=
-      ( wex 19.11 biex 3bitr ) ADEZCEBEIBEZCEABEZDEZCEKCEDEIBCFJLCABDFGKCDFH $.
-      $([9-Mar-95]$)
+    ( wex 19.11 biex 3bitr ) ADEZCEBEIBEZCEABEZDEZCEKCEDEIBCFJLCABDFGKCDFH $.
+    $([9-Mar-95]$)
 
   $( Rotate existential quantifiers. $)
   exrot3 $p |- ( E. x E. y E. z ph <-> E. y E. z E. x ph ) $=
-      ( wex excom13 19.11 bitr ) ADECEBEABEZCEDEIDECEABCDFIDCGH $.
-      $([17-Mar-95]$)
+    ( wex excom13 19.11 bitr ) ADECEBEABEZCEDEIDECEABCDFIDCGH $.
+    $([17-Mar-95]$)
 
   $( Rotate existential quantifiers twice. $)
   exrot4 $p |- ( E. x E. y E. z E. w ph <-> E. z E. w E. x E. y ph ) $=
-      ( wex excom13 biex bitr ) AEFDFCFZBFACFZDFEFZBFKBFEFDFJLBACDEGHKBEDGI $.
-      $([9-Mar-95]$)
+    ( wex excom13 biex bitr ) AEFDFCFZBFACFZDFEFZBFKBFEFDFJLBACDEGHKBEDGI $.
+    $([9-Mar-95]$)
 
   ${
     nex.1 $e |- -. ph $.
@@ -691,6 +769,7 @@ $)
     $( A closed form of ~hbim . $)
     hbim1   $p |- ( ( ph -> ps ) -> A. x ( ph -> ps ) ) $=
       ( wi wal a2i 19.21 sylibr ) ABFZABCGZFKCGABLEHABCDIJ $.
+      $([5-Aug-93]$)
   $}
 
   ${
@@ -699,6 +778,7 @@ $)
     $( Formula-building rule for universal quantifier (deduction rule). $)
     biald   $p |- ( ph -> ( A. x ps <-> A. x ch ) ) $=
       ( wb wal 19.21ai 19.15 syl ) ABCGZDHBDHCDHGALDEFIBCDJK $.
+      $([5-Aug-93]$)
   $}
 
   ${
@@ -707,23 +787,24 @@ $)
     $( Formula-building rule for existential quantifier (deduction rule). $)
     biexd   $p |- ( ph -> ( E. x ps <-> E. x ch ) ) $=
       ( wb wal wex 19.21ai 19.18 syl ) ABCGZDHBDICDIGAMDEFJBCDKL $.
+      $([5-Aug-93]$)
   $}
 
   ${
     exan.1 $e |- ( E. x ph /\ ps ) $.
     $( Place a conjunct in the scope of an existential quantifier. $)
     exan   $p |- E. x ( ph /\ ps ) $=
-      ( wa wex exancom wal 19.29 hbe1 19.27 ancom mpbi mpgbi ax-mp ) BAECFZABEC
-      FBACGBCHACFZEZPBACIBQEZRCBQCACJKQBESQBLDMNOM $.
+      ( wa wex exancom wal hbe1 19.27 ancom mpbi mpgbi 19.29 ax-mp ) BAECFZABEC
+      FBACGBCHACFZEZPBQEZRCBQCACIJQBESQBKDLMBACNOL $.
       $([18-Aug-93]$)
   $}
 
   $( Split biconditional and distribute quantifier. $)
   albi $p |- ( A. x ( ph <-> ps ) <->
              ( A. x ( ph -> ps ) /\ A. x ( ps -> ph ) ) ) $=
-      ( wb wal wi wa bi bial 19.26 bitr ) ABDZCEABFZBAFZGZCEMCENCEGLOCABHIMNCJK
-      $.
-      $([18-Aug-93]$)
+    ( wb wal wi wa bi bial 19.26 bitr ) ABDZCEABFZBAFZGZCEMCENCEGLOCABHIMNCJK
+    $.
+    $([18-Aug-93]$)
 
   ${
     hbimd.1 $e |- ( ph -> ( ps -> A. x ps ) ) $.
@@ -733,6 +814,7 @@ $)
       ( wi wal wn 19.20i hbnt syl comm pm2.21 syl6 a4s ax-1 ja ) BCGZADHZSDHZBC
       TUAGBIZTUBDHZUATUBUCTBBDHGZDHUBUCGAUDDEJBDKLMUBSDBCNJOCTCDHZUATCUEACUEGDF
       PMCSDCBQJORM $.
+      $([5-Aug-93]$)
   $}
 
   ${
@@ -740,24 +822,24 @@ $)
     hbbid.2 $e |- ( ph -> ( ch -> A. x ch ) ) $.
     $( Deduction form of ~hbbi . $)
     hbbid   $p |- ( A. x ph -> ( ( ps <-> ch ) -> A. x ( ps <-> ch ) ) ) $=
-      ( wal wi wa wb hbimd im2and bi albi 3imtr4g ) ADGZBCHZCBHZIQDGZRDGZIBCJ
-      ZUADGPQSRTABCDEFKACBDFEKLBCMBCDNO $.
+      ( wal wi wa wb hbimd im2and bi albi 3imtr4g ) ADGZBCHZCBHZIQDGZRDGZIBCJZU
+      ADGPQSRTABCDEFKACBDFEKLBCMBCDNO $.
       $([8-Mar-95]$)
   $}
 
   $( Direct form of Theorem 19.21, p. 90, of Margaris. $)
   19.21g $p |- ( A. x ( ph -> A. x ph ) ->
                ( A. x ( ph -> ps ) <-> ( ph -> A. x ps ) ) ) $=
-      ( wal wi 19.20 syl3d comm a4s id hba1 a1i hbimd ax-4 syl3 19.20i syl6
-      impbid ) AACDZEZCDZABEZCDZABCDZEZTUCUEECUCTUEUCSUDAABCFGHIUAUEUECDUCTAUDC
-      TJUDUDCDETBCKLMUEUBCUDBABCNOPQR $.
-      $([27-May-97]$)
+    ( wal wi 19.20 syl3d comm a4s id hba1 a1i hbimd ax-4 syl3 19.20i syl6
+    impbid ) AACDZEZCDZABEZCDZABCDZEZTUCUEECUCTUEUCSUDAABCFGHIUAUEUECDUCTAUDCTJ
+    UDUDCDETBCKLMUEUBCUDBABCNOPQR $.
+    $([27-May-97]$)
 
   $( Introduce a conjunct in the scope of an existential quantifier. $)
   exintr $p |- ( A. x ( ph -> ps ) -> ( E. x ph -> E. x ( ph /\ ps ) ) ) $=
-      ( wi wal wn wa wex pm2.65 imnan syl5ibr 19.20ii pm2.16d df-ex 3imtr4g )
-      ABDZCEZAFZCEZFABGZFZCEZFACHTCHQUBSPUARCPABFDRUAABIABJKLMACNTCNO $.
-      $([11-Aug-93]$)
+    ( wi wal wn wa wex pm2.65 imnan syl5ibr 19.20ii pm2.16d df-ex 3imtr4g ) ABD
+    ZCEZAFZCEZFABGZFZCEZFACHTCHQUBSPUARCPABFDRUAABIABJKLMACNTCNO $.
+    $([11-Aug-93]$)
 
   ${
     aaan.1 $e |- ( ph -> A. y ph ) $.

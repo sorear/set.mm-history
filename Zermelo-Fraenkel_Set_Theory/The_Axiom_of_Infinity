@@ -4,6 +4,61 @@ $(
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 $)
 
+  $( sci.logic 10/30/96
+>Does the statement
+>  "There exists a non-empty set that is a subset of its union"
+>imply the Axiom of Infinity under ZF-Inf (without using Choice)?
+
+(Here is an accurate proof of this.  I broke it up into small lemmas to
+make it easy to follow.  Thanks to Richard Heck for assistance and to
+Ian Sutherland, who sent me a somewhat more sophisticated proof that I
+took the key ideas from.)
+
+Yes.  Let X be a nonempty set which is a subset of its union; the latter
+property is equivalent to saying that for any y in X, there exists a z in X
+such that y is in z.
+
+Define by finite recursion a function F:omega-->(power X) such that
+  F_0 = 0
+  F_n+1 = {y<X | y^X subset F_n}    (^ means intersect, < is \in)
+(Finite recursion as typically done requires the existence of omega;
+to avoid this we can just use transfinite recursion restricted to omega.
+F is a class-term that is not necessarily a set at this point.)
+
+Lemma 1.  F_n subset F_n+1.
+Proof:  By induction:  F_0 subset F_1.  If y < F_n+1, then y^X subset F_n,
+so if F_n subset F_n+1, then y^X subset F_n+1, so y < F_n+2.
+
+Lemma 2.  F_n =/= X.
+Proof:  By induction:  F_0 =/= X because X is not empty.  Assume F_n =/= X.
+Then there is a y in X that is not in F_n.  By definition of X, there is a
+z in X that contains y.  Suppose F_n+1 = X.  Then z is in F_n+1, and z^X
+contains y, so z^X is not a subset of F_n, contrary to the definition of
+F_n+1.
+
+Lemma 3.  F_n =/= F_n+1.
+Proof:  Using the identity y^X subset F_n <-> y^(X-F_n) = 0, we have
+F_n+1 = {y<X | y^(X-F_n) = 0}.  Let q = {y<X-F_n | y^(X-F_n) = 0}.  Then q
+subset F_n+1.  Since X-F_n is not empty by Lemma 2 and q is the set of
+\in-minimal elements of X-F_n, by Foundation q is not empty, so q and
+therefore F_n+1 have an element not in F_n.
+
+Lemma 4.  F_n proper_subset F_n+1.
+Proof:  Lemmas 1 and 3.
+
+Lemma 5.  F_m proper_subset F_n, m < n.
+Proof:  Fix m and use induction on n > m.  Basis: F_m proper_subset F_m+1
+by Lemma 4.  Induction:  Assume F_m proper_subset F_n.  Then since F_n
+proper_subset F_n+1, F_m proper_subset F_n+1 by transitivity of proper
+subset.
+
+By Lemma 5, F_m =/= F_n for m =/= n, so F is 1-1.  Thus the inverse of F is
+a function with range omega and domain a subset of power X, so omega exists
+by Replacement.
+
+Norm ndm@shore.net
+  $)
+
   $( First we prove the equivalence of our version of Infinity with
      some others. $)
 
@@ -15,21 +70,21 @@ $)
                  A. y ( y e. x -> E. z ( y e. z /\ z e. x ) ) ) $=
       ( vu vv vw vf wel wa wex wi wal weq a13b birand biexdv bi2imd cbvalv
       bilan biex cv csuc wceq copab crfg com cres crn wcel cdm cvv wfun
-      funrnex wfn fndm frfnom ax-mp eqeltr fnfun mp2 cleq4 biland bialdv
-      bi2and cla4ev c0 cfv frzer visset fnfvrn peano1 mp2an eqeltrr wb fvelrn
-      cleq3 frsuc fveq1 id suceq cleqan12rd cbvopabv fvex sucex fvopab eqtr
-      syl6eq cleq4d sucid mpbiri syl5bi peano2b mpan sylbi a1i jcad comm imp
+      funrnex wfn frfnom fndm ax-mp eqeltr fnfun mp2 eleq2 biland bialdv
+      bi2and cla4ev c0 cfv visset frzer fnfvrn peano1 mp2an eqeltrr wb fvelrn
+      eleq1 frsuc id suceq cleqan12rd cbvopabv fveq1 fvex sucex fvopab eqtr
+      syl6eq eleq2d sucid mpbiri syl5bi peano2b mpan sylbi a1i jcad comm imp
       syl 19.23aiv ax-gen mpbir ) BAIZXDBCIZCAIZJZCKZLZBMZJZAKXDEAIZECIZXFJZCKZ
       LZEMZJZAKZXKXRAXJXQXDXIXPBEBENZXDXLXHXOBEAOXTXGXNCXTXEXMXFBECOPQRSTUABUBZ
       FUBZGUBZUCZUDZGFUEZYAUFUGUHZUIZUJZEUBZYHUJZXMCUBZYHUJZJZCKZLZEMZXSXRYIYQJ
-      AYHYGUKZULUJYGUMZYHULUJULYGUNYRUGULYGUGUOZYRUGUDUGYGUPYAYFUQZURDUSYTYSUGY
-      GUTUVAURVAAUBZYHUDZXDYIXQYQUVBYHYAVBUVCXPYPEUVCXLYKXOYOUVBYHYJVBUVCXNYNCU
-      VCXFYMXMUVBYHYLVBVCQRVDVEVFVGYGVHZYAYHYAULUJUVDYAUDYAULYFVIBVJURYTVGUGUJU
-      VDYHUJUGVGYGVKUVAVLVMVNYPEYKHUBZUGUJZUVEYGVHZYJUDZJZHKZYOYTYKUVJVOHUGYJYG
-      VPUVAURUVIYOHUVIYJUVEUCZYGVHZUJZUVLYHUJZJZYOUVFUVHUVOUVHUVFUVOUVHUVFUVMUV
+      AYHYGUKZULUJYGUMZYHULUJULYGUNYRUGULYGUGUOZYRUGUDYAYFUPZUGYGUQURDUSYTYSUVA
+      UGYGUTURVAAUBZYHUDZXDYIXQYQUVBYHYAVBUVCXPYPEUVCXLYKXOYOUVBYHYJVBUVCXNYNCU
+      VCXFYMXMUVBYHYLVBVCQRVDVEVFVGYGVHZYAYHYAULUJUVDYAUDBVIYAULYFVJURYTVGUGUJU
+      VDYHUJUGVGYGVKUVAVLVMVNYPEYKHUBZUGUJZUVEYGVHZYJUDZJZHKZYOYTYKUVJVOUVAHUGY
+      JYGVPURUVIYOHUVIYJUVEUCZYGVHZUJZUVLYHUJZJZYOUVFUVHUVOUVHUVFUVOUVHUVFUVMUV
       NUVHUVGUVLUJZUVMUVFUVGYJUVLVQUVFUVPUVGUVGUCZUJUVFUVLUVQUVGUVFUVLUVGYFVHZU
-      VQYAUVEYFVRUVRUVGYLUVBUCZUDZACUEZVHZUVQYFUWAUDUVRUWBUDUVGYFUWAVSYEUVTGFAC
-      FCNZGANYBYLYDUVSUWCVTYCUVBWAWBWCURACUVGUVSUVQUVEYGWDZUVGUWDWEUVBUVGWAWFWG
+      VQYAUVEYFVRUVRUVGYLUVBUCZUDZACUEZVHZUVQYFUWAUDUVRUWBUDYEUVTGFACFCNZGANYBY
+      LYDUVSUWCVSYCUVBVTWAWBUVGYFUWAWCURACUVGUVSUVQUVEYGWDZUVGUWDWEUVBUVGVTWFWG
       WHWIUVGUWDWJWKWLUVFUVNLUVHUVFUVKUGUJZUVNUVEWMYTUWEUVNUGUVKYGVKUVAWNWOWPWQ
       WRWSYNUVOCUVLUVKYGWDYLUVLUDXMUVMYMUVNYLUVLYJVBYLUVLYHVQVEVFWTXAWOXBVMXC
       $.
@@ -40,11 +95,11 @@ $)
     $d x y z $.
     inf1.1 $e |- E. x ( y e. x /\
                  A. y ( y e. x -> E. z ( y e. z /\ z e. x ) ) ) $.
-    $( Variation of axiom of infinity. $)
+    $( Variation of axiom of infinity.  Freyd, p. 283.  $)
     inf1   $p |- E. x ( -. x = (/) /\
                  A. y ( y e. x -> E. z ( y e. z /\ z e. x ) ) ) $=
       ( wel wa wex wi wal cv c0 wceq wn noel2 imran 19.22i ax-mp ) BAEZRBCECAEF
-      CGHBIZFZAGAJZKLMZSFZAGTUCARUBSUABJNOPDQ $.
+      CGHBIZFZAGAJZKLMZSFZAGDTUCARUBSUABJNOPQ $.
       $([14-Oct-96]$)
 
     $( There exists a non-empty set that is a subset of its union. $)
@@ -64,93 +119,90 @@ $)
     inf3lem.1 $e |- A e. V $.
     inf3lem.2 $e |- B e. V $.
 
-    $( Lemma for our infinity -> standard infinity infinity. $)
+    $( Lemma for our infinity ==> standard infinity. $)
     inf3lema  $p |- ( A e. ( F ` B ) <-> ( A e. x /\ ( A i^i x ) (_ B ) ) $=
-      ( vf vu vv cfv wcel wel cv cin wss wa cab wceq copab fveq1 weq id sseq2
-      biland biabdv ax-17 a13b ineq1 sseq1d bi2and cbvab syl6eq
-      cleqan12rd cbvopabv eqtr ax-mp visset zfausab fvopab cleq4i cleq3 abcl
-      bitr ) EFHPZQEMARZMSZASZTZFUAZUBZMUCZQEVMQZEVMTZFUAZUBZVJVQEVJFNSZVKVNOSZ
-      UAZUBZMUCZUDZONUEZPZVQHWHUDVJWIUDFHWHUFHCSZDARZDSZVMTZBSZUAZUBZDUCZUDZBCU
-      EWHIWRWGBCONCNUGZBOUGZWJWBWQWFWSUHWTWQWKWMWCUAZUBZDUCWFWTWPXBDWTWOXAWKWNW
-      CWMUIUJUKXBWEDMXBMULWEDULDMUGZWKVKXAWDDMAUMXCWMVNWCWLVLVMUNUOUPUQURUSUTVA
-      VBONFWFVQLVOMVMAVCVDWCFUDZWEVPMXDWDVOVKWCFVNUIUJUKVEVAVFVPWAMEKVLEUDZVKVR
-      VOVTVLEVMVGXEVNVSFVLEVMUNUOUPVHVI $.
+      ( vf vu vv cfv wcel wel cv cin wss wa cab wceq copab weq id sseq2 biland
+      biabdv a13b ineq1 sseq1d bi2and cbvabv syl6eq cleqan12rd cbvopabv eqtr
+      fveq1 ax-mp visset zfausab fvopab eleq2i eleq1 abcl bitr ) EFHPZQEMARZMSZ
+      ASZTZFUAZUBZMUCZQEVLQZEVLTZFUAZUBZVIVPEVIFNSZVJVMOSZUAZUBZMUCZUDZONUEZPZV
+      PHWGUDVIWHUDHCSZDARZDSZVLTZBSZUAZUBZDUCZUDZBCUEWGIWQWFBCONCNUFZBOUFZWIWAW
+      PWEWRUGWSWPWJWLWBUAZUBZDUCWEWSWOXADWSWNWTWJWMWBWLUHUIUJXAWDDMDMUFZWJVJWTW
+      CDMAUKXBWLVMWBWKVKVLULUMUNUOUPUQURUSFHWGUTVAONFWEVPLVNMVLAVBVCWBFUDZWDVOM
+      XCWCVNVJWBFVMUHUIUJVDUSVEVOVTMEKVKEUDZVJVQVNVSVKEVLVFXDVMVRFVKEVLULUMUNVG
+      VH $.
       $([28-Oct-96]$)
 
-    $( Lemma for our infinity -> standard infinity infinity. $)
+    $( Lemma for our infinity ==> standard infinity. $)
     inf3lemb $p |- ( R ` (/) ) = (/) $=
-      ( c0 cfv crfg com cres wceq fveq1 ax-mp cvv wcel frzer zfnull eqtr ) MGNZ
-      MHMOPQZNZMGUGRUFUHRMGUGSJTMUAUBUHMRMUAHUCUDTUE $.
+      ( c0 cfv crfg com cres wceq fveq1 ax-mp cvv wcel zfnull frzer eqtr ) MGNZ
+      MHMOPQZNZMGUGRUFUHRJMGUGSTMUAUBUHMRUCMUAHUDTUE $.
       $([28-Oct-96]$)
 
-    $( Lemma for our infinity -> standard infinity infinity. $)
+    $( Lemma for our infinity ==> standard infinity. $)
     inf3lemc $p |- ( A e. om -> ( R ` suc A ) = ( F ` ( R ` A ) ) ) $=
-      ( com wcel csuc c0 crfg cres cfv frsuc wceq fveq1 ax-mp fveq2 3eqtr4g )
-      EMNEOZHPQMRZSZEUGSZHSZUFGSZEGSZHSZPEHTGUGUAZUKUHUAUFGUGUBJUCULUIUAZUMUJUA
-      ULUIHUDUNUOEGUGUBJUCUCUE $.
+      ( com wcel csuc c0 crfg cres cfv frsuc wceq fveq1 ax-mp fveq2i 3eqtr4g )
+      EMNEOZHPQMRZSZEUGSZHSUFGSZEGSZHSPEHTGUGUAZUJUHUAJUFGUGUBUCUKUIHULUKUIUAJE
+      GUGUBUCUDUE $.
       $([28-Oct-96]$)
 
-    $( Lemma for our infinity -> standard infinity infinity. $)
+    $( Lemma for our infinity ==> standard infinity. $)
     inf3lemd $p |- ( A e. om -> ( R ` A ) (_ x ) $=
       ( vv vu com wcel c0 wceq cfv cv wss wi fveq2 inf3lemb syl6eq sseq1d
-      nullss mpbiri a1i wn csuc wex wa cleq3 bi2imd peano2b wel visset
-      inf3lemc cleq4d cin fvex inf3lema pm3.26 sylbi syl6bi ssrdv sylbir
-      comm 19.23adv nnsuc syl5 anabsi5 exp pm2.61d ) EOPZEQRZEGSZATZUAZVQVTUB
-      VPVQVTQVSUAVQVRQVSVQVRQGSQEQGUCABCDEFGHIJKLUDUEUFVSUGUHUIVPVQUJZVTVPWAVTV
-      PEMTZUKZRZMULVTVPWAUMVPWDVTMWDVPVTWDVPVTUBWCOPZWCGSZVSUAZUBWDVPWEVTWGEWCO
-      UNWDVRWFVSEWCGUCUFUOWEWBOPZWGWBUPWHNWFVSWHNTZWFPWIWBGSZHSZPZNAUQZWHWFWKWI
-      ABCDWBFGHIJMURLUSUTWLWMWIVSVAWJUAZUMWMABCDWIWJGHIJNURWBGVBVCWMWNVDVEVFVGV
-      HUHVIVJMEVKVLVMVNVO $.
+      nullss mpbiri a1i wn csuc wex wa eleq1 bi2imd peano2b wel visset
+      inf3lemc eleq2d cin fvex inf3lema pm3.26bd syl6bi ssrdv sylbir comm
+      19.23adv nnsuc syl5 anabsi5 exp pm2.61d ) EOPZEQRZEGSZATZUAZVPVSUBVOVPVSQ
+      VRUAVPVQQVRVPVQQGSQEQGUCABCDEFGHIJKLUDUEUFVRUGUHUIVOVPUJZVSVOVTVSVOEMTZUK
+      ZRZMULVSVOVTUMVOWCVSMWCVOVSWCVOVSUBWBOPZWBGSZVRUAZUBWCVOWDVSWFEWBOUNWCVQW
+      EVREWBGUCUFUOWDWAOPZWFWAUPWGNWEVRWGNTZWEPWHWAGSZHSZPZNAUQZWGWEWJWHABCDWAF
+      GHIJMURLUSUTWKWLWHVRVAWIUAABCDWHWIGHIJNURWAGVBVCVDVEVFVGUHVHVIMEVJVKVLVMV
+      N $.
       $([28-Oct-96]$)
 
-    $( Lemma for our infinity -> standard infinity infinity. $)
+    $( Lemma for our infinity ==> standard infinity. $)
     inf3lem1  $p |- ( A e. om -> ( R ` A ) (_ ( R ` suc A ) ) $=
-      ( vv vu cv cfv csuc wss c0 wceq fveq2 sseq1d suceq syl sseq2d bitrd
-      weq inf3lemb sseq1i nullss mpbir com wcel wa wi wel cin visset inf3lemc
-      cleq4d fvex inf3lema syl6bb peano2b sucex sylbi bi2imd sstr comm
-      imland syl5bir imp ssrdv exp finds ) MOZGPZVPQZGPZRZSGPZSQZGPZRZNOZGPZW
-      EQZGPZRZWHWGQZGPZRZEGPZEQZGPZRZMNEVPSTZVTWAVSRWDWQVQWAVSVPSGUAUBWQVSWCWAW
-      QVRWBTVSWCTVPSUCVRWBGUAUDUEUFMNUGZVTWFVSRWIWRVQWFVSVPWEGUAUBWRVSWHWFWRVRW
-      GTVSWHTVPWEUCVRWGGUAUDUEUFVPWGTZVTWHVSRWLWSVQWHVSVPWGGUAUBWSVSWKWHWSVRWJT
-      VSWKTVPWGUCVRWJGUAUDUEUFVPETZVTWMVSRWPWTVQWMVSVPEGUAUBWTVSWOWMWTVRWNTVSWO
-      TVPEUCVRWNGUAUDUEUFWDSWCRWASWCABCDEEGHIJKKUHUIWCUJUKWEULUMZWIWLXAWIUNMWHW
-      KXAWIVPWHUMZVPWKUMZUOZXAXDMAUPZVPAOUQZWFRZUNZXEXFWHRZUNZUOWIXAXBXHXCXJXAX
-      BVPWFHPZUMXHXAWHXKVPABCDWEWEGHIJNURZXLUSUTABCDVPWFGHIJMURZWEGVAVBVCXAXCVP
-      WHHPZUMXJXAWKXNVPXAWGULUMWKXNTWEVDABCDWGWEGHIJWEXLVEXLUSVFUTABCDVPWHGHIJX
-      MWGGVAVBVCVGWIXGXIXEXGWIXIXFWFWHVHVIVJVKVLVMVNVO $.
+      ( vv vu cv cfv csuc wss c0 wceq fveq2 suceq fveq2d sseq12d weq inf3lemb
+      sseq1i nullss mpbir com wcel wa wi wel cin visset inf3lemc eleq2d fvex
+      inf3lema syl6bb peano2b sucex sylbi bi2imd sstr comm imland syl5bir imp
+      ssrdv exp finds ) MOZGPZVNQZGPZRSGPZSQZGPZRZNOZGPZWBQZGPZRZWEWDQZGPZRZEGP
+      ZEQZGPZRMNEVNSTZVOVRVQVTVNSGUAWMVPVSGVNSUBUCUDMNUEZVOWCVQWEVNWBGUAWNVPWDG
+      VNWBUBUCUDVNWDTZVOWEVQWHVNWDGUAWOVPWGGVNWDUBUCUDVNETZVOWJVQWLVNEGUAWPVPWK
+      GVNEUBUCUDWASVTRVRSVTABCDEEGHIJKKUFUGVTUHUIWBUJUKZWFWIWQWFULMWEWHWQWFVNWE
+      UKZVNWHUKZUMZWQWTMAUNZVNAOUOZWCRZULZXAXBWERZULZUMWFWQWRXDWSXFWQWRVNWCHPZU
+      KXDWQWEXGVNABCDWBWBGHIJNUPZXHUQURABCDVNWCGHIJMUPZWBGUSUTVAWQWSVNWEHPZUKXF
+      WQWHXJVNWQWDUJUKWHXJTWBVBABCDWDWBGHIJWBXHVCXHUQVDURABCDVNWEGHIJXIWDGUSUTV
+      AVEWFXCXEXAXCWFXEXBWCWEVFVGVHVIVJVKVLVM $.
       $([28-Oct-96]$)
 
-    $( Lemma for our infinity -> standard infinity infinity. $)
+    $( Lemma for our infinity ==> standard infinity. $)
     inf3lem2  $p |- ( ( -. x = (/) /\ x (_ U. x ) ->
                     ( A e. om -> -. ( R ` A ) = x ) ) $=
       ( vv vu vf com wcel cv c0 wceq wn cuni wss wa cfv wi csuc fveq2 cleq1d
-      binegd bilimd weq inf3lemb cleq1i cleqcom bitr biimp con3 adantr wel
-      wex visset inf3lemc cleq4d cin fvex inf3lema pm3.27 sylbi ssd elin
-      syl5ibr syl6bi cleq4 biimparc syl5 com23 exp4a exp3a com34 imp3a
-      19.23adv ssel eluni syl6ib imp pm2.43d pm2.16 syl6 wpss dfpss2 pssnel
-      sylbir inf3lemd syland exp4b pm2.43a adantld a2d finds comm ) EPQARZST
-      ZUAZXBXBUBZUCZUDZEGUEZXBTZUAZXGMRZGUEZXBTZUAZUFXGSGUEZXBTZUAZUFXGNRZGUEZX
-      BTZUAZUFXGXRUGZGUEZXBTZUAZUFXGXJUFMNEXKSTZXNXQXGYFXMXPYFXLXOXBXKSGUHUIUJU
-      KMNULZXNYAXGYGXMXTYGXLXSXBXKXRGUHUIUJUKXKYBTZXNYEXGYHXMYDYHXLYCXBXKYBGUHU
-      IUJUKXKETZXNXJXGYIXMXIYIXLXHXBXKEGUHUIUJUKXDXQXFXPXCXPXCXPSXBTXCXOSXBABCD
-      EFGHIJKLUMUNSXBUOUPUQURUSXRPQZXGYAYEYJXFYAYEUFZXDXFYJYKYJXFYJYAYEYJXFUDZX
-      SXBUCZYAYEYJYLMAUTZXKXSQZUAZUDZMVAZYEYMYAUDZYLYQYEMYLYNYPYEYLYNYDYOUFZYPY
-      EUFYLYNYTYJXFYNYNYTUFZUFYJXFYNUVAYJMOUTZOAUTZUDZOVAZUVAXFYNUDYJUVDUVAOYJU
-      VBUVCUVAYJUVBYNUVCYTYJUVBYNUVCYTUFYJUVBYNUDZUVCYDYOYJUVCYDUDZUVFYOYJORZYC
-      QZUVFYOUFZUVGYJUVIUVHXSHUEZQZUVJYJYCUVKUVHABCDXRFGHIJNVBZLVCVDUVLXKUVHXBV
-      EZQYOUVFUVLUVNXSXKUVLUVCUVNXSUCZUDUVOABCDUVHXSGHIJOVBXRGVFVGUVCUVOVHVIVJX
-      KUVHXBVKVLVMYDUVIUVCYCXBUVHVNVOVPVQVRVSVTWAWBXFYNUVEXFYNXKXEQUVEXBXEXKWCO
-      XKXBWDWEWFVPVSWFWGYDYOWHWIWAWBYSXSXBWJYRXSXBWKMXSXBWLWMVPABCDXRFGHIJUVMLW
-      NWOWPWQWRWSWTXA $.
+      binegd bilimd weq inf3lemb cleq1i cleqcom bitr biimp con3 adantr wel wex
+      visset inf3lemc eleq2d cin fvex inf3lema pm3.27bd ssd elin syl5ibr
+      syl6bi eleq2 biimparc syl5 com23 exp4a exp3a com34 imp3a 19.23adv ssel
+      eluni syl6ib imp pm2.43d pm2.16 syl6 wpss dfpss2 pssnel sylbir inf3lemd
+      syland exp4b pm2.43a adantld a2d finds comm ) EPQARZSTZUAZXAXAUBZUCZUDZEG
+      UEZXATZUAZXFMRZGUEZXATZUAZUFXFSGUEZXATZUAZUFXFNRZGUEZXATZUAZUFXFXQUGZGUEZ
+      XATZUAZUFXFXIUFMNEXJSTZXMXPXFYEXLXOYEXKXNXAXJSGUHUIUJUKMNULZXMXTXFYFXLXSY
+      FXKXRXAXJXQGUHUIUJUKXJYATZXMYDXFYGXLYCYGXKYBXAXJYAGUHUIUJUKXJETZXMXIXFYHX
+      LXHYHXKXGXAXJEGUHUIUJUKXCXPXEXOXBXOXBXOSXATXBXNSXAABCDEFGHIJKLUMUNSXAUOUP
+      UQURUSXQPQZXFXTYDYIXEXTYDUFZXCXEYIYJYIXEYIXTYDYIXEUDZXRXAUCZXTYDYIYKMAUTZ
+      XJXRQZUAZUDZMVAZYDYLXTUDZYKYPYDMYKYMYOYDYKYMYCYNUFZYOYDUFYKYMYSYIXEYMYMYS
+      UFZUFYIXEYMYTYIMOUTZOAUTZUDZOVAZYTXEYMUDYIUVCYTOYIUVAUVBYTYIUVAYMUVBYSYIU
+      VAYMUVBYSUFYIUVAYMUDZUVBYCYNYIUVBYCUDZUVEYNYIORZYBQZUVEYNUFZUVFYIUVHUVGXR
+      HUEZQZUVIYIYBUVJUVGABCDXQFGHIJNVBZLVCVDUVKXJUVGXAVEZQYNUVEUVKUVMXRXJUVKUV
+      BUVMXRUCABCDUVGXRGHIJOVBXQGVFVGVHVIXJUVGXAVJVKVLYCUVHUVBYBXAUVGVMVNVOVPVQ
+      VRVSVTWAXEYMUVDXEYMXJXDQUVDXAXDXJWBOXJXAWCWDWEVOVRWEWFYCYNWGWHVTWAYRXRXAW
+      IYQXRXAWJMXRXAWKWLVOABCDXQFGHIJUVLLWMWNWOWPWQWRWSWT $.
       $([28-Oct-96]$)
 
-    $( Lemma for our infinity -> standard infinity infinity. $)
+    $( Lemma for our infinity ==> standard infinity. $)
     inf3lem4  $p |- ( ( -. x = (/) /\ x (_ U. x ) ->
                     ( A e. om -> ( R ` A ) (. ( R ` suc A ) ) ) $=
       ( vv com wcel cv c0 wceq wn cuni wss wa cfv csuc wpss inf3lem1 a1d cdif
-      inf3lemd inf3lem2 comm jcad pssdifn0 syl6 cin wex inf3lemc cleq4d wel
+      inf3lemd inf3lem2 comm jcad pssdifn0 syl6 cin wex inf3lemc eleq2d wel
       eldifi inssdif0 biimpr im2an visset fvex inf3lema sylibr syl5bir wi
-      eldifn adantr a1i cleq4 biimprd iman sylib con2 19.23adv difss ssexi
+      eldifn adantr a1i eleq2 biimprd iman sylib con2 19.23adv difss ssexi
       zfregwOBS syl5 syld dfpss2 syl6ibr ) ENOZAPZQRSWGWGTUAUBZEGUCZEUDGUCZUEZW
       FWHWIWJUAZWIWJRZSZUBWKWFWHWLWNWFWLWHABCDEFGHIJKLUFUGWFWHWGWIUHZQRSZWNWFWH
       WIWGUAZWIWGRSZUBWPWFWHWQWRWFWQWHABCDEFGHIJKLUIUGWHWFWRABCDEFGHIJKLUJUKULW
@@ -161,64 +213,62 @@ $)
       IWJWDWEUK $.
       $([29-Oct-96]$)
 
-    $( Lemma for our infinity -> standard infinity infinity. $)
+    $( Lemma for our infinity ==> standard infinity. $)
     inf3lem5  $p |- ( ( -. x = (/) /\ x (_ U. x ) ->
                     ( ( A e. om /\ B e. A ) -> ( R ` B ) (. ( R ` A ) ) ) $=
-      ( vv vu com wcel wa cv c0 wceq wn cuni wss cfv wpss wi csuc con nnont
-      onsucssi syl adantr wb fveq2 psseq2 bilimd weq inf3lem4 imp visset
+      ( vv vu com wcel wa cv c0 wceq wn cuni wss cfv wpss wi csuc word nnord
+      ordsucssi syl adantr wb fveq2 psseq2 bilimd weq inf3lem4 imp visset
       psstr exp comm syl6 adantrd a2d findsg exp4b peano2b sylan5b com4r
-      anabsi7 syld com23 wtr trel word ordtr ordom ax-mp ancoms mpd ) EOPZFEP
-      ZQZARZSTUAWFWFUBUCQZFGUDZEGUDZUEZWEFOPZWGWJUFZWCWDWKWLUFWCWKWDWLWCWKWDWLU
-      FWCWKQZWDFUGZEUCZWLWCWDWOUFZWKWCEUHPWPEUIFEUJUKULWCWKWOWLUFWMWOWGWKWJWCWN
-      OPZWOWGWKWJUFUFUFWKWCWQQWOWGWKWJWGWKQZWHMRZGUDZUEZUFWRWHWNGUDZUEZUFWRWHNR
-      ZGUDZUEZUFZWRWHXDUGZGUDZUEZUFZWRWJUFMNEWNWSWNTZXAXCWRXLWTXBTXAXCUMWSWNGUN
-      WTXBWHUOUKUPMNUQZXAXFWRXMWTXETXAXFUMWSXDGUNWTXEWHUOUKUPWSXHTZXAXJWRXNWTXI
-      TXAXJUMWSXHGUNWTXIWHUOUKUPWSETZXAWJWRXOWTWITXAWJUMWSEGUNWTWIWHUOUKUPWGWKX
-      CABCDFFGHIJLLURUSXDOPZWQQXGXKUFZWNXDUCXPXQWQXPWRXFXJXPWGXFXJUFZWKWGXPXRWG
-      XPXEXIUEZXRABCDXDFGHIJNUTLURXFXSXJXFXSXJWHXEXIVAVBVCVDVCVEVFULULVGVHFVIVJ
-      VKVLVMVBVNUSWDWCWKOVOZWDWCQWKUFOFEVPOVQXTOVRVSVTVTWAWBVC $.
+      anabsi7 syld com23 elnn ancoms mpd ) EOPZFEPZQZARZSTUAWAWAUBUCQZFGUDZEGUD
+      ZUEZVTFOPZWBWEUFZVRVSWFWGUFVRWFVSWGVRWFVSWGUFVRWFQZVSFUGZEUCZWGVRVSWJUFZW
+      FVREUHWKEUIFEUJUKULVRWFWJWGUFWHWJWBWFWEVRWIOPZWJWBWFWEUFUFUFWFVRWLQWJWBWF
+      WEWBWFQZWCMRZGUDZUEZUFWMWCWIGUDZUEZUFWMWCNRZGUDZUEZUFZWMWCWSUGZGUDZUEZUFZ
+      WMWEUFMNEWIWNWITZWPWRWMXGWOWQTWPWRUMWNWIGUNWOWQWCUOUKUPMNUQZWPXAWMXHWOWTT
+      WPXAUMWNWSGUNWOWTWCUOUKUPWNXCTZWPXEWMXIWOXDTWPXEUMWNXCGUNWOXDWCUOUKUPWNET
+      ZWPWEWMXJWOWDTWPWEUMWNEGUNWOWDWCUOUKUPWBWFWRABCDFFGHIJLLURUSWSOPZWLQXBXFU
+      FZWIWSUCXKXLWLXKWMXAXEXKWBXAXEUFZWFWBXKXMWBXKWTXDUEZXMABCDWSFGHIJNUTLURXA
+      XNXEXAXNXEWCWTXDVAVBVCVDVCVEVFULULVGVHFVIVJVKVLVMVBVNUSVSVRWFFEVOVPVQVC
+      $.
       $([29-Oct-96]$)
 
-    $( Lemma for our infinity -> standard infinity infinity. $)
+    $( Lemma for our infinity ==> standard infinity. $)
     inf3lem6  $p |- ( ( -. x = (/) /\ x (_ U. x ) -> R : om -1-1-> P~ x ) $=
       ( vv vu cv c0 wceq wn cuni wss wa com cpw wf cfv weq wi wral wf1 wcel
-      wal wel wo wpss visset inf3lem5 dfpss2 pm3.27 sylbi syl6 exp3a imp
-      adantarl cleqcom bineg sylib adantarr jaod pm2.03d wb word ordtri2 nnord
-      syl2an adantl sylibrd exp 19.21aivv r2al sylibr wfn crn df-f wex fvelrn
-      cleq3 inf3lemd fvex sselpw syl5bi comm 19.23aiv syl6bi ssrdv ancli crfg
-      cres fneq1 frfnom mpbiri ax-mp mpbir jctil f1fv ) AOZPQRXEXESTUAZUBXEUCZG
-      UDZMOZGUEZNOZGUEZQZMNUFZUGZNUBUHMUBUHZUAUBXGGUIXFXPXHXFXIUBUJZXKUBUJZUAZX
-      OUGZNUKMUKXPXFXTMNXFXSXOXFXSUAZXMMNULZNMULZUMZRZXNYAYDXMYAYBXMRZYCXFXRYBY
-      FUGZXQXFXRYGXFXRYBYFXFXRYBUAXJXLUNZYFABCDXKXIGHIJNUOZMUOZUPYHXJXLTZYFUAYF
-      XJXLUQYKYFURUSUTVAVBVCXFXQYCYFUGZXRXFXQYLXFXQYCYFXFXQYCUAXLXJUNZYFABCDXIX
-      KGHIJYJYIUPYMXLXJQZRZYFYMXLXJTZYOUAYOXLXJUQYPYOURUSYNXMXLXJVDVEVFUTVAVBVG
-      VHVIXSXNYEVJZXFXIVKXKVKYQXQXRXIXKVLXIVMXKVMVNVOVPVQVRXOMNUBUBVSVTXHGUBWAZ
-      GWBZXGTZUAZUBXGGWCYRUVAYRYTYRNYSXGYRXKYSUJXQXJXKQZUAZMWDXKXGUJZMUBXKGWEUV
-      CUVDMXQUVBUVDUVBXQUVDUVBXJXGUJZUVDXQXJXKXGWFXQXJXETUVEABCDXIFGHIJYJLWGXJX
-      EXIGWHWIVFWJWKVBWLWMWNWOGHPWPUBWQZQZYRUVGYRUVFUBWAUBGUVFWRPHWSWTJXAXAXBXC
-      MNUBXGGXDVT $.
+      wal wel wo wpss visset inf3lem5 dfpss2 pm3.27bd syl6 exp3a imp adantarl
+      cleqcom bineg sylib adantarr jaod pm2.03d wb word ordtri2 nnord syl2an
+      adantl sylibrd exp 19.21aivv r2al sylibr wfn crn df-f crfg cres fneq1
+      frfnom mpbiri ax-mp wex fvelrn eleq1 inf3lemd fvex sselpw syl5bi comm
+      19.23aiv syl6bi ssrdv ancli mpbir jctil f1fv ) AOZPQRXDXDSTUAZUBXDUCZGUDZ
+      MOZGUEZNOZGUEZQZMNUFZUGZNUBUHMUBUHZUAUBXFGUIXEXOXGXEXHUBUJZXJUBUJZUAZXNUG
+      ZNUKMUKXOXEXSMNXEXRXNXEXRUAZXLMNULZNMULZUMZRZXMXTYCXLXTYAXLRZYBXEXQYAYEUG
+      ZXPXEXQYFXEXQYAYEXEXQYAUAXIXKUNZYEABCDXJXHGHIJNUOZMUOZUPYGXIXKTYEXIXKUQUR
+      USUTVAVBXEXPYBYEUGZXQXEXPYJXEXPYBYEXEXPYBUAXKXIUNZYEABCDXHXJGHIJYIYHUPYKX
+      KXIQZRZYEYKXKXITYMXKXIUQURYLXLXKXIVCVDVEUSUTVAVFVGVHXRXMYDVIZXEXHVJXJVJYN
+      XPXQXHXJVKXHVLXJVLVMVNVOVPVQXNMNUBUBVRVSXGGUBVTZGWAZXFTZUAZUBXFGWBYOYRGHP
+      WCUBWDZQZYOJYTYOYSUBVTUBGYSWEPHWFWGWHYOYQYONYPXFYOXJYPUJXPXIXJQZUAZMWIXJX
+      FUJZMUBXJGWJUVBUVCMXPUVAUVCUVAXPUVCUVAXIXFUJZUVCXPXIXJXFWKXPXIXDTUVDABCDX
+      HFGHIJYILWLXIXDXHGWMWNVEWOWPVAWQWRWSWTWHXAXBMNUBXFGXCVS $.
       $([29-Oct-96]$)
 
-    $( Lemma for our infinity -> standard infinity infinity. $)
+    $( Lemma for our infinity ==> standard infinity. $)
     inf3lem7  $p |- ( ( -. x = (/) /\ x (_ U. x ) -> om e. V ) $=
       ( cv c0 wceq wn cuni wss wa com cpw wf1 cvv wcel inf3lem6 ccnv crn cdm
-      wf f1f fdm syl dfdm4 syl5eqr cleq3d wfun wi frn visset zfpowcl ssex
-      3syl df-rn cleq3i sylib funrnex df-f1 pm3.27 sylbi syl5 pm2.43i mpbid )
-      AMZNOPVMVMQRSTVMUAZGUBZTUCUDZABCDEFGHIJKLUEVOGUFZUGZUCUDZVPVOVRTUCVOGUHZT
-      VRVOTVNGUIZVTTOTVNGUJZTVNGUKULGUMUNUOVOVSVOVQUPZVSVOVOVQUHZUCUDZWCVSUQVOG
-      UGZUCUDZWEVOWAWFVNRWGWBTVNGURWFVNVMAUSUTVAVBWFWDUCGVCVDVEUCVQVFULVOWAWCSW
-      CTVNGVGWAWCVHVIVJVKVLUL $.
+      wf f1f fdm syl dfdm4 syl5eqr eleq1d wfun funrnex frn visset zfpowcl ssex
+      3syl df-rn eleq1i sylib df-f1 pm3.27bd syl13 mpbid ) AMZNOPVJVJQRSTVJUAZG
+      UBZTUCUDZABCDEFGHIJKLUEVLGUFZUGZUCUDZVMVLVOTUCVLGUHZTVOVLTVKGUIZVQTOTVKGU
+      JZTVKGUKULGUMUNUOVNUHZUCUDZVNUPZVPVLUCVNUQVLGUGZUCUDZWAVLVRWCVKRWDVSTVKGU
+      RWCVKVJAUSUTVAVBWCVTUCGVCVDVEVLVRWBTVKGVFVGVHVIUL $.
       $([29-Oct-96]$)
   $}
 
   ${
     $d x y z w $.  $( ` y z w ` are dummy. $)
     inf3.1 $e |- E. x ( -. x = (/) /\ x (_ U. x ) $.
-    $( Our infinity -> standard infinity. $)
+    $( Our infinity ==> standard infinity. $)
     inf3   $p |- om e. V $=
       ( vy vz vw cv c0 wceq wn cuni wss wa wex com cvv wcel wel cin cab copab
-      crfg cres cleqid visset inf3lem7 19.23aiv ax-mp ) AFZGHIUHUHJKLZAMNOPZUIU
-      JAACDEUHUHDFEAQEFUHRCFKLESHCDTZGUANUBZUKUKUCULUCAUDZUMUEUFBUG $.
+      crfg cres cleqid visset inf3lem7 19.23aiv ax-mp ) AFZGHIUHUHJKLZAMNOPZBUI
+      UJAACDEUHUHDFEAQEFUHRCFKLESHCDTZGUANUBZUKUKUCULUCAUDZUMUEUFUG $.
       $([29-Oct-96]$)
   $}
 
@@ -237,15 +287,14 @@ $)
           E. z ( z e. x /\ A. w ( w e. z <-> ( w e. y \/ w = y ) ) ) ) ) $=
       ( c0 cv wcel wel csuc wi wal wa wex wn weq wo wb wceq df-clel nulleq
       biran ancom bitr biex cab csn cun df-suc dfun2 elsn bilor biab 3eqtr
-      cleq2i cleqab bilim bial bi2an com ax-inf inf2 inf3 cleq4 bi2imd
-      bialdv bi2and cla4ev peano1 peano2b biimp ax-gen pm3.2i ax-mp mpbi ) EA
-      FZGZBAHZBFZIZVOGZJZBKZLZAMZVQCBHNCKZLZBMZVQCAHZDCHDBHZDBOZPZQDKZLZCMZJZBK
-      ZLZAMWCWQAVPWGWBWPVPVRERZVQLZBMWGBEVOSWSWFBWSWEVQLWFWRWEVQCVRTUAWEVQUBUCU
-      DUCWAWOBVTWNVQVTCFZVSRZWHLZCMWNCVSVOSXBWMCXBWLWHLWMXAWLWHXAWTWKDUEZRWLVSX
-      CWTVSVRVRUFZUGWIDFXDGZPZDUEXCVRUHDVRXDUIXFWKDXEWJWIDVRUJUKULUMUNWKDWTUOUC
-      UAWLWHUBUCUDUCUPUQURUDEUSGZVRUSGZVSUSGZJZBKZLZWDWCXLAUSAABCABCUTVAVBVOUSR
-      ZVPXGWBXKVOUSEVCXMWAXJBXMVQXHVTXIVOUSVRVCVOUSVSVCVDVEVFVGXGXKVHXJBXHXIVRV
-      IVJVKVLVMVN $.
+      cleq2i cleqab bilim bial bi2an com ax-inf inf2 inf3 eleq2 bi2imd bialdv
+      bi2and cla4ev peano1 peano2b biimp ax-gen mp2an mpbi ) EAFZGZBAHZBFZIZVNG
+      ZJZBKZLZAMZVPCBHNCKZLZBMZVPCAHZDCHDBHZDBOZPZQDKZLZCMZJZBKZLZAMWBWPAVOWFWA
+      WOVOVQERZVPLZBMWFBEVNSWRWEBWRWDVPLWEWQWDVPCVQTUAWDVPUBUCUDUCVTWNBVSWMVPVS
+      CFZVRRZWGLZCMWMCVRVNSXAWLCXAWKWGLWLWTWKWGWTWSWJDUEZRWKVRXBWSVRVQVQUFZUGWH
+      DFXCGZPZDUEXBVQUHDVQXCUIXEWJDXDWIWHDVQUJUKULUMUNWJDWSUOUCUAWKWGUBUCUDUCUP
+      UQURUDEUSGZVQUSGZVRUSGZJZBKZWCWBXFXJLAUSAABCABCUTVAVBVNUSRZVOXFWAXJVNUSEV
+      CXKVTXIBXKVPXGVSXHVNUSVQVCVNUSVRVCVDVEVFVGVHXIBXGXHVQVIVJVKVLVM $.
       $([3-Nov-96]$)
   $}
 
@@ -267,15 +316,20 @@ $)
 
   ${
     $d x y $.  $( ` x y ` are dummy. $)
-    $( The existence of omega (the class of natural numbers).  Axiom 7 of
-       Takeuti and Zaring, p. 43. $)
+    $( The existence of omega (the class of natural numbers). $)
     omex $p |- om e. V $=
-      ( vx vy com cv wss wex cvv wcel visset ssex 19.23aiv c0 wel csuc wi wal
-      wa peano5 ax-1 19.20i sylan5 19.22i zfinf ax-mp ) CADZEZAFZCGHZUFUHACUEAI
-      JKLUEHZBAMBDZNUEHOZBPZQZAFUGUMUFAUIUJCHZUKOZBPUFULBUERUKUOBUKUNSTUAUBABUC
-      UDUD $.
+      ( vx vy com cv wss wex cvv wcel c0 wel csuc wi wal wa zfinf peano5 ax-1
+      19.20i sylan5 19.22i ax-mp visset ssex 19.23aiv ) CADZEZAFZCGHZIUEHZBAJBD
+      ZKUEHLZBMZNZAFUGABOUMUFAUIUJCHZUKLZBMUFULBUEPUKUOBUKUNQRSTUAUFUHACUEAUBUC
+      UDUA $.
       $([6-Aug-94]$)
   $}
+
+  $( Omega is an ordinal number.  Axiom 7 of Takeuti and Zaring, p. 43. $)
+  omelon $p |- om e. On $=
+    ( com con wcel wceq omon ori cvv eleq1 tz7.13 mtbiri omex mt2 mt3 ) ABCZABD
+    ZNOEFOAGCZOPBGCABGHIJKLM $.
+    $([10-May-98]$)
 
   ${
     $d x y z $.  $( ` z ` is dummy. $)
@@ -285,15 +339,15 @@ $)
     dfom2  $p |- om =
                  |^| { x | ( (/) e. x /\ A. y ( y e. x -> suc y e. x ) ) } $=
       ( vz com c0 cv wcel wel csuc wi wal wa cab cint wss peano5 zfnull
-      inteqab pm3.26 mpgbir weq a13b suceq cleq3d bi2imd a4b1 adantl a2i
-      19.20i visset sucex 3imtr4 a1i ax-gen mp2an omex wceq cleq4 bialdv
-      bi2and cla4v sylbi peano1 clded2 peano2 clded3 pm3.2i mpi ssri eqssi )
-      DEAFZGZBAHZBFZIZVKGZJZBKZLZAMNZEVTGZCFZDGZWBVTGZWBIZVTGZJZJZCKDVTOCVTPWAV
-      SVLJAVSAEQRVLVRSTWHCWGWCVSCAHZJZAKZVSWEVKGZJZAKWDWFWJWMAVSWIWLVRWIWLJZVLV
-      QWNBCBCUAZVMWIVPWLBCAUBWOVOWEVKVNWBUCUDUEUFUGUHUIVSAWBCUJZRZVSAWEWBWPUKRU
-      LUMUNUOCVTDWDEDGZVNDGZVODGZJZBKZLZWCWDWKXCWCJZWQWJXDADUPVKDUQZVSXCWIWCXEV
-      LWRVRXBVKDEURXEVQXABXEVMWSVPWTVKDVNURVKDVOURUEUSUTVKDWBURUEVAVBWRXBVCXABW
-      TABHWSLAMZIZDGAVNDVNXFUQVOXGDVNXFUCUDXFAVNDVCVDVEVFUNVGVHVIVJ $.
+      inteqab pm3.26 mpgbir weq a13b suceq eleq1d bi2imd a4b1 adantl a2i
+      19.20i visset sucex 3imtr4 a1i ax-gen mp2an omex wceq eleq2 bialdv
+      bi2and cla4v sylbi peano1 peano2b biimp pm3.2i mpi ssri eqssi ) DEAFZGZBA
+      HZBFZIZVJGZJZBKZLZAMNZEVSGZCFZDGZWAVSGZWAIZVSGZJZJZCKDVSOCVSPVTVRVKJAVRAE
+      QRVKVQSTWGCWFWBVRCAHZJZAKZVRWDVJGZJZAKWCWEWIWLAVRWHWKVQWHWKJZVKVPWMBCBCUA
+      ZVLWHVOWKBCAUBWNVNWDVJVMWAUCUDUEUFUGUHUIVRAWACUJZRZVRAWDWAWOUKRULUMUNUOCV
+      SDWCEDGZVMDGZVNDGZJZBKZLZWBWCWJXBWBJZWPWIXCADUPVJDUQZVRXBWHWBXDVKWQVQXAVJ
+      DEURXDVPWTBXDVLWRVOWSVJDVMURVJDVNURUEUSUTVJDWAURUEVAVBWQXAVCWTBWRWSVMVDVE
+      UNVFVGVHVI $.
       $([6-Aug-94]$)
   $}
 
