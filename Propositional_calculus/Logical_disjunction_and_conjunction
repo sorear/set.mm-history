@@ -13,18 +13,18 @@ $)
   $( Extend wff definition to include conjunction ('and'). $)
   wa    $a wff ( ph /\ ps ) $.
 
-  $( Define disjunction ('or').  This is our first use of the biconditional
-     connective in a definition; we use it in place of the traditional
-     "<=def=>", which means the same thing, except that we can manipulate
-     the biconditional connective directly in proofs rather than having
-     to rely on an informal definition substitution rule.  Note that if
-     we mechanically substitute ` ( -. ph -> ps ) ` for  ` ( ph \/ ps ) `,
-     we end up with an instance of previously proved theorem ~ pm4.2 .  This
+  $( Define disjunction (logical 'or').  This is our first use of the
+     biconditional connective in a definition; we use it in place of the
+     traditional "<=def=>", which means the same thing, except that we can
+     manipulate the biconditional connective directly in proofs rather than
+     having to rely on an informal definition substitution rule.  Note that
+     if we mechanically substitute ` ( -. ph -> ps ) ` for ` ( ph \/ ps ) ` ,
+     we end up with an instance of previously proved theorem ~ pm4.2 . This
      is the justification for the definition, along with the fact that it
-     introduces a new symbol ` \/ `. $)
+     introduces a new symbol ` \/ ` .  Definition of [Margaris] p. 49. $)
   df-or    $a |- ( ( ph \/ ps ) <-> ( -. ph -> ps ) ) $.
 
-  $( Define conjunction ('and'). $)
+  $( Define conjunction (logical 'and').  Definition of [Margaris] p. 49. $)
   df-an    $a |- ( ( ph /\ ps ) <-> -. ( ph -> -. ps ) ) $.
 
   ${
@@ -59,13 +59,13 @@ $)
       $([27-Nov-95]$)
   $}
 
-  $( Implication in terms of disjunction.  Theorem *4.6 of Whitehead and
-     Russell. $)
+  $( Implication in terms of disjunction.  Theorem *4.6 of
+     [WhiteheadRussell] p. 120. $)
   imor $p |- ( ( ph -> ps ) <-> ( -. ph \/ ps ) ) $=
     ( wi wn wo pm4.13 birim df-or bitr4 ) ABCADZDZBCJBEAKBAFGJBHI $.
     $([5-Aug-93]$)
 
-  $( Express implication in terms of conjunction.  Theorem 3.4(27) of Stoll,
+  $( Express implication in terms of conjunction.  Theorem 3.4(27) of [Stoll]
      p. 176. $)
   iman  $p |- ( ( ph -> ps ) <-> -. ( ph /\ -. ps ) ) $=
     ( wi wn wa pm4.13 bilim df-an bicon2 bitr ) ABCABDZDZCZAKEZDBLABFGNMAKHIJ
@@ -82,24 +82,24 @@ $)
     ( wa wn wi df-an bicon2 ) ABCABDEABFG $.
     $([9-Apr-94]$)
 
-  $( Absorption law for disjunction.  Theorem *4.25 of Whitehead and
-     Russell. $)
-  orabs $p |- ( ph <-> ( ph \/ ph ) ) $=
-    ( wn wi wo ax-1 pm2.18 impbi df-or bitr4 ) AABZACZAADAKAJEAFGAAHI $.
-    $([5-Aug-93]$)
+  $( Idempotent law for disjunction.  Theorem *4.25 of [WhiteheadRussell]
+     p. 117. $)
+  oridm $p |- ( ( ph \/ ph ) <-> ph ) $=
+    ( wo wn wi df-or ax-1 pm2.18 impbi bitr4 ) AABACZADZAAAEAKAJFAGHI $.
+    $([8-Jan-04]$)
 
-  $( Commutative law for disjunction.  Theorem *4.31 of Whitehead and
-     Russell. $)
+  $( Commutative law for disjunction.  Theorem *4.31 of [WhiteheadRussell]
+     p. 118. $)
   orcom $p |- ( ( ph \/ ps ) <-> ( ps \/ ph ) ) $=
     ( wn wi wo bi2.15 df-or 3bitr4 ) ACBDBCADABEBAEABFABGBAGH $.
     $([5-Aug-93]$)
 
-  $( Elimination of disjunct by denial of one of them. $)
+  $( Elimination of disjunction by denial of a disjunct. $)
   orel1 $p |- ( -. ph -> ( ( ph \/ ps ) -> ps ) ) $=
     ( wo wn wi df-or biimp comm ) ABCZADZBIJBEABFGH $.
     $([12-Aug-94]$)
 
-  $( Elimination of disjunct by denial of one of them. $)
+  $( Elimination of disjunction by denial of a disjunct. $)
   orel2 $p |- ( -. ph -> ( ( ps \/ ph ) -> ps ) ) $=
     ( wn wo orel1 orcom syl5ib ) ACABDBBADABEBAFG $.
     $([12-Aug-94]$)
@@ -136,8 +136,8 @@ $)
     ZFLOCFZFQNOLCGPROACHIMSLBCHIJAMHBPHK $.
     $([5-Aug-93]$)
 
-  $( Associative law for disjunction.  Theorem *4.33 of Whitehead and
-     Russell. $)
+  $( Associative law for disjunction.  Theorem *4.33 of [WhiteheadRussell]
+     p. 118. $)
   orass $p |- ( ( ( ph \/ ps ) \/ ch ) <-> ( ph \/ ( ps \/ ch ) ) ) $=
     ( wo or12 orcom bilor 3bitr4 ) CABDZDACBDZDICDABCDZDCABEICFKJABCFGH $.
     $([5-Aug-93]$)
@@ -150,28 +150,28 @@ $)
   $( Rearrangement of 4 disjuncts. $)
   or4 $p |- ( ( ( ph \/ ps ) \/ ( ch \/ th ) ) <->
                 ( ( ph \/ ch ) \/ ( ps \/ th ) ) ) $=
-    ( wo or12 bilor orass 3bitr4 ) ABCDEZEZEACBDEZEZEABEJEACELEKMABCDFGABJHACLHI
-    $.
+    ( wo or12 bilor orass 3bitr4 ) ABCDEZEZEACBDEZEZEABEJEACELEKMABCDFGABJHACLH
+    I $.
     $([12-Aug-94]$)
 
   $( Distribution of disjunction over disjunction. $)
   orordi $p |- ( ( ph \/ ( ps \/ ch ) ) <->
                ( ( ph \/ ps ) \/ ( ph \/ ch ) ) ) $=
-    ( wo orabs biror or4 bitr ) ABCDZDAADZIDABDACDDAJIAEFAABCGH $.
+    ( wo oridm biror or4 bitr3 ) ABCDZDAADZIDABDACDDJAIAEFAABCGH $.
     $([25-Feb-95]$)
 
   $( Distribution of disjunction over disjunction. $)
   orordir $p |- ( ( ( ph \/ ps ) \/ ch ) <->
                ( ( ph \/ ch ) \/ ( ps \/ ch ) ) ) $=
-    ( wo orabs bilor or4 bitr ) ABDZCDICCDZDACDBCDDCJICEFABCCGH $.
+    ( wo oridm bilor or4 bitr3 ) ABDZCDICCDZDACDBCDDJCICEFABCCGH $.
     $([25-Feb-95]$)
 
-  $( Introduction of a disjunct.  Axiom *1.3 of Whitehead and Russell. $)
+  $( Introduction of a disjunct.  Axiom *1.3 of [WhiteheadRussell] p. 96. $)
   olc $p |- ( ph -> ( ps \/ ph ) ) $=
     ( wn ax-1 orrd ) ABAABCDE $.
     $([30-Aug-93]$)
 
-  $( Introduction of a disjunct.  Theorem *2.2 of Whitehead and Russell. $)
+  $( Introduction of a disjunct.  Theorem *2.2 of [WhiteheadRussell] p. 104. $)
   orc $p |- ( ph -> ( ph \/ ps ) ) $=
     ( wo olc orcom sylib ) ABACABCABDBAEF $.
     $([30-Aug-93]$)
@@ -192,14 +192,13 @@ $)
       $([21-Jun-94]$)
   $}
 
-  $( Join antecedents with conjunction.  Theorem *3.2 of Whitehead and
-     Russell. $)
+  $( Join antecedents with conjunction.  Theorem *3.2 of [WhiteheadRussell] p. 111. $)
   pm3.2  $p |- ( ph -> ( ps -> ( ph /\ ps ) ) ) $=
     ( wa wn wi df-an biimpr expi ) ABABCZIABDEDABFGH $.
     $([5-Aug-93]$)
 
-  $( Join antecedents with conjunction.  Theorem *3.21 of Whitehead and
-      Russell. $)
+  $( Join antecedents with conjunction.  Theorem *3.21 of
+     [WhiteheadRussell] p. 111. $)
   pm3.21  $p |- ( ph -> ( ps -> ( ps /\ ph ) ) ) $=
     ( wa pm3.2 comm ) BABACBADE $.
     $([5-Aug-93]$)
@@ -345,32 +344,32 @@ $)
       $([15-Aug-94]$)
   $}
 
-  $( Conjunction in terms of disjunction (de Morgan's rule).  Theorem *4.5 of
-     Whitehead and Russell. $)
+  $( Conjunction in terms of disjunction (DeMorgan's law).  Theorem *4.5 of
+     [WhiteheadRussell] p. 120. $)
   anor  $p |- ( ( ph /\ ps ) <-> -. ( -. ph \/ -. ps ) ) $=
     ( wa wn wi wo df-an imor bineg bitr ) ABCABDZEZDADKFZDABGLMAKHIJ $.
     $([5-Aug-93]$)
 
-  $( Negated conjunction in terms of disjunction (de Morgan's rule).  Theorem
-     *4.51 of Whitehead and Russell. $)
+  $( Negated conjunction in terms of disjunction (DeMorgan's law).  Theorem
+     *4.51 of [WhiteheadRussell] p. 120. $)
   ianor $p |- ( -. ( ph /\ ps ) <-> ( -. ph \/ -. ps ) ) $=
     ( wa wn wo anor bineg pm4.13 bitr4 ) ABCZDADBDEZDZDKJLABFGKHI $.
     $([5-Aug-93]$)
 
-  $( Negated disjunction in terms of conjunction (de Morgan's rule).  Compare
-     Theorem *4.56 of Whitehead and Russell. $)
+  $( Negated disjunction in terms of conjunction (DeMorgan's law).  Compare
+     Theorem *4.56 of [WhiteheadRussell] p. 120. $)
   ioran $p |- ( -. ( ph \/ ps ) <-> ( -. ph /\ -. ps ) ) $=
     ( wo wn wa pm4.13 bi2or bineg anor bitr4 ) ABCZDADZDZBDZDZCZDLNEKPAMBOAFBFG
     HLNIJ $.
     $([5-Aug-93]$)
 
-  $( Disjunction in terms of conjunction (de Morgan's rule).  Compare Theorem
-     *4.57 of Whitehead and Russell. $)
+  $( Disjunction in terms of conjunction (DeMorgan's law).  Compare Theorem
+     *4.57 of [WhiteheadRussell] p. 120. $)
   oran  $p |- ( ( ph \/ ps ) <-> -. ( -. ph /\ -. ps ) ) $=
     ( wo wn wa pm4.13 ioran bineg bitr ) ABCZJDZDADBDEZDJFKLABGHI $.
     $([5-Aug-93]$)
 
-  $( Elimination of a conjunct.  Theorem *3.26 of Whitehead and Russell. $)
+  $( Elimination of a conjunct.  Theorem *3.26 of [WhiteheadRussell] p. 112. $)
   pm3.26 $p |- ( ( ph /\ ps ) -> ph ) $=
     ( wa wn wi df-an pm3.26im sylbi ) ABCABDEDAABFABGH $.
     $([5-Aug-93]$)
@@ -399,7 +398,7 @@ $)
       $([27-May-98]$)
   $}
 
-  $( Elimination of a conjunct.  Theorem *3.27 of Whitehead and Russell. $)
+  $( Elimination of a conjunct.  Theorem *3.27 of [WhiteheadRussell] p. 112. $)
   pm3.27 $p |- ( ( ph /\ ps ) -> ps ) $=
     ( wa wn wi df-an pm3.27im sylbi ) ABCABDEDBABFABGH $.
     $([5-Aug-93]$)
@@ -438,14 +437,14 @@ $)
     ( wi wa ancr pm3.26 syl3 impbi ) ABCABADZCABEIBABAFGH $.
     $([25-Jul-99]$)
 
-  $( Conjunction implies implication.  Theorem *3.4 of Whitehead and
-     Russell. $)
+  $( Conjunction implies implication.  Theorem *3.4 of [WhiteheadRussell]
+     p. 113. $)
   pm3.4 $p |- ( ( ph /\ ps ) -> ( ph -> ps ) ) $=
     ( wa pm3.27 a1d ) ABCBAABDE $.
     $([31-Jul-95]$)
 
-  $( Conjunction with implication.  Compare Theorem *4.45 of Whitehead and
-     Russell. $)
+  $( Conjunction with implication.  Compare Theorem *4.45 of
+     [WhiteheadRussell] p. 119. $)
   pm4.45im $p |- ( ph <-> ( ph /\ ( ps -> ph ) ) ) $=
     ( wi wa ax-1 ancli pm3.26 impbi ) AABACZDAIABEFAIGH $.
     $([17-May-98]$)
@@ -501,8 +500,8 @@ $)
       $([6-Jun-94]$)
   $}
 
-  $( Disjunction of antecedents.  Compare Theorem *3.44 of Whitehead and
-     Russell. $)
+  $( Disjunction of antecedents.  Compare Theorem *3.44 of
+     [WhiteheadRussell] p. 113. $)
   jao $p |- ( ( ph -> ps ) -> ( ( ch -> ps ) -> ( ( ph \/ ch ) -> ps ) ) ) $=
     ( wi wn wo pm2.16 wa pm3.43i pm2.15 syl6 oran bisyl7 syl5 syl ) ABDBEZAEZDZ
     CBDZACFZBDZDABGRPCEZDZUASRUCQUBHZEZBTRUCPUDDUEBDPQUBIBUDJKACLMCBGNO $.
@@ -517,7 +516,8 @@ $)
       $([5-Apr-94]$)
   $}
 
-  $( Import-export theorem.  Part of Theorem *4.87 of Whitehead and Russell. $)
+  $( Import-export theorem.  Part of Theorem *4.87 of [WhiteheadRussell]
+     p. 122. $)
   impexp $p |- ( ( ( ph /\ ps ) -> ch ) <-> ( ph -> ( ps -> ch ) ) ) $=
     ( wa wi wn df-an birim expt impt impbi bitr ) ABDZCEABFEFZCEZABCEEZMNCABGHO
     PABCIABCJKL $.
@@ -530,6 +530,13 @@ $)
       ( wa wn wi df-an impi sylbi ) ABEABFGFCABHABCDIJ $.
       $([5-Aug-93]$)
   $}
+
+  $( A theorem analogous to modus ponens in closed form.  Theorem *3.35 of
+     [WhiteheadRussell] p. 112, which they curiously call "Syll"
+     (syllogism). $)
+  pm3.35 $p |- ( ( ph /\ ( ph -> ps ) ) -> ps ) $=
+    ( wi pm2.27 imp ) AABCBABDE $.
+    $([14-Dec-02]$)
 
   ${
     imp3.1 $e |- ( ph -> ( ps -> ( ch -> th ) ) ) $.
@@ -748,22 +755,22 @@ $)
   ${
     adanta.1 $e |- ( ( ph /\ ps ) -> ch ) $.
     $( Deduction adding a conjunct to an antecedent. $)
-    adantall   $p |- ( ( ( th /\ ph ) /\ ps ) -> ch ) $=
+    adantll   $p |- ( ( ( th /\ ph ) /\ ps ) -> ch ) $=
       ( wa wi exp adantl imp ) DAFBCABCGDABCEHIJ $.
       $([4-May-94]$)
 
     $( Deduction adding a conjunct to an antecedent. $)
-    adantalr   $p |- ( ( ( ph /\ th ) /\ ps ) -> ch ) $=
+    adantlr   $p |- ( ( ( ph /\ th ) /\ ps ) -> ch ) $=
       ( wa wi exp adantr imp ) ADFBCABCGDABCEHIJ $.
       $([4-May-94]$)
 
     $( Deduction adding a conjunct to an antecedent. $)
-    adantarl   $p |- ( ( ph /\ ( th /\ ps ) ) -> ch ) $=
+    adantrl   $p |- ( ( ph /\ ( th /\ ps ) ) -> ch ) $=
       ( wa exp adantld imp ) ADBFCABCDABCEGHI $.
       $([4-May-94]$)
 
     $( Deduction adding a conjunct to an antecedent. $)
-    adantarr   $p |- ( ( ph /\ ( ps /\ th ) ) -> ch ) $=
+    adantrr   $p |- ( ( ph /\ ( ps /\ th ) ) -> ch ) $=
       ( wa exp adantrd imp ) ABDFCABCDABCEGHI $.
       $([4-May-94]$)
   $}
@@ -815,29 +822,8 @@ $)
       $([3-May-94]$)
   $}
 
-  $( Distribution of implication with conjunction. $)
-  imdistan $p |- ( ( ph -> ( ps -> ch ) ) ->
-                 ( ( ph /\ ps ) -> ( ph /\ ch ) ) ) $=
-    ( wi wa anc2l imp3a ) ABCDDABACEABCFG $.
-    $([22-Nov-94]$)
-
-  $( Distribution of implication with conjunction. $)
-  imdistanb $p |- ( ( ph -> ( ps -> ch ) ) <->
-                 ( ( ph /\ ps ) -> ( ph /\ ch ) ) ) $=
-    ( wi wa imdistan pm3.27 syl3 exp3a impbi ) ABCDDABEZACEZDZABCFMABCLCKACGHIJ
-    $.
-    $([31-May-99]$)
-
-  ${
-    imdistani.1 $e |- ( ph -> ( ps -> ch ) ) $.
-    $( Distribution of implication with conjunction. $)
-    imdistani   $p |- ( ( ph /\ ps ) -> ( ph /\ ch ) ) $=
-      ( wa anc2li imp ) ABACEABCDFG $.
-      $([1-Aug-94]$)
-  $}
-
-  $( Disjunction of antecedents.  Compare Theorem *4.77 of Whitehead and
-     Russell. $)
+  $( Disjunction of antecedents.  Compare Theorem *4.77 of
+     [WhiteheadRussell] p. 121. $)
   jaob $p |- ( ( ( ph \/ ch ) -> ps ) <-> ( ( ph -> ps ) /\ ( ch -> ps ) ) ) $=
     ( wo wi wa orc syl4 olc jca jao imp impbi ) ACDZBEZABEZCBEZFOPQANBACGHCNBCA
     IHJPQOABCKLM $.
@@ -862,40 +848,91 @@ $)
       $([30-Sep-99]$)
   $}
 
-  $( Absorption law for conjunction.  Theorem *4.24 of Whitehead and
-     Russell. $)
-  anabs $p |- ( ph <-> ( ph /\ ph ) ) $=
-    ( wn wo wa orabs bineg pm4.13 anor 3bitr4 ) ABZBJJCZBAAADJKJEFAGAAHI $.
-    $([5-Aug-93]$)
+  $( Idempotent law for conjunction.  Theorem *4.24 of [WhiteheadRussell]
+     p. 117. $)
+  anidm $p |- ( ( ph /\ ph ) <-> ph ) $=
+    ( wn wo wa oridm bineg anor pm4.13 3bitr4 ) ABZJCZBJBAADAKJJEFAAGAHI $.
+    $([8-Jan-04]$)
 
   ${
-    anabss.1 $e |- ( ( ph /\ ph ) -> ps ) $.
-    $( Inference absorbing conjunction in antecedent (eliminates syllogism). $)
-    anabss   $p |- ( ph -> ps ) $=
-      ( wa anabs sylbi ) AAADBAECF $.
+    anidms.1 $e |- ( ( ph /\ ph ) -> ps ) $.
+    $( Inference from idempotent law for conjunction. $)
+    anidms   $p |- ( ph -> ps ) $=
+      ( wa anidm sylbir ) AAADBAECF $.
       $([15-Jun-94]$)
   $}
 
-  $( Commutative law for conjunction.  Theorem *4.3 of Whitehead and
-     Russell. $)
+  $( Commutative law for conjunction.  Theorem *4.3 of [WhiteheadRussell]
+     p. 118. $)
   ancom $p |- ( ( ph /\ ps ) <-> ( ps /\ ph ) ) $=
     ( wn wi wa bi2.03 bineg df-an 3bitr4 ) ABCDZCBACDZCABEBAEJKABFGABHBAHI $.
     $([25-Jun-98]$)
 
   ${
     ancoms.1 $e |- ( ( ph /\ ps ) -> ch ) $.
-    $( Inference commuting conjunction in antecedent (eliminates syllogism). $)
+    $( Inference commuting conjunction in antecedent.  _Notational convention_:
+       We sometimes suffix with "s" the label of an inference that manipulates
+       an antecedent, leaving the consequent unchanged.  The "s" means that the
+       inference eliminates the need for a syllogism ( ~ syl ) -type inference
+       in a proof. $)
     ancoms   $p |- ( ( ps /\ ph ) -> ch ) $=
       ( wa ancom sylbi ) BAEABECBAFDG $.
       $([21-Apr-94]$)
   $}
 
-  $( Associative law for conjunction.  Theorem *4.32 of Whitehead and
-     Russell. $)
+  $( Associative law for conjunction.  Theorem *4.32 of [WhiteheadRussell]
+     p. 118. $)
   anass $p |- ( ( ( ph /\ ps ) /\ ch ) <-> ( ph /\ ( ps /\ ch ) ) ) $=
     ( wa wn wi impexp imnan bilim bitr bineg df-an 3bitr4 ) ABDZCEZFZEABCDZEZFZ
     ENCDAQDPSPABOFZFSABOGTRABCHIJKNCLAQLM $.
     $([5-Aug-93]$)
+
+  ${
+    anasss.1 $e |- ( ( ( ph /\ ps ) /\ ch ) -> th ) $.
+    $( Associative law for conjunction applied to antecedent (eliminates
+       syllogism). $)
+    anasss   $p |- ( ( ph /\ ( ps /\ ch ) ) -> th ) $=
+      ( exp31 imp32 ) ABCDABCDEFG $.
+      $([15-Nov-02]$)
+  $}
+
+  ${
+    anassrs.1 $e |- ( ( ph /\ ( ps /\ ch ) ) -> th ) $.
+    $( Associative law for conjunction applied to antecedent (eliminates
+       syllogism). $)
+    anassrs   $p |- ( ( ( ph /\ ps ) /\ ch ) -> th ) $=
+      ( exp32 imp31 ) ABCDABCDEFG $.
+      $([15-Nov-02]$)
+  $}
+
+  $( Distribution of implication with conjunction. $)
+  imdistan $p |- ( ( ph -> ( ps -> ch ) ) ->
+                 ( ( ph /\ ps ) -> ( ph /\ ch ) ) ) $=
+    ( wi wa anc2l imp3a ) ABCDDABACEABCFG $.
+    $([22-Nov-94]$)
+
+  $( Distribution of implication with conjunction. $)
+  imdistanb $p |- ( ( ph -> ( ps -> ch ) ) <->
+                 ( ( ph /\ ps ) -> ( ph /\ ch ) ) ) $=
+    ( wi wa imdistan pm3.27 syl3 exp3a impbi ) ABCDDABEZACEZDZABCFMABCLCKACGHIJ
+    $.
+    $([31-May-99]$)
+
+  ${
+    imdistani.1 $e |- ( ph -> ( ps -> ch ) ) $.
+    $( Distribution of implication with conjunction. $)
+    imdistani   $p |- ( ( ph /\ ps ) -> ( ph /\ ch ) ) $=
+      ( wa anc2li imp ) ABACEABCDFG $.
+      $([1-Aug-94]$)
+  $}
+
+  ${
+    imdistanri.1 $e |- ( ph -> ( ps -> ch ) ) $.
+    $( Distribution of implication with conjunction. $)
+    imdistanri   $p |- ( ( ps /\ ph ) -> ( ch /\ ph ) ) $=
+      ( wa imdistani ancom 3imtr4 ) ABEACEBAECAEABCDFBAGCAGH $.
+      $([8-Jan-02]$)
+  $}
 
   ${
     sylan.1 $e |- ( ( ph /\ ps ) -> ch ) $.
@@ -903,8 +940,7 @@ $)
       sylan.2 $e |- ( th -> ph ) $.
       $( A syllogism inference. $)
       sylan   $p |- ( ( th /\ ps ) -> ch ) $=
-        wth wps wch wth wph wps wch wi sylan.2 wph wps wch sylan.1 exp syl imp
-        $.
+        ( wi exp syl imp ) DBCDABCGFABCEHIJ $.
         $([21-Apr-94]$)
     $}
 
@@ -912,7 +948,7 @@ $)
       sylanb.2 $e |- ( th <-> ph ) $.
       $( A syllogism inference. $)
       sylanb   $p |- ( ( th /\ ps ) -> ch ) $=
-        wph wps wch wth sylan.1 wth wph sylanb.2 biimp sylan $.
+        ( biimp sylan ) ABCDEDAFGH $.
         $([18-May-94]$)
     $}
 
@@ -920,7 +956,7 @@ $)
       sylanbr.2 $e |- ( ph <-> th ) $.
       $( A syllogism inference. $)
       sylanbr   $p |- ( ( th /\ ps ) -> ch ) $=
-        wph wps wch wth sylan.1 wph wth sylanbr.2 biimpr sylan $.
+        ( biimpr sylan ) ABCDEADFGH $.
         $([18-May-94]$)
     $}
 
@@ -928,8 +964,7 @@ $)
       sylan5.2 $e |- ( th -> ps ) $.
       $( A syllogism inference. $)
       sylan5   $p |- ( ( ph /\ th ) -> ch ) $=
-        wph wth wch wph wps wch wth wph wps wch sylan.1 exp sylan5.2 syl5 imp
-        $.
+        ( exp syl5 imp ) ADCABCDABCEGFHI $.
         $([21-Apr-94]$)
     $}
 
@@ -937,7 +972,7 @@ $)
       sylan5b.2 $e |- ( th <-> ps ) $.
       $( A syllogism inference. $)
       sylan5b   $p |- ( ( ph /\ th ) -> ch ) $=
-        wph wps wch wth sylan.1 wth wps sylan5b.2 biimp sylan5 $.
+        ( biimp sylan5 ) ABCDEDBFGH $.
         $([21-Apr-94]$)
     $}
 
@@ -945,7 +980,7 @@ $)
       sylan5br.2 $e |- ( ps <-> th ) $.
       $( A syllogism inference. $)
       sylan5br   $p |- ( ( ph /\ th ) -> ch ) $=
-        wph wps wch wth sylan.1 wps wth sylan5br.2 biimpr sylan5 $.
+        ( biimpr sylan5 ) ABCDEBDFGH $.
         $([21-Apr-94]$)
     $}
 
@@ -954,8 +989,7 @@ $)
       syl2an.3 $e |- ( ta -> ps ) $.
       $( A double syllogism inference. $)
       syl2an   $p |- ( ( th /\ ta ) -> ch ) $=
-        wth wps wch wta wph wps wch wth sylan.1 syl2an.2 sylan syl2an.3 sylan5
-        $.
+        ( sylan sylan5 ) DBCEABCDFGIHJ $.
         $([31-Jan-97]$)
     $}
 
@@ -964,8 +998,7 @@ $)
       syl2anb.3 $e |- ( ta <-> ps ) $.
       $( A double syllogism inference. $)
       syl2anb   $p |- ( ( th /\ ta ) -> ch ) $=
-        wth wps wch wta wph wps wch wth sylan.1 syl2anb.2 sylanb syl2anb.3
-        sylan5b $.
+        ( sylanb sylan5b ) DBCEABCDFGIHJ $.
         $([29-Jul-99]$)
     $}
 
@@ -974,8 +1007,7 @@ $)
       syl2anbr.3 $e |- ( ps <-> ta ) $.
       $( A double syllogism inference. $)
       syl2anbr   $p |- ( ( th /\ ta ) -> ch ) $=
-        wth wps wch wta wph wps wch wth sylan.1 syl2anbr.2 sylanbr syl2anbr.3
-        sylan5br $.
+        ( sylanbr sylan5br ) DBCEABCDFGIHJ $.
         $([29-Jul-99]$)
     $}
   $}
@@ -985,8 +1017,7 @@ $)
     syland.2 $e |- ( ta -> ps ) $.
     $( A syllogism inference. $)
     syland   $p |- ( ph -> ( ( ta /\ ch ) -> th ) ) $=
-      wta wch wa wph wth wps wch wph wth wi wta wph wps wch wa wth syland.1
-      comm syland.2 sylan comm $.
+      ( wa wi comm sylan ) ECHADBCADIEABCHDFJGKJ $.
       $([2-May-96]$)
   $}
 
@@ -995,8 +1026,7 @@ $)
     sylan5d.2 $e |- ( ta -> ch ) $.
     $( A syllogism inference. $)
     sylan5d   $p |- ( ph -> ( ( ps /\ ta ) -> th ) ) $=
-      wps wta wa wph wth wps wch wph wth wi wta wph wps wch wa wth sylan5d.1
-      comm sylan5d.2 sylan5 comm $.
+      ( wa wi comm sylan5 ) BEHADBCADIEABCHDFJGKJ $.
       $([1-Aug-94]$)
   $}
 
@@ -1008,8 +1038,7 @@ $)
     syl2and.3 $e |- ( et -> ch ) $.
     $( A syllogism inference. $)
     syl2and   $p |- ( ph -> ( ( ta /\ et ) -> th ) ) $=
-      wph wps syl2and.wet wth wta wph wps wch wth syl2and.wet syl2and.1
-      syl2and.3 sylan5d syl2and.2 syland $.
+      ( sylan5d syland ) ABFDEABCDFGIJHK $.
       $([3-Aug-99]$)
   $}
 
@@ -1018,8 +1047,7 @@ $)
     sylan9.2 $e |- ( th -> ( ch -> ta ) ) $.
     $( Nested syllogism inference conjoining dissimiliar antecedents. $)
     sylan9   $p |- ( ( ph /\ th ) -> ( ps -> ta ) ) $=
-      wph wth wa wps wch wta wph wps wch wi wth sylan9.1 adantr wth wch wta wi
-      wph sylan9.2 adantl syld $.
+      ( wa wi adantr adantl syld ) ADHBCEABCIDFJDCEIAGKL $.
       $([5-Aug-93]$)
   $}
 
@@ -1028,7 +1056,7 @@ $)
     sylan9r.2 $e |- ( th -> ( ch -> ta ) ) $.
     $( Nested syllogism inference conjoining dissimiliar antecedents. $)
     sylan9r   $p |- ( ( th /\ ph ) -> ( ps -> ta ) ) $=
-      wth wph wps wta wi wph wps wch wth wta sylan9r.1 sylan9r.2 syl9r imp $.
+      ( wi syl9r imp ) DABEHABCDEFGIJ $.
       $([5-Aug-93]$)
   $}
 
@@ -1098,18 +1126,18 @@ $)
   $}
 
   $( Absorption into embedded conjunct. $)
-  anabs1 $p |- ( ( ph /\ ps ) <-> ( ( ph /\ ps ) /\ ph ) ) $=
-    ( wa anabs biran an23 bitr ) ABCZAACZBCHACAIBADEAABFG $.
-    $([4-Sep-95]$)
+  anabs1 $p |- ( ( ( ph /\ ps ) /\ ph ) <-> ( ph /\ ps ) ) $=
+    ( wa an23 anidm biran bitr3 ) ABCZACAACZBCHAABDIABAEFG $.
+    $([8-Jan-04]$)
 
   $( Absorption into embedded conjunct. $)
-  anabs5 $p |- ( ( ph /\ ps ) <-> ( ph /\ ( ph /\ ps ) ) ) $=
-    ( wa anabs1 ancom bitr ) ABCZGACAGCABDGAEF $.
+  anabs5 $p |- ( ( ph /\ ( ph /\ ps ) ) <-> ( ph /\ ps ) ) $=
+    ( wa ancom anabs1 bitr3 ) AABCZCGACGGADABEF $.
     $([20-Jul-96]$)
 
   $( Absorption into embedded conjunct. $)
-  anabs7 $p |- ( ( ph /\ ps ) <-> ( ps /\ ( ph /\ ps ) ) ) $=
-    ( wa anabs bilan an12 bitr ) ABCZABBCZCBHCBIABDEABBFG $.
+  anabs7 $p |- ( ( ps /\ ( ph /\ ps ) ) <-> ( ph /\ ps ) ) $=
+    ( wa an12 anidm bilan bitr3 ) BABCZCABBCZCHABBDIBABEFG $.
     $([20-Jul-96]$)
 
   ${
@@ -1148,7 +1176,7 @@ $)
     anabss1.1 $e |- ( ( ( ph /\ ps ) /\ ph ) -> ch ) $.
     $( Absorption of antecedent into conjunction. $)
     anabss1   $p |- ( ( ph /\ ps ) -> ch ) $=
-      ( wa anabs1 sylbi ) ABEZHAECABFDG $.
+      ( wa anabs1 sylbir ) ABEZHAECABFDG $.
       $([20-Jul-96]$)
   $}
 
@@ -1172,7 +1200,7 @@ $)
     anabss5.1 $e |- ( ( ph /\ ( ph /\ ps ) ) -> ch ) $.
     $( Absorption of antecedent into conjunction. $)
     anabss5   $p |- ( ( ph /\ ps ) -> ch ) $=
-      ( wa anabs5 sylbi ) ABEZAHECABFDG $.
+      ( wa anabs5 sylbir ) ABEZAHECABFDG $.
       $([10-May-94]$)
   $}
 
@@ -1195,8 +1223,8 @@ $)
   $( Rearrangement of 4 conjuncts. $)
   an4 $p |- ( ( ( ph /\ ps ) /\ ( ch /\ th ) ) <->
               ( ( ph /\ ch ) /\ ( ps /\ th ) ) ) $=
-    ( wa an12 bilan anass 3bitr4 ) ABCDEZEZEACBDEZEZEABEJEACELEKMABCDFGABJHACLHI
-    $.
+    ( wa an12 bilan anass 3bitr4 ) ABCDEZEZEACBDEZEZEABEJEACELEKMABCDFGABJHACLH
+    I $.
     $([10-Jul-94]$)
 
   $( Rearrangement of 4 conjuncts. $)
@@ -1224,17 +1252,18 @@ $)
   $( Distribution of conjunction over conjunction. $)
   anandi $p |- ( ( ph /\ ( ps /\ ch ) ) <->
                ( ( ph /\ ps ) /\ ( ph /\ ch ) ) ) $=
-    ( wa anabs biran an4 bitr ) ABCDZDAADZIDABDACDDAJIAEFAABCGH $.
+    ( wa anidm biran an4 bitr3 ) ABCDZDAADZIDABDACDDJAIAEFAABCGH $.
     $([14-Aug-95]$)
 
   $( Distribution of conjunction over conjunction. $)
   anandir $p |- ( ( ( ph /\ ps ) /\ ch ) <->
                ( ( ph /\ ch ) /\ ( ps /\ ch ) ) ) $=
-    ( wa anabs bilan an4 bitr ) ABDZCDICCDZDACDBCDDCJICEFABCCGH $.
+    ( wa anidm bilan an4 bitr3 ) ABDZCDICCDZDACDBCDDJCICEFABCCGH $.
     $([24-Aug-95]$)
 
-  $( A theorem similar to the standard definition of the biconditional. $)
-  bi    $p |- ( ( ph <-> ps ) <-> ( ( ph -> ps ) /\ ( ps -> ph ) ) ) $=
+  $( A theorem similar to the standard definition of the biconditional.
+     Definition of [Margaris] p. 49. $)
+  bi $p |- ( ( ph <-> ps ) <-> ( ( ph -> ps ) /\ ( ps -> ph ) ) ) $=
     ( wb wi wn wa bii df-an bitr4 ) ABCABDZBADZEDEJKFABGJKHI $.
     $([5-Aug-93]$)
 
@@ -1247,8 +1276,8 @@ $)
       $([5-Aug-93]$)
   $}
 
-  $( Commutative law for equivalence.  Theorem *4.21 of Whitehead and
-     Russell. $)
+  $( Commutative law for equivalence.  Theorem *4.21 of [WhiteheadRussell]
+     p. 117. $)
   pm4.21 $p |- ( ( ph <-> ps ) <-> ( ps <-> ph ) ) $=
     ( wi wa wb ancom bi 3bitr4 ) ABCZBACZDJIDABEBAEIJFABGBAGH $.
     $([5-Aug-93]$)
@@ -1261,7 +1290,7 @@ $)
       $([5-Aug-93]$)
   $}
 
-  $( Contraposition.  Theorem *4.11 of Whitehead and Russell. $)
+  $( Contraposition.  Theorem *4.11 of [WhiteheadRussell] p. 117. $)
   pm4.11  $p |- ( ( ph <-> ps ) <-> ( -. ph <-> -. ps ) ) $=
     ( wb wn wi wa pm4.1 bi2an bi 3bitr4 pm4.21 bitr ) ABCZBDZADZCZONCABEZBAEZFN
     OEZONEZFMPQSRTABGBAGHABINOIJNOKL $.
@@ -1283,7 +1312,7 @@ $)
       $([21-May-94]$)
   $}
 
-  $( Contraposition.  Theorem *4.12 of Whitehead and Russell. $)
+  $( Contraposition.  Theorem *4.12 of [WhiteheadRussell] p. 117. $)
   pm4.12  $p |- ( ( ph <-> -. ps ) <-> ( ps <-> -. ph ) ) $=
     ( wn wi wa wb bi2.03 bi2.15 bi2an bi 3bitr4 ) ABCZDZLADZEBACZDZOBDZEALFBOFM
     PNQABGBAHIALJBOJK $.
@@ -1346,7 +1375,7 @@ $)
     syl5rbb.2 $e |- ( th <-> ps ) $.
     $( A syllogism inference from two biconditionals. $)
     syl5rbb   $p |- ( ph -> ( ch <-> th ) ) $=
-      wph wth wch wph wps wch wth syl5rbb.1 syl5rbb.2 syl5bb bicomd $.
+      ( syl5bb bicomd ) ADCABCDEFGH $.
       $([5-Aug-93]$)
   $}
 
@@ -1355,7 +1384,7 @@ $)
     syl5bbr.2 $e |- ( ps <-> th ) $.
     $( A syllogism inference from two biconditionals. $)
     syl5bbr   $p |- ( ph -> ( th <-> ch ) ) $=
-      wph wps wch wth syl5bbr.1 wps wth syl5bbr.2 bicom syl5bb $.
+      ( bicom syl5bb ) ABCDEBDFGH $.
       $([5-Aug-93]$)
   $}
 
@@ -1364,7 +1393,7 @@ $)
     syl5rbbr.2 $e |- ( ps <-> th ) $.
     $( A syllogism inference from two biconditionals. $)
     syl5rbbr   $p |- ( ph -> ( ch <-> th ) ) $=
-      wph wps wch wth syl5rbbr.1 wps wth syl5rbbr.2 bicom syl5rbb $.
+      ( bicom syl5rbb ) ABCDEBDFGH $.
       $([25-Nov-94]$)
   $}
 
@@ -1382,7 +1411,7 @@ $)
     syl6rbb.2 $e |- ( ch <-> th ) $.
     $( A syllogism inference from two biconditionals. $)
     syl6rbb   $p |- ( ph -> ( th <-> ps ) ) $=
-      wph wps wth wph wps wch wth syl6rbb.1 syl6rbb.2 syl6bb bicomd $.
+      ( syl6bb bicomd ) ABDABCDEFGH $.
       $([5-Aug-93]$)
   $}
 
@@ -1391,7 +1420,7 @@ $)
     syl6bbr.2 $e |- ( th <-> ch ) $.
     $( A syllogism inference from two biconditionals. $)
     syl6bbr   $p |- ( ph -> ( ps <-> th ) ) $=
-      wph wps wch wth syl6bbr.1 wth wch syl6bbr.2 bicom syl6bb $.
+      ( bicom syl6bb ) ABCDEDCFGH $.
       $([5-Aug-93]$)
   $}
 
@@ -1400,7 +1429,7 @@ $)
     syl6rbbr.2 $e |- ( th <-> ch ) $.
     $( A syllogism inference from two biconditionals. $)
     syl6rbbr   $p |- ( ph -> ( th <-> ps ) ) $=
-      wph wps wch wth syl6rbbr.1 wth wch syl6rbbr.2 bicom syl6rbb $.
+      ( bicom syl6rbb ) ABCDEDCFGH $.
       $([25-Nov-94]$)
   $}
 
@@ -1409,8 +1438,7 @@ $)
     sylan9bb.2 $e |- ( th -> ( ch <-> ta ) ) $.
     $( Nested syllogism inference conjoining dissimiliar antecedents. $)
     sylan9bb   $p |- ( ( ph /\ th ) -> ( ps <-> ta ) ) $=
-      wph wth wa wps wch wta wph wps wch wb wth sylan9bb.1 adantr wth wch wta
-      wb wph sylan9bb.2 adantl bitrd $.
+      ( wa wb adantr adantl bitrd ) ADHBCEABCIDFJDCEIAGKL $.
       $([4-Mar-95]$)
   $}
 
@@ -1419,8 +1447,7 @@ $)
     sylan9bbr.2 $e |- ( th -> ( ch <-> ta ) ) $.
     $( Nested syllogism inference conjoining dissimiliar antecedents. $)
     sylan9bbr   $p |- ( ( th /\ ph ) -> ( ps <-> ta ) ) $=
-      wph wth wps wta wb wph wps wch wth wta sylan9bbr.1 sylan9bbr.2 sylan9bb
-      ancoms $.
+      ( wb sylan9bb ancoms ) ADBEHABCDEFGIJ $.
       $([4-Mar-95]$)
   $}
 
@@ -1523,7 +1550,7 @@ $)
       $([5-Aug-93]$)
   $}
 
-  $( Theorem *3.47 of Whitehead and Russell.  It was proved by Leibniz, and
+  $( Theorem *3.47 of [WhiteheadRussell] p. 113.  It was proved by Leibniz, and
      it evidently pleased him enough to call it 'praeclarum theorema'. $)
   prth $p |- ( ( ( ph -> ps ) /\ ( ch -> th ) ) ->
                ( ( ph /\ ch ) -> ( ps /\ th ) ) ) $=
@@ -1531,29 +1558,12 @@ $)
     K $.
     $([12-Aug-93]$)
 
-  $( Theorem *3.48 of Whitehead and Russell. $)
+  $( Theorem *3.48 of [WhiteheadRussell] p. 114. $)
   pm3.48 $p |- ( ( ( ph -> ps ) /\ ( ch -> th ) ) ->
                ( ( ph \/ ch ) -> ( ps \/ th ) ) ) $=
     ( wi wa wn wo pm3.26 pm2.16d pm3.27 syl34d df-or 3imtr4g ) ABEZCDEZFZAGZCEB
     GZDEACHBDHQSRCDQABOPIJOPKLACMBDMN $.
     $([28-Jan-97]$)
-
-  ${
-    imland.1 $e |- ( ph -> ( ps -> ch ) ) $.
-    $( Add a conjunct to left of antecedent and consequent in a deduction. $)
-    imland   $p |- ( ph -> ( ( th /\ ps ) -> ( th /\ ch ) ) ) $=
-      ( wn wi wa pm2.16d syl3d df-an 3imtr4g ) ADBFZGZFDCFZGZFDBHDCHAPNAOMDABCE
-      IJIDBKDCKL $.
-      $([5-Aug-93]$)
-  $}
-
-  ${
-    imrand.1 $e |- ( ph -> ( ps -> ch ) ) $.
-    $( Add a conjunct to right of antecedent and consequent in a deduction. $)
-    imrand   $p |- ( ph -> ( ( ps /\ th ) -> ( ch /\ th ) ) ) $=
-      ( wa imland ancom 3imtr4g ) ADBFDCFBDFCDFABCDEGBDHCDHI $.
-      $([3-Apr-94]$)
-  $}
 
   ${
     im2and.1 $e |- ( ph -> ( ps -> ch ) ) $.
@@ -1565,18 +1575,34 @@ $)
   $}
 
   ${
+    imland.1 $e |- ( ph -> ( ps -> ch ) ) $.
+    $( Add a conjunct to left of antecedent and consequent in a deduction. $)
+    imland   $p |- ( ph -> ( ( th /\ ps ) -> ( th /\ ch ) ) ) $=
+      ( idd im2and ) ADDBCADFEG $.
+      $([5-Aug-93]$)
+  $}
+
+  ${
+    imrand.1 $e |- ( ph -> ( ps -> ch ) ) $.
+    $( Add a conjunct to right of antecedent and consequent in a deduction. $)
+    imrand   $p |- ( ph -> ( ( ps /\ th ) -> ( ch /\ th ) ) ) $=
+      ( idd im2and ) ABCDDEADFG $.
+      $([3-Apr-94]$)
+  $}
+
+  ${
     $v et $. $( Greek eta $)
     im2an9.wet $f wff et  $.
     im2an9.1 $e |- ( ph -> ( ps -> ch ) ) $.
     im2an9.2 $e |- ( th -> ( ta -> et ) ) $.
 
-    $( Deduction joining two equivalences to form equivalence of
+    $( Deduction joining nested implications to form implication of
        conjunctions. $)
     im2anan9 $p |- ( ( ph /\ th ) -> ( ( ps /\ ta ) -> ( ch /\ et ) ) ) $=
       ( wa wi adantr adantl im2and ) ADIBCEFABCJDGKDEFJAHLM $.
       $([29-Feb-96]$)
 
-    $( Deduction joining two equivalences to form equivalence of
+    $( Deduction joining nested implications to form implication of
        conjunctions. $)
     im2anan9r $p |- ( ( th /\ ph ) -> ( ( ps /\ ta ) -> ( ch /\ et ) ) ) $=
       ( wa wi adantl adantr im2and ) DAIBCEFABCJDGKDEFJAHLM $.
@@ -1619,18 +1645,18 @@ $)
   $}
 
   $( Elimination of redundant internal disjunct.  Compare Theorem *4.45
-     of Whitehead and Russell. $)
+     of [WhiteheadRussell] p. 119. $)
   oel $p |- ( ph <-> ( ( ph \/ ps ) /\ ph ) ) $=
     ( wo wa orc ancri pm3.27 impbi ) AABCZADAIABEFIAGH $.
     $([5-Aug-93]$)
 
   $( Distribution of implication over biconditional.  Theorem *5.74 of
-     Whitehead and Russell. $)
+     [WhiteheadRussell] p. 126. $)
   pm5.74 $p |- ( ( ph -> ( ps <-> ch ) ) <->
                ( ( ph -> ps ) <-> ( ph -> ch ) ) ) $=
-    ( wb wi bi1 syl3 a2d bi2 impbid wa pm2.86d im2and anabs bi 3imtr4g impbi )
-    ABCDZEZABEZACEZDZSTUASABCRBCEZABCFGHSACBRCBEZABCIGHJUBAAKUCUDKARUBAUCAUDUBA
-    BCTUAFLUBACBTUAILMANBCOPQ $.
+    ( wb wi bi1 syl3 a2d bi2 impbid wa pm2.86d im2and anidm bicom bi
+    3imtr4g impbi ) ABCDZEZABEZACEZDZTUAUBTABCSBCEZABCFGHTACBSCBEZABCIGHJUCAAKZ
+    UDUEKASUCAUDAUEUCABCUAUBFLUCACBUAUBILMUFAANOBCPQR $.
     $([1-Aug-94]$)
 
   ${
@@ -1681,8 +1707,17 @@ $)
     ENABABFGHIMABABJKHL $.
     $([31-Mar-94]$)
 
-  $( Distributive law for disjunction.  Theorem *4.41 of Whitehead and
-     Russell. $)
+  ${
+    ibi.1 $e |- ( ph -> ( ph <-> ps ) ) $.
+    $( Inference that converts a biconditional implied by one of its arguments,
+       into an implication. $)
+    ibi $p |- ( ph -> ps )  $=
+      ( wi wb ibib mpbir ) ABDAABEDCABFG $.
+      $([17-Oct-03]$)
+  $}
+
+  $( Distributive law for disjunction.  Theorem *4.41 of [WhiteheadRussell]
+     p. 119. $)
   ordi $p |- ( ( ph \/ ( ps /\ ch ) ) <-> ( ( ph \/ ps ) /\ ( ph \/ ch ) ) ) $=
     ( wa wo pm3.26 imlor pm3.27 jca wn wi df-or pm3.43i 3imtr4g sylbi imp
     impbi ) ABCDZEZABEZACEZDSTUARBABCFGRCABCHGITUASTAJZBKZUASKABLUCUBCKUBRKUASU
@@ -1697,7 +1732,7 @@ $)
     $([12-Aug-94]$)
 
   $( Distributive law for implication over conjunction.  Compare Theorem
-     *4.76 of Whitehead and Russell. $)
+     *4.76 of [WhiteheadRussell] p. 121. $)
   jcab $p |- ( ( ph -> ( ps /\ ch ) ) <->
                  ( ( ph -> ps ) /\ ( ph -> ch ) ) ) $=
     ( wn wa wo wi ordi imor bi2an 3bitr4 ) ADZBCEZFLBFZLCFZEAMGABGZACGZELBCHAMI
@@ -1713,8 +1748,8 @@ $)
       $([5-Aug-93]$)
   $}
 
-  $( Distributive law for conjunction.  Theorem *4.4 of Whitehead and
-     Russell. $)
+  $( Distributive law for conjunction.  Theorem *4.4 of [WhiteheadRussell]
+     p. 118. $)
   andi $p |- ( ( ph /\ ( ps \/ ch ) ) <-> ( ( ph /\ ps ) \/ ( ph /\ ch ) ) ) $=
     ( wn wo wa ordi ioran bilor ianor bi2an 3bitr4 bineg anor oran ) ADZBCEZDZE
     ZDABFZDZACFZDZFZDAQFTUBESUDPBDZCDZFZEPUEEZPUFEZFSUDPUEUFGRUGPBCHIUAUHUCUIAB
@@ -1807,8 +1842,7 @@ $)
     $( Deduction adding a left conjunct to both sides of a logical
        equivalence. $)
     biland   $p |- ( ph -> ( ( th /\ ps ) <-> ( th /\ ch ) ) ) $=
-      ( wn wi wa binegd bilimd df-an 3bitr4g ) ADBFZGZFDCFZGZFDBHDCHANPAMODABCE
-      IJIDBKDCKL $.
+      ( wa biimpd imland biimprd impbid ) ADBFDCFABCDABCEGHACBDABCEIHJ $.
       $([5-Aug-93]$)
 
     $( Deduction adding a right conjunct to both sides of a logical
@@ -1881,20 +1915,39 @@ $)
   $}
 
   $( Implication in terms of biconditional and conjunction.  Theorem *4.71 of
-     Whitehead and Russell. $)
+     [WhiteheadRussell] p. 120. $)
   pm4.71 $p |- ( ( ph -> ps ) <-> ( ph <-> ( ph /\ ps ) ) ) $=
     ( wi wa wb ancl pm3.26 a1i impbid bi1 pm3.27 syl6 impbi ) ABCZAABDZEZNAOABF
     OACNABGHIPAOBAOJABKLM $.
     $([5-Aug-93]$)
 
-  $( Implication in terms of biconditional and conjunction.  Same as Theorem
-     *4.71 of Whitehead and Russell with conjuncts swapped. $)
+  $( Implication in terms of biconditional and conjunction.  Theorem *4.71 of
+     [WhiteheadRussell] p. 120 (with conjunct reversed). $)
   pm4.71r $p |- ( ( ph -> ps ) <-> ( ph <-> ( ps /\ ph ) ) ) $=
     ( wi wa wb pm4.71 ancom bilbi bitr ) ABCAABDZEABADZEABFJKAABGHI $.
     $([25-Jul-99]$)
 
+  ${
+    pm4.71i.1 $e |- ( ph -> ps ) $.
+    $( Inference converting an implication to a biconditional with conjunction.
+       Inference from Theorem *4.71 of [WhiteheadRussell] p. 120. $)
+    pm4.71i $p |- ( ph <-> ( ph /\ ps ) ) $=
+      ( wi wa wb pm4.71 mpbi ) ABDAABEFCABGH $.
+      $([6-Jan-04]$)
+  $}
+
+  ${
+    pm4.71ri.1 $e |- ( ph -> ps ) $.
+    $( Inference converting an implication to a biconditional with conjunction.
+       Inference from Theorem *4.71 of [WhiteheadRussell] p. 120 (with
+       conjunct reversed). $)
+    pm4.71ri $p |- ( ph <-> ( ps /\ ph ) ) $=
+      ( wi wa wb pm4.71r mpbi ) ABDABAEFCABGH $.
+      $([1-Dec-03]$)
+  $}
+
   $( Implication in terms of biconditional and disjunction.  Theorem *4.72 of
-     Whitehead and Russell. $)
+     [WhiteheadRussell] p. 121. $)
   pm4.72 $p |- ( ( ph -> ps ) <-> ( ps <-> ( ph \/ ps ) ) ) $=
     ( wi wo wb olc a1i wn pm2.61 df-or syl5ib impbid bi2 orc syl5 impbi ) ABCZB
     ABDZEZQBRBRCQBAFGQAHBCBRABIABJKLSRBABRMABNOP $.
@@ -1911,7 +1964,7 @@ $)
     $([5-Dec-95]$)
 
   $( Distribution of implication over biconditional.  Theorem *5.32 of
-     Whitehead and Russell. $)
+     [WhiteheadRussell] p. 125. $)
   pm5.32 $p |- ( ( ph -> ( ps <-> ch ) ) <->
                ( ( ph /\ ps ) <-> ( ph /\ ch ) ) ) $=
     ( wb wi wn wa pm4.11 bilim pm5.74 3bitr df-an bi2bi bitr4 ) ABCDZEZABFZEZFZ
@@ -1949,24 +2002,42 @@ $)
     $.
     $([6-Aug-95]$)
 
-  $( Law of excluded middle.  Theorem *2.11 of Whitehead and Russell. $)
+  $( Law of excluded middle.  Theorem *2.11 of [WhiteheadRussell] p. 101.  It
+     says that something is either true or not true; there are no in-between
+     values of truth.  This is an essential distinction of our classical logic
+     and is not a theorem of intuitionistic logic. $)
   pm2.11 $p |- ( ph \/ -. ph ) $=
     ( wn id orri ) AABZECD $.
     $([5-Aug-93]$)
 
-  $( Law of contradiction.  Theorem *3.24 of Whitehead and Russell. $)
+  $( Law of contradiction.  Theorem *3.24 of [WhiteheadRussell] p. 111. $)
   pm3.24 $p |- -. ( ph /\ -. ph ) $=
     ( wn wa wo pm2.11 ianor mpbir ) AABZCBHHBDHEAHFG $.
     $([16-Sep-93]$)
 
-  ${
-    mpcomb.1 $e |- ( ps -> ph ) $.
-    mpcomb.2 $e |- ( ch -> ph ) $.
-    mpcomb.3 $e |- ( ph -> ( ps <-> ch ) ) $.
-    $( Combination modus ponens inference. $)
-    mpcomb   $p |- ( ps <-> ch ) $=
-      ( biimpd mpcom biimprd impbi ) BCABCDABCFGHACBEABCFIHJ $.
-      $([21-Jul-01]$)
-  $}
+  $( Theorem *5.18 of [WhiteheadRussell] p. 124.  This theorem says that
+     logical equivalence is the same as negated "exclusive-or". $)
+  pm5.18 $p |- ( ( ph <-> ps ) <-> -. ( ph <-> -. ps ) ) $=
+    ( wb wn pm4.21 wi wa pm2.61 pm2.65 pm2.03 syl5 im2and bi syl5ib annim
+    syl6ib comm imnan sylib bineg sylibr wo pm2.21 nsyl4 adantl sylbir jca
+    ax-1 adantr pm3.4 jaoi ianor 3imtr4 sylbi impbi bitr bicon2 ) ABCBACZABDZCZ
+    DABEUTURUTUSACZURDZAUSEVAVBVABAFZABFZGZDZVBVAVCVDDZFVFVCVAVGVCVAAUSGZVGVCUS
+    AFZAUSFZGZVHVAVCVIAVJUSBAHVCBADZFUSVJBAIABJKLUSAMZNABOZPQVCVDRSURVEBAMTZUAV
+    BVFVAVOVCDZVGUBVKVFVAVPVKVGVPVIVJBVIVCUSBABAUCZQVQUDVPBVLGVJBAOVLVJBAUSUCUE
+    UFUGVGVIVJVGVHVIVNAVIUSAUSUHUIUFVGVHVJVNAUSUJUFUGUKVCVDULVMUMUNUOUPUQUP $.
+    $([28-Jun-02]$)
+
+  $( Move negation outside of biconditional.  Compare Theorem *5.18 of
+     [WhiteheadRussell] p. 124. $)
+  nbbn $p |- ( ( -. ph <-> ps ) <-> -. ( ph <-> ps ) ) $=
+    ( wn wb pm4.21 pm5.18 bitr bicon2 ) ACZBDBIDZABDZCIBEKJKBADJCABEBAFGHG $.
+    $([27-Jun-02]$)
+
+  $( An alternate definition of the biconditional. $)
+  dfbi $p |- ( ( ph <-> ps ) <-> ( ( ph /\ ps ) \/ ( -. ph /\ -. ps ) ) ) $=
+    ( wb wn wa wo pm5.18 wi imnan bi2.15 iman bitr bi2an bi ioran 3bitr4r
+    bicon1 ) ABCABDZCZDABEZADZREZFZABGUCSARHZRAHZETDZUBDZESUCDUDUFUEUGABIUEUABH
+    UGBAJUABKLMARNTUBOPQL $.
+    $([27-Jun-02]$)
 
 

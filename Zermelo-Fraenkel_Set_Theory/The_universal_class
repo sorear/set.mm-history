@@ -10,23 +10,25 @@ $)
   $( Extend class notation to include the universal class symbol. $)
   cvv $a class V $.
 
-  $( Define the universal class.  Definition 5.20, p. 21, of Takeuti and
-     Zaring. $)
+  $( Define the universal class.  Definition 5.20 of [TakeutiZaring] p. 21. $)
   df-v    $a |- V = { x | x = x } $.
 
-  $( All set variables are sets (see ~ isset ).  Theorem 6.8 of Quine, p. 43. $)
+  $( All set variables are sets (see ~ isset ).  Theorem 6.8 of [Quine] p. 43. $)
   visset $p |- x e. V $=
     ( cv cvv wcel weq eqid df-v cleqabi mpbir ) ABCDAAEZAFJACAGHI $.
     $([5-Aug-93]$)
 
   ${
     $d x A $.
-    $( Two ways to say " ` A ` is a set":  A class ` A ` is a member of
-       the universal class ` V ` (see ~ df-v ) if and only if the class ` A `
-       exists (i.e. there exists some set ` x ` equal to class ` A ` ).  We
-       will use the notational device " ` A e. V ` " to mean "` A ` is a set"
-       very frequently.  Note the when ` A ` is not a set, it is called a
-       proper class.  Theorem 6.9 of Quine, p. 43. $)
+    $( Two ways to say " ` A ` is a set":  A class ` A ` is a member of the
+       universal class ` V ` (see ~ df-v ) if and only if the class ` A `
+       exists (i.e. there exists some set ` x ` equal to class ` A ` ). Theorem
+       6.9 of [Quine] p. 43.  _Notational convention_:  We will use the
+       notational device " ` A e. V ` " to mean " ` A ` is a set" very
+       frequently, for example in ~ zfun2 . Note the when ` A ` is not a set,
+       it is called a proper class.  In some theorems, such as ~ zfun2g , in
+       order to shorten certain proofs we use the antecedent ` A e. B ` instead
+       of ` A e. V ` to mean " ` A ` is a set".  $)
     isset $p |- ( A e. V <-> E. x x = A ) $=
       ( cvv wcel cv wceq wa wex df-clel visset biantru biex bitr4 ) BCDAEZBFZNC
       DZGZAHOAHABCIOQAPOAJKLM $.
@@ -36,7 +38,7 @@ $)
   ${
     $d x A $.
     isseti.1 $e |- A e. V $.
-    $( A way to say "` A ` is a set" (inference rule). $)
+    $( A way to say " ` A ` is a set" (inference rule). $)
     isseti   $p |- E. x x = A $=
       ( cvv wcel cv wceq wex isset mpbi ) BDEAFBGAHCABIJ $.
       $([5-Aug-93]$)
@@ -45,7 +47,7 @@ $)
   ${
     $d x A $.
     issetri.1 $e |- E. x x = A $.
-    $( A way to say "` A ` is a set" (inference rule). $)
+    $( A way to say " ` A ` is a set" (inference rule). $)
     issetri   $p |- A e. V $=
       ( cvv wcel cv wceq wex isset mpbir ) BDEAFBGAHCABIJ $.
       $([5-Aug-93]$)
@@ -54,7 +56,7 @@ $)
   ${
     $d x A $.  $d x B $.  $( ` x ` is dummy. $)
     $( If a class is a member of another class, it is a set.  Theorem 6.12
-       of Quine, p. 44. $)
+       of [Quine] p. 44. $)
     elisset $p |- ( A e. B -> A e. V ) $=
       ( vx wcel cv wceq wex cvv wa df-clel 19.40 sylbi pm3.26d isset sylibr )
       ABDZCEZAFZCGZAHDPSQBDZCGZPRTICGSUAICABJRTCKLMCANO $.
@@ -79,14 +81,26 @@ $)
 
   ${
     $d x A $.
+    ceqsalg.1 $e |- ( ps -> A. x ps ) $.
+    ceqsalg.2 $e |- ( x = A -> ( ph <-> ps ) ) $.
+    $( A representation of explicit substitution of a class for a variable,
+       inferred from an implicit substitution hypothesis. $)
+    ceqsalg $p |- ( A e. B -> ( A. x ( x = A -> ph ) <-> ps ) ) $=
+      ( wcel cv wceq wi wal wex biimpd a2i 19.20i 19.23 sylib elex syl5 comm
+      biimprcd 19.21ai a1i impbid ) DEHZCIDJZAKZCLZBUIUFBUIUGCMZBUFUIUGBKZCLUJB
+      KUHUKCUGABUGABGNOPUGBCFQRCDESTUABUIKUFBUHCFUGABGUBUCUDUE $.
+      $([29-Oct-03]$)
+  $}
+
+  ${
+    $d x A $.
     ceqsal.1 $e |- ( ps -> A. x ps ) $.
     ceqsal.2 $e |- A e. V $.
     ceqsal.3 $e |- ( x = A -> ( ph <-> ps ) ) $.
-    $( An inference with implicit substitution. $)
+    $( A representation of explicit substitution of a class for a variable,
+       inferred from an implicit substitution hypothesis. $)
     ceqsal $p |- ( A. x ( x = A -> ph ) <-> ps ) $=
-      ( cv wceq wi wal wex isseti biimpd a2i 19.20i 19.23 sylib mpi biimprcd
-      19.21ai impbi ) CHDIZAJZCKZBUEUCCLZBCDFMUEUCBJZCKUFBJUDUGCUCABUCABGNOPUCB
-      CEQRSBUDCEUCABGTUAUB $.
+      ( cvv wcel cv wceq wi wal wb ceqsalg ax-mp ) DHICJDKALCMBNFABCDHEGOP $.
       $([18-Aug-93]$)
   $}
 
@@ -94,7 +108,8 @@ $)
     $d x A $.  $d x ps $.
     ceqsalv.1 $e |- A e. V $.
     ceqsalv.2 $e |- ( x = A -> ( ph <-> ps ) ) $.
-    $( An inference with implicit substitution. $)
+    $( A representation of explicit substitution of a class for a variable,
+       inferred from an implicit substitution hypothesis. $)
     ceqsalv $p |- ( A. x ( x = A -> ph ) <-> ps ) $=
       ( ax-17 ceqsal ) ABCDBCGEFH $.
       $([18-Aug-93]$)
@@ -344,24 +359,27 @@ $)
   $}
 
   ${
-    $d x A $.
-    vtoclgf.1 $e |- ( ps -> A. x ps ) $.
-    vtoclgf.2 $e |- ( x = A -> ( ph <-> ps ) ) $.
-    vtoclgf.3 $e |- ph $.
-    $( Implicit substitution of a class for a set variable. $)
-    vtoclgf   $p |- ( A e. B -> ps ) $=
-      ( wcel cvv elisset cv wceq wex isset mpbii 19.23ai sylbi syl ) DEIDJIZBDE
-      KTCLDMZCNBCDOUABCFUAABHGPQRS $.
-      $([17-Apr-95]$)
+    $d y z A $. $d x y z $.
+    vtoclgf.1 $e |- ( y e. A -> A. x y e. A ) $.
+    vtoclgf.2 $e |- ( ps -> A. x ps ) $.
+    vtoclgf.3 $e |- ( x = A -> ( ph <-> ps ) ) $.
+    vtoclgf.4 $e |- ph $.
+    $( Implicit substitution of a class for a set variable, with "not free"
+       hypotheses in place of distinct variable restrictions. $)
+    vtoclgf $p |- ( A e. B -> ps ) $=
+      ( vz wcel cvv elisset cv wceq wex isset wel ax-17 hbeq cleq1 cbvex bitr
+      mpbii 19.23ai sylbi syl ) EFLEMLZBEFNUICOZEPZCQZBUIDOZEPZDQULDERUNUKDCCKD
+      UMEKDSCTGUAUKDTUMUJEUBUCUDUKBCHUKABJIUEUFUGUH $.
+      $([21-Sep-03]$)
   $}
 
   ${
-    $d x A $.  $d x ps $.
+    $d x y A $.  $d x ps $.
     vtoclg.1 $e |- ( x = A -> ( ph <-> ps ) ) $.
     vtoclg.2 $e |- ph $.
     $( Implicit substitution of a class for a set variable. $)
     vtoclg   $p |- ( A e. B -> ps ) $=
-      ( ax-17 vtoclgf ) ABCDEBCHFGI $.
+      ( vy cv wcel ax-17 vtoclgf ) ABCHDEHIDJCKBCKFGL $.
       $([17-Apr-95]$)
   $}
 
@@ -377,7 +395,7 @@ $)
   $}
 
   ${
-    $d x A $.  $d y A $.  $d y B $.  $d y C $.
+    $d x A $.  $d y z A $.  $d y z B $.  $d y C $.  $d z x $.
     vtocl2gf.1 $e |- ( ps -> A. x ps ) $.
     vtocl2gf.2 $e |- ( ch -> A. y ch ) $.
     vtocl2gf.3 $e |- ( x = A -> ( ph <-> ps ) ) $.
@@ -385,8 +403,8 @@ $)
     vtocl2gf.5 $e |- ph $.
     $( Implicit substitution of a class for a set variable. $)
     vtocl2gf   $p |- ( ( A e. C /\ B e. D ) -> ch ) $=
-      ( wcel wi ax-17 hbim cv wceq bilimd vtoclgf comm imp ) FHOZGIOZCUFUECUEBP
-      UECPEGIUECEUEEQKRESGTBCUEMUAABDFHJLNUBUBUCUD $.
+      ( vz wcel wi cv ax-17 hbim wceq bilimd vtoclgf comm imp ) FHPZGIPZCUGUFCU
+      FBQUFCQEOGIORZGPESUFCEUFESKTERGUABCUFMUBABDOFHUHFPDSJLNUCUCUDUE $.
       $([25-Apr-95]$)
   $}
 
@@ -445,9 +463,9 @@ $)
     $d x A $.  $d x ph $.
     vtocle.1 $e |- ( x = A -> ph ) $.
     $( Implicit substitution of a class for a set variable. $)
-    vtocle   $p |- ( A e. V -> ph ) $=
-      ( cvv wcel cv wceq wex isset 19.23aiv sylbi ) CEFBGCHZBIABCJMABDKL $.
-      $([5-Aug-93]$)
+    vtocle   $p |- ( A e. B -> ph ) $=
+      ( wcel cv wceq wex elex 19.23aiv syl ) CDFBGCHZBIABCDJMABEKL $.
+      $([10-Jan-04]$)
   $}
 
   ${
@@ -456,7 +474,7 @@ $)
     vtoclei.2 $e |- ( x = A -> ph ) $.
     $( Implicit substitution of a class for a set variable. $)
     vtoclei   $p |- ph $=
-      ( cvv wcel vtocle ax-mp ) CFGADABCEHI $.
+      ( cvv wcel vtocle ax-mp ) CFGADABCFEHI $.
       $([9-Sep-93]$)
   $}
 
@@ -579,46 +597,12 @@ $)
   $}
 
   ${
-    $d y A $.  $d x y z $.
-    hblem.1 $e |- ( y e. A -> A. x y e. A ) $.
-    $( Lemma for ~ hbeq and ~ hbel . $)
-    hblem   $p |- ( z e. A -> A. x z e. A ) $=
-      ( weq wex cv wcel wal wi a9e eleq1 syl6bir bialdv sylibd 19.23aiv ax-mp
-      ) BCFZBGCHZDIZUAAJZKZBCLSUCBSUABHZDIZAJZUBSUAUEUFUDTDMZENSUEUAAUGOPQR $.
-      $([5-Aug-93]$)
-  $}
-
-  ${
-    $d y A w $.  $d z B w $.  $d x y w $.  $d x z w $.  $( ` w ` is dummy. $)
-    hbeq.1 $e |- ( y e. A -> A. x y e. A ) $.
-    hbeq.2 $e |- ( z e. B -> A. x z e. B ) $.
-    $( If ` x ` is not free in ` A ` and ` B `, it is not free in ` A = B `. $)
-    hbeq   $p |- ( A = B -> A. x A = B ) $=
-      ( vw cv wcel wb wal wceq hblem hbbi hbal dfcleq bial 3imtr4 ) HIZDJZTEJZK
-      ZHLZUDALDEMZUEALUCAHUAUBAABHDFNACHEGNOPHDEQZUEUDAUFRS $.
-      $([5-Aug-93]$)
-  $}
-
-  ${
-    $d y A w $.  $d z B w $.  $d x y w $.  $d x z w $.  $( ` w ` is dummy. $)
-    hbel.1 $e |- ( y e. A -> A. x y e. A ) $.
-    hbel.2 $e |- ( z e. B -> A. x z e. B ) $.
-    $( If ` x ` is not free in ` A ` and ` B `, it is not free in
-       ` A e. B `. $)
-    hbel   $p |- ( A e. B -> A. x A e. B ) $=
-      ( vw cv wceq wcel wa wex wal wel ax-17 hbeq hblem hban hbex df-clel bial
-      3imtr4 ) HIZDJZUDEKZLZHMZUHANDEKZUIANUGAHUEUFAABBUDDBHOAPFQACHEGRSTHDEUAZ
-      UIUHAUJUBUC $.
-      $([5-Aug-93]$)
-  $}
-
-  ${
     $d x y z $.  $d y z A $.  $( ` z ` is dummy. $)
     cla4gf.1 $e |- ( y e. A -> A. x y e. A ) $.
     cla4gf.2 $e |- ( ps -> A. x ps ) $.
     cla4gf.3 $e |- ( x = A -> ( ph <-> ps ) ) $.
     $( Rule of specialization with implicit substitution.  Compare Theorem 7.3
-       of Quine, p. 44. $)
+       of [Quine] p. 44. $)
     cla4gf   $p |- ( A e. B -> ( A. x ph -> ps ) ) $=
       ( vz wcel cvv wal wi elisset wex cv wceq isset wel ax-17 hbeq cleq1
       cbvex bitr biimpd 19.22i sylbi 19.36 sylib syl ) EFKELKZACMBNZEFOULABNZCP
@@ -637,7 +621,7 @@ $)
     $d x ps $.  $d x y A $.  $( ` y ` is dummy. $)
     cla4gv.1 $e |- ( x = A -> ( ph <-> ps ) ) $.
     $( Rule of specialization with implicit substitution.  Compare Theorem 7.3
-       of Quine, p. 44. $)
+       of [Quine] p. 44. $)
     cla4gv   $p |- ( A e. B -> ( A. x ph -> ps ) ) $=
       ( vy cv wcel ax-17 cla4gf ) ABCGDEGHDICJBCJFK $.
       $([22-Jun-94]$)
@@ -707,9 +691,8 @@ $)
        substitution. $)
     rcla42ev $p |- ( ( ( A e. C /\ B e. D ) /\ ps ) ->
                    E. x e. C E. y e. D ph ) $=
-      ( wcel wa wrex rcla4ev imlan exp32 imp31 cv wceq birexdv syl ) FHLZGILZMB
-      MUCCEINZMZAEINZDHNUCUDBUFUCUDBUFUDBMUEUCCBEGIKOPQRUGUEDFHDSFTACEIJUAOUB
-      $.
+      ( wcel wa wrex rcla4ev imlan anassrs cv wceq birexdv syl ) FHLZGILZMBMUBC
+      EINZMZAEINZDHNUBUCBUEUCBMUDUBCBEGIKOPQUFUDDFHDRFSACEIJTOUA $.
       $([16-Oct-99]$)
   $}
 
@@ -739,9 +722,24 @@ $)
   $}
 
   ${
+    $d A y z $.  $d B y z $.  $d x y z $.
+    eqvincf.1 $e |- ( y e. A -> A. x y e. A ) $.
+    eqvincf.2 $e |- ( y e. B -> A. x y e. B ) $.
+    eqvincf.3 $e |- A e. V $.
+    $( A variable introduction law for class equality, requiring only that
+       ` x ` not be free in ` A ` and ` B ` (instead of not occuring in
+       them). $)
+    eqvincf $p |- ( A = B <-> E. x ( x = A /\ x = B ) ) $=
+      ( vz wceq cv wa wex eqvinc wel ax-17 hbeq hban weq cleq1 bi2and cbvex
+      bitr ) CDIBJZCIZUCDIZKZBLAJZCIZUGDIZKZALBCDGMUFUJBAUDUEAAHBUCCHBNAOZEPAHB
+      UCDUKFPQUJBOBARUDUHUEUIUCUGCSUCUGDSTUAUB $.
+      $([14-Sep-03]$)
+  $}
+
+  ${
     $d x A y $.  $d ph y $.  $( ` y ` is dummy. $)
     alex.1 $e |- A e. V $.
-    $( Two ways of expressing substitution of ` A ` for ` x ` in ` ph `. $)
+    $( Two ways of expressing substitution of ` A ` for ` x ` in ` ph ` . $)
     alex   $p |- ( A. x ( x = A -> ph ) <-> E. x ( x = A /\ ph ) ) $=
       ( vy weq wi wal wa wex cv wceq cleq2 birimd bialdv birand biexdv eqs4
       eq5 hba1 ax-16 pm3.4 syl5 19.23ad eqs5 pm2.61i impbi vtoclbbv ) BEFZAGZBH
@@ -763,23 +761,23 @@ $)
   $}
 
   ${
-    $d x A $.  $d x ps $.
-    ceqsexvg.1 $e |- ( x = A -> ( ph <-> ps ) ) $.
+    $d x y A $.  $d x ps $.
+    ceqsexgv.1 $e |- ( x = A -> ( ph <-> ps ) ) $.
     $( An inference with implicit substitution. $)
-    ceqsexvg   $p |- ( A e. B -> ( E. x ( x = A /\ ph ) <-> ps ) ) $=
-      ( wb cv wceq wa wex hbe1 ax-17 hbbi ceqsexg bi2bid pm4.2 vtoclgf ) AAGCHD
-      IZAJZCKZBGCDEUABCTCLBCMNSAUAABACDOFPAQR $.
+    ceqsexgv   $p |- ( A e. B -> ( E. x ( x = A /\ ph ) <-> ps ) ) $=
+      ( vy wb cv wceq wa wex wcel ax-17 hbe1 hbbi ceqsexg bi2bid pm4.2 vtoclgf
+      ) AAHCIDJZAKZCLZBHCGDEGIDMCNUCBCUBCOBCNPUAAUCABACDQFRAST $.
       $([29-Dec-96]$)
   $}
 
   ${
     $d ps y $.  $d x A y $.  $d y ph $.  $( ` y ` is dummy. $)
-    abclf.1 $e |- ( ps -> A. x ps ) $.
-    abclf.2 $e |- A e. V $.
-    abclf.3 $e |- ( x = A -> ( ph <-> ps ) ) $.
-    $( Implicit substitution for an element of an abstraction class. $)
-    abclf   $p |- ( A e. { x | ph } <-> ps ) $=
-      ( vy cab wcel wb cv ax-17 hbab1 hbel hbbi wceq eleq1 abid syl5bb bitr3d
+    elabf.1 $e |- ( ps -> A. x ps ) $.
+    elabf.2 $e |- A e. V $.
+    elabf.3 $e |- ( x = A -> ( ph <-> ps ) ) $.
+    $( Membership in an abstraction class with implicit substitution. $)
+    elabf   $p |- ( A e. { x | ph } <-> ps ) $=
+      ( vy cab wcel wb cv ax-17 hbab1 hbel hbbi wceq eleq1 abid syl5bbr bitr3d
       vtoclef ) DACIZJZBKCDUDBCCHHDUCHLDJCMACHNOEPFCLZDQZAUDBUFUEUCJUDAUEDUCRAC
       STGUAUB $.
       $([1-Aug-94]$)
@@ -787,49 +785,75 @@ $)
 
   ${
     $d x ps $.  $d x A $.
-    abcl.1 $e |- A e. V $.
-    abcl.2 $e |- ( x = A -> ( ph <-> ps ) ) $.
-    $( Implicit substitution for an element of an abstraction class.
-       Compare Theorem 6.13 of Quine, p. 44 $)
-    abcl   $p |- ( A e. { x | ph } <-> ps ) $=
-      ( ax-17 abclf ) ABCDBCGEFH $.
+    elab.1 $e |- A e. V $.
+    elab.2 $e |- ( x = A -> ( ph <-> ps ) ) $.
+    $( Membership in an abstraction class with implicit substitution.  Compare
+       Theorem 6.13 of [Quine] p. 44. $)
+    elab   $p |- ( A e. { x | ph } <-> ps ) $=
+      ( ax-17 elabf ) ABCDBCGEFH $.
       $([1-Aug-94]$)
   $}
 
   ${
-    $d x y ps $.  $d x y A $.  $d y ph $.  $( ` y ` is dummy. $)
-    abclg.1 $e |- ( x = A -> ( ph <-> ps ) ) $.
-    $( Implicit substitution for an element of an abstraction class.
-       Compare Theorem 6.13 of Quine, p. 44 $)
-    abclg   $p |- ( A e. B -> ( A e. { x | ph } <-> ps ) ) $=
-      ( vy cv cab wcel wsb eleq1 wceq weq wa wex wb visset eqvinc hbsbv ax-17
-      hbbi sbequ12 bicomd sylan9bb 19.23ai sylbi df-clab vtoclgb ) GHZACIZJACGK
-      ZDUKJBGDEUJDUKLUJDMCGNZCHDMZOZCPULBQZCUJDGRSUOUPCULBCACGTBCUAUBUMULAUNBUM
-      AULACGUCUDFUEUFUGAGCUHUI $.
+    $d y A $.  $d z ph $.  $d x y z $.
+    elabgf.1 $e |- ( y e. A -> A. x y e. A ) $.
+    elabgf.2 $e |- ( ps -> A. x ps ) $.
+    elabgf.3 $e |- ( x = A -> ( ph <-> ps ) ) $.
+    $( Membership in an abstraction class with implicit substitution.  Compare
+       Theorem 6.13 of [Quine] p. 44.  This version has "not free" hypotheses
+       in place of distinct variable restrictions. $)
+    elabgf $p |- ( A e. B -> ( A e. { x | ph } <-> ps ) ) $=
+      ( vz cv cab wcel wb hbab1 hbel hbbi wceq eleq1 bi2bid abid vtoclgf ) CKZA
+      CLZMZANEUDMZBNCDEFGUFBCCDJEUDGACJOPHQUCERUEUFABUCEUDSITACUAUB $.
+      $([21-Sep-03]$)
+  $}
+
+  ${
+    $d x ps $.  $d x y A $.
+    elabg.1 $e |- ( x = A -> ( ph <-> ps ) ) $.
+    $( Membership in an abstraction class with implicit substitution.  Compare
+       Theorem 6.13 of [Quine] p. 44. $)
+    elabg $p |- ( A e. B -> ( A e. { x | ph } <-> ps ) ) $=
+      ( vy cv wcel ax-17 elabgf ) ABCGDEGHDICJBCJFK $.
       $([14-Apr-95]$)
   $}
 
   ${
     $d x ps $.  $d x A $.
-    abcl2g.1 $e |- ( ps -> A e. V ) $.
-    abcl2g.2 $e |- ( x = A -> ( ph <-> ps ) ) $.
-    $( Implicit substitution for an element of an abstraction class.
-       Compare Theorem 6.13 of Quine, p. 44 $)
-    abcl2g   $p |- ( A e. { x | ph } <-> ps ) $=
-      ( cab wcel abclg biimpd pm2.43i cvv wb syl biimprd impbi ) DACGZHZBRBRRBA
-      BCDQFIJKBRBRBBDLHRBMEABCDLFINOKP $.
+    elab2g.1 $e |- ( ps -> A e. V ) $.
+    elab2g.2 $e |- ( x = A -> ( ph <-> ps ) ) $.
+    $( Membership in an abstraction class with implicit substitution. Compare
+       Theorem 6.13 of [Quine] p. 44. $)
+    elab2g   $p |- ( A e. { x | ph } <-> ps ) $=
+      ( cab wcel elabg ibi cvv wb syl biimprd pm2.43i impbi ) DACGZHZBRBABCDQFI
+      JBRBRBBDKHRBLEABCDKFIMNOP $.
       $([10-Nov-00]$)
   $}
 
   ${
-    $d x ps $.  $d x A $.  $d x B $.
-    rabcl.1 $e |- ( x = A -> ( ph <-> ps ) ) $.
-    $( Implicit substitution for an element of a restricted abstraction
-       class. $)
-    rabcl $p |- ( A e. { x e. B | ph } <-> ( A e. B /\ ps ) ) $=
-      ( crab wcel cvv wa elisset adantr cv cab wceq eleq1 bi2and abclg df-rab
-      eleq2i syl5bb pm5.21nii ) DACEGZHZDIHZDEHZBJZDUCKUFUEBDEKLUEDCMZEHZAJZCNZ
-      HUGUDUJUGCDIUHDOUIUFABUHDEPFQRUCUKDACESTUAUB $.
+    $d x y $.  $d y A $.  $d y B $.
+    elrabf.1 $e |- ( y e. A -> A. x y e. A ) $.
+    elrabf.2 $e |- ( y e. B -> A. x y e. B ) $.
+    elrabf.3 $e |- ( ps -> A. x ps ) $.
+    elrabf.4 $e |- ( x = A -> ( ph <-> ps ) ) $.
+    $( Membership in a restricted abstraction class with implicit substitution.
+       This version has "not free" hypotheses in place of distinct variable
+       restrictions. $)
+    elrabf $p |- ( A e. { x e. B | ph } <-> ( A e. B /\ ps ) ) $=
+      ( crab wcel cvv wa elisset adantr cv cab hbel hban wceq eleq1 bi2and
+      elabgf df-rab eleq2i syl5bb pm5.21nii ) EACFKZLZEMLZEFLZBNZEUIOULUKBEFOPU
+      KECQZFLZANZCRZLUMUJUPUMCDEMGULBCCDDEFGHSITUNEUAUOULABUNEFUBJUCUDUIUQEACFU
+      EUFUGUH $.
+      $([21-Sep-03]$)
+  $}
+
+  ${
+    $d x ps $.  $d x y A $.  $d x y B $.
+    elrab.1 $e |- ( x = A -> ( ph <-> ps ) ) $.
+    $( Membership in a restricted abstraction class with implicit
+       substitution. $)
+    elrab $p |- ( A e. { x e. B | ph } <-> ( A e. B /\ ps ) ) $=
+      ( vy cv wcel ax-17 elrabf ) ABCGDEGHZDICJLEICJBCJFK $.
       $([21-May-99]$)
   $}
 
@@ -840,7 +864,7 @@ $)
     cbvab.3 $e |- ( x = y -> ( ph <-> ps ) ) $.
     $( Rule used to change bound variables with implicit substitution. $)
     cbvab   $p |- { x | ph } = { y | ps } $=
-      ( vz cab wceq cv wcel wb hbab hbab1 cleqf visset abclf abid bitr mpgbir
+      ( vz cab wceq cv wcel wb hbab hbab1 cleqf visset elabf abid bitr4 mpgbir
       ) ACIZBDIZJDKZUBLZUDUCLZMDDHUBUCADCHENBDHOPUEBUFABCUDFDQGRBDSTUA $.
       $([8-Mar-95]$)
   $}
@@ -855,12 +879,29 @@ $)
   $}
 
   ${
-    $d x y A $.  $d y ph $.  $d x ps $.
+    $d x y z $.  $d z A $.
+    cbvrab.1 $e |- ( z e. A -> A. x z e. A ) $.
+    cbvrab.2 $e |- ( z e. A -> A. y z e. A ) $.
+    cbvrab.3 $e |- ( ph -> A. y ph ) $.
+    cbvrab.4 $e |- ( ps -> A. x ps ) $.
+    cbvrab.5 $e |- ( x = y -> ( ph <-> ps ) ) $.
+    $( Rule to change the bound variable in a restricted abstraction class,
+       using implicit substitution.  This version has "not free" hypotheses in
+       place of distinct variable conditions.$)
+    cbvrab   $p |- { x e. A | ph } = { y e. A | ps } $=
+      ( cv wcel wa cab crab wel ax-17 hbel hban weq eleq1 bi2and cbvab df-rab
+      3eqtr4 ) CLZFMZANZCODLZFMZBNZDOACFPBDFPUIULCDUHADDEEUGFECQDRHSITUKBCCEEUJ
+      FEDQCRGSJTCDUAUHUKABUGUJFUBKUCUDACFUEBDFUEUF $.
+      $([26-Sep-03]$)
+  $}
+
+  ${
+    $d x y z A $.  $d y ph $.  $d x ps $.
     cbvrabv.1 $e |- ( x = y -> ( ph <-> ps ) ) $.
-    $( Rule used to change bound variables with implicit substitution. $)
+    $( Rule to change the bound variable in a restricted abstraction class,
+       using implicit substitution. $)
     cbvrabv   $p |- { x e. A | ph } = { y e. A | ps } $=
-      ( cv wcel wa cab crab weq eleq1 bi2and cbvabv df-rab 3eqtr4 ) CGZEHZAIZCJ
-      DGZEHZBIZDJACEKBDEKTUCCDCDLSUBABRUAEMFNOACEPBDEPQ $.
+      ( vz cv wcel ax-17 cbvrab ) ABCDGEGHEIZCJLDJADJBCJFK $.
       $([26-May-99]$)
   $}
 
@@ -954,8 +995,8 @@ $)
     mosub.1 $e |- E* x ph $.
     $( "At most one" remains true after substitution. $)
     mosub   $p |- E* x E. y ( y = A /\ ph ) $=
-      ( cv wceq wmo wal wa wex moeq ax-gen moexexv mp2an ) CFDGZCHABHZCIPAJCKBHC
-      DLQCEMPACBNO $.
+      ( cv wceq wmo wal wa wex moeq ax-gen moexexv mp2an ) CFDGZCHABHZCIPAJCKBH
+      CDLQCEMPACBNO $.
       $([9-Mar-95]$)
   $}
 
@@ -974,14 +1015,59 @@ $)
 
   ${
     $d x y $.
-    $( The resolution of Russell's paradox:  there exists no set containing
-       all sets which are not members of themselves.  Proposition 4.14
-       of Takeuti and Zaring, p. 14. $)
-    ru $p |- -. E. x x = { y | -. y e. y } $=
-      ( cv wel wn cab wceq wb wal pm4.2 nbbn mpbi weq a13b a14b bitrd binegd
-      bi2bid a4b1 mto cleqab mtbir nex ) ACZBBDZEZBFGZAUGBADZUFHZBIZUJAADZUKEZH
-      ZULULHUMEULJUKULKLUIUMBABAMZUHUKUFULBAANUNUEUKUNUEABDUKBABNBAAOPQRSTUFBUD
-      UAUBUC $.
+    $( Russell's Paradox.  Proposition 4.14 of [TakeutiZaring] p. 14.  Frege's
+       Axiom of Comprehension, expressed in our notation as ` A e. V ` ,
+       asserted that any collection of sets ` A ` is a set i.e. belongs to the
+       universe ` V ` of all sets.  In particular, by substituting
+       ` { x | x e/ x } ` for ` A ` , it asserted ` { x | x e/ x } e. V ` ,
+       meaning that the "collection of all sets which are not members of
+       themselves" is a set.  However, here we prove ` { x | x e/ x } e/ V ` .
+       This contradiction was discovered by Russell in 1901 (published in
+       1903), invalidating Comprehension and leading to the collapse of Frege's
+       system.  In 1908 Zermelo rectified this fatal flaw by replacing
+       Comprehension with a weaker Subset (or Separation) Axiom ~ ssex
+       asserting that ` A ` is a set only when it is smaller than some other
+       set ` B ` . However, Zermelo was then faced with a "chicken and egg"
+       problem of how to show ` B ` is a set, leading him to introduce the
+       set-building axioms of Null Set ~ zfnull , Pairing ~ zfpaircl , Union
+       ~ zfun2 , Power Set ~ zfpowcl , and Infinity ~ omex to give him some
+       starting sets to work with (all of which, before Russell's Paradox, were
+       immediate consequences of Frege's Comprehension).  In 1922 Fraenkel
+       strengthened the Subset Axiom with our present Replacement Axiom
+       ~ zfrep5 (whose modern formalization is due to Skolem, also in
+       1922).  Thus in a very real sense Russell's Paradox spawned the
+       invention of ZF set theory and completely revised the foundations of
+       mathematics!
+
+       Another mainstream formalization of set theory, devised by von
+       Neumann, Bernays, and Godel, uses class variables rather than set
+       variables as its primitives.  The axiom system NBG in [Mendelson]
+       p. 225 is suitable for a Metamath encoding.  NBG is a conservative
+       extension of ZFC in that it proves exactly the same theorems as ZFC that
+       are expressable in the language of ZFC.  An advantage of NBG is that it
+       is finitely axiomatizable - the Axiom of Replacement can be broken down
+       into a finite set of formulas that eliminate its wff metavariable.
+       Finite axiomatizability is required by some proof languages (although
+       not by Metamath).
+
+       Russell himself continued in a different direction, avoiding the paradox
+       with his "theory of types."  Quine extended Russell's ideas to formulate
+       the very strong New Foundations set theory (axiom system NF of [Quine]
+       p. 331).  In NF the set of all sets is a set, contradicting ZF and
+       NBG set theories, and it has other bizarre consequences:  when sets
+       become too huge (beyond the size of those used in standard mathematics),
+       the Axiom of Choice ~ ac4 and Cantor's Theorem ~ canth2 are provably
+       false!  Nonetheless NF has not been shown to be inconsistent and has its
+       advocates - who's to say which set theory is "right"?  NF is finitely
+       axiomatizable and can be encoded in Metamath using the axioms from T.
+       Hailperin, "A set of axioms for logic," _J. Symb. Logic_ 9:1-19
+       (1944). $)
+    ru $p |- { x | x e/ x } e/ V $=
+      ( vy cv wnel cab cvv wcel wn wceq wex wel wb wal pm4.2 pm5.18 mpbi weq
+      eleq1 id eleq12d binegd df-nel syl5bb bi2bid a4b1 mto cleqab mtbir nex
+      isset mpbir ) ACZULDZAEZFDUNFGZHUOBCZUNIZBJUQBUQABKZUMLZAMZUTBBKZVAHZLZVA
+      VALVCHVANVAVAOPUSVCABABQZURVAUMVBULUPUPRVDAAKZHVBUMVDVEVAVDULUPULUPVDSZVF
+      TUAULULUBUCUDUEUFUMAUPUGUHUIBUNUJUHUNFUBUK $.
       $([7-Aug-94]$)
   $}
 

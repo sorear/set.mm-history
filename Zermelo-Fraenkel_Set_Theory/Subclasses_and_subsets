@@ -4,31 +4,14 @@ $(
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 $)
 
-  $c (_ $. $( Subclass or subset symbol $)
-  $c (. $. $( Proper subclass or subset symbol $)
-
-  $( Extend wff notation with subclass relation. $)
-  wss $a wff A (_ B $.
-
-  $( Extend wff notation with proper subclass relation. $)
-  wpss $a wff A (. B $.
-
   ${
     $d x A $.  $d x B $.
-    $( Define the subclass relationship between two classes.  Definition 5.9
-       of Takeuti and Zaring, p. 17. $)
-    df-ss $a |- ( A (_ B <-> A. x ( x e. A -> x e. B ) ) $.
-
     $( Alternate definition of subclass relationship. $)
-    dfss2 $p |- ( A (_ B <-> A. x e. A x e. B ) $=
-      ( wss cv wcel wi wal wral df-ss df-ral bitr4 ) BCDAEZBFMCFZGAHNABIABCJNAB
+    dfss3 $p |- ( A (_ B <-> A. x e. A x e. B ) $=
+      ( wss cv wcel wi wal wral dfss2 df-ral bitr4 ) BCDAEZBFMCFZGAHNABIABCJNAB
       KL $.
       $([14-Oct-99]$)
   $}
-
-  $( Define proper subclass relationsip between two classes.  Definition 5.9
-     of Takeuti and Zaring, p. 17. $)
-  df-pss $a |- ( A (. B <-> ( A (_ B /\ A =/= B ) ) $.
 
   ${
     $d y A $.  $d y B $.  $d x y $.
@@ -37,13 +20,13 @@ $)
     $( Establish subclass relation requiring only that ` x ` not be
        free in ` A ` and ` B ` (but not necessarily absent from them). $)
     dfssf $p |- ( A (_ B <-> A. x ( x e. A -> x e. B ) ) $=
-      ( wss cv wcel wi wal df-ss ax-17 hbim weq eleq1 bi2imd cbv4 bitr4 ) CDGBH
-      ZCIZTDIZJZBKAHZCIZUDDIZJZAKBCDLUGUCABUGBMUAUBAEFNABOUEUAUFUBUDTCPUDTDPQRS
-      $.
+      ( wss cv wcel wi wal dfss2 ax-17 hbim weq eleq1 bi2imd cbval bitr4 ) CDGB
+      HZCIZTDIZJZBKAHZCIZUDDIZJZAKBCDLUGUCABUGBMUAUBAEFNABOUEUAUFUBUDTCPUDTDPQR
+      S $.
       $([3-Jul-94]$)
 
-    $( If ` x ` is not free in ` A ` and ` B `, it is not free in
-       ` A (_ B `. $)
+    $( If ` x ` is not free in ` A ` and ` B ` , it is not free in
+       ` A (_ B ` . $)
     hbss   $p |- ( A (_ B -> A. x A (_ B ) $=
       ( cv wcel wi wal wss hba1 dfssf bial 3imtr4 ) AGZCHPDHIZAJZRAJCDKZSAJQALA
       BCDEFMZSRATNO $.
@@ -54,7 +37,7 @@ $)
     $d x A $.  $d x B $.  $d x C $.  $( ` x ` is dummy. $)
     $( Membership relationships follow from a subclass relationship. $)
     ssel $p |- ( A (_ B -> ( C e. A -> C e. B ) ) $=
-      ( vx wss cv wceq wcel wa wex wi wal df-ss biimp 19.21bi imland 19.22dv
+      ( vx wss cv wceq wcel wa wex wi wal dfss2 biimp 19.21bi imland 19.22dv
       df-clel 3imtr4g ) ABEZDFZCGZUAAHZIZDJUBUABHZIZDJCAHCBHTUDUFDTUCUEUBTUCUEK
       ZDTUGDLDABMNOPQDCARDCBRS $.
       $([5-Aug-93]$)
@@ -88,7 +71,7 @@ $)
     ssriv.1 $e |- ( x e. A -> x e. B ) $.
     $( Inference rule based on subclass definition. $)
     ssriv $p |- A (_ B $=
-      ( wss cv wcel wi df-ss mpgbir ) BCEAFZBGKCGHAABCIDJ $.
+      ( wss cv wcel wi dfss2 mpgbir ) BCEAFZBGKCGHAABCIDJ $.
       $([5-Aug-93]$)
   $}
 
@@ -97,19 +80,24 @@ $)
     ssrdv.1 $e |- ( ph -> ( x e. A -> x e. B ) ) $.
     $( Deduction rule based on subclass definition. $)
     ssrdv   $p |- ( ph -> A (_ B ) $=
-      ( cv wcel wi wal wss 19.21aiv df-ss sylibr ) ABFZCGNDGHZBICDJAOBEKBCDLM
+      ( cv wcel wi wal wss 19.21aiv dfss2 sylibr ) ABFZCGNDGHZBICDJAOBEKBCDLM
       $.
       $([15-Nov-95]$)
   $}
 
   ${
     $d x A $.  $d x B $.  $d x C $.  $( ` x ` is dummy. $)
-    $( Transitivity of subclasses.  Exercise 5 of Takeuti and Zaring, p. 17. $)
+    $( Transitivity of subclasses.  Exercise 5 of [TakeutiZaring] p. 17. $)
     sstr $p |- ( A (_ B -> ( B (_ C -> A (_ C ) ) $=
-      ( vx wss cv wcel wi wal df-ss syl2 19.20ii 3imtr4g sylbi ) ABEDFZAGZOBGZH
+      ( vx wss cv wcel wi wal dfss2 syl2 19.20ii 3imtr4g sylbi ) ABEDFZAGZOBGZH
       ZDIZBCEZACEZHDABJSQOCGZHZDIPUBHZDITUARUCUDDPQUBKLDBCJDACJMN $.
       $([5-Aug-93]$)
   $}
+
+  $( Transitivity of subclasses.  Theorem 6 of [Suppes] p. 23. $)
+  sstr2 $p |- ( ( A (_ B /\ B (_ C ) -> A (_ C ) $=
+    ( wss sstr imp ) ABDBCDACDABCEF $.
+    $([5-Sep-03]$)
 
   ${
     sstri.1 $e |- A (_ B $.
@@ -123,9 +111,9 @@ $)
   ${
     $d x A $.  $d x B $.  $( ` x ` is dummy. $)
     $( The subclass relationship is antisymmetric.  Compare Theorem 4 of
-       Suppes, p. 22. $)
+       [Suppes] p. 22. $)
     eqss $p |- ( A = B <-> ( A (_ B /\ B (_ A ) ) $=
-      ( vx cv wcel wb wal wi wa wceq wss albi dfcleq df-ss bi2an 3bitr4 ) CDZAE
+      ( vx cv wcel wb wal wi wa wceq wss albi dfcleq dfss2 bi2an 3bitr4 ) CDZAE
       ZQBEZFCGRSHCGZSRHCGZIABJABKZBAKZIRSCLCABMUBTUCUACABNCBANOP $.
       $([5-Aug-93]$)
   $}
@@ -134,17 +122,25 @@ $)
     eqssi.1 $e |- A (_ B $.
     eqssi.2 $e |- B (_ A $.
     $( Infer equality from two subclass relationships.  Compare Theorem 4 of
-       Suppes, p. 22.  $)
+       [Suppes] p. 22.  $)
     eqssi   $p |- A = B $=
       ( wss wceq wa eqss biimpr mp2an ) ABEZBAEZABFZCDMKLGABHIJ $.
       $([9-Sep-93]$)
   $}
 
-  $( Any class is a subclass of itself.  Exercise 10 of Takeuti and Zaring,
+  $( Any class is a subclass of itself.  Exercise 10 of [TakeutiZaring]
      p. 18. $)
   ssid $p |- A (_ A $=
     ( wss wceq wa cleqid eqss mpbi pm3.26i ) AABZIAACIIDAEAAFGH $.
     $([5-Aug-93]$)
+
+  ${
+    $d A x $.
+    $( Any class is a subclass of the universal class. $)
+    ssv $p |- A (_ V $=
+      ( vx cvv cv elisset ssriv ) BACBDAEF $.
+      $([31-Oct-95]$)
+  $}
 
   $( Equality theorem for subclasses. $)
   sseq1 $p |- ( A = B -> ( A (_ C <-> B (_ C ) ) $=
@@ -301,16 +297,21 @@ $)
       $([30-Nov-95]$)
   $}
 
-  $( Equality implies subclass relation. $)
+  $( Equality implies the subclass relation. $)
   eqimss $p |- ( A = B -> A (_ B ) $=
     ( wceq wss ssid sseq2 mpbii ) ABCAADABDAEABAFG $.
     $([5-Aug-93]$)
+
+  $( Equality implies the subclass relation. $)
+  eqimss2 $p |- ( B = A -> A (_ B ) $=
+    ( wss eqimss cleqcoms ) ABCABABDE $.
+    $([23-Nov-03]$)
 
   ${
     $d x A $.  $d x B $.
     $( Negation of subclass relationship. $)
     nss $p |- ( -. A (_ B <-> E. x ( x e. A /\ -. x e. B ) ) $=
-      ( cv wcel wi wn wex wal wa wss 19.14 annim biex df-ss bineg 3bitr4r ) ADZ
+      ( cv wcel wi wn wex wal wa wss 19.14 annim biex dfss2 bineg 3bitr4r ) ADZ
       BEZRCEZFZGZAHUAAIZGSTGJZAHBCKZGUAALUDUBASTMNUEUCABCOPQ $.
       $([25-Feb-96]$)
   $}
@@ -319,8 +320,8 @@ $)
     $d ph y $.  $d ps y $.  $d x y $.  $( ` y ` is dummy. $)
     $( Equivalence of abstraction subclass and implication. $)
     ssab2 $p |- ( { x | ph } (_ { x | ps } <-> A. x ( ph -> ps ) ) $=
-      ( vy cab wss cv wcel wi wal hbab1 dfssf abid bi2im bial bitr4 ) ACEZBCEZF
-      CGZQHZSRHZIZCJABIZCJCDQRACDKBCDKLUCUBCATBUAACMBCMNOP $.
+      ( vy cab wss cv wcel wi wal hbab1 dfssf abid bi2im bial bitr ) ACEZBCEZFC
+      GZQHZSRHZIZCJABIZCJCDQRACDKBCDKLUBUCCTAUABACMBCMNOP $.
       $([3-Jul-94]$)
   $}
 
@@ -352,7 +353,7 @@ $)
     $d x A $.
     $( Abstraction class restriction creates subclass. $)
     ssab $p |- { x | ( x e. A /\ ph ) } (_ A $=
-      ( cv wcel wa cab pm3.26 ssab2i abid2 sseqtr4 ) BDCEZAFZBGLBGCMLBLAHIBCJK
+      ( cv wcel wa cab pm3.26 ssab2i abid2 sseqtr ) BDCEZAFZBGLBGCMLBLAHIBCJK
       $.
       $([31-Mar-95]$)
   $}
@@ -390,7 +391,7 @@ $)
     ZCBFZGCAHCBHNOQPRABCIABCJKCALCBLM $.
     $([7-Feb-96]$)
 
-  $( A proper subclass is a subclass.  Theorem 10 of Suppes, p. 23. $)
+  $( A proper subclass is a subclass.  Theorem 10 of [Suppes] p. 23. $)
   pssss $p |- ( A (. B -> A (_ B ) $=
     ( wpss wss wne df-pss pm3.26bd ) ABCABDABEABFG $.
     $([7-Feb-96]$)
@@ -409,12 +410,12 @@ $)
     impbi ) ABCZABDZABEZFRSTRTSRTGZSSRUAHABIJKLMSRTABNABOPQ $.
     $([25-Feb-96]$)
 
-  $( Proper subclass is irreflexive.  Theorem 7 of Suppes, p. 23. $)
+  $( Proper subclass is irreflexive.  Theorem 7 of [Suppes] p. 23. $)
   pssirr $p |- -. A (. A $=
     ( wpss wss wn wa pm3.24 dfpss3 mtbir ) AABAACZIDEIFAAGH $.
     $([7-Feb-96]$)
 
-  $( Proper subclass has no 2-cycle loops.  Compare Theorem 8 of Suppes,
+  $( Proper subclass has no 2-cycle loops.  Compare Theorem 8 of [Suppes]
      p. 23. $)
   pssn2lp $p |- -. ( A (. B /\ B (. A ) $=
     ( wpss wa wss wn pm3.24 dfpss3 bi2an an41r3 bitr wo orc adantr ianor
@@ -429,11 +430,11 @@ $)
     jaoi sylbi ) ABCABDZABEZFBADZGZABHSUBTSUBISUAJGABKSUALMTAADUAANABAOPQR $.
     $([16-May-96]$)
 
-  $( Transitive law for proper subclass.  Theorem 9 of Suppes, p. 23. $)
+  $( Transitive law for proper subclass.  Theorem 9 of [Suppes] p. 23. $)
   psstr $p |- ( ( A (. B /\ B (. C ) -> A (. C ) $=
-    ( wpss wa wss wceq wn sstr imp pssss syl2an pssn2lp psseq1 birand mtbiri
-    con2 jca dfpss2 sylibr ) ABDZBCDZEZACFZACGZHZEACDUCUDUFABFZBCFZUDUAUBUGUHUD
-    ABCIJABKBCKLUEUCUEUCCBDZUBECBMUEUAUIUBACBNOPQRACST $.
+    ( wpss wa wss wceq wn sstr2 pssss syl2an pssn2lp psseq1 birand mtbiri con2
+    jca dfpss2 sylibr ) ABDZBCDZEZACFZACGZHZEACDUBUCUEABFBCFUCTUAABCIABJBCJKUDU
+    BUDUBCBDZUAECBLUDTUFUAACBMNOPQACRS $.
     $([7-Feb-96]$)
 
   $( Transitive law for subclass and proper subclass. $)

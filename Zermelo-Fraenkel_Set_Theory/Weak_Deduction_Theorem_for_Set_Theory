@@ -1,6 +1,6 @@
 $(
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-           "Deduction Theorem" for Set Theory
+           "Weak Deduction Theorem" for Set Theory
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 $)
 
@@ -8,8 +8,8 @@ $)
      when there is at least one class making the hypothesis true. $)
 
 $(
-The Deduction Theorem in set theory
------------------------------------
+The Weak Deduction Theorem in set theory
+----------------------------------------
 
 In a Hilbert system of logic (which consists of a set of axioms, modus
 ponens, and the generalization rule), converting a deduction to a proof using
@@ -81,28 +81,32 @@ $)
   $c ded $.  $( Deduction class. $)
   $c , $.  $( Comma (also used for unordered pair notation later) $)
 
-  $( Extend class notation to include deduction class. $)
+  $( Extend class notation to include deduction class.  See the Deduction
+     Theorem link on the Metamath Proof Explorer Home Page for a description
+     of the deduction class. $)
   cded $a class ded ( ph , A , B ) $.
 
   ${
     $d x ph $.  $d x A $.  $d x B $.
-    $( Define deduction class.  ` ph ` is the hypothesis we want to
-       eliminate; ` A ` is the class variable in the hypothesis; and
-       ` B ` is a constant class for which the hypothesis is true.
-       See ~ dedth for the main deduction theorem, ~ elimhyp to eliminate
-       a hypothesis, and ~ keephyp to keep a hypothesis.  See the Appendix
-       on the Metamath Proof Explorer Home Page for a description of
-       the deduction class. $)
+    $( Define the deduction class.  The purpose of the weak deduction
+       (meta)theorem is to eliminate a hypothesis ` ph ` in a deduction by
+       turning into the antecedent of the corresponding theorem form of the
+       deduction.  ` A ` is a class variable in the hypothesis, and ` B ` is a
+       class (usually a constant) that makes the hypothesis true when it is
+       substituted for ` A ` . See ~ dedth for the main part of the weak
+       deduction theorem, ~ elimhyp to eliminate a hypothesis, and ~ keephyp to
+       keep a hypothesis.  See the Deduction Theorem link on the Metamath Proof
+       Explorer Home Page for a description of the deduction class.  $)
     df-ded $a |- ded ( ph , A , B ) =
                  { x | ( ( x e. A /\ ph ) \/ ( x e. B /\ -. ph ) ) } $.
   $}
 
   ${
     $d x ph $.  $d x A $.  $d x B $.  $( ` x ` is dummy. $)
-    $( Lemma for deduction theorem. $)
+    $( Lemma for weak deduction theorem. $)
     dedlem1 $p |- ( ph -> A = ded ( ph , A , B ) ) $=
       ( vx cv wcel wa wn wo cab cded pm3.21 orc syl6 wi pm3.26 a1i pm2.21
-      com3l imp3a jaod impbid birabdv df-ded syl6eqr ) ABDEZBFZAGZUFCFZAHZGZIZD
+      com3l imp3a jaod impbid biabrdv df-ded syl6eqr ) ABDEZBFZAGZUFCFZAHZGZIZD
       JABCKAULDBAUGULAUGUHULAUGLUHUKMNAUHUGUKUHUGOAUGAPQAUIUJUGUJAUIUGAUIUGORST
       UAUBUCADBCUDUE $.
       $([15-May-99]$)
@@ -110,24 +114,33 @@ $)
 
   ${
     $d x ph $.  $d x A $.  $d x B $.  $( ` x ` is dummy. $)
-    $( Lemma for deduction theorem. $)
+    $( Lemma for weak deduction theorem. $)
     dedlem2 $p |- ( -. ph -> B = ded ( ph , A , B ) ) $=
-      ( vx wn cv wcel wa wo cab cded nibaoa birabdv df-ded syl6eqr ) AEZCDFZBGZ
-      AHQCGZPHIZDJABCKPTDCASRLMADBCNO $.
+      ( vx wn cv wcel wa wo cab cded dedlemb biabrdv df-ded syl6eqr ) AEZCDFZBG
+      ZAHQCGZPHIZDJABCKPTDCARSLMADBCNO $.
       $([14-Aug-99]$)
   $}
+
+  $( Equivalence theorem for deduction classes.  (Contributed by Raph
+     Levien 15-Jan-04.) $)
+  dedbi $p |- ( ( ph <-> ps ) -> ded ( ph , A , B ) = ded ( ps , A , B ) ) $=
+    ( wb wa wn wo cded wceq dfbi dedlem1 cleqcomd sylan9eq dedlem2 jaoi sylbi
+    ) ABEABFZAGZBGZFZHACDIZBCDIZJZABKRUDUAABUBCUCACUBACDLMBCDLNSTUBDUCSDUBACDOM
+    BCDONPQ $.
+    $([18-Jan-04]$)
 
   ${
     $d x A $.  $d x B $.  $d x ph $.  $( ` x ` is dummy. $)
     dedth.1 $e |- ( A = ded ( ph , A , B ) -> ( ps <-> ch ) ) $.
     dedth.2 $e |- ch $.
-    $( A deduction theorem that eliminates a hypothesis ` ph `, making it
+    $( Weak deduction theorem that eliminates a hypothesis ` ph ` , making it
        become an antecedent.  We assume that a proof exists for ` ph ` when
-       the class variable ` A ` is replaced with a specific class ` B `.
+       the class variable ` A ` is replaced with a specific class ` B ` .
        The hypothesis ` ch ` should be assigned to the inference, and the
        inference's hypothesis eliminated with ~ elimhyp .  If the inference
-       has other hypotheses with class variable ` A `, these can be
-       kept by assigning ~ keephyp to them. $)
+       has other hypotheses with class variable ` A ` , these can be
+       kept by assigning ~ keephyp to them.  For more information, see the
+       Deduction Theorem link on the Metamath Proof Explorer home page. $)
     dedth $p |- ( ph -> ps ) $=
       ( cded wceq wb dedlem1 syl mpbiri ) ABCGADADEHIBCJADEKFLM $.
       $([15-May-99]$)
@@ -137,7 +150,8 @@ $)
     dedth2v.1 $e |- ( A = ded ( ph , A , C ) -> ( ps <-> ch ) ) $.
     dedth2v.2 $e |- ( B = ded ( ph , B , D ) -> ( ch <-> th ) ) $.
     dedth2v.3 $e |- th $.
-    $( Deduction theorem for eliminating hypotheses with 2 class variables. $)
+    $( Weak deduction theorem for eliminating hypotheses with 2 class
+       variables. $)
     dedth2v $p |- ( ph -> ps ) $=
       ( cded wceq wb dedlem1 syl bitrd mpbiri ) ABDKABCDAEAEGLMBCNAEGOIPAFAFHLM
       CDNAFHOJPQR $.
@@ -149,7 +163,8 @@ $)
     dedth3v.2 $e |- ( B = ded ( ph , B , R ) -> ( ch <-> th ) ) $.
     dedth3v.3 $e |- ( C = ded ( ph , C , S ) -> ( th <-> ta ) ) $.
     dedth3v.4 $e |- ta $.
-    $( Deduction theorem for eliminating hypothesis with 3 class variables. $)
+    $( Weak deduction theorem for eliminating hypothesis with 3 class
+       variables. $)
     dedth3v $p |- ( ph -> ps ) $=
       ( cded wceq wb dedlem1 syl 3bitrd mpbiri ) ABEOABCDEAFAFIPQBCRAFISLTAGAGJ
       PQCDRAGJSMTAHAHKPQDERAHKSNTUAUB $.
@@ -160,7 +175,7 @@ $)
     dedth2h.1 $e |- ( A = ded ( ph , A , C ) -> ( ch <-> th ) ) $.
     dedth2h.2 $e |- ( B = ded ( ps , B , D ) -> ( th <-> ta ) ) $.
     dedth2h.3 $e |- ta $.
-    $( Deduction theorem eliminating two hypotheses. $)
+    $( Weak deduction theorem eliminating two hypotheses. $)
     dedth2h $p |- ( ( ph /\ ps ) -> ch ) $=
       ( wi cded wceq bilimd dedth imp ) ABCABCMBDMFHFAFHNOCDBJPBDEGIKLQQR $.
       $([15-May-99]$)
@@ -175,7 +190,7 @@ $)
     dedth3h.2 $e |- ( B = ded ( ps , B , R ) -> ( ta <-> et ) ) $.
     dedth3h.3 $e |- ( C = ded ( ch , C , S ) -> ( et <-> ze ) ) $.
     dedth3h.4 $e |- ze $.
-    $( Deduction theorem eliminating three hypotheses. $)
+    $( Weak deduction theorem eliminating three hypotheses. $)
     dedth3h $p |- ( ( ph /\ ps /\ ch ) -> th ) $=
       ( wa wi cded wceq bilimd dedth2h dedth exp3a 3imp ) ABCDABCDABCRZDSUGESFI
       FAFITUADEUGNUBBCELMGHJKOPQUCUDUEUF $.
@@ -200,7 +215,7 @@ $)
     dedth4h.3 $e |- ( C = ded ( ch , C , F ) -> ( ze <-> si ) ) $.
     dedth4h.4 $e |- ( D = ded ( th , D , G ) -> ( si <-> rh ) ) $.
     dedth4h.5 $e |- rh $.
-    $( Deduction theorem eliminating four hypotheses. $)
+    $( Weak deduction theorem eliminating four hypotheses. $)
     dedth4h $p |- ( ( ( ph /\ ps ) /\ ( ch /\ th ) ) -> ta ) $=
       ( wa wi cded wceq bilimd dedth2h imp ) ABUCCDUCZEABUJEUDUJLUDUJMUDFGJKFAF
       JUEUFELUJRUGGBGKUEUFLMUJSUGCDMNOHIPQTUAUBUHUHUI $.
@@ -212,10 +227,11 @@ $)
     elimhyp.2 $e |- ( B = ded ( ph , A , B ) -> ( ch <-> ps ) ) $.
     elimhyp.3 $e |- ch $.
     $( Eliminate a hypothesis containing class variable ` A ` when it is known
-       for a specific class ` B `. $)
+       for a specific class ` B ` .  For more information, see the Deduction
+       Theorem link on the Metamath Proof Explorer home page.$)
     elimhyp $p |- ps $=
-      ( wi wb cded wceq dedlem1 syl ibib mpbir wn dedlem2 mpbii pm2.61i ) ABABI
-      AABJZIADADEKZLUAADEMFNABOPAQZCBHUCEUBLCBJADERGNST $.
+      ( cded wceq wb dedlem1 syl ibi wn dedlem2 mpbii pm2.61i ) ABABADADEIZJABK
+      ADELFMNAOZCBHTESJCBKADEPGMQR $.
       $([15-May-99]$)
   $}
 
@@ -229,9 +245,9 @@ $)
     elimhyp2v.5 $e |- ta $.
     $( Eliminate a hypothesis containing 2 class variables. $)
     elimhyp2v $p |- th $=
-      ( wi wb cded wceq dedlem1 syl bitrd ibib mpbir wn dedlem2 mpbii pm2.61i
-      ) ACACOAACPOAABCAEAEGQZRABPAEGSJTAFAFHQZRBCPAFHSKTUAACUBUCAUDZDCNUJDICUJG
-      UHRDIPAEGUELTUJHUIRICPAFHUEMTUAUFUG $.
+      ( cded wceq wb dedlem1 syl bitrd ibi wn dedlem2 mpbii pm2.61i ) ACACAABCA
+      EAEGOZPABQAEGRJSAFAFHOZPBCQAFHRKSTUAAUBZDCNUHDICUHGUFPDIQAEGUCLSUHHUGPICQ
+      AFHUCMSTUDUE $.
       $([14-Aug-99]$)
   $}
 
@@ -251,16 +267,16 @@ $)
     elimhyp3v.7 $e |- et $.
     $( Eliminate a hypothesis containing 3 class variables. $)
     elimhyp3v $p |- ta $=
-      ( wi wb cded wceq dedlem1 syl 3bitrd ibib mpbir wn dedlem2 mpbii pm2.61i
-      ) ADADUAAADUBUAAABCDAEAEHUCZUDABUBAEHUENUFAFAFIUCZUDBCUBAFIUEOUFAGAGJUCZU
-      DCDUBAGJUEPUFUGADUHUIAUJZKDTUQKLMDUQHUNUDKLUBAEHUKQUFUQIUOUDLMUBAFIUKRUFU
-      QJUPUDMDUBAGJUKSUFUGULUM $.
+      ( cded wceq wb dedlem1 syl 3bitrd ibi wn dedlem2 mpbii pm2.61i ) ADADAABC
+      DAEAEHUAZUBABUCAEHUDNUEAFAFIUAZUBBCUCAFIUDOUEAGAGJUAZUBCDUCAGJUDPUEUFUGAU
+      HZKDTUOKLMDUOHULUBKLUCAEHUIQUEUOIUMUBLMUCAFIUIRUEUOJUNUBMDUCAGJUISUEUFUJU
+      K $.
       $([14-Aug-99]$)
   $}
 
   ${
     elimel.1 $e |- B e. C $.
-    $( Eliminate a membership hypothesis for deduction theorem, when
+    $( Eliminate a membership hypothesis for weak deduction theorem, when
        special case ` B e. C ` is provable. $)
     elimel $p |- ded ( A e. C , A , B ) e. C $=
       ( wcel cded eleq1 elimhyp ) ACEZIABFZCEBCEABAJCGBJCGDH $.
@@ -274,7 +290,7 @@ $)
     keephyp.4 $e |- ch $.
     $( Transform a hypothesis ` ps ` that we want to keep (but contains the
        same class variable ` A ` used in the eliminated hypothesis) for use
-       with the deduction theorem. $)
+       with the weak deduction theorem. $)
     keephyp $p |- th $=
       ( cded wceq wb dedlem1 syl mpbii wn dedlem2 pm2.61i ) ADABDIAEAEFKZLBDMAE
       FNGOPAQZCDJUAFTLCDMAEFRHOPS $.
@@ -310,7 +326,7 @@ $)
   ${
     keepel.1 $e |- A e. C $.
     keepel.2 $e |- B e. C $.
-    $( Keep a membership hypothesis for deduction theorem, when
+    $( Keep a membership hypothesis for weak deduction theorem, when
        special case ` B e. C ` is provable. $)
     keepel $p |- ded ( ph , A , B ) e. C $=
       ( wcel cded eleq1 keephyp ) ABDGCDGABCHZDGBCBKDICKDIEFJ $.

@@ -16,7 +16,8 @@ $( We will use the following descriptive terms very loosely:  A 'theorem'
   ${
     $( Premise for ~ a1i . $)
     a1i.1 $e |- ph $.
-    $( Inference derived from axiom ~ ax-1 . $)
+    $( Inference derived from axiom ~ ax-1 .  See ~ a1d for an explanation of
+       how we tend to informally use the terms "inference" and "deduction". $)
     a1i   $p |- ( ps -> ph ) $=
       ( wi ax-1 ax-mp ) ABADCABEF $.
       $([5-Aug-93]$)
@@ -31,15 +32,18 @@ $( We will use the following descriptive terms very loosely:  A 'theorem'
       $([5-Aug-93]$)
   $}
 
-  $( Principle of identity.  Theorem *2.08 of Whitehead and Russell. $)
+  $( Principle of identity.  Theorem *2.08 of [WhiteheadRussell] p. 101.
+     For another version of the proof directly from axioms, see ~ id1 . $)
   id $p |- ( ph -> ph ) $=
     ( wi ax-1 a2i ax-mp ) AAABZBFAACAFAAFCDE $.
     $([5-Aug-93]$)
 
-  $( Principle of identity.  Theorem *2.08 of Whitehead and Russell.  This
+  $( Principle of identity.  Theorem *2.08 of [WhiteheadRussell] p. 101.  This
      version is proved directly from the axioms for demonstration purposes.
-     For another version of the proof that references a previously proved
-     inference, see ~ id . $)
+     This proof is identical, step for step, to the proofs of Theorem 1 of
+     [Margaris] p. 51 and Example 2.7(a) of [Hamilton] p. 31.
+     For a shorter version of the proof that takes advantage of a previously
+     proved inference, see ~ id . $)
   id1 $p |- ( ph -> ph ) $=
     ( wi ax-1 ax-2 ax-mp ) AAABZBZFAACAFABBGFBAFCAFADEE $.
     $([5-Aug-93]$)
@@ -54,7 +58,10 @@ $( We will use the following descriptive terms very loosely:  A 'theorem'
     syl.1  $e |- ( ph -> ps ) $.
     $( First of 2 premises for ~ syl . $)
     syl.2  $e |- ( ps -> ch ) $.
-    $( Syllogism inference. $)
+    $( Syllogism inference.  (A bit of trivia: this is the most commonly
+       referenced assertion in our database.  In second place is ~ ax-mp ,
+       followed by ~ visset , ~ bitr , ~ imp , and ~ exp .  The Metamath
+       program command SHOW USAGE shows the number of references.) $)
     syl    $p |- ( ph -> ch ) $=
       ( wi a1i a2i ax-mp ) ABFACFDABCBCFAEGHI $.
       $([5-Aug-93]$)
@@ -71,7 +78,25 @@ $( We will use the following descriptive terms very loosely:  A 'theorem'
 
   ${
     a1d.1 $e |- ( ph -> ps ) $.
-    $( Deduction introducing an embedded antecedent. $)
+    $( Deduction introducing an embedded antecedent.  _Notational convention_:
+       We often call a theorem a "deduction" and suffix its label with "d"
+       whenever the hypotheses and conclusion are each prefixed with the same
+       antecedent.  This allows us to use the theorem in places where (in
+       traditional textbook formalizations) the standard Deduction Theorem
+       would be used; here ` ph ` would be replaced with a conjunction
+       ( ~ df-an ) of the hypotheses of the would-be deduction.  By contrast,
+       we tend to call the simpler version with no common antecedent an
+       "inference" and suffix its label with "i"; compare theorem ~ a1i .
+       Finally, a "theorem" would be the form with no hypotheses; in this case
+       the "theorem" form would be the original axiom ~ ax-1 . In propositional
+       calculus we usually prove the theorem form first without a suffix on its
+       label (e.g.  ~ pm2.43 vs.  ~ pm2.43i vs.  ~ pm2.43d ), but (much) later
+       we often suffix the theorem form's label with "t" as in ~ negnegt vs.
+       ~ negneg , especially when our "weak deduction theorem" ~ dedth is used
+       to prove the theorem form from its inference form.  When an inference
+       is converted to a theorem by eliminating an "is a set" hypothesis, we
+       sometimes suffix the theorem form with "g" (for somewhat misnamed
+       "generalized") as in ~ zfun2 vs. ~ zfun2g . $)
     a1d   $p |- ( ph -> ( ch -> ps ) ) $=
       ( wi a1i comm ) CABABECDFG $.
       $([5-Aug-93]$)
@@ -85,14 +110,16 @@ $( We will use the following descriptive terms very loosely:  A 'theorem'
       $([23-Jun-94]$)
   $}
 
-  $( A closed form of syllogism.  Theorem *2.05 of Whitehead and Russell. $)
+  $( A closed form of syllogism.  Theorem *2.05 of [WhiteheadRussell]
+     p. 100. $)
   syl1 $p |- ( ( ph -> ps ) -> ( ( ch -> ph ) -> ( ch -> ps ) ) ) $=
-    wph wps wi wch wph wps wph wps wi wch ax-1 a2d $.
+    ( wi ax-1 a2d ) ABDZCABGCEF $.
     $([5-Aug-93]$)
 
-  $( A closed form of syllogism.  Theorem *2.06 of Whitehead and Russell. $)
+  $( A closed form of syllogism.  Theorem *2.06 of [WhiteheadRussell]
+     p. 100. $)
   syl2 $p |- ( ( ph -> ps ) -> ( ( ps -> ch ) -> ( ph -> ch ) ) ) $=
-    wps wch wi wph wps wi wph wch wi wps wch wph syl1 comm $.
+    ( wi syl1 comm ) BCDABDACDBCAEF $.
     $([5-Aug-93]$)
 
   ${
@@ -109,7 +136,7 @@ $( We will use the following descriptive terms very loosely:  A 'theorem'
     $( Inference adding common consequents in an implication, thereby
        interchanging the original antecedent and consequent. $)
     syl4   $p |- ( ( ps -> ch ) -> ( ph -> ch ) ) $=
-      wph wps wi wps wch wi wph wch wi wi syl4.1 wph wps wch syl2 ax-mp $.
+      ( wi syl2 ax-mp ) ABEBCEACEEDABCFG $.
       $([5-Aug-93]$)
   $}
 
@@ -118,8 +145,7 @@ $( We will use the following descriptive terms very loosely:  A 'theorem'
     syl34.2 $e |- ( ch -> th ) $.
     $( Inference joining two implications. $)
     syl34   $p |- ( ( ps -> ch ) -> ( ph -> th ) ) $=
-      wps wch wi wps wth wi wph wth wi wch wth wps syl34.2 syl3 wph wps wth
-      syl34.1 syl4 syl $.
+      ( wi syl3 syl4 syl ) BCGBDGADGCDBFHABDEIJ $.
       $([5-Aug-93]$)
   $}
 
@@ -139,7 +165,7 @@ $( We will use the following descriptive terms very loosely:  A 'theorem'
     $( A syllogism rule of inference.  The second premise is used to replace
        the second antecedent of the first premise. $)
     syl5   $p |- ( ph -> ( th -> ch ) ) $=
-      wph wps wch wi wth wch wi syl5.1 wth wps wch syl5.2 syl4 syl $.
+      ( wi syl4 syl ) ABCGDCGEDBCFHI $.
       $([5-Aug-93]$)
   $}
 
@@ -149,7 +175,7 @@ $( We will use the following descriptive terms very loosely:  A 'theorem'
     $( A syllogism rule of inference.  The second premise is used to replace
        the consequent of the first premise. $)
     syl6   $p |- ( ph -> ( ps -> th ) ) $=
-      wph wps wch wi wps wth wi syl6.1 wch wth wps syl6.2 syl3 syl $.
+      ( wi syl3 syl ) ABCGBDGECDBFHI $.
       $([5-Aug-93]$)
   $}
 
@@ -159,7 +185,7 @@ $( We will use the following descriptive terms very loosely:  A 'theorem'
     $( A syllogism rule of inference.  The second premise is used to replace
        the third antecedent of the first premise. $)
     syl7   $p |- ( ph -> ( ps -> ( ta -> th ) ) ) $=
-      wph wps wch wth wi wta wth wi syl7.1 wta wch wth syl7.2 syl4 syl6 $.
+      ( wi syl4 syl6 ) ABCDHEDHFECDGIJ $.
       $([5-Aug-93]$)
   $}
 
@@ -169,7 +195,7 @@ $( We will use the following descriptive terms very loosely:  A 'theorem'
     $( A syllogism rule of inference.  The second premise is used to replace
        the consequent of the first premise. $)
     syl8   $p |- ( ph -> ( ps -> ( ch -> ta ) ) ) $=
-      wph wps wch wth wi wch wta wi syl8.1 wth wta wch syl8.2 syl3 syl6 $.
+      ( wi syl3 syl6 ) ABCDHCEHFDECGIJ $.
       $([1-Aug-94]$)
   $}
 
@@ -178,9 +204,7 @@ $( We will use the following descriptive terms very loosely:  A 'theorem'
     syld.2 $e |- ( ph -> ( ch -> th ) ) $.
     $( Syllogism deduction. $)
     syld   $p |- ( ph -> ( ps -> th ) ) $=
-      wph wps wch wi wi wph wps wth wi wi syld.1 wph wps wch wi wps wth wi wph
-      wch wth wi wps wch wi wps wth wi wi syld.2 wch wth wps syl1 syl a2i ax-mp
-      $.
+      ( wi syl1 syl a2i ax-mp ) ABCGZGABDGZGEALMACDGLMGFCDBHIJK $.
       $([5-Aug-93]$)
   $}
 
@@ -188,29 +212,28 @@ $( We will use the following descriptive terms very loosely:  A 'theorem'
     syl3d.1 $e |- ( ph -> ( ps -> ch ) ) $.
     $( Deduction adding nested antecedents. $)
     syl3d   $p |- ( ph -> ( ( th -> ps ) -> ( th -> ch ) ) ) $=
-      wph wps wch wi wth wps wi wth wch wi wi syl3d.1 wps wch wth syl1 syl $.
+      ( wi syl1 syl ) ABCFDBFDCFFEBCDGH $.
       $([5-Aug-93]$)
   $}
 
   ${
     syl4d.1 $e |- ( ph -> ( ps -> ch ) ) $.
-    $( Deduction adding nested antecedents. $)
+    $( Deduction adding nested consequents. $)
     syl4d   $p |- ( ph -> ( ( ch -> th ) -> ( ps -> th ) ) ) $=
-      wph wps wch wi wch wth wi wps wth wi wi syl4d.1 wps wch wth syl2 syl $.
+      ( wi syl2 syl ) ABCFCDFBDFFEBCDGH $.
       $([3-Apr-94]$)
   $}
 
   ${
     syl34d.1 $e |- ( ph -> ( ps -> ch ) ) $.
     syl34d.2 $e |- ( ph -> ( th -> ta ) ) $.
-    $( Deduction combining implicants. $)
+    $( Deduction combining antecedents and consequents. $)
     syl34d   $p |- ( ph -> ( ( ch -> th ) -> ( ps -> ta ) ) ) $=
-      wph wch wth wi wps wth wi wps wta wi wph wps wch wth syl34d.1 syl4d wph
-      wth wta wps syl34d.2 syl3d syld $.
+      ( wi syl4d syl3d syld ) ACDHBDHBEHABCDFIADEBGJK $.
       $([7-Aug-94]$)
   $}
 
-  $( Swap antecedents.  Theorem *2.04 of Whitehead and Russell. $)
+  $( Swap antecedents.  Theorem *2.04 of [WhiteheadRussell] p. 100. $)
   pm2.04 $p |- ( ( ph -> ( ps -> ch ) ) -> ( ps -> ( ph -> ch ) ) ) $=
     ( wi ax-2 ax-1 syl5 ) ABCDDABDACDBABCEBAFG $.
     $([5-Aug-93]$)
@@ -356,12 +379,12 @@ $( We will use the following descriptive terms very loosely:  A 'theorem'
     syl9r.2 $e |- ( th -> ( ch -> ta ) ) $.
     $( A nested syllogism inference with different antecedents. $)
     syl9r   $p |- ( th -> ( ph -> ( ps -> ta ) ) ) $=
-      wph wth wps wta wi wph wps wch wth wta syl9r.1 syl9r.2 syl9 comm $.
+      ( wi syl9 comm ) ADBEHABCDEFGIJ $.
       $([5-Aug-93]$)
   $}
 
-  $( Absorption of redundant antecedent.  Theorem *2.43 of Whitehead
-     and Russell. $)
+  $( Absorption of redundant antecedent.  Also called the "Contraction" or
+     "Hilbert" axiom.  Theorem *2.43 of [WhiteheadRussell] p. 106. $)
   pm2.43 $p |- ( ( ph -> ( ph -> ps ) ) -> ( ph -> ps ) ) $=
     ( wi idd ax-2 mpd ) AABCZCZAACGHADAABEF $.
     $([5-Aug-93]$)
@@ -392,7 +415,7 @@ $( We will use the following descriptive terms very loosely:  A 'theorem'
 
     $( Inference absorbing redundant antecedent. $)
     pm2.43b   $p |- ( ph -> ( ps -> ch ) ) $=
-      ( com3l pm2.43d ) ABCBABCDEF $.
+      ( pm2.43a comm ) BACABCDEF $.
       $([31-Oct-95]$)
   $}
 
@@ -406,7 +429,7 @@ $( We will use the following descriptive terms very loosely:  A 'theorem'
       $([4-May-94]$)
   $}
 
-  $( Converse of axiom ~ ax-2 .  Theorem *2.86 of Whitehead and Russell. $)
+  $( Converse of axiom ~ ax-2 .  Theorem *2.86 of [WhiteheadRussell] p. 108. $)
   pm2.86 $p |- ( ( ( ph -> ps ) -> ( ph -> ch ) ) ->
                ( ph -> ( ps -> ch ) ) ) $=
     ( wi ax-1 syl4 com23 ) ABDZACDZDBACBHIBAEFG $.
@@ -428,8 +451,17 @@ $( We will use the following descriptive terms very loosely:  A 'theorem'
       $([29-Jun-95]$)
   $}
 
-  $( Theorem *2.27 of Whitehead and Russell. $)
+  $( Theorem *2.27 of [WhiteheadRussell] p. 104. $)
   pm2.27 $p |- ( ph -> ( ( ph -> ps ) -> ps ) ) $=
     ( wi id comm ) ABCZABFDE $.
+    $([5-Aug-93]$)
+
+  $( This dummy theorem and the theorems that reference it may be ignored.
+     (The purpose of any theorems that reference it is to provide placeholders
+     for possible future theorems.  The placeholder prevents theorems from
+     being renumbered when the finalized theorem replaces the placeholder.
+     This helps conserve bandwith during mirror site updates.) $)
+  xxxid $p |- ( ph -> ph ) $=
+    wph id $.
     $([5-Aug-93]$)
 

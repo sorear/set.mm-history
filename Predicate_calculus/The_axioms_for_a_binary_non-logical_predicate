@@ -14,37 +14,55 @@ $(
 $)
 
   $( Declare the membership predicate symbol. $)
-  $c e. $. $( Stylized epsilon (read:  'is an element of' or synonymously,
-              'is a member of') $)
+  $c e. $. $( Stylized epsilon $)
 
-  $( Extend wff definition to include atomic formulas using the epsilon
-     predicate. $)
+  $( Extend wff definition to include atomic formulas with the epsilon
+     (membership) predicate.  This is read " ` x ` is an element of ` y ` ,"
+     " ` x ` is a member of ` y ` ," " ` x ` belongs to ` y ` ," or " ` y `
+     contains ` x ` ."   Note:  The phrase " ` y ` includes ` x ` " means
+     " ` x ` is a subset of ` y ` "; it is poor form and causes confusion to
+     also use it for ` x e. y ` (as some authors occasionally do). $)
   wel $a wff x e. y $.
 
   $( Axiom of Equality.  One of the 3 non-logical predicate axioms of our
-     predicate calculus.  Axiom scheme C12' in Megill, p. 448. $)
+     predicate calculus.  It substitutes equal variables into the left-hand
+     side of the ` e. ` binary predicate.  Axiom scheme C12' in [Megill]
+     p. 448  (p. 16 of the preprint).  It is a special case of Axiom B8
+     (p. 75) of system S2 of [Tarski] p. 77.  "Non-logical" means that the
+     predicate is not a primitive of predicate calculus proper but instead is
+     an extension to it.  "Binary" means that the predicate has two
+     arguments. $)
   ax-13 $a |- ( x = y -> ( x e. z -> y e. z ) ) $.
 
   $( Axiom of Equality.  One of the 3 non-logical predicate axioms of our
-     predicate calculus.  Axiom scheme C13' in Megill, p. 448. $)
+     predicate calculus.  It substitutes equal variables into the right-hand
+     side of the ` e. ` binary predicate.  Axiom scheme C13' in [Megill]
+     p. 448  (p. 16 of the preprint).  It is a special case of Axiom B8
+     (p. 75) of system S2 of [Tarski] p. 77. $)
   ax-14 $a |- ( x = y -> ( z e. x -> z e. y ) ) $.
 
   $( Axiom of Quantifier Introduction.  One of the 3 non-logical predicate
-     axioms of our predicate calculus.  Axiom scheme C14' in Megill, p. 448.
-     It is redundant if we use ~ ax-17 ; see theorem ~ ax15 below. $)
+     axioms of our predicate calculus.  Axiom scheme C14' in [Megill] p. 448
+     (p. 16 of the preprint).  It is redundant if we include ~ ax-17 ; see
+     theorem ~ ax15 below.  Alternately, ~ ax-17 becomes unnecessary in
+     principle with this axiom, but we lose the more powerful metalogic
+     provided by ~ ax-17 . We retain ~ ax-15 here to provide completeness for
+     systems with the simpler metalogic afforded by omitting ~ ax-17 , that
+     might be easier to study for some theoretical purposes.  $)
   ax-15 $a |- ( -. A. z z = x -> ( -. A. z z = y ->
               ( x e. y -> A. z x e. y ) ) ) $.
 
-  $( This is a variant of ~ ax-9 .  Axiom scheme C10' in Megill, p. 448. $)
+  $( This is a variant of ~ ax-9 .  Axiom scheme C10' in [Megill] p. 448 (p. 16
+     of the preprint). $)
   ax9 $p |- ( A. x ( x = y -> A. x ph ) -> ph ) $=
     ( weq wal wi wex wn ax-9 df-ex mpbir 19.22 mpi a6e syl ) BCDZABEZFBEZQBGZAR
     PBGZSTPHBEHBCIPBJKPQBLMABNO $.
     $([5-Aug-93]$)
 
-  $( This theorem is a re-derivation of ~ ax-9 from ~ ax9 .  This shows
-     that ~ ax-9 and ~ ax9 are interchangeable as axioms. Lemma L18 in Megill,
-     p. 446.  Use it instead of ~ ax-9 so we interchange ~ ax-9 and
-     ~ ax9 as our axiom. $)
+  $( This theorem is a re-derivation of ~ ax-9 from ~ ax9 . This shows that
+     ~ ax-9 and ~ ax9 are interchangeable in the presence of the other
+     axioms.  Lemma L18 in [Megill] p. 446 (p. 14 of the preprint).  Use it
+     instead of ~ ax-9 so we interchange ~ ax-9 and ~ ax9 as our axiom.  $)
   ax9a $p |- -. A. x -. x = y $=
     ( weq wn wal wi ax9 ax-6 a3i mpg ) ABCZKDZAEDZAEZFMAMABGNKLAHIJ $.
     $([5-Aug-93]$)
@@ -54,13 +72,20 @@ $)
     ( weq wex wn wal ax9a df-ex mpbir ) ABCZADJEAFEABGJAHI $.
     $([5-Aug-93]$)
 
-  $( Identity law for equality (reflexivity). $)
+  $( Identity law for equality (reflexivity).  Lemma 6 of [Tarski] p. 68.
+     This is often an axiom of equality in textbook systems, but we don't need
+     it as an axiom since it can be proved from our other axioms (although
+     the proof is not as obvious as you might think.)  This proof uses only
+     axioms without distinct variable conditions and thus involves no dummy
+     variables.  A shorter proof, similar to Tarki's, is possible if we make
+     use of ~ ax-17 ; see the proof of ` x = x ` on the Metamath Solitaire
+     page.  $)
   eqid $p |- x = x $=
     ( weq wal wn wi ax-12 pm2.43i 19.20i ax9 syl ax-6 pm2.61i ) AABZACZDZACZMPM
     NEZACMOQAOQAAAFGHMAAIJMAKL $.
     $([5-Aug-93]$)
 
-  $( Commutative law for equality. $)
+  $( Commutative law for equality.  Lemma 7 of [Tarski] p. 69. $)
   eqcom $p |- ( x = y -> y = x ) $=
     ( weq eqid ax-8 mpi ) ABCAACBACADABAEF $.
     $([5-Aug-93]$)
@@ -84,7 +109,8 @@ $)
     ( weq wi ax-8 eqcoms ) BCDACDEBABACFG $.
     $([23-Aug-93]$)
 
-  $( A transitive law for equality.  Lemma L17 in Megill, p. 446. $)
+  $( A transitive law for equality.  Lemma L17 in [Megill] p. 446
+     (p. 14 of the preprint). $)
   eqt2 $p |- ( x = y -> ( z = x -> z = y ) ) $=
     ( weq eqt comm ) CADABDCBDCABEF $.
     $([23-Aug-93]$)
@@ -130,6 +156,14 @@ $)
       $([5-Aug-93]$)
   $}
 
+  ${
+    eq4ds.1 $e |- ( -. A. x x = y -> ph ) $.
+    $( A commutation rule for distinct variable specifiers. $)
+    eq4ds   $p |- ( -. A. y y = x -> ph ) $=
+      ( weq wal eq4 nsyl4 con1 ) ACBECFZBCEBFJABCGDHI $.
+      $([2-Jan-02]$)
+  $}
+
   $( All variables are implicitly bound in an identical variable specifier. $)
   eq5  $p |- ( A. x x = y -> A. z A. x x = y ) $=
     ( weq wal wi wn ax-12 ax-4 syl7 ax-10 eq4s pm2.43i syl5 pm2.61ii a5i ax-7
@@ -146,7 +180,7 @@ $)
   $}
 
   $( All variables are implicitly bound in a distinct variable specifier.
-     Lemma L19 in Megill, p. 446. $)
+     Lemma L19 in [Megill] p. 446 (p. 14 of the preprint). $)
   eq6  $p |- ( -. A. x x = y -> A. z -. A. x x = y ) $=
     ( weq wal eq5 hbne ) ABDAECABCFG $.
     $([5-Aug-93]$)
@@ -331,7 +365,7 @@ $)
   ${
     a4a.1  $e |- ( ps -> A. x ps ) $.
     a4a.2  $e |- ( x = y -> ( ph -> ps ) ) $.
-    $( Implicit substitution.  Compare Lemma 14 of Tarski, p. 70. $)
+    $( Implicit substitution.  Compare Lemma 14 of [Tarski] p. 70. $)
     a4a    $p |- ( A. x ph -> ps ) $=
       ( wal weq wi comm syl6 19.20i ax9 syl ) ACGCDHZBCGZIZCGBAQCAOBPOABFJEKLBC
       DMN $.
@@ -341,7 +375,7 @@ $)
   ${
     a4c.1  $e |- ( ph -> A. x ph ) $.
     a4c.2  $e |- ( x = y -> ( ph -> ps ) ) $.
-    $( Implicit substitution.  Compare Lemma 14 of Tarski, p. 70. $)
+    $( Implicit substitution.  Compare Lemma 14 of [Tarski] p. 70. $)
     a4c    $p |- ( ph -> E. x ps ) $=
       ( wn wal wex hbne weq pm2.16d a4a con2 df-ex sylibr ) ABGZCHZGBCIRAQAGCDA
       CEJCDKABFLMNBCOP $.
@@ -396,11 +430,11 @@ $)
 
 
   ${
-    cbv4.1 $e |- ( ph -> A. y ph ) $.
-    cbv4.2 $e |- ( ps -> A. x ps ) $.
-    cbv4.3 $e |- ( x = y -> ( ph <-> ps ) ) $.
+    cbval.1 $e |- ( ph -> A. y ph ) $.
+    cbval.2 $e |- ( ps -> A. x ps ) $.
+    cbval.3 $e |- ( x = y -> ( ph <-> ps ) ) $.
     $( Rule used to change bound variables with implicit substitution. $)
-    cbv4   $p |- ( A. x ph <-> A. y ps ) $=
+    cbval   $p |- ( A. x ph <-> A. y ps ) $=
       ( wi wal wb syl3 a1i weq cbv2 id ax-gen mpg ) AAHZDIACIBDIJCRABCDAADIAEKB
       BCIHRFLCDMABJHRGLNRDAOPQ $.
       $([5-Aug-93]$)
@@ -412,13 +446,23 @@ $)
     cbvex.3 $e |- ( x = y -> ( ph <-> ps ) ) $.
     $( Rule used to change bound variables with implicit substitution. $)
     cbvex   $p |- ( E. x ph <-> E. y ps ) $=
-      ( wn wal wex hbne weq binegd cbv4 bineg df-ex 3bitr4 ) AHZCIZHBHZDIZHACJB
+      ( wn wal wex hbne weq binegd cbval bineg df-ex 3bitr4 ) AHZCIZHBHZDIZHACJB
       DJSUARTCDADEKBCFKCDLABGMNOACPBDPQ $.
       $([5-Aug-93]$)
   $}
 
+  ${
+    chv2.1 $e |- ( ps -> A. x ps ) $.
+    chv2.2 $e |- ( x = y -> ( ph <-> ps ) ) $.
+    chv2.3 $e |- ph $.
+    $( Implicit substitution of ` y ` for ` x ` into a theorem.  (Contributed
+       by Raph Levien 9-Jul-03.) $)
+    chv2   $p |- ps $=
+      ( weq biimpd a4a mpg ) ABCABCDECDHABFIJGK $.
+      $([29-Jul-03]$)
+  $}
 
-  $( A variable introduction law for equality.  Lemma 15 of Monk2, p. 109,
+  $( A variable introduction law for equality.  Lemma 15 of [Monk2] p. 109,
      however we do not require ` z ` to be distinct from ` x ` and ` y `
      (making the proof longer). $)
   eqvin.l1 $p |- ( x = y -> E. z ( x = z /\ z = y ) ) $=

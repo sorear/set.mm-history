@@ -8,29 +8,38 @@ $)
   $c E! $.  $( Backwards E exclamation point. $)
   $c E* $.  $( Backwards E superscript *. $)
 
-  $( Extend wff definition to include existential uniqueness ('there exists a
-     unique ` x ` such that...'). $)
+  $( Extend wff definition to include existential uniqueness ("there exists a
+     unique ` x ` such that ` ph ` "). $)
   weu $a wff E! x ph $.
 
-  $( Extend wff definition to include uniqueness ('there exists at most one
-     ` x ` such that...'). $)
+  $( Extend wff definition to include uniqueness ("there exists at most one
+     ` x ` such that ` ph ` "). $)
   wmo $a wff E* x ph $.
 
   ${
     $d x y $.  $d y ph $.
-    $( Define existential uniqueness, i.e. "there exists exactly one."
-       Definition 10.1 of Bell and Machover, p. 97. $)
+    $( Define existential uniqueness, i.e. "there exists exactly one ` x `
+       such that ` ph ` ."  Definition 10.1 of [BellMachover] p. 97; also
+       Definition *14.02 of [WhiteheadRussell] p. 175.  Other possible
+       definitions are given by ~ eu1 , ~ eu2 , ~ eu3 , and ~ eu5 (which in
+       some cases we show with a hypothesis ` ph -> A. y ph ` in place of a
+       distinct variable condition on ` y ` and ` ph ` ).  Double uniqueness is
+       tricky:  ` E! x E! y ph ` does not mean "exactly one ` x ` and one
+       ` y ` " (see ~ 2eu4 ). $)
     df-eu $a |- ( E! x ph <-> E. y A. x ( ph <-> x = y ) ) $.
   $}
 
-  $( Define "there exists at most one".   Compare definition of Bell and
-     Machover, p. 460. $)
+  $( Define "there exists at most one ` x ` such that ` ph ` ". Here we
+     define it in terms of existential uniqueness.  Notation of [BellMachover]
+     p. 460, whose definition we show as ~ mo3 . For other possible
+     definitions see ~ mo2 and ~ mo4 . $)
   df-mo $a |- ( E* x ph <-> ( E. x ph -> E! x ph ) ) $.
 
   ${
     $d x y z $.  $d ph z $.  $( ` z ` is dummy. $)
     euf.1 $e |- ( ph -> A. y ph ) $.
-    $( A stronger version of the existential uniqueness definition. $)
+    $( A version of the existential uniqueness definition with a hypothesis
+       instead of a distinct variable condition. $)
     euf   $p |- ( E! x ph <-> E. y A. x ( ph <-> x = y ) ) $=
       ( vz weu weq wb wal wex df-eu ax-17 hbbi hbal eqt2b bilbid bialdv cbvex
       bitr ) ABFABEGZHZBIZEJABCGZHZBIZCJABEKUBUEECUACBATCDTCLMNUEELECGZUAUDBUFT
@@ -77,16 +86,15 @@ $)
   $}
 
   ${
-    $d y z w $.  $d x z w $.  $d z ph $.  $( ` z w ` are dummy. $)
+    $d y z $.  $d x z $.  $d z ph $.  $( ` z ` is dummy. $)
     hbeu.1 $e |- ( ph -> A. x ph ) $.
     $( Free-variable hypothesis builder for "at most one".  Note that ` x ` and
        ` y ` needn't be distinct (this makes the proof more difficult). $)
     hbeu   $p |- ( E! y ph -> A. x E! y ph ) $=
-      ( vz vw weq wb wal wex weu wi ax-10 eq4s hba1 syl5 wn eq6 a1i a8b ax17eq
-      ddelim hbbid eq6s 19.21ai 19.20 syl ax-7 syl6 pm2.61i hbex df-eu bial
-      3imtr4 ) ACEGZHZCIZEJZURBIACKZUSBIUQBEBCGBIZUQUQBIZLUTUQCIZVAUQVBVALCBUQC
-      BMNUPCOPUTQZUQUPBIZCIZVAVCUPVDLZCIUQVELVCVFCBCCRVFBCBVCAUOBAABILVCDSFEGUO
-      BCFFCETFEBUAUBUCUDUEUPVDCUFUGUPCBUHUIUJUKACEULZUSURBVGUMUN $.
+      ( vz weq wb wal wex weu wi ax-10 eq4s hba1 syl5 wn eq6 a1i ddeeq1 hbbid
+      hbald pm2.61i hbex df-eu bial 3imtr4 ) ACEFZGZCHZEIZUJBHACJZUKBHUIBEBCFBH
+      ZUIUIBHZKULUICHZUMUIUNUMKCBUICBLMUHCNOULPZUHBCBCCQUOAUGBBCBQAABHKUODRBCES
+      TUAUBUCACEUDZUKUJBUPUEUF $.
       $([8-Mar-95]$)
   $}
 
@@ -96,7 +104,7 @@ $)
     $( Variable substitution in uniqueness quantifier.  (This theorem can also
        be proved without requiring that ` x ` and ` y ` be distinct, but
        the proof would be longer.) $)
-    sb8eu   $p |- ( E! x ph <-> E! y ( ph x | y ) ) $=
+    sb8eu   $p |- ( E! x ph <-> E! y [ y / x ] ph ) $=
       ( vz weq wb wal wex wsb weu ax17eq hbbi sb8 a8b ddel4 sblbis bial bitr
       biex df-eu 3bitr4 ) ABEFZGZBHZEIABCJZCEFZGZCHZEIABKUFCKUEUIEUEUDBCJZCHUIU
       DBCAUCCDBECLMNUJUHCUCUGABCUCUGBCCEBLBCEOPQRSTABEUAUFCEUAUB $.
@@ -117,10 +125,11 @@ $)
   ${
     $d x y $.
     eu1.1 $e |- ( ph -> A. y ph ) $.
-    $( An alternate way of expressing uniqueness used by some authors. $)
+    $( An alternate way of expressing uniqueness used by some authors.
+       Exercise 2(b) of [Margaris] p. 110. $)
     eu1   $p |- ( E! x ph <->
-                E. x ( ph /\ A. y ( ( ph x | y ) -> x = y ) ) ) $=
-      ( wsb weu weq wb wal wex wi wa hbsbv euf sb8eu eqcomb bilim bial sb5f1
+                E. x ( ph /\ A. y ( [ y / x ] ph -> x = y ) ) ) $=
+      ( wsb weu weq wb wal wex wi wa hbs1 euf sb8eu eqcomb bilim bial sb5f1
       bi2an ancom albi 3bitr4 biex ) ABCEZCFUECBGZHCIZBJABFAUEBCGZKZCIZLZBJUECB
       ABCMNABCDOUKUGBUJALUEUFKZCIZUFUEKCIZLUKUGUJUMAUNUIULCUHUFUEBCPQRACBDSTAUJ
       UAUEUFCUBUCUDUC $.
@@ -132,19 +141,19 @@ $)
     mo.1 $e |- ( ph -> A. y ph ) $.
     $( Equivalent definitions of "there exists at most one". $)
     mo   $p |- ( E. y A. x ( ph -> x = y ) <->
-               A. x A. y ( ( ph /\ ( ph x | y ) ) -> x = y ) ) $=
-      ( vz weq wi wal wex wsb wa ax17eq hbim hbal ax-17 eqt2b bilimd bialdv
-      cbvex hbsbv sbequ2 ax-8 syl34d cbv3 ancli aaan sylibr prth eqan syl6
-      19.20i syl 19.23aiv sylbir hbsbb 19.22i 19.20 a7s 19.22 comm impexp
-      bi2.04 bitr bi2al syl5ib wn 19.7 hbne sbequ1 eqcoms pm2.16d pm2.21 19.8a
-      3syl a1d pm2.61i impbi ) ABCFZGZBHZCIZAABCJZKZVRGZCHZBHZWAABEFZGZBHZEIWFW
-      IVTECWHCBAWGCDBECLMZNVTEOECFZWHVSBWKWGVRAECBPQRSWIWFEWIWHWBCEFZGZKZCHZBHZ
-      WFWIWIWMCHZKWPWIWQWHWMBCWJWBWLBABCTCEBLMZVRWBAWGWLABCUABCEUBUCUDUEWHWMBCW
-      JWRUFUGWOWEBWNWDCWNWCWGWLKVRAWGWBWLUHBCEUIUJUKUKULUMUNWBCIZWFWAGWSWBVSGZC
-      HBHZWAWFWSWBBHZCIZXAWAGWBXBCABCDUOZUPXAXCWAXAXBVTGZCHZXCWAGWTXFCBWTBHXECW
-      BVSBUQUKURXBVTCUSULUTULWDWTBCWDAWBVRGGWTAWBVRVAAWBVRVBVCVDVEWSVFZWAWFXGWB
-      VFZCHZWAWBCVGXIAVFZBHVTWAXHXJCBWBBXDVHACDVHCBFAWBAWBGBCABCVIVJVKUDXJVSBAV
-      RVLUKVTCVMVNUNVOVPVQ $.
+               A. x A. y ( ( ph /\ [ y / x ] ph ) -> x = y ) ) $=
+      ( vz weq wi wal wex wsb wa ax-17 hbim hbal eqt2b bilimd bialdv cbvex
+      hbs1 sbequ2 ax-8 syl34d cbv3 ancli aaan sylibr prth eqan syl6 19.20i
+      syl 19.23aiv sylbir hbsb3 19.22i 19.20 a7s 19.22 comm impexp bi2.04 bitr
+      bi2al syl5ib wn 19.7 hbne sbequ1 eqcoms pm2.16d pm2.21 19.8a 3syl a1d
+      pm2.61i impbi ) ABCFZGZBHZCIZAABCJZKZVQGZCHZBHZVTABEFZGZBHZEIWEWHVSECWGCB
+      AWFCDWFCLMZNVSELECFZWGVRBWJWFVQAECBOPQRWHWEEWHWGWACEFZGZKZCHZBHZWEWHWHWLC
+      HZKWOWHWPWGWLBCWIWAWKBABCSWKBLMZVQWAAWFWKABCTBCEUAUBUCUDWGWLBCWIWQUEUFWNW
+      DBWMWCCWMWBWFWKKVQAWFWAWKUGBCEUHUIUJUJUKULUMWACIZWEVTGWRWAVRGZCHBHZVTWEWR
+      WABHZCIZWTVTGWAXACABCDUNZUOWTXBVTWTXAVSGZCHZXBVTGWSXECBWSBHXDCWAVRBUPUJUQ
+      XAVSCURUKUSUKWCWSBCWCAWAVQGGWSAWAVQUTAWAVQVAVBVCVDWRVEZVTWEXFWAVEZCHZVTWA
+      CVFXHAVEZBHVSVTXGXICBWABXCVGACDVGCBFAWAAWAGBCABCVHVIVJUCXIVRBAVQVKUJVSCVL
+      VMUMVNVOVP $.
       $([7-Aug-94]$)
   $}
 
@@ -170,9 +179,10 @@ $)
   ${
     $d x y $.
     eu2.1 $e |- ( ph -> A. y ph ) $.
-    $( An alternate way of expressing uniqueness used by some authors. $)
+    $( An alternate way of defining existential uniqueness.  Definition 6.10 of
+       [TakeutiZaring] p. 26. $)
     eu2   $p |- ( E! x ph <->
-             ( E. x ph /\ A. x A. y ( ( ph /\ ( ph x | y ) ) -> x = y ) ) )
+             ( E. x ph /\ A. x A. y ( ( ph /\ [ y / x ] ph ) -> x = y ) ) )
              $=
       ( weu wex wsb wa weq wi wal euex eumo0 mo sylib jca 19.29r impexp bial
       19.21 bitr bilan abai bitr4 biex eu1 sylibr impbi ) ABEZABFZAABCGZHBCIZJZ
@@ -185,7 +195,7 @@ $)
   ${
     $d x y $.
     eu3.1 $e |- ( ph -> A. y ph ) $.
-    $( An alternate way of expressing uniqueness. $)
+    $( An alternate way of expressing existential uniqueness. $)
     eu3   $p |- ( E! x ph <->
                 ( E. x ph /\ E. y A. x ( ph -> x = y ) ) ) $=
       ( weu wex wsb wa weq wi wal eu2 mo bilan bitr4 ) ABEABFZAABCGHBCIZJCKBKZH
@@ -218,9 +228,11 @@ $)
   ${
     $d x y $.
     mo3.1 $e |- ( ph -> A. y ph ) $.
-    $( Alternate definition of "at most one". $)
+    $( Alternate definition of "at most one".  Definition of [BellMachover]
+       p. 460, except with a hypothesis in place of an additional distinct
+       variable condition. $)
     mo3   $p |- ( E* x ph <->
-               A. x A. y ( ( ph /\ ( ph x | y ) ) -> x = y ) ) $=
+               A. x A. y ( ( ph /\ [ y / x ] ph ) -> x = y ) ) $=
       ( wmo weq wi wal wex wsb wa mo2 mo bitr ) ABEABCFZGBHCIAABCJKOGCHBHABCDLA
       BCDMN $.
       $([8-Mar-95]$)
@@ -315,6 +327,12 @@ $)
       $([5-Apr-95]$)
   $}
 
+  $( Absorption of existence condition by "at most one". $)
+  moabs $p |- ( E* x ph <-> ( E. x ph -> E* x ph ) ) $=
+    ( wex weu wi wmo pm5.4 df-mo bilim 3bitr4r ) ABCZKABDZEZEMKABFZENKLGNMKABHZ
+    IOJ $.
+    $([4-Nov-02]$)
+
   $( Something exists or at most one exists. $)
   exmo $p |- ( E. x ph \/ E* x ph ) $=
     ( wex wmo wn weu wi pm2.21 df-mo sylibr orri ) ABCZABDZLELABFZGMLNHABIJK $.
@@ -380,11 +398,11 @@ $)
     $d x ph $.
     $( Introduction of a conjunct into uniqueness quantifier. $)
     euanv $p |- ( E! x ( ph /\ ps ) <-> ( ph /\ E! x ps ) ) $=
-      ( wa wex wmo weu 19.42v wi moanimv bilan abai bitr4 bi2an anass an4 3bitr4
-      eu5 anabs1 biex 19.41v bitr biran anabs ) ABDZCEZADZUECFZDZAADZBCEZBCFZDZ
-      DZUECGZABCGZDUFAUHDZDAUKDZAULDZDUIUNUFURUQUSABCHUQAAULIZDUSUHUTAABCJKAULL
-      MNUFAUHOAAUKULPQUOUFUHDUIUECRUFUGUHUFUEADZCEUGUEVACABSTUEACUAUBUCUBAUJUPU
-      MAUDBCRNQ $.
+      ( wa wex wmo weu 19.42v wi moanimv bilan abai bitr4 bi2an anass an4
+      3bitr4 eu5 anabs1 biex 19.41v bitr3 biran bitr anidm bicom ) ABDZCEZAD
+      ZUGCFZDZAADZBCEZBCFZDZDZUGCGZABCGZDUHAUJDZDAUMDZAUNDZDUKUPUHUTUSVAABCHUSA
+      AUNIZDVAUJVBAABCJKAUNLMNUHAUJOAAUMUNPQUQUHUJDUKUGCRUHUIUJUHUGADZCEUIVCUGC
+      ABSTUGACUAUBUCUDAULURUOULAAUEUFBCRNQ $.
       $([23-Mar-95]$)
   $}
 
@@ -392,7 +410,7 @@ $)
     $d x y $.  $d y ph $.  $d y ps $.  $( ` y ` is dummy. $)
     $( "At most one" picks a variable value. $)
     mopick $p |- ( ( E* x ph /\ E. x ( ph /\ ps ) ) -> ( ph -> ps ) ) $=
-      ( vy wmo wa wex wi wsb ax-17 hbsbv hban weq sbequ12 bi2and cbvex sbequ2
+      ( vy wmo wa wex wi wsb ax-17 hbs1 hban weq sbequ12 bi2and cbvex sbequ2
       syl3 exp3a com4t imp wal mo3 ax-4 a4s sylbi syl5 19.23aiv comm ) ACEZABFZ
       CGZABHZULUJUMULACDIZBCDIZFZDGUJUMHZUKUPCDUKDJUNUOCACDKBCDKLCDMZAUNBUOACDN
       BCDNOPUPUQDUPAUNFZURHZUMUJUNUOUTUMHUTAUNUOBUTAUNUOBHZURVAUSBCDQRSTUAUJUTD
@@ -401,7 +419,12 @@ $)
   $}
 
   $( Existential uniqueness "picks" a variable value for which another wff is
-     true. $)
+     true.  If there is only one thing ` x ` such that ` ph ` is true, and
+     there is also an ` x ` (actually the same one) such that ` ph ` and ` ps `
+     are both true, then ` ph ` implies ` ps ` regardless of ` x ` .  This
+     theorem, which apparently does not appear explicitly in the literature,
+     can be quite useful because it lets us eliminate existential quantifiers
+     in a hypothesis. $)
   eupick $p |- ( ( E! x ph /\ E. x ( ph /\ ps ) ) -> ( ph -> ps ) ) $=
     ( wmo wa wex wi weu mopick eumo sylan ) ACDABECFABGACHABCIACJK $.
     $([10-Jul-94]$)
@@ -428,7 +451,7 @@ $)
   $}
 
   ${
-    $d x y $.  $d y ph $.
+    $d y ph $.
     $( "At most one" double quantification. $)
     moexexv $p |- ( ( E* x ph /\ A. x E* y ps ) -> E* y E. x ( ph /\ ps ) ) $=
       ( ax-17 moexex ) ABCDADEF $.
@@ -443,10 +466,10 @@ $)
 
   $( Double quantification with existential uniqueness. $)
   2euex $p |- ( E! x E. y ph -> E. y E! x ph ) $=
-    ( wex weu wmo wa eu5 hbe1 hbmo 19.41 biimpr 19.11 sylanb wal 2moex ax-4
-    syl imlan sylibr 19.22i sylbi ) ACDZBEUCBDZUCBFZGZABEZCDZUCBHUFABDZUEGZCDZU
-    HUICDZUEUKUDUKULUEGUIUECUCCBACIJKLABCMNUJUGCUJUIABFZGUGUEUMUIUEUMCOUMABCPUM
-    CQRSABHTUARUB $.
+    ( wex weu wmo wa eu5 hbe1 hbmo 19.41 biimpr 19.11 sylanb 2moex 19.21bi
+    imlan sylibr 19.22i syl sylbi ) ACDZBEUBBDZUBBFZGZABEZCDZUBBHUEABDZUDGZCDZU
+    GUHCDZUDUJUCUJUKUDGUHUDCUBCBACIJKLABCMNUIUFCUIUHABFZGUFUDULUHUDULCABCOPQABH
+    RSTUA $.
     $([3-Dec-01]$)
 
   $( Double quantification with existential uniqueness and "at most one". $)
@@ -461,11 +484,11 @@ $)
 
   $( Swap of "at most one" quantifier. $)
   2moswap $p |- ( ( E* x E. y ph /\ A. x E* y ph ) -> E* y E. x ph ) $=
-    ( wex wmo wal wa hbe1 moexex wi wb 19.8a pm4.71r mpbi biex bimo sylibr ) AC
-    DZBEACEBFGRAGZBDZCEABDZCERABCACHIUATCASBARJASKACLARMNOPQ $.
+    ( wex wmo wal wa hbe1 moexex 19.8a pm4.71ri biex bimo sylibr ) ACDZBEACEBFG
+    OAGZBDZCEABDZCEOABCACHIRQCAPBAOACJKLMN $.
     $([3-Dec-01]$)
 
-  $( Double existential uniqueness. $)
+  $( Double existential uniqueness implies double uniqueness quantification. $)
   2exeu $p |- ( ( E! x E. y ph /\ E! y E. x ph ) -> E! x E! y ph ) $=
     ( wex wmo wa weu hbe1 hbmo 19.41 wi immo 19.8a mpg imlan 19.22i sylbir
     19.11 sylanb pm3.26 adantl im2an ancoms eu5 bi2an biex bimo bitr 3imtr4 )
@@ -475,17 +498,18 @@ $)
     EBUDVHUTVIVAVEUSBACUDZUFVEUSBVJUGUEUHUI $.
     $([3-Dec-01]$)
 
-  $( Double existential uniqueness. $)
+  $( Double existential uniqueness.  This theorem shows a condition under
+     which a "naive" definition matches the correct one. $)
   2eu1 $p |- ( A. x E* y ph ->
         ( E! x E! y ph <-> ( E! x E. y ph /\ E! y E. x ph ) ) ) $=
     ( wmo wal weu wex wa 2eu2ex 19.11 sylib jca a1d wi eu5 biex bimo bi2an
-    bitr pm3.27bd immo ancom ax-4 imlan sylbi mpg hba1 moanim ancrd 2moswap
-    exp imdistani syl6 syl jcad an4 syl6ibr comm 2exeu a1i impbid ) ACDZBEZACFZ
-    BFZACGZBFZABGZCFZHZVEVCVJVEVCVFBGZVHCGZHZVFBDZVHCDZHZHZVJVEVCVMVPVEVMVCVEVK
-    VLABCIZVEVKVLVRABCJKLMVEVFVBHZBDZVCVPNVEVSBGZVTVEVDBGZVDBDZHWAVTHVDBOWBWAWC
-    VTVDVSBACOZPVDVSBWDQRSTVTVCVNVCHVPVTVCVNVTVCVFHZBDZVCVNNWEVSNVTWFNBWEVSBUAW
-    EVFVCHVSVCVFUBVCVBVFVBBUCUDUEUFVCVFBVBBUGUHKUIVNVCVOVNVCVOABCUJUKULUMUNUOVJ
-    VKVNHZVLVOHZHVQVGWGVIWHVFBOVHCORVKVNVLVOUPSUQURVJVENVCABCUSUTVA $.
+    bitr pm3.27bd immo ax-4 imlan ancoms mpg hba1 moanim ancrd 2moswap exp
+    imdistani syl6 syl jcad an4 syl6ibr comm 2exeu a1i impbid ) ACDZBEZACFZBFZA
+    CGZBFZABGZCFZHZVDVBVIVDVBVEBGZVGCGZHZVEBDZVGCDZHZHZVIVDVBVLVOVDVLVBVDVJVKAB
+    CIZVDVJVKVQABCJKLMVDVEVAHZBDZVBVONVDVRBGZVSVDVCBGZVCBDZHVTVSHVCBOWAVTWBVSVC
+    VRBACOZPVCVRBWCQRSTVSVBVMVBHVOVSVBVMVSVBVEHZBDZVBVMNWDVRNVSWENBWDVRBUAVEVBV
+    RVBVAVEVABUBUCUDUEVBVEBVABUFUGKUHVMVBVNVMVBVNABCUIUJUKULUMUNVIVJVMHZVKVNHZH
+    VPVFWFVHWGVEBOVGCORVJVMVKVNUOSUPUQVIVDNVBABCURUSUT $.
     $([3-Dec-01]$)
 
   $( Double existential uniqueness. $)
@@ -507,40 +531,63 @@ $)
     $([3-Dec-01]$)
 
 $(
-  ${
-    $v u $.
-    $d x y ps u v $.  $d z w ph u v $.
-    2mo.1 $e |- ( ( x = z /\ y = w ) -> ( ph <-> ps ) ) $.
-    $ ( Double "exists at most one". $ )
-    2mo $p |- ( E. z E. w A. x A. y ( ph -> ( x = z /\ y = w ) ) <->
-             A. x A. y A. z A. w ( ( ph /\ ps ) -> ( x = z /\ y = w ) ) ) $=
-?$.
-  $}
+  @{
+    @v u @.
+    @d x y ps u v @.  @d z w ph u v @.
+    2mo.1 @e |- ( ( x = z /\ y = w ) -> ( ph <-> ps ) ) @.
+    @( Double "exists at most one". @)
+    2mo @p  |- ( E. z E. w A. x A. y ( ph -> ( x = z /\ y = w ) ) <->
+             A. x A. y A. z A. w ( ( ph /\ ps ) -> ( x = z /\ y = w ) ) ) @=
+?@.
+  @}
 $)
 
   ${
     $d x y z w $.  $d z w ph $.
-    $( Double existential uniqueness. $)
+    $( This theorem provides us with a definition of double existential
+       uniqueness ("exactly one ` x ` and exactly one ` y ` ").  Naively one
+       might think (incorrectly) that it could be defined by
+       ` E! x E! y ph ` .  See ~ 2eu1 for a condition under which the naive
+       definition holds and ~ 2exeu for a one-way implication.  See ~ 2eu5 for
+       an alternate definition. $)
     2eu4 $p |- ( ( E! x E. y ph /\ E! y E. x ph ) <->
       ( E. x E. y ph /\ E. z E. w A. x A. y ( ph -> ( x = z /\ y = w ) ) ) ) $=
-      ( wex weu wa weq wi wal ax-17 eu3 bi2an an4 19.11 bilan anabs bitr4 hba1
-      ax-4 impbi jcab bial 19.26 bitr 3bitr4 19.5 19.23v bi2al hbe1 ax17eq
-      hbim aaan 3bitr bi2ex eeanv bitr2 ) ACFZBGZABFZCGZHUSBFZUSBDIZJZBKZDFZHZV
-      ACFZVACEIZJZCKZEFZHZHVCVIHZVGVMHZHVCAVDVJHJZCKZBKZEFDFZHUTVHVBVNUSBDUSDLM
-      VACEVAELMNVCVGVIVMOVOVCVPVTVOVCVCHVCVIVCVCACBPQVCRSVTVFVLHZEFDFVPVSWADEVS
-      AVDJZCKZAVJJZBKZHZCKZBKZVEVKHZCKBKWAVSWCWDCKZBKZHZBKZWHWCBKZWKHZWNWKBKZHV
-      SWMWKWPWNWKWPWJBTWKBUAUBQVSWCWJHZBKWOVRWQBVRWBWDHZCKWQVQWRCAVDVJUCUDWBWDC
-      UEUFUDWCWJBUEUFWCWKBUEUGWGWLBWGWCCKZWECKZHWLWCWECUEWSWCWTWKWSWCWCCUAWBCTU
-      BWDCBUHNUFUDSWFWIBCWCVEWEVKAVDCUIAVJBUINUJVEVKBCUSVDCACUKBDCULUMVAVJBABUK
-      CEBULUMUNUOUPVFVLDEUQURNUO $.
+      ( wex weu wa weq wi wal ax-17 eu3 bi2an an4 19.11 bilan anidm bitr
+      hba1 19.3r jcab bial 19.26 3bitr4 ax-4 impbi 19.5 bitr4 19.23v bi2al
+      hbe1 hbim aaan 3bitr bi2ex eeanv bitr2 ) ACFZBGZABFZCGZHUSBFZUSBDIZJZBKZD
+      FZHZVACFZVACEIZJZCKZEFZHZHVCVIHZVGVMHZHVCAVDVJHJZCKZBKZEFDFZHUTVHVBVNUSBD
+      USDLMVACEVAELMNVCVGVIVMOVOVCVPVTVOVCVCHVCVIVCVCACBPQVCRSVTVFVLHZEFDFVPVSW
+      ADEVSAVDJZCKZAVJJZBKZHZCKZBKZVEVKHZCKBKWAVSWCWDCKZBKZHZBKZWHWCBKZWKHZWNWK
+      BKZHVSWMWKWPWNWKBWJBTUAQVSWCWJHZBKWOVRWQBVRWBWDHZCKWQVQWRCAVDVJUBUCWBWDCU
+      DSUCWCWJBUDSWCWKBUDUEWGWLBWGWCCKZWECKZHWLWCWECUDWSWCWTWKWSWCWCCUFWBCTUGWD
+      CBUHNSUCUIWFWIBCWCVEWEVKAVDCUJAVJBUJNUKVEVKBCUSVDCACULVDCLUMVAVJBABULVJBL
+      UMUNUOUPVFVLDEUQURNUO $.
       $([3-Dec-01]$)
-
-    $( Double existential uniqueness. $)
-$(
-    2eu5 $p |- ( ( E! x E. y ph /\ E! y E. x ph ) <->
-               E. z E. w A. x A. y ( ph <-> ( x = z /\ y = w ) ) ) $=
-?$.
-$)
   $}
+
+  ${
+    $d x y z w $.  $d z w ph $.
+    $( An alternate definition of double existential uniqueness (see ~ 2eu4 ).
+       A mistake sometimes made in published literature is to use ` E! x E! y `
+       to mean "exactly one ` x ` and exactly one ` y ` ."  It turns out that
+       this is actually a weaker assertion, as can be seen by expanding out the
+       formal definitions.  This theorem shows that the erroneous definition
+       can be repaired by conjoining ` A. x E* y ph ` as an additional
+       condition.  The correct definition apparently has never been published.
+       ( ` E* ` means "exists at most one.")  $)
+    2eu5 $p |- ( ( E! x E! y ph /\ A. x E* y ph ) <->
+      ( E. x E. y ph /\ E. z E. w A. x A. y ( ph -> ( x = z /\ y = w ) ) ) ) $=
+      ( weu wmo wal wa wex weq wi eumo adantl 2moex syl pm4.71i 2eu1 pm5.32ri
+      bitr4 2eu4 bitr3 ) ACFBFZACGBHZIZACJZBFZABJZCFZIZUFBJABDKCEKILCHBHEJDJIUJ
+      UJUDIUEUJUDUJUHCGZUDUIUKUGUHCMNACBOPQUDUCUJABCRSTABCDEUAUB $.
+      $([26-Oct-03]$)
+  $}
+
+$(
+    @( Double existential uniqueness. @)
+    2eu6 @p  |- ( ( E! x E. y ph /\ E! y E. x ph ) <->
+               E. z E. w A. x A. y ( ph <-> ( x = z /\ y = w ) ) ) @=
+?@.
+$)
 
 

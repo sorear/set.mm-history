@@ -8,56 +8,70 @@ $( The theorems in this section make use of the $d statement. $)
 
   ${
     $d x y $.
-    $( ` x ` is not free in ` ( ph x | y ) ` when ` x ` and ` y ` are
+    $( ` x ` is not free in ` [ y / x ] ph ` when ` x ` and ` y ` are
        distinct. $)
-    hbsbv   $p |- ( ( ph x | y ) -> A. x ( ph x | y ) ) $=
-      ( weq wal wsb wi ax-16 hbsb pm2.61i ) BCDBEABCFZKBEGKBCHABCIJ $.
+    hbs1   $p |- ( [ y / x ] ph -> A. x [ y / x ] ph ) $=
+      ( weq wal wsb wi ax-16 hbsb2 pm2.61i ) BCDBEABCFZKBEGKBCHABCIJ $.
       $([5-Aug-93]$)
   $}
 
   ${
-    $d x z $.
-    hbsbag.1 $e |- ( ph -> A. x ph ) $.
-    $( If ` x ` is not free in ` ph `, it is not free in ` ( ph y | z ) `
-       when ` x ` and ` z ` are distinct. $)
-    hbsbag   $p |- ( ( ph y | z ) -> A. x ( ph y | z ) ) $=
-      ( weq wal wsb wi ax-16 hbsbc pm2.61i ) BDFBGACDHZMBGIMBDJACDBEKL $.
+    $d y z $.
+    hbsb.1 $e |- ( ph -> A. z ph ) $.
+    $( If ` z ` is not free in ` ph ` , it is not free in ` [ y / x ] ph `
+       when ` y ` and ` z ` are distinct. $)
+    hbsb $p |- ( [ y / x ] ph -> A. z [ y / x ] ph ) $=
+      ( weq wal wsb wi ax-16 hbsb4 pm2.61i ) DCFDGABCHZMDGIMDCJABCDEKL $.
       $([12-Aug-93]$)
   $}
 
   ${
     $d x y $.
-    $( Equivalence for substitution.  Similar to Theorem 6.1 of Quine,
+    $( Equivalence for substitution.  Similar to Theorem 6.1 of [Quine]
        p. 40. $)
-    sb5   $p |- ( ( ph x | y ) <-> E. x ( x = y /\ ph ) ) $=
-      ( weq wa wex wsb hbsbv sbequ12 eqsex bicom ) BCDAEBFABCGZALBCABCHABCIJK
+    sb5 $p |- ( [ y / x ] ph <-> E. x ( x = y /\ ph ) ) $=
+      ( weq wa wex wsb hbs1 sbequ12 eqsex bicom ) BCDAEBFABCGZALBCABCHABCIJK
       $.
       $([18-Aug-93]$)
   $}
 
   ${
     $d x y $.
-    $( Equivalence for substitution.  Compare Theorem 6.2 of Quine, p. 40. $)
-    sb6   $p |- ( ( ph x | y ) <-> A. x ( x = y -> ph ) ) $=
-      ( weq wi wal wsb hbsbv sbequ12 eqsal bicom ) BCDAEBFABCGZALBCABCHABCIJK
+    $( Equivalence for substitution.  Compare Theorem 6.2 of [Quine] p. 40. $)
+    sb6   $p |- ( [ y / x ] ph <-> A. x ( x = y -> ph ) ) $=
+      ( weq wi wal wsb hbs1 sbequ12 eqsal bicom ) BCDAEBFABCGZALBCABCHABCIJK
       $.
       $([18-Aug-93]$)
   $}
 
   ${
     $d x y $.
-    $( Equivalence for substitution.  Compare Theorem 6.2 of Quine, p. 40. $)
-    sb6a $p |- ( ( ph x | y ) <-> A. x ( x = y -> ( ph y | x ) ) ) $=
+    $( Equivalence for substitution.  Compare Theorem 6.2 of [Quine] p. 40. $)
+    sb6a $p |- ( [ y / x ] ph <-> A. x ( x = y -> [ x / y ] ph ) ) $=
       ( wsb weq wi wal sb6 wb sbequ12 eqcoms pm5.74i bial bitr ) ABCDBCEZAFZBGO
       ACBDZFZBGABCHPRBOAQAQICBACBJKLMN $.
       $([5-Aug-93]$)
   $}
 
   ${
+    $d x z $.  $d y z $.  $d z ph $.
+    $( An alternate definition for proper substitution ~ df-sb .  By
+       introducing a dummy variable ` z ` in the definiens, we are able to
+       eliminate any distinct variable restrictions among the variables ` x ` ,
+       ` y ` , and ` ph ` of the definiendum.  Compare Definition 2.1'' of
+       [Quine] p. 17, which is obtained from this theorem by applying
+       ~ df-clab . $)
+    sb7 $p |- ( [ y / x ] ph <-> E. z ( z = y /\ E. x ( x = z /\ ph ) ) ) $=
+      ( wsb weq wa wex sb5 bisb ax-17 sbco2 3bitr3 ) ABDEZDCEBDFAGBHZDCEABCEDCF
+      OGDHNODCABDIJABCDADKLODCIM $.
+      $([29-Jan-04]$)
+  $}
+
+  ${
     $d x z $.  $d x w $.  $d y z $.
-    $( A composition law for substitution.  Used in proof of Theorem 9.7 of
-       Megill, p. 449. $)
-    sbcocv $p |- ( ( ( ph x | y ) z | w ) <-> ( ( ph z | w ) x | y ) ) $=
+    $( Commutativity law for substitution.  Used in proof of Theorem 9.7 of
+       [Megill] p. 449 (p. 16 of the preprint). $)
+    sbcom2 $p |- ( [ w / z ] [ y / x ] ph <-> [ y / x ] [ w / z ] ph ) $=
       ( weq wal wsb wb wn wa wi 19.5 bi2.04 bial 19.21v bitr 3bitr3 a1i sb4b
       bilimd bialdv sylan9bbr sylan9bb 3bitr4d exp eq5 sbequ12 a4s bisbd
       bitr3d pm2.61ii ) BCFZBGZDEFZDGZABCHZDEHZADEHZBCHZIZUNJZUPJZVAVBVCKZUOUMA
@@ -71,18 +85,18 @@ $( The theorems in this section make use of the $d statement. $)
 
   ${
     $d x ph $.
-    $( A composition law for substitution.  Used in proof of Theorem 9.7 of
-       Megill, p. 449. $)
-    sbco0v $p |- ( ph <-> ( ( ph y | x ) x | y ) ) $=
+    $( An identity law for substitution.  Used in proof of Theorem 9.7 of
+       [Megill] p. 449 (p. 16 of the preprint). $)
+    sbid2 $p |- ( [ y / x ] [ x / y ] ph <-> ph ) $=
       ( ax-17 sbco0 ) ABCABDE $.
-      $([5-Aug-93]$)
+      $([11-Jan-04]$)
   $}
 
   ${
     $d x y $.  $d x ph $.
     $( Elimination of substitution. $)
-    sbelx $p |- ( ph <-> E. x ( x = y /\ ( ph y | x ) ) ) $=
-      ( wsb weq wa wex sbco0v sb5 bitr ) AACBDZBCDBCEKFBGABCHKBCIJ $.
+    sbelx $p |- ( ph <-> E. x ( x = y /\ [ x / y ] ph ) ) $=
+      ( wsb weq wa wex sbid2 sb5 bitr3 ) AACBDZBCDBCEKFBGABCHKBCIJ $.
       $([5-Aug-93]$)
   $}
 
@@ -93,76 +107,127 @@ $( The theorems in this section make use of the $d statement. $)
     $d x y z w $.  $d x y ph $.
     $( Elimination of double substitution. $)
     sbel2x $p |- ( ph <-> E. x E. y ( ( x = z /\ y = w ) /\
-                     ( ( ph z | x ) w | y ) ) ) $=
+                     [ y / w ] [ x / z ] ph ) ) $=
       ( weq wsb wa wex sbelx bilan biex exdistr 3bitr4 anass bi2ex bitr4 ) ABDF
       ZCEFZADBGZECGZHZHZCIBIZRSHUAHZCIBIRTHZBIRUBCIZHZBIAUDUFUHBTUGRTCEJKLABDJR
       UBBCMNUEUCBCRSUAOPQ $.
       $([5-Aug-93]$)
   $}
 
-
   ${
     $d x y $.
     $( A theorem used in elimination of disjoint variable restriction on ` x `
-       and ` y ` by replacing it with a distinctor ` -. A. x x = z `. $)
-    sbadd $p |- ( -. A. x x = z ->
-             ( ( A. x ph y | z ) <-> A. x ( ph y | z ) ) ) $=
+       and ` y ` by replacing it with a distinctor ` -. A. x x = z ` . $)
+    sbal1 $p |- ( -. A. x x = z ->
+             ( [ z / y ] A. x ph <-> A. x [ z / y ] ph ) ) $=
       ( weq wal wn wsb wb wi sbequ12 a4s 19.20i eq5s 19.15 syl bitr3d a1d wa
-      sb4 ax-16 ax-12 pm2.61i hba1 a1i hbimd eq6s ax-4 syl3 syl6 19.20ii sb2
-      a7s sylan9 ax-7 19.20 syl9 impbid exp ) CDEZCFZBDEBFGZABFZCDHZACDHZBFZIZJ
-      VAVGVBVAVCVDVFUTVCVDICVCCDKLVAAVEIZBFZVCVFIVICDBVAVHBUTVHCACDKLMNAVEBOPQR
-      VAGZVBVGVJVBSVDVFVJVDUTVCJZCFZVBVFVCCDTVBVLUTAJZBFZCFZVFVLVOJBDCVBVKVNCVB
-      VKVKBFZVNVKVPJBDBVBUTVCBBCEBFZVBUTUTBFZJZJVQVSVBUTBCUARCDBUBUCZVCVCBFJVBA
-      BUDUEUFUGVKVMBVCAUTABUHUIMUJUKUGVMVFBCVMCFZVEBACDULMUMUJUNVJVFVOVBVDVJVFW
-      ABFZVOVFWBJCDBVJVEWABACDTUKUGVMBCUOUJVOVDJBDCVBCFVOVLVDVBVNVKCVBUTVRVNVCV
-      TUTABUPUQUKVCCDULUJUGUNURUSUC $.
+      hba1 hbsb4 ax-4 sbim syl6 adantl sb4 19.20ii eq6s ax-7 ax-16 ax-12
+      pm2.61i 19.20 syl9 sb2 sylan9 impbid exp ) CDEZCFZBDEBFGZABFZCDHZACDHZBFZ
+      IZJUTVFVAUTVBVCVEUSVBVCICVBCDKLUTAVDIZBFZVBVEIVHCDBUTVGBUSVGCACDKLMNAVDBO
+      PQRUTGZVAVFVIVASVCVEVAVCVEJVIVAVCVCBFVEVBCDBABTUAVCVDBVBACDABUBUCMUDUEVIV
+      EUSAJZBFZCFZVAVCVIVEVJCFZBFZVLVEVNJCDBVIVDVMBACDUFUGUHVJBCUIUDVLVCJBDCVAC
+      FVLUSVBJZCFVCVAVKVOCVAUSUSBFZVKVBBCEBFZVAUSVPJZJVQVRVAUSBCUJRCDBUKULUSABU
+      MUNUGVBCDUOUDUHUPUQURUL $.
       $([5-Aug-93]$)
   $}
 
   ${
     $d x y $.  $d x z $.
-    $( Removal of quantifier from substitution. $)
-    sbal $p |- ( ( A. x ph y | z ) <-> A. x ( ph y | z ) ) $=
-      ( weq wal wsb wb sbequ5 a16gb sbim sylbi sbb sylib bitr3d sbadd pm2.61i
+    $( Move universal quantifier in and out of substitution. $)
+    sbal $p |- ( [ z / y ] A. x ph <-> A. x [ z / y ] ph ) $=
+      ( weq wal wsb wb sbequ5 a16gb sbim sylbi sbb sylib bitr3d sbal1 pm2.61i
       ) BDEBFZABFZCDGZACDGZBFZHRUATUBRASHZCDGZUATHRRCDGUDBDCDIRUCCDABDBJKLASCDM
       NUABDBJOABCDPQ $.
       $([5-Aug-93]$)
   $}
 
   ${
+    $d x y $.  $d x z $.
+    $( Move existential quantifier in and out of substitution. $)
+    sbex $p |- ( [ z / y ] E. x ph <-> E. x [ z / y ] ph ) $=
+      ( wn wal wsb wex sbn sbal bial bitr bineg df-ex bisb 3bitr4 ) AEZBFZEZCDG
+      ZACDGZEZBFZEZABHZCDGUABHTRCDGZEUDRCDIUFUCUFQCDGZBFUCQBCDJUGUBBACDIKLMLUES
+      CDABNOUABNP $.
+      $([27-Sep-03]$)
+  $}
+
+  ${
     $d x z $.  $d y z $.
-    sbalv.1 $e |- ( ( ph x | y ) <-> ps ) $.
+    sbalv.1 $e |- ( [ y / x ] ph <-> ps ) $.
     $( Quantify with new variable inside substitution. $)
-    sbalv   $p |- ( ( A. z ph x | y ) <-> A. z ps ) $=
+    sbalv   $p |- ( [ y / x ] A. z ph <-> A. z ps ) $=
       ( wal wsb sbal bial bitr ) AEGCDHACDHZEGBEGAECDILBEFJK $.
       $([18-Aug-93]$)
   $}
 
   ${
-    $d x z $.  $d y z $.  $d z ps $.
+    $d z ps $.
     ddelim.1 $e |- ( z = y -> ( ph <-> ps ) ) $.
     ddelim.2 $e |- ( ph -> A. x ph ) $.
-    $( Theorem to eliminate a distinct variable restriction on ` x ` and
-       ` z ` and replace it with a distinctor as an antecedent.  ` ph ` is
-       considered to contain ` z ` and ` ps ` to have ` z ` replaced with
-       ` y `, and we don't require that ` x ` and ` y ` be distinct. $)
+    $( This theorem can be used to eliminate a distinct variable restriction on
+       ` x ` and ` z ` and replace it with the "distinctor" ` -. A. x x = y `
+       as an antecedent.  ` ph ` is considered to contain ` z ` , and ` ps ` to
+       have ` z ` replaced with ` y ` , and we don't require that ` x ` and
+       ` y ` be distinct (if they aren't, the distinctor will become false and
+       "protect" the consequent).  $)
     ddelim   $p |- ( -. A. x x = y -> ( ps -> A. x ps ) ) $=
-      ( weq wal wn wi wsb stdpc4 mpg wb ax-17 ddel4 a1i sbadd bial syl6bb
-      bi2imd sbi syl5bb mpbii ) CDHCIJZAACIZKZEDLZBBCIZKZUHUIEUHEDMGNUFAEDLZUGE
-      DLZKUKUIUFULBUMUJULBOUFABEDBEPFQZRUFUMULCIUJACEDSULBCUNTUAUBAUGEDUCUDUE
-      $.
+      ( ax-17 ddelimf ) ABCDEFGBEHI $.
       $([23-Nov-94]$)
   $}
 
   ${
-    $d w v y $.  $d w v z $.  $d w x $.  $( ` w v ` are dummy. $)
-    $( Axiom ~ ax-15 is redundant if we assume ~ ax-17 .  Remark 9.6 in Megill,
-       p. 448, regarding axiom scheme C14'. $)
+    $d w z x $.  $d w y $.
+    $( Quantifier introduction when one pair of variables is distinct. $)
+    ddeeq1 $p |- ( -. A. x x = y -> ( y = z -> A. x y = z ) ) $=
+      ( vw weq a8b ax-17 ddelim ) DCEZBCEABDDBCFIAGH $.
+      $([2-Jan-02]$)
+  $}
+
+  ${
+    $d w z x $.  $d w y $.
+    $( Quantifier introduction when one pair of variables is distinct. $)
+    ddeeq2 $p |- ( -. A. x x = y -> ( z = y -> A. x z = y ) ) $=
+      ( vw weq eqt2b ax-17 ddelim ) CDEZCBEABDDBCFIAGH $.
+      $([2-Jan-02]$)
+  $}
+
+  ${
+    $d w z x $.  $d w y $.
+    $( Quantifier introduction when one pair of variables is distinct. $)
+    ddeel1 $p |- ( -. A. x x = y -> ( y e. z -> A. x y e. z ) ) $=
+      ( vw wel a13b ax-17 ddelim ) DCEZBCEABDDBCFIAGH $.
+      $([2-Jan-02]$)
+  $}
+
+  ${
+    $d w z x $.  $d w y $.
+    $( Quantifier introduction when one pair of variables is distinct. $)
+    ddeel2 $p |- ( -. A. x x = y -> ( z e. y -> A. x z e. y ) ) $=
+      ( vw wel a14b ax-17 ddelim ) CDEZCBEABDDBCFIAGH $.
+      $([2-Jan-02]$)
+  $}
+
+  ${
+    $d z y $.  $d z x $.
+    $( Move quantifier in and out of substitution. $)
+    sbal2 $p |- ( -. A. x x = y ->
+             ( [ z / y ] A. x ph <-> A. x [ z / y ] ph ) ) $=
+      ( weq wal wn wi wsb eq6 wb ddeeq1 19.20i eq6s 19.21g syl biald 19.5
+      syl5rbbr sb6 bial 3bitr4g ) BCEBFGZCDEZABFZHZCFZUDAHZCFZBFZUECDIACDIZBFUC
+      UHBFZCFUGUJUCULUFCBCCJUCUDUDBFHZBFZULUFKUNBCBUCUMBBCDLMNUDABOPQUHCBRSUECD
+      TUKUIBACDTUAUB $.
+      $([2-Jan-02]$)
+  $}
+
+  ${
+    $d w y $.  $d w z $.  $d w x $.  $( ` w ` is dummy. $)
+    $( Axiom ~ ax-15 is redundant if we assume ~ ax-17 .  Remark 9.6 in [Megill]
+       p. 448 (p. 16 of the preprint), regarding axiom scheme C14'. $)
     ax15 $p |- ( -. A. z z = x -> ( -. A. z z = y ->
               ( x e. y -> A. z x e. y ) ) ) $=
-      ( vw vv weq wal wn wel wi a13b bilimd hbn1 a14b ax-17 ddelim hbim1 19.21
-      syl6ib pm2.86d ) CAFCGHZCBFZCGHZABIZUDCGZUAUCUDJZUFCGUCUEJUCDBIZJUFCADDAF
-      UGUDUCDABKLUCUGCUBCMZDEIZUGCBEEBDNUICOPQPUCUDCUHRST $.
+      ( vw weq wal wn wel wi a13b bilimd hbn1 ddeel2 hbim1 ddelim 19.21 syl6ib
+      pm2.86d ) CAECFGZCBEZCFGZABHZUBCFZSUAUBIZUDCFUAUCIUADBHZIUDCADDAEUEUBUADA
+      BJKUAUECTCLZCBDMNOUAUBCUFPQR $.
       $([29-Jun-95]$)
   $}
 

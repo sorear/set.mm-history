@@ -12,21 +12,22 @@ the ZF axioms deny that they exist).  Classes that don't exist are called
 theory, but it makes the notation much more compact.  A drawback for the novice
 is that we will be manipulating symbols for objects that may or may not exist;
 but the precision and rigor of Metamath will prevent us from deriving nonsense.
-Classes can be eliminated by applying their definitions; see Quine or Ch. 4 of
-Takeuti and Zaring.  Note that a specific wff containing class variables may
+Classes can be eliminated by applying their definitions; see [Quine] or Ch. 4 of
+[TakeutiZaring].  Note that a specific wff containing class variables may
 not be convertible to a specific wff without them but rather may correspond to
 a scheme of such wff's.
 $)
 
   $( Declare new constants use in class definition. $)
   $c { $. $( Left brace $)
+  $c | $.  $( Vertical bar $)
   $c } $. $( Right brace $)
   $c class $. $( Class variable type $)
 
   $( Declare variable symbols that will be used to represent classes.  Note
-     that later on ` R `, ` S `, ` F ` and ` G ` denote relations and
+     that later on ` R ` , ` S ` , ` F ` and ` G ` denote relations and
      functions, but these letters serve as mnemonics only and in fact behave
-     no differently from the variables ` A ` through ` D `. $)
+     no differently from the variables ` A ` through ` D ` . $)
   $v A $.
   $v B $.
   $v C $.
@@ -66,21 +67,42 @@ $)
   wcel $a wff A e. B $.
 
   $( Define the abstraction class.  ` x ` and ` y ` need not be distinct.
-     Definition 2.1 of Quine, p. 16.  See ~ df-clel for the general definition
-     of membership of classes. $)
-  df-clab $a |- ( x e. { y | ph } <-> ( ph y | x ) ) $.
+     Definition 2.1 of [Quine] p. 16.  Typically, ` ph ` will have ` y ` as a
+     free variable, and " ` { y | ph } ` " is read "the class of all sets
+     ` y ` such that ` ph ( y ) ` is true."  We do not define ` { y | ph } `
+     in isolation but only as part of an expression that extends or
+     "overloads" the ` e. ` relationship.
 
-  $( Simplification of abstraction class notation when the free and abstraction
+     This is our first use of the ` e. ` symbol to connect classes instead of
+     sets.  The syntax definition ~ wcel , which extends or "overloads" the
+     ~ wel definition connecting set variables, requires that both sides of
+     ` e. ` be a class.  In the present definition, the ` x ` on the
+     left-hand side is a set variable.  We use the syntax definition ~ cv to
+     "convert" the set variable ` x ` to a class term:  all sets are classes
+     (but not necessarily vice-versa).  In ~ df-cleq and ~ df-clel we
+     introduce a new kind of variable (class variable) that can substituted
+     with expressions such as ` { y | ph } ` . For a full description of how
+     classes are introduced and how to recover the primitive language, see
+     the discussion in Quine (and under ~ cleqab for a quick overview).
+
+     Because class variables can be substituted with compound expressions
+     and set variables cannot, it is often useful to convert a theorem
+     containing a free set variable to a more general version with a class
+     variable.  This is done with theorems such as ~ vtoclg which is used, for
+     example, to convert ~ eirrv to ~ eirr . $)
+  df-clab $a |- ( x e. { y | ph } <-> [ x / y ] ph ) $.
+
+  $( Simplification of abstraction class notation when the free and bound
      variables are identical. $)
-  abid $p |- ( ph <-> x e. { x | ph } ) $=
-    ( wsb cv cab wcel sbid df-clab bitr4 ) AABBCBDABEFABGABBHI $.
-    $([5-Aug-93]$)
+  abid $p |- ( x e. { x | ph } <-> ph ) $=
+    ( cv cab wcel wsb df-clab sbid bitr ) BCABDEABBFAABBGABHI $.
+    $([10-Jan-04]$)
 
   ${
     $d x y $.
     $( The abstraction variable in an abstraction class is not free. $)
     hbab1 $p |- ( y e. { x | ph } -> A. x y e. { x | ph } ) $=
-      ( wsb wal cv cab wcel hbsbv df-clab bial 3imtr4 ) ABCDZMBECFABGHZNBEABCIA
+      ( wsb wal cv cab wcel hbs1 df-clab bial 3imtr4 ) ABCDZMBECFABGHZNBEABCIA
       CBJZNMBOKL $.
       $([5-Aug-93]$)
   $}
@@ -88,9 +110,9 @@ $)
   ${
     $d x z $.
     hbab.1 $e |- ( ph -> A. x ph ) $.
-    $( A variable not free in a wff remains so in its abstraction class. $)
+    $( A variable not free in a wff remains so in an abstraction class. $)
     hbab   $p |- ( z e. { y | ph } -> A. x z e. { y | ph } ) $=
-      ( wsb wal cv cab wcel weq wi ax-16 hbsbc pm2.61i df-clab bial 3imtr4 ) AC
+      ( wsb wal cv cab wcel weq wi ax-16 hbsb4 pm2.61i df-clab bial 3imtr4 ) AC
       DFZSBGZDHACIJZUABGBDKBGSTLSBDMACDBENOADCPZUASBUBQR $.
       $([1-Mar-95]$)
   $}
@@ -98,8 +120,9 @@ $)
   ${
     $d x A $.  $d x B $.  $d x y z $.
     df-cleq.1 $e |- ( A. x ( x e. y <-> x e. z ) -> y = z ) $.
-    $( Define the the equality connective between classes.  See Quine or
-       Chapter 4 of Takeuti and Zaring for its justification and methods for
+    $( Define the equality connective between classes.  Definition 2.7
+       of [Quine] p. 18.  Also Definition 4.5 of [TakeutiZaring] p. 13;
+       Chapter 4 provides its justification and methods for
        eliminating it.  Note that its elimination will not necessarily result
        in a single wff in the original language but possibly a "scheme" of
        wffs.  This is an example of a somewhat "risky" definition, because
@@ -114,28 +137,34 @@ $)
        straightforward, so that we could eliminate Extensionality as a
        hypothesis.  We would then also have the advantage of being able to
        identify in various proofs exactly where Extensionality truly comes into
-       play.  Then, one of our theorems would then be ` x ` == ` x <-> x = x `
+       play.  Then, one of our theorems would then be ` x ` == ` y <-> x = y `
        by invoking Extensionality.  However in keeping with standard practice
        we retain the "dangerous" definition; this also makes some proofs
-       shorter. $)
-    df-cleq   $a |- ( A = B <-> A. x ( x e. A <-> x e. B ) ) $.
+       shorter.  See also comments under ~ df-clab , ~ df-clel , and
+       ~ cleqab . $)
+    df-cleq $a |- ( A = B <-> A. x ( x e. A <-> x e. B ) ) $.
   $}
 
  ${
     $d x A $.  $d x B $.  $d x y z $.  $( ` y z ` are dummy var. $)
-    $( The same as ~ df-cleq with the hypothesis removed. $)
+    $( The same as ~ df-cleq with the hypothesis removed using the Axiom
+       of Extensionality ~ ax-ext . $)
     dfcleq $p |- ( A = B <-> A. x ( x e. A <-> x e. B ) ) $=
-      ( vy vz ax-ext df-cleq ) ADEBCADEFG $.
+      ( vy vz ax-ext df-cleq ) ADEBCDEAFG $.
       $([15-Sep-93]$)
   $}
 
   ${
     $d x A $.  $d x B $.
     $( Define the membership connective between classes.  Theorem 6.3 of
-       Quine, p. 41, which we adopt as a definition.  Note that like
-       ~ df-cleq it extends the use of the existing membership symbol, but
-       unlike ~ df-cleq it does not strengthen the set of valid wffs of logic
-       when the class variables are replaced with set variables. $)
+       [Quine] p. 41, or Proposition 4.6 of [TakeutiZaring] p. 13, which we
+       adopt as a definition.  See these references for its metalogical
+       justification.  Note that like ~ df-cleq it extends the use of the
+       existing membership symbol, but unlike ~ df-cleq it does not strengthen
+       the set of valid wffs of logic when the class variables are replaced
+       with set variables (see ~ cleljust ), so we don't include any set theory
+       axiom as a hypothesis.  See also comments about the syntax under
+       ~ df-clab . $)
     df-clel $a |- ( A e. B <-> E. x ( x = A /\ x e. B ) ) $.
   $}
 
@@ -161,7 +190,7 @@ $)
   ${
     $d x A $.  $( ` x ` is dummy. $)
     $( Class identity law (reflexivity of class equality).  Theorem 6.4 of
-       Quine, p. 41. $)
+       [Quine] p. 41. $)
     cleqid $p |- A = A $=
       ( vx cv wcel pm4.2 cleqri ) BAABCADEF $.
       $([5-Aug-93]$)
@@ -169,7 +198,7 @@ $)
 
   ${
     $d x A $.  $d x B $.  $( ` x ` is dummy. $)
-    $( Commutative law for class equality.  Theorem 6.5 of Quine, p. 41. $)
+    $( Commutative law for class equality.  Theorem 6.5 of [Quine] p. 41. $)
     cleqcom $p |- ( A = B <-> B = A ) $=
       ( vx cv wcel wb wal wceq pm4.21 bial dfcleq 3bitr4 ) CDZAEZMBEZFZCGONFZCG
       ABHBAHPQCNOIJCABKCBAKL $.
@@ -287,6 +316,12 @@ $)
       ( wceq wb cleqan12d ancoms ) ABCEIDFIJABCDEFGHKL $.
       $([9-Aug-94]$)
   $}
+
+  $( Transitive law for class equality.  Proposition 4.7(3) of [TakeutiZaring]
+     p. 13. $)
+  cleqtr $p |- ( ( A = B /\ B = C ) -> A = C ) $=
+    ( wceq cleq1 biimpar ) ABDACDBCDABCEF $.
+    $([25-Jan-04]$)
 
   ${
     eqtr.1 $e |- A = B $.
@@ -541,6 +576,20 @@ $)
   $}
 
   ${
+    $v F $.
+    $v G $.
+    cleq2tr.F $f class F $.
+    cleq2tr.G $f class G $.
+    cleq2tr.1 $e |- ( A = C -> D = F ) $.
+    cleq2tr.2 $e |- ( B = D -> C = G ) $.
+    $( A compound transitive inference for class equality. $)
+    cleq2tr $p |- ( ( A = C /\ B = F ) <-> ( B = D /\ A = G ) ) $=
+      ( wceq wa ancom cleq2d pm5.32i 3bitr3 ) ACIZBDIZJPOJOBEIZJPAFIZJOPKOPQODE
+      BGLMPORPCFAHLMN $.
+      $([26-Jan-04]$)
+  $}
+
+  ${
     $d x A $.  $d x B $.  $d x C $.  $( ` x ` is dummy. $)
     $( Equality implies equivalence of membership. $)
     eleq1 $p |- ( A = B -> ( A e. C <-> B e. C ) ) $=
@@ -645,15 +694,25 @@ $)
   $}
 
   ${
+    eqeltrd.1 $e |- ( ph -> A = B ) $.
+    eqeltrd.2 $e |- ( ph -> B e. C ) $.
+    $( Substitution of equal classes into membership relation, deduction form.
+       (Contributed by Raph Levien 10-Dec-02.) $)
+    eqeltrd   $p |- ( ph -> A e. C ) $=
+      ( wcel eleq1d mpbird ) ABDGCDGFABCDEHI $.
+      $([14-May-03]$)
+  $}
+
+  ${
     $d y A $.  $d y B $.  $d x y $.
     cleqf.1 $e |- ( y e. A -> A. x y e. A ) $.
     cleqf.2 $e |- ( y e. B -> A. x y e. B ) $.
     $( Establish equality between classes, requiring only that ` x ` not be
        'free' in ` A ` and ` B ` (but not necessarily absent from them). $)
     cleqf $p |- ( A = B <-> A. x ( x e. A <-> x e. B ) ) $=
-      ( wceq cv wcel wb wal dfcleq ax-17 hbbi weq eleq1 bi2bid cbv4 bitr4 ) CDG
-      BHZCIZTDIZJZBKAHZCIZUDDIZJZAKBCDLUGUCABUGBMUAUBAEFNABOUEUAUFUBUDTCPUDTDPQ
-      RS $.
+      ( wceq cv wcel wb wal dfcleq ax-17 hbbi weq eleq1 bi2bid cbval bitr4 ) CD
+      GBHZCIZTDIZJZBKAHZCIZUDDIZJZAKBCDLUGUCABUGBMUAUBAEFNABOUEUAUFUBUDTCPUDTDP
+      QRS $.
       $([5-Aug-93]$)
   $}
 
@@ -662,13 +721,69 @@ $)
     ( wcel wn wceq eleq1 biimpcd pm2.16d imp ) ACDZBCDZEABFZEKMLMKLABCGHIJ $.
     $([1-Apr-97]$)
 
+  $( A way of showing two classes are not equal. $)
+  clneq2 $p |- ( ( A e. B /\ -. A e. C ) -> -. B = C ) $=
+    ( wcel wn wceq eleq2 biimpcd pm2.16d imp ) ABDZACDZEBCFZEKMLMKLBCAGHIJ $.
+    $([12-Jan-02]$)
+
+  ${
+    $d y A $.  $d x y z $.
+    hblem.1 $e |- ( y e. A -> A. x y e. A ) $.
+    $( Lemma for ~ hbeq and ~ hbel . $)
+    hblem   $p |- ( z e. A -> A. x z e. A ) $=
+      ( cv wcel wal wi weq eleq1 bialdv bi2imd chv ) BFZDGZPAHZICFZDGZSAHZIBCBC
+      JZPSQTORDKZUAPSAUBLMEN $.
+      $([5-Aug-93]$)
+  $}
+
+  ${
+    $d y A w $.  $d z B w $.  $d x y w $.  $d x z w $.  $( ` w ` is dummy. $)
+    hbeq.1 $e |- ( y e. A -> A. x y e. A ) $.
+    hbeq.2 $e |- ( z e. B -> A. x z e. B ) $.
+    $( If ` x ` is not free in ` A ` and ` B ` , it is not free in ` A = B ` . $)
+    hbeq   $p |- ( A = B -> A. x A = B ) $=
+      ( vw cv wcel wb wal wceq hblem hbbi hbal dfcleq bial 3imtr4 ) HIZDJZTEJZK
+      ZHLZUDALDEMZUEALUCAHUAUBAABHDFNACHEGNOPHDEQZUEUDAUFRS $.
+      $([5-Aug-93]$)
+  $}
+
+  ${
+    $d y A w $.  $d z B w $.  $d x y w $.  $d x z w $.  $( ` w ` is dummy. $)
+    hbel.1 $e |- ( y e. A -> A. x y e. A ) $.
+    hbel.2 $e |- ( z e. B -> A. x z e. B ) $.
+    $( If ` x ` is not free in ` A ` and ` B ` , it is not free in
+       ` A e. B ` . $)
+    hbel   $p |- ( A e. B -> A. x A e. B ) $=
+      ( vw cv wceq wcel wa wex wal wel ax-17 hbeq hblem hban hbex df-clel bial
+      3imtr4 ) HIZDJZUDEKZLZHMZUHANDEKZUIANUGAHUEUFAABBUDDBHOAPFQACHEGRSTHDEUAZ
+      UIUHAUJUBUC $.
+      $([5-Aug-93]$)
+  $}
+
   ${
     $d x A y $.  $d ph y $.  $( ` y ` is dummy. $)
     $( Equality of a class variable and an abstraction class.  Theorem 5.1 of
-       Quine, p. 34. $)
+       [Quine] p. 34.  This theorem is useful for converting expressions with
+       abstraction classes to expressions with class variables.  Note that
+       ~ cleq2ab and its relatives are among those useful for converting
+       theorems with class variables to equivalent theorems with wff variables,
+       by first substituting an abstraction class for each class variable.
+
+       Class variables can always be eliminated from a theorem to result in an
+       equivalent theorem with wff variables, and vice-versa.  The idea is
+       roughly as follows.  To convert a theorem with a wff variable ` ph `
+       (that has a free variable ` x ` ) to a theorem with a class variable
+       ` A ` , we substitute ` x e. A ` for ` ph ` throughout and simplify,
+       where ` A ` is a new class variable not already in the wff.  An
+       example is the conversion of ~ zfaus to ~ zfauscl . Conversely, to
+       convert a theorem with a class variable ` A ` to one with ` ph ` , we
+       substitute ` { x | ph } ` for ` A ` throughout and simplify.  An example
+       is ~ cp , which derives a formula containing wff variables from
+       substitution instances of the class variables in its equivalent
+       formulation ~ cplem2 . $)
     cleqab $p |- ( A = { x | ph } <-> A. x ( x e. A <-> ph ) ) $=
-      ( vy cab wceq cv wcel wb wal ax-17 hbab1 cleqf abid bilbi bial bitr4 ) CA
-      BEZFBGZCHZSRHZIZBJTAIZBJBDCRDGCHBKABDLMUCUBBAUATABNOPQ $.
+      ( vy cab wceq cv wcel wb wal ax-17 hbab1 cleqf abid bilbi bial bitr ) CAB
+      EZFBGZCHZSRHZIZBJTAIZBJBDCRDGCHBKABDLMUBUCBUAATABNOPQ $.
       $([5-Aug-93]$)
   $}
 
@@ -686,7 +801,7 @@ $)
     $( Equality of a class variable and an abstraction class (inference
        rule). $)
     cleqabi   $p |- ( x e. A <-> ph ) $=
-      ( cv wcel cab eleq2i abid bitr4 ) BEZCFKABGZFACLKDHABIJ $.
+      ( cv wcel cab eleq2i abid bitr ) BEZCFKABGZFACLKDHABIJ $.
       $([3-Apr-96]$)
   $}
 
@@ -695,7 +810,7 @@ $)
     $( Equality of a class variable and an abstraction class (inference
        rule). $)
     cleqrabi   $p |- ( ph <-> x e. A ) $=
-      ( cv cab wcel abid eleq2i bitr ) ABEZABFZGKCGABHLCKDIJ $.
+      ( cv cab wcel abid eleq2i bitr3 ) ABEZABFZGKCGABHLCKDIJ $.
       $([31-Jul-94]$)
   $}
 
@@ -703,41 +818,33 @@ $)
     cleqabd.1 $e |- ( ph -> A = { x | ps } ) $.
     $( Equality of a class variable and an abstraction class (deduction). $)
     cleqabd   $p |- ( ph -> ( x e. A <-> ps ) ) $=
-      ( cv wcel cab eleq2d abid syl6bbr ) ACFZDGLBCHZGBADMLEIBCJK $.
+      ( cv wcel cab eleq2d abid syl6bb ) ACFZDGLBCHZGBADMLEIBCJK $.
       $([16-Nov-95]$)
-  $}
-
-  ${
-    $d x A $.
-    cleqabri.1 $e |- ( x e. A <-> ph ) $.
-    $( Equality of a class variable and an abstraction class (inference
-       rule). $)
-    cleqabri   $p |- A = { x | ph } $=
-      ( cab wceq cv wcel wb cleqab mpgbir ) CABEFBGCHAIBABCJDK $.
-      $([5-Aug-93]$)
   $}
 
   ${
     $d ph y $.  $d ps y $.  $d x y $.  $( ` y ` is dummy. $)
     $( Equality of two abstraction classes means their wff's are equivalent. $)
     cleq2ab $p |- ( { x | ph } = { x | ps } <-> A. x ( ph <-> ps ) ) $=
-      ( vy cab wceq cv wcel wb wal hbab1 cleqf abid bi2bi bial bitr4 ) ACEZBCEZ
-      FCGZQHZSRHZIZCJABIZCJCDQRACDKBCDKLUCUBCATBUAACMBCMNOP $.
+      ( vy cab wceq cv wcel wb wal hbab1 cleqf abid bi2bi bial bitr ) ACEZBCEZF
+      CGZQHZSRHZIZCJABIZCJCDQRACDKBCDKLUBUCCTAUABACMBCMNOP $.
       $([5-Aug-93]$)
   $}
 
   ${
     $d x A $.
-    $( A simplification of class abstraction.  Theorem 5.2 of Quine, p. 35. $)
-    abid2 $p |- A = { x | x e. A } $=
-      ( cv wcel pm4.2 cleqabri ) ACBDZABGEF $.
-      $([26-Dec-93]$)
+    biabri.1 $e |- ( x e. A <-> ph ) $.
+    $( Equality of a class variable and an abstraction class (inference
+       rule). $)
+    biabri   $p |- A = { x | ph } $=
+      ( cab wceq cv wcel wb cleqab mpgbir ) CABEFBGCHAIBABCJDK $.
+      $([5-Aug-93]$)
   $}
 
   ${
-    biab.1 $e |- ( ph <-> ps ) $.
+    biabi.1 $e |- ( ph <-> ps ) $.
     $( Equivalent wff's yield equal abstraction classes (inference rule). $)
-    biab   $p |- { x | ph } = { x | ps } $=
+    biabi   $p |- { x | ph } = { x | ps } $=
       ( cab wceq wb cleq2ab mpgbir ) ACEBCEFABGCABCHDI $.
       $([5-Aug-93]$)
   $}
@@ -763,9 +870,9 @@ $)
 
   ${
     $d x y A $.  $d ph x y $.  $d ps y $.  $( ` y ` is a dummy var. $)
-    birabdv.1 $e |- ( ph -> ( x e. A <-> ps ) ) $.
+    biabrdv.1 $e |- ( ph -> ( x e. A <-> ps ) ) $.
     $( Deduction from wff to abstraction class. $)
-    birabdv   $p |- ( ph -> A = { x | ps } ) $=
+    biabrdv   $p |- ( ph -> A = { x | ps } ) $=
       ( cv wcel wb wal cab wceq 19.21aiv cleqab sylibr ) ACFDGBHZCIDBCJKAOCELBC
       DMN $.
       $([9-Jul-94]$)
@@ -773,22 +880,54 @@ $)
 
   ${
     $d x y A $.  $d ph x y $.  $d ps y $.  $( ` y ` is a dummy var. $)
-    bilabdv.1 $e |- ( ph -> ( ps <-> x e. A ) ) $.
+    biabldv.1 $e |- ( ph -> ( ps <-> x e. A ) ) $.
     $( Deduction from wff to abstraction class. $)
-    bilabdv   $p |- ( ph -> { x | ps } = A ) $=
+    biabldv   $p |- ( ph -> { x | ps } = A ) $=
       ( cv wcel wb wal cab wceq 19.21aiv cleqrab sylibr ) ABCFDGHZCIBCJDKAOCELB
       CDMN $.
       $([9-Jul-94]$)
   $}
 
   ${
+    $d x A $.
+    $( A simplification of class abstraction.  Theorem 5.2 of [Quine] p. 35. $)
+    abid2 $p |- { x | x e. A } = A $=
+      ( cv wcel cab pm4.2 biabri cleqcomi ) BACBDZAEIABIFGH $.
+      $([10-Jan-04]$)
+  $}
+
+  ${
     $d x A y $.  $d ph y $.  $( ` y ` is dummy. $)
     $( Membership of a class variable in an abstraction class. $)
     clelab $p |- ( A e. { x | ph } <-> E. x ( x = A /\ ph ) ) $=
-      ( vy cv wceq cab wcel wa wex wsb df-clab bilan biex df-clel ax-17 hbsbv
+      ( vy cv wceq cab wcel wa wex wsb df-clab bilan biex df-clel ax-17 hbs1
       hban weq cleq1 sbequ12 bi2and cbvex 3bitr4 ) DEZCFZUEABGZHZIZDJUFABDKZIZD
       JCUGHBEZCFZAIZBJUIUKDUHUJUFADBLMNDCUGOUNUKBDUNDPUFUJBUFBPABDQRBDSUMUFAUJU
       LUECTABDUAUBUCUD $.
       $([23-Dec-93]$)
+  $}
+
+  ${
+    $d z A $.  $d z x $.  $d z y $.
+    $( The right-hand side of the second equality is a way of representating
+       proper substitution of ` y ` for ` x ` into a class variable. $)
+    sbab $p |- ( x = y -> A = { z | [ y / x ] z e. A } ) $=
+      ( weq cv wcel wsb sbequ12 biabrdv ) ABECFDGZABHCDKABIJ $.
+      $([14-Sep-03]$)
+  $}
+
+  ${
+    $d w v A $.  $d x w $.  $d x z v u $.  $d y z v u $.  $d v ph $.
+    sbabel.1 $e |- ( w e. A -> A. x w e. A ) $.
+    $( Theorem to move a substitution in and out of an abstraction class. $)
+    sbabel $p |- ( [ y / x ] { z | ph } e. A <-> { z | [ y / x ] ph } e. A ) $=
+      ( vv vu cv cab wceq wcel wa wex wsb sbex sba wel ax-17 hbel sbf1 bilan
+      wb wal sbal sbb birbi bitr4 bial bitr cleqab bisb 3bitr4 biran bitr3
+      biex df-clel ) HJZADKZLZUSFMZNZHOZBCPZUSABCPZDKZLZVBNZHOZUTFMZBCPVGFMVEVC
+      BCPZHOVJVCHBCQVLVIHVLVABCPZVBBCPZNZVIVAVBBCRVOVMVBNVIVBVNVMVBBCBEEUSFEHSB
+      TGUAUBUCVMVHVBDHSZAUDZDUEZBCPZVPVFUDZDUEZVMVHVSVQBCPZDUEWAVQDBCUFWBVTDWBV
+      PBCPZVFUDVTVPABCUGVPWCVFVPBCBIIDJUSIDSBTIHSBTUAUBUHUIUJUKVAVRBCADUSULUMVF
+      DUSULUNUOUPUKUQUKVKVDBCHUTFURUMHVGFURUN $.
+      $([27-Sep-03]$)
   $}
 

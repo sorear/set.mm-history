@@ -8,54 +8,129 @@ $(
    Postulate the Zermelo-Fraenkel axioms plus the Axiom of Choice $)
 
   $v u $.
+  $v t $.
   $( Let ` u ` be an individual variable. $)
   vu $f set u $.
+  $( Let ` t ` be an individual variable. $)
+  vt $f set t $.
 
 $(
-   The axioms are presented using defined connectives (` <-> `, ` E. `,
+   The axioms are presented using defined connectives (` <-> ` , ` E. ` ,
    etc.) for convenience.  However, it is implicitly understood that the
-   actual axioms use only the primitive connectives ` -> `, ` -. `,
-   ` A. `, ` = `, and ` e. `.  It is straightforward to establish the
+   actual axioms use only the primitive connectives ` -> ` , ` -. ` ,
+   ` A. ` , ` = ` , and ` e. ` .  It is straightforward to establish the
    equivalence between the actual axioms and the ones we display, and we
    shall not do so.
 $)
 
   ${
-    $d x y z w $.
+    $d x y z w v u t $.
 
-    $( Axiom of Extensionality.
-       An axiom of Zermelo-Fraenkel set theory. $)
-    ax-ext $a |- ( A. x ( x e. y <-> x e. z ) -> y = z ) $.
+    $( Axiom of Extensionality.  An axiom of Zermelo-Fraenkel set theory.  It
+       states that two sets are identical if they contain the same elements.
+       Axiom Ext of [BellMachover] p. 461.
 
-    $( Axiom of Replacement.
-       An axiom scheme of Zermelo-Fraenkel set theory.  In this version, there
-       are no restrictions on the variables that may occur in ` ph `. $)
-    ax-rep $a |- E. x ( E. y A. z ( ph -> z = y ) ->
-                        A. z ( z e. x <-> E. x ( x e. y /\ A. y ph ) ) ) $.
+       Set theory can also be formulated with a _single_ primitive predicate
+       ` e. ` on top of traditional predicate calculus _without_ equality.  In
+       that case the Axiom of Extensionality becomes
+       ` ( A. w ( w e. x <-> w e. y ) -> ( x e. z -> y e. z ) ) ` , and
+       equality ` x = y ` is _defined_ as ` A. w ( w e. x <-> w e. y ) ` .  All
+       of the usual axioms of equality then become theorems of set theory.
+       See, for example, Axiom 1 of [TakeutiZaring] p. 8.  To use this version
+       of Extensionality with Metamath's logical axioms, on the other hand, we
+       could delete from them ~ ax-8 through ~ ax-16 , leaving only the
+       beautifully simple ~ ax-4 through ~ ax-7 (and ~ ax-gen ), and those that
+       we couldn't prove as theorems we would add back as additional axioms of
+       set theory.  Or should they still be considered part of "logic" proper?
+       I suppose this is a philosophical issue.  Under traditional predicate
+       calculus, this version of Extensionality moves the properties of
+       equality into set theory, and it can be argued that proper substitution
+       - which is broken out explicitly in the Metamath axioms - has an
+       intimate tie-in with equality that is implicitly "hidden" in the
+       traditional axioms of predicate calculus.  The axiomatics of such a
+       system - i.e. devising simple, elegant axioms - have apparently never
+       been studied nor even considered.  (Perhaps some day I will play with it
+       if no one else does.)  $)
+    ax-ext $a |- ( A. z ( z e. x <-> z e. y ) -> x = y ) $.
 
-    $( Axiom of Union.
-       An axiom of Zermelo-Fraenkel set theory. $)
-    ax-un  $a |- E. x A. y ( E. x ( y e. x /\ x e. z ) -> y e. x ) $.
+    $( Axiom of Replacement.  An axiom scheme of Zermelo-Fraenkel set theory.
+       Axiom 5 of [TakeutiZaring] p. 19.  It tells us that that the image of
+       any set under a function is also a set (see the variant ~ zfrep5 ).
+       Although ` ph ` may be any wff whatsoever, this axiom is useful when
+       we are given some function and ` ph ` encodes the predicate "the value
+       of the function at ` w ` is ` z ` ".  Thus ` ph ` will ordinarily have
+       free variables ` w ` and ` z ` - think of it informally as
+       ` ph ( w , z ) ` .  We prefix ` ph ` with the quantifier ` A. y ` in
+       order to "protect" the axiom from any ` ph ` containing ` y ` , thus
+       allowing us to eliminate any restrictions on ` ph ` .  This makes the
+       axiom usable in a formalization that omits the logically redundant axiom
+       ~ ax-17 .  Another common variant is derived as ~ zfrep3 , where you can
+       find some further remarks.  A slightly more compact version is shown as
+       ~ axrep .  A quite different variant is ~ zfrep6 , which if used in
+       place of ~ ax-rep would also require that the Separation Scheme ~ zfaus
+       be stated as a separate axiom. $)
+    ax-rep $a |- ( A. w E. y A. z ( A. y ph -> z = y ) ->
+                     E. y A. z ( z e. y <-> E. w ( w e. x /\ A. y ph ) ) ) $.
 
-    $( Axiom of Power Sets.
-       An axiom of Zermelo-Fraenkel set theory. $)
-    ax-pow $a |- E. x A. y ( A. x ( x e. y -> x e. z ) -> y e. x ) $.
+    $( Axiom of Union.  An axiom of Zermelo-Fraenkel set theory.  It states
+       that the union of any set exists.  A variant is Axiom Union of
+       [BellMachover] p. 466 (which can be derived from this version using
+       ~ bm1.3ii ).  A version using abbreviations is ~ zfun2 . $)
+    ax-un  $a |- E. y A. z ( E. w ( z e. w /\ w e. x ) -> z e. y ) $.
 
-    $( Axiom of Regularity.
-       An axiom of Zermelo-Fraenkel set theory. $)
-    ax-reg $a |- ( x e. y ->
-                 E. x ( x e. y /\ A. z ( z e. x -> -. z e. y ) ) ) $.
+    $( Axiom of Power Sets.  An axiom of Zermelo-Fraenkel set theory.  It
+       states that the collection of all subsets of a set is also a set.  A
+       variant is Axiom Pow of [BellMachover] p. 466 (which can be derived
+       from this version using ~ bm1.3ii ).  A version using abbreviations is
+       ~ zfpowcl . $)
+    ax-pow $a |- E. y A. z ( A. w ( w e. z -> w e. x ) -> z e. y ) $.
 
-    $( Axiom of Infinity.
-       An axiom of Zermelo-Fraenkel set theory. $)
-    ax-inf $a |- E. x ( y e. x /\
-                 A. y ( y e. x -> E. z ( y e. z /\ z e. x ) ) ) $.
+    $( Axiom of Regularity.  An axiom of Zermelo-Fraenkel set theory.  Also
+       called the Axiom of Foundation.  A rather non-intuitive axiom that
+       denies more than it asserts, it states (in the form of ~ zfregw ) that
+       every non-empty set contains a set disjoint from itself.  One
+       consequence is that it denies the existence of a set containing itself
+       ( ~ eirrv ).  A stronger version that works for proper classes is proved
+       as ~ zfregs . $)
+    ax-reg $a |- ( E. y y e. x ->
+                 E. y ( y e. x /\ A. z ( z e. y -> -. z e. x ) ) ) $.
 
-    $( Axiom of Choice. $)
-    ax-ac $a  |- E. x A. y A. z ( ( y e. z /\ z e. w ) -> E. w A. y ( E. w
-              ( ( y e. z /\ z e. w ) /\ ( y e. w /\ w e. x ) ) <-> y = w ) ) $.
+    $( Axiom of Infinity.  An axiom of Zermelo-Fraenkel set theory.  This axiom
+       is the gateway to "Cantor's paradise" (an expression coined by Hilbert).
+       The axiom asserts that an infinite set exists, or more specifically,
+       "there exists a non-empty set that is a subset of its union."  Our
+       version is not common the literature, but a proof that it implies the
+       more standard version is given by ~ inf3 .  Its advantage is that when
+       expanded to primitives, it uses fewer symbols than the standard version.
+       Our version is a slight variant of the Axiom of Infinity in
+       [FreydScedrov] p. 283, proved here as ~ inf1 . Variants of the standard
+       version are ~ zfinf (which is Axiom Inf of [BellMachover] p. 472) and
+       ~ omex (Axiom 7 of [TakeutiZaring] p. 43).  The standard version
+       essentially states that there exists a set containing all the natural
+       numbers.  Theorem ~ inf0 shows the reverse derivation of our axiom from
+       a standard one.  $)
+    ax-inf $a |- E. y ( x e. y /\
+                 A. z ( z e. y -> E. w ( z e. w /\ w e. y ) ) ) $.
+
+    $( Axiom of Choice.  The Axiom of Choice (AC) is usually considered an
+       extension of ZF set theory rather than a proper part of it.  It is
+       sometimes considered philosophically controversial because it asserts
+       the existence of a set without telling us what the set is.  ZF set
+       theory that includes AC is called ZFC.  AC (in a common version
+       given in textbooks) asserts that given a family of mutually disjoint
+       nonempty sets, a set exists containing exactly one member from each set
+       in the family.  The unpublished version shown here was specifically
+       crafted to be short when expanded to primitives and may be the shortest
+       possible; unfortunately it is rather hard to explain informally.  A
+       version using of it using abbreviations is ~ ac3 , which you should
+       study at if you really want to decipher it.  Standard versions are
+       derived as ~ ac4 and ~ ac5 (which is Axiom AC of [BellMachover] p. 488).
+       The Axiom of Regularity ~ ax-reg (among others) is used to derive our
+       version from the standard ones; this reverse derivation is shown as
+       theorem ~ ac3a . Equivalents to AC are the well-ordering principle
+       ~ weth and Zorn's lemma ~ zorn . $)
+    ax-ac $a  |- E. y A. z A. w ( ( z e. w /\ w e. x ) -> E. v A. u ( E. t
+              ( ( u e. w /\ w e. t ) /\ ( u e. t /\ t e. y ) ) <-> u = v ) ) $.
   $}
-
-
 
 

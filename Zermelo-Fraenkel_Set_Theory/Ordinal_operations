@@ -1,0 +1,269 @@
+$(
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+        Ordinal operations
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+$)
+
+  $( Introduce new constant symbols. $)
+  $c +o $.  $( Ordinal addition operation (plus subscript o) $)
+  $c .o $.  $( Ordinal multiplication operation (center dot subscript o) $)
+  $c ^o $.  $( Ordinal exponentiation operation (caret subscript o) $)
+  $c 1o $. $( The ordinal number 1 $)
+  $c 2o $. $( The ordinal number 2 $)
+
+  $( Extend the definition of a class to include the ordinal addition
+     operation. $)
+  coa $a class +o $.
+
+  $( Extend the definition of a class to include the ordinal multiplication
+     operation. $)
+  comu $a class .o $.
+
+  $( Extend the definition of a class to include the ordinal exponentiation
+     operation. $)
+  coe $a class ^o $.
+
+  $( Extend the definition of a class to include the ordinal number 1. $)
+  c1o $a class 1o $.
+
+  $( Extend the definition of a class to include the ordinal number 2. $)
+  c2o $a class 2o $.
+
+  ${
+    $d x y z w v $.
+    $( Define ordinal addition operation. $)
+    df-oadd $a |- +o = { <. <. x , y >. , z >. | ( ( x e. On /\ y e. On ) /\
+                z = ( rec ( { <. w , v >. | v = suc w } , x ) ` y ) ) } $.
+  $}
+
+  ${
+    $d x y z w v $.
+    $( Define ordinal multiplication operation. $)
+    df-omul $a |- .o = { <. <. x , y >. , z >. | ( ( x e. On /\ y e. On ) /\
+             z = ( rec ( { <. w , v >. | v = ( w +o x ) } , (/) ) ` y ) ) } $.
+  $}
+
+  $( Define the ordinal number 1. $)
+  df-1o $a |- 1o = suc (/) $.
+
+  $( Define the ordinal number 2. $)
+  df-2o $a |- 2o = suc 1o $.
+
+  $( Expanded value of the ordinal number 1. $)
+  df1o2 $p |- 1o = { (/) } $=
+    ( c1o c0 csuc csn cun df-1o df-suc uncom un0 eqtr 3eqtr ) ABCBBDZEZLFBGMLBE
+    LBLHLIJK $.
+    $([4-Nov-02]$)
+
+  $( Expanded value of the ordinal number 2. $)
+  df2o2 $p |- 2o = { (/) , { (/) } } $=
+    ( c2o c1o csuc csn cun c0 cpr df-2o df-suc wceq df1o2 sneqi uneq12 mp2an
+    df-pr eqtr4 3eqtr ) ABCBBDZEZFFDZGZHBISTTDZEZUABTJRUBJSUCJKBTKLBTRUBMNFTOPQ
+    $.
+    $([?]$)
+
+  ${
+    $d x y z w v $.
+    $( Define ordinal exponentiation operation. $)
+    df-oexp $a |- ^o = { <. <. x , y >. , z >. | ( ( x e. On /\ y e. On ) /\
+          z = ( ( rec ( { <. w , v >. | v = ( w .o x ) } , 1o ) ` y )
+              i^i ( ( V \ |^| x ) u. |^| y ) ) ) } $.
+    $(
+    df-oexp2 $a |- ^o = { <. <. x , y >. , z >. | ( ( x e. On /\ y e. On ) /\
+               ( -. x = (/) /\ z =
+                 ( rec ( { <. w , v >. | v = ( w .o x ) } , 1o ) ` y ) )
+               \/ ( x = (/) /\ z = ( 1o \ y ) ) ) ) } $.
+    $)
+  $}
+
+  ${
+    $d x y z w v $.  $( ` x y z w v ` are dummy. $)
+    $( Functionality and domain of ordinal addition. $)
+    fnoa $p |- +o Fn ( On X. On ) $=
+      ( vx vy vz vv vw con0 cv csuc wceq copab crdg cfv coa fvex df-oadd
+      fnoprab2 ) ABCFFBGZDGEGHIEDJAGKZLMQRNABCEDOP $.
+      $([26-Aug-95]$)
+  $}
+
+  ${
+    $d x y z w v $.  $( ` x y z w v ` are dummy. $)
+    $( Functionality and domain of ordinal multiplication. $)
+    fnom $p |- .o Fn ( On X. On ) $=
+      ( vx vy vz vv vw con0 cv coa co wceq copab c0 crdg cfv comu fvex df-omul
+      fnoprab2 ) ABCFFBGZDGEGAGHIJEDKLMZNOSTPABCEDQR $.
+      $([26-Aug-95]$)
+  $}
+
+  ${
+    $d x y z w v $.  $d z w v A $.  $d z w v B $.  $( ` z w v ` are dummy. $)
+    $( Value of ordinal addition. $)
+    oav $p |- ( ( A e. On /\ B e. On ) ->
+             ( A +o B ) = ( rec ( { <. x , y >. | y = suc x } , A ) ` B ) ) $=
+      ( vw vv vz con0 cv csuc wceq copab crdg cfv coa fvex rdgeq2 fveq1d fveq2
+      df-oadd oprabval2 ) EFGCDHHFIZBIAIJKABLZEIZMZNDUCCMZNOUBUFNDUFPUDCKUBUEUF
+      UDCUCQRUBDUFSEFGABTUA $.
+      $([3-May-95]$)
+  $}
+
+  ${
+    $d x y z w v A $.  $d z w v B $.  $( ` z w v ` are dummy. $)
+    $( Value of ordinal multiplication. $)
+    omv $p |- ( ( A e. On /\ B e. On ) ->
+     ( A .o B ) = ( rec ( { <. x , y >. | y = ( x +o A ) } , (/) ) ` B ) ) $=
+      ( vw vv vz con0 cv coa co wceq copab c0 crdg cfv comu fvex opreq2 cleq2d
+      biopabdv rdgeq1 fveq1 3syl fveq2 df-omul oprabval2 ) EFGCDHHFIZBIZAIZEIZJ
+      KZLZABMZNOZPZDUIUJCJKZLZABMZNOZPQUHUTPZDUTRUKCLZUNUSLUOUTLUPVALVBUMURABVB
+      ULUQUIUKCUJJSTUANUNUSUBUHUOUTUCUDUHDUTUEEFGABUFUG $.
+      $([17-Sep-95]$)
+  $}
+
+  ${
+    $d x y $.  $( ` x y ` are dummy. $)
+    $( Addition with zero.  Definition 8.1 of [TakeutiZaring] p. 56. $)
+    oa0 $p |- ( A e. On -> ( A +o (/) ) = A ) $=
+      ( vy vx con0 wcel c0 coa co cv csuc wceq copab crdg cfv 0elon oav mpan2
+      rdgzert eqtrd ) ADEZAFGHZFBICIJKCBLZAMNZATFDEUAUCKOCBAFPQADUBRS $.
+      $([3-May-95]$)
+  $}
+
+  ${
+    $d x y A $.  $( ` x y ` are dummy. $)
+    $( Ordinal multiplication with zero.  Definition 8.15 of [TakeutiZaring]
+       p. 62. $)
+    om0 $p |- ( A e. On -> ( A .o (/) ) = (/) ) $=
+      ( vy vx con0 wcel c0 comu co cv coa wceq copab crdg cfv 0elon omv mpan2
+      zfnull rdgzer syl6eq ) ADEZAFGHZFBICIAJHKCBLZFMNZFUAFDEUBUDKOCBAFPQFUCRST
+      $.
+      $([17-Sep-95]$)
+  $}
+
+  ${
+    $d x y A $.  $( ` x y ` are dummy. $)
+    $( Ordinal multiplication with zero.  Definition 8.15 of [TakeutiZaring]
+       p. 62.  Unlike ~ om0 , this version works whether or not ` A ` is
+       an ordinal.  However it since it is an artifact of our particular
+       function value definition outside the domain, we will not use it
+       in order to be conventional and present it only as a curiosity. $)
+    om0x $p |- ( A .o (/) ) = (/) $=
+      ( vy vx con0 wcel c0 wa comu co wceq cv coa copab crdg cfv omv zfnull
+      rdgzer syl6eq cxp wfn cdm fnom fndm ax-mp ndmopr pm2.61i ) ADEFDEGZAFHIZF
+      JUHUIFBKCKALIJCBMZFNOFCBAFPFUJQRSAFDHQHDDTZUAHUBUKJUCUKHUDUEUFUG $.
+      $([1-Feb-96]$)
+  $}
+
+  ${
+    $d x y A $.  $d x y B $.  $( ` x y ` are dummy. $)
+    $( Addition with successor.  Definition 8.1 of [TakeutiZaring] p. 56. $)
+    oasuc $p |- ( ( A e. On /\ B e. On ) ->
+                ( A +o suc B ) = suc ( A +o B ) ) $=
+      ( vy vx con0 wcel wa csuc cv wceq copab crdg cfv coa co rdgsuct adantl
+      oav suceloni sylan5 fveq2d oprex sucex suceq fvopab syl5eqr 3eqtr4d ) AEF
+      ZBEFZGZBHZCIDIZHZJDCKZALZMZBUOMZUNMZAUKNOZABNOZHZUIUPURJUHABUNPQUHUKEFUSU
+      PJUIDCAUKRBSTUJUTUNMURVAUJUTUQUNDCABRUADCUTUMVAABNUBZUTVBUCULUTUDUEUFUG
+      $.
+      $([3-May-95]$)
+  $}
+
+  $( Addition with 1 is same as successor. $)
+  oa1suc $p |- ( A e. On ->
+                ( A +o 1o ) = suc A ) $=
+    ( con0 wcel c1o coa co c0 csuc wceq 0elon oasuc mpan2 df-1o opreq2i syl5eq
+    oa0 suceq syl eqtrd ) ABCZADEFZAGEFZHZAHZTAGHZEFZUCUATGBCUFUCIJAGKLDUEAEMNO
+    TUBAIUCUDIAPUBAQRS $.
+    $([29-Oct-95]$)
+
+  ${
+    $d x y A $.  $d x y B $.  $( ` x y ` are dummy. $)
+    $( Multiplication with successor.  Definition 8.15 of [TakeutiZaring]
+       p. 62. $)
+    omsuc $p |- ( ( A e. On /\ B e. On ) ->
+                ( A .o suc B ) = ( ( A .o B ) +o A ) ) $=
+      ( vy vx con0 wcel wa csuc cv coa co wceq copab c0 crdg cfv comu rdgsuct
+      adantl omv suceloni sylan5 fveq2d oprex opreq1 fvopab syl5eqr 3eqtr4d )
+      AEFZBEFZGZBHZCIDIZAJKZLDCMZNOZPZBUPPZUOPZAULQKZABQKZAJKZUJUQUSLUINBUORSUI
+      ULEFUTUQLUJDCAULTBUAUBUKVAUOPUSVBUKVAURUODCABTUCDCVAUNVBABQUDVAAJUDUMVAAJ
+      UEUFUGUH $.
+      $([17-Sep-95]$)
+  $}
+
+  ${
+    $d x y A $.  $d x y B $.  $d x y z w $.  $( ` z w ` are dummy. $)
+    $( Addition with limit.  Definition 8.1 of [TakeutiZaring] p. 56. $)
+    oalim $p |- ( ( A e. On /\ B e. C ) -> ( Lim B ->
+                ( A +o B ) = U. { y | E. x e. B y = ( A +o x ) } ) ) $=
+      ( vw vz con0 wcel wa wlim coa co cv wceq wrex cab cuni wi limelon csuc
+      copab crdg cfv oav wb onelon sylan5 cleq2d anassrs birexdva biabdv
+      unieqd cleq12d rdglim2 syl5bir exp4b pm2.43d sylan9r ) CHIZDEIZJDKZCDLMZB
+      NZCANZLMZOZADPZBQZRZOZVAVBDHIZUTVBVKSZDETUTVLVMUTVLVLVBVKUTVLJZVKDFNGNUAO
+      GFUBZCUCZUDZVDVEVPUDZOZADPZBQZRZOVLVBJVNVCVQVJWBGFCDUEVNVIWAVNVHVTBVNVGVS
+      ADUTVLVEDIZVGVSUFUTVLWCJZJVFVRVDUTVEHIVFVROWDGFCVEUEDVEUGUHUIUJUKULUMUNAB
+      CDHVOUOUPUQURUSUR $.
+      $([5-May-95]$)
+  $}
+
+  ${
+    $d x y z w A $.  $d x B $.  $( ` x y z w ` are dummy. $)
+    $( Closure law for ordinal addition.  Proposition 8.2 of [TakeutiZaring]
+       p. 57. $)
+    oacl $p |- ( ( A e. On /\ B e. On ) -> ( A +o B ) e. On ) $=
+      ( vx vy vz vw con0 wcel coa co cv wi c0 csuc wceq opreq2 eleq1d bilimd
+      weq oa0 biimprd pm2.43i wa oasuc suceloni syl5bir exp comm a2d wlim wel
+      wal wrex cab cuni word wb cvv visset oalim mpan2 imp ordeq syl oprex
+      elon syl5bb wss wex hba1 ax-17 hban hbim eleq1 syl3d a4sd com3r imp4b
+      19.23ai abid df-rex bitr syl5ib 19.21aiv hbab1 dfssf sylibr ssorduni
+      exp4b com4r com3l tfinds ) AGHZBGHZABIJZGHZWNWMWPWMACKZIJZGHZLWMAMIJZGHZL
+      WMADKZIJZGHZLZWMAXBNZIJZGHZLWMWPLCDBWQMOZWSXAWMXIWRWTGWQMAIPQRCDSZWSXDWMX
+      JWRXCGWQXBAIPQRWQXFOZWSXHWMXKWRXGGWQXFAIPQRWQBOZWSWPWMXLWRWOGWQBAIPQRWMXA
+      WMXAWMWMWTAGATQUAUBXBGHZWMXDXHWMXMXDXHLZWMXMXNWMXMUCZXHXCNZGHXDXOXGXPGAXB
+      UDQXCUEUFUGUHUIWMWQUJZDCUKZXELZDULZWSWMXQXTWSLLWMXQXTWMWSWMXQXTWMWSWMXQUC
+      ZWSEKZXCOZDWQUMZEUNZUOZUPZXTWMUCZYAWRUPZYGWSYAWRYFOZYIYGUQWMXQYJWMWQURHXQ
+      YJLCUSDEAWQURUTVAVBWRYFVCVDWRAWQIVEVFVGYHYEGVHZYGYHYBYEHZYBGHZLZEULYKYHYN
+      EYHXRYCUCZDVIZYMYLYPYHYMYOYHYMLDYHYMDXTWMDXSDVJWMDVKVLYMDVKVMXRYCXTWMYMYC
+      XTXRWMYMLZYCXSXRYQLDYCXEYQXRYCXDYMWMYCYMXDYBXCGVNUAVOVOVPVQVRVSUHYLYDYPYD
+      EVTYCDWQWAWBWCWDEFYEGYDEFWEFKGHEVKWFWGYEWHVDUFWIWJUBWKWLUHVB $.
+      $([5-May-95]$)
+  $}
+
+  ${
+    $d x y z $.  $d x A $.  $( ` x y z ` are dummy. $)
+    $( Addition to zero.  Proposition 8.3 of [TakeutiZaring] p. 57. $)
+    oa0r $p |- ( A e. On -> ( (/) +o A ) = A ) $=
+      ( vx vy vz c0 cv coa co wceq csuc opreq2 id cleq12d weq con0 wcel 0elon
+      oa0 ax-mp oasuc mpan suceq sylan9eq exp wlim wrex cab cuni wel wi wal
+      cvv visset oalim mp2an limuni wa wex hba1 wb ax-4 cleq2 cleqcom syl6bb
+      syl6 pm5.32d biexd df-rex risset bitr 3bitr4g biabldv unieqd syl5bir
+      tfinds ) EBFZGHZVPIZEEGHZEIZECFZGHZWAIZEWAJZGHZWDIZEAGHZAIBCAVPEIZVQVSVPE
+      VPEEGKWHLMBCNZVQWBVPWAVPWAEGKWILMVPWDIZVQWEVPWDVPWDEGKWJLMVPAIZVQWGVPAVPA
+      EGKWKLMEOPZVTQERSWAOPZWCWFWMWCWEWBJZWDWLWMWEWNIQEWATUAWBWAUBUCUDVPUEZVRDF
+      ZWBIZCVPUFZDUGZUHZVPUHZICBUIZWCUJZCUKZWOVQWTVPXAWLVPULPWOVQWTIUJQBUMCDEVP
+      ULUNUOVPUPMXDWSVPXDWRDVPXDXBWQUQZCURXBCDNZUQZCURZWRDBUIZXDXEXGCXCCUSXDXBW
+      QXFXDXBWCWQXFUTXCCVAWCWQDCNXFWBWAWPVBWPWAVCVDVEVFVGWQCVPVHXIXFCVPUFXHCWPV
+      PVIXFCVPVHVJVKVLVMVNVO $.
+      $([5-May-95]$)
+  $}
+
+  $( Ordinal 1 is an ordinal. $)
+  1o $p |- 1o e. On $=
+    ( c1o c0 csuc con0 df-1o 0elon onsuc eqeltr ) ABCDEBFGH $.
+    $([29-Oct-95]$)
+
+  $( Ordinal 2 is an ordinal. $)
+  2o $p |- 2o e. On $=
+    ( c1o con0 wcel c2o 1o csuc sucelon df-2o eleq1i bitr4 mpbi ) ABCZDBCZELAFZ
+    BCMAGDNBHIJK $.
+    $([?]$)
+
+  $( 1 + 1 = 2 for ordinal numbers. $)
+  o1p1e2 $p |- ( 1o +o 1o ) = 2o $=
+    ( c1o coa co csuc c2o con0 wcel wceq 1o oa1suc ax-mp df-2o eqtr4 ) AABCZADZ
+    EAFGNOHIAJKLM $.
+    $([?]$)
+
+  $( 1 is an identity element for multiplication. $)
+  1id $p |- ( A e. On -> ( A .o 1o ) = A ) $=
+    ( con0 wcel c1o comu co c0 coa csuc wceq 0elon omsuc mpan2 df-1o opreq2i
+    syl5eq om0 opreq1d oa0r 3eqtrd ) ABCZADEFZAGEFZAHFZGAHFAUAAGIZEFZUDUBUAGBCU
+    FUDJKAGLMDUEAENOPUAUCGAHAQRAST $.
+    $([29-Oct-95]$)
+
+

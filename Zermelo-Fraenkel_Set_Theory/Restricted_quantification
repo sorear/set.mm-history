@@ -16,16 +16,20 @@ $)
   $( Extend class notation to include restricted abstraction class. $)
   crab $a class { x e. A | ph } $.
 
-  $( Define restricted universal quantification.  Enderton, p. 22. $)
+  $( Define restricted universal quantification.  Special case of Definition
+     4.15(3) of [TakeutiZaring] p. 22. $)
   df-ral $a |- ( A. x e. A ph <-> A. x ( x e. A -> ph ) ) $.
 
-  $( Define restricted existential quantification.  Enderton, p. 22. $)
+  $( Define restricted existential quantification.  Special case of Definition
+     4.15(4) of [TakeutiZaring] p. 22. $)
   df-rex $a |- ( E. x e. A ph <-> E. x ( x e. A /\ ph ) ) $.
 
   $( Define restricted existential uniqueness. $)
   df-reu $a |- ( E! x e. A ph <-> E! x ( x e. A /\ ph ) ) $.
 
-  $( Define restricted abstraction class.  Takeuti and Zaring, p. 20. $)
+  $( Define the restricted abstraction class, which is the class of all ` x `
+     in ` A ` such that ` ph ` is true.  Definition of [TakeutiZaring]
+     p. 20. $)
   df-rab $a |- { x e. A | ph } = { x | ( x e. A /\ ph ) } $.
 
   $( Relationship between restricted universal and existential quantifiers. $)
@@ -50,6 +54,19 @@ $)
     ( wn wral wrex ralnex bicon2 ) ADBCEABCFABCGH $.
     $([21-Jan-97]$)
 
+
+  ${
+    $d y A $.  $d y B $.  $d x y $.
+    rexeqf.1 $e |- ( y e. A -> A. x y e. A ) $.
+    rexeqf.2 $e |- ( y e. B -> A. x y e. B ) $.
+    $( Equality theorem for restricted existential quantifier, with "not free"
+       hypotheses instead of distinct variable restrictions. $)
+    rexeqf $p |- ( A = B -> ( E. x e. A ph <-> E. x e. B ph ) ) $=
+      ( wceq cv wcel wa wex wrex hbeq eleq2 birand biexd df-rex 3bitr4g ) DEHZB
+      IZDJZAKZBLUAEJZAKZBLABDMABEMTUCUEBBCCDEFGNTUBUDADEUAOPQABDRABERS $.
+      $([9-Oct-03]$)
+  $}
+
   ${
     $d x A $.  $d x B $.
     $( Equality theorem for restricted universal quantifier. $)
@@ -65,329 +82,38 @@ $)
       $([29-Oct-95]$)
   $}
 
-  $( Restricted existence implies existence. $)
-  rexex $p |- ( E. x e. A ph -> E. x ph ) $=
-    ( wrex cv wcel wa wex df-rex pm3.27 19.22i sylbi ) ABCDBECFZAGZBHABHABCINAB
-    MAJKL $.
-    $([11-Nov-95]$)
-
-  $( Restricted specialization. $)
-  ra4 $p |- ( A. x e. A ph -> ( x e. A -> ph ) ) $=
-    ( wral cv wcel wi wal df-ral ax-4 sylbi ) ABCDBECFAGZBHLABCILBJK $.
-    $([17-Oct-96]$)
-
-  $( Restricted specialization. $)
-  ra4e $p |- ( ( x e. A /\ ph ) -> E. x e. A ph ) $=
-    ( cv wcel wa wex wrex 19.8a df-rex sylibr ) BDCEAFZLBGABCHLBIABCJK $.
-    $([12-Oct-99]$)
-
-  $( Restricted specialization. $)
-  ra42 $p |- ( A. x e. A A. y e. B ph -> ( ( x e. A /\ y e. B ) -> ph ) ) $=
-    ( wral cv wcel wi ra4 syl6 imp3a ) ACEFZBDFZBGDHZCGEHZANOMPAIMBDJACEJKL $.
-    $([11-Feb-97]$)
-
   ${
-    rspec.1 $e |- A. x e. A ph $.
-    $( Specialization rule for restricted quantification. $)
-    rspec   $p |- ( x e. A -> ph ) $=
-      ( wral cv wcel wi ra4 ax-mp ) ABCEBFCGAHDABCIJ $.
-      $([19-Nov-94]$)
+    biralda.1 $e |- ( ph -> A. x ph ) $.
+    biralda.2 $e |- ( ( ph /\ x e. A ) -> ( ps <-> ch ) ) $.
+    $( Formula-building rule for restricted universal quantifier (deduction
+       rule). $)
+    biralda   $p |- ( ph -> ( A. x e. A ps <-> A. x e. A ch ) ) $=
+      ( cv wcel wi wal wral wb exp pm5.74d biald df-ral 3bitr4g ) ADHEIZBJZDKSC
+      JZDKBDELCDELATUADFASBCASBCMGNOPBDEQCDEQR $.
+      $([3-Nov-03]$)
+
+    $( Formula-building rule for restricted existential quantifier (deduction
+       rule). $)
+    birexda   $p |- ( ph -> ( E. x e. A ps <-> E. x e. A ch ) ) $=
+      ( cv wcel wa wex wrex wb exp pm5.32d biexd df-rex 3bitr4g ) ADHEIZBJZDKSC
+      JZDKBDELCDELATUADFASBCASBCMGNOPBDEQCDEQR $.
+      $([3-Nov-03]$)
   $}
 
   ${
-    rgen.1 $e |- ( x e. A -> ph ) $.
-    $( Generalization rule for restricted quantification. $)
-    rgen   $p |- A. x e. A ph $=
-      ( wral cv wcel wi df-ral mpgbir ) ABCEBFCGAHBABCIDJ $.
-      $([19-Nov-94]$)
-  $}
-
-  ${
-    $d y z A $.  $d x z $.  $( ` z ` is dummy. $)
-    rgen2.1 $e |- ( ( x e. A /\ y e. A ) -> ph ) $.
-    $( Generalization rule for restricted quantification.  Note that ` x `
-       and ` y ` needn't be distinct. $)
-    rgen2   $p |- A. x e. A A. y e. A ph $=
-      ( vz wral cv wcel wi wal weq exp ax-gen eq5 wb eleq1 a4s birimd biald
-      mpbiri pm2.43 19.20i ax-1 3syl wn ax-17 ddelim syl6 pm2.61i df-ral
-      sylibr rgen ) ACDGZBDBHZDIZCHZDIZAJZCKZUNCBLZCKZUPUTJZVBURUSJZCKZUTVCVBVE
-      UPUSJZCKVFCUPURAEMZNVBVDVFCCBCOVBURUPUSVAURUPPCUQUODQRSTUAVDUSCURAUBUCUTU
-      PUDUEVBUFUPUPCKUTFHZDIZUPCBFVHUODQVICUGUHUPUSCVGUCUIUJACDUKULUM $.
-      $([23-Nov-94]$)
-  $}
-
-  $( Distribution of restricted quantification over implication. $)
-  r19.20 $p |- ( A. x e. A ( ph -> ps ) -> ( A. x e. A ph -> A. x e. A ps ) ) $=
-    ( wi wral cv wcel wal df-ral ax-2 19.20ii sylbi 3imtr4g ) ABEZCDFZCGDHZAEZC
-    IZQBEZCIZACDFBCDFPQOEZCISUAEOCDJUBRTCQABKLMACDJBCDJN $.
-    $([9-Feb-97]$)
-
-  ${
-    r19.20ia.1 $e |- ( x e. A -> ( ph -> ps ) ) $.
-    $( Inference quantifying both antecedent and conjunct. $)
-    r19.20ia   $p |- ( A. x e. A ph -> A. x e. A ps ) $=
-      ( wi wral rgen r19.20 ax-mp ) ABFZCDGACDGBCDGFKCDEHABCDIJ $.
-      $([19-Jul-96]$)
-  $}
-
-  ${
-    r19.20i.1 $e |- ( ph -> ps ) $.
-    $( Inference quantifying both antecedent and conjunct. $)
-    r19.20i   $p |- ( A. x e. A ph -> A. x e. A ps ) $=
-      ( wi cv wcel a1i r19.20ia ) ABCDABFCGDHEIJ $.
+    $d x ph $.
+    biraldva.1 $e |- ( ( ph /\ x e. A ) -> ( ps <-> ch ) ) $.
+    $( Formula-building rule for restricted universal quantifier (deduction
+       rule). $)
+    biraldva   $p |- ( ph -> ( A. x e. A ps <-> A. x e. A ch ) ) $=
+      ( ax-17 biralda ) ABCDEADGFH $.
       $([4-Mar-97]$)
-  $}
 
-  ${
-    $d x ph $.
-    r19.20dva.1 $e |- ( ( ph /\ x e. A ) -> ( ps -> ch ) ) $.
-    $( Deduction quantifying both antecedent and consequent, based on Theorem
-       19.20 of Margaris, p. 90. $)
-    r19.20dva   $p |- ( ph -> ( A. x e. A ps -> A. x e. A ch ) ) $=
-      ( cv wcel wi wal wral exp a2d 19.20dv df-ral 3imtr4g ) ADGEHZBIZDJQCIZDJB
-      DEKCDEKARSDAQBCAQBCIFLMNBDEOCDEOP $.
-      $([22-May-99]$)
-  $}
-
-  ${
-    r19.21ai.1 $e |- ( ph -> A. x ph ) $.
-    r19.21ai.2 $e |- ( ph -> ( x e. A -> ps ) ) $.
-    $( Inference from Theorem 19.21, p. 90, of Margaris.  (Restricted
-       version.) $)
-    r19.21ai $p |- ( ph -> A. x e. A ps ) $=
-      ( cv wcel wi wal wral 19.21ai df-ral sylibr ) ACGDHBIZCJBCDKAOCEFLBCDMN
-      $.
-      $([10-Oct-99]$)
-  $}
-
-  ${
-    r19.21ai.1 $e |- ( ph -> A. x ph ) $.
-    r19.21ai.2 $e |- ( x e. A -> ( ph -> ps ) ) $.
-    $( Inference from Theorem 19.21, p. 90, of Margaris.  (Restricted
-       version.) $)
-    r19.21aiOBS   $p |- ( ph -> A. x e. A ps ) $=
-      ( cv wcel wi wal wral comm 19.21ai df-ral sylibr ) ACGDHZBIZCJBCDKAQCEPAB
-      FLMBCDNO $.
-      $([31-Aug-99]$)
-  $}
-
-  ${
-    $d x ph $.
-    r19.21aiv.1 $e |- ( ph -> ( x e. A -> ps ) ) $.
-    $( Inference from Theorem 19.21, p. 90, of Margaris.  (Restricted
-       version.) $)
-    r19.21aiv $p |- ( ph -> A. x e. A ps ) $=
-      ( ax-17 r19.21ai ) ABCDACFEG $.
-      $([22-Nov-94]$)
-  $}
-
-  ${
-    $d x ph $.
-    r19.21aiv.1 $e |- ( x e. A -> ( ph -> ps ) ) $.
-    $( Inference from Theorem 19.21, p. 90, of Margaris.  (Restricted
-       version.) $)
-    r19.21aivOBS   $p |- ( ph -> A. x e. A ps ) $=
-      ( cv wcel comm r19.21aiv ) ABCDCFDGABEHI $.
-      $([22-Nov-94]$)
-  $}
-
-  ${
-    $d x y $.  $d y A $.
-    rgen2a.1 $e |- ( ( x e. A /\ y e. B ) -> ph ) $.
-    $( Generalization rule for restricted quantification. $)
-    rgen2a   $p |- A. x e. A A. y e. B ph $=
-      ( wral cv wcel exp r19.21aiv rgen ) ACEGBDBHDIZACEMCHEIAFJKL $.
-      $([30-May-99]$)
-  $}
-
-  ${
-    $d y z A $.  $d x z $.
-    rgen3.1 $e |- ( ( x e. A /\ y e. A /\ z e. A ) -> ph ) $.
-    $( Generalization rule for restricted quantification. $)
-    rgen3   $p |- A. x e. A A. y e. A A. z e. A ph $=
-      ( wral cv wcel wa wi 3exp imp r19.21aiv rgen2 ) ADEGBCEBHEIZCHEIZJADEPQDH
-      EIZAKPQRAFLMNO $.
-      $([21-Jan-96]$)
-  $}
-
-  ${
-    $d x ph $.  $d x ps $.
-    r19.21adv.1 $e |- ( ph -> ( ps -> ( x e. A -> ch ) ) ) $.
-    $( Inference from Theorem 19.21, p. 90, of Margaris.  (Restricted
-       version.) $)
-    r19.21adv   $p |- ( ph -> ( ps -> A. x e. A ch ) ) $=
-      ( cv wcel wi wal wral 19.21adv df-ral syl6ibr ) ABDGEHCIZDJCDEKABODFLCDEM
-      N $.
-      $([27-May-98]$)
-  $}
-
-  ${
-    r19.21bi.1 $e |- ( ph -> A. x e. A ps ) $.
-    $( Inference from Theorem 19.21, p. 90, of Margaris.  (Restricted
-       version.) $)
-    r19.21bi   $p |- ( ( ph /\ x e. A ) -> ps ) $=
-      ( cv wcel wi wral wal df-ral sylib 19.21bi imp ) ACFDGZBAOBHZCABCDIPCJEBC
-      DKLMN $.
-      $([20-Nov-94]$)
-  $}
-
-  ${
-    rspec2.1 $e |- A. x e. A A. y e. B ph $.
-    $( Specialization rule for restricted quantification. $)
-    rspec2   $p |- ( ( x e. A /\ y e. B ) -> ph ) $=
-      ( cv wcel wral rspec r19.21bi ) BGDHACEACEIBDFJK $.
-      $([20-Nov-94]$)
-  $}
-
-  ${
-    rspec3.1 $e |- A. x e. A A. y e. B A. z e. C ph $.
-    $( Specialization rule for restricted quantification. $)
-    rspec3   $p |- ( ( x e. A /\ y e. B /\ z e. C ) -> ph ) $=
-      ( cv wcel wa wral rspec2 r19.21bi 3impa ) BIEJZCIFJZDIGJAPQKADGADGLBCEFHM
-      NO $.
-      $([20-Nov-94]$)
-  $}
-
-  ${
-    r19.21be.1 $e |- ( ph -> A. x e. A ps ) $.
-    $( Inference from Theorem 19.21, p. 90, of Margaris.  (Restricted
-       version.) $)
-    r19.21be   $p |- A. x e. A ( ph -> ps ) $=
-      ( wi cv wcel r19.21bi ancoms exp rgen ) ABFCDCGDHZABAMBABCDEIJKL $.
-      $([21-Nov-94]$)
-  $}
-
-  $( Theorem 19.21, p. 90, of Margaris.  (Restricted version.) $)
-  r19.22 $p |- ( A. x e. A ( ph -> ps ) ->
-               ( E. x e. A ph -> E. x e. A ps ) ) $=
-    ( cv wcel wi wal wa wex wral wrex imdistan 19.20i 19.22 syl df-ral df-rex
-    bi2im 3imtr4 ) CEDFZABGZGZCHZUAAIZCJZUABIZCJZGZUBCDKACDLZBCDLZGUDUEUGGZCHUI
-    UCULCUAABMNUEUGCOPUBCDQUJUFUKUHACDRBCDRST $.
-    $([22-Nov-94]$)
-
-  ${
-    r19.22ia.1 $e |- ( x e. A -> ( ph -> ps ) ) $.
-    $( Inference quantifying both antecedent and conjunct. $)
-    r19.22ia   $p |- ( E. x e. A ph -> E. x e. A ps ) $=
-      ( wi wral wrex rgen r19.22 ax-mp ) ABFZCDGACDHBCDHFLCDEIABCDJK $.
-      $([10-Feb-97]$)
-  $}
-
-  ${
-    r19.22i.1 $e |- ( ph -> ps ) $.
-    $( Inference quantifying both antecedent and conjunct. $)
-    r19.22i   $p |- ( E. x e. A ph -> E. x e. A ps ) $=
-      ( wi cv wcel a1i r19.22ia ) ABCDABFCGDHEIJ $.
-      $([18-Oct-96]$)
-  $}
-
-  ${
-    r19.22da.1 $e |- ( ph -> A. x ph ) $.
-    r19.22da.2 $e |- ( ph -> ( x e. A -> ( ps -> ch ) ) ) $.
-    $( Deduction from Theorem 19.22, p. 90, of Margaris.  (Restricted
-       version.) $)
-    r19.22da   $p |- ( ph -> ( E. x e. A ps -> E. x e. A ch ) ) $=
-      ( wi wral wrex r19.21ai r19.22 syl ) ABCHZDEIBDEJCDEJHANDEFGKBCDELM $.
-      $([31-Aug-99]$)
-  $}
-
-  ${
-    $d x ph $.
-    r19.22dv.1 $e |- ( ph -> ( ps -> ch ) ) $.
-    $( Deduction from Theorem 19.22, p. 90, of Margaris.  (Restricted
-       version.) $)
-    r19.22dv   $p |- ( ph -> ( E. x e. A ps -> E. x e. A ch ) ) $=
-      ( ax-17 wi cv wcel a1d r19.22da ) ABCDEADGABCHDIEJFKL $.
-      $([24-Jun-98]$)
-  $}
-
-  ${
-    $d x ph $.
-    r19.22dva.1 $e |- ( ( ph /\ x e. A ) -> ( ps -> ch ) ) $.
-    $( Deduction quantifying both antecedent and consequent, based on Theorem
-       19.22 of Margaris, p. 90. $)
-    r19.22dva   $p |- ( ph -> ( E. x e. A ps -> E. x e. A ch ) ) $=
-      ( cv wcel wa wex wrex wi exp imdistan syl 19.22dv df-rex 3imtr4g ) ADGEHZ
-      BIZDJSCIZDJBDEKCDEKATUADASBCLZLTUALASUBFMSBCNOPBDEQCDEQR $.
-      $([22-May-99]$)
-  $}
-
-  ${
-    $d x ps $.
-    $( Theorem 19.23, p. 90 of Margaris with restricted quantifiers. $)
-    r19.23v $p |- ( A. x e. A ( ph -> ps ) <-> ( E. x e. A ph -> ps ) ) $=
-      ( cv wcel wa wi wal wrex wral impexp bial wex df-rex birim 19.23v bitr4
-      df-ral 3bitr4r ) CEDFZAGZBHZCIZUAABHZHZCIACDJZBHZUECDKUCUFCUAABLMUHUBCNZB
-      HUDUGUIBACDOPUBBCQRUECDST $.
-      $([31-Aug-99]$)
-  $}
-
-  ${
-    $d x ps $.
-    r19.23aiv.1 $e |- ( x e. A -> ( ph -> ps ) ) $.
-    $( Inference from Theorem 19.23, p. 90, of Margaris.  (Restricted
-       version.) $)
-    r19.23aiv   $p |- ( E. x e. A ph -> ps ) $=
-      ( wrex cv wcel wa wex df-rex imp 19.23aiv sylbi ) ACDFCGDHZAIZCJBACDKPBCO
-      ABELMN $.
-      $([20-Nov-94]$)
-  $}
-
-  ${
-    r19.23ad.1 $e |- ( ph -> A. x ph ) $.
-    r19.23ad.2 $e |- ( ch -> A. x ch ) $.
-    r19.23ad.3 $e |- ( ph -> ( x e. A -> ( ps -> ch ) ) ) $.
-    $( Deduction from Theorem 19.23, p. 90, of Margaris.  (Restricted
-       version.) $)
-    r19.23ad   $p |- ( ph -> ( E. x e. A ps -> ch ) ) $=
-      ( cv wcel wa wex wrex imp3a 19.23ad df-rex syl5ib ) ADIEJZBKZDLCBDEMASCDF
-      GARBCHNOBDEPQ $.
-      $([27-May-98]$)
-  $}
-
-  ${
-    $d x ph $.  $d x ch $.
-    r19.23adva.1 $e |- ( ph -> ( ( x e. A /\ ps ) -> ch ) ) $.
-    $( Deduction from Theorem 19.23, p. 90, of Margaris with restriced
-       quantifiers. $)
-    r19.23adva $p |- ( ph -> ( E. x e. A ps -> ch ) ) $=
-      ( cv wcel wa wex wrex 19.23adv df-rex syl5ib ) ADGEHBIZDJCBDEKAOCDFLBDEMN
-      $.
-      $([22-May-99]$)
-  $}
-
-  $( Theorem 19.26, p. 90, of Margaris with restricted quantifiers. $)
-  r19.26 $p |- ( A. x e. A ( ph /\ ps ) <->
-               ( A. x e. A ph /\ A. x e. A ps ) ) $=
-    ( cv wcel wa wi wal wral jcab bial 19.26 bitr df-ral bi2an 3bitr4 ) CEDFZAB
-    GZHZCIZRAHZCIZRBHZCIZGZSCDJACDJZBCDJZGUAUBUDGZCIUFTUICRABKLUBUDCMNSCDOUGUCU
-    HUEACDOBCDOPQ $.
-    $([28-Jan-97]$)
-
-  ${
-    $d x ph $.
-    $( Restricted version of Theorem 19.42, p. 90, of Margaris. $)
-    r19.42v   $p |- ( E. x e. A ( ph /\ ps ) <-> ( ph /\ E. x e. A ps ) ) $=
-      ( cv wcel wa wex wrex an12 biex 19.42v bitr df-rex bilan 3bitr4 ) CEDFZABG
-      ZGZCHZAQBGZCHZGZRCDIABCDIZGTAUAGZCHUCSUECQABJKAUACLMRCDNUDUBABCDNOP $.
-      $([27-May-98]$)
-  $}
-
-  $( Restricted version of Theorem 19.43, p. 90, of Margaris. $)
-  r19.43 $p |- ( E. x e. A ( ph \/ ps ) <->
-               ( E. x e. A ph \/ E. x e. A ps ) ) $=
-    ( cv wcel wo wa wex wrex andi biex 19.43 bitr df-rex bi2or 3bitr4 ) CEDFZAB
-    GZHZCIZRAHZCIZRBHZCIZGZSCDJACDJZBCDJZGUAUBUDGZCIUFTUICRABKLUBUDCMNSCDOUGUCU
-    HUEACDOBCDOPQ $.
-    $([27-May-98]$)
-
-  ${
-    $d x A $.  $d x B $.
-    $( Two ways to say " ` A ` belongs to ` B ` ". $)
-    risset $p |- ( A e. B <-> E. x e. B x = A ) $=
-      ( cv wcel wceq wa wex wrex exancom df-rex df-clel 3bitr4r ) ADZCEZNBFZGAH
-      POGAHPACIBCEOPAJPACKABCLM $.
-      $([22-Nov-94]$)
+    $( Formula-building rule for restricted existential quantifier (deduction
+       rule). $)
+    birexdva   $p |- ( ph -> ( E. x e. A ps <-> E. x e. A ch ) ) $=
+      ( ax-17 birexda ) ABCDEADGFH $.
+      $([9-Mar-97]$)
   $}
 
   ${
@@ -397,15 +123,13 @@ $)
     $( Formula-building rule for restricted universal quantifier (deduction
        rule). $)
     birald $p |- ( ph -> ( A. x e. A ps <-> A. x e. A ch ) ) $=
-      ( cv wcel wi wal wral bilimd biald df-ral 3bitr4g ) ADHEIZBJZDKQCJZDKBDEL
-      CDELARSDFABCQGMNBDEOCDEOP $.
+      ( wb cv wcel adantr biralda ) ABCDEFABCHDIEJGKL $.
       $([27-Jun-98]$)
 
     $( Formula-building rule for restricted existential quantifier (deduction
        rule). $)
     birexd $p |- ( ph -> ( E. x e. A ps <-> E. x e. A ch ) ) $=
-      ( wn wral wrex binegd birald dfrex2 3bitr4g ) ABHZDEIZHCHZDEIZHBDEJCDEJAP
-      RAOQDEFABCGKLKBDEMCDEMN $.
+      ( wb cv wcel adantr birexda ) ABCDEFABCHDIEJGKL $.
       $([27-Jun-98]$)
   $}
 
@@ -446,27 +170,6 @@ $)
       ( cv wcel wa wex wrex biexdv df-rex 3bitr4g ) ADHZEIBJZDKPFICJZDKBDELCDFL
       AQRDGMBDENCDFNO $.
       $([22-May-99]$)
-  $}
-
-  ${
-    $d x ph $.
-    biraldva.1 $e |- ( ( ph /\ x e. A ) -> ( ps <-> ch ) ) $.
-    $( Formula-building rule for restricted universal quantifier (deduction
-       rule). $)
-    biraldva   $p |- ( ph -> ( A. x e. A ps <-> A. x e. A ch ) ) $=
-      ( cv wcel wb exp pm5.74d biraldv2 ) ABCDEEADGEHZBCAMBCIFJKL $.
-      $([4-Mar-97]$)
-  $}
-
-  ${
-    $d x ph $.
-    birexdva.1 $e |- ( ( ph /\ x e. A ) -> ( ps <-> ch ) ) $.
-    $( Formula-building rule for restricted existential quantifier (deduction
-       rule). $)
-    birexdva   $p |- ( ph -> ( E. x e. A ps <-> E. x e. A ch ) ) $=
-      ( cv wcel wa wex wrex wb exp pm5.32d biexdv df-rex 3bitr4g ) ADGEHZBIZDJR
-      CIZDJBDEKCDEKASTDARBCARBCLFMNOBDEPCDEPQ $.
-      $([9-Mar-97]$)
   $}
 
   ${
@@ -533,6 +236,64 @@ $)
   $}
 
   ${
+    $d x A $.  $d x B $.
+    $( Two ways to say " ` A ` belongs to ` B ` ". $)
+    risset $p |- ( A e. B <-> E. x e. B x = A ) $=
+      ( cv wcel wceq wa wex wrex exancom df-rex df-clel 3bitr4r ) ADZCEZNBFZGAH
+      POGAHPACIBCEOPAJPACKABCLM $.
+      $([22-Nov-94]$)
+  $}
+
+  ${
+    $d x A $.  $d x B $.
+    raleqd.1 $e |- ( A = B -> ( ph <-> ps ) ) $.
+
+    $( Equality deduction for restricted universal quantifier. $)
+    raleqd   $p |- ( A = B -> ( A. x e. A ph <-> A. x e. B ps ) ) $=
+      ( wceq wral raleq biraldv bitrd ) DEGZACDHACEHBCEHACDEILABCEFJK $.
+      $([16-Nov-95]$)
+
+    $( Equality deduction for restricted existential quantifier. $)
+    rexeqd   $p |- ( A = B -> ( E. x e. A ph <-> E. x e. B ps ) ) $=
+      ( wceq wrex rexeq birexdv bitrd ) DEGZACDHACEHBCEHACDEILABCEFJK $.
+      $([18-Mar-97]$)
+  $}
+
+  ${
+    $d x y $.
+    hbral.1 $e |- ( y e. A -> A. x y e. A ) $.
+    hbral.2 $e |- ( ph -> A. x ph ) $.
+    $( Bound-variable hypothesis builder for restricted quantification. $)
+    hbral $p |- ( A. y e. A ph -> A. x A. y e. A ph ) $=
+      ( cv wcel wi wal wral hbim hbal df-ral bial 3imtr4 ) CGDHZAIZCJZSBJACDKZT
+      BJRBCQABEFLMACDNZTSBUAOP $.
+      $([1-Sep-99]$)
+  $}
+
+  $( ` x ` is not free in ` A. x e. A ph ` . $)
+  hbra1 $p |- ( A. x e. A ph -> A. x A. x e. A ph ) $=
+    ( cv wcel wi wal wral hba1 df-ral bial 3imtr4 ) BDCEAFZBGZNBGABCHZOBGMBIABC
+    JZONBPKL $.
+    $([18-Oct-96]$)
+
+  ${
+    $d x y $.
+    hbrex.1 $e |- ( y e. A -> A. x y e. A ) $.
+    hbrex.2 $e |- ( ph -> A. x ph ) $.
+    $( Bound-variable hypothesis builder for restricted quantification. $)
+    hbrex $p |- ( E. y e. A ph -> A. x E. y e. A ph ) $=
+      ( cv wcel wa wex wal wrex hban hbex df-rex bial 3imtr4 ) CGDHZAIZCJZTBKAC
+      DLZUABKSBCRABEFMNACDOZUATBUBPQ $.
+      $([1-Sep-99]$)
+  $}
+
+  $( ` x ` is not free in ` E. x e. A ph ` . $)
+  hbre1 $p |- ( E. x e. A ph -> A. x E. x e. A ph ) $=
+    ( cv wcel wa wex wal wrex hbe1 df-rex bial 3imtr4 ) BDCEAFZBGZOBHABCIZPBHNB
+    JABCKZPOBQLM $.
+    $([19-Mar-97]$)
+
+  ${
     $d x y z $.  $d y z A $.  $d z B $.
     $( Triple restricted universal quantification. $)
     r3al $p |- ( A. x e. A A. y e. B A. z e. C ph <->
@@ -555,7 +316,364 @@ $)
       $([11-Nov-95]$)
   $}
 
-  $( Theorem 19.29, p. 90, of Margaris with restricted quantifiers. $)
+  $( Restricted existence implies existence. $)
+  rexex $p |- ( E. x e. A ph -> E. x ph ) $=
+    ( wrex cv wcel wa wex df-rex pm3.27 19.22i sylbi ) ABCDBECFZAGZBHABHABCINAB
+    MAJKL $.
+    $([11-Nov-95]$)
+
+  $( Restricted specialization. $)
+  ra4 $p |- ( A. x e. A ph -> ( x e. A -> ph ) ) $=
+    ( wral cv wcel wi wal df-ral ax-4 sylbi ) ABCDBECFAGZBHLABCILBJK $.
+    $([17-Oct-96]$)
+
+  $( Restricted specialization. $)
+  ra4e $p |- ( ( x e. A /\ ph ) -> E. x e. A ph ) $=
+    ( cv wcel wa wex wrex 19.8a df-rex sylibr ) BDCEAFZLBGABCHLBIABCJK $.
+    $([12-Oct-99]$)
+
+  $( Restricted specialization. $)
+  ra42 $p |- ( A. x e. A A. y e. B ph -> ( ( x e. A /\ y e. B ) -> ph ) ) $=
+    ( wral cv wcel wi ra4 syl6 imp3a ) ACEFZBDFZBGDHZCGEHZANOMPAIMBDJACEJKL $.
+    $([11-Feb-97]$)
+
+  ${
+    rspec.1 $e |- A. x e. A ph $.
+    $( Specialization rule for restricted quantification. $)
+    rspec   $p |- ( x e. A -> ph ) $=
+      ( wral cv wcel wi ra4 ax-mp ) ABCEBFCGAHDABCIJ $.
+      $([19-Nov-94]$)
+  $}
+
+  ${
+    rgen.1 $e |- ( x e. A -> ph ) $.
+    $( Generalization rule for restricted quantification. $)
+    rgen   $p |- A. x e. A ph $=
+      ( wral cv wcel wi df-ral mpgbir ) ABCEBFCGAHBABCIDJ $.
+      $([19-Nov-94]$)
+  $}
+
+  ${
+    $d y z A $.  $d x z $.  $( ` z ` is dummy. $)
+    rgen2.1 $e |- ( ( x e. A /\ y e. A ) -> ph ) $.
+    $( Generalization rule for restricted quantification.  Note that ` x `
+       and ` y ` needn't be distinct. $)
+    rgen2   $p |- A. x e. A A. y e. A ph $=
+      ( vz wral cv wcel wi wal weq exp ax-gen eq5 wb eleq1 a4s birimd biald
+      mpbiri pm2.43 19.20i ax-1 3syl wn ax-17 ddelim syl6 pm2.61i df-ral
+      sylibr rgen ) ACDGZBDBHZDIZCHZDIZAJZCKZUNCBLZCKZUPUTJZVBURUSJZCKZUTVCVBVE
+      UPUSJZCKVFCUPURAEMZNVBVDVFCCBCOVBURUPUSVAURUPPCUQUODQRSTUAVDUSCURAUBUCUTU
+      PUDUEVBUFUPUPCKUTFHZDIZUPCBFVHUODQVICUGUHUPUSCVGUCUIUJACDUKULUM $.
+      $([23-Nov-94]$)
+  $}
+
+  $( Distribution of restricted quantification over implication. $)
+  r19.20 $p |- ( A. x e. A ( ph -> ps ) -> ( A. x e. A ph -> A. x e. A ps ) ) $=
+    ( wi wral cv wcel wal df-ral ax-2 19.20ii sylbi 3imtr4g ) ABEZCDFZCGDHZAEZC
+    IZQBEZCIZACDFBCDFPQOEZCISUAEOCDJUBRTCQABKLMACDJBCDJN $.
+    $([9-Feb-97]$)
+
+  ${
+    r19.20i.1 $e |- ( x e. A -> ( ph -> ps ) ) $.
+    $( Inference quantifying both antecedent and consequent. $)
+    r19.20i   $p |- ( A. x e. A ph -> A. x e. A ps ) $=
+      ( wi wral rgen r19.20 ax-mp ) ABFZCDGACDGBCDGFKCDEHABCDIJ $.
+      $([19-Jul-96]$)
+  $}
+
+  ${
+    r19.20si.1 $e |- ( ph -> ps ) $.
+    $( Inference quantifying both antecedent and consequent, with strong
+       hypothesis. $)
+    r19.20si   $p |- ( A. x e. A ph -> A. x e. A ps ) $=
+      ( wi cv wcel a1i r19.20i ) ABCDABFCGDHEIJ $.
+      $([4-Mar-97]$)
+  $}
+
+  ${
+    r19.20da.1 $e |- ( ph -> A. x ph ) $.
+    r19.20da.2 $e |- ( ( ph /\ x e. A ) -> ( ps -> ch ) ) $.
+    $( Deduction quantifying both antecedent and consequent, based on Theorem
+       19.20 of [Margaris] p. 90. $)
+    r19.20da   $p |- ( ph -> ( A. x e. A ps -> A. x e. A ch ) ) $=
+      ( cv wcel wi wal wral exp a2d 19.20d df-ral 3imtr4g ) ADHEIZBJZDKRCJZDKBD
+      ELCDELASTDFARBCARBCJGMNOBDEPCDEPQ $.
+      $([22-Sep-03]$)
+  $}
+
+  ${
+    $d x ph $.
+    r19.20dva.1 $e |- ( ( ph /\ x e. A ) -> ( ps -> ch ) ) $.
+    $( Deduction quantifying both antecedent and consequent, based on Theorem
+       19.20 of [Margaris] p. 90. $)
+    r19.20dva $p |- ( ph -> ( A. x e. A ps -> A. x e. A ch ) ) $=
+      ( ax-17 r19.20da ) ABCDEADGFH $.
+      $([22-May-99]$)
+  $}
+
+  ${
+    $d x ph $.
+    r19.20sdv.1 $e |- ( ph -> ( ps -> ch ) ) $.
+    $( Deduction quantifying both antecedent and consequent, based on Theorem
+       19.20 of [Margaris] p. 90. $)
+    r19.20sdv $p |- ( ph -> ( A. x e. A ps -> A. x e. A ch ) ) $=
+      ( wi cv wcel adantr r19.20dva ) ABCDEABCGDHEIFJK $.
+      $([8-Oct-03]$)
+  $}
+
+  ${
+    r19.21ai.1 $e |- ( ph -> A. x ph ) $.
+    r19.21ai.2 $e |- ( ph -> ( x e. A -> ps ) ) $.
+    $( Inference from Theorem 19.21 of [Margaris] p. 90.  (Restricted
+       quantifier version.) $)
+    r19.21ai $p |- ( ph -> A. x e. A ps ) $=
+      ( cv wcel wi wal wral 19.21ai df-ral sylibr ) ACGDHBIZCJBCDKAOCEFLBCDMN
+      $.
+      $([10-Oct-99]$)
+  $}
+
+  ${
+    $d x ph $.
+    r19.21aiv.1 $e |- ( ph -> ( x e. A -> ps ) ) $.
+    $( Inference from Theorem 19.21 of [Margaris] p. 90.  (Restricted
+       quantifier version.) $)
+    r19.21aiv $p |- ( ph -> A. x e. A ps ) $=
+      ( ax-17 r19.21ai ) ABCDACFEG $.
+      $([22-Nov-94]$)
+  $}
+
+  ${
+    $d x y $.  $d y A $.
+    rgen2a.1 $e |- ( ( x e. A /\ y e. B ) -> ph ) $.
+    $( Generalization rule for restricted quantification. $)
+    rgen2a $p |- A. x e. A A. y e. B ph $=
+      ( wral cv wcel exp r19.21aiv rgen ) ACEGBDBHDIZACEMCHEIAFJKL $.
+      $([30-May-99]$)
+  $}
+
+  ${
+    $d y z A $.  $d x z $.
+    rgen3.1 $e |- ( ( x e. A /\ y e. A /\ z e. A ) -> ph ) $.
+    $( Generalization rule for restricted quantification. $)
+    rgen3 $p |- A. x e. A A. y e. A A. z e. A ph $=
+      ( wral cv wcel wa wi 3exp imp r19.21aiv rgen2 ) ADEGBCEBHEIZCHEIZJADEPQDH
+      EIZAKPQRAFLMNO $.
+      $([21-Jan-96]$)
+  $}
+
+  ${
+    $d x ph $.
+    $( Theorem 19.21 of [Margaris] p. 90 with restricted quantifiers. $)
+    r19.21v $p |- ( A. x e. A ( ph -> ps ) <-> ( ph -> A. x e. A ps ) ) $=
+      ( cv wcel wi wal wral bi2.04 bial 19.21v bitr df-ral bilim 3bitr4 ) CEDFZ
+      ABGZGZCHZAQBGZCHZGZRCDIABCDIZGTAUAGZCHUCSUECQABJKAUACLMRCDNUDUBABCDNOP $.
+      $([15-Oct-03]$)
+  $}
+
+  ${
+    $d x ph $.  $d x ps $.
+    r19.21adv.1 $e |- ( ph -> ( ps -> ( x e. A -> ch ) ) ) $.
+    $( Inference from Theorem 19.21 of [Margaris] p. 90.  (Restricted
+       quantifier version.) $)
+    r19.21adv $p |- ( ph -> ( ps -> A. x e. A ch ) ) $=
+      ( cv wcel wi wal wral 19.21adv df-ral syl6ibr ) ABDGEHCIZDJCDEKABODFLCDEM
+      N $.
+      $([27-May-98]$)
+  $}
+
+  ${
+    r19.21bi.1 $e |- ( ph -> A. x e. A ps ) $.
+    $( Inference from Theorem 19.21 of [Margaris] p. 90.  (Restricted
+       quantifier version.) $)
+    r19.21bi   $p |- ( ( ph /\ x e. A ) -> ps ) $=
+      ( cv wcel wi wral wal df-ral sylib 19.21bi imp ) ACFDGZBAOBHZCABCDIPCJEBC
+      DKLMN $.
+      $([20-Nov-94]$)
+  $}
+
+  ${
+    rspec2.1 $e |- A. x e. A A. y e. B ph $.
+    $( Specialization rule for restricted quantification. $)
+    rspec2   $p |- ( ( x e. A /\ y e. B ) -> ph ) $=
+      ( cv wcel wral rspec r19.21bi ) BGDHACEACEIBDFJK $.
+      $([20-Nov-94]$)
+  $}
+
+  ${
+    rspec3.1 $e |- A. x e. A A. y e. B A. z e. C ph $.
+    $( Specialization rule for restricted quantification. $)
+    rspec3   $p |- ( ( x e. A /\ y e. B /\ z e. C ) -> ph ) $=
+      ( cv wcel wa wral rspec2 r19.21bi 3impa ) BIEJZCIFJZDIGJAPQKADGADGLBCEFHM
+      NO $.
+      $([20-Nov-94]$)
+  $}
+
+  ${
+    r19.21be.1 $e |- ( ph -> A. x e. A ps ) $.
+    $( Inference from Theorem 19.21 of [Margaris] p. 90.  (Restricted
+       quantifier version.) $)
+    r19.21be   $p |- A. x e. A ( ph -> ps ) $=
+      ( wi cv wcel r19.21bi ancoms exp rgen ) ABFCDCGDHZABAMBABCDEIJKL $.
+      $([21-Nov-94]$)
+  $}
+
+  ${
+    $d x ph $.
+    nrexdv.1 $e |- ( ( ph /\ x e. A ) -> -. ps ) $.
+    $( Deduction  adding restricted existential quantifier to negated wff. $)
+    nrexdv   $p |- ( ph -> -. E. x e. A ps ) $=
+      ( wn wral wrex cv wcel exp r19.21aiv ralnex sylib ) ABFZCDGBCDHFAOCDACIDJ
+      OEKLBCDMN $.
+      $([9-Nov-03]$)
+  $}
+
+  $( Theorem 19.22 of [Margaris] p. 90.  (Restricted quantifier version.) $)
+  r19.22 $p |- ( A. x e. A ( ph -> ps ) ->
+               ( E. x e. A ph -> E. x e. A ps ) ) $=
+    ( cv wcel wi wal wa wex wral wrex imdistan 19.20i 19.22 syl df-ral df-rex
+    bi2im 3imtr4 ) CEDFZABGZGZCHZUAAIZCJZUABIZCJZGZUBCDKACDLZBCDLZGUDUEUGGZCHUI
+    UCULCUAABMNUEUGCOPUBCDQUJUFUKUHACDRBCDRST $.
+    $([22-Nov-94]$)
+
+  ${
+    r19.22i.1 $e |- ( x e. A -> ( ph -> ps ) ) $.
+    $( Inference quantifying both antecedent and consequent. $)
+    r19.22i $p |- ( E. x e. A ph -> E. x e. A ps ) $=
+      ( wi wral wrex rgen r19.22 ax-mp ) ABFZCDGACDHBCDHFLCDEIABCDJK $.
+      $([10-Feb-97]$)
+  $}
+
+  ${
+    r19.22si.1 $e |- ( ph -> ps ) $.
+    $( Inference quantifying both antecedent and consequent. $)
+    r19.22si $p |- ( E. x e. A ph -> E. x e. A ps ) $=
+      ( wi cv wcel a1i r19.22i ) ABCDABFCGDHEIJ $.
+      $([18-Oct-96]$)
+  $}
+
+  ${
+    r19.22d.1 $e |- ( ph -> A. x ph ) $.
+    r19.22d.2 $e |- ( ph -> ( x e. A -> ( ps -> ch ) ) ) $.
+    $( Deduction from Theorem 19.22 of [Margaris] p. 90.  (Restricted
+       quantifier version.) $)
+    r19.22d $p |- ( ph -> ( E. x e. A ps -> E. x e. A ch ) ) $=
+      ( wi wral wrex r19.21ai r19.22 syl ) ABCHZDEIBDEJCDEJHANDEFGKBCDELM $.
+      $([31-Aug-99]$)
+  $}
+
+  ${
+    $d x ph $.
+    r19.22sdv.1 $e |- ( ph -> ( ps -> ch ) ) $.
+    $( Deduction from Theorem 19.22 of [Margaris] p. 90.  (Restricted
+       quantifier version with strong hypothesis.) $)
+    r19.22sdv   $p |- ( ph -> ( E. x e. A ps -> E. x e. A ch ) ) $=
+      ( ax-17 wi cv wcel a1d r19.22d ) ABCDEADGABCHDIEJFKL $.
+      $([24-Jun-98]$)
+  $}
+
+  ${
+    $d x ph $.
+    r19.22dv.1 $e |- ( ph -> ( x e. A -> ( ps -> ch ) ) ) $.
+    $( Deduction quantifying both antecedent and consequent, based on Theorem
+       19.22 of [Margaris] p. 90. $)
+    r19.22dv $p |- ( ph -> ( E. x e. A ps -> E. x e. A ch ) ) $=
+      ( cv wcel wa wex wrex wi imdistan syl 19.22dv df-rex 3imtr4g ) ADGEHZBIZD
+      JRCIZDJBDEKCDEKASTDARBCLLSTLFRBCMNOBDEPCDEPQ $.
+      $([14-Nov-02]$)
+  $}
+
+  ${
+    $d x ph $.
+    r19.22dva.1 $e |- ( ( ph /\ x e. A ) -> ( ps -> ch ) ) $.
+    $( Deduction quantifying both antecedent and consequent, based on Theorem
+       19.22 of [Margaris] p. 90. $)
+    r19.22dva   $p |- ( ph -> ( E. x e. A ps -> E. x e. A ch ) ) $=
+      ( cv wcel wi exp r19.22dv ) ABCDEADGEHBCIFJK $.
+      $([22-May-99]$)
+  $}
+
+  ${
+    $d x y $.  $d y A $.  $d x B $.
+    $( Theorem 19.12 of [Margaris] p. 89 with restricted quantifiers. $)
+    r19.12 $p |- ( E. x e. A A. y e. B ph -> A. y e. B E. x e. A ph ) $=
+      ( wral wrex cv wcel ax-17 hbra1 hbrex ax-1 r19.21ai wi ra4 comm a1d
+      r19.22dv r19.20i syl ) ACEFZBDGZUCCEFABDGZCEFUCUCCEUBCBDBHDIZCJACEKLUCCHE
+      IZMNUCUDCEUFUBABDUFUBAOUEUBUFAACEPQRSTUA $.
+      $([15-Oct-03]$)
+  $}
+
+  ${
+    $d x ps $.
+    $( Theorem 19.23 of [Margaris] p. 90 with restricted quantifiers. $)
+    r19.23v $p |- ( A. x e. A ( ph -> ps ) <-> ( E. x e. A ph -> ps ) ) $=
+      ( cv wcel wa wi wal wrex wral impexp bial wex df-rex birim 19.23v bitr4
+      df-ral 3bitr4r ) CEDFZAGZBHZCIZUAABHZHZCIACDJZBHZUECDKUCUFCUAABLMUHUBCNZB
+      HUDUGUIBACDOPUBBCQRUECDST $.
+      $([31-Aug-99]$)
+  $}
+
+  ${
+    r19.23ai.1 $e |- ( ps -> A. x ps ) $.
+    r19.23ai.2 $e |- ( x e. A -> ( ph -> ps ) ) $.
+    $( Inference from Theorem 19.21 of [Margaris] p. 90.  (Restricted
+       quantifier version.) $)
+    r19.23ai $p |- ( E. x e. A ph -> ps ) $=
+      ( wrex cv wcel wa wex df-rex imp 19.23ai sylbi ) ACDGCHDIZAJZCKBACDLQBCEP
+      ABFMNO $.
+      $([30-Nov-03]$)
+  $}
+
+  ${
+    $d x ps $.
+    r19.23aiv.1 $e |- ( x e. A -> ( ph -> ps ) ) $.
+    $( Inference from Theorem 19.23 of [Margaris] p. 90.  (Restricted
+       quantifier version.) $)
+    r19.23aiv $p |- ( E. x e. A ph -> ps ) $=
+      ( ax-17 r19.23ai ) ABCDBCFEG $.
+      $([20-Nov-94]$)
+  $}
+
+  ${
+    r19.23ad.1 $e |- ( ph -> A. x ph ) $.
+    r19.23ad.2 $e |- ( ch -> A. x ch ) $.
+    r19.23ad.3 $e |- ( ph -> ( x e. A -> ( ps -> ch ) ) ) $.
+    $( Deduction from Theorem 19.23 of [Margaris] p. 90.  (Restricted
+       quantifier version.) $)
+    r19.23ad   $p |- ( ph -> ( E. x e. A ps -> ch ) ) $=
+      ( cv wcel wa wex wrex imp3a 19.23ad df-rex syl5ib ) ADIEJZBKZDLCBDEMASCDF
+      GARBCHNOBDEPQ $.
+      $([27-May-98]$)
+  $}
+
+  ${
+    $d x ph $.  $d x ch $.
+    r19.23adv.1 $e |- ( ph -> ( x e. A -> ( ps -> ch ) ) ) $.
+    $( Inference from Theorem 19.23 of [Margaris] p. 90.  (Restricted
+       quantifier version.) $)
+    r19.23adv $p |- ( ph -> ( E. x e. A ps -> ch ) ) $=
+      ( cv wcel wa wex wrex imp3a 19.23adv df-rex syl5ib ) ADGEHZBIZDJCBDEKAQCD
+      APBCFLMBDENO $.
+      $([14-Nov-02]$)
+  $}
+
+  $( Theorem 19.26 of [Margaris] p. 90 with restricted quantifiers. $)
+  r19.26 $p |- ( A. x e. A ( ph /\ ps ) <->
+               ( A. x e. A ph /\ A. x e. A ps ) ) $=
+    ( cv wcel wa wi wal wral jcab bial 19.26 bitr df-ral bi2an 3bitr4 ) CEDFZAB
+    GZHZCIZRAHZCIZRBHZCIZGZSCDJACDJZBCDJZGUAUBUDGZCIUFTUICRABKLUBUDCMNSCDOUGUCU
+    HUEACDOBCDOPQ $.
+    $([28-Jan-97]$)
+
+  $( Distribute a restricted universal quantifier over a biconditional.
+     Theorem 19.15 of [Margaris] p. 90 with restricted quantification. $)
+  r19.15 $p |- ( A. x e. A ( ph <-> ps ) ->
+               ( A. x e. A ph <-> A. x e. A ps ) ) $=
+    ( wi wral wa wb r19.20 im2an bi biral r19.26 bitr 3imtr4 ) ABEZCDFZBAEZCDFZ
+    GZACDFZBCDFZEZUBUAEZGABHZCDFZUAUBHQUCSUDABCDIBACDIJUFPRGZCDFTUEUGCDABKLPRCD
+    MNUAUBKO $.
+    $([6-Oct-03]$)
+
+  $( Theorem 19.29 of [Margaris] p. 90 with restricted quantifiers. $)
   r19.29 $p |- ( ( A. x e. A ph /\ E. x e. A ps ) ->
                E. x e. A ( ph /\ ps ) ) $=
     ( cv wcel wi wal wa wex wral wrex 19.29 anandi abai biran bitr4 an12 3bitr
@@ -564,7 +682,7 @@ $)
     TURVAUIUFAOPUFUGBNQUFUGBRSTUAUOUHUPUJACDUBBCDUCUDULCDUCUE $.
     $([31-Aug-99]$)
 
-  $( Variation of Theorem 19.29, p. 90, of Margaris with restricted
+  $( Variation of Theorem 19.29 of [Margaris] p. 90 with restricted
      quantifiers. $)
   r19.29r $p |- ( ( E. x e. A ph /\ A. x e. A ps ) ->
                 E. x e. A ( ph /\ ps ) ) $=
@@ -573,59 +691,69 @@ $)
     $([31-Aug-99]$)
 
   ${
-    $d x A $.  $d x B $.
-    raleqd.1 $e |- ( A = B -> ( ph <-> ps ) ) $.
+    $d x ph $.
+    $( Theorem 19.32 of [Margaris] p. 90 with restricted quantifiers. $)
+    r19.32v $p |- ( A. x e. A ( ph \/ ps ) <-> ( ph \/ A. x e. A ps ) ) $=
+      ( wn wi wral wo r19.21v df-or biral 3bitr4 ) AEZBFZCDGMBCDGZFABHZCDGAOHMB
+      CDIPNCDABJKAOJL $.
+      $([25-Nov-03]$)
+  $}
 
-    $( Equality deduction for restricted universal quantifier. $)
-    raleqd   $p |- ( A = B -> ( A. x e. A ph <-> A. x e. B ps ) ) $=
-      ( wceq wral raleq biraldv bitrd ) DEGZACDHACEHBCEHACDEILABCEFJK $.
-      $([16-Nov-95]$)
+  $( Restricted quantifier version of Theorem 19.35 of [Margaris] p. 90. $)
+  r19.35 $p |- ( E. x e. A ( ph -> ps ) <->
+               ( A. x e. A ph -> E. x e. A ps ) ) $=
+    ( wral wn wi wrex wa r19.26 annim biral df-an 3bitr3 bicon2 dfrex2 bilim
+    3bitr4r ) ACDEZBFZCDEZFZGZABGZFZCDEZFSBCDHZGUDCDHUFUCATIZCDESUAIUFUCFATCDJU
+    HUECDABKLSUAMNOUGUBSBCDPQUDCDPR $.
+    $([20-Sep-03]$)
 
-    $( Equality deduction for restricted existential quantifier. $)
-    rexeqd   $p |- ( A = B -> ( E. x e. A ph <-> E. x e. B ps ) ) $=
-      ( wceq wrex rexeq birexdv bitrd ) DEGZACDHACEHBCEHACDEILABCEFJK $.
-      $([18-Mar-97]$)
+  ${
+    $d x ps $.
+    $( Restricted quantifier version of Theorem 19.41 of [Margaris] p. 90. $)
+    r19.41v   $p |- ( E. x e. A ( ph /\ ps ) <-> ( E. x e. A ph /\ ps ) ) $=
+      ( cv wcel wa wex wrex anass biex 19.41v bitr3 df-rex biran 3bitr4 ) CEDFZ
+      ABGZGZCHZQAGZCHZBGZRCDIACDIZBGTUABGZCHUCUESCQABJKUABCLMRCDNUDUBBACDNOP $.
+      $([17-Dec-03]$)
   $}
 
   ${
-    $d x y $.
-    hbral.1 $e |- ( y e. A -> A. x y e. A ) $.
-    hbral.2 $e |- ( ph -> A. x ph ) $.
-    $( Bound variable hypothesis builder for restricted quantification. $)
-    hbral $p |- ( A. y e. A ph -> A. x A. y e. A ph ) $=
-      ( cv wcel wi wal wral hbim hbal df-ral bial 3imtr4 ) CGDHZAIZCJZSBJACDKZT
-      BJRBCQABEFLMACDNZTSBUAOP $.
-      $([1-Sep-99]$)
+    $d x ph $.
+    $( Restricted version of Theorem 19.42 of [Margaris] p. 90. $)
+    r19.42v   $p |- ( E. x e. A ( ph /\ ps ) <-> ( ph /\ E. x e. A ps ) ) $=
+      ( wa wrex r19.41v ancom birex 3bitr4 ) BAEZCDFBCDFZAEABEZCDFALEBACDGMKCDA
+      BHIALHJ $.
+      $([27-May-98]$)
   $}
 
-  $( ` x ` is not free in ` A. x e. A ph `. $)
-  hbra1 $p |- ( A. x e. A ph -> A. x A. x e. A ph ) $=
-    ( cv wcel wi wal wral hba1 df-ral bial 3imtr4 ) BDCEAFZBGZNBGABCHZOBGMBIABC
-    JZONBPKL $.
-    $([18-Oct-96]$)
+  $( Restricted version of Theorem 19.43 of [Margaris] p. 90. $)
+  r19.43 $p |- ( E. x e. A ( ph \/ ps ) <->
+               ( E. x e. A ph \/ E. x e. A ps ) ) $=
+    ( cv wcel wo wa wex wrex andi biex 19.43 bitr df-rex bi2or 3bitr4 ) CEDFZAB
+    GZHZCIZRAHZCIZRBHZCIZGZSCDJACDJZBCDJZGUAUBUDGZCIUFTUICRABKLUBUDCMNSCDOUGUCU
+    HUEACDOBCDOPQ $.
+    $([27-May-98]$)
 
-  ${
-    $d x y $.
-    hbrex.1 $e |- ( y e. A -> A. x y e. A ) $.
-    hbrex.2 $e |- ( ph -> A. x ph ) $.
-    $( Bound variable hypothesis builder for restricted quantification. $)
-    hbrex $p |- ( E. y e. A ph -> A. x E. y e. A ph ) $=
-      ( cv wcel wa wex wal wrex hban hbex df-rex bial 3imtr4 ) CGDHZAIZCJZTBKAC
-      DLZUABKSBCRABEFMNACDOZUATBUBPQ $.
-      $([1-Sep-99]$)
-  $}
-
-  $( ` x ` is not free in ` E. x e. A ph `. $)
-  hbre1 $p |- ( E. x e. A ph -> A. x E. x e. A ph ) $=
-    ( cv wcel wa wex wal wrex hbe1 df-rex bial 3imtr4 ) BDCEAFZBGZOBHABCIZPBHNB
-    JABCKZPOBQLM $.
-    $([19-Mar-97]$)
-
-  $( ` x ` is not free in ` E! x e. A ph `. $)
+  $( ` x ` is not free in ` E! x e. A ph ` . $)
   hbreu1 $p |- ( E! x e. A ph -> A. x E! x e. A ph ) $=
     ( cv wcel wa weu wal wreu hbeu1 df-reu bial 3imtr4 ) BDCEAFZBGZOBHABCIZPBHN
     BJABCKZPOBQLM $.
     $([19-Mar-97]$)
+
+  $( An "identity" law of concretion for restricted abstraction.  Special case
+     of Definition 2.1 of [Quine] p. 16. $)
+  rabid $p |- ( x e. { x e. A | ph } <-> ( x e. A /\ ph ) ) $=
+    ( cv wcel wa crab df-rab cleqabi ) BDCEAFBABCGABCHI $.
+    $([3-Feb-04]$)
+
+  ${
+    $d x A $.
+    $( An "identity" law for restricted class abstraction. $)
+    rabid2 $p |- ( A = { x e. A | ph } <-> A. x e. A ph ) $=
+      ( cv wcel wi wal wa cab wceq wral crab wb pm4.71 bial cleqab bitr4
+      df-ral df-rab cleq2i 3bitr4r ) BDCEZAFZBGZCUBAHZBIZJZABCKCABCLZJUDUBUEMZB
+      GUGUCUIBUBANOUEBCPQABCRUHUFCABCSTUA $.
+      $([10-Jan-04]$)
+  $}
 
   ${
     $d x y $.
@@ -637,22 +765,34 @@ $)
   $}
 
   ${
+    $d x y z $.  $d z A $.
+    hbrab.1 $e |- ( ph -> A. x ph ) $.
+    hbrab.2 $e |- ( z e. A -> A. x z e. A ) $.
+    $( A variable not free in a wff remains so in a restricted abstraction
+       class. $)
+    hbrab   $p |- ( z e. { y e. A | ph } -> A. x z e. { y e. A | ph } ) $=
+      ( cv wcel wa cab wal crab wel ax-17 hbel hban hbab df-rab eleq2i bial
+      3imtr4 ) DHZCHZEIZAJZCKZIZUHBLUCACEMZIZUJBLUFBCDUEABBDDUDEDCNBOGPFQRUIUGU
+      CACESTZUJUHBUKUAUB $.
+      $([15-Oct-03]$)
+  $}
+
+  ${
     $d y z A $.  $d x z A $.  $( ` z ` is dummy. $)
     $( Commutation of restricted quantifiers.  Note that ` x ` and ` y `
        needn't be distinct (this makes the proof longer but illustrates
        the use of ~ ddelim ). $)
     ralcom $p |- ( A. x e. A A. y e. A ph -> A. y e. A A. x e. A ph ) $=
       ( vz cv wcel wi wal wral weq id eq5 wb eleq1 a4s birimd del34b bilimd
-      biald bi2imd mpbii wn eq6 hbal eq4 con3 ax-17 ddelim syl hba1 a1i hbimd
-      19.21ai 19.20 ax-7 syl6 ax-4 syl3 com23 19.20ii syl9 syld eq6s pm2.61i
-      df-ral bilim bial bitr 3imtr4 ) BFZDGZCFZDGZAHZCIZHZBIZVNVLAHZBIZHZCIZACD
-      JZBDJZABDJZCDJZBCKZBIZVRWBHZWHVLVTHZBIZWKHWIWKLWHWKVRWKWBWHWJVQBBCBMWHVTV
-      PVLVSVOBCWHVLVNAWGVLVNNBVKVMDOPZQRSTWJWABCWHVLVNVTWLQRUAUBWIBCCWHUCZCIZVR
-      VRCIZWBWNVRVQCIZBIZWOWNVQWPHZBIVRWQHWNWRBWMBCBCBUDUEWMVLVPCWMCBKCIZUCVLVL
-      CIHWSWHCBUFUGEFZDGZVLCBEWTVKDOXACUHUIUJVPVPCIHWMVOCUKULUMUNVQWPBUOUJVQBCU
-      PUQWMVRWACWMVNVNBIVRVTXAVNBCEWTVMDOXABUHUIVQVNVSBVQVLVNAVPVOVLVOCURUSUTVA
-      VBVAVCVDVEWDVLWCHZBIVRWCBDVFXBVQBWCVPVLACDVFVGVHVIWFVNWEHZCIWBWECDVFXCWAC
-      WEVTVNABDVFVGVHVIVJ $.
+      biald bi2imd mpbii wn eq6 hbal ax-17 ddelim eq4ds hba1 a1i hbimd hbald
+      ax-4 syl3 com23 19.20ii syl9 syld eq6s pm2.61i df-ral bilim bial bitr
+      3imtr4 ) BFZDGZCFZDGZAHZCIZHZBIZVIVGAHZBIZHZCIZACDJZBDJZABDJZCDJZBCKZBIZV
+      MVQHZWCVGVOHZBIZWFHWDWFLWCWFVMWFVQWCWEVLBBCBMWCVOVKVGVNVJBCWCVGVIAWBVGVIN
+      BVFVHDOPZQRSTWEVPBCWCVGVIVOWGQRUAUBWDBCCWCUCZCIZVMVMCIVQWIVLCBWHBCBCBUDUE
+      WHVLVLCIHCWHVGVKCBCCUDVGVGCIHCBEFZDGZVGCBEWJVFDOWKCUFUGUHVKVKCIHWHVJCUIUJ
+      UKPULWHVMVPCWHVIVIBIVMVOWKVIBCEWJVHDOWKBUFUGVLVIVNBVLVGVIAVKVJVGVJCUMUNUO
+      UPUQUPURUSUTVSVGVRHZBIVMVRBDVAWLVLBVRVKVGACDVAVBVCVDWAVIVTHZCIVQVTCDVAWMV
+      PCVTVOVIABDVAVBVCVDVE $.
       $([24-Nov-94]$)
   $}
 
@@ -677,18 +817,36 @@ $)
   $}
 
   ${
-    $d y ph $. $d x ps $.  $d x y A $.
-    rcbvalv.1 $e |- ( x = y -> ( ph <-> ps ) ) $.
+    $d x y A $.
+    cbvral.1 $e |- ( ph -> A. y ph ) $.
+    cbvral.2 $e |- ( ps -> A. x ps ) $.
+    cbvral.3 $e |- ( x = y -> ( ph <-> ps ) ) $.
     $( Rule used to change bound variables with implicit substitution. $)
-    rcbvalv   $p |- ( A. x e. A ph <-> A. y e. A ps ) $=
-      ( cv wcel wi wal wral weq eleq1 bi2imd cbvalv df-ral 3bitr4 ) CGZEHZAIZCJ
-      DGZEHZBIZDJACEKBDEKTUCCDCDLSUBABRUAEMFNOACEPBDEPQ $.
+    cbvral   $p |- ( A. x e. A ph <-> A. y e. A ps ) $=
+      ( cv wcel wi wal wral ax-17 hbim weq eleq1 bi2imd cbval df-ral 3bitr4 )
+      CIZEJZAKZCLDIZEJZBKZDLACEMBDEMUDUGCDUCADUCDNFOUFBCUFCNGOCDPUCUFABUBUEEQHR
+      SACETBDETUA $.
+      $([31-Jul-03]$)
+
+    $( Rule used to change bound variables with implicit substitution. $)
+    cbvrex   $p |- ( E. x e. A ph <-> E. y e. A ps ) $=
+      ( cv wcel wa wex wrex ax-17 hban weq eleq1 bi2and cbvex df-rex 3bitr4 )
+      CIZEJZAKZCLDIZEJZBKZDLACEMBDEMUDUGCDUCADUCDNFOUFBCUFCNGOCDPUCUFABUBUEEQHR
+      SACETBDETUA $.
+      $([31-Jul-03]$)
+  $}
+
+  ${
+    $d y ph $. $d x ps $.  $d x y A $.
+    cbvralv.1 $e |- ( x = y -> ( ph <-> ps ) ) $.
+    $( Rule used to change bound variables with implicit substitution. $)
+    cbvralv   $p |- ( A. x e. A ph <-> A. y e. A ps ) $=
+      ( ax-17 cbvral ) ABCDEADGBCGFH $.
       $([28-Jan-97]$)
 
     $( Rule used to change bound variables with implicit substitution. $)
-    rcbvexv   $p |- ( E. x e. A ph <-> E. y e. A ps ) $=
-      ( wn wral wrex weq binegd rcbvalv bineg dfrex2 3bitr4 ) AGZCEHZGBGZDEHZGA
-      CEIBDEIQSPRCDECDJABFKLMACENBDENO $.
+    cbvrexv   $p |- ( E. x e. A ph <-> E. y e. A ps ) $=
+      ( ax-17 cbvrex ) ABCDEADGBCGFH $.
       $([2-Jun-98]$)
   $}
 
@@ -714,15 +872,14 @@ $)
     $d x y A $.  $d y ph $.
     $( A way of expressing restricted uniqueness. $)
     reu2 $p |- ( E! x e. A ph <-> ( E. x e. A ph /\
-               A. x e. A A. y e. A ( ( ph /\ ( ph x | y ) ) -> x = y ) ) ) $=
+               A. x e. A A. y e. A ( ( ph /\ [ y / x ] ph ) -> x = y ) ) ) $=
       ( cv wcel wa weu wex wsb weq wi wal wreu wrex wral ax-17 eu2 df-reu
-      df-rex df-ral 19.21v hbsbv hban eleq1 sbequ12 bi2and ddel4 bilan an4
-      bitr birim impexp 3bitr bial bilim 3bitr4 bitr4 bi2an ) BEZDFZAGZBHVBBIZV
-      BVBBCJZGZBCKZLZCMZBMZGABDNABDOZAABCJZGZVFLZCDPZBDPZGVBBCVBCQRABDSVJVCVOVI
-      ABDTVOVAVNLZBMVIVNBDUAVHVPBVACEZDFZVMLZLZCMVAVSCMZLVHVPVAVSCUBVGVTCVGVAVR
-      GZVLGZVFLWBVMLVTVEWCVFVEVBVRVKGZGWCVDWDVBVBWDBCVRVKBVRBQABCUCUDVFVAVRAVKU
-      TVQDUEABCUFUGUHUIVAAVRVKUJUKULWBVLVFUMVAVRVMUMUNUOVNWAVAVMCDUAUPUQUOURUSU
-      Q $.
+      df-rex df-ral 19.21v hbs1 hban eleq1 sbequ12 bi2and ddel4 bilan an4 bitr
+      birim impexp 3bitr bial bilim 3bitr4 bitr4 bi2an ) BEZDFZAGZBHVBBIZVBVBBC
+      JZGZBCKZLZCMZBMZGABDNABDOZAABCJZGZVFLZCDPZBDPZGVBBCVBCQRABDSVJVCVOVIABDTV
+      OVAVNLZBMVIVNBDUAVHVPBVACEZDFZVMLZLZCMVAVSCMZLVHVPVAVSCUBVGVTCVGVAVRGZVLG
+      ZVFLWBVMLVTVEWCVFVEVBVRVKGZGWCVDWDVBVBWDBCVRVKBVRBQABCUCUDVFVAVRAVKUTVQDU
+      EABCUFUGUHUIVAAVRVKUJUKULWBVLVFUMVAVRVMUMUNUOVNWAVAVMCDUAUPUQUOURUSUQ $.
       $([22-Nov-94]$)
   $}
 
@@ -767,23 +924,42 @@ $)
   $}
 
   ${
-    rbiabi.1 $e |- ( x e. A -> ( ps <-> ch ) ) $.
+    birabi.1 $e |- ( x e. A -> ( ps <-> ch ) ) $.
     $( Equivalent wff's yield equal restricted abstraction classes (inference
        rule). $)
-    rbiabi $p |- { x e. A | ps } = { x e. A | ch } $=
-      ( cv wcel wa cab crab pm5.32i biab df-rab 3eqtr4 ) CFDGZAHZCIOBHZCIACDJBC
-      DJPQCOABEKLACDMBCDMN $.
+    birabi $p |- { x e. A | ps } = { x e. A | ch } $=
+      ( cv wcel wa cab crab pm5.32i biabi df-rab 3eqtr4 ) CFDGZAHZCIOBHZCIACDJB
+      CDJPQCOABEKLACDMBCDMN $.
       $([22-May-99]$)
   $}
 
   ${
     $d x ph $.
-    rbiabdv.1 $e |- ( ph -> ( ps <-> ch ) ) $.
+    birabdv.1 $e |- ( ph -> ( x e. A -> ( ps <-> ch ) ) ) $.
     $( Equivalent wff's yield equal restricted abstraction classes (deduction
        rule). $)
-    rbiabdv   $p |- ( ph -> { x e. A | ps } = { x e. A | ch } ) $=
-      ( cv wcel wa cab crab biland biabdv df-rab 3eqtr4g ) ADGEHZBIZDJPCIZDJBDE
-      KCDEKAQRDABCPFLMBDENCDENO $.
+    birabdv   $p |- ( ph -> { x e. A | ps } = { x e. A | ch } ) $=
+      ( cv wcel wa cab crab pm5.32d biabdv df-rab 3eqtr4g ) ADGEHZBIZDJPCIZDJBD
+      EKCDEKAQRDAPBCFLMBDENCDENO $.
+      $([30-Nov-03]$)
+  $}
+
+  ${
+    $d x ph $.
+    birabsdv.1 $e |- ( ph -> ( ps <-> ch ) ) $.
+    $( Equivalent wff's yield equal restricted abstraction classes (deduction
+       rule). $)
+    birabsdv   $p |- ( ph -> { x e. A | ps } = { x e. A | ch } ) $=
+      ( wb cv wcel a1d birabdv ) ABCDEABCGDHEIFJK $.
       $([10-Feb-95]$)
+  $}
+
+  ${
+    $d x A $.  $d x B $.
+    $( Equality theorem for restricted abstraction classes. $)
+    rabeq $p |- ( A = B -> { x e. A | ph } = { x e. B | ph } ) $=
+      ( wceq cv wcel wa cab crab eleq2 birand biabdv df-rab 3eqtr4g ) CDEZBFZCG
+      ZAHZBIQDGZAHZBIABCJABDJPSUABPRTACDQKLMABCNABDNO $.
+      $([16-Oct-03]$)
   $}
 
