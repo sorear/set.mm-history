@@ -41,8 +41,8 @@ $)
      '` R ` orders ` A `.' $)
   wor $a wff R Or A $.
 
-  $( Extend class notation to include supremum of class ` A ` .  Here ` R `
-     is ordinarily a relation that strictly orders class ` B ` .  For example,
+  $( Extend class notation to include supremum of class ` A `.  Here ` R `
+     is ordinarily a relation that strictly orders class ` B `.  For example,
      ` R ` could be "less than" and ` B ` could be the set of real numbers. $)
   csup $a class sup ( A , B , R ) $.
 
@@ -57,7 +57,7 @@ $)
   $( Define a notation for a general binary relation.  Definition 6.18, p. 29,
       of Takeuti and Zaring, generalized to arbitrary classes.  This definition
       is well-defined, although not very meaningful, when classes ` A ` and/or
-      ` B ` are proper. $)
+      ` B ` are proper classes (i.e. are not sets). $)
   df-br $a |- ( A R B <-> <. A , B >. e. R ) $.
 
   $( Equality theorem for a binary relation. $)
@@ -106,19 +106,19 @@ $)
 
   ${
     breq1d.1 $e |- ( ph -> A = B ) $.
-    $( Equality inference for binary relation. $)
+    $( Equality deduction for binary relation. $)
     breq1d   $p |- ( ph -> ( A R C <-> B R C ) ) $=
       ( wceq wbr wb breq1 syl ) ABCGBDEHCDEHIFBCDEJK $.
       $([8-Feb-96]$)
 
-    $( Equality inference for binary relation. $)
+    $( Equality deduction for binary relation. $)
     breq2d   $p |- ( ph -> ( C R A <-> C R B ) ) $=
       ( wceq wbr wb breq2 syl ) ABCGDBEHDCEHIFBCDEJK $.
       $([8-Feb-96]$)
 
     ${
       breq12d.2 $e |- ( ph -> C = D ) $.
-      $( Equality inference for binary relation. $)
+      $( Equality deduction for binary relation. $)
       breq12d   $p |- ( ph -> ( A R C <-> B R D ) ) $=
         ( wbr breq1d breq2d bitrd ) ABDFICDFICEFIABCDFGJADECFHKL $.
         $([8-Feb-96]$)
@@ -126,12 +126,12 @@ $)
 
     ${
       breqan12i.2 $e |- ( ps -> C = D ) $.
-      $( Equality inference for binary relation. $)
+      $( Equality deduction for binary relation. $)
       breqan12d   $p |- ( ( ph /\ ps ) -> ( A R C <-> B R D ) ) $=
         ( wceq wbr wb breq12 syl2an ) CDJEFJCEGKDFGKLABCDEFGMHIN $.
         $([8-Feb-96]$)
 
-      $( Equality inference for binary relation. $)
+      $( Equality deduction for binary relation. $)
       breqan12rd   $p |- ( ( ps /\ ph ) -> ( A R C <-> B R D ) ) $=
         ( wbr wb breqan12d ancoms ) ABCEGJDFGJKABCDEFGHILM $.
         $([8-Feb-96]$)
@@ -143,8 +143,17 @@ $)
     eqbrtr.2 $e |- B R C $.
     $( Substitution of equal classes into binary relation. $)
     eqbrtr   $p |- A R C $=
-      ( wbr breq1i mpbir ) ACDGBCDGABCDEHFI $.
+      ( wbr breq1i mpbir ) ACDGBCDGFABCDEHI $.
       $([5-Aug-93]$)
+  $}
+
+  ${
+    eqbrtrd.1 $e |- ( ph -> A = B ) $.
+    eqbrtrd.2 $e |- ( ph -> B R C ) $.
+    $( Substitution of equal classes into binary relation. $)
+    eqbrtrd   $p |- ( ph -> A R C ) $=
+      ( wbr breq1d mpbird ) ABDEHCDEHGABCDEFIJ $.
+      $([8-Oct-99]$)
   $}
 
   ${
@@ -157,12 +166,30 @@ $)
   $}
 
   ${
+    eqbrtrrd.1 $e |- ( ph -> A = B ) $.
+    eqbrtrrd.2 $e |- ( ph -> A R C ) $.
+    $( Substitution of equal classes into binary relation. $)
+    eqbrtrrd   $p |- ( ph -> B R C ) $=
+      ( cleqcomd eqbrtrd ) ACBDEABCFHGI $.
+      $([24-Oct-99]$)
+  $}
+
+  ${
     breqtr.1 $e |- A R B $.
     breqtr.2 $e |- B = C $.
     $( Substitution of equal classes into binary relation. $)
     breqtr   $p |- A R C $=
-      ( wbr breq2i mpbi ) ABDGACDGBCADFHEI $.
+      ( wbr breq2i mpbi ) ABDGACDGEBCADFHI $.
       $([5-Aug-93]$)
+  $}
+
+  ${
+    breqtrd.1 $e |- ( ph -> A R B ) $.
+    breqtrd.2 $e |- ( ph -> B = C ) $.
+    $( Substitution of equal classes into binary relation. $)
+    breqtrd   $p |- ( ph -> A R C ) $=
+      ( wbr breq2d mpbid ) ABCEHBDEHFACDBEGIJ $.
+      $([24-Oct-99]$)
   $}
 
   ${
@@ -172,6 +199,15 @@ $)
     breqtrr   $p |- A R C $=
       ( cleqcomi breqtr ) ABCDECBFGH $.
       $([5-Aug-93]$)
+  $}
+
+  ${
+    breqtrrd.1 $e |- ( ph -> A R B ) $.
+    breqtrrd.2 $e |- ( ph -> C = B ) $.
+    $( Substitution of equal classes into binary relation. $)
+    breqtrrd   $p |- ( ph -> A R C ) $=
+      ( cleqcomd breqtrd ) ABCDEFADCGHI $.
+      $([24-Oct-99]$)
   $}
 
   ${
@@ -195,12 +231,22 @@ $)
   $}
 
   ${
+    3brtr3d.1 $e |- ( ph -> A R B ) $.
+    3brtr3d.2 $e |- ( ph -> A = C ) $.
+    3brtr3d.3 $e |- ( ph -> B = D ) $.
+    $( Substitution of equality into both sides of a binary relation. $)
+    3brtr3d   $p |- ( ph -> C R D ) $=
+      ( wbr breq1d breq2d bitrd mpbid ) ABCFJZDEFJZGAODCFJPABDCFHKACEDFILMN $.
+      $([18-Oct-99]$)
+  $}
+
+  ${
     3brtr3g.1 $e |- ( ph -> A R B ) $.
     3brtr3g.2 $e |- A = C $.
     3brtr3g.3 $e |- B = D $.
     $( Substitution of equality into both sides of a binary relation. $)
     3brtr3g   $p |- ( ph -> C R D ) $=
-      ( wbr breq1i breq2i bitr sylib ) ABCFJZDEFJZGODCFJPBDCFHKCEDFILMN $.
+      ( wbr breq12i sylib ) ABCFJDEFJGBDCEFHIKL $.
       $([16-Jan-97]$)
   $}
 
@@ -210,8 +256,56 @@ $)
     3brtr4g.3 $e |- D = B $.
     $( Substitution of equality into both sides of a binary relation. $)
     3brtr4g   $p |- ( ph -> C R D ) $=
-      ( wbr breq1i breq2i bitr sylibr ) ABCFJZDEFJZGPBEFJODBEFHKECBFILMN $.
+      ( wbr breq12i sylibr ) ABCFJDEFJGDBECFHIKL $.
       $([16-Jan-97]$)
+  $}
+
+  ${
+    syl5eqbr.1 $e |- ( ph -> A R B ) $.
+    syl5eqbr.2 $e |- C = A $.
+    $( A chained equality inference for a binary relation. $)
+    syl5eqbr   $p |- ( ph -> C R B ) $=
+      ( cleqid 3brtr4g ) ABCDCEFGCHI $.
+      $([11-Oct-99]$)
+  $}
+
+  ${
+    syl5breq.1 $e |- ( ph -> A = B ) $.
+    syl5breq.2 $e |- C R A $.
+    $( A chained equality inference for a binary relation. $)
+    syl5breq   $p |- ( ph -> C R B ) $=
+      ( wbr breq2d mpbii ) ADBEHDCEHGABCDEFIJ $.
+      $([11-Oct-99]$)
+  $}
+
+  ${
+    syl6eqbr.1 $e |- ( ph -> A = B ) $.
+    syl6eqbr.2 $e |- B R C $.
+    $( A chained equality inference for a binary relation. $)
+    syl6eqbr   $p |- ( ph -> A R C ) $=
+      ( wbr breq1d mpbiri ) ABDEHCDEHGABCDEFIJ $.
+      $([12-Oct-99]$)
+  $}
+
+  ${
+    syl6breq.1 $e |- ( ph -> A R B ) $.
+    syl6breq.2 $e |- B = C $.
+    $( A chained equality inference for a binary relation. $)
+    syl6breq   $p |- ( ph -> A R C ) $=
+      ( cleqid 3brtr3g ) ABCBDEFBHGI $.
+      $([11-Oct-99]$)
+  $}
+
+  ${
+    $d y A $.  $d y B $.  $d y R $.  $d x y $.
+    hbbr.1 $e |- ( y e. A -> A. x y e. A ) $.
+    hbbr.2 $e |- ( y e. R -> A. x y e. R ) $.
+    hbbr.3 $e |- ( y e. B -> A. x y e. B ) $.
+    $( Bound variable hypothesis builder for binary relation. $)
+    hbbr   $p |- ( A R B -> A. x A R B ) $=
+      ( cop wcel wal wbr hbop hbel df-br bial 3imtr4 ) CDIZEJZSAKCDELZTAKABBREA
+      BCDFHMGNCDEOZTSAUAPQ $.
+      $([1-Sep-99]$)
   $}
 
   ${
@@ -257,30 +351,6 @@ $)
   $}
 
   ${
-    $d x y w $.  $d x z $.  $d w ph $.  $( ` w ` is dummy. $)
-    $( The abstraction variables in an abstraction class of pairs are not
-       free. $)
-    hbopab1 $p |- ( z e. { <. x , y >. | ph } ->
-                 A. x z e. { <. x , y >. | ph } ) $=
-      ( vw cv cop wceq wa wex cab wcel wal copab hbe1 hbab df-opab eleq2i bial
-      3imtr4 ) DFZEFBFCFGHAICJZBJZEKZLZUEBMUAABCNZLZUGBMUCBEDUBBOPUFUDUAABCEQRZ
-      UGUEBUHST $.
-      $([16-May-95]$)
-  $}
-
-  ${
-    $d x y w $.  $d y z $.  $d w ph $.  $( ` w ` is dummy. $)
-    $( The abstraction variables in an abstraction class of pairs are not
-       free. $)
-    hbopab2 $p |- ( z e. { <. x , y >. | ph } ->
-                 A. y z e. { <. x , y >. | ph } ) $=
-      ( vw cv cop wceq wa wex cab wcel wal copab hbe1 hbex hbab df-opab eleq2i
-      bial 3imtr4 ) DFZEFBFCFGHAIZCJZBJZEKZLZUGCMUBABCNZLZUICMUECEDUDCBUCCOPQUH
-      UFUBABCERSZUIUGCUJTUA $.
-      $([16-May-95]$)
-  $}
-
-  ${
     $d x y z R $.  $( ` z ` is dummy. $)
     $( The collection of ordered pairs in a class is a subclass of it. $)
     opabss $p |- { <. x , y >. | x R y } (_ R $=
@@ -295,11 +365,21 @@ $)
     cbvopabv.1 $e |- ( ( x = z /\ y = w ) -> ( ph <-> ps ) ) $.
     $( Rule used to change bound variables with implicit substitution. $)
     cbvopabv   $p |- { <. x , y >. | ph } = { <. z , w >. | ps } $=
-      ( vv cv cop wceq wa wex cab copab weq visset opth biimpr cleq2d bi2and
-      cbvex2v biab df-opab 3eqtr4 ) HIZCIZDIZJZKZALZDMCMZHNUFEIZFIZJZKZBLZFMEMZ
-      HNACDOBEFOULURHUKUQCDEFCEPDFPLZUJUPABUSUIUOUFUIUOKUSUGUHUMUNCQDQFQRSTGUAU
-      BUCACDHUDBEFHUDUE $.
+      ( vv cv cop wceq wa wex cab copab weq opeq12 cleq2d bi2and cbvex2v biab
+      df-opab 3eqtr4 ) HIZCIZDIZJZKZALZDMCMZHNUDEIZFIZJZKZBLZFMEMZHNACDOBEFOUJU
+      PHUIUOCDEFCEPDFPLZUHUNABUQUGUMUDUEUFUKULQRGSTUAACDHUBBEFHUBUC $.
       $([15-Oct-96]$)
+  $}
+
+  ${
+    $d x y z w $.  $d z w ph $.  $d y w ps $.  $( ` w ` is dummy. $)
+    cbvopab2v.1 $e |- ( y = z -> ( ph <-> ps ) ) $.
+    $( Rule used to change 2nd bound variable with implicit substitution. $)
+    cbvopab2v   $p |- { <. x , y >. | ph } = { <. x , z >. | ps } $=
+      ( vw cv cop wceq wa wex cab copab weq opeq2 cleq2d bi2and cbvexv biex
+      biab df-opab 3eqtr4 ) GHZCHZDHZIZJZAKZDLZCLZGMUDUEEHZIZJZBKZELZCLZGMACDNB
+      CENUKUQGUJUPCUIUODEDEOZUHUNABURUGUMUDUFULUEPQFRSTUAACDGUBBCEGUBUC $.
+      $([2-Sep-99]$)
   $}
 
   ${
@@ -328,12 +408,47 @@ $)
     $( Membership in abstraction class of pairs. $)
     elopab $p |- ( A e. { <. x , y >. | ph } <->
                  E. x E. y ( A = <. x , y >. /\ ph ) ) $=
-      ( vz copab wcel cvv cv cop wceq wa wex elisset eleq1 opex mpbiri adantr
-      19.23aivv cleq1 birand bi2exdv cab df-opab eleq2i abid bitr4 vtoclgb
-      pm5.21nii ) DABCFZGZDHGZDBIZCIZJZKZALZCMBMZDUJNUQULBCUPULAUPULUOHGDUOHOUM
-      UNPQRSEIZUJGZUSUOKZALZCMBMZUKUREDHUSDUJOUSDKZVBUQBCVDVAUPAUSDUOTUAUBUTUSV
-      CEUCZGVCUJVEUSABCEUDUEVCEUFUGUHUI $.
+      ( vz copab wcel cvv cv cop wceq wa wex elisset opex eleq1 mpbiri adantr
+      19.23aivv cleq1 birand bi2exdv df-opab cleqabi vtoclgb pm5.21nii ) DABCFZ
+      GZDHGZDBIZCIZJZKZALZCMBMZDUGNUNUIBCUMUIAUMUIULHGUJUKODULHPQRSEIZUGGUPULKZ
+      ALZCMBMZUHUOEDHUPDUGPUPDKZURUNBCUTUQUMAUPDULTUAUBUSEUGABCEUCUDUEUF $.
       $([24-Mar-98]$)
+  $}
+
+  ${
+    $d x y z w $.
+    hbopab.1 $e |- ( ph -> A. z ph ) $.
+    $( Bound variable hypothesis builder for abstraction class. $)
+    hbopab $p |- ( w e. { <. x , y >. | ph } ->
+                 A. z w e. { <. x , y >. | ph } ) $=
+      ( cv cop wceq wa wex wal copab wcel ax-17 hban hbex elopab bial 3imtr4 )
+      EGZBGCGHIZAJZCKZBKZUEDLUAABCMNZUFDLUDDBUCDCUBADUBDOFPQQABCUARZUFUEDUGST
+      $.
+      $([1-Sep-99]$)
+  $}
+
+  ${
+    $d x y w $.  $d x z $.  $d w ph $.  $( ` w ` is dummy. $)
+    $( The abstraction variables in an abstraction class of pairs are not
+       free. $)
+    hbopab1 $p |- ( z e. { <. x , y >. | ph } ->
+                 A. x z e. { <. x , y >. | ph } ) $=
+      ( vw cv cop wceq wa wex cab wcel wal copab hbe1 hbab df-opab eleq2i bial
+      3imtr4 ) DFZEFBFCFGHAICJZBJZEKZLZUEBMUAABCNZLZUGBMUCBEDUBBOPUFUDUAABCEQRZ
+      UGUEBUHST $.
+      $([16-May-95]$)
+  $}
+
+  ${
+    $d x y w $.  $d y z $.  $d w ph $.  $( ` w ` is dummy. $)
+    $( The abstraction variables in an abstraction class of pairs are not
+       free. $)
+    hbopab2 $p |- ( z e. { <. x , y >. | ph } ->
+                 A. y z e. { <. x , y >. | ph } ) $=
+      ( vw cv cop wceq wa wex cab wcel wal copab hbe1 hbex hbab df-opab eleq2i
+      bial 3imtr4 ) DFZEFBFCFGHAIZCJZBJZEKZLZUGCMUBABCNZLZUICMUECEDUDCBUCCOPQUH
+      UFUBABCERSZUIUGCUJTUA $.
+      $([16-May-95]$)
   $}
 
   ${
@@ -370,7 +485,7 @@ $)
     opelopab.4 $e |- ( y = B -> ( ps <-> ch ) ) $.
     $( The law of concretion.  Theorem 9.5 of Quine, p. 61. $)
     opelopab   $p |- ( <. A , B >. e. { <. x , y >. | ph } <-> ch ) $=
-      ( cvv wcel cop copab wb opelopabg mp2an ) FLMGLMFGNADEOMCPABCDEFGLLJKQHIR
+      ( cvv wcel cop copab wb opelopabg mp2an ) FLMGLMFGNADEOMCPHIABCDEFGLLJKQR
       $.
       $([16-May-95]$)
 
@@ -378,7 +493,7 @@ $)
       brab.5 $e |- R = { <. x , y >. | ph } $.
       $( The law of concretion for a binary relation. $)
       brab $p |- ( A R B <-> ch ) $=
-        ( cvv wcel wbr wb brabg mp2an ) FNOGNOFGHPCQABCDEFGNNHKLMRIJS $.
+        ( cvv wcel wbr wb brabg mp2an ) FNOGNOFGHPCQIJABCDEFGNNHKLMRS $.
         $([16-Aug-99]$)
     $}
   $}
@@ -390,12 +505,12 @@ $)
                A. x A. y ( ph -> ps ) ) $=
       ( vz copab wss wi wal hbopab1 hbss hbopab2 cv cop wceq wex opex isseti
       wa cab copsexg bi2imd ssab2 ax-4 sylbi syl5bir df-opab sseq12i syl5ib
-      19.23aiv ax-mp 19.21ai hba1 imland 19.22d a4s 19.21aiv sylibr impbi ) ACD
-      FZBCDFZGZABHZDIZCIZVBVDCCEUTVAACDEJBCDEJKVBVCDDEUTVAACDELBCDELKEMZCMZDMZN
-      ZOZEPVBVCHZEVIVGVHQRVJVKEVJVJASZDPZCPZETZVJBSZDPZCPZETZGZVCVBVJVCVNVRHZVT
-      VJAVNBVRACDVFUABCDVFUAUBVTWAEIZWAVNVREUCZWAEUDUEUFUTVOVAVSACDEUGBCDEUGUHZ
-      UIUJUKULULVEVTVBVEWBVTVEWAEVEVMVQCVDCUMVDVMVQHCVDVLVPDVCDUMVDABVJVCDUDUNU
-      OUPUOUQWCURWDURUS $.
+      19.23aiv ax-mp 19.21ai hba1 imland 19.22d a4s 19.21aiv sylibr 3sstr4g
+      impbi ) ACDFZBCDFZGZABHZDIZCIZVCVECCEVAVBACDEJBCDEJKVCVDDDEVAVBACDELBCDEL
+      KEMZCMZDMZNZOZEPVCVDHZEVJVHVIQRVKVLEVKVKASZDPZCPZETZVKBSZDPZCPZETZGZVDVCV
+      KVDVOVSHZWAVKAVOBVSACDVGUABCDVGUAUBWAWBEIZWBVOVSEUCZWBEUDUEUFVAVPVBVTACDE
+      UGZBCDEUGZUHUIUJUKULULVFVPVTVAVBVFWCWAVFWBEVFVNVRCVECUMVEVNVRHCVEVMVQDVDD
+      UMVEABVKVDDUDUNUOUPUOUQWDURWEWFUSUT $.
       $([27-Dec-96]$)
   $}
 
@@ -510,9 +625,9 @@ $)
 
   $( A partial order relation is irreflexive. $)
   poirr $p |- ( ( R Po A /\ B e. A ) -> -. B R B ) $=
-    ( wpo wcel w3a wbr wn wa wi pocl imp pm3.26d anabs biran df-3an 3bitr4
-    sylan5b ) ACDZBAEZTTFZBBCGZHZTSUAIUCUBUBIUBJZSUAUCUDIABBBCKLMTTIZUETITUATUE
-    TTNZOUFTTTPQR $.
+    ( wpo wcel w3a wbr wn wa wi pocl imp pm3.26d anabs1 anabs df-3an 3bitr4
+    sylan5b ) ACDZBAEZTTFZBBCGZHZTSUAIUCUBUBIUBJZSUAUCUDIABBBCKLMTTIZUETITUATTN
+    TOTTTPQR $.
     $([27-Mar-97]$)
 
   $( A partial order relation is a transitive relation. $)
@@ -525,25 +640,26 @@ $)
   $( A partial order relation has no 2-cycle loops. $)
   po2nr $p |- ( ( R Po A /\ ( B e. A /\ C e. A ) ) ->
               -. ( B R C /\ C R B ) ) $=
-    ( wpo wcel wa wbr wi w3a potr df-3an sylan5br exp44 com34 pm2.43d imp32 wn
-    poirr adantarr mtod ) ADEZBAFZCAFZGZGBCDHCBDHGZBBDHZUBUCUDUFUGIZUBUCUDUHIUB
-    UCUDUCUHUBUCUDUCUHUBUCUDUCJUHUEUCGABCBDKUCUDUCLMNOPQUBUCUGRUDABDSTUA $.
+    ( wpo wcel wa wbr wn poirr adantarr wi w3a potr df-3an sylan5br exp44
+    com34 pm2.43d imp32 mtod ) ADEZBAFZCAFZGZGBCDHCBDHGZBBDHZUBUCUGIUDABDJKUBUC
+    UDUFUGLZUBUCUDUHLUBUCUDUCUHUBUCUDUCUHUBUCUDUCMUHUEUCGABCBDNUCUDUCOPQRSTUA
+    $.
     $([27-Mar-97]$)
 
   $( A partial order relation has no 3-cycle loops. $)
   po3nr $p |- ( ( R Po A /\ ( B e. A /\ C e. A /\ D e. A ) ) ->
              -. ( B R C /\ C R D /\ D R B ) ) $=
-    ( wpo wcel w3a wa wbr potr imrand df-3an syl5ib wn po2nr 3simpb sylan5
-    mtod ) AEFZBAGZCAGZDAGZHZIZBCEJZCDEJZDBEJZHZBDEJZUHIZUEUFUGIZUHIUKUIUEULUJU
-    HABCDEKLUFUGUHMNTUAUCIUKOUDABDEPUAUBUCQRS $.
+    ( wpo wcel w3a wa wbr wn po2nr 3simpb sylan5 potr imrand df-3an syl5ib
+    mtod ) AEFZBAGZCAGZDAGZHZIZBCEJZCDEJZDBEJZHZBDEJZUHIZTUAUCIUKKUDABDELUAUBUC
+    MNUEUFUGIZUHIUKUIUEULUJUHABCDEOPUFUGUHQRS $.
     $([27-Mar-97]$)
 
   ${
     $d x y z R $. $( ` x y z ` are dummy. $)
     $( Any relation is a partial ordering of the empty set. $)
     po0 $p |- R Po (/) $=
-      ( vx vy vz c0 wpo cv wbr wn wa wi wral df-po wcel noel pm2.21i rgen
-      mpbir ) EAFBGZSAHISCGZAHTDGZAHJSUAAHKJDELCELZBELBCDEAMUBBESENUBSOPQR $.
+      ( vx vy vz c0 wpo cv wbr wn wa wi wral wcel noel pm2.21i rgen df-po
+      mpbir ) EAFBGZSAHISCGZAHTDGZAHJSUAAHKJDELCELZBELUBBESEMUBSNOPBCDEAQR $.
       $([28-Mar-97]$)
   $}
 
@@ -611,11 +727,11 @@ $)
     solin $p |- ( ( R Or A /\ ( B e. A /\ C e. A ) ) ->
               ( B R C \/ B = C \/ C R B ) ) $=
       ( vx vy wor wcel wa wbr wceq w3o cv weq wi breq1 cleq1 breq2 bi3ord
-      bilimd cleq2 wpo wral df-so pm3.27 ra42 syl sylbi comm vtocl2ga imp ) ADG
-      ZBAHCAHIZBCDJZBCKZCBDJZLZUMULUQULEMZFMZDJZEFNZUSURDJZLZOULBUSDJZBUSKZUSBD
-      JZLZOULUQOEFBCAAURBKZVCVGULVHUTVDVAVEVBVFURBUSDPURBUSQURBUSDRSTUSCKZVGUQU
-      LVIVDUNVEUOVFUPUSCBDRUSCBUAUSCBDPSTULURAHUSAHIZVCULADUBZVCFAUCEAUCZIZVJVC
-      OZEFADUDVMVLVNVKVLUEVCEFAAUFUGUHUIUJUIUK $.
+      bilimd cleq2 wpo wral df-so ra42 adantl sylbi comm vtocl2ga imp ) ADGZBAH
+      CAHIZBCDJZBCKZCBDJZLZULUKUPUKEMZFMZDJZEFNZURUQDJZLZOUKBURDJZBURKZURBDJZLZ
+      OUKUPOEFBCAAUQBKZVBVFUKVGUSVCUTVDVAVEUQBURDPUQBURQUQBURDRSTURCKZVFUPUKVHV
+      CUMVDUNVEUOURCBDRURCBUAURCBDPSTUKUQAHURAHIZVBUKADUBZVBFAUCEAUCZIVIVBOZEFA
+      DUDVKVLVJVBEFAAUEUFUGUHUIUHUJ $.
       $([21-Jan-96]$)
   $}
 
@@ -657,8 +773,8 @@ $)
   $( Trichotomy law for strict order relation. $)
   sotrieq2 $p |- ( ( R Or A /\ ( B e. A /\ C e. A ) ) ->
               ( B = C <-> ( -. B R C /\ -. C R B ) ) ) $=
-    ( wor wcel wa wceq wbr wo wn wb sotrieq ioran bilbi sylib ) ADEBAFCAFGGBCHZ
-    BCDIZCBDIZJKZLQRKSKGZLABCDMTUAQRSNOP $.
+    ( wor wcel wa wceq wbr wo wn sotrieq ioran syl6bb ) ADEBAFCAFGGBCHBCDIZCBDI
+    ZJKOKPKGABCDLOPMN $.
     $([5-May-99]$)
 
   ${
@@ -669,10 +785,10 @@ $)
     itlso.3 $e |- ( ( x e. A /\ y e. A ) -> ( x R y \/ x = y \/ y R x ) ) $.
     $( A irreflexive, transitive, linear relation is a strict ordering. $)
     itlso   $p |- R Or A $=
-      ( wor wpo cv wbr weq w3o wral wa df-so wn wi df-po wcel w3a adantr
-      3adant3 jca rgen3 mpbir rgen2 pm3.2i ) DEIDEJZAKZBKZELZABMULUKELNZBDOADOZ
-      PABDEQUJUOUJUKUKELRZUMULCKZELPUKUQELSZPZCDOBDOADOABCDETUSABCDUKDUAZULDUAZ
-      UQDUAZUBUPURUTVAUPVBUTUPVAFUCUDGUEUFUGUNABDHUHUIUG $.
+      ( wor wpo cv wbr weq w3o wral wa wn wi wcel w3a adantr 3adant3 jca rgen3
+      df-po mpbir rgen2 pm3.2i df-so ) DEIDEJZAKZBKZELZABMULUKELNZBDOADOZPUJUOU
+      JUKUKELQZUMULCKZELPUKUQELRZPZCDOBDOADOUSABCDUKDSZULDSZUQDSZTUPURUTVAUPVBU
+      TUPVAFUAUBGUCUDABCDEUEUFUNABDHUGUHABDEUIUF $.
       $([21-Jan-96]$)
   $}
 
@@ -683,16 +799,16 @@ $)
                  ( ( x R y /\ y R z ) -> x R z ) ) ) $.
     $( Deduce strict ordering from its properties. $)
     so   $p |- R Or A $=
-      ( cv wcel wbr wn wa weq wo wb wi eleq1 biland cleq2 breq1 bi2ord breq2
-      binegd bi2bid bi2imd w3a anabs bilan 3anass bitr4 pm4.2i bi3and birimd
-      pm3.26d chv sylbi bicon2d eqid orc ax-mp mpbii anabss pm3.27d w3o
-      biimprd 3orass df-or bitr sylibr itlso ) ABCDEAGZDHZVJVJEIZJZVKVKKZAALZVL
-      MZVMVKBGZDHZKZABLZVQVJEIZMZVJVQEIZJZNZOVNVPVMNZOBABALZVSVNWEWFWGVRVKVKVQV
-      JDPQWGWBVPWDVMWGVTVOWAVLVQVJVJRVQVJVJESTWGWCVLVQVJVJEUAUBUCUDVSWCWBVSVKVR
-      VRUEZWCWBJNZVSVKVRVRKZKWHVRWJVKVRUFUGVKVRVRUHUIVKVRCGZDHZUEZWIOWHWIOCBCBL
-      ZWMWHWIWNVKVKVRVRWLVRWNVKUJWNVRUJWKVQDPUKULWMWIWCVQWKEIKVJWKEIOZFUMUNUOUP
-      ZUNVOVPAUQVOVLURUSUTVAWMWIWOFVBVSWDWBOZWCVTWAVCZVSWBWDWPVDWRWCWBMWQWCVTWA
-      VEWCWBVFVGVHVI $.
+      ( cv wcel wbr wn wa weq wo eqid orc ax-mp wb wi eleq1 biland eqt2b breq1
+      bi2ord breq2 binegd bi2bid bi2imd w3a anabs bilan 3anass bitr4 pm4.2i
+      bi3and birimd pm3.26d chv sylbi bicon2d mpbii anabss pm3.27d w3o biimprd
+      3orass df-or bitr sylibr itlso ) ABCDEAGZDHZVJVJEIZJZVKVKKZAALZVLMZVMVOVP
+      ANVOVLOPVKBGZDHZKZABLZVQVJEIZMZVJVQEIZJZQZRVNVPVMQZRBABALZVSVNWEWFWGVRVKV
+      KVQVJDSTWGWBVPWDVMWGVTVOWAVLBAAUAVQVJVJEUBUCWGWCVLVQVJVJEUDUEUFUGVSWCWBVS
+      VKVRVRUHZWCWBJQZVSVKVRVRKZKWHVRWJVKVRUIUJVKVRVRUKULVKVRCGZDHZUHZWIRWHWIRC
+      BCBLZWMWHWIWNVKVKVRVRWLVRWNVKUMWNVRUMWKVQDSUNUOWMWIWCVQWKEIKVJWKEIRZFUPUQ
+      URUSZUQUTVAWMWIWOFVBVSWDWBRZWCVTWAVCZVSWBWDWPVDWRWCWBMWQWCVTWAVEWCWBVFVGV
+      HVI $.
       $([29-Jan-96]$)
   $}
 
@@ -700,15 +816,15 @@ $)
     $d x y R $. $( ` x y ` are dummy. $)
     $( Any relation is a strict ordering of the empty set. $)
     so0 $p |- R Or (/) $=
-      ( vx vy c0 wor cv wbr weq w3o wral wpo df-so po0 mpbiran wcel noel
-      pm2.21i rgen mpbir ) DAEZBFZCFZAGBCHUBUAAGICDJZBDJZTDAKUDBCDALAMNUCBDUADO
-      UCUAPQRS $.
+      ( vx vy c0 wor cv wbr weq w3o wral wcel noel pm2.21i rgen wpo df-so po0
+      mpbiran mpbir ) DAEZBFZCFZAGBCHUBUAAGICDJZBDJZUCBDUADKUCUALMNTDAOUDBCDAPA
+      QRS $.
       $([16-Mar-97]$)
   $}
 
   ${
     $d x y z R $.  $d x y z A $.  $d x y z B $.
-    $( Define the supremum of class ` B ` .  It is meaningful when ` R `
+    $( Define the supremum of class ` B `.  It is meaningful when ` R `
        is a relation that strictly orders ` A ` and when the supremum
        exists.  For example, ` R ` could be "less than" and ` A ` could be the
        set of real numbers. $)
@@ -737,33 +853,33 @@ $)
     supmo $p |- E* x ( x e. A /\ ( A. y e. B -. x R y /\
                   A. y e. A ( y R x -> E. z e. B y R z ) ) ) $=
       ( vw cv wcel wbr wn wral wrex wi wa wmo weq wal eleq1 breq1 binegd
-      biraldv breq2 birimd bi2and mo4 wb wor sotrieq2 mpan adantarr adantalr
-      birexdv bi2imd rcla4v imp rcbvalv ralnex bitr bicon2 syl6ib pm2.03d exp
-      a1i com4t imp42 adantarl com4l imp45 adantall jca mpbird ax-gen mpgbir )
-      AIZDJZVPBIZFKZLZBEMZVRVPFKZVRCIZFKZCENZOZBDMZPZPZAQWIHIZDJZWJVRFKZLZBEMZV
-      RWJFKZWEOZBDMZPZPZPZAHRZOZHSAWIWSAHXAVQWKWHWRVPWJDTXAWAWNWGWQXAVTWMBEXAVS
-      WLVPWJVRFUAUBUCXAWFWPBDXAWBWOWEVPWJVRFUDUEUCUFUFUGXBHWTXAVPWJFKZLZWJVPFKZ
-      LZPZVQWSXAXGUHZWHVQWKXHWRDFUIVQWKPXHDVPWJFUJGUKULUMWTXDXFWIWRXDWKWIWQXDWN
-      VQWAWGWQXDWGWQVQWAXDWQVQWAXDOZOOWGWQVQXIWQVQPZXCWAXJXCVPWCFKZCENZWALWQVQX
-      CXLOZWPXMBVPDBARZWOXCWEXLVRVPWJFUAXNWDXKCEVRVPWCFUAUNUOUPUQWAXLWAXKLZCEMX
-      LLVTXOBCEBCRZVSXKVRWCVPFUDUBURXKCEUSUTVAVBVCVDVEVFVGVHVHWHWSXFVQWGWSXFWAW
-      GWKWNWQXFWQWGWKWNXFWGWKWNXFOZOOWQWGWKXQWGWKPZXEWNXRXEWJWCFKZCENZWNLWGWKXE
-      XTOZWFYABWJDBHRZWBXEWEXTVRWJVPFUAYBWDXSCEVRWJWCFUAUNUOUPUQWNXTWNXSLZCEMXT
-      LWMYCBCEXPWLXSVRWCWJFUDUBURXSCEUSUTVAVBVCVDVEVIVJVKVKVLVMVNVO $.
+      biraldv breq2 birimd bi2and mo4 birexdv bi2imd rcla4v imp rcbvalv ralnex
+      bitr bicon2 syl6ib pm2.03d exp a1i com4t imp42 adantarl com4l imp45
+      adantall jca wb wor sotrieq2 mpan adantarr adantalr mpbird ax-gen mpgbir
+      ) AIZDJZVPBIZFKZLZBEMZVRVPFKZVRCIZFKZCENZOZBDMZPZPZAQWIHIZDJZWJVRFKZLZBEM
+      ZVRWJFKZWEOZBDMZPZPZPZAHRZOZHSAWIWSAHXAVQWKWHWRVPWJDTXAWAWNWGWQXAVTWMBEXA
+      VSWLVPWJVRFUAUBUCXAWFWPBDXAWBWOWEVPWJVRFUDUEUCUFUFUGXBHWTXAVPWJFKZLZWJVPF
+      KZLZPZWTXDXFWIWRXDWKWIWQXDWNVQWAWGWQXDWGWQVQWAXDWQVQWAXDOZOOWGWQVQXHWQVQP
+      ZXCWAXIXCVPWCFKZCENZWALWQVQXCXKOZWPXLBVPDBARZWOXCWEXKVRVPWJFUAXMWDXJCEVRV
+      PWCFUAUHUIUJUKWAXKWAXJLZCEMXKLVTXNBCEBCRZVSXJVRWCVPFUDUBULXJCEUMUNUOUPUQU
+      RUSUTVAVBVBWHWSXFVQWGWSXFWAWGWKWNWQXFWQWGWKWNXFWGWKWNXFOZOOWQWGWKXPWGWKPZ
+      XEWNXQXEWJWCFKZCENZWNLWGWKXEXSOZWFXTBWJDBHRZWBXEWEXSVRWJVPFUAYAWDXRCEVRWJ
+      WCFUAUHUIUJUKWNXSWNXRLZCEMXSLWMYBBCEXOWLXRVRWCWJFUDUBULXRCEUMUNUOUPUQURUS
+      VCVDVEVEVFVQWSXAXGVGZWHVQWKYCWRDFVHVQWKPYCGDVPWJFVIVJVKVLVMVNVO $.
       $([5-May-99]$)
 
 
     $( The supremum is a set. $)
     supex $p |- sup ( B , A , R ) e. V $=
-      ( vx vy vz csup cvv wcel cv wbr wn wral wrex wi wa cab cuni crab df-sup
-      df-rab unieqi eqtr eleq1i wmo supmo moabex ax-mp zfun2 mpbir ) BACHZIJEKZ
-      AJUMFKZCLMFBNUNUMCLUNGKCLGBOPFANQZQZERZSZIJULURIULUOEATZSUREFGABCUAUSUQUO
-      EAUBUCUDUEUQUPEUFUQIJEFGABCDUGUPEUHUIUJUK $.
+      ( vx vy vz csup cv wcel wbr wn wral wrex wi wa cab cuni cvv crab df-sup
+      df-rab unieqi eqtr wmo supmo moabex ax-mp zfun2 eqeltr ) BACHZEIZAJULFIZC
+      KLFBMUMULCKUMGICKGBNOFAMPZPZEQZRZSUKUNEATZRUQEFGABCUAURUPUNEAUBUCUDUPUOEU
+      EUPSJEFGABCDUFUOEUGUHUIUJ $.
       $([22-May-99]$)
   $}
 
   ${
-    $d x y z A $.  $d x y z R $.  $d x y z B $.  $d y z C $.
+    $d x y z w A $.  $d x y z w R $.  $d x y z w B $.  $d w C $.
     sup.1 $e |- R Or A $.
     sup.2 $e |- E. x e. A ( A. y e. B -. x R y /\
                   A. y e. A ( y R x -> E. z e. B y R z ) ) $.
@@ -771,8 +887,8 @@ $)
     $( The supremum is unique. $)
     supeu $p |- E! x e. A ( A. y e. B -. x R y /\
                   A. y e. A ( y R x -> E. z e. B y R z ) ) $=
-      ( cv wbr wn wral wrex wi wa wreu wcel wmo reu5 supmo pm3.2i mpbir ) AIZBI
-      ZFJKBELUDUCFJUDCIFJCEMNBDLOZADPUEADMZUCDQUEOARZOUEADSUFUGHABCDEFGTUAUB $.
+      ( cv wbr wn wral wrex wi wa wreu wcel wmo supmo pm3.2i reu5 mpbir ) AIZBI
+      ZFJKBELUDUCFJUDCIFJCEMNBDLOZADPUEADMZUCDQUEOARZOUFUGHABCDEFGSTUEADUAUB $.
       $([23-May-99]$)
 
     $( The supremum belongs to its class (closure law). $)
@@ -784,32 +900,37 @@ $)
 
     $( The supremum is an upper bound. $)
     supub $p |- ( C e. B -> -. sup ( B , A , R ) R C ) $=
-      ( csup cv wbr wn wral wcel wi wrex wa crab cuni wceq wreu wb breq1
-      binegd biraldv breq2 birimd bi2and reuunis supcl supeu mp2an df-sup
-      mpbir pm3.26i rcla4v ax-mp ) EDGJZBKZGLZMZBENZFEOUSFGLZMZPVCUTUSGLZUTCKGL
-      CEQZPZBDNZVCVIRZUSAKZUTGLZMZBENZUTVKGLZVGPZBDNZRZADSTUAZUSDOVRADUBVJVSUCV
-      RVJADUSVKUSUAZVNVCVQVIVTVMVBBEVTVLVAVKUSUTGUDUEUFVTVPVHBDVTVOVFVGVKUSUTGU
-      GUHUFUIUJABCDEGHIUKABCDEGHIULUMABCDEGUNUOUPVBVEBFEUTFUAVAVDUTFUSGUGUEUQUR
-      $.
+      ( vw csup cv wbr wn wceq breq2 binegd wral wcel wi wrex wa crab cuni
+      df-sup wreu wb supcl supeu breq1 biraldv birimd bi2and reuunis mp2an
+      mpbir pm3.26i weq rcla4v ax-mp vtoclga ) EDGKZJLZGMZNZVBFGMZNJFEVCFOVDVFV
+      CFVBGPQVBBLZGMZNZBERZVCESVETVJVGVBGMZVGCLGMCEUAZTZBDRZVJVNUBZVBALZVGGMZNZ
+      BERZVGVPGMZVLTZBDRZUBZADUCUDOZABCDEGUEVBDSWCADUFVOWDUGABCDEGHIUHABCDEGHIU
+      IWCVOADVBVPVBOZVSVJWBVNWEVRVIBEWEVQVHVPVBVGGUJQUKWEWAVMBDWEVTVKVLVPVBVGGP
+      ULUKUMUNUOUPUQVIVEBVCEBJURVHVDVGVCVBGPQUSUTVA $.
       $([23-May-99]$)
 
-    $( The supremum is the least upper bound. $)
-    suplub $p |- ( ( C e. A /\ C R sup ( B , A , R ) ) -> E. z e. B C R z ) $=
-      ( wcel csup wbr cv wrex wi wral wn wa crab cuni wceq wreu wb breq1
-      binegd biraldv breq2 birimd bi2and reuunis supcl supeu mp2an df-sup
-      mpbir pm3.27i birexdv bi2imd rcla4v ax-mp imp ) FDJZFEDGKZGLZFCMZGLZCENZB
-      MZVCGLZVHVEGLZCENZOZBDPZVBVDVGOZOVCVHGLZQZBEPZVMVQVMRZVCAMZVHGLZQZBEPZVHV
-      SGLZVKOZBDPZRZADSTUAZVCDJWFADUBVRWGUCWFVRADVCVSVCUAZWBVQWEVMWHWAVPBEWHVTV
-      OVSVCVHGUDUEUFWHWDVLBDWHWCVIVKVSVCVHGUGUHUFUIUJABCDEGHIUKABCDEGHIULUMABCD
-      EGUNUOUPVLVNBFDVHFUAZVIVDVKVGVHFVCGUDWIVJVFCEVHFVEGUDUQURUSUTVA $.
-      $([23-May-99]$)
+    ${
+      $d z C $.
+      $( The supremum is the least upper bound. $)
+      suplub $p |- ( ( C e. A /\ C R sup ( B , A , R ) ) -> E. z e. B C R z ) $=
+        ( vw wcel csup wbr cv wrex wi wceq breq1 birexdv bi2imd wral wn wa crab
+        cuni df-sup wreu wb supcl supeu binegd biraldv breq2 birimd bi2and
+        reuunis mp2an mpbir pm3.27i weq rcla4v ax-mp vtoclga imp ) FDKFEDGLZGMZFC
+        NZGMZCEOZJNZVEGMZVJVGGMZCEOZPZVFVIPJFDVJFQZVKVFVMVIVJFVEGRVOVLVHCEVJFVGGR
+        STBNZVEGMZVPVGGMZCEOZPZBDUAZVJDKVNPVEVPGMZUBZBEUAZWAWDWAUCZVEANZVPGMZUBZB
+        EUAZVPWFGMZVSPZBDUAZUCZADUDUEQZABCDEGUFVEDKWMADUGWEWNUHABCDEGHIUIABCDEGHI
+        UJWMWEADVEWFVEQZWIWDWLWAWOWHWCBEWOWGWBWFVEVPGRUKULWOWKVTBDWOWJVQVSWFVEVPG
+        UMUNULUOUPUQURUSVTVNBVJDBJUTZVQVKVSVMVPVJVEGRWPVRVLCEVPVJVGGRSTVAVBVCVD
+        $.
+        $([23-May-99]$)
 
-    $( An upper bound is not less than the supremum. $)
-    supnub $p |- ( ( C e. A /\ A. z e. B -. C R z ) ->
-                 -. C R sup ( B , A , R ) ) $=
-      ( wcel cv wbr wn wral csup wrex suplub exp dfrex2 syl6ib pm2.03d imp ) FD
-      JZFCKGLZMCENZFEDGOGLZMUCUFUEUCUFUDCEPZUEMUCUFUGABCDEFGHIQRUDCESTUAUB $.
-      $([23-May-99]$)
+      $( An upper bound is not less than the supremum. $)
+      supnub $p |- ( ( C e. A /\ A. z e. B -. C R z ) ->
+                   -. C R sup ( B , A , R ) ) $=
+        ( wcel cv wbr wn wral csup wrex suplub exp dfrex2 syl6ib pm2.03d imp ) FD
+        JZFCKGLZMCENZFEDGOGLZMUCUFUEUCUFUDCEPZUEMUCUFUGABCDEFGHIQRUDCESTUAUB $.
+        $([23-May-99]$)
+    $}
   $}
 
   ${
@@ -817,23 +938,22 @@ $)
     supsn.1 $e |- R Or A $.
     $( The supremum of a singleton. $)
     supsn $p |- ( B e. A -> sup ( { B } , A , R ) = B ) $=
-      ( vx vy vz wcel cv wbr wn csn wral wrex wi wa crab cuni csup wceq wreu
-      wb breq1 binegd biraldv breq2 birimd bi2and reuunis wmo rcla4ev elsni
-      wor sonr mpan syl5bir syl r19.21aiv elsncg cleqid mpbiri sylan exp a1i
-      jca mpian supmo jctir reu5 sylibr pm4.2 mpbid df-sup syl6reqr ) BAHZBEIZF
-      IZCJZKZFBLZMZVQVPCJZVQGIZCJZGVTNZOZFAMZPZEAQRZVTACSVOBVQCJZKZFVTMZVQBCJZW
-      EOZFAMZPZBWITZVOWHEAUAZWPWQUBWHWPEABVPBTZWAWLWGWOWSVSWKFVTWSVRWJVPBVQCUCU
-      DUEWSWFWNFAWSWBWMWEVPBVQCUFUGUEUHZUIVOWRWRVOWHEANZVPAHWHPEUJZPWRVOXAXBVOW
-      PXAWHWPEBAWTUKVOWLWOVOWKFVTVQVTHVQBTZVOWKOVQBULXCWKBBCJZKZVOXCWJXDVQBBCUF
-      UDACUMVOXEABCUNDUOUPUQURVOWNFAVOWNOVQAHVOWMWEBVTHZWMWEVOWDWMGBVTWCBVQCUFU
-      KVOXFBBTBBAUSBUTVAVBVCVDURVEZVFEFGAVTCDVGVHWHEAVIVJWRVKVJVFXGVLEFGAVTCVMV
-      N $.
+      ( vx vy vz wcel cv wbr wn csn wral wrex wi wa crab cuni csup wceq elsni
+      breq2 binegd wor sonr mpan syl5bir syl comm r19.21aiv rcla4ev cleqid
+      elsncg mpbiri sylan exp a1d jca wreu wb wmo breq1 biraldv birimd bi2and
+      mpian supmo jctir reu5 sylibr reuunis mpbid df-sup syl6reqr ) BAHZBEIZFIZ
+      CJZKZFBLZMZVQVPCJZVQGIZCJZGVTNZOZFAMZPZEAQRZVTACSVOBVQCJZKZFVTMZVQBCJZWEO
+      ZFAMZPZBWITZVOWLWOVOWKFVTVQVTHZVOWKWRVQBTZVOWKOVQBUAWSWKBBCJZKZVOWSWJWTVQ
+      BBCUBUCACUDVOXADABCUEUFUGUHUIUJVOWNFAVOWNVQAHVOWMWEBVTHZWMWEVOWDWMGBVTWCB
+      VQCUBUKVOXBBBTBULBBAUMUNUOUPUQUJURZVOWHEAUSZWPWQUTVOWHEANZVPAHWHPEVAZPXDV
+      OXEXFVOWPXEXCWHWPEBAVPBTZWAWLWGWOXGVSWKFVTXGVRWJVPBVQCVBUCVCXGWFWNFAXGWBW
+      MWEVPBVQCUBVDVCVEZUKVFEFGAVTCDVGVHWHEAVIVJWHWPEABXHVKVFVLEFGAVTCVMVN $.
       $([23-May-99]$)
   $}
 
   ${
     $d x y z R $.  $d x y z A $.
-    $( Define a founded relation. $)
+    $( Define a founded relation.  For an alternate definition, see ~ dffr2 . $)
     df-fr $a |- ( R Fr A <-> A. x ( ( x (_ A /\ -. x = (/) ) ->
                 E. y e. x A. z e. x -. z R y ) ) $.
   $}
@@ -915,14 +1035,14 @@ $)
     $( A founded relation is irreflexive.  Special case of Proposition 6.23,
        p. 30, of Takeuti and Zaring. $)
     frirr $p |- ( ( R Fr A /\ x e. A ) -> -. x R x ) $=
-      ( vy vz wfr cv wcel wbr wn csn cab cin c0 wceq wa wex wss wi snex frc
-      exp3a visset snss syl5ib snnz mpii weq elsn breq2 biabdv ineq2d cleq1d
+      ( vy vz wfr cv wcel wbr wn csn cab cin c0 wceq wa wex visset snnz wss wi
+      snex frc exp3a snss syl5ib mpii weq elsn breq2 biabdv ineq2d cleq1d
       breq1 abcl biimpr snid jctil elin sylibr noel2 syl con2 syl6bi sylbi imp
       19.23aiv syl6 ) BCFZAGZBHZVJVJCIZJZVIVKDGZVJKZHZVOEGZVNCIZELZMZNOZPZDQZVM
-      VIVKVONOJZWCVIVOBRZWDWCSVKVIWEWDWCDEBVOCVJTUAUBVJBAUCZUDUEVJWFUFUGWBVMDVP
-      WAVMVPDAUHZWAVMSDVJUIWGWAVOVQVJCIZELZMZNOZVMWGVTWJNWGVSWIVOWGVRWHEVNVJVQC
-      UJUKULUMVLWKVLVJWJHZWKJVLVJVOHZVJWIHZPWLVLWNWMWNVLWHVLEVJWFVQVJVJCUNUOUPV
-      JWFUQURVJVOWIUSUTWJVJVAVBVCVDVEVFVGVHVF $.
+      VIVKVONOJZWCVJARZSVIVOBTZWDWCUAVKVIWFWDWCDEBVOCVJUBUCUDVJBWEUEUFUGWBVMDVP
+      WAVMVPDAUHZWAVMUADVJUIWGWAVOVQVJCIZELZMZNOZVMWGVTWJNWGVSWIVOWGVRWHEVNVJVQ
+      CUJUKULUMVLWKVLVJWJHZWKJVLVJVOHZVJWIHZPWLVLWNWMWNVLWHVLEVJWEVQVJVJCUNUOUP
+      VJWEUQURVJVOWIUSUTWJVJVAVBVCVDVEVFVGVHVF $.
       $([2-Jan-94]$)
   $}
 
@@ -933,17 +1053,17 @@ $)
        Proposition 6.23, p. 30, of Takeuti and Zaring. $)
     fr2nr $p |- ( ( R Fr A /\ ( x e. A /\ y e. A ) ) ->
                 -. ( x R y /\ y R x ) ) $=
-      ( vw vz wfr cv wcel wa wbr wn cpr wss c0 wceq cab cin wex zfpair frc wi
-      df-an weq wo breq2 biabdv ineq2d cleq1d binegd brab1 inelcm visset pri2
-      mpan sylbi syl5bir comm pri1 im2an jaob sylibr pri syl5ib con3 19.23aiv
-      syl6 prnz mpan2i prss ancom imp ) CDGZAHZCIZBHZCIZJZVNVPDKZVPVNDKZJZLZVMV
-      QVOJZWBVRVMVPVNMZCNZWBWCVMWEWDOPLZWBVMWEWFJEHZWDIZWDFHZWGDKZFQZRZOPZJZESW
-      BEFCWDDBATUAWNWBEWNWHWMLZUBZLWBWHWMUCWAWPWAEBUDZEAUDZUEZWOWHWAWQWOUBZWRWO
-      UBZJWSWOUBVSWTVTXAWQVSWOWQWOWDWIVPDKZFQZRZOPZLZVSWQWMXEWQWLXDOWQWKXCWDWQW
-      JXBFWGVPWIDUFUGUHUIUJVSVNXCIZXFABFDUKVNWDIXGXFVNWDXCULVPVNAUMZUNUOUPUQURW
-      RVTWOWRWOWDWIVNDKZFQZRZOPZLZVTWRWMXLWRWLXKOWRWKXJWDWRWJXIFWGVNWIDUFUGUHUI
-      UJVTVPXJIZXMBAFDUKVPWDIXNXMVPWDXJULVPVNBUMZUSUOUPUQURUTWQWOWRVAVBWGVPVNEU
-      MVCVDVEUPVFVGVPVNXOVHVIVPVNCXOXHVJVDVOVQVKVDVL $.
+      ( vw vz wfr cv wcel wa wbr wn cpr wss c0 wceq visset prnz cab cin wex
+      zfpair frc wi df-an weq wo breq2 biabdv ineq2d cleq1d binegd brab1 pri2
+      inelcm mpan sylbi syl5bir comm pri1 jaao elpr syl5ib con3 19.23aiv syl6
+      mpan2i prss ancom imp ) CDGZAHZCIZBHZCIZJZVLVNDKZVNVLDKZJZLZVKVOVMJZVTVPV
+      KVNVLMZCNZVTWAVKWCWBOPLZVTVNVLBQZRVKWCWDJEHZWBIZWBFHZWFDKZFSZTZOPZJZEUAVT
+      EFCWBDBAUBUCWMVTEWMWGWLLZUDZLVTWGWLUEVSWOVSEBUFZEAUFZUGWNWGVQWPWNVRWQWPVQ
+      WNWPWNWBWHVNDKZFSZTZOPZLZVQWPWLXAWPWKWTOWPWJWSWBWPWIWRFWFVNWHDUHUIUJUKULV
+      QVLWSIZXBABFDUMVLWBIXCXBVNVLAQZUNVLWBWSUOUPUQURUSWQVRWNWQWNWBWHVLDKZFSZTZ
+      OPZLZVRWQWLXHWQWKXGOWQWJXFWBWQWIXEFWFVLWHDUHUIUJUKULVRVNXFIZXIBAFDUMVNWBI
+      XJXIVNVLWEUTVNWBXFUOUPUQURUSVAWFVNVLEQVBVCVDUQVEVFVGVNVLCWEXDVHVCVMVOVIVC
+      VJ $.
       $([30-May-94]$)
   $}
 
@@ -954,20 +1074,20 @@ $)
        Proposition 6.23, p. 30, of Takeuti and Zaring. $)
     fr3nr $p |- ( ( R Fr A /\ ( x e. A /\ y e. A /\ z e. A ) ) ->
                 -. ( x R y /\ y R z /\ z R x ) ) $=
-      ( vv vw wfr cv wcel w3a wbr wn ctp wss c0 wceq wa cab cin wex tpex frc
-      wi df-an weq w3o breq2 biabdv ineq2d cleq1d binegd brab1 inelcm visset
-      tpi3 mpan sylbi syl5bir comm tpi1 tpi2 im3an 3jao syl tpi syl5ib con3
-      19.23aiv syl6 tpnz mpan2i tpss 3anrot imp ) DEHZAIZDJZBIZDJZCIZDJZKZVQVSE
-      LZVSWAELZWAVQELZKZMZVPVTWBVRKZWHWCVPVSWAVQNZDOZWHWIVPWKWJPQMZWHVPWKWLRFIZ
-      WJJZWJGIZWMELZGSZTZPQZRZFUAWHFGDWJEVSWAVQUBUCWTWHFWTWNWSMZUDZMWHWNWSUEWGX
-      BWGFBUFZFCUFZFAUFZUGZXAWNWGXCXAUDZXDXAUDZXEXAUDZKXFXAUDWDXGWEXHWFXIXCWDXA
-      XCXAWJWOVSELZGSZTZPQZMZWDXCWSXMXCWRXLPXCWQXKWJXCWPXJGWMVSWOEUHUIUJUKULWDV
-      QXKJZXNABGEUMVQWJJXOXNVQWJXKUNVSWAVQAUOZUPUQURUSUTXDWEXAXDXAWJWOWAELZGSZT
-      ZPQZMZWEXDWSXTXDWRXSPXDWQXRWJXDWPXQGWMWAWOEUHUIUJUKULWEVSXRJZYABCGEUMVSWJ
-      JYBYAVSWJXRUNVSWAVQBUOZVAUQURUSUTXEWFXAXEXAWJWOVQELZGSZTZPQZMZWFXEWSYGXEW
-      RYFPXEWQYEWJXEWPYDGWMVQWOEUHUIUJUKULWFWAYEJZYHCAGEUMWAWJJYIYHWAWJYEUNVSWA
-      VQCUOZVBUQURUSUTVCXCXAXDXEVDVEWMVSWAVQFUOVFVGVHURVIVJVSWAVQYCVKVLVSWAVQDY
-      CYJXPVMVGVRVTWBVNVGVO $.
+      ( vv vw wfr cv wcel w3a wbr wn ctp wss c0 wceq visset tpnz wa cab cin
+      wex tpex frc wi df-an weq w3o breq2 biabdv ineq2d cleq1d binegd brab1
+      tpi3 inelcm mpan sylbi syl5bir comm tpi1 tpi2 im3an 3jao syl eltp syl5ib
+      con3 19.23aiv syl6 mpan2i tpss 3anrot imp ) DEHZAIZDJZBIZDJZCIZDJZKZVQVSE
+      LZVSWAELZWAVQELZKZMZVPVTWBVRKZWHWCVPVSWAVQNZDOZWHWIVPWKWJPQMZWHVSWAVQBRZS
+      VPWKWLTFIZWJJZWJGIZWNELZGUAZUBZPQZTZFUCWHFGDWJEVSWAVQUDUEXAWHFXAWOWTMZUFZ
+      MWHWOWTUGWGXCWGFBUHZFCUHZFAUHZUIZXBWOWGXDXBUFZXEXBUFZXFXBUFZKXGXBUFWDXHWE
+      XIWFXJXDWDXBXDXBWJWPVSELZGUAZUBZPQZMZWDXDWTXNXDWSXMPXDWRXLWJXDWQXKGWNVSWP
+      EUJUKULUMUNWDVQXLJZXOABGEUOVQWJJXPXOVSWAVQARZUPVQWJXLUQURUSUTVAXEWEXBXEXB
+      WJWPWAELZGUAZUBZPQZMZWEXEWTYAXEWSXTPXEWRXSWJXEWQXRGWNWAWPEUJUKULUMUNWEVSX
+      SJZYBBCGEUOVSWJJYCYBVSWAVQWMVBVSWJXSUQURUSUTVAXFWFXBXFXBWJWPVQELZGUAZUBZP
+      QZMZWFXFWTYGXFWSYFPXFWRYEWJXFWQYDGWNVQWPEUJUKULUMUNWFWAYEJZYHCAGEUOWAWJJY
+      IYHVSWAVQCRZVCWAWJYEUQURUSUTVAVDXDXBXEXFVEVFWNVSWAVQFRVGVHVIUSVJVKVLVSWAV
+      QDWMYJXQVMVHVRVTWBVNVHVO $.
       $([10-Apr-94]$)
   $}
 
@@ -975,9 +1095,9 @@ $)
     $d x y z R $.  $( ` x y z ` are dummy. $)
     $( Any relation is founded on the empty set. $)
     fr0 $p |- R Fr (/) $=
-      ( vx vy vz c0 wfr cv wss wceq wn wa wel wbr cab cin wex wi dffr2 iman
-      ss0 mpbi pm2.21i mpgbir ) EAFBGZEHZUDEIZJKZCBLUDDGCGAMDNOEIKCPZQBBCDEARUG
-      UHUEUFQUGJUEUFSUDTUAUBUC $.
+      ( vx vy vz c0 wfr cv wss wceq wn wa wel wbr cab cin wex wi dffr2 ss0
+      iman mpbi pm2.21i mpgbir ) EAFBGZEHZUDEIZJKZCBLUDDGCGAMDNOEIKCPZQBBCDEARU
+      GUHUEUFQUGJUDSUEUFTUAUBUC $.
       $([17-Sep-93]$)
   $}
 
@@ -1041,7 +1161,7 @@ $)
       $([27-Apr-94]$)
   $}
 
-  $( Define a well-ordering. $)
+  $( Define a well-ordering.  For an alternate definition see ~ dfwe2 . $)
   df-we $a |- ( R We A <-> ( R Fr A /\ R Or A ) ) $.
 
   ${
@@ -1054,19 +1174,18 @@ $)
       19.21aivv r2al sylibr imlan wpo wn w3a frirr adantarr 3simpa sylan5 a1d
       wo fr2nr breq2 biimprd imland comm imp nsyl imnan fr3nr df-3an bineg
       sylib jcad ioran syl6ibr syl4d 3orass orcom df-or 3bitr syl5ib a2d
-      19.20dv r3al 3imtr4g ralabs cleq2 breq1 bi3ord rcbvalv biral bitr df-po
+      19.20dv r3al 3imtr4g ralabs eqt2b breq1 bi3ord rcbvalv biral bitr df-po
       ancrd df-so imdistani impbi ) CDFCDGZCDHZIZWKAJZBJZDKZABLZWOWNDKZMZBCNZAC
       NZIZCDOWMXBWLXAWKWLWNCPZWOCPZIZWSQZBRARXAWLXFABWLXEWSCWNWODSTUAWSABCCUBUC
-      UDWKXAWLWKXACDUEZXAIWLWKXAXGWKXAWNWNDKUFZWPWOEJZDKZIZWNXIDKZQZIZECNBCNACN
-      ZXGWKXLAELZXIWNDKZMZECNZBCNZACNZXOXAWKXCXDXICPZUGZXRQZERZBRZARYCXNQZERZBR
-      ZARYAXOWKYFYIAWKYEYHBWKYDYGEWKYCXRXNWKYCXRXNQWKYCIZXRXHXMYJXHXRWKXEXHYCWK
-      XCXHXDACDUHUIXCXDYBUJZUKULYJXPXQUMZUFZXLQZXMXRYJXKYMXLYJXKXPUFZXQUFZIYMYJ
-      XKYOYPYJXKXPIZUFXKYOQYJWPWRIZYQWKXEYRUFYCABCDUNYKUKXKXPYRXPXKYRXPXJWRWPXP
-      WRXJWNXIWODUOUPUQURUSUTXKXPVAUCYJXKXQIZUFZXKYPQYJWPXJXQUGZUFYTABECDVBUVAY
-      SWPXJXQVCVDVEXKXQVAUCVFXPXQVGVHVIXRXLYLUMYLXLUMYNXLXPXQVJXLYLVKYLXLVLVMVN
-      VFTVOVPVPVPXRABECCCVQXNABECCCVQVRWTXTACWTWTBCNXTWSBCVSWTXSBCWSXRBECBELWPX
-      LWQXPWRXQWOXIWNDUOWOXIWNVTWOXIWNDWAWBWCWDWEWDVNABECDWFVHWGABCDWHVHWIWJWE
-      $.
+      UDWKXAWLWKXACDUEZXAIWLWKXAXGWKWNEJZDKZAELZXHWNDKZMZECNZBCNZACNZWNWNDKUFZW
+      PWOXHDKZIZXIQZIZECNBCNACNZXAXGWKXCXDXHCPZUGZXLQZERZBRZARYCXTQZERZBRZARXOY
+      AWKYFYIAWKYEYHBWKYDYGEWKYCXLXTWKYCXLXTQWKYCIZXLXPXSYJXPXLWKXEXPYCWKXCXPXD
+      ACDUHUIXCXDYBUJZUKULYJXJXKUMZUFZXIQZXSXLYJXRYMXIYJXRXJUFZXKUFZIYMYJXRYOYP
+      YJXRXJIZUFXRYOQYJWPWRIZYQWKXEYRUFYCABCDUNYKUKXRXJYRXJXRYRXJXQWRWPXJWRXQWN
+      XHWODUOUPUQURUSUTXRXJVAUCYJXRXKIZUFZXRYPQYJWPXQXKUGZUFYTABECDVBUVAYSWPXQX
+      KVCVDVEXRXKVAUCVFXJXKVGVHVIXLXIYLUMYLXIUMYNXIXJXKVJXIYLVKYLXIVLVMVNVFTVOV
+      PVPVPXLABECCCVQXTABECCCVQVRWTXNACWTWTBCNXNWSBCVSWTXMBCWSXLBECBELWPXIWQXJW
+      RXKWOXHWNDUOBEAVTWOXHWNDWAWBWCWDWEWDABECDWFVRWGABCDWHVHWIWJWE $.
       $([16-Mar-97]$)
   $}
 
@@ -1123,16 +1242,16 @@ $)
     wefrc $p |- ( ( E We A /\ ( B (_ A /\ -. B = (/) ) ) ->
                E. x ( x e. B /\ ( B i^i x ) = (/) ) ) $=
       ( vy vz cep wwe wss c0 wceq wn cv wcel cin wa wex wi wess weq eleq1
-      ineq2 cleq1d bi2and biimprd a4w exp adantl wel wfr visset zfauscl2 epfrc
-      wefr sylan exp32 inss1 mpi elin biran biex syl6ib adantr pm3.26 a1i wal
+      ineq2 cleq1d bi2and biimprd a4w exp adantl wel inss1 wfr visset zfauscl2
+      epfrc wefr sylan exp32 mpi elin biran biex syl6ib adantr pm3.26 a1i wal
       w3a wetrep exp3a df-3an 3anrot bitr3 sylan5b exp44 imp com34 imp3a
       syl5ib imp4a com23 19.21adv df-ss syl6ibr sseqin1 incom ineq2i inass
       3eqtr4 cleq2i bitr biimp syl6 jcad 19.22dv syld pm2.61d 19.23adv nnull
       comm imp32 ) BFGZCBHZCIJKZALZCMZCXCNZIJZOZAPZXAWTXBXHQZXAWTCFGZXICBFRXJDL
       ZCMZDPXHXBXJXLXHDXJXLXHXJXLOZCXKNZIJZXHXLXOXHQXJXLXOXHXLXOOZXGADADSZXGXPX
       QXDXLXFXOXCXKCTXQXEXNIXCXKCUAUBUCUDUEUFUGXMXOKZXDADUHZOZXNXCNZIJZOZAPZXHX
-      JXRYDQXLXJXRXCXNMZYBOZAPZYDXJXNCHZXRYGQXJYHXRYGCFUIYHXROYGXJACXNXKCDUJUKU
-      LCFUMUNUOCXKUPUQYFYCAYEXTYBXCCXKURUSUTVAVBXMYCXGAXMYCXDXFYCXDQXMXTXDYBXDX
+      JXRYDQXLXJXRXCXNMZYBOZAPZYDXJXNCHZXRYGQCXKUIXJYHXRYGCFUJYHXROYGXJACXNXKCD
+      UKULUMCFUNUOUPUQYFYCAYEXTYBXCCXKURUSUTVAVBXMYCXGAXMYCXDXFYCXDQXMXTXDYBXDX
       SVCVBVDXMXTYBXFXMXTXEXKHZYBXFQXMXTELZXEMZEDUHZQZEVEYIXMXTYMEXMYKXTYLXMYKX
       DXSYLXMYJCMZEAUHZOXDXSYLQZQZYKXMYNYOYQXMYNXDYOYPXJXLYNXDYOYPQZQQXJXLYNXDY
       RXJYNXDXLVFZYRXLYNOXDOZXJYSOYOXSYLEADCVGVHYTXLYNXDVFYSXLYNXDVIXLYNXDVJVKV
@@ -1144,7 +1263,7 @@ $)
 
   $( Any relation is a well-ordering of the empty set. $)
   we0 $p |- R We (/) $=
-    ( c0 wwe wfr wor wa df-we fr0 so0 pm3.2i mpbir ) BACBADZBAEZFBAGLMAHAIJK $.
+    ( c0 wwe wfr wor wa fr0 so0 pm3.2i df-we mpbir ) BACBADZBAEZFLMAGAHIBAJK $.
     $([16-Mar-97]$)
 
   ${
@@ -1154,7 +1273,7 @@ $)
     wereu   $p |- ( ( R We A /\ ( B (_ A /\ -. B = (/) ) ) ->
                 E! x e. B A. y e. B -. y R x ) $=
       ( vz wwe wss c0 wceq wn wa cv wbr wral wrex weq wi wreu wfr fri wefr
-      sylan wcel wal wo w3o wor solin weso df-3or or1r df-or 3bitr sylib ioran
+      sylan wcel wal wo w3o wor solin weso df-3or or23 df-or 3bitr sylib ioran
       syl5ibr wess imp ancoms breq1 binegd rcla4v im2anan9r syl5 exp4b pm2.43d
       adantarr 19.21aivv r2al sylibr jca breq2 biraldv reu4 ) CEHZDCIZDJKLZMZMZ
       BNZANZEOZLZBDPZADQZWFWBGNZEOZLZBDPZMZAGRZSZGDPADPZMWFADTWAWGWOCEUAVTWGVQA

@@ -20,22 +20,25 @@ $)
     $( Define the singleton of a class.  Definition 7.1 of Quine, p. 48.  For
        convenience, it is well-defined for proper classes, i.e., those that
        are not elements of ` V `, although it is not very meaningful in this
-       case. $)
+       case.  For an alternate definition see ~ dfsn2 . $)
     df-sn $a |- { A } = { x | x = A } $.
   $}
 
-  $( Define unordered pair of classes.  Definition 7.1 of Quine, p. 48. $)
+  $( Define unordered pair of classes.  Definition 7.1 of Quine, p. 48.  For
+     a more "typical" definition, but requiring a dummy variable, see
+     ~ dfpr2 . $)
   df-pr $a |- { A , B } = ( { A } u. { B } ) $.
 
   $( Extend class notation to include unordered triplet. $)
   ctp $a class { A , B , C } $.
 
-  $( Define unordered triple of classes.  Definition of Enderton, p. 19. $)
+  $( Define unordered triple of classes.  For an alternate definition see
+     ~ dfsn2 .  Definition of Enderton, p. 19. $)
   df-tp $a |- { A , B , C } = ( { A , B } u. { C } ) $.
 
   $( Kuratowski's ordered pair definition.  Definition 9.1 of Quine, p. 58.
      For proper classes it is not meaningful but is well-defined for
-     convenience.  $)
+     convenience.  For the justifying theorem (for sets) see ~ opth . $)
   df-op $a |- <. A , B >. = { { A } , { A , B } } $.
 
   ${
@@ -85,10 +88,10 @@ $)
   $}
 
   ${
-    pri.1 $e |- A e. V $.
+    elpr.1 $e |- A e. V $.
     $( A member of an unordered pair of classes is one or the other of them.
        Exercise 1 of Takeuti and Zaring, p. 15. $)
-    pri   $p |- ( A e. { B , C } <-> ( A = B \/ A = C ) ) $=
+    elpr   $p |- ( A e. { B , C } <-> ( A = B \/ A = C ) ) $=
       ( cvv wcel cpr wceq wo wb prdg ax-mp ) AEFABCGFABHACHIJDABCEKL $.
       $([13-Sep-95]$)
   $}
@@ -99,9 +102,9 @@ $)
     hppr.2 $e |- ( y e. B -> A. x y e. B ) $.
     $( Bound variable hypothesis builder for unordered pairs. $)
     hbpr   $p |- ( y e. { A , B } -> A. x y e. { A , B } ) $=
-      ( vz cv wceq wo wal cpr wcel ax17el hbeq hbor visset pri bial 3imtr4 ) BH
-      ZCIZUADIZJZUDAKUACDLMZUEAKUBUCAAGBUACGBANZEOAGBUADUFFOPUACDBQRZUEUDAUGST
-      $.
+      ( vz cv wceq wo wal cpr wcel wel ax-17 hbeq hbor visset elpr bial 3imtr4
+      ) BHZCIZUBDIZJZUEAKUBCDLMZUFAKUCUDAAGBUBCGBNAOZEPAGBUBDUGFPQUBCDBRSZUFUEA
+      UHTUA $.
       $([14-Nov-95]$)
   $}
 
@@ -141,7 +144,7 @@ $)
     $( A set is a member of its singleton.  Part of Theorem 7.6 of Quine,
        p. 49. $)
     snid   $p |- A e. { A } $=
-      ( csn wcel wceq elsnc cleqid mpbir ) AACDAAEAABFAGH $.
+      ( csn wcel wceq cleqid elsnc mpbir ) AACDAAEAFAABGH $.
       $([31-Dec-93]$)
   $}
 
@@ -151,17 +154,17 @@ $)
        Zaring, p. 15.  This variation requires only that ` B `, rather than
        ` A `, be a set. $)
     elsnc2 $p |- ( A e. { B } <-> A = B ) $=
-      ( csn wcel wceq elsni eleq1 snid mpbiri impbi ) ABDZEZABFZABGNMBLEABLHBCI
+      ( csn wcel wceq elsni snid eleq1 mpbiri impbi ) ABDZEZABFZABGNMBLEBCHABLI
       JK $.
       $([12-Jun-94]$)
   $}
 
   ${
-    tpi.1 $e |- A e. V $.
+    eltp.1 $e |- A e. V $.
     $( A member of an unordered triple of classes is one of them.  Special
        case of Exercise 1 of Takeuti and Zaring, p. 17. $)
-    tpi   $p |- ( A e. { B , C , D } <-> ( A = B \/ A = C \/ A = D ) ) $=
-      ( ctp wcel wceq wo w3o cpr csn cun df-tp eleq2i elun pri elsnc bi2or
+    eltp   $p |- ( A e. { B , C , D } <-> ( A = B \/ A = C \/ A = D ) ) $=
+      ( ctp wcel wceq wo w3o cpr csn cun df-tp eleq2i elun elpr elsnc bi2or
       3bitr df-3or bitr4 ) ABCDFZGZABHZACHZIZADHZIZUEUFUHJUDABCKZDLZMZGAUJGZAUK
       GZIUIUCULABCDNOAUJUKPUMUGUNUHABCEQADERSTUEUFUHUAUB $.
       $([8-Apr-94]$)
@@ -172,7 +175,7 @@ $)
     $( Alternate definition of unordered triple of classes.  Special case of
        Definition 5.3 of Takeuti and Zaring, p. 16. $)
     dftp2 $p |- { A , B , C } = { x | ( x = A \/ x = B \/ x = C ) } $=
-      ( cv wceq w3o ctp visset tpi cleqabri ) AEZBFLCFLDFGABCDHLBCDAIJK $.
+      ( cv wceq w3o ctp visset eltp cleqabri ) AEZBFLCFLDFGABCDHLBCDAIJK $.
       $([8-Apr-94]$)
   $}
 
@@ -190,11 +193,11 @@ $)
     $d x A $.  $d x B $.  $( ` x ` is dummy. $)
     $( Intersection with singleton of non-member is disjoint. $)
     disjsn $p |- ( ( A i^i { B } ) = (/) <-> -. B e. A ) $=
-      ( vx csn cin c0 wceq wcel wn eleq2 noel mtbiri wa elsncg cleqid mpbiri
-      ancli elin sylibr con3 syl cv wi wal eleq1 biimpcd elsn syl5ib pm2.16d
-      comm 19.21aiv disj impbi ) ABDZEZFGZBAHZIZUPBUOHZIURUPUSBFHUOFBJBKLUQUSUQ
-      UQBUNHZMUSUQUTUQUTBBGBBANBOPQBAUNRSTUAURCUBZAHZVAUNHZIZUCZCUDUPURVECVBURV
-      DVBVCUQVBVABGZUQVCVFVBUQVABAUEUFCBUGUHUIUJUKCAUNULSUM $.
+      ( vx csn cin c0 wceq wcel wn noel eleq2 mtbiri wa cleqid elsncg mpbiri
+      ancli elin sylibr nsyl cv wi wal eleq1 biimpcd elsn syl5ib pm2.16d comm
+      19.21aiv disj impbi ) ABDZEZFGZBAHZIZUOBUNHZUPUOURBFHBJUNFBKLUPUPBUMHZMUR
+      UPUSUPUSBBGBNBBAOPQBAUMRSTUQCUAZAHZUTUMHZIZUBZCUCUOUQVDCVAUQVCVAVBUPVAUTB
+      GZUPVBVEVAUPUTBAUDUECBUFUGUHUIUJCAUMUKSUL $.
       $([22-May-98]$)
   $}
 
@@ -223,8 +226,8 @@ $)
     $( One of the two elements of an unordered pair.  Part of Theorem 7.6 of
        Quine, p. 49. $)
     pri1   $p |- A e. { A , B } $=
-      ( cpr wcel wceq wo pri cleqid orc ax-mp mpbir ) AABDEAAFZABFZGZAABCHMOAIM
-      NJKL $.
+      ( cpr wcel wceq wo cleqid orc ax-mp elpr mpbir ) AABDEAAFZABFZGZMOAHMNIJAA
+      BCKL $.
       $([5-Aug-93]$)
   $}
 
@@ -301,12 +304,18 @@ $)
 
   ${
     $d A x $.  $d B x $.  $( ` x ` is dummy. $)
-    $( The singleton of an element of a class is a subset of the class. $)
-    snssi   $p |- ( A e. B -> { A } (_ B ) $=
-      ( vx wcel csn wss cv eleq1 wceq sneq sseq1d visset snss vtoclgb biimpd
-      pm2.43i ) ABDZAEZBFZQQSCGZBDTEZBFQSCABTABHTAIUARBTAJKTBCLMNOP $.
-      $([6-Jun-94]$)
+    $( The singleton of an element of a class is a subset of the class.
+       Theorem 7.4 of Quine, p. 49. $)
+    snssg $p |- ( A e. C -> ( A e. B <-> { A } (_ B ) ) $=
+      ( vx cv wcel csn wss eleq1 wceq sneq sseq1d visset snss vtoclgb ) DEZBFPG
+      ZBHABFAGZBHDACPABIPAJQRBPAKLPBDMNO $.
+      $([22-Jul-01]$)
   $}
+
+  $( The singleton of an element of a class is a subset of the class. $)
+  snssi   $p |- ( A e. B -> { A } (_ B ) $=
+    ( wcel csn wss snssg biimpd pm2.43i ) ABCZADBEZIIJABBFGH $.
+    $([6-Jun-94]$)
 
   ${
     $d A x $.  $d B x $.  $d C x $.  $( ` x ` is dummy. $)
@@ -315,10 +324,10 @@ $)
     $( A pair of elements of a class is a subset of the class.  Theorem 7.5 of
        Quine, p. 49. $)
     prss   $p |- ( ( A e. C /\ B e. C ) <-> { A , B } (_ C ) $=
-      ( vx wcel wa cpr wss cv wceq wo wi eleq1a im2an jaob sylibr visset pri
-      syl5ib ssrdv ssel pri1 mpi pri2 jca impbi ) ACGZBCGZHZABIZCJZUKFULCUKFKZA
-      LZUNBLZMZUNCGZUNULGUKUOURNZUPURNZHUQURNUIUSUJUTACUNOBCUNOPUOURUPQRUNABFST
-      UAUBUMUIUJUMAULGUIULCAUCABDUDUEUMBULGUJULCBUCABEUFUEUGUH $.
+      ( vx wcel wa cpr wss cv wceq wo eleq1a jaao visset elpr syl5ib ssrdv pri1
+      ssel mpi pri2 jca impbi ) ACGZBCGZHZABIZCJZUHFUICUHFKZALZUKBLZMUKCGZUKUIG
+      UFULUNUGUMACUKNBCUKNOUKABFPQRSUJUFUGUJAUIGUFABDTUICAUAUBUJBUIGUGABEUCUICB
+      UAUBUDUE $.
       $([30-May-94]$)
   $}
 
@@ -329,11 +338,11 @@ $)
     tpss.3 $e |- C e. V $.
     $( A triplet of elements of a class is a subset of the class. $)
     tpss   $p |- ( ( A e. D /\ B e. D /\ C e. D ) <-> { A , B , C } (_ D ) $=
-      ( vx wcel w3a ctp wss cv wceq w3o wi eleq1a im3an 3jao syl visset tpi
-      syl5ib ssrdv ssel tpi1 mpi tpi2 tpi3 3jca impbi ) ADIZBDIZCDIZJZABCKZDLZU
+      ( vx wcel w3a ctp wss cv wceq w3o wi eleq1a im3an 3jao syl visset eltp
+      syl5ib ssrdv tpi1 ssel mpi tpi2 tpi3 3jca impbi ) ADIZBDIZCDIZJZABCKZDLZU
       OHUPDUOHMZANZURBNZURCNZOZURDIZURUPIUOUSVCPZUTVCPZVAVCPZJVBVCPULVDUMVEUNVF
-      ADURQBDURQCDURQRUSVCUTVASTURABCHUAUBUCUDUQULUMUNUQAUPIULUPDAUEABCEUFUGUQB
-      UPIUMUPDBUEABCFUHUGUQCUPIUNUPDCUEABCGUIUGUJUK $.
+      ADURQBDURQCDURQRUSVCUTVASTURABCHUAUBUCUDUQULUMUNUQAUPIULABCEUEUPDAUFUGUQB
+      UPIUMABCFUHUPDBUFUGUQCUPIUNABCGUIUPDCUFUGUJUK $.
       $([9-Apr-94]$)
   $}
 
@@ -342,7 +351,7 @@ $)
     $( If the singletons of two sets are equal, the two sets are equal.
        Part of Exercise 4 of Takeuti and Zaring, p. 15. $)
     sneqr   $p |- ( { A } = { B } -> A = B ) $=
-      ( csn wceq wcel eleq2 snid mpbii elsnc sylib ) ADZBDZEZAMFZABENALFOLMAGAC
+      ( csn wceq wcel snid eleq2 mpbii elsnc sylib ) ADZBDZEZAMFZABENALFOACGLMA
       HIABCJK $.
       $([27-Aug-93]$)
   $}
@@ -351,7 +360,7 @@ $)
     $d x A $.  $( ` x ` is dummy. $)
     $( The singleton of a class is a subset of its power class. $)
     snsspw $p |- { A } (_ P~ A $=
-      ( vx csn cpw cv wcel wss wceq elsn eqimss sylbi visset sselpw sylib ssri
+      ( vx csn cpw cv wcel wss wceq elsn eqimss sylbi visset sselpw sylib ssriv
       ) BACZADZBEZPFZRAGZRQFSRAHTBAIRAJKRABLMNO $.
       $([5-Aug-93]$)
   $}
@@ -362,8 +371,8 @@ $)
        only Extensionality, Power Set, and Separation. $)
     snex $p |- { A } e. V $=
       ( vx cvv wcel csn cv wceq sneq eleq1d cpw visset zfpowcl snsspw ssexi
-      vtoclg wn c0 snprc eleq1 zfnull mpbiri sylbi pm2.61i ) ACDZAEZCDZBFZEZCDU
-      FBACUGAGUHUECUGAHIUHUGJUGBKLUGMNOUDPUEQGZUFARUIUFQCDUEQCSTUAUBUC $.
+      vtoclg wn c0 snprc zfnull eleq1 mpbiri sylbi pm2.61i ) ACDZAEZCDZBFZEZCDU
+      FBACUGAGUHUECUGAHIUHUGJUGBKLUGMNOUDPUEQGZUFARUIUFQCDSUEQCTUAUBUC $.
       $([7-Aug-94]$)
   $}
 
@@ -381,9 +390,9 @@ $)
     $( A theorem similar to extensionality, requiring the existence of a
        singleton.  Exercise 8, p. 16 of Takeuti and Zaring. $)
     rext $p |- ( A. z ( x e. z -> y e. z ) -> x = y ) $=
-      ( wel wi wal cv csn wcel weq snex wceq eleq2 bi2imd cla4v visset snid
-      mpi elsn eqcom sylbi syl ) ACDZBCDZEZCFZBGZAGZHZIZABJZUFUHUIIZUJUEULUJECU
-      IUHKCGZUILUCULUDUJUMUIUHMUMUIUGMNOUHAPQRUJBAJUKBUHSBATUAUB $.
+      ( wel wi wal cv csn wcel weq visset snid snex wceq eleq2 bi2imd cla4v
+      mpi elsn eqcom sylbi syl ) ACDZBCDZEZCFZBGZAGZHZIZABJZUFUHUIIZUJUHAKLUEUL
+      UJECUIUHMCGZUINUCULUDUJUMUIUHOUMUIUGOPQRUJBAJUKBUHSBATUAUB $.
       $([10-Aug-93]$)
   $}
 
@@ -410,11 +419,11 @@ $)
     $d x y $.  $d y ph $.
     $( "At most one" existence implies abstraction class exists. $)
     moabex $p |- ( E* x ph -> { x | ph } e. V ) $=
-      ( vy wmo weq wi wal wex cab cvv wcel ax-17 mo2 wa hba1 wb pm4.71 biimp
-      a4s ancom syl6bb biabd eleq1d cv csn df-sn snex eqeltrr pm3.26 ssab2i
-      ssexi mpbiri 19.23aiv sylbi ) ABDABCEZFZBGZCHABIZJKZABCACLMUQUSCUQUSUOANZ
-      BIZJKUQURVAJUQAUTBUPBOUQAAUONZUTUPAVBPZBUPVCAUOQRSAUOTUAUBUCVAUOBIZCUDZUE
-      VDJBVEUFVEUGUHUTUOBUOAUIUJUKULUMUN $.
+      ( vy wmo weq wi wal wex cab cvv wcel ax-17 mo2 wa cv csn df-sn snex
+      eqeltrr pm3.26 ssab2i ssexi hba1 wb pm4.71 biimp a4s ancom syl6bb biabd
+      eleq1d mpbiri 19.23aiv sylbi ) ABDABCEZFZBGZCHABIZJKZABCACLMUQUSCUQUSUOAN
+      ZBIZJKVAUOBIZCOZPVBJBVCQVCRSUTUOBUOATUAUBUQURVAJUQAUTBUPBUCUQAAUONZUTUPAV
+      DUDZBUPVEAUOUEUFUGAUOUHUIUJUKULUMUN $.
       $([30-Dec-96]$)
   $}
 
@@ -440,9 +449,9 @@ $)
     $( If two unordered pairs have the same second element, the first elements
        are equal. $)
     prer1   $p |- ( { A , C } = { B , C } -> A = B ) $=
-      ( cpr wceq wcel wo eleq2 pri1 mpbii pri sylib mpbiri cleqcom cleq2
-      oplem1 ) ACFZBCFZGZABGZACGZBAGZBCGZUAATHZUBUCIUAASHUFSTAJACDKLABCDMNUABSH
-      ZUDUEIUAUGBTHSTBJBCEKOBACEMNABPACBQR $.
+      ( cpr wceq wcel wo pri1 eleq2 mpbii elpr sylib mpbiri cleqcom cleq2
+      oplem1 ) ACFZBCFZGZABGZACGZBAGZBCGZUAATHZUBUCIUAASHUFACDJSTAKLABCDMNUABSH
+      ZUDUEIUAUGBTHBCEJSTBKOBACEMNABPACBQR $.
       $([18-Oct-95]$)
   $}
 
@@ -465,22 +474,22 @@ $)
     $( Equality of two unordered pairs. $)
     prer12   $p |- ( { A , B } = { C , D } <->
                    ( ( A = C /\ B = D ) \/ ( A = D /\ B = C ) ) ) $=
-      ( cpr wceq wa wo wi preq1 cleq1d prer2 syl6bi comm ancl syl wb prcm
-      cleq2 ax-mp sylbi im2ord wcel eleq2 pri1 mpbii pri sylib mpd preq2
-      sylan9eq syl6eq jaoi impbi ) ABIZCDIZJZACJZBDJZKZADJZBCJZKZLZVAVBVELZVHVA
-      VBVDVEVGVAVBVCMVBVDMVBVAVCVBVACBIZUTJVCVBUSVJUTACBNZOBDCFHPQRVBVCSTVAVEVF
-      MZVEVGMVAUSDCIZJZVLUTVMJVAVNUACDUBUTVMUSUCUDVEVNVFVEVNDBIZVMJVFVEUSVOVMAD
-      BNZOBCDFGPQRUEVEVFSTUFVAAUTUGZVIVAAUSUGVQUSUTAUHABEUIUJACDEUKULUMVDVAVGVB
-      VCUSVJUTVKBDCUNUOVEVFUSBDIZUTVEUSVOVRVPDBUBUPBCDNUOUQUR $.
+      ( cpr wceq wa wo wcel pri1 eleq2 mpbii elpr sylib preq1 cleq1d prer2
+      syl6bi comm ancld wi prcm cleq2i sylbi im2ord mpd preq2 sylan9eq syl6eq
+      jaoi impbi ) ABIZCDIZJZACJZBDJZKZADJZBCJZKZLZURUSVBLZVEURAUQMZVFURAUPMVGA
+      BENUPUQAOPACDEQRURUSVAVBVDURUSUTUSURUTUSURCBIZUQJUTUSUPVHUQACBSZTBDCFHUAU
+      BUCUDURVBVCURUPDCIZJZVBVCUEUQVJUPCDUFUGVBVKVCVBVKDBIZVJJVCVBUPVLVJADBSZTB
+      CDFGUAUBUCUHUDUIUJVAURVDUSUTUPVHUQVIBDCUKULVBVCUPBDIZUQVBUPVLVNVMDBUFUMBC
+      DSULUNUO $.
       $([17-Oct-96]$)
 
     $( Equality of two unordered pairs. $)
     prel12   $p |- ( -. A = B -> ( { A , B } = { C , D } <->
                    ( A e. { C , D } /\ B e. { C , D } ) ) ) $=
-      ( wceq wn cpr wcel wa wi eleq2 pri1 mpbii pri2 jca a1i wo cleq2 binegd
-      orel2 syl6bi com3l imp ancrd orel1 im2ord pri orcom bitr prer12 3imtr4g
+      ( wceq wn cpr wcel wa wi pri1 eleq2 mpbii pri2 jca a1i wo cleq2 binegd
+      orel2 syl6bi com3l imp ancrd orel1 im2ord elpr orcom bitr prer12 3imtr4g
       exp syl5ib imp3a impbid ) ABIZJZABKZCDKZIZAVCLZBVCLZMZVDVGNVAVDVEVFVDAVBL
-      VEVBVCAOABEPQVDBVBLVFVBVCBOABFRQSTVAVEVFVDVAACIZADIZUAZVFVDNZVEVAVJVKVAVJ
+      VEABEOVBVCAPQVDBVBLVFABFRVBVCBPQSTVAVEVFVDVAACIZADIZUAZVFVDNZVEVAVJVKVAVJ
       MZBDIZBCIZUAZVHVMMZVIVNMZUAVFVDVLVMVPVNVQVLVMVHVAVJVMVHNVMVAVJVHVMVAVIJVJ
       VHNVMUTVIBDAUBUCVIVHUDUEUFUGUHVLVNVIVAVJVNVINVNVAVJVIVNVAVHJVJVINVNUTVHBC
       AUBUCVHVIUIUEUFUGUHUJVFVNVMUAVOBCDFUKVNVMULUMABCDEFGHUNUOUPACDEUKUQURUS
@@ -531,11 +540,11 @@ $)
     ppnull $p |- P~ { (/) } = { (/) , { (/) } } $=
       ( vx vy cv c0 csn wss cab wceq wo cpw cpr wn wa wel wi wal wcel df-ss
       elsn bilim bial bitr wex exintr nnull df-clel zfnull snss exancom 3bitr3
-      3imtr4g sylbi anc2li eqss syl6ibr orrd sseq1 nullss mpbiri eqimss jaoi
+      3imtr4g sylbi anc2li eqss syl6ibr orrd nullss sseq1 mpbiri eqimss jaoi
       impbi biab df-pw dfpr2 3eqtr4 ) ACZDEZFZAGVGDHZVGVHHZIZAGVHJDVHKVIVLAVIVL
       VIVJVKVIVJLZVIVHVGFZMVKVIVMVNVIBANZBCZDHZOZBPZVMVNOVIVOVPVHQZOZBPVSBVGVHR
       WAVRBVTVQVOBDSTUAUBVSVOBUCVOVQMBUCZVMVNVOVQBUDBVGUEDVGQVQVOMBUCVNWBBDVGUF
-      DVGUGUHVQVOBUIUJUKULUMVGVHUNUOUPVJVIVKVJVIDVHFVGDVHUQVHURUSVGVHUTVAVBVCAV
+      DVGUGUHVQVOBUIUJUKULUMVGVHUNUOUPVJVIVKVJVIDVHFVHUQVGDVHURUSVGVHUTVAVBVCAV
       HVDADVHVEVF $.
       $([7-Aug-94]$)
   $}
@@ -552,24 +561,25 @@ $)
 
   $( The empty set and its power set are not equal. $)
   0nep0 $p |- -. (/) = { (/) } $=
-    ( c0 csn wceq cleqcom zfnull snnz mtbi ) ABZACAHCHADAEFG $.
+    ( c0 csn wceq zfnull snnz cleqcom mtbi ) ABZACAHCADEHAFG $.
     $([23-Dec-93]$)
 
   $( Something cannot be equal to both the null set and the power set of
      the null set. $)
   0inp0 $p |- ( x = (/) -> -. x = { (/) } ) $=
-    ( cv c0 wceq csn cleq1 0nep0 mtbiri ) ABZCDICEZDCJDICJFGH $.
+    ( cv c0 wceq csn 0nep0 cleq1 mtbiri ) ABZCDICEZDCJDFICJGH $.
     $([5-Aug-93]$)
 
   ${
     $d x y $.
     $( A 'distinctor' is true in set theory.  Provides an easy way to
-       replace distinctors with $d's in theorems of predicate calculus. $)
+       replace distinctor antecedents with dollar-d's in theorems of
+       predicate calculus. $)
     dtru $p |- -. A. x x = y $=
-      ( weq wn wex wal 19.14 eqcomb bial bineg bitr cv c0 wceq csn 0inp0 p0ex
-      cleq2 binegd cla4ev syl zfnull pm2.61i mpbi ) BACZDZAEZABCZAFZDZUGUEAFZDU
-      JUEAGUKUIUEUHABAHIJKBLZMNZUGUMULMOZNZDZUGBPUFUPAUNQALZUNNUEUOUQUNULRSTUAU
-      FUMDAMUBUQMNUEUMUQMULRSTUCUD $.
+      ( weq wn wex wal cv c0 wceq csn 0inp0 p0ex cleq2 binegd cla4ev syl
+      zfnull pm2.61i 19.14 eqcomb bial bineg bitr mpbi ) BACZDZAEZABCZAFZDZBGZH
+      IZUGULUKHJZIZDZUGBKUFUOAUMLAGZUMIUEUNUPUMUKMNOPUFULDAHQUPHIUEULUPHUKMNORU
+      GUEAFZDUJUEASUQUIUEUHABATUAUBUCUD $.
       $([15-Jul-94]$)
   $}
 
@@ -595,11 +605,11 @@ $)
        p. 51. $)
     zfpaircl $p |- { A , B } e. V $=
       ( vx vy cvv wcel wa cpr wi cv wceq preq1 eleq1d preq2 zfpair vtoclg
-      syl5bi vtocle imp wn wo ianor csn prprc eleq1 snex mpbiri syl prcm
+      syl5bi vtocle imp wn wo ianor csn prprc snex eleq1 mpbiri syl prcm
       syl5eq jaoi sylbi pm2.61i ) AEFZBEFZGZABHZEFZUNUOURUOURICACJZAKZUSBHZEFZU
       RUOUTVAUQEUSABLMUSDJZHZEFVBDBEVCBKVDVAEVCBUSNMCDOPQRSUPTUNTZUOTZUAURUNUOU
-      BVEURVFVEUQBUCZKZURABUDVHURVGEFUQVGEUEBUFUGUHVFUQAUCZKZURVFBAHVIUQBAUDABU
-      IUJVJURVIEFUQVIEUEAUFUGUHUKULUM $.
+      BVEURVFVEUQBUCZKZURABUDVHURVGEFBUEUQVGEUFUGUHVFUQAUCZKZURVFBAHVIUQBAUDABU
+      IUJVJURVIEFAUEUQVIEUFUGUHUKULUM $.
       $([5-Aug-93]$)
   $}
 
@@ -614,7 +624,7 @@ $)
     $( An ordered pair has two elements.  Exercise 3 of Takeuti and Zaring,
        p. 15. $)
     opi   $p |- ( A e. <. B , C >. <-> ( A = { B } \/ A = { B , C } ) ) $=
-      ( cop wcel csn cpr wceq wo df-op eleq2i pri bitr ) ABCEZFABGZBCHZHZFAPIAQ
+      ( cop wcel csn cpr wceq wo df-op eleq2i elpr bitr ) ABCEZFABGZBCHZHZFAPIAQ
       IJORABCKLAPQDMN $.
       $([5-Aug-93]$)
   $}
@@ -641,11 +651,11 @@ $)
        elements are equal and their second elements are equal.  Exercise
        6, p. 16 of Takeuti and Zaring. $)
     opth $p |- ( <. A , B >. = <. C , D >. <-> ( A = C /\ B = D ) ) $=
-      ( cop wceq wa csn wcel cpr wo eleq2 opi1 mpbiri snex opi sylib snid pri1
+      ( cop wceq wa csn wcel cpr wo opi1 eleq2 mpbiri snex opi sylib snid pri1
       jaoi syl elsnc cleq1 opeq1 syl5bi df-op cleq12i zfpaircl prer2 sylbi
       cleqcomd syl6 jcai opeq12 impbi ) ABHZCDHZIZACIZBDIZJVAVBVCVAACKZLZVBVAVD
-      AKZIZVDABMZIZNZVEVAVDUSLZVJVAVKVDUTLUSUTVDOCDPQVDABCRSTVGVEVIVGVEAVFLVDVF
-      AOAEUAQVIVEAVHLVDVHAOABEUBQUCUDACEUETVAVBUTCBHZIZVCVAUSVLIVMVBUSUTVLUFACB
+      AKZIZVDABMZIZNZVEVAVDUSLZVJVAVKVDUTLCDOUSUTVDPQVDABCRSTVGVEVIVGVEAVFLAEUA
+      VDVFAPQVIVEAVHLABEUBVDVHAPQUCUDACEUETVAVBUTCBHZIZVCVAUSVLIVMVBUSUTVLUFACB
       UGUHVMCDMZCBMZIZVCVMVDVNMZVDVOMZIVPUTVQVLVRCDUICBUIUJVNVOVDCDUKCBUKULUMVP
       DBDBCGFULUNUDUOUPABCDUQUR $.
       $([28-May-95]$)
@@ -703,14 +713,14 @@ $)
     $( Substitution of class ` A ` for ordered pair ` <. x , y >. `. $)
     copsexg $p |- ( A = <. x , y >. ->
                   ( ph <-> E. x E. y ( A = <. x , y >. /\ ph ) ) ) $=
-      ( vz vw cv cop wceq wa wex wb wi visset eqvinop cleq1 birand bi2exdv
-      bilbid bi2imd weq cleqcom opth bitr ceqsexg sylan9bbr sylbi biran anass
-      biex 19.42v syl6bbr mpbiri adantr 19.23aivv pm2.43i ) DBGZCGZHZIZAUTAJZCK
-      BKZLZUTDEGZFGZHZIZVFUSIZJZFKEKUTVCMZEFDUQURBNZCNZOVIVJEFVGVJVHVGVJVHAVHAJ
-      ZCKZBKZLZMVGUTVHVCVPDVFUSPZVGVBVOAVGVAVMBCVGUTVHAVQQRSTVHABEUAZCFUAZAJZCK
-      ZJZBKZVOVHVRVSJZAWCLVHUSVFIWDVFUSUBUQURVDVEVKVLFNUCUDZVSAWAVRWCACVEUEWABV
-      DUEUFUGVNWBBVNVRVTJZCKWBVMWFCVMWDAJWFVHWDAWEUHVRVSAUIUDUJVRVTCUKUDUJULUMU
-      NUOUGUP $.
+      ( vz vw cv cop wceq wa wex wb wi visset eqvinop weq cleqcom opth bitr
+      ceqsexg sylan9bbr sylbi biran anass biex 19.42v syl6bbr cleq1 birand
+      bi2exdv bilbid bi2imd mpbiri adantr 19.23aivv pm2.43i ) DBGZCGZHZIZAUTAJZ
+      CKBKZLZUTDEGZFGZHZIZVFUSIZJZFKEKUTVCMZEFDUQURBNZCNZOVIVJEFVGVJVHVGVJVHAVH
+      AJZCKZBKZLZMVHABEPZCFPZAJZCKZJZBKZVOVHVQVRJZAWBLVHUSVFIWCVFUSQUQURVDVEVKV
+      LFNRSZVRAVTVQWBACVETVTBVDTUAUBVNWABVNVQVSJZCKWAVMWECVMWCAJWEVHWCAWDUCVQVR
+      AUDSUEVQVSCUFSUEUGVGUTVHVCVPDVFUSUHZVGVBVOAVGVAVMBCVGUTVHAWFUIUJUKULUMUNU
+      OUBUP $.
       $([27-Dec-96]$)
   $}
 
@@ -752,8 +762,8 @@ $)
     mosubop   $p |- E* x E. y E. z ( A = <. y , z >. /\ ph ) $=
       ( cv cop wceq wex wa wmo hbe1 hbmo hbex ax-17 copsexg bimod mpbii
       19.23ai wn pm3.26 19.22i 19.23aiv con3 exmo ori syl pm2.61i ) ECGDGHIZDJZ
-      CJZUJAKZDJZCJZBLZUKUPCUOCBUNCMNUJUPDUODBUNDCUMDMONUJABLUPUJAUOBUJBPACDEQR
-      FSTTULUAUOBJZUAUPUQULUOULBUNUKCUMUJDUJAUBUCUCUDUEUQUPUOBUFUGUHUI $.
+      CJZUJAKZDJZCJZBLZUKUPCUOCBUNCMNUJUPDUODBUNDCUMDMONUJABLUPFUJAUOBUJBPACDEQ
+      RSTTULUAUOBJZUAUPUQULUOULBUNUKCUMUJDUJAUBUCUCUDUEUQUPUOBUFUGUHUI $.
       $([28-May-95]$)
   $}
 
@@ -762,11 +772,11 @@ $)
     $( A property of an ordered pair of proper classes (due to our
        particular definition of ordered pair). $)
     opprc1 $p |- ( -. A e. V <-> (/) e. <. A , B >. ) $=
-      ( vx cvv wcel wn c0 cop csn wceq snprc biimp eleq1d opi1 mpbii cv opeq1
-      eleq2d binegd cpr wo zfnull opi cleqcom visset snnz mtbi prnz pm3.2ni
-      mtbir vtoclg con2 impbi ) ADEZFZGABHZEZUOAIZUPEUQUOURGUPUOURGJAKLMABNOUNU
-      QGCPZBHZEZFUQFCADUSAJZVAUQVBUTUPGUSABQRSVAGUSIZJZGUSBTZJZUAGUSBUBUCVDVFVC
-      GJVDVCGUDUSCUEZUFUGVEGJVFVEGUDUSBVGUHUGUIUJUKULUM $.
+      ( vx cvv wcel wn c0 cop csn opi1 wceq snprc biimp eleq1d mpbii cv opeq1
+      eleq2d binegd cpr wo visset snnz cleqcom mtbi prnz pm3.2ni zfnull opi
+      mtbir vtoclg con2 impbi ) ADEZFZGABHZEZUOAIZUPEUQABJUOURGUPUOURGKALMNOUNU
+      QGCPZBHZEZFUQFCADUSAKZVAUQVBUTUPGUSABQRSVAGUSIZKZGUSBTZKZUAVDVFVCGKVDUSCU
+      BZUCVCGUDUEVEGKVFUSBVGUFVEGUDUEUGGUSBUHUIUJUKULUM $.
       $([15-Nov-94]$)
   $}
 
@@ -782,14 +792,14 @@ $)
      particular definition of ordered pair). $)
   opprc3 $p |- ( ( -. A e. V /\ -. B e. V ) <-> <. A , B >. = { (/) } ) $=
     ( cvv wcel wn wa cop c0 csn wceq cpr snprc biimp adantr preq1 syl cun
-    uneq12 syl2anb df-pr un0 3eqtr4g preq2 eqtrd df-op dfsn2 ax-1 sylbi prprc
-    syl5eq cleq1d snex zfnull prer2 wb cleq2 ax-mp 3imtr4 syl6bi jcad eleq2
-    snid mpbiri opprc1 sylibr mpcom impbi ) ACDEZBCDEZFZABGZHIZJZVJAIZABKZKZHHK
-    ZVKVLVJVPHVOKZVQVJVNHJZVPVRJZVHVSVIVHVSALZMNVNHVOOZPVJVOHJVRVQJVJVNBIZQZHHQ
-    ZVOHVSWCHJZWDWEJVHVIVNHWCHRWABLZSABTHUAUBVOHHUCPUDABUEZHUFZUBVHVMVJVHVMVHVI
-    VHVMUGVHVMHWCKZVLJZVIVHVKWJVLVHVPWJVKVHVPVRWJVHVSVTWAWBUHVHVOWCJVRWJJABUIVO
-    WCHUCPUDWHUJUKWJVQJZWFWKVIWCHHBULUMUNVLVQJWKWLUOWIVLVQWJUPUQWGURUSUTVMHVKDZ
-    VHVMWMHVLDVKVLHVAHUMVBVCABVDVEVFVG $.
+    uneq12 syl2anb df-pr un0 3eqtr4g preq2 eqtrd df-op dfsn2 zfnull snid eleq2
+    mpbiri opprc1 sylibr sylbi prprc syl5eq cleq1d snex prer2 cleq2i 3imtr4
+    syl6bi anc2li mpcom impbi ) ACDEZBCDEZFZABGZHIZJZVGAIZABKZKZHHKZVHVIVGVMHVL
+    KZVNVGVKHJZVMVOJZVEVPVFVEVPALZMNVKHVLOZPVGVLHJVOVNJVGVKBIZQZHHQZVLHVPVTHJZW
+    AWBJVEVFVKHVTHRVRBLZSABTHUAUBVLHHUCPUDABUEZHUFZUBVEVJVGVJHVHDZVEVJWGHVIDHUG
+    UHVHVIHUIUJABUKULVEVJVFVEVJHVTKZVIJZVFVEVHWHVIVEVMWHVHVEVMVOWHVEVPVQVRVSUMV
+    EVLVTJVOWHJABUNVLVTHUCPUDWEUOUPWHVNJWCWIVFVTHHBUQUGURVIVNWHWFUSWDUTVAVBVCVD
+    $.
     $([17-May-98]$)
 
   ${

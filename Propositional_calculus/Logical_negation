@@ -9,7 +9,7 @@ $( This section makes our first use of the third axiom of propositonal
 
   ${
     a3i.1 $e |- ( -. ph -> -. ps ) $.
-    $( Inference rule derived from axiom ~ax-3 . $)
+    $( Inference rule derived from axiom ~ ax-3 . $)
     a3i   $p |- ( ps -> ph ) $=
       ( wn wi ax-3 ax-mp ) ADBDEBAECABFG $.
       $([5-Aug-93]$)
@@ -17,7 +17,7 @@ $( This section makes our first use of the third axiom of propositonal
 
   ${
     a3d.1 $e |- ( ph -> ( -. ps -> -. ch ) ) $.
-    $( Deduction derived from axiom ~ax-3 . $)
+    $( Deduction derived from axiom ~ ax-3 . $)
     a3d   $p |- ( ph -> ( ch -> ps ) ) $=
       ( wn wi ax-3 syl ) ABECEFCBFDBCGH $.
       $([26-Mar-95]$)
@@ -31,7 +31,7 @@ $( This section makes our first use of the third axiom of propositonal
 
   ${
     pm2.21i.1 $e |- -. ph $.
-    $( A contradiction implies anything.  Inference from ~pm2.21 . $)
+    $( A contradiction implies anything.  Inference from ~ pm2.21 . $)
     pm2.21i   $p |- ( ph -> ps ) $=
       ( wn wi pm2.21 ax-mp ) ADABECABFG $.
       $([16-Sep-93]$)
@@ -39,7 +39,7 @@ $( This section makes our first use of the third axiom of propositonal
 
   ${
     pm2.21d.1 $e |- ( ph -> -. ps ) $.
-    $( A contradiction implies anything.  Deduction from ~pm2.21 . $)
+    $( A contradiction implies anything.  Deduction from ~ pm2.21 . $)
     pm2.21d   $p |- ( ph -> ( ps -> ch ) ) $=
       ( wn wi pm2.21 syl ) ABEBCFDBCGH $.
       $([10-Feb-96]$)
@@ -47,19 +47,23 @@ $( This section makes our first use of the third axiom of propositonal
 
   $( Proof by contradiction.  Theorem *2.18 of Whitehead and Russell. $)
   pm2.18 $p |- ( ( -. ph -> ph ) -> ph ) $=
-    ( wn wi pm2.21 a2i a3d id mpi ) ABZACZAACZAJAKIAKBZALDEFAGH $.
+    ( wn wi id pm2.21 a2i a3d mpi ) ABZACZAACZAADJAKIAKBZALEFGH $.
     $([5-Aug-93]$)
 
   $( Peirce's axiom.  This odd-looking theorem is the 'difference' between
      an intuitionist system of propositional calculus and a classical system
-     and is not accepted by intuitionists. $)
+     and is not accepted by intuitionists.  A curious fact about this
+     theorem is that it requires ~ ax-3 for its proof even though the
+     the result has no negations in it. $)
   peirce $p |- ( ( ( ph -> ps ) -> ph ) -> ph ) $=
     ( wi wn pm2.21 syl4 pm2.18 syl ) ABCZACADZACAJIAABEFAGH $.
     $([5-Aug-93]$)
 
-  $( Double negation.  Theorem *2.14 of Whitehead and Russell. $)
+  $( Double negation.  Theorem *2.14 of Whitehead and Russell.  Short
+     proof found by David Harvey, 5-Sep-99.  Even shorter proof found
+     by Josh Purinton, 29-Dec-00. $)
   nega $p |- ( -. -. ph -> ph ) $=
-    ( wn wi pm2.21 ax-3 pm2.18 3syl ) ABZBZHICHACAHIDAHEAFG $.
+    ( wn wi pm2.21 pm2.18 syl ) ABZBGACAGADAEF $.
     $([5-Aug-93]$)
 
   $( Converse of double negation.  Theorem *2.12 of Whitehead and Russell. $)
@@ -137,90 +141,100 @@ $( This section makes our first use of the third axiom of propositonal
 
   ${
     con3.a $e |- ( ph -> ps ) $.
-    $( A contraposition inference. $)
+    $( A contraposition inference.  [Note:  One would think that a shorter
+       proof would be obtained by applying ~ ax-mp to ~ pm2.16 , but that
+       proof is actually longer when its syntax construction is included.] $)
     con3   $p |- ( -. ps -> -. ph ) $=
       ( wn nega syl con1 ) ADZBHDABAECFG $.
       $([5-Aug-93]$)
   $}
 
   ${
-    mto.1 $e |- ( ph -> ps ) $.
-    mto.2 $e |- -. ps $.
+    pm2.21ni.1 $e |- ph $.
+    $( Inference related to ~ pm2.21 . $)
+    pm2.21ni   $p |- ( -. ph -> ps ) $=
+      ( wn a1i con1 ) BAABDCEF $.
+      $([20-Aug-01]$)
+  $}
+
+  ${
+    mto.1 $e |- -. ps $.
+    mto.2 $e |- ( ph -> ps ) $.
     $( The rule of modus tollens. $)
     mto   $p |- -. ph $=
-      ( wn con3 ax-mp ) BEAEDABCFG $.
+      ( wn con3 ax-mp ) BEAECABDFG $.
       $([19-Aug-93]$)
   $}
 
   ${
-    mtoi.1 $e |- ( ph -> ( ps -> ch ) ) $.
-    mtoi.2 $e |- -. ch $.
+    mtoi.1 $e |- -. ch $.
+    mtoi.2 $e |- ( ph -> ( ps -> ch ) ) $.
     $( Modus tollens inference. $)
     mtoi   $p |- ( ph -> -. ps ) $=
-      ( wn pm2.16d mpi ) ACFBFABCDGEH $.
+      ( wn pm2.16d mpi ) ACFBFDABCEGH $.
       $([5-Jul-94]$)
   $}
 
   ${
-    mtod.1 $e |- ( ph -> ( ps -> ch ) ) $.
-    mtod.2 $e |- ( ph -> -. ch ) $.
+    mtod.1 $e |- ( ph -> -. ch ) $.
+    mtod.2 $e |- ( ph -> ( ps -> ch ) ) $.
     $( Modus tollens deduction. $)
     mtod   $p |- ( ph -> -. ps ) $=
-      ( wn pm2.16d mpd ) ACFBFABCDGEH $.
+      ( wn pm2.16d mpd ) ACFBFDABCEGH $.
       $([3-Apr-94]$)
   $}
 
   ${
-    mt2.1 $e |- ( ph -> -. ps ) $.
-    mt2.2 $e |- ps $.
+    mt2.1 $e |- ps $.
+    mt2.2 $e |- ( ph -> -. ps ) $.
     $( A rule similar to modus tollens. $)
     mt2   $p |- -. ph $=
-      ( wn con2 ax-mp ) BAEDABCFG $.
+      ( wn con2 ax-mp ) BAECABDFG $.
       $([19-Aug-93]$)
   $}
 
   ${
-    mt2i.1 $e |- ( ph -> ( ps -> -. ch ) ) $.
-    mt2i.2 $e |- ch $.
+    mt2i.1 $e |- ch $.
+    mt2i.2 $e |- ( ph -> ( ps -> -. ch ) ) $.
     $( Modus tollens inference. $)
     mt2i   $p |- ( ph -> -. ps ) $=
-      ( wn pm2.03d mpi ) ACBFABCDGEH $.
+      ( wn pm2.03d mpi ) ACBFDABCEGH $.
       $([26-Mar-95]$)
   $}
 
   ${
-    mt2d.1 $e |- ( ph -> ( ps -> -. ch ) ) $.
-    mt2d.2 $e |- ( ph -> ch ) $.
+    mt2d.1 $e |- ( ph -> ch ) $.
+    mt2d.2 $e |- ( ph -> ( ps -> -. ch ) ) $.
     $( Modus tollens deduction. $)
     mt2d   $p |- ( ph -> -. ps ) $=
-      ( wn pm2.03d mpd ) ACBFABCDGEH $.
+      ( wn pm2.03d mpd ) ACBFDABCEGH $.
       $([4-Jul-94]$)
   $}
 
   ${
-    mt3.1 $e |- ( -. ph -> ps ) $.
-    mt3.2 $e |- -. ps $.
+    mt3.1 $e |- -. ps $.
+    mt3.2 $e |- ( -. ph -> ps ) $.
     $( A rule similar to modus tollens. $)
     mt3   $p |- ph $=
-      ( wn con1 ax-mp ) BEADABCFG $.
+      ( wn con1 ax-mp ) BEACABDFG $.
       $([18-May-94]$)
   $}
 
   ${
-    mt3i.1 $e |- ( ph -> ( -. ps -> ch ) ) $.
-    mt3i.2 $e |- -. ch $.
+    mt3i.1 $e |- -. ch $.
+    mt3i.2 $e |- ( ph -> ( -. ps -> ch ) ) $.
     $( Modus tollens inference. $)
     mt3i   $p |- ( ph -> ps ) $=
-      ( wn pm2.15d mpi ) ACFBABCDGEH $.
+      ( wn pm2.15d mpi ) ACFBDABCEGH $.
       $([26-Mar-95]$)
   $}
 
   ${
-    mt3d.1 $e |- ( ph -> ( -. ps -> ch ) ) $.
-    mt3d.2 $e |- ( ph -> -. ch ) $.
+    mt3d.1 $e |- ( ph -> -. ch ) $.
+    mt3d.2 $e |- ( ph -> ( -. ps -> ch ) ) $.
     $( Modus tollens deduction. $)
     mt3d   $p |- ( ph -> ps ) $=
-      ( wn pm2.15d mpd ) ACFBABCDGEH $.
+      ( wn pm2.15d mpd ) ACFBDABCEGH $.
       $([26-Mar-95]$)
   $}
 
@@ -270,14 +284,15 @@ $( This section makes our first use of the third axiom of propositonal
   $}
 
   $( Theorem *3.2 of Whitehead and Russell, expressed with primitive
-     connectives. $)
+     connectives.    Short proof found by Josh Purinton, 29-Dec-00.$)
   pm3.2im  $p |- ( ph -> ( ps -> -. ( ph -> -. ps ) ) ) $=
-    ( wn wi nega comm a3d ) AABCZDZCZBJCAHIEFG $.
+    ( wn wi pm2.27 pm2.03d ) AABCZDBAGEF $.
     $([5-Aug-93]$)
 
-  $( Theorem 8, p. 60, of Margaris. $)
+  $( Theorem 8, p. 60, of Margaris.  Short proof found by Josh Purinton,
+     29-Dec-00. $)
   mth8   $p |- ( ph -> ( -. ps -> -. ( ph -> ps ) ) ) $=
-    ( wi wn nega comm pm2.15d ) AABCZDZBIDABHEFG $.
+    ( wi pm2.27 pm2.16d ) AABCBABDE $.
     $([5-Aug-93]$)
 
   $( Theorem *2.61 of Whitehead and Russell.  Useful for eliminating an
@@ -291,7 +306,7 @@ $( This section makes our first use of the third axiom of propositonal
     pm2.61i.2 $e |- ( -. ph -> ps ) $.
     $( Inference eliminating an antecedent. $)
     pm2.61i   $p |- ps $=
-      ( wi wn pm2.61 mp2 ) ABEAFBEBABGCDH $.
+      ( wi wn pm2.61 mp2 ) ABEAFBEBCDABGH $.
       $([5-Apr-94]$)
   $}
 
@@ -317,9 +332,10 @@ $( This section makes our first use of the third axiom of propositonal
     pm2.61ii.1 $e |- ( -. ph -> ( -. ps -> ch ) ) $.
     pm2.61ii.2 $e |- ( ph -> ch ) $.
     pm2.61ii.3 $e |- ( ps -> ch ) $.
-    $( Inference eliminating two antecedents. $)
+    $( Inference eliminating two antecedents.  Short proof found by Josh
+       Purinton,  29-Dec-00. $)
     pm2.61ii   $p |- ch $=
-      ( wn wi a1d pm2.61i ) BCFABGZCHACKEIDJJ $.
+      ( wn pm2.61d2 pm2.61i ) ACEAGBCDFHI $.
       $([5-Aug-93]$)
   $}
 
@@ -353,7 +369,7 @@ $( This section makes our first use of the third axiom of propositonal
     ja.2 $e |- ( ps -> ch ) $.
     $( Inference joining the antecedents of two premises. $)
     ja   $p |- ( ( ph -> ps ) -> ch ) $=
-      ( wi wn syl3 pm2.61 syl mpi ) ABFZAGCFZCLACFMCFBCAEHACIJDK $.
+      ( wi wn syl3 pm2.61 syl mpi ) ABFZAGCFZCDLACFMCFBCAEHACIJK $.
       $([5-Aug-93]$)
   $}
 
@@ -402,9 +418,10 @@ $( This section makes our first use of the third axiom of propositonal
       $([5-Aug-93]$)
   $}
 
-  $( Theorem used to justify definition of biconditional ~df-bi . $)
+  $( Theorem used to justify definition of biconditional ~ df-bi .  Short
+     proof found by Josh Purinton, 29-Dec-00. $)
   bijust $p |- -. ( ( ph -> ph ) -> -. ( ph -> ph ) ) $=
-    ( wi wn pm3.2im id mp2 ) AABZGGGCBCGGDAEZHF $.
+    ( wi wn id pm2.01 mt2 ) AABZGCBGADGEF $.
     $([11-May-99]$)
 
 

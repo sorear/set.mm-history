@@ -30,10 +30,12 @@ $)
     df-dif $a |- ( A \ B ) = { x | ( x e. A /\ -. x e. B ) } $.
   $}
 
-  $( Define union of two classes. $)
+  $( Define union of two classes.  For a more "typical" definition, but
+     requiring a dummy variable, see ~ dfun2 . $)
   df-un $a |- ( A u. B ) = ( V \ ( ( V \ A ) \ B ) ) $.
 
-  $( Define intersection of two classes. $)
+  $( Define intersection of two classes.  For a more "typical" definition,
+     but requiring a dummy variable, see ~ dfin2 . $)
   df-in $a |- ( A i^i B ) = ( A \ ( V \ B ) ) $.
 
   ${
@@ -71,12 +73,12 @@ $)
 
   $( Implication of membership in a class difference. $)
   eldifi $p |- ( A e. ( B \ C ) -> A e. B ) $=
-    ( cdif wcel wn wa eldif biimp pm3.26d ) ABCDEZABEZACEFZKLMGABCHIJ $.
+    ( cdif wcel wn eldif pm3.26bd ) ABCDEABEACEFABCGH $.
     $([29-Apr-94]$)
 
   $( Implication of membership in a class difference. $)
   eldifn $p |- ( A e. ( B \ C ) -> -. A e. C ) $=
-    ( cdif wcel wn wa eldif biimp pm3.27d ) ABCDEZABEZACEFZKLMGABCHIJ $.
+    ( cdif wcel wn eldif pm3.27bd ) ABCDEABEACEFABCGH $.
     $([3-May-94]$)
 
   $( A set does not belong to a class excluding it. $)
@@ -101,7 +103,7 @@ $)
     $( Subclass relationship for class difference.  Exercise 14 of Takeuti
        and Zaring, p. 22. $)
     difss $p |- ( A \ B ) (_ A $=
-      ( vx cdif cv eldifi ssri ) CABDACEABFG $.
+      ( vx cdif cv eldifi ssriv ) CABDACEABFG $.
       $([29-Apr-94]$)
   $}
 
@@ -145,9 +147,9 @@ $)
     $( Alternate definition of intersection of two classes.  Definition 5.6
        of Takeuti and Zaring, p. 16. $)
     dfin2 $p |- ( A i^i B ) = { x | ( x e. A /\ x e. B ) } $=
-      ( cv wcel wa cin cvv cdif df-in eleq2i wn eldif visset mpbiran bicon2
-      bilan bitr4 bitr cleqabri ) ADZBEZUACEZFZABCGZUAUEEUABHCIZIZEZUDUEUGUABCJ
-      KUHUBUAUFEZLZFUDUABUFMUCUJUBUIUCUIUAHEUCLUAHCMANOPQRST $.
+      ( cv wcel wa cin cvv cdif wn eldif df-in eleq2i visset mpbiran bicon2
+      bilan 3bitr4 cleqabri ) ADZBEZTCEZFZABCGZTBHCIZIZEUATUEEZJZFTUDEUCTBUEKUD
+      UFTBCLMUBUHUAUGUBUGTHEUBJTHCKANOPQRS $.
       $([26-Dec-96]$)
   $}
 
@@ -244,7 +246,7 @@ $)
     $( Subclass relationship for union of classes.  Theorem 25 of Suppes,
        p. 27. $)
     ssun1 $p |- A (_ ( A u. B ) $=
-      ( vx cun cv wcel wo orc elun sylibr ssri ) CAABDZCEZAFZNMBFZGMLFNOHMABIJK
+      ( vx cun cv wcel wo orc elun sylibr ssriv ) CAABDZCEZAFZNMBFZGMLFNOHMABIJK
       $.
       $([5-Aug-93]$)
   $}
@@ -256,12 +258,12 @@ $)
 
   $( Subclass law for union of classes. $)
   ssun3 $p |- ( A (_ B -> A (_ ( B u. C ) ) $=
-    ( wss cun sstr ssun1 mpi ) ABDBBCEZDAIDABIFBCGH $.
+    ( wss cun ssun1 sstr mpi ) ABDBBCEZDAIDBCFABIGH $.
     $([5-Aug-93]$)
 
   $( Subclass law for union of classes. $)
   ssun4 $p |- ( A (_ B -> A (_ ( C u. B ) ) $=
-    ( wss cun sstr ssun2 mpi ) ABDBCBEZDAIDABIFBCGH $.
+    ( wss cun ssun2 sstr mpi ) ABDBCBEZDAIDBCFABIGH $.
     $([14-Aug-94]$)
 
   $( Membership law for union of classes. $)
@@ -275,7 +277,14 @@ $)
     $([30-Aug-93]$)
 
   ${
-    $d x A $.  $d x B $.  $( ` x ` is dummy. $)
+    $d x A $.  $d x B $.  $d x C $.  $( ` x ` is dummy. $)
+    $( Subclass law for union of classes. $)
+    unss1 $p |- ( A (_ B -> ( A u. C ) (_ ( B u. C ) ) $=
+      ( vx cv wcel wi wal cun wss wo id imrord elun 3imtr4g 19.20i df-ss
+      3imtr4 ) DEZAFZSBFZGZDHSACIZFZSBCIZFZGZDHABJUCUEJUBUGDUBTSCFZKUAUHKUDUFUB
+      TUAUHUBLMSACNSBCNOPDABQDUCUEQR $.
+      $([14-Oct-99]$)
+
     $( A relationship between subclass and union.  Theorem 26 of Suppes,
        p. 27. $)
     ssequn1 $p |- ( A (_ B <-> B = ( A u. B ) ) $=
@@ -284,6 +293,11 @@ $)
       UBUHUJUKCUDUENOCABPUFCBQRUIUGBCABSTUA $.
       $([30-Aug-93]$)
   $}
+
+  $( Subclass law for union of classes. $)
+  unss2 $p |- ( A (_ B -> ( C u. A ) (_ ( C u. B ) ) $=
+    ( wss cun unss1 uncom 3sstr4g ) ABDACEBCECAECBEABCFCAGCBGH $.
+    $([14-Oct-99]$)
 
   $( A relationship between subclass and union. $)
   ssequn2 $p |- ( A (_ B <-> B = ( B u. A ) ) $=
@@ -353,11 +367,21 @@ $)
       $([14-Dec-93]$)
   $}
 
+  $( Equality theorem for intersection of two classes. $)
+  ineq2 $p |- ( A = B -> ( C i^i A ) = ( C i^i B ) ) $=
+    ( wceq cin ineq1 incom 3eqtr4g ) ABDACEBCECAECBEABCFCAGCBGH $.
+    $([26-Dec-93]$)
+
   ${
     ineq1i.1 $e |- A = B $.
     $( Equality inference for intersection of two classes. $)
     ineq1i   $p |- ( A i^i C ) = ( B i^i C ) $=
       ( wceq cin ineq1 ax-mp ) ABEACFBCFEDABCGH $.
+      $([26-Dec-93]$)
+
+    $( Equality inference for intersection of two classes. $)
+    ineq2i   $p |- ( C i^i A ) = ( C i^i B ) $=
+      ( wceq cin ineq2 ax-mp ) ABECAFCBFEDABCGH $.
       $([26-Dec-93]$)
   $}
 
@@ -367,23 +391,7 @@ $)
     ineq1d   $p |- ( ph -> ( A i^i C ) = ( B i^i C ) ) $=
       ( wceq cin ineq1 syl ) ABCFBDGCDGFEBCDHI $.
       $([10-Apr-94]$)
-  $}
 
-  $( Equality theorem for intersection of two classes. $)
-  ineq2 $p |- ( A = B -> ( C i^i A ) = ( C i^i B ) ) $=
-    ( wceq cin ineq1 incom 3eqtr4g ) ABDACEBCECAECBEABCFCAGCBGH $.
-    $([26-Dec-93]$)
-
-  ${
-    ineq2i.1 $e |- A = B $.
-    $( Equality inference for intersection of two classes. $)
-    ineq2i   $p |- ( C i^i A ) = ( C i^i B ) $=
-      ( wceq cin ineq2 ax-mp ) ABECAFCBFEDABCGH $.
-      $([26-Dec-93]$)
-  $}
-
-  ${
-    ineq2d.1 $e |- ( ph -> A = B ) $.
     $( Equality deduction for intersection of two classes. $)
     ineq2d   $p |- ( ph -> ( C i^i A ) = ( C i^i B ) ) $=
       ( wceq cin ineq2 syl ) ABCFDBGDCGFEBCDHI $.
@@ -426,10 +434,27 @@ $)
       $([3-May-94]$)
   $}
 
+
+  $( A rearrangement of intersection. $)
+  in12 $p |- ( A i^i ( B i^i C ) ) = ( B i^i ( A i^i C ) ) $=
+    ( cin incom ineq1i inass 3eqtr3 ) ABDZCDBADZCDABCDDBACDDIJCABEFABCGBACGH $.
+    $([21-Apr-01]$)
+
+  $( A rearrangement of intersection. $)
+  in23 $p |- ( ( A i^i B ) i^i C ) = ( ( A i^i C ) i^i B ) $=
+    ( cin incom ineq2i inass 3eqtr4 ) ABCDZDACBDZDABDCDACDBDIJABCEFABCGACBGH $.
+    $([21-Apr-01]$)
+
+  $( Rearrangement of intersection of 4 classes. $)
+  in4 $p |- ( ( A i^i B ) i^i ( C i^i D ) ) =
+            ( ( A i^i C ) i^i ( B i^i D ) ) $=
+    ( cin in12 ineq2i inass 3eqtr4 ) ABCDEZEZEACBDEZEZEABEJEACELEKMABCDFGABJHAC
+    LHI $.
+    $([21-Apr-01]$)
+
   $( Intersection distributes over itself. $)
   indist $p |- ( A i^i ( B i^i C ) ) = ( ( A i^i B ) i^i ( A i^i C ) ) $=
-    ( cin inabs ineq1i incom inass 3eqtr3 ineq2i 3eqtr4 eqtr ) ABCDZDZAADZMDZAB
-    DZACDZDZAOMAEFANDABRDZDPSNTAQCDBADZCDNTQUACABGFABCHBACHIJAAMHABRHKL $.
+    ( cin inabs ineq1i in4 eqtr ) ABCDZDAADZIDABDACDDAJIAEFAABCGH $.
     $([6-May-94]$)
 
   ${
@@ -453,23 +478,23 @@ $)
     $( The intersection of two classes is a subset of one of them.  Part of
        Exercise 12 of Takeuti and Zaring, p. 18. $)
     inss1 $p |- ( A i^i B ) (_ A $=
-      ( vx cin cv wcel elin pm3.26bd ssri ) CABDZACEZJFKAFKBFKABGHI $.
+      ( vx cin cv wcel elin pm3.26bd ssriv ) CABDZACEZJFKAFKBFKABGHI $.
       $([27-Apr-94]$)
   $}
 
   $( The intersection of two classes is a subset of one of them.  Part of
      Exercise 12 of Takeuti and Zaring, p. 18. $)
   inss2 $p |- ( A i^i B ) (_ B $=
-    ( cin wss incom sseq1i inss1 mpbi ) BACZBDABCZBDIJBBAEFBAGH $.
+    ( cin wss inss1 incom sseq1i mpbi ) BACZBDABCZBDBAEIJBBAFGH $.
     $([27-Apr-94]$)
 
   ${
     $d x A $.  $d x B $.  $d x C $.
     $( Subclass of intersection.  Theorem 2.8(vii) of Monk1, p. 26. $)
     ssin $p |- ( A (_ ( B i^i C ) <-> ( A (_ B /\ A (_ C ) ) $=
-      ( cin wss wa sstr inss1 mpi inss2 jca wceq ineq12 inabs indist 3eqtr4g
-      sseqin1 bi2an 3imtr4 impbi ) ABCDZEZABEZACEZFZUBUCUDUBUABEUCAUABGBCHIUBUA
-      CEUDAUACGBCJIKAABDZLZAACDZLZFZAAUADZLUEUBUJAADUFUHDAUKAUFAUHMANABCOPUCUGU
+      ( cin wss wa inss1 sstr mpi inss2 jca wceq ineq12 inabs indist 3eqtr4g
+      sseqin1 bi2an 3imtr4 impbi ) ABCDZEZABEZACEZFZUBUCUDUBUABEUCBCGAUABHIUBUA
+      CEUDBCJAUACHIKAABDZLZAACDZLZFZAAUADZLUEUBUJAADUFUHDAUKAUFAUHMANABCOPUCUGU
       DUIABQACQRAUAQST $.
       $([8-May-94]$)
   $}
@@ -482,7 +507,23 @@ $)
       3imtr4 ) DEZAFZSBFZGZDHSACIZFZSBCIZFZGZDHABJUCUEJUBUGDUBTSCFZKUAUHKUDUFUB
       TUAUHUBLMSACNSBCNOPDABQDUCUEQR $.
       $([16-Aug-94]$)
+
+    $( Add left intersection to subclass relation. $)
+    sslin $p |- ( A (_ B -> ( C i^i A ) (_ ( C i^i B ) ) $=
+      ( wss cin ssrin incom 3sstr4g ) ABDACEBCECAECBEABCFCAGCBGH $.
+      $([19-Oct-99]$)
   $}
+
+  $( Intersection of subclasses. $)
+  ss2in $p |- ( ( A (_ B /\ C (_ D ) -> ( A i^i C ) (_ ( B i^i D ) ) $=
+    ( cin wss sstr imp ssrin sslin syl2an ) ACEZBCEZFZMBDEZFZLOFZABFCDFNPQLMOGH
+    ABCICDBJK $.
+    $([5-May-00]$)
+
+  $( Intersection preserves subclass relationship. $)
+  ssinss1 $p |- ( A (_ C -> ( A i^i B ) (_ C ) $=
+    ( cin wss wi inss1 sstr ax-mp ) ABDZAEACEJCEFABGJACHI $.
+    $([14-Sep-99]$)
 
   ${
     $d x A $.  $d x B $.
@@ -508,9 +549,9 @@ $)
     $( Separation Scheme (Aussonderung) using class notation.  Compare
        Exercise 4 of Takeuti and Zaring, p. 22. $)
     zfauscl   $p |- ( A i^i B ) e. V $=
-      ( vx vy cin cv wceq wex wel wcel wa wb wal dfcleq elin bilbi bial bitr
-      biex zfaus mpbir issetri ) DABFZDGZUDHZDIEDJZEGZAKUHBKZLZMZENZDIUFULDUFUG
-      UHUDKZMZENULEUEUDOUNUKEUMUJUGUHABPQRSTUIEDACUAUBUC $.
+      ( vx vy cin cv wceq wex wel wcel wa wb wal zfaus dfcleq elin bilbi bial
+      bitr biex mpbir issetri ) DABFZDGZUDHZDIEDJZEGZAKUHBKZLZMZENZDIUIEDACOUFU
+      LDUFUGUHUDKZMZENULEUEUDPUNUKEUMUJUGUHABQRSTUAUBUC $.
       $([5-Aug-93]$)
   $}
 
@@ -536,8 +577,8 @@ $)
     $( The subset of a set is also a set.  Exercise 3 of Takeuti and Zaring,
        p. 22. $)
     ssex  $p |- ( A (_ B -> A e. V ) $=
-      ( wss cin wceq cvv wcel sseqin1 eleq1 zfauscl2 mpbiri sylbi ) ABDAABEZFZA
-      GHZABIOPNGHANGJBACKLM $.
+      ( wss cin wceq cvv wcel sseqin1 zfauscl2 eleq1 mpbiri sylbi ) ABDAABEZFZA
+      GHZABIOPNGHBACJANGKLM $.
       $([27-Apr-94]$)
   $}
 
@@ -562,7 +603,7 @@ $)
 
   $( Existence of a difference. $)
   difexg $p |- ( A e. C -> ( A \ B ) e. V ) $=
-    ( wcel cdif wss cvv ssexg difss mpi ) ACDABEZAFKGDKACHABIJ $.
+    ( wcel cdif wss cvv difss ssexg mpi ) ACDABEZAFKGDABHKACIJ $.
     $([26-May-98]$)
 
   ${
@@ -576,11 +617,18 @@ $)
 
   ${
     $d x A $.
+    $( Separation Scheme in terms of a restricted abstraction class. $)
+    zfausrabg $p |- ( A e. B -> { x e. A | ph } e. V ) $=
+      ( wcel crab wss cvv ssrab ssexg mpi ) CDEABCFZCGLHEABCILCDJK $.
+      $([23-Oct-99]$)
+  $}
+
+  ${
+    $d x A $.
     zfausrab.1 $e |- A e. V $.
     $( Separation Scheme in terms of a restricted abstraction class. $)
     zfausrab   $p |- { x e. A | ph } e. V $=
-      ( crab cvv wcel cv wa cab df-rab eleq1i zfausab mpbir ) ABCEZFGBHCGAIBJZF
-      GOPFABCKLABCDMN $.
+      ( cvv wcel crab zfausrabg ax-mp ) CEFABCGEFDABCEHI $.
       $([19-Jul-96]$)
   $}
 

@@ -1,16 +1,18 @@
 $( Note:  While this file is complete and correct, it may undergo revisions
-   from time to time (e.g. theorem name changes). $)
+   from time to time (including theorem name changes, which means any new
+   theorems you add may not always remain compatible). $)
 $(
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 The HELP LANGUAGE command in the Metamath program will give you a quick
 overview of Metamath.  Syntax summary:
+
           $c ... $. - Constant declaration
           $v ... $. - Variable declaration
           $d ... $. - Disjoint (distinct) variable restriction
-    label $f ... $. - "Floating" (variable-type) hypothesis
-    label $e ... $. - "Essential" (logical) hypothesis (e.g. theorem assumption)
-    label $a ... $. - Axiom or definition or syntax construction
-    label $p ... $= ... $. - Theorem and its proof
+  <label> $f ... $. - "Floating" (variable-type) hypothesis
+  <label> $e ... $. - "Essential" (logical) hypothesis (e.g. theorem assumption)
+  <label> $a ... $. - Axiom or definition or syntax construction
+  <label> $p ... $= ... $. - Theorem and its proof
           ${ ... $} - Block for scoping above statements (except $a, $p
                       which are forever active)
 $)        $( ... $) $( - Comments (may not be nested)
@@ -22,17 +24,53 @@ proof verification algorithm is the substitution of expressions for
 variables while checking for distinct variable violations.  EVERYTHING
 ELSE, including the axioms for logic, is defined in this database file.
 
+Here is some more detail about the syntax.  A <token> may not contain
+the "$" character but may contain any other non-whitespace printable
+character.  A <label> may contain only alphanumeric characters and the
+characters ".-_".  Tokens and labels are case-sensitive.
+
+          $c <token> $.  <token> is a previously unused token in current scope.
+          $v <token> $.  <token> is a previously unused token in current scope.
+          $d <tokenlist> $. <tokenlist> is a (whitespace-separated) list of
+                            distinct tokens previously declared with $v in
+                            current scope.  It means that substitutions into
+                            these tokens may not have variables in common.
+  <label> $f <tokenlist> $. <tokenlist> is a list of 2 or more tokens, the
+                            first of which must be previously declared with $c
+                            in the current scope.
+  <label> $e <tokenlist> $. <tokenlist> is a list of 2 or more tokens, the
+                            first of which must be previously declared with $c
+                            in the current scope.
+  <label> $a <tokenlist> $. <tokenlist> is a list of 2 or more tokens, the
+                            first of which must be previously declared with $c
+                            in the current scope.
+  <label> $p <tokenlist> $= <proof> $. <tokenlist> is a list of 2 or more
+                            tokens, the first of which must be previously
+                            declared with $c in the current scope.  <proof> is
+                            either a whitespace-delimited sequence of previous
+                            labels (created by SAVE PROOF <label> /NORMAL) or a
+                            compressed proof (created by SAVE PROOF <label>
+                            /COMPRESSED).  After using SAVE PROOF, use
+                            WRITE SOURCE to save the database file to disk.
+          ${ ... $} - Block for scoping the above statements (except $a, $p
+                      which are forever active)
+$)        $( <any text> $) $( Note: <any text> may not contain adjacent "$"
+                             and ")" characters.
+          $[ <filename> $]   Insert contents of <filename> at this point.
+                             If <filename> is current file or has been already
+                             been inserted, it will not be inserted again.
+
 Inside of comments, it is recommended that labels be preceded with a tilde (~)
 and math symbol tokens be enclosed in grave accents (` `).  This way the
-LaTeX rendition of comments will be accurate, and (future) tools to globally
-change labels and math symbols will also change them in comments.  Note
-that `` inside of grave accents is interpreted as a single `.
+LaTeX and HTML rendition of comments will be accurate, and (future) tools
+to globally change labels and math symbols will also change them in comments.
+Note that `` inside of grave accents is interpreted as a single `.
 
 The proofs in this file are in "compressed" format for storage efficiency. The
 Metamath program reads the compressed format directly.  This format is
 described in an Appendix of the Metamath book.  It is not intended to be
 read by humans.  For viewing proofs you should use the various SHOW PROOF
-commands described in the Metamath book.
+commands described in the Metamath book (or the on-line HELP).
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 $)

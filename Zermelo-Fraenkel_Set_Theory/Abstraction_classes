@@ -33,6 +33,7 @@ $)
   $v D $.
   $v R $.
   $v S $.
+  $v T $.
 
   $( All sets are classes (but not vice-versa!). $)
   cv $a class x $.
@@ -54,6 +55,8 @@ $)
   cR $f class R $.
   $( Let ` S ` be a class variable. $)
   cS $f class S $.
+  $( Let ` T ` be a class variable. $)
+  cT $f class T $.
 
   $( Extend wff definition to include class equality. $)
   wceq $a wff A = B $.
@@ -63,7 +66,8 @@ $)
   wcel $a wff A e. B $.
 
   $( Define the abstraction class.  ` x ` and ` y ` need not be distinct.
-     Definition 2.1 of Quine, p. 16. $)
+     Definition 2.1 of Quine, p. 16.  See ~ df-clel for the general definition
+     of membership of classes. $)
   df-clab $a |- ( x e. { y | ph } <-> ( ph y | x ) ) $.
 
   $( Simplification of abstraction class notation when the free and abstraction
@@ -93,44 +97,45 @@ $)
 
   ${
     $d x A $.  $d x B $.  $d x y z $.
-    dm-cleq.1 $e |- ( A. x ( x e. y <-> x e. z ) -> y = z ) $.
+    df-cleq.1 $e |- ( A. x ( x e. y <-> x e. z ) -> y = z ) $.
     $( Define the the equality connective between classes.  See Quine or
        Chapter 4 of Takeuti and Zaring for its justification and methods for
        eliminating it.  Note that its elimination will not necessarily result
        in a single wff in the original language but possibly a "scheme" of
-       wffs.  This is an example of a somewhat "dangerous" definition, because
+       wffs.  This is an example of a somewhat "risky" definition, because
        it extends the use of the existing equality symbol rather than
        introducing a new symbol, allowing us to make statements in the original
        language that may not be true.  For example, it permits us to deduce
        ` y = z <-> A. x ( x e. y <-> x e. z ) ` which is not a theorem of
        logic but rather presupposes the Axiom of Extensionality, which we
        must therefore include as a hypothesis.  We could avoid the danger
-       by introducing another symbol, say ` == `, in place of ` = `; this would
+       by introducing another symbol, say == , in place of ` = `; this would
        also have the advantage of making elimination of the definition
-       straightforward, so that we could make ~dm-cleq become "df-cleq" and
-       eliminate Extensionality as a hypothesis.  We would then also have the
-       advantage of being able to identify exactly where Extensionality
-       truly comes into play.  Of course, one of our theorems would then be
-       ` x == x <-> x = x ` by invoking Extensionality.  However in keeping
-       with standard practice we retain the "dangerous" definition. $)
-    dm-cleq   $a |- ( A = B <-> A. x ( x e. A <-> x e. B ) ) $.
+       straightforward, so that we could eliminate Extensionality as a
+       hypothesis.  We would then also have the advantage of being able to
+       identify in various proofs exactly where Extensionality truly comes into
+       play.  Then, one of our theorems would then be ` x ` == ` x <-> x = x `
+       by invoking Extensionality.  However in keeping with standard practice
+       we retain the "dangerous" definition; this also makes some proofs
+       shorter. $)
+    df-cleq   $a |- ( A = B <-> A. x ( x e. A <-> x e. B ) ) $.
   $}
 
  ${
     $d x A $.  $d x B $.  $d x y z $.  $( ` y z ` are dummy var. $)
-    $( The same as ~dm-cleq with the hypothesis removed. $)
+    $( The same as ~ df-cleq with the hypothesis removed. $)
     dfcleq $p |- ( A = B <-> A. x ( x e. A <-> x e. B ) ) $=
-      ( vy vz ax-ext dm-cleq ) ADEBCADEFG $.
+      ( vy vz ax-ext df-cleq ) ADEBCADEFG $.
       $([15-Sep-93]$)
   $}
 
   ${
     $d x A $.  $d x B $.
     $( Define the membership connective between classes.  Theorem 6.3 of
-       Quine, p. 41, which we adopt as a definition.  Note that it extends
-       the use of the existing membership symbol, but unlike ~dm-cleq it does
-       not strengthen the set of valid wffs of logic when the class variables
-       are replaced with set variables. $)
+       Quine, p. 41, which we adopt as a definition.  Note that like
+       ~ df-cleq it extends the use of the existing membership symbol, but
+       unlike ~ df-cleq it does not strengthen the set of valid wffs of logic
+       when the class variables are replaced with set variables. $)
     df-clel $a |- ( A e. B <-> E. x ( x = A /\ x e. B ) ) $.
   $}
 
@@ -184,7 +189,7 @@ $)
     cleqcomi.1 $e |- A = B $.
     $( Inference from commutative law for class equality. $)
     cleqcomi   $p |- B = A $=
-      ( wceq cleqcom mpbi ) ABDBADABECF $.
+      ( wceq cleqcom mpbi ) ABDBADCABEF $.
       $([5-Aug-93]$)
   $}
 
@@ -288,7 +293,7 @@ $)
     eqtr.2 $e |- B = C $.
     $( A chained equality inference. $)
     eqtr   $p |- A = C $=
-      ( wceq cleq2i mpbi ) ABFACFBCAEGDH $.
+      ( wceq cleq2i mpbi ) ABFACFDBCAEGH $.
       $([5-Aug-93]$)
   $}
 
@@ -359,8 +364,17 @@ $)
     eqtrd.2 $e |- ( ph -> B = C ) $.
     $( A chained equality deduction. $)
     eqtrd   $p |- ( ph -> A = C ) $=
-      ( wceq cleq2d mpbid ) ABCGBDGACDBFHEI $.
+      ( wceq cleq2d mpbid ) ABCGBDGEACDBFHI $.
       $([5-Aug-93]$)
+  $}
+
+  ${
+    eqtr2d.1 $e |- ( ph -> A = B ) $.
+    eqtr2d.2 $e |- ( ph -> B = C ) $.
+    $( A chained equality deduction. $)
+    eqtr2d   $p |- ( ph -> C = A ) $=
+      ( eqtrd cleqcomd ) ABDABCDEFGH $.
+      $([18-Oct-99]$)
   $}
 
   ${
@@ -412,14 +426,14 @@ $)
 
     $( A deduction from three chained equalities. $)
     3eqtr4rd   $p |- ( ph -> D = C ) $=
-      ( 3eqtr4d cleqcomd ) ADEABCDEFGHIJ $.
+      ( eqtr4d ) AEBDAECBHFIGI $.
       $([21-Sep-95]$)
   $}
 
   ${
     syl5eq.1 $e |- ( ph -> A = B ) $.
     syl5eq.2 $e |- C = A $.
-    $( A chained equality inference. $)
+    $( A chained equality deduction. $)
     syl5eq   $p |- ( ph -> C = B ) $=
       ( wceq a1i eqtrd ) ADBCDBGAFHEI $.
       $([5-Aug-93]$)
@@ -428,7 +442,7 @@ $)
   ${
     syl5req.1 $e |- ( ph -> A = B ) $.
     syl5req.2 $e |- C = A $.
-    $( A chained equality inference. $)
+    $( A chained equality deduction. $)
     syl5req   $p |- ( ph -> B = C ) $=
       ( syl5eq cleqcomd ) ADCABCDEFGH $.
       $([29-Mar-98]$)
@@ -437,7 +451,7 @@ $)
   ${
     syl5eqr.1 $e |- ( ph -> A = B ) $.
     syl5eqr.2 $e |- A = C $.
-    $( A chained equality inference. $)
+    $( A chained equality deduction. $)
     syl5eqr   $p |- ( ph -> C = B ) $=
       ( cleqcomi syl5eq ) ABCDEBDFGH $.
       $([5-Aug-93]$)
@@ -446,7 +460,7 @@ $)
   ${
     syl5reqr.1 $e |- ( ph -> A = B ) $.
     syl5reqr.2 $e |- A = C $.
-    $( A chained equality inference. $)
+    $( A chained equality deduction. $)
     syl5reqr   $p |- ( ph -> B = C ) $=
       ( cleqcomi syl5req ) ABCDEBDFGH $.
       $([29-Mar-98]$)
@@ -455,7 +469,7 @@ $)
   ${
     syl6eq.1 $e |- ( ph -> A = B ) $.
     syl6eq.2 $e |- B = C $.
-    $( A chained equality inference. $)
+    $( A chained equality deduction. $)
     syl6eq   $p |- ( ph -> A = C ) $=
       ( wceq a1i eqtrd ) ABCDECDGAFHI $.
       $([5-Aug-93]$)
@@ -464,7 +478,7 @@ $)
   ${
     syl6req.1 $e |- ( ph -> A = B ) $.
     syl6req.2 $e |- B = C $.
-    $( A chained equality inference. $)
+    $( A chained equality deduction. $)
     syl6req   $p |- ( ph -> C = A ) $=
       ( syl6eq cleqcomd ) ABDABCDEFGH $.
       $([29-Mar-98]$)
@@ -473,7 +487,7 @@ $)
   ${
     syl6eqr.1 $e |- ( ph -> A = B ) $.
     syl6eqr.2 $e |- C = B $.
-    $( A chained equality inference. $)
+    $( A chained equality deduction. $)
     syl6eqr   $p |- ( ph -> A = C ) $=
       ( cleqcomi syl6eq ) ABCDEDCFGH $.
       $([5-Aug-93]$)
@@ -482,7 +496,7 @@ $)
   ${
     syl6reqr.1 $e |- ( ph -> A = B ) $.
     syl6reqr.2 $e |- C = B $.
-    $( A chained equality inference. $)
+    $( A chained equality deduction. $)
     syl6reqr   $p |- ( ph -> C = A ) $=
       ( cleqcomi syl6req ) ABCDEDCFGH $.
       $([29-Mar-98]$)
@@ -491,7 +505,7 @@ $)
   ${
     sylan9eq.1 $e |- ( ph -> A = B ) $.
     sylan9eq.2 $e |- ( ps -> B = C ) $.
-    $( A chained equality inference. $)
+    $( A chained equality deduction. $)
     sylan9eq   $p |- ( ( ph /\ ps ) -> A = C ) $=
       ( wa wceq adantr adantl eqtrd ) ABHCDEACDIBFJBDEIAGKL $.
       $([8-May-94]$)
@@ -500,7 +514,7 @@ $)
   ${
     sylan9eqr.1 $e |- ( ph -> A = B ) $.
     sylan9eqr.2 $e |- ( ps -> B = C ) $.
-    $( A chained equality inference. $)
+    $( A chained equality deduction. $)
     sylan9eqr   $p |- ( ( ps /\ ph ) -> A = C ) $=
       ( wceq sylan9eq ancoms ) ABCEHABCDEFGIJ $.
       $([8-May-94]$)
@@ -599,7 +613,7 @@ $)
     eqeltr.2 $e |- B e. C $.
     $( Substitution of equal classes into membership relation. $)
     eqeltr   $p |- A e. C $=
-      ( wcel eleq1i mpbir ) ACFBCFABCDGEH $.
+      ( wcel eleq1i mpbir ) ACFBCFEABCDGH $.
       $([5-Aug-93]$)
   $}
 
@@ -617,7 +631,7 @@ $)
     eleqtr.2 $e |- B = C $.
     $( Substitution of equal classes into membership relation. $)
     eleqtr   $p |- A e. C $=
-      ( wcel eleq2i mpbi ) ABFACFBCAEGDH $.
+      ( wcel eleq2i mpbi ) ABFACFDBCAEGH $.
       $([5-Aug-93]$)
   $}
 

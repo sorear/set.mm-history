@@ -12,78 +12,186 @@ $)
   ${
     $d x y z $.
     $( Define exponentiation to integer powers.  (Currently only the exponent
-       ` 2 _10 ` is defined, to allow us to use the square of a number with
+       ` 2_10 ` is defined, to allow us to use the square of a number with
        a convenient notation.  In a later version of the Metamath set theory
        database, this will be extended to arbitrary integer exponents using
        finite recursion, but all proofs involving squares will remain the
-       same because we will directly reference only theorem ~sqvalt and its
-       consequences.) $)
+       same because we will directly reference only theorems ~ sqvalt (value)
+       and ~ sqclt (closure).) $)
     df-exp $a |- ^ = { <. <. x , y >. , z >. |
-                   ( ( x e. CC /\ y e. { 2 _10 } ) /\ z = ( x x. x ) ) } $.
+                   ( ( x e. CC /\ y e. { 2_10 } ) /\ z = ( x x. x ) ) } $.
 
   $}
 
   ${
     $d x y z A $.
     $( Value of square. $)
-    sqvalt $p |- ( A e. CC -> ( A ^ 2 _10 ) = ( A x. A ) ) $=
-      ( vx vy vz cc wcel cl2 csn cexp co cmulc wceq cv oprex id opreq12d
-      cleqid a1i df-exp oprabval2 cr 2re elisseti snid mpan2 ) AEFGGHZFAGIJAAKJ
-      ZLBCDAGEUFBMZUHKJUGIUGAAKNUHALZUHAUHAKUIOZUJPUGUGLCMGLUGQRBCDSTGGUAUBUCUD
-      UE $.
+    sqvalt $p |- ( A e. CC -> ( A ^ 2_10 ) = ( A x. A ) ) $=
+      ( vx vy vz cc wcel cl2 csn cexp co cmulc wceq cr 2re elisseti snid cv
+      oprex id opreq12d cleqid a1i df-exp oprabval2 mpan2 ) AEFGGHZFAGIJAAKJZLG
+      GMNOPBCDAGEUFBQZUHKJUGIUGAAKRUHALZUHAUHAKUISZUJTUGUGLCQGLUGUAUBBCDUCUDUE
+      $.
       $([1-Aug-99]$)
   $}
 
-  sqclt $p |- ( A e. CC -> ( A ^ 2 _10 ) e. CC ) $=
-    ( cc wcel cl2 cexp co wa cmulc wceq sqvalt adantr eleq1d axmulcl mpbird
-    anabss ) ABCZADEFZBCZPPGZRAAHFZBCSQTBPQTIPAJKLAAMNO $.
+  $( Closure of square. $)
+  sqclt $p |- ( A e. CC -> ( A ^ 2_10 ) e. CC ) $=
+    ( cc wcel cl2 cexp co wa cmulc axmulcl wceq sqvalt adantr eleq1d mpbird
+    anabss ) ABCZADEFZBCZPPGZRAAHFZBCAAISQTBPQTJPAKLMNO $.
     $([10-Aug-99]$)
 
   ${
     sqval.1 $e |- A e. CC $.
     $( Value of square.  Inference version. $)
-    sqval $p |- ( A ^ 2 _10 ) = ( A x. A ) $=
+    sqval $p |- ( A ^ 2_10 ) = ( A x. A ) $=
       ( cc wcel cl2 cexp co cmulc wceq sqvalt ax-mp ) ACDAEFGAAHGIBAJK $.
       $([1-Aug-99]$)
 
     $( Closure of square. $)
-    sqcl $p |- ( A ^ 2 _10 ) e. CC $=
+    sqcl $p |- ( A ^ 2_10 ) e. CC $=
       ( cc wcel cl2 cexp co sqclt ax-mp ) ACDAEFGCDBAHI $.
       $([2-Aug-99]$)
+
+    $( A number is zero iff its square is zero. $)
+    sqe0 $p |- ( ( A ^ 2_10 ) = 0_10 <-> A = 0_10 ) $=
+      ( cl2 cexp co cn0 wceq cmulc sqval cleq1i sq0 bitr ) ACDEZFGAAHEZFGAFGMNF
+      ABIJABKL $.
+      $([2-Oct-99]$)
+
+    ${
+      sqmul.2 $e |- B e. CC $.
+      $( Distribution of square over multiplication. $)
+      sqmul $p |- ( ( A x. B ) ^ 2_10 ) = ( ( A ^ 2_10 ) x. ( B ^ 2_10 ) ) $=
+        ( cmulc co cl2 cexp mul4 mulcl sqval opreq12i 3eqtr4 ) ABEFZNEFAAEFZBBE
+        FZEFNGHFAGHFZBGHFZEFABABCDCDINABCDJKQORPEACKBDKLM $.
+        $([3-Sep-99]$)
+
+      ${
+        sqdiv.3 $e |- B =/= 0_10 $.
+        $( Distribution of square over division. $)
+        sqdiv $p |- ( ( A / B ) ^ 2_10 ) = ( ( A ^ 2_10 ) / ( B ^ 2_10 ) ) $=
+          ( cdiv co cmulc cl2 cexp divmuldiv divcl sqval opreq12i 3eqtr4 ) ABFG
+          ZPHGAAHGZBBHGZFGPIJGAIJGZBIJGZFGABABCDCDEEKPABCDELMSQTRFACMBDMNO $.
+          $([20-Aug-01]$)
+      $}
+    $}
+
+    ${
+      sqreci.1 $e |- A =/= 0_10 $.
+      $( Square of reciprocal. $)
+      sqreci $p |- ( ( 1_10 / A ) ^ 2_10 ) = ( 1_10 / ( A ^ 2_10 ) ) $=
+        ( cn1 cdiv co cmulc cl2 cexp 1cn divmuldiv mulid1 opreq1i eqtr divcl
+        sqval opreq2i 3eqtr4 ) DAEFZSGFZDAAGFZEFZSHIFDAHIFZEFTDDGFZUAEFUBDADAJB
+        JBCCKUDDUAEDJLMNSDAJBCOPUCUADEABPQR $.
+        $([17-Sep-99]$)
+    $}
   $}
+
+  $( Closure of square in reals. $)
+  sqreclt $p |- ( A e. RR -> ( A ^ 2_10 ) e. RR ) $=
+    ( cr wcel cl2 cexp co cmulc axmulrcl anabss cc wceq recnt sqvalt syl
+    eleq1d mpbird ) ABCZADEFZBCAAGFZBCZQTAAHIQRSBQAJCRSKALAMNOP $.
+    $([18-Oct-99]$)
 
   ${
     sqrecl.1 $e |- A e. RR $.
     $( Closure of square in reals. $)
-    sqrecl $p |- ( A ^ 2 _10 ) e. RR $=
-      ( cl2 cexp co cmulc cr recn sqval mulrcl eqeltr ) ACDEAAFEGAABHIAABBJK $.
+    sqrecl $p |- ( A ^ 2_10 ) e. RR $=
+      ( cr wcel cl2 cexp co sqreclt ax-mp ) ACDAEFGCDBAHI $.
       $([2-Aug-99]$)
 
-    $( A square of a real is non-negative. $)
-    sqege0 $p |- 0 _10 <_ ( A ^ 2 _10 ) $=
-      ( cn0 cl2 cexp co cle wbr cmulc recn sqval breq2i sqge0 mpbir ) CADEFZGHC
-      AAIFZGHOPCGAABJKLABMN $.
-      $([3-Aug-99]$)
-
-    $( Absolute value of a real number. $)
-    absre $p |- ( abs ` A ) = ( sqr ` ( A ^ 2 _10 ) ) $=
-      ( cabs cfv ccj cmulc co csqr cl2 cexp cc wcel wceq recn absval ax-mp
-      sqval cr recj mpbi opreq2i eqtr fveq2i eqtr4 ) ACDZAAEDZFGZHDZAIJGZHDAKLU
-      EUHMABNZAOPUIUGHUIAAFGUGAUJQAUFAFARLAUFMAUJSBTUAUBUCUD $.
-      $([3-Aug-99]$)
-
     $( Square root of square. $)
-    sqrsqe $p |- ( 0 _10 <_ A -> ( sqr ` ( A ^ 2 _10 ) ) = A ) $=
+    sqrsqe $p |- ( 0_10 <_ A -> ( sqr ` ( A ^ 2_10 ) ) = A ) $=
       ( cn0 cle wbr cmulc co csqr cfv cl2 cexp sqrsqid recn sqval fveq2i
       syl5eq ) CADEAAFGZHIAAJKGZHIABLRQHAABMNOP $.
       $([11-Aug-99]$)
 
     $( Square of square root. $)
-    sqsqr $p |- ( 0 _10 <_ A -> ( ( sqr ` A ) ^ 2 _10 ) = A ) $=
-      ( cn0 cle wbr csqr cfv cl2 cexp co cmulc cc wcel wceq cr sqrcl recnt syl
-      sqvalt sqrth eqtrd ) CADEZAFGZHIJZUCUCKJZAUBUCLMZUDUENUBUCOMUFABPUCQRUCSR
-      ABTUA $.
+    sqsqr $p |- ( 0_10 <_ A -> ( ( sqr ` A ) ^ 2_10 ) = A ) $=
+      ( cn0 cle wbr csqr cfv cl2 cexp co cmulc cc wcel wceq sqrcl recnd sqvalt
+      syl sqrth eqtrd ) CADEZAFGZHIJZUBUBKJZAUAUBLMUCUDNUAUBABOPUBQRABST $.
       $([11-Aug-99]$)
-  $}
 
+    ${
+      lt2sqe.2 $e |- B e. RR $.
+      $( Two non-negative reals compare the same as their squares. $)
+      lt2sqe $p |- ( ( 0_10 <_ A /\ 0_10 <_ B ) ->
+                ( A < B <-> ( A ^ 2_10 ) < ( B ^ 2_10 ) ) ) $=
+        ( cn0 cle wbr wa clt cmulc co cl2 cexp lt2sq recn sqval breq12i
+        syl6bbr ) EAFGEBFGHABIGAAJKZBBJKZIGALMKZBLMKZIGABCDNUASUBTIAACOPBBDOPQR
+        $.
+        $([12-Sep-99]$)
+
+      $( Two non-negative reals compare the same as their squares. $)
+      le2sqe $p |- ( ( 0_10 <_ A /\ 0_10 <_ B ) ->
+                ( A <_ B <-> ( A ^ 2_10 ) <_ ( B ^ 2_10 ) ) ) $=
+        ( cn0 cle wbr wa cmulc co cl2 cexp le2sq recn sqval breq12i syl6bbr )
+        EAFGEBFGHABFGAAIJZBBIJZFGAKLJZBKLJZFGABCDMTRUASFAACNOBBDNOPQ $.
+        $([12-Sep-99]$)
+
+      $( The square function is one-to-one for non-negative reals. $)
+      sqe11 $p |-  ( ( 0_10 <_ A /\ 0_10 <_ B ) ->
+                ( ( A ^ 2_10 ) = ( B ^ 2_10 ) <-> A = B ) ) $=
+        ( cn0 cle wbr wa cmulc co wceq cl2 cexp sq11 recn sqval cleq12i syl5bb
+        ) EAFGEBFGHAAIJZBBIJZKABKALMJZBLMJZKABCDNUASUBTAACOPBBDOPQR $.
+        $([27-Oct-99]$)
+    $}
+
+    $( The square of a non-zero real is positive. $)
+    sqegt0 $p |- ( A =/= 0_10 -> 0_10 < ( A ^ 2_10 ) ) $=
+      ( cn0 wceq wn cmulc co clt wbr wne cl2 cexp sqgt0 df-ne recn sqval
+      breq2i 3imtr4 ) ACDECAAFGZHIACJCAKLGZHIABMACNTSCHAABOPQR $.
+      $([17-Sep-99]$)
+
+    $( A square of a real is non-negative. $)
+    sqege0 $p |- 0_10 <_ ( A ^ 2_10 ) $=
+      ( cn0 cl2 cexp co cle wbr cmulc sqge0 recn sqval breq2i mpbir ) CADEFZGHC
+      AAIFZGHABJOPCGAABKLMN $.
+      $([3-Aug-99]$)
+
+  $}
+  $( The square function is one-to-one for non-negative reals. $)
+  sqe11t $p |-  ( ( A e. RR /\ B e. RR ) -> ( ( 0_10 <_ A /\ 0_10 <_ B ) ->
+            ( ( A ^ 2_10 ) = ( B ^ 2_10 ) <-> A = B ) ) ) $=
+    ( cr wcel cn0 cle wbr wa cl2 cexp co wceq wb wi cded breq2 birand opreq1
+    cleq1d cleq1 bi2bid bi2imd biland cleq2d cleq2 ax0re elimel sqe11 dedth2h
+    ) ACDZBCDZEAFGZEBFGZHZAIJKZBIJKZLZABLZMZNEUJAEOZFGZUMHZUTIJKZUPLZUTBLZMZNVA
+    EUKBEOZFGZHZVCVGIJKZLZUTVGLZMZNABEEAUTLZUNVBUSVFVNULVAUMAUTEFPQVNUQVDURVEVN
+    UOVCUPAUTIJRSAUTBTUAUBBVGLZVBVIVFVMVOUMVHVABVGEFPUCVOVDVKVEVLVOUPVJVCBVGIJR
+    UDBVGUTUEUAUBUTVGAECUFUGBECUFUGUHUI $.
+    $([8-Apr-01]$)
+
+  $( Square of square root. $)
+  sqsqrt $p |- ( ( A e. RR /\ 0_10 <_ A ) -> ( ( sqr ` A ) ^ 2_10 ) = A ) $=
+    ( cr wcel cn0 cle wbr csqr cfv cl2 cexp co wceq wi cded breq2 fveq2
+    opreq1d id cleq12d bi2imd ax0re elimel sqsqr dedth imp ) ABCZDAEFZAGHZIJKZA
+    LZUFUGUJMDUFADNZEFZUKGHZIJKZUKLZMADAUKLZUGULUJUOAUKDEOUPUIUNAUKUPUHUMIJAUKG
+    PQUPRSTUKADBUAUBUCUDUE $.
+    $([27-Sep-99]$)
+
+  $( Two non-negative numbers compare the same as their squares. $)
+  lt2sqet $p |- ( ( A e. RR /\ B e. RR ) -> ( ( 0_10 <_ A /\ 0_10 <_ B ) ->
+              ( A < B <-> ( A ^ 2_10 ) < ( B ^ 2_10 ) ) ) ) $=
+   ( cr wcel cn0 cle wbr wa clt cl2 cexp co wb wi cded wceq breq2 birand breq1
+   opreq1 breq1d bi2bid bi2imd biland breq2d ax0re elimel lt2sqe dedth2h ) ACDZ
+   BCDZEAFGZEBFGZHZABIGZAJKLZBJKLZIGZMZNEUJAEOZFGZUMHZUTBIGZUTJKLZUQIGZMZNVAEUK
+   BEOZFGZHZUTVGIGZVDVGJKLZIGZMZNABEEAUTPZUNVBUSVFVNULVAUMAUTEFQRVNUOVCURVEAUTB
+   ISVNUPVDUQIAUTJKTUAUBUCBVGPZVBVIVFVMVOUMVHVABVGEFQUDVOVCVJVEVLBVGUTIQVOUQVKV
+   DIBVGJKTUEUBUCUTVGAECUFUGBECUFUGUHUI $.
+   $([26-Sep-99]$)
+
+  $( Two non-negative numbers compare the same as their squares. $)
+  le2sqet $p |- ( ( A e. RR /\ B e. RR ) -> ( ( 0_10 <_ A /\ 0_10 <_ B ) ->
+              ( A <_ B <-> ( A ^ 2_10 ) <_ ( B ^ 2_10 ) ) ) ) $=
+    ( cr wcel wa cn0 cle wbr cl2 cexp co wb cmulc le2sqt imp cc sqvalt
+    breqan12d recnt syl2an adantr bitr4d exp ) ACDZBCDZEZFAGHFBGHEZABGHZAIJKZBI
+    JKZGHZLUFUGEUHAAMKZBBMKZGHZUKUFUGUHUNLABNOUFUKUNLZUGAPDZBPDZUOUDUEUPUQUIULU
+    JUMGAQBQRASBSTUAUBUC $.
+    $([18-Oct-99]$)
+
+  $( A square of a real is non-negative. $)
+  sqege0t $p |- ( A e. RR -> 0_10 <_ ( A ^ 2_10 ) ) $=
+    ( cr wcel cn0 cl2 cexp co cle wbr cded wceq opreq1 breq2d ax0re elimel
+    sqege0 dedth ) ABCZDAEFGZHIDRADJZEFGZHIADATKSUADHATEFLMTADBNOPQ $.
+    $([18-Oct-99]$)
 
