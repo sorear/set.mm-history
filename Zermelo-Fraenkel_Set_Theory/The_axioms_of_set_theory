@@ -1,7 +1,7 @@
 $(
-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
         The axioms of set theory
-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 $)
 
 $(
@@ -55,39 +55,47 @@ $)
 
     $( Axiom of Replacement.  An axiom scheme of Zermelo-Fraenkel set theory.
        Axiom 5 of [TakeutiZaring] p. 19.  It tells us that that the image of
-       any set under a function is also a set (see the variant ~ zfrep5 ).
-       Although ` ph ` may be any wff whatsoever, this axiom is useful when
-       we are given some function and ` ph ` encodes the predicate "the value
-       of the function at ` w ` is ` z ` ".  Thus ` ph ` will ordinarily have
-       free variables ` w ` and ` z ` - think of it informally as
-       ` ph ( w , z ) ` .  We prefix ` ph ` with the quantifier ` A. y ` in
-       order to "protect" the axiom from any ` ph ` containing ` y ` , thus
-       allowing us to eliminate any restrictions on ` ph ` .  This makes the
-       axiom usable in a formalization that omits the logically redundant axiom
-       ~ ax-17 .  Another common variant is derived as ~ zfrep3 , where you can
-       find some further remarks.  A slightly more compact version is shown as
-       ~ axrep .  A quite different variant is ~ zfrep6 , which if used in
-       place of ~ ax-rep would also require that the Separation Scheme ~ zfaus
-       be stated as a separate axiom. $)
+       any set under a function is also a set (see the variant ~ funimaex ).
+       Although ` ph ` may be any wff whatsoever, this axiom is useful (i.e.
+       its antecedent is satisfied) when we are given some function and ` ph `
+       encodes the predicate "the value of the function at ` w ` is ` z ` ".
+       Thus ` ph ` will ordinarily have free variables ` w ` and ` z ` - think
+       of it informally as ` ph ( w , z ) ` .  We prefix ` ph ` with the
+       quantifier ` A. y ` in order to "protect" the axiom from any ` ph `
+       containing ` y ` , thus allowing us to eliminate any restrictions on
+       ` ph ` .  This makes the axiom usable in a formalization that omits the
+       logically redundant axiom ~ ax-17 .  Another common variant is derived as
+       ~ zfrep3 , where you can find some further remarks.  A slightly more
+       compact version is shown as ~ axrep .  A quite different variant is
+       ~ zfrep6 , which if used in place of ~ ax-rep would also require that
+       the Separation Scheme ~ zfaus be stated as a separate axiom.
+
+       There is very strong generalization of Replacement that doesn't demand
+       function-like behavior of ` ph ` .  Two variants of this
+       generalization are called the Collection Principle ~ cp and the
+       Boundedness Axiom ~ bnd .  The Collection Principle is sometimes used
+       in place of Replacement as one of the ZF axioms, for example at
+       MathWorld ~ http://mathworld.wolfram.com/Zermelo-FraenkelAxioms.html
+       where it is (somewhat misleadingly) called "Replacement".  $)
     ax-rep $a |- ( A. w E. y A. z ( A. y ph -> z = y ) ->
                      E. y A. z ( z e. y <-> E. w ( w e. x /\ A. y ph ) ) ) $.
 
     $( Axiom of Union.  An axiom of Zermelo-Fraenkel set theory.  It states
        that the union of any set exists.  A variant is Axiom Union of
        [BellMachover] p. 466 (which can be derived from this version using
-       ~ bm1.3ii ).  A version using abbreviations is ~ zfun2 . $)
-    ax-un  $a |- E. y A. z ( E. w ( z e. w /\ w e. x ) -> z e. y ) $.
+       ~ bm1.3ii ).  A version using abbreviations is ~ uniex . $)
+    ax-un $a |- E. y A. z ( E. w ( z e. w /\ w e. x ) -> z e. y ) $.
 
     $( Axiom of Power Sets.  An axiom of Zermelo-Fraenkel set theory.  It
        states that the collection of all subsets of a set is also a set.  A
        variant is Axiom Pow of [BellMachover] p. 466 (which can be derived
        from this version using ~ bm1.3ii ).  A version using abbreviations is
-       ~ zfpowcl . $)
+       ~ pwex . $)
     ax-pow $a |- E. y A. z ( A. w ( w e. z -> w e. x ) -> z e. y ) $.
 
     $( Axiom of Regularity.  An axiom of Zermelo-Fraenkel set theory.  Also
        called the Axiom of Foundation.  A rather non-intuitive axiom that
-       denies more than it asserts, it states (in the form of ~ zfregw ) that
+       denies more than it asserts, it states (in the form of ~ zfreg ) that
        every non-empty set contains a set disjoint from itself.  One
        consequence is that it denies the existence of a set containing itself
        ( ~ eirrv ).  A stronger version that works for proper classes is proved
@@ -116,19 +124,25 @@ $)
        extension of ZF set theory rather than a proper part of it.  It is
        sometimes considered philosophically controversial because it asserts
        the existence of a set without telling us what the set is.  ZF set
-       theory that includes AC is called ZFC.  AC (in a common version
-       given in textbooks) asserts that given a family of mutually disjoint
-       nonempty sets, a set exists containing exactly one member from each set
-       in the family.  The unpublished version shown here was specifically
-       crafted to be short when expanded to primitives and may be the shortest
-       possible; unfortunately it is rather hard to explain informally.  A
-       version using of it using abbreviations is ~ ac3 , which you should
-       study at if you really want to decipher it.  Standard versions are
-       derived as ~ ac4 and ~ ac5 (which is Axiom AC of [BellMachover] p. 488).
-       The Axiom of Regularity ~ ax-reg (among others) is used to derive our
-       version from the standard ones; this reverse derivation is shown as
-       theorem ~ ac3a . Equivalents to AC are the well-ordering principle
-       ~ weth and Zorn's lemma ~ zorn . $)
+       theory that includes AC is called ZFC.  AC (in a common version given in
+       textbooks) asserts that given a family of mutually disjoint nonempty
+       sets, a set exists containing exactly one member from each set in the
+       family.  Stated another way, there exists a "choice function" on any
+       set that maps each (non-empty) member of the set to an arbitrary
+       member of that member.
+
+       The unpublished version shown here was specifically crafted to be short
+       when expanded to primitives and may be the shortest possible (although
+       Kurt Maes' 5-quantifier formula ~ ackm is the same length when the
+       biconditional of ~ ax-ac is expanded).  In order to understand ~ ax-ac ,
+       you should look at the rewritten version ~ ac3 , which is accompanied by
+       an informal explanation.
+
+       Standard textbook versions of AC are derived as ~ ac4 and ~ ac5 (which
+       is Axiom AC of [BellMachover] p. 488).  The Axiom of Regularity ~ ax-reg
+       (among others) is used to derive our version from the standard ones;
+       this reverse derivation is shown as theorem ~ aceq6b .  Equivalents to
+       AC are the well-ordering theorem ~ weth and Zorn's lemma ~ zorn2 . $)
     ax-ac $a  |- E. y A. z A. w ( ( z e. w /\ w e. x ) -> E. v A. u ( E. t
               ( ( u e. w /\ w e. t ) /\ ( u e. t /\ t e. y ) ) <-> u = v ) ) $.
   $}

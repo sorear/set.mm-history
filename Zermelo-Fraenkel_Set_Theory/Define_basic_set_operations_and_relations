@@ -1,7 +1,7 @@
 $(
-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
         Define basic set operations and relations
-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 $)
 
   $( Declare new symbols. $)
@@ -41,67 +41,53 @@ $)
     df-dif $a |- ( A \ B ) = { x | ( x e. A /\ -. x e. B ) } $.
   $}
 
-  $( Define union of two classes.  This definition is unusual, but along with
-     ~ df-in and ~ df-ss it shows we can express union, intersection, and
-     subset directly in terms of the single "primitive" operation ` \ `
-     (class difference).  For a more traditional definition, but requiring a
-     dummy variable, see ~ dfun2 . For union defined in terms of
-     intersection, se ~ dfun3 . (In retrospect I now dislike this definition
-     - it is not intuitive at all - and may change back to ~ dfun2 at some
-     point in the future.  - _nm_) $)
-  df-un $a |- ( A u. B ) = ( V \ ( ( V \ A ) \ B ) ) $.
+  ${
+    $d x A $.  $d x B $.
+    $( Define the union of two classes.  Definition 5.6 of [TakeutiZaring]
+       p. 16.  For an alternate definition in terms of class difference,
+       requiring no dummy variables, see ~ dfun2 .  For union defined in terms
+       of intersection, see ~ dfun3 . $)
+    df-un $a |- ( A u. B ) = { x | ( x e. A \/ x e. B ) } $.
 
-  $( Define intersection of two classes.  For a more traditional definition,
-     but requiring a dummy variable, see ~ dfin2 .  For intersection
-     defined in terms of union, see ~ dfin3 .  For another definition in
-     terms of difference, see ~ dfin4 . $)
-  df-in $a |- ( A i^i B ) = ( A \ ( V \ B ) ) $.
+    $( Define the intersection of two classes.  Definition 5.6 of
+       [TakeutiZaring] p. 16.  For alternate definitions in terms of class
+       difference, requiring no dummy variables, see ~ dfin2 and ~ dfin4 .  For
+       intersection defined in terms of union, see ~ dfin3 . $)
+    df-in $a |- ( A i^i B ) = { x | ( x e. A /\ x e. B ) } $.
+  $}
 
-  $( Define the subclass relationship between two classes.  Exercise 9 of
-     [TakeutiZaring] p. 18.  For a more traditional definition, but requiring
-     a dummy variable, see ~ dfss2 .  For subset defined in terms of class
-     difference, see ~ dfss4 . $)
-  df-ss $a |- ( A (_ B <-> A = ( A i^i B ) ) $.
+  $( Define the subclass relationship.  Exercise 9 of [TakeutiZaring] p. 18.
+     For a more traditional definition, but requiring a dummy variable, see
+     ~ dfss2 .  Other possible definitions are given by ~ dfss3 , ~ dfss4 ,
+     ~ sspss , ~ ssequn1 , ~ ssequn2 , ~ sseqin2 , and ~ ssdif0 . $)
+  df-ss $a |- ( A (_ B <-> ( A i^i B ) = A ) $.
+
+  $( A frequently-used variant of subclass definition ~ df-ss . $)
+  dfss $p |- ( A (_ B <-> A = ( A i^i B ) ) $=
+    ( wss cin wceq df-ss cleqcom bitr ) ABCABDZAEAIEABFIAGH $.
+    $( [3-Sep-04] $)
 
   $( Define proper subclass relationsip between two classes.  Definition 5.9
-     of [TakeutiZaring] p. 17. $)
+     of [TakeutiZaring] p. 17.  Other possible definitions are given by
+     ~ dfpss2 and ~ dfpss3 . $)
   df-pss $a |- ( A (. B <-> ( A (_ B /\ A =/= B ) ) $.
+
+  ${
+    $d x A $.  $d x B $.
+    $( Alternate definition of class difference. $)
+    dfdif2 $p |- ( A \ B ) = { x e. A | -. x e. B } $=
+      ( cdif cv wcel wn wa cab crab df-dif df-rab eqtr4 ) BCDAEZBFNCFGZHAIOABJA
+      BCKOABLM $.
+      $( [26-Mar-04] $) $( [25-Mar-04] $)
+  $}
 
   ${
     $d x A $.  $d x B $.  $d x C $.  $( ` x ` is dummy. $)
     $( Expansion of membership in a class difference. $)
     eldif $p |- ( A e. ( B \ C ) <-> ( A e. B /\ -. A e. C ) ) $=
       ( vx cdif wcel cvv wn wa elisset adantr cv wceq eleq1 binegd bi2and
-      df-dif vtoclabg pm5.21nii ) ABCEZFAGFZABFZACFZHZIZATJUBUAUDABJKDLZBFZUFCF
-      ZHZIUEDATGUFAMZUGUBUIUDUFABNUJUHUCUFACNOPDBCQRS $.
-      $([29-Apr-94]$)
-  $}
-
-  ${
-    $d x A $.  $d x B $.
-    $( Alternate definition of union of two classes.  Definition 5.6 of
-       [TakeutiZaring] p. 16. $)
-    dfun2 $p |- ( A u. B ) = { x | ( x e. A \/ x e. B ) } $=
-      ( cv wcel wo cun cvv cdif wn eldif visset mpbiran df-un eleq2i wa biran
-      ioran 3bitr4 bicon2 biabri ) ADZBEZUBCEZFZABCGZUBHHBIZCIZIZEZUBUHEZJZUBUF
-      EUEUJUBHEZULUBHUHKALZMUFUIUBBCNOUKUEUBUGEZUDJZPUCJZUPPUKUEJUOUQUPUOUMUQUB
-      HBKUNMQUBUGCKUCUDRSTSUA $.
-      $([26-Dec-96]$)
-
-    $( Alternate definition of intersection of two classes.  Definition 5.6
-       of [TakeutiZaring] p. 16. $)
-    dfin2 $p |- ( A i^i B ) = { x | ( x e. A /\ x e. B ) } $=
-      ( cv wcel wa cin cvv cdif wn eldif df-in eleq2i visset mpbiran bicon2
-      bilan 3bitr4 biabri ) ADZBEZTCEZFZABCGZTBHCIZIZEUATUEEZJZFTUDEUCTBUEKUDUF
-      TBCLMUBUHUAUGUBUGTHEUBJTHCKANOPQRS $.
-      $([26-Dec-96]$)
-
-    $( Alternate definition of the subclass relationship between two classes.
-       Definition 5.9 of [TakeutiZaring] p. 17. $)
-    dfss2 $p |- ( A (_ B <-> A. x ( x e. A -> x e. B ) ) $=
-      ( wss cv wcel wa wb wal wi cin wceq cab df-ss dfin2 cleq2i cleqab 3bitr
-      pm4.71 bial bitr4 ) BCDZAEZBFZUDUCCFZGZHZAIZUDUEJZAIUBBBCKZLBUFAMZLUHBCNU
-      JUKBABCOPUFABQRUIUGAUDUESTUA $.
-      $([8-Jan-02]$)
+      df-dif elab2g pm5.21nii ) ABCEZFAGFZABFZACFZHZIZATJUBUAUDABJKDLZBFZUFCFZH
+      ZIUEDATGUFAMZUGUBUIUDUFABNUJUHUCUFACNOPDBCQRS $.
+      $( [29-Apr-94] $)
   $}
 
