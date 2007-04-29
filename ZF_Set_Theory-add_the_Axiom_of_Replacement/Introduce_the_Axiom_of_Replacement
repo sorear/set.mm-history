@@ -1,0 +1,165 @@
+$(
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+          Introduce the Axiom of Replacement
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+$)
+
+  ${
+    $d x y z w $.
+    $( Axiom of Replacement.  An axiom scheme of Zermelo-Fraenkel set theory.
+       Axiom 5 of [TakeutiZaring] p. 19.  It tells us that that the image of
+       any set under a function is also a set (see the variant ~ funimaex ).
+       Although ` ph ` may be any wff whatsoever, this axiom is useful (i.e.
+       its antecedent is satisfied) when we are given some function and ` ph `
+       encodes the predicate "the value of the function at ` w ` is ` z ` ".
+       Thus ` ph ` will ordinarily have free variables ` w ` and ` z ` - think
+       of it informally as ` ph ( w , z ) ` .  We prefix ` ph ` with the
+       quantifier ` A. y ` in order to "protect" the axiom from any ` ph `
+       containing ` y ` , thus allowing us to eliminate any restrictions on
+       ` ph ` .  This makes the axiom usable in a formalization that omits the
+       logically redundant axiom ~ ax-17 .  Another common variant is derived
+       as ~ axrep5 , where you can find some further remarks.  A slightly more
+       compact version is shown as ~ axrep2 .  A quite different variant is
+       ~ zfrep6 , which if used in place of ~ ax-rep would also require that
+       the Separation Scheme ~ axsep be stated as a separate axiom.
+
+       There is very a strong generalization of Replacement that doesn't demand
+       function-like behavior of ` ph ` .  Two versions of this generalization
+       are called the Collection Principle ~ cp and the Boundedness Axiom
+        ~ bnd .
+
+       Many developments of set theory distinguish the uses of Replacement
+       from those of Separation ~ axsep , Null Set ~ axnul , and Pairing
+       ~ axpr , which we derive from Replacement.  In order to make it easier
+       to identify the uses of those redundant axioms, we restate them as
+       axioms ~ ax-sep , ~ ax-nul , and ~ ax-pr below the theorems that prove
+       them. $)
+    ax-rep $a |- ( A. w E. y A. z ( A. y ph -> z = y ) ->
+                     E. y A. z ( z e. y <-> E. w ( w e. x /\ A. y ph ) ) ) $.
+  $}
+
+  ${
+    $d w y ph $.  $d w x y z $.
+    $( The version of the Axiom of Replacement used in the Metamath Solitaire
+       applet ~ http://us2.metamath.org:8888/mmsolitaire/mms.html .
+       Equivalence is shown via the path ~ ax-rep ` -> ` ~ axrep1 ` -> `
+       ~ axrep2 ` -> ` ~ axrepnd ` -> ` ~ zfcndrep = ~ ax-rep . $)
+    axrep1 $p |- E. x ( E. y A. z ( ph -> z = y ) ->
+                 A. z ( z e. x <-> E. x ( x e. y /\ ph ) ) ) $=
+      ( vw cv wceq wi wal wex wcel wa wb elequ2 anbi1d exbidv bibi2d albidv
+      imbi2d ax-4 imim1i 19.20i 19.22i ax-rep syl ax-17 hbe1 hbbi hbal hba1
+      hban hbex bibi1d cbvex sylib chvarv 19.35ri impbi anbi2i exbii bibi2i
+      albii imbi2i mpbi ) ADFZCFZGZHZDIZCJZVEBFZKZVKVFKZACIZLZBJZMZDIZHZBJVJVLV
+      MALZBJZMZDIZHZBJVJVRBVJBIZVLVKEFZKZVNLZBJZMZDIZBJZHWEVRBJZHECWFVFGZWLWMWE
+      WNWKVRBWNWJVQDWNWIVPVLWNWHVOBWNWGVMVNECBNOPQRPSWEVEVFKZWIMZDIZCJZWLWEVNVG
+      HZDIZCJZBIWRVJXABVIWTCVHWSDVNAVGACTZUAUBUCUBAECDBUDUEWQWKCBWPBDWOWIBWOBUF
+      WHBUGUHUIWJCDVLWICVLCUFWHCBWGVNCWGCUFACUJUKULUHUIVFVKGZWPWJDXCWOVLWICBDNU
+      MRUNUOUPUQVSWDBVRWCVJVQWBDVPWAVLVOVTBVNAVMVNAXBACUFURUSUTVAVBVCUTVD $.
+      $( [21-Nov-2005] $) $( [19-Nov-2005] $)
+  $}
+
+  ${
+    $d w ph $. $d w x y z $.
+    $( Axiom of Replacement expressed with the fewest number of different
+       variables and without any restrictions on ` ph ` . $)
+    axrep2 $p |- E. x ( E. y A. z ( ph -> z = y ) ->
+                        A. z ( z e. x <-> E. x ( x e. y /\ A. y ph ) ) ) $=
+      ( vw wal cv wceq wi wex wcel wa wb hbe1 ax-17 hbim hbex elequ2 anbi1d
+      exbidv bibi2d albidv imbi2d axrep1 chvar ax-4 imim1i 19.20i 19.22i hba1
+      hbal equequ2 cbvex sylib ax-mp ) ACFZDGZEGZHZIZDFZEJZUQBGZKZVCCGZKZUPLZBJ
+      ZMZDFZIZBJZAUQVEHZIZDFZCJZVJIZBJVBVDVCURKZUPLZBJZMZDFZIZBJVLECVKEBVBVJEVA
+      ENVJEOPQURVEHZWCVKBWDWBVJVBWDWAVIDWDVTVHVDWDVSVGBWDVRVFUPECBRSTUAUBUCTUPB
+      EDUDUEVKVQBVPVBVJVPUPVMIZDFZCJVBVOWFCVNWEDUPAVMACUFUGUHUIWFVACEWFEOUTCDUP
+      USCACUJUSCOPUKVEURHZWEUTDWGVMUSUPCEDULUCUBUMUNUGUIUO $.
+      $( [15-Aug-2003] $)
+  $}
+
+  ${
+    $d w x y z $.
+    $( Axiom of Replacement slightly strengthened from ~ axrep2 ; ` w ` may
+       occur free in ` ph ` . $)
+    axrep3 $p |- E. x ( E. y A. z ( ph -> z = y ) ->
+                 A. z ( z e. x <-> E. x ( x e. w /\ A. y ph ) ) ) $=
+      ( cv wceq wi wal wex wcel wa wb hbe1 ax-17 hba1 hban hbex hbbi hbal hbim
+      elequ2 anbi1d exbidv bibi2d albidv imbi2d axrep2 chvar ) ADFZCFZGHDIZCJZU
+      JBFZKZUNUKKZACIZLZBJZMZDIZHZBJUMUOUNEFZKZUQLZBJZMZDIZHZBJCEVICBUMVHCULCNV
+      GCDUOVFCUOCOVECBVDUQCVDCOACPQRSTUARUKVCGZVBVIBVJVAVHUMVJUTVGDVJUSVFUOVJUR
+      VEBVJUPVDUQCEBUBUCUDUEUFUGUDABCDUHUI $.
+      $( [2-Jan-1997] $)
+  $}
+
+  ${
+    $d x y z w $.
+    axrep4.1 $e |- ( ph -> A. z ph ) $.
+    $( A more traditional version of the Axiom of Replacement. $)
+    axrep4 $p |- ( A. x E. z A. y ( ph -> y = z ) ->
+                E. z A. y ( y e. z <-> E. x ( x e. w /\ ph ) ) ) $=
+      ( cv wceq wi wal wex wcel wa wb axrep3 19.35i ax-17 hba1 hban hbex hbbi
+      hbal hbe1 elequ2 ax-4 impbi anbi2i exbii a1i bibi12d albid cbvex sylib )
+      ACGZDGZHICJDKZBJUNBGZLZUQEGLZADJZMZBKZNZCJZBKUNUOLZUSAMZBKZNZCJZDKUPVDBAB
+      DCEOPVDVIBDVCDCURVBDURDQVADBUSUTDUSDQADRSTUAUBVHBCVEVGBVEBQVFBUCUAUBUQUOH
+      ZVCVHCVJCQVJURVEVBVGBDCUDVBVGNVJVAVFBUTAUSUTAADUEFUFUGUHUIUJUKULUM $.
+      $( [14-Aug-1994] $)
+  $}
+
+  ${
+    $d x y z w $.
+    axrep5.1 $e |- ( ph -> A. z ph ) $.
+    $( Axiom of Replacement (similar to Axiom Rep of [BellMachover] p. 463).
+       The antecedent tells us ` ph ` is analogous to a "function" from ` x `
+       to ` y ` (although it is not really a function since it is a wff and not
+       a class).  In the consequent we postulate the existence of a set ` z `
+       that corresponds to the "image" of ` ph ` restricted to some other set
+       ` w ` . The hypothesis says ` z ` must not be free in ` ph ` . $)
+    axrep5 $p |- ( A. x ( x e. w -> E. z A. y ( ph -> y = z ) ) ->
+                E. z A. y ( y e. z <-> E. x ( x e. w /\ ph ) ) ) $=
+      ( cv wcel wceq wi wal wex wa wb 19.37v impexp albii 19.21v bitr2 exbii
+      bitr3 ax-17 hban axrep4 sylbi anabs5 bibi2i sylib ) BGEGHZACGZDGZIZJZCKZD
+      LJZBKZUJUKHZUIUIAMZMZBLZNZCKZDLZUQURBLZNZCKZDLUPURULJZCKZDLZBKVCUOVIBUOUI
+      UNJZDLVIUIUNDOVJVHDVHUIUMJZCKVJVGVKCUIAULPQUIUMCRSTUAQURBCDEUIADUIDUBFUCU
+      DUEVBVFDVAVECUTVDUQUSURBUIAUFTUGQTUH $.
+      $( [26-Nov-1995] $)
+  $}
+
+  ${
+    $d y z A v $. $d z ph v $. $d A w v $.  $d x y z v $.  $d x w v $.
+
+    zfrepclf.1 $e |- ( w e. A -> A. x w e. A ) $.
+    zfrepclf.2 $e |- A e. V $.
+    zfrepclf.3 $e |- ( x e. A -> E. z A. y ( ph -> y = z ) ) $.
+    $( An inference rule based on the Axiom of Replacement.
+       Typically, ` ph ` defines a function from ` x ` to ` y ` . $)
+    zfrepclf $p |- E. z A. y ( y e. z <-> E. x ( x e. A /\ ph ) ) $=
+      ( vv cv wcel wa wex wb wal wceq wi ax-17 hbeq eleq2 syl6bi 19.21ai
+      axrep5 syl anbi1d exbid bibi2d albidv exbidv mpbid vtocle ) CKZDKZLZBKZFL
+      ZAMZBNZOZCPZDNZJFHJKZFQZUOUPVCLZAMZBNZOZCPZDNZVBVDVEAUMUNQRCPDNZRZBPVJVDV
+      LBBEEVCFEKVCLBSGTZVDVEUQVKVCFUPUAZIUBUCABCDJADSUDUEVDVIVADVDVHUTCVDVGUSUO
+      VDVFURBVMVDVEUQAVNUFUGUHUIUJUKUL $.
+      $( [26-Nov-1995] $)
+  $}
+
+  ${
+    $d x y z A $. $d z ph $.
+    zfrep3cl.1 $e |- A e. V $.
+    zfrep3cl.2 $e |- ( x e. A -> E. z A. y ( ph -> y = z ) ) $.
+    $( An inference rule based on the Axiom of Replacement.
+       Typically, ` ph ` defines a function from ` x ` to ` y ` . $)
+    zfrep3cl $p |- E. z A. y ( y e. z <-> E. x ( x e. A /\ ph ) ) $=
+      ( cv wcel ax-17 zfrepclf ) ABCDCECHEIBJFGK $.
+      $( [26-Nov-1995] $)
+  $}
+
+  ${
+    $d ph y z $.  $d ps z $.  $d x y z $.
+    zfrep4.1 $e |- { x | ph } e. V $.
+    zfrep4.2 $e |- ( ph -> E. z A. y ( ps -> y = z ) ) $.
+    $( A version of Replacement using class abstractions. $)
+    zfrep4 $p |- { y | E. x ( ph /\ ps ) } e. V $=
+      ( cv cab wcel wa wex cvv abid anbi1i exbii abbii wceq wb wal hbab1 wi
+      sylbi zfrepclf abeq2 mpbir issetri eqeltrr ) CHACIZJZBKZCLZDIZABKZCLZDIMU
+      LUODUKUNCUJABACNZOPQEUMEHZUMRZELDHZUQJULSDTZELBCDEDUIACDUAFUJABUSUQRUBDTE
+      LUPGUCUDURUTEULDUQUEPUFUGUH $.
+      $( [26-Nov-1995] $)
+  $}
+
+

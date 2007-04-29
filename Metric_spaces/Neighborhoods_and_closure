@@ -1,0 +1,210 @@
+$(
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+                       Neighborhoods and closure
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+$)
+
+$(
+  @c neiOLD @.
+  @c accOLD @.
+  @c acc @.
+  @c cls @.
+  @c int @.
+
+  @( Extend class notation with neighborhood of a metric space point. @)
+  cne @a class neiOLD @.
+
+  @( Extend class notation with accumulation points (limit points) of
+     a metric space point. @)
+  cacOLD @a class accOLD @.
+
+  @( Extend class notation with accumulation points (limit points) of
+     a metric space point. @)
+  cac @a class acc @.
+
+  @( Extend class notation with closure of a metric space subset. @)
+  ccl @a class cls @.
+
+  @( Extend class notation with interior of a metric space subset. @)
+  cnt @a class int @.
+
+  @{
+    @d u v w x y z @.
+    @( Define a function on metric spaces whose value is the relation "subset
+       ` x ` is a neighborhood of point ` y ` ." @)
+    df-neiOLD @a |- neiOLD = { <. z , w >. | ( z e. Met /\ w = { <. x , y >. |
+      ( x (_ ( 1st ` z ) /\ y e. ( 1st ` z ) /\ E. v e. RR
+      ( 0 < v /\ ( y ( ball ` z ) v ) (_ x ) ) } ) } @.
+
+    @( Define a function on metric spaces whose value is the relation " ` x `
+       is an accumulation point (limit point) of subset ` y ` ." @)
+    df-accOLD @a |- accOLD = { <. z , w >. | ( z e. Met /\ w = { <. x , y >. |
+      ( x e. ( 1st ` z ) /\ y (_ ( 1st ` z ) /\ A. v ( ( v (_ ( 1st ` z ) /\
+       v ( neiOLD ` z ) x ) -> E. u e. v ( u e. y /\ -. u = x ) ) ) } ) } @.
+
+    @( Define a function on metric spaces whose value is the relation " ` x `
+       is an accumulation point (limit point) of subset ` y ` ." @)
+    df-acc @a |- acc = { <. z , w >. | ( z e. Met /\ w = { <. x , y >. |
+      ( x e. ( 1st ` z ) /\ y (_ ( 1st ` z ) /\ A. v e. RR ( 0 < v -> E. u e.
+      ( x ( ball ` z ) v ) ( u e. y /\ -. u = x ) ) ) } ) } @.
+
+    @( Define a function on metric spaces whose value is the closure function
+       on the subsets of the metric space. @)
+    df-clsOLD @a |- cls = { <. z , w >. | ( z e. Met /\ w = { <. x , y >. |
+      ( x (_ ( 1st ` z ) /\
+      y = ( x u. { v e. ( 1st ` z ) | v ( acc ` z ) x } ) ) } ) } @.
+
+    @( Define a function on metric spaces whose value is the interior function
+       on the subsets of the metric space. @)
+    df-ntr @a |- int = { <. z , w >. | ( z e. Met /\ w = { <. x , y >. |
+      ( x (_ ( 1st ` z ) /\ y = U. { v e. ran ( ball ` z ) | v (_ x } ) } @.
+  @}
+
+  @{
+    @d u v w x y z M @.  @d v w x y z X @.  @d u v w x y z @.
+    accfval.1 @e |- X = ( 1st ` M ) @.
+    @( The relation "subset ` x ` is a neighborhood of point ` y ` ." @)
+    neifvalOLD @p |- ( M e. Met -> ( neiOLD ` M ) = { <. x , y >. | ( x (_ X /\
+           y e. X /\ E. v e. RR ( 0 < v /\ ( y ( ball ` M ) v ) (_ x ) ) } ) @=
+      ( vz vw cv c1st cfv wss wcel cc0 clt wbr cbl co wa cr wrex w3a copab cmt
+      cne wceq fveq2 syl6eqr sseq2d eleq2d opreqd sseq1d anbi2d rexbidv
+      3anbi123d opabbidv df-neiOLD cpw cxp cvv fvex eqeltr pwex xpex df-3an
+      visset elpw 3anbi1i bitr3 opabbii opabssxp eqsstr3 ssexi fvopab4 ) GHDAIZ
+      GIZJKZLZBIZVQMZNCIZOPZVSWAVPQKZRZVOLZSZCTUAZUBZABUCVOELZVSEMZWBVSWADQKZRZ
+      VOLZSZCTUAZUBZABUCZUDUEVPDUFZWHWPABWRVRWIVTWJWGWOWRVQEVOWRVQDJKZEVPDJUGFU
+      HZUIWRVQEVSWTUJWRWFWNCTWRWEWMWBWRWDWLVOWRWCWKVSWAVPDQUGUKULUMUNUOUPABGHCU
+      QWQEURZEUSZXAEEEWSUTFDJVAVBZVCXCVDWQVOXAMZWJSWOSZABUCXBXEWPABXEXDWJWOUBWP
+      XDWJWOVEXDWIWJWOVOEAVFVGVHVIVJWOABXAEVKVLVMVN @.
+      @( [ ?] @) @( [8-Sep-2006] @)
+
+    @( The relation " ` x ` is an accumulation point (limit point) of subset
+       ` y ` ." @)
+    accfvalOLD @p |- ( M e. Met -> ( accOLD ` M ) = { <. x , y >. |
+      ( x e. X /\ y (_ X /\ A. v ( ( v (_ X /\
+       v ( neiOLD ` M ) x ) -> E. u e. v ( u e. y /\ -. u = x ) ) ) } ) @=
+      ( vz vw cv c1st cfv wcel wss cne wbr wa wceq wn wrex wi wal w3a copab
+      cmt cacOLD fveq2 syl6eqr eleq2d sseq2d wb breq syl anbi12d imbi1d albidv
+      3anbi123d opabbidv df-accOLD cpw cxp cvv fvex eqeltr pwex xpex df-3an
+      visset elpw 3anbi2i bitr3 opabbii opabssxp eqsstr3 ssexi fvopab4 ) HIEAJZ
+      HJZKLZMZBJZVSNZCJZVSNZWCVQVROLZPZQZDJZWAMWHVQRSQDWCTZUAZCUBZUCZABUDVQFMZW
+      AFNZWCFNZWCVQEOLZPZQZWIUAZCUBZUCZABUDZUEUFVRERZWLXAABXCVTWMWBWNWKWTXCVSFV
+      QXCVSEKLZFVREKUGGUHZUIXCVSFWAXEUJXCWJWSCXCWGWRWIXCWDWOWFWQXCVSFWCXEUJXCWE
+      WPRWFWQUKVREOUGWCVQWEWPULUMUNUOUPUQURABHICDUSXBFFUTZVAZFXFFXDVBGEKVCVDZFX
+      HVEVFXBWMWAXFMZQWTQZABUDXGXJXAABXJWMXIWTUCXAWMXIWTVGXIWNWMWTWAFBVHVIVJVKV
+      LWTABFXFVMVNVOVP @.
+      @( [ ?] @) @( [8-Sep-2006] @)
+
+    @( The relation " ` x ` is an accumulation point (limit point) of subset
+       ` y ` ." @)
+    accfval @p |- ( M e. Met -> ( acc ` M ) = { <. x , y >. |
+      ( x e. X /\ y (_ X /\ A. v e. RR ( 0 < v -> E. u e.
+      ( x ( ball ` M ) v ) ( u e. y /\ -. u = x ) ) ) } ) @=
+      ( vz vw cv c1st cfv wcel wss cc0 clt wbr wceq wn wa cbl co wrex wi cr
+      wral w3a copab cmt cac fveq2 syl6eqr eleq2d sseq2d wb opreqd rexeq1 syl
+      imbi2d ralbidv 3anbi123d opabbidv df-acc cpw cxp cvv fvex eqeltr pwex
+      xpex df-3an visset elpw 3anbi2i bitr3 opabbii opabssxp eqsstr3 ssexi
+      fvopab4 ) HIEAJZHJZKLZMZBJZWCNZOCJZPQZDJZWEMWIWARSTZDWAWGWBUALZUBZUCZUDZC
+      UEUFZUGZABUHWAFMZWEFNZWHWJDWAWGEUALZUBZUCZUDZCUEUFZUGZABUHZUIUJWBERZWPXDA
+      BXFWDWQWFWRWOXCXFWCFWAXFWCEKLZFWBEKUKGULZUMXFWCFWEXHUNXFWNXBCUEXFWMXAWHXF
+      WLWTRWMXAUOXFWKWSWAWGWBEUAUKUPWJDWLWTUQURUSUTVAVBABHICDVCXEFFVDZVEZFXIFXG
+      VFGEKVGVHZFXKVIVJXEWQWEXIMZTXCTZABUHXJXMXDABXMWQXLXCUGXDWQXLXCVKXLWRWQXCW
+      EFBVLVMVNVOVPXCABFXIVQVRVSVT @.
+      @( [ ?] @) @( [9-Sep-2006] @)
+
+    @( The closure function on the subsets of the metric space. @)
+    clsfvalOLD @p |- ( M e. Met -> ( cls ` M ) =  { <. x , y >. | ( x (_ X /\
+                     y = ( x u. { v e. X | v ( acc ` M ) x } ) ) } ) @=
+      ( vz vw cv c1st cfv wss cac wbr crab cun wceq wa copab cmt ccl fveq2
+      syl6eqr sseq2d rabeq syl wb breq rabbisdv eqtrd uneq2d eqeq2d anbi12d
+      opabbidv df-clsOLD cpw wcel cvv visset elpw anbi1i opabbii fvex eqeltr
+      pwex
+      funopabex2 eqeltrr fvopab4 ) GHDAIZGIZJKZLZBIZVICIZVIVJMKZNZCVKOZPZQZRZAB
+      SVIELZVMVIVNVIDMKZNZCEOZPZQZRZABSZTUAVJDQZVTWGABWIVLWAVSWFWIVKEVIWIVKDJKZ
+      EVJDJUBFUCZUDWIVRWEVMWIVQWDVIWIVQVPCEOZWDWIVKEQVQWLQWKVPCVKEUEUFWIVPWCCEW
+      IVOWBQVPWCUGVJDMUBVNVIVOWBUHUFUIUJUKULUMUNABGHCUOVIEUPZUQZWFRZABSWHURWOWG
+      ABWNWAWFVIEAUSUTVAVBABWMWEEEWJURFDJVCVDVEVFVGVH @.
+      @( [ ?] @) @( [8-Sep-2006] @)
+
+    @( The interior function on the subsets of the metric space. @)
+    ntrfval @p |- ( M e. Met -> ( int ` M ) =  { <. x , y >. | ( x (_ X /\
+                     y = U. { v e. ran ( ball ` M ) | v (_ x } ) } ) @=
+?@.
+  @}
+
+  @{
+    @d w x y z M @.  @d w x y z P @.  @d w x y z S @.  @d w x y z X @.
+    accbr.1 @e |- X = ( 1st ` M ) @.
+    @( A neighborhood of a point ` P ` is any subset ` S ` that contains a ball
+       around ` P ` .  Definition of neighborhood in [Kreyszig] p. 19. @)
+    neibrOLD @p |- ( ( M e. Met /\ S (_ X /\ P e. X ) ->
+                    ( S ( neiOLD ` M ) P <->
+                E. x e. RR ( 0 < x /\ ( P ( ball ` M ) x ) (_ S ) ) ) @=
+      ( vy vz cmt wcel wss w3a cne cfv wbr cv cc0 clt cbl co wa cr wrex copab
+      wb wceq neifvalOLD breq syl 3ad2ant1 cpw sseq1 sseq2 anbi2d rexbidv
+      3anbi13d eleq1 opreq1 sseq1d 3anbi23d eqid brabg cvv c1st fvex eqeltr
+      elpw2g ax-mp sylanbr df-3an baibr bitr4d 3adant1 bitrd ) DIJZCEKZBEJZLCBD
+      MNZOZCBGPZEKZHPZEJZQAPZROZWBWDDSNZTZVTKZUAZAUBUCZLZGHUDZOZWEBWDWFTZCKZUAZ
+      AUBUCZVOVPVSWMUEZVQVOVRWLUFWRGHADEFUGCBVRWLUHUIUJVPVQWMWQUEVOVPVQUAZWMVPV
+      QWQLZWQCEUKZJZVQWMWTUEVPWKVPWCWEWGCKZUAZAUBUCZLWTGHCBXAEWLVTCUFZWAVPWJXEW
+      CVTCEULXFWIXDAUBXFWHXCWEVTCWGUMUNUOUPWBBUFZWCVQXEWQVPWBBEUQXGXDWPAUBXGXCW
+      OWEXGWGWNCWBBWDWFURUSUNUOUTWLVAVBEVCJXBVPUEEDVDNVCFDVDVEVFCEVCVGVHVIWTWSW
+      QVPVQWQVJVKVLVMVN @.
+      @( [ ?] @) @( [8-Sep-2006] @)
+
+    @( ` P ` is an accumulation point (also called limit point) of a subset
+       ` S ` iff every ball around ` P ` contains a point in ` S ` distinct
+       from ` P ` .   Definition 2.20(b) [Rudin] p. 28. @)
+    accbr @p |- ( ( M e. Met /\ P e. X /\ S (_ X ) -> ( P ( acc ` M ) S <->
+            A. x e. RR ( 0 < x -> E. y e. ( P ( ball ` M ) x )
+                ( y e. S /\ -. y = P ) ) ) ) @=
+      ( vz vw cmt wcel wss w3a cac cfv wbr cv cc0 clt wceq wn wa cbl co wrex
+      wi cr wral copab wb accfval breq syl 3ad2ant1 cpw eleq1 opreq1 rexeq1
+      eqeq2 negbid anbi2d rexbidv bitrd imbi2d ralbidv 3anbi13d sseq1 eleq2
+      anbi1d 3anbi23d eqid brabg cvv c1st fvex eqeltr elpw2g ax-mp sylan2br
+      df-3an baibr bitr4d 3adant1 ) EJKZCFKZDFLZMCDENOZPZCDHQZFKZIQZFLZRAQZSPZB
+      QZWKKZWOWITZUAZUBZBWIWMEUCOZUDZUEZUFZAUGUHZMZHIUIZPZWNWODKZWOCTZUAZUBZBCW
+      MWTUDZUEZUFZAUGUHZWDWEWHXGUJZWFWDWGXFTXPHIABEFGUKCDWGXFULUMUNWEWFXGXOUJWD
+      WEWFUBZXGWEWFXOMZXOWEDFUOZKZXGXRUJWFXEWEWLWNWPXJUBZBXLUEZUFZAUGUHZMXRHICD
+      FXSXFWICTZWJWEXDYDWLWICFUPYEXCYCAUGYEXBYBWNYEXBWSBXLUEZYBYEXAXLTXBYFUJWIC
+      WMWTUQWSBXAXLURUMYEWSYABXLYEWRXJWPYEWQXIWICWOUSUTVAVBVCVDVEVFWKDTZWLWFYDX
+      OWEWKDFVGYGYCXNAUGYGYBXMWNYGYAXKBXLYGWPXHXJWKDWOVHVIVBVDVEVJXFVKVLFVMKXTW
+      FUJFEVNOVMGEVNVOVPDFVMVQVRVSXRXQXOWEWFXOVTWAWBWCVC @.
+      @( [ ?] @) @( [9-Sep-2006] @)
+
+    @( ` P ` is an accumulation point (also called limit point) of a subset
+       ` S ` iff every neighborhood of ` P ` contains a point in ` S ` distinct
+       from ` P ` .   Definition of accumulation point in [Kreyszig] p. 21. @)
+    accbrOLD @p |- ( ( M e. Met /\ P e. X /\ S (_ X ) -> ( P ( accOLD ` M ) S
+                   <-> A. x ( ( x (_ X /\ x ( neiOLD ` M ) P ) -> E. y e. x
+                   ( y e. S /\ -. y = P ) ) ) ) @=
+      ( vz vw cmt wcel wss w3a cacOLD cfv wbr cv cne wa wceq wn wrex wi wal
+      copab
+      wb accfvalOLD breq syl 3ad2ant1 cpw eleq1 breq2 anbi2d eqeq2 negbid
+      rexbidv
+      imbi12d albidv 3anbi13d sseq1 eleq2 anbi1d imbi2d 3anbi23d eqid brabg
+      cvv c1st fvex eqeltr elpw2g ax-mp sylan2br df-3an baibr bitr4d 3adant1
+      bitrd ) EJKZCFKZDFLZMCDENOZPZCDHQZFKZIQZFLZAQZFLZWIWEEROZPZSZBQZWGKZWNWET
+      ZUAZSZBWIUBZUCZAUDZMZHIUEZPZWJWICWKPZSZWNDKZWNCTZUAZSZBWIUBZUCZAUDZVTWAWD
+      XDUFZWBVTWCXCTXNHIABEFGUGCDWCXCUHUIUJWAWBXDXMUFVTWAWBSZXDWAWBXMMZXMWADFUK
+      ZKZXDXPUFWBXBWAWHXFWOXISZBWIUBZUCZAUDZMXPHICDFXQXCWECTZWFWAXAYBWHWECFULYC
+      WTYAAYCWMXFWSXTYCWLXEWJWECWIWKUMUNYCWRXSBWIYCWQXIWOYCWPXHWECWNUOUPUNUQURU
+      SUTWGDTZWHWBYBXMWAWGDFVAYDYAXLAYDXTXKXFYDXSXJBWIYDWOXGXIWGDWNVBVCUQVDUSVE
+      XCVFVGFVHKXRWBUFFEVIOVHGEVIVJVKDFVHVLVMVNXPXOXMWAWBXMVOVPVQVRVS @.
+      @( [ ?] @) @( [8-Sep-2006] @)
+
+    @( The closure of a subset of a metric space consists of the subset and
+       the accumulation points of the subset.  Definition of closure of
+       [Kreyszig] p. 21. @)
+    clsval2 @p |- ( ( M e. Met /\ S (_ X ) -> ( ( cls ` M ) ` S ) =
+                 ( S u. { x e. X | x ( acc ` M ) S } ) ) @=
+      ? @.
+
+    @( The interior of a subset of a metric space is the union of all the balls
+       it includes.  From Definition 2.20(e) of [Rudin] p. 28.  Rudin uses
+       "neighborhood" for what we call "ball." @)
+    ntrval @p |- ( ( M e. Met /\ S (_ X ) -> ( ( int ` M ) ` S ) =
+                 U. { x e. ran ( ball ` M ) | x (_ S } ) @=
+?@.
+  @}
+$)
+

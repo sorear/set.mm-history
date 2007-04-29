@@ -1,0 +1,78 @@
+$(
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+                  Introduce axiom ax-11
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+$)
+
+  $( Axiom of Variable Substitution.  One of the 5 equality axioms of predicate
+     calculus.  The final consequent ` A. x ( x = y -> ph ) ` is a way of
+     expressing " ` y ` substituted for ` x ` in wff ` ph ` " (cf. ~ sb6 ).
+     It is based on Lemma 16 of [Tarski] p. 70 and Axiom C8 of [Monk2] p. 105,
+     from which it can be proved by cases.
+
+     Juha Arpiainen proved the independence of this axiom (in the form of
+     theorem ~ ax11o ) from the others on 19-Jan-2006.  See item 9a at
+     ~ http://us2.metamath.org:8888/award2003.html .
+
+     Interestingly, if the wff expression substituted for ` ph ` contains no
+     wff variables, the resulting statement _can_ be proved without invoking
+     this axiom.  This means that even though this axiom is _metalogically_
+     independent from the others, it is not _logically_ independent.
+     Specifically, we can prove any instance of theorem ~ ax11o .  The proof
+     is by induction on formula length, using ~ ax11eq and ~ ax11el for the
+     basis steps and ~ ax11indn , ~ ax11indi , and ~ ax11inda for the induction
+     steps.
+
+     The original version of this axiom, that isn't otherwise used in our
+     development, is ~ ax-11o , which was replaced with ~ ax-11 in Jan.
+     2007. $)
+  ax-11 $a |- ( x = y -> ( A. y ph -> A. x ( x = y -> ph ) ) ) $.
+
+  $( A property related to substitution that unlike ~ equs5 doesn't require a
+     distinctor antecedent. $)
+  equs5a $p |- ( E. x ( x = y /\ A. y ph ) -> A. x ( x = y -> ph ) ) $=
+    ( weq wal wa wi hba1 ax-11 imp 19.23ai ) BCDZACEZFLAGZBEZBNBHLMOABCIJK $.
+    $( [4-Feb-2007] $) $( [2-Feb-2007] $)
+
+  $( A property related to substitution that unlike ~ equs5 doesn't require a
+     distinctor antecedent. $)
+  equs5e $p |- ( E. x ( x = y /\ ph ) -> A. x ( x = y -> E. y ph ) ) $=
+    ( weq wa wex wn wi wal equs3 hbn1 ax-11 con3d com12 df-ex syl6ibr 19.21ai
+    sylbi ) BCDZAEBFSAGZHZBIZGZSACFZHZBIABCJUCUEBUABKUCSTCIZGZUDSUCUGSUFUBTBCLM
+    NACOPQR $.
+    $( [11-Feb-2007] $) $( [2-Feb-2007] $)
+
+  $( A version of ~ sb4 that doesn't require a distinctor antecedent. $)
+  sb4a $p |- ( [ y / x ] A. y ph -> A. x ( x = y -> ph ) ) $=
+    ( wal cv wsbc wceq wa wex wi sb1 equs5a syl ) ACDZBCEZFBEOGZNHBIPAJBDNBCKAB
+    CLM $.
+    $( [4-Feb-2007] $) $( [2-Feb-2007] $)
+
+  $( One direction of a simplified definition of substitution that unlike ~ sb4
+     doesn't require a distinctor antecedent. $)
+  sb4e $p |- ( [ y / x ] ph -> A. x ( x = y -> E. y ph ) ) $=
+    ( cv wsbc wceq wa wex wi wal sb1 equs5e syl ) ABCDZEBDNFZAGBHOACHIBJABCKABC
+    LM $.
+    $( [23-Feb-2007] $) $( [2-Feb-2007] $)
+
+  $( Special case of a bound-variable hypothesis builder for substitution. $)
+  hbsb2a $p |- ( [ y / x ] A. y ph -> A. x [ y / x ] ph ) $=
+    ( wal cv wsbc wceq wi sb4a sb2 a5i syl ) ACDBCEZFBEMGAHZBDABMFZBDABCINOBABC
+    JKL $.
+    $( [5-Feb-2007] $) $( [2-Feb-2007] $)
+
+  $( Special case of a bound-variable hypothesis builder for substitution. $)
+  hbsb2e $p |- ( [ y / x ] ph -> A. x [ y / x ] E. y ph ) $=
+    ( cv wsbc wceq wex wi wal sb4e sb2 a5i syl ) ABCDZEBDNFACGZHZBIOBNEZBIABCJP
+    QBOBCKLM $.
+    $( [17-Mar-2007] $) $( [2-Feb-2007] $)
+
+  ${
+    hbsb3.1 $e |- ( ph -> A. y ph ) $.
+    $( If ` y ` is not free in ` ph ` , ` x ` is not free in
+       ` [ y / x ] ph ` . $)
+    hbsb3 $p |- ( [ y / x ] ph -> A. x [ y / x ] ph ) $=
+      ( cv wsbc wal sbimi hbsb2a syl ) ABCEZFZACGZBKFLBGAMBCDHABCIJ $.
+      $( [5-Aug-1993] $)
+  $}
+

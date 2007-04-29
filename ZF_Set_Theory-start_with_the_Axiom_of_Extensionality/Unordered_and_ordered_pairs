@@ -1,0 +1,772 @@
+$(
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+          Unordered and ordered pairs
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+$)
+
+  $( Declare new symbols needed. $)
+  $c <. $.  $( Bracket (the period distinguishes it from 'less than') $)
+  $c >. $.  $( Bracket (the period distinguishes it from 'greater than') $)
+
+  $( Extend class notation to include singleton. $)
+  csn $a class { A } $.
+  $( Extend class notation to include unordered pair. $)
+  cpr $a class { A , B } $.
+  $( Extend class notation to include ordered pair. $)
+  cop $a class <. A , B >. $.
+
+  ${
+    $d x A $.
+    $( Define the singleton of a class.  Definition 7.1 of [Quine] p. 48.  For
+       convenience, it is well-defined for proper classes, i.e., those that
+       are not elements of ` V ` , although it is not very meaningful in this
+       case.  For an alternate definition see ~ dfsn2 . $)
+    df-sn $a |- { A } = { x | x = A } $.
+  $}
+
+  $( Define unordered pair of classes.  Definition 7.1 of [Quine] p. 48.  For
+     a more traditional definition, but requiring a dummy variable, see
+     ~ dfpr2 . $)
+  df-pr $a |- { A , B } = ( { A } u. { B } ) $.
+
+  $( Extend class notation to include unordered triplet. $)
+  ctp $a class { A , B , C } $.
+
+  $( Define unordered triple of classes.  Definition of [Enderton] p. 19. $)
+  df-tp $a |- { A , B , C } = ( { A , B } u. { C } ) $.
+
+  $( Kuratowski's ordered pair definition.  Definition 9.1 of [Quine] p. 58.
+     For proper classes it is not meaningful but is well-defined and we
+     allow it for convenience (see ~ opprc1 , ~ opprc1b , ~ opprc2 , and
+     ~ opprc3 ). For the justifying theorem (for sets) see ~ opth . There are
+     other ways to define ordered pairs; the basic requirement is that two
+     ordered pairs are equal iff their respective members are equal.  In 1914
+     Norbert Wiener gave the first successful definition ` <. A , B >. `_2
+     ` = { { { A } , (/) } , { { B } } } ` , justified by ~ opthwiener ,
+     which was simplified by Kazimierz Kuratowski in 1921 to our present
+     definition.  An even simpler definition ` <. A , B >. `_3
+     ` = { A , { A , B } } ` is justified by ~ opthreg , but it requires the
+     Axiom of Regularity for its justification and is not commonly used.  A
+     definition that also works for proper classes is ` <. A , B >. `_4
+     ` = ( ( A X. { (/) } ) u. ( B X. { { (/) } } ) ) ` , justified by
+     ~ opthprc . If we restrict our sets to nonnegative integers, an ordered
+     pair definition that involves only elementary arithmetic is provided by
+     ~ nn0opth . Finally, an ordered pair of real numbers can be represented
+     by a complex number as shown by ~ cru . $)
+  df-op $a |- <. A , B >. = { { A } , { A , B } } $.
+
+  ${
+    $d x A $.  $d x B $.
+    $( Equality theorem for singletons.  Part of Exercise 4 of [TakeutiZaring]
+       p. 15. $)
+    sneq $p |- ( A = B -> { A } = { B } ) $=
+      ( vx wceq cv cab csn eqeq2 abbidv df-sn 3eqtr4g ) ABDZCEZADZCFMBDZCFAGBGL
+      NOCABMHICAJCBJK $.
+      $( [5-Aug-1993] $)
+  $}
+
+  ${
+    sneqi.1 $e |- A = B $.
+    $( Equality inference for singletons. $)
+    sneqi $p |- { A } = { B } $=
+      ( wceq csn sneq ax-mp ) ABDAEBEDCABFG $.
+      $( [7-Feb-2004] $) $( [22-Jan-2004] $)
+  $}
+
+  ${
+    sneqd.1 $e |- ( ph -> A = B ) $.
+    $( Equality deduction for singletons. $)
+    sneqd $p |- ( ph -> { A } = { B } ) $=
+      ( wceq csn sneq syl ) ABCEBFCFEDBCGH $.
+      $( [7-Feb-2004] $) $( [22-Jan-2004] $)
+  $}
+
+  $( Alternate definition of singleton.  Definition 5.1 of [TakeutiZaring]
+     p. 15. $)
+  dfsn2 $p |- { A } = { A , A } $=
+    ( cpr csn cun df-pr unidm eqtr2 ) AABACZHDHAAEHFG $.
+    $( [24-Apr-1994] $)
+
+  ${
+    $d x A $.
+    $( There is only one element in a singleton.  Exercise 2 of [TakeutiZaring]
+       p. 15. $)
+    elsn $p |- ( x e. { A } <-> x = A ) $=
+      ( cv wceq csn df-sn abeq2i ) ACBDABEABFG $.
+      $( [5-Aug-1993] $)
+  $}
+
+  ${
+    $d x A $.  $d x B $.
+    $( Alternate definition of unordered pair.  Definition 5.1 of
+       [TakeutiZaring] p. 15. $)
+    dfpr2 $p |- { A , B } = { x | ( x = A \/ x = B ) } $=
+      ( cpr csn cun cv wceq wo cab df-pr wcel elun elsn orbi12i bitr abbi2i
+      eqtr ) BCDBEZCEZFZAGZBHZUBCHZIZAJBCKUEAUAUBUALUBSLZUBTLZIUEUBSTMUFUCUGUDA
+      BNACNOPQR $.
+      $( [24-Apr-1994] $)
+  $}
+
+  ${
+    $d x A $.  $d x B $.  $d x C $.
+    $( A member of an unordered pair of classes is one or the other of them.
+       Exercise 1 of [TakeutiZaring] p. 15, generalized. $)
+    elprg $p |- ( A e. D -> ( A e. { B , C } <-> ( A = B \/ A = C ) ) ) $=
+      ( vx cv wceq wo cpr eqeq1 orbi12d dfpr2 elab2g ) EFZBGZNCGZHABGZACGZHEABC
+      IDNAGOQPRNABJNACJKEBCLM $.
+      $( [13-Sep-1995] $)
+  $}
+
+  ${
+    elpr.1 $e |- A e. V $.
+    $( A member of an unordered pair of classes is one or the other of them.
+       Exercise 1 of [TakeutiZaring] p. 15. $)
+    elpr $p |- ( A e. { B , C } <-> ( A = B \/ A = C ) ) $=
+      ( cvv wcel cpr wceq wo wb elprg ax-mp ) AEFABCGFABHACHIJDABCEKL $.
+      $( [13-Sep-1995] $)
+  $}
+
+  ${
+    elpr2.1 $e |- B e. V $.
+    elpr2.2 $e |- C e. V $.
+    $( A member of an unordered pair of classes is one or the other of them.
+       Exercise 1 of [TakeutiZaring] p. 15. $)
+    elpr2 $p |- ( A e. { B , C } <-> ( A = B \/ A = C ) ) $=
+      ( cpr wcel wceq wo elprg ibi cvv wb eleq1 mpbiri jaoi syl ibir impbi ) AB
+      CFZGZABHZACHZIZUAUDABCTJKUDUAUDALGZUAUDMUBUEUCUBUEBLGDABLNOUCUECLGEACLNOP
+      ABCLJQRS $.
+      $( [16-Oct-2005] $) $( [14-Oct-2005] $)
+  $}
+
+  ${
+    $d y A $.  $d y B $.  $d x y $.
+    hbpr.1 $e |- ( y e. A -> A. x y e. A ) $.
+    hppr.2 $e |- ( y e. B -> A. x y e. B ) $.
+    $( Bound-variable hypothesis builder for unordered pairs. $)
+    hbpr $p |- ( y e. { A , B } -> A. x y e. { A , B } ) $=
+      ( cv wceq wo wal cpr wcel hbeleq hbor visset elpr albii 3imtr4 ) BGZCHZSD
+      HZIZUBAJSCDKLZUCAJTUAAABCEMABDFMNSCDBOPZUCUBAUDQR $.
+      $( [14-Nov-1995] $)
+  $}
+
+  $( There is only one element in a singleton.  Exercise 2 of [TakeutiZaring]
+     p. 15 (generalized). $)
+  elsncg $p |- ( A e. C -> ( A e. { B } <-> A = B ) ) $=
+    ( wcel cpr wceq wo csn elprg dfsn2 eqcomi eleq2i oridm 3bitr3g ) ACDABBEZDA
+    BFZPGABHZDPABBCIOQAQOBJKLPMN $.
+    $( [13-Sep-1995] $)
+
+  ${
+    elsnc.1 $e |- A e. V $.
+    $( There is only one element in a singleton.  Exercise 2 of [TakeutiZaring]
+       p. 15. $)
+    elsnc $p |- ( A e. { B } <-> A = B ) $=
+      ( cvv wcel csn wceq wb elsncg ax-mp ) ADEABFEABGHCABDIJ $.
+      $( [13-Sep-1995] $)
+  $}
+
+  $( There is only one element in a singleton. $)
+  elsni $p |- ( A e. { B } -> A = B ) $=
+    ( csn wcel wceq elsncg ibi ) ABCZDABEABHFG $.
+    $( [5-Jun-1994] $)
+
+  $( A set is a member of its singleton.  Part of Theorem 7.6 of [Quine]
+     p. 49. $)
+  snidg $p |- ( A e. B -> A e. { A } ) $=
+    ( wcel csn wceq eqid elsncg mpbiri ) ABCAADCAAEAFAABGH $.
+    $( [28-Oct-2003] $) $( [28-Oct-2003] $)
+
+  $( A class is a set iff it is a member of its singleton. $)
+  snidb $p |- ( A e. V <-> A e. { A } ) $=
+    ( cvv wcel csn snidg elisset impbi ) ABCAADZCABEAHFG $.
+    $( [7-Apr-2004] $) $( [5-Apr-2004] $)
+
+  ${
+    snid.1 $e |- A e. V $.
+    $( A set is a member of its singleton.  Part of Theorem 7.6 of [Quine]
+       p. 49. $)
+    snid $p |- A e. { A } $=
+      ( cvv wcel csn snidb mpbi ) ACDAAEDBAFG $.
+      $( [31-Dec-1993] $)
+  $}
+
+  $( There is only one element in a singleton.  Exercise 2 of [TakeutiZaring]
+     p. 15.  This variation requires only that ` B ` , rather than
+     ` A ` , be a set. $)
+  elsnc2g $p |- ( B e. C -> ( A e. { B } <-> A = B ) ) $=
+    ( wcel csn wceq elsni eleq1 snidg syl5bir com12 impbid2 ) BCDZABEZDZABFZABG
+    PMOPOBNDMABNHBCIJKL $.
+    $( [28-Oct-2003] $) $( [28-Oct-2003] $)
+
+  ${
+    elsnc2.1 $e |- B e. V $.
+    $( There is only one element in a singleton.  Exercise 2 of [TakeutiZaring]
+       p. 15.  This variation requires only that ` B ` , rather than
+       ` A ` , be a set. $)
+    elsnc2 $p |- ( A e. { B } <-> A = B ) $=
+      ( cvv wcel csn wceq wb elsnc2g ax-mp ) BDEABFEABGHCABDIJ $.
+      $( [12-Jun-1994] $)
+  $}
+
+  ${
+    $d y A $.  $d x y $.
+    hbsn.1 $e |- ( y e. A -> A. x y e. A ) $.
+    $( Bound-variable hypothesis builder for singletons. $)
+    hbsn $p |- ( y e. { A } -> A. x y e. { A } ) $=
+      ( cv cpr wcel wal csn hbpr dfsn2 eleq2i albii 3imtr4 ) BEZCCFZGZQAHOCIZGZ
+      SAHABCCDDJRPOCKLZSQATMN $.
+      $( [14-Nov-1995] $)
+  $}
+
+  ${
+    eltp.1 $e |- A e. V $.
+    $( A member of an unordered triple of classes is one of them.  Special
+       case of Exercise 1 of [TakeutiZaring] p. 17. $)
+    eltp $p |- ( A e. { B , C , D } <-> ( A = B \/ A = C \/ A = D ) ) $=
+      ( ctp wcel wceq wo w3o cpr csn cun df-tp eleq2i elun elpr elsnc orbi12i
+      3bitr df-3or bitr4 ) ABCDFZGZABHZACHZIZADHZIZUEUFUHJUDABCKZDLZMZGAUJGZAUK
+      GZIUIUCULABCDNOAUJUKPUMUGUNUHABCEQADERSTUEUFUHUAUB $.
+      $( [8-Apr-1994] $)
+  $}
+
+  ${
+    $d x A $.  $d x B $.  $d x C $.
+    $( Alternate definition of unordered triple of classes.  Special case of
+       Definition 5.3 of [TakeutiZaring] p. 16. $)
+    dftp2 $p |- { A , B , C } = { x | ( x = A \/ x = B \/ x = C ) } $=
+      ( cv wceq w3o ctp visset eltp abbi2i ) AEZBFLCFLDFGABCDHLBCDAIJK $.
+      $( [8-Apr-1994] $)
+  $}
+
+  ${
+    $d x A $.  $d x B $.
+    $( Intersection with the singleton of a non-member is disjoint. $)
+    disjsn $p |- ( ( A i^i { B } ) = (/) <-> -. B e. A ) $=
+      ( vx csn cin c0 wceq wcel wn noel eleq2 mtbiri wa snidg ancli elin
+      sylibr nsyl cv wi wal eleq1 biimpcd elsn syl5ib con3d com12 19.21aiv
+      disj1 impbi ) ABDZEZFGZBAHZIZUMBULHZUNUMUPBFHBJULFBKLUNUNBUKHZMUPUNUQBANO
+      BAUKPQRUOCSZAHZURUKHZIZTZCUAUMUOVBCUSUOVAUSUTUNUSURBGZUNUTVCUSUNURBAUBUCC
+      BUDUEUFUGUHCAUKUIQUJ $.
+      $( [22-May-1998] $)
+  $}
+
+  $( Intersection of distinct singletons is disjoint. $)
+  disjsn2 $p |- ( -. A = B -> ( { A } i^i { B } ) = (/) ) $=
+    ( wceq wn csn wcel cin c0 elsni eqcomd con3i disjsn sylibr ) ABCZDBAEZFZDOB
+    EGHCPNPBABAIJKOBLM $.
+    $( [25-May-1998] $)
+
+  ${
+    $d x A $.
+    $( The singleton of a proper class (one that doesn't exist) is the empty
+       set.  Theorem 7.2 of [Quine] p. 48. $)
+    snprc $p |- ( -. A e. V <-> { A } = (/) ) $=
+      ( vx csn c0 wceq cvv wcel cv wex wn elsn exbii n0 isset 3bitr4 con1bii )
+      ACZDEZAFGZBHZQGZBITAEZBIRJSUAUBBBAKLBQMBANOP $.
+      $( [5-Aug-1993] $)
+  $}
+
+  ${
+    $d x A $.  $d x B $.
+    $( Condition where a restricted class abstraction is a singleton. $)
+    rabsn $p |- ( B e. A -> { x e. A | x = B } = { B } ) $=
+      ( wcel cv wceq wa cab crab csn eleq1 pm5.32ri baib abbidv df-rab df-sn
+      3eqtr4g ) CBDZAEZBDZSCFZGZAHUAAHUAABICJRUBUAAUBRUAUATRSCBKLMNUAABOACPQ $.
+      $( [12-Jul-2006] $) $( [28-May-2006] $)
+  $}
+
+  ${
+    $d x y z $.  $d y ph $.
+    $( Another way to express existential uniqueness of a wff:  its class
+       abstraction is a singleton. $)
+    eusn $p |- ( E! x ph <-> E. x { x | ph } = { x } ) $=
+      ( vy vz cab cv csn wceq wex wb wal weu wcel abeq1 elsn bibi2i albii bitr
+      exbii ax-17 hbab1 hbeq sneq eqeq2d cbvex df-eu 3bitr4r ) ABEZCFZGZHZCIABF
+      ZUIHZJZBKZCIUHULGZHZBIABLUKUOCUKAULUJMZJZBKUOABUJNUSUNBURUMABUIOPQRSUQUKB
+      CUQCTBCDUHUJABCUADFUJMBTUBUMUPUJUHULUIUCUDUEABCUFUG $.
+      $( [22-Feb-2004] $) $( [22-Feb-2004] $)
+  $}
+
+  $( Commutative law for unordered pairs. $)
+  prcom $p |- { A , B } = { B , A } $=
+    ( csn cun cpr uncom df-pr 3eqtr4 ) ACZBCZDJIDABEBAEIJFABGBAGH $.
+    $( [5-Aug-1993] $)
+
+  $( An equality theorem for unordered pairs. $)
+  preq1 $p |- ( A = B -> { A , C } = { B , C } ) $=
+    ( wceq csn cun cpr sneq uneq1d df-pr 3eqtr4g ) ABDZAEZCEZFBEZNFACGBCGLMONAB
+    HIACJBCJK $.
+    $( [29-Mar-1998] $)
+
+  $( An equality theorem for unordered pairs. $)
+  preq2 $p |- ( A = B -> { C , A } = { C , B } ) $=
+    ( wceq cpr preq1 prcom 3eqtr4g ) ABDACEBCECAECBEABCFCAGCBGH $.
+    $( [5-Aug-1993] $)
+
+  ${
+    pri1.1 $e |- A e. V $.
+    $( One of the two elements of an unordered pair.  Part of Theorem 7.6 of
+       [Quine] p. 49. $)
+    pri1 $p |- A e. { A , B } $=
+      ( cpr wcel wceq wo eqid orc ax-mp elpr mpbir ) AABDEAAFZABFZGZMOAHMNIJAAB
+      CKL $.
+      $( [5-Aug-1993] $)
+  $}
+
+  ${
+    pri2.1 $e |- B e. V $.
+    $( One of the two elements of an unordered pair.  Part of Theorem 7.6 of
+       [Quine] p. 49. $)
+    pri2 $p |- B e. { A , B } $=
+      ( cpr pri1 prcom eleqtr ) BBADABDBACEBAFG $.
+      $( [5-Aug-1993] $)
+  $}
+
+  $( A proper class vanishes in an unordered pair. $)
+  prprc1 $p |- ( -. A e. V -> { A , B } = { B } ) $=
+    ( cvv wcel wn csn c0 wceq cpr snprc cun uneq1 df-pr uncom un0 eqtr2
+    3eqtr4g sylbi ) ACDEAFZGHZABIZBFZHAJTSUBKGUBKZUAUBSGUBLABMUCUBGKUBGUBNUBOPQ
+    R $.
+    $( [5-Aug-1993] $)
+
+  $( A proper class vanishes in an unordered pair. $)
+  prprc2 $p |- ( -. B e. V -> { A , B } = { A } ) $=
+    ( cvv wcel wn cpr csn prprc1 prcom syl5eq ) BCDEBAFAGABFBAHABIJ $.
+    $( [10-Apr-2006] $) $( [22-Mar-2006] $)
+
+  $( An unordered pair containing two proper classes is the empty set. $)
+  prprc $p |- ( ( -. A e. V /\ -. B e. V ) -> { A , B } = (/) ) $=
+    ( cvv wcel wn cpr csn c0 prprc1 wceq snprc biimp sylan9eq ) ACDEBCDEZABFBGZ
+    HABINOHJBKLM $.
+    $( [2-May-2006] $) $( [22-Mar-2006] $)
+
+  ${
+    tpi1.1 $e |- A e. V $.
+    $( One of the three elements of an unordered triple. $)
+    tpi1 $p |- A e. { A , B , C } $=
+      ( cpr wcel ctp pri1 csn cun elun1 df-tp syl6eleqr ax-mp ) AABEZFZAABCGZFA
+      BDHPAOCIZJQAORKABCLMN $.
+      $( [7-Apr-1994] $)
+  $}
+
+  ${
+    tpi2.1 $e |- B e. V $.
+    $( One of the three elements of an unordered triple. $)
+    tpi2 $p |- B e. { A , B , C } $=
+      ( cpr wcel ctp pri2 csn cun elun1 df-tp syl6eleqr ax-mp ) BABEZFZBABCGZFA
+      BDHPBOCIZJQBORKABCLMN $.
+      $( [7-Apr-1994] $)
+  $}
+
+  ${
+    tpi3.1 $e |- C e. V $.
+    $( One of the three elements of an unordered triple. $)
+    tpi3 $p |- C e. { A , B , C } $=
+      ( csn wcel ctp snid cpr cun elun2 df-tp syl6eleqr ax-mp ) CCEZFZCABCGZFCD
+      HPCABIZOJQCORKABCLMN $.
+      $( [7-Apr-1994] $)
+  $}
+
+  ${
+    snnz.1 $e |- A e. V $.
+    $( The singleton of a set is not empty. $)
+    snnz $p |- { A } =/= (/) $=
+      ( csn wcel c0 wne snid ne0i ax-mp ) AACZDJEFABGJAHI $.
+      $( [2-Apr-2007] $) $( [10-Apr-1994] $)
+
+    $( The singleton of a set is not empty. $)
+    snnzOLD $p |- -. { A } = (/) $=
+      ( csn wcel c0 wceq wn snid n0i ax-mp ) AACZDKEFGABHKAIJ $.
+      $( [10-Apr-1994] $)
+  $}
+
+  ${
+    prnz.1 $e |- A e. V $.
+    $( A pair containing a set is not empty. $)
+    prnz $p |- { A , B } =/= (/) $=
+      ( cpr wcel c0 wne pri1 ne0i ax-mp ) AABDZEKFGABCHKAIJ $.
+      $( [17-Jan-2007] $) $( [9-Apr-1994] $)
+  $}
+
+  ${
+    tpnz.1 $e |- A e. V $.
+    $( A triplet containing a set is not empty. $)
+    tpnz $p |- { A , B , C } =/= (/) $=
+      ( ctp wcel c0 wne tpi1 ne0i ax-mp ) AABCEZFLGHABCDILAJK $.
+      $( [13-Apr-2007] $) $( [10-Apr-1994] $)
+  $}
+
+  ${
+    $d A x $.  $d B x $.
+    snss.1 $e |- A e. V $.
+    $( The singleton of an element of a class is a subset of the class.
+       Theorem 7.4 of [Quine] p. 49. $)
+    snss $p |- ( A e. B <-> { A } (_ B ) $=
+      ( vx cv csn wcel wi wal wceq wss elsn imbi1i albii dfss2 clel2 3bitr4r )
+      DEZAFZGZRBGZHZDIRAJZUAHZDISBKABGUBUDDTUCUADALMNDSBODABCPQ $.
+      $( [5-Aug-1993] $)
+  $}
+
+  ${
+    $d A x $.  $d B x $.
+    $( The singleton of an element of a class is a subset of the class.
+       Theorem 7.4 of [Quine] p. 49. $)
+    snssg $p |- ( A e. C -> ( A e. B <-> { A } (_ B ) ) $=
+      ( vx cv wcel csn wss eleq1 wceq sneq sseq1d visset snss vtoclbg ) DEZBFPG
+      ZBHABFAGZBHDACPABIPAJQRBPAKLPBDMNO $.
+      $( [22-Jul-2001] $)
+
+    $( An element not in a set can be removed without affecting the set. $)
+    difsn $p |- ( -. A e. B -> ( B \ { A } ) = B ) $=
+      ( vx wcel wn csn cdif wss difss a1i cv wa wceq eleq1 biimpcd elsni syl5
+      con3d com12 ancld eldif syl6ibr ssrdv eqssd ) ABDZEZBAFZGZBUHBHUFBUGIJUFC
+      BUHUFCKZBDZUJUIUGDZEZLUIUHDUFUJULUJUFULUJUKUEUJUIAMZUEUKUMUJUEUIABNOUIAPQ
+      RSTUIBUGUAUBUCUD $.
+      $( [16-Mar-2006] $) $( [16-Mar-2006] $)
+
+    $( Removal of a singleton from an unordered pair. $)
+    difprsn $p |- ( { A , B } \ { A } ) (_ { B } $=
+      ( vx cpr csn cdif cv wceq wn wa wcel pm3.26 wo eldif visset elpr orcom
+      bitr elsn negbii anbi12i pm5.61 3bitr 3imtr4 ssriv ) CABDZAEZFZBEZCGZBHZU
+      JAHZIZJZUKUJUHKZUJUIKUKUMLUOUJUFKZUJUGKZIZJUKULMZUMJUNUJUFUGNUPUSURUMUPUL
+      UKMUSUJABCOPULUKQRUQULCASTUAUKULUBUCCBSUDUE $.
+      $( [16-Mar-2006] $) $( [16-Mar-2006] $)
+  $}
+
+  $( The singleton of an element of a class is a subset of the class. $)
+  snssi $p |- ( A e. B -> { A } (_ B ) $=
+    ( wcel csn wss snssg ibi ) ABCADBEABBFG $.
+    $( [6-Jun-1994] $)
+
+  $( If we remove an element from a class then put it back in, we end up with
+     the original class. $)
+  difsnid $p |- ( B e. A -> ( ( A \ { B } ) u. { B } ) = A ) $=
+    ( wcel csn cdif cun wss wceq snssi undif sylib uncom syl5eq ) BACZBDZAOEZFZ
+    APOFNOAGQAHBAIOAJKPOLM $.
+    $( [3-Oct-2006] $) $( [2-Oct-2006] $)
+
+  $( Note that ` x ` is a dummy variable in the proof below. $)
+  $( Compute the power set of the empty set.  Theorem 89 of [Suppes] p. 47.
+     (The proof was shortened by Eric Schmidt, 4-Apr-2007.) $)
+  pw0 $p |- P~ (/) = { (/) } $=
+    ( vx c0 cpw cv wceq cab csn wcel wss df-pw abeq2i ss0b bitr abbi2i df-sn
+    eqtr4 ) BCZADZBEZAFBGSAQRQHRBIZSTAQABJKRLMNABOP $.
+    $( [4-Apr-2007] $) $( [5-Aug-1993] $)
+
+  ${
+    $d x y $.
+    $( Compute the power set of the power set of the empty set.  (See ~ pw0
+       for the power set of the empty set.)  Theorem 90 of [Suppes] p. 48.
+       Although this theorem is a special case of ~ pwsn , we have chosen to
+       show a direct elementary proof. $)
+    pwpw0 $p |- P~ { (/) } = { (/) , { (/) } } $=
+      ( vx vy cv c0 csn wss cab wceq wo cpw cpr wn wa wcel wi wal dfss2 elsn
+      imbi2i albii bitr wex exintr n0 syl5ib exancom df-clel bitr4 snssi sylbi
+      syl6 anc2li eqss syl6ibr orrd 0ss sseq1 mpbiri eqimss jaoi impbi abbii
+      df-pw dfpr2 3eqtr4 ) ACZDEZFZAGVFDHZVFVGHZIZAGVGJDVGKVHVKAVHVKVHVIVJVHVIL
+      ZVHVGVFFZMVJVHVLVMVHBCZVFNZVNDHZOZBPZVLVMOVHVOVNVGNZOZBPVRBVFVGQVTVQBVSVP
+      VOBDRSTUAVRVLVOVPMBUBZVMVRVOBUBWAVLVOVPBUCBVFUDUEWADVFNZVMWAVPVOMBUBWBVOV
+      PBUFBDVFUGUHDVFUIUJUKUJULVFVGUMUNUOVIVHVJVIVHDVGFVGUPVFDVGUQURVFVGUSUTVAV
+      BAVGVCADVGVDVE $.
+      $( [28-Sep-2006] $)  $( [7-Aug-94] $)
+  $}
+
+  $( A singleton is a subset of an unordered pair containing its member. $)
+  snsspr $p |- { A } (_ { A , B } $=
+    ( cvv wcel csn cpr wss wceq wo eqid pm2.21ni orri elprg mpbiri snssi syl
+    wn c0 snprc biimp 0ss a1i eqsstrd pm2.61i ) ACDZAEZABFZGZUEAUGDZUHUEUIAAHZA
+    BHZIUJUKUJUKAJKLAABCMNAUGOPUEQZUFRUGULUFRHASTRUGGULUGUAUBUCUD $.
+    $( [29-Aug-2004] $) $( [27-Aug-2004] $)
+
+  ${
+    $d A x $.  $d B x $.  $d C x $.
+    prss.1 $e |- A e. V $.
+    prss.2 $e |- B e. V $.
+    $( A pair of elements of a class is a subset of the class.  Theorem 7.5 of
+       [Quine] p. 49. $)
+    prss $p |- ( ( A e. C /\ B e. C ) <-> { A , B } (_ C ) $=
+      ( vx wcel wa cpr wss cv wceq wo eleq1a jaao visset elpr syl5ib ssrdv
+      pri1 ssel mpi pri2 jca impbi ) ACGZBCGZHZABIZCJZUHFUICUHFKZALZUKBLZMUKCGZ
+      UKUIGUFULUNUGUMACUKNBCUKNOUKABFPQRSUJUFUGUJAUIGUFABDTUICAUAUBUJBUIGUGABEU
+      CUICBUAUBUDUE $.
+      $( [30-May-1994] $)
+  $}
+
+  ${
+    $d x y A $.  $d y B $.  $d x y C $.
+    $( A pair of elements of a class is a subset of the class.  Theorem 7.5 of
+       [Quine] p. 49. $)
+    prssg $p |- ( ( A e. R /\ B e. S ) ->
+                ( ( A e. C /\ B e. C ) <-> { A , B } (_ C ) ) $=
+      ( vx vy cv wcel wa cpr wss wb wceq eleq1 anbi1d preq1 sseq1d bibi12d
+      anbi2d preq2 visset prss vtocl2g ) FHZCIZGHZCIZJZUEUGKZCLZMACIZUHJZAUGKZC
+      LZMULBCIZJZABKZCLZMFGABDEUEANZUIUMUKUOUTUFULUHUEACOPUTUJUNCUEAUGQRSUGBNZU
+      MUQUOUSVAUHUPULUGBCOTVAUNURCUGBAUARSUEUGCFUBGUBUCUD $.
+      $( [27-Mar-2006] $) $( [22-Mar-2006] $)
+  $}
+
+  ${
+    $d x A $.  $d x B $.
+    $( The subsets of a singleton. $)
+    sssn $p |- ( A (_ { B } <-> ( A = (/) \/ A = { B } ) ) $=
+      ( vx csn wss c0 wceq wo wn wa wcel cv wex wb ssel elsni syl6 eleq1 ibd
+      19.23adv n0 syl5ib snssi anc2li eqss syl6ibr orrd 0ss sseq1 mpbiri
+      eqimss jaoi impbi ) ABDZEZAFGZAUNGZHUOUPUQUOUPIZUOUNAEZJUQUOURUSUOURBAKZU
+      SUOCLZAKZCMUTURUOVBUTCUOVBUTUOVBVABGZVBUTNUOVBVAUNKVCAUNVAOVABPQVABARQSTC
+      AUAUBBAUCQUDAUNUEUFUGUPUOUQUPUOFUNEUNUHAFUNUIUJAUNUKULUM $.
+      $( [14-May-2004] $) $( [24-Apr-2004] $)
+  $}
+
+  ${
+    $( The subsets of a pair. $)
+    sspr $p |- ( A (_ { B , C } <->
+     ( ( A = (/) \/ A = { B } ) \/ ( A = { C } \/ A = { B , C } ) ) ) $=
+      ( cpr wss c0 wceq csn wo wn wa simpll wcel prssg ibi cdif difsn adantl
+      ssdif difprsn a1i sstrd adantr eqsstr3d ex sssn syl6ib con1d imp pm2.45
+      anim1i ioran sylibr sylan2 anassrs prcom sseq2i sylbi sylanc eqssd orrd
+      0ss sseq1 mpbiri snsspr jaoi syl6ss eqimss impbi ) ABCDZEZAFGZABHZGZIZACH
+      ZGZAVJGZIZIVKVOVSVKVOJZVSVKVTKZVQVRWAVQJZVRWAWBKZAVJVKVTWBLBAMZCAMZVJAEZW
+      CWDWEKWFBCAAANOVKVTWBWDVKVLVQIZJZWDVTWBKZVKWHWDVKWDWGVKWDJZAVPEZWGVKWJWKV
+      KWJKAAVMPZVPWJWLAGVKBAQRVKWLVPEWJVKWLVJVMPZVPAVJVMSWMVPEVKBCTUAUBUCUDUEAC
+      UFUGUHUIWIVLJZWBKWHVTWNWBVLVNUJUKVLVQULUMUNUOWAWEWBVKVTWEVKWEVOVKWEJZAVME
+      ZVOVKWOWPVKWOKZAAVPPZVMWOWRAGVKCAQRWQWRCBDZVPPZVMVKWRWTEZWOVKAWSEZXAVJWSA
+      BCUPUQAWSVPSURUCWTVMEWQCBTUAUBUDUEABUFUGUHUIUCUSUTUEVAUEVAVOVKVSVLVKVNVLV
+      KFVJEVJVBAFVJVCVDVNVKVMVJEBCVEAVMVJVCVDVFVQVKVRVQAWSVJVQXBVPWSECBVEAVPWSV
+      CVDCBUPVGAVJVHVFVFVI $.
+      $( [28-Mar-2006] $) $( [16-Mar-2006] $)
+  $}
+
+  ${
+    $d A x $.  $d B x $.  $d C x $.  $d D x $.
+    tpss.1 $e |- A e. V $.
+    tpss.2 $e |- B e. V $.
+    tpss.3 $e |- C e. V $.
+    $( A triplet of elements of a class is a subset of the class. $)
+    tpss $p |- ( ( A e. D /\ B e. D /\ C e. D ) <-> { A , B , C } (_ D ) $=
+      ( vx wcel w3a ctp wss cv wceq w3o wi 3jao eleq1a syl3an visset eltp
+      syl5ib ssrdv tpi1 ssel mpi tpi2 tpi3 3jca impbi ) ADIZBDIZCDIZJZABCKZDLZU
+      NHUODUNHMZANZUQBNZUQCNZOZUQDIZUQUOIURVBPUSVBPUTVBPVAVBPUKULUMURVBUSUTQADU
+      QRBDUQRCDUQRSUQABCHTUAUBUCUPUKULUMUPAUOIUKABCEUDUODAUEUFUPBUOIULABCFUGUOD
+      BUEUFUPCUOIUMABCGUHUODCUEUFUIUJ $.
+      $( [9-Apr-1994] $)
+  $}
+
+  ${
+    sneqr.1 $e |- A e. V $.
+    $( If the singletons of two sets are equal, the two sets are equal.
+       Part of Exercise 4 of [TakeutiZaring] p. 15. $)
+    sneqr $p |- ( { A } = { B } -> A = B ) $=
+      ( csn wceq wcel snid eleq2 mpbii elsnc sylib ) ADZBDZEZAMFZABENALFOACGLMA
+      HIABCJK $.
+      $( [27-Aug-1993] $)
+
+    $( If a singleton is a subset of another, their members are equal. $)
+    snsssn $p |- ( { A } (_ { B } -> A = B ) $=
+      ( csn wss c0 wceq wo sssn wne wn snnz df-ne mpbi pm2.21i sneqr jaoi
+      sylbi ) ADZBDZESFGZSTGZHABGZSBIUAUCUBUAUCSFJUAKACLSFMNOABCPQR $.
+      $( [29-May-2006] $) $( [28-May-2006] $)
+  $}
+
+  ${
+    $d x A $.
+    $( The singleton of a class is a subset of its power class. $)
+    snsspw $p |- { A } (_ P~ A $=
+      ( vx csn cpw cv wceq wss wcel eqimss elsn df-pw abeq2i 3imtr4 ssriv ) BAC
+      ZADZBEZAFQAGZQOHQPHQAIBAJRBPBAKLMN $.
+      $( [5-Aug-1993] $)
+  $}
+
+
+  ${
+    $d x A $.  $d x B $.  $d x C $.
+    prsspw.1 $e |- A e. V $.
+    prsspw.2 $e |- B e. V $.
+    $( An unordered pair belongs to the power class of a class iff each member
+       belongs to the class. $)
+    prsspw $p |- ( { A , B } (_ P~ C <-> ( A (_ C /\ B (_ C ) ) $=
+      ( vx cpr cpw wss cv wcel wi wal wceq wa dfss2 wo visset elpr elpw
+      imbi12i jaob bitr albii 19.26 sseq1 ceqsalv anbi12i 3bitr ) ABGZCHZIFJZUJ
+      KZULUKKZLZFMULANZULCIZLZULBNZUQLZOZFMZACIZBCIZOZFUJUKPUOVAFUOUPUSQZUQLVAU
+      MVFUNUQULABFRZSULCVGTUAUPUQUSUBUCUDVBURFMZUTFMZOVEURUTFUEVHVCVIVDUQVCFADU
+      LACUFUGUQVDFBEULBCUFUGUHUCUI $.
+      $( [10-Dec-2003] $) $( [10-Dec-2003] $)
+  $}
+
+  ${
+    preqr1.1 $e |- A e. V $.
+    preqr1.2 $e |- B e. V $.
+    $( Reverse equality lemma for unordered pairs.  If two unordered pairs
+       have the same second element, the first elements are equal. $)
+    preqr1 $p |- ( { A , C } = { B , C } -> A = B ) $=
+      ( cpr wceq wcel wo pri1 eleq2 mpbii elpr sylib mpbiri eqcom eqeq2 oplem1
+      ) ACFZBCFZGZABGZACGZBAGZBCGZUAATHZUBUCIUAASHUFACDJSTAKLABCDMNUABSHZUDUEIU
+      AUGBTHBCEJSTBKOBACEMNABPACBQR $.
+      $( [18-Oct-1995] $)
+  $}
+
+  ${
+    preqr2.1 $e |- A e. V $.
+    preqr2.2 $e |- B e. V $.
+    $( Reverse equality lemma for unordered pairs.  If two unordered pairs have
+       the same first element, the second elements are equal. $)
+    preqr2 $p |- ( { C , A } = { C , B } -> A = B ) $=
+      ( cpr wceq prcom eqeq12i preqr1 sylbi ) CAFZCBFZGACFZBCFZGABGLNMOCAHCBHIA
+      BCDEJK $.
+      $( [5-Aug-1993] $)
+  $}
+
+  ${
+    preq12b.1 $e |- A e. V $.
+    preq12b.2 $e |- B e. V $.
+    preq12b.3 $e |- C e. V $.
+    preq12b.4 $e |- D e. V $.
+    $( Equality relationship for two unordered pairs. $)
+    preq12b $p |- ( { A , B } = { C , D } <->
+                   ( ( A = C /\ B = D ) \/ ( A = D /\ B = C ) ) ) $=
+      ( cpr wceq wa wo wcel pri1 eleq2 mpbii elpr sylib preq1 eqeq1d preqr2
+      syl6bi com12 ancld wi prcom eqeq2i sylbi orim12d mpd preq2 sylan9eq
+      syl6eq jaoi impbi ) ABIZCDIZJZACJZBDJZKZADJZBCJZKZLZURUSVBLZVEURAUQMZVFUR
+      AUPMVGABENUPUQAOPACDEQRURUSVAVBVDURUSUTUSURUTUSURCBIZUQJUTUSUPVHUQACBSZTB
+      DCFHUAUBUCUDURVBVCURUPDCIZJZVBVCUEUQVJUPCDUFUGVBVKVCVBVKDBIZVJJVCVBUPVLVJ
+      ADBSZTBCDFGUAUBUCUHUDUIUJVAURVDUSUTUPVHUQVIBDCUKULVBVCUPBDIZUQVBUPVLVNVMD
+      BUFUMBCDSULUNUO $.
+      $( [17-Oct-1996] $)
+
+    $( Equality of two unordered pairs. $)
+    prel12 $p |- ( -. A = B -> ( { A , B } = { C , D } <->
+                   ( A e. { C , D } /\ B e. { C , D } ) ) ) $=
+      ( wceq wn cpr wcel wa pri1 eleq2 mpbii pri2 jca wo wi eqeq2 negbid orel2
+      syl6bi com3l imp ancrd orel1 orim12d elpr orcom bitr preq12b 3imtr4g ex
+      syl5ib imp3a impbid2 ) ABIZJZABKZCDKZIZAVBLZBVBLZMVCVDVEVCAVALVDABENVAVBA
+      OPVCBVALVEABFQVAVBBOPRUTVDVEVCUTACIZADIZSZVEVCTZVDUTVHVIUTVHMZBDIZBCIZSZV
+      FVKMZVGVLMZSVEVCVJVKVNVLVOVJVKVFUTVHVKVFTVKUTVHVFVKUTVGJVHVFTVKUSVGBDAUAU
+      BVGVFUCUDUEUFUGVJVLVGUTVHVLVGTVLUTVHVGVLUTVFJVHVGTVLUSVFBCAUAUBVFVGUHUDUE
+      UFUGUIVEVLVKSVMBCDFUJVLVKUKULABCDEFGHUMUNUOACDEUJUPUQUR $.
+      $( [17-Oct-1996] $)
+
+    $( A way to represent ordered pairs using unordered pairs with distinct
+       members. $)
+    opthpr $p |- ( A =/= D ->
+                 ( { A , B } = { C , D } <-> ( A = C /\ B = D ) ) ) $=
+      ( wne wceq wa wo cpr idd wn wi df-ne pm2.21 sylbi imp3a jaod orc impbid1
+      preq12b syl5bb ) ADIZACJBDJKZADJZBCJZKZLZUGABMCDMJUFUKUGUFUGUGUJUFUGNUFUH
+      UIUGUFUHOUHUIUGPZPADQUHULRSTUAUGUJUBUCABCDEFGHUDUE $.
+      $( [30-Mar-2007] $) $( [27-Mar-2007] $)
+  $}
+
+  $( Equality theorem for ordered pairs. $)
+  opeq1 $p |- ( A = B -> <. A , C >. = <. B , C >. ) $=
+    ( wceq csn cpr cop preq1 preq2 syl sneq eqtrd df-op 3eqtr4g ) ABDZAEZACFZFZ
+    BEZBCFZFZACGBCGORPTFZUAOQTDRUBDABCHQTPIJOPSDUBUADABKPSTHJLACMBCMN $.
+    $( [25-Jun-1998] $)
+
+  $( Equality theorem for ordered pairs. $)
+  opeq2 $p |- ( A = B -> <. C , A >. = <. C , B >. ) $=
+    ( wceq csn cpr cop preq2 syl df-op 3eqtr4g ) ABDZCEZCAFZFZMCBFZFZCAGCBGLNPD
+    OQDABCHNPMHICAJCBJK $.
+    $( [25-Jun-1998] $)
+
+  $( Equality theorem for ordered pairs. $)
+  opeq12 $p |- ( ( A = C /\ B = D ) -> <. A , B >. = <. C , D >. ) $=
+    ( wceq cop opeq1 opeq2 sylan9eq ) ACEBDEABFCBFCDFACBGBDCHI $.
+    $( [28-May-1995] $)
+
+  ${
+    opeq1i.1 $e |- A = B $.
+    $( Equality inference for ordered pairs. $)
+    opeq1i $p |- <. A , C >. = <. B , C >. $=
+      ( wceq cop opeq1 ax-mp ) ABEACFBCFEDABCGH $.
+      $( [16-Dec-2006] $) $( [16-Dec-2006] $)
+
+    $( Equality inference for ordered pairs. $)
+    opeq2i $p |- <. C , A >. = <. C , B >. $=
+      ( wceq cop opeq2 ax-mp ) ABECAFCBFEDABCGH $.
+      $( [16-Dec-2006] $) $( [16-Dec-2006] $)
+
+    ${
+      opeq12i.2 $e |- C = D $.
+      $( Equality inference for ordered pairs.  (The proof was shortened by
+         Eric Schmidt, 4-Apr-2007.) $)
+      opeq12i $p |- <. A , C >. = <. B , D >. $=
+        ( wceq cop opeq12 mp2an ) ABGCDGACHBDHGEFACBDIJ $.
+        $( [4-Apr-2007] $) $( [16-Dec-2006] $)
+    $}
+  $}
+
+  ${
+    opeq1d.1 $e |- ( ph -> A = B ) $.
+    $( Equality deduction for ordered pairs. $)
+    opeq1d $p |- ( ph -> <. A , C >. = <. B , C >. ) $=
+      ( wceq cop opeq1 syl ) ABCFBDGCDGFEBCDHI $.
+      $( [17-Dec-2006] $) $( [16-Dec-2006] $)
+
+    $( Equality deduction for ordered pairs. $)
+    opeq2d $p |- ( ph -> <. C , A >. = <. C , B >. ) $=
+      ( wceq cop opeq2 syl ) ABCFDBGDCGFEBCDHI $.
+      $( [17-Dec-2006] $) $( [16-Dec-2006] $)
+
+    ${
+      opeq12d.2 $e |- ( ph -> C = D ) $.
+      $( Equality deduction for ordered pairs. $)
+      opeq12d $p |- ( ph -> <. A , C >. = <. B , D >. ) $=
+        ( cop opeq1d opeq2d eqtrd ) ABDHCDHCEHABCDFIADECGJK $.
+        $( [21-Dec-2006] $) $( [16-Dec-2006] $)
+    $}
+  $}
+
+  ${
+    $d y A $.  $d y B $.  $d x y $.
+    hbop.1 $e |- ( y e. A -> A. x y e. A ) $.
+    hbop.2 $e |- ( y e. B -> A. x y e. B ) $.
+    $( Bound-variable hypothesis builder for ordered pairs. $)
+    hbop $p |- ( y e. <. A , B >. -> A. x y e. <. A , B >. ) $=
+      ( cv csn cpr wcel wal cop hbsn hbpr df-op eleq2i albii 3imtr4 ) BGZCHZCDI
+      ZIZJZUCAKSCDLZJZUEAKABTUAABCEMABCDEFNNUDUBSCDOPZUEUCAUFQR $.
+      $( [14-Nov-1995] $)
+  $}
+
+  $( Expansion of an ordered pair when the first member is a proper class.
+     See also ~ opprc1b , ~ opprc2 , ~ opprc3 . $)
+  opprc1 $p |- ( -. A e. V -> <. A , B >. = { (/) , { B } } ) $=
+    ( cvv wcel wn csn cpr c0 cop wceq snprc preq1 sylbi prprc1 preq2 syl eqtrd
+    df-op syl5eq ) ACDEZAFZABGZGZHBFZGZABITUCHUBGZUETUAHJUCUFJAKUAHUBLMTUBUDJUF
+    UEJABNUBUDHOPQABRS $.
+    $( [12-Apr-2004] $) $( [10-Apr-2004] $)
+
+  $( A property of an ordered pair of proper classes (due to our
+     particular definition of ordered pair). $)
+  opprc2 $p |- ( -. B e. V -> <. A , B >. = <. A , A >. ) $=
+    ( cvv wcel wn csn cpr cop wceq prprc1 prcom dfsn2 3eqtr3g preq2 syl df-op
+    3eqtr4g ) BCDEZAFZABGZGZSAAGZGZABHAAHRTUBIUAUCIRBAGSTUBBAJBAKALMTUBSNOABPAA
+    PQ $.
+    $( [15-Nov-1994] $)
+
+  ${
+    $d x A $.
+    $( The power set of a singleton. $)
+    pwsn $p |- P~ { A } = { (/) , { A } } $=
+      ( vx cv csn wss cab c0 wceq wo cpw cpr sssn abbii df-pw dfpr2 3eqtr4 ) BC
+      ZADZEZBFQGHQRHIZBFRJGRKSTBQALMBRNBGROP $.
+      $( [5-Jun-2006] $) $( [5-Jun-2006] $)
+$( direct proof:
+      ( vx vy cv csn wss cab c0 wceq wo cpw cpr wn wa wcel wi wal dfss2 elsn
+      imbi2i albii bitr wex exintr n0 syl5ib df-clel exancom bitr2 snssi sylbi
+      syl6 anc2li eqss syl6ibr orrd 0ss sseq1 mpbiri eqimss jaoi impbi abbii
+      df-pw dfpr2 3eqtr4 ) BDZAEZFZBGVGHIZVGVHIZJZBGVHKHVHLVIVLBVIVLVIVJVKVIVJM
+      ZVIVHVGFZNVKVIVMVNVICDZVGOZVOAIZPZCQZVMVNPVIVPVOVHOZPZCQVSCVGVHRWAVRCVTVQ
+      VPCASTUAUBVSVMVPVQNCUCZVNVSVPCUCWBVMVPVQCUDCVGUEUFWBAVGOZVNWCVQVPNCUCWBCA
+      VGUGVQVPCUHUIAVGUJUKULUKUMVGVHUNUOUPVJVIVKVJVIHVHFVHUQVGHVHURUSVGVHUTVAVB
+      VCBVHVDBHVHVEVF $.
+$)
+  $}
+
+  ${
+
+    $( The power class of the universe is the universe.  Exercise 4.12(d) of
+       [Mendelson] p. 235. $)
+    pwv $p |- P~ V = V $=
+      ( vx cvv cpw cv wcel wss ssv visset elpw mpbir 2th eqriv ) ABCZBADZMEZNBE
+      ONBFNGNBAHZIJPKL $.
+      $( [14-Sep-2003] $)
+  $}
+

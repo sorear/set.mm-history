@@ -1,0 +1,790 @@
+$(
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+                     Definition and basic properties
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+$)
+
+  $c NrmCVec $.
+
+  $c +v $.
+  $c Base $.
+  $c .s $.
+  $c 0v $.
+  $c -v $.
+  $c norm $.
+
+  $c +vOLD $.
+  $c BaseOLD $.
+  $c .sOLD $.
+  $c 0vOLD $.
+  $c -vOLD $.
+  $c normOLD $.
+
+  $c IndMet $.
+
+  $( Extend class notation with the class of all normed complex vector
+     spaces. $)
+  cncv $a class NrmCVec $.
+
+  $( Extend class notation with vector addition in a normed complex vector
+     space.  In the literature, the subscript "v" is omitted, but we need it to
+     avoid ambiguity with complex number addition ` + ` ~ caddc . $)
+  cpv $a class +v $.
+  $( Extend class notation with vector addition in a normed complex vector
+     space.  In the literature, the subscript "v" is omitted, but we need it to
+     avoid ambiguity with complex number addition ` + ` ~ caddc . $)
+  cpvOLD $a class +vOLD $.
+
+  $( Extend class notation with the base set of a normed complex vector
+     space. $)
+  cba $a class Base $.
+  $( Extend class notation with the base set of a normed complex vector
+     space. $)
+  cbaOLD $a class BaseOLD $.
+
+  $( Extend class notation with scalar multiplication in a normed complex
+     vector space.  In the literature scalar multiplication is usually
+     indicated by juxtaposition, but we need an explicit symbol to prevent
+     ambiguity. $)
+  cns $a class .s $.
+  $( Extend class notation with scalar multiplication in a normed complex
+     vector space.  In the literature scalar multiplication is usually
+     indicated by juxtaposition, but we need an explicit symbol to prevent
+     ambiguity. $)
+  cnsOLD $a class .sOLD $.
+
+  $( Extend class notation with zero vector in a normed complex vector
+     space. $)
+  cn0v $a class 0v $.
+  $( Extend class notation with zero vector in a normed complex vector
+     space. $)
+  cn0vOLD $a class 0vOLD $.
+
+  $( Extend class notation with vector subtraction in a normed complex vector
+     space. $)
+  cnv $a class -v $.
+  $( Extend class notation with vector subtraction in a normed complex vector
+     space. $)
+  cnvOLD $a class -vOLD $.
+
+  $( Extend class notation with the norm function in a normed complex vector
+     space.  In the literature, the norm of ` A ` is usually  written
+     "|| ` A ` ||", but we use function notation to take advantage of our
+     existing theorems about functions. $)
+  cnm $a class norm $.
+  $( Extend class notation with the norm function in a normed complex vector
+     space.  In the literature, the norm of ` A ` is usually  written
+     "|| ` A ` ||", but we use function notation to take advantage of our
+     existing theorems about functions. $)
+  cnmOLD $a class normOLD $.
+
+  $( Extend class notation with the class of the induced metrics on normed
+     complex vector spaces. $)
+  cims $a class IndMet $.
+
+  ${
+    $d g s m n w x y z $.
+    $( Define the class of all normed complex vector spaces. $)
+    df-ncv $a |- NrmCVec = { <. <. g , s >. , n >. | ( <. g , s >. e. CVec /\
+   n : ran g --> RR /\ A. x e. ran g ( ( ( n ` x ) = 0 -> x = ( Id ` g ) )
+/\ A. y e. CC ( n ` ( y s x ) ) = ( ( abs ` y ) x. ( n ` x ) ) /\
+A. y e. ran g ( n ` ( x g y ) ) <_ ( ( n ` x ) + ( n ` y ) ) ) ) } $.
+
+    $( Structure of the class of all normed complex vectors spaces. $)
+    ncvss $p |- NrmCVec (_ ( ( V X. V ) X. V ) $=
+      ( vg vs vn vx vy cncv cv cop cvc wcel crn cr wf cfv cc0 wceq cgi wi co
+      cabs cmul cc wral caddc cle wbr w3a copab2 cvv cxp df-ncv oprabss eqsstr
+      ) FAGZBGZHIJUNKZLCGZMDGZUQNZOPURUNQNPREGZURUOSUQNUTTNUSUASPEUBUCURUTUNSUQ
+      NUSUTUQNUDSUEUFEUPUCUGDUPUCUGZABCUHUIUIUJUIUJDEACBUKVAABCULUM $.
+      $( [29-Nov-2006] $) $( [28-Nov-2006] $)
+
+    $( Define vector addition on a normed complex vector space. $)
+    df-va $a |- +v = ( 1st o. 1st ) $.
+
+    $( Define vector addition on a normed complex vector space. $)
+    df-vaOLD $a |- +vOLD = { <. x , y >. | ( x e. NrmCVec /\
+                y = ( 1st ` ( 1st ` x ) ) ) } $.
+
+    $( Define the base set of a normed complex vector space. $)
+    df-ba $a |- Base = { <. x , y >. | y = ran ( +v ` x ) } $.
+
+    $( Define the base set of a normed complex vector space. $)
+    df-baOLD $a |- BaseOLD = { <. x , y >. | ( x e. NrmCVec /\
+                y = ran ( +vOLD ` x ) ) } $.
+
+    $( Define scalar multiplication on a normed complex vector space. $)
+    df-sm $a |- .s = ( 2nd o. 1st ) $.
+
+    $( Define scalar multiplication on a normed complex vector space. $)
+    df-smOLD $a |- .sOLD = { <. x , y >. | ( x e. NrmCVec /\
+                y = ( 2nd ` ( 1st ` x ) ) ) } $.
+
+    $( Define the zero vector in a normed complex vector space. $)
+    df-0v $a |- 0v = ( Id o. +v ) $.
+
+    $( Define the zero vector in a normed complex vector space. $)
+    df-0vOLD $a |- 0vOLD = { <. x , y >. | ( x e. NrmCVec /\
+                y = ( Id ` ( +vOLD ` x ) ) ) } $.
+
+    $( Define vector subtraction on a normed complex vector space. $)
+    df-vs $a |- -v = { <. x , y >. | ( x e. NrmCVec /\
+     y = { <. <. z , w >. , v >. | ( ( z e. ( Base ` x ) /\
+             w e. ( Base ` x ) )
+                /\ v = ( z ( +v ` x ) ( -u 1 ( .s ` x ) w ) ) ) } ) } $.
+
+    $( Define vector subtraction on a normed complex vector space. $)
+    df-vsOLD $a |- -vOLD = { <. x , y >. | ( x e. NrmCVec /\
+     y = { <. <. z , w >. , v >. | ( ( z e. ( BaseOLD ` x ) /\
+             w e. ( BaseOLD ` x ) )
+                /\ v = ( z ( +vOLD ` x ) ( -u 1 ( .sOLD ` x ) w ) ) ) } ) } $.
+
+    $( Define the norm function in a normed complex vector space. $)
+    df-nm $a |- norm = 2nd $.
+
+    $( Define the norm function in a normed complex vector space. $)
+    df-nmOLD $a |- normOLD = { <. x , y >. | ( x e. NrmCVec /\
+                    y = ( 2nd ` x ) ) } $.
+
+    $( Define the induced metric on a normed complex vector space. $)
+    df-ims $a |- IndMet = { <. <. w , n >. , m >. | ( <. w , n >. e. NrmCVec
+      /\ m = <. dom n , { <. <. x , y >. , z >. | ( x e. dom n /\ y e. dom n /\
+      z = ( n ` ( x ( 1st ` w ) ( -u 1 ( 2nd ` w ) y ) ) ) ) } >. ) } $.
+  $}
+
+  $( The class of all normed complex vectors spaces is a relation. $)
+  ncvrel $p |- Rel NrmCVec $=
+    ( cncv wrel cvv cxp wss ncvss xpss sstri df-rel mpbir ) ABACCDZEAKCDKFKCGHA
+    IJ $.
+    $( [18-Nov-2006] $) $( [14-Nov-2006] $)
+
+  ${
+    $d x y U $.
+    vafvalOLD.2 $e |- G = ( +vOLD ` U ) $.
+    $( Value of the function for the vector addition (group) operation on a
+       normed complex vector space. $)
+    vafvalOLD $p |- ( U e. NrmCVec -> G = ( 1st ` ( 1st ` U ) ) ) $=
+      ( vx vy cncv wcel cpvOLD cfv c1st cv wceq fveq2 fveq2d df-vaOLD fvex
+      fvopab4 syl5eq ) AFGAHIAJIZJIZBDEADKZJIZJITFHUAALUBSJUAAJMNDEOSJPQCR $.
+      $( [23-Apr-2007] $) $( [23-Apr-2007] $)
+  $}
+
+  ${
+    $d x y U $.
+    vafval.2 $e |- G = ( +v ` U ) $.
+    $( Value of the function for the vector addition (group) operation on a
+       normed complex vector space. $)
+    vafval $p |- G = ( 1st ` ( 1st ` U ) ) $=
+      ( cpv cfv c1st cvv wcel wceq ccom wfun wf wfo fo1st fof ax-mp ffun fvco3
+      mp3an12 df-va fveq1i syl5eq wn c0 fvprc fveq2d 1st0 syl6req eqtrd
+      pm2.61i eqtr ) BADEZAFEZFEZCAGHZULUNIUOAFFJZEZUNULFKZGGFLZUOUQUNIUSURGGFM
+      USNGGFOPZGGFQPUTGGAFFRSADUPTUAUBUOUCZULUDUNADUEVAUNUDFEUDVAUMUDFAFUEUFUGU
+      HUIUJUK $.
+      $( [?] $) $( [23-Apr-2007] $)
+  $}
+
+  ${
+    $d x y U $.
+    bafvalOLD.5 $e |- X = ( BaseOLD ` U ) $.
+    $( Value of the function for the base set of a normed complex vector
+       space. $)
+    bafvalOLD $p |- ( U e. NrmCVec -> X = ran ( +vOLD ` U ) ) $=
+      ( vx vy cncv wcel cbaOLD cfv cpvOLD crn cv wceq fveq2 rneqd df-baOLD cvv
+      fvex rnexg ax-mp fvopab4 syl5eq ) AFGAHIAJIZKZBDEADLZJIZKUDFHUEAMUFUCUEAJ
+      NODEPUCQGUDQGAJRUCQSTUACUB $.
+      $( [23-Apr-2007] $) $( [23-Apr-2007] $)
+  $}
+
+  ${
+    $d x y U $.
+    bafval.2 $e |- G = ( +v ` U ) $.
+    bafval.5 $e |- X = ( Base ` U ) $.
+    $( Value of the function for the base set of a normed complex vector
+       space. $)
+    bafval $p |- X = ran G $=
+      ( vy vx cba cfv cpv crn cvv wcel wceq cv copab fvex rnexg ax-mp fveq2
+      rneqd fvopabg mpan2 df-ba fveq1i syl5eq wn c0 fvprc rn0 syl6eq eqtr4d
+      pm2.61i rneqi 3eqtr4 ) AHIZAJIZKZCBKALMZUPURNUSAFOGOZJIZKZNGFPZIZURUPUSUR
+      LMZVDURNUQLMVEAJQUQLRSGFAVBURLLUTANVAUQUTAJTUAUBUCAHVCGFUDUEUFUSUGZUPUHUR
+      AHUIVFURUHKUHVFUQUHAJUIUAUJUKULUMEBUQDUNUO $.
+      $( [?] $) $( [23-Apr-2007] $)
+  $}
+
+  ${
+    $d x y U $.
+    smfval.3 $e |- S = ( .s ` U ) $.
+    $( Value of the function for the scalar multiplication operation on a
+       normed complex vector space. $)
+    smfval $p |- S = ( 2nd ` ( 1st ` U ) ) $=
+      ( cns cfv c1st c2nd cvv wcel wceq ccom wfun wf wfo fo2nd fof ax-mp ffun
+      fo1st fvco3 mp3an12 df-sm fveq1i syl5eq wn c0 fvprc fveq2d 2nd0 syl6req
+      eqtrd pm2.61i eqtr ) ABDEZBFEZGEZCBHIZUNUPJUQBGFKZEZUPUNGLZHHFMZUQUSUPJHH
+      GMZUTHHGNVBOHHGPQHHGRQHHFNVASHHFPQHHBGFTUABDURUBUCUDUQUEZUNUFUPBDUGVCUPUF
+      GEUFVCUOUFGBFUGUHUIUJUKULUM $.
+      $( [?] $) $( [24-Apr-2007] $)
+  $}
+
+  ${
+    $d x y U $.
+    smfvalOLD.3 $e |- S = ( .sOLD ` U ) $.
+    $( Value of the function for the scalar multiplication operation on a
+       normed complex vector space. $)
+    smfvalOLD $p |- ( U e. NrmCVec -> S = ( 2nd ` ( 1st ` U ) ) ) $=
+      ( vx vy cncv wcel cnsOLD cfv c1st c2nd cv wceq fveq2 fveq2d df-smOLD
+      fvex fvopab4 syl5eq ) BFGBHIBJIZKIZADEBDLZJIZKIUAFHUBBMUCTKUBBJNODEPTKQRC
+      S $.
+      $( [23-Apr-2007] $) $( [23-Apr-2007] $)
+  $}
+
+  ${
+    $d x y U $.  $d x y z w $.
+    0vval.7 $e |- Z = ( 0v ` U ) $.
+    $( Value of the function for the scalar multiplication operation on a
+       normed complex vector space. $)
+    0vval $p |- Z = ( Id ` ( +v ` U ) ) $=
+      ( vx vy vz vw cn0v cfv cpv cgi cvv wcel wceq ccom wfun wfn cgr cv co crn
+      wral crab cuni visset rnexg ax-mp rabex uniex df-gid fnopab2 fnfun c1st
+      wss wf wfo fo1st fof ffn ssv fnco mp3an wb df-va fneq1 mpbir fvco2
+      mp3an12 df-0v fveq1i syl5eq wn c0 fvprc fveq2d cdm 0ngrp dmopab2 eleq2i
+      mtbir ndmfv syl6req eqtrd pm2.61i eqtr ) BAHIZAJIZKIZCALMZWFWHNWIAKJOZIZW
+      HWFKPZJLQZWIWKWHNKRQWLDERFSGSZDSZTWNNGWOUAZUBZFWPUCZUDZKWRWQFWPWOLMWPLMDU
+      EWOLUFUGUHUIZGEFDUJZUKRKULUGWMUMUMOZLQZUMLQZXDUMUAZLUNXCLLUMUOZXDLLUMUPXF
+      UQLLUMURUGLLUMUSUGZXGXEUTLLUMUMVAVBJXBNWMXCVCVDLJXBVEUGVFLAKJVGVHAHWJVIVJ
+      VKWIVLZWFVMWHAHVNXHWHVMKIZVMXHWGVMKAJVNVOVMKVPZMZVLXIVMNXKVMRMVQXJRVMDERW
+      SKWTXAVRVSVTVMKWAUGWBWCWDWE $.
+      $( [?] $) $( [24-Apr-2007] $)
+  $}
+
+  ${
+    $d x y U $.
+    0vvalOLD.7 $e |- Z = ( 0vOLD ` U ) $.
+    $( Value of the zero vector in a normed complex vector space. $)
+    0vvalOLD $p |- ( U e. NrmCVec -> Z = ( Id ` ( +vOLD ` U ) ) ) $=
+      ( vx vy cncv wcel cn0vOLD cfv cpvOLD cgi cv wceq fveq2 fveq2d df-0vOLD
+      fvex fvopab4 syl5eq ) AFGAHIAJIZKIZBDEADLZJIZKIUAFHUBAMUCTKUBAJNODEPTKQRC
+      S $.
+      $( [24-Apr-2007] $) $( [23-Apr-2007] $)
+  $}
+
+  ${
+    $d v w z A $.  $d v w z B $.  $d v w x y z G $.  $d v w x y z S $.
+    $d v w x y z U $.  $d v w x y z X $.
+    vsvalOLD.2 $e |- G = ( +vOLD ` U ) $.
+    vsvalOLD.3 $e |- S = ( .sOLD ` U ) $.
+    vsvalOLD.5 $e |- X = ( BaseOLD ` U ) $.
+    vsvalOLD.6 $e |- M = ( -vOLD ` U ) $.
+    $( Value of vector subtraction on a normed complex vector space. $)
+    vsvalOLD $p |- ( ( U e. NrmCVec /\ A e. X /\ B e. X ) -> ( A M B ) =
+                ( A G ( -u 1 S B ) ) ) $=
+      ( vz vw vv vx vy cncv wcel w3a co cv wa c1 cneg wceq copab2 cnvOLD cfv
+      cbaOLD cnsOLD cpvOLD fveq2 syl6eqr eleq2d anbi12d opreqd opreq2d eqtrd
+      eqeq2d oprabbidv df-vsOLD cvv fvex eqeltr eqid oprabex2 fvopab4 syl5eq
+      3ad2ant1 oprex opreq1 opreq2 oprabval2 3adant1 ) DQRZAGRZBGRZSABFTZABLUAZ
+      GRZMUAZGRZUBZNUAZVSUCUDZWACTZETZUEZUBZLMNUFZTZAWEBCTZETZVOVPVRWKUEVQVOFWJ
+      ABVODUGUHWJFOPDVSOUAZUIUHZRZWAWORZUBZWDVSWEWAWNUJUHZTZWNUKUHZTZUEZUBZLMNU
+      FWJQUGWNDUEZXDWILMNXEWRWCXCWHXEWPVTWQWBXEWOGVSXEWODUIUHZGWNDUIULJUMZUNXEW
+      OGWAXGUNUOXEXBWGWDXEXBVSWTETWGXEXAEVSWTXEXADUKUHEWNDUKULHUMUPXEWTWFVSEXEW
+      SCWEWAXEWSDUJUHCWNDUJULIUMUPUQURUSUOUTOPLMNVALMNGGWGWJGXFVBJDUIVCVDZXHWJV
+      EZVFVGKVHUPVIVPVQWKWMUEVOLMNABGGWGWMWJAWFETAWLEVJVSAWFEVKWABUEWFWLAEWABWE
+      CVLUQXIVMVNUR $.
+      $( [24-Apr-2007] $) $( [23-Apr-2007] $)
+  $}
+
+  ${
+    $d x y U $.
+    nmfval.4 $e |- N = ( norm ` U ) $.
+    $( Value of the norm function in a normed complex vector space. $)
+    nmfval $p |- N = ( 2nd ` U ) $=
+      ( cnm cfv c2nd df-nm fveq1i eqtr ) BADEAFECADFGHI $.
+      $( [?] $) $( [25-Apr-2007] $)
+  $}
+
+  ${
+    $d x y U $.
+    nmfvalOLD.4 $e |- N = ( normOLD ` U ) $.
+    $( Value of the norm function in a normed complex vector space. $)
+    nmfvalOLD $p |- ( U e. NrmCVec -> N = ( 2nd ` U ) ) $=
+      ( vx vy cncv wcel cnmOLD cfv c2nd cv fveq2 df-nmOLD fvex fvopab4 syl5eq
+      ) AFGAHIAJIZBDEADKZJIQFHRAJLDEMAJNOCP $.
+      $( [24-Apr-2007] $) $( [23-Apr-2007] $)
+  $}
+
+  ${
+    ncvop.1 $e |- W = ( 1st ` U ) $.
+    ncvop.4 $e |- N = ( 2nd ` U ) $.
+    $( A normed complex vector space is an ordered pair of a vector space
+       and a norm operation. $)
+    ncvop $p |- ( U e. NrmCVec -> U = <. W , N >. ) $=
+      ( cncv wcel c1st cfv c2nd cop wrel wceq ncvrel 1st2nd mpan opeq12i
+      syl6eqr ) AFGZAAHIZAJIZKZCBKFLSAUBMNAFOPCTBUADEQR $.
+      $( [1-Dec-2006] $) $( [28-Nov-2006] $)
+  $}
+
+  ${
+    ncvvop.1 $e |- W = ( 1st ` U ) $.
+    ncvvop.2 $e |- G = ( 1st ` W ) $.
+    ncvvop.3 $e |- S = ( 2nd ` W ) $.
+    $( The vector space component of a normed complex vector space is
+       an ordered pair of the underlying group and a scalar product. $)
+    ncvvop $p |- ( U e. NrmCVec -> W = <. G , S >. ) $=
+      ( cncv wcel c1st cfv c2nd cop cvv cxp wceq wa eqid ncvop eleq1d ibi
+      ncvss sseli syl fvex opelxp sylib pm3.26d wrel relxp 1st2nd mpan opeq12i
+      syl6eqr ) BHIZDDJKZDLKZMZCAMUODNNOZIZDURPZUOUTBLKZNIZUODVBMZUSNOZIZUTVCQU
+      OVDHIZVFUOVGUOBVDHBVBDEVBRSTUAHVEVDUBUCUDDVBUSNBLUEUFUGUHUSUIUTVANNUJDUSU
+      KULUDCUPAUQFGUMUN $.
+      $( [2-Dec-2006] $) $( [28-Nov-2006] $)
+  $}
+
+  ${
+    $d g n s x y G $.  $d g n s x y N $.  $d g n s x y S $.  $d g n s x y X $.
+    $d g n s Z $.
+    isncvg.1 $e |- X = ran G $.
+    isncvg.2 $e |- Z = ( Id ` G ) $.
+    $( The predicate "is a normed complex vector space." $)
+    isncvg $p |- ( ( G e. A /\ S e. B /\ N e. C ) ->
+                 ( <. <. G , S >. , N >. e. NrmCVec <-> ( <. G , S >. e. CVec
+        /\ N : X --> RR /\ A. x e. X ( ( ( N ` x ) = 0 -> x = Z )
+           /\ A. y e. CC ( N ` ( y S x ) ) = ( ( abs ` y ) x. ( N ` x ) ) /\
+           A. y e. X ( N ` ( x G y ) ) <_ ( ( N ` x ) + ( N ` y ) ) ) ) ) ) $=
+      ( vg vs vn wcel w3a cop cv cvc crn cr wf cfv cc0 wceq cgi wi co cabs
+      cmul cc wral caddc cle wbr copab2 cncv opeq1 eleq1d wb rneq syl6eqr feq2
+      syl raleq1d fveq2 eqeq2d imbi2d opreq fveq2d breq1d ralbidv bitrd
+      3anbi13d 3anbi123d opeq2 eqeq1d 3anbi2d feq1 fveq1 imbi1d opreq2d
+      eqeq12d opreq12d breq12d 3anbi23d eloprabg df-ncv eleq2i syl5bb ) GCPFDPH
+      EPQGFRZHRZMSZNSZRZTPZWNUAZUBOSZUCZASZWSUDZUEUFZXAWNUGUDZUFZUHZBSZXAWOUIZW
+      SUDZXGUJUDZXBUKUIZUFZBULUMZXAXGWNUIZWSUDZXBXGWSUDZUNUIZUOUPZBWRUMZQZAWRUM
+      ZQZMNOUQZPWLTPZIUBHUCZXAHUDZUEUFZXAJUFZUHZXGXAFUIZHUDZXJYFUKUIZUFZBULUMZX
+      AXGGUIZHUDZYFXGHUDZUNUIZUOUPZBIUMZQZAIUMZQZWMURPYBGWORZTPZIUBWSUCZXCYHUHZ
+      XMYOWSUDZXQUOUPZBIUMZQZAIUMZQYDUUFUUGYJWSUDZXKUFZBULUMZUUJQZAIUMZQUUCMNOG
+      FHCDEWNGUFZWQUUEWTUUFYAUULUURWPUUDTWNGWOUSUTUURWRIUFWTUUFVAUURWRGUAIWNGVB
+      KVCZWRIUBWSVDVEUURYAXTAIUMUULUURXTAWRIUUSVFUURXTUUKAIUURXFUUGXSUUJXMUURXE
+      YHXCUURXDJXAUURXDGUGUDJWNGUGVGLVCVHVIUURXSXRBIUMUUJUURXRBWRIUUSVFUURXRUUI
+      BIUURXOUUHXQUOUURXNYOWSXAXGWNGVJVKVLVMVNVOVMVNVPWOFUFZUUEYDUULUUQUUFUUTUU
+      DWLTWOFGVQUTUUTUUKUUPAIUUTXMUUOUUGUUJUUTXLUUNBULUUTXIUUMXKUUTXHYJWSXGXAWO
+      FVJVKVRVMVSVMVOWSHUFZUUFYEUUQUUBYDIUBWSHVTUVAUUPUUAAIUVAUUGYIUUOYNUUJYTUV
+      AXCYGYHUVAXBYFUEXAWSHWAZVRWBUVAUUNYMBULUVAUUMYKXKYLYJWSHWAUVAXBYFXJUKUVBW
+      CWDVMUVAUUIYSBIUVAUUHYPXQYRUOYOWSHWAUVAXBYFXPYQUNUVBXGWSHWAWEWFVMVPVMWGWH
+      URYCWMABMONWIWJWK $.
+      $( [24-Nov-2006] $) $( [11-Nov-2006] $)
+  $}
+
+  ${
+    $d x y G $.  $d x y N $.  $d x y S $.  $d x y X $.
+    isncvi.1 $e |- G e. V $.
+    isncvi.2 $e |- S e. V $.
+    isncvi.5 $e |- X = ran G $.
+    isncvi.6 $e |- Z = ( Id ` G ) $.
+    isncvi.7 $e |- <. G , S >. e. CVec $.
+    isncvi.8 $e |- N : X --> RR $.
+    isncvi.9 $e |- ( ( x e. X /\ ( N ` x ) = 0 ) -> x = Z ) $.
+    isncvi.10 $e |- ( ( y e. CC /\ x e. X ) ->
+                    ( N ` ( y S x ) ) = ( ( abs ` y ) x. ( N ` x ) ) ) $.
+    isncvi.11 $e |- ( ( x e. X /\ y e. X ) ->
+                    ( N ` ( x G y ) ) <_ ( ( N ` x ) + ( N ` y ) ) ) $.
+    isncvi.12 $e |- U = <. <. G , S >. , N >. $.
+    $( Properties that determine a normed complex vector space. $)
+    isncvi $p |- U e. NrmCVec $=
+      ( cop cncv wcel cvc cr wf cv cfv cc0 wceq wi co cabs cmul cc wral caddc
+      cle wbr w3a ex ancoms r19.21aiva 3jca rgen 3pm3.2i cvv wb crn rnexg
+      ax-mp eqeltr fex mp2an isncvg mp3an mpbir ) DECSZFSZTRVQTUAZVPUBUAZGUCFUD
+      ZAUEZFUFZUGUHZWAHUHZUIZBUEZWACUJFUFWFUKUFWBULUJUHZBUMUNZWAWFEUJFUFWBWFFUF
+      UOUJUPUQZBGUNZURZAGUNZURZVSVTWLMNWKAGWAGUAZWEWHWJWNWCWDOUSWNWGBUMWFUMUAWN
+      WGPUTVAWNWIBGQVAVBVCVDEVEUAZCVEUAFVEUAZVRWMVFIJVTGVEUAWPNGEVGZVEKWOWQVEUA
+      IEVEVHVIVJGUCVEFVKVLABVEVEVECEFGHKLVMVNVOVJ $.
+      $( [16-Apr-2007] $) $( [15-Apr-2007] $)
+  $}
+
+  ${
+    $d g n s x y G $.  $d g n s x y N $.  $d g n s x y $.  $d g n s U $.
+    $d g n s x y S $.  $d g n s x y X $.  $d g n s x Z $.
+    ncvi.1 $e |- W = ( 1st ` U ) $.
+    ncvi.2 $e |- G = ( 1st ` W ) $.
+    ncvi.3 $e |- S = ( 2nd ` W ) $.
+    ncvi.4 $e |- N = ( 2nd ` U ) $.
+    ncvi.5 $e |- X = ran G $.
+    ncvi.6 $e |- Z = ( Id ` G ) $.
+    $( The properties of a normed complex vector space, which is a vector
+       space accompanied by a norm. $)
+    ncvi $p |- ( U e. NrmCVec -> ( <. G , S >. e. CVec /\ N : X --> RR /\
+       A. x e. X ( ( ( N ` x ) = 0 -> x = Z )
+           /\ A. y e. CC ( N ` ( y S x ) ) = ( ( abs ` y ) x. ( N ` x ) ) /\
+              A. y e. X ( N ` ( x G y ) ) <_ ( ( N ` x ) + ( N ` y ) ) ) ) ) $=
+      ( vg vs vn cncv wcel cv cop cvc crn cr wf cfv cc0 wceq cgi wi co cabs
+      cmul cc wral caddc cle wbr w3a copab2 df-ncv eleq2i c1st wb id fveq2i
+      eqtr syl6eqr opeq1 eleq1d rneq feq2 syl raleq1d fveq2 eqeq2d imbi2d
+      opreq fveq2d breq1d ralbidv bitrd 3anbi13d 3anbi123d c2nd opeq2 eqeq1d
+      3anbi2d feq1 fveq1 imbi1d opreq2d eqeq12d opreq12d breq12d 3anbi23d
+      eloprabi sylbi ) DSTDPUAZQUAZUBZUCTZWTUDZUERUAZUFZAUAZXEUGZUHUIZXGWTUJUGZ
+      UIZUKZBUAZXGXAULZXEUGZXMUMUGZXHUNULZUIZBUOUPZXGXMWTULZXEUGZXHXMXEUGZUQULZ
+      URUSZBXDUPZUTZAXDUPZUTZPQRVAZTECUBZUCTZHUEFUFZXGFUGZUHUIZXGIUIZUKZXMXGCUL
+      ZFUGZXPYMUNULZUIZBUOUPZXGXMEULZFUGZYMXMFUGZUQULZURUSZBHUPZUTZAHUPZUTZSYID
+      ABPRQVBVCYHEXAUBZUCTZHUEXEUFZXIYOUKZXSUUBXEUGZYCURUSZBHUPZUTZAHUPZUTZYKUU
+      MUUNYQXEUGZXQUIZBUOUPZUUQUTZAHUPZUTZUUJPQRDWTDVDUGZVDUGZUIZWTEUIZYHUUTVEU
+      VIWTUVHEUVIVFEGVDUGUVHKGUVGVDJVGVHVIUVJXCUULXFUUMYGUUSUVJXBUUKUCWTEXAVJVK
+      UVJXDHUIXFUUMVEUVJXDEUDHWTEVLNVIZXDHUEXEVMVNUVJYGYFAHUPUUSUVJYFAXDHUVKVOU
+      VJYFUURAHUVJXLUUNYEUUQXSUVJXKYOXIUVJXJIXGUVJXJEUJUGIWTEUJVPOVIVQVRUVJYEYD
+      BHUPUUQUVJYDBXDHUVKVOUVJYDUUPBHUVJYAUUOYCURUVJXTUUBXEXGXMWTEVSVTWAWBWCWDW
+      BWCWEVNXAUVGWFUGZUIZXACUIZUUTUVFVEUVMXAUVLCUVMVFCGWFUGUVLLGUVGWFJVGVHVIUV
+      NUULYKUUSUVEUUMUVNUUKYJUCXACEWGVKUVNUURUVDAHUVNXSUVCUUNUUQUVNXRUVBBUOUVNX
+      OUVAXQUVNXNYQXEXMXGXACVSVTWHWBWIWBWDVNXEDWFUGZUIZXEFUIZUVFUUJVEUVPXEUVOFU
+      VPVFMVIUVQUUMYLUVEUUIYKHUEXEFWJUVQUVDUUHAHUVQUUNYPUVCUUAUUQUUGUVQXIYNYOUV
+      QXHYMUHXGXEFWKZWHWLUVQUVBYTBUOUVQUVAYRXQYSYQXEFWKUVQXHYMXPUNUVRWMWNWBUVQU
+      UPUUFBHUVQUUOUUCYCUUEURUUBXEFWKUVQXHYMYBUUDUQUVRXMXEFWKWOWPWBWEWBWQVNWRWS
+      $.
+      $( [17-Nov-2006] $) $( [11-Nov-2006] $)
+  $}
+
+  ${
+    $d g n s x y G $.  $d g n s x y N $.  $d g n s x y $.  $d g n s U $.
+    $d g n s x y S $.  $d g n s x y X $.  $d g n s x Z $.
+    ncviOLD.1 $e |- W = ( 1st ` U ) $.
+    ncviOLD.2 $e |- G = ( 1st ` W ) $.
+    ncviOLD.3 $e |- S = ( 2nd ` W ) $.
+    ncviOLD.4 $e |- N = ( 2nd ` U ) $.
+    ncviOLD.5 $e |- X = ran G $.
+    ncviOLD.6 $e |- Z = ( Id ` G ) $.
+    $( The properties of a normed complex vector space, which is a vector
+       space accompanied by a norm. $)
+    ncviOLD $p |- ( U e. NrmCVec -> ( <. G , S >. e. CVec /\ N : X --> RR /\
+       A. x e. X ( ( ( N ` x ) = 0 -> x = Z )
+           /\ A. y e. CC ( N ` ( y S x ) ) = ( ( abs ` y ) x. ( N ` x ) ) /\
+              A. y e. X ( N ` ( x G y ) ) <_ ( ( N ` x ) + ( N ` y ) ) ) ) ) $=
+      ( vg vs vn cncv wcel cv cop cvc crn cr wf cfv cc0 wceq cgi wi co cabs
+      cmul cc wral caddc cle wbr w3a copab2 df-ncv eleq2i c1st wb id fveq2i
+      eqtr syl6eqr opeq1 eleq1d rneq feq2 syl raleq1d fveq2 eqeq2d imbi2d
+      opreq fveq2d breq1d ralbidv bitrd 3anbi13d 3anbi123d c2nd opeq2 eqeq1d
+      3anbi2d feq1 fveq1 imbi1d opreq2d eqeq12d opreq12d breq12d 3anbi23d
+      eloprabi sylbi ) DSTDPUAZQUAZUBZUCTZWTUDZUERUAZUFZAUAZXEUGZUHUIZXGWTUJUGZ
+      UIZUKZBUAZXGXAULZXEUGZXMUMUGZXHUNULZUIZBUOUPZXGXMWTULZXEUGZXHXMXEUGZUQULZ
+      URUSZBXDUPZUTZAXDUPZUTZPQRVAZTECUBZUCTZHUEFUFZXGFUGZUHUIZXGIUIZUKZXMXGCUL
+      ZFUGZXPYMUNULZUIZBUOUPZXGXMEULZFUGZYMXMFUGZUQULZURUSZBHUPZUTZAHUPZUTZSYID
+      ABPRQVBVCYHEXAUBZUCTZHUEXEUFZXIYOUKZXSUUBXEUGZYCURUSZBHUPZUTZAHUPZUTZYKUU
+      MUUNYQXEUGZXQUIZBUOUPZUUQUTZAHUPZUTZUUJPQRDWTDVDUGZVDUGZUIZWTEUIZYHUUTVEU
+      VIWTUVHEUVIVFEGVDUGUVHKGUVGVDJVGVHVIUVJXCUULXFUUMYGUUSUVJXBUUKUCWTEXAVJVK
+      UVJXDHUIXFUUMVEUVJXDEUDHWTEVLNVIZXDHUEXEVMVNUVJYGYFAHUPUUSUVJYFAXDHUVKVOU
+      VJYFUURAHUVJXLUUNYEUUQXSUVJXKYOXIUVJXJIXGUVJXJEUJUGIWTEUJVPOVIVQVRUVJYEYD
+      BHUPUUQUVJYDBXDHUVKVOUVJYDUUPBHUVJYAUUOYCURUVJXTUUBXEXGXMWTEVSVTWAWBWCWDW
+      BWCWEVNXAUVGWFUGZUIZXACUIZUUTUVFVEUVMXAUVLCUVMVFCGWFUGUVLLGUVGWFJVGVHVIUV
+      NUULYKUUSUVEUUMUVNUUKYJUCXACEWGVKUVNUURUVDAHUVNXSUVCUUNUUQUVNXRUVBBUOUVNX
+      OUVAXQUVNXNYQXEXMXGXACVSVTWHWBWIWBWDVNXEDWFUGZUIZXEFUIZUVFUUJVEUVPXEUVOFU
+      VPVFMVIUVQUUMYLUVEUUIYKHUEXEFWJUVQUVDUUHAHUVQUUNYPUVCUUAUUQUUGUVQXIYNYOUV
+      QXHYMUHXGXEFWKZWHWLUVQUVBYTBUOUVQUVAYRXQYSYQXEFWKUVQXHYMXPUNUVRWMWNWBUVQU
+      UPUUFBHUVQUUOUUCYCUUEURUUBXEFWKUVQXHYMYBUUDUQUVRXMXEFWKWOWPWBWEWBWQVNWRWS
+      $.
+      $( [17-Nov-2006] $) $( [11-Nov-2006] $)
+  $}
+
+  ${
+    $d x y U $.  $d x y W $.
+    ncvv.1 $e |- W = ( 1st ` U ) $.
+    $( The vector space component of a normed complex vector space. $)
+    ncvv $p |- ( U e. NrmCVec -> W e. CVec ) $=
+      ( vx vy cncv wcel c1st cfv c2nd cop cvc eqid ncvvop crn cr wf cv cc0
+      wceq cgi wi co cabs cmul cc wral caddc cle wbr w3a ncviOLD 3simp1d
+      eqeltrd ) AFGZBBHIZBJIZKZLUQAUPBCUPMZUQMZNUOURLGUPOZPAJIZQDRZVBIZSTVCUPUA
+      IZTUBERZVCUQUCVBIVFUDIVDUEUCTEUFUGVCVFUPUCVBIVDVFVBIUHUCUIUJEVAUGUKDVAUGD
+      EUQAUPVBBVAVECUSUTVBMVAMVEMULUMUN $.
+      $( [1-Feb-2007] $) $( [28-Nov-2006] $)
+  $}
+
+  ${
+    ncvgcl.2 $e |- G = ( +v ` U ) $.
+    ncvgcl.5 $e |- X = ( Base ` U ) $.
+    $( Closure law for the vector addition (group) operation of a normed
+       complex vector space. $)
+    ncvgcl $p |- ( ( U e. NrmCVec /\ A e. X /\ B e. X ) -> ( A G B ) e. X ) $=
+      ( c1st cfv cvc wcel co cncv vafval bafval vcgcl eqid ncvv syl3an1 ) CHIZJ
+      KAEKBEKABDLEKCMKABDTECDFNCDEFGOPCTTQRS $.
+      $( [?] $) $( [23-Apr-2007] $)
+  $}
+
+  ${
+    ncvgclOLD.2 $e |- G = ( +vOLD ` U ) $.
+    ncvgclOLD.5 $e |- X = ( BaseOLD ` U ) $.
+    $( Closure law for the vector addition (group) operation of a normed
+       complex vector space. $)
+    ncvgclOLD $p |- ( ( U e. NrmCVec /\ A e. X /\ B e. X ) ->
+                    ( A G B ) e. X ) $=
+      ( cncv wcel w3a co c1st cfv wceq vafvalOLD opreqd 3ad2ant1 crn wa cpvOLD
+      bafvalOLD eqid rneqd eqtrd eleq2d anbi12d cvc vcgcl ncvv syl3an1 3expb
+      ex sylbid 3impib eleqtrrd eqeltrd ) CHIZAEIZBEIZJZABDKZABCLMZLMZKZEUQURVA
+      VDNUSUQDVCABCDFOPQUTVDVCRZEUQURUSVDVEIZUQURUSSAVEIZBVEIZSZVFUQURVGUSVHUQE
+      VEAUQECTMZRVECEGUAUQVJVCCVJVJUBOUCUDZUEUQEVEBVKUEUFUQVIVFUQVGVHVFVBUGIVGV
+      HVFUQABVCVBVEVCUBVEUBUHCVBVBUBUIUJUKULUMUNUQUREVENUSVKQUOUP $.
+      $( [24-Apr-2007] $) $( [23-Apr-2007] $)
+  $}
+
+  ${
+    ncvgclOLD2.1 $e |- W = ( 1st ` U ) $.
+    ncvgclOLD2.2 $e |- G = ( 1st ` W ) $.
+    ncvgclOLD2.5 $e |- X = ran G $.
+    $( Closure law for the vector addition (group) operation of a normed
+       complex vector space. $)
+    ncvgclOLDOLD $p |- ( ( U e. NrmCVec /\ A e. X /\ B e. X ) ->
+                       ( A G B ) e. X ) $=
+      ( cvc wcel co cncv vcgcl ncvv syl3an1 ) EJKAFKBFKABDLFKCMKABDEFHINCEGOP
+      $.
+      $( [6-Feb-2007] $) $( [1-Feb-2007] $)
+  $}
+
+  ${
+    ncvsclOLD.3 $e |- S = ( .sOLD ` U ) $.
+    ncvsclOLD.5 $e |- X = ( BaseOLD ` U ) $.
+    $( Closure law for the scalar product operation of a normed
+       complex vector space. $)
+    ncvsclOLD $p |- ( ( U e. NrmCVec /\ A e. CC /\ B e. X ) ->
+                    ( A S B ) e. X ) $=
+      ( cncv wcel cc w3a co c1st cfv c2nd wceq smfvalOLD opreqd 3ad2ant1 crn
+      wa cpvOLD bafvalOLD eqid vafvalOLD rneqd eqtrd eleq2d anbi2d cvc vccl
+      ncvv syl3an1 3expb ex sylbid 3impib eleqtrrd eqeltrd ) DHIZAJIZBEIZKZABCL
+      ZABDMNZONZLZEUTVAVDVGPVBUTCVFABCDFQRSVCVGVEMNZTZEUTVAVBVGVIIZUTVAVBUAVABV
+      IIZUAZVJUTVBVKVAUTEVIBUTEDUBNZTVIDEGUCUTVMVHDVMVMUDUEUFUGZUHUIUTVLVJUTVAV
+      KVJVEUJIVAVKVJUTABVFVHVEVIVHUDVFUDVIUDUKDVEVEUDULUMUNUOUPUQUTVAEVIPVBVNSU
+      RUS $.
+      $( [24-Apr-2007] $) $( [23-Apr-2007] $)
+  $}
+
+  ${
+    ncvsclOLD2.1 $e |- W = ( 1st ` U ) $.
+    ncvsclOLD2.2 $e |- G = ( 1st ` W ) $.
+    ncvsclOLD2.3 $e |- S = ( 2nd ` W ) $.
+    ncvsclOLD2.5 $e |- X = ran G $.
+    $( Closure law for the scalar product operation of a normed complex vector
+       space. $)
+    ncvsclOLDOLD $p |- ( ( U e. NrmCVec /\ A e. CC /\ B e. X ) ->
+                       ( A S B ) e. X ) $=
+      ( cvc wcel cc co cncv vccl ncvv syl3an1 ) FLMANMBGMABCOGMDPMABCEFGIJKQDFH
+      RS $.
+      $( [7-Feb-2007] $) $( [1-Feb-2007] $)
+  $}
+
+  ${
+    $d x y G $.  $d x y N $.  $d x y W $.  $d x y U $.  $d x y X $.
+    ncvf.1 $e |- W = ( 1st ` U ) $.
+    ncvf.2 $e |- G = ( 1st ` W ) $.
+    ncvf.4 $e |- N = ( 2nd ` U ) $.
+    ncvf.5 $e |- X = ran G $.
+    $( Functionality of the norm of a normed complex vector space. $)
+    ncvf $p |- ( U e. NrmCVec -> N : X --> RR ) $=
+      ( vx vy cncv wcel c2nd cfv cop cvc cr wf cv cc0 wceq cgi wi co cabs cmul
+      cc wral caddc cle wbr w3a eqid ncviOLD 3simp2d ) ALMBDNOZPQMERCSJTZCOZUAU
+      BURBUCOZUBUDKTZURUQUECOVAUFOUSUGUEUBKUHUIURVABUECOUSVACOUJUEUKULKEUIUMJEU
+      IJKUQABCDEUTFGUQUNHIUTUNUOUP $.
+      $( [17-Nov-2006] $) $( [11-Nov-2006] $)
+
+    $( The norm of a normed complex vector space is a real number. $)
+    ncvcl $p |- ( ( U e. NrmCVec /\ A e. X ) -> ( N ` A ) e. RR ) $=
+      ( cr wf wcel cfv cncv ffvrn ncvf sylan ) FKDLAFMADNKMBOMFKADPBCDEFGHIJQR
+      $.
+      $( [25-Nov-2006] $) $( [24-Nov-2006] $)
+
+    ${
+      ncvcli.6 $e |- U e. NrmCVec $.
+      ncvcli.7 $e |- A e. X $.
+      $( The norm of a normed complex vector space is a real number. $)
+      ncvcli $p |- ( N ` A ) e. RR $=
+        ( cncv wcel cfv cr ncvcl mp2an ) BMNAFNADOPNKLABCDEFGHIJQR $.
+        $( [?] $) $( [20-Apr-2007] $)
+    $}
+  $}
+
+  ${
+    ncvdm.1 $e |- W = ( 1st ` U ) $.
+    ncvdm.2 $e |- G = ( 1st ` W ) $.
+    ncvdm.4 $e |- N = ( 2nd ` U ) $.
+    $( Two ways of expressing the set of vectors in a normed complex vector
+       space. $)
+    ncvdm $p |- ( U e. NrmCVec -> ( X = dom N <-> X = ran G ) ) $=
+      ( cncv wcel cdm crn cr wf wceq eqid ncvf fdm syl eqeq2d ) AIJZCKZBLZEUAUC
+      MCNUBUCOABCDUCFGHUCPQUCMCRST $.
+      $( [23-Apr-2007] $) $( [31-Jan-2007] $)
+  $}
+
+  ${
+    $d y A $.  $d x y B $.  $d x y G $.  $d x y N $.  $d x y S $.  $d x y X $.
+    ncvs.1 $e |- W = ( 1st ` U ) $.
+    ncvs.2 $e |- G = ( 1st ` W ) $.
+    ncvs.3 $e |- S = ( 2nd ` W ) $.
+    ncvs.4 $e |- N = ( 2nd ` U ) $.
+    ncvs.5 $e |- X = ran G $.
+    $( Proportionality property of the norm of a scalar product in a normed
+       complex vector space. $)
+    ncvs $p |- ( ( U e. NrmCVec /\ A e. CC /\ B e. X ) ->
+               ( N ` ( A S B ) ) = ( ( abs ` A ) x. ( N ` B ) ) ) $=
+      ( vy vx wcel cc cncv co cfv cabs cmul wceq wa cv wral opreq2 fveq2d
+      fveq2 opreq2d eqeq12d opreq1 opreq1d rcla42v cop cvc cr wf cc0 cgi wi
+      caddc cle wbr w3a eqid ncviOLD 3simp3 3simp2 r19.20si 3syl syl5 3impia
+      3com13 ) BHPZAQPZDRPZABCSZFTZAUATZBFTZUBSZUCZVOVPVQWCVOVPUDNUEZOUEZCSZFTZ
+      WDUATZWEFTZUBSZUCZNQUFZOHUFZWCVQWKWCWDBCSZFTZWHWAUBSZUCONBAHQWEBUCZWGWOWJ
+      WPWQWFWNFWEBWDCUGUHWQWIWAWHUBWEBFUIUJUKWDAUCZWOVSWPWBWRWNVRFWDABCULUHWRWH
+      VTWAUBWDAUAUIUMUKUNVQECUOUPPZHUQFURZWIUSUCWEEUTTZUCVAZWLWEWDESFTWIWDFTVBS
+      VCVDNHUFZVEZOHUFZVEXEWMONCDEFGHXAIJKLMXAVFVGWSWTXEVHXDWLOHXBWLXCVIVJVKVLV
+      MVN $.
+      $( [27-Nov-2006] $) $( [11-Nov-2006] $)
+
+    $( The norm of the negative of a vector. $)
+    ncvm1 $p |- ( ( U e. NrmCVec /\ A e. X ) ->
+               ( N ` ( -u 1 S A ) ) = ( N ` A ) ) $=
+      ( cncv wcel wa c1 cneg co cfv cabs cmul cc wceq ax1cn negcl ncvs mp3an2
+      ncvcl recnd mulid2t syl absneg cc0 cle wbr 0re 1re lt01 ltlei absid
+      ax-mp eqtr opreq1i syl5eq eqtrd ) CMNZAGNZOZPQZABRESZVITSZAESZUARZVLVFVIU
+      BNVGVJVMUCPUDUEVIABCDEFGHIJKLUFUGVHPVLUARZVLVMVHVLUBNVNVLUCVHVLACDEFGHIKL
+      UHUIVLUJUKVKPVLUAVKPTSZPPUDULUMPUNUOVOPUCUMPUPUQURUSPUQUTVAVBVCVDVE $.
+      $( [4-Dec-2006] $) $( [28-Nov-2006] $)
+
+    $( The norm of the difference between two vectors. $)
+    ncvdif $p |- ( ( U e. NrmCVec /\ A e. X /\ B e. X ) ->
+               ( N ` ( A G ( -u 1 S B ) ) ) = ( N ` ( B G ( -u 1 S A ) ) ) ) $=
+      ( cncv wcel w3a c1 cneg co cfv cvc wceq cc vcdi 3simp1 ax1cn negcl a1i
+      3simp3 vccl mp3an2 3adant3 3jca sylanc wa cmul mul2neg mulid1 eqtr
+      opreq1i pm3.27 vcass syldan vcid 3eqtr3d opreq2d vccom 3adant2 3simp2
+      syl3anc 3eqtrd ncvv syl3an1 fveq2d ncvm1 cgr grpcl vcgrp 3ad2ant1 eqtr3d
+      ) DNOZAHOZBHOZPZQRZBWEACSZESZCSZFTZAWEBCSZESZFTWGFTZWDWHWKFGUAOZWBWCWHWKU
+      BWAWMWBWCPZWHWJWEWFCSZESZWJAESZWKWMWEUCOZWCWFHOZPWHWPUBWNWEBWFCEGHJKMUDWM
+      WBWCUEZWNWRWCWSWRWNQUFUGZUHWMWBWCUIZWMWBWSWCWMWRWBWSXAWEACEGHJKMUJUKULZUM
+      UNWNWOAWJEWMWBWOAUBWCWMWBUOZWEWEUPSZACSZQACSZWOAXFXGUBXDXEQACXEQQUPSQQQUF
+      UFUQQUFURUSUTUHWMWBWRWRWBPXFWOUBXDWRWRWBWRXDXAUHZXHWMWBVAUMWEWEACEGHJKMVB
+      VCACEGHJKMVDVEULVFWMWJHOZWBWQWKUBWNWJAEGHJMVGWTWMWCXIWBWMWRWCXIXAWEBCEGHJ
+      KMUJUKVHWMWBWCVIVJVKDGIVLZVMVNWAWGHOZWIWLUBWDWGCDEFGHIJKLMVOWAWBWCUEWMWBW
+      CXKWAEVPOZWCWSXKWNBWFEHMVQWMWBXLWCEGJVRVSXBXCVJXJVMUNVT $.
+      $( [5-Dec-2006] $) $( [1-Dec-2006] $)
+
+    $( The norm of a vector plus the imaginary scalar product of another. $)
+    ncvpi $p |- ( ( U e. NrmCVec /\ A e. X /\ B e. X ) ->
+               ( N ` ( A G ( i S B ) ) ) = ( N ` ( B G ( -u i S A ) ) ) ) $=
+      ( cncv wcel w3a c1 ci co cfv cmul cneg cc wceq cr ncvcl 3simp1
+      ncvgclOLDOLD 3simp2 axicn ncvsclOLDOLD mp3an2 3adant2 syl3anc sylanc
+      recnd mulid2t syl cabs negcl ncvs cvc wa vcdi mp3anr1 vccl jca vcass
+      mpanr1 vcid mulneg1 ixi negeqi ax1cn negneg 3eqtr opreq1i syl5eq eqtr3d
+      opreq2d vccom 3adant3 3simp3 3eqtrd ncvv syl3an1 fveq2d absneg absi eqtr
+      syl5eqr ) DNOZAHOZBHOZPZQARBCSZESZFTZUASZWRBRUBZACSZESZFTZWOWRUCOWSWRUDWO
+      WRWLWQHOZWRUEOWOWQDEFGHIJLMUFWLWMWNUGZWLWMWPHOZXDWOAWPDEGHIJMUHXEWLWMWNUI
+      WLWNXFWMWLRUCOZWNXFUJRBCDEGHIJKMUKULUMUNZUOUPWRUQURWOWTUSTZWRUASZXCWSWOWT
+      WQCSZFTZXJXCWLXDXLXJUDZWOWLWTUCOZXDXMRUJUTZWTWQCDEFGHIJKLMVAULXEXHUOWOXKX
+      BFGVBOZWMWNXKXBUDWLXPWMWNPZXKXAWTWPCSZESZXABESZXBXPWMXFVCXKXSUDZXQXPXNWMX
+      FYAXOWTAWPCEGHJKMVDVEXPWMWNUGZXQWMXFXPWMWNUIXPWNXFWMXPXGWNXFUJRBCEGHJKMVF
+      ULUMVGUOXQXRBXAEXPWNXRBUDWMXPWNVCZWTRUASZBCSZXRBXPXGWNYEXRUDZUJXPXNXGWNYF
+      XOWTRBCEGHJKMVHVEVIYCQBCSBYEBCEGHJKMVJYDQBCYDRRUASZUBQUBZUBQRRUJUJVKYGYHV
+      LVMQVNVOVPVQVRVSUMVTXPXAHOZWNXTXBUDXQXABEGHJMWAYBXPWMYIWNXPXNWMYIXOWTACEG
+      HJKMVFULWBXPWMWNWCUNWDDGIWEWFWGVSXIQWRUAXIRUSTQRUJWHWIWJVQWKVS $.
+      $( [9-Feb-2007] $) $( [2-Feb-2007] $)
+  $}
+
+  ${
+    ncvz0.1 $e |- W = ( 1st ` U ) $.
+    ncvz0.2 $e |- G = ( 1st ` W ) $.
+    ncvz0.4 $e |- N = ( 2nd ` U ) $.
+    ncvz0.6 $e |- Z = ( Id ` G ) $.
+    $( The norm of a zero vector is zero. $)
+    ncvz0 $p |- ( U e. NrmCVec -> ( N ` Z ) = 0 ) $=
+      ( cncv wcel cc0 c2nd cfv co cabs cmul crn wceq cvc ncvv eqid vc0cl syl
+      cc 0cn ncvs mp3an2 mpdan vc0 fveq2d wa ncvcl recnd mul02t abs0 opreq1i
+      syl5eq 3eqtr3d ) AJKZLEDMNZOZCNZLPNZECNZQOZVELUTEBRZKZVCVFSZUTDTKZVHADFUA
+      ZBDVGEGVGUBZIUCZUDZUTLUEKVHVIUFLEVAABCDVGFGVAUBZHVLUGUHUIUTVBECUTVJVBESZV
+      KVJVHVPVMEVABDVGEGVOVLIUJUIUDUKUTLVEQOZLVFUTVEUEKZVQLSUTVHVRVNUTVHULVEEAB
+      CDVGFGHVLUMUNUIVEUOUDVDLVEQUPUQURUS $.
+      $( [27-Nov-2006] $) $( [24-Nov-2006] $)
+  $}
+
+  ${
+    $d x A $.  $d x y G $.  $d x y N $.  $d x y W $.  $d x y X $.  $d x Z $.
+    ncvz.1 $e |- W = ( 1st ` U ) $.
+    ncvz.2 $e |- G = ( 1st ` W ) $.
+    ncvz.4 $e |- N = ( 2nd ` U ) $.
+    ncvz.5 $e |- X = ran G $.
+    ncvz.6 $e |- Z = ( Id ` G ) $.
+    $( The norm of a vector is zero iff the vector is zero.  First part of
+       Problem 2 of [Kreyszig] p. 64. $)
+    ncvz $p |- ( ( U e. NrmCVec /\ A e. X ) -> ( ( N ` A ) = 0 <-> A = Z ) ) $=
+      ( vx vy cncv wcel wa cfv cc0 wceq wi cv c2nd co cabs cmul cc wral caddc
+      cle wbr w3a cop cvc cr wf eqid ncviOLD 3simp3d 3simp1 r19.20si fveq2
+      eqeq1d eqeq1 imbi12d rcla4cv 3syl 3imp 3exp imp ncvz0 sylan9eqr ex
+      adantr impbid ) BOPZAFPZQADRZSTZAGTZVPVQVSVTUAZVPVQVSVTVPVQVSVTVPMUBZDRZS
+      TZWBGTZUAZNUBZWBEUCRZUDDRWGUERWCUFUDTNUGUHZWBWGCUDDRWCWGDRUIUDUJUKNFUHZUL
+      ZMFUHZWFMFUHVQWAUAVPCWHUMUNPFUODUPWLMNWHBCDEFGHIWHUQJKLURUSWKWFMFWFWIWJUT
+      VAWFWAMAFWBATZWDVSWEVTWMWCVRSWBADVBVCWBAGVDVEVFVGVHVIVJVPVTVSUAVQVPVTVSVT
+      VPVRGDRSAGDVBBCDEGHIJLVKVLVMVNVO $.
+      $( [28-Nov-2006] $) $( [24-Nov-2006] $)
+  $}
+
+  ${
+    $d x y A $.  $d y B $.  $d x y G $.  $d x y N $.  $d x y W $.  $d x y X $.
+    ncvtri.1 $e |- W = ( 1st ` U ) $.
+    ncvtri.2 $e |- G = ( 1st ` W ) $.
+    ncvtri.4 $e |- N = ( 2nd ` U ) $.
+    ncvtri.5 $e |- X = ran G $.
+    $( Triangle inequality for the norm of a normed complex vector space. $)
+    ncvtri $p |- ( ( U e. NrmCVec /\ A e. X /\ B e. X ) ->
+          ( N ` ( A G B ) ) <_ ( ( N ` A ) + ( N ` B ) ) ) $=
+      ( vx vy wcel cncv co cfv caddc cle wbr wa cv wral wceq opreq1 fveq2d
+      fveq2 opreq1d breq12d opreq2 opreq2d rcla42v cc0 cgi wi c2nd cabs cmul
+      cc w3a cop cvc cr wf eqid ncviOLD 3simp3d 3simp3 r19.20si syl syl5
+      3impia 3comr ) AGNZBGNZCONZABDPZEQZAEQZBEQZRPZSTZVNVOVPWBVNVOUALUBZMUBZDP
+      ZEQZWCEQZWDEQZRPZSTZMGUCZLGUCZWBVPWJWBAWDDPZEQZVSWHRPZSTLMABGGWCAUDZWFWNW
+      IWOSWPWEWMEWCAWDDUEUFWPWGVSWHRWCAEUGUHUIWDBUDZWNVRWOWASWQWMVQEWDBADUJUFWQ
+      WHVTVSRWDBEUGUKUIULVPWGUMUDWCDUNQZUDUOZWDWCFUPQZPEQWDUQQWGURPUDMUSUCZWKUT
+      ZLGUCZWLVPDWTVAVBNGVCEVDXCLMWTCDEFGWRHIWTVEJKWRVEVFVGXBWKLGWSXAWKVHVIVJVK
+      VLVM $.
+      $( [3-Dec-2006] $) $( [11-Nov-2006] $)
+  $}
+
+  ${
+    ncvabs.1 $e |- W = ( 1st ` U ) $.
+    ncvabs.2 $e |- G = ( 1st ` W ) $.
+    ncvabs.3 $e |- S = ( 2nd ` W ) $.
+    ncvabs.4 $e |- N = ( 2nd ` U ) $.
+    ncvabs.5 $e |- X = ran G $.
+    $( Norm difference property of a normed complex vector space.  Problem 3
+       of [Kreyszig] p. 64. $)
+    ncvabs $p |- ( ( U e. NrmCVec /\ A e. X /\ B e. X ) ->
+       ( abs ` ( ( N ` A ) - ( N ` B ) ) ) <_ ( N ` ( A G ( -u 1 S B ) ) ) ) $=
+      ( cncv wcel w3a cfv cmin co cabs c1 cneg cle wbr wa ncvdif negeqd caddc
+      cvc wceq vccom 3simp1 3simp2 cgr grpcl vcgrp 3ad2ant1 3simp3 cc ax1cn
+      negcl vccl mp3an2 3adant3 syl3anc ncvv syl3an1 cgi grpass 3jca sylanc
+      eqid vclinv opreq2d vc0rid 3adant2 3eqtrd eqtrd fveq2d ncvtri syl sylan
+      eqbrtrrd subnegt cr ncvcl recnd breqtrrd wb lesubt renegclt mpbird
+      eqbrtrd lesubaddt jca abslet resubclt ) DNOZAHOZBHOZPZAFQZBFQZRSZTQAUAUBZ
+      BCSZESZFQZUCUDZXHUBZXDUCUDZXDXHUCUDZUEZXAXKXLXAXJBXEACSZESZFQZUBZXDUCXAXH
+      XPABCDEFGHIJKLMUFUGXAXQXDUCUDZXCXBXQRSZUCUDZXAXCXBXPUHSZXSUCXAAXOESZFQZXC
+      YAUCXAYBBFXAYBXOAESZBGUIOZWSWTYBYDUJZWRYEWSXOHOZYFYEWSWTPZAXOEGHJMUKYEWSW
+      TULYEWSWTUMZEUNOZWTXNHOZYGYHBXNEHMUOZYEWSYJWTEGJUPZUQZYEWSWTURZYEWSYKWTYE
+      XEUSOZWSYKUAUTVAZXEACEGHJKMVBVCZVDZVEVEDGIVFZVGYEWSWTYDBUJWRYHYDBXNAESZES
+      ZBEVHQZESZBYJWTYKWSPYDUUBUJYHBXNAEHMVIYNYHWTYKWSYOYSYIVJVKYHUUAUUCBEYEWSU
+      UAUUCUJWTACEGHUUCJKMUUCVLZVMVDVNYEWTUUDBUJWSBEGHUUCJMUUEVOVPVQYTVGVRVSWRW
+      SYGYCYAUCUDXAAXODEFGHIJLMVTWRWSWTULZWRWSWTUMZYJWTYKYGXAYLWRWSYJWTWRYEYJYT
+      YMWAUQZWRWSWTURZWRWSYKWTYEWSYKWRYRYTWBVDVEZVEWCXBUSOXPUSOXSYAUJXAXBXPWDXA
+      XBWRWSXBWEOZWTADEFGHIJLMWFVDZWGXAXPWRYGXPWEOZXAXODEFGHIJLMWFUUFUUJVKZWGVK
+      WHXQWEOZUUKXCWEOZXRXTWIXAXQXBXCWJXAUUMUUOUUNXPWKWAUULWRWTUUPWSBDEFGHIJLMW
+      FVPZVEWLWMXAXLXBXHXCUHSZUCUDZXAXGBESZFQZXBUURUCXAUUTAFYEWSWTUUTAUJWRYHUUT
+      AXFBESZESZAUUCESZAYJWSXFHOZWTPUUTUVCUJYHAXFBEHMVIYNYHWSUVEWTYIYEWTUVEWSYE
+      YPWTUVEYQXEBCEGHJKMVBVCZVPYOVJVKYHUVBUUCAEYEWTUVBUUCUJWSBCEGHUUCJKMUUEVMV
+      PVNYEWSUVDAUJWTAEGHUUCJMUUEVOVDVQYTVGVSWRXGHOZWTUVAUURUCUDXAXGBDEFGHIJLMV
+      TUUFYJWSUVEUVGXAAXFEHMUOUUHUUGWRWTUVEWSYEWTUVEWRUVFYTWBVPVEZUUIVEWCUUKUUP
+      XHWEOZXLUUSWIXAXBXCXHWNUULUUQWRUVGUVIXAXGDEFGHIJLMWFUUFUVHVKZVEWLWOXDWEOZ
+      UVIXIXMWIXAXDXHWPUUKUUPUVKXAXBXCWQUULUUQVKUVJVKWL $.
+      $( [23-Apr-2007] $) $( [4-Dec-2006] $)
+  $}
+
+  ${
+    ncvge0.1 $e |- W = ( 1st ` U ) $.
+    ncvge0.2 $e |- G = ( 1st ` W ) $.
+    ncvge0.4 $e |- N = ( 2nd ` U ) $.
+    ncvge0.5 $e |- X = ran G $.
+    $( The norm of a normed complex vector space is nonnegative.  Second part
+       of Problem 2 of [Kreyszig] p. 64. $)
+    ncvge0 $p |- ( ( U e. NrmCVec /\ A e. X ) -> 0 <_ ( N ` A ) ) $=
+      ( c2 cr wcel cfv wa cc0 clt wbr cmul co cle cncv prodge0t ncvcl 2re
+      jctil c1 cneg c2nd caddc cgi wceq eqid ncvz0 adantr cvc vc0 ax1cn negid
+      opreq1i syl5req cc negcl vcdir mp3anr1 mpanr1 vcid opreq1d 3eqtrd ncvv
+      sylan fveq2d eqtr3d ncvtri pm3.26 pm3.27 vccl mp3an2 syl3anc eqbrtrd
+      ncvm1 opreq2d recnd 2timest syl eqtr4d breqtrd 2pos sylanc ) KLMZADNZLMZO
+      PKQRZPKWKSTZUARZOPWKUARBUBMZAFMZOZKWKUCWRWLWJABCDEFGHIJUDZUEUFWRWOWMWRPWK
+      UGUHZAEUINZTZDNZUJTZWNUAWRPAXBCTZDNZXDUAWRCUKNZDNZPXFWPXHPULWQBCDEXGGHIXG
+      UMZUNUOWRXGXEDEUPMZWQXGXEULWPXJWQOZXGUGWTUJTZAXATZUGAXATZXBCTZXEXKPAXATXG
+      XMAXACEFXGHXAUMZJXIUQXLPAXAUGURUSUTVAXJWTVBMZWQXMXOULZUGURVCZXJUGVBMXQWQX
+      RURUGWTAXACEFHXPJVDVEVFXKXNAXBCAXACEFHXPJVGVHVIBEGVJZVKVLVMWPWQXBFMZXFXDU
+      ARWRAXBBCDEFGHIJVNWPWQVOWPWQVPXJWQYAWPXJXQWQYAXSWTAXACEFHXPJVQVRXTVKVSVTW
+      RXDWKWKUJTZWNWRXCWKWKUJAXABCDEFGHXPIJWAWBWRWKVBMWNYBULWRWKWSWCWKWDWEWFWGW
+      HUFWI $.
+      $( [23-Apr-2007] $) $( [28-Nov-2006] $)
+  $}
+
