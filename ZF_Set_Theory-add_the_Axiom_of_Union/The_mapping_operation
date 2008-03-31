@@ -4,13 +4,19 @@ $(
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 $)
 
-  $( Introduce new constant symbol. $)
+  $( Introduce new constant symbols. $)
   $c ^m $.  $( The mapping operation. $)
+  $c ^pm $.  $( The mapping operation. $)
 
   $( Extend the definition of a class to include the mapping operation.
      (Read for ` A ^m B ` , "the set of all functions that map from
      ` B ` to ` A ` .) $)
   cm $a class ^m $.
+
+  $( Extend the definition of a class to include the partial mapping operation.
+     (Read for ` A ^m B ` , "the set of all partial functions that map from
+     ` B ` to ` A ` .) $)
+  cpm $a class ^pm $.
 
   ${
     $d x y z f $.
@@ -27,7 +33,30 @@ $)
        the first case of his notation (simple exponentiation) and subscript it
        with _m_ to distinguish it from other kinds of exponentiation. $)
     df-map $a |- ^m = { <. <. x , y >. , z >. | z = { f | f : y --> x } } $.
+
+    $( Define the partial mapping operation.  A partial function from ` B ` to
+       ` A ` is a function from a subset of ` B ` to ` A ` .  The set of all
+       partial functions from ` B ` to ` A ` is written ` ( A ^pm B ) ` (see
+       ~ pmvalg ).  A notation for this operation apparently does not appear in
+       the literature.  We use ` ^pm ` to distinguish it from the less
+       general set exponentiation operation ` ^m ` ( ~ df-map ) .  See
+       ~ mapsspm for its relationship to set exponentiation. $)
+    df-pm $a |- ^pm = { <. <. x , y >. , z >. | z =
+                    { f | ( Fun f /\ f (_ ( y X. x ) ) } } $.
   $}
+
+  $( Note:  an alternate way to express partial functions is as follows,
+     which would be added after df-fun above.  The symbol would be _pfun.gif.
+     This definition would be needed only if we need proper class partial
+     functions, which seems unlikely.  While nice-looking, for ordinary usage
+     it would inconveniently require a new set of equality theorems, etc. $)
+  $( Define a partial function, which is a function from a subset of the
+     domain ` A ` to the codomain ` B ` .  The notation of a stroke through
+     the arrow is used by the Z language: see, for example,
+     ~ http://staff.washington.edu/jon/z/dcs.html . $)
+  $(
+  df-fp $a |- ( F : A -|-> B <-> ( Fun F /\ F (_ ( X X. Y ) ) $.
+  $)
 
   ${
     $d f x A $.  $d f x B $.
@@ -39,14 +68,22 @@ $)
       UCMZDABUCNUCDEUFDECOUCDPQRSTUA $.
       $( [10-Dec-2003] $) $( [8-Dec-2003] $)
 
+    $( The class of all partial functions from one set to another is a set. $)
+    pmex $p |- ( ( A e. C /\ B e. D ) ->
+                   { f | ( Fun f /\ f (_ ( A X. B ) ) } e. V ) $=
+      ( wcel wa cv cxp wss wfun cab cvv xpexg abssexg syl ancom abbii syl5eqel
+      ) ACFBDFGZEHZABIZJZUAKZGZELZMUDUCGZELTUBMFUFMFABCDNUDEUBMOPUGUEEUDUCQRS
+      $.
+      $( [16-Nov-2007] $) $( [15-Nov-2007] $)
+
     $( The class of all functions mapping one set to another is a set.  Remark
-       after Definition 10.24 of [Kunen] p. 31.   (Contributed by Raph Levien,
-       4-Dec-03.) $)
+       after Definition 10.24 of [Kunen] p. 31.  (Contributed by Raph Levien,
+       4-Dec-2003.) $)
     mapex $p |- ( ( A e. C /\ B e. D ) -> { f | f : A --> B } e. V ) $=
       ( cv wf cab cxp cpw wss wcel wa cvv fssxp ss2abi df-pw sseqtr4 ssexg
       xpexg pwexg syl sylan2 mpan ) ABEFZGZEHZABIZJZKZACLBDLMZUGNLZUGUEUHKZEHUI
       UFUMEABUEOPEUHQRUJUINLZULUKUGUINSUKUHNLUNABCDTUHNUAUBUCUD $.
-      $( [8-Dec-2003] $) $( [8-Dec-2003] $)
+      $( [8-Dec-2003] $) $( [4-Dec-2003] $)
   $}
 
   ${
@@ -61,19 +98,32 @@ $)
   $}
 
   ${
-    $d x y z f A $. $d x y z f B $.
+    $d x y z f A $.  $d x y z f B $.
     $( The value of set exponentiation.  ` ( A ^m B ) ` is the set of all
        functions that map from ` B ` to ` A ` .  Definition 10.24 of [Kunen]
        p. 24. $)
     mapvalg $p |- ( ( A e. C /\ B e. D ) ->
                   ( A ^m B ) = { f | f : B --> A } ) $=
       ( vx vy vz wcel wa cv wf cab cvv cm co wceq mapex ancoms wi feq3 abbidv
-      feq2 copab2 df-map visset pm3.2i biantrur oprabbii eqtr oprabval2g 3exp
-      imp elisset syl2an mpd ) ACIZBDIZJBAEKZLZEMZNIZABOPVAQZURUQVBBADCERSANIZB
-      NIZVBVCTZUQURVDVEVFVDVEVBVCFGHABNNGKZFKZUSLZEMZVAOVGAUSLZEMNVHAQVIVKEVHAV
-      GUSUAUBVGBQVKUTEVGBAUSUCUBOHKVJQZFGHUDVHNIZVGNIZJZVLJZFGHUDFGHEUEVLVPFGHV
-      OVLVMVNFUFGUFUGUHUIUJUKULUMACUNBDUNUOUP $.
+      feq2 copab2 df-map visset pm3.2i biantrur oprabbii eqtr oprabval2g
+      3expia elisset syl2an mpd ) ACIZBDIZJBAEKZLZEMZNIZABOPUTQZUQUPVABADCERSAN
+      IZBNIZVAVBTUPUQVCVDVAVBFGHABNNGKZFKZURLZEMZUTOVEAURLZEMNVFAQVGVIEVFAVEURU
+      AUBVEBQVIUSEVEBAURUCUBOHKVHQZFGHUDVFNIZVENIZJZVJJZFGHUDFGHEUEVJVNFGHVMVJV
+      KVLFUFGUFUGUHUIUJUKULACUMBDUMUNUO $.
       $( [8-Dec-2003] $) $( [8-Dec-2003] $)
+
+    $( The value of the partial mapping operation.  ` ( A ^pm B ) ` is the set
+       of all partial functions that map from ` B ` to ` A ` . $)
+    pmvalg $p |- ( ( A e. C /\ B e. D ) ->
+                  ( A ^pm B ) = { f | ( Fun f /\ f (_ ( B X. A ) ) } ) $=
+      ( vx vy vz wcel wa cv wfun cxp wss cab cvv cpm co wceq pmex ancoms wi
+      xpeq2 sseq2d anbi2d abbidv xpeq1 copab2 df-pm visset pm3.2i biantrur
+      oprabbii eqtr oprabval2g 3expia elisset syl2an mpd ) ACIZBDIZJEKZLZVBBAMZ
+      NZJZEOZPIZABQRVGSZVAUTVHBADCETUAAPIZBPIZVHVIUBUTVAVJVKVHVIFGHABPPVCVBGKZF
+      KZMZNZJZEOZVGQVCVBVLAMZNZJZEOPVMASZVPVTEWAVOVSVCWAVNVRVBVMAVLUCUDUEUFVLBS
+      ZVTVFEWBVSVEVCWBVRVDVBVLBAUGUDUEUFQHKVQSZFGHUHVMPIZVLPIZJZWCJZFGHUHFGHEUI
+      WCWGFGHWFWCWDWEFUJGUJUKULUMUNUOUPACUQBDUQURUS $.
+      $( [17-Nov-2007] $) $( [15-Nov-2007] $)
   $}
 
   ${
@@ -90,26 +140,76 @@ $)
   $}
 
   ${
-    $d f A $.  $d f B $.  $d f C $.
-    elmap.1 $e |- A e. V $.
-    elmap.2 $e |- B e. V $.
-    $( Membership relation for set exponentiation. $)
-    elmap $p |-  ( C e. ( A ^m B ) <-> C : B --> A ) $=
-      ( vf cm co wcel cv wf cab mapval eleq2i cvv fex mpan2 feq1 elab3 bitr )
-      CABGHZICBAFJZKZFLZIBACKZUAUDCABFDEMNUCUEFCUEBOICOIEBAOCPQBAUBCRST $.
-      $( [30-Jan-2004] $) $( [8-Dec-2003] $)
-  $}
-
-  ${
-    $d x y A $.  $d y B $.  $d x y C $.
+    $d g A $.  $d g B $.  $d g C $.
     $( Membership relation for set exponentiation. $)
     elmapg $p |-  ( ( A e. R /\ B e. S ) ->
                   ( C e. ( A ^m B ) <-> C : B --> A ) ) $=
-      ( vx vy cv cm co wcel wf wb wceq opreq1 eleq2d feq3 bibi12d opreq2 feq2
-      visset elmap vtocl2g ) CFHZGHZIJZKZUEUDCLZMCAUEIJZKZUEACLZMCABIJZKZBACLZM
-      FGABDEUDANZUGUJUHUKUOUFUICUDAUEIOPUDAUECQRUEBNZUJUMUKUNUPUIULCUEBAISPUEBA
-      CTRUDUECFUAGUAUBUC $.
+      ( vg wcel wa cm co cv wf cab mapvalg eleq2d cvv wi wb fex expcom adantl
+      feq1 elab3g syl bitrd ) ADGZBEGZHZCABIJZGCBAFKZLZFMZGZBACLZUHUIULCABDEFNO
+      UHUNCPGZQZUMUNRUGUPUFUNUGUOBAECSTUAUKUNFCPBAUJCUBUCUDUE $.
       $( [17-Oct-2006] $) $( [17-Oct-2006] $)
+  $}
+
+  ${
+    $d g A $.  $d f g B $.  $d g F $.
+    elmap.1 $e |- A e. V $.
+    elmap.2 $e |- B e. V $.
+    $( Membership relation for set exponentiation. $)
+    elmap $p |-  ( F e. ( A ^m B ) <-> F : B --> A ) $=
+      ( cvv wcel cm co wf wb elmapg mp2an ) AFGBFGCABHIGBACJKDEABCFFLM $.
+      $( [30-Jan-2004] $) $( [8-Dec-2003] $)
+
+    $( Alternate expression for the value of set exponentiation. $)
+    mapval2 $p |- ( A ^m B ) = ( P~ ( B X. A ) i^i { f | f Fn B } ) $=
+      ( vg cm co cxp cpw cv wfn cab cin wf wss wa wcel ffn fssxp jca crn rnss
+      rnxpss sstr mpan2 syl anim2i df-f sylibr impbi ancom bitr elmap elin
+      visset elpw fneq1 elab anbi12i 3bitr4 eqriv ) FABGHZBAIZJZCKZBLZCMZNZBAFK
+      ZOZVJVDPZVJBLZQZVJVCRVJVIRZVKVMVLQZVNVKVPVKVMVLBAVJSBAVJTUAVPVMVJUBZAPZQV
+      KVLVRVMVLVQVDUBZPZVRVJVDUCVTVSAPVRBAUDVQVSAUEUFUGUHBAVJUIUJUKVMVLULUMABVJ
+      DEUNVOVJVERZVJVHRZQVNVJVEVHUOWAVLWBVMVJVDFUPZUQVGVMCVJWCBVFVJURUSUTUMVAVB
+      $.
+      $( [3-Nov-2007] $) $( [3-Nov-2007] $)
+
+    $( The predicate "is a partial function." $)
+    elpm $p |-  ( F e. ( A ^pm B ) <-> ( Fun F /\ F (_ ( B X. A ) ) ) $=
+      ( vg cpm co wcel cv wfun cxp wss wa cab cvv wceq pmvalg mp2an eleq2i
+      xpex ssex adantl funeq sseq1 anbi12d elab3 bitr ) CABGHZICFJZKZUJBALZMZNZ
+      FOZICKZCULMZNZUIUOCAPIBPIUIUOQDEABPPFRSTUNURFCUQCPIUPCULBAEDUAUBUCUJCQUKU
+      PUMUQUJCUDUJCULUEUFUGUH $.
+      $( [18-Nov-2007] $) $( [15-Nov-2007] $)
+
+    $( The predicate "is a partial function." $)
+    elpm2 $p |-  ( F e. ( A ^pm B ) <-> ( F : dom F --> A /\ dom F (_ B ) ) $=
+      ( cpm co wcel wfun cxp wss wa cdm wf elpm funssxp bitr ) CABFGHCICBAJKLCM
+      ZACNRBKLABCDEOBACPQ $.
+      $( [19-Nov-2007] $) $( [15-Nov-2007] $)
+
+    $( A total function is a partial function. $)
+    fpm $p |- ( F : A --> B -> F e. ( B ^pm A ) ) $=
+      ( wf cdm wss wa cpm co wcel ffdm elpm2 sylibr ) ABCFCGZBCFPAHICBAJKLABCMB
+      ACEDNO $.
+      $( [18-Nov-2007] $) $( [15-Nov-2007] $)
+
+    $( Set exponentiation is a subset of partial maps. $)
+    mapsspm $p |- ( A ^m B ) (_ ( A ^pm B ) $=
+      ( vg cm co cpm cv wcel wf elmap fpm sylbi ssriv ) EABFGZABHGZEIZPJBARKRQJ
+      ABRCDLBARDCMNO $.
+      $( [10-Dec-2007] $) $( [15-Nov-2007] $)
+  $}
+
+  ${
+    $d x y A $.  $d y B $.  $d x y C $.  $d x y D $.  $d x y R $.
+    fvopabf4.1 $e |- C e. V $.
+    fvopabf4.2 $e |- D e. V $.
+    fvopabf4.3 $e |- R e. V $.
+    fvopabf4.4 $e |- ( x = A -> B = C ) $.
+    fvopabf4.5 $e |- F = { <. x , y >. | ( x : D --> R /\ y = B ) } $.
+    $( Special case of ~ fvopab4 for operator theorems. $)
+    fvopabf4 $p |- ( A : D --> R -> ( F ` A ) = C ) $=
+      ( wf cm co wcel cfv wceq elmap cv wa copab anbi1i opabbii eqtr4 fvopab4
+      sylbir ) FGCNCGFOPZQCHRESGFCKJTABCDEUIHLHFGAUAZNZBUADSZUBZABUCUJUIQZULUBZ
+      ABUCMUOUMABUNUKULGFUJKJTUDUEUFIUGUH $.
+      $( [7-Dec-2007] $) $( [27-Nov-2007] $)
   $}
 
   ${
@@ -149,11 +249,11 @@ $)
   $}
 
   ${
-    $d f x y A $. $d f x y B $.
+    $d f x y A $.  $d f x y B $.
     map0.1 $e |- A e. V $.
     map0.2 $e |- B e. V $.
     $( Set exponentiation is empty iff the base is empty and the exponent is
-       not empty. Theorem 97 of [Suppes] p. 89. $)
+       not empty.  Theorem 97 of [Suppes] p. 89. $)
     map0 $p |- ( ( A ^m B ) = (/) <-> ( A = (/) /\ B =/= (/) ) ) $=
       ( vf vx cm co c0 wceq wne wa cv wf cab mapval eqeq1i wcel wex csn wss
       cxp snssi visset fconst fss mpan snex xpex feq1 cla4ev 3syl 19.23aiv ne0
@@ -163,7 +263,7 @@ $)
       WCTZAUAZBABWFUBZNZWEWCAUCBWFWHNWGWIBWCFUDUEBWFAWHUFUGWAWIEWHBWFDWCUHUIBAV
       TWHUJUKULUMFAUNWAEUOUPUQURBIVPIBIJZVPIKAIGHZIKZWLITZIKIUSUTWKWMIWKVAWMACV
       BVCVDVEVFWJVPWKIBIAGVGVHVIVJVKVRVSVPIBGHIAIBGVLBDVMVNVO $.
-      $( [?] $) $( [10-Dec-2003] $)
+      $( [17-May-2007] $) $( [10-Dec-2003] $)
 
     $( The value of set exponentiation with a singleton exponent.  Theorem 98
        of [Suppes] p. 89. $)
@@ -171,22 +271,22 @@ $)
       ( cv cop csn wceq wrex cm co wcel wf snex elmap wa wex crn wbr weu snid
       wfn fneu ffn sylan mpan2 cab cima wrel frel relimasn syl cdm fdm imaeq2d
       imadmrn syl5reqr eqtr3d eqeq1d exbidv eusn syl5bb mpbid frn sseld visset
-      eleq2 mpbiri syl5 feq3 wfo fnforn sylib fof syl5bi com12 fsn syl6ib jcad
+      eleq2 mpbiri syl5 feq3 wfo fnforn sylib fof syl5cbi fsn syl6ib jcad
       19.22dv mpd df-rex sylibr wss fss wf1o f1osn f1oeq1 f1of snssi syl2an
-      expcom r19.23aiv impbi bitr abbi2i ) DGZCAGZHIZJZABKZDBCIZLMZWSXENXDBWSOZ
-      XCBXDWSECPQXFXCXFWTBNZXBRZASZXCXFWSTZWTIZJZASZXIXFCWTWSUAZAUBZXMXFCXDNZXO
-      CFUCWSXDUDZXPXOXFAXDCWSUEXDBWSUFZUGUHXFXNAUIZXKJZASXMXOXFXTXLAXFXSXJXKXFW
-      SXDUJZXSXJXFWSUKYAXSJXDBWSULACWSUMUNXFWSWSUOZUJYAXJXFYBXDWSXDBWSUPUQWSURU
-      SUTVAVBXNAVCVDVEXFXLXHAXFXLXGXBXFWTXJNZXGXLXFXJBWTXDBWSVFVGXLYCWTXKNWTAVH
-      ZUCXJXKWTVIVJVKXFXLXDXKWSOZXBXLXFYEXLXDXJWSOZYEXFXJXKXDWSVLXFXDXJWSVMZYFX
-      FXQYGXRXDWSVNVOXDXJWSVPUNVQVRCWTWSFYDVSVTWAWBWCXBABWDWEXBXFABXBXGXFYEXKBW
-      FXFXBXGXDXKBWSWGXBXDXKWSWHZYEXBYHXDXKXAWHCWTFYDWIXDXKWSXAWJVJXDXKWSWKUNWT
-      BWLWMWNWOWPWQWR $.
+      expcom r19.23aiv impbi bitr abbi2i ) DGZCAGZHIZJZABKZDBCIZLMZWRXDNXCBWROZ
+      XBBXCWRECPQXEXBXEWSBNZXARZASZXBXEWRTZWSIZJZASZXHXECWSWRUAZAUBZXLXECXCNZXN
+      CFUCWRXCUDZXOXNXEAXCCWRUEXCBWRUFZUGUHXEXMAUIZXJJZASXLXNXEXSXKAXEXRXIXJXEW
+      RXCUJZXRXIXEWRUKXTXRJXCBWRULACWRUMUNXEWRWRUOZUJXTXIXEYAXCWRXCBWRUPUQWRURU
+      SUTVAVBXMAVCVDVEXEXKXGAXEXKXFXAXEWSXINZXFXKXEXIBWSXCBWRVFVGXKYBWSXJNWSAVH
+      ZUCXIXJWSVIVJVKXEXKXCXJWROZXAXKXCXIWROZYDXEXIXJXCWRVLXEXCXIWRVMZYEXEXPYFX
+      QXCWRVNVOXCXIWRVPUNVQCWSWRFYCVRVSVTWAWBXAABWCWDXAXEABXAXFXEYDXJBWEXEXAXFX
+      CXJBWRWFXAXCXJWRWGZYDXAYGXCXJWTWGCWSFYCWHXCXJWRWTWIVJXCXJWRWJUNWSBWKWLWMW
+      NWOWPWQ $.
       $( [15-Dec-2003] $) $( [10-Dec-2003] $)
   $}
 
   ${
-    $d f A $. $d f B $.  $d f C $.
+    $d f A $.  $d f B $.  $d f C $.
     mapss.1 $e |- B e. V $.
     mapss.2 $e |- C e. V $.
     $( Subset inheritance for set exponentiation.  Theorem 99 of [Suppes]

@@ -1,0 +1,1666 @@
+$( set.mm - Version of 30-Mar-2008
+
+#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#
+    Metamath source file for logic, set theory, numbers, and Hilbert space
+#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#
+
+                           ~~ PUBLIC DOMAIN ~~
+
+This file is placed in the public domain per the Creative Commons Public
+Domain Dedication:  http://creativecommons.org/licenses/publicdomain/
+The public domain release applies worldwide.  In case this is not
+legally possible, the right is granted to use the work for any purpose,
+without any conditions, unless such conditions are required by law.
+
+Norman Megill - email: nm(at)alum(dot)mit(dot)edu - http://metamath.org
+
+Contributor list:
+
+SA Stefan Allan         DH David Harvey           MO Mel L. O'Cat
+JA Juha Arpiainen       J2 Jeff Hoffman           JO Jason Orendorff
+GB Gregory Bush         SJ Szymon Jaroszewicz     JP Josh Purinton
+PC Paul Chapman         RL Raph Levien            SR Steve Rodriguez
+SF Scott Fenton         FL Frederic Line          AS Alan Sare
+JH Jeffrey Hankins      R2 Roy F. Longton         ES Eric Schmidt
+
+"A thing of beauty is a joy forever." - Keats
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+                          Contents of this header
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+1. Recent label changes
+2. Notes for anyone attempting to find shorter proofs
+3. Bibliography
+4. Quick "How To" use this file
+5. Metamath syntax summary
+6. Other notes
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+                            Recent label changes
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+This is part of an ongoing project to improve naming consistency.  If you are
+using an older version of set.mm as the base for your project, you should
+review the following changes before updating to this version.  If you want to
+create an automated script, you can make can make global substitutions into
+your database by processing the ones *without* "Notes" in *reverse* order,
+starting backwards from the date of the set.mm version you used.  When doing
+global substitutions, match a space or beginning-of-line before the label and a
+space or end-of-line after the label.  The ones *with* "Notes" must be
+processed manually.
+
+If you have suggestions for better names, let me know.
+
+IMPORTANT:  Label changes to the most recent proofs may not be included here
+since they are a work in progress.  If you need to "freeze" a version of
+set.mm, let me know.  Usually I will not include label changes of theorems
+first proved in the past year, unless you tell me you are using them, because
+the current work in progress is subject to frequent changes.  Currently I do
+not include label changes in the Hilbert space section, since as far as I know
+I am the only one using it.
+
+Date      Old       New         Notes
+
+30-Mar-08 grprn     [--same--]  weakened hyp from G : ... to dom G = ...
+11-Mar-08 absefimt  absefit
+11-Mar-08 axcnre    [--same--]  changed 'x. i' to 'i x.'
+11-Mar-08 cnegextlem2 [--same--]  changed 'x. i' to 'i x.'
+11-Mar-08 cnegext   [--same--]  changed 'x. i' to 'i x.'
+11-Mar-08 recextlem1 [--same--]  changed 'x. i' to 'i x.'
+11-Mar-08 recextlem2 [--same--]  changed 'x. i' to 'i x.'
+11-Mar-08 recext    [--same--]  changed 'x. i' to 'i x.'
+11-Mar-08 crulem    [--same--]  changed 'x. i' to 'i x.'
+11-Mar-08 cru       [--same--]  changed 'x. i' to 'i x.'
+11-Mar-08 crut      [--same--]  changed 'x. i' to 'i x.'
+11-Mar-08 crne0     [--same--]  changed 'x. i' to 'i x.'
+11-Mar-08 crmul     [--same--]  changed 'x. i' to 'i x.'
+11-Mar-08 crrecz    [--same--]  changed 'x. i' to 'i x.'
+11-Mar-08 creur     [--same--]  changed 'x. i' to 'i x.'
+11-Mar-08 creui     [--same--]  changed 'x. i' to 'i x.'
+11-Mar-08 rimul     [--same--]  changed 'x. i' to 'i x.'
+11-Mar-08 df-re     [--same--]  changed 'x. i' to 'i x.'
+11-Mar-08 df-im     [--same--]  changed 'x. i' to 'i x.'
+11-Mar-08 revalt    [--same--]  changed 'x. i' to 'i x.'
+11-Mar-08 imvalt    [--same--]  changed 'x. i' to 'i x.'
+11-Mar-08 replimt   [--same--]  changed 'x. i' to 'i x.'
+11-Mar-08 df-cj     [--same--]  changed 'x. i' to 'i x.'
+11-Mar-08 cjvalt    [--same--]  changed 'x. i' to 'i x.'
+11-Mar-08 replim    [--same--]  changed 'x. i' to 'i x.'
+11-Mar-08 crret     [--same--]  changed 'x. i' to 'i x.'
+11-Mar-08 crimt     [--same--]  changed 'x. i' to 'i x.'
+11-Mar-08 crre      [--same--]  changed 'x. i' to 'i x.'
+11-Mar-08 crim      [--same--]  changed 'x. i' to 'i x.'
+11-Mar-08 efit4pt   efi4pt      changed 'x. i' to 'i x.'
+10-Mar-08 fabex     [--same--]  added 3rd hypothesis
+ 6-Mar-08 pm2.36    [--same--]  corrected to match Principia Mathematica
+ 6-Mar-08 pm2.37    [--same--]  corrected to match Principia Mathematica
+ 6-Mar-08 pm2.38    [--same--]  corrected to match Principia Mathematica
+ 2-Mar-08 csbiet    csbiegft
+ 2-Mar-08 csbie2g   csbie2t
+ 2-Mar-08 vsbcint   sbhyp
+ 2-Mar-08 cbvsbcv   cbvralsv
+ 1-Mar-08 sbcrex    sbcrexg
+ 1-Mar-08 sbcral    sbcralg
+ 1-Mar-08 19.23g    19.23t
+ 1-Mar-08 19.21g    19.21t
+ 1-Mar-08 minusex   negex
+ 1-Mar-08 negext    cnegext
+ 1-Mar-08 negex     cnegex
+29-Feb-08 hbneq     hbne
+29-Feb-08 hbne      hbn
+29-Feb-08 csbiet    csbiegft
+29-Feb-08 sbciet    sbciegft
+29-Feb-08 elabt     elabgt
+29-Feb-08 vtoclefg  vtoclegft
+23-Feb-08 sqdif0    subsq0
+23-Feb-08 binom2a   ---         obsolete; use subsq
+12-Feb-08 cnhl      [--same--]  added hypothesis to assign vector space to var
+ 9-Feb-08 oneirr    onirr
+ 9-Feb-08 ordeirr   ordirr
+ 9-Feb-08 eirr      elirr
+ 9-Feb-08 eirrv     elirrv
+29-Jan-08 oibabs    [--same--]  swapped sides of biconditional
+24-Jan-08 cos2t     ---         obsolete; use cos2tt
+20-Jan-08 ffvrni    ffvelrni
+20-Jan-08 ffvrn     ffvelrn
+20-Jan-08 fnfvrn    fnfvelrn
+20-Jan-08 fvrn      fvelrn
+20-Jan-08 fvelrn    fvelrnb
+18-Jan-08 arch      [--same--]  changed x to n, changing $f hypothesis order
+18-Jan-08 cos1lem4  8th4div3
+18-Jan-08 eftlex    ---         obsolete; use eftlext
+18-Jan-08 sin2t     ---         obsolete; use sin2tt
+15-Jan-08 explt1t   expord2t
+15-Jan-08 eft0vallem eft0val
+15-Jan-08 effsumlelem ---       obsolete; use reeftclt
+15-Jan-08 eftvallem eftval
+15-Jan-08 efpartex  eftlex
+15-Jan-08 efcltlem4 efseq0ex
+15-Jan-08 efcltlem2a ef0lem
+15-Jan-08 dfef2lem  dfef2
+15-Jan-08 efcltlem3 efseq1ex
+15-Jan-08 eftcltlem eftclt
+15-Jan-08 eftabslem eftabs
+12-Jan-08 rgen2xxx  rgen2a
+12-Jan-08 rgen2a    rgen2
+12-Jan-08 rgen2     rgen2xxx
+12-Jan-08 cnbn      [--same--]  added hypothesis to assign vector space to var
+12-Jan-08 cnph      [--same--]  added hypothesis to assign vector space to var
+12-Jan-08 cnims     [--same--]  reorganized hypotheses and conclusion
+14-Jan-08 rgen3     [--same--]  generalized for 3 different class variables
+12-Jan-08 cnnv      [--same--]  added hypothesis to assign vector space to var
+10-Jan-08 zneo      [--same--]  changed -. ... = to =/=
+ 3-Jan-08 ax7-467   ax467to7
+ 3-Jan-08 ax6-467   ax467to6
+ 3-Jan-08 ax4-467   ax467to4
+ 3-Jan-08 ax6-67    ax67to6
+ 3-Jan-08 ax7-67    ax67to7
+ 3-Jan-08 ax4-46    ax46to4
+ 3-Jan-08 ax5-46    ax46to5
+29-Dec-07 eftvallem [--same--]  added hypothesis
+22-Dec-07 zfnuleu   [--same--]  added $e hypothesis to remove ax-nul dependency
+ 8-Dec-07 supxrre2  [--same--]  changed -. ... = to =/=
+23-Nov-07 sub4      addsub4
+23-Nov-07 sub4t     addsub4t
+17-Nov-07 climres   [--same--]  generalized antecedent from A e. CC to A e. B
+12-Nov-07 climle    climcmp
+11-Nov-07 eqneqi    necon3bii
+11-Nov-07 eqneqd    necon3bid
+10-Nov-07 ser0cj    [--same--]  weakened hypotheses
+ 9-Nov-07 ser1cj    ---         obsolete; derive from serzcj (as in ser0cj)
+ 9-Nov-07 ser0re    ---         obsolete; derive from serzre (as in ser0cj)
+ 9-Nov-07 ser1re    ---         obsolete; derive from serzre (as in ser0cj)
+ 8-Nov-07 mp3dan    mp3dan23
+23-Oct-07 pm3.27bd  pm3.27bi
+23-Oct-07 pm3.26bd  pm3.26bi
+16-Oct-07 expbndt   expubndt
+16-Oct-07 expge1t   [--same--]  strengthened from N e. NN to N e. NN0
+12-Oct-07 kmlem15   [--same--]  changed -. ... = to =/=
+12-Oct-07 kmlem14   [--same--]  changed -. ... = to =/=
+12-Oct-07 kmlem13   [--same--]  changed -. ... = to =/=
+12-Oct-07 kmlem10   [--same--]  changed -. ... = to =/=
+12-Oct-07 kmlem9    [--same--]  changed -. ... = to =/=
+12-Oct-07 kmlem7    [--same--]  changed -. ... = to =/=
+12-Oct-07 kmlem5    [--same--]  changed -. ... = to =/=
+12-Oct-07 kmlem4    [--same--]  changed -. ... = to =/=
+12-Oct-07 kmlem3    [--same--]  changed -. ... = to =/=
+ 5-Oct-07 1open     topopn
+ 5-Oct-07 1clsd     topcld
+ 3-Oct-07 intss3    ntrss3
+ 2-Oct-07 isopen3   isopn3
+ 2-Oct-07 isopen2   isopn2
+ 2-Oct-07 cmclsopen cmclsopn
+ 2-Oct-07 snclsd    sncld
+ 2-Oct-07 clsdlp    cldlp
+ 2-Oct-07 isclsd3   iscld3
+ 2-Oct-07 cmntrclsd cmntrcld
+ 2-Oct-07 clsclsd   clscld
+ 2-Oct-07 clsdcls   cldcls
+ 2-Oct-07 unclsd    uncld
+ 2-Oct-07 intclsd   intcld
+ 2-Oct-07 iinclsd   iincld
+ 2-Oct-07 0clsd     0cld
+ 2-Oct-07 openclsd  opncld
+ 2-Oct-07 clsdopen  cldopn
+ 2-Oct-07 clsdss    cldss
+ 2-Oct-07 isclsd2   iscld2
+ 2-Oct-07 isclsd    iscld
+ 2-Oct-07 clsdval   cldval
+ 2-Oct-07 df-clsd   df-cld
+ 2-Oct-07 isopn2    isopn4OLD
+28-Sep-07 ---       ---         changed math symbol from "floor" to "|_"
+26-Sep-07 ser0cl    ser0cl1
+26-Sep-07 ser1cl    ser1cl1
+25-Sep-07 ser1re2   ser1re
+25-Sep-07 ser1re    ser1ref
+23-Sep-07 df-fac    [--same--]  swapped arguments of union
+23-Sep-07 seqzrnx   seqzrn
+23-Sep-07 seqzrn    seqzrn2
+23-Sep-07 seqzrn2   seqzrnx
+23-Sep-07 seq1rnx   seq1rn
+23-Sep-07 seq1rn    seq1rn2
+23-Sep-07 seq1rn2   seq1rnx
+17-Sep-07 pm2.21nd  pm2.24d
+17-Sep-07 pm2.21ni  pm2.24i
+16-Sep-07 dvelimf2  dvelimfALT
+ 8-Sep-07 lemul2it  [--same--]  rearranged antecedent
+ 8-Sep-07 lemul1it  [--same--]  rearranged antecedent
+ 7-Sep-07 0vval     0vfval
+ 4-Sep-07 ---       ---         Many changes after df-ms, described in the
+                                  4-Sep-2007 entry of
+                                  us.metamath.org/mpegif/mmnotes.txt
+ 4-Sep-07 elssab    ---         obsolete; use elssabg
+ 4-Sep-07 nvc       nvvc
+ 4-Sep-07 ---       ---         changed math symbol from "Met" to "MetSp"
+ 4-Sep-07 ---       ---         changed math symbol from "CMet" to "CMetSp"
+25-Aug-07 fopabco   fopabcos
+21-Aug-07 xrltnet   [--same--]  changed -. A = B to B =/= A; triple conjunction
+21-Aug-07 lttri2    [--same--]  changed -. A = B to A =/= B
+21-Aug-07 lttri2t   [--same--]  changed -. A = B to A =/= B
+15-Aug-07 sbccsbg   sbccsb2g
+11-Aug-07 recdivt   [--same--]  rearranged antecedent
+ 9-Aug-07 funopabex2g opabex2g
+ 9-Aug-07 funopabex2 opabex2
+ 9-Aug-07 funopabex opabex
+ 9-Aug-07 cnco      [--same--]  swapped 2nd & 3rd args in 1st triple conj
+ 6-Aug-07 ---       ---         changed "ncv" to "nv" in the labels of:
+                                  cncv df-ncv ncvss ncvrel ncvop ncvvop
+                                  isncvg isncvi ncvi ncvv ncvgcl
+                                  ncvscl ncvf ncvcl ncvcli ncvdm ncvs
+                                  ncvm1 ncvdif ncvpi ncvz0 ncvz ncvtri
+                                  ncvabs ncvge0 cnncv cnncv0 elimncvu
+                                  ncvnd phncv bnncv hlncv hilncv
+ 4-Aug-07 subval    ---         obsolete; use subvalt
+31-Jul-07 divge0t   [--same--]  rearranged antecedent
+31-Jul-07 divgt0t   [--same--]  rearranged antecedent
+31-Jul-07 ltne      [--same--]  changed -. A = B to B =/= A
+31-Jul-07 ltnet     [--same--]  changed -. A = B to B =/= A; triple conjunction
+31-Jul-07 ltlen     [--same--]  changed -. A = B to B =/= A
+31-Jul-07 ltlent    [--same--]  changed -. A = B to B =/= A
+22-Jul-07 xrleltnet [--same--]  changed -. A = B to B =/= A
+20-Jul-07 nngt1ne1t [--same--]  changed -. A = 1 to A =/= 1
+18-Jul-07 leltnet   [--same--]  changed -. A = B to B =/= A
+15-Ju1-07 zornx     zorn
+15-Ju1-07 zorn      zorn2
+15-Ju1-07 zorn2     zornx
+18-Jun-07 caucvglem2 [--same--]  changed -. S = (/) to S =/= (/)
+17-Jun-07 seq1ublem [--same--]  changed -. ... = (/) to =/= (/)
+17-Jun-07 suppr     supexpr
+17-Jun-07 ruclem33  [--same--]  changed -. ... = (/) to =/= (/)
+16-Jun-07 ltrec1t   [--same--]  rearranged antecedent
+15-Jun-07 lerec2t   [--same--]  rearranged antecedent
+ 3-Jun-07 nordeq    [--same--]  changed -. A = B to A =/= B
+ 3-Jun-07 xpsndisj  [--same--]  changed -. A = B to A =/= B
+ 2-Jun-07 peano3    [--same--]  changed -. A = (/) to A =/= (/)
+ 2-Jun-07 disjsn2   [--same--]  changed -. A = B to A =/= B
+ 2-Jun-07 fun2ssres [--same--]  antecedent changed to use triple conjunction
+ 2-Jun-07 onelpsst  [--same--]  changed -. A = B to A =/= B
+ 1-Jun-07 ordelssne [--same--]  changed -. A = B to A =/= B
+ 1-Jun-07 suprleubi [--same--]  changed -. A = (/) to A =/= (/)
+31-May-07 suprnubi  [--same--]  changed -. A = (/) to A =/= (/)
+30-Mar-07 onssmin   [--same--]  changed -. A = (/) to A =/= (/)
+29-May-07 suprlub   [--same--]  changed -. A = (/) to A =/= (/)
+29-May-07 funssfv   [--same--]  antecedent changed to use triple conjunction
+29-May-07 limuni3   [--same--]  changed -. A = (/) to A =/= (/)
+29-May-07 ordge1n0  [--same--]  changed -. A = (/) to A =/= (/)
+28-May-07 onmindif2 [--same--]  changed -. A = (/) to A =/= (/)
+28-May-07 suprleub  [--same--]  changed -. A = (/) to A =/= (/)
+28-May-07 tz7.7     [--same--]  changed -. B = A to B =/= A
+27-May-07 nnullss   [--same--]  changed -. ... = (/) to =/= (/)
+27-May-07 supxrre2  [--same--]  changed -. A = (/) to A =/= (/)
+27-May-07 fodomfib  [--same--]  changed -. A = (/) to A =/= (/)
+26-May-07 supxrre1  [--same--]  changed -. A = (/) to A =/= (/)
+24-May-07 supxrgtmnf [--same--]  changed -. A = (/) to A =/= (/)
+23-May-07 ltmsqt    ---         obsolete; use msqgt0t
+23-May-07 msqgt0    [--same--]  changed -. A = (/) to A =/= (/)
+22-May-07 supxrbnd  [--same--]  changed -. A = (/) to A =/= (/)
+21-May-07 suprnub   [--same--]  changed -. A = (/) to A =/= (/)
+21-May-07 19.3r     ---         obsolete; use 19.3
+21-May-07 19.9rv    ---         obsolete; use 19.9v
+20-May-07 19.9r     ---         obsolete; use 19.9
+17-May-07 iunn0     [--same--]  changed -. ... = (/) to =/= (/)
+17-May-07 iinon     [--same--]  changed -. A = (/) to A =/= (/)
+17-May-07 map0      [--same--]  changed -. B = (/) to B =/= (/)
+16-May-07 infmrcl   [--same--]  changed -. A = (/) to A =/= (/)
+16-May-07 suprub    [--same--]  changed -. A = (/) to A =/= (/)
+16-May-07 suprcli   [--same--]  changed -. A = (/) to A =/= (/)
+16-May-07 suprubi   [--same--]  changed -. A = (/) to A =/= (/)
+16-May-07 suprlubi  [--same--]  changed -. A = (/) to A =/= (/)
+14-May-07 sup3i     [--same--]  changed -. A = (/) to A =/= (/)
+13-May-07 kmlemxx   kmlem8      changed -. ... = (/) to =/= (/)
+13-May-07 kmlem8    kmlem9
+13-May-07 kmlem9    kmlem10
+13-May-07 kmlem10   kmlem11
+13-May-07 kmlem11   kmlem12     changed -. ... = to =/=
+13-May-07 kmlem12   kmlem13     changed -. ... = to =/=
+13-May-07 kmlem13   kmlemxx
+13-May-07 supxrre   [--same--]  changed -. A = (/) to A =/= (/)
+13-May-07 infmsup   [--same--]  changed -. A = (/) to A =/= (/)
+13-May-07 suprcl    [--same--]  changed -. A = (/) to A =/= (/)
+12-May-07 kmlem1    [--same--]  changed -. ... = to =/=
+12-May-07 kmlem3    [--same--]  changed -. ... = to =/=
+12-May-07 kmlem6    [--same--]  changed -. ... = to =/=
+12-May-07 kmlem7    [--same--]  changed -. ... = to =/=
+11-May-07 infm3     [--same--]  changed -. A = (/) to A =/= (/)
+11-May-07 sup3      [--same--]  changed -. A = (/) to A =/= (/)
+10-May-07 oneqmin   [--same--]  changed -. B = (/) to B =/= (/)
+10-May-07 infmssuzcl [--same--]  changed -. S = (/) to S =/= (/)
+ 5-May-07 xpexr2    [--same--]  changed -. ... = (/) to =/= (/)
+ 5-May-07 tz7.49c   [--same--]  changed -. ... = to =/=
+ 4-May-07 tz7.49    [--same--]  changed -. ... = to =/=
+ 4-May-07 funimass2 [--same--]  conjoined antecedents in hypothesis
+ 3-May-07 ac4c      [--same--]  changed -. x = (/) to x =/= (/)
+30-Apr-07 aceq6b    [--same--]  changed -. z = (/) to z =/= (/)
+30-Apr-07 disjpss   [--same--]  changed -. B = (/) to B =/= (/)
+30-Apr-07 infxpidmlem10 [--same--]  changed -. g = (/) to g =/= (/)
+30-Apr-07 1ne0      [--same--]  changed -. 1o = (/) to 1o =/= (/)
+30-Apr-07 ac5b      [--same--]  changed -. x = (/) to x =/= (/)
+30-Apr-07 aceq6a    [--same--]  changed -. z = (/) to z =/= (/)
+30-Apr-07 on0eln0   [--same--]  changed -. A = (/) to A =/= (/)
+28-Apr-07 tz7.2     [--same--]  changed -. B = A to B =/= A; triple conjunction
+25-Apr-07 ac5       [--same--]  changed -. x = (/) to x =/= (/)
+23-Apr-07 ac4       [--same--]  changed -. z = (/) to z =/= (/)
+22-Apr-07 ac8       [--same--]  changed -. ... = to =/=
+22-Apr-07 uzwo2     [--same--]  changed -. S = (/) to S =/= (/)
+21-Apr-07 aceq5     [--same--]  changed -. ... = to =/=
+21-Apr-07 epfrc     [--same--]  -. B = (/) to B =/= (/); triple conjunction
+20-Apr-07 dfepfr    [--same--]  changed -. x = (/) to x =/= (/)
+19-Apr-07 xpnz      [--same--]  changed -. ... = (/) to =/= (/)
+18-Apr-07 ltexprlem1 [--same--]  changed -. C = (/) to C =/= (/)
+17-Apr-07 uzwo      [--same--]  changed -. S = (/) to S =/= (/)
+17-Apr-07 aceq4     [--same--]  changed -. z = (/) to z =/= (/)
+17-Apr-07 prn0      [--same--]  changed -. A = (/) to A =/= (/)
+15-Apr-07 elni      [--same--]  changed -. A = (/) to A =/= (/)
+14-Apr-07 aceq3lem  [--same--]  changed -. z = (/) to z =/= (/)
+14-Apr-07 aceq3     [--same--]  changed -. z = (/) to z =/= (/)
+13-Apr-07 tpnz      [--same--]  changed -. ... = (/) to =/= (/)
+13-Apr-07 0nep0     [--same--]  changed -. (/) = { (/) } to (/) =/= { (/) }
+12-Apr-07 1cn       ax1cn
+12-Apr-07 ax1re     1re
+11-Apr-07 zfreg     [--same--]  changed -. A = (/) to A =/= (/)
+11-Apr-07 zfreg2    [--same--]  changed -. A = (/) to A =/= (/)
+11-Apr-07 inf1      [--same--]  changed -. x = (/) to x =/= (/)
+11-Apr-07 inf2      [--same--]  changed -. x = (/) to x =/= (/)
+11-Apr-07 zorn2lem6  [--same--]  changed -. H = (/) to H =/= (/)
+11-Apr-07 zorn2lem5  [--same--]  changed -. H = (/) to H =/= (/)
+11-Apr-07 zorn2lem3  [--same--]  changed -. D = (/) to D =/= (/)
+11-Apr-07 zorn2lem2  [--same--]  changed -. D = (/) to D =/= (/)
+11-Apr-07 zorn2lem1  [--same--]  changed -. D = (/) to D =/= (/)
+11-Apr-07 inf3lem2  [--same--]  changed -. ... = to =/=
+11-Apr-07 inf3lem3  [--same--]  changed -. ... = to =/=
+11-Apr-07 inf3lem4  [--same--]  changed -. -. x = (/) to x =/= (/)
+11-Apr-07 inf3lem5  [--same--]  changed -. -. x = (/) to x =/= (/)
+11-Apr-07 inf3lem6  [--same--]  changed -. -. x = (/) to x =/= (/)
+11-Apr-07 inf3lem7  [--same--]  changed -. -. x = (/) to x =/= (/)
+11-Apr-07 inf3      [--same--]  changed -. -. x = (/) to x =/= (/)
+10-Apr-07 htalem    [--same--]  changed -. A = (/) to A =/= (/)
+ 9-Apr-07 ac3       [--same--]  changed -. z = (/) to z =/= (/)
+ 9-Apr-07 rnxp      [--same--]  changed -. A = (/) to A =/= (/)
+ 7-Apr-07 aceq2     [--same--]  changed -. z = (/) to z =/= (/)
+ 6-Apr-07 tz6.12i   [--same--]  changed -. B = (/) to B =/= (/)
+ 6-Apr-07 scott0s   [--same--]  changed -. .. = (/) to =/= { (/) }
+ 6-Apr-07 dmxp      [--same--]  changed -. A = (/) to A =/= (/)
+ 6-Apr-07 nnsuc     [--same--]  changed -. A = (/) to A =/= (/)
+ 5-Apr-07 onne0     [--same--]  changed -. On = (/) to On =/= (/)
+ 5-Apr-07 ord0eln0  [--same--]  changed -. A = (/) to A =/= (/)
+ 5-Apr-07 wereu     [--same--]  -. B = (/) to B =/= (/); triple conjunction
+ 3-Apr-07 aceq5lem5 [--same--]  changed -. u = (/) to u =/= (/)
+ 3-Apr-07 aceq5lem4 [--same--]  changed -. u = (/) to u =/= (/)
+ 3-Apr-07 aceq5lem3 [--same--]  changed -. u = (/) to u =/= (/)
+ 3-Apr-07 aceq5lem2 [--same--]  changed -. u = (/) to u =/= (/)
+ 3-Apr-07 pssdifn0  [--same--]  changed -. ... = to =/=
+ 3-Apr-07 fri       [--same--]  changed -. ... = (/) to ... =/= (/)
+ 2-Apr-07 cplem1    [--same--]  changed -. ... = (/) to =/= (/)
+ 2-Apr-07 cplem2    [--same--]  changed -. ... = (/) to =/= (/)
+ 2-Apr-07 0pss      [--same--]  changed -. A = (/) to A =/= (/)
+ 2-Apr-07 inelcm    [--same--]  changed -. ... = (/) to =/= (/)
+ 2-Apr-07 snnz      [--same--]  changed -. A = (/) to A =/= (/)
+ 2-Apr-07 inf0      [--same--]  changed conclusion to match ax-inf exactly
+ 2-Apr-07 n0f       ---         obsolete; use ne0f
+26-Mar-07 df-lim    [--same--]  changed -. A = (/) to A =/= (/)
+26-Mar-07 pwen      [--same--]  eliminated redundant hypotheses
+26-Mar-07 ssundif   undif
+23-Mar-07 fo2       dffo2
+23-Mar-07 fofv      dffo3
+22-Mar-07 fnbr      [--same--]  eliminated redundant hypotheses
+22-Mar-07 fnop      [--same--]  eliminated redundant hypotheses
+21-Mar-07 kardex    [--same--]  eliminated redundant hypothesis
+21-Mar-07 qsid      [--same--]  eliminated redundant hypothesis
+21-Mar-07 0nelqs    [--same--]  eliminated redundant hypothesis
+21-Mar-07 brecop2   [--same--]  eliminated redundant hypothesis
+21-Mar-07 ecelqsdm  [--same--]  eliminated redundant hypothesis
+18-Mar-07 map0b     [--same--]  changed -. A = (/) to A =/= (/)
+17-Mar-07 oninton   [--same--]  changed -. A = (/) to A =/= (/)
+17-Mar-07 wefrc     [--same--]  -. B = (/) to B =/= (/); triple conjunction
+17-Mar-07 onint     [--same--]  changed -. A = (/) to A =/= (/)
+17-Mar-07 tz7.5     [--same--]  -. B = (/) to B =/= (/); triple conjunction
+17-Mar-07 fiint     [--same--]  changed -. x = (/) to x =/= (/)
+16-Mar-07 ishlg     [--same--]  changed hypothesis from X = dom N to X = ran G
+16-Mar-07 unitopt   ---         obsolete; use topopn
+16-Mar-07 peano3nn0 nn0p1nnt
+15-Mar-07 intex     [--same--]  changed -. A = (/) to A =/= (/)
+ 4-Mar-07 opthreg   [--same--]  added converse:  ->  to  <->
+15-Feb-07 qbtwnre   [--same--]  antecedent changed to use triple conjunction
+13-Feb-07 rcla42ev  [--same--]  antecedent changed to use triple conjunction
+10-Feb-07 fodomb    [--same--]  changed -. A = (/) to A =/= (/)
+ 7-Feb-07 rabbidv   [--same--]  conjoined antecedents in hypothesis
+ 5-Feb-07 equidALT  equid1
+ 5-Feb-07 ax-11     ax-11o
+ 2-Feb-07 ax11a     ax11v
+ 1-Feb-07 frc       [--same--]  -. = (/) to =/= (/); conjoined antecedents
+31-Jan-07 itimesi   ixi
+31-Jan-07 isqm1     i2
+30-Jan-07 dffr2     [--same--]  changed -. ... = (/) to ... =/= (/)
+30-Jan-07 df-fr     [--same--]  changed -. ... = (/) to ... =/= (/)
+30-Jan-07 f1oeng    [--same--]  conjoined antecedents
+29-Jan-07 2sumeq2d  ---         obsolete; use 2sumeq2dv
+29-Jan-07 sumeq12d  ---         obsolete; use sumeq12dv
+29-Jan-07 sumeq12rd ---         obsolete; use sumeq12rdv
+29-Jan-07 eval      [--same--]  ( 1 ^ k ) changed to 1
+22-Jan-07 ax11el    [--same--]  generalized with less restrictive variables
+18-Jan-07 climcvgc1 ---         obsolete; use clmi1
+18-Jan-07 climcvg1  ---         obsolete; use clmi2
+18-Jan-07 clim1     ---         obsolete; use clm2
+18-Jan-07 clim1a    ---         obsolete; use clm3
+18-Jan-07 clim2a    ---         obsolete; use clm2
+18-Jan-07 clim2     ---         obsolete; use clm4
+18-Jan-07 climcvg2  ---         obsolete; use clmi2
+18-Jan-07 climcvg2z ---         obsolete; use clmi2
+18-Jan-07 climcvgc2z ---        obsolete; use clmi1
+18-Jan-07 climcvg2zb ---        obsolete; use clmi2
+18-Jan-07 clim2az   ---         obsolete; use clm3
+18-Jan-07 clim3az   ---         obsolete; use clm3
+18-Jan-07 clim3a    ---         obsolete; use clm3
+18-Jan-07 clim3     ---         obsolete; use clm4
+18-Jan-07 clim3b    ---         obsolete; use clm2
+18-Jan-07 climcvg3  ---         obsolete; use clmi2
+18-Jan-07 climcvg3z ---         obsolete; use clmi2
+18-Jan-07 clim4a    ---         obsolete; use clm3
+18-Jan-07 clim4     ---         obsolete; use clm4
+18-Jan-07 climcvg4  ---         obsolete; use clmi2
+18-Jan-07 climcvgc4z ---        obsolete; use clmi1
+18-Jan-07 climcvg4z ---         obsolete; use clmi2
+18-Jan-07 clim0cvg4z ---        obsolete; use clm0i
+18-Jan-07 climcvgc5z ---        obsolete; use clmi1
+18-Jan-07 climcvg5z ---         obsolete; use clmi2
+18-Jan-07 clim0cvg5z ---        obsolete; use clm0i
+18-Jan-07 climnn0   ---         obsolete; use clm4
+18-Jan-07 climnn    ---         obsolete; use clm4
+18-Jan-07 clim0nn   ---         obsolete; use clm0
+18-Jan-07 climcvgnn ---         obsolete; use clmi2
+18-Jan-07 climcvgnn0 ---        obsolete; use clmi2
+18-Jan-07 clim0cvgnn0 ---       obsolete; use clm0i
+18-Jan-07 climcvg2nn0 ---       obsolete; use clmi2
+18-Jan-07 clim0cvg2nn0 ---      obsolete; use clm0i
+18-Jan-07 climnn0le ---         obsolete; use clm4le
+18-Jan-07 clim0nn0le ---        obsolete; use clm4le and clm0
+16-Jan-07 abn0      [--same--]  changed -. ... = (/) to ... =/= (/)
+16-Jan-07 rabn0     [--same--]  changed -. ... = (/) to ... =/= (/)
+16-Jan-07 nsuceq0   [--same--]  changed -. ... = (/) to ... =/= (/)
+16-Jan-07 iin0      [--same--]  changed -. A = (/) to A =/= (/)
+16-Jan-07 fint      [--same--]  changed -. B = (/) to B =/= (/)
+14-Jan-07 clim3z    clm4at
+12-Jan-07 climconst [--same--]  made M e. ZZ a hypothesis instead of antecedent
+11-Jan-07 climres2  ---         obsolete; use climres
+ 4-Jan-07 iunconst  [--same--]  changed -. A = (/) to A =/= (/)
+21-Dec-06 intssuni2 [--same--]  changed -. A = (/) to A =/= (/)
+21-Dec-06 intssuni  [--same--]  changed -. A = (/) to A =/= (/)
+21-Dec-06 prer2     preqr2
+20-Dec-06 ccms      cnms
+20-Dec-06 ccims     cnimsOLD
+20-Dec-06 ccmsval   cnimsval
+18-Dec-06 cvgannn   ---         obsolete; use cvganuz
+18-Dec-06 cvgannn0  ---         obsolete; use cvganuz
+14-Dec-06 cleqreli  eqrelriv
+14-Dec-06 cleqrel   eqrel
+12-Dec-06 rnco      rncoss
+12-Dec-06 dmco      dmcoss
+ 5-Dec-06 r19.2z    [--same--]  -. A = (/) to A =/= (/); conjoined antecendents
+24-Nov-06 infn0     [--same--]  changed -. A = (/) to A =/= (/)
+24-Nov-06 0sdom     [--same--]  changed -. A = (/) to A =/= (/)
+24-Nov-06 0sdomg    [--same--]  changed -. A = (/) to A =/= (/)
+24-Nov-06 infxpabs  [--same--]  -. B = (/) to B =/= (/); use w3a for antec.
+24-Nov-06 xpdom3    [--same--]  changed antecedent from -. B = (/) to B =/= (/)
+19-Nov-06 ax6       ax46to6
+19-Nov-06 ax4       ax46to4
+14-Nov-06 zfnul     axnul
+14-Nov-06 zfaus     axsep
+28-Oct-06 inv       inv1
+25-Oct-06 orcana    ---         obsolete; use pm5.6
+10-Oct-06 oprec     [--same--]  changed order of $f hypotheses
+10-Oct-06 ecoprdi   [--same--]  changed order of $f hypotheses
+10-Oct-06 ecoprass  [--same--]  changed order of $f hypotheses
+ 9-Oct-06 unisseq   ---         obsolete; use unimax
+ 8-Oct-06 notzfaus  [--same--]  more meaningful first hypothesis
+ 8-Oct-06 intmin    [--same--]  swapped arguments of = sign
+ 8-Oct-06 intmin2   [--same--]  swapped arguments of = sign
+ 5-Oct-06 expcant   [--same--]  generalized antecedent from e. NN to e. NN0
+ 5-Oct-06 expsubt   [--same--]  generalized antecedent from e. NN to e. NN0
+ 5-Oct-06 divexpt   [--same--]  generalized antecedent from e. NN to e. NN0
+ 5-Oct-06 expwordit [--same--]  generalized antecedent from e. NN to e. NN0
+ 5-Oct-06 explt1t   [--same--]  generalized antecedent from e. NN to e. NN0
+ 5-Oct-06 recexpt   [--same--]  generalized antecedent from e. NN to e. NN0
+ 5-Oct-06 expordt   [--same--]  generalized antecedent from e. NN to e. NN0
+ 5-Oct-06 iineq2dv  [--same--]  conjoined antecedents in hypothesis
+ 5-Oct-06 iuneq2dv  [--same--]  conjoined antecedents in hypothesis
+ 5-Oct-06 r19.9rzv  [--same--]  changed antecedent from -. A = (/) to A =/= (/)
+ 5-Oct-06 r19.45zv  [--same--]  changed antecedent from -. A = (/) to A =/= (/)
+ 5-Oct-06 r19.27zv  [--same--]  changed antecedent from -. A = (/) to A =/= (/)
+ 5-Oct-06 r19.36zv  [--same--]  changed antecedent from -. A = (/) to A =/= (/)
+ 5-Oct-06 iindif2   [--same--]  changed antecedent from -. A = (/) to A =/= (/)
+ 5-Oct-06 r19.28zv  [--same--]  changed antecedent from -. A = (/) to A =/= (/)
+ 5-Oct-06 r19.3rzv  [--same--]  changed antecedent from -. A = (/) to A =/= (/)
+ 2-Oct-06 phplem5   phplem4
+ 2-Oct-06 phplem4   phplem3
+ 2-Oct-06 phplem3   phplem2
+ 2-Oct-06 phplem2   phplem1
+ 2-Oct-06 phplem1   ---         obsolete; use difsnid
+29-Sep-06 uniord    orduni
+29-Sep-06 onunit    ssonunit
+29-Sep-06 onuni     ssonuni
+29-Sep-06 ac6s2     ac6s3
+29-Sep-06 ac6c      ---         obsolete; use ac6s5
+21-Sep-06 rankuni   rankuni2
+20-Sep-06 npnz      [--same--]  strengthened by adding converse
+20-Sep-06 onsucuni2 [--same--]  swapped arguments of = sign
+19-Sep-06 nlimsuc   ---         obsolete; use nlimsucg
+19-Sep-06 limuni2   limuni3
+15-Sep-06 ranklon   rankval4
+13-Sep-06 cbvop     rexxp
+11-Sep-06 zfaus     zfauscl
+10-Sep-06 fex       [--same--]  antecedent changed to use conjunction & swapped
+10-Sep-06 f1dmex    [--same--]  antecedent changed to use conjunction & swapped
+10-Sep-06 fnex      [--same--]  antecedent changed to use conjunction & swapped
+10-Sep-06 ssexg     [--same--]  antecedent changed to use conjunction & swapped
+10-Sep-06 funimaexg [--same--]  antecedent changed to use conjunction & swapped
+10-Sep-06 resfunexg [--same--]  antecedent changed to use conjunction & swapped
+ 9-Sep-06 funex     [--same--]  antecedent changed to use conjunction & swapped
+ 8-Sep-06 cls       clsp
+29-Aug-06 elab3g    elab3
+26-Aug-06 unop      uniop
+26-Aug-06 unpr      unipr
+26-Aug-06 unictb    [--same--]  removed irrelevant hypothesis
+16-Aug-06 ssrab     ssrab2
+16-Aug-06 rabss     rabss2
+16-Aug-06 ssab      ssab2
+13-Aug-06 fvco3     [--same--]  antecedent changed to use triple conjunction
+13-Aug-06 fvco2     [--same--]  antecedent changed to use triple conjunction
+ 6-Jun-06 sq0       sq00
+ 1-Jun-06 infpn     infpn2
+27-May-06 ---       ---         exp was changed to ex to prevent matching
+27-May-06 ---       ---           math token 'exp'.
+27-May-06 exp       ex
+26-May-06 f1ocnvfvb [--same--]  antecedent changed to use triple conjunction
+22-Apr-06 fvco      [--same--]  antecedent changed to use triple conjunction
+10-Apr-06 plus1let  p1let
+10-Apr-06 leplus1t  lep1t
+10-Apr-06 ltplus1   ltp1
+10-Apr-06 ltplus1t  ltp1t
+29-Mar-06 xpdom2    [--same--]  eliminated the A e. V hypothesis
+29-Mar-06 xpdom1    [--same--]  eliminated the A e. V hypothesis
+28-Mar-06 sspr      [--same--]  eliminated both $e hypotheses
+26-Mar-06 fnfvop    fnopfvb
+26-Mar-06 fnfvbr    fnbrfvb
+26-Mar-06 eqri      eqriv
+26-Mar-06 eqrd      eqrdv
+26-Mar-06 nn0z      nn0zrab
+26-Mar-06 nnz       nnzrab
+24-Mar-06 fodomb    [--same--]  eliminated the B e. V hypothesis
+24-Mar-06 eldmg     eldm2g
+22-Mar-06 prprc     prprc1
+22-Mar-06 sqrsqet   sqrsqt
+22-Mar-06 sqrsqe    sqrsq
+22-Mar-06 sqrsq     sqrmsq2
+21-Mar-06 nn0le2sqet nn0le2msqt
+21-Mar-06 le2sqet   le2sqt
+21-Mar-06 le2sqt    le2msqt
+21-Mar-06 lt2sqet   lt2sqt
+21-Mar-06 lt2sqt    lt2msqt
+21-Mar-06 le2sqe    le2sq
+21-Mar-06 le2sq     le2msq
+21-Mar-06 lt2sqe    lt2sq
+21-Mar-06 lt2sq     lt2msq
+21-Mar-06 ltsqt     ltmsqt
+13-Mar-06 sq11t     [--same--]  rearranged antecedent
+11-Mar-06 sqrecl    resqcl
+11-Mar-06 sqreclt   resqclt
+11-Mar-06 ---       ---         'sq' is normal square (A ^ 2)
+11-Mar-06 sqe0      sq00
+11-Mar-06 sqe11     sq11
+11-Mar-06 sqegt0    sqgt0
+11-Mar-06 sqege0    sqge0
+11-Mar-06 sqe11t    sq11t
+11-Mar-06 sqege0t   sqge0t
+11-Mar-06 ---       ---         'msq' is square represented by mult. (A x. A)
+11-Mar-06 sq00      msq0
+11-Mar-06 sqgt0     msqgt0
+11-Mar-06 sqge0     msqge0
+11-Mar-06 sq11      msq11
+11-Mar-06 sqznn     msqznn
+11-Mar-06 sqrsqid   sqrmsq
+11-Mar-06 sq00      msq0
+24-Feb-06 lerect    [--same--]  rearranged antecedent
+24-Feb-06 ltrect    [--same--]  rearranged antecedent
+24-Feb-06 lt2sqet   [--same--]  rearranged antecedent
+24-Feb-06 le2sqet   [--same--]  rearranged antecedent
+24-Feb-06 lt2sqt    [--same--]  rearranged antecedent
+24-Feb-06 le2sqt    [--same--]  rearranged antecedent
+20-Feb-06 funfvopi  funopfv
+20-Feb-06 funopfv   funfvop
+20-Feb-06 funfvop   funopfvb
+ 9-Feb-06 divneq0bt divne0bt
+ 9-Feb-06 divneq0   divne0
+ 9-Feb-06 recneq0z  recne0z
+ 9-Feb-06 pm2.61an2 pm2.61dan
+ 9-Feb-06 pm2.61an1 pm2.61ian
+28-Jan-06 cleqfvf   eqfnfvf
+26-Jan-06 fri       [--same--]  changed to closed theorem instead of inference
+17-Jan-06 relin     relin1
+17-Jan-06 ssrelqqq  relss
+17-Jan-06 relss     ssrel
+17-Jan-06 ssrel     ssrelqqq
+16-Jan-06 elrnqqq   elrn2
+16-Jan-06 elrn2     elrn
+16-Jan-06 elrn      elrnqqq
+12-Jan-06 df-ef     [--same--]  revised to use new df-sum
+ 9-Jan-06 rabeqbi2i rabeq2i
+ 9-Jan-06 abeqbi2   abeq2
+ 9-Jan-06 abeqbi1   abeq1
+ 9-Jan-06 abeqbi2i  abeq2i
+ 9-Jan-06 abeqbi1i  abeq1i
+ 9-Jan-06 abeqbi2d  abeq2d
+ 9-Jan-06 abbieq2i  abbi2i
+ 9-Jan-06 abbieqi   abbii
+ 9-Jan-06 abbieqd   abbid
+ 9-Jan-06 abbieqdv  abbidv
+ 9-Jan-06 abbieq2dv abbi2dv
+ 9-Jan-06 abbieq1dv abbi1dv
+ 9-Jan-06 rabbieqi  rabbii
+ 9-Jan-06 rabbieqdv rabbidv
+ 9-Jan-06 rabbieqsdv rabbisdv
+ 9-Jan-06 rabbieqrdv rabbirdv
+ 9-Jan-06 opabbieqd opabbid
+ 9-Jan-06 opabbieqdv opabbidv
+ 9-Jan-06 oprabbieqd oprabbid
+ 9-Jan-06 oprabbieqdv oprabbidv
+ 9-Jan-06 oprabbieqi oprabbii
+ 9-Jan-06 abeqbi2   abeq2
+ 9-Jan-06 abeqbi2i  abeq2i
+ 9-Jan-06 abeqbi1   abeq1
+ 9-Jan-06 abeqbi2d  abeq2d
+ 9-Jan-06 abeqbi1i  abeq1i
+ 9-Jan-06 rabeqbi2i rabeq2i
+ 9-Jan-06 oprabbieqi oprabbii
+ 7-Jan-06 divgt0lem divgt0i2
+ 5-Jan-06 lep1t  letrp1t
+ 4-Jan-06 nnegdift  ---         obsolete; use subge0t (swapped biconditional)
+ 2-Jan-06 opabbii.2 opabbii
+ 1-Jan-06 negdi2    negsubdi
+ 1-Jan-06 negdi2t   negsubdit
+ 1-Jan-06 negdi3    negsubdi2t
+ 1-Jan-06 negdi3t   negsubdi2t
+17-Dec-05 msca      ---         obsolete; now embedded inside equs4 proof
+16-Dec-05 1expt     [--same--]  antecedent extended from NN to NN0
+16-Dec-05 nnexpclt  [--same--]  antecedent extended from NN to NN0
+16-Dec-05 nn0expclt [--same--]  antecedent extended from NN to NN0
+16-Dec-05 zexpclt   [--same--]  antecedent extended from NN to NN0
+16-Dec-05 qexpclt   [--same--]  antecedent extended from NN to NN0
+16-Dec-05 reexpclt  [--same--]  antecedent extended from NN to NN0
+16-Dec-05 expclt    [--same--]  antecedent extended from NN to NN0
+16-Dec-05 expcllem  [--same--]  antecedent extended from NN to NN0; + 3rd hyp.
+16-Dec-05 expp1t    [--same--]  antecedent extended from NN to NN0
+16-Dec-05 expvalt   expnnvalt
+13-Dec-05 sbcco     sbccog
+ 1-Dec-05 subneg2t  subnegt
+ 1-Dec-05 subnegt   ---         obsolete; use negsubt (swapped equality)
+ 1-Dec-05 subneg    ---         obsolete; use negsub (swapped equality)
+ 1-Dec-05 reueq     reueq1
+ 1-Dec-05 rexeq     rexeq1
+ 1-Dec-05 raleq     raleq1
+ 1-Dec-05 reueqf    reueq1f
+ 1-Dec-05 rexeqf    rexeq1f
+ 1-Dec-05 raleqf    raleq1f
+ 1-Dec-05 ad2antxx  ad2antrr
+ 1-Dec-05 ad2antrr  ad2antll
+ 1-Dec-05 ad2antll  ad2antxx
+29-Nov-05 sbcel2    sbcel2gv
+29-Nov-05 sbcel1    sbcel1gv
+28-Nov-05 sbcn      sbcng
+28-Nov-05 sbcim     sbcimg
+28-Nov-05 sbcbi     sbcbidig
+28-Nov-05 sbcor     sbcorg
+28-Nov-05 sbcan     sbcang
+28-Nov-05 sbcal     sbcalg
+28-Nov-05 sbcex     sbcexg
+28-Nov-05 sbceq1    sbceq1a
+21-Nov-05 2o        2on
+21-Nov-05 1o        1on
+19-Nov-05 zfrep3    axrep5
+19-Nov-05 zfrep2    axrep4
+19-Nov-05 axrep     axrep2
+18-Nov-05 hbsbcg    hbsbc1g
+18-Nov-05 hbsbc     hbsbc1
+18-Nov-05 hbsbcv    hbsbc1v
+18-Nov-05 ---       ---         More changes to the bixx series below -
+18-Nov-05 ---       ---         changed to xxbix to be analogous to the xxeqx
+18-Nov-05 ---       ---         series e.g. uneq12d.  Also, the bi(r)abxx were
+18-Nov-05 ---       ---         changed to (r)abbieqxx: "bi" in hyp. and
+18-Nov-05 ---       ---         "eq" in conclusion.
+18-Nov-05 bial      albii
+18-Nov-05 bi2al     2albii
+18-Nov-05 biex      exbii
+18-Nov-05 bi2ex     2exbii
+18-Nov-05 bi3ex     3exbi
+18-Nov-05 biald     albid
+18-Nov-05 biexd     exbid
+18-Nov-05 bisb      sbbii
+18-Nov-05 bisbd     sbbid
+18-Nov-05 bialdv    albidv
+18-Nov-05 biexdv    exbidv
+18-Nov-05 bi2aldv   2albidv
+18-Nov-05 bi2exdv   2exbidv
+18-Nov-05 bi3exdv   3exbidv
+18-Nov-05 bi4exdv   4exbidv
+18-Nov-05 bieud     eubid
+18-Nov-05 bieudv    eubidv
+18-Nov-05 bieu      eubii
+18-Nov-05 bimod     mobid
+18-Nov-05 bimo      mobii
+18-Nov-05 biralda   ralbida
+18-Nov-05 birexda   rexbida
+18-Nov-05 biraldva  ralbidva
+18-Nov-05 birexdva  rexbidva
+18-Nov-05 birald    ralbid
+18-Nov-05 birexd    rexbid
+18-Nov-05 biraldv   ralbidv
+18-Nov-05 birexdv   rexbidv
+18-Nov-05 biraldv2  ralbidv2
+18-Nov-05 birexdv2  rexbidv2
+18-Nov-05 biral     ralbii
+18-Nov-05 birex     rexbii
+18-Nov-05 bi2ral    2ralbii
+18-Nov-05 bi2rex    2rexbii
+18-Nov-05 biral2    ralbii2
+18-Nov-05 birex2    rexbii2
+18-Nov-05 birala    ralbiia
+18-Nov-05 birexa    rexbiia
+18-Nov-05 bi2rexa   2rexbiia
+18-Nov-05 bi2ralda  2ralbida
+18-Nov-05 bi2raldva 2ralbidva
+18-Nov-05 bi2rexdva 2rexbidva
+18-Nov-05 bireudva  reubidva
+18-Nov-05 bireudv   reubidv
+18-Nov-05 bireua    reubiia
+18-Nov-05 bireu     reubii
+18-Nov-05 bisbcdv   sbcbidv
+18-Nov-05 bisbc     sbcbii
+18-Nov-05 eqrabi    rabeqbi2i
+18-Nov-05 eqab      abeqbi2
+18-Nov-05 eqabr     abeqbi1
+18-Nov-05 eqabi     abeqbi2i
+18-Nov-05 eqabri    abeqbi1i
+18-Nov-05 eqabd     abeqbi2d
+18-Nov-05 biabri    abbieq2i
+18-Nov-05 biabi     abbieqi
+18-Nov-05 biabd     abbieqd
+18-Nov-05 biabdv    abbieqdv
+18-Nov-05 biabrdv   abbieq2dv
+18-Nov-05 biabldv   abbieq1dv
+18-Nov-05 birabi    rabbieqi
+18-Nov-05 birabdv   rabbieqdv
+18-Nov-05 birabsdv  rabbieqsdv
+18-Nov-05 birabrdv  rabbieqrdv
+18-Nov-05 biopabd   opabbieqd
+18-Nov-05 biopabdv  opabbieqdv
+18-Nov-05 bioprabd  oprabbieqd
+18-Nov-05 bioprabdv oprabbieqdv
+18-Nov-05 bioprabi  oprabbieqi
+18-Nov-05 bicon1i   con1bii
+18-Nov-05 bicon2i   con2bii
+18-Nov-05 bicon4i   con4bii
+18-Nov-05 bicon4d   con4bid
+18-Nov-05 bicon2    con2bi
+18-Nov-05 bicon2d   con2bid
+18-Nov-05 bicon1d   con1bid
+18-Nov-05 bisyl7    syl7ib
+18-Nov-05 bisyl8    syl8ib
+11-Nov-05 sbcbidv   [--same--]  swapped antecedents
+21-Oct-05 ciin      [--same--]  "|^|" changed to "|^|_"
+21-Oct-05 cuin      [--same--]  "U." changed to "U_"
+21-Oct-05 ---SYMBOL CHANGE----  Changed "|^|" to "|^|_" in thm's using ciin
+21-Oct-05 ---SYMBOL CHANGE----  Changed "U." to "U_" in thm's using ciun
+20-Oct-05 rax5      ra5
+20-Oct-05 rax4      ---         obsolete; use ra4sbc
+20-Oct-05 reuuni2f  [--same--]  weakened its hypotheses
+19-Oct-05 reuss     [--same--]  antecedent changed to use triple conjunction
+10-Oct-05 uzwo      [--same--]  changed to use ZZ> notation
+10-Oct-05 uzwo2     [--same--]  changed to use ZZ> notation
+ 1-Oct-05 nnncant   nnncan1t
+13-Sep-05 leltnet   [--same--]  antecedent changed to use triple conjunction
+12-Sep-05 ax6       ax6-2
+10-Sep-05 ifel      ifcl
+ 6-Sep-05 dmopab2   dmopab3
+ 5-Sep-05 peano2uz  peano2uz2
+ 1-Sep-05 cleqfv    eqfnfv
+ 1-Sep-05 df-seq    df-seq1
+ 1-Sep-05 cseqz     cseq1
+ 1-Sep-05 serft     ser1ft
+ 1-Sep-05 serf      ser1f
+ 1-Sep-05 sercl     ser1cl
+ 1-Sep-05 serrecl   ser1recl
+ 1-Sep-05 serre     ser1re
+ 1-Sep-05 sercl2    ser1cl2
+ 1-Sep-05 serf2     ser1f2
+ 1-Sep-05 ser12     ser11
+ 1-Sep-05 sersuc2   ser1p1
+ 1-Sep-05 sermono   ser1mono
+ 1-Sep-05 seradd2   ser1add2
+ 1-Sep-05 seradd    ser1add
+ 1-Sep-05 serdir    ser1dir
+ 1-Sep-05 serabsdiflem ser1absdiflem
+ 1-Sep-05 serabsdif ser1absdif
+ 1-Sep-05 serre2    ser1re2
+ 1-Sep-05 sercj     ser1cj
+ 1-Sep-05 serconst  ser1const
+ 1-Sep-05 sertrunclem ser1trunclem
+ 1-Sep-05 sercmp    ser1cmp
+ 1-Sep-05 sercmp0   ser1cmp0
+ 1-Sep-05 sercmp2lem ser1cmp2lem
+ 1-Sep-05 sercmp2   ser1cmp2
+ 1-Sep-05 seqlem1   seq1lem1
+ 1-Sep-05 seqlem2   seq1lem2
+ 1-Sep-05 seqrval   seq1rval
+ 1-Sep-05 seqval    seq1val
+ 1-Sep-05 seqfnlem  seq1fnlem
+ 1-Sep-05 seqval2   seq1val2
+ 1-Sep-05 seq1lem   seq11lem
+ 1-Sep-05 seqsuclem seq1suclem
+ 1-Sep-05 seqp1     seq1p1
+ 1-Sep-05 seqm1     seq1m1
+ 1-Sep-05 seqfn     seq1fn
+ 1-Sep-05 seqrn     seq1rn2
+ 1-Sep-05 seqrn2    seq1rn
+ 1-Sep-05 seqcl     seq1cl
+ 1-Sep-05 seqres    seq1res
+ 1-Sep-05 seqbnd    seq1bnd
+ 1-Sep-05 sequblem  seq1ublem
+ 1-Sep-05 sequb     seq1ub
+ 1-Sep-05 seqhcau   seq1hcau
+ 1-Sep-05 ---SYMBOL CHANGE----  Changed math symbol 'seq' to 'seq1'
+ 1-Sep-05 seq1      seq11       Warning: change _before_ symbol change above
+17-Aug-05 df-clim   [--same--]  The old df-clim, df-shft, and df-seq0, and
+17-Aug-05 df-shft   [--same--]      all derived theorems, have been scrapped
+17-Aug-05 df-seq0   [--same--]      or rederived from the new definitions.
+30-Jul-05 ---       ---         syl* changes below were sugg'ed by Scott Fenton
+30-Jul-05 syl34d    imim12d
+30-Jul-05 syl4d     imim1d
+30-Jul-05 syl3d     imim2d
+30-Jul-05 syl34     imim112i
+30-Jul-05 syl4      imim1i
+30-Jul-05 syl3      imim2i
+30-Jul-05 syl2      imim1
+30-Jul-05 syl1      imim2
+27-Jul-05 uzind     [--same--]  weaker basis hyp.; different mand. hyp. order
+13-Jul-05 mp3an11   mp3anl1
+13-Jul-05 mp3an12   mp3anl2
+13-Jul-05 mp3an13   mp3anl3
+13-Jul-05 syl3an11  syl3anl1
+13-Jul-05 syl3an12  syl3anl2
+13-Jul-05 syl3an13  syl3anl3
+13-Jul-05 mpan11    mpanl1
+13-Jul-05 mpan12    mpanl2
+13-Jul-05 mpan21    mpanr1
+13-Jul-05 mpan22    mpanr2
+13-Jul-05 sylan11   sylanl1
+13-Jul-05 sylan12   sylanl2
+13-Jul-05 sylan21   sylanr1
+13-Jul-05 sylan22   sylanr2
+13-Jul-05 mpan121   mpanlr1
+13-Jul-05 ecased    ---         obsolete; use ecase23d (diff. hyp. order)
+11-Jul-05 lelt      lenlt
+11-Jul-05 leltt     lenltt
+11-Jul-05 lenltt    eqleltt
+10-Jul-05 bcpasc    bcpasc2
+10-Jul-05 bcvalt    bcval2t
+ 9-Jul-05 sermconst ---         obsolete; use ser1mulc
+ 9-Jul-05 seqsuc    seq1p1
+ 3-Jul-05 peano5c   ---         obsolete; use peano5nn (restr. qntfr.)
+ 3-Jul-05 df-n      [--same--]  shortened with restricted quantifier
+ 2-Jul-05 mulge0t   [--same--]  conjoined antecedents
+ 2-Jul-05 prodgt02t [--same--]  swapped A e. RR and B e. RR
+27-Jun-05 syl3an    [--same--]  changed order of hypotheses
+25-Jun-05 ecoprcom  [--same--]  changed order of $f hypotheses
+21-Jun-05 nn0ltlem1 nn0ltlem1t
+21-Jun-05 subsub    subsub23
+17-Jun-05 ecoprdist ---         obsolete; use ecoprdi
+16-Jun-05 binom     binom2
+12-Jun-05 oel       orabs
+30-May-05 ltdiv23t  [--same--]  conjoined antecedents
+30-May-05 ledivt    lediv1t
+23-May-05 rcla42v   [--same--]  swapped antecedents
+23-May-05 rcla4v    [--same--]  swapped antecedents
+23-May-05 rcla4     [--same--]  swapped antecedents
+10-May-05 mpbiranr  mpbiran2
+ 8-May-05 funfv2    [--same--]  changed to A F y instead of <. A , y >. e. F
+ 8-May-05 imasn     ---         obsolete; use relimasn (A R y instead of o.p.)
+ 3-May-05 nndiv     nndivt
+ 2-May-05 subaddeq  pncan3
+ 2-May-05 subaddeqt pncan3t
+ 1-May-05 divne0bt  [--same--]  changed antecedent to triple conjunction
+ 1-May-05 divcan2t  [--same--]  changed antecedent to triple conjunction
+ 1-May-05 divcan1t  [--same--]  changed antecedent to triple conjunction
+30-Apr-05 divnegt   [--same--]  changed antecedent to triple conjunction
+30-Apr-05 divrect   [--same--]  changed antecedent to triple conjunction
+30-Apr-05 divcan3t  [--same--]  changed antecedent to triple conjunction
+30-Apr-05 divcan4t  [--same--]  changed antecedent to triple conjunction
+29-Apr-05 crut      [--same--]  generalized -> to <->
+29-Apr-05 cru       [--same--]  generalized -> to <->
+29-Apr-05 isqm1     itimesi
+29-Apr-05 crmult    crmul       changed hypotheses from real to complex
+29-Apr-05 redivclt  [--same--]  changed antecedent to triple conjunction
+29-Apr-05 divclt    [--same--]  changed antecedent to triple conjunction
+28-Apr-05 ine0      [--same--]  changed -. and = to =/=
+27-Apr-05 ltdivt    ltdiv1t
+27-Apr-05 ltdiv     ltdiv1
+27-Apr-05 ltdivi    ltdiv1i
+24-Apr-05 prodgt0   [--same--]  strengthened 0 < A to 0 <_ A
+24-Apr-05 prodgt0i  prodgt0lem
+ 7-Apr-05 equs2     ---         obsolete; use equs5
+ 7-Apr-05 equs1     ---         obsolete; use equs4
+ 6-Apr-05 absltt    [--same--]  swapped & contraposed conjunct with -u
+ 6-Apr-05 absle     [--same--]  swapped & contraposed conjunct with -u
+ 6-Apr-05 abslt     [--same--]  swapped & contraposed conjunct with -u
+26-Mar-05 abscj     [--same--]  swapped arguments of = sign
+18-Mar-05 reim0     reim0b
+18-Mar-05 rere      rereb
+18-Mar-05 cjre      cjreb
+18-Mar-05 negre     negreb
+11-Mar-05 frsuc     frsuct
+10-Mar-05 nn0addge2 [--same--]  Generalized 1st hyp from NN0 to RR
+10-Mar-05 nn0addge1 [--same--]  Generalized 1st hyp from NN0 to RR
+ 5-Mar-05 chv       chvarv
+ 5-Mar-05 chv2      chvar
+ 4-Mar-05 divdistr  divdir
+ 4-Mar-05 divdistrz divdirz
+ 4-Mar-05 divge0t   [--same--]  conjoined the two left-most antecedents
+ 4-Mar-05 divgt0t   [--same--]  conjoined the two left-most antecedents
+ 4-Mar-05 absgt0t   [--same--]  changed  -. A = 0  to  A =/= 0
+ 4-Mar-05 absgt0    [--same--]  changed  -. A = 0  to  A =/= 0
+24-Feb-05 absidt    [--same--]  conjoined the two left-most antecedents
+27-Feb-05 del34     ---         obsolete; use dral1 instead
+27-Feb-05 del35     ---         obsolete; use dral1 instead
+27-Feb-05 del34b    dral1
+27-Feb-05 del36     ---         obsolete; use dral2 instead
+27-Feb-05 del40     ---         obsolete; use drex1 instead
+27-Feb-05 del41     ---         obsolete; use drex1 instead
+27-Feb-05 del42     ---         obsolete; use drex2 instead
+27-Feb-05 del43     ---         obsolete; use drsb1 instead
+27-Feb-05 del43b    drsb1
+27-Feb-05 del44     ---         obsolete; use drsb2 instead
+27-Feb-05 del45     ---         obsolete; use drsb2 instead
+27-Feb-05 ddelimf2  dvelimf2
+27-Feb-05 ddelimf   dvelimf
+27-Feb-05 ddelimdf  dvelimdf
+27-Feb-05 ddelim    dvelim
+27-Feb-05 ddeeq1    dveeq1
+27-Feb-05 ddeeq2    dveeq2
+27-Feb-05 ddeel1    dveel1
+27-Feb-05 ddeel2    dveel2
+24-Feb-05 bi3ord    3orbi123d
+24-Feb-05 im3ord    3orim123d
+24-Feb-05 bi3or     3orbi123i
+24-Feb-05 bi3an     3anbi123i
+24-Feb-05 bi3and    3anbi123d
+24-Feb-05 im3an     3anim123i
+24-Feb-05 divdistrt divdirt
+24-Feb-05 ltdiv1t   [--same--]  conjoined the two left-most antecedents
+24-Feb-05 lediv1t   [--same--]  conjoined the two left-most antecedents
+24-Feb-05 ltmuldivt [--same--]  conjoined the two left-most antecedents
+24-Feb-05 ltdivmult [--same--]  conjoined the two left-most antecedents
+24-Feb-05 ltmuldiv2t [--same--]  conjoined the two left-most antecedents
+24-Feb-05 gt0ne0t   [--same--]  conjoined the two left-most antecedents
+24-Feb-05 ltrect    [--same--]  conjoined the two left-most antecedents
+24-Feb-05 recgt0t   [--same--]  conjoined the two left-most antecedents
+24-Feb-05 lerect    [--same--]  conjoined the two left-most antecedents
+21-Feb-05 nn0ge0i   nn0ge0
+21-Feb-05 rdgzer    rdg0
+21-Feb-05 rdgzert   rdg0t
+21-Feb-05 frzer     fr0t
+21-Feb-05 mulzer1   mul01
+21-Feb-05 mulzer2   mul02
+21-Feb-05 mulzer1t  mul01t
+21-Feb-05 mulzer2t  mul02t
+21-Feb-05 divzer    div0
+21-Feb-05 ax-hvzercl ax-hv0cl
+21-Feb-05 ax-hvmulzer ax-hvmul0
+21-Feb-05 hizer1t   hi01t
+21-Feb-05 hizer2t   hi02t
+19-Feb-05 ax0re     0re
+13-Feb-05 cardcard  cardidm
+13-Feb-05 exp2t     sqvalt
+13-Feb-05 uzind2    ---         Obsolete; use uzind3
+ 5-Feb-05 ---       ---         We will adopt "equ" (vs. old "eq") for
+ 5-Feb-05 ---       ---         set variable equality and "eq" (vs. old
+ 5-Feb-05 ---       ---         "cleq") for class equality.  (Remember it
+ 5-Feb-05 ---       ---         is important to do these in REVERSE order
+ 5-Feb-05 ---       ---         below!)
+ 5-Feb-05 cleqri    eqri
+ 5-Feb-05 cleqrd    eqrd
+ 5-Feb-05 cleqid    eqid
+ 5-Feb-05 cleqcom   eqcom
+ 5-Feb-05 cleqcomi  eqcomi
+ 5-Feb-05 cleqcomd  eqcomd
+ 5-Feb-05 cleq1     eqeq1
+ 5-Feb-05 cleq2     eqeq2
+ 5-Feb-05 cleq1i    eqeq1i
+ 5-Feb-05 cleq2i    eqeq2i
+ 5-Feb-05 cleq1d    eqeq1d
+ 5-Feb-05 cleq2d    eqeq2d
+ 5-Feb-05 cleq12    eqeq12
+ 5-Feb-05 cleq12i   eqeq12i
+ 5-Feb-05 cleq12d   eqeq12d
+ 5-Feb-05 cleqan12d eqeqan12d
+ 5-Feb-05 cleqan12rd eqeqan12rd
+ 5-Feb-05 cleqtr    eqtrt
+ 5-Feb-05 cleq2tr   eq2tr
+ 5-Feb-05 cleqab    abeqbi2
+ 5-Feb-05 cleqabi   abeqbi2i
+ 5-Feb-05 cleqabr   abeqbi1
+ 5-Feb-05 cleqabd   abeqbi2d
+ 5-Feb-05 cleqabri  abeqbi1i
+ 5-Feb-05 cleq2ab   eq2ab
+ 5-Feb-05 cleqrabi  rabeqbi2i
+ 5-Feb-05 clneq     nelneq
+ 5-Feb-05 clneq2    nelneq2
+ 5-Feb-05 sbeq2     equsb2
+ 5-Feb-05 sbeq1     equsb1
+ 5-Feb-05 eqvin.l2  ---           obsolete; use equvin instead
+ 5-Feb-05 eqvin     equvin
+ 5-Feb-05 eqvin.l1  equvini
+ 5-Feb-05 eqsal     equsal
+ 5-Feb-05 eqsex     equsex
+ 5-Feb-05 eqs5      equs5
+ 5-Feb-05 eqs4      equs4
+ 5-Feb-05 eqs3      equs3
+ 5-Feb-05 eqs2      equs2
+ 5-Feb-05 eqs1      equs1
+ 5-Feb-05 eq6s      hbnaes
+ 5-Feb-05 eq6       hbnae
+ 5-Feb-05 eq5s      hbaes
+ 5-Feb-05 eq5       hbae
+ 5-Feb-05 eq4ds     nalequcoms
+ 5-Feb-05 eq4s      alequcoms
+ 5-Feb-05 eq4       alequcom
+ 5-Feb-05 a14b      elequ2
+ 5-Feb-05 a13b      elequ1
+ 5-Feb-05 eqt2b     equequ2
+ 5-Feb-05 a8b       equequ1
+ 5-Feb-05 eqt       equtr
+ 5-Feb-05 eqt2      equtrr
+ 5-Feb-05 eqan      equtr2
+ 5-Feb-05 eqcom     equcomi
+ 5-Feb-05 eqcomb    equcom
+ 5-Feb-05 eqcoms    equcoms
+ 5-Feb-05 eqid      equid
+ 3-Feb-05 sb5f1     sb6rf
+21-Jan-05 mulcanxx  mulcant2
+21-Jan-05 mulcant2  mulcant
+21-Jan-05 mulcant   mulcanxx
+10-Jan-05 add41r3   add42
+10-Jan-05 caopr41r3 caopr42
+10-Jan-05 an41r3s   an42s
+10-Jan-05 an41r3    an42
+ 8-Jan-05 ---       ---         The imxx series was changed analogously
+ 8-Jan-05 ---       ---         to the bixx series change.
+ 8-Jan-05 im2an     anim12i
+ 8-Jan-05 imran     anim1i
+ 8-Jan-05 imlan     anim2i
+ 8-Jan-05 im2or     orim12i
+ 8-Jan-05 imror     orim1i
+ 8-Jan-05 imlor     orim2i
+ 8-Jan-05 im2and    anim12d
+ 8-Jan-05 imrand    anim1d
+ 8-Jan-05 imland    anim2d
+ 8-Jan-05 im2ord    orim12d
+ 8-Jan-05 imrord    orim1d
+ 8-Jan-05 imlord    orim2d
+ 8-Jan-05 ---       ---         The bixx series was changed to be analogous
+ 8-Jan-05 ---       ---         to the xxeqx series e.g. uneq12d.
+ 8-Jan-05 ---       ---         (Suggested by Raph Levien.)
+ 8-Jan-05 bi2and    anbi12d
+ 8-Jan-05 birand    anbi1d
+ 8-Jan-05 biland    anbi2d
+ 8-Jan-05 bi2imd    imbi12d
+ 8-Jan-05 birimd    imbi1d
+ 8-Jan-05 bilimd    imbi2d
+ 8-Jan-05 bi2ord    orbi12d
+ 8-Jan-05 birord    orbi1d
+ 8-Jan-05 bilord    orbi2d
+ 8-Jan-05 bi2bid    bibi12d
+ 8-Jan-05 birbid    bibi1d
+ 8-Jan-05 bilbid    bibi2d
+ 8-Jan-05 binegd    negbid
+ 8-Jan-05 bi2an     anbi12i
+ 8-Jan-05 biran     anbi1i
+ 8-Jan-05 bilan     anbi2i
+ 8-Jan-05 bi2im     imbi12i
+ 8-Jan-05 birim     imbi1i
+ 8-Jan-05 bilim     imbi2i
+ 8-Jan-05 bi2or     orbi12i
+ 8-Jan-05 biror     orbi1i
+ 8-Jan-05 bilor     orbi2i
+ 8-Jan-05 bi2bi     bibi12i
+ 8-Jan-05 birbi     bibi1i
+ 8-Jan-05 bilbi     bibi2i
+ 8-Jan-05 bineg     negbii
+ 3-Jan-05 pm5.41    imdi
+ 1-Jan-05 iundif    iundif2
+ 1-Jan-05 iindif    iindif2
+ 1-Jan-05 iunin     iunin2
+ 1-Jan-05 iinin     iinin2
+ 1-Jan-05 sylan13br sylancbr
+ 1-Jan-05 sylan13b  sylancb
+ 1-Jan-05 sylan13   sylanc
+ 1-Jan-05 syl13     sylc
+26-Dec-04 0ne1o     ---         obsolete; use 1ne0
+19-Dec-04 sbequ6    [--same--]  swapped biconditional order
+19-Dec-04 sbequ5    [--same--]  swapped biconditional order
+15-Dec-04 syl2and   syl2ani
+15-Dec-04 sylan2d   sylan2i
+15-Dec-04 syland    sylani
+12-Dec-04 nnordex   nnaordex
+12-Dec-04 nnwordex  nnawordex
+12-Dec-04 mpand     mpdan
+12-Dec-04 ontr      ontr1
+ 6-Dec-04 on0eqel   on0eqelt
+30-Nov-04 exp2      sqvalt
+30-Nov-04 1exp      1expt
+30-Nov-04 0exp      0expt
+30-Nov-04 exp1      exp1t
+30-Nov-04 expp1     expp1t
+18-Nov-04 divrclz   redivclz
+18-Nov-04 divrclt   redivclt
+18-Nov-04 subrclt   resubclt
+18-Nov-04 negrclt   renegclt
+18-Nov-04 mulrclt   remulclt
+18-Nov-04 divrcl    redivcl
+18-Nov-04 subrcl    resubcl
+18-Nov-04 negrcl    renegcl
+18-Nov-04 mulrcl    remulcl
+18-Nov-04 addrcl    readdcl
+18-Nov-04 ltdivmul  ---         obsolete; use ltmuldiv instead
+18-Nov-04 ltdivmult ---         obsolete; use ltmuldivt instead (note: there
+                                is a new ltdivmult that is unrelated)
+18-Nov-04 distr2t   adddirt
+18-Nov-04 distr2    adddir
+18-Nov-04 distr     adddi
+18-Nov-04 subdistr  subdir
+17-Nov-04 nnrect    nnrecgt0t
+17-Nov-04 posdif    [--same--]  swapped biconditional and variable order
+15-Nov-04 negdistt3 negdi3t
+15-Nov-04 negdistt2 negdi2t
+15-Nov-04 negdistt  negdit
+15-Nov-04 negdist3  negdi3
+15-Nov-04 negdist2  negdi2
+11-Nov-04 reuunis   reuuni2
+11-Nov-04 reuuni    reuuni1
+ 9-Nov-04 zlelt1    zleltp1t
+ 9-Nov-04 zltle1    zltp1let
+ 7-Sep-04 arch      [--same--]  removed quantifier, changed set var. to class
+ 2-Nov-04 dfom2     dfom3
+ 2-Nov-04 dfom3     dfom4
+29-Oct-04 df-ded    df-if
+29-Oct-04 dedeq1    ifeq1
+29-Oct-04 dedeq2    ifeq2
+29-Oct-04 dedeq12   ifeq12
+29-Oct-04 dedbi     ifbi
+29-Oct-04 dedlem1   iftrue
+29-Oct-04 dedlem2   iffalse
+29-Oct-04 dedex     ifex
+29-Oct-04 cded      cif
+29-Oct-04 ---SYMBOL CHANGE----  Changed math symbol 'ded' to 'if'
+28-Oct-04 cmulc     cmul
+20-Oct-04 oprabex   oprabex2
+14-Oct-04 nn0lelt1  nn0leltp1t
+14-Oct-04 nn0ltle1  nn0ltp1let
+14-Oct-04 nnlelt1   nnleltp1t
+14-Oct-04 nnltle1   nnltp1let
+14-Oct-04 rnoel3    rabn0
+14-Oct-04 noel3     abn0
+14-Oct-04 noel2     n0i
+14-Oct-04 peano2c   peano2nn
+12-Oct-04 supeu     supeui
+12-Oct-04 supcl     supcli
+12-Oct-04 supub     supubi
+12-Oct-04 suplub    suplubi
+12-Oct-04 supnub    supnubi
+12-Oct-04 suprcl    suprcli
+12-Oct-04 suprub    suprubi
+12-Oct-04 pm4.12    con2bi
+12-Oct-04 bicon4    con4bii
+12-Oct-04 con2bi    con2bii
+12-Oct-04 bicon1    con1bii
+12-Oct-04 pm2.11    exmid
+11-Oct-04 sbf1      ---         obsolete; use sbf instead
+11-Oct-04 ceqsexg   ceqex
+ 9-Oct-04 fvco2     fvco3
+ 8-Oct-04 indif0    difdisj
+ 8-Oct-04 biopab    opabbii.2
+ 8-Oct-04 bioprab   oprabbieqi
+ 7-Oct-04 ssii      sselii
+ 6-Oct-04 op2nd     op2ndb
+ 6-Oct-04 op1st     op1stb
+ 3-Oct-04 ind       nnind
+ 3-Oct-04 sylan5    sylan2
+ 3-Oct-04 sylan5b   sylan2b
+ 3-Oct-04 sylan5br  sylan2br
+ 3-Oct-04 sylan5d   sylan2i
+ 3-Oct-04 zind      ---         obsolete; use uzind
+30-Sep-04 fvop      funfvop
+30-Sep-04 funfvop   funopfv
+30-Sep-04 pm4.21    bicom
+30-Sep-04 bicom     bicomi
+30-Sep-04 entr      entri
+30-Sep-04 sstr2qqq  sstr
+30-Sep-04 sstr      sstr2
+30-Sep-04 sstr2     sstr2qqq
+29-Sep-04 xp0qqq    xp0r
+29-Sep-04 xp0r      xp0
+29-Sep-04 xp0       xp0qqq
+28-Sep-04 xpdom     xpdom2      changed variable names
+28-Sep-04 xpdom2    xpdom3
+26-Sep-04 xpindi    inxp
+26-Sep-04 xpun1     xpundi
+26-Sep-04 xpun2     xpundir
+25-Sep-04 entr      entrt
+23-Sep-04 ssfnres   ---         obsolete; use fnssres instead
+23-Sep-04 resun     resundi
+21-Sep-04 f11       [--same--]  changed o.p. membership to binary relation
+21-Sep-04 unisuc    [--same--]  swapped arguments of = sign
+21-Sep-04 onunisuc  [--same--]  swapped arguments of = sign
+21-Sep-04 undif3    ---         obsolete; use undif
+21-Sep-04 ssequn2   [--same--]  swapped arguments of = sign
+21-Sep-04 sseqin2   [--same--]  swapped arguments of = sign
+21-Sep-04 onelun    [--same--]  swapped arguments of = sign
+21-Sep-04 dfss4     [--same--]  swapped arguments of = sign
+21-Sep-04 ordunisuc ordunisssuc
+21-Sep-04 ssfun     funss
+15-Sep-04 19.6      alex
+15-Sep-04 alex      alexeq
+15-Sep-04 19.11     excom
+15-Sep-04 19.11a    excomim
+15-Sep-04 19.5      alcom
+15-Sep-04 19.7      alnex
+15-Sep-04 19.14     exnal
+15-Sep-04 alnex     alinexa
+15-Sep-04 exnal     exanali
+15-Sep-04 dmsn      dmsnop
+15-Sep-04 rnsn      rnsnop
+13-Sep-04 ppnull    pwpw0
+13-Sep-04 pwnull    pw0
+13-Sep-04 zfnull2   zfnul
+13-Sep-04 nullpss   0pss
+13-Sep-04 nullss    0ss
+13-Sep-04 nulleq    eq0
+13-Sep-04 nnull     n0
+13-Sep-04 nnullf    n0f
+13-Sep-04 xpdisj    xpsndisj
+13-Sep-04 subdist   subdi
+13-Sep-04 negdist   negdi
+13-Sep-04 nndist    nndi
+13-Sep-04 xpindist  inxp
+11-Sep-04 ssd       sseld
+11-Sep-04 ssi       sseli
+11-Sep-04 vtoclab   elab2
+11-Sep-04 vtoclabg  elab2g
+11-Sep-04 elab2g    elab3g
+ 6-Sep-04 comm      com12
+ 4-Sep-04 opabval   fvopab3
+ 4-Sep-04 opabvalig fvopab3ig
+ 4-Sep-04 opabval2g fvopab4g
+ 4-Sep-04 opabval2  fvopab4
+ 3-Sep-04 undif2    difun2
+ 1-Sep-04 dedlem2   [--same--]  swapped arguments of = sign
+ 1-Sep-04 dedlem1   [--same--]  swapped arguments of = sign
+31-Aug-04 pm2.16d   con3d
+31-Aug-04 pm2.03d   con2d
+31-Aug-04 pm2.15d   con1d
+31-Aug-04 pm2.16    con3
+31-Aug-04 pm2.03    con2
+31-Aug-04 pm2.15    con1
+31-Aug-04 con3      con3i
+31-Aug-04 con2      con2i
+31-Aug-04 con1      con1i
+29-Aug-04 oprabelrn elrnoprab
+27-Aug-04 ssequn1   [--same--]  swapped arguments of = sign
+27-Aug-04 df-ss     dfss
+27-Aug-04 imdistanb ---         obsolete; use imdistan
+27-Aug-04 imdistan  [--same--]  now includes converse
+17-Aug-04 difun2    [--same--]  swapped arguments of = sign
+17-Aug-04 undif1    [--same--]  swapped arguments of = sign and union
+17-Aug-04 difin     [--same--]  swapped arguments of = sign
+17-Aug-04 unindistr undir
+17-Aug-04 unindist  undi
+17-Aug-04 inundistr indir
+17-Aug-04 inundist  indi
+17-Aug-04 indist    inindi
+16-Aug-04 ss2un     unss12      order of variables changed
+15-Aug-04 funmo,dffunmof,dffunmo
+                    [--same--]  ordered pair membership -> binary relation
+15-Aug-04 dfrel2    [--same--]  swapped arguments of = sign
+12-Aug-04 unxp      xpundir
+11-Aug-04 elima2    elima3
+11-Aug-04 reluni    [--same--]  restricted quantifier and added converse
+ 9-Aug-04 imun      imaun
+ 3-Aug-04 1id       om1
+ 3-Aug-04 oalim     [--same--]  conjoined antecedents; now uses indexed union
+ 3-Aug-04 divdiv23  divdiv23z
+ 3-Aug-04 divdiv23i divdiv23
+ 2-Aug-04 divrec,divrecz [--same--] swapped A and B
+ 2-Aug-04 zq        zqt
+ 2-Aug-04 qre       qret
+ 1-Aug-04 mulcant  [--same--]  swapped conjunct in antecedent
+ 1-Aug-04 axrecex,axrrecex,divclt,divcan1t,divcan2t,recidt,divdistrt,divrclt
+                    [--same--]  conjoined the two left-most antecedents
+ 1-Aug-04 peano1c   1nn
+ 1-Aug-04 1nn       1onn
+28-Jul-04 sbco0     sbid2
+28-Jul-04 sbid2     sbid2v
+26-Jul-04 cardonval oncardval
+15-Jun-04 ssin      [--same--]  swapped biconditional order
+15-Jun-04 unss      [--same--]  swapped biconditional order
+11-Jun-04 dfun2     df-un
+11-Jun-04 df-un     dfun2
+11-Jun-04 dfin2     df-in
+11-Jun-04 df-in     dfin2
+ 3-Jun-04 ssintss   intss
+ 3-Jun-04 intss     intss1
+30-May-04 r1clos    r1pwcl      now uses antecedent instead of hypothesis
+30-May-04 r1powt    r1pw
+28-May-04 sqvalt    ---         obsolete; use exp2
+28-May-04 expntwo   exp2
+28-May-04 expnone   ---         obsolete; use expp1t
+28-May-04 expnsuc   ---         obsolete; use expp1t
+28-May-04 expnzer   ---         obsolete; use exp0t
+26-May-04 ontrt     ---         obsolete; use onelon instead
+26-May-04 ddelim*   [--same--]  (*=wildcard) changed order of hypotheses
+21-May-04 fvcnvb    f1ocnvfvb
+21-May-04 fvcnv     f1ocnvfv
+21-May-04 sbcb      sbcbidig    now uses antecedent instead of hypothesis
+21-May-04 sbci      sbcimg
+21-May-04 sbb       sbbi
+21-May-04 sbo       sbor
+21-May-04 sbi       sbim
+21-May-04 sbim      sbimi
+21-May-04 sba       sban
+21-May-04 fvelrn    [--same--]  changed to restricted quantifier
+ 8-Feb-04 zfpowb    pwexb
+ 8-Feb-04 zfpowcl   pwex
+ 8-Feb-04 zfnull    0ex
+ 8-Feb-04 limelon   [--same--]  changed first -> to /\ in antecedent
+
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+           Notes for anyone attempting to find shorter proofs
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+I like shorter proofs, and any shorter proof I accept will be acknowledged.
+
+Usually I will automatically accept shorter proofs that (1) shorten the set.mm
+file (with compressed proofs), (2) reduce the size of the HTML file generated
+with SHOW STATEMENT xx / HTML, (3) use only existing, unmodified theorems in
+the database (the order of theorems may be changed though), (4) use no
+additional axioms, and (5) involve none of the special cases listed below.
+
+Usually I will also automatically accept a _new_ theorem that is used to
+shorten multiple proofs, if the total size of set.mm (including the comment of
+the new theorem) decreases as a result.
+
+In borderline cases, I may choose to look primarily at the number of compressed
+proof steps with less weight on the length of the label section (since the
+names are in principal arbitrary).  If two proofs have the same number of
+compressed proof steps, I will typically give preference to the one with the
+smaller number of different labels, or if these are the same, the proof with
+the fewest number of characters that the proofs happen to have by chance when
+label lengths are included.
+
+The remainder of this section lists theorems that purposely do not have
+shortest proofs for various reasons.  It is primarily a reminder to myself and
+normally you don't have to worry about it.  In the list, theorem names are
+surrounded by whitespace to facilitate future label changes.
+
+The proofs of id1 , ax9a , ax15 , snex , sbth , ordon , ltso and several other
+theorems (in particular ones avoiding ax-reg and ax-ac ) could be made shorter
+but are longer to illustrate specific points or to avoid specific axioms.
+
+The following proofs should not be MINIMIZE_WITH'ed in the Proof Assistant,
+since they are for illustrative purposes, have proofs that avoid certain
+axioms, or involve areas I want to rework in the future.
+
+   " id1 " using anything
+   " biigb " using anything
+   " con3th " using " con3 "
+   " merlem1 " through " ax3 " using anything
+   " ax4-* " using " ax-4 "
+   " ax6-* " using " ax-6 "
+   " ax7-* " using " ax-7 "
+   " ax9a " using " ax-9 "
+   " ax15 " using " ax-15 "
+   " hbequid " using " equid "
+   " dvelimf " using " dvelimfALT "
+   anything using " om0x " (i.e. don't use om0x - use om0 instead)
+   " dtru " , " dtruALT " , " ax16 " using anything
+   " pwpw0 " using " pwsn "
+   " omex " using " inf3 "
+   " pjpj " using " pjpj0 "
+   " pjoml " using " omls "
+   " pjococ " using " omlsi "
+   " pjococ " using " ococ "
+   " pjpjtht " using " pjtht "
+   " pjpjth " using " pjth "
+
+In set theory, don't use equequ1 , equequ2 , elequ1 , elequ2 - use the set
+theory versions eqeq1 , eqeq2 , eleq1 , eleq2 instead.
+
+Don't use ax17eq or ax17el - use ax-17 instead.
+
+Don't use elirr if efrirr , ordirr , or onirr can be used (to avoid the Axiom
+of Regularity when it is not needed).
+
+Always use weq, wel, wsb instead of wceq, wcel, wsbc in predicate calculus.
+The opposite applies to set theory.  If e.g. weq is accidentally used in set
+theory, "minimize_with wceq / allow_growth" in the Proof Assistant will replace
+it with wceq.
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+                              Bibliography
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+Bibliographical references are made by bracketing an identifer in a theorem's
+comment, such as [RussellWhitehead].  These refer to HTML tags on the following
+web pages:
+
+  Logic and set theory - see http://us.metamath.org/mpegif/mmset.html#bib
+  Hilbert space - see http://us.metamath.org/mpegif/mmhil.html#ref
+
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+     Quick "How To" use this file (under Windows 95/98/NT/2K/XP)
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+1. Download the program metamath.exe per the instructions on the
+   Metamath home page (http://metamath.org) and put it in the same
+   directory as this file (set.mm).
+2. In Windows Explorer, double-click on metamath.exe.
+3. Type "read set.mm" and press Enter.
+4. Type "help" for a list of help topics, and "help demo" for some
+   command examples.
+
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+                       Metamath syntax summary
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+The HELP LANGUAGE command in the Metamath program will give you a quick
+overview of Metamath.  Syntax summary:
+
+          $c ... $. - Constant declaration
+          $v ... $. - Variable declaration
+          $d ... $. - Disjoint (distinct) variable restriction
+  <label> $f ... $. - "Floating" hypothesis (i.e. variable type declaration)
+  <label> $e ... $. - "Essential" hypothesis (i.e. a logical assumption for a
+                      theorem or axiom)
+  <label> $a ... $. - Axiom or definition or syntax construction
+  <label> $p ... $= ... $. - Theorem and its proof
+          ${ ... $} - Block for defining the scope of the above statements
+                      (except $a, $p which are forever active)
+$)        $( ... $) $( - Comments (may not be nested); see HELP LANGUAGE
+                         for markup features
+          $[ ... $] - Include a file
+
+The above tokens (i.e. those beginning with "$") are the ONLY primitives built
+into the Metamath language.  The only 'logic' Metamath uses in its proof
+verification algorithm is the substitution of expressions for variables while
+checking for distinct variable violations.  EVERYTHING ELSE, including the
+axioms for logic, is defined in this database file.
+
+Here is some more detail about the syntax.  A <token> may not contain the "$"
+character but may contain any other non-whitespace printable character.  A
+<label> may contain only alphanumeric characters and the characters ".-_".
+Tokens and labels are case-sensitive.
+
+          $c <tokenlist> $. <tokenlist> is a (whitespace-separated) list of
+                            distinct tokens unused in current scope.
+          $v <tokenlist> $. <tokenlist> is a (whitespace-separated) list of
+                            distinct tokens unused in current scope.
+          $d <tokenlist> $. <tokenlist> is a (whitespace-separated) list of
+                            distinct tokens previously declared with $v in
+                            current scope.  It means that substitutions into
+                            these tokens may not have variables in common.
+  <label> $f <tokenlist> $. <tokenlist> is a list of 2 tokens, the first of
+                            which must be previously declared with $c
+                            in the current scope.
+  <label> $e <tokenlist> $. <tokenlist> is a list of 2 or more tokens, the
+                            first of which must be previously declared with $c
+                            in the current scope.
+  <label> $a <tokenlist> $. <tokenlist> is a list of 2 or more tokens, the
+                            first of which must be previously declared with $c
+                            in the current scope.
+  <label> $p <tokenlist> $= <proof> $. <tokenlist> is a list of 2 or more
+                            tokens, the first of which must be previously
+                            declared with $c in the current scope.  <proof> is
+                            either a whitespace-delimited sequence of previous
+                            labels (created by SAVE PROOF <label> /NORMAL) or a
+                            compressed proof (created by SAVE PROOF <label>
+                            /COMPRESSED).  After using SAVE PROOF, use
+                            WRITE SOURCE to save the database file to disk.
+          ${ ... $} - Block for scoping the above statements (except $a, $p
+                      which are forever active)
+$)        $( <any text> $) $( Comment.  Note: <any text> may not contain
+                             adjacent "$" and ")" characters.
+          $[ <filename> $]   Insert contents of <filename> at this point.
+                             If <filename> is current file or has been already
+                             been inserted, it will not be inserted again.
+
+Inside of comments, it is recommended that labels be preceded with a tilde (~)
+and math symbol tokens be enclosed in grave accents (` `).  This way the LaTeX
+and HTML rendition of comments will be accurate, and (future) tools to globally
+change labels and math symbols will also change them in comments.  Note that ``
+inside of grave accents is interpreted as a single ` . See HELP LANGUAGE for
+other markup features in comments.
+
+The proofs in this file are in "compressed" format for storage efficiency.  The
+Metamath program reads the compressed format directly.  This format is
+described in an Appendix of the Metamath book.  It is not intended to be read
+by humans.  For viewing proofs you should use the various SHOW PROOF commands
+described in the Metamath book (or the on-line HELP).
+
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+                           Other notes
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+1. It is recommended that you be familiar with chapters 2 and 4 of the
+'Metamath' book to understand the Metamath language.  Chapters 2, 3 and 5
+explain how to use the program.  Chapter 3 gives you an informal overview of
+what this source file is all about.  Appendix A shows you the standard
+mathematical symbols corresponding to some of the ASCII tokens in this file.
+
+The ASCII tokens may seem cryptic at first, even if you are familiar with set
+theory, but a review of the definition summary in Chapter 3 should quickly
+enable you to see the correspondence to standard mathematical notation.  To
+easily find the definition of a token, search for the first occurrences of the
+token surrounded by spaces.  Some odd-looking ones include "-." for "not", and
+"(_" for "is a subset of."  (HELP TEX tells you how to obtain a LaTeX output to
+see the real mathematical symbols.)  Let me know if you have better suggestions
+for naming ASCII tokens.
+
+2. Logic and set theory provide a foundation for all of mathematics.  To learn
+about them, you should study one or more of the references listed below.  The
+textbooks provide a motivation for what we are doing, whereas Metamath lets you
+see in detail all hidden and implicit steps.  Most standard theorems are
+accompanied by citations.  Some closely followed texts include the following:
+
+  Axioms of propositional calculus - [Margaris].
+  Axioms of predicate calculus - [Megill] (System S3' in the article
+      referenced).
+  Theorems of propositional calculus - [WhiteheadRussell].
+  Theorems of pure predicate calculus - [Margaris].
+  Theorems of equality and substitution - [Monk2], [Tarski], [Megill].
+  Axioms of set theory - [BellMachover].
+  Development of set theory - [TakeutiZaring].  (The first part of [Quine]
+      has a good explanation of the powerful device of "virtual" or
+      class abstractions, which is essential to our development.)
+  Construction of real and complex numbers - [Gleason]
+  Theorems about real numbers - [Apostol]
+
+3. Convention:  All $a statements starting with "|-" have labels starting with
+"ax-" (axioms) or "df-" (definitions).  "ax-" corresponds to what is
+traditionally called an axiom.  "df-" introduces new symbols or a new
+relationship among symbols that can be eliminated; they always extend the
+definition of a wff or class.  Metamath blindly treats $a statements as new
+facts but does not try to justify them; their justification is the job of
+mathematicians and philosophers.  Generally our philosophy is to make
+definitions easy to eliminate by simple symbol substitutions.
+
+4. Our method of definition, the axioms for predicate calculus, and the
+development of substitution are somewhat different from those found in standard
+texts.  The axioms were designed for direct derivation of standard results
+without excessive use of metatheorems.  (See Theorem 9.7 of [Megill] for a
+rigorous justification.)  Typically we are minimalist when introducing new
+definitions; they are introduced only when a clear advantage becomes apparent
+for reducing the number of symbols, shortening proofs, etc.  We generally avoid
+the introduction of gratuitous definitions because each one requires associated
+theorems and additional elimination steps in proofs.
+
+5. For the most part, the notation attempts to conform to modern conventions,
+with variations due to our choice of the axiom system or to make proofs
+shorter.  Listed below are some important conventions and how they correspond
+to textbook language.  The notation is usually explained in more detail when
+first introduced.
+
+  Typically, Greek letters (ph = phi, ps = psi, ch = chi, etc.) are used for
+      propositional (wff) variables; x,y,z,... for individual (i.e. set)
+      variables; and A,B,C,... for class variables.
+  "|-", meaning "It is provable that," is the first token of all assertions
+      and hypotheses that aren't syntax constructions.  This is a standard
+      convention in logic.  For us, it also prevents any ambiguity with
+      statements that are syntax constructions, such as "wff -. ph".
+  "$e |- ( ph -> A. x ph ) $." should be read "Assume variable x is
+      (effectively) not free in wff phi."  Literally, this says "Assume it is
+      provable that phi implies for all x phi."
+  "|- ( -. A. x x = y -> ..." should be read "If x and y are distinct
+      variables, then..."  This antecedent provides us with a technical
+      device (called a "distinctor" in [Megill]) to avoid the need for the
+      $d statement early in our development of predicate calculus, permitting
+      unrestricted substitituions as conceptually simple as those in
+      propositional calculus.  However, the $d eventually becomes a
+      requirement, and after that this device is rarely used.
+  "[ y / x ] ph" should be read "the wff that results when y is properly
+      substituted for x in ph."
+  "$d x y $." should be read "Assume x and y are distinct variables."
+  "$d x ph $." should be read "Assume x does not occur in phi $."  Sometimes
+      a theorem is proved with "$e |- ( ph -> A. x ph ) $." in place of
+      "$d x ph $." when a more general result is desired; ~ ax-17 can be used
+      to derive the $d version.  For an example of how to get from the $d
+      version back to the $e version, see the proof of ~ euf from ~ df-eu .
+  "$d x A $." should be read "Assume x is not a variable occurring in class
+      A."
+  "$d x A $.  $d x ps $.  $e |- ( x = A -> ( ph <-> ps ) ) $." is an idiom
+      often used instead of explicit substitution, meaning "Assume psi results
+      from the substitution of A for x in phi."
+  "$e |- A e. V $." should be read "Assume class A is a set (i.e. exists)."
+      This is a convenient convention used by [Quine].
+  "$d x y $.  $e |- y e. A -> A. x y e. A $." should be read "Assume x is
+      (effectively) not a free variable in class A."
+  "`' R" should be read "converse of (relation) R" and is the same as
+      the more standard notation R^{-1}.
+  "( f ` x )" should be read "the value of function f at x" and is the same
+      as the more familiar f(x).
+  The Deduction Theorem of standard logic is never used.  Instead, in
+      set theory we use other tricks to make a $e hypothesis become
+      an antecedent.  See the comment for theorem ~ dedth below.
+
+$)
+

@@ -13,8 +13,8 @@ $)
      are not careful, see the comment in ~ cneg .) $)
   co $a class ( A F B ) $.
 
-  $( Extend class notation to include class abstractions of nested
-     ordered pairs. $)
+  $( Extend class notation to include class abstraction (class builder) of
+     nested ordered pairs. $)
   copab2 $a class { <. <. x , y >. , z >. | ph } $.
 
   $( Define the value of an operation.  Definition of operation value in
@@ -36,14 +36,14 @@ $)
 
   ${
     $d x w $.  $d y w $.  $d z w $.  $d w ph $.
-    $( Define the class abstraction of a collection of nested ordered pairs
-       (for use in defining operations).  This is a special case of Definition
-       4.16 of [TakeutiZaring] p. 14.  Normally ` x ` , ` y ` , and ` z ` are
-       distinct, although the definition doesn't strictly require it.  See
-       ~ df-opr for the value of an operation.  The brace notation is called
-       "class abstraction" by Quine; it is also called a "class builder" in the
-       literature.  The value of the most common operation class builder is
-       given by ~ oprabval2 .$)
+    $( Define the class abstraction (class builder) of a collection of nested
+       ordered pairs (for use in defining operations).  This is a special case
+       of Definition 4.16 of [TakeutiZaring] p. 14.  Normally ` x ` , ` y ` ,
+       and ` z ` are distinct, although the definition doesn't strictly require
+       it.  See ~ df-opr for the value of an operation.  The brace notation is
+       called "class abstraction" by Quine; it is also called a "class builder"
+       in the literature.  The value of the most common operation class builder
+       is given by ~ oprabval2 . $)
     df-oprab $a |- { <. <. x , y >. , z >. | ph } =
                   { w | E. x E. y E. z ( w = <. <. x , y >. , z >. /\ ph ) } $.
   $}
@@ -90,6 +90,11 @@ $)
         ( co opreq1i opreq2i eqtr ) ACEHBCEHBDEHABCEFICDBEGJK $.
         $( [28-Feb-1995] $)
     $}
+
+    $( Equality inference for operation value. $)
+    opreqi $p |- ( C A D ) = ( C B D ) $=
+      ( wceq co opreq ax-mp ) ABFCDAGCDBGFECDABHI $.
+      $( [27-Nov-2007] $) $( [24-Nov-2007] $)
   $}
 
   ${
@@ -138,8 +143,7 @@ $)
     hbopr.3 $e |- ( y e. B -> A. x y e. B ) $.
     $( Bound-variable hypothesis builder for operation value. $)
     hbopr $p |- ( y e. ( A F B ) -> A. x y e. ( A F B ) ) $=
-      ( cv cop cfv wcel wal co hbop hbfv df-opr eleq2i albii 3imtr4 ) BIZCDJZEK
-      ZLZUDAMUACDENZLZUFAMABUBEGABCDFHOPUEUCUACDEQRZUFUDAUGST $.
+      ( co cop cfv df-opr hbop hbfv hbxfr ) ABCDEICDJZEKCDELABPEGABCDFHMNO $.
       $( [5-May-2004] $) $( [4-May-2004] $)
   $}
 
@@ -287,9 +291,8 @@ $)
        free. $)
     hboprab1 $p |- ( w e. { <. <. x , y >. , z >. | ph } ->
                    A. x w e. { <. <. x , y >. , z >. | ph } ) $=
-      ( vv cv cop wceq wa wex cab wcel wal copab2 hbe1 hbab df-oprab eleq2i
-      albii 3imtr4 ) EGZFGBGCGHDGHIAJDKCKZBKZFLZMZUFBNUBABCDOZMZUHBNUDBFEUCBPQU
-      GUEUBABCDFRSZUHUFBUITUA $.
+      ( vv copab2 cv cop wceq wa wex cab df-oprab hbe1 hbab hbxfr ) BEABCDGFHBH
+      CHIDHIJAKDLCLZBLZFMABCDFNSBFERBOPQ $.
       $( [25-Apr-1995] $)
   $}
 
@@ -299,9 +302,8 @@ $)
        free. $)
     hboprab2 $p |- ( w e. { <. <. x , y >. , z >. | ph } ->
                    A. y w e. { <. <. x , y >. , z >. | ph } ) $=
-      ( vv cv cop wceq wa wex cab wcel wal copab2 hbe1 hbex hbab df-oprab
-      eleq2i albii 3imtr4 ) EGZFGBGCGHDGHIAJDKZCKZBKZFLZMZUHCNUCABCDOZMZUJCNUFC
-      FEUECBUDCPQRUIUGUCABCDFSTZUJUHCUKUAUB $.
+      ( vv copab2 cv cop wceq wa wex cab df-oprab hbe1 hbex hbab hbxfr ) CEABCD
+      GFHBHCHIDHIJAKDLZCLZBLZFMABCDFNUACFETCBSCOPQR $.
       $( [25-Apr-1995] $)
   $}
 
@@ -407,6 +409,20 @@ $)
   $}
 
   ${
+    elimdeloprv.1 $e |- ( ph -> C e. ( A F B ) ) $.
+    elimdeloprv.2 $e |- Z e. ( X F Y ) $.
+    $( Eliminate a hypothesis which is a predicate expressing membership in the
+       result of an operator (deduction version).  See ~ ghomgrplem for an
+       example of its use.  (Contributed by Paul Chapman, 25-Mar-2008.) $)
+    elimdeloprv $p |- if ( ph , C , Z ) e.
+                     ( if ( ph , A , X ) F if ( ph , B , Y ) ) $=
+      ( cif co wcel iftrue eqeltrd opreq12d eleqtrrd wn iffalse syl6eqel
+      pm2.61i ) AADHKZABFKZACGKZELZMAUBBCELZUEAUBDUFADHNIOAUCBUDCEABFNACGNPQARZ
+      UBFGELZUEUGUBHUHADHSJTUGUCFUDGEABFSACGSPQUA $.
+      $( [26-Mar-2008] $) $( [25-Mar-2008] $)
+  $}
+
+  ${
     $d x y z w $.  $d w ph $.
     $( The domain of an operation class abstraction. $)
     dmoprab $p |- dom { <. <. x , y >. , z >. | ph } =
@@ -509,14 +525,39 @@ $)
 
   ${
     $d x y z w $.  $d w ph $.
+    $( "At most one" is a sufficient condition for an operation class
+       abstraction to be a function. $)
+    funoprabg $p |- ( A. x A. y E* z ph ->
+                    Fun { <. <. x , y >. , z >. | ph } ) $=
+      ( vw wmo wal cv cop wceq wa wex copab2 wfun mosubopt 19.21aiv copab wb
+      dfoprab2 funeq ax-mp funopab bitr2 sylib ) ADFCGBGZEHZBHCHIJAKCLBLZDFZEGZ
+      ABCDMZNZUEUHEADBCUFOPUKUGEDQZNZUIUJULJUKUMRABCDESUJULTUAUGEDUBUCUD $.
+      $( [29-Aug-2007] $) $( [28-Aug-2007] $)
+  $}
+
+  ${
+    $d x y z w $.  $d w ph $.
     funoprab.1 $e |- E* z ph $.
-    $( "At most one" is sufficient condition for an operation class abstraction
-       to be a function. $)
+    $( "At most one" is a sufficient condition for an operation class
+       abstraction to be a function. $)
     funoprab $p |- Fun { <. <. x , y >. , z >. | ph } $=
-      ( vw copab2 wfun cv cop wceq wa wex copab wmo funopab mosubop mpgbir wb
-      dfoprab2 funeq ax-mp mpbir ) ABCDGZHZFIZBICIJKALCMBMZFDNZHZUIUGDOFUGFDPAD
-      BCUFEQRUDUHKUEUISABCDFTUDUHUAUBUC $.
+      ( wmo wal copab2 wfun gen2 funoprabg ax-mp ) ADFZCGBGABCDHIMBCEJABCDKL $.
       $( [17-Mar-1995] $)
+  $}
+
+  ${
+    $d x y z $.  $d z ph $.
+    $( Functionality and domain of an operation class abstraction. $)
+    fnoprabg $p |- ( A. x A. y ( ph -> E! z ps ) ->
+  { <. <. x , y >. , z >. | ( ph /\ ps ) } Fn { <. x , y >. | ph } ) $=
+      ( weu wi wal wa copab2 wfun cdm copab wceq wfn wmo eumo imim2i moanimv
+      sylibr 19.20i2 funoprabg syl wex hba1 hbal wb pm3.26 19.23aiv euex ancld
+      19.42v syl6ibr impbid2 a4s opabbid dmoprab syl5eq jca df-fn ) ABEFZGZDHZC
+      HZABIZCDEJZKZVFLZACDMZNZIVFVIOVDVGVJVDVEEPZDHCHVGVBVKCDVBABEPZGVKVAVLABEQ
+      RABESTUAVECDEUBUCVDVEEUDZCDMVIVHVDVMACDVCCUEVCDCVBDUEUFVCVMAUGZCVBVNDVBVM
+      AVEAEABUHUIVBAABEUDZIVMVBAVOVAVOABEUJRUKABEULUMUNUOUOUPVECDEUQURUSVFVIUTT
+      $.
+      $( [29-Aug-2007] $) $( [28-Aug-2007] $)
   $}
 
   ${
@@ -525,31 +566,9 @@ $)
     $( Functionality and domain of an operation class abstraction. $)
     fnoprab $p |- { <. <. x , y >. , z >. | ( ph /\ ps ) } Fn
                     { <. x , y >. | ph } $=
-      ( wa copab2 copab wfn wfun cdm wceq df-fn wmo wi weu eumo syl moanimv
-      mpbir funoprab wex dmoprab pm3.26 19.23aiv euex ancli 19.42v sylibr
-      impbi opabbii eqtr mpbir2an ) ABGZCDEHZACDIZJUPKUPLZUQMUPUQNUOCDEUOEOABEO
-      ZPABEQZUSFBERSABETUAUBURUOEUCZCDIUQUOCDEUDVAACDVAAUOAEABUEUFAABEUCZGVAAVB
-      AUTVBFBEUGSUHABEUIUJUKULUMUN $.
+      ( weu wi wal wa copab2 copab wfn gen2 fnoprabg ax-mp ) ABEGHZDICIABJCDEKA
+      CDLMQCDFNABCDEOP $.
       $( [15-May-1995] $)
-  $}
-
-  ${
-    $d x y z A $.  $d x y z B $.  $d z C $.
-    fnoprab2.1 $e |- C e. V $.
-    fnoprab2.2 $e |- F = { <. <. x , y >. , z >. | ( ( x e. A /\ y e. B )
-             /\ z = C ) } $.
-    $( Functionality and domain of an operation class abstraction. $)
-    fnoprab2 $p |- F Fn ( A X. B ) $=
-      ( cxp wfn cv wcel wa wceq copab2 copab weu eueq1 a1i fnoprab wb fneq1
-      ax-mp df-xp fneq2 bitr mpbir ) GDEJZKZALDMBLEMNZCLFOZNABCPZUKABQZKZUKULAB
-      CULCRUKCFHSTUAUJUMUIKZUOGUMOUJUPUBIUIGUMUCUDUIUNOUPUOUBABDEUEUIUNUMUFUDUG
-      UH $.
-      $( [26-Aug-1995] $)
-
-    $( Domain of an operation class abstraction. $)
-    dmoprab2 $p |- dom F = ( A X. B ) $=
-      ( cxp wfn cdm wceq fnoprab2 fndm ax-mp ) GDEJZKGLQMABCDEFGHINQGOP $.
-      $( [14-Nov-2004] $) $( [23-Sep-2004] $)
   $}
 
   ${
@@ -569,7 +588,7 @@ $)
     foprcl.1 $e |- F : ( R X. S ) --> C $.
     $( Closure law for an operation. $)
     foprcl $p |- ( ( A e. R /\ B e. S ) -> ( A F B ) e. C ) $=
-      ( vx vy wcel wa cv co wral cxp wf wfn ffnoprval pm3.27bd ax-mp wceq
+      ( vx vy wcel wa cv co wral cxp wf wfn ffnoprval pm3.27bi ax-mp wceq
       opreq1 eleq1d opreq2 rcla42v mpi ) ADJBEJKHLZILZFMZCJZIENHDNZABFMZCJZDEOZ
       CFPZUKGUOFUNQUKHIDECFRSTUJUMAUHFMZCJHIABDEUGAUAUIUPCUGAUHFUBUCUHBUAUPULCU
       HBAFUDUCUEUF $.
@@ -635,14 +654,26 @@ $)
 
   ${
     $d x y z A $.  $d x y z B $.  $d z C $.
+    oprabex2g.1 $e |- F = { <. <. x , y >. , z >. | ( ( x e. A /\ y e. B )
+             /\ z = C ) } $.
+    $( Existence of an operation class abstraction (special case). $)
+    oprabex2g $p |- ( ( A e. R /\ B e. S ) -> F e. V ) $=
+      ( wcel wa cv wceq copab2 cvv cdm cxp wss ssexg dmoprabss a1i xpexg
+      sylanc wfun moeq moani funoprab funex mpan syl syl5eqel ) DGKEHKLZAMDKBME
+      KLZCMFNZLZABCOZPIUMUQQZPKZUQPKZURDERZSZVAPKUSUMURVAPTVBUMUOABCDEUAUBDEGHU
+      CUDUQUEUSUTUPABCUOUNCCFUFUGUHPUQUIUJUKJUL $.
+      $( [31-Aug-2007] $) $( [27-Aug-2007] $)
+  $}
+
+  ${
+    $d x y z A $.  $d x y z B $.  $d z C $.
     oprabex2.1 $e |- A e. V $.
     oprabex2.2 $e |- B e. V $.
     oprabex2.3 $e |- F = { <. <. x , y >. , z >. | ( ( x e. A /\ y e. B )
              /\ z = C ) } $.
     $( Existence of an operation class abstraction (special case). $)
     oprabex2 $p |- F e. V $=
-      ( cv wceq wmo wcel wa moeq a1i oprabex ) CKFLZABCDEGHISCMAKDNBKENOCFPQJR
-      $.
+      ( cvv wcel oprabex2g mp2an ) DKLEKLGKLHIABCDEFKKGJMN $.
       $( [11-Nov-1995] $)
   $}
 
@@ -736,23 +767,23 @@ $)
     oprabval2gf.4 $e |- ( y = B -> G = S ) $.
     oprabval2gf.5 $e |- F = { <. <. x , y >. , z >. | ( ( x e. C /\ y e. D )
                       /\ z = R ) } $.
-    $( The value of an operation class abstraction. A version of ~ oprabval2g
+    $( The value of an operation class abstraction.  A version of ~ oprabval2g
        using bound-variable hypotheses. $)
     oprabval2gf $p |- ( ( A e. C /\ B e. D /\ S e. H ) -> ( A F B ) = S ) $=
       ( vu vv wcel w3a cv wa csb wceq copab2 co eqid cvv visset ax-17 wex
-      eqvinc hbcsb1 hbeq csbeq1a eqcomd sylan9eq 19.23ai sylbi csbeq2d mpan2
-      eqeq2d eqeq1 wmo moeq a1i oprabvalig mpi wal wi hbcsbg ax-mp hban eleq1
-      anbi1d anbi12d anbi2d sylan9bb cbvoprab12 eqtr opreq syl5eq ) EGUAFHUAJMU
-      AUBZEFSUCZGUAZTUCZHUAZUDZCUCZBWHAWFIUEZUEZUFZUDZSTCUGZUHZJEFKUHZWEJJUFZWQ
-      JUFJUIWNWKBWHLUEZUFWKJUFWSSTCEFJMGHWPWFEUFZWMWTWKXAWHUJUAZWMWTUFTUKZXABWH
-      WLLUJXABULXAAUCZWFUFZXDEUFZUDZAUMWLLUFZAWFESUKZUNXGXHAADDWLLADWFIXIDUCZWF
-      UAAULUOZNUPXEXFWLILXEIWLAWFIUQZURPUSUTVAVBVCVDWHFUFZWTJWKXMBUCZWHUFZXNFUF
-      ZUDZBUMWTJUFZBWHFXCUNXQXRBBDDWTJBDWHLXCXJWHUAZBULZUOOUPXOXPWTLJXOLWTBWHLU
-      QURQUSUTVAVDWKJJVEWNCVFWJCWMVGVHWPUIVIVJKWPUFWRWQUFKXDGUAZXNHUAZUDZWKIUFZ
-      UDZABCUGWPRYEWOABCSTYESULYETULWJWNAWJAULADDWKWMXJWKUAZAULXBXJWMUAZYGAVKVL
-      XCABDWHWLUJXSAULXKVMVNUPVOWJWNBWJBULBDDWKWMYFBULBDWHWLXCXTUOUPVOXEYEWGYBU
-      DZWKWLUFZUDXOWOXEYCYHYDYIXEYAWGYBXDWFGVPVQXEIWLWKXLVDVRXOYHWJYIWNXOYBWIWG
-      XNWHHVPVSXOWLWMWKBWHWLUQVDVRVTWAWBEFKWPWCVNWD $.
+      eqvinc hbcsb1 hbeq csbeq1a sylan9req 19.23ai sylbi csbeq2d mpan2 eqeq2d
+      eqeq1 wmo moeq a1i oprabvalig mpi wal wi hbcsbg ax-mp hban eleq1 anbi1d
+      anbi12d anbi2d sylan9bb cbvoprab12 eqtr opreqi syl5eq ) EGUAFHUAJMUAUBZEF
+      SUCZGUAZTUCZHUAZUDZCUCZBWGAWEIUEZUEZUFZUDZSTCUGZUHZJEFKUHWDJJUFZWPJUFJUIW
+      MWJBWGLUEZUFWJJUFWQSTCEFJMGHWOWEEUFZWLWRWJWSWGUJUAZWLWRUFTUKZWSBWGWKLUJWS
+      BULWSAUCZWEUFZXBEUFZUDZAUMWKLUFZAWEESUKZUNXEXFAADDWKLADWEIXGDUCZWEUAAULUO
+      ZNUPXCXDWKILAWEIUQZPURUSUTVAVBVCWGFUFZWRJWJXKBUCZWGUFZXLFUFZUDZBUMWRJUFZB
+      WGFXAUNXOXPBBDDWRJBDWGLXAXHWGUAZBULZUOOUPXMXNWRLJBWGLUQQURUSUTVCWJJJVDWMC
+      VEWICWLVFVGWOUIVHVIKWOEFKXBGUAZXLHUAZUDZWJIUFZUDZABCUGWORYCWNABCSTYCSULYC
+      TULWIWMAWIAULADDWJWLXHWJUAZAULWTXHWLUAZYEAVJVKXAABDWGWKUJXQAULXIVLVMUPVNW
+      IWMBWIBULBDDWJWLYDBULBDWGWKXAXRUOUPVNXCYCWFXTUDZWJWKUFZUDXMWNXCYAYFYBYGXC
+      XSWFXTXBWEGVOVPXCIWKWJXJVCVQXMYFWIYGWMXMXTWHWFXLWGHVOVRXMWKWLWJBWGWKUQVCV
+      QVSVTWAWBWC $.
       $( [17-Aug-2006] $) $( [17-Aug-2006] $)
   $}
 
@@ -763,7 +794,7 @@ $)
     oprabval2g.2 $e |- ( y = B -> G = S ) $.
     oprabval2g.3 $e |- F = { <. <. x , y >. , z >. | ( ( x e. C /\ y e. D )
                       /\ z = R ) } $.
-    $( The value of an operation class abstraction. Special case. $)
+    $( The value of an operation class abstraction.  Special case. $)
     oprabval2g $p |- ( ( A e. C /\ B e. D /\ S e. H ) -> ( A F B ) = S ) $=
       ( vw cv wcel ax-17 oprabval2gf ) ABCPDEFGHIJKLPQZKRASUAIRBSMNOT $.
       $( [14-Sep-1999] $)
@@ -852,38 +883,45 @@ $)
     oprabval6g.1 $e |- ( <. x , y >. = <. A , B >. -> R = S ) $.
     oprabval6g.2 $e |- F = { <. <. x , y >. , z >. | ( <. x , y >. e. C
                       /\ z = R ) } $.
-    $( The value of an operation class abstraction. Special case. $)
+    $( The value of an operation class abstraction.  Special case. $)
     oprabval6g $p |- ( ( ( A e. G /\ B e. H /\ <. A , B >. e. C ) /\ S e. J )
                      -> ( A F B ) = S ) $=
       ( vw wcel cop w3a wa cfv co cv wceq wex eqid pm4.2i copsex2g mpbiri
       3adant3 adantr wi eqeq1 anbi1d wb eqeq2d eqcoms pm5.32i syl6bb 2exbidv
       anbi2d wmo moeq mosubop a1i copab2 copab dfoprab2 eleq1 an12 bitr3
-      2exbii 19.42vv bitr opabbii 3eqtr fvopab3ig 3simp3 sylan mpd df-opr
-      syl5eq ) DJPZEKPZDEQZFPZRZHLPZSZWDITZHDEIUAWHWDAUBZBUBZQZUCZHHUCZSZBUDAUD
-      ZWIHUCZWFWPWGWBWCWPWEWBWCSWPWNHUEWNWNABDEJKWJDUCWKEUCSWNUFUGUHUIUJWEWGWPW
-      QUKWFOUBZWLUCZCUBZGUCZSZBUDAUDZWMWTHUCZSZBUDAUDWPOCWDHFLIWRWDUCZXBXEABXFX
-      BWMXASXEXFWSWMXAWRWDWLULUMWMXAXDXAXDUNWLWDWLWDUCGHWTMUOUPUQURUSXDXEWOABXD
-      XDWNWMWTHHULUTUSXCCVAWRFPZXACABWRCGVBVCVDIWLFPZXASZABCVEWSXISZBUDAUDZOCVF
-      XGXCSZOCVFNXIABCOVGXKXLOCXKXGXBSZBUDAUDXLXJXMABXJWSXGXASZSXMWSXNXIWSXGXHX
-      AWRWLFVHUMUQWSXGXAVIVJVKXGXBABVLVMVNVOVPWBWCWEVQVRVSDEIVTWA $.
+      2exbii 19.42vv bitr opabbii 3eqtr fvopab3ig 3ad2antl3 mpd df-opr syl5eq
+      ) DJPZEKPZDEQZFPZRZHLPZSZWCITZHDEIUAWGWCAUBZBUBZQZUCZHHUCZSZBUDAUDZWHHUCZ
+      WEWOWFWAWBWOWDWAWBSWOWMHUEWMWMABDEJKWIDUCWJEUCSWMUFUGUHUIUJWDWAWFWOWPUKWB
+      OUBZWKUCZCUBZGUCZSZBUDAUDZWLWSHUCZSZBUDAUDWOOCWCHFLIWQWCUCZXAXDABXEXAWLWT
+      SXDXEWRWLWTWQWCWKULUMWLWTXCWTXCUNWKWCWKWCUCGHWSMUOUPUQURUSXCXDWNABXCXCWMW
+      LWSHHULUTUSXBCVAWQFPZWTCABWQCGVBVCVDIWKFPZWTSZABCVEWRXHSZBUDAUDZOCVFXFXBS
+      ZOCVFNXHABCOVGXJXKOCXJXFXASZBUDAUDXKXIXLABXIWRXFWTSZSXLWRXMXHWRXFXGWTWQWK
+      FVHUMUQWRXFWTVIVJVKXFXAABVLVMVNVOVPVQVRDEIVSVT $.
       $( [13-Nov-2006] $) $( [13-Nov-2006] $)
   $}
 
-  ${
-    $( The value of a restricted operation.  (Contributed by FL,
-       10-Nov-2006.) $)
-    oprvalres $p |- ( ( A e. C /\ B e. D ) ->  ( A ( F |` ( C X. D ) ) B )
-      = ( A F B ) ) $=
-      ( wcel wa cop cxp cres cfv co wceq opelxpi fvres syl df-opr 3eqtr4g ) ACF
-      BDFGZABHZECDIZJZKZTEKZABUBLABELSTUAFUCUDMABCDNTUAEOPABUBQABEQR $.
-      $( [10-Nov-2006] $) $( [3-Nov-2006] $)
-  $}
+  $( The value of a restricted operation.  (Contributed by FL,
+     10-Nov-2006.) $)
+  oprvalres $p |- ( ( A e. C /\ B e. D ) ->  ( A ( F |` ( C X. D ) ) B )
+    = ( A F B ) ) $=
+    ( wcel wa cop cxp cres cfv co wceq opelxpi fvres syl df-opr 3eqtr4g ) ACFBD
+    FGZABHZECDIZJZKZTEKZABUBLABELSTUAFUCUDMABCDNTUAEOPABUBQABEQR $.
+    $( [10-Nov-2006] $) $( [3-Nov-2006] $)
+
+  $( The value of a member of the domain of a subclass of an operation. $)
+  oprssoprval $p |- ( ( ( Fun F /\ G Fn ( C X. D ) /\ G (_ F ) /\
+        ( A e. C /\ B e. D ) ) -> ( A F B ) = ( A G B ) ) $=
+    ( wfun cxp wfn wss w3a wcel wa cres co wceq oprvalres adantl cdm fndm
+    reseq2 syl 3ad2ant2 funssres 3adant2 eqtr3d opreqd adantr ) EGZFCDHZIZFEJZK
+    ZACLBDLMZMABEUJNZOZABEOZABFOZUNUPUQPUMABCDEQRUMUPURPUNUMUOFABUMEFSZNZUOFUKU
+    IUTUOPZULUKUSUJPVAUJFTUSUJEUAUBUCUIULUTFPUKEFUDUEUFUGUHUF $.
+    $( [30-Jan-2008] $) $( [23-Aug-2007] $)
 
   $( A operations's value belongs to its codomain. $)
   foprrn $p |- ( ( F : ( R X. S ) --> C /\ A e. R /\ B e. S ) ->
                ( A F B ) e. C ) $=
-    ( cxp wf wcel co cop wa cfv ffvrn df-opr syl5eqel opelxpi sylan2 3impb ) DE
-    GZCFHZADIZBEIZABFJZCIZUAABKZTIZUEUBUCLUAUGLUFFMCUDTCUFFNABFOPABDEQRS $.
+    ( cxp wf wcel co cop wa cfv ffvelrn df-opr syl5eqel opelxpi sylan2 3impb )
+    DEGZCFHZADIZBEIZABFJZCIZUAABKZTIZUEUBUCLUAUGLUFFMCUDTCUFFNABFOPABDEQRS $.
     $( [31-Aug-2006] $) $( [27-Aug-2006] $)
 
   ${
@@ -912,7 +950,7 @@ $)
   $( An operation's value belongs to its range. $)
   fnoprvalrn $p |- ( ( F Fn ( A X. B ) /\ C e. A /\ D e. B ) ->
                    ( C F D ) e. ran F ) $=
-    ( cxp wfn wcel co crn cop wa cfv fnfvrn df-opr syl5eqel opelxpi sylan2
+    ( cxp wfn wcel co crn cop wa cfv fnfvelrn df-opr syl5eqel opelxpi sylan2
     3impb ) EABFZGZCAHZDBHZCDEIZEJZHZUACDKZTHZUFUBUCLUAUHLUGEMUEUDTUGENCDEOPCDA
     BQRS $.
     $( [14-Feb-2007] $) $( [10-Feb-2007] $)
@@ -941,29 +979,6 @@ $)
   $}
 
   ${
-    $d x y z w v u A $.  $d x y z w v u B $.  $d z C $.  $d x y w v u D $.
-    $d w v u F $.
-    elrnoprab.1 $e |- C e. V $.
-    elrnoprab.2 $e |- F = { <. <. x , y >. , z >. | ( ( x e. A /\ y e. B )
-             /\ z = C ) } $.
-    $( Membership in the range of an operation class abstraction. $)
-    elrnoprab $p |- ( D e. ran F <-> E. x e. A E. y e. B D = C ) $=
-      ( vw vv vu cxp wfn crn wcel wceq wrex wb fnoprab2 cv cfv fvelrn cop co
-      fveq2 eqeq1d rexxp ax-17 wa copab2 wal hboprab1 eleq2i albii 3imtr4 hbfv
-      hbeq hbrex opeq1 fveq2d rexbidv cbvrex hboprab2 opeq2 rexbii 3bitr
-      df-opr eqeq1i 2rexbii cvv oprabval4g mp3an3 eqcom syl6bb 2rexbiia 3bitr2
-      ax-mp ) HDENZOZGHPQZGFRZBESADSZTABCDEFHIJUAWAWBKUBZHUCZGRZKVTSZWDKVTGHUDW
-      HAUBZBUBZUEZHUCZGRZBESZADSZWIWJHUFZGRZBESADSWDWHLUBZMUBZUEZHUCZGRZMESZLDS
-      WIWSUEZHUCZGRZMESZADSWOWGXBKLMDEWEWTRWFXAGWEWTHUGUHUIXCXGLADXBAMEWSEQAUJA
-      KKXAGAKWTHWEWIDQZWJEQZUKZCUBFRUKZABCULZQZXMAUMWEHQZXNAUMXKABCKUNHXLWEJUOZ
-      XNXMAXOUPUQWEWTQAUJURWEGQZAUJUSUTXGLUJWRWIRZXBXFMEXQXAXEGXQWTXDHWRWIWSVAV
-      BUHVCVDXGWNADXFWMMBEBKKXEGBKXDHXMXMBUMXNXNBUMXKABCKVEXOXNXMBXOUPUQWEXDQBU
-      JURXPBUJUSWMMUJWSWJRZXEWLGXRXDWKHWSWJWIVFVBUHVDVGVHWQWMABDEWPWLGWIWJHVIVJ
-      VKWQWCABDEXJWQFGRWCXJWPFGXHXIFVLQWPFRIABCDEFVLHJVMVNUHFGVOVPVQVRVPVS $.
-      $( [6-Aug-2004] $) $( [1-Aug-2004] $)
-  $}
-
-  ${
     $d x y z w F $.  $d x y z w A $.  $d x y z w B $.
     oprvalex.1 $e |- A e. V $.
     oprvalex.2 $e |- B e. V $.
@@ -989,10 +1004,18 @@ $)
       $( [24-Aug-1995] $)
   $}
 
+  $( The value of an operation outside its domain. $)
+  ndmoprg $p |- ( ( dom F = ( R X. S ) /\ B e. C /\ -. ( A e. R /\ B e. S ) )
+              -> ( A F B ) = (/) ) $=
+    ( cdm cxp wceq wcel wa wn co c0 cop eleq2 opelxpg sylan9bb negbid cfv
+    ndmfv df-opr syl5eq syl6bir 3impia ) FGZDEHZIZBCJZADJBEJKZLZABFMZNIZUHUIKZU
+    KABOZUFJZLZUMUNUPUJUHUPUOUGJUIUJUFUGUOPABDECQRSUQUOFTNULUOFUAABFUBUCUDUE $.
+    $( [?] $) $( [28-Mar-2008] $)
+
   ${
     ndmoprg.1 $e |- dom F = ( S X. S ) $.
     $( The value of an operation outside its domain. $)
-    ndmoprg $p |- ( ( B e. C /\ -. ( A e. S /\ B e. S ) ) ->
+    ndmoprgOLD $p |- ( ( B e. C /\ -. ( A e. S /\ B e. S ) ) ->
                   ( A F B ) = (/) ) $=
       ( wcel wa wn co c0 wceq cop cdm cxp opelxpg eleq2i syl5bb negbid cfv
       ndmfv df-opr syl5eq syl6bir imp ) BCGZADGBDGHZIZABEJZKLZUFUHABMZENZGZIZUJ
@@ -1011,13 +1034,13 @@ $)
        particular definitions of operation value, function value, and ordered
        pair. $)
     ndmoprcl $p |- ( A F B ) e. S $=
-      ( cvv wcel co wn oprprc2 eleq1d wa c0 ndmoprg syl6eqel ex cv wi wceq
-      opreq2 imbi2d expcom vtoclga imp pm2.61d2 syl5bir com12 impcom cdm wrel
-      cxp relxp releqi mpbir oprprc1 pm2.61i ) BIJZBCEKZDJZUTCIJZVBVCLZUTVBVDVB
-      BBEKZDJZUTVDVAVEDBCEMNUTBDJZVGOZVFUTVHLZVFUTVIOVEPDBBIDEFQHRSVGVGVFVGBATZ
-      EKZDJZUAZVGVFUAABDVJBUBZVLVFVGVNVKVEDVJBBEUCNUDVGVJDJVLGUEZUFUGUHUIUJVCVG
-      CDJZOZVBVCVQLZVBVCVROVAPDBCIDEFQHRSVPVGVBVMVGVBUAACDVJCUBZVLVBVGVSVKVADVJ
-      CBEUCNUDVOUFUKUHUHUTLVAPDBCEEULZUMDDUNZUMDDUOVTWAFUPUQURHRUS $.
+      ( cvv wcel co wn oprprc2 eleq1d wa c0 ndmoprgOLD syl6eqel ex cv wi wceq
+      opreq2 imbi2d expcom vtoclga imp pm2.61d2 syl5cbir impcom cdm wrel cxp
+      relxp releqi mpbir oprprc1 pm2.61i ) BIJZBCEKZDJZUSCIJZVAVBLZVABBEKZDJZUS
+      VCUTVDDBCEMNUSBDJZVFOZVEUSVGLZVEUSVHOVDPDBBIDEFQHRSVFVFVEVFBATZEKZDJZUAZV
+      FVEUAABDVIBUBZVKVEVFVMVJVDDVIBBEUCNUDVFVIDJVKGUEZUFUGUHUIVBVFCDJZOZVAVBVP
+      LZVAVBVQOUTPDBCIDEFQHRSVOVFVAVLVFVAUAACDVICUBZVKVAVFVRVJUTDVICBEUCNUDVNUF
+      UJUHUHUSLUTPDBCEEUKZULDDUMZULDDUNVSVTFUOUPUQHRUR $.
       $( [16-Nov-2004] $) $( [24-Sep-2004] $)
   $}
 
@@ -1026,7 +1049,7 @@ $)
     ndmopr.2 $e |- dom F = ( S X. S ) $.
     $( The value of an operation outside its domain. $)
     ndmopr $p |- ( -. ( A e. S /\ B e. S ) -> ( A F B ) = (/) ) $=
-      ( cvv wcel wa wn co c0 wceq ndmoprg mpan ) BGHACHBCHIJABDKLMEABGCDFNO $.
+      ( cvv wcel wa wn co c0 wceq ndmoprgOLD mpan ) BGHACHBCHIJABDKLMEABGCDFNO $.
       $( [24-Aug-1995] $)
 
     ${
@@ -1085,10 +1108,10 @@ $)
                      ( A R B <-> ( C F A ) R ( C F B ) ) ) $.
         $( Elimination of redundant antecedents in an ordering law. $)
       ndmord $p |- ( C e. S -> ( A R B <-> ( C F A ) R ( C F B ) ) ) $=
-        ( wcel wa wbr co wb wi 3exp imp wn brel oprex ndmoprrcl pm3.27d
-        anim12i syl pm5.21ni a1d pm2.61i ) AEMZBEMZNZCEMZABDOZCAFPZCBFPZDOZQZRZ
-        UKULUTUKULUNUSLSTUMUAUSUNUOUMURABEEDGJUBURUPEMZUQEMZNUMUPUQEEDCBFUCJUBV
-        AUKVBULVAUNUKCAEFIHKUDUEVBUNULCBEFGHKUDUEUFUGUHUIUJ $.
+        ( wcel wa wbr co wb wi 3expia wn brel oprex ndmoprrcl pm3.27d anim12i
+        syl pm5.21ni a1d pm2.61i ) AEMZBEMZNZCEMZABDOZCAFPZCBFPZDOZQZRUJUKUMURL
+        SULTURUMUNULUQABEEDGJUAUQUOEMZUPEMZNULUOUPEEDCBFUBJUAUSUJUTUKUSUMUJCAEF
+        IHKUCUDUTUMUKCBEFGHKUCUDUEUFUGUHUI $.
         $( [7-Mar-1996] $)
     $}
   $}
@@ -1107,19 +1130,20 @@ $)
   $}
 
   ${
+    $d w z A $.  $d w B $.  $d w x y z F $.  $d w x y z S $.
+    caoprcl.1 $e |- ( ( x e. S /\ y e. S ) -> ( x F y ) e. S ) $.
+    $( Convert an operation closure law to class notation. $)
+    caoprcl $p |- ( ( A e. S /\ B e. S ) -> ( A F B ) e. S ) $=
+      ( vz vw cv co wcel wceq opreq1 eleq1d opreq2 vtocl2ga ) HJZIJZFKZELZCSFKZ
+      ELCDFKZELHICDEERCMTUBERCSFNOSDMUBUCESDCFPOAJZBJZFKZELRUEFKZELUAABRSEEUDRM
+      UFUGEUDRUEFNOUESMUGTEUESRFPOGQQ $.
+      $( [4-Aug-1995] $)
+  $}
+
+  ${
     $( General laws for commutative, associative, distributive operations. $)
     $d x y z F $.  $d x y z S $.  $d x y z A $.  $d x y z B $.  $d x y z C $.
     $d x y z D $.  $d x y z G $.  $d x y z R $.
-
-    ${
-      caoprcl.1 $e |- ( ( x e. S /\ y e. S ) -> ( x F y ) e. S ) $.
-      $( Convert an operation closure law to class notation. $)
-      caoprcl $p |- ( ( A e. S /\ B e. S ) -> ( A F B ) e. S ) $=
-        ( cv co wcel wceq opreq1 eleq1d opreq2 vtocl2ga ) AHZBHZFIZEJCQFIZEJCDF
-        IZEJABCDEEPCKRSEPCQFLMQDKSTEQDCFNMGO $.
-        $( [4-Aug-1995] $)
-    $}
-
     ${
       caoprcom.1 $e |- A e. V $.
       caoprcom.2 $e |- B e. V $.
@@ -1338,15 +1362,15 @@ $)
       caoprmo $p |- E* w ( A F w ) = B $=
         ( vv cv wcel co wceq wa wmo wi wal eleq1 opreq2 eqeq1d anbi12d mo4
         opreq1 id eqeq12d vtoclga sylan9eqr visset caoprass caopr12 eqtr
-        syl5eq adantrl adantlr elisseti caoprcom sylan9eq adantrr adantll
-        eqtr3d ax-gen mpgbir mpbiri ndmoprrcl pm3.27d syl ancri immoi ax-mp )
-        DQZGRZEVQHSZFTZUAZDUBZVTDUBWBWAPQZGRZEWCHSZFTZUAZUAZVQWCTZUCZPUDDWAWGDP
-        WIVRWDVTWFVQWCGUEWIVSWEFVQWCEHUFUGUHUIWJPWHVSWCHSZVQWCVRWGWKVQTZVTVRWFW
-        LWDVRWFUAVQWEHSZVQWKWFVRWMVQFHSZVQWEFVQHUFAQZFHSZWOTZWNVQTAVQGWOVQTZWPW
-        NWOVQWOVQFHUJWRUKULOUMUNWKEVQWCHSHSWMABCEVQWCHIDUOZPUOZNUPABCEVQWCHIWSW
-        TMNUQURUSUTVAVTWGWKWCTZVRVTWDXAWFVTWDWKFWCHSZWCVSFWCHUJWDWCFHSZWCXBWQXC
-        WCTAWCGWOWCTZWPXCWOWCWOWCFHUJXDUKULOUMABFWCHFGJVBWTMVCUSVDVEVFVGVHVIVTW
-        ADVTVRVTVSGRZVRVTXEFGRJVSFGUEVJXEEGRVREVQGHWSKLVKVLVMVNVOVP $.
+        syl5eq ad2ant2rl elisseti caoprcom sylan9eq ad2ant2lr eqtr3d ax-gen
+        mpgbir mpbiri ndmoprrcl pm3.27d syl ancri immoi ax-mp ) DQZGRZEVOHSZFTZ
+        UAZDUBZVRDUBVTVSPQZGRZEWAHSZFTZUAZUAZVOWATZUCZPUDDVSWEDPWGVPWBVRWDVOWAG
+        UEWGVQWCFVOWAEHUFUGUHUIWHPWFVQWAHSZVOWAVPWDWIVOTVRWBVPWDUAVOWCHSZVOWIWD
+        VPWJVOFHSZVOWCFVOHUFAQZFHSZWLTZWKVOTAVOGWLVOTZWMWKWLVOWLVOFHUJWOUKULOUM
+        UNWIEVOWAHSHSWJABCEVOWAHIDUOZPUOZNUPABCEVOWAHIWPWQMNUQURUSUTVRWBWIWATVP
+        WDVRWBWIFWAHSZWAVQFWAHUJWBWAFHSZWAWRWNWSWATAWAGWLWATZWMWSWLWAWLWAFHUJWT
+        UKULOUMABFWAHFGJVAWQMVBUSVCVDVEVFVGVRVSDVRVPVRVQGRZVPVRXAFGRJVQFGUEVHXA
+        EGRVPEVOGHWPKLVIVJVKVLVMVN $.
         $( [4-Mar-1996] $)
     $}
 

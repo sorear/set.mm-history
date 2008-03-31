@@ -19,7 +19,7 @@ $)
      manipulate the biconditional connective directly in proofs rather than
      having to rely on an informal definition substitution rule.  Note that
      if we mechanically substitute ` ( -. ph -> ps ) ` for ` ( ph \/ ps ) ` ,
-     we end up with an instance of previously proved theorem ~ pm4.2 . This
+     we end up with an instance of previously proved theorem ~ pm4.2 .  This
      is the justification for the definition, along with the fact that it
      introduces a new symbol ` \/ ` .  Definition of [Margaris] p. 49. $)
   df-or $a |- ( ( ph \/ ps ) <-> ( -. ph -> ps ) ) $.
@@ -281,31 +281,58 @@ $)
     ( wn ax-1 orrd ) ABAABCDE $.
     $( [30-Aug-1993] $)
 
-  $( Theorem *2.07 of [WhiteheadRussell] p. 101. $)
-  pm2.07 $p |-  ( ph -> ( ph \/ ph ) ) $=
-    ( olc ) AAB $.
-    $( [6-Mar-2005] $) $( [3-Jan-2005] $)
-
   $( Introduction of a disjunct.  Theorem *2.2 of [WhiteheadRussell] p. 104. $)
   orc $p |- ( ph -> ( ph \/ ps ) ) $=
     ( pm2.24 orrd ) AABABCD $.
     $( [30-Aug-1993] $)
 
   ${
-    orci.1 $e |- ( ( ph \/ ps ) -> ch ) $.
+    orci.1 $e |- ph $.
+    $( Deduction introducing a disjunct. $)
+    orci $p |- ( ph \/ ps ) $=
+      ( wo orc ax-mp ) AABDCABEF $.
+      $( [20-Jan-2008] $) $( [19-Jan-2008] $)
+
+    $( Deduction introducing a disjunct. $)
+    olci $p |- ( ps \/ ph ) $=
+      ( wo olc ax-mp ) ABADCABEF $.
+      $( [20-Jan-2008] $) $( [19-Jan-2008] $)
+  $}
+
+  ${
+    orcd.1 $e |- ( ph -> ps ) $.
+    $( MAY BE REVISED - use the 2 theorems below to shorten others $)
+    $( Deduction introducing a disjunct. $)
+    orcd $p |- ( ph -> ( ps \/ ch ) ) $=
+      ( wo orc syl ) ABBCEDBCFG $.
+      $( [19-Feb-2008] $) $( [20-Sep-2007] $)
+
+    $( Deduction introducing a disjunct. $)
+    olcd $p |- ( ph -> ( ch \/ ps ) ) $=
+      ( wo olc syl ) ABCBEDBCFG $.
+      $( [?] $) $( [20-Sep-2007] $)
+  $}
+
+  ${
+    orcs.1 $e |- ( ( ph \/ ps ) -> ch ) $.
     $( Deduction eliminating disjunct. $)
-    orci $p |- ( ph -> ch ) $=
+    orcs $p |- ( ph -> ch ) $=
       ( wo orc syl ) AABECABFDG $.
       $( [21-Jun-1994] $)
   $}
 
   ${
-    olci.1 $e |- ( ( ph \/ ps ) -> ch ) $.
+    olcs.1 $e |- ( ( ph \/ ps ) -> ch ) $.
     $( Deduction eliminating disjunct. $)
-    olci $p |- ( ps -> ch ) $=
+    olcs $p |- ( ps -> ch ) $=
       ( wo olc syl ) BABECBAFDG $.
       $( [21-Jun-1994] $)
   $}
+
+  $( Theorem *2.07 of [WhiteheadRussell] p. 101. $)
+  pm2.07 $p |-  ( ph -> ( ph \/ ph ) ) $=
+    ( olc ) AAB $.
+    $( [6-Mar-2005] $) $( [3-Jan-2005] $)
 
   $( Theorem *2.45 of [WhiteheadRussell] p. 106. $)
   pm2.45 $p |-  ( -. ( ph \/ ps ) -> -. ph ) $=
@@ -500,7 +527,7 @@ $)
   $( Conjunction in terms of disjunction (DeMorgan's law).  Theorem *4.5 of
      [WhiteheadRussell] p. 120. $)
   anor $p |- ( ( ph /\ ps ) <-> -. ( -. ph \/ -. ps ) ) $=
-    ( wa wn wi wo df-an imor negbii bitr ) ABCABDZEZDADKFZDABGLMAKHIJ $.
+    ( wa wn wi wo df-an pm4.62 negbii bitr ) ABCABDZEZDADKFZDABGLMABHIJ $.
     $( [5-Aug-1993] $)
 
   $( Negated conjunction in terms of disjunction (DeMorgan's law).  Theorem
@@ -602,9 +629,9 @@ $)
   $}
 
   ${
-    pm3.26bd.1 $e |- ( ph <-> ( ps /\ ch ) ) $.
+    pm3.26bi.1 $e |- ( ph <-> ( ps /\ ch ) ) $.
     $( Deduction eliminating a conjunct. $)
-    pm3.26bd $p |- ( ph -> ps ) $=
+    pm3.26bi $p |- ( ph -> ps ) $=
       ( wa biimp pm3.26d ) ABCABCEDFG $.
       $( [27-May-1998] $)
   $}
@@ -632,9 +659,9 @@ $)
   $}
 
   ${
-    pm3.27bd.1 $e |- ( ph <-> ( ps /\ ch ) ) $.
+    pm3.27bi.1 $e |- ( ph <-> ( ps /\ ch ) ) $.
     $( Deduction eliminating a conjunct. $)
-    pm3.27bd $p |- ( ph -> ch ) $=
+    pm3.27bi $p |- ( ph -> ch ) $=
       ( wa biimp pm3.27d ) ABCABCEDFG $.
       $( [27-May-1998] $)
   $}
@@ -1176,6 +1203,16 @@ $)
     ad2ant2r $p |- ( ( ( ph /\ th ) /\ ( ps /\ ta ) ) -> ch ) $=
       ( wa adantrr adantlr ) ABEGCDABCEFHI $.
       $( [9-Jan-2006] $) $( [8-Jan-2006] $)
+
+    $( Deduction adding two conjuncts to antecedent. $)
+    ad2ant2lr $p |- ( ( ( th /\ ph ) /\ ( ps /\ ta ) ) -> ch ) $=
+      ( wa adantrr adantll ) ABEGCDABCEFHI $.
+      $( [23-Nov-2007] $) $( [23-Nov-2007] $)
+
+    $( Deduction adding two conjuncts to antecedent. $)
+    ad2ant2rl $p |- ( ( ( ph /\ th ) /\ ( ta /\ ps ) ) -> ch ) $=
+      ( wa adantrl adantlr ) AEBGCDABCEFHI $.
+      $( [24-Nov-2007] $) $( [24-Nov-2007] $)
   $}
 
   $( Simplification of a conjunction. $)
@@ -1219,6 +1256,19 @@ $)
     biimparc $p |- ( ( ch /\ ph ) -> ps ) $=
       ( biimprcd imp ) CABABCDEF $.
       $( [3-May-1994] $)
+  $}
+
+  ${
+    pm3.26bda.1 $e |- ( ph -> ( ps <-> ( ch /\ th ) ) ) $.
+    $( Deduction eliminating a conjunct. $)
+    pm3.26bda $p |- ( ( ph /\ ps ) -> ch ) $=
+      ( wa biimpa pm3.26d ) ABFCDABCDFEGH $.
+      $( [23-Oct-2007] $) $( [22-Oct-2007] $)
+
+    $( Deduction eliminating a conjunct. $)
+    pm3.27bda $p |- ( ( ph /\ ps ) -> th ) $=
+      ( wa biimpa pm3.27d ) ABFCDABCDFEGH $.
+      $( [25-Oct-2007] $) $( [22-Oct-2007] $)
   $}
 
   $( Disjunction of antecedents.  Compare Theorem *4.77 of
@@ -1612,6 +1662,15 @@ $)
   $}
 
   ${
+    mpan9.1 $e |- ( ph -> ps ) $.
+    mpan9.2 $e |- ( ch -> ( ps -> th ) ) $.
+    $( Modus ponens conjoining dissimilar antecedents. $)
+    mpan9 $p |- ( ( ph /\ ch ) -> th ) $=
+      ( wa adantr wi adantl mpd ) ACGBDABCEHCBDIAFJK $.
+      $( [1-Feb-2008] $) $( [1-Feb-2008] $)
+  $}
+
+  ${
     sylanc.1 $e |- ( ( ph /\ ps ) -> ch ) $.
     sylanc.2 $e |- ( th -> ph ) $.
     sylanc.3 $e |- ( th -> ps ) $.
@@ -1619,6 +1678,20 @@ $)
     sylanc $p |- ( th -> ch ) $=
       ( ex sylc ) ABCDABCEHFGI $.
       $( [3-Oct-1999] $)
+  $}
+
+  ${
+    $v et $. $( Greek eta $)
+    syl2anc.wet $f wff et $.
+    syl2anc.1 $e |- ( ( ( ph /\ ps ) /\ ( ch /\ th ) ) -> ta ) $.
+    syl2anc.2 $e |- ( et -> ph ) $.
+    syl2anc.3 $e |- ( et -> ps ) $.
+    syl2anc.4 $e |- ( et -> ch ) $.
+    syl2anc.5 $e |- ( et -> th ) $.
+    $( A syllogism inference combined with contraction. $)
+    syl2anc $p |- ( et -> ta ) $=
+      ( wa jca sylanc ) ABLCDLEFGFABHIMFCDJKMN $.
+      $( [18-Jun-2007] $) $( [16-Jun-2007] $)
   $}
 
   ${
@@ -2287,6 +2360,15 @@ $)
   $}
 
   ${
+    anim12ii.1 $e |- ( ph -> ( ps -> ch ) ) $.
+    anim12ii.2 $e |- ( th -> ( ps -> ta ) ) $.
+    $( Conjoin antecedents and consequents in a deduction. $)
+    anim12ii $p |- ( ( ph /\ th ) -> ( ps -> ( ch /\ ta ) ) ) $=
+      ( wa com12 anim12d ) BADHCEHBACDEABCFIDBEGIJI $.
+      $( [12-Nov-2007] $) $( [11-Nov-2007] $)
+  $}
+
+  ${
     anim1d.1 $e |- ( ph -> ( ps -> ch ) ) $.
     $( Add a conjunct to right of antecedent and consequent in a deduction. $)
     anim1d $p |- ( ph -> ( ( ps /\ th ) -> ( ch /\ th ) ) ) $=
@@ -2350,6 +2432,21 @@ $)
   orim2 $p |-  ( ( ps -> ch ) -> ( ( ph \/ ps ) -> ( ph \/ ch ) ) ) $=
     ( wi id orim2d ) BCDZBCAGEF $.
     $( [16-May-2005] $) $( [3-Jan-2005] $)
+
+  $( Theorem *2.38 of [WhiteheadRussell] p. 105. $)
+  pm2.38 $p |-  ( ( ps -> ch ) -> ( ( ps \/ ph ) -> ( ch \/ ph ) ) ) $=
+    ( wi id orim1d ) BCDZBCAGEF $.
+    $( [6-Mar-2008] $) $( [6-Mar-2008] $)
+
+  $( Theorem *2.36 of [WhiteheadRussell] p. 105. $)
+  pm2.36 $p |-  ( ( ps -> ch ) -> ( ( ph \/ ps ) -> ( ch \/ ph ) ) ) $=
+    ( wi wo pm2.38 pm1.4 syl5 ) BCDBAECAEABEABCFABGH $.
+    $( [6-Mar-2008] $) $( [6-Mar-2008] $)
+
+  $( Theorem *2.37 of [WhiteheadRussell] p. 105. $)
+  pm2.37 $p |-  ( ( ps -> ch ) -> ( ( ps \/ ph ) -> ( ph \/ ch ) ) ) $=
+    ( wi wo pm2.38 pm1.4 syl6 ) BCDBAECAEACEABCFCAGH $.
+    $( [6-Mar-2008] $) $( [6-Mar-2008] $)
 
   $( Theorem *2.73 of [WhiteheadRussell] p. 108. $)
   pm2.73 $p |-  ( ( ph -> ps ) -> ( ( ( ph \/ ps ) \/ ch ) ->
@@ -2415,8 +2512,8 @@ $)
     ( wo wa orc ancri pm3.27 impbi ) AABCZADAIABEFIAGH $.
     $( [5-Aug-1993] $)
 
-  $( Absorb a disjunct into a conjunct. (Contributed by Roy F. Longton
-     23-Jun-05.) $)
+  $( Absorb a disjunct into a conjunct.  (Contributed by Roy F. Longton
+     23-Jun-2005.) $)
   oranabs $p |- ( ( ( ph \/ -. ps ) /\ ps ) <-> ( ph /\ ps ) ) $=
     ( wn wo wa wi pm3.2 pm2.21 jaoi imp orc anim1i impbi ) ABCZDZBEABEZOBPABPFN
     ABGBPHIJAOBANKLM $.
@@ -2445,6 +2542,14 @@ $)
     pm5.74d $p |- ( ph -> ( ( ps -> ch ) <-> ( ps -> th ) ) ) $=
       ( wb wi pm5.74 sylib ) ABCDFGBCGBDGFEBCDHI $.
       $( [21-Mar-1996] $)
+  $}
+
+  ${
+    pm5.74da.1 $e |- ( ( ph /\ ps ) -> ( ch <-> th ) ) $.
+    $( Distribution of implication over biconditional (deduction rule). $)
+    pm5.74da $p |- ( ph -> ( ( ps -> ch ) <-> ( ps -> th ) ) ) $=
+      ( wb ex pm5.74d ) ABCDABCDFEGH $.
+      $( [5-May-2007] $) $( [4-May-2007] $)
   $}
 
   ${
@@ -2726,7 +2831,6 @@ $)
   ${
     bi12d.1 $e |- ( ph -> ( ps <-> ch ) ) $.
     bi12d.2 $e |- ( ph -> ( th <-> ta ) ) $.
-
     $( Deduction joining two equivalences to form equivalence of
        implications. $)
     imbi12d $p |- ( ph -> ( ( ps -> th ) <-> ( ch -> ta ) ) ) $=
@@ -2842,7 +2946,7 @@ $)
     ONBCMBNIABJKL $.
     $( [30-Aug-1993] $)
 
-  $( Introduction of antecedent as conjunct. Theorem *4.73 of
+  $( Introduction of antecedent as conjunct.  Theorem *4.73 of
      [WhiteheadRussell] p. 121. $)
   iba $p |- ( ph -> ( ps <-> ( ps /\ ph ) ) ) $=
     ( wa ancrb pm5.74ri ) ABBACABDE $.
@@ -2913,10 +3017,10 @@ $)
     $( [3-Jun-2005] $) $( [3-Jan-2005] $)
 
   $( Absorption of disjunction into equivalence. $)
-  oibabs $p |- ( ( ph <-> ps ) <-> ( ( ph \/ ps ) -> ( ph <-> ps ) ) ) $=
-    ( wb wo wi ax-1 orc imim1i ibd olc ibibr sylibr impbid impbi ) ABCZABDZOEZO
-    PFQABQABAPOABGHIQBOEBAEBPOBAJHBAKLMN $.
-    $( [6-Aug-1995] $)
+  oibabs $p |- ( ( ( ph \/ ps ) -> ( ph <-> ps ) ) <-> ( ph <-> ps ) ) $=
+    ( wo wb wi orc imim1i ibd olc ibibr sylibr impbid ax-1 impbi ) ABCZABDZEZPQ
+    ABQABAOPABFGHQBPEBAEBOPBAIGBAJKLPOMN $.
+    $( [29-Jan-2008] $)  $( [6-Aug-1995] $)
 
   $( Law of excluded middle, also called the principle of _tertium non datur_.
      Theorem *2.11 of [WhiteheadRussell] p. 101.  It says that something is
@@ -2949,7 +3053,7 @@ $)
     $( [5-Jun-2005] $) $( [3-Jan-2005] $)
 
   $( Theorem *5.18 of [WhiteheadRussell] p. 124.  This theorem says that
-     logical equivalence is the same as negated "exclusive-or". $)
+     logical equivalence is the same as negated "exclusive-or." $)
   pm5.18 $p |- ( ( ph <-> ps ) <-> -. ( ph <-> -. ps ) ) $=
     ( wb wn bicom wi wa pm2.61 pm2.65 con2 syl5 anim12d bi syl5ib annim syl6ib
     com12 imnan sylib negbii sylibr wo pm2.5 pm2.21 adantl sylbir jca ax-1
@@ -3008,7 +3112,7 @@ $)
     ( wb wn pm4.2 pm5.18 mpbi ) AABAACBCADAAEF $.
     $( [1-Feb-2005] $) $( [3-Jan-2005] $)
 
-  $( An alternate definition of the biconditional. Theorem *5.23 of
+  $( An alternate definition of the biconditional.  Theorem *5.23 of
      [WhiteheadRussell] p. 124. $)
   dfbi $p |- ( ( ph <-> ps ) <-> ( ( ph /\ ps ) \/ ( -. ph /\ -. ps ) ) ) $=
     ( wb wn wa wo pm5.18 wi imnan bi2.15 iman bitr anbi12i bi ioran 3bitr4r
@@ -3016,7 +3120,7 @@ $)
     HUGBAJUABKLMARNTUBOPQL $.
     $( [27-Jun-2002] $)
 
-  $( Two ways to express "exclusive or".  Theorem *5.22 of [WhiteheadRussell]
+  $( Two ways to express "exclusive or."  Theorem *5.22 of [WhiteheadRussell]
      p. 124. $)
   xor $p |-  ( -. ( ph <-> ps ) <->
                 ( ( ph /\ -. ps ) \/ ( ps /\ -. ph ) ) ) $=
@@ -3031,14 +3135,14 @@ $)
     $.
     $( [11-Feb-2005] $) $( [3-Jan-2005] $)
 
-  $( Two ways to express "exclusive or". $)
+  $( Two ways to express "exclusive or." $)
   xor2 $p |-  ( -. ( ph <-> ps ) <-> ( ( ph \/ ps ) /\ -. ( ph /\ ps ) ) ) $=
     ( wb wn wa wo xor ioran pm5.24 oran anbi2i ancom bitr3 3bitr3 bitr ) ABCDAB
     DZEBADZEFZABFZABEZDZEZABGTQPEZFDUAUCDZEZRUBTUCHABIUEUASEUBSUDUAABJKUASLMNO
     $.
     $( [11-Feb-2005] $) $( [3-Jan-2005] $)
 
-  $( Two ways to express "exclusive or". $)
+  $( Two ways to express "exclusive or." $)
   xor3 $p |-  ( -. ( ph <-> ps ) <-> ( ph <-> -. ps ) ) $=
     ( wn wb pm5.18 con2bii bicomi ) ABCDZABDZCIHABEFG $.
     $( [4-Jan-2006] $) $( [1-Jan-2006] $)

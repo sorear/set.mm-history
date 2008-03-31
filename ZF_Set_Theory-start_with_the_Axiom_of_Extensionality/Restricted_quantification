@@ -13,7 +13,8 @@ $)
   $( Extend wff notation to include restricted existential uniqueness. $)
   wreu $a wff E! x e. A ph $.
 
-  $( Extend class notation to include restricted class abstractions. $)
+  $( Extend class notation to include the restricted class abstraction
+     (class builder). $)
   crab $a class { x e. A | ph } $.
 
   $( Define restricted universal quantification.  Special case of Definition
@@ -27,9 +28,9 @@ $)
   $( Define restricted existential uniqueness. $)
   df-reu $a |- ( E! x e. A ph <-> E! x ( x e. A /\ ph ) ) $.
 
-  $( Define a restricted class abstraction, which is the class of all ` x `
-     in ` A ` such that ` ph ` is true.  Definition of [TakeutiZaring]
-     p. 20. $)
+  $( Define a restricted class abstraction (class builder), which is the class
+     of all ` x ` in ` A ` such that ` ph ` is true.  Definition of
+     [TakeutiZaring] p. 20. $)
   df-rab $a |- { x e. A | ph } = { x | ( x e. A /\ ph ) } $.
 
   $( Relationship between restricted universal and existential quantifiers. $)
@@ -60,8 +61,8 @@ $)
     $( Formula-building rule for restricted universal quantifier (deduction
        rule). $)
     ralbida $p |- ( ph -> ( A. x e. A ps <-> A. x e. A ch ) ) $=
-      ( cv wcel wi wal wral wb ex pm5.74d albid df-ral 3bitr4g ) ADHEIZBJZDKSCJ
-      ZDKBDELCDELATUADFASBCASBCMGNOPBDEQCDEQR $.
+      ( cv wcel wi wal wral pm5.74da albid df-ral 3bitr4g ) ADHEIZBJZDKQCJZDKBD
+      ELCDELARSDFAQBCGMNBDEOCDEOP $.
       $( [3-Nov-2003] $) $( [6-Oct-2003] $)
 
     $( Formula-building rule for restricted existential quantifier (deduction
@@ -301,7 +302,7 @@ $)
 
   ${
     $d x A $.  $d x B $.
-    $( Two ways to say " ` A ` belongs to ` B ` ". $)
+    $( Two ways to say " ` A ` belongs to ` B ` ." $)
     risset $p |- ( A e. B <-> E. x e. B x = A ) $=
       ( cv wcel wceq wa wex wrex exancom df-rex df-clel 3bitr4r ) ADZCEZNBFZGAH
       POGAHPACIBCEOPAJPACKABCLM $.
@@ -410,10 +411,10 @@ $)
 
   ${
     $d y z A $.  $d x z $.
-    rgen2.1 $e |- ( ( x e. A /\ y e. A ) -> ph ) $.
+    rgen2a.1 $e |- ( ( x e. A /\ y e. A ) -> ph ) $.
     $( Generalization rule for restricted quantification.  Note that ` x `
        and ` y ` needn't be distinct. $)
-    rgen2 $p |- A. x e. A A. y e. A ph $=
+    rgen2a $p |- A. x e. A A. y e. A ph $=
       ( vz wral cv wcel wi wal wceq ex ax-gen wb eleq1 a4s imbi1d dral2 mpbiri
       pm2.43 19.20i ax-1 3syl wn ax-17 dvelim syl6 pm2.61i df-ral sylibr rgen
       ) ACDGZBDBHZDIZCHZDIZAJZCKZUMUPUNLZCKZUOUSJZVAUQURJZCKZUSVBVAVDUOURJZCKVE
@@ -463,6 +464,14 @@ $)
     r19.20i $p |- ( A. x e. A ph -> A. x e. A ps ) $=
       ( cv wcel a2i r19.20i2 ) ABCDDCFDGABEHI $.
       $( [19-Jul-1996] $)
+  $}
+
+  ${
+    r19.20ia.1 $e |- ( ( x e. A /\ ph ) -> ps ) $.
+    $( Inference quantifying both antecedent and consequent. $)
+    r19.20ia $p |- ( A. x e. A ph -> A. x e. A ps ) $=
+      ( cv wcel ex r19.20i ) ABCDCFDGABEHI $.
+      $( [5-Aug-2007] $) $( [4-Aug-2007] $)
   $}
 
   ${
@@ -556,12 +565,22 @@ $)
   $}
 
   ${
+    $( Theorem 19.21 of [Margaris] p. 90 with restricted quantifiers (closed
+       theorem version). $)
+    r19.21t $p |- ( A. x ( ph -> A. x ph ) ->
+             ( A. x e. A ( ph -> ps ) <-> ( ph -> A. x e. A ps ) ) ) $=
+      ( wal wi cv wcel wral 19.21t bi2.04 albii syl5bb df-ral imbi2i 3bitr4g )
+      AACEFCEZCGDHZABFZFZCEZARBFZCEZFZSCDIABCDIZFQAUBFZCEUDUAAUBCJTUFCRABKLMSCD
+      NUEUCABCDNOP $.
+      $( [1-Mar-2008] $) $( [1-Mar-2008] $)
+  $}
+
+  ${
     $d x ph $.
     $( Theorem 19.21 of [Margaris] p. 90 with restricted quantifiers. $)
     r19.21v $p |- ( A. x e. A ( ph -> ps ) <-> ( ph -> A. x e. A ps ) ) $=
-      ( cv wcel wi wal wral bi2.04 albii 19.21v bitr df-ral imbi2i 3bitr4 ) CED
-      FZABGZGZCHZAQBGZCHZGZRCDIABCDIZGTAUAGZCHUCSUECQABJKAUACLMRCDNUDUBABCDNOP
-      $.
+      ( wal wi wral wb ax-17 ax-gen r19.21t ax-mp ) AACEFZCEABFCDGABCDGFHMCACIJ
+      ABCDKL $.
       $( [15-Oct-2003] $) $( [15-Oct-2003] $)
   $}
 
@@ -588,6 +607,16 @@ $)
   $}
 
   ${
+    $d x ph $.  $d x ps $.
+    r19.21adva.1 $e |- ( ( ph /\ x e. A ) -> ( ps -> ch ) ) $.
+    $( Inference from Theorem 19.21 of [Margaris] p. 90.  (Restricted
+       quantifier version.) $)
+    r19.21adva $p |- ( ph -> ( ps -> A. x e. A ch ) ) $=
+      ( cv wcel wi ex com23 r19.21adv ) ABCDEADGEHZBCAMBCIFJKL $.
+      $( [3-Feb-2008] $) $( [2-Feb-2008] $)
+  $}
+
+  ${
     $d x y ph $.  $d y A $.
     r19.21aivv.1 $e |- ( ph -> ( ( x e. A /\ y e. B ) -> ps ) ) $.
     $( Inference from Theorem 19.21 of [Margaris] p. 90.  (Restricted
@@ -609,22 +638,32 @@ $)
   $}
 
   ${
+    $d x y ph $.  $d x y ps $.  $d y A $.
+    r19.21advva.1 $e |- ( ( ph /\ ( x e. A /\ y e. B ) ) -> ( ps -> ch ) ) $.
+    $( Inference from Theorem 19.21 of [Margaris] p. 90.  (Restricted
+       quantifier version with double quantification.) $)
+    r19.21advva $p |- ( ph -> ( ps -> A. x e. A A. y e. B ch ) ) $=
+      ( cv wcel wa wi ex com23 r19.21advv ) ABCDEFGADIFJEIGJKZBCAPBCLHMNO $.
+      $( [8-Feb-2008] $) $( [2-Feb-2008] $)
+  $}
+
+  ${
     $d x y $.  $d y A $.
-    rgen2a.1 $e |- ( ( x e. A /\ y e. B ) -> ph ) $.
+    rgen2.1 $e |- ( ( x e. A /\ y e. B ) -> ph ) $.
     $( Generalization rule for restricted quantification. $)
-    rgen2a $p |- A. x e. A A. y e. B ph $=
+    rgen2 $p |- A. x e. A A. y e. B ph $=
       ( wral cv wcel r19.21aiva rgen ) ACEGBDBHDIACEFJK $.
       $( [30-May-1999] $)
   $}
 
   ${
-    $d y z A $.  $d x z $.
-    rgen3.1 $e |- ( ( x e. A /\ y e. A /\ z e. A ) -> ph ) $.
+    $d y z A $.  $d z B $.  $d x y z $.
+    rgen3.1 $e |- ( ( x e. A /\ y e. B /\ z e. C ) -> ph ) $.
     $( Generalization rule for restricted quantification. $)
-    rgen3 $p |- A. x e. A A. y e. A A. z e. A ph $=
-      ( wral cv wcel wa wi 3exp imp r19.21aiv rgen2 ) ADEGBCEBHEIZCHEIZJADEPQDH
-      EIZAKPQRAFLMNO $.
-      $( [21-Jan-1996] $)
+    rgen3 $p |- A. x e. A A. y e. B A. z e. C ph $=
+      ( wral cv wcel wa 3expa r19.21aiva rgen2 ) ADGIBCEFBJEKZCJFKZLADGPQDJGKAH
+      MNO $.
+      $( [14-Jan-2008] $) $( [12-Jan-2008] $)
   $}
 
   ${
@@ -1061,8 +1100,7 @@ $)
     $( The abstraction variable in a restricted class abstraction isn't
        free. $)
     hbrab1 $p |- ( y e. { x e. A | ph } -> A. x y e. { x e. A | ph } ) $=
-      ( cv wcel wa cab wal crab hbab1 df-rab eleq2i albii 3imtr4 ) CEZBEDFAGZBH
-      ZFZSBIPABDJZFZUABIQBCKTRPABDLMZUASBUBNO $.
+      ( crab cv wcel wa cab df-rab hbab1 hbxfr ) BCABDEBFDGAHZBIABDJMBCKL $.
       $( [19-Mar-1997] $)
   $}
 
@@ -1073,9 +1111,8 @@ $)
     $( A variable not free in a wff remains so in a restricted class
        abstraction. $)
     hbrab $p |- ( z e. { y e. A | ph } -> A. x z e. { y e. A | ph } ) $=
-      ( cv wcel wa cab wal crab ax-17 hbel hban hbab df-rab eleq2i albii
-      3imtr4 ) DHZCHZEIZAJZCKZIZUGBLUBACEMZIZUIBLUEBCDUDABBDDUCEUBUCIBNGOFPQUHU
-      FUBACERSZUIUGBUJTUA $.
+      ( crab cv wcel wa cab df-rab ax-17 hbel hban hbab hbxfr ) BDACEHCIZEJZAKZ
+      CLACEMUABCDTABBDDSEDISJBNGOFPQR $.
       $( [15-Oct-2003] $) $( [13-Oct-2003] $)
   $}
 
@@ -1258,6 +1295,21 @@ $)
   $}
 
   ${
+    $d x A $.  $d x B $.  $d x ph $.
+    raleq12d.1 $e |- ( ph -> A = B ) $.
+    raleq12d.2 $e |- ( ph -> ( ps <-> ch ) ) $.
+    $( Equality deduction for restricted universal quantifier. $)
+    raleq12d $p |- ( ph -> ( A. x e. A ps <-> A. x e. B ch ) ) $=
+      ( wral raleq1d ralbidv bitrd ) ABDEIBDFICDFIABDEFGJABCDFHKL $.
+      $( [8-Nov-2007] $) $( [6-Nov-2007] $)
+
+    $( Equality deduction for restricted universal quantifier. $)
+    rexeq12d $p |- ( ph -> ( E. x e. A ps <-> E. x e. B ch ) ) $=
+      ( wrex rexeq1d rexbidv bitrd ) ABDEIBDFICDFIABDEFGJABCDFHKL $.
+      $( [12-Nov-2007] $) $( [6-Nov-2007] $)
+  $}
+
+  ${
     $d z A $.  $d x y z $.
     cbvralf.1 $e |- ( z e. A -> A. x z e. A ) $.
     cbvralf.2 $e |- ( z e. A -> A. y z e. A ) $.
@@ -1291,7 +1343,7 @@ $)
   $}
 
   ${
-    $d y ph $. $d x ps $.  $d x y A $.
+    $d y ph $.  $d x ps $.  $d x y A $.
     cbvralv.1 $e |- ( x = y -> ( ph <-> ps ) ) $.
     $( Change the bound variable of a restricted universal quantifier using
        implicit substitution. $)
@@ -1315,7 +1367,7 @@ $)
 
   ${
     $d x z A $.  $d x y z B $.  $d y w B $.  $d z ph $.  $d y ps $.
-    $d x ch $. $d w ch $.
+    $d x ch $.  $d w ch $.
     cbvral2v.1 $e |- ( x = z -> ( ph <-> ch ) ) $.
     cbvral2v.2 $e |- ( y = w -> ( ch <-> ps ) ) $.
     $( Change bound variables of double restricted universal quantification,

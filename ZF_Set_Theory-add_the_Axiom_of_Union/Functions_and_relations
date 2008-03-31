@@ -16,10 +16,10 @@ $)
   $c Fun $. $( Function predicate $)
   $c Fn $. $( Function connective $)
   $c : $. $( Colon $)
-  $c --> $. $( Domain-range connective $)
-  $c -1-1-> $. $( 'One-to-one' domain-range connective $)
-  $c -onto-> $. $( 'Onto' domain-range connective $)
-  $c -1-1-onto-> $. $( 'One-to-one' and 'onto' domain-range connective $)
+  $c --> $. $( Domain-codomain connective $)
+  $c -1-1-> $. $( 'One-to-one' domain-codomain connective $)
+  $c -onto-> $. $( 'Onto' domain-codomain connective $)
+  $c -1-1-onto-> $. $( 'One-to-one' and 'onto' domain-codomain connective $)
   $c ` $. $( Left apostrophe (function value symbol) $)
   $c Isom $. $( Isomorphism $)
   $( Introduce new variables.  These are no different from our previously
@@ -45,6 +45,7 @@ $)
   $v X $.
   $v Y $.
   $v Z $.
+  $v O $.
   $v s $.
   $v r $.
   $v q $.
@@ -86,6 +87,8 @@ $)
   cM $f class M $.
   $( Let ` N ` be a class variable. $)
   cN $f class N $.
+  $( Let ` O ` be a class variable. $)
+  cO $f class O $.
   $( Let ` W ` be a class variable. $)
   cW $f class W $.
   $( Let ` X ` be a class variable. $)
@@ -148,23 +151,23 @@ $)
   wfn $a wff A Fn B $.
 
   $( Extend the definition of a wff to include the function predicate with
-     domain and range.  (Read:  ` F ` maps ` A ` into ` B ` .) $)
+     domain and codomain.  (Read:  ` F ` maps ` A ` into ` B ` .) $)
   wf $a wff F : A --> B $.
 
   $( Extend the definition of a wff to include one-to-one functions.  (Read:
-     ` F ` maps ` A ` one-to-one into ` B ` .)   The notation ("1-1" above the
+     ` F ` maps ` A ` one-to-one into ` B ` .)  The notation ("1-1" above the
      arrow) is from Definition 6.15(5) of [TakeutiZaring] p. 27. $)
   wf1 $a wff F : A -1-1-> B $.
 
   $( Extend the definition of a wff to include onto functions.  (Read:  ` F `
-     maps ` A ` onto ` B ` .)   The notation ("onto" below the arrow) is from
-     Definition 6.15(4) of [TakeutiZaring] p. 27.  $)
+     maps ` A ` onto ` B ` .)  The notation ("onto" below the arrow) is from
+     Definition 6.15(4) of [TakeutiZaring] p. 27. $)
   wfo $a wff F : A -onto-> B $.
 
   $( Extend the definition of a wff to include one-to-one onto functions.
-     (Read:  ` F ` maps ` A ` one-to-one onto ` B ` .)   The notation ("1-1"
+     (Read:  ` F ` maps ` A ` one-to-one onto ` B ` .)  The notation ("1-1"
      above the arrow and "onto" below the arrow) is from Definition 6.15(6) of
-     [TakeutiZaring] p. 27.  $)
+     [TakeutiZaring] p. 27. $)
   wf1o $a wff F : A -1-1-onto-> B $.
 
   $( Extend the definition of a class to include the value of a function.
@@ -177,7 +180,6 @@ $)
 
   ${
     $d x y z A $.  $d x y z B $.  $d x y z F $.
-
     $( Define the cross product of two classes.  Definition 9.11 of [Quine]
        p. 64. $)
     df-xp $a |- ( A X. B ) = { <. x , y >. | ( x e. A /\ y e. B ) } $.
@@ -189,8 +191,9 @@ $)
     $( Define the converse of a class.  Definition 9.12 of [Quine] p. 64.
        We use Quine's breve accent (smile) notation.  Like Quine, we use it as
        a prefix, which eliminates the need for parentheses.  Many authors use
-       the postfix superscript "to the minus one."  "Converse" is also called
-       "inverse," especially when the argument is a mapping.  $)
+       the postfix superscript "to the minus one."  "Converse" is Quine's
+       terminology; some authors call it "inverse," especially when the
+       argument is a function. $)
     df-cnv $a |- `' A = { <. x , y >. | y A x } $.
 
     $( Define the composition of two classes.  Definition 6.6(3) of
@@ -223,7 +226,7 @@ $)
        [TakeutiZaring] p. 27. $)
     df-fn $a |- ( A Fn B <-> ( Fun A /\ dom A = B ) ) $.
 
-    $( Define a function (mapping) with domain and co-domain.  Definition
+    $( Define a function (mapping) with domain and codomain.  Definition
        6.15(3) of [TakeutiZaring] p. 27. $)
     df-f $a |- ( F : A --> B <-> ( F Fn A /\ ran F (_ B ) ) $.
 
@@ -255,7 +258,7 @@ $)
        function's value at ` A ` , i.e.  " ` F ` of ` A ` ," but without
        context-dependent ambiguity.  For conventional alternate definitions
        (that fail to evaluate to the empty set for proper classes), see ~ fv2
-       and ~ fv3 . Restricted equivalents that require ` F ` to be a function
+       and ~ fv3 .  Restricted equivalents that require ` F ` to be a function
        are shown in ~ funfv and ~ funfv2 .  For the familiar definition of
        function value in terms of ordered pair membership, see ~ funopfvb . $)
     df-fv $a |- ( F ` A ) = U. { x | ( F " { A } ) = { x } } $.
@@ -275,26 +278,18 @@ $)
 
   ${
     $d x y z A $.  $d x y z B $.  $d x y z C $.
-
     $( Equality theorem for cross product. $)
     xpeq1 $p |- ( A = B -> ( A X. C ) = ( B X. C ) ) $=
       ( vx vy wceq cv wcel wa copab cxp eleq2 anbi1d opabbidv df-xp 3eqtr4g )
       ABFZDGZAHZEGCHZIZDEJRBHZTIZDEJACKBCKQUAUCDEQSUBTABRLMNDEACODEBCOP $.
       $( [4-Jul-1994] $)
-  $}
-
-  ${
-    $d x y z A $.  $d x y z B $.  $d x y z C $.
 
     $( Equality theorem for cross product. $)
     xpeq2 $p |- ( A = B -> ( C X. A ) = ( C X. B ) ) $=
       ( vx vy wceq cv wcel wa copab cxp eleq2 anbi2d opabbidv df-xp 3eqtr4g )
       ABFZDGCHZEGZAHZIZDEJRSBHZIZDEJCAKCBKQUAUCDEQTUBRABSLMNDECAODECBOP $.
       $( [5-Jul-1994] $)
-  $}
 
-  ${
-    $d x y A $.  $d x y B $.  $d x y C $.
     $( Membership in a cross product. $)
     elxp $p |- ( A e. ( B X. C ) <-> E. x E. y ( A = <. x , y >. /\
                ( x e. B /\ y e. C ) ) ) $=
@@ -356,8 +351,8 @@ $)
   ${
     nprrel.1 $e |- Rel R $.
     nprrel.2 $e |- -. A e. V $.
-    $( No proper class is related to anything via any relation. (Proved by
-       Roy F. Longton, 30-Jul-05.) $)
+    $( No proper class is related to anything via any relation.  (Contributed
+       by Roy F. Longton, 30-Jul-2005.) $)
     nprrel $p |- -. A R B $=
       ( wbr cvv wcel brrelexi mto ) ABCFAGHEABCDIJ $.
       $( [31-Jul-2005] $) $( [30-Jul-2005] $)
@@ -483,7 +478,7 @@ $)
     ralxpf.4 $e |- ( x = <. y , z >. -> ( ph <-> ps ) ) $.
     $( Version of ~ ralxp with bound-variable hypotheses. $)
     ralxpf $p |- ( A. x e. ( A X. B ) ph <-> A. y e. A A. z e. B ps ) $=
-      ( vw vu vv cxp wral cv wsbc cbvsbcv ralbii ax-17 wcel hbs1 hbral wceq
+      ( vw vu vv cxp wral cv wsbc cbvralsv ralbii ax-17 wcel hbs1 hbral wceq
       sbequ12 ralbidv cbvral cop wa wex wb visset eqvinop cvv wal wi hbsbcg
       ax-mp hbbi eqvinc bicomd sylan9bb 19.23ai sylbi opth ralxp 3bitr4r bitr
       ) ACFGOZPACLQZRZLVJPZBEGPZDFPZACLVJSBDMQZRZEGPZMFPVQENQZRZNGPZMFPVOVMVRWA
@@ -690,10 +685,10 @@ $)
                     /\ ( v e. D /\ u e. F ) ) -> ph ) $.
     $( Implicit substitution of classes for ordered pairs. $)
     3optocl $p |- ( ( A e. R /\ B e. R /\ C e. R ) -> th ) $=
-      ( wcel wa wi cv cop wceq imbi2d 3expa ex 2optocl com12 optocl impcom
-      3impa ) KOUBZLOUBZMOUBZDURUPUQUCZDUSCUDUSDUDIJMNPOQIUEZJUEZUFMUGCDUSTUHUS
-      UTNUBVAPUBUCZCVBAUDVBBUDVBCUDEFGHKLNPOQEUEZFUEZUFKUGABVBRUHGUEZHUEZUFLUGB
-      CVBSUHVCNUBVDPUBUCZVENUBVFPUBUCZUCVBAVGVHVBAUAUIUJUKULUMUNUO $.
+      ( wcel wa wi cv cop wceq imbi2d 3expia 2optocl com12 optocl impcom 3impa
+      ) KOUBZLOUBZMOUBZDUQUOUPUCZDURCUDURDUDIJMNPOQIUEZJUEZUFMUGCDURTUHURUSNUBU
+      TPUBUCZCVAAUDVABUDVACUDEFGHKLNPOQEUEZFUEZUFKUGABVARUHGUEZHUEZUFLUGBCVASUH
+      VBNUBVCPUBUCVDNUBVEPUBUCVAAUAUIUJUKULUMUN $.
       $( [12-Mar-1995] $)
   $}
 
@@ -755,6 +750,13 @@ $)
       VDLUSEKZBUBVEVDUSUTUCUDUEUNVAHUFRUGUHUIUJUKUL $.
       $( [2-Jun-2004] $) $( [1-Jun-2004] $)
   $}
+
+  $( The class of ordinal numbers is not equal to the universe. $)
+  onnev $p |- On =/= V $=
+    ( cvv cxp c0 wne con0 cop wcel 0ex opelxpi mp2an ne0i ax-mp wceq cin ineq1
+    onxpdisj incom inv1 eqtr 3eqtr3g eqcomd necon3i ) AABZCDZEADCCFZUCGZUDCAGZU
+    GUFHHCCAAIJUCUEKLEAUCCEAMZCUCUHEUCNAUCNZCUCEAUCOPUIUCANUCAUCQUCRSTUAUBL $.
+    $( [29-Jun-2007] $) $( [16-Jun-2007] $)
 
   $( Equality theorem for the relation predicate. $)
   releq $p |- ( A = B -> ( Rel A <-> Rel B ) ) $=
@@ -886,7 +888,6 @@ $)
 
   ${
     $d x y A $.  $d x y B $.  $d x y C $.  $d x y D $.
-
     $( Subset theorem for cross product.  Generalization of Theorem 101 of
        [Suppes] p. 52. $)
     ssxp $p |- ( ( A (_ B /\ C (_ D ) -> ( A X. C ) (_ ( B X. D ) ) $=
@@ -1057,6 +1058,13 @@ $)
       $( [26-Apr-1998] $)
   $}
 
+  $( Two ways of expressing set existence. $)
+  issetid $p |- ( A e. V <-> A I V ) $=
+    ( cvv wcel cid wbr wceq eqid wb ideqg anidms mpbiri wn nvelv brprc ax-mp
+    sylibr reli brrelexi impbi ) ABCZABDEZTAADEZUATUBAAFZAGTUBUCHAABBIJKBBCLUAU
+    BHMABDNOPABDQRS $.
+    $( [16-Feb-2008] $) $( [16-Feb-2008] $)
+
   ${
     $d x y z A $.  $d x y z B $.  $d x y z C $.
     $( Equality theorem for composition of two classes. $)
@@ -1106,10 +1114,9 @@ $)
     hbco.2 $e |- ( y e. B -> A. x y e. B ) $.
     $( Bound-variable hypothesis builder for function value. $)
     hbco $p |- ( y e. ( A o. B ) -> A. x y e. ( A o. B ) ) $=
-      ( vz vv vw cv wbr wa wex copab wcel wal ccom ax-17 hbbr hban hbex hbopab
-      df-co eleq2i albii 3imtr4 ) BJZGJZHJZDKZUIIJZCKZLZHMZGINZOZUPAPUGCDQZOZUR
-      APUNGIABUMAHUJULAABUHUIDUGUHOARFUGUIOARZSABUIUKCUSEUGUKOARSTUAUBUQUOUGGIH
-      CDUCUDZURUPAUTUEUF $.
+      ( vz vv vw ccom cv wbr wa wex copab df-co wcel ax-17 hbbr hban hbex
+      hbopab hbxfr ) ABCDJGKZHKZDLZUEIKZCLZMZHNZGIOGIHCDPUJGIABUIAHUFUHAABUDUED
+      BKZUDQARFUKUEQARZSABUEUGCULEUKUGQARSTUAUBUC $.
       $( [1-Sep-1999] $)
   $}
 
@@ -1205,7 +1212,7 @@ $)
   $}
 
   $( The converse of a binary relation swaps arguments.  Theorem 11 of [Suppes]
-     p. 61.  $)
+     p. 61. $)
   brcnvg $p |- ( ( A e. C /\ B e. D ) -> ( A `' R B <-> B R A ) ) $=
     ( wcel wa cop ccnv wbr opelcnvg df-br 3bitr4g ) ACFBDFGABHEIZFBAHEFABNJBAEJ
     ABCDEKABNLBAELM $.
@@ -1220,7 +1227,7 @@ $)
       $( [13-Aug-1995] $)
 
     $( The converse of a binary relation swaps arguments.  Theorem 11 of
-       [Suppes] p. 61.  $)
+       [Suppes] p. 61. $)
     brcnv $p |- ( A `' R B <-> B R A ) $=
       ( cvv wcel ccnv wbr wb brcnvg mp2an ) AFGBFGABCHIBACIJDEABFFCKL $.
       $( [13-Aug-1995] $)
@@ -1268,7 +1275,7 @@ $)
       ) CDCEZFBGZAGZRHZAIZBJTSCHZAIZBJCKBARLUBUDBUAUCASTCBMAMNOPQ $.
       $( [27-Dec-1996] $)
 
-    $( Alternate definition of range. Definition 6.5(2) of [TakeutiZaring]
+    $( Alternate definition of range.  Definition 6.5(2) of [TakeutiZaring]
        p. 24. $)
     dfrn3 $p |- ran A = { y | E. x <. x , y >. e. A } $=
       ( crn cv wbr wex cab cop wcel dfrn2 df-br exbii abbii eqtr ) CDAEZBEZCFZA
@@ -1452,27 +1459,26 @@ $)
     $( The domain of the empty set is empty.  Part of Theorem 3.8(v) of [Monk1]
        p. 36. $)
     dm0 $p |- dom (/) = (/) $=
-      ( vx vy cv cop c0 wcel wex cab wceq wn cdm noel nex eqid negb ax-mp
-      2false abbii dfdm3 dfnul2 3eqtr4 ) ACZBCDZEFZBGZAHUBUBIZJZAHEKEUEUGAUEUGU
-      DBUCLMUFUGJUBNUFOPQRABESATUA $.
+      ( vx vy cv cop c0 wcel wex cab wceq wn cdm noel nex eqid negbi 2false
+      abbii dfdm3 dfnul2 3eqtr4 ) ACZBCDZEFZBGZAHUAUAIZJZAHEKEUDUFAUDUFUCBUBLMU
+      EUANOPQABERAST $.
       $( [4-Jul-1994] $)
 
     $( The domain of the singleton of the empty set is empty. $)
     dmsn0 $p |- dom { (/) } = (/) $=
       ( vx vy cv cop c0 csn wcel wex cab wceq wn cdm opnz opex elsnc mtbir nex
-      eqid negb ax-mp 2false abbii dfdm3 dfnul2 3eqtr4 ) ACZBCZDZEFZGZBHZAIUFUF
-      JZKZAIUILEUKUMAUKUMUJBUJUHEJUFUGMUHEUFUGNOPQULUMKUFRULSTUAUBABUIUCAUDUE
-      $.
+      eqid negbi 2false abbii dfdm3 dfnul2 3eqtr4 ) ACZBCZDZEFZGZBHZAIUEUEJZKZA
+      IUHLEUJULAUJULUIBUIUGEJUEUFMUGEUEUFNOPQUKUERSTUAABUHUBAUCUD $.
       $( [16-Feb-2004] $) $( [30-Jan-2004] $)
 
     $( The domain of the singleton of the singleton of the empty set is
        empty. $)
     dmsnsn0 $p |- dom { { (/) } } = (/) $=
       ( vx vy cv cop c0 csn wcel wex cab wceq wn cdm cvv wa wo visset a1i orri
-      oran mpbi opprc3 mtbi opex elsnc mtbir nex eqid negb ax-mp 2false abbii
-      dfdm3 dfnul2 3eqtr4 ) ACZBCZDZEFZFZGZBHZAIUOUOJZKZAIUSLEVAVCAVAVCUTBUTUQU
-      RJZUOMGZKZUPMGZKNZVDVEVGOVHKVEVGVGVFBPQRVEVGSTUOUPUAUBUQURUOUPUCUDUEUFVBV
-      CKUOUGVBUHUIUJUKABUSULAUMUN $.
+      oran mpbi opprc3 mtbi opex elsnc mtbir nex eqid negbi 2false abbii dfdm3
+      dfnul2 3eqtr4 ) ACZBCZDZEFZFZGZBHZAIUNUNJZKZAIURLEUTVBAUTVBUSBUSUPUQJZUNM
+      GZKZUOMGZKNZVCVDVFOVGKVDVFVFVEBPQRVDVFSTUNUOUAUBUPUQUNUOUCUDUEUFVAUNUGUHU
+      IUJABURUKAULUM $.
       $( [30-Jan-2004] $) $( [30-Jan-2004] $)
 
     $( The domain of the identity relation is the universe. $)
@@ -1558,22 +1564,19 @@ $)
       copab dmopab3 df-xp dmeqi eqeq1i bitr4 sylib ) BEFZCGBHZCIZDAJZABKZLZAMZU
       FUHDAUFUHDGAHZUFUHCBNOPQUIUMUGRDCSZLZAMULUGDCATUKUOAUJUNDCABUAUBUCUDUE $.
       $( [6-Apr-2007] $) $( [28-Jul-1995] $)
-
-    $( The domain of a cross product.  Part of Theorem 3.13(x) of [Monk1]
-       p. 37. $)
-    dmxpOLD $p |- ( -. B = (/) -> dom ( A X. B ) = A ) $=
-      ( vy vx c0 wceq wn cv wcel wex wral cxp cdm n0 biimp a1d r19.21aiv wa
-      copab dmopab3 df-xp dmeqi eqeq1i bitr4 sylib ) BEFGZCHBIZCJZDAKZABLZMZAFZ
-      UFUHDAUFUHDHAIZUFUHCBNOPQUIUMUGRDCSZMZAFULUGDCATUKUOAUJUNDCABUAUBUCUDUE
-      $.
-      $( [28-Jul-1995] $)
   $}
 
-  $( The domain of a cross product. $)
+  $( The domain of a square cross product. $)
   dmxpid $p |- dom ( A X. A ) = A $=
     ( cxp cdm wceq c0 dm0 xpeq1 xp0r syl6eq dmeqd id 3eqtr4a dmxp pm2.61ine )
     AABZCZADAEAEDZECEPAFQOEQOEABEAEAGAHIJQKLAAMN $.
     $( [28-Jul-1995] $)
+
+  $( The domain of the intersection of two square cross products.  Unlike
+     ~ dmin , equality holds. $)
+  dmxpin $p |- dom ( ( A X. A ) i^i ( B X. B ) ) = ( A i^i B ) $=
+    ( cxp cin cdm inxp dmeqi dmxpid eqtr ) AACBBCDZEABDZKCZEKJLAABBFGKHI $.
+    $( [5-Feb-2008] $) $( [29-Jan-2008] $)
 
   $( The cross product of a class with itself is one-to-one. $)
   xpid11 $p |- ( ( A X. A ) = ( B X. B ) <-> A = B ) $=
@@ -1590,7 +1593,7 @@ $)
   $( The range of the double converse of a class. $)
   rncnvcnv $p |- ran `' `' A = ran A $=
     ( crn ccnv cdm df-rn dfdm4 eqtr2 ) ABACZDHCBAEHFG $.
-    $( [?] $) $( [8-Apr-2007] $)
+    $( [10-Jul-2007] $) $( [8-Apr-2007] $)
 
   ${
     $d x y A $.  $d x y B $.
@@ -1694,8 +1697,7 @@ $)
     hbdm.1 $e |- ( y e. A -> A. x y e. A ) $.
     $( Bound-variable hypothesis builder for domain. $)
     hbdm $p |- ( y e. dom A -> A. x y e. dom A ) $=
-      ( cv ccnv crn wcel wal cdm hbcnv hbrn dfdm4 eleq2i albii 3imtr4 ) BEZCFZG
-      ZHZTAIQCJZHZUBAIABRABCDKLUASQCMNZUBTAUCOP $.
+      ( cdm ccnv crn dfdm4 hbcnv hbrn hbxfr ) ABCECFZGCHABLABCDIJK $.
       $( [31-Jan-2004] $) $( [30-Jan-2004] $)
   $}
 
@@ -1748,7 +1750,7 @@ $)
     $( Domain of a composition.  Theorem 21 of [Suppes] p. 63. $)
     dmcoss $p |- dom ( A o. B ) (_ dom B $=
       ( vx vy vz cv ccom wbr wex cab cdm wa cop wcel df-br visset opelco bitr
-      exbii excom 19.42v pm3.26bd 19.22i sylbi ss2abi df-dm 3sstr4 ) CFZDFZABGZ
+      exbii excom 19.42v pm3.26bi 19.22i sylbi ss2abi df-dm 3sstr4 ) CFZDFZABGZ
       HZDIZCJUHEFZBHZEIZCJUJKBKULUOCULUNUMUIAHZLZDIZEIZUOULUQEIZDIUSUKUTDUKUHUI
       MUJNUTUHUIUJOEUHUIABCPDPQRSUQDETRURUNEURUNUPDIUNUPDUAUBUCUDUECDUJUFCEBUFU
       G $.
@@ -1809,9 +1811,8 @@ $)
     hbres.2 $e |- ( y e. B -> A. x y e. B ) $.
     $( Bound-variable hypothesis builder for restriction. $)
     hbres $p |- ( y e. ( A |` B ) -> A. x y e. ( A |` B ) ) $=
-      ( cv cvv cxp cin wcel wal cres ax-17 hbxp hbin df-res eleq2i albii
-      3imtr4 ) BGZCDHIZJZKZUDALUACDMZKZUFALABCUBEABDHFUAHKANOPUEUCUACDQRZUFUDAU
-      GST $.
+      ( cres cvv cxp cin df-res cv wcel ax-17 hbxp hbin hbxfr ) ABCDGCDHIZJCDKA
+      BCREABDHFBLHMANOPQ $.
       $( [15-Sep-2003] $)
   $}
 
@@ -1857,7 +1858,7 @@ $)
        to the restricting class. $)
     opres $p |- ( A e. D ->
                     ( <. A , B >. e. ( C |` D ) <-> <. A , B >. e. C ) ) $=
-      ( wcel cop cres opelres pm3.26bd wa biimpr expcom impbid2 ) ADFZABGZCDHFZ
+      ( wcel cop cres opelres pm3.26bi wa biimpr expcom impbid2 ) ADFZABGZCDHFZ
       PCFZQROABCDEIZJROQQROKSLMN $.
       $( [2-May-2004] $) $( [30-Apr-2004] $)
   $}
@@ -1874,6 +1875,12 @@ $)
       TUAUBBUNFUCUDUEBUNUJUCUFUGUH $.
       $( [14-May-2004] $) $( [30-Apr-2004] $)
   $}
+
+  $( The restriction of a restriction. $)
+  resres $p |- ( ( A |` B ) |` C ) = ( A |` ( B i^i C ) ) $=
+    ( cres cvv cxp cin df-res ineq1i xpindir ineq2i inass 3eqtr4r 3eqtr ) ABDZC
+    DOCEFZGABEFZGZPGZABCGZDZOCHORPABHIATEFZGAQPGZGUASUBUCABCEJKATHAQPLMN $.
+    $( [28-Mar-2008] $) $( [27-Mar-2008] $)
 
   $( Distributive law for restriction over union.  Theorem 31 of [Suppes]
      p. 65. $)
@@ -1920,8 +1927,8 @@ $)
 
   $( Commutative law for restriction. $)
   rescom $p |- ( ( A |` B ) |` C ) = ( ( A |` C ) |` B ) $=
-    ( cres cvv cxp cin in23 df-res ineq1i 3eqtr4 ) ABDZCEFZGZACDZBEFZGZLCDOBDAP
-    GZMGAMGZPGNQAPMHLRMABIJOSPACIJKLCIOBIK $.
+    ( cin cres wceq incom reseq2 ax-mp resres 3eqtr4 ) ABCDZEZACBDZEZABECEACEBE
+    LNFMOFBCGLNAHIABCJACBJK $.
     $( [27-Mar-1998] $)
 
   $( Subclass theorem for restriction. $)
@@ -1944,18 +1951,13 @@ $)
 
   $( Absorption law for restriction.  Exercise 17 of [TakeutiZaring] p. 25. $)
   resabs1 $p |- ( B (_ C -> ( ( A |` C ) |` B ) = ( A |` B ) ) $=
-    ( wss cvv cxp cin cres wceq sseqin2 xpeq1 sylbi xpindir syl5reqr ineq2d
-    inass syl6reqr df-res ineq1i eqtr 3eqtr4g ) BCDZACEFZGZBEFZGZAUEGZACHZBHZAB
-    HUBUGAUCUEGZGUFUBUEUJAUBCBGZEFZUEUJUBUKBIULUEIBCJUKBEKLCBEMNOAUCUEPQUIUHUEG
-    UFUHBRUHUDUEACRSTABRUA $.
+    ( wss cin cres wceq sseqin2 reseq2 sylbi resres syl5eq ) BCDZACBEZFZABFZACF
+    BFMNBGOPGBCHNBAIJACBKL $.
     $( [9-Aug-1994] $)
 
   $( Absorption law for restriction. $)
   resabs2 $p |- ( B (_ C -> ( ( A |` B ) |` C ) = ( A |` B ) ) $=
-    ( wss cvv cxp cin cres wceq ssid wa ssxp dfss sylib mpan2 ineq2d inass
-    syl6reqr df-res ineq1i eqtr 3eqtr4g ) BCDZABEFZGZCEFZGZUEABHZCHZUHUCUEAUDUF
-    GZGUGUCUDUJAUCEEDZUDUJIZEJUCUKKUDUFDULBCEELUDUFMNOPAUDUFQRUIUHUFGUGUHCSUHUE
-    UFABSZTUAUMUB $.
+    ( wss cres resabs1 rescom syl5eq ) BCDACEBEABEZICEABCFABCGH $.
     $( [27-Mar-1998] $)
 
   $( Idempotent law for restriction. $)
@@ -2027,6 +2029,17 @@ $)
       WLVRAVPVQVPUHUIUNUFUOVTWGWDNWEVPVQDVMWIUPWGWCWDWJUEUQUFURVLAUSZVOWBLZVLDU
       SWQUTADVAVBWQVNUSWRDVMVCBCAVNVDVEVFVGVOVLVNDEDVMVHAVNDVIVJVK $.
       $( [16-Dec-2003] $) $( [13-Dec-2003] $)
+  $}
+
+  ${
+    $d x y A $.  $d x y B $.
+    $( Restriction of a class abstraction of ordered pairs. $)
+    resopab2 $p |- ( A (_ B -> ( { <. x , y >. | ( x e. B /\ ph ) } |` A ) =
+                  { <. x , y >. | ( x e. A /\ ph ) } ) $=
+      ( wss cv wcel wa copab cres wi wb ssel pm4.71 sylib anbi1d anass syl6rbb
+      opabbidv resopab syl5eq ) DEFZBGZDHZUDEHZAIZIZBCJUEAIZBCJUGBCJDKUCUHUIBCU
+      CUIUEUFIZAIUHUCUEUJAUCUEUFLUEUJMDEUDNUEUFOPQUEUFARSTUGBCDUAUB $.
+      $( [24-Aug-2007] $) $( [24-Aug-2007] $)
   $}
 
   $( The domain of a restricted identity function. $)
@@ -2148,7 +2161,7 @@ $)
 
   ${
     $d A y z $.  $d B y z $.  $d C y z $.  $d x y z $.  $d F y z $.
-    $( Move class substitution in and out the image of a function.
+    $( Move class substitution in and out of the image of a function.
        (Contributed by FL, 15-Dec-2006.) $)
     csbima12g $p |- ( A e. C -> [_ A / x ]_ ( F " B ) =
                  ( [_ A / x ]_ F " [_ A / x ]_ B ) ) $=
@@ -2282,11 +2295,11 @@ $)
 
   ${
     $d y F $.  $d x y $.
-    $( Two ways of expressing the class of unique-valued arguments of ` F ` ,
+    $( Two ways to express the class of unique-valued arguments of ` F ` ,
        which is the same as the domain of ` F ` whenever ` F ` is a function.
        The left-hand side of the equality is from Definition 10.2 of [Quine]
        p. 65.  Quine uses the notation "arg ` F ` " for this class (for which
-       we have no separate notation).   Observe the resemblance to our
+       we have no separate notation).  Observe the resemblance to our
        ~ df-fv , which was based on the idea in Quine's definition. $)
     args $p |- { x | E. y ( F " { x } ) = { y } } = { x | E! y x F y } $=
       ( cv csn cima wceq wex wbr weu cab cvv wcel visset imasng ax-mp eqeq1i
@@ -2479,12 +2492,12 @@ $)
 
   ${
     op1sta.1 $e |- A e. V $.
-    $( Extract the first member of an ordered pair.    (See ~ op2nda to extract
+    $( Extract the first member of an ordered pair.   (See ~ op2nda to extract
        the second member, ~ op1stb for an alternate version, and ~ op1st for
-       the preferred version..)  (Contributed by Raph Levien, 4-Dec-03.) $)
+       the preferred version..)  (Contributed by Raph Levien, 4-Dec-2003.) $)
     op1sta $p |- U. dom { <. A , B >. } = A $=
       ( cop csn cdm cuni dmsnop unieqi unisn eqtr ) ABDEFZGAEZGALMABHIACJK $.
-      $( [17-Feb-2004] $) $( [17-Feb-2004] $)
+      $( [17-Feb-2004] $) $( [4-Dec-2003] $)
   $}
 
   ${
@@ -2524,7 +2537,7 @@ $)
   $}
 
   ${
-    $d x y A $. $d x y B $. $d x y C $.
+    $d x y A $.  $d x y B $.  $d x y C $.
     $( Membership in a cross product.  This version requires no quantifiers or
        dummy variables.  See also ~ elxp5 , ~ elxp6 , and ~ elxp7 . $)
     elxp4 $p |- ( A e. ( B X. C ) <-> ( A = <. U. dom { A } , U. ran { A } >.
@@ -2614,6 +2627,11 @@ $)
     FZABEZFZACEZFZDZAOGABGZACGZDQRTDZFUBPUEABCHIRTJKAOLUCSUDUAABLACLMN $.
     $( [30-Sep-2002] $)
 
+  $( The image of a union. (Contributed by Jeff Hoffman, 17-Feb-2008.) $)
+  imaun2 $p |- ( ( A u. B ) " C ) = ( ( A " C ) u. ( B " C ) ) $=
+    ( cun cima cres crn df-ima resundir rneqi rnun 3eqtr uneq12i eqtr4 ) ABDZCE
+    ZACFZGZBCFZGZDZACEZBCEZDPOCFZGQSDZGUAOCHUDUEABCIJQSKLUBRUCTACHBCHMN $.
+    $( [19-Feb-2008] $) $( [17-Feb-2008] $)
 
   ${
     $d x y A $.  $d x y B $.  $d x y R $.
@@ -2691,10 +2709,10 @@ $)
     $( [15-Sep-2004] $) $( [13-Sep-2004] $)
 
   $( Cross products with two different singletons are disjoint. $)
-  xpsndisj $p |- ( -. B = D -> ( ( A X. { B } ) i^i ( C X. { D } ) ) = (/) ) $=
-    ( wceq wn csn cin c0 cxp disjsn2 xpdisj2 syl ) BDEFBGZDGZHIEANJCOJHIEBDKNOA
+  xpsndisj $p |- ( B =/= D -> ( ( A X. { B } ) i^i ( C X. { D } ) ) = (/) ) $=
+    ( wne csn cin c0 wceq cxp disjsn2 xpdisj2 syl ) BDEBFZDFZGHIANJCOJGHIBDKNOA
     CLM $.
-    $( [29-Jul-2004] $) $( [28-Jul-2004] $)
+    $( [3-Jun-2007] $) $( [28-Jul-2004] $)
 
   $( A double restriction to disjoint classes is the empty set. $)
   resdisj $p |- ( ( A i^i B ) = (/) -> ( ( C |` A ) |` B ) = (/) ) $=
@@ -2710,13 +2728,6 @@ $)
     EZGZBAHRQIZFPQJSOABKLMN $.
     $( [9-Apr-2007] $) $( [12-Apr-2004] $)
 
-  $( The range of a cross product.  Part of Theorem 3.13(x) of [Monk1]
-     p. 37. $)
-  rnxpOLD $p |- ( -. A = (/) -> ran ( A X. B ) = B ) $=
-    ( c0 wceq wn cxp cdm crn dmxpOLD ccnv df-rn cnvxp dmeqi eqtr syl5eq ) ACDEB
-    AFZGZBABFZHZBAISRJZGQRKTPABLMNO $.
-    $( [17-Apr-2004] $) $( [12-Apr-2004] $)
-
   $( The domain of a cross product is a subclass of the first factor. $)
   dmxpss $p |- dom ( A X. B ) (_ A $=
     ( cxp cdm wss c0 wceq 0ss xpeq2 xp0 syl6eq dmeqd dm0 sseq1d mpbiri wne
@@ -2731,9 +2742,20 @@ $)
     FAFBIBJKLMKNOAFPUBBGUCABQUBBRST $.
     $( [17-Jan-2006] $) $( [16-Jan-2006] $)
 
+  $( A cross-product subclass relationship implies the relationship for it
+     components. $)
+  ssxpr $p |- ( ( ( A X. C ) =/= (/) /\ ( A X. C ) (_ ( B X. D ) ) ->
+              ( A (_ B /\ C (_ D ) ) $=
+    ( cxp c0 wne wss wa cdm wceq xpnz dmxp adantl sylbir adantr dmss eqsstr3d
+    dmxpss a1i sstrd crn rnxp rnss rnxpss jca ) ACEZFGZUGBDEZHZIZABHCDHUKAUIJZB
+    UKAUGJZULUHUMAKZUJUHAFGZCFGZIZUNACLZUPUNUOACMNOPUJUMULHUHUGUIQNRULBHUKBDSTU
+    AUKCUIUBZDUKCUGUBZUSUHUTCKZUJUHUQVAURUOVAUPACUCPOPUJUTUSHUHUGUIUDNRUSDHUKBD
+    UETUAUF $.
+    $( [28-Jan-2008] $) $( [27-Jan-2008] $)
+
   $( If a cross product is a set, one of its components must be a set. $)
   xpexr $p |- ( ( A X. B ) e. C -> ( A e. V \/ B e. V ) ) $=
-    ( cxp wcel cvv wn wi c0 wceq 0ex eleq1 mpbiri pm2.21nd a1d wne crn rnxp
+    ( cxp wcel cvv wn wi c0 wceq 0ex eleq1 mpbiri pm2.24d a1d wne crn rnxp
     eleq1d rnexg syl5bi a1dd pm2.61ine orrd ) ABDZCEZAFEZBFEZUFUGGZUHHZHAIAIJZU
     JUFUKUGUHUKUGIFEKAIFLMNOAIPZUFUHUIULUEQZFEUHUFULUMBFABRSUECTUAUBUCUD $.
     $( [27-Aug-2006] $) $( [27-Aug-2006] $)
@@ -2741,11 +2763,11 @@ $)
   $( If a nonempty cross product is a set, so are both of its components. $)
   xpexr2 $p |- ( ( ( A X. B ) e. C /\ ( A X. B ) =/= (/) ) ->
                ( A e. V /\ B e. V ) ) $=
-    ( cxp wcel c0 wne wa cvv cdm wceq dmxp adantl dmexg adantr eqeltrrd
-    adantrr crn rnxp rnexg adantrl jca ancom2s xpnz sylan2br ) ABDZCEZAFGZBFGZH
-    AIEZBIEZHZUFFGUGUIUHULUGUIUHHHUJUKUGUIUJUHUGUIHUFJZAIUIUMAKUGABLMUGUMIEUIUF
-    CNOPQUGUHUKUIUGUHHUFRZBIUHUNBKUGABSMUGUNIEUHUFCTOPUAUBUCABUDUE $.
-    $( [?] $) $( [27-Aug-2006] $)
+    ( cxp wcel c0 wne wa cvv cdm wceq dmxp adantl dmexg adantr eqeltrrd crn
+    rnxp rnexg anim12i anandis ancom2s xpnz sylan2br ) ABDZCEZAFGZBFGZHAIEZBIEZ
+    HZUEFGUFUHUGUKUFUHUGUKUFUHHZUIUFUGHZUJULUEJZAIUHUNAKUFABLMUFUNIEUHUECNOPUMU
+    EQZBIUGUOBKUFABRMUFUOIEUGUECSOPTUAUBABUCUD $.
+    $( [5-May-2007] $) $( [27-Aug-2006] $)
 
   ${
     $d x y A $.  $d x y B $.  $d x y C $.
@@ -2819,6 +2841,11 @@ $)
     MKUKUNFUKUCUMUKJUKUCKUGQUKMPUCJUMUCFBBRUCOPSUKUMTPUAUB $.
     $( [25-Dec-2003] $) $( [8-Dec-2003] $)
 
+  $( The double converse of a class equals its restriction to the universe. $)
+  cnvcnv2 $p |- `' `' A = ( A |` V ) $=
+    ( ccnv cvv cxp cin cres cnvcnv df-res eqtr4 ) ABBACCDEACFAGACHI $.
+    $( [14-Dec-2007] $) $( [8-Oct-2007] $)
+
   $( The double converse of a class is a subclass.  Exercise 2 of
      [TakeutiZaring] p. 25. $)
   cnvcnvss $p |- `' `' A (_ A $=
@@ -2833,11 +2860,17 @@ $)
     UKBDFBDBMBNOUKBULPQULDLUNUELDRULDBSQTUATUDBUBABUBUC $.
     $( [8-Apr-2007] $) $( [8-Apr-2007] $)
 
+  $( The double converse of the restriction of a class. $)
+  cnvcnvres $p |- `' `' ( A |` B ) = ( `' `' A |` B ) $=
+    ( cres ccnv wrel wceq relres dfrel2 mpbi rescnvcnv eqtr4 ) ABCZDDZLADDBCLEM
+    LFABGLHIABJK $.
+    $( [13-Jul-2007] $) $( [3-Jun-2007] $)
+
   $( The image of the double converse of a class. $)
   imacnvcnv $p |- ( `' `' A " B ) = ( A " B ) $=
     ( ccnv cres crn cima rescnvcnv rneqi df-ima 3eqtr4 ) ACCZBDZEABDZEKBFABFLMA
     BGHKBIABIJ $.
-    $( [?] $) $( [8-Apr-2007] $)
+    $( [23-Jul-2007] $) $( [8-Apr-2007] $)
 
   $( A class restricted to its domain equals its double converse. $)
   resdm2 $p |- ( A |` dom A ) = `' `' A $=
@@ -2865,24 +2898,23 @@ $)
     $( Restricted first member of a class composition. $)
     cores $p |- ( ran B (_ C -> ( ( A |` C ) o. B ) = ( A o. B ) ) $=
       ( vx vy vz crn wss cv cop cres ccom wcel wb wal wceq wbr wa wex pm3.26
-      anim1i ssel visset brelrn syl5 ancld anim1d impbid2 opelres df-br anbi1i
-      3bitr4 ancom bitr anbi2i anass bitr4 syl5bb exbidv opelco 3bitr4g
-      19.21aivv wrel relco eqrel mp2an sylibr ) BGZCHZDIZEIZJZACKZBLZMZVLABLZMZ
-      NZEODOZVNVPPZVIVRDEVIVJFIZBQZWAVKVMQZRZFSWBWAVKAQZRZFSVOVQVIWDWFFVIWBWACM
-      ZRZWERZWFWDVIWIWFWHWBWEWBWGTUAVIWBWHWEVIWBWGVIWAVHMWGWBVHCWAUBVJWABDUCZFU
-      CUDUEUFUGUHWDWBWGWERZRWIWCWKWBWCWEWGRZWKWAVKJZVMMWMAMZWGRWCWLWAVKACEUCZUI
-      WAVKVMUJWEWNWGWAVKAUJUKULWEWGUMUNUOWBWGWEUPUQURUSFVJVKVMBWJWOUTFVJVKABWJW
-      OUTVAVBVNVCVPVCVTVSNVMBVDABVDDEVNVPVEVFVG $.
+      anim1i ssel visset brelrn syl5 ancld anim1d impbid2 brres ancom bitr
+      anbi2i anass bitr4 syl5bb exbidv opelco 3bitr4g 19.21aivv wrel relco
+      eqrel mp2an sylibr ) BGZCHZDIZEIZJZACKZBLZMZVIABLZMZNZEODOZVKVMPZVFVODEVF
+      VGFIZBQZVRVHVJQZRZFSVSVRVHAQZRZFSVLVNVFWAWCFVFVSVRCMZRZWBRZWCWAVFWFWCWEVS
+      WBVSWDTUAVFVSWEWBVFVSWDVFVRVEMWDVSVECVRUBVGVRBDUCZFUCUDUEUFUGUHWAVSWDWBRZ
+      RWFVTWHVSVTWBWDRWHVRVHACEUCZUIWBWDUJUKULVSWDWBUMUNUOUPFVGVHVJBWGWIUQFVGVH
+      ABWGWIUQURUSVKUTVMUTVQVPNVJBVAABVADEVKVMVBVCVD $.
       $( [17-Oct-2004] $) $( [12-Oct-2004] $)
 
-    $( Restriction of the composition of two classes. $)
+    $( Associative law for the restriction of a composition. $)
     resco $p |- ( ( A o. B ) |` C ) = ( A o. ( B |` C ) ) $=
       ( vx vy vz ccom cres relres relco cv wbr wcel wa wex visset brco anbi1i
       19.41v an23 brres bitr4 exbii 3bitr2 3bitr4 eqbrriv ) DEABGZCHZABCHZGZUGC
       IAUIJDKZEKZUGLZUKCMZNZUKFKZUILZUPULALZNZFOZUKULUHLUKULUJLUOUKUPBLZURNZFOZ
       UNNVBUNNZFOUTUMVCUNFUKULABDPZEPZQRVBUNFSVDUSFVDVAUNNZURNUSVAURUNTUQVGURUK
       UPBCFPUARUBUCUDUKULUGCVFUAFUKULAUIVEVFQUEUF $.
-      $( [?] $) $( [12-Dec-2006] $)
+      $( [11-May-2007] $) $( [12-Dec-2006] $)
 
     $( Image of the composition of two classes.  (Contributed by Jason
        Orendorff, 12-Dec-2006.) $)
@@ -2901,18 +2933,44 @@ $)
       DIZCIZUGJZDKZEIZUMUJJZEKZUMUHLUMUKLUOULUPBJZUPUMAJZMZEKZDKVADKZEKURUNVBDE
       ULUMABDNCNZOPVADEQVCUQEVCUTUPUILZMZUQUSDKZUTMUTVGMVCVFVGUTRUSUTDSVEVGUTDU
       PBENTUAUBUPUMAUIVDUCUDPUEDUMUGVDTEUMUJVDTUBUF $.
-      $( [?] $) $( [12-Dec-2006] $)
+      $( [31-May-2007] $) $( [12-Dec-2006] $)
   $}
 
-  $( Reverse (preimage) restriction of the second member of a class
-     composition. $)
+  $( The range of the composition of two classes. $)
+  rnco2 $p |- ran ( A o. B ) = ( A " ran B ) $=
+    ( ccom crn cres cima rnco df-ima eqtr4 ) ABCDABDZEDAJFABGAJHI $.
+    $( [27-Mar-2008] $) $( [27-Mar-2008] $)
+
+  $( The domain of a composition.  Exercise 27 of [Enderton] p. 53. $)
+  dmco2 $p |- dom ( A o. B ) = ( `' B " dom A ) $=
+    ( ccom cdm ccnv crn cima dfdm4 cnvco rneqi rnco2 wceq imaeq2 ax-mp eqtr4
+    3eqtr ) ABCZDQEZFBEZAEZCZFZSADZGZQHRUAABIJUBSTFZGZUDSTKUCUELUDUFLAHUCUESMNO
+    P $.
+    $( [5-Feb-2004] $) $( [4-Feb-2004] $)
+
+  $( A composition is not affected by a double converse of its first
+     argument. $)
+  cocnvcnv1 $p |- ( `' `' A o. B ) = ( A o. B ) $=
+    ( ccnv ccom cvv cres cnvcnv2 coeq1i crn wss wceq ssv cores ax-mp eqtr ) ACC
+    ZBDAEFZBDZABDZPQBAGHBIZEJRSKTLABEMNO $.
+    $( [16-Dec-2007] $) $( [8-Oct-2007] $)
+
+  $( A composition is not affected by a double converse of its second
+     argument. $)
+  cocnvcnv2 $p |- ( A o. `' `' B ) = ( A o. B ) $=
+    ( ccnv ccom cvv cres cnvcnv2 coeq2i resco wrel wceq relco resid ax-mp
+    3eqtr2 ) ABCCZDABEFZDABDZEFZRPQABGHABEIRJSRKABLRMNO $.
+    $( [23-Dec-2007] $) $( [8-Oct-2007] $)
+
+  $( Absorption of a reverse (preimage) restriction of the second member of a
+     class composition. $)
   cores2 $p |- ( dom A (_ C -> ( A o. `' ( `' B |` C ) ) = ( A o. B ) ) $=
     ( cdm wss ccnv cres ccom wceq crn dfdm4 sseq1i cores sylbi cnvco wrel
     relres dfrel2 mpbi coeq1i eqtr 3eqtr4g cnveq syl relco 3eqtr3g ) ADZCEZABFZ
     CGZFZHZFZFZABHZFZFZULUOUHUMUPIUNUQIUHUJAFZHZUIURHZUMUPUHURJZCEUSUTIUGVACAKL
     UIURCMNUMUKFZURHUSAUKOVBUJURUJPVBUJIUICQUJRSTUAABOUBUMUPUCUDULPUNULIAUKUEUL
     RSUOPUQUOIABUEUORSUF $.
-    $( [?] $) $( [11-Dec-2006] $)
+    $( [27-Jun-2007] $) $( [11-Dec-2006] $)
 
   ${
     $d x y z A $.
@@ -3096,19 +3154,6 @@ $)
   $}
 
   ${
-    $d x y z A $.  $d x y z B $.
-    $( The domain of a composition.  Exercise 27 of [Enderton] p. 53. $)
-    dmco2 $p |- dom ( A o. B ) = ( `' B " dom A ) $=
-      ( vx vy vz ccom cdm ccnv cima cv cop wcel wex wa wbr visset opelco exbii
-      excom 19.42v opelcnv df-br bitr4 df-dm abeq2i anbi12i ancom 3bitr2 3bitr
-      eldm2 elima3 3bitr4 eqriv ) CABFZGZBHZAGZIZCJZDJZKUNLZDMZEJZUQLZVCUSKUPLZ
-      NZEMZUSUOLUSURLVBUSVCBOZVCUTAOZNZEMZDMVJDMZEMVGVAVKDEUSUTABCPZDPQRVJDESVL
-      VFEVLVHVIDMZNVEVDNVFVHVIDTVEVHVDVNVEUSVCKBLVHVCUSBEPVMUAUSVCBUBUCVNEUQEDA
-      UDUEUFVEVDUGUHRUIDUSUNVMUJEUSUPUQVMUKULUM $.
-      $( [5-Feb-2004] $) $( [4-Feb-2004] $)
-  $}
-
-  ${
     $d x y z A $.
     $( Alternate definition of a function. $)
     dffun2 $p |- ( Fun A <-> ( Rel A /\
@@ -3175,14 +3220,14 @@ $)
 
     $( A function has at most one value for each argument. $)
     funmo $p |- ( Fun A -> E* y x A y ) $=
-      ( wfun cv wbr wmo wrel wal dffunmo pm3.27bd 19.21bi ) CDZAEBECFBGZAMCHNAI
+      ( wfun cv wbr wmo wrel wal dffunmo pm3.27bi 19.21bi ) CDZAEBECFBGZAMCHNAI
       ABCJKL $.
       $( [15-Aug-2004] $) $( [24-May-1998] $)
   $}
 
   $( A function is a relation. $)
   funrel $p |- ( Fun A -> Rel A ) $=
-    ( wfun wrel ccnv ccom cid wss df-fun pm3.26bd ) ABACAADEFGAHI $.
+    ( wfun wrel ccnv ccom cid wss df-fun pm3.26bi ) ABACAADEFGAHI $.
     $( [1-Aug-1994] $)
 
   ${
@@ -3190,7 +3235,7 @@ $)
     $( Subclass theorem for function predicate. $)
     funss $p |- ( A (_ B -> ( Fun B -> Fun A ) ) $=
       ( vx vy vz wss wfun wrel cv cop wcel wceq wi wal wex wa relss funrel
-      syl5 ssel imim1d 19.20dv 19.22dv dffun5 pm3.27bd jcad syl6ibr ) ABFZBGZAH
+      syl5 ssel imim1d 19.20dv 19.22dv dffun5 pm3.27bi jcad syl6ibr ) ABFZBGZAH
       ZCIDIZJZAKZUKEILZMZDNZEOZCNZPAGUHUIUJURUHBHZUJUIABQBRSUHULBKZUNMZDNZEOZCN
       ZURUIUHVCUQCUHVBUPEUHVAUODUHUMUTUNABULTUAUBUCUBUIUSVDCDEBUDUESUFCDEAUDUG
       $.
@@ -3218,7 +3263,7 @@ $)
     $d x y z F $.
     $( There is exactly one value of a function. $)
     funeu $p |- ( ( Fun F /\ x F y ) -> E! y x F y ) $=
-      ( vz cv wbr wfun weu wa wex wceq wi wal 19.8a wrel dffun3 pm3.27bd
+      ( vz cv wbr wfun weu wa wex wceq wi wal 19.8a wrel dffun3 pm3.27bi
       19.21bi anim12i ax-17 eu3 sylibr ancoms ) AEBEZCFZCGZUEBHZUEUFIUEBJZUEUDD
       EKLBMDJZIUGUEUHUFUIUEBNUFUIAUFCOUIAMABDCPQRSUEBDUEDTUAUBUC $.
       $( [24-Apr-2004] $) $( [22-Apr-2004] $)
@@ -3235,8 +3280,8 @@ $)
     $( Alternate definition of a function.  One possibility for the definition
        of a function in [Enderton] p. 42.  (Enderton's definition is ambiguous
        because "there is only one" could mean either "there is at most one" or
-       "there is exactly one".  However, ~ dffun7 shows that it doesn't matter
-       which meaning we pick.)  $)
+       "there is exactly one."  However, ~ dffun7 shows that it doesn't matter
+       which meaning we pick.) $)
     dffun6 $p |- ( Fun A <-> ( Rel A /\ A. x e. dom A E* y x A y ) ) $=
       ( wfun wrel cv wbr wmo wal wa cdm wral dffunmo wcel wi wex moabs visset
       eldm imbi1i bitr4 albii df-ral anbi2i bitr ) CDCEZAFZBFCGZBHZAIZJUFUIACKZ
@@ -3297,7 +3342,7 @@ $)
     $( [30-Apr-1998] $)
 
   $( The universe is not a function.  (Contributed by Raph Levien,
-     27-Jan-04.) $)
+     27-Jan-2004.) $)
   nfunv $p |- -. Fun V $=
     ( cvv wfun wrel c0 cxp wcel 0nelxp 0ex wss df-rel biimp sseld mpi mto
     funrel ) ABACZPDAAEZFZAAGPDAFRHPAQDPAQIAJKLMNAON $.
@@ -3329,7 +3374,7 @@ $)
        [TakeutiZaring] p. 25. $)
     funco $p |- ( ( Fun F /\ Fun G ) -> Fun ( F o. G ) ) $=
       ( vx vy vz wfun wa ccom wrel cv wbr wmo wal wex moexexv funmo dffunmo
-      pm3.27bd syl2an ancoms visset brco mobii sylibr 19.21aiv relco jctil ) AF
+      pm3.27bi syl2an ancoms visset brco mobii sylibr 19.21aiv relco jctil ) AF
       ZBFZGZABHZIZCJZDJZUKKZDLZCMZGUKFUJUQULUJUPCUJUMEJZBKZURUNAKZGENZDLZUPUIUH
       VBUSELUTDLEMZVBUIUHUSUTEDOCEBPUHAIVCEDAQRSTUOVADEUMUNABCUADUAUBUCUDUEABUF
       UGCDUKQUD $.
@@ -3363,11 +3408,12 @@ $)
   $}
 
   $( Equality of restrictions of a function and a subclass. $)
-  fun2ssres $p |- ( ( ( Fun F /\ G (_ F ) /\ A (_ dom G ) ->
+  fun2ssres $p |- ( ( Fun F /\ G (_ F /\ A (_ dom G ) ->
                   ( F |` A ) = ( G |` A ) ) $=
-    ( wfun wss wa cdm cres wceq funssres reseq1 syl eqcomd resabs1 sylan9eq )
-    BDCBEFZACGZEZFCAHZBAHZPRSBQHZAHZTPUBSPUACIUBSIBCJUACAKLMBAQNOM $.
-    $( [16-Aug-1994] $)
+    ( wfun wss cdm cres wceq wa resabs1 eqcomd funssres reseq1 syl sylan9eqr
+    3impa ) BDZCBEZACFZEZBAGZCAGZHTQRIZUABSGZAGZUBTUEUABASJKUCUDCHUEUBHBCLUDCAM
+    NOP $.
+    $( [2-Jun-2007] $) $( [16-Aug-1994] $)
 
   ${
     $d x y z F $.  $d x y z G $.
@@ -3378,7 +3424,7 @@ $)
       ( vx vy vz wfun wa cdm cin c0 wceq cun wrel cv cop wcel wi wal funrel
       anim12i relun sylibr adantr wo wn disj1 biimp 19.21bi imnan sylib visset
       opeldm nsyl orel2 syl con2d orel1 orim12d adantl elun anbi12i anddi bitr
-      syl5ib dffun4 pm3.27bd 19.21bbi jaao syld 19.21aiv 19.21aivv jca ) AFZBFZ
+      syl5ib dffun4 pm3.27bi 19.21bbi jaao syld 19.21aiv 19.21aivv jca ) AFZBFZ
       GZAHZBHZIJKZGZABLZMZCNZDNZOZVTPZWBENZOZVTPZGZWCWFKZQZERZDRCRZGVTFVSWAWMVO
       WAVRVOAMZBMZGWAVMWNVNWOASBSTABUAUBUCVSWLCDVSWKEVSWIWDAPZWGAPZGZWDBPZWGBPZ
       GZUDZWJVSWRWPWTGZUDZWSWQGZXAUDZUDZXBWIVRXGXBQVOVRXDWRXFXAVRXCUEXDWRQVRWBV
@@ -3435,7 +3481,7 @@ $)
       $( [2-Nov-2004] $) $( [13-Aug-2004] $)
 
     $( A single-valued relation is a function.  (See ~ fun2cnv for
-       "single-valued".)  Definition 6.4(4) of [TakeutiZaring] p. 24. $)
+       "single-valued.")  Definition 6.4(4) of [TakeutiZaring] p. 24. $)
     svrelfun $p |- ( Fun A <-> ( Rel A /\ Fun `' `' A ) ) $=
       ( vx vy wfun wrel cv wbr wmo wal wa ccnv dffunmo fun2cnv anbi2i bitr4 )
       ADAEZBFCFAGCHBIZJPAKKDZJBCALRQPBCAMNO $.
@@ -3482,7 +3528,7 @@ $)
                  Fun U. A ) $=
       ( vx vy vz vw vv cv wfun wss wo wral wa cuni wrel cop wcel wceq wi wal
       funrel adantr r19.20si reluni sylibr r19.28av ssel anim1d dffun4
-      pm3.27bd ax-4 a4s 3syl syl9r adantl anim2d jaod imp funeq sseq1 sseq2
+      pm3.27bi ax-4 a4s 3syl syl9r adantl anim2d jaod imp funeq sseq1 sseq2
       orbi12d anbi12d anbi2d cbvral2v ralcom orcom syl5bb bitr anbi12i anidm
       anandir 2ralbii r19.26-2 bitr2 3bitr3 wex eluni eeanv an4 ancom 2exbii
       3bitr2 imbi1i 19.23v albii impexp 2albii r2al bitr4 3bitr3r 3imtr4
@@ -3511,22 +3557,21 @@ $)
                     -> Fun `' U. A ) $=
       ( vy vx vz vw vv cv ccnv wfun wss wo wral wa wceq wrex cab cuni wi wal
       wcel wb cnveq funeq syl sseq1 sseq2 orbi12d ralbidv anbi12d rcla4v
-      biimprcd adantr sseq12 ancoms cnvss orim12i syl5bir com12 exp3a syl6com
-      r19.23adv com23 19.21adv adantl jcad eqeq2d cbvrexv syl5ib 19.21aiv
-      df-ral visset eqeq1 rexbidv elab imbi1i albii bitr anbi2i imbi12i bitr2
-      sylib fununi ciun cnvuni cnvex dfiun2 eqtr ax-mp sylibr ) BIZJZKZWLCIZLZW
-      OWLLZMZCANZOZBANZDIZEIZJZPZEAQZDRZSZKZASJZKZXAFIZKZXLGIZLZXNXLLZMZGXGNZOZ
-      FXGNZXIXAXLXDPZEAQZXMXNXDPZEAQZXQTZGUAZOZTZFUAZXTXAYHFXAXLHIZJZPZHAQYGYBX
-      AYLYGHAYJAUBXAYKKZYJWOLZWOYJLZMZCANZOZYLYGTWTYRBYJAWLYJPZWNYMWSYQYSWMYKPW
-      NYMUCWLYJUDWMYKUEUFYSWRYPCAYSWPYNWQYOWLYJWOUGWLYJWOUHUIUJUKULYRYLXMYFYMYL
-      XMTYQYLXMYMXLYKUEUMUNYQYLYFTYMYQYLYEGYQYDYLXQYQYCYLXQTZEAXCAUBYQYJXCLZXCY
-      JLZMZYCYTTYPUUCCXCAWOXCPYNUUAYOUUBWOXCYJUHWOXCYJUGUIULUUCYCYLXQYCYLOZUUCX
-      QUUDXQYKXDLZXDYKLZMUUCUUDXOUUEXPUUFYLYCXOUUEUCXLYKXNXDUOUPXNXDXLYKUOUIUUA
-      UUEUUBUUFYJXCUQXCYJUQURUSUTVAVBVCVDVEVFVGVBVCYAYLEHAXCYJPXDYKXLXCYJUDVHVI
-      VJVKXTXLXGUBZXSTZFUAYIXSFXGVLUUHYHFUUGYBXSYGXFYBDXLFVMXBXLPXEYAEAXBXLXDVN
-      VOVPXRYFXMXRXNXGUBZXQTZGUAYFXQGXGVLUUJYEGUUIYDXQXFYDDXNGVMXBXNPXEYCEAXBXN
-      XDVNVOVPVQVRVSVTWAVRWBWCXGFGWDUFXJXHPXKXIUCXJEAXDWEXHEAWFEDAXDXCEVMWGWHWI
-      XJXHUEWJWK $.
+      biimprcd sseq12 ancoms cnvss orim12i syl5cbir exp3a syl6com r19.23adv
+      com23 19.21adv anim12ii eqeq2d cbvrexv syl5ib 19.21aiv df-ral visset
+      eqeq1 rexbidv elab imbi1i albii bitr anbi2i imbi12i bitr2 sylib fununi
+      ciun cnvuni cnvex dfiun2 eqtr ax-mp sylibr ) BIZJZKZWICIZLZWLWILZMZCANZOZ
+      BANZDIZEIZJZPZEAQZDRZSZKZASJZKZWRFIZKZXIGIZLZXKXILZMZGXDNZOZFXDNZXFWRXIXA
+      PZEAQZXJXKXAPZEAQZXNTZGUAZOZTZFUAZXQWRYEFWRXIHIZJZPZHAQYDXSWRYIYDHAYGAUBW
+      RYHKZYGWLLZWLYGLZMZCANZOZYIYDTWQYOBYGAWIYGPZWKYJWPYNYPWJYHPWKYJUCWIYGUDWJ
+      YHUEUFYPWOYMCAYPWMYKWNYLWIYGWLUGWIYGWLUHUIUJUKULYJYIXJYNYCYIXJYJXIYHUEUMY
+      NYIYBGYNYAYIXNYNXTYIXNTZEAWTAUBYNYGWTLZWTYGLZMZXTYQTYMYTCWTAWLWTPYKYRYLYS
+      WLWTYGUHWLWTYGUGUIULYTXTYIXNXTYIOZXNYHXALZXAYHLZMYTUUAXLUUBXMUUCYIXTXLUUB
+      UCXIYHXKXAUNUOXKXAXIYHUNUIYRUUBYSUUCYGWTUPWTYGUPUQURUSUTVAVBVCVDUTVAXRYIE
+      HAWTYGPXAYHXIWTYGUDVEVFVGVHXQXIXDUBZXPTZFUAYFXPFXDVIUUEYEFUUDXSXPYDXCXSDX
+      IFVJWSXIPXBXREAWSXIXAVKVLVMXOYCXJXOXKXDUBZXNTZGUAYCXNGXDVIUUGYBGUUFYAXNXC
+      YADXKGVJWSXKPXBXTEAWSXKXAVKVLVMVNVOVPVQVRVOVSVTXDFGWAUFXGXEPXHXFUCXGEAXAW
+      BXEEAWCEDAXAWTEVJWDWEWFXGXEUEWGWH $.
       $( [2-Oct-2004] $) $( [11-Aug-2004] $)
 
     $( The union of a chain (with respect to inclusion) of one-to-one functions
@@ -3600,11 +3645,11 @@ $)
 
   $( A kind of contraposition law that infers an image subclass from a subclass
      of a pre-image. $)
-  funimass2 $p |- ( Fun F -> ( A (_ ( `' F " B ) -> ( F " A ) (_ B ) ) $=
-    ( wfun cima ccnv wss crn cin funimacnv sseq2d inss1 sstr2 mpi syl6bi
-    imass2 syl5 ) CDZCAEZCCFBEZEZGZSBGZATGRUBSBCHZIZGZUCRUAUESBCJKUFUEBGUCBUDLS
-    UEBMNOATCPQ $.
-    $( [10-Jun-2004] $) $( [25-May-2004] $)
+  funimass2 $p |- ( ( Fun F /\ A (_ ( `' F " B ) ) -> ( F " A ) (_ B ) $=
+    ( wfun cima ccnv wss crn cin funimacnv sseq2d inss1 sstr2 mpi syl6bi imp
+    imass2 sylan2 ) CDZCAEZCCFBEZEZGZTBGZAUAGSUCUDSUCTBCHZIZGZUDSUBUFTBCJKUGUFB
+    GUDBUELTUFBMNOPAUACQR $.
+    $( [4-May-2007] $) $( [25-May-2004] $)
 
   ${
     $d x y A $.  $d x y B $.  $d x y F $.
@@ -3633,7 +3678,7 @@ $)
        p. 284.  Compare Exercise 9 of [TakeutiZaring] p. 29. $)
     funimaexg $p |- ( ( Fun A /\ B e. C ) -> ( A " B ) e. V ) $=
       ( vw vx vy vz wcel wfun cima cvv cv wi wceq imaeq2 eleq1d imbi2d cop wal
-      wex wrel dffun5 pm3.27bd wa wb ax-17 axrep4 isset cab dfima3 eqeq2i
+      wex wrel dffun5 pm3.27bi wa wb ax-17 axrep4 isset cab dfima3 eqeq2i
       abeq2 bitr exbii sylibr syl vtoclg impcom ) BCHAIZABJZKHZUSADLZJZKHZMUSVA
       MDBCVBBNZVDVAUSVEVCUTKVBBAOPQUSELZFLZRAHZVGGLZNMFSGTESZVDUSAUAVJEFGAUBUCV
       JVGVIHVFVBHVHUDETZUEFSZGTZVDVHEFGDVHGUFUGVDVIVCNZGTVMGVCUHVNVLGVNVIVKFUIZ
@@ -3656,10 +3701,9 @@ $)
     $( Part of a study of the Axiom of Replacement used by the Isabelle prover.
        The object PrimReplace is apparently the  image of the function encoded
        by ` ph ( x , y ) ` i.e. the class ` ( { <. x , y >. | ph } " A ) ` .
-       If so, we can prove Isabelle's "Axiom of Replacement" conclusion using
-       only the Axiom of Extensionality, the Axiom of Pairing, and no
-       hypotheses.  ('show trace isarep1 /essential /axioms' shows
-       Replacement and Power Sets because they are used to derive Pairing.) $)
+       If so, we can prove Isabelle's "Axiom of Replacement" conclusion without
+       using the Axiom of Replacement, for which I (N. Megill) currently have
+       no explanation. $)
     isarep1 $p |- ( b e. ( { <. x , y >. | ph } " A ) <->
                  E. x e. A [ b / y ] ph ) $=
       ( vz cv copab cima wcel wbr wrex wsbc visset elima cop df-br opabsb bitr
@@ -3695,10 +3739,26 @@ $)
      6.17 of [TakeutiZaring] p. 28. $)
   resfunexg $p |- ( ( Fun A /\ B e. C ) -> ( A |` B ) e. V ) $=
     ( wfun wcel wa cres cdm cvv crn cxp dmresexg adantl cima funimaexg df-ima
-    eleq1i sylib jca xpexg wss wrel relres relssdr ax-mp ssexg mpan 3syl ) ADZB
-    CEZFZABGZHZIEZULJZIEZFUMUOKZIEZULIEZUKUNUPUJUNUIABCLMUKABNZIEUPABCOUTUOIABP
-    QRSUMUOIITULUQUAZURUSULUBVAABUCULUDUEULUQIUFUGUH $.
+    syl5eqelr jca xpexg wss wrel relres relssdr ax-mp ssexg mpan 3syl ) ADZBCEZ
+    FZABGZHZIEZUKJZIEZFULUNKZIEZUKIEZUJUMUOUIUMUHABCLMUJABNIUNABCOABPQRULUNIISU
+    KUPTZUQURUKUAUSABUBUKUCUDUKUPIUEUFUG $.
     $( [12-Sep-2006] $) $( [7-Apr-1995] $)
+
+  $( Existence of a composition when the first member is a function. $)
+  cofunexg $p |- ( ( Fun A /\ B e. C ) -> ( A o. B ) e. V ) $=
+    ( wfun wcel wa ccom cdm crn cxp cvv xpexg dmexg wss dmcoss ssexg mpan syl
+    adantl cres resfunexg rnexg sylan2 rnco syl5eqel sylanc wrel relco relssdr
+    ax-mp ) ADZBCEZFZABGZHZUNIZJZKEZUNKEZUOKEZUPKEURUMUOUPKKLULUTUKULBHZKEZUTBC
+    MUOVANVBUTABOUOVAKPQRSUMABIZTZIZKUPUMVDKEZVEKEUKVCKEVFULAVCKUABCUBUCVDKUBRA
+    BUDUEUFUNUQNZURUSUNUGVGABUHUNUIUJUNUQKPQR $.
+    $( [9-Oct-2007] $) $( [8-Oct-2007] $)
+
+  $( Existence of a composition when the second member is one-to-one. $)
+  cofunex2g $p |- ( ( A e. C /\ Fun `' B ) -> ( A o. B ) e. V ) $=
+    ( ccnv wfun wcel ccom cvv wa cofunexg cnvexg sylan2 cnvco cocnvcnv2
+    cocnvcnv1 3eqtrr syl5eqel syl ancoms ) BDZEZACFZABGZHFZUAUBITADZGZHFZUDUAUE
+    HFUGUBTUEHJACKLUGUFDZHUCUFHKUHUEDZTDGUIBGUCTUEMUIBNABOPQRS $.
+    $( [21-Dec-2007] $) $( [8-Oct-2007] $)
 
   $( Equality theorem for function predicate with domain. $)
   fneq1 $p |- ( F = G -> ( F Fn A <-> G Fn A ) ) $=
@@ -3725,7 +3785,7 @@ $)
 
   $( A function with domain is a function. $)
   fnfun $p |- ( F Fn A -> Fun F ) $=
-    ( wfn wfun cdm wceq df-fn pm3.26bd ) BACBDBEAFBAGH $.
+    ( wfn wfun cdm wceq df-fn pm3.26bi ) BACBDBEAFBAGH $.
     $( [1-Aug-1994] $)
 
   $( A function with domain is a relation. $)
@@ -3735,7 +3795,7 @@ $)
 
   $( The domain of a function. $)
   fndm $p |- ( F Fn A -> dom F = A ) $=
-    ( wfn wfun cdm wceq df-fn pm3.27bd ) BACBDBEAFBAGH $.
+    ( wfn wfun cdm wceq df-fn pm3.27bi ) BACBDBEAFBAGH $.
     $( [2-Aug-1994] $)
 
   ${
@@ -3749,7 +3809,7 @@ $)
 
   $( A function has a unique domain. $)
   fndmu $p |- ( ( F Fn A /\ F Fn B ) -> A = B ) $=
-    ( wfn cdm fndm eqcomd sylan9eq ) CADZCBDACEZBIJAACFGBCFH $.
+    ( wfn cdm fndm sylan9req ) CADCBDACEBACFBCFG $.
     $( [11-Aug-1994] $)
 
   $( The first argument of binary relation on a function belongs to the
@@ -3830,10 +3890,15 @@ $)
     $( [8-Aug-1994] $)
 
   $( Restriction of a function with a subclass of its domain. $)
+  fnssresb $p |- ( F Fn A -> ( ( F |` B ) Fn B <-> B (_ A ) ) $=
+    ( wfn cres wfun cdm wceq wa wss fnfun funres syl biantrurd fndm sseq2d
+    ssdmres syl5bbr bitr3d df-fn syl5bb ) CADZCBEZFZUCGBHZIZBAJZUCBDUBUEUFUGUBU
+    DUEUBCFUDACKBCLMNUBBCGZJUGUEUBUHABACOPBCQRSUCBTUA $.
+    $( [10-Oct-2007] $) $( [10-Oct-2007] $)
+
+  $( Restriction of a function with a subclass of its domain. $)
   fnssres $p |- ( ( F Fn A /\ B (_ A ) -> ( F |` B ) Fn B ) $=
-    ( wfn wss wa cres wfun cdm wceq fnfun funres syl adantr fndm sseq2d
-    biimpar ssdmres sylib jca df-fn sylibr ) CADZBAEZFZCBGZHZUFIBJZFUFBDUEUGUHU
-    CUGUDUCCHUGACKBCLMNUEBCIZEZUHUCUJUDUCUIABACOPQBCRSTUFBUAUB $.
+    ( wfn cres wss fnssresb biimpar ) CADCBEBDBAFABCGH $.
     $( [25-Sep-2004] $) $( [2-Aug-1994] $)
 
   $( Restriction of a function's domain with an intersection. $)
@@ -3892,7 +3957,7 @@ $)
 
   $( If the domain of a function exists, so the function.  Part of Theorem
      4.15(v) of [Monk1] p. 46.  This theorem is derived using the Axiom of
-     Replacement in the form of ~ fnex .   (Note:  Any resemblance between
+     Replacement in the form of ~ fnex .  (Note:  Any resemblance between
      F.U.N.E.X. and "Have You Any Eggs" is purely a coincidence originated by
      Swedish chefs.) $)
   funex $p |- ( ( Fun F /\ dom F e. B ) -> F e. V ) $=
@@ -3901,10 +3966,10 @@ $)
 
   ${
     $d x y A $.
-    funopabex.1 $e |- A e. V $.
-    funopabex.2 $e |- ( x e. A -> E* y ph ) $.
+    opabex.1 $e |- A e. V $.
+    opabex.2 $e |- ( x e. A -> E* y ph ) $.
     $( Existence of a function expressed as class of ordered pairs. $)
-    funopabex $p |- { <. x , y >. | ( x e. A /\ ph ) } e. V $=
+    opabex $p |- { <. x , y >. | ( x e. A /\ ph ) } e. V $=
       ( cv wcel wa copab wfun cdm cvv wmo funopab wi moanimv mpbir mpgbir
       dmopabss ssexi funex mp2an ) BGDHZAIZBCJZKZUFLZMHUFMHUGUECNZBUEBCOUIUDACN
       PFUDACQRSUHDEABCDTUAMUFUBUC $.
@@ -3913,22 +3978,32 @@ $)
 
   ${
     $d x y A $.  $d y B $.
-    funopabex2.1 $e |- A e. V $.
+    opabex2.1 $e |- A e. V $.
     $( Existence of a function expressed as class of ordered pairs. $)
-    funopabex2 $p |- { <. x , y >. | ( x e. A /\ y = B ) } e. V $=
-      ( cv wceq wmo wcel moeq a1i funopabex ) BFDGZABCEMBHAFCIBDJKL $.
+    opabex2 $p |- { <. x , y >. | ( x e. A /\ y = B ) } e. V $=
+      ( cv wceq wmo wcel moeq a1i opabex ) BFDGZABCEMBHAFCIBDJKL $.
       $( [24-Apr-2005] $) $( [22-Apr-2005] $)
   $}
 
   ${
     $d x y A $.  $d y B $.
     $( Existence of a function expressed as class of ordered pairs. $)
-    funopabex2g $p |- ( A e. C ->
+    opabex2g $p |- ( A e. C ->
                       { <. x , y >. | ( x e. A /\ y = B ) } e. V ) $=
       ( wcel cv wceq wa copab cdm cvv wss dmopabss ssexg mpan wfun wmo funopab
       moeq moani mpgbir funex syl ) CEFZAGCFZBGDHZIZABJZKZLFZUILFZUJCMUEUKUGABC
       NUJCEOPUIQZUKULUMUHBRAUHABSUGUFBBDTUAUBLUIUCPUD $.
       $( [12-Sep-2006] $) $( [9-Sep-2006] $)
+  $}
+
+  ${
+    $d x y A $.  $d y B $.
+    fopabex2.1 $e |- A e. V $.
+    fopabex2.3 $e |- F = { <. x , y >. | ( x e. A /\ y = B ) } $.
+    $( Existence of a function expressed as class of ordered pairs. $)
+    fopabex2 $p |- F e. V $=
+      ( cv wcel wceq wa copab cvv opabex2 eqeltr ) EAHCIBHDJKABLMGABCDFNO $.
+      $( [31-Jul-2007] $) $( [30-Jul-2007] $)
   $}
 
   $( If the domain of a function exists, so does its range.  Part of Theorem
@@ -3940,7 +4015,7 @@ $)
     $( [11-Nov-1995] $)
 
   ${
-    $d ph w v $. $d x y z w v $.
+    $d ph w v $.  $d x y z w v $.
     $( A version of the Axiom of Replacement.  Normally ` ph ` would have free
        variables ` x ` and ` y ` .  Axiom 6 of [Kunen] p. 12.  The Separation
        Scheme ~ ax-sep cannot be derived from this version and must be stated
@@ -3970,15 +4045,15 @@ $)
     fnopabg $p |- ( A. x e. A E! y ph <-> F Fn A ) $=
       ( vz vw weu wral wfn cv wcel wa copab wfun cdm wceq wmo wal hbra1 wi ra4
       eumo imim2i moanimv sylibr syl 19.21ai funopab wex euex r19.20si dmopab3
-      sylib jca df-fn wb fneq1 ax-mp hbopab1 eleq2i albii 3imtr4 ax-17 hbfn
-      cop fneu2 hbopab2 hbel opeq2 eleq1d cbveu opabid bitr eubii euanv
-      pm3.27bd ex r19.21ai impbi ) ACIZBDJZEDKZWCBLZDMZANZBCOZDKZWDWCWHPZWHQDRZ
-      NWIWCWJWKWCWGCSZBTWJWCWLBWBBDUAWCWFWBUBZWLWBBDUCWMWFACSZUBWLWBWNWFACUDUEW
-      FACUFUGUHUIWGBCUJUGWCACUKZBDJWKWBWOBDACULUMABCDUNUOUPWHDUQUGEWHRWDWIURFDE
-      WHUSUTUGWDWBBDBGDEGLZWHMZWQBTWPEMZWRBTWGBCGVAEWHWPFVBZWRWQBWSVCVDWPDMBVEV
-      FWDWFWBWDWFNZWECLZVGZEMZCIZWBWTWEWPVGZEMZGIXDGDWEEVHXFXCGCCHGXEEHLXEMCVEW
-      QWQCTWRWRCTWGBCGVIWSWRWQCWSVCVDVJXCGVEWPXARXEXBEWPXAWEVKVLVMUOXDWFWBXDWGC
-      IWFWBNXCWGCXCXBWHMWGEWHXBFVBWGBCVNVOVPWFACVQVOVRUHVSVTWA $.
+      sylib jca df-fn wb fneq1 ax-mp hbopab1 hbxfr ax-17 hbfn cop fneu2
+      hbopab2 hbel opeq2 eleq1d cbveu eleq2i opabid bitr eubii euanv pm3.27bi
+      ex r19.21ai impbi ) ACIZBDJZEDKZWBBLZDMZANZBCOZDKZWCWBWGPZWGQDRZNWHWBWIWJ
+      WBWFCSZBTWIWBWKBWABDUAWBWEWAUBZWKWABDUCWLWEACSZUBWKWAWMWEACUDUEWEACUFUGUH
+      UIWFBCUJUGWBACUKZBDJWJWAWNBDACULUMABCDUNUOUPWGDUQUGEWGRWCWHURFDEWGUSUTUGW
+      CWABDBGDEBGEWGFWFBCGVAVBGLZDMBVCVDWCWEWAWCWENZWDCLZVEZEMZCIZWAWPWDWOVEZEM
+      ZGIWTGDWDEVFXBWSGCCHGXAEHLXAMCVCCGEWGFWFBCGVGVBVHWSGVCWOWQRXAWREWOWQWDVIV
+      JVKUOWTWEWAWTWFCIWEWANWSWFCWSWRWGMWFEWGWRFVLWFBCVMVNVOWEACVPVNVQUHVRVSVT
+      $.
       $( [31-Jan-2004] $) $( [30-Jan-2004] $)
   $}
 
@@ -4036,6 +4111,20 @@ $)
     ADJCBDJORSPABQKLCADMCBDMN $.
     $( [1-Aug-1994] $)
 
+  $( Equality theorem for functions.  (Contributed by FL, 14-Jul-2007.) $)
+  feq23 $p |- ( ( A = C /\ B = D ) -> ( F : A --> B <-> F : C --> D ) ) $=
+    ( wceq wa wfn crn wss wf fneq2 sseq2 bi2anan9 df-f 3bitr4g ) ACFZBDFZGEAHZE
+    IZBJZGECHZTDJZGABEKCDEKQSUBRUAUCACELBDTMNABEOCDEOP $.
+    $( [11-Oct-2007] $) $( [14-Jul-2007] $)
+
+  ${
+    feq1d.1 $e |- ( ph -> F = G ) $.
+    $( Equality deduction for mappings. $)
+    feq1d $p |- ( ph -> ( F : A --> B <-> G : A --> B ) ) $=
+      ( wceq wf wb feq1 syl ) ADEGBCDHBCEHIFBCDEJK $.
+      $( [20-Feb-2008] $) $( [19-Feb-2008] $)
+  $}
+
   ${
     $d y F $.  $d y A $.  $d y B $.  $d x y $.
     hbf.1 $e |- ( y e. F -> A. x y e. F ) $.
@@ -4060,7 +4149,7 @@ $)
 
   $( A mapping is a function. $)
   ffn $p |- ( F : A --> B -> F Fn A ) $=
-    ( wf wfn crn wss df-f pm3.26bd ) ABCDCAECFBGABCHI $.
+    ( wf wfn crn wss df-f pm3.26bi ) ABCDCAECFBGABCHI $.
     $( [2-Aug-1994] $)
 
   $( Any function is a mapping into ` V ` . $)
@@ -4086,7 +4175,7 @@ $)
 
   $( The range of a mapping. $)
   frn $p |- ( F : A --> B -> ran F (_ B ) $=
-    ( wf wfn crn wss df-f pm3.27bd ) ABCDCAECFBGABCHI $.
+    ( wf wfn crn wss df-f pm3.27bi ) ABCDCAECFBGABCHI $.
     $( [3-Aug-1994] $)
 
   $( A function maps to its range. $)
@@ -4094,7 +4183,7 @@ $)
     ( wfn crn wss wa wf ssid biantru df-f bitr4 ) BACZLBDZMEZFAMBGNLMHIAMBJK $.
     $( [1-Sep-1999] $)
 
-  $( Expanding the co-domain of a mapping. $)
+  $( Expanding the codomain of a mapping. $)
   fss $p |- ( ( F : A --> B /\ B (_ C ) -> F : A --> C ) $=
     ( wf wss wa wfn crn ffn adantr wi frn sstr2 syl imp jca df-f sylibr ) ABDEZ
     BCFZGZDAHZDIZCFZGACDEUBUCUETUCUAABDJKTUAUETUDBFUAUELABDMUDBCNOPQACDRS $.
@@ -4117,6 +4206,23 @@ $)
     HZUGUIBHZUOABCIAAHUPUOAJAAUIBKLMUGUHANUJUNNULUOOABCPUHAUIQUJUNUKRSTUGCUACUJ
     HULUMUBABCUCCUDCUJUKUESUF $.
     $( [3-Aug-1994] $)
+
+  $( Two ways of specifying a partial function from ` A ` to ` B ` . $)
+  funssxp $p |- ( ( Fun F /\ F (_ ( A X. B ) ) <->
+             ( F : dom F --> B /\ dom F (_ A ) ) $=
+    ( wfun cxp wss wa cdm wf wfn crn funfn biimp rnss rnxpss sstr mpan2 syl
+    anim12i df-f sylibr dmss dmxpss adantl jca ffun adantr fssxp ssid ssxp
+    sylan9ss impbi ) CDZCABEZFZGZCHZBCIZUQAFZGZUPURUSUPCUQJZCKZBFZGURUMVAUOVCUM
+    VACLMUOVBUNKZFZVCCUNNVEVDBFVCABOVBVDBPQRSUQBCTUAUOUSUMUOUQUNHZFZUSCUNUBVGVF
+    AFUSABUCUQVFAPQRUDUEUTUMUOURUMUSUQBCUFUGURUSCUQBEZUNUQBCUHUSBBFVHUNFBUIUQAB
+    BUJQUKUEUL $.
+    $( [14-Nov-2007] $) $( [13-Nov-2007] $)
+
+  $( A mapping is a partial function. $)
+  ffdm $p |- ( F : A --> B -> ( F : dom F --> B /\ dom F (_ A ) ) $=
+    ( wf cdm wss wceq wb fdm feq2 syl ibir eqimss jca ) ABCDZCEZBCDZPAFZOQOPAGZ
+    QOHABCIZPABCJKLOSRTPAMKN $.
+    $( [27-Nov-2007] $) $( [25-Nov-2007] $)
 
   ${
     opelf.1 $e |- D e. V $.
@@ -4155,8 +4261,8 @@ $)
   $( Restriction of a restricted function with a subclass of its domain. $)
   fssres2 $p |- ( ( ( F |` A ) : A --> B /\ C (_ A ) ->
                 ( F |` C ) : C --> B ) $=
-    ( cres wf wss wa fssres wb wceq resabs1 feq1 syl adantl mpbid ) ABDAEZFZCAG
-    ZHCBQCEZFZCBDCEZFZABCQISUAUCJZRSTUBKUDDCALCBTUBMNOP $.
+    ( cres wf wss wa fssres wb resabs1 feq1d adantl mpbid ) ABDAEZFZCAGZHCBOCEZ
+    FZCBDCEZFZABCOIQSUAJPQCBRTDCAKLMN $.
     $( [22-Jul-2005] $) $( [21-Jul-2005] $)
 
   ${
@@ -4215,7 +4321,7 @@ $)
       $( [26-Mar-1998] $)
   $}
 
-  $( The pre-image of a class disjoint with a mapping's co-domain is empty.
+  $( The pre-image of a class disjoint with a mapping's codomain is empty.
      (Contributed by FL, 24-Jan-2007.) $)
   fimacnvdisj $p |- ( ( F : A --> B /\ ( B i^i C ) = (/) ) ->
     ( `' F " C ) = (/) ) $=
@@ -4233,7 +4339,7 @@ $)
       r19.26 bitr4 df-f ralbii 3bitr4 ) DBFZDGZCHZIZJZUFUGAKZIZJZACLZBUHDMBUKDM
       ZACLUJUFACLZULACLZJUNUFUPUIUQCNOUFUPPEUFACQRAUGCSTUFULACUAUBBUHDUCUOUMACB
       UKDUCUDUE $.
-      $( [25-Jan-2007] $)  $( [14-Oct-1999] $)
+      $( [25-Jan-2007] $) $( [14-Oct-1999] $)
   $}
 
   $( Mapping into an intersection. $)
@@ -4247,6 +4353,42 @@ $)
   fex $p |- ( ( F : A --> B /\ A e. C ) -> F e. V ) $=
     ( wfn wcel cvv wf fnex ffn sylan ) DAEACFDGFABDHACDIABDJK $.
     $( [11-Sep-2006] $) $( [3-Oct-1999] $)
+
+  ${
+    $d A x $.  $d B x $.
+    fabexg.1 $e |- F = { x | ( x : A --> B /\ ph ) } $.
+    $( Existence of a set of functions.  (Contributed by Paul Chapman,
+       25-Feb-2008.) $)
+    fabexg $p |- ( ( A e. C /\ B e. D ) -> F e. V ) $=
+      ( wcel wa cxp cvv cpw xpexg pwexg wss cv cab wf fssxp visset elpw sylibr
+      anim1i ss2abi eqsstr ssab2 sstri ssexg mpan 3syl ) CEIDFIJCDKZLIULMZLIZGL
+      IZCDEFNULLOGUMPUNUOGBQZUMIZAJZBRZUMGCDUPSZAJZBRUSHVAURBUTUQAUTUPULPUQCDUP
+      TUPULBUAUBUCUDUEUFABUMUGUHGUMLUIUJUK $.
+      $( [25-Feb-2008] $) $( [25-Feb-2008] $)
+  $}
+
+  ${
+    $d x A $.  $d x B $.
+    fabex.1 $e |- A e. V $.
+    fabex.2 $e |- B e. V $.
+    fabex.3 $e |- F = { x | ( x : A --> B /\ ph ) } $.
+    $( Existence of a set of functions. $)
+    fabex $p |- F e. V $=
+      ( cvv wcel fabexg mp2an ) CIJDIJEIJFGABCDIIEHKL $.
+      $( [10-Mar-2008] $) $( [3-Dec-2007] $)
+  $}
+
+  ${
+    $d x A $.  $d x B $.
+    fabexOLD.1 $e |- A e. V $.
+    fabexOLD.2 $e |- B e. V $.
+    $( Existence of a set of functions. $)
+    fabexOLD $p |- { x | ( x : A --> B /\ ph ) } e. V $=
+      ( cv wf wa cab cxp cpw wcel xpex pwex zfausab wss fssxp visset elpw
+      sylibr anim1i ss2abi ssexi ) CDBGZHZAIZBJUECDKZLZMZAIZBJABUIUHCDEFNOPUGUK
+      BUFUJAUFUEUHQUJCDUERUEUHBSTUAUBUCUD $.
+      $( [8-Dec-2007] $) $( [3-Dec-2007] $)
+  $}
 
   $( If a mapping is a set, its domain is a set. $)
   dmfex $p |- ( ( F e. C /\ F : A --> B ) -> A e. V ) $=
@@ -4274,15 +4416,14 @@ $)
     fconst.1 $e |- B e. V $.
     $( A cross product with a singleton is a constant function. $)
     fconst $p |- ( A X. { B } ) : A --> { B } $=
-      ( vx vy csn cxp wf c0 wceq f0 wb xpeq1 xp0r syl6eq feq1 syl feq2 bitrd
-      mpbiri wne wfn crn wss wa rnxp eqimss wfun cdm df-fn wrel cv wbr wmo wal
+      ( vx vy csn cxp wf c0 wceq f0 xpeq1 xp0r syl6eq feq1d feq2 bitrd mpbiri
+      wne wfn crn wss wa rnxp eqimss syl wfun cdm df-fn wrel cv wbr wmo wal
       dffunmo relxp wcel moeq moani visset brxp elsn anbi2i bitr mobii mpbir
-      ax-gen mpbir2an snnz dmxp ax-mp jctil df-f sylibr pm2.61ine ) ABFZAVQGZHZ
-      AIAIJZVSIVQIHZVQKVTVSAVQIHZWAVTVRIJVSWBLVTVRIVQGIAIVQMVQNOAVQVRIPQAIVQIRS
-      TAIUAZVRAUBZVRUCZVQUDZUEVSWCWFWDWCWEVQJWFAVQUFWEVQUGQWDVRUHZVRUIAJZVRAUJW
-      GVRUKDULZEULZVRUMZEUNZDUODEVRUPAVQUQWLDWLWIAURZWJBJZUEZEUNWNWMEEBUSUTWKWO
-      EWKWMWJVQURZUEWOWIWJAVQEVAVBWPWNWMEBVCVDVEVFVGVHVIVQIUAWHBCVJAVQVKVLVIVMA
-      VQVRVNVOVP $.
+      ax-gen mpbir2an snnz dmxp ax-mp jctil df-f sylibr pm2.61ine ) ABFZAVPGZHZ
+      AIAIJZVRIVPIHZVPKVSVRAVPIHVTVSAVPVQIVSVQIVPGIAIVPLVPMNOAIVPIPQRAISZVQATZV
+      QUAZVPUBZUCVRWAWDWBWAWCVPJWDAVPUDWCVPUEUFWBVQUGZVQUHAJZVQAUIWEVQUJDUKZEUK
+      ZVQULZEUMZDUNDEVQUOAVPUPWJDWJWGAUQZWHBJZUCZEUMWLWKEEBURUSWIWMEWIWKWHVPUQZ
+      UCWMWGWHAVPEUTVAWNWLWKEBVBVCVDVEVFVGVHVPISWFBCVIAVPVJVKVHVLAVPVQVMVNVO $.
       $( [14-Aug-1999] $)
   $}
 
@@ -4340,19 +4481,18 @@ $)
 
   $( A one-to-one mapping is a mapping. $)
   f1f $p |- ( F : A -1-1-> B -> F : A --> B ) $=
-    ( wf1 wf ccnv wfun df-f1 pm3.26bd ) ABCDABCECFGABCHI $.
+    ( wf1 wf ccnv wfun df-f1 pm3.26bi ) ABCDABCECFGABCHI $.
     $( [31-Dec-1996] $)
 
-  $( Two ways of expressing that a set ` A ` (not necessarily a function) is
+  $( Two ways to express that a set ` A ` (not necessarily a function) is
      one-to-one.  Each side is equivalent to Definition 6.4(3) of
      [TakeutiZaring] p. 24, who use the notation "Un_2 (A)" for one-to-one.
      We do not introduce a separate notation since we rarely use it. $)
   f1cnv $p |- ( `' `' A : dom A -1-1-> V <-> ( Fun `' A /\ Fun `' `' A ) ) $=
-    ( cdm cvv ccnv wf1 wf wfun wa df-f1 wfn fnf wceq df-fn crn dfdm4 df-rn
-    eqtr2 mpbiran2 bitr3 wb wrel relcnv dfrel2 mpbi funeq ax-mp anbi12i ancom
-    3bitr ) ABZCADZDZEUJCULFZULDZGZHULGZUKGZHUQUPHUJCULIUMUPUOUQUMULUJJZUPUJULK
-    URUPULBZUJLULUJMUJUKNUSAOUKPQRSUNUKLZUOUQTUKUAUTAUBUKUCUDUNUKUEUFUGUPUQUHUI
-    $.
+    ( cdm cvv ccnv wf1 wf wfun wa df-f1 wfn fnf wceq df-fn dmcnvcnv mpbiran2
+    bitr3 wb wrel relcnv dfrel2 mpbi funeq ax-mp anbi12i ancom 3bitr ) ABZCADZD
+    ZEUGCUIFZUIDZGZHUIGZUHGZHUNUMHUGCUIIUJUMULUNUJUIUGJZUMUGUIKUOUMUIBUGLUIUGMA
+    NOPUKUHLZULUNQUHRUPASUHTUAUKUHUBUCUDUMUNUEUF $.
     $( [5-Nov-2004] $) $( [13-Aug-2004] $)
 
   $( Composition of one-to-one functions.  Exercise 30 of [TakeutiZaring]
@@ -4401,9 +4541,14 @@ $)
     QBHZGABCIABCJRSPQBKLABCMABCNO $.
     $( [3-Aug-1994] $)
 
+  $( An onto mapping is a function. $)
+  fofun $p |- ( F : A -onto-> B -> Fun F ) $=
+    ( wfo wf wfun fof ffun syl ) ABCDABCECFABCGABCHI $.
+    $( [30-Mar-2008] $) $( [29-Mar-2008] $)
+
   $( The codomain of an onto function is its range. $)
   forn $p |- ( F : A -onto-> B -> ran F = B ) $=
-    ( wfo wfn crn wceq df-fo pm3.27bd ) ABCDCAECFBGABCHI $.
+    ( wfo wfn crn wceq df-fo pm3.27bi ) ABCDCAECFBGABCHI $.
     $( [3-Aug-1994] $)
 
   $( Alternate definition of an onto function. $)
@@ -4431,17 +4576,17 @@ $)
 
   $( If the domain of an onto function exists, so does its codomain. $)
   fornex $p |- ( A e. C -> ( F : A -onto-> B -> B e. V ) ) $=
-    ( wfo wcel cvv cdm crn wf wfun wi fof ffun funrnex com12 3syl wceq fdm syl
-    eleq1d forn 3imtr3d ) ABDEZACFZBGFZUDDHZCFZDIZGFZUEUFUDABDJZDKZUHUJLABDMZAB
-    DNUHULUJCDOPQUDUGACUDUKUGARUMABDSTUAUDUIBGABDUBUAUCP $.
+    ( wfo wcel cvv cdm crn wfun wi fofun funrnex com12 syl wf wceq fof fdm
+    eleq1d forn 3imtr3d ) ABDEZACFZBGFZUCDHZCFZDIZGFZUDUEUCDJZUGUIKABDLUGUJUICD
+    MNOUCUFACUCABDPUFAQABDRABDSOTUCUHBGABDUATUBN $.
     $( [30-Jul-2004] $) $( [23-Jul-2004] $)
 
   $( An onto function has unique domain and range. $)
   fodmrnu $p |- ( ( F : A -onto-> B /\ F : C -onto-> D ) ->
                 ( A = C /\ B = D ) ) $=
-    ( wfo wa wceq wfn fndmu wf fof ffn syl syl2an crn forn eqcomd sylan9eq jca
-    ) ABEFZCDEFZGACHZBDHEAIZECIZUCUAUBACEJUAABEKUDABELABEMNUBCDEKUECDELCDEMNOUA
-    UBBEPZDUAUFBABEQRCDEQST $.
+    ( wfo wa wceq wfn fndmu wf fof ffn syl syl2an crn forn sylan9req jca ) ABEF
+    ZCDEFZGACHZBDHEAIZECIZUBTUAACEJTABEKUCABELABEMNUACDEKUDCDELCDEMNOTUABEPDABE
+    QCDEQRS $.
     $( [10-Jan-2007] $) $( [5-Nov-2006] $)
 
   $( Restriction of a function. $)
@@ -4503,7 +4648,7 @@ $)
 
   $( A one-to-one onto mapping is a one-to-one mapping. $)
   f1of1 $p |- ( F : A -1-1-onto-> B -> F : A -1-1-> B ) $=
-    ( wf1o wf1 wfo df-f1o pm3.26bd ) ABCDABCEABCFABCGH $.
+    ( wf1o wf1 wfo df-f1o pm3.26bi ) ABCDABCEABCFABCGH $.
     $( [17-Dec-2003] $) $( [12-Dec-2003] $)
 
   $( A one-to-one onto mapping is a mapping. $)
@@ -4528,7 +4673,7 @@ $)
 
   $( Alternate definition of one-to-one onto function. $)
   f1o2 $p |- ( F : A -1-1-onto-> B <-> ( F Fn A /\ Fun `' F /\ ran F = B ) ) $=
-    ( wf1 wfo wa wfn ccnv wfun crn wceq wf1o w3a wf df-f1 pm3.27bd df-fo biimp
+    ( wf1 wfo wa wfn ccnv wfun crn wceq wf1o w3a wf df-f1 pm3.27bi df-fo biimp
     anim12i wss eqimss anim2i df-f sylibr anim1i ancoms biimpr adantl jca
     impbi an12 bitr df-f1o 3anass 3bitr4 ) ABCDZABCEZFZCAGZCHIZCJZBKZFFZABCLUSU
     TVBMURUTUSVBFZFZVCURVEUPUTUQVDUPABCNZUTABCOZPUQVDABCQZRSVEUPUQVDUTUPVDUTFVF
@@ -4546,7 +4691,7 @@ $)
 
   $( A one-to-one onto function is an onto function. $)
   f1ofo $p |- ( F : A -1-1-onto-> B -> F : A -onto-> B ) $=
-    ( wf1o wfo ccnv wfun f1o3 pm3.26bd ) ABCDABCECFGABCHI $.
+    ( wf1o wfo ccnv wfun f1o3 pm3.26bi ) ABCDABCECFGABCHI $.
     $( [30-Apr-2004] $) $( [28-Apr-2004] $)
 
   $( Alternate definition of one-to-one onto function. $)
@@ -4571,9 +4716,21 @@ $)
 
   $( A one-to-one function maps one-to-one onto its range. $)
   f1f1orn $p |- ( F : A -1-1-> B -> F : A -1-1-onto-> ran F ) $=
-    ( wf1 wfn ccnv wfun wa crn wf1o wf f1f ffn syl df-f1 pm3.27bd jca f1orn
+    ( wf1 wfn ccnv wfun wa crn wf1o wf f1f ffn syl df-f1 pm3.27bi jca f1orn
     sylibr ) ABCDZCAEZCFGZHACICJTUAUBTABCKZUAABCLABCMNTUCUBABCOPQACRS $.
     $( [5-Sep-2004] $) $( [4-Sep-2004] $)
+
+  ${
+    $d A f $.  $d B f $.
+    f1oabexg.1 $e |- F = { f | ( f : A -1-1-onto-> B /\ ph ) } $.
+    $( The class of all 1-1-onto functions mapping one set to another is a set.
+       (Contributed by Paul Chapman, 25-Feb-2008.) $)
+    f1oabexg $p |- ( ( A e. C /\ B e. D ) -> F e. V ) $=
+      ( wcel wa cv wf1o cab cvv wf eqid fabexg wss f1of anim1i ss2abi ssexg
+      mpan syl syl5eqel ) BDICEIJZBCFKZLZAJZFMZNGUFBCUGOZAJZFMZNIZUJNIZAFBCDEUM
+      UMPQUJUMRUNUOUIULFUHUKABCUGSTUAUJUMNUBUCUDHUE $.
+      $( [26-Feb-2008] $) $( [25-Feb-2008] $)
+  $}
 
   $( The converse of a one-to-one onto function is also one-to-one onto. $)
   f1ocnv $p |- ( F : A -1-1-onto-> B -> `' F : B -1-1-onto-> A ) $=
@@ -4605,7 +4762,7 @@ $)
   $( Pre-image of an image. $)
   f1imacnv $p |- ( ( F : A -1-1-> B /\ C (_ A ) ->
                  ( `' F " ( F " C ) ) = C ) $=
-    ( wf1 wss wa ccnv cima cres wfun wceq wf df-f1 pm3.27bd adantr funcnvres
+    ( wf1 wss wa ccnv cima cres wfun wceq wf df-f1 pm3.27bi adantr funcnvres
     imaeq1 3syl wf1o f1ores f1ocnv crn cdm f1of fdm imaeq2 imadmrn syl5reqr
     wfo f1ofo forn syl eqtrd eqtr3d resima syl5eqr ) ABDEZCAFZGZDHZDCIZJZVBIZCV
     AVBIUTDCJZHZVBIZVDCUTVAKZVFVCLVGVDLURVHUSURABDMVHABDNOPCDQVFVCVBRSUTCVBVETV
@@ -4637,7 +4794,7 @@ $)
      the identity relation restricted to the function's range. $)
   f1ococnv2 $p |- ( F : A -1-1-onto-> B -> ( F o. `' F ) = ( I |` B ) ) $=
     ( wf1o ccnv ccom cid cdm cres wss wceq wf wfun f1of ffun wrel df-fun
-    pm3.27bd 3syl iss sylib crn fdm syl wfo f1ocnv f1ofo forn eqtr4d dmcoeq
+    pm3.27bi 3syl iss sylib crn fdm syl wfo f1ocnv f1ofo forn eqtr4d dmcoeq
     eqtrd reseq2 ) ABCDZCCEZFZGUOHZIZGBIZUMUOGJZUOUQKUMABCLZCMZUSABCNZABCOVACPU
     SCQRSUOTUAUMUPBKUQURKUMUPUNHZBUMCHZUNUBZKUPVCKUMVDAVEUMUTVDAKVBABCUCUDUMBAU
     NDZBAUNUEVEAKABCUFZBAUNUGBAUNUHSUICUNUJUDUMVFBAUNLVCBKVGBAUNNBAUNUCSUKUPBGU
@@ -4756,11 +4913,12 @@ $)
     $d x A $.  $d x F $.
     $( A function's value at a proper class is the empty set. $)
     fvprc $p |- ( -. A e. V -> ( F ` A ) = (/) ) $=
-      ( vx cvv wcel wn cfv c0 cuni csn cima cv wceq cab wex visset snnzOLD
-      snprc imaeq2 sylbi ima0 syl6eq eqeq1d eqcom syl6bb mtbiri nexdv abn0
-      necon1bbii sylib unieqd df-fv syl5eq uni0 ) ADEFZABGZHIZHUOBAJZKZCLZJZMZC
-      NZIUQUPUOVCHUOVBCOZFVCHMUOVBCUOVBVAHMZUTCPQUOVBHVAMVEUOUSHVAUOUSBHKZHUOUR
-      HMUSVFMARURHBSTBUAUBUCHVAUDUEUFUGVDVCHVBCUHUIUJUKCABULUMUNUB $.
+      ( vx cvv wcel wn cfv c0 cuni csn cima cv wceq cab wex wne visset snnz
+      df-ne mpbi snprc imaeq2 sylbi ima0 syl6eq eqeq1d eqcom syl6bb mtbiri
+      nexdv abn0 necon1bbii sylib unieqd df-fv syl5eq uni0 ) ADEFZABGZHIZHURBAJ
+      ZKZCLZJZMZCNZIUTUSURVFHURVECOZFVFHMURVECURVEVDHMZVDHPVHFVCCQRVDHSTURVEHVD
+      MVHURVBHVDURVBBHKZHURVAHMVBVIMAUAVAHBUBUCBUDUEUFHVDUGUHUIUJVGVFHVECUKULUM
+      UNCABUOUPUQUE $.
       $( [20-May-1998] $)
   $}
 
@@ -4830,9 +4988,9 @@ $)
     hbfv.2 $e |- ( y e. A -> A. x y e. A ) $.
     $( Bound-variable hypothesis builder for function value. $)
     hbfv $p |- ( y e. ( F ` A ) -> A. x y e. ( F ` A ) ) $=
-      ( vz cv csn cima wceq cab cuni wcel wal cfv hbsn hbima ax-17 hbeq hbab
-      hbuni df-fv eleq2i albii 3imtr4 ) BHZDCIZJZGHIZKZGLZMZNZUNAOUGCDPZNZUPAOA
-      BULUKAGBABBUIUJABDUHEABCFQRUGUJNASTUAUBUOUMUGGCDUCUDZUPUNAUQUEUF $.
+      ( vz cfv csn cima cv wceq cab cuni df-fv hbsn hbima wcel ax-17 hbeq hbab
+      hbuni hbxfr ) ABCDHDCIZJZGKIZLZGMZNGCDOABUHUGAGBABBUEUFABDUDEABCFPQBKUFRA
+      STUAUBUC $.
       $( [14-Nov-1995] $)
   $}
 
@@ -4914,11 +5072,12 @@ $)
   $}
 
   $( The value of a member of the domain of a subclass of a function. $)
-  funssfv $p |- ( ( ( Fun F /\ G (_ F ) /\ A e. dom G ) ->
+  funssfv $p |- ( ( Fun F /\ G (_ F /\ A e. dom G ) ->
                 ( F ` A ) = ( G ` A ) ) $=
-    ( wfun wss wa cdm wcel cfv cres funssres fveq1d eqcomd fvres sylan9eq ) BDC
-    BEFZACGZHZFACIZABIZPRSABQJZIZTPUBSPAUACBCKLMAQBNOM $.
-    $( [15-Aug-1994] $)
+    ( wfun wss cdm wcel cfv wceq wa cres fvres eqcomd funssres fveq1d
+    sylan9eqr 3impa ) BDZCBEZACFZGZABHZACHZIUARSJZUBABTKZHZUCUAUFUBATBLMUDAUECB
+    CNOPQ $.
+    $( [29-May-2007] $) $( [15-Aug-1994] $)
 
   ${
     $d y z F $.  $d y z A $.
@@ -4975,10 +5134,10 @@ $)
     tz6.12c.1 $e |- A e. V $.
     $( Corollary of Theorem 6.12(1) of [TakeutiZaring] p. 27. $)
     tz6.12c $p |- ( E! y A F y -> ( ( F ` A ) = y <-> A F y ) ) $=
-      ( cv wbr weu cfv wceq wi wex euex hbeu1 ax-17 hbim tz6.12-1 expcom breq2
-      biimprd syli com12 19.23ai mpcom biimpcd syl impbid ) BAEZCFZAGZBCHZUGIZU
-      HUIBUJCFZUKUHJUHAKUIULUHALUHUIULJAUIULAUHAMULANOUIUHULUHUIUKULUHUIUKABCDP
-      QZUKULUHUJUGBCRZSTUAUBUCUKULUHUNUDUEUMUF $.
+      ( cv wbr weu cfv wceq breq2 wex euex wi hbeu1 ax-17 hbim tz6.12-1 expcom
+      biimprd syli com12 19.23ai mpcom syl5cbi impbid ) BAEZCFZAGZBCHZUFIZUGUJB
+      UICFZUGUHUIUFBCJZUGAKUHUKUGALUGUHUKMAUHUKAUGANUKAOPUHUGUKUGUHUJUKUGUHUJAB
+      CDQRZUJUKUGULSTUAUBUCUDUMUE $.
       $( [1-May-2004] $) $( [30-Apr-2004] $)
   $}
 
@@ -5058,7 +5217,7 @@ $)
 
   $( A non-element of a restriction has empty value. $)
   nfvres $p |- ( -. A e. B -> ( ( F |` B ) ` A ) = (/) ) $=
-    ( wcel wn cres cdm cfv c0 wceq cin wa dmres eleq2i elin bitr pm3.26bd
+    ( wcel wn cres cdm cfv c0 wceq cin wa dmres eleq2i elin bitr pm3.26bi
     con3i ndmfv syl ) ABDZEACBFZGZDZEAUBHIJUDUAUDUAACGZDZUDABUEKZDUAUFLUCUGACBM
     NABUEOPQRAUBST $.
     $( [13-Nov-1995] $)
@@ -5112,7 +5271,7 @@ $)
 
 
   ${
-    $d x y F $.  $d x A $. $d x y B $.  $d x C $.
+    $d x y F $.  $d x A $.  $d x y B $.  $d x C $.
     fnfvbr.1 $e |- C e. V $.
     $( Equivalence of function value and binary relation. $)
     fnbrfvb $p |- ( ( F Fn A /\ B e. A ) ->
@@ -5162,41 +5321,6 @@ $)
       BUCUD $.
       $( [10-Feb-2007] $) $( [20-Jan-2007] $)
 
-    $( Alternate definition of the image of a function.  (Contributed by Raph
-       Levien, 20-Nov-2006.) $)
-    dfimafn $p |- ( ( Fun F /\ A (_ dom F ) ->
-                  ( F " A ) = { y | E. x e. A ( F ` x ) = y } ) $=
-      ( wfun cdm wss wa cv cfv wceq wrex cab wbr cima wcel wb ssel visset
-      funbrfvb ex syl9r imp31 rexbidva abbidv dfima2 syl6reqr ) DEZCDFZGZHZAIZD
-      JBIZKZACLZBMULUMDNZACLZBMDCOUKUOUQBUKUNUPACUHUJULCPZUNUPQZUJURULUIPZUHUSC
-      UIULRUHUTUSULUMDBSTUAUBUCUDUEABDCUFUG $.
-      $( [21-Nov-2006] $) $( [20-Nov-2006] $)
-
-    $( Alternate definition of the image of a function as an indexed union of
-       singletons of function values.    (Contributed by Raph Levien,
-       20-Nov-2006.) $)
-    dfimafn2 $p |- ( ( Fun F /\ A (_ dom F ) ->
-                   ( F " A ) = U_ x e. A { ( F ` x ) } ) $=
-      ( vy wfun cdm wss wa cima cv cfv wceq cab ciun csn wrex dfimafn iunab
-      syl6eqr wcel df-sn eqcom abbii eqtr a1i iuneq2i ) CEBCFGHZCBIZABAJZCKZDJZ
-      LZDMZNZABUJOZNUGUHULABPDMUNADBCQULADBRSABUOUMUOUMLUIBTUOUKUJLZDMUMDUJUAUP
-      ULDUKUJUBUCUDUEUFS $.
-      $( [21-Nov-2006] $) $( [20-Nov-2006] $)
-
-    $( Membership relation for the values of function whose image is a
-       subclass.  (Contributed by Raph Levien, 20-Nov-2006.) $)
-    funimass4 $p |- ( ( Fun F /\ A (_ dom F ) ->
-                    ( ( F " A ) (_ B <-> A. x e. A ( F ` x ) e. B ) ) $=
-      ( vy cdm wss wfun cima cv cfv wcel wral wb wa wi wal wceq wrex wbr ssel
-      visset funbrfvb ex syl9 imp31 eqcom syl5bb rexbidva elima syl6rbbr
-      imbi1d r19.23v syl6bbr albidv ralcom4 fvex eleq1 ceqsalv ralbii bitr3
-      syl6bb dfss2 ancoms ) BDFZGZDHZDBIZCGZAJZDKZCLZABMZNVFVGOZEJZVHLZVOCLZPZE
-      QZVMVIVNVSVOVKRZVQPZABMZEQZVMVNVRWBEVNVRVTABSZVQPWBVNVPWDVQVNWDVJVODTZABS
-      VPVNVTWEABVNVJBLZOVKVORZWEVTVFVGWFWGWENZVFWFVJVELZVGWHBVEVJUAVGWIWHVJVODE
-      UBZUCUDUEUFVOVKUGUHUIAVODBWJUJUKULVTVQABUMUNUOWCWAEQZABMVMWAAEBUPWKVLABVQ
-      VLEVKVJDUQVOVKCURUSUTVAVBEVHCVCUHVD $.
-      $( [21-Nov-2006] $) $( [20-Nov-2006] $)
-
     $( Representation of a function in terms of its values. $)
     fnopabfv $p |- ( F Fn A <->
                    F = { <. x , y >. | ( x e. A /\ y = ( F ` x ) ) } ) $=
@@ -5210,6 +5334,60 @@ $)
       ULUMUNVHDUOZVOUOZLVPWCOVHWKWLCDUPVNABUQUREFDVOUSUTVAVPVHVOCGABCVLVOVIDVBV
       OVCVDCDVOVEVFVG $.
       $( [30-Jan-2004] $) $( [29-Jan-2004] $)
+
+    $( The range of a function expressed as a collection of the function's
+       values. $)
+    fnrnfv $p |- ( F Fn A -> ran F = { y | E. x e. A y = ( F ` x ) } ) $=
+      ( wfn cv cop wcel wex cab cfv wceq wrex crn wa cdm fndm eleq2d visset
+      opeldm syl5bi pm4.71rd fnopfvb eqcom syl5rbbr pm5.32da bitrd exbidv
+      df-rex syl6bbr abbidv dfrn3 syl5eq ) DCEZAFZBFZGDHZAIZBJUPUODKZLZACMZBJDN
+      UNURVABUNURUOCHZUTOZAIVAUNUQVCAUNUQVBUQOVCUNUQVBUNUODPZHVBUQUNVDCUOCDQRUO
+      UPDASTUAUBUNVBUQUTUNVBOUSUPLUQUTCUOUPDBSUCUSUPUDUEUFUGUHUTACUIUJUKABDULUM
+      $.
+      $( [22-Oct-2005] $) $( [20-Oct-2005] $)
+
+    $( A member of a function's range is a value of the function. $)
+    fvelrnb $p |- ( F Fn A -> ( B e. ran F <-> E. x e. A ( F ` x ) = B ) ) $=
+      ( vy wfn crn wcel cv cfv wceq wrex cab fnrnfv eleq2d cvv wi fvex eleq1
+      mpbii a1i r19.23aiv eqeq1 eqcom syl6bb rexbidv elab3 ) DBFZCDGZHCEIZAIZDJ
+      ZKZABLZEMZHULCKZABLZUHUIUOCAEBDNOUNUQECUPCPHZABUPURQUKBHUPULPHURUKDRULCPS
+      TUAUBUJCKZUMUPABUSUMCULKUPUJCULUCCULUDUEUFUGUE $.
+      $( [31-Oct-1995] $)
+
+    $( Alternate definition of the image of a function.  (Contributed by Raph
+       Levien, 20-Nov-2006.) $)
+    dfimafn $p |- ( ( Fun F /\ A (_ dom F ) ->
+                  ( F " A ) = { y | E. x e. A ( F ` x ) = y } ) $=
+      ( wfun cdm wss wa cv cfv wceq wrex cab wbr cima wcel wb ssel visset
+      funbrfvb ex syl9r imp31 rexbidva abbidv dfima2 syl6reqr ) DEZCDFZGZHZAIZD
+      JBIZKZACLZBMULUMDNZACLZBMDCOUKUOUQBUKUNUPACUHUJULCPZUNUPQZUJURULUIPZUHUSC
+      UIULRUHUTUSULUMDBSTUAUBUCUDUEABDCUFUG $.
+      $( [21-Nov-2006] $) $( [20-Nov-2006] $)
+
+    $( Alternate definition of the image of a function as an indexed union of
+       singletons of function values.   (Contributed by Raph Levien,
+       20-Nov-2006.) $)
+    dfimafn2 $p |- ( ( Fun F /\ A (_ dom F ) ->
+                   ( F " A ) = U_ x e. A { ( F ` x ) } ) $=
+      ( vy wfun cdm wss wa cima cv cfv wceq cab ciun csn wrex dfimafn iunab
+      syl6eqr wcel df-sn eqcom abbii eqtr a1i iuneq2i ) CEBCFGHZCBIZABAJZCKZDJZ
+      LZDMZNZABUJOZNUGUHULABPDMUNADBCQULADBRSABUOUMUOUMLUIBTUOUKUJLZDMUMDUJUAUP
+      ULDUKUJUBUCUDUEUFS $.
+      $( [21-Nov-2006] $) $( [20-Nov-2006] $)
+
+    $( Membership relation for the values of a function whose image is a
+       subclass.  (Contributed by Raph Levien, 20-Nov-2006.) $)
+    funimass4 $p |- ( ( Fun F /\ A (_ dom F ) ->
+                    ( ( F " A ) (_ B <-> A. x e. A ( F ` x ) e. B ) ) $=
+      ( vy cdm wss wfun cima cv cfv wcel wral wb wa wi wal wceq wrex wbr ssel
+      visset funbrfvb ex syl9 imp31 eqcom syl5bb rexbidva elima syl6rbbr
+      imbi1d r19.23v syl6bbr albidv ralcom4 fvex eleq1 ceqsalv ralbii bitr3
+      syl6bb dfss2 ancoms ) BDFZGZDHZDBIZCGZAJZDKZCLZABMZNVFVGOZEJZVHLZVOCLZPZE
+      QZVMVIVNVSVOVKRZVQPZABMZEQZVMVNVRWBEVNVRVTABSZVQPWBVNVPWDVQVNWDVJVODTZABS
+      VPVNVTWEABVNVJBLZOVKVORZWEVTVFVGWFWGWENZVFWFVJVELZVGWHBVEVJUAVGWIWHVJVODE
+      UBZUCUDUEUFVOVKUGUHUIAVODBWJUJUKULVTVQABUMUNUOWCWAEQZABMVMWAAEBUPWKVLABVQ
+      VLEVKVJDUQVOVKCURUSUTVAVBEVHCVCUHVD $.
+      $( [21-Nov-2006] $) $( [20-Nov-2006] $)
 
     $( Function value in an image.  Part of Theorem 4.4(iii) of [Monk1]
        p. 42. $)
@@ -5234,17 +5412,6 @@ $)
       VGVPWAVGVPVJBJZWAVFVPWBRVECBVJUNUGVEWAWBUEVFVEVTBVJBEUOUPULUQURUSVGVNVPUT
       VAVBVCVD $.
       $( [22-Feb-2007] $) $( [20-Jan-2007] $)
-
-    $( The range of a function expressed as a collection of the function's
-       values. $)
-    fnrnfv $p |- ( F Fn A -> ran F = { y | E. x e. A y = ( F ` x ) } ) $=
-      ( wfn cv cop wcel wex cab cfv wceq wrex crn wa cdm fndm eleq2d visset
-      opeldm syl5bi pm4.71rd fnopfvb eqcom syl5rbbr pm5.32da bitrd exbidv
-      df-rex syl6bbr abbidv dfrn3 syl5eq ) DCEZAFZBFZGDHZAIZBJUPUODKZLZACMZBJDN
-      UNURVABUNURUOCHZUTOZAIVAUNUQVCAUNUQVBUQOVCUNUQVBUNUODPZHVBUQUNVDCUOCDQRUO
-      UPDASTUAUBUNVBUQUTUNVBOUSUPLUQUTCUOUPDBSUCUSUPUDUEUFUGUHUTACUIUJUKABDULUM
-      $.
-      $( [22-Oct-2005] $) $( [20-Oct-2005] $)
 
     $( The indexed intersection of a function's values is the intersection of
        its range. $)
@@ -5285,6 +5452,18 @@ $)
       XQWTWAUUBXEXSCXCXQDWBWCWDWEWFXLXGAXKXDXFXKWTBMXDBWSWGXCWTBWHVFWIWJWFXAXIC
       DDBWKJZLZXAXIUUCWTOUUDXAODBWLUUCWTDWBWMDBWNWOWPWQ $.
       $( [8-Apr-2007] $) $( [8-Apr-2007] $)
+  $}
+
+  ${
+    $d A x y $.  $d B x y $.  $d F x y $.
+    $( The existence of a subimage.  (Contributed by FL, 15-Apr-2007.) $)
+    ssimaexg $p |- ( ( A e. C /\ Fun F /\ B (_ ( F " A ) ) ->
+                 E. x ( x (_ A /\ B = ( F " x ) ) ) $=
+      ( vy wcel wfun cima wss cv wceq wa wex wi imaeq2 sseq2d anbi2d sseq2
+      anbi1d exbidv imbi12d visset ssimaex vtoclg 3impib ) BDGEHZCEBIZJZAKZBJZC
+      EUJILZMZANZUGCEFKZIZJZMZUJUOJZULMZANZOUGUIMZUNOFBDUOBLZURVBVAUNVCUQUIUGVC
+      UPUHCUOBEPQRVCUTUMAVCUSUKULUOBUJSTUAUBAUOCEFUCUDUEUF $.
+      $( [17-May-2007] $) $( [10-Apr-2007] $)
   $}
 
   $( A simplified expression for the value of a function when we know it's
@@ -5427,18 +5606,17 @@ $)
     fvopab4gf.2 $e |- ( z e. C -> A. x z e. C ) $.
     fvopab4gf.3 $e |- ( x = A -> B = C ) $.
     fvopab4gf.4 $e |- F = { <. x , y >. | ( x e. D /\ y = B ) } $.
-    $( Value of a function given by an ordered-pair class abstraction. This
+    $( Value of a function given by an ordered-pair class abstraction.  This
        version of ~ fvopab4g uses bound-variable hypotheses instead of distinct
        variable conditions. $)
     fvopab4gf $p |- ( ( A e. D /\ C e. R ) -> ( F ` A ) = C ) $=
       ( vw vv wcel wa cv csb wceq copab cfv wex ax-17 visset eqvincf hbcsb1
-      hbeq csbeq1a eqcomd sylan9eq 19.23ai sylbi eqid fvopab4g fveq1i hbeleq
-      hban wb eleq1 adantr id eqeqan12rd anbi12d cbvopab eqtr syl5eq ) DGPFHPQD
-      NRZGPZORZAVHESZTZQZNOUAZUBZFDIUBZNODVKFGHVNVHDTARZVHTZVQDTZQZAUCVKFTZACVH
-      DCRVHPAUDJNUEZUFVTWAAAOCVKFAOVHEWBVJVHPAUDUGZKUHVRVSVKEFVREVKAVHEUIZUJLUK
-      ULUMVNUNUOVPDVQGPZBRZETZQZABUAZUBVODIWIMUPDWIVNWHVMABNOWHNUDWHOUDVIVLAVIA
-      UDAOVKWCUQURVMBUDVRWFVJTZQWEVIWGVLVRWEVIUSWJVQVHGUTVAWJVRWFVJEVKWJVBWDVCV
-      DVEUPVFVG $.
+      hbeq csbeq1a sylan9req 19.23ai sylbi eqid fvopab4g fveq1i hbeleq hban wb
+      eleq1 adantr id eqeqan12rd anbi12d cbvopab eqtr syl5eq ) DGPFHPQDNRZGPZOR
+      ZAVGESZTZQZNOUAZUBZFDIUBZNODVJFGHVMVGDTARZVGTZVPDTZQZAUCVJFTZACVGDCRVGPAU
+      DJNUEZUFVSVTAAOCVJFAOVGEWAVIVGPAUDUGZKUHVQVRVJEFAVGEUIZLUJUKULVMUMUNVODVP
+      GPZBRZETZQZABUAZUBVNDIWHMUODWHVMWGVLABNOWGNUDWGOUDVHVKAVHAUDAOVJWBUPUQVLB
+      UDVQWEVITZQWDVHWFVKVQWDVHURWIVPVGGUSUTWIVQWEVIEVJWIVAWCVBVCVDUOVEVF $.
       $( [1-Jan-2006] $) $( [8-Nov-2005] $)
   $}
 
@@ -5451,9 +5629,8 @@ $)
     $( Value of a function given by ordered-pair class abstraction, using
        explicit class substitution. $)
     fvopab4sf $p |- ( A e. C -> ( F ` A ) = [_ A / x ]_ B ) $=
-      ( wcel csb cvv cfv wceq wal ax-gen csbexg mp2an hbcsb1 csbeq1a fvopab4gf
-      mpan2 ) DFLADEMZNLZDGOUEPDNLENLZAQUFHUGAIRADENNSTABCDEUEFNGJACDEHJUAADEUB
-      KUCUD $.
+      ( wcel csb cvv cfv wceq csbex hbcsb1 csbeq1a fvopab4gf mpan2 ) DFLADEMZNL
+      DGOUBPADEHIQABCDEUBFNGJACDEHJRADESKTUA $.
       $( [10-Apr-2006] $) $( [26-Mar-2006] $)
   $}
 
@@ -5467,6 +5644,18 @@ $)
     fvopab4s $p |- ( A e. C -> ( F ` A ) = [_ A / x ]_ B ) $=
       ( vz cv wcel ax-17 fvopab4sf ) ABJCDEFGHJKCLAMIN $.
       $( [18-Apr-2006] $) $( [26-Mar-2006] $)
+  $}
+
+  ${
+    $d x y A $.
+    fvopab4ndm.1 $e |- F = { <. x , y >. | ( x e. A /\ ph ) } $.
+    $( Value of a function given by an ordered-pair class abstraction, outside
+       of its domain. $)
+    fvopab4ndm $p |- ( -. B e. A -> ( F ` B ) = (/) ) $=
+      ( wcel wn cdm cfv c0 wceq cv wa copab dmeqi dmopabss eqsstr sseli con3i
+      ndmfv syl ) EDHZIEFJZHZIEFKLMUFUDUEDEUEBNDHAOBCPZJDFUGGQABCDRSTUAEFUBUC
+      $.
+      $( [?] $) $( [28-Mar-2008] $)
   $}
 
   ${
@@ -5488,18 +5677,18 @@ $)
        proper class.  This is a technical lemma that can help eliminate
        redundant sethood antecedents otherwise required by ~ fvopabg . $)
     fvopabn $p |- ( -. C e. V -> ( { <. x , y >. | y = B } ` A ) = (/) ) $=
-      ( vz vw cvv wcel wn cv wceq copab cfv c0 wi wa cuni csn cima cab wal
-      visset snnzOLD cop wex opeq1 eleq1d ceqsexgv elsn anbi1i exbii syl5bb wb
-      eqeq2d eqeq1 opelopabg mpan2 bitrd abbidv eleq1 mpbii 19.23aiv con3i
-      abn0 necon1bbii sylib sylan9eq dfima3 syl5eq eqeq1d eqcom syl6bb mtbiri
-      19.21aiv alnex bitr unieqd df-fv uni0 syl6eq ex fvprc a1d pm2.61i ) CIJZE
-      IJZKZCBLZDMZABNZOZPMZQWGWIWNWGWIRZWMPSZPWOWLCTZUAZGLZTZMZGUBZSWPWMWOXBPWO
-      XAKZGUCZXBPMZWOXCGWOXAWTPMZWSGUDUEWOXAPWTMXFWOWRPWTWOWSWQJZWSHLZUFZWLJZRZ
-      GUGZHUBZPWRWGWIXMXHEMZHUBZPWGXLXNHWGXLCXHUFZWLJZXNWGWSCMZXJRZGUGXQXLXJXQG
-      CIXRXIXPWLWSCXHUHUIUJXKXSGXGXRXJGCUKULUMUNWGXHIJZXQXNUOHUDZWKWJEMXNABCXHI
-      IALCMDEWJFUPWJXHEUQURUSUTVAWIXNHUGZKXOPMYBWHXNWHHXNXTWHYAXHEIVBVCVDVEYBXO
-      PXNHVFVGVHVIGHWLWQVJVKVLPWTVMVNVOVPXDXAGUGZKXEXAGVQYCXBPXAGVFVGVRVHVSGCWL
-      VTVKWAWBWCWGKWNWICWLWDWEWF $.
+      ( vz vw cvv wcel wn cv wceq copab cfv c0 wi wa cuni csn cima cab wex wne
+      visset snnz df-ne mpbi cop opeq1 eleq1d ceqsexgv elsn anbi1i exbii
+      syl5bb wb eqeq2d eqeq1 opelopabg mpan2 bitrd abbidv eleq1 mpbii 19.23aiv
+      con3i abn0 necon1bbii sylib sylan9eq dfima3 syl5eq eqeq1d eqcom syl6bb
+      mtbiri nexdv unieqd df-fv uni0 syl6eq ex fvprc a1d pm2.61i ) CIJZEIJZKZCB
+      LZDMZABNZOZPMZQWGWIWNWGWIRZWMPSZPWOWLCTZUAZGLZTZMZGUBZSWPWMWOXBPWOXAGUCZK
+      XBPMWOXAGWOXAWTPMZWTPUDXDKWSGUEUFWTPUGUHWOXAPWTMXDWOWRPWTWOWSWQJZWSHLZUIZ
+      WLJZRZGUCZHUBZPWRWGWIXKXFEMZHUBZPWGXJXLHWGXJCXFUIZWLJZXLWGWSCMZXHRZGUCXOX
+      JXHXOGCIXPXGXNWLWSCXFUJUKULXIXQGXEXPXHGCUMUNUOUPWGXFIJZXOXLUQHUEZWKWJEMXL
+      ABCXFIIALCMDEWJFURWJXFEUSUTVAVBVCWIXLHUCZKXMPMXTWHXLWHHXLXRWHXSXFEIVDVEVF
+      VGXTXMPXLHVHVIVJVKGHWLWQVLVMVNPWTVOVPVQVRXCXBPXAGVHVIVJVSGCWLVTVMWAWBWCWG
+      KWNWICWLWDWEWF $.
       $( [7-Nov-2003] $) $( [21-Oct-2003] $)
   $}
 
@@ -5513,11 +5702,11 @@ $)
     fvopabgf $p |- ( ( A e. D /\ C e. R ) ->
                     ( { <. x , y >. | y = B } ` A ) = C ) $=
       ( vv vu vw wcel wa cv wsbc cab wceq copab cfv wex ax-17 visset eqvincf
-      hbs1 hbab hbeq sbab eqcomd sylan9eq 19.23ai sylbi fvopabg hbeleq id
-      eqeqan12rd cbvopab fveq1i syl5eq ) DGOFHOPDLQZMQEOZANQZRZMSZTZNLUAZUBFDBQ
-      ZETZABUAZUBNLDVFFGHVDDTAQZVDTZVLDTZPZAUCVFFTZACVDDCQVDOAUDINUEUFVOVPAALCV
-      FFVEAMLVCANUGUHZJUIVMVNVFEFVMEVFANMEUJZUKKULUMUNUODVKVHVJVGABNLVJNUDVJLUD
-      ALVFVQUPVGBUDVIVBTZVMVIVBEVFVSUQVRURUSUTVA $.
+      hbs1 hbab hbeq sbab sylan9req 19.23ai sylbi fvopabg hbeleq id eqeqan12rd
+      cbvopab fveq1i syl5eq ) DGOFHOPDLQZMQEOZANQZRZMSZTZNLUAZUBFDBQZETZABUAZUB
+      NLDVEFGHVCDTAQZVCTZVKDTZPZAUCVEFTZACVCDCQVCOAUDINUEUFVNVOAALCVEFVDAMLVBAN
+      UGUHZJUIVLVMVEEFANMEUJZKUKULUMUNDVJVGVIVFABNLVINUDVILUDALVEVPUOVFBUDVHVAT
+      ZVLVHVAEVEVRUPVQUQURUSUT $.
       $( [28-Oct-2003] $) $( [21-Oct-2003] $)
 
     $( The value of a function given by an ordered-pair class abstraction is
@@ -5526,11 +5715,11 @@ $)
        of distinct variable conditions. $)
     fvopabnf $p |- ( -. C e. V -> ( { <. x , y >. | y = B } ` A ) = (/) ) $=
       ( vv vu vw cvv wcel wn cv wsbc cab wceq copab cfv c0 wa wex ax-17 visset
-      eqvincf hbs1 hbab hbeq sbab eqcomd sylan9eq 19.23ai sylbi fvopabn hbeleq
-      id eqeqan12rd cbvopab fveq1i syl5eq ) FMNODJPZKPENZALPZQZKRZSZLJTZUAUBDBP
-      ZESZABTZUALJDVGFVEDSAPZVESZVMDSZUCZAUDVGFSZACVEDCPVENAUEGLUFUGVPVQAAJCVGF
-      VFAKJVDALUHUIZHUJVNVOVGEFVNEVGALKEUKZULIUMUNUOUPDVLVIVKVHABLJVKLUEVKJUEAJ
-      VGVRUQVHBUEVJVCSZVNVJVCEVGVTURVSUSUTVAVB $.
+      eqvincf hbs1 hbab hbeq sbab sylan9req 19.23ai sylbi fvopabn hbeleq id
+      eqeqan12rd cbvopab fveq1i syl5eq ) FMNODJPZKPENZALPZQZKRZSZLJTZUAUBDBPZES
+      ZABTZUALJDVFFVDDSAPZVDSZVLDSZUCZAUDVFFSZACVDDCPVDNAUEGLUFUGVOVPAAJCVFFVEA
+      KJVCALUHUIZHUJVMVNVFEFALKEUKZIULUMUNUODVKVHVJVGABLJVJLUEVJJUEAJVFVQUPVGBU
+      EVIVBSZVMVIVBEVFVSUQVRURUSUTVA $.
       $( [7-Nov-2003] $) $( [21-Oct-2003] $)
   $}
 
@@ -5550,7 +5739,7 @@ $)
   $}
 
   ${
-    $d x z A $.  $d y B $.  $d x z C $. $d x y z $.
+    $d x z A $.  $d y B $.  $d x z C $.  $d x y z $.
     fvopab.1 $e |- A e. V $.
     fvopab.2 $e |- C e. V $.
     fvopab.3 $e |- ( x = A -> B = C ) $.
@@ -5583,8 +5772,8 @@ $)
     $( The value of a function given by an ordered-pair class abstraction,
        using class substitution. $)
     fvopabs $p |- ( { <. x , y >. | y = B } ` A ) = [_ A / x ]_ B $=
-      ( vz csb cv wcel ax-17 hbcsb1 cvv wal ax-gen csbexg mp2an csbeq1a
-      fvopabf ) ABGCDACDHZGICJAKZAGCDEUALECMJDMJZANTMJEUBAFOACDMMPQACDRS $.
+      ( vz csb cv wcel ax-17 hbcsb1 csbex csbeq1a fvopabf ) ABGCDACDHGICJAKZAGC
+      DEPLEACDEFMACDNO $.
       $( [27-Apr-2006] $) $( [25-Mar-2006] $)
   $}
 
@@ -5595,13 +5784,12 @@ $)
     $( The value of a function that is expressed as an ordered pair
        abstraction. $)
     fvopab5 $p |- ( ( Fun F /\ A e. B ) -> ( F ` A ) = U. { y | ps } ) $=
-      ( vz wfun wcel cfv cv wbr cab cuni ax-17 copab wal hbopab2 eleq2i albii
-      3imtr4 funfv2f wceq wex elex cop wb hbopab1 hbel hbbi opeq1 eleq1d
-      opabid syl5bb bitr3d 19.23ai df-br bitr abbidv syl unieqd sylan9eq ) GKEF
-      LZEGMEDNZGOZDPZQBDPZQDJEGJNZELDRVKACDSZLZVMDTVKGLZVNDTACDJUAGVLVKHUBZVNVM
-      DVOUCUDUEVFVIVJVFCNZEUFZCUGZVIVJUFCEFUHVRVHBDVREVGUIZVLLZBVHVQVTBUJCVTBCC
-      JJVSVLVKVSLCRACDJUKULBCRUMVQVPVGUIZVLLZVTBVQWAVSVLVPEVGUNUOVQABWBIACDUPUQ
-      URUSVHVSGLVTEVGGUTGVLVSHUBVAUQVBVCVDVE $.
+      ( vz wfun wcel cfv cv wbr cab cuni ax-17 copab hbopab2 hbxfr funfv2f
+      wceq wex elex cop wb hbopab1 hbel hbbi opeq1 eleq1d opabid syl5bb bitr3d
+      19.23ai df-br eleq2i bitr abbidv syl unieqd sylan9eq ) GKEFLZEGMEDNZGOZDP
+      ZQBDPZQDJEGJNZELDRDJGACDSZHACDJTUAUBVDVGVHVDCNZEUCZCUDZVGVHUCCEFUEVMVFBDV
+      MEVEUFZVJLZBVFVLVOBUGCVOBCCJJVNVJVIVNLCRACDJUHUIBCRUJVLVKVEUFZVJLZVOBVLVP
+      VNVJVKEVEUKULVLABVQIACDUMUNUOUPVFVNGLVOEVEGUQGVJVNHURUSUNUTVAVBVC $.
       $( [3-Mar-2006] $) $( [19-Feb-2006] $)
   $}
 
@@ -5616,6 +5804,32 @@ $)
   $}
 
   ${
+    fvsnun.1 $e |- A e. V $.
+    fvsnun.2 $e |- B e. V $.
+    fvsnun.3 $e |- G = ( { <. A , B >. } u. ( F |` ( C \ { A } ) ) ) $.
+    $( The value of a function with one of its ordered pairs replaced, at the
+       replaced ordered pair.  See also ~ fvsnun2 . $)
+    fvsnun1 $p |- ( G ` A ) = B $=
+      ( csn cres cfv wcel wceq snid fvres ax-mp cop cdif cun reseq1 resundir
+      c0 cin incom difdisj eqtr resdisj uneq2i un0 3eqtr fveq1i fvsn eqtr3 ) AE
+      AIZJZKZAEKZBAUNLZUPUQMAFNZAUNEOPUPAABQIZUNJZKZAUTKZBAUOVAUOUTDCUNRZJZSZUN
+      JZVAVEUNJZSZVAEVFMUOVGMHEVFUNTPUTVEUNUAVIVAUBSVAVHUBVAVDUNUCZUBMVHUBMVJUN
+      VDUCUBVDUNUDUNCUEUFVDUNDUGPUHVAUIUFUJUKURVBVCMUSAUNUTOPABFGULUJUM $.
+      $( [24-Sep-2007] $) $( [23-Sep-2007] $)
+
+    $( The value of a function with one of its ordered pairs replaced, at
+       arguments other than the replaced one.  See also ~ fvsnun1 . $)
+    fvsnun2 $p |- ( D e. ( C \ { A } ) -> ( G ` D ) = ( F ` D ) ) $=
+      ( csn cdif wcel cres cfv fvres cop cun wceq reseq1 ax-mp resundir c0 cin
+      difdisj wfn wb wf1o f1osn f1ofn fnresdisj mpbi residm uneq12i uncom un0
+      3eqtr fveq1i syl5eq eqtr3d ) DCAJZKZLZDFVAMZNZDFNDENZDVAFOVBDEVAMZNVEVDDV
+      AEODVCVFVCABPJZVFQZVAMZVGVAMZVFVAMZQZVFFVHRVCVIRIFVHVASTVGVFVAUAVLUBVFQVF
+      UBQVFVJUBVKVFUTVAUCUBRZVJUBRZUTCUDVGUTUEZVMVNUFUTBJZVGUGVOABGHUHUTVPVGUIT
+      UTVAVGUJTUKEVAULUMUBVFUNVFUOUPUPUQURUS $.
+      $( [24-Sep-2007] $) $( [23-Sep-2007] $)
+  $}
+
+  ${
     $d x y A $.  $d y B $.  $d x y F $.  $d x y G $.
     $( Equality of functions is determined by their values.  Exercise 4 of
        [TakeutiZaring] p. 28. $)
@@ -5623,17 +5837,17 @@ $)
                  ( A = B /\ A. x e. A ( F ` x ) = ( G ` x ) ) ) ) $=
       ( vy wfn wa wceq cv cfv wral cdm wi eqeq12 dmeq syl5bi fndm syl2an wcel
       fveq1 a1d r19.21aiv a1i jcad cop wb wal visset fnopfvb adantlr adantll
-      bibi12d eqeq1 ex a2d com3r wn eleq2d opeldm con3d adantr adantl pm5.21
+      bibi12d eqeq1 ex a2d com3r wn eleq2d opeldm con3d anim12ii pm5.21
       syl6com pm2.61i 19.21adv 19.20dv df-ral syl5ib wrel eqrel fnrel sylibrd
-      fneq2 biimparc sylan2 exp32 imp4b impbid ) DBGZECGZHZDEIZBCIZAJZDKZWFEKZI
-      ZABLZHWCWDWEWJDMZBIZEMZCIZWDWENWAWBWLWNHWKWMIWEWDWKBWMCODEPQBDRZCERSWDWJN
-      WCWDWIABWDWIWFBTZWFDEUAUBUCUDUEWAWBWEWJWDWAWBWEWJWDNZWAEBGZWQWBWEHWAWRHZW
-      JWFFJZUFZDTZXAETZUGZFUHZAUHZWDWSWPWINZAUHXFWJWSXGXEAWSXGXDFWPWSXGXDNZNWSX
-      GWPXDWSWPWIXDWSWPWIXDNWSWPHZWGWTIZWHWTIZUGXDWIXIXJXBXKXCWAWPXJXBUGWRBWFWT
-      DFUIZUJUKWRWPXKXCUGWABWFWTEXLUJULUMWGWHWTUNQUOUPUQWSWPURZXBURZXCURZHZXHWS
-      XMXNXOWAXMXNNWRWAXBWPWAWFWKTWPXBWAWKBWFWOUSWFWTDAUIZUTQVAVBWRXMXONWAWRXCW
-      PWRWFWMTWPXCWRWMBWFBERUSWFWTEXQUTQVAVCUEXPXDXGXBXCVDUBVEVFVGVHWIABVIVJDVK
-      EVKWDXFUGWAWRAFDEVLBDVMBEVMSVNWEWRWBBCEVOVPVQVRVSVT $.
+      fneq2 biimparc sylan2 exp32 imp4b impbid ) DBGZECGZHZDEIZBCIZAJZDKZWEEKZI
+      ZABLZHWBWCWDWIDMZBIZEMZCIZWCWDNVTWAWKWMHWJWLIWDWCWJBWLCODEPQBDRZCERSWCWIN
+      WBWCWHABWCWHWEBTZWEDEUAUBUCUDUEVTWAWDWIWCVTWAWDWIWCNZVTEBGZWPWAWDHVTWQHZW
+      IWEFJZUFZDTZWTETZUGZFUHZAUHZWCWRWOWHNZAUHXEWIWRXFXDAWRXFXCFWOWRXFXCNZNWRX
+      FWOXCWRWOWHXCWRWOWHXCNWRWOHZWFWSIZWGWSIZUGXCWHXHXIXAXJXBVTWOXIXAUGWQBWEWS
+      DFUIZUJUKWQWOXJXBUGVTBWEWSEXKUJULUMWFWGWSUNQUOUPUQWRWOURZXAURZXBURZHZXGVT
+      XLXMWQXNVTXAWOVTWEWJTWOXAVTWJBWEWNUSWEWSDAUIZUTQVAWQXBWOWQWEWLTWOXBWQWLBW
+      EBERUSWEWSEXPUTQVAVBXOXCXFXAXBVCUBVDVEVFVGWHABVHVIDVJEVJWCXEUGVTWQAFDEVKB
+      DVLBEVLSVMWDWQWABCEVNVOVPVQVRVS $.
       $( [5-Feb-2004] $) $( [3-Aug-1994] $)
   $}
 
@@ -5667,30 +5881,33 @@ $)
   $}
 
   ${
-    $d x y A $.  $d x y F $.  $d x y B $.
-    $( A member of a function's range is a value of the function. $)
-    fvelrn $p |- ( F Fn A -> ( B e. ran F <-> E. x e. A ( F ` x ) = B ) ) $=
-      ( vy wfn crn wcel cv cfv wceq wrex cab fnrnfv eleq2d cvv wi fvex eleq1
-      mpbii a1i r19.23aiv eqeq1 eqcom syl6bb rexbidv elab3 ) DBFZCDGZHCEIZAIZDJ
-      ZKZABLZEMZHULCKZABLZUHUIUOCAEBDNOUNUQECUPCPHZABUPURQUKBHUPULPHURUKDRULCPS
-      TUAUBUJCKZUMUPABUSUMCULKUPUJCULUCCULUDUEUFUGUE $.
-      $( [31-Oct-1995] $)
+    $d x y z A $.  $d y B $.  $d z F $.  $d w x z C $.  $d w F $.
+    elrnopabg.1 $e |- F = { <. x , y >. | ( x e. A
+             /\ y = B ) } $.
+    $( Membership in the range of an ordered pair class abstraction. $)
+    elrnopabg $p |- ( A. x e. A B e. D ->
+                    ( C e. ran F <-> E. x e. A C = B ) ) $=
+      ( vz vw wcel wral cvv crn wceq wrex wb elisset r19.20si wfn cv weu eueq
+      biimp fnopabg sylib cfv fvelrnb hbra1 wa ra4 ancld imp copab fvopab2
+      fveq1i syl5eq eqeq1d eqcom syl6bb syl rexbida hbopab1 hbxfr ax-17 hbfv
+      hbeq fveq2 cbvrex syl5bb sylan9bbr mpdan ) DFKZACLDMKZACLZEGNKZEDOZACPZQZ
+      VMVNACDFRSVOGCTZVSVOBUADOZBUBZACLVTVNWBACVNWBBDUCUDSWAABCGHUEUFVTVPIUAZGU
+      GZEOZICPZVOVRICEGUHVOAUAZGUGZEOZACPVRWFVOWIVQACVNACUIVOWGCKZUJWJVNUJZWIVQ
+      QVOWJWKVOWJVNVNACUKULUMWKWIDEOVQWKWHDEWKWGWJWAUJZABUNZUGDWHABCDMUOWGGWMHU
+      PUQURDEUSUTVAVBWEWIIACAJJWDEAJWCGAJGWMHWLABJVCVDJUAZWCKAVEVFWNEKAVEVGWIIV
+      EWCWGOWDWHEWCWGGVHURVIVJVKVLVA $.
+      $( [30-Aug-2007] $) $( [27-Aug-2007] $)
   $}
 
   ${
-    $d x y z A $.  $d y B $.  $d z F $.  $d w x z C $. $d w F $.
+    $d x y z A $.  $d y B $.  $d z F $.  $d w x z C $.  $d w F $.
     elrnopab.1 $e |- B e. V $.
     elrnopab.2 $e |- F = { <. x , y >. | ( x e. A
              /\ y = B ) } $.
-    $( Membership in the range of an operation class abstraction. $)
+    $( Membership in the range of an ordered pair class abstraction. $)
     elrnopab $p |- ( C e. ran F <-> E. x e. A C = B ) $=
-      ( vz vw wfn crn wcel wceq wrex wb cv weu eueq1 a1i fnopab cfv fvelrn wa
-      copab wal hbopab1 eleq2i albii 3imtr4 ax-17 hbfv hbeq fveq2 eqeq1d
-      cbvrex cvv fvopab2 mpan2 fveq1i syl5eq eqcom syl6bb rexbiia bitr ax-mp )
-      FCKZEFLMZEDNZACOZPBQDNZABCFVKBRAQZCMZBDGSTHUAVGVHIQZFUBZENZICOZVJICEFUCVQ
-      VLFUBZENZACOVJVPVSIACAJJVOEAJVNFJQZVMVKUDZABUEZMZWCAUFVTFMZWDAUFWAABJUGFW
-      BVTHUHZWDWCAWEUIUJVTVNMAUKULVTEMAUKUMVSIUKVNVLNVOVREVNVLFUNUOUPVSVIACVMVS
-      DENVIVMVRDEVMVLWBUBZDVRVMDUQMWFDNGABCDUQURUSVLFWBHUTVAUODEVBVCVDVEVCVF $.
+      ( cvv wcel crn wceq wrex wb elrnopabg cv a1i mprg ) DIJZEFKJEDLACMNACABCD
+      EIFHOSAPCJGQR $.
       $( [20-Sep-2004] $) $( [30-Aug-2004] $)
   $}
 
@@ -5699,7 +5916,7 @@ $)
     $( The range of a choice function (a function that chooses an element from
        each member of its domain) is included in the union of its domain. $)
     chfnrn $p |- ( ( F Fn A /\ A. x e. A ( F ` x ) e. x ) -> ran F (_ U. A ) $=
-      ( vy wfn cv cfv wcel wral wa crn cuni wrex wceq fvelrn biimpd hbra1 wi
+      ( vy wfn cv cfv wcel wral wa crn cuni wrex wceq fvelrnb biimpd hbra1 wi
       ra4 eleq1 biimpcd syl6 r19.22d sylan9 eluni2 syl6ibr ssrdv ) CBEZAFZCGZUI
       HZABIZJZDCKZBLZUMDFZUNHZUPUIHZABMZUPUOHUHUQUJUPNZABMZULUSUHUQVAABUPCOPULU
       TURABUKABQULUIBHUKUTURRUKABSUTUKURUJUPUITUAUBUCUDAUPBUEUFUG $.
@@ -5718,6 +5935,14 @@ $)
       $( [14-Oct-1996] $)
   $}
 
+  $( A member of a preimage is a function value argument. $)
+  fvimacnvi $p |- ( ( Fun F /\ A e. ( `' F " B ) ) -> ( F ` A ) e. B ) $=
+    ( wfun ccnv cima wcel wa cfv csn wss funimass2 snssi sylan2 cdm wceq wfn
+    fnsnfv funfn sylanb cnvimass sseli sseq1d fvex snss syl5bb mpbird ) CDZACEB
+    FZGZHZACIZBGZCAJZFZBKZUHUNUIKUPUJUNBCLAUIMNUKULJZBKUPUMUKUQUOBUHACOZGZUQUOP
+    ZUJCURQUSUTUHURACRCSTUIURACBUAUBNUCULBACUDUEUFUG $.
+    $( [5-May-2007] $) $( [4-May-2007] $)
+
   $( The argument of a function value belongs to the pre-image of any class
      containing the function value.  (Contributed by Raph Levien, 20-Nov-2006.
      He remarks: "This proof is unsatisfying, because it seems to me that
@@ -5725,13 +5950,11 @@ $)
   fvimacnv $p |- ( ( Fun F /\ A e. dom F ) ->
                  ( ( F ` A ) e. B <-> A e. ( `' F " B ) ) ) $=
     ( wfun cdm wcel wa cfv ccnv cima csn wss fvex snss imass2 sylbi sseld cop
-    funfvop wb cvv opelcnvg mpan adantl mpbird elimasng syl5com wi funimass2
-    adantr snssg wfn wceq fnsnfv eqid df-fn biimpr mpan2 sylan sseq1d syl5bb
-    3imtr4d impbid ) CDZACEZFZGZACHZBFZACIZBJZFZVIAVJVHKZJZFZVLVGVIVNVKAVIVMBLZ
-    VNVKLVHBACMZNZVMBVJOPQVGVOVHARVJFZVGVSAVHRCFZACSVFVSVTTZVDVHUAFZVFWAVQVHAUA
-    VECUBUCUDUEVFVOVSTZVDWBVFWCVQVJVHAUAVEUFUCUDUEUGVGAKZVKLZCWDJZBLZVLVIVDWEWG
-    UHVFWDBCUIUJVFVLWETVDAVKVEUKUDVGVPWGVIVGVMWFBCVEULZVFVMWFUMVDVEACUNVDVEVEUM
-    ZWHVEUOWHVDWIGCVEUPUQURUSUTVRVAVBVC $.
+    funfvop wb cvv opelcnvg mpan adantl mpbird elimasng syl5com wi fvimacnvi
+    ex adantr impbid ) CDZACEZFZGZACHZBFZACIZBJZFZURAUSUQKZJZFZVAUPURVCUTAURVBB
+    LVCUTLUQBACMZNVBBUSOPQUPVDUQARUSFZUPVFAUQRCFZACSUOVFVGTZUMUQUAFZUOVHVEUQAUA
+    UNCUBUCUDUEUOVDVFTZUMVIUOVJVEUSUQAUAUNUFUCUDUEUGUMVAURUHUOUMVAURABCUIUJUKUL
+    $.
     $( [21-Nov-2006] $) $( [20-Nov-2006] $)
 
   ${
@@ -5749,7 +5972,14 @@ $)
       UQAUGUKQUFURUQUKBCRSTUAUBUCDAULUDUE $.
       $( [21-Nov-2006] $) $( [20-Nov-2006] $)
 
-    $( Two ways of specifying that a function is constant in a subdomain. $)
+    $( A subclass of a preimage in terms of function values. $)
+    funimass5 $p |- ( ( Fun F /\ A (_ dom F ) ->
+                    ( A (_ ( `' F " B ) <-> A. x e. A ( F ` x ) e. B ) ) $=
+      ( wfun cdm wss wa cima ccnv cv cfv wcel wral funimass3 funimass4 bitr3d
+      ) DEBDFGHDBICGBDJCIGAKDLCMABNBCDOABCDPQ $.
+      $( [15-May-2007] $) $( [15-May-2007] $)
+
+    $( Two ways of specifying that a function is constant on a subdomain. $)
     funconstss $p |- ( ( Fun F /\ A (_ dom F ) ->
                      ( A. x e. A ( F ` x ) = B <-> A (_ ( `' F " { B } ) ) ) $=
       ( wfun cdm wss wa cv cfv wceq wral cima csn ccnv wcel funimass4 fvex
@@ -5759,7 +5989,7 @@ $)
   $}
 
 
-  $( Another proof of ~ fvimacnv , based on ~ funimass3 . If ~ funimass3 is
+  $( Another proof of ~ fvimacnv , based on ~ funimass3 .  If ~ funimass3 is
      ever proved directly, as opposed to using ~ funimacnv pointwise, then the
      proof of ~ funimacnv should be replaced with this one.  (Contributed by
      Raph Levien, 20-Nov-2006.) $)
@@ -5772,7 +6002,7 @@ $)
     DUEVABACUFUGUHUNVCUTMULAUSUMUIUJUK $.
     $( [21-Nov-2006] $) $( [20-Nov-2006] $)
 
-  $( The pre-image of the co-domain of a mapping is the mapping's domain.
+  $( The pre-image of the codomain of a mapping is the mapping's domain.
      (Contributed by FL, 25-Jan-2007.) $)
   fimacnv $p |- ( F : A --> B -> ( `' F " B ) = A ) $=
     ( wf ccnv cima crn wss imassrn a1i cdm fdm ssid eqsstrd dfdm4 syl5ssr
@@ -5790,7 +6020,7 @@ $)
   ${
     $d x y F $.  $d x A $.
     $( A function's value belongs to its range. $)
-    fvrn $p |- ( ( Fun F /\ A e. dom F ) -> ( F ` A ) e. ran F ) $=
+    fvelrn $p |- ( ( Fun F /\ A e. dom F ) -> ( F ` A ) e. ran F ) $=
       ( vx vy wfun cdm wcel cfv crn cv wa wi wceq eleq1 anbi2d fveq2 eleq1d
       imbi12d cop wex funfvop visset opeq1 cla4ev syl fvex elrn2 sylibr vtoclg
       anabsi7 ) BEZABFZGZABHZBIZGZUKCJZULGZKZUQBHZUOGZLUKUMKZUPLCAULUQAMZUSVBVA
@@ -5800,23 +6030,30 @@ $)
   $}
 
   $( A function's value belongs to its range. $)
-  fnfvrn $p |- ( ( F Fn A /\ B e. A ) -> ( F ` B ) e. ran F ) $=
-    ( cfv crn wcel fvrn funfni ) BCDCEFABCBCGH $.
+  fnfvelrn $p |- ( ( F Fn A /\ B e. A ) -> ( F ` B ) e. ran F ) $=
+    ( cfv crn wcel fvelrn funfni ) BCDCEFABCBCGH $.
     $( [15-Oct-1996] $)
 
   $( A function's value belongs to its codomain. $)
-  ffvrn $p |- ( ( F : A --> B /\ C e. A ) -> ( F ` C ) e. B ) $=
-    ( wf wcel wa cfv crn wfn fnfvrn ffn sylan wi frn sseld adantr mpd ) ABDEZCA
-    FZGCDHZDIZFZUABFZDAJTUCSACDKABDLMSUCUDNTSUBBUAABDOPQR $.
+  ffvelrn $p |- ( ( F : A --> B /\ C e. A ) -> ( F ` C ) e. B ) $=
+    ( wf wcel wa cfv crn wfn fnfvelrn ffn sylan wi frn sseld adantr mpd ) ABDEZ
+    CAFZGCDHZDIZFZUABFZDAJTUCSACDKABDLMSUCUDNTSUBBUAABDOPQR $.
     $( [12-Aug-1999] $)
 
   ${
     ffvrni.1 $e |- F : A --> B $.
     $( A function's value belongs to its codomain. $)
-    ffvrni $p |- ( C e. A -> ( F ` C ) e. B ) $=
-      ( wf wcel cfv ffvrn mpan ) ABDFCAGCDHBGEABCDIJ $.
+    ffvelrni $p |- ( C e. A -> ( F ` C ) e. B ) $=
+      ( wf wcel cfv ffvelrn mpan ) ABDFCAGCDHBGEABCDIJ $.
       $( [8-Apr-2005] $) $( [6-Apr-2005] $)
   $}
+
+  $( Alternate definition of a mapping. $)
+  dff4 $p |- ( F : A --> B <-> ( F Fn A /\ F (_ ( A X. B ) ) ) $=
+    ( wf wfn cxp wss wa ffn fssxp jca crn rnss rnxpss sstr mpan2 syl anim2i
+    df-f sylibr impbi ) ABCDZCAEZCABFZGZHZUBUCUEABCIABCJKUFUCCLZBGZHUBUEUHUCUEU
+    GUDLZGZUHCUDMUJUIBGUHABNUGUIBOPQRABCSTUA $.
+    $( [17-Nov-2007] $) $( [14-Nov-2007] $)
 
   ${
     $d f g x y z A $.  $d f g x y z B $.  $d x y z F $.
@@ -5826,7 +6063,7 @@ $)
       ( vz wf cxp wss cv wbr weu wral wa fssxp wcel wex wmo cfv cop wfun cdm
       funfvop ffun adantr fdm eleq2d biimpar sylanc df-br sylibr fvex breq2
       cla4ev syl funmo jca eu5 r19.21aiva wfn crn wceq wrel wal cvv xpss sstr
-      mpan2 df-rel wi eumo imim2i adantl wn ssel syl5ib visset opelxp pm3.26bd
+      mpan2 df-rel wi eumo imim2i adantl wn ssel syl5ib visset opelxp pm3.26bi
       syl6 19.23adv con3d exmo ori pm2.61d ex 19.20dv df-ral imp dffunmo dmss
       dmxpss breq1 eubidv rcla4cv euex eldm ssrdv anim12i eqss df-fn rnss
       rnxpss df-f impbi ) CDEGZECDHZIZAJZBJZEKZBLZACMZNZXFXHXMCDEOXFXLACXFXICPZ
@@ -5847,7 +6084,7 @@ $)
     dff3 $p |- ( F : A --> B <->
               ( F (_ ( A X. B ) /\ A. x e. A E! y e. B x F y ) ) $=
       ( wf cxp wss cv wbr weu wral wa wreu dff2 wcel cop ssel visset opelxp
-      pm3.27bd syl6 df-br syl5ib pm4.71rd eubidv df-reu syl6bbr ralbidv
+      pm3.27bi syl6 df-br syl5ib pm4.71rd eubidv df-reu syl6bbr ralbidv
       pm5.32i bitr ) CDEFECDGZHZAIZBIZEJZBKZACLZMUMUPBDNZACLZMABCDEOUMURUTUMUQU
       SACUMUQUODPZUPMZBKUSUMUPVBBUMUPVAUMUNUOQZEPZVAUPUMVDVCULPZVAEULVCRVEUNCPV
       AUNUOCDBSTUAUBUNUOEUCUDUEUFUPBDUGUHUIUJUK $.
@@ -5857,12 +6094,12 @@ $)
     dffo3 $p |- ( F : A -onto-> B <-> ( F : A --> B /\
                   A. y e. B E. x e. A y = ( F ` x ) ) ) $=
       ( wfo wf crn wceq wa cv cfv wrex wral dffo2 cab wfn wb ffn fnrnfv eqeq1d
-      syl wcel wal wi pm3.27 ffvrn adantr eqeltrd exp31 r19.23adv biantrurd bi
-      syl6rbbr albidv abeq1 df-ral 3bitr4g bitrd pm5.32i bitr ) CDEFCDEGZEHZDIZ
-      JVBBKZAKZELZIZACMZBDNZJCDEOVBVDVJVBVDVIBPZDIZVJVBECQZVDVLRCDESVMVCVKDABCE
-      TUAUBVBVIVEDUCZRZBUDVNVIUEZBUDVLVJVBVOVPBVBVPVIVNUEZVPJVOVBVQVPVBVHVNACVB
-      VFCUCZVHVNVBVRJZVHJVEVGDVSVHUFVSVGDUCVHCDVFEUGUHUIUJUKULVIVNUMUNUOVIBDUPV
-      IBDUQURUSUTVA $.
+      syl wcel wal wi pm3.27 ffvelrn adantr eqeltrd exp31 r19.23adv biantrurd
+      bi syl6rbbr albidv abeq1 df-ral 3bitr4g bitrd pm5.32i bitr ) CDEFCDEGZEHZ
+      DIZJVBBKZAKZELZIZACMZBDNZJCDEOVBVDVJVBVDVIBPZDIZVJVBECQZVDVLRCDESVMVCVKDA
+      BCETUAUBVBVIVEDUCZRZBUDVNVIUEZBUDVLVJVBVOVPBVBVPVIVNUEZVPJVOVBVQVPVBVHVNA
+      CVBVFCUCZVHVNVBVRJZVHJVEVGDVSVHUFVSVGDUCVHCDVFEUGUHUIUJUKULVIVNUMUNUOVIBD
+      UPVIBDUQURUSUTVA $.
       $( [30-Oct-2006] $) $( [29-Oct-2006] $)
 
     $( Alternate definition of an onto mapping. $)
@@ -5887,13 +6124,13 @@ $)
       bitr ) CDEFCDEGZAHZBHZEIZACJZBDKZLZUMUPAMZBDKZLZABCDENUSVBURVAUMUQUTBDUPA
       COPQUMVAURUMUTUQBDUMUTUNCRZUPLZAMUQUMUPVDAUMUPVCUMECSZUPVCTCDEUAVEUPVCCUN
       UOEUBUCUDUEUFUPACUGUHUIUJUKUL $.
-      $( [?] $) $( [20-Mar-2007] $)
+      $( [3-Jul-2007] $) $( [20-Mar-2007] $)
 
     $( A relation equivalent to the existence of an onto mapping.  The
        right-hand ` f ` is not necessarily a function. $)
     exfo $p |- ( E. f f : A -onto-> B <->
            E. f ( A. x e. A E! y e. B x f y /\ A. x e. B E. y e. A y f x ) ) $=
-      ( vg cv wfo wex wbr wreu wral wrex wa wf dffo4 cxp wss dff3 pm3.27bd
+      ( vg cv wfo wex wbr wreu wral wrex wa wf dffo4 cxp wss dff3 pm3.27bi
       anim1i sylbi 19.22i cin crn wceq wcel brinxp reubidva biimpd r19.20i
       inss2 jctil sylibr rninxp biimpr anim12i dffo2 visset inex1 foeq1 cla4ev
       syl 19.23aiv cbvexv sylib impbi ) CDEGZHZEIZAGZBGZVHJZBDKZACLZVLVKVHJBCMA
@@ -5913,7 +6150,7 @@ $)
       r19.20si fnopabg copab wi wal wex hbra1 ax-17 ra4 eleq1a imim2i imp3a
       syl 19.23ad rnopab abeq2i syl5ib 19.21aiv hbopab2 hbrn dfss2f sylibr
       rneqi syl5ss jca df-f cdm fdm dmopab3 isset ralbii dmeqi eqeq1i 3bitr4r
-      hbopab1 hbf wb feq1 ax-mp albii 3imtr4 cfv ffvrn adantr fvopab2 fveq1i
+      hbopab1 hbf wb feq1 ax-mp albii 3imtr4 cfv ffvelrn adantr fvopab2 fveq1i
       syl5eq eleq1d adantll mpbid ex r19.20da mpd impbi ) EDIZACJZCDFKZWRFCLZFM
       ZDNZOWSWRWTXBWRBPZEQZBRZACJWTWQXEACWQESIZXEEDTBEUAUBUCXDABCFGUDUBWRAPZCIZ
       XDOZABUEZMZDXAWRXCXKIZXCDIZUFZBUGXKDNWRXNBWRXIAUHZXMXLWRXIXMAWQACUIXMAUJW
@@ -5925,25 +6162,30 @@ $)
       XGFXJGWHWIWJWKWLWMWNWOWP $.
       $( [2-Feb-2004] $) $( [29-Jan-2004] $)
 
+    $( Inclusion of a function in a cross product. $)
+    fopabssxp $p |- ( A. x e. A C e. B -> F (_ ( A X. B ) ) $=
+      ( wcel wral wf cxp wss fopab2 fssxp sylbi ) EDHACICDFJFCDKLABCDEFGMCDFNO
+      $.
+      $( [6-Jun-2007] $) $( [5-Jun-2007] $)
+
     ${
       rnssopab.2 $e |- C e. V $.
       $( Range of a function that is expressed as an ordered-pair class
          abstraction. $)
       rnssopab $p |- ( A. x e. A C e. B <-> ran F (_ B ) $=
-        ( vz wcel wral crn wss wf fopab2 frn sylbi cv wceq wa copab wal
-        hbopab1 eleq2i albii 3imtr4 hbrn ax-17 hbss ssel cfv cvv fvopab2 mpan2
-        fveq1i syl5eq wfn fnopab2 fnfvrn mpan eqeltrrd syl5 r19.21ai impbi ) ED
-        JZACKZFLZDMZVFCDFNVHABCDEFGOCDFPQVHVEACAIVGDAIFIRZARZCJZBRESTZABUAZJZVN
-        AUBVIFJZVOAUBVLABIUCFVMVIGUDZVOVNAVPUEUFUGVIDJAUHUIVHEVGJVEVKVGDEUJVKVJ
-        FUKZEVGVKVJVMUKZEVQVKEULJVRESHABCEULUMUNVJFVMGUOUPFCUQVKVQVGJABCEFHGURC
-        VJFUSUTVAVBVCVD $.
+        ( vz wcel wral crn wss wf fopab2 frn sylbi cv wceq wa copab hbopab1
+        hbxfr hbrn ax-17 hbss ssel cfv cvv fvopab2 mpan2 fveq1i syl5eq wfn
+        fnopab2 fnfvelrn mpan eqeltrrd syl5 r19.21ai impbi ) EDJZACKZFLZDMZVCCD
+        FNVEABCDEFGOCDFPQVEVBACAIVDDAIFAIFARZCJZBRESTZABUAZGVHABIUBUCUDIRDJAUEU
+        FVEEVDJVBVGVDDEUGVGVFFUHZEVDVGVFVIUHZEVJVGEUIJVKESHABCEUIUJUKVFFVIGULUM
+        FCUNVGVJVDJABCEFHGUOCVFFUPUQURUSUTVA $.
         $( [5-Jun-2006] $) $( [23-May-2006] $)
 
       $( Functionality of an ordered-pair class abstraction. $)
       fopab3 $p |- ( ran F (_ B <-> F : A --> B ) $=
         ( crn wss wcel wral wf rnssopab fopab2 bitr3 ) FIDJEDKACLCDFMABCDEFGHNA
         BCDEFGOP $.
-        $( [?] $) $( [23-May-2006] $)
+        $( [12-Jun-2007] $) $( [23-May-2006] $)
     $}
 
     ${
@@ -5956,43 +6198,15 @@ $)
   $}
 
   ${
-    $d x y z A $.  $d w x y z B $.  $d w y z C $.  $d w y z D $.  $d w z F $.
-    $d w z G $.
-    fopabco.1 $e |- C e. V $.
-    fopabco.2 $e |- D e. V $.
-    fopabco.3 $e |- F = { <. x , y >. | ( x e. A /\ y = C ) } $.
-    fopabco.4 $e |- G = { <. x , y >. | ( x e. B /\ y = D ) } $.
-    $( Composition of two functions expressed with ordered-pair class
-       abstraction. $)
-    fopabco $p |- ( ran G (_ A -> ( F o. G ) =
-                  { <. x , y >. | ( x e. B /\ y = [_ D / x ]_ C ) } ) $=
-      ( vz vw crn wss ccom cv wcel csb wceq wa copab cfv wral visset fvopab4s
-      adantl wfn fnopab2 fnfvrn mpan wi ssel adantr mpd eqeltrrd cvv wal
-      ax-gen csbexg mp2an ax-17 hbcsb1 fvopab4sf syl cdm dmopab2 eleq2i wfun
-      fnfun ax-mp fvco mp3an12 sylbir fveq2d eqtrd eqid csbnest1g syl6eq
-      3eqtr4d ex r19.21aiv jctil wb fnco eqfnfvf mpan2 mpbird ) HOZCPZGHQZARDSB
-      RAFETZUAUBABUCZUAZDDUAZMRZWLUDZWQWNUDZUAZMDUEZUBZWKXAWPWKWTMDWKWQDSZWTWKX
-      CUBZAWQFTZGUDZAXEETZWRWSXDXECSXFXGUAXDWQHUDZXECXCXHXEUAWKABWQFDHMUFZJLUGZ
-      UHXDXHWJSZXHCSZXCXKWKHDUIZXCXKABDFHJLUJZDWQHUKULUHWKXKXLUMXCWJCXHUNUOUPUQ
-      ABNXEECGWQURSZFURSZAUSZXEURSXIXPAJUTZAWQFURURVAVBIANWQFXINRZWQSAVCVDKVEVF
-      XCWRXFUAWKXCWRXHGUDZXFXCWQHVGZSZWRXTUAZYADWQABDFHJLVHVIGVJZHVJZYBYCGCUIZY
-      DABCEGIKUJZCGVKVLXMYEXNDHVKVLWQGHVMVNVOXCXHXEGXJVPVQUHXCWSXGUAWKXCWSAWQWM
-      TZXGABWQWMDWNXIXPEURSZAUSWMURSJYIAIUTAFEURURVAVBZWNVRZUGXOXQYHXGUAXIXRAWQ
-      FEURURVSVBVTUHWAWBWCDVRWDWKWLDUIZWOXBWEZYFXMWKYLYGXNCDGHWFVNYLWNDUIYMABDW
-      MWNYJYKUJMNDDWLWNXSWLSMVCXSWNSMVCWGWHVFWI $.
-      $( [2-Jun-2006] $) $( [22-May-2006] $)
-  $}
-
-  ${
     $d x y A $.  $d x y B $.  $d x y F $.
     $( A function maps to a class to which all values belong. $)
     ffnfv $p |- ( F : A --> B <-> ( F Fn A /\ A. x e. A ( F ` x ) e. B ) ) $=
-      ( vy wf wfn cv cfv wcel wral wa ffn ffvrn r19.21aiva jca crn wss pm3.26
-      wceq wrex fvelrn biimpd hbra1 ax-17 wi ra4 eleq1 biimpcd syl6 r19.23ad
-      sylan9 r19.21aiv dfss3 sylibr df-f impbi ) BCDFZDBGZAHZDIZCJZABKZLZURUSVC
-      BCDMURVBABBCUTDNOPVDUSDQZCRZLURVDUSVFUSVCSVDEHZCJZEVEKVFVDVHEVEUSVGVEJZVA
-      VGTZABUAZVCVHUSVIVKABVGDUBUCVCVJVHABVBABUDVHAUEVCUTBJVBVJVHUFVBABUGVJVBVH
-      VAVGCUHUIUJUKULUMEVECUNUOPBCDUPUOUQ $.
+      ( vy wf wfn cv cfv wcel wral wa ffn ffvelrn r19.21aiva jca crn wss
+      pm3.26 wceq wrex fvelrnb biimpd hbra1 ax-17 wi ra4 eleq1 biimpcd syl6
+      r19.23ad sylan9 r19.21aiv dfss3 sylibr df-f impbi ) BCDFZDBGZAHZDIZCJZABK
+      ZLZURUSVCBCDMURVBABBCUTDNOPVDUSDQZCRZLURVDUSVFUSVCSVDEHZCJZEVEKVFVDVHEVEU
+      SVGVEJZVAVGTZABUAZVCVHUSVIVKABVGDUBUCVCVJVHABVBABUDVHAUEVCUTBJVBVJVHUFVBA
+      BUGVJVBVHVAVGCUHUIUJUKULUMEVECUNUOPBCDUPUOUQ $.
       $( [19-May-2004] $) $( [3-Dec-2003] $)
   $}
 
@@ -6029,6 +6243,65 @@ $)
   $}
 
   ${
+    $d x y A $.  $d u w x z B $.  $d u F $.  $d u x G $.  $d u H $.  $d w S $.
+    $d w y z R $.  $d u w y z T $.  $d u v x A $.  $d v T $.
+    fopabco.1 $e |- R e. V $.
+    fopabco.2 $e |- S e. V $.
+    fopabco.3 $e |- T e. V $.
+    fopabco.4 $e |- ( z = R -> S = T ) $.
+    fopabco.5 $e |- F = { <. x , y >. | ( x e. A /\ y = R ) } $.
+    fopabco.6 $e |- G = { <. z , w >. | ( z e. B /\ w = S ) } $.
+    fopabco.7 $e |- H = { <. x , v >. | ( x e. A /\ v = T ) } $.
+    $( Composition of two functions expressed as ordered-pair class
+       abstractions.  Note that ` v ` may be assigned to ` w ` , ` y ` , or
+       ` z ` if desired. $)
+    fopabco $p |- ( ran F (_ B -> ( G o. F ) = H ) $=
+      ( vu crn wss ccom wceq cv cfv wral wa wcel copab hbopab1 hbxfr hbrn
+      ax-17 hbss cvv fvopab2 mpan2 fveq1i syl5eq fveq2d adantl wf ffvelrn wfn
+      fnopab2 df-f biimpr mpan sylan wb eleq1d mpbid fvopab4 syl eqtrd cdm
+      dmopab2 eleq2i wfun fnfun ax-mp fvco mp3an12 sylbir 3eqtr4d ex r19.21ai
+      eqid jctil fnco hbco eqfnfvf mpbird ) KUBZGUCZLKUDZMUEZFFUEZAUFZWRUGZXAMU
+      GZUEZAFUHZUIZWQXEWTWQXDAFAUAWPGAUAKAUAKXAFUJZBUFHUEUIZABUKZRXHABUAULUMZUN
+      UAUFZGUJAUOUPWQXGXDWQXGUIZXAKUGZLUGZJXBXCXLXNHLUGZJXGXNXOUEWQXGXMHLXGXAXI
+      UGZHXMXGHUQUJXPHUENABFHUQURUSXAKXIRUTVAZVBVCXLHGUJZXOJUEXLXMGUJZXRFGKVDZX
+      GXSWQFGXAKVEKFVFZWQXTABFHKNRVGZXTYAWQUIFGKVHVIVJVKXGXSXRVLWQXGXMHGXQVMVCV
+      NCDHIJGLQSPVOVPVQXGXBXNUEZWQXGXAKVRZUJZYCYDFXAABFHKNRVSVTLWAZKWAZYEYCLGVF
+      ZYFCDGILOSVGZGLWBWCYAYGYBFKWBWCXALKWDWEWFVCXGXCJUEZWQXGJUQUJZYJPXGYKUIXAX
+      GEUFJUEUIZAEUKZUGJXCAEFJUQURXAMYMTUTVAUSVCWGWHWIFWJWKWQWRFVFZWSXFVLZYHYAW
+      QYNYIYBGFLKWLWEYNMFVFYOAEFJMPTVGAUAFFWRMAUALKXKLUJAUOXJWMAUAMYMTYLAEUAULU
+      MWNUSVPWO $.
+      $( [25-Aug-2007] $) $( [21-Aug-2007] $)
+  $}
+
+  ${
+    $d x y z A $.  $d w x y z B $.  $d w y z C $.  $d w y z D $.  $d w z F $.
+    $d w z G $.
+    fopabcos.1 $e |- C e. V $.
+    fopabcos.2 $e |- D e. V $.
+    fopabcos.3 $e |- F = { <. x , y >. | ( x e. A /\ y = C ) } $.
+    fopabcos.4 $e |- G = { <. x , y >. | ( x e. B /\ y = D ) } $.
+    $( MAY BE REVISED - prove from fopabco4? $)
+    $( Composition of two functions expressed as ordered-pair class
+       abstractions. $)
+    fopabcos $p |- ( ran G (_ A -> ( F o. G ) =
+                  { <. x , y >. | ( x e. B /\ y = [_ D / x ]_ C ) } ) $=
+      ( vz vw crn wss ccom cv wcel csb wceq wa copab cfv wral visset fvopab4s
+      adantl wfn fnopab2 fnfvelrn mpan wi ssel adantr mpd eqeltrrd csbex ax-17
+      hbcsb1 fvopab4sf syl cdm dmopab2 eleq2i wfun fnfun ax-mp fvco mp3an12
+      sylbir fveq2d eqtrd eqid cvv wal ax-gen csbnest1g mp2an syl6eq 3eqtr4d
+      r19.21aiva jctil wb fnco eqfnfvf mpan2 mpbird ) HOZCPZGHQZARDSBRAFETZUAUB
+      ABUCZUAZDDUAZMRZWKUDZWPWMUDZUAZMDUEZUBZWJWTWOWJWSMDWJWPDSZUBZAWPFTZGUDZAX
+      DETZWQWRXCXDCSXEXFUAXCWPHUDZXDCXBXGXDUAWJABWPFDHMUFZJLUGZUHXCXGWISZXGCSZX
+      BXJWJHDUIZXBXJABDFHJLUJZDWPHUKULUHWJXJXKUMXBWICXGUNUOUPUQABNXDECGAWPFXHJU
+      RIANWPFXHNRZWPSAUSUTKVAVBXBWQXEUAWJXBWQXGGUDZXEXBWPHVCZSZWQXOUAZXPDWPABDF
+      HJLVDVEGVFZHVFZXQXRGCUIZXSABCEGIKUJZCGVGVHXLXTXMDHVGVHWPGHVIVJVKXBXGXDGXI
+      VLVMUHXBWRXFUAWJXBWRAWPWLTZXFABWPWLDWMXHAFEJIURZWMVNZUGWPVOSFVOSZAVPYCXFU
+      AXHYFAJVQAWPFEVOVOVRVSVTUHWAWBDVNWCWJWKDUIZWNXAWDZYAXLWJYGYBXMCDGHWEVJYGW
+      MDUIYHABDWLWMYDYEUJMNDDWKWMXNWKSMUSXNWMSMUSWFWGVBWH $.
+      $( [2-Jun-2006] $) $( [22-May-2006] $)
+  $}
+
+  ${
     $d x y A $.  $d x y B $.  $d x y F $.
     fsn.1 $e |- A e. V $.
     fsn.2 $e |- B e. V $.
@@ -6037,16 +6310,16 @@ $)
     fsn $p |- ( F : { A } --> { B } <-> F = { <. A , B >. } ) $=
       ( vx vy csn wf cop wceq cv wcel wb wal wa visset opelf elsn anbi12i
       sylib ex opeq12 eleq1d wreu snid feu mpan2 weu eueq1 biantru euanv opeq2
-      pm5.32i anbi1i ancom 3bitr4r eubii df-reu bitr4 3bitr2 sylibr syl5bir
-      com12 impbid opex elsnc opth bitr2 syl6bb 19.21aivv wrel frel relsn
-      jctir eqrel syl mpbird wf1o f1osn f1oeq1 mpbiri f1of impbi ) AHZBHZCIZCAB
-      JZHZKZWGWJFLZGLZJZCMZWMWIMZNZGOFOZWGWPFGWGWNWKAKZWLBKZPZWOWGWNWTWGWNWTWGW
-      NPWKWEMZWLWFMZPWTWEWFWKWLCGQZRXAWRXBWSFASGBSZTUAUBWTWGWNWTWNWHCMZWGWTWMWH
-      CWKWLABUCUDWGAWLJZCMZGWFUEZXEWGAWEMXHADUFGWEWFACUGUHXEXEWSGUIZPXEWSPZGUIZ
-      XHXIXEGBEUJUKXEWSGULXKXBXGPZGUIXHXJXLGWSXGPWSXEPXLXJWSXGXEWSXFWHCWLBAUMUD
-      UNXBWSXGXDUOXEWSUPUQURXGGWFUSUTVAVBVCVDVEWOWMWHKWTWMWHWKWLVFVGWKWLABFQXCE
-      VHVIVJVKWGCVLZWIVLZPWJWQNWGXMXNWEWFCVMABDVNVOFGCWIVPVQVRWJWEWFCVSZWGWJXOW
-      EWFWIVSABDEVTWEWFCWIWAWBWEWFCWCVQWD $.
+      pm5.32i anbi1i ancom 3bitr4r eubii df-reu bitr4 3bitr2 sylibr syl5cbir
+      impbid opex elsnc opth bitr2 syl6bb 19.21aivv wrel frel relsn jctir
+      eqrel syl mpbird wf1o f1osn f1oeq1 mpbiri f1of impbi ) AHZBHZCIZCABJZHZKZ
+      WFWIFLZGLZJZCMZWLWHMZNZGOFOZWFWOFGWFWMWJAKZWKBKZPZWNWFWMWSWFWMWSWFWMPWJWD
+      MZWKWEMZPWSWDWEWJWKCGQZRWTWQXAWRFASGBSZTUAUBWSWMWGCMZWFWSWLWGCWJWKABUCUDW
+      FAWKJZCMZGWEUEZXDWFAWDMXGADUFGWDWEACUGUHXDXDWRGUIZPXDWRPZGUIZXGXHXDGBEUJU
+      KXDWRGULXJXAXFPZGUIXGXIXKGWRXFPWRXDPXKXIWRXFXDWRXEWGCWKBAUMUDUNXAWRXFXCUO
+      XDWRUPUQURXFGWEUSUTVAVBVCVDWNWLWGKWSWLWGWJWKVEVFWJWKABFQXBEVGVHVIVJWFCVKZ
+      WHVKZPWIWPNWFXLXMWDWECVLABDVMVNFGCWHVOVPVQWIWDWECVRZWFWIXNWDWEWHVRABDEVSW
+      DWECWHVTWAWDWECWBVPWC $.
       $( [13-Dec-2003] $) $( [10-Dec-2003] $)
 
     $( The cross product of two singletons. $)
@@ -6061,7 +6334,7 @@ $)
        ordered pair. $)
     fsn2 $p |- ( F : { A } --> B <->
                ( ( F ` A ) e. B /\ F = { <. A , ( F ` A ) >. } ) ) $=
-      ( csn wf cfv wcel wa cop wceq snid ffvrn mpan2 wfn ffn crn fnfrn biimp
+      ( csn wf cfv wcel wa cop wceq snid ffvelrn mpan2 wfn ffn crn fnfrn biimp
       wb cima cdm fndm imaeq2d imadmrn syl5eqr fnsnfv eqtr4d feq3 syl mpbid
       jca wss fss ancoms snssi sylan impbi fvex fsn anbi2i bitr ) AEZBCFZACGZBH
       ZVCVEEZCFZIZVFCAVEJEKZIVDVIVDVFVHVDAVCHZVFADLZVCBACMNVDCVCOZVHVCBCPVMVCCQ
@@ -6072,7 +6345,7 @@ $)
   $}
 
   ${
-    $d x A $.  $d x B $.  $d x C $. $d x F $.
+    $d x A $.  $d x B $.  $d x C $.  $d x F $.
     $( A function restricted to a singleton. $)
     fnressn $p |- ( ( F Fn A /\ B e. A ) ->
                   ( F |` { B } ) = { <. B , ( F ` B ) >. } ) $=
@@ -6089,20 +6362,21 @@ $)
     $( The value of a function restricted to a singleton. $)
     fressnfv $p |- ( ( F Fn A /\ B e. A ) ->
                  ( ( F |` { B } ) : { B } --> C <-> ( F ` B ) e. C ) ) $=
-      ( vx wcel wfn csn cres wf cfv wb cv wi wceq sneq reseq2 feq1 syl feq2
-      bitrd fveq2 eleq1d bibi12d imbi2d wa cop fnressn visset snid fvres ax-mp
+      ( vx wcel wfn csn cres wf cfv wb cv wi wceq sneq reseq2 feq1d feq2 bitrd
+      syl fveq2 eleq1d bibi12d imbi2d wa cop fnressn visset snid fvres ax-mp
       opeq2i sneqi eqeq2i iba eleq1i syl5rbbr fsn2 syl5bb sylbir expcom
       vtoclga impcom ) BAFDAGZBHZCDVFIZJZBDKZCFZLZVEEMZHZCDVMIZJZVLDKZCFZLZNVEV
-      KNEBAVLBOZVRVKVEVSVOVHVQVJVSVMVFOZVOVHLVLBPVTVOVMCVGJZVHVTVNVGOVOWALVMVFD
-      QVMCVNVGRSVMVFCVGTUASVSVPVICVLBDUBUCUDUEVEVLAFZVRVEWBUFVNVLVPUGZHZOZVRAVL
-      DUHWEVNVLVLVNKZUGZHZOZVRWHWDVNWGWCWFVPVLVLVMFWFVPOVLEUIZUJVLVMDUKULZUMUNU
-      OWIWFCFZWIUFZVQVOWIWLWMVQWIWLUPWFVPCWKUQURVLCVNWJUSUTVASVBVCVD $.
+      KNEBAVLBOZVRVKVEVSVOVHVQVJVSVMVFOZVOVHLVLBPVTVOVMCVGJVHVTVMCVNVGVMVFDQRVM
+      VFCVGSTUAVSVPVICVLBDUBUCUDUEVEVLAFZVRVEWAUFVNVLVPUGZHZOZVRAVLDUHWDVNVLVLV
+      NKZUGZHZOZVRWGWCVNWFWBWEVPVLVLVMFWEVPOVLEUIZUJVLVMDUKULZUMUNUOWHWECFZWHUF
+      ZVQVOWHWKWLVQWHWKUPWEVPCWJUQURVLCVNWIUSUTVAUAVBVCVD $.
       $( [16-Nov-2004] $) $( [9-Oct-2004] $)
   $}
 
   $( The value of a constant function. $)
   fvconst $p |- ( ( F : A --> { B } /\ C e. A ) -> ( F ` C ) = B ) $=
-    ( csn wf wcel wa cfv wceq ffvrn elsni syl ) ABEZDFCAGHCDIZNGOBJANCDKOBLM $.
+    ( csn wf wcel wa cfv wceq ffvelrn elsni syl ) ABEZDFCAGHCDIZNGOBJANCDKOBLM
+    $.
     $( [30-May-1999] $)
 
   ${
@@ -6137,7 +6411,7 @@ $)
       ) ALZFMZBLZENZOZABPZCDQRZSVBUQCRZMZUSDNZOZABPZSVAVGTZABPUQGMZUTOZABPVCVHV
       BABCDHIUAUBVAVGABUCVIVKABVKURVETZUTOVAVEUTOZTVIVJVLUTVJUQFVDSZMVLVNGUQJUD
       UQFVDUEUFUGURVEUTUHVMVGVAVEUTVFVEEDUSVEUQCNEDNACUIKUJUKULUMUNUOUP $.
-      $( [?] $) $( [6-Jun-2006] $)
+      $( [15-Jun-2007] $) $( [6-Jun-2006] $)
   $}
 
   ${
@@ -6157,35 +6431,51 @@ $)
     ( wcel cid cres cfv fvres fvi eqtrd ) BACBDAEFBDFBBADGBAHI $.
     $( [20-May-2004] $) $( [19-May-2004] $)
 
+  $( The value of a constant function. $)
+  fvconst2g $p |- ( ( B e. D /\ C e. A ) -> ( ( A X. { B } ) ` C ) = B ) $=
+    ( csn cxp wf wcel cfv wceq fvconst fconstg sylan ) ABEZANFZGCAHCOIBJBDHABCO
+    KABDLM $.
+    $( [30-Aug-2005] $) $( [20-Aug-2005] $)
+
+  ${
+    $d x A $.  $d x B $.  $d x C $.  $d x F $.
+    $( A constant function expressed as a cross product. $)
+    fconst2g $p |- ( B e. C -> ( F : A --> { B } <-> F = ( A X. { B } ) ) ) $=
+      ( vx wcel csn wf cxp wceq wa cv cfv wral fvconst adantlr fvconst2g
+      adantll eqtr4d r19.21aiva eqid jctil wfn wb eqfnfv ffn fconstg syl
+      syl2an mpbird expcom feq1 syl5cbir impbid ) BCFZABGZDHZDAUPIZJZUQUOUSUQUO
+      KZUSAAJZELZDMZVBURMZJZEANZKZUTVFVAUTVEEAUTVBAFZKVCBVDUQVHVCBJUOABVBDOPUOV
+      HVDBJUQABVBCQRSTAUAUBDAUCURAUCZUSVGUDUQUOEAADURUEAUPDUFUOAUPURHZVIABCUGZA
+      UPURUFUHUIUJUKUSUQVJUOAUPDURULVKUMUN $.
+      $( [28-Nov-2007] $) $( [27-Nov-2007] $)
+  $}
+
   ${
     $d x A $.  $d x B $.  $d x F $.
-    fconst2.1 $e |- B e. V $.
-    $( A constant function expressed as a cross product.  See also
-       ~ fconstfv . $)
-    fconst2 $p |- ( F : A --> { B } <-> F = ( A X. { B } ) ) $=
-      ( vx csn wf cxp wceq cv cfv wral wa wcel fvconst fconst mpan adantl
-      eqtr4d r19.21aiva eqid jctil wfn wb ffn ax-mp eqfnfv mpan2 syl mpbird
-      feq1 mpbiri impbi ) ABFZCGZCAUNHZIZUOUQAAIZEJZCKZUSUPKZIZEALZMZUOVCURUOVB
-      EAUOUSANZMUTBVAABUSCOVEVABIZUOAUNUPGZVEVFABDPZABUSUPOQRSTAUAUBUOCAUCZUQVD
-      UDZAUNCUEVIUPAUCZVJVGVKVHAUNUPUEUFEAACUPUGUHUIUJUQUOVGVHAUNCUPUKULUM $.
-      $( [20-Aug-1999] $)
-
+    fvconst2.1 $e |- B e. V $.
     $( The value of a constant function. $)
     fvconst2 $p |- ( C e. A -> ( ( A X. { B } ) ` C ) = B ) $=
-      ( csn cxp wf wcel cfv wceq fconst fvconst mpan ) ABEZANFZGCAHCOIBJABDKABC
-      OLM $.
+      ( cvv wcel csn cxp cfv wceq fvconst2g mpan ) BEFCAFCABGHIBJDABCEKL $.
       $( [18-Apr-2005] $) $( [16-Apr-2005] $)
+
+    $( A constant function expressed as a cross product. $)
+    fconst2 $p |- ( F : A --> { B } <-> F = ( A X. { B } ) ) $=
+      ( cvv wcel csn wf cxp wceq wb fconst2g ax-mp ) BEFABGZCHCANIJKDABECLM $.
+      $( [20-Aug-1999] $)
   $}
 
-  ${
-    $d x A $.  $d x B $.  $d x C $.
-    $( The value of a constant function. $)
-    fvconst2g $p |- ( ( B e. D /\ C e. A ) -> ( ( A X. { B } ) ` C ) = B ) $=
-      ( vx wcel csn cxp cfv wceq cv wi sneq xpeq2 syl fveq1d id eqeq12d imbi2d
-      visset fvconst2 vtoclg imp ) BDFCAFZCABGZHZIZBJZUDCAEKZGZHZIZUIJZLUDUHLEB
-      DUIBJZUMUHUDUNULUGUIBUNCUKUFUNUJUEJUKUFJUIBMUJUEANOPUNQRSAUICETUAUBUC $.
-      $( [30-Aug-2005] $) $( [20-Aug-2005] $)
-  $}
+  $( Two ways to express that a function is constant. $)
+  fconst5 $p |- ( ( F Fn A /\ A =/= (/) ) -> ( F = ( A X. { B } ) <->
+                 ran F = { B } ) ) $=
+    ( wfn c0 wne wa csn cxp wceq crn wi rnxp eqeq2d rneq syl5bi adantl cvv
+    wcel wf fconst2g wfo df-fo fof sylbir exp3a adantrd wn wrel snprc relrn0
+    biimprd wb eqeq2 adantr xpeq2 xp0 syl6eq 3imtr4d ex sylbi fnrel syl5
+    pm2.61i impbid ) CADZAEFZGZCABHZIZJZCKZVIJZVGVKVMLVFVGVLVJKZJVMVKVGVNVIVLAV
+    IMNCVJOPQBRSZVHVMVKLZLVOVFVPVGVOVFVMVKVOAVICTZVKVFVMGZABRCUAVRAVICUBVQAVICU
+    CAVICUDUEPUFUGVOUHZVFVPVGVSCUIZVPVFVSVIEJZVTVPLBUJWAVTVPWAVTGVLEJZCEJZVMVKV
+    TWBWCLWAVTWCWBCUKULQWAVMWBUMVTVIEVLUNUOWAVKWCUMVTWAVJECWAVJAEIEVIEAUPAUQURN
+    UOUSUTVAACVBVCUGVDVE $.
+    $( [25-Dec-2007] $) $( [27-Nov-2007] $)
 
   ${
     $d x y z A $.  $d x y z B $.  $d x y z F $.
@@ -6195,7 +6485,7 @@ $)
                    ( F Fn A /\ A. x e. A ( F ` x ) = B ) ) $=
       ( vy vz csn wf wfn cv cfv wceq wral wa ffn fvconst r19.21aiva jca wi c0
       fneq2 fn0 syl6bb f0 feq1 mpbiri syl6bi feq2 sylibrd adantrd wne crn wcel
-      wrex fvelrn fveq2 eqeq1d rcla4cva rexbidva r19.9rzv bicomd sylan9bbr
+      wrex fvelrnb fveq2 eqeq1d rcla4cva rexbidva r19.9rzv bicomd sylan9bbr
       elsn eqcom bitr2 eqrdv an1rs exp31 imdistand wfo df-fo fof sylbir syl6
       pm2.61ine impbi ) BCGZDHZDBIZAJZDKZCLZABMZNZVRVSWCBVQDOVRWBABBCVTDPQRWDVR
       SBTBTLZVSVRWCWEVSTVQDHZVRWEVSDTLZWFWEVSDTIWGBTDUADUBUCWGWFTVQTHVQUDTVQDTU
@@ -6221,17 +6511,16 @@ $)
     ( csn wf wfn ccnv cima wss wa wceq fconst3 cdm cnvimass a1i fndm sseqtrd
     biantrurd eqss syl6bbr pm5.32i bitr ) ABDZCECAFZACGUCHZIZJUDUEAKZJABCLUDUFU
     GUDUFUEAIZUFJUGUDUHUFUDUECMZAUEUIIUDCUCNOACPQRUEASTUAUB $.
-    $( [?] $) $( [8-Mar-2007] $)
+    $( [19-Jun-2007] $) $( [8-Mar-2007] $)
 
   $( A function's value in a pre-image belongs to the image. $)
   funfvima $p |- ( ( Fun F /\ B e. dom F ) -> ( B e. A ->
                  ( F ` B ) e. ( F " A ) ) ) $=
     ( wfun cdm wcel wa cfv cima wi cres crn fvres eleq1d df-ima eleq2i
-    syl6rbbr fvrn funres sylan syl5bir com12 ex cin dmres elin bitr syl5ibr
-    exp3a imp3a pm2.43b ) CDZBCEZFZGBAFZBCHZCAIZFZUOULUNUOURJZULUOUNUSJULUOUNUS
-    ULBCAKZEZFZUSUOUNGZULVBUSUOULVBGZURUOURBUTHZUTLZFZVDUOVGUPVFFURUOVEUPVFBACM
-    NUQVFUPCAOPQUTDVBVGULBUTRACSTUAUBUCVBBAUMUDZFVCVAVHBCAUEPBAUMUFUGUHUIUBUJUK
-    $.
+    syl6rbbr fvelrn funres sylan syl5cbir ex cin dmres elin bitr syl5ibr exp3a
+    com12 imp3a pm2.43b ) CDZBCEZFZGBAFZBCHZCAIZFZUOULUNUOURJZULUOUNUSJULUOUNUS
+    ULBCAKZEZFZUSUOUNGZULVBUSUOURBUTHZUTLZFZULVBGUOVFUPVEFURUOVDUPVEBACMNUQVEUP
+    CAOPQUTDVBVFULBUTRACSTUAUBVBBAUMUCZFVCVAVGBCAUDPBAUMUEUFUGUHUIUJUK $.
     $( [23-Sep-2003] $)
 
   $( A function's value in an included pre-image belongs to the image. $)
@@ -6329,7 +6618,7 @@ $)
        simple-looking theorem is actually quite powerful and appears to involve
        the Axiom of Replacement in an intrinsic way, as can be seen by tracing
        back through the path ~ abrexexlem2 , ~ abrexexlem1 , ~ fvresex ,
-       ~ resfunexg , and ~ funimaexg .   See also ~ abrexex2 . $)
+       ~ resfunexg , and ~ funimaexg .  See also ~ abrexex2 . $)
     abrexex $p |- { y | E. x e. A y = B } e. V $=
       ( vz cv wceq wrex cab cvv wcel crab class2set abrexexlem2 wb visset
       eleq1 mpbii wral ax-1 r19.21aiv rabid2 sylibr eqeq2d syl ibi r19.22si
@@ -6365,7 +6654,7 @@ $)
     $d x A $.
     iunex.1 $e |- A e. V $.
     iunex.2 $e |- B e. V $.
-    $( The existence of an indexed union.   ` x ` is normally a free-variable
+    $( The existence of an indexed union.  ` x ` is normally a free-variable
        parameter in the class expression substituted for ` B ` , which can be
        read informally as ` B ( x ) ` . $)
     iunex $p |- U_ x e. A B e. V $=
@@ -6443,9 +6732,9 @@ $)
        Unlike ~ elunirn , it doesn't appeal to ~ ndmfv (via ~ funiunfv ). $)
     elunirnALT $p |- ( Fun F -> ( A e. U. ran F <->
                 E. x e. dom F A e. ( F ` x ) ) ) $=
-      ( vy wfun cv wcel crn wa wex cfv cdm wrex cuni wceq wfn wb funfn fvelrn
+      ( vy wfun cv wcel crn wa wex cfv cdm wrex cuni wceq wfn wb funfn fvelrnb
       sylbi anbi2d r19.42v syl6bbr eleq2 biimparc r19.22si syl6bi 19.23adv
-      fvrn a1d ancld fvex eleq1 anbi12d cla4ev syl6 r19.23adva impbid eluni
+      fvelrn a1d ancld fvex eleq1 anbi12d cla4ev syl6 r19.23adva impbid eluni
       syl5bb ) CEZBDFZGZVBCHZGZIZDJZBAFZCKZGZACLZMZBVDNGVAVGVLVAVFVLDVAVFVCVIVB
       OZIZAVKMZVLVAVFVCVMAVKMZIVOVAVEVPVCVACVKPVEVPQCRAVKVBCSTUAVCVMAVKUBUCVNVJ
       AVKVMVJVCVIVBBUDUEUFUGUHVAVJVGAVKVAVHVKGIZVJVJVIVDGZIZVGVQVJVRVQVRVJVHCUI
@@ -6457,7 +6746,7 @@ $)
     $d x y z A $.  $d y z F $.
     funiunfvf.1 $e |- ( y e. F -> A. x y e. F ) $.
     $( The indexed union of a function's values is the union of its image
-       under the index class.   This version of ~ funiunfv uses a
+       under the index class.  This version of ~ funiunfv uses a
        bound-variable hypothesis in place of a distinct variable condition. $)
     funiunfvf $p |- ( Fun F -> U_ x e. A ( F ` x ) = U. ( F " A ) ) $=
       ( vz wfun cv cfv ciun cima cuni funiunfv wcel ax-17 hbfv fveq2 cbviun
@@ -6545,17 +6834,29 @@ $)
 
   ${
     $d x y A $.  $d x y B $.  $d x y C $.  $d x y D $.  $d x y F $.
-
     $( Equality of function values for a one-to-one function. $)
     f1fveq $p |- ( ( F : A -1-1-> B /\ ( C e. A /\ D e. A ) ) ->
                  ( ( F ` C ) = ( F ` D ) <-> C = D ) ) $=
       ( vx vy wf1 wcel wa cfv wceq wi cv fveq2 eqeq1d eqeq1 imbi12d imbi2d
-      eqeq2d eqeq2 wral wf f1fv pm3.27bd ra42 syl com12 vtocl2ga impcom
+      eqeq2d eqeq2 wral wf f1fv pm3.27bi ra42 syl com12 vtocl2ga impcom
       impbid1 ) ABEHZCAIDAIJZJCEKZDEKZLZCDLZUMULUPUQMZULFNZEKZGNZEKZLZUSVALZMZM
       ULUNVBLZCVALZMZMULURMFGCDAAUSCLZVEVHULVIVCVFVDVGVIUTUNVBUSCEOPUSCVAQRSVAD
       LZVHURULVJVFUPVGUQVJVBUOUNVADEOTVADCUARSULUSAIVAAIJZVEULVEGAUBFAUBZVKVEMU
       LABEUCVLFGABEUDUEVEFGAAUFUGUHUIUJCDEOUK $.
       $( [11-Feb-1997] $)
+  $}
+
+  ${
+    $d x y A $.  $d x y F $.
+    $( A one-to-one onto function in terms of function values. $)
+    f1ofv $p |- ( F : A -1-1-onto-> B <-> ( F Fn A /\ ran F = B /\
+             A. x e. A A. y e. A ( ( F ` x ) = ( F ` y ) -> x = y ) ) ) $=
+      ( wf1o wf1 wfo wa wf cv cfv wceq wi wral wfn crn w3a df-f1o f1fv df-fo
+      anbi12i df-3an wss eqimss anim2i df-f sylibr pm4.71ri anbi1i an23 3bitrr
+      3bitr ) CDEFCDEGZCDEHZICDEJZAKZELBKZELMUQURMNBCOACOZIZECPZEQZDMZIZIZVAVCU
+      SRZCDESUNUTUOVDABCDETCDEUAUBVFVDUSIUPVDIZUSIVEVAVCUSUCVDVGUSVDUPVDVAVBDUD
+      ZIUPVCVHVAVBDUEUFCDEUGUHUIUJUPVDUSUKULUM $.
+      $( [29-Mar-2008] $) $( [29-Mar-2008] $)
   $}
 
   $( The converse value of the value of a one-to-one onto function. $)
@@ -6577,12 +6878,12 @@ $)
     $( [21-May-2004] $) $( [20-May-2004] $)
 
   $( Relationship between the value of a one-to-one onto function and the
-     value of its converse.  (Contributed by Raph Levien, 10-Apr-04.) $)
+     value of its converse.  (Contributed by Raph Levien, 10-Apr-2004.) $)
   f1ocnvfv $p |- ( ( F : A -1-1-onto-> B /\ C e. A ) ->
                   ( ( F ` C ) = D -> ( `' F ` D ) = C ) ) $=
     ( wf1o wcel wa ccnv cfv wceq f1ocnvfv1 eqeq2d fveq2 eqcoms syl5bi ) ABEFCAG
     HZDEIZJZCEJZRJZKZSCKTDKQUACSABCELMUBDTDTRNOP $.
-    $( [21-May-2004] $) $( [20-May-2004] $)
+    $( [21-May-2004] $) $( [10-Apr-2004] $)
 
   $( Relationship between the value of a one-to-one onto function and the
      value of its converse. $)
@@ -6600,7 +6901,7 @@ $)
     f1ofveu $p |- ( ( F : A -1-1-onto-> B /\ C e. B ) ->
                   E! x e. A ( F ` x ) = C ) $=
       ( wf1o wcel wa cv cfv wceq wreu cop ccnv wf feu f1ocnv f1of syl sylan wb
-      w3a f1ocnvfvb 3com23 wfn visset fnopfvb 3adant3 f1o4 pm3.27bd syl3an1
+      w3a f1ocnvfvb 3com23 wfn visset fnopfvb 3adant3 f1o4 pm3.27bi syl3an1
       bitrd 3expa reubidva mpbird ) BCEFZDCGZHZAIZEJDKZABLDUSMENZGZABLZCBVAOZUQ
       VCUPACBDVAPUPCBVAFVDBCEQCBVARSTURUTVBABUPUQUSBGZUTVBUAUPUQVEUBUTDVAJUSKZV
       BUPVEUQUTVFUABCUSDEUCUDVACUEZUQVEVFVBUAZUPVGUQVHVECDUSVAAUFUGUHUPEBUEVGBC
@@ -6611,10 +6912,10 @@ $)
     f1ocnvfv3 $p |- ( ( F : A -1-1-onto-> B /\ C e. B ) ->
                   ( `' F ` C ) = U. { x e. A | ( F ` x ) = C } ) $=
       ( wf1o wcel wa ccnv cfv wceq cv crab cuni f1ocnvfv2 wreu wb fveq2 eqeq1d
-      reuuni2 eqcom syl6bb wf ffvrn f1ocnv f1of syl sylan f1ofveu sylanc mpbid
-      ) BCEFZDCGZHZDEIZJZEJZDKZUPALZEJZDKZABMNZKZBCDEOUPBGZVAABPZURVCQUNVDVEHUR
-      VBUPKVCVAURABUPUSUPKUTUQDUSUPERSTVBUPUAUBCBUOUCZUMVDULCBDUOUDULCBUOFVFBCE
-      UECBUOUFUGUHABCDEUIUJUK $.
+      reuuni2 eqcom syl6bb wf ffvelrn f1ocnv f1of syl sylan f1ofveu sylanc
+      mpbid ) BCEFZDCGZHZDEIZJZEJZDKZUPALZEJZDKZABMNZKZBCDEOUPBGZVAABPZURVCQUNV
+      DVEHURVBUPKVCVAURABUPUSUPKUTUQDUSUPERSTVBUPUAUBCBUOUCZUMVDULCBDUOUDULCBUO
+      FVFBCEUECBUOUFUGUHABCDEUIUJUK $.
       $( [3-Nov-2006] $) $( [26-May-2006] $)
   $}
 
@@ -6622,8 +6923,8 @@ $)
      domain. $)
      f1ocnvdm $p |- ( ( F : A -1-1-onto-> B /\ C e. B ) ->
                     ( `' F ` C ) e. A ) $=
-       ( ccnv wf wcel cfv wf1o ffvrn f1ocnv f1of syl sylan ) BADEZFZCBGCOHAGABD
-       IZBACOJQBAOIPABDKBAOLMN $.
+       ( ccnv wf wcel cfv wf1o ffvelrn f1ocnv f1of syl sylan ) BADEZFZCBGCOHAGA
+       BDIZBACOJQBAOIPABDKBAOLMN $.
        $( [9-Jul-2006] $) $( [26-May-2006] $)
 
   ${
@@ -6631,17 +6932,17 @@ $)
     cbvfo.1 $e |- ( ( F ` x ) = y -> ( ph <-> ps ) ) $.
     $( Change bound variable between domain and range of function. $)
     cbvfo $p |- ( F : A -onto-> B -> ( A. x e. A ph <-> A. y e. B ps ) ) $=
-      ( wfo cdm wral crn wf wfun wb fof ffun cv wcel wi wal cfv wceq wa wex
-      wbr visset breldm a1i funbrfv jcad 19.22dv elrn syl5ib hba1 ax-17
-      biimpcd imim2i imp3a a4s 19.23ad syl9 19.21adv brelrn eldm biimprcd
-      impbid df-ral 3bitr4g 3syl fdm raleq1 forn raleq1d 3bitr3d ) EFGIZACGJZKZ
-      BDGLZKZACEKZBDFKVPEFGMZGNZVRVTOEFGPZEFGQWCCRZVQSZATZCUAZDRZVSSZBTZDUAZVRV
-      TWCWHWLWCWHWKDWCWJWFWEGUBWIUCZUDZCUEZWHBWCWEWIGUFZCUEWOWJWCWPWNCWCWPWFWMW
-      PWFTWCWEWIGCUGZUHUIWEWIGDUGZUJZUKULCWIGWRUMUNWHWNBCWGCUOBCUPWGWNBTCWGWFWM
-      BAWMBTWFWMABHUQURUSUTVAVBVCWCWLWGCWCWFWJWMUDZDUEZWLAWCWPDUEXAWFWCWPWTDWCW
-      PWJWMWPWJTWCWEWIGWQWRVDUIWSUKULDWEGWQVEUNWLWTADWKDUOADUPWKWTATDWKWJWMABWM
-      ATWJWMABHVFURUSUTVAVBVCVGACVQVHBDVSVHVIVJVPWBVQEUCVRWAOWDEFGVKACVQEVLVJVP
-      BDVSFEFGVMVNVO $.
+      ( wfo cdm wral crn wfun wb fofun cv wcel wi wal cfv wceq wa wex wbr
+      visset breldm a1i funbrfv jcad 19.22dv elrn syl5ib hba1 ax-17 biimpcd
+      imim2i imp3a a4s 19.23ad syl9 19.21adv brelrn eldm biimprcd impbid
+      df-ral 3bitr4g syl wf fof fdm raleq1 3syl forn raleq1d 3bitr3d ) EFGIZACG
+      JZKZBDGLZKZACEKZBDFKVQGMZVSWANEFGOWCCPZVRQZARZCSZDPZVTQZBRZDSZVSWAWCWGWKW
+      CWGWJDWCWIWEWDGTWHUAZUBZCUCZWGBWCWDWHGUDZCUCWNWIWCWOWMCWCWOWEWLWOWERWCWDW
+      HGCUEZUFUGWDWHGDUEZUHZUIUJCWHGWQUKULWGWMBCWFCUMBCUNWFWMBRCWFWEWLBAWLBRWEW
+      LABHUOUPUQURUSUTVAWCWKWFCWCWEWIWLUBZDUCZWKAWCWODUCWTWEWCWOWSDWCWOWIWLWOWI
+      RWCWDWHGWPWQVBUGWRUIUJDWDGWPVCULWKWSADWJDUMADUNWJWSARDWJWIWLABWLARWIWLABH
+      VDUPUQURUSUTVAVEACVRVFBDVTVFVGVHVQEFGVIVREUAVSWBNEFGVJEFGVKACVREVLVMVQBDV
+      TFEFGVNVOVP $.
       $( [23-Feb-1997] $)
 
     $( Change bound variable between domain and range of function. $)
@@ -6721,7 +7022,7 @@ $)
     $d x y A $.  $d x y B $.  $d x y R $.  $d x y S $.  $d x y H $.
     $( An isomorphism is a one-to-one onto function. $)
     isof1o $p |- ( H Isom R , S ( A , B ) -> H : A -1-1-onto-> B ) $=
-      ( vx vy wiso wf1o cv wbr cfv wb wral df-iso pm3.26bd ) ABCDEHABEIFJZGJZCK
+      ( vx vy wiso wf1o cv wbr cfv wb wral df-iso pm3.26bi ) ABCDEHABEIFJZGJZCK
       QELRELDKMGANFANFGABCDEOP $.
       $( [29-May-2004] $) $( [27-Apr-2004] $)
   $}
@@ -6733,7 +7034,7 @@ $)
     isorel $p |- ( ( H Isom R , S ( A , B ) /\ ( C e. A /\ D e. A ) ) ->
                  ( C R D <-> ( H ` C ) S ( H ` D ) ) ) $=
       ( vx vy wiso wcel wa wbr cfv wb cv wral wceq breq1 fveq2 breq1d bibi12d
-      breq2 breq2d rcla42v wf1o df-iso pm3.27bd syl5com imp ) ABEFGJZCAKDAKLZCD
+      breq2 breq2d rcla42v wf1o df-iso pm3.27bi syl5com imp ) ABEFGJZCAKDAKLZCD
       EMZCGNZDGNZFMZOZULHPZIPZEMZURGNZUSGNZFMZOZIAQHAQZUQUKVDUQCUSEMZUNVBFMZOHI
       CDAAURCRZUTVFVCVGURCUSESVHVAUNVBFURCGTUAUBUSDRZVFUMVGUPUSDCEUCVIVBUOUNFUS
       DGTUDUBUEUKABGUFVEHIABEFGUGUHUIUJ $.
@@ -6746,8 +7047,8 @@ $)
        p. 33. $)
     isoid $p |- ( I |` A ) Isom R , R ( A , A ) $=
       ( vx vy cid cres wiso wf1o cv wbr cfv wb wral df-iso f1oi wcel wa fvresi
-      breqan12d bicomd rgen2 mpbir2an ) AABBEAFZGAAUCHCIZDIZBJZUDUCKZUEUCKZBJZL
-      ZDAMCAMCDAABBUCNAOUJCDAUDAPZUEAPZQUIUFUKULUGUDUHUEBAUDRAUERSTUAUB $.
+      breqan12d bicomd rgen2a mpbir2an ) AABBEAFZGAAUCHCIZDIZBJZUDUCKZUEUCKZBJZ
+      LZDAMCAMCDAABBUCNAOUJCDAUDAPZUEAPZQUIUFUKULUGUDUHUEBAUDRAUERSTUAUB $.
       $( [2-May-2004] $) $( [27-Apr-2004] $)
   $}
 
@@ -6759,7 +7060,7 @@ $)
     isocnv $p |- ( H Isom R , S ( A , B ) -> `' H Isom S , R ( B , A ) ) $=
       ( vx vy vz vw wf1o cv wbr cfv wb wral wa ccnv wiso f1ocnv adantr wcel
       wceq f1ocnvfv2 adantrr adantrl breq12d adantlr wf breq1 fveq2 breq1d
-      bibi12d bicom syl6bb breq2d breq2 rcla42v imp ffvrn anim12i anandis
+      bibi12d bicom syl6bb breq2d breq2 rcla42v imp ffvelrn anim12i anandis
       sylan an1rs f1of syl sylanl1 bitr3d exp32 r19.21adv r19.21aiv jca df-iso
       3imtr4 ) ABEJZFKZGKZCLZVOEMZVPEMZDLZNZGAOFAOZPZBAEQZJZHKZIKZDLZWFWDMZWGWD
       MZCLZNZIBOZHBOZPABCDERBADCWDRWCWEWNVNWEWBABESZTWCWMHBWCWFBUAZWLIBWCWPWGBU
@@ -6781,7 +7082,7 @@ $)
     isotr $p |- ( ( H Isom R , S ( A , B ) /\ G Isom S , T ( B , C ) ) ->
                ( G o. H ) Isom R , T ( A , C ) ) $=
       ( vz vw vv vu vx vy wf1o cv wbr cfv wb wral wa ccom wiso pm3.26 anim12i
-      ancoms f1oco syl wcel wi wf f1of ffvrn ex anim12d adantr wceq breq1
+      ancoms f1oco syl wcel wi wf f1of ffvelrn ex anim12d adantr wceq breq1
       fveq2 breq1d bibi12d breq2 breq2d rcla42v com12 adantl sylan9 imp impcom
       adantll adantlr wfun fvco3 3expa breqan12d anandis f1ofun sylan 3bitr4d
       exp32 r19.21adv r19.21aiv jca df-iso anbi12i 3imtr4 ) ABHOZIPZJPZDQZWHHRZ
@@ -6810,27 +7111,27 @@ $)
     isotrALT $p |- ( ( H Isom R , S ( A , B ) /\ G Isom S , T ( B , C ) ) ->
                ( G o. H ) Isom R , T ( A , C ) ) $=
       ( vx vy vz vw wf1o cv wbr cfv wb wral wa ccom wiso pm3.26 anim12i ancoms
-      f1oco syl ax-17 hbra1 hban wcel hbral wi wf f1of ffvrn ex anim12d adantr
-      wceq breq1 fveq2 breq1d bibi12d breq2 breq2d rcla42v com12 adantl sylan9
-      imp ra42 adantll adantlr wfun fvco3 3expa breqan12d anandis f1ofun sylan
-      3bitr4d exp32 r19.21ad r19.21ai jca df-iso anbi12i 3imtr4 ) ABHMZINZJNZDO
-      ZWJHPZWKHPZEOZQZJARZIARZSZBCGMZKNZLNZEOZXAGPZXBGPZFOZQZLBRKBRZSZSZACGHTZM
-      ZWLWJXKPZWKXKPZFOZQZJARZIARZSABDEHUAZBCEFGUAZSACDFXKUAXJXLXRXJWTWISZXLXIW
-      SYAXIWTWSWIWTXHUBWIWRUBUCUDZABCGHUEUFXJXQIAWSXIIWIWRIWIIUGWQIAUHUIXIIUGUI
-      XJWJAUJZXPJAWSXIJWIWRJWIJUGWQJIAYCJUGZWPJAUHUKUIXIJUGUIYDXJYCWKAUJZXPXJYC
-      YESZSWOWMGPZWNGPZFOZWLXOXJYFWOYIQZWSYFWMBUJZWNBUJZSZXIYJWIYFYMULZWRWIABHU
-      MZYNABHUNZYOYCYKYEYLYOYCYKABWJHUOUPYOYEYLABWKHUOUPUQUFURXHYMYJULWTYMXHYJX
-      GYJWMXBEOZYGXEFOZQKLWMWNBBXAWMUSZXCYQXFYRXAWMXBEUTYSXDYGXEFXAWMGVAVBVCXBW
-      NUSZYQWOYRYIXBWNWMEVDYTXEYHYGFXBWNGVAVEVCVFVGVHVIVJWSYFWPXIWRYFWPWIWRYFWP
-      WPIJAAVKVJVLVMYAYFXOYIQZXJGVNZYOSZYFUUAYAUUCYCYEUUAUUCYCSUUCYESXMYGXNYHFU
-      UBYOYCXMYGUSABWJGHVOVPUUBYOYEXNYHUSABWKGHVOVPVQVRWTUUBWIYOBCGVSYPUCVTYBVT
-      WAWBWCWDWEXSWSXTXIIJABDEHWFKLBCEFGWFWGIJACDFXKWFWH $.
+      f1oco syl ax-17 hbra1 hban wcel hbral wi wf f1of ffvelrn ex anim12d
+      adantr wceq breq1 fveq2 breq1d bibi12d breq2 breq2d rcla42v com12 adantl
+      sylan9 imp ra42 adantll adantlr wfun fvco3 3expa breqan12d anandis
+      f1ofun sylan 3bitr4d exp32 r19.21ad r19.21ai jca df-iso anbi12i 3imtr4 )
+      ABHMZINZJNZDOZWJHPZWKHPZEOZQZJARZIARZSZBCGMZKNZLNZEOZXAGPZXBGPZFOZQZLBRKB
+      RZSZSZACGHTZMZWLWJXKPZWKXKPZFOZQZJARZIARZSABDEHUAZBCEFGUAZSACDFXKUAXJXLXR
+      XJWTWISZXLXIWSYAXIWTWSWIWTXHUBWIWRUBUCUDZABCGHUEUFXJXQIAWSXIIWIWRIWIIUGWQ
+      IAUHUIXIIUGUIXJWJAUJZXPJAWSXIJWIWRJWIJUGWQJIAYCJUGZWPJAUHUKUIXIJUGUIYDXJY
+      CWKAUJZXPXJYCYESZSWOWMGPZWNGPZFOZWLXOXJYFWOYIQZWSYFWMBUJZWNBUJZSZXIYJWIYF
+      YMULZWRWIABHUMZYNABHUNZYOYCYKYEYLYOYCYKABWJHUOUPYOYEYLABWKHUOUPUQUFURXHYM
+      YJULWTYMXHYJXGYJWMXBEOZYGXEFOZQKLWMWNBBXAWMUSZXCYQXFYRXAWMXBEUTYSXDYGXEFX
+      AWMGVAVBVCXBWNUSZYQWOYRYIXBWNWMEVDYTXEYHYGFXBWNGVAVEVCVFVGVHVIVJWSYFWPXIW
+      RYFWPWIWRYFWPWPIJAAVKVJVLVMYAYFXOYIQZXJGVNZYOSZYFUUAYAUUCYCYEUUAUUCYCSUUC
+      YESXMYGXNYHFUUBYOYCXMYGUSABWJGHVOVPUUBYOYEXNYHUSABWKGHVOVPVQVRWTUUBWIYOBC
+      GVSYPUCVTYBVTWAWBWCWDWEXSWSXTXIIJABDEHWFKLBCEFGWFWGIJACDFXKWFWH $.
       $( [13-Jun-2004] $) $( [27-Apr-2004] $)
   $}
 
   ${
-    $d x y A $.  $d x y B $.  $d x y R $.  $d x y S $. $d x y H $.  $d x y C $.
-    $d x y D $.
+    $d x y A $.  $d x y B $.  $d x y R $.  $d x y S $.  $d x y H $.
+    $d x y C $.  $d x y D $.
     $( Isomorphisms preserve minimal elements.  Note that ` ( ``' R " { D } ) `
        is Takeuti and Zaring's idiom for the initial segment
        ` { x | x R D } ` .  Proposition 6.31(1) of [TakeutiZaring] p. 33. $)
@@ -6862,14 +7163,15 @@ $)
   $}
 
   ${
-    $d x y A $.  $d x y B $.  $d x y R $.  $d x y S $. $d x y H $.  $d x y D $.
+    $d x y A $.  $d x y B $.  $d x y R $.  $d x y S $.  $d x y H $.
+    $d x y D $.
     $( Isomorphisms preserve initial segments.  Proposition 6.31(2) of
        [TakeutiZaring] p. 33. $)
     isoini $p |- ( ( H Isom R , S ( A , B ) /\ D e. A ) ->
                ( H " ( A i^i ( `' R " { D } ) ) ) =
                ( B i^i ( `' S " { ( H ` D ) } ) ) ) $=
       ( vx vy wiso wcel wa ccnv cfv csn cima cin cv wbr wrex cab wceq wb crn
-      wf1o wfo isof1o f1ofo forn eleq2d 3syl wfn f1ofn fvelrn bitr3d cvv fvex
+      wf1o wfo isof1o f1ofo forn eleq2d 3syl wfn f1ofn fvelrnb bitr3d cvv fvex
       visset eliniseg ax-mp a1i anbi12d adantr anbi2d elin syl5bb anbi1d anass
       syl6bb adantl wi isorel fnbrfvb bicomd syl sylan adantrr ancom breq1
       pm5.32i bitr exp32 com23 imp pm5.32d bitrd rexbidv2 r19.41v bitr4d
@@ -6974,10 +7276,11 @@ $)
     f1owe.1 $e |- R = { <. x , y >. | ( F ` x ) S ( F ` y ) } $.
     $( Well-ordering of isomorphic relations. $)
     f1owe $p |- ( F : A -1-1-onto-> B -> ( S We B -> R We A ) ) $=
-      ( vz vw wf1o wwe cv wbr cfv wb wral wceq fveq2 breq1d breq2d brabg rgen2
-      wa wiso df-iso isowe sylbir mpan2 biimprd ) CDGKZCELZDFLZUKIMZJMZENUNGOZU
-      OGOZFNZPZJCQICQZULUMPZUSIJCAMZGOZBMZGOZFNUPVEFNURABUNUOCCEVBUNRVCUPVEFVBU
-      NGSTVDUORVEUQUPFVDUOGSUAHUBUCUKUTUDCDEFGUEVAIJCDEFGUFCDEFGUGUHUIUJ $.
+      ( vz vw wf1o wwe cv wbr cfv wb wral wceq fveq2 breq1d breq2d brabg
+      rgen2a wa wiso df-iso isowe sylbir mpan2 biimprd ) CDGKZCELZDFLZUKIMZJMZE
+      NUNGOZUOGOZFNZPZJCQICQZULUMPZUSIJCAMZGOZBMZGOZFNUPVEFNURABUNUOCCEVBUNRVCU
+      PVEFVBUNGSTVDUORVEUQUPFVDUOGSUAHUBUCUKUTUDCDEFGUEVAIJCDEFGUFCDEFGUGUHUIUJ
+      $.
       $( [13-Jun-2004] $) $( [4-Mar-1997] $)
   $}
 

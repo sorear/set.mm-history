@@ -27,19 +27,19 @@ $)
     $( Define a function whose value is the real part of a complex number.
        See ~ revalt for its value, ~ recl for its closure, and ~ replimt
        for its use in decomposing a complex number. $)
-    df-re $a |- Re = { <. x , y >. | ( x e. CC /\ y = U. { z e. RR |
-                E. w e. RR x = ( z + ( w x. i ) ) } ) } $.
+    df-re $a |- Re = { <. x , y >. | ( x e. CC /\
+                  y = U. { z e. RR | E. w e. RR x = ( z + ( i x. w ) ) } ) } $.
 
     $( Define a function whose value is the imaginary part of a complex
-       number. See ~ imvalt for its value, ~ imcl for its closure, and
+       number.  See ~ imvalt for its value, ~ imcl for its closure, and
        ~ replimt for its use in decomposing a complex number. $)
-    df-im $a |- Im = { <. x , y >. | ( x e. CC /\ y = U. { w e. RR |
-                E. z e. RR x = ( z + ( w x. i ) ) } ) } $.
+    df-im $a |- Im = { <. x , y >. | ( x e. CC /\
+                  y = U. { w e. RR | E. z e. RR x = ( z + ( i x. w ) ) } ) } $.
 
     $( Define the complex conjugate function.  See ~ cjcl for its closure and
        ~ cjvalt for its value. $)
-    df-cj $a |- * = { <. x , y >. | ( x e. CC /\ y = ( ( Re ` x )
-                - ( ( Im ` x ) x. i ) ) ) } $.
+    df-cj $a |- * = { <. x , y >. | ( x e. CC /\
+                        y = ( ( Re ` x ) - ( i x. ( Im ` x ) ) ) ) } $.
 
     $( Define the function for the absolute value (modulus) of a complex
        number.  See ~ abscl for its closure and ~ absvalt or ~ absval2
@@ -51,67 +51,82 @@ $)
   ${
     $d x y z w A $.
     $( The value of the real part of a complex number. $)
-    revalt $p |- ( A e. CC -> ( Re ` A ) = U. { x e. RR |
-                E. y e. RR A = ( x + ( y x. i ) ) } ) $=
+    revalt $p |- ( A e. CC ->
+        ( Re ` A ) = U. { x e. RR | E. y e. RR A = ( x + ( i x. y ) ) } ) $=
       ( vz vw cv ci cmul co caddc wceq cr wrex crab cuni cc cre eqeq1 rexbidv
-      rabbisdv unieqd df-re reex rabex uniex fvopab4 ) DECDFZAFBFGHIJIZKZBLMZAL
+      rabbisdv unieqd df-re reex rabex uniex fvopab4 ) DECDFZAFGBFHIJIZKZBLMZAL
       NZOCUHKZBLMZALNZOPQUGCKZUKUNUOUJUMALUOUIULBLUGCUHRSTUADEABUBUNUMALUCUDUEU
       F $.
-      $( [9-May-1999] $)
+      $( [11-Mar-2008] $) $( [9-May-1999] $)
 
     $( The value of the imaginary part of a complex number. $)
-    imvalt $p |- ( A e. CC -> ( Im ` A ) = U. { y e. RR |
-                E. x e. RR A = ( x + ( y x. i ) ) } ) $=
+    imvalt $p |- ( A e. CC ->
+        ( Im ` A ) = U. { y e. RR | E. x e. RR A = ( x + ( i x. y ) ) } ) $=
       ( vz vw cv ci cmul co caddc wceq cr wrex crab cuni cc cim eqeq1 rexbidv
-      rabbisdv unieqd df-im reex rabex uniex fvopab4 ) DECDFZAFBFGHIJIZKZALMZBL
+      rabbisdv unieqd df-im reex rabex uniex fvopab4 ) DECDFZAFGBFHIJIZKZALMZBL
       NZOCUHKZALMZBLNZOPQUGCKZUKUNUOUJUMBLUOUIULALUGCUHRSTUADEABUBUNUMBLUCUDUEU
       F $.
-      $( [9-May-1999] $)
+      $( [11-Mar-2008] $) $( [9-May-1999] $)
 
     $( The real part of a complex number is real. $)
     reclt $p |- ( A e. CC -> ( Re ` A ) e. RR ) $=
       ( vx vy cc wcel cre cfv cv ci cmul co caddc wceq cr wrex crab cuni
-      revalt wreu creur reucl syl eqeltrd ) ADEZAFGABHCHIJKLKMCNOZBNPQZNBCARUDU
+      revalt wreu creur reucl syl eqeltrd ) ADEZAFGABHICHJKLKMCNOZBNPQZNBCARUDU
       EBNSUFNEBCATUEBNUAUBUC $.
       $( [9-May-1999] $)
 
     $( The imaginary part of a complex number is real. $)
     imclt $p |- ( A e. CC -> ( Im ` A ) e. RR ) $=
-      ( vx vy cc wcel cim cfv cv ci cmul co caddc wceq cr wrex crab cuni
-      imvalt wreu creui reucl syl eqeltrd ) ADEZAFGABHCHIJKLKMBNOZCNPQZNBCARUDU
+      ( vy vx cc wcel cim cfv cv ci cmul co caddc wceq cr wrex crab cuni
+      imvalt wreu creui reucl syl eqeltrd ) ADEZAFGABHICHJKLKMBNOZCNPQZNBCARUDU
       ECNSUFNEBCATUECNUAUBUC $.
       $( [9-May-1999] $)
 
-    $( Reconstruct a complex number from its real and imaginary parts. $)
-    replimt $p |- ( A e. CC -> A = ( ( Re ` A ) + ( ( Im ` A ) x. i ) ) ) $=
-      ( vx vy cc wcel cv cr wa cim cfv ci cmul co caddc wceq cre wex wrex eqid
-      wb imclt wi opreq1 opreq2d eqeq2d rexbidv eqeq2 bibi12d imbi2d crab cuni
-      wreu reuuni1 creui sylan2 imvalt eqeq1d adantl bitr4d ex vtoclga mpcom
-      mpbiri df-rex sylib reclt creur revalt jca an4 2exbii eeanv bitr sylibr
-      pm3.26 ad2antll a1d ancld ancrd anim12d imp crut syl eqtr2t syl5bi imp32
-      pm3.26d opreq1d eqtrd 19.23advv mpd ) ADEZBFZGEZCFZGEZHZAWMAIJZKLMZNMZOZA
-      APJZWOKLMZNMZOZHZHZCQBQZAXBWSNMZOZWLWNXAHZBQZWPXEHZCQZHZXHWLXLXNWLXABGRZX
-      LWLXPWRWROZWRSWRGEZWLXPXQTZAUAZWLAWMXCNMZOZBGRZWRWOOZTZUBWLXSUBCWRGWOWROZ
-      YEXSWLYFYCXPYDXQYFYBXABGYFYAWTAYFXCWSWMNWOWRKLUCUDUEUFWOWRWRUGUHUIWPWLYEW
-      PWLHYCYCCGUJUKZWOOZYDWPYCCGULYCYHTWLYCCGUMBCAUNUOWLYDYHTWPWLWRYGWOBCAUPUQ
-      URUSUTVAVBVCXABGVDVEWLXECGRZXNWLYIXBXBOZXBSXBGEZWLYIYJTZAVFZWLYBCGRZXBWMO
-      ZTZUBWLYLUBBXBGWMXBOZYPYLWLYQYNYIYOYJYQYBXECGYQYAXDAWMXBXCNUCUEUFWMXBXBUG
-      UHUIWNWLYPWNWLHYNYNBGUJUKZWMOZYOWNYNBGULYNYSTWLYNBGUMBCAVGUOWLYOYSTWNWLXB
-      YRWMBCAVHUQURUSUTVAVBVCXECGVDVEVIXHXKXMHZCQBQXOXGYTBCWNWPXAXEVJVKXKXMBCVL
-      VMVNWLXGXJBCWLXGXJWLXGHZAWTXIXFXAWLWQXAXEVOVPUUAWMXBWSNUUAYQYDWLWQXFYQYDH
-      ZWLWQXFUUBUBWLWQHZWTXDOZUUBXFUUCWNXRHZYKWPHZHZUUDUUBTWLWQUUGWLWNUUEWPUUFW
-      LWNXRWLXRWNXTVQVRWLWPYKWLYKWPYMVQVSVTWAWMWRXBWOWBWCAWTXDWDWEUTWFWGWHWIUTW
-      JWK $.
-      $( [10-May-1999] $)
+    $( Domain and codomain of the real part function.  (Contributed by Paul
+       Chapman, 22-Oct-2007.) $)
+    ref $p |- Re : CC --> RR $=
+      ( vx vy vz vw cc cr cre wf wfn cv cfv wcel wral ffnfv ci cmul co caddc
+      wceq wrex crab cuni reex rabex uniex df-re fnopab2 reclt rgen mpbir2an )
+      EFGHGEIAJZGKFLZAEMAEFGNABEUKCJODJPQRQSDFTZCFUAZUBGUNUMCFUCUDUEABCDUFUGULA
+      EUKUHUIUJ $.
+      $( [22-Oct-2007] $) $( [22-Oct-2007] $)
 
-    $( Value of the conjugate of a complex number.  The value is the real part
-       minus ` i ` times the imaginary part.  Definition 10-3.2 of [Gleason]
-       p. 132. $)
-    cjvalt $p |- ( A e. CC -> ( * ` A ) = ( ( Re ` A ) -
-                ( ( Im ` A ) x. i ) ) ) $=
-      ( vx vy cv cre cfv cim ci cmul co cmin cc ccj wceq fveq2 opreq1d
-      opreq12d df-cj oprex fvopab4 ) BCABDZEFZUAGFZHIJZKJAEFZAGFZHIJZKJLMUAANZU
-      BUEUDUGKUAAEOUHUCUFHIUAAGOPQBCRUEUGKST $.
+    $( Domain and codomain of the imaginary part function. (Contributed by Paul
+       Chapman, 22-Oct-2007.) $)
+    imf $p |- Im : CC --> RR $=
+      ( vx vy vw vz cc cr cim wf wfn cv cfv wcel wral ffnfv ci cmul co caddc
+      wceq wrex crab cuni reex rabex uniex df-im fnopab2 imclt rgen mpbir2an )
+      EFGHGEIAJZGKFLZAEMAEFGNABEUKCJODJPQRQSCFTZDFUAZUBGUNUMDFUCUDUEABCDUFUGULA
+      EUKUHUIUJ $.
+      $( [22-Oct-2007] $) $( [22-Oct-2007] $)
+
+    $( Reconstruct a complex number from its real and imaginary parts. $)
+    replimt $p |- ( A e. CC -> A = ( ( Re ` A ) + ( i x. ( Im ` A ) ) ) ) $=
+      ( vx vy cc wcel cv cr wa ci cim cfv cmul co caddc wceq cre wex wrex eqid
+      wb imclt wi opreq2 opreq2d eqeq2d rexbidv eqeq2 bibi12d imbi2d crab cuni
+      wreu reuuni1 creui sylan2 imvalt eqeq1d adantl bitr4d ex vtoclga mpcom
+      mpbiri df-rex sylib reclt opreq1 creur revalt jca an4 2exbii eeanv bitr
+      sylibr pm3.26 ad2antll a1d ancld ancrd anim12d imp crut syl eqtr2t
+      syl5bi imp32 pm3.26d opreq1d eqtrd 19.23advv mpd ) ADEZBFZGEZCFZGEZHZAWNI
+      AJKZLMZNMZOZAAPKZIWPLMZNMZOZHZHZCQBQZAXCWTNMZOZWMWOXBHZBQZWQXFHZCQZHZXIWM
+      XMXOWMXBBGRZXMWMXQWSWSOZWSSWSGEZWMXQXRTZAUAZWMAWNXDNMZOZBGRZWSWPOZTZUBWMX
+      TUBCWSGWPWSOZYFXTWMYGYDXQYEXRYGYCXBBGYGYBXAAYGXDWTWNNWPWSILUCUDUEUFWPWSWS
+      UGUHUIWQWMYFWQWMHYDYDCGUJUKZWPOZYEWQYDCGULYDYITWMYDCGUMBCAUNUOWMYEYITWQWM
+      WSYHWPBCAUPUQURUSUTVAVBVCXBBGVDVEWMXFCGRZXOWMYJXCXCOZXCSXCGEZWMYJYKTZAVFZ
+      WMYCCGRZXCWNOZTZUBWMYMUBBXCGWNXCOZYQYMWMYRYOYJYPYKYRYCXFCGYRYBXEAWNXCXDNV
+      GUEUFWNXCXCUGUHUIWOWMYQWOWMHYOYOBGUJUKZWNOZYPWOYOBGULYOYTTWMYOBGUMBCAVHUO
+      WMYPYTTWOWMXCYSWNBCAVIUQURUSUTVAVBVCXFCGVDVEVJXIXLXNHZCQBQXPXHUUABCWOWQXB
+      XFVKVLXLXNBCVMVNVOWMXHXKBCWMXHXKWMXHHZAXAXJXGXBWMWRXBXFVPVQUUBWNXCWTNUUBY
+      RYEWMWRXGYRYEHZWMWRXGUUCUBWMWRHZXAXEOZUUCXGUUDWOXSHZYLWQHZHZUUEUUCTWMWRUU
+      HWMWOUUFWQUUGWMWOXSWMXSWOYAVRVSWMWQYLWMYLWQYNVRVTWAWBWNWSXCWPWCWDAXAXEWEW
+      FUTWGWHWIWJUTWKWL $.
+      $( [11-Mar-2008] $) $( [10-May-1999] $)
+
+    $( Reconstruct a complex number from its real and imaginary parts. $)
+    replimtOLD $p |- ( A e. CC -> A = ( ( Re ` A ) + ( ( Im ` A ) x. i ) ) ) $=
+      ( cc wcel cre cfv ci cim cmul co caddc replimt wceq imclt recnd axicn
+      axmulcom mpan syl opreq2d eqtrd ) ABCZAADEZFAGEZHIZJIUBUCFHIZJIAKUAUDUEUB
+      JUAUCBCZUDUELZUAUCAMNFBCUFUGOFUCPQRST $.
       $( [10-May-1999] $)
 
     $( The absolute value (modulus) of a complex number.  Proposition
@@ -123,11 +138,24 @@ $)
       $( [27-Jul-1999] $)
   $}
 
+  ${
+    $d x y A $.
+    $( Value of the conjugate of a complex number.  The value is the real part
+       minus ` i ` times the imaginary part.  Definition 10-3.2 of [Gleason]
+       p. 132. $)
+    cjvalt $p |- ( A e. CC ->
+                      ( * ` A ) = ( ( Re ` A ) - ( i x. ( Im ` A ) ) ) ) $=
+      ( vx vy cv cre cfv ci cim cmul co cmin cc ccj wceq fveq2 opreq2d
+      opreq12d df-cj oprex fvopab4 ) BCABDZEFZGUAHFZIJZKJAEFZGAHFZIJZKJLMUAANZU
+      BUEUDUGKUAAEOUHUCUFGIUAAHOPQBCRUEUGKST $.
+      $( [11-Mar-2008] $) $( [10-May-1999] $)
+  $}
+
   $( The conjugate of a complex number is a complex number (closure law). $)
   cjclt $p |- ( A e. CC -> ( * ` A ) e. CC ) $=
-    ( cc wcel ccj cfv cre cim ci cmul co cmin cjvalt subclt reclt recnd
-    axmulcl imclt axicn a1i sylanc eqeltrd ) ABCZADEAFEZAGEZHIJZKJZBALUCBCUEBCZ
-    UFBCUBUCUEMUBUCANOUDBCHBCZUGUBUDHPUBUDAQOUHUBRSTTUA $.
+    ( cc wcel ccj cfv cre ci cim cmul co cmin cjvalt subclt reclt recnd
+    axmulcl axicn a1i imclt sylanc eqeltrd ) ABCZADEAFEZGAHEZIJZKJZBALUCBCUEBCZ
+    UFBCUBUCUEMUBUCANOGBCZUDBCUGUBGUDPUHUBQRUBUDASOTTUA $.
     $( [10-May-1999] $)
 
   ${
@@ -148,30 +176,58 @@ $)
       $( [11-May-1999] $)
 
     $( Construct a complex number from its real and imaginary parts. $)
-    replim $p |- A = ( ( Re ` A ) + ( ( Im ` A ) x. i ) ) $=
-      ( cc wcel cre cfv cim ci cmul co caddc wceq replimt ax-mp ) ACDAAEFAGFHIJ
+    replim $p |- A = ( ( Re ` A ) + ( i x. ( Im ` A ) ) ) $=
+      ( cc wcel cre cfv ci cim cmul co caddc wceq replimt ax-mp ) ACDAAEFGAHFIJ
       KJLBAMN $.
+      $( [11-Mar-2008] $) $( [1-Oct-1999] $)
+
+    $( Construct a complex number from its real and imaginary parts. $)
+    replimOLD $p |- A = ( ( Re ` A ) + ( ( Im ` A ) x. i ) ) $=
+      ( cc wcel cre cfv cim ci cmul co caddc wceq replimtOLD ax-mp ) ACDAAEFAGF
+      HIJKJLBAMN $.
       $( [1-Oct-1999] $)
   $}
 
   $( The real part of a complex number representation.  Definition 10-3.1 of
      [Gleason] p. 132. $)
-  crret $p |- ( ( A e. RR /\ B e. RR ) -> ( Re ` ( A + ( B x. i ) ) ) = A ) $=
+  crret $p |- ( ( A e. RR /\ B e. RR ) -> ( Re ` ( A + ( i x. B ) ) ) = A ) $=
     ( cr wcel wa ci cmul co caddc cre cfv wceq cim cc axaddcl recnt axicn
-    axmulcl mpan2 syl syl2an replimt eqcomd wb reclt imclt jca crut mpancom
-    mpbid pm3.26d ) ACDZBCDZEZABFGHZIHZJKZALZUPMKZBLZUNUQUSFGHIHZUPLZURUTEZUNUP
-    VAUNUPNDZUPVALANDUONDZVDULUMAUOOAPUMBNDZVEBPVFFNDVEQBFRSTUAZUPUBTUCUQCDZUSC
+    axmulcl mpan syl syl2an replimt eqcomd wb reclt imclt jca crut mpancom
+    mpbid pm3.26d ) ACDZBCDZEZAFBGHZIHZJKZALZUPMKZBLZUNUQFUSGHIHZUPLZURUTEZUNUP
+    VAUNUPNDZUPVALANDUONDZVDULUMAUOOAPUMBNDZVEBPFNDVFVEQFBRSTUAZUPUBTUCUQCDZUSC
     DZEUNVBVCUDUNVHVIUNVDVHVGUPUETUNVDVIVGUPUFTUGUQUSABUHUIUJUK $.
+    $( [11-Mar-2005] $) $( [12-May-2005] $)
+
+  $( The real part of a complex number representation.  Definition 10-3.1 of
+     [Gleason] p. 132. $)
+  crretOLD $p |- ( ( A e. RR /\ B e. RR ) ->
+             ( Re ` ( A + ( B x. i ) ) ) = A ) $=
+    ( cr wcel wa ci cmul co caddc cre cfv wceq cim cc axaddcl recnt axicn
+    axmulcl mpan2 syl syl2an replimtOLD eqcomd wb reclt imclt jca crutOLD
+    mpancom mpbid pm3.26d ) ACDZBCDZEZABFGHZIHZJKZALZUPMKZBLZUNUQUSFGHIHZUPLZUR
+    UTEZUNUPVAUNUPNDZUPVALANDUONDZVDULUMAUOOAPUMBNDZVEBPVFFNDVEQBFRSTUAZUPUBTUC
+    UQCDZUSCDZEUNVBVCUDUNVHVIUNVDVHVGUPUETUNVDVIVGUPUFTUGUQUSABUHUIUJUK $.
     $( [14-May-2005] $) $( [12-May-2005] $)
+
+  $( The real part of a complex number representation.  Definition 10-3.1 of
+     [Gleason] p. 132. $)
+  crimt $p |- ( ( A e. RR /\ B e. RR ) -> ( Im ` ( A + ( i x. B ) ) ) = B ) $=
+    ( cr wcel wa ci cmul co caddc cre cfv wceq cim cc axaddcl recnt axicn
+    axmulcl mpan syl syl2an replimt eqcomd wb reclt imclt jca crut mpancom
+    mpbid pm3.27d ) ACDZBCDZEZAFBGHZIHZJKZALZUPMKZBLZUNUQFUSGHIHZUPLZURUTEZUNUP
+    VAUNUPNDZUPVALANDUONDZVDULUMAUOOAPUMBNDZVEBPFNDVFVEQFBRSTUAZUPUBTUCUQCDZUSC
+    DZEUNVBVCUDUNVHVIUNVDVHVGUPUETUNVDVIVGUPUFTUGUQUSABUHUIUJUK $.
+    $( [11-Mar-2005] $) $( [12-May-2005] $)
 
   $( The imaginary part of a complex number representation.  Definition
      10-3.1 of [Gleason] p. 132. $)
-  crimt $p |- ( ( A e. RR /\ B e. RR ) -> ( Im ` ( A + ( B x. i ) ) ) = B ) $=
+  crimtOLD $p |- ( ( A e. RR /\ B e. RR ) ->
+          ( Im ` ( A + ( B x. i ) ) ) = B ) $=
     ( cr wcel wa ci cmul co caddc cre cfv wceq cim cc axaddcl recnt axicn
-    axmulcl mpan2 syl syl2an replimt eqcomd wb reclt imclt jca crut mpancom
-    mpbid pm3.27d ) ACDZBCDZEZABFGHZIHZJKZALZUPMKZBLZUNUQUSFGHIHZUPLZURUTEZUNUP
-    VAUNUPNDZUPVALANDUONDZVDULUMAUOOAPUMBNDZVEBPVFFNDVEQBFRSTUAZUPUBTUCUQCDZUSC
-    DZEUNVBVCUDUNVHVIUNVDVHVGUPUETUNVDVIVGUPUFTUGUQUSABUHUIUJUK $.
+    axmulcl mpan2 syl syl2an replimtOLD eqcomd wb reclt imclt jca crutOLD
+    mpancom mpbid pm3.27d ) ACDZBCDZEZABFGHZIHZJKZALZUPMKZBLZUNUQUSFGHIHZUPLZUR
+    UTEZUNUPVAUNUPNDZUPVALANDUONDZVDULUMAUOOAPUMBNDZVEBPVFFNDVEQBFRSTUAZUPUBTUC
+    UQCDZUSCDZEUNVBVCUDUNVHVIUNVDVHVGUPUETUNVDVIVGUPUFTUGUQUSABUHUIUJUK $.
     $( [14-May-2005] $) $( [12-May-2005] $)
 
   ${
@@ -179,49 +235,63 @@ $)
     crre.2 $e |- B e. RR $.
     $( The real part of a complex number representation.  Definition 10-3.1 of
        [Gleason] p. 132. $)
-    crre $p |- ( Re ` ( A + ( B x. i ) ) ) = A $=
-      ( cr wcel ci cmul co caddc cre cfv wceq crret mp2an ) AEFBEFABGHIJIKLAMCD
+    crre $p |- ( Re ` ( A + ( i x. B ) ) ) = A $=
+      ( cr wcel ci cmul co caddc cre cfv wceq crret mp2an ) AEFBEFAGBHIJIKLAMCD
       ABNO $.
+      $( [11-Mar-2005] $) $( [10-May-1999] $)
+
+    $( The real part of a complex number representation.  Definition 10-3.1 of
+       [Gleason] p. 132. $)
+    crreOLD $p |- ( Re ` ( A + ( B x. i ) ) ) = A $=
+      ( cr wcel ci cmul co caddc cre cfv wceq crretOLD mp2an ) AEFBEFABGHIJIKLA
+      MCDABNO $.
       $( [10-May-1999] $)
 
     $( The imaginary part of a complex number representation.  Definition
        10-3.1 of [Gleason] p. 132. $)
-    crim $p |- ( Im ` ( A + ( B x. i ) ) ) = B $=
-      ( cr wcel ci cmul co caddc cim cfv wceq crimt mp2an ) AEFBEFABGHIJIKLBMCD
+    crim $p |- ( Im ` ( A + ( i x. B ) ) ) = B $=
+      ( cr wcel ci cmul co caddc cim cfv wceq crimt mp2an ) AEFBEFAGBHIJIKLBMCD
       ABNO $.
+      $( [11-Mar-2005] $) $( [10-May-1999] $)
+
+    $( The imaginary part of a complex number representation.  Definition
+       10-3.1 of [Gleason] p. 132. $)
+    crimOLD $p |- ( Im ` ( A + ( B x. i ) ) ) = B $=
+      ( cr wcel ci cmul co caddc cim cfv wceq crimtOLD mp2an ) AEFBEFABGHIJIKLB
+      MCDABNO $.
       $( [10-May-1999] $)
   $}
 
   $( The imaginary part of a complex number in terms of the real part
      function. $)
   imret $p |- ( A e. CC -> ( Im ` A ) = ( Re ` ( -u i x. A ) ) ) $=
-    ( cc wcel ci cneg cmul co cre cfv cim caddc replimt opreq2d wceq axicn
+    ( cc wcel ci cneg cmul co cre cfv cim caddc replimtOLD opreq2d wceq axicn
     negcl axdistr mp3an1 reclt recnd imclt axmulcl mpan2 syl sylanc axmulcom
     mpan mulneg12t eqtr4d mul12t mp3an13 c1 ax1id mulneg1 ixi negeqi ax1cn
     negneg 3eqtr opreq2i syl5eq eqtrd opreq12d axaddcom cr renegclt 3eqtrd
-    fveq2d crret eqtr2d ) ABCZDEZAFGZHIAJIZAHIZEZDFGZKGZHIZVNVKVMVRHVKVMVLVOVND
-    FGZKGZFGZVLVOFGZVLVTFGZKGZVRVKAWAVLFALMVOBCZVTBCZWBWENZVKVLBCZWFWGWHDOPZVLV
-    OVTQRVKVOASZTZVKVNBCZWGVKVNAUAZTZWMDBCZWGOVNDUBUCUDUEVKWEVQVNKGZVRVKWCVQWDV
-    NKVKWCVOVLFGZVQVKWFWCWRNZWLWIWFWSWJVLVOUFUGUDVKWFVQWRNZWLWFWPWTOVODUHUCUDUI
-    VKWDVNVLDFGZFGZVNVKWMWDXBNZWOWIWMWPXCWJOVLVNDUJUKUDVKVNULFGZVNXBVKWMXDVNNWO
-    VNUMUDXAULVNFXADDFGZEULEZEULDDOOUNXEXFUOUPULUQURUSUTVAVBVCVQBCZWMWQVRNVKVQV
-    NVDVKVPBCZXGVKVPVKVOVECVPVECZWKVOVFUDZTXHWPXGOVPDUBUCUDWOUEVBVGVHVNVECXIVSV
-    NNVKVNVPVIWNXJUEVJ $.
+    fveq2d crretOLD eqtr2d ) ABCZDEZAFGZHIAJIZAHIZEZDFGZKGZHIZVNVKVMVRHVKVMVLVO
+    VNDFGZKGZFGZVLVOFGZVLVTFGZKGZVRVKAWAVLFALMVOBCZVTBCZWBWENZVKVLBCZWFWGWHDOPZ
+    VLVOVTQRVKVOASZTZVKVNBCZWGVKVNAUAZTZWMDBCZWGOVNDUBUCUDUEVKWEVQVNKGZVRVKWCVQ
+    WDVNKVKWCVOVLFGZVQVKWFWCWRNZWLWIWFWSWJVLVOUFUGUDVKWFVQWRNZWLWFWPWTOVODUHUCU
+    DUIVKWDVNVLDFGZFGZVNVKWMWDXBNZWOWIWMWPXCWJOVLVNDUJUKUDVKVNULFGZVNXBVKWMXDVN
+    NWOVNUMUDXAULVNFXADDFGZEULEZEULDDOOUNXEXFUOUPULUQURUSUTVAVBVCVQBCZWMWQVRNVK
+    VQVNVDVKVPBCZXGVKVPVKVOVECVPVECZWKVOVFUDZTXHWPXGOVPDUBUCUDWOUEVBVGVHVNVECXI
+    VSVNNVKVNVPVIWNXJUEVJ $.
     $( [17-Jun-2005] $) $( [12-May-2005] $)
 
   $( The imaginary part of a real number is 0. $)
   reim0t $p |- ( A e. RR -> ( Im ` A ) = 0 ) $=
     ( cim cfv cr wcel ci cmul co cc0 wceq rimul cc recnt imclt syl cre cmin
-    caddc replimt eqcomd wb subaddt reclt axicn axmulcl mpan2 syl3anc mpbird
-    resubclt mpdan eqeltrrd sylanc ) ABCZDEZUMFGHZDEUMIJADEZUMKUPALEZUNAMZANOZU
-    PAAPCZQHZUODUPVAUOJZUTUORHZAJZUPAVCUPUQAVCJURASOTUQUTLEZUOLEZVBVDUAUPAUTUOU
-    BURUPUTDEZVEUPUQVGURAUCOZUTMOUPUMLEZVFUPUNVIUSUMMOVIFLEVFUDUMFUEUFOUGUHUPVG
-    VADEVHAUTUIUJUKUL $.
+    caddc replimt eqcomd wb subaddt reclt recnd axicn axmulcl mpan syl3anc
+    mpbird resubclt mpdan eqeltrrd sylanc ) ABCZDEZFUNGHZDEUNIJADEZUNKUQALEZUOA
+    MZANOZUQAAPCZQHZUPDUQVBUPJZVAUPRHZAJZUQAVDUQURAVDJUSASOTURVALEZUPLEZVCVEUAU
+    QAVAUPUBUSUQVADEZVFUQURVHUSAUCOZVAMOUQUNLEZVGUQUNUTUDFLEVJVGUEFUNUFUGOUHUIU
+    QVHVBDEVIAVAUJUKULUM $.
     $( [19-Mar-2005] $) $( [18-Mar-2005] $)
 
   $( A number is real iff its imaginary part is 0. $)
   reim0bt $p |- ( A e. CC -> ( A e. RR <-> ( Im ` A ) = 0 ) ) $=
-    ( cc wcel cr cim cfv cc0 wceq reim0t wa cre ci cmul co caddc replimt
+    ( cc wcel cr cim cfv cc0 wceq reim0t wa cre ci cmul co caddc replimtOLD
     adantr opreq1 axicn mul02 syl6eq opreq2d reclt recnd ax0id syl sylan9eqr
     eqtrd eqeltrd ex impbid2 ) ABCZADCZAEFZGHZAIULUOUMULUOJZAAKFZDUPAUQUNLMNZON
     ZUQULAUSHUOAPQUOULUSUQGONZUQUOURGUQOUOURGLMNGUNGLMRLSTUAUBULUQBCUTUQHULUQAU
@@ -233,13 +303,13 @@ $)
     $( The conjugate of the conjugate is the original complex number.
        Proposition 10-3.4(e) of [Gleason] p. 133. $)
     cjcj $p |- ( * ` ( * ` A ) ) = A $=
-      ( ccj cfv cre cim ci cmul co cmin cneg caddc recl recn imcl axicn mulcl
-      negsub mulneg1 opreq2i cc wcel wceq cjvalt ax-mp 3eqtr4r fveq2i renegcl
-      crre eqtr opreq1i crim 3eqtr opreq12i cjcl replim subneg eqtr4 3eqtr4 )
-      ACDZEDZUTFDZGHIZJIZAEDZAFDZGHIZKZJIZUTCDZAVAVEVCVHJVAVEVFKZGHIZLIZEDVEUTV
-      MEVEVHLIVEVGJIZVMUTVEVGVEABMZNZVFGVFABOZNZPQZRVLVHVELVFGVRPSZTAUAUBUTVNUC
-      BAUDUEUFZUGVEVKVOVFVQUHZUIUJVCVMFDZGHIVLVHVBWCGHUTVMFWAUGUKWCVKGHVEVKVOWB
-      ULUKVTUMUNUTUAUBVJVDUCABUOUTUDUEAVEVGLIVIABUPVEVGVPVSUQURUS $.
+      ( ccj cfv cre ci cim cmul co cmin cneg caddc recl recn axicn imcl mulcl
+      negsub mulneg2 opreq2i cc wcel wceq cjvalt ax-mp 3eqtr4r fveq2i renegcl
+      crre eqtr crim 3eqtr opreq12i cjcl replim subneg eqtr4 3eqtr4 ) ACDZEDZFU
+      SGDZHIZJIZAEDZFAGDZHIZKZJIZUSCDZAUTVDVBVGJUTVDFVEKZHIZLIZEDVDUSVLEVDVGLIV
+      DVFJIZVLUSVDVFVDABMZNZFVEOVEABPZNZQZRVKVGVDLFVEOVQSZTAUAUBUSVMUCBAUDUEUFZ
+      UGVDVJVNVEVPUHZUIUJVBFVLGDZHIVKVGVAWBFHUSVLGVTUGTWBVJFHVDVJVNWAUKTVSULUMU
+      SUAUBVIVCUCABUNUSUDUEAVDVFLIVHABUOVDVFVOVRUPUQUR $.
       $( [11-May-1999] $)
 
     $( A number is real iff its imaginary part is 0. $)
@@ -251,38 +321,39 @@ $)
        p. 133. $)
     rereb $p |- ( A e. RR <-> ( Re ` A ) = A ) $=
       ( cr wcel cre cfv wceq cc0 caddc co cim ci cmul reim0b opreq1 sylbi
-      axicn mul02 syl6eq opreq2d replim syl5req recl recn addid1 syl5eqr eleq1
-      mpbii impbi ) ACDZAEFZAGZUJUKHIJZAUKUJUKAKFZLMJZIJUMAUJUOHUKIUJUOHLMJZHUJ
-      UNHGUOUPGABNUNHLMOPLQRSTABUAUBUKUKABUCZUDUEUFULUKCDUJUQUKACUGUHUI $.
+      axicn mul02 syl6eq opreq2d replimOLD syl5req recl recn addid1 syl5eqr
+      eleq1 mpbii impbi ) ACDZAEFZAGZUJUKHIJZAUKUJUKAKFZLMJZIJUMAUJUOHUKIUJUOHL
+      MJZHUJUNHGUOUPGABNUNHLMOPLQRSTABUAUBUKUKABUCZUDUEUFULUKCDUJUQUKACUGUHUI
+      $.
       $( [27-Oct-1999] $)
 
     $( A number is real iff it equals its complex conjugate.  Proposition
        10-3.4(f) of [Gleason] p. 133. $)
     cjreb $p |- ( A e. RR <-> ( * ` A ) = A ) $=
       ( cr wcel cim cfv cc0 wceq ccj reim0b cneg imcl recn eqneg ci cmul co
-      axicn mulcom negcl mulneg1 eqtr eqeq12i ine0 mulcan cre caddc replim
-      cmin cc cjvalt ax-mp recl mulcl negsub eqtr4 addcan bitr2 3bitr3 bitr3
-      eqcom 3bitr ) ACDAEFZGHZAAIFZHZVEAHABJVDVCVCKZHZVFVCVCABLMZNOVCPQZOVGPQZH
-      VCOPQZVLKZHZVHVFVJVLVKVMOVCRVISVKVGOPQVMOVGRVCVITZSVCOVIRUAUBUCOVCVGRVIVO
-      UDUEVFAUFFZVLUGQZVPVMUGQZHVNAVQVEVRABUHVEVPVLUIQZVRAUJDVEVSHBAUKULVPVLVPA
-      BUMMZVCOVIRUNZUOUPUCVPVLVMVTWAVLWATUQURUSUTAVEVAVB $.
+      axicn mulneg2 eqeq2i negcl ine0 mulcan cre caddc replim cmin cc cjvalt
+      ax-mp recl mulcl negsub eqtr4 eqeq12i addcan bitr2 3bitr3 bitr3 eqcom
+      3bitr ) ACDAEFZGHZAAIFZHZVDAHABJVCVBVBKZHZVEVBVBABLMZNOVBPQZOVFPQZHVIVIKZ
+      HZVGVEVJVKVIOVBRVHSTOVBVFRVHVBVHUAUBUCVEAUDFZVIUEQZVMVKUEQZHVLAVNVDVOABUF
+      VDVMVIUGQZVOAUHDVDVPHBAUIUJVMVIVMABUKMZOVBRVHULZUMUNUOVMVIVKVQVRVIVRUAUPU
+      QURUSAVDUTVA $.
       $( [11-Oct-1999] $)
 
     $( Real part of a complex conjugate. $)
     recj $p |- ( Re ` ( * ` A ) ) = ( Re ` A ) $=
-      ( ccj cfv cre cim cneg ci cmul co caddc cmin recl recn imcl axicn mulcl
-      negsub mulneg1 opreq2i cc wcel wceq cjvalt ax-mp 3eqtr4r fveq2i renegcl
-      crre eqtr ) ACDZEDAEDZAFDZGZHIJZKJZEDULUKUPEULUMHIJZGZKJULUQLJZUPUKULUQUL
-      ABMZNUMHUMABOZNZPQRUOURULKUMHVBPSTAUAUBUKUSUCBAUDUEUFUGULUNUTUMVAUHUIUJ
+      ( ccj cfv cre ci cim cneg cmul co caddc cmin recl recn axicn imcl mulcl
+      negsub mulneg2 opreq2i cc wcel wceq cjvalt ax-mp 3eqtr4r fveq2i renegcl
+      crre eqtr ) ACDZEDAEDZFAGDZHZIJZKJZEDULUKUPEULFUMIJZHZKJULUQLJZUPUKULUQUL
+      ABMZNFUMOUMABPZNZQRUOURULKFUMOVBSTAUAUBUKUSUCBAUDUEUFUGULUNUTUMVAUHUIUJ
       $.
       $( [2-Oct-1999] $)
 
     $( Imaginary part of a complex conjugate. $)
     imcj $p |- ( Im ` ( * ` A ) ) = -u ( Im ` A ) $=
-      ( ccj cfv cim cre cneg ci cmul co caddc cmin recl recn imcl axicn mulcl
-      negsub mulneg1 opreq2i cc wcel wceq cjvalt ax-mp 3eqtr4r fveq2i renegcl
-      crim eqtr ) ACDZEDAFDZAEDZGZHIJZKJZEDUNUKUPEULUMHIJZGZKJULUQLJZUPUKULUQUL
-      ABMZNUMHUMABOZNZPQRUOURULKUMHVBPSTAUAUBUKUSUCBAUDUEUFUGULUNUTUMVAUHUIUJ
+      ( ccj cfv cim cre ci cneg cmul co caddc cmin recl recn axicn imcl mulcl
+      negsub mulneg2 opreq2i cc wcel wceq cjvalt ax-mp 3eqtr4r fveq2i renegcl
+      crim eqtr ) ACDZEDAFDZGAEDZHZIJZKJZEDUNUKUPEULGUMIJZHZKJULUQLJZUPUKULUQUL
+      ABMZNGUMOUMABPZNZQRUOURULKGUMOVBSTAUAUBUKUSUCBAUDUEUFUGULUNUTUMVAUHUIUJ
       $.
       $( [2-Oct-1999] $)
 
@@ -290,28 +361,28 @@ $)
       readd.2 $e |- B e. CC $.
       $( Real part distributes over addition. $)
       readd $p |- ( Re ` ( A + B ) ) = ( ( Re ` A ) + ( Re ` B ) ) $=
-        ( caddc co cre cfv cim ci cmul recl recn imcl axicn mulcl add4 replim
-        opreq12i adddir opreq2i 3eqtr4 fveq2i readdcl crre eqtr ) ABEFZGHAGHZBG
-        HZEFZAIHZBIHZEFZJKFZEFZGHUJUGUOGUHUKJKFZEFZUIULJKFZEFZEFUJUPUREFZEFUGUO
-        UHUPUIURUHACLZMUKJUKACNZMZOPUIBDLZMULJULBDNZMZOPQAUQBUSEACRBDRSUNUTUJEU
-        KULJVCVFOTUAUBUCUJUMUHUIVAVDUDUKULVBVEUDUEUF $.
+        ( caddc co cre cfv ci cim cmul recl recn axicn imcl mulcl add4 replim
+        opreq12i adddi opreq2i 3eqtr4 fveq2i readdcl crre eqtr ) ABEFZGHAGHZBGH
+        ZEFZIAJHZBJHZEFZKFZEFZGHUJUGUOGUHIUKKFZEFZUIIULKFZEFZEFUJUPUREFZEFUGUOU
+        HUPUIURUHACLZMIUKNUKACOZMZPUIBDLZMIULNULBDOZMZPQAUQBUSEACRBDRSUNUTUJEIU
+        KULNVCVFTUAUBUCUJUMUHUIVAVDUDUKULVBVEUDUEUF $.
         $( [28-Jul-1999] $)
 
       $( Imaginary part distributes over addition. $)
       imadd $p |- ( Im ` ( A + B ) ) = ( ( Im ` A ) + ( Im ` B ) ) $=
-        ( caddc co cim cfv cre ci cmul recl recn imcl axicn mulcl add4 replim
-        opreq12i adddir opreq2i 3eqtr4 fveq2i readdcl crim eqtr ) ABEFZGHAIHZBI
-        HZEFZAGHZBGHZEFZJKFZEFZGHUMUGUOGUHUKJKFZEFZUIULJKFZEFZEFUJUPUREFZEFUGUO
-        UHUPUIURUHACLZMUKJUKACNZMZOPUIBDLZMULJULBDNZMZOPQAUQBUSEACRBDRSUNUTUJEU
-        KULJVCVFOTUAUBUCUJUMUHUIVAVDUDUKULVBVEUDUEUF $.
+        ( caddc co cim cfv cre ci cmul recl recn axicn imcl mulcl add4 replim
+        opreq12i adddi opreq2i 3eqtr4 fveq2i readdcl crim eqtr ) ABEFZGHAIHZBIH
+        ZEFZJAGHZBGHZEFZKFZEFZGHUMUGUOGUHJUKKFZEFZUIJULKFZEFZEFUJUPUREFZEFUGUOU
+        HUPUIURUHACLZMJUKNUKACOZMZPUIBDLZMJULNULBDOZMZPQAUQBUSEACRBDRSUNUTUJEJU
+        KULNVCVFTUAUBUCUJUMUHUIVAVDUDUKULVBVEUDUEUF $.
         $( [28-Jul-1999] $)
 
       $( Real part of a product. $)
       remul $p |- ( Re ` ( A x. B ) ) =
             ( ( ( Re ` A ) x. ( Re ` B ) ) - ( ( Im ` A ) x. ( Im ` B ) ) ) $=
-        ( cmul co cre cfv cim cmin caddc ci replim opreq12i recl recn imcl
+        ( cmul co cre cfv cim cmin ci caddc replim opreq12i recl recn imcl
         crmul eqtr fveq2i remulcl resubcl readdcl crre ) ABEFZGHAGHZBGHZEFZAIHZ
-        BIHZEFZJFZUFUJEFZUIUGEFZKFZLEFKFZGHULUEUPGUEUFUILEFKFZUGUJLEFKFZEFUPAUQ
+        BIHZEFZJFZKUFUJEFZUIUGEFZLFZEFLFZGHULUEUPGUEUFKUIEFLFZUGKUJEFLFZEFUPAUQ
         BUREACMBDMNUFUIUGUJUFACOZPUIACQZPUGBDOZPUJBDQZPRSTULUOUHUKUFUGUSVAUAUIU
         JUTVBUAUBUMUNUFUJUSVBUAUIUGUTVAUAUCUDS $.
         $( [28-Jul-1999] $)
@@ -319,9 +390,9 @@ $)
       $( Imaginary part of a product. $)
       immul $p |- ( Im ` ( A x. B ) ) =
             ( ( ( Re ` A ) x. ( Im ` B ) ) + ( ( Im ` A ) x. ( Re ` B ) ) ) $=
-        ( cmul co cim cfv cre cmin caddc ci replim opreq12i recl recn imcl
+        ( cmul co cim cfv cre cmin ci caddc replim opreq12i recl recn imcl
         crmul eqtr fveq2i remulcl resubcl readdcl crim ) ABEFZGHAIHZBIHZEFZAGHZ
-        BGHZEFZJFZUFUJEFZUIUGEFZKFZLEFKFZGHUOUEUPGUEUFUILEFKFZUGUJLEFKFZEFUPAUQ
+        BGHZEFZJFZKUFUJEFZUIUGEFZLFZEFLFZGHUOUEUPGUEUFKUIEFLFZUGKUJEFLFZEFUPAUQ
         BUREACMBDMNUFUIUGUJUFACOZPUIACQZPUGBDOZPUJBDQZPRSTULUOUHUKUFUGUSVAUAUIU
         JUTVBUAUBUMUNUFUJUSVBUAUIUGUTVAUAUCUDS $.
         $( [28-Jul-1999] $)
@@ -329,30 +400,29 @@ $)
       $( Complex conjugate distributes over addition.  Proposition 10-3.4(a) of
          [Gleason] p. 133. $)
       cjadd $p |- ( * ` ( A + B ) ) = ( ( * ` A ) + ( * ` B ) ) $=
-        ( caddc co cre cfv cim ci cmul cmin ccj readd imadd opreq1i imcl recn
-        axicn adddir eqtr opreq12i recl mulcl sub4 cc wcel wceq addcl cjvalt
-        ax-mp 3eqtr4 ) ABEFZGHZUMIHZJKFZLFZAGHZAIHZJKFZLFZBGHZBIHZJKFZLFZEFZUMM
-        HZAMHZBMHZEFUQURVBEFZUTVDEFZLFVFUNVJUPVKLABCDNUPUSVCEFZJKFVKUOVLJKABCDO
-        PUSVCJUSACQRZVCBDQRZSTUAUBURVBUTVDURACUCRVBBDUCRUSJVMSUDVCJVNSUDUEUAUMU
+        ( caddc co cre cfv ci cim cmul cmin ccj readd imadd opreq2i axicn imcl
+        recn adddi eqtr opreq12i recl mulcl addsub4 cc wcel wceq addcl cjvalt
+        ax-mp 3eqtr4 ) ABEFZGHZIUMJHZKFZLFZAGHZIAJHZKFZLFZBGHZIBJHZKFZLFZEFZUMM
+        HZAMHZBMHZEFUQURVBEFZUTVDEFZLFVFUNVJUPVKLABCDNUPIUSVCEFZKFVKUOVLIKABCDO
+        PIUSVCQUSACRSZVCBDRSZTUAUBURVBUTVDURACUCSVBBDUCSIUSQVMUDIVCQVNUDUEUAUMU
         FUGVGUQUHABCDUIUMUJUKVHVAVIVEEAUFUGVHVAUHCAUJUKBUFUGVIVEUHDBUJUKUBUL $.
         $( [28-Jul-1999] $)
 
       $( Complex conjugate distributes over multiplication.  Proposition
          10-3.4(c) of [Gleason] p. 133. $)
       cjmul $p |- ( * ` ( A x. B ) ) = ( ( * ` A ) x. ( * ` B ) ) $=
-        ( cmul co cre cfv cim ci cmin cneg caddc ccj recl remulcl imcl resubcl
-        recn readdcl axicn mulcl negsub mul2neg eqcomi opreq2i mulneg1 negdi
-        mulneg2 opreq12i eqtr4 opreq1i eqtr3 remul immul negcl crmul 3eqtr4 cc
-        wcel wceq cjvalt ax-mp 3eqtr4r ) ABEFZGHZVEIHZJEFZKFZAGHZAIHZLZJEFZMFZB
-        GHZBIHZLZJEFZMFZEFZVENHZANHZBNHZEFVJVOEFZVKVPEFZKFZVJVPEFZVKVOEFZMFZJEF
-        ZKFZWDVLVQEFZKFZVJVQEFZVLVOEFZMFZJEFZMFZVIVTWFWJLZMFWKWRWFWJWFWDWEVJVOA
-        COZBDOZPVKVPACQZBDQZPRSWIJWIWGWHVJVPWTXCPZVKVOXBXAPZTSZUAUBUCWFWMWSWQMW
-        EWLWDKWLWEVKVPVKXBSZVPXCSZUDUEUFWILZJEFWSWQWIJXFUAUGXIWPJEXIWGLZWHLZMFW
-        PWGWHWGXDSWHXESUHWNXJWOXKMVJVPVJWTSZXHUIVKVOXGVOXASZUGUJUKULUMUJUMVFWFV
-        HWJKABCDUNVGWIJEABCDUOULUJVJVLVOVQXLVKXGUPXMVPXHUPUQURVEUSUTWAVIVAABCDU
-        BVEVBVCWBVNWCVSEVJVKJEFZLZMFVJXNKFZVNWBVJXNXLVKJXGUAUBUCVMXOVJMVKJXGUAU
-        GUFAUSUTWBXPVACAVBVCVDVOVPJEFZLZMFVOXQKFZVSWCVOXQXMVPJXHUAUBUCVRXRVOMVP
-        JXHUAUGUFBUSUTWCXSVADBVBVCVDUJUR $.
+        ( cmul co cre cfv ci cim cmin cneg caddc ccj recl recn mulcl imcl
+        subcl axicn addcl negsub mul2neg eqcomi opreq2i mulneg2 negdi mulneg1
+        opreq12i eqtr4 eqtr3 remul immul negcl crmul 3eqtr4 cc wcel wceq
+        cjvalt ax-mp 3eqtr4r ) ABEFZGHZIVCJHZEFZKFZAGHZIAJHZLZEFZMFZBGHZIBJHZLZ
+        EFZMFZEFZVCNHZANHZBNHZEFVHVMEFZVIVNEFZKFZIVHVNEFZVIVMEFZMFZEFZKFZWBVJVO
+        EFZKFZIVHVOEFZVJVMEFZMFZEFZMFZVGVRWDWHLZMFWIWPWDWHWBWCVHVMVHACOPZVMBDOP
+        ZQVIVNVIACRPZVNBDRPZQSIWGTWEWFVHVNWRXAQZVIVMWTWSQZUAZQUBWDWKWQWOMWCWJWB
+        KWJWCVIVNWTXAUCUDUEIWGLZEFWQWOIWGTXDUFXEWNIEXEWELZWFLZMFWNWEWFXBXCUGWLX
+        FWMXGMVHVNWRXAUFVIVMWTWSUHUIUJUEUKUIUKVDWDVFWHKABCDULVEWGIEABCDUMUEUIVH
+        VJVMVOWRVIWTUNWSVNXAUNUOUPVCUQURVSVGUSABCDQVCUTVAVTVLWAVQEVHIVIEFZLZMFV
+        HXHKFZVLVTVHXHWRIVITWTQUBVKXIVHMIVITWTUFUEAUQURVTXJUSCAUTVAVBVMIVNEFZLZ
+        MFVMXKKFZVQWAVMXKWSIVNTXAQUBVPXLVMMIVNTXAUFUEBUQURWAXMUSDBUTVAVBUIUP $.
         $( [28-Jul-1999] $)
 
       $( Standard inner product on complex numbers. $)
@@ -393,9 +463,9 @@ $)
     $( Real part of negative. $)
     reneg $p |- ( Re ` -u A ) = -u ( Re ` A ) $=
       ( cneg cre cfv cim ci cmul co caddc recl recn imcl axicn mulcl negdi
-      replim negeqi mulneg1 opreq2i 3eqtr4 fveq2i renegcl crre eqtr ) ACZDEADEZ
-      CZAFEZCZGHIZJIZDEUHUFULDUGUIGHIZJIZCUHUMCZJIUFULUGUMUGABKZLUIGUIABMZLZNOP
-      AUNABQRUKUOUHJUIGURNSTUAUBUHUJUGUPUCUIUQUCUDUE $.
+      replimOLD negeqi mulneg1 opreq2i 3eqtr4 fveq2i renegcl crreOLD eqtr ) ACZ
+      DEADEZCZAFEZCZGHIZJIZDEUHUFULDUGUIGHIZJIZCUHUMCZJIUFULUGUMUGABKZLUIGUIABM
+      ZLZNOPAUNABQRUKUOUHJUIGURNSTUAUBUHUJUGUPUCUIUQUCUDUE $.
       $( [2-Aug-1999] $)
 
     $( The negative of a real is real. $)
@@ -408,32 +478,40 @@ $)
     $( Imaginary part of negative. $)
     imneg $p |- ( Im ` -u A ) = -u ( Im ` A ) $=
       ( cneg cim cfv cre ci cmul co caddc recl recn imcl axicn mulcl negdi
-      replim negeqi mulneg1 opreq2i 3eqtr4 fveq2i renegcl crim eqtr ) ACZDEAFEZ
-      CZADEZCZGHIZJIZDEUJUFULDUGUIGHIZJIZCUHUMCZJIUFULUGUMUGABKZLUIGUIABMZLZNOP
-      AUNABQRUKUOUHJUIGURNSTUAUBUHUJUGUPUCUIUQUCUDUE $.
+      replimOLD negeqi mulneg1 opreq2i 3eqtr4 fveq2i renegcl crimOLD eqtr ) ACZ
+      DEAFEZCZADEZCZGHIZJIZDEUJUFULDUGUIGHIZJIZCUHUMCZJIUFULUGUMUGABKZLUIGUIABM
+      ZLZNOPAUNABQRUKUOUHJUIGURNSTUAUBUHUJUGUPUCUIUQUCUDUE $.
       $( [2-Aug-1999] $)
 
     $( Complex conjugate of negative. $)
     cjneg $p |- ( * ` -u A ) = -u ( * ` A ) $=
-      ( cneg cre cfv cim ci cmul co cmin ccj caddc recl recn negcl imcl axicn
-      mulcl negsub negdi reneg imneg opreq1i mulneg1 eqtr opreq12i 3eqtr4r
-      negeqi cc wcel wceq cjvalt ax-mp 3eqtr4 ) ACZDEZUOFEZGHIZJIZADEZAFEZGHIZJ
-      IZCZUOKEZAKEZCUSUTVBCZLIZCZVDUTCZVGCLIVJVGJIVIUSVJVGUTUTABMNZOVBVAGVAABPN
-      ZQRZOZSUTVGVKVNTUPVJURVGJABUAURVACZGHIVGUQVOGHABUBUCVAGVLQUDUEUFUGVHVCUTV
+      ( cneg cre cfv ci cim cmul co cmin ccj caddc recl recn negcl axicn imcl
+      mulcl negsub negdi reneg imneg opreq2i mulneg2 eqtr opreq12i 3eqtr4r
+      negeqi cc wcel wceq cjvalt ax-mp 3eqtr4 ) ACZDEZFUOGEZHIZJIZADEZFAGEZHIZJ
+      IZCZUOKEZAKEZCUSUTVBCZLIZCZVDUTCZVGCLIVJVGJIVIUSVJVGUTUTABMNZOVBFVAPVAABQ
+      NZRZOZSUTVGVKVNTUPVJURVGJABUAURFVACZHIVGUQVOFHABUBUCFVAPVLUDUEUFUGVHVCUTV
       BVKVMSUHUEUOUIUJVEUSUKABOUOULUMVFVCAUIUJVFVCUKBAULUMUHUN $.
       $( [2-Aug-1999] $)
 
     $( A number plus its conjugate is twice its real part.  Compare Proposition
        10-3.4(h) of [Gleason] p. 133. $)
     addcj $p |- ( A + ( * ` A ) ) = ( 2 x. ( Re ` A ) ) $=
-      ( cre cfv cim ci cmul co caddc cneg ccj c2 cc0 recl recn imcl axicn
+      ( cre cfv ci cim cmul co caddc cneg ccj c2 cc0 recl recn axicn imcl
       mulcl negcl add4 negid opreq2i addcl addid1 3eqtr replim cmin cc wcel
-      wceq cjvalt ax-mp negsub eqtr4 opreq12i 2times 3eqtr4 ) ACDZAEDZFGHZIHZUR
-      UTJZIHZIHZURURIHZAAKDZIHLURGHVDVEUTVBIHZIHVEMIHVEURUTURVBURABNOZUSFUSABPO
-      QRZVHUTVISTVGMVEIUTVIUAUBVEURURVHVHUCUDUEAVAVFVCIABUFVFURUTUGHZVCAUHUIVFV
+      wceq cjvalt ax-mp negsub eqtr4 opreq12i 2times 3eqtr4 ) ACDZEAFDZGHZIHZUR
+      UTJZIHZIHZURURIHZAAKDZIHLURGHVDVEUTVBIHZIHVEMIHVEURUTURVBURABNOZEUSPUSABQ
+      ORZVHUTVISTVGMVEIUTVIUAUBVEURURVHVHUCUDUEAVAVFVCIABUFVFURUTUGHZVCAUHUIVFV
       JUJBAUKULURUTVHVIUMUNUOURVHUPUQ $.
       $( [2-Oct-1999] $)
   $}
+
+  $( A real number equals its real part.  One direction of
+     Proposition 10-3.4(f) of [Gleason] p. 133.  (Contributed by Paul
+     Chapman, 7-Sep-2007.) $)
+  reret $p |- ( A e. RR -> ( Re ` A ) = A ) $=
+    ( cr wcel cc0 cif cre cfv wceq 0re elimel recn rereb mpbi a1i iftrue
+    fveq2d 3eqtr3d ) ABCZRADEZFGZSAFGATSHZRSBCUAADBIJZSSUBKLMNRSAFRADOZPUCQ $.
+    $( [8-Sep-2007] $) $( [7-Sep-2007] $)
 
   $( A number is real iff it equals its complex conjugate.  Proposition
      10-3.4(f) of [Gleason] p. 133. $)
@@ -602,29 +680,30 @@ $)
 
   $( The real part of a number in terms of complex conjugate. $)
   recjt $p |- ( A e. CC -> ( Re ` A ) = ( ( A + ( * ` A ) ) / 2 ) ) $=
-    ( cc wcel cre cfv caddc co c2 cdiv ccj wceq 2cn w3a cc0 wne 2re 2pos
-    gt0ne0i divdirt mpan2 mp3an3 reclt recnd sylanc cim ci cmul cmin cneg
-    replimt cjvalt opreq12d negsubt imclt axicn axmulcl syl opreq2d negidt
-    3syl wa add4t jca negclt axaddcl ax0id 3eqtr3d 3eqtr2rd opreq1d 2halvest
+    ( cc wcel cre cfv caddc co c2 cdiv ccj wceq 2cn w3a cc0 wne 2ne0 divdirt
+    mpan2 mp3an3 reclt recnd sylanc ci cim cmul cmin cneg replimt cjvalt
+    opreq12d negsubt imclt axicn axmulcl mpan syl opreq2d negidt 3syl add4t
+    negclt syl2anc wa jca axaddcl ax0id 3eqtr3d 3eqtr2rd opreq1d 2halvest
     3eqtr3rd ) ABCZADEZVMFGZHIGZVMHIGZVPFGZAAJEZFGZHIGVMVMBCZVTVOVQKZVLVTVTHBCZ
-    WALVTVTWBMHNOWAHPQRVMVMHSTUAVLVMAUBUCZWCUDVLVNVSHIVLVSVMAUEEZUFUGGZFGZVMWEU
-    HGZFGWFVMWEUIZFGZFGZVNVLAWFVRWGFAUJAUKULVLWIWGWFFVTWEBCZWIWGKVLVMWEUMWCVLWD
-    BCZWKVLWDAUNUCZWLUFBCWKUOWDUFUPTZUQZUDURVLVNWEWHFGZFGZVNNFGZWJVNVLWPNVNFVLW
-    LWKWPNKWMWNWEUSUTURVTVTVAZWKWHBCZVAWQWJKVLVMVMWEWHVBVLVTVTWCWCVCZVLWKWTWOVL
-    WLWKWTWMWNWEVDUTVCUDVLWSVNBCWRVNKXAVMVMVEVNVFUTVGVHVIVLVTVQVMKWCVMVJUQVK $.
+    WALVTVTWBMHNOWAPVMVMHQRSVLVMATUAZWCUBVLVNVSHIVLVSVMUCAUDEZUEGZFGZVMWEUFGZFG
+    WFVMWEUGZFGZFGZVNVLAWFVRWGFAUHAUIUJVLWIWGWFFVTWEBCZWIWGKVLVMWEUKWCVLWDBCZWK
+    VLWDAULUAZUCBCWLWKUMUCWDUNUOZUPZUBUQVLVNWEWHFGZFGZVNNFGZWJVNVLWPNVNFVLWLWKW
+    PNKWMWNWEURUSUQVTVTWKWHBCZWQWJKVLVMVMWEWHUTWCWCWOVLWLWKWSWMWNWEVAUSVBVLVTVT
+    VCVNBCWRVNKVLVTVTWCWCVDVMVMVEVNVFUSVGVHVIVLVTVQVMKWCVMVJUPVK $.
     $( [2-Aug-2006] $) $( [30-Apr-2005] $)
 
   $( The imaginary part of a number in terms of complex conjugate. $)
   imcjt $p |- ( A e. CC -> ( Im ` A ) = ( ( A - ( * ` A ) ) / ( 2 x. i ) ) ) $=
     ( cc wcel cim cfv c2 ci cmul co cdiv ccj cmin wceq imclt recnd cc0 wne 2cn
-    axicn mulcl 2re 2pos gt0ne0i ine0 muln0 divcan4t mp3an13 syl cre caddc
-    subsubt axaddcl reclt axmulcl mpan2 sylanc syl3anc replimt cjvalt opreq12d
-    2timest 3syl mul12t mp3an23 pncan2t opreq1d 3eqtr4d 3eqtr4rd eqtr3d ) ABCZA
-    DEZFGHIZHIZVLJIZVKAAKEZLIZVLJIVJVKBCZVNVKMZVJVKANOZVLBCVQVLPQVRFGRSTFGRSFUA
-    UBUCUDUEVLVKUFUGUHVJVMVPVLJVJAUIEZVKGHIZUJIZVTWALIZLIZWBVTLIZWAUJIZVPVMWBBC
-    ZVTBCZWABCZWDWFMVJWBVTWAUKWHWIWGVJVTWAULVJVTAUMOZVJVQWIVSVQGBCZWISVKGUNUOZU
-    HZUPWJWMUQVJAWBVOWCLAURAUSUTVJFWAHIZWAWAUJIZVMWFVJVQWIWNWOMVSWLWAVAVBVJVQVM
-    WNMZVSVQFBCWKWPRSVKFGVCVDUHVJWEWAWAUJWHWIWEWAMVJVTWAVEWJWMUPVFVGVHVFVI $.
+    axicn mulcl 2ne0 ine0 muln0 divcan4t mp3an13 syl cre caddc subsubt axaddcl
+    reclt axmulcl mpan sylanc syl3anc replimt cjvalt opreq12d 2timest axmulcom
+    mpan2 axmulass mp3an12 eqtrd pncan2t opreq1d 3eqtr4d 3eqtr4rd eqtr3d ) ABCZ
+    ADEZFGHIZHIZVLJIZVKAAKEZLIZVLJIVJVKBCZVNVKMZVJVKANOZVLBCZVQVLPQVRFGRSTZFGRS
+    UAUBUCVLVKUDUEUFVJVMVPVLJVJAUGEZGVKHIZUHIZWBWCLIZLIZWDWBLIZWCUHIZVPVMWDBCZW
+    BBCZWCBCZWFWHMVJWDWBWCUIWJWKWIVJWBWCUJVJWBAUKOZVJVQWKVSGBCZVQWKSGVKULUMUFZU
+    NWLWNUOVJAWDVOWELAUPAUQURVJFWCHIZWCWCUHIZVMWHVJWKWOWPMWNWCUSUFVJVQVMWOMVSVQ
+    VMVLVKHIZWOVQVTVMWQMWAVKVLUTVAFBCWMVQWQWOMRSFGVKVBVCVDUFVJWGWCWCUHWJWKWGWCM
+    VJWBWCVEWLWNUNVFVGVHVFVI $.
     $( [7-Aug-2005] $) $( [30-Apr-2005] $)
 
   $( The real part of zero. $)
@@ -649,17 +728,17 @@ $)
 
   $( The real part of ` i ` .  (Contributed by Scott Fenton, 9-Jun-2006.) $)
   rei $p |- ( Re ` i ) = 0 $=
-    ( cc0 c1 ci cmul co caddc cre cfv ax1cn axicn mulcl addid2 fveq2i 0re 1re
-    crre mulid2 3eqtr3r ) ABCDEZFEZGHSGHACGHTSGSBCIJKLMABNOPSCGCJQMR $.
-    $( [10-Jun-2006] $) $( [9-Jun-2006] $)
+    ( cc0 ci c1 cmul co caddc cre cfv axicn ax1cn mulcl addid2 fveq2i 0re 1re
+    crre mulid1 3eqtr3r ) ABCDEZFEZGHSGHABGHTSGSBCIJKLMACNOPSBGBIQMR $.
+    $( [15-Mar-2008] $) $( [9-Jun-2006] $)
 
   $( The imaginary part of ` i ` .  (Contributed by Scott Fenton,
      9-Jun-2006.) $)
   imi $p |- ( Im ` i ) = 1 $=
-    ( c1 ci cmul co cim cfv cc0 caddc ax1cn axicn mulcl addid2 eqcomi fveq2i
-    mulid2 0re 1re crim 3eqtr3 ) ABCDZEFGTHDZEFBEFATUAEUATTABIJKLMNTBEBJONGAPQR
+    ( ci c1 cmul co cim cfv cc0 caddc axicn ax1cn mulcl addid2 eqcomi fveq2i
+    mulid1 0re 1re crim 3eqtr3 ) ABCDZEFGTHDZEFAEFBTUAEUATTABIJKLMNTAEAIONGBPQR
     S $.
-    $( [10-Jun-2006] $) $( [9-Jun-2006] $)
+    $( [15-Mar-2008] $) $( [9-Jun-2006] $)
 
   $( The conjugate of zero. $)
   cj0 $p |- ( * ` 0 ) = 0 $=
@@ -668,9 +747,9 @@ $)
 
   $( The complex conjugate of the imaginary unit. $)
   cji $p |- ( * ` i ) = -u i $=
-    ( ci cre cfv cim cmul co cmin cc0 ccj cneg rei c1 imi opreq1i axicn mulid2
-    eqtr opreq12i cc wcel wceq cjvalt ax-mp df-neg 3eqtr4 ) ABCZADCZAEFZGFZHAGF
-    AICZAJUFHUHAGKUHLAEFAUGLAEMNAOPQRASTUJUIUAOAUBUCAUDUE $.
+    ( ci cre cfv cim cmul co cmin cc0 ccj cneg rei c1 imi opreq2i axicn mulid1
+    eqtr opreq12i cc wcel wceq cjvalt ax-mp df-neg 3eqtr4 ) ABCZAADCZEFZGFZHAGF
+    AICZAJUFHUHAGKUHALEFAUGLAEMNAOPQRASTUJUIUAOAUBUCAUDUE $.
     $( [13-Jun-2005] $) $( [26-Mar-2005] $)
 
   $( The conjugate of a representation of a complex number in terms of real
@@ -700,24 +779,24 @@ $)
   $( Complex conjugate is a one-to-one function. $)
   cj11t $p |- ( ( A e. CC /\ B e. CC ) ->
               ( ( * ` A ) = ( * ` B ) <-> A = B ) ) $=
-    ( cc wcel wa cre cfv cim cneg ci cmul co caddc wceq ccj wb neg11t imclt
+    ( cc wcel wa cre cfv ci cim cneg cmul co caddc wceq ccj wb neg11t imclt
     recnd syl2an anbi2d cr crut reclt renegclt syl jca 3bitr4d cmin negsubt
-    axicn axmulcl mpan2 sylanc jctir mulneg1t opreq2d cjvalt 3eqtr4rd
-    eqeqan12d replimt ) ACDZBCDZEZAFGZAHGZIZJKLZMLZBFGZBHGZIZJKLZMLZNZVEVFJKLZM
-    LZVJVKJKLZMLZNZAOGZBOGZNABNVDVEVJNZVGVLNZEZWCVFVKNZEZVOVTVDWDWFWCVFCDZVKCDZ
-    WDWFPVBVCVFVKQVBVFARZSZVCVKBRZSZTUAVEUBDZVGUBDZEVJUBDZVLUBDZEVOWEPVBVCVEVGV
-    JVLUCVBWNWOAUDZVBVFUBDZWOWJVFUEUFUGVCWPWQBUDZVCVKUBDZWQWLVKUEUFUGTWNWSEWPXA
-    EVTWGPVBVCVEVFVJVKUCVBWNWSWRWJUGVCWPXAWTWLUGTUHVBVCWAVIWBVNVBVEVPIZMLZVEVPU
-    ILZVIWAVECDVPCDZXCXDNVBVEVPUJVBVEWRSVBWHXEWKWHJCDZXEUKVFJULUMUFUNVBVHXBVEMV
-    BWHXFEVHXBNVBWHXFWKUKUOVFJUPUFUQAURUSVCVJVRIZMLZVJVRUILZVNWBVJCDVRCDZXHXINV
-    CVJVRUJVCVJWTSVCWIXJWMWIXFXJUKVKJULUMUFUNVCVMXGVJMVCWIXFEVMXGNVCWIXFWMUKUOV
-    KJUPUFUQBURUSUTVBVCAVQBVSAVABVAUTUH $.
+    axicn axmulcl mpan sylanc jctil mulneg2t opreq2d cjvalt 3eqtr4rd eqeqan12d
+    replimt ) ACDZBCDZEZAFGZHAIGZJZKLZMLZBFGZHBIGZJZKLZMLZNZVEHVFKLZMLZVJHVKKLZ
+    MLZNZAOGZBOGZNABNVDVEVJNZVGVLNZEZWCVFVKNZEZVOVTVDWDWFWCVFCDZVKCDZWDWFPVBVCV
+    FVKQVBVFARZSZVCVKBRZSZTUAVEUBDZVGUBDZEVJUBDZVLUBDZEVOWEPVBVCVEVGVJVLUCVBWNW
+    OAUDZVBVFUBDZWOWJVFUEUFUGVCWPWQBUDZVCVKUBDZWQWLVKUEUFUGTWNWSEWPXAEVTWGPVBVC
+    VEVFVJVKUCVBWNWSWRWJUGVCWPXAWTWLUGTUHVBVCWAVIWBVNVBVEVPJZMLZVEVPUILZVIWAVEC
+    DVPCDZXCXDNVBVEVPUJVBVEWRSVBWHXEWKHCDZWHXEUKHVFULUMUFUNVBVHXBVEMVBXFWHEVHXB
+    NVBWHXFWKUKUOHVFUPUFUQAURUSVCVJVRJZMLZVJVRUILZVNWBVJCDVRCDZXHXINVCVJVRUJVCV
+    JWTSVCWIXJWMXFWIXJUKHVKULUMUFUNVCVMXGVJMVCXFWIEVMXGNVCWIXFWMUKUOHVKUPUFUQBU
+    RUSUTVBVCAVQBVSAVABVAUTUH $.
     $( [1-Aug-2006] $) $( [29-Apr-2005] $)
 
   $( A number is non-zero iff its complex conjugate is non-zero. $)
   cjne0t $p |- ( A e. CC -> ( A =/= 0 <-> ( * ` A ) =/= 0 ) ) $=
-    ( cc wcel cc0 ccj cfv wceq wb 0cn cj11t mpan2 cj0 eqeq2i syl5rbbr eqneqd )
-    ABCZADAEFZDPQDEFZGZADGZQDGPDBCSTHIADJKRDQLMNO $.
+    ( cc wcel cc0 ccj cfv wceq wb 0cn cj11t mpan2 cj0 eqeq2i syl5rbbr
+    necon3bid ) ABCZADAEFZDPQDEFZGZADGZQDGPDBCSTHIADJKRDQLMNO $.
     $( [8-Jul-2005] $) $( [29-Apr-2005] $)
 
   $( Absolute value of negative. $)
@@ -800,22 +879,22 @@ $)
       ( cabs cfv cc0 wceq cre c2 cexp co cim caddc csqr absval2 eqeq1i cr wcel
       cle wbr wb recl resqcl imcl readdcl sqge0 addge0 mp2an sqr00t wa add20
       recn sq00 anbi12i ci cmul opreq1 opreq2d sylan9eq 0cn axicn mulcl addid2
-      mul02 eqtr syl6eq replim syl5eq fveq2 re0 im0 jca impbi 3bitr ) ACDZEFAGD
-      ZHIJZAKDZHIJZLJZMDZEFZVSEFZAEFZVNVTEABNOVSPQEVSRSZWAWBTVPVRVOABUAZUBZVQAB
-      UCZUBZUDEVPRSZEVRRSZWDVOWEUEZVQWGUEZVPVRWFWHUFUGVSUHUGWBVPEFZVREFZUIZVOEF
-      ZVQEFZUIZWCWIWJWBWOTWKWLVPVRWFWHUJUGWMWPWNWQVOVOWEUKULVQVQWGUKULUMWRWCWRV
-      OVQUNUOJZLJZEAWRWTEEUNUOJZLJZEWPWQWTEWSLJXBVOEWSLUPWQWSXAELVQEUNUOUPUQURX
-      BXAEXAEUNUSUTVAVBUNUTVCVDVEABVFVGWCWPWQWCVOEGDEAEGVHVIVEWCVQEKDEAEKVHVJVE
-      VKVLVMVM $.
+      mul02 eqtr syl6eq replimOLD syl5eq fveq2 re0 im0 jca impbi 3bitr ) ACDZEF
+      AGDZHIJZAKDZHIJZLJZMDZEFZVSEFZAEFZVNVTEABNOVSPQEVSRSZWAWBTVPVRVOABUAZUBZV
+      QABUCZUBZUDEVPRSZEVRRSZWDVOWEUEZVQWGUEZVPVRWFWHUFUGVSUHUGWBVPEFZVREFZUIZV
+      OEFZVQEFZUIZWCWIWJWBWOTWKWLVPVRWFWHUJUGWMWPWNWQVOVOWEUKULVQVQWGUKULUMWRWC
+      WRVOVQUNUOJZLJZEAWRWTEEUNUOJZLJZEWPWQWTEWSLJXBVOEWSLUPWQWSXAELVQEUNUOUPUQ
+      URXBXAEXAEUNUSUTVAVBUNUTVCVDVEABVFVGWCWPWQWCVOEGDEAEGVHVIVEWCVQEKDEAEKVHV
+      JVEVKVLVMVM $.
       $( [28-Jul-1999] $)
 
     $( The absolute value of a non-zero number is positive.  Remark in
        [Apostol] p. 363. $)
     absgt0 $p |- ( A =/= 0 <-> 0 < ( abs ` A ) ) $=
       ( cc0 wne wceq wn cabs cfv clt wbr df-ne abs00 eqcom bitr3 negbii wo cle
-      absge0 0re abscl leloe mpbi orcom ori ltne impbi 3bitr ) ACDACEZFCAGHZEZF
-      ZCUIIJZACKUHUJUHUICEUJABLUICMNOUKULUJULULUJPZUJULPCUIQJUMABRCUISABTZUAUBU
-      LUJUCUBUDCUISUNUEUFUG $.
+      absge0 0re abscl leloe mpbi orcom ori ltneOLD impbi 3bitr ) ACDACEZFCAGHZ
+      EZFZCUIIJZACKUHUJUHUICEUJABLUICMNOUKULUJULULUJPZUJULPCUIQJUMABRCUISABTZUA
+      UBULUJUCUBUDCUISUNUEUFUG $.
       $( [6-Mar-2005] $) $( [1-Oct-1999] $)
 
     $( Absolute value of negative. $)
@@ -928,18 +1007,27 @@ $)
     dedth ) ABCZDAEFZGHDQADIZEFZGHADASJRTDGASEKLSADBMNOP $.
     $( [13-Mar-2005] $) $( [20-Nov-2004] $)
 
+  $( The absolute value of a nonzero number is a positive real.  (Contributed
+     by FL, 27-Dec-2007.) $)
+  absrpclt $p |- ( ( A e. CC /\ A =/= 0 ) -> ( abs ` A ) e. RR+ ) $=
+    ( cc wcel cc0 wne wa cabs cfv cr clt wbr crp absclt adantr cle wi absge0t
+    0re w3a wb leltnet syl3an2 wceq abs00t 3ad2ant2 necon3bid bitrd biimprd
+    3exp com23 ax-mp mpcom imp jca elrp sylibr ) ABCZADEZFZAGHZICZDUTJKZFUTLCUS
+    VAVBUQVAURAMZNUQURVBDUTOKZUQURVBPZAQDICZVDUQVEPPRVFUQVDVEVFUQVDVEVFUQVDSZVB
+    URVGVBUTDEZURVFVAVDVBVHTUQDUTUAVCUBVGUTDADUQVFUTDUCADUCTVDAUDUEUFUGUHUIUJUK
+    ULUMUNUTUOUP $.
+    $( [22-Jan-2008] $) $( [27-Dec-2007] $)
+
   $( Square of the absolute value of a number that has been decomposed into
      real and imaginary parts. $)
   absreimsqt $p |- ( ( A e. RR /\ B e. RR ) ->
           ( ( abs ` ( A + ( i x. B ) ) ) ^ 2 ) = ( ( A ^ 2 ) + ( B ^ 2 ) ) ) $=
     ( cr wcel wa ci cmul co caddc cabs cfv c2 cexp cre cim cc wceq axaddcl
-    recnt axicn axmulcl mpan syl syl2an absvalsq2t axmulcom adantl opreq2d
-    fveq2d crret eqtrd opreq1d crimt opreq12d ) ACDZBCDZEZAFBGHZIHZJKLMHZUSNKZL
-    MHZUSOKZLMHZIHZALMHZBLMHZIHUQUSPDZUTVEQAPDURPDZVHUOUPAURRASUPBPDZVIBSZFPDZV
-    JVITFBUAUBUCUDUSUEUCUQVBVFVDVGIUQVAALMUQVAABFGHZIHZNKAUQUSVNNUQURVMAIUPURVM
-    QZUOUPVJVOVKVLVJVOTFBUFUBUCUGUHZUIABUJUKULUQVCBLMUQVCVNOKBUQUSVNOVPUIABUMUK
-    ULUNUK $.
-    $( [4-Feb-2007] $) $( [1-Feb-2007] $)
+    recnt axicn axmulcl mpan syl syl2an absvalsq2t crret opreq1d crimt
+    opreq12d eqtrd ) ACDZBCDZEZAFBGHZIHZJKLMHZUONKZLMHZUOOKZLMHZIHZALMHZBLMHZIH
+    UMUOPDZUPVAQAPDUNPDZVDUKULAUNRASULBPDZVEBSFPDVFVETFBUAUBUCUDUOUEUCUMURVBUTV
+    CIUMUQALMABUFUGUMUSBLMABUHUGUIUJ $.
+    $( [15-Mar-2008] $) $( [1-Feb-2007] $)
 
   $( Absolute value of a number that has been decomposed into real and
      imaginary parts. $)
@@ -971,10 +1059,10 @@ $)
                   ( abs ` ( A / B ) ) = ( ( abs ` A ) / ( abs ` B ) ) ) $=
       ( cc0 wne cabs cfv cdiv co wceq cmul cc wcel divclz absmult mpan syl
       divcan2z fveq2d eqtr3d w3a wb divmult abscl recn a1i cr absclt recnt
-      3syl 3jca abs00 eqneqi biimpr sylanc mpbird eqcomd ) BEFZAGHZBGHZIJZABIJZ
-      GHZUSVBVDKZVAVDLJZUTKZUSBVCLJZGHZVFUTUSVCMNZVIVFKZABCDOZBMNVJVKDBVCPQRUSV
-      HAGBADCSTUAUTMNZVAMNZVDMNZUBVAEFZVEVGUCUSUTVAVDUDUSVMVNVOVMUSUTACUEUFUGVN
-      USVABDUEUFUGUSVJVDUHNVOVLVCUIVDUJUKULVPUSVAEBEBDUMUNUOUPUQUR $.
+      3syl 3jca abs00 necon3bii biimpr sylanc mpbird eqcomd ) BEFZAGHZBGHZIJZAB
+      IJZGHZUSVBVDKZVAVDLJZUTKZUSBVCLJZGHZVFUTUSVCMNZVIVFKZABCDOZBMNVJVKDBVCPQR
+      USVHAGBADCSTUAUTMNZVAMNZVDMNZUBVAEFZVEVGUCUSUTVAVDUDUSVMVNVOVMUSUTACUEUFU
+      GVNUSVABDUEUFUGUSVJVDUHNVOVLVCUIVDUJUKULVPUSVAEBEBDUMUNUOUPUQUR $.
       $( [1-May-2005] $) $( [26-Mar-2005] $)
   $}
 
@@ -1017,11 +1105,11 @@ $)
 
   $( A real number is less than or equal to its absolute value. $)
   leabst $p |- ( A e. RR -> A <_ ( abs ` A ) ) $=
-    ( cr wcel cc0 cle wbr wo cabs cfv 0re letrit mpan wceq absidt eqlet eqcom
-    sylan2b syldan ex cc recnt absge0t syl wa wi absclt letrt mp3an2 mpdan
-    mpan2d jaod mpd ) ABCZDAEFZADEFZGZAAHIZEFZDBCZUMUPJDAKLUMUNURUOUMUNURUMUNUQ
-    AMZURANUMAUQMURUTAUQOUQAPQRSUMUODUQEFZURUMATCZVAAUAZAUBUCUMUQBCZUOVAUDURUEZ
-    UMVBVDVCAUFUCUMUSVDVEJADUQUGUHUIUJUKUL $.
+    ( cr wcel cabs cfv cle wbr cc0 0re a1i id wceq absidt eqlet eqcom sylan2b
+    syldan cc recnt absge0t syl wa wi absclt letrt mp3an2 mpdan mpan2d imp
+    lecase ) ABCZAADEZFGZHAHBCZUKIJUKKUKHAFGULALZUMAMUKAULLUMUOAULNULAOPQUKAHFG
+    ZUMUKUPHULFGZUMUKARCZUQASZATUAUKULBCZUPUQUBUMUCZUKURUTUSAUDUAUKUNUTVAIAHULU
+    EUFUGUHUIUJ $.
     $( [3-Apr-2005] $) $( [27-Feb-2005] $)
 
   $( The absolute value of a real number is either that number or
@@ -1070,24 +1158,24 @@ $)
      absolute value of its real part. $)
   absrelet $p |- ( A e. CC -> ( abs ` ( Re ` A ) ) <_ ( abs ` A ) ) $=
     ( cc wcel cre cfv c2 cexp co csqr cim caddc cabs cle wbr cc0 cr imclt
-    sqge0t syl wb addge01t reclt resqclt sylanc mpbid wa sqrlet axaddrcl jca
-    addge0t wceq absret absval2t 3brtr4d ) ABCZADEZFGHZIEZUQAJEZFGHZKHZIEZUPLEZ
-    ALEMUOUQVAMNZURVBMNZUOOUTMNZVDUOUSPCZVFAQZUSRSZUQPCZUTPCZVFVDTUOUQUTUAUOUPP
-    CZVJAUBZUPUCSZUOVGVKVHUSUCSZUDUEVJVAPCZUFOUQMNZOVAMNZUFVDVETUOUQVAUGUOVJVPV
-    NVJVKVPUOUQUTUHVNVOUDUIUOVQVRUOVLVQVMUPRSZVJVKUFVQVFUFVRUOUQUTUJUOVJVKVNVOU
-    IUOVQVFVSVIUIUDUIUDUEUOVLVCURUKVMUPULSAUMUN $.
+    sqge0t syl wb addge01t reclt resqclt sylanc mpbid sqrlet axaddrcl addge0t
+    syl2anc wceq absret absval2t 3brtr4d ) ABCZADEZFGHZIEZUPAJEZFGHZKHZIEZUOLEZ
+    ALEMUNUPUTMNZUQVAMNZUNOUSMNZVCUNURPCZVEAQZURRSZUPPCZUSPCZVEVCTUNUPUSUAUNUOP
+    CZVIAUBZUOUCSZUNVFVJVGURUCSZUDUEVIUTPCZOUPMNZOUTMNZVCVDTUNUPUTUFVMVIVJVOUNU
+    PUSUGVMVNUDUNVKVPVLUORSZVIVJVPVEVQUNUPUSUHVMVNVRVHUIUIUEUNVKVBUQUJVLUOUKSAU
+    LUM $.
     $( [25-Jul-2006] $) $( [1-Apr-2005] $)
 
   $( The absolute value of a complex number is greater than or equal to the
      absolute value of its imaginary part. $)
   absimlet $p |- ( A e. CC -> ( abs ` ( Im ` A ) ) <_ ( abs ` A ) ) $=
     ( cc wcel cim cfv c2 cexp co csqr cre caddc cabs cle wbr cr cc0 addge02t
-    biimp3a imclt resqclt syl reclt sqge0t syl3anc wa wb sqrlet axaddrcl
-    sylanc jca addge0t mpbid wceq absret absval2t 3brtr4d ) ABCZADEZFGHZIEZAJEZ
-    FGHZUSKHZIEZURLEZALEMUQUSVCMNZUTVDMNZUSOCZVBOCZPVBMNZVFUQVHVIVJVFUSVBQRUQUR
-    OCZVHASZURTUAZUQVAOCZVIAUBZVATUAZUQVNVJVOVAUCUAZUDVHVCOCZUEPUSMNZPVCMNZUEVF
-    VGUFUQUSVCUGUQVHVRVMVIVHVRUQVBUSUHVPVMUIUJUQVSVTUQVKVSVLURUCUAZVIVHUEVJVSUE
-    VTUQVBUSUKUQVIVHVPVMUJUQVJVSVQWAUJUIUJUIULUQVKVEUTUMVLURUNUAAUOUP $.
+    biimp3a imclt resqclt syl reclt sqge0t syl3anc wb sqrlet axaddrcl sylanc
+    addge0t syl2anc mpbid wceq absret absval2t 3brtr4d ) ABCZADEZFGHZIEZAJEZFGH
+    ZURKHZIEZUQLEZALEMUPURVBMNZUSVCMNZUROCZVAOCZPVAMNZVEUPVGVHVIVEURVAQRUPUQOCZ
+    VGASZUQTUAZUPUTOCZVHAUBZUTTUAZUPVMVIVNUTUCUAZUDVGVBOCZPURMNZPVBMNZVEVFUEUPU
+    RVBUFVLVHVGVQUPVAURUGVOVLUHUPVJVRVKUQUCUAZVHVGVIVRVSUPVAURUIVOVLVPVTUJUJUKU
+    PVJVDUSULVKUQUMUAAUNUO $.
     $( [25-Jul-2006] $) $( [17-Mar-2005] $)
 
   ${
@@ -1213,6 +1301,47 @@ $)
     VCURVDVGUJVBUNGBUTUAPBUTUNGQSTUNUTALCUBUCBLCUBUCUDUE $.
     $( [12-May-2005] $) $( [6-Apr-2005] $)
 
+  $( If the absolute value of a complex number is less than a real, its
+     difference from the real is nonzero. $)
+  abssubne0t $p |- ( ( A e. CC /\ B e. RR /\ ( abs ` A ) < B ) ->
+                   ( B - A ) =/= 0 ) $=
+    ( cc wcel cr cabs cfv clt wbr w3a cmin co cc0 wne wceq wn ltnet absclt
+    syl3an1 df-ne sylib wi wa cneg ltnrt intnand wb absltt anidms mtbird
+    pm2.21d imp a1i fveq2 breq1d anbi2d eqeq2d 3imtr4d com12 3adant1 mtod
+    sylibr subeq0t recnt sylan ancoms eqcom syl6bb necon3bid 3adant3 mpbird )
+    ACDZBEDZAFGZBHIZJZBAKLZMNZABNZVPABOZPVSVPVTBVNOZVPBVNNZWAPVNEDVMVOWBVLVNBQA
+    RSBVNTUAVMVOVTWAUBVLVTVMVOUCZWAVTVMBFGZBHIZUCZBWDOZWCWAWFWGUBVTVMWEWGVMWEWG
+    VMWEBUDBHIZBBHIZUCZVMWIWHBUEUFVMWEWJUGBBUHUIUJUKULUMVTVOWEVMVTVNWDBHABFUNZU
+    OUPVTVNWDBWKUQURUSUTVAABTVBVLVMVRVSUGVOVLVMUCZVQMABWLVQMOZBAOZVTVMVLWMWNUGZ
+    BCDVLWOVMBAVCBVDVEVFBAVGVHVIVJVK $.
+    $( [4-Nov-2007] $) $( [2-Nov-2007] $)
+
+  $( The absolute value of a difference and 'less than' relation.  (Contributed
+      by Paul Chapman, 18-Sep-2007.) $)
+  absdifltt $p |- ( ( A e. RR /\ B e. RR /\ C e. RR ) ->
+                    ( ( abs ` ( A - B ) ) < C <->
+                      ( ( B - C ) < A /\ A < ( B + C ) ) ) ) $=
+    ( cr wcel w3a cmin co cabs cfv clt wbr cneg wa caddc wb absltt resubclt
+    sylan 3impa ltaddsub2t renegclt syl3an2 3comr wceq cc negsubt recnt syl2an
+    3adant1 breq1d bitr3d ltsubadd2t anbi12d bitrd ) ADEZBDEZCDEZFZABGHZIJCKLZC
+    MZUTKLZUTCKLZNZBCGHZAKLZABCOHKLZNUPUQURVAVEPZUTDEURVIUPUQNUTCQABRSTUSVCVGVD
+    VHUSBVBOHZAKLZVCVGUQURUPVKVCPZUQVBDEUPVLURBVBAUACUBUCUDUSVJVFAKUQURVJVFUEZU
+    PBUFECUFEVMUQURBCUGBUHCUHUIUJUKULABCUMUNUO $.
+    $( [19-Sep-2007] $) $( [18-Sep-2007] $)
+
+  $( The absolute value of a difference and 'less than or equal to' relation.
+     (Contributed by Paul Chapman, 18-Sep-2007.) $)
+  absdiflet $p |- ( ( A e. RR /\ B e. RR /\ C e. RR ) ->
+                    ( ( abs ` ( A - B ) ) <_ C <->
+                      ( ( B - C ) <_ A /\ A <_ ( B + C ) ) ) ) $=
+    ( cr wcel w3a cmin co cabs cfv cle wbr cneg wa caddc wb abslet resubclt
+    sylan 3impa leaddsub2t renegclt syl3an2 3comr wceq cc negsubt recnt syl2an
+    3adant1 breq1d bitr3d lesubadd2t anbi12d bitrd ) ADEZBDEZCDEZFZABGHZIJCKLZC
+    MZUTKLZUTCKLZNZBCGHZAKLZABCOHKLZNUPUQURVAVEPZUTDEURVIUPUQNUTCQABRSTUSVCVGVD
+    VHUSBVBOHZAKLZVCVGUQURUPVKVCPZUQVBDEUPVLURBVBAUACUBUCUDUSVJVFAKUQURVJVFUEZU
+    PBUFECUFEVMUQURBCUGBUHCUHUIUJUKULABCUMUNUO $.
+    $( [19-Sep-2007] $) $( [18-Sep-2007] $)
+
   $( Comparison to a nonnegative number based on comparison to squares. $)
   lenegsqt $p |- ( ( A e. RR /\ B e. RR /\ 0 <_ B ) ->
               ( ( A <_ B /\ -u A <_ B ) <-> ( A ^ 2 ) <_ ( B ^ 2 ) ) ) $=
@@ -1238,11 +1367,11 @@ $)
                   ( 1 / A ) = ( ( * ` A ) / ( ( abs ` A ) ^ 2 ) ) ) $=
       ( cc0 wne c1 cabs cfv c2 cexp co ccj cdiv wceq cmul cjcl mulcom absvalsq
       eqtr4 wb cc wcel cjne0t ax-mp abscl resqcl recn divmulz sylbi mpbiri
-      opreq2d wa recdivt mpanl12 clt wbr gt0ne0 absgt0 sq00 eqneqi 3imtr4
-      biimp sylanc eqtr3d ) ACDZEAFGZHIJZAKGZLJZLJZEALJVGVFLJZVDVHAELVDVHAMZVGA
-      NJZVFMZVLAVGNJVFVGAABOZBPABQRVDVGCDZVKVMSATUAVDVOSBAUBUCZVFVGAVFVEABUDZUE
-      UFZVNBUGUHUIUJVFCDZVOVIVJMZVDVFTUAVGTUAVSVOUKVTVRVNVFVGULUMCVEUNUOVECDVDV
-      SVEVQUPABUQVFCVECVEVEVQUFURUSUTVDVOVPVAVBVC $.
+      opreq2d wa recdivt mpanr1 mpanl1 clt wbr gt0ne0 absgt0 sq00 necon3bii
+      3imtr4 biimp sylanc eqtr3d ) ACDZEAFGZHIJZAKGZLJZLJZEALJVHVGLJZVEVIAELVEV
+      IAMZVHANJZVGMZVMAVHNJVGVHAABOZBPABQRVEVHCDZVLVNSATUAVEVPSBAUBUCZVGVHAVGVF
+      ABUDZUEUFZVOBUGUHUIUJVGCDZVPVJVKMZVEVGTUAZVTVPWAVSWBVTUKVHTUAVPWAVOVGVHUL
+      UMUNCVFUOUPVFCDVEVTVFVRUQABURVGCVFCVFVFVRUFUSUTVAVEVPVQVBVCVD $.
       $( [8-Jul-2005] $) $( [29-Apr-2005] $)
   $}
 
@@ -1254,16 +1383,16 @@ $)
                     ( * ` ( A / B ) ) = ( ( * ` A ) / ( * ` B ) ) ) $=
       ( cc0 wne cdiv co ccj cfv c1 cmul divrecz fveq2d cc wcel wceq recclz
       cjmult mpan syl wb cjne0t ax-mp cjcl sylbi cabs c2 cexp cr clt wbr abscl
-      gt0ne0 absgt0 recn sq00 eqneqi 3imtr4 resqcl rerecclz cjret 3syl opreq2d
-      a1i sylanc abscj opreq1i opreq2i syl5eq 3eqtr4rd recvalz eqtrd 3eqtr4d
-      eqtr2d 3eqtrd ) BEFZABGHZIJAKBGHZLHZIJZAIJZVSIJZLHZWBBIJZGHZVQVRVTIABCDMN
-      VQVSOPZWAWDQZBDRAOPWGWHCAVSSTUAVQWFWBKWEGHZLHZWDVQWEEFZWFWJQBOPVQWKUBDBUC
-      UDZWBWEACUEBDUEZMUFVQWIWCWBLVQWEIJZWEUGJZUHUIHZGHZWEKBUGJZUHUIHZGHZLHZIJZ
-      WIWCVQWNWTIJZLHZWNWTLHZXBWQVQXCWTWNLVQWSEFZWTUJPXCWTQEWRUKULWREFVQXFWRBDU
-      MZUNBDUOWSEWREWRWRXGUPUQURUSZWSWRXGUTZVAWTVBVCVDWEOPZWTOPZXBXDQVQWEWTSXJV
-      QWMVEVQXFXKXHWSWSXIUPZRUAVFVQWNWSGHZXEWQVQXFXMXEQXHWNWSWEWMUEXLMUAWPWSWNG
-      WOWRUHUIBDVGVHVIVJVKVQWKWIWQQWLWEWMVLUFVQVSXAIVQVSWEWSGHZXABDVLVQXFXNXAQX
-      HWEWSWMXLMUAVMNVNVDVOVP $.
+      gt0ne0 absgt0 recn sq00 necon3bii 3imtr4 resqcl rerecclz cjret 3syl
+      opreq2d a1i sylanc abscj opreq1i opreq2i syl5eq 3eqtr4rd recvalz eqtrd
+      3eqtr4d eqtr2d 3eqtrd ) BEFZABGHZIJAKBGHZLHZIJZAIJZVSIJZLHZWBBIJZGHZVQVRV
+      TIABCDMNVQVSOPZWAWDQZBDRAOPWGWHCAVSSTUAVQWFWBKWEGHZLHZWDVQWEEFZWFWJQBOPVQ
+      WKUBDBUCUDZWBWEACUEBDUEZMUFVQWIWCWBLVQWEIJZWEUGJZUHUIHZGHZWEKBUGJZUHUIHZG
+      HZLHZIJZWIWCVQWNWTIJZLHZWNWTLHZXBWQVQXCWTWNLVQWSEFZWTUJPXCWTQEWRUKULWREFV
+      QXFWRBDUMZUNBDUOWSEWREWRWRXGUPUQURUSZWSWRXGUTZVAWTVBVCVDWEOPZWTOPZXBXDQVQ
+      WEWTSXJVQWMVEVQXFXKXHWSWSXIUPZRUAVFVQWNWSGHZXEWQVQXFXMXEQXHWNWSWEWMUEXLMU
+      AWPWSWNGWOWRUHUIBDVGVHVIVJVKVQWKWIWQQWLWEWMVLUFVQVSXAIVQVSWEWSGHZXABDVLVQ
+      XFXNXAQXHWEWSWMXLMUAVMNVNVDVOVP $.
       $( [13-Dec-2005] $) $( [29-Apr-2005] $)
   $}
 
@@ -1327,6 +1456,23 @@ $)
     MUJUOUQUGULGBUKUFENMUQUIUNGBUKUFELMOUFUKAJCPQBJCPQRS $.
     $( [1-Oct-1999] $)
 
+  $( Absolute value of a nonnegative difference. $)
+  abssubge0t $p |- (  ( A e. RR /\ B e. RR /\ A <_ B )
+                      -> ( abs ` ( B - A ) ) = ( B - A ) ) $=
+    ( cr wcel cle wbr cmin co cabs cfv wceq cc0 w3a absidt resubclt 3adant3 wa
+    subge0t biimpar 3impa sylanc 3com12 ) BCDZACDZABEFZBAGHZIJUFKZUFCDZLUFEFZUG
+    UCUDUEMUFNUCUDUHUEBAOPUCUDUEUIUCUDQUIUEBARSTUAUB $.
+    $( [14-Feb-2008] $) $( [14-Feb-2008] $)
+
+  $( Absolute value of a nonpositive difference.  (Contributed by FL,
+     3-Jan-2008.) $)
+  abssuble0t $p |- (  ( A e. RR /\ B e. RR /\ A <_ B )
+                      -> ( abs ` ( A - B ) ) = ( B - A ) ) $=
+    ( cr wcel cle wbr w3a cmin co cabs cfv wceq cc abssubt recnt syl2an
+    3adant3 abssubge0t eqtrd ) ACDZBCDZABEFZGABHIJKZBAHIZJKZUDTUAUCUELZUBAMDBMD
+    UFTUAABNAOBOPQABRS $.
+    $( [23-Jan-2008] $) $( [3-Jan-2008] $)
+
   $( Triangle inequality for absolute value.  Proposition 10-3.7(h) of
      [Gleason] p. 133. $)
   abstrit $p |- ( ( A e. CC /\ B e. CC ) ->
@@ -1353,7 +1499,7 @@ $)
     abs3dif.1 $e |- A e. CC $.
     abs3dif.2 $e |- B e. CC $.
     abs3dif.3 $e |- C e. CC $.
-    $( Absolute value of differences around common element.  $)
+    $( Absolute value of differences around common element. $)
     abs3dif $p |- ( abs ` ( A - B ) ) <_ ( ( abs ` ( A - C ) ) +
                   ( abs ` ( C - B ) ) ) $=
       ( cc wcel cmin co cabs cfv caddc cle wbr abs3dift mp3an ) AGHBGHCGHABIJKL
@@ -1365,15 +1511,41 @@ $)
       abs3lem $p |- ( ( ( abs ` ( A - C ) ) < ( D / 2 ) /\
                          ( abs ` ( C - B ) ) < ( D / 2 ) ) ->
                          ( abs ` ( A - B ) ) < D ) $=
-        ( cmin co cabs cfv c2 cdiv clt wbr wa caddc subcl abscl 2re 2pos
-        gt0ne0i redivcl lt2add cle abs3dif readdcl lelttr mpan syl cmul recn
-        2cn divcl 2times divcan2 eqtr3 syl6breq ) ACIJZKLZDMNJZOPCBIJZKLZVBOPQZ
-        ABIJZKLZVBVBRJZDOVEVAVDRJZVHOPZVGVHOPZVAVDVBVBUTACEGSTZVCCBGFSTZDMHUAMU
-        AUBUCZUDZVOUEVGVIUFPVJVKABCEFGUGVGVIVHVFABEFSTVAVDVLVMUHVBVBVOVOUHUIUJU
-        KMVBULJVHDVBDMDHUMZUNVNUOUPMDUNVPVNUQURUS $.
+        ( cmin co cabs cfv c2 cdiv clt wbr wa caddc subcl abscl 2re 2ne0
+        redivcl lt2add cle abs3dif readdcl lelttr mpan syl cmul recn 2times
+        2cn divcan2 eqtr3 syl6breq ) ACIJZKLZDMNJZOPCBIJZKLZUTOPQZABIJZKLZUTUTR
+        JZDOVCUSVBRJZVFOPZVEVFOPZUSVBUTUTURACEGSTZVACBGFSTZDMHUAUBUCZVLUDVEVGUE
+        PVHVIABCEFGUFVEVGVFVDABEFSTUSVBVJVKUGUTUTVLVLUGUHUIUJMUTUKJVFDUTUTVLULU
+        MMDUNDHULUBUOUPUQ $.
         $( [2-Oct-1999] $)
     $}
   $}
+
+  $( Difference of absolute values.  (Contributed by Paul Chapman,
+     7-Sep-2007.) $)
+  abs2dift $p |- ( ( A e. CC /\ B e. CC ) ->
+                 ( ( abs ` A ) - ( abs ` B ) ) <_ ( abs ` ( A - B ) ) ) $=
+    ( cc wcel wa cc0 cmin co cabs cfv cle subid1t fveq2d opreqan12d wbr caddc
+    0cn abs3dift mp3an2 cr w3a wb subclt mpan2 absclt syl anim12i jca df-3an
+    sylibr lesubaddt mpbird eqbrtrrd ) ACDZBCDZEZAFGHZIJZBFGHZIJZGHZAIJZBIJZGHA
+    BGHZIJZKUNUOURVBUTVCGUNUQAIALMUOUSBIBLMNUPVAVEKOZURVEUTPHKOZUNFCDZUOVGQAFBR
+    SUPURTDZUTTDZVETDZUAZVFVGUBUPVIVJEZVKEVLUPVMVKUNVIUOVJUNUQCDZVIUNVHVNQAFUCU
+    DUQUEUFUOUSCDZVJUOVHVOQBFUCUDUSUEUFUGUPVDCDVKABUCVDUEUFUHVIVJVKUIUJURUTVEUK
+    UFULUM $.
+    $( [8-Sep-2007] $) $( [7-Sep-2007] $)
+
+  $( Absolute value of difference of absolute values.  (Contributed by Paul
+     Chapman, 7-Sep-2007.) $)
+  abs2difabst $p |- ( ( A e. CC /\ B e. CC ) ->
+            ( abs ` ( ( abs ` A ) - ( abs ` B ) ) ) <_ ( abs ` ( A - B ) ) ) $=
+    ( cc wcel wa cabs cfv cmin co cle wbr cneg abs2dift ancoms wceq negsubdi2t
+    absclt recnd syl2an abssubt 3brtr4d jca cr wb abslet resubclt subclt syl
+    sylanc lenegcon1t anbi1d bitr4d mpbird ) ACDZBCDZEZAFGZBFGZHIZFGABHIZFGZJKZ
+    USLZVAJKZUSVAJKZEZUPVDVEUPURUQHIZBAHIFGZVCVAJUOUNVGVHJKBAMNUQCDURCDVCVGOUNU
+    OUQURPUNUQAQZRUOURBQZRSABTUAABMUBUPVBVALUSJKZVEEZVFUSUCDZVAUCDZVBVLUDUPUSVA
+    UEUQUCDURUCDVMUNUOUQURUFVIVJSZUPUTCDVNABUGUTQUHZUIUPVDVKVEVMVNVDVKUDUPUSVAU
+    JVOVPUIUKULUM $.
+    $( [8-Sep-2007] $) $( [7-Sep-2007] $)
 
   ${
     $d x A $.
@@ -1382,40 +1554,45 @@ $)
        produces its absolute value.  Part of proof of Theorem 13-2.12 of
        [Gleason] p. 195. $)
     abs1m $p |- E. x e. CC ( ( abs ` x ) = 1 /\ ( abs ` A ) = ( x x. A ) ) $=
-      ( cc0 wceq cv cabs cfv c1 cmul co wa cc wrex wcel abs00 biimpr opreq2
+      ( cv cabs cfv c1 wceq cmul co wa cc wrex cc0 wcel abs00 biimpr opreq2
       0cn mulid2 syl6eq eqtr4d cle wbr 0re 1re lt01 ltlei absid ax-mp jctil
-      ax1cn fveq2 eqeq1d opreq1 eqeq2d anbi12d rcla4ev syl wn wne df-ne ccj
-      cdiv eqneqi cjcl abscl recn divclz absdivz dividt mpan abscj absidmt
+      ax1cn fveq2 eqeq1d opreq1 eqeq2d anbi12d rcla4ev syl wne ccj cdiv
+      necon3bii cjcl abscl recn divclz absdivz dividt mpan abscj absidmt
       opreq12i syl5eq eqtrd c2 cexp absvalsq sqval mulcom 3eqtr3 mulcl divmulz
-      mpbiri w3a 3pm3.2i div23t eqtr3d jca sylbir pm2.61i ) BDEZAFZGHZIEZBGHZWO
-      BJKZEZLZAMNZWNIMOZIGHZIEZWRIBJKZEZLZLXBWNXHXCWNXGXEWNWRDXFWRDEWNBCPZQWNXF
-      IDJKDBDIJRDSTUAUBDIUCUDXEDIUEUFUGUHIUFUIUJUKULUKXAXHAIMWOIEZWQXEWTXGXJWPX
-      DIWOIGUMUNXJWSXFWRWOIBJUOUPUQURUSWNUTBDVAZXBBDVBXKBVCHZWRVDKZMOZXMGHZIEZW
-      RXMBJKZEZLZLZXBXKWRDVAZXTWRDBDXIVEYAXNXSXLWRBCVFZWRBCVGVHZVIYAXPXRYAXOXLG
-      HZWRGHZVDKZIXLWRYBYCVJYAWRWRVDKZIYFWRMOZYAYGIEYCWRVKVLYDWRYEWRVDBCVMBMOZY
-      EWRECBVNUJVOVPVQYAXLBJKZWRVDKZWRXQYAYKWREWRWRJKZYJEWRVRVSKBXLJKYLYJBCVTWR
-      YCWABXLCYBWBWCYJWRWRXLBYBCWDYCYCWEWFXLMOZYIYHWGYAYKXQEYMYIYHYBCYCWHXLBWRW
-      IVLWJWKWKWLXAXSAXMMWOXMEZWQXPWTXRYNWPXOIWOXMGUMUNYNWSXQWRWOXMBJUOUPUQURUS
-      WLWM $.
+      mpbiri w3a 3pm3.2i div23t eqtr3d jca sylbir pm2.61ine ) ADZEFZGHZBEFZWLBI
+      JZHZKZALMZBNBNHZGLOZGEFZGHZWOGBIJZHZKZKWSWTXFXAWTXEXCWTWONXDWONHWTBCPZQWT
+      XDGNIJNBNGIRNSTUAUBNGUCUDXCNGUEUFUGUHGUFUIUJUKULUKWRXFAGLWLGHZWNXCWQXEXHW
+      MXBGWLGEUMUNXHWPXDWOWLGBIUOUPUQURUSBNUTZBVAFZWOVBJZLOZXKEFZGHZWOXKBIJZHZK
+      ZKZWSXIWONUTZXRWONBNXGVCXSXLXQXJWOBCVDZWOBCVEVFZVGXSXNXPXSXMXJEFZWOEFZVBJ
+      ZGXJWOXTYAVHXSWOWOVBJZGYDWOLOZXSYEGHYAWOVIVJYBWOYCWOVBBCVKBLOZYCWOHCBVLUJ
+      VMVNVOXSXJBIJZWOVBJZWOXOXSYIWOHWOWOIJZYHHWOVPVQJBXJIJYJYHBCVRWOYAVSBXJCXT
+      VTWAYHWOWOXJBXTCWBYAYAWCWDXJLOZYGYFWEXSYIXOHYKYGYFXTCYAWFXJBWOWGVJWHWIWIW
+      JWRXQAXKLWLXKHZWNXNWQXPYLWMXMGWLXKEUMUNYLWPXOWOWLXKBIUOUPUQURUSWK $.
       $( [26-Jul-2005] $) $( [26-Mar-2005] $)
   $}
 
   ${
-    $d x A $.  $d x B $.
+    $d x y A $.  $d x B $.
     $( Cancellation law involving the real part of a complex number. $)
     recant $p |- ( ( A e. CC /\ B e. CC ) -> ( A. x e. CC
                  ( Re ` ( x x. A ) ) = ( Re ` ( x x. B ) ) <-> A = B ) ) $=
-      ( cc wcel wa cv cmul co cre cfv wceq wral c1 ci cneg caddc cim replimt
-      mulid2t eqcomd fveq2d imret opreq1d opreq12d eqtrd eqeqan12d wi ax1cn
-      opreq1 eqeq12d rcla4v ax-mp axicn negcl syl5bir opreq2 a1d r19.21aiv
-      impbid1 ) BDEZCDEZFZAGZBHIZJKZVDCHIZJKZLZADMZBCLZVCVKNBHIZJKZOPZBHIZJKZOH
-      IZQIZNCHIZJKZVNCHIZJKZOHIZQIZLVJVAVBBVRCWDVABBJKZBRKZOHIZQIVRBSVAWEVMWGVQ
-      QVABVLJVAVLBBTUAUBVAWFVPOHBUCUDUEUFVBCCJKZCRKZOHIZQIWDCSVBWHVTWJWCQVBCVSJ
-      VBVSCCTUAUBVBWIWBOHCUCUDUEUFUGVJVMVTVQWCQNDEVJVMVTLZUHUIVIWKANDVDNLZVFVMV
-      HVTWLVEVLJVDNBHUJUBWLVGVSJVDNCHUJUBUKULUMVJVPWBOHVNDEVJVPWBLZUHOUNUOVIWMA
-      VNDVDVNLZVFVPVHWBWNVEVOJVDVNBHUJUBWNVGWAJVDVNCHUJUBUKULUMUDUEUPVKVIADVKVI
-      VDDEVKVEVGJBCVDHUQUBURUSUT $.
+      ( cc wcel wa cv cmul co cre cfv wceq wral c1 ci cneg caddc cim
+      replimtOLD mulid2t eqcomd fveq2d imret opreq1d opreq12d eqtrd eqeqan12d
+      wi ax1cn opreq1 eqeq12d rcla4v ax-mp axicn negcl syl5bir opreq2 a1d
+      r19.21aiv impbid1 ) BDEZCDEZFZAGZBHIZJKZVDCHIZJKZLZADMZBCLZVCVKNBHIZJKZOP
+      ZBHIZJKZOHIZQIZNCHIZJKZVNCHIZJKZOHIZQIZLVJVAVBBVRCWDVABBJKZBRKZOHIZQIVRBS
+      VAWEVMWGVQQVABVLJVAVLBBTUAUBVAWFVPOHBUCUDUEUFVBCCJKZCRKZOHIZQIWDCSVBWHVTW
+      JWCQVBCVSJVBVSCCTUAUBVBWIWBOHCUCUDUEUFUGVJVMVTVQWCQNDEVJVMVTLZUHUIVIWKAND
+      VDNLZVFVMVHVTWLVEVLJVDNBHUJUBWLVGVSJVDNCHUJUBUKULUMVJVPWBOHVNDEVJVPWBLZUH
+      OUNUOVIWMAVNDVDVNLZVFVPVHWBWNVEVOJVDVNBHUJUBWNVGWAJVDVNCHUJUBUKULUMUDUEUP
+      VKVIADVKVIVDDEVKVEVGJBCVDHUQUBURUSUT $.
       $( [29-Jul-2005] $) $( [12-May-2005] $)
+
+    $( Mapping domain and codomain of the absolute value function. $)
+    absf $p |- abs : CC --> RR $=
+      ( vx vy cc cr cv ccj cfv cmul co csqr cabs df-abs wcel absvalt absclt
+      eqeltrrd fopab ) ABCDAEZRFGHIJGZKABLRCMRKGSDRNROPQ $.
+      $( [31-Aug-2007] $) $( [30-Aug-2007] $)
   $}
 
   $( Lemma involving absolute value of differences. $)
@@ -1444,7 +1621,7 @@ $)
       abslem2i $p |- ( ( ( * ` ( A / ( abs ` A ) ) ) x. A ) +
       ( ( A / ( abs ` A ) ) x. ( * ` A ) ) ) = ( 2 x. ( abs ` A ) ) $=
         ( c2 cabs cfv cmul co caddc cdiv ccj abscl recn 2times cr wcel wceq
-        cjreb mpbi cexp sqval absvalsq eqtr3 opreq1i cc0 wne abs00 eqneqi
+        cjreb mpbi cexp sqval absvalsq eqtr3 opreq1i cc0 wne abs00 necon3bii
         mpbir divcan4 cjcl div23 3eqtr3 fveq2i divcl cjmul cjcj opreq2i 3eqtr
         opreq12i eqtr2 ) DAEFZGHVBVBIHAVBJHZKFZAGHZVCAKFZGHZIHVBVBABLZMZNVBVEVB
         VGIVBVGKFZVDVFKFZGHVEVBKFZVBVJVBOPVLVBQVHVBVIRSVBVGKVBVBGHZVBJHAVFGHZVB
@@ -1472,32 +1649,32 @@ $)
     seq1bnd $p |- ( A e. NN -> E. x e. RR A. y e. NN ( y <_ A ->
                  ( abs ` ( F ` y ) ) < x ) ) $=
       ( vz vw cv cle wbr cfv cabs clt wi cn wral cr wrex c1 caddc co wceq
-      breq2 imbi1d rexralbidv wcel cc wf 1nn ffvrn mp2an abscl 1re readdcl
+      breq2 imbi1d rexralbidv wcel cc wf 1nn ffvelrn mp2an abscl 1re readdcl
       nnle1eq1t fveq2 fveq2d ltp1 syl6eqbr syl6bi rgen imbi2d ralbidv rcla4ev
       wa cif wo wb leloet nnret peano2nn syl syl2an nnleltp1t orbi1d bitr4d
-      ancoms adantlr adantr max1ALT ad2antlr ltletrt ffvrni absclt adantl
+      ancoms adantlr adantr max1ALT ad2antlr ltletrt ffvelrni absclt adantl
       simplr ifcl peano2re 3syl sylan syl3anc mpan2d imim2d imp breq1d ltp1t
-      syl5bir com12 ad2antrr max2 sylan2 syld jaod sylbid ex r19.20dva jctild
-      syl6 r19.23adva cbvrexv syl5ib nnind ) BHZFHZIJZXMDKZLKZAHZMJZNZBOPAQRXMS
-      IJZXSNZBOPZAQRZXMGHZIJZXSNZBOPZAQRZXMYESTUAZIJZXSNZBOPZAQRZXMCIJZXSNZBOPA
-      QRFGCXNSUBZXTYBABQOYQXOYAXSXNSXMIUCUDUEXNYEUBZXTYGABQOYRXOYFXSXNYEXMIUCUD
-      UEXNYJUBZXTYLABQOYSXOYKXSXNYJXMIUCUDUEXNCUBZXTYPABQOYTXOYOXSXNCXMIUCUDUES
-      DKZLKZSTUAZQUFYAXQUUCMJZNZBOPZYDUUBSUUAOUGDUHSOUFUUAUGUFEUIOUGSDUJUKULZUM
-      UNUUEBOXMOUFZYAXMSUBZUUDXMUOUUIXQUUBUUCMUUIXPUUALXMSDUPUQUUBUUGURUSUTVAYC
-      UUFAUUCQXRUUCUBZYBUUEBOUUJXSUUDYAXRUUCXQMUCVBVCVDUKYEOUFZYFXQXNMJZNZBOPZF
-      QRYNYIUUKUUNYNFQUUKXNQUFZVEZUUNXNYJDKZLKZSTUAZIJZUUSXNVFZQUFZYKXQUVAMJZNZ
-      BOPZVEYNUUPUUNUVEUVBUUPUUMUVDBOUUPUUHVEZUUMUVDUVFUUMVEZYKYFXMYJUBZVGZUVCU
-      VFYKUVIVHZUUMUUKUUHUVJUUOUUHUUKUVJUUHUUKVEZYKXMYJMJZUVHVGZUVIXMQUFYJQUFZY
-      KUVMVHUUHUUKXMYJVIXMVJUUKYJOUFZUVNYEVKZYJVJVLVMUVKYFUVLUVHXMYEVNVOVPVQVRV
-      SUVGYFUVCUVHUVFUUMYFUVCNUVFUULUVCYFUVFUULXNUVAIJZUVCUUOUVQUUKUUHXNUUSVTWA
-      XQQUFZUUOUVBUULUVQVEUVCNUVFXQXNUVAWBUUHUVRUUPUUHXPUGUFUVROUGXMDEWCXPWDVLW
-      EZUUKUUOUUHWFUUPUVBUUHUUSQUFZUUOUVBUUKUUTUUSXNQWGUUKUUQUGUFZUURQUFZUVTUUK
-      UVOUWAUVPOUGYJDEWCVLZUUQWDZUURWHWIZWJZVSZWKWLWMWNUVFUVHUVCNUUMUVFUVHXQUUS
-      MJZUVCUUKUVHUWHNUUOUUHUVHUUKUWHUVHUWHUURUUSMJZUUKUVHXQUURUUSMUVHXPUUQLXMY
-      JDUPUQWOUUKUWAUWBUWIUWCUWDUURWPWIWQWRWSUVFUWHUUSUVAIJZUVCUUPUWJUUHUUOUUKU
-      WJUUOUVTUWJUUKXNUUSWTUWEXAVQVSUVRUVTUVBUWHUWJVEUVCNUVFXQUUSUVAWBUVSUUKUVT
-      UUOUUHUWEWSUWGWKWLXBVSXCXDXEXFUWFXGYMUVEAUVAQXRUVAUBZYLUVDBOUWKXSUVCYKXRU
-      VAXQMUCVBVCVDXHXIYHUUNAFQXRXNUBZYGUUMBOUWLXSUULYFXRXNXQMUCVBVCXJXKXL $.
+      syl5cbir ad2antrr max2 sylan2 syld jaod sylbid ex r19.20dva jctild syl6
+      r19.23adva cbvrexv syl5ib nnind ) BHZFHZIJZXLDKZLKZAHZMJZNZBOPAQRXLSIJZXR
+      NZBOPZAQRZXLGHZIJZXRNZBOPZAQRZXLYDSTUAZIJZXRNZBOPZAQRZXLCIJZXRNZBOPAQRFGC
+      XMSUBZXSYAABQOYPXNXTXRXMSXLIUCUDUEXMYDUBZXSYFABQOYQXNYEXRXMYDXLIUCUDUEXMY
+      IUBZXSYKABQOYRXNYJXRXMYIXLIUCUDUEXMCUBZXSYOABQOYSXNYNXRXMCXLIUCUDUESDKZLK
+      ZSTUAZQUFXTXPUUBMJZNZBOPZYCUUASYTOUGDUHSOUFYTUGUFEUIOUGSDUJUKULZUMUNUUDBO
+      XLOUFZXTXLSUBZUUCXLUOUUHXPUUAUUBMUUHXOYTLXLSDUPUQUUAUUFURUSUTVAYBUUEAUUBQ
+      XQUUBUBZYAUUDBOUUIXRUUCXTXQUUBXPMUCVBVCVDUKYDOUFZYEXPXMMJZNZBOPZFQRYMYHUU
+      JUUMYMFQUUJXMQUFZVEZUUMXMYIDKZLKZSTUAZIJZUURXMVFZQUFZYJXPUUTMJZNZBOPZVEYM
+      UUOUUMUVDUVAUUOUULUVCBOUUOUUGVEZUULUVCUVEUULVEZYJYEXLYIUBZVGZUVBUVEYJUVHV
+      HZUULUUJUUGUVIUUNUUGUUJUVIUUGUUJVEZYJXLYIMJZUVGVGZUVHXLQUFYIQUFZYJUVLVHUU
+      GUUJXLYIVIXLVJUUJYIOUFZUVMYDVKZYIVJVLVMUVJYEUVKUVGXLYDVNVOVPVQVRVSUVFYEUV
+      BUVGUVEUULYEUVBNUVEUUKUVBYEUVEUUKXMUUTIJZUVBUUNUVPUUJUUGXMUURVTWAXPQUFZUU
+      NUVAUUKUVPVEUVBNUVEXPXMUUTWBUUGUVQUUOUUGXOUGUFUVQOUGXLDEWCXOWDVLWEZUUJUUN
+      UUGWFUUOUVAUUGUURQUFZUUNUVAUUJUUSUURXMQWGUUJUUPUGUFZUUQQUFZUVSUUJUVNUVTUV
+      OOUGYIDEWCVLZUUPWDZUUQWHWIZWJZVSZWKWLWMWNUVEUVGUVBNUULUVEUVGXPUURMJZUVBUU
+      JUVGUWGNUUNUUGUVGUWGUUQUURMJZUUJUVGXPUUQUURMUVGXOUUPLXLYIDUPUQWOUUJUVTUWA
+      UWHUWBUWCUUQWPWIWQWRUVEUWGUURUUTIJZUVBUUOUWIUUGUUNUUJUWIUUNUVSUWIUUJXMUUR
+      WSUWDWTVQVSUVQUVSUVAUWGUWIVEUVBNUVEXPUURUUTWBUVRUUJUVSUUNUUGUWDWRUWFWKWLX
+      AVSXBXCXDXEUWEXFYLUVDAUUTQXQUUTUBZYKUVCBOUWJXRUVBYJXQUUTXPMUCVBVCVDXGXHYG
+      UUMAFQXQXMUBZYFUULBOUWKXRUUKYEXQXMXPMUCVBVCXIXJXK $.
       $( [22-Apr-2005] $) $( [3-Apr-2005] $)
   $}
 
@@ -1506,42 +1683,42 @@ $)
     seq1ub.1 $e |- F : NN --> RR $.
     $( Lemma for ~ seq1ub . $)
     seq1ublem $p |- ( B e. NN -> ( ran ( F |` { x e. NN | x <_ B } ) (_ RR /\
-        -. ran ( F |` { x e. NN | x <_ B } ) = (/) /\
+        ran ( F |` { x e. NN | x <_ B } ) =/= (/) /\
         E. y e. RR A. z e. ran ( F |` { x e. NN | x <_ B } ) z <_ y ) ) $=
-      ( vw vv cn wcel cv cle wbr crab cres crn cr wss c0 wceq wn wral wrex wf
+      ( vw vv cn wcel cv cle wbr crab cres crn cr wss c0 wne wral wrex wf
       ssrab2 fssres mp2an frn ax-mp a1i c1 cfv wfn wa nnge1t 1nn jctil breq1
-      elrab sylibr ffn fnssres fnfvrn syl n0i cabs clt wi cc axresscn fss
-      seq1bnd fveq2 fveq2d breq1d imbi12d rcla4cv imp32 adantll adantr leabst
-      lelttrt 3expa recnt absclt ancli sylan mpand ltlet syld ffvrni ancoms
-      adantrr wb fvres sylbir adantl sylibrd biimpd sylan9 adantllr mpd exp31
-      syl5ib r19.23adv fvelrn ex r19.21adv r19.22i 3jca ) DIJZEAKZDLMZAINZOZPZQ
-      RZXPSTUAZCKZBKZLMZCXPUBZBQUCZXQXKXNQXOUDZXQIQEUDZXNIRZYDFXMAIUEZIQXNEUFUG
-      XNQXOUHUIUJXKUKXOULZXPJZXRXKXOXNUMZUKXNJZUNYIXKYKYJXKUKIJZUKDLMZUNYKXKYMY
-      LDUOUPUQXMYMAUKIXLUKDLURUSUTEIUMZYFYJYEYNFIQEVAUIYGIXNEVBUGZUQXNUKXOVCVDX
-      PYHVEVDXKGKZDLMZYPEULZVFULZXTVGMZVHZGIUBZBQUCYCBGDEYEQVIRIVIEUDFVJIQVIEVK
-      UGVLUUBYBBQXTQJZUUBYACXPUUCUUBXSXPJZYAVHUUCUUBUNZHKZXOULZXSTZHXNUCZYAUUDU
-      UEUUHYAHXNUUEUUFIJZUUFDLMZUNZUUHYAVHUUFXNJZUUEUULUUHYAUUEUULUNZUUHUNUUFEU
-      LZVFULZXTVGMZYAUUNUUQUUHUUBUULUUQUUCUUBUUJUUKUUQUUAUUKUUQVHGUUFIYPUUFTZYQ
-      UUKYTUUQYPUUFDLURUURYSUUPXTVGUURYRUUOVFYPUUFEVMVNVOVPVQVRVSVTUUCUULUUHUUQ
-      YAVHUUBUUCUULUNZUUQUUGXTLMZUUHYAUUSUUQUUOXTLMZUUTUUCUUJUUQUVAVHZUUKUUJUUC
-      UVBUUOQJZUUCUVBUUJUVCUUCUNZUUQUUOXTVGMZUVAUVDUUOUUPLMZUUQUVEUVCUVFUUCUUOW
-      AVTUVCUUPQJZUNUUCUVFUUQUNUVEVHZUVCUVCUVGUUCUVHUUOUUPXTWBWCUVCUVGUVCUUOVIJ
-      UVGUUOWDUUOWEVDWFWGWHUUOXTWIWJIQUUFEFWKWGWLWMUULUUTUVAWNUUCUULUUGUUOXTLUU
-      LUUMUUGUUOTXMUUKAUUFIXLUUFDLURUSZUUFXNEWOWPVOWQWRUUHUUTYAUUGXSXTLURWSWTXA
-      XBXCUVIXDXEYJUUDUUIWNYOHXNXSXOXFUIXDXGXHXIVDXJ $.
-      $( [24-Apr-2005] $) $( [20-Apr-2005] $)
+      elrab sylibr ffn fnssres fnfvelrn syl ne0i cabs clt wi cc axresscn fss
+      seq1bnd wceq fveq2 fveq2d breq1d imbi12d rcla4cv imp32 adantll adantr
+      leabst lelttrt 3expa recnt absclt ancli sylan mpand ltlet syld ffvelrni
+      ancoms adantrr wb fvres sylbir adantl sylibrd biimpd sylan9 adantllr mpd
+      exp31 syl5ib r19.23adv fvelrnb ex r19.21adv r19.22i 3jca ) DIJZEAKZDLMZAI
+      NZOZPZQRZXPSTZCKZBKZLMZCXPUAZBQUBZXQXKXNQXOUCZXQIQEUCZXNIRZYDFXMAIUDZIQXN
+      EUEUFXNQXOUGUHUIXKUJXOUKZXPJZXRXKXOXNULZUJXNJZUMYIXKYKYJXKUJIJZUJDLMZUMYK
+      XKYMYLDUNUOUPXMYMAUJIXLUJDLUQURUSEIULZYFYJYEYNFIQEUTUHYGIXNEVAUFZUPXNUJXO
+      VBVCXPYHVDVCXKGKZDLMZYPEUKZVEUKZXTVFMZVGZGIUAZBQUBYCBGDEYEQVHRIVHEUCFVIIQ
+      VHEVJUFVKUUBYBBQXTQJZUUBYACXPUUCUUBXSXPJZYAVGUUCUUBUMZHKZXOUKZXSVLZHXNUBZ
+      YAUUDUUEUUHYAHXNUUEUUFIJZUUFDLMZUMZUUHYAVGUUFXNJZUUEUULUUHYAUUEUULUMZUUHU
+      MUUFEUKZVEUKZXTVFMZYAUUNUUQUUHUUBUULUUQUUCUUBUUJUUKUUQUUAUUKUUQVGGUUFIYPU
+      UFVLZYQUUKYTUUQYPUUFDLUQUURYSUUPXTVFUURYRUUOVEYPUUFEVMVNVOVPVQVRVSVTUUCUU
+      LUUHUUQYAVGUUBUUCUULUMZUUQUUGXTLMZUUHYAUUSUUQUUOXTLMZUUTUUCUUJUUQUVAVGZUU
+      KUUJUUCUVBUUOQJZUUCUVBUUJUVCUUCUMZUUQUUOXTVFMZUVAUVDUUOUUPLMZUUQUVEUVCUVF
+      UUCUUOWAVTUVCUUPQJZUMUUCUVFUUQUMUVEVGZUVCUVCUVGUUCUVHUUOUUPXTWBWCUVCUVGUV
+      CUUOVHJUVGUUOWDUUOWEVCWFWGWHUUOXTWIWJIQUUFEFWKWGWLWMUULUUTUVAWNUUCUULUUGU
+      UOXTLUULUUMUUGUUOVLXMUUKAUUFIXLUUFDLUQURZUUFXNEWOWPVOWQWRUUHUUTYAUUGXSXTL
+      UQWSWTXAXBXCUVIXDXEYJUUDUUIWNYOHXNXSXOXFUHXDXGXHXIVCXJ $.
+      $( [17-Jun-2007] $) $( [20-Apr-2005] $)
 
     $( An upper bound for an initial segment of a sequence of reals. $)
     seq1ub $p |- ( ( A e. NN /\ B e. NN /\ A <_ B ) ->
            ( F ` A ) <_ sup ( ran ( F |` { x e. NN | x <_ B } ) , RR , < ) ) $=
-      ( vz vy cv cle wbr cn crab cres crn cr wss c0 wceq wn wral wrex w3a cfv
-      wcel clt csup suprub seq1ublem 3ad2ant2 wa breq1 cbvrabv elrab2 fvres
-      sylbir wfn biimpr wf ffn ax-mp ssrab2 fnssres mp2an jctil fnfvrn syl
-      eqeltrrd 3adant2 sylanc ) DAHZCIJZAKLZMZNZOPVNQRSFHGHZIJFVNTGOUAUBZBDUCZV
-      NUDZVQVNOUEUFIJBKUDZCKUDZBCIJZUBGFVNVQUGVTVSVPWAAGFCDEUHUIVSWAVRVTVSWAUJZ
-      BVMUCZVQVNWBBVLUDZWCVQRVOCIJZWAGBKVLVOBCIUKVKWEAGKVJVOCIUKULUMZBVLDUNUOWB
-      VMVLUPZWDUJWCVNUDWBWDWGWDWBWFUQDKUPZVLKPWGKODURWHEKODUSUTVKAKVAKVLDVBVCVD
-      VLBVMVEVFVGVHVI $.
+      ( vz vy cv cle wbr cn crab cres crn cr wss c0 wne wral wrex w3a cfv wcel
+      clt csup suprub seq1ublem 3ad2ant2 wa wceq breq1 cbvrabv elrab2 fvres
+      sylbir wfn biimpr wf ffn ax-mp ssrab2 fnssres mp2an jctil fnfvelrn syl
+      eqeltrrd 3adant2 sylanc ) DAHZCIJZAKLZMZNZOPVNQRFHGHZIJFVNSGOTUAZBDUBZVNU
+      CZVQVNOUDUEIJBKUCZCKUCZBCIJZUAGFVNVQUFVTVSVPWAAGFCDEUGUHVSWAVRVTVSWAUIZBV
+      MUBZVQVNWBBVLUCZWCVQUJVOCIJZWAGBKVLVOBCIUKVKWEAGKVJVOCIUKULUMZBVLDUNUOWBV
+      MVLUPZWDUIWCVNUCWBWDWGWDWBWFUQDKUPZVLKPWGKODURWHEKODUSUTVKAKVAKVLDVBVCVDV
+      LBVMVEVFVGVHVI $.
       $( [24-Apr-2005] $) $( [20-Apr-2005] $)
   $}
 
@@ -1555,16 +1732,16 @@ $)
                       ( abs ` ( ( F ` z ) - ( F ` y ) ) ) R x ) ) <->
                     A. x e. RR ( 0 < x -> E. y e. NN A. z e. NN ( y <_ z ->
                       ( abs ` ( ( F ` z ) - ( F ` y ) ) ) R x ) ) ) $=
-      ( cc0 cv clt wbr cfv cmin co cabs wi cn wral wrex cle cr wcel wb wa wceq
-      wo imp fveq2 opreq2d cc ffvrni subidt syl sylan9eqr fveq2d abs0 syl6eq
-      breq1d biimprcd exp3a adantlr biantrud jaob syl6bbr leloet nnret syl2an
-      adantll imbi1d bitr4d ralbidva rexbidva ex pm5.74d ralbiia ) HAIZJKZBIZCI
-      ZJKZVSELZVRELZMNZOLZVPDKZPZCQRZBQSZPVQVRVSTKZWEPZCQRZBQSZPAUAVPUAUBZVQWHW
-      LWMVQWHWLUCWMVQUDZWGWKBQWNVRQUBZUDZWFWJCQWPVSQUBZUDZWFVTVRVSUEZUFZWEPZWJW
-      RWFWFWSWEPZUDXAWRXBWFWNWQXBWOWNWQXBWNHVPDKZWQXBPWMVQXCGUGXCWQWSWEWQWSUDZW
-      EXCXDWDHVPDXDWDHOLHXDWCHOWSWQWCWAWAMNZHWSWBWAWAMVRVSEUHUIWQWAUJUBXEHUEQUJ
-      VSEFUKWAULUMUNUOUPUQURUSUTUMUGVAVBVTWEWSVCVDWRWIWTWEWOWQWIWTUCZWNVRUAUBVS
-      UAUBXFWOWQVRVSVEVRVFVSVFVGVHVIVJVKVLVMVNVO $.
+      ( cc0 cv clt wbr cfv cmin co cabs wi cn wral wrex cle cr wcel wa wceq wo
+      imp fveq2 opreq2d cc ffvelrni subidt syl sylan9eqr fveq2d abs0 syl6eq
+      breq1d biimprcd exp3a adantlr biantrud jaob syl6bbr wb leloet nnret
+      syl2an adantll imbi1d bitr4d ralbidva rexbidva pm5.74da ralbiia ) HAIZJKZ
+      BIZCIZJKZVRELZVQELZMNZOLZVODKZPZCQRZBQSZPVPVQVRTKZWDPZCQRZBQSZPAUAVOUAUBZ
+      VPWGWKWLVPUCZWFWJBQWMVQQUBZUCZWEWICQWOVRQUBZUCZWEVSVQVRUDZUEZWDPZWIWQWEWE
+      WRWDPZUCWTWQXAWEWMWPXAWNWMWPXAWMHVODKZWPXAPWLVPXBGUFXBWPWRWDWPWRUCZWDXBXC
+      WCHVODXCWCHOLHXCWBHOWRWPWBVTVTMNZHWRWAVTVTMVQVREUGUHWPVTUIUBXDHUDQUIVREFU
+      JVTUKULUMUNUOUPUQURUSULUFUTVAVSWDWRVBVCWQWHWSWDWNWPWHWSVDZWMVQUAUBVRUAUBX
+      EWNWPVQVRVEVQVFVRVFVGVHVIVJVKVLVMVN $.
       $( [25-Apr-2005] $) $( [10-Apr-2005] $)
   $}
 
@@ -1665,22 +1842,21 @@ $)
     cau5i $p |- ( E. m e. ZZ A. j e. ZZ A. k e. ZZ ( ( m <_ j /\ m <_ k ) ->
             ph ) -> E. m e. Z A. j e. W A. k e. U
                 ( ( m <_ j /\ m <_ k ) -> ph ) ) $=
-      ( vn cv cle wbr wa wi cz wral wrex cuz cfv wcel wo cr zret zre letrit
-      mpan2 syl letrt mp3an2 sylan2 im2anan9 anandis sylan anandi syl5ib exp3a
-      imp an1rs anassrs imim1d r19.20dva uzidt ax-mp wceq breq1 anbi12d imbi1d
-      2ralbidv rcla4ev mpan syl6 eluz1 ex sylbir jaodan mpdan r19.23aiv sseli
-      imim1i r19.20i2 imim12i r19.22si cbvrexv wb rexeq1 3imtr4 ) MNZCNZOPZWKDN
-      ZOPZQZARZDSTZCSTZMSUAZENZWLOPZXAWNOPZQZARZDBTZCGTZEFUBUCZUAZXEDSTZCSTZESU
-      AXGEHUAZWTXKEXHUAZXIWSXMMSWKSUDZWKFOPZFWKOPZUEZWSXMRZXNWKUFUDZXQWKUGZXSFU
-      FUDZXQFIUHZWKFUIUJUKXNXOXRXPXNXOQZWSFWLOPZFWNOPZQZARZDSTZCSTZXMYCWRYHCSYC
-      WLSUDZQZWQYGDSYKWNSUDZQYFWPAYCYJYLYFWPRZXNYJYLQZXOYMXNYNQZXOYMYOXOYFWPYOX
-      OYDQZXOYEQZQZWPXOYFQXSYNYRWPRZXNXSYJYLYSXSYJQYPWMXSYLQYQWOXSWLUFUDZYPWMRZ
-      YJXSYAYTUUAYBWKFWLULUMWLUGUNXSWNUFUDZYQWORZYLXSYAUUBUUCYBWKFWNULUMWNUGUNU
-      OUPXTUQXOYDYEURUSUTVAVBVCVDVEVEFXHUDZYIXMFSUDUUDIFVFVGXKYIEFXHXAFVHZXEYGC
-      DSSUUEXDYFAUUEXBYDXCYEXAFWLOVIXAFWNOVIVJVKVLVMVNVOXNXPQWKXHUDZXRFWKIVPUUF
-      WSXMXKWSEWKXHXAWKVHZXEWQCDSSUUGXDWPAUUGXBWMXCWOXAWKWLOVIXAWKWNOVIVJVKVLZV
-      MVQVRVSVTWAXKXGEXHXJXFCSGWLGUDYJXJXFGSWLKWBXEXEDSBWNBUDYLXEBSWNLWBWCWDWEW
-      DWFUKXKWSEMSUUHWGHXHVHXLXIWHJXGEHXHWIVGWJ $.
+      ( vn cv cle wbr wa wi cz wral wrex cuz cfv wcel zret cr zre a1i letrt
+      mp3an2 sylan2 im2anan9 anandis sylan anandi syl5ib exp3a imp an1rs
+      anassrs imim1d r19.20dva uzidt ax-mp wceq breq1 anbi12d imbi1d 2ralbidv
+      rcla4ev mpan syl6 eluz1 ex sylbir lecase r19.23aiv sseli imim1i r19.20i2
+      imim12i r19.22si syl cbvrexv wb rexeq1 3imtr4 ) MNZCNZOPZWHDNZOPZQZARZDST
+      ZCSTZMSUAZENZWIOPZWRWKOPZQZARZDBTZCGTZEFUBUCZUAZXBDSTZCSTZESUAXDEHUAZWQXH
+      EXEUAZXFWPXJMSWHSUDZWPXJRZWHFWHUEZFUFUDZXKFIUGZUHXKWHFOPZQZWPFWIOPZFWKOPZ
+      QZARZDSTZCSTZXJXQWOYBCSXQWISUDZQZWNYADSYEWKSUDZQXTWMAXQYDYFXTWMRZXKYDYFQZ
+      XPYGXKYHQZXPYGYIXPXTWMYIXPXRQZXPXSQZQZWMXPXTQWHUFUDZYHYLWMRZXKYMYDYFYNYMY
+      DQYJWJYMYFQYKWLYMWIUFUDZYJWJRZYDYMXNYOYPXOWHFWIUIUJWIUEUKYMWKUFUDZYKWLRZY
+      FYMXNYQYRXOWHFWKUIUJWKUEUKULUMXMUNXPXRXSUOUPUQURUSUTVAVBVBFXEUDZYCXJFSUDY
+      SIFVCVDXHYCEFXEWRFVEZXBYACDSSYTXAXTAYTWSXRWTXSWRFWIOVFWRFWKOVFVGVHVIVJVKV
+      LXKFWHOPQWHXEUDZXLFWHIVMUUAWPXJXHWPEWHXEWRWHVEZXBWNCDSSUUBXAWMAUUBWSWJWTW
+      LWRWHWIOVFWRWHWKOVFVGVHVIZVJVNVOVPVQXHXDEXEXGXCCSGWIGUDYDXGXCGSWIKVRXBXBD
+      SBWKBUDYFXBBSWKLVRVSVTWAVTWBWCXHWPEMSUUCWDHXEVEXIXFWEJXDEHXEWFVDWG $.
       $( [22-Dec-2006] $) $( [17-Dec-2006] $)
   $}
 
@@ -1748,12 +1924,12 @@ $)
                E. j e. Z A. k e. Z ( j <_ k -> ph ) ) $=
       ( vm cv clt wbr wi wral wrex cle wcel c1 caddc co wa cuz cfv eleq2i cz
       wb zltp1let eluzelz sylbi syl2an imbi1d ralbidva biimpd peano2uz
-      syl6eleqr jctild wceq breq1 ralbidv rcla4ev syl6 r19.23aiv weq cbvrexv
-      sylib cvg1i impbi ) BHZCHZIJZAKZCELZBEMZVFVGNJZAKZCELZBEMZVKGHZVGNJZAKZCE
-      LZGEMZVOVJVTBEVFEOZVJVFPQRZEOZWBVGNJZAKZCELZSZVTWAVFDTUAZOZVJWGKEWHVFFUBW
-      IVJWFWCWIVJWFWIVIWECEWIVGEOZSVHWDAVFUCOVGUCOZVHWDUDWIWJVFVGUEDVFUFWJVGWHO
-      WKEWHVGFUBDVGUFUGUHUIUJUKWIWBWHEDVFULFUMUNUGVSWFGWBEVPWBUOZVRWECEWLVQWDAV
-      PWBVGNUPUIUQURUSUTVSVNGBEGBVAZVRVMCEWMVQVLAVPVFVGNUPUIUQVBVCABCDEFVDVE $.
+      syl6eleqr jctild wceq breq1 ralbidv rcla4ev syl6 r19.23aiv cbvrexv sylib
+      cvg1i impbi ) BHZCHZIJZAKZCELZBEMZVEVFNJZAKZCELZBEMZVJGHZVFNJZAKZCELZGEMZ
+      VNVIVSBEVEEOZVIVEPQRZEOZWAVFNJZAKZCELZSZVSVTVEDTUAZOZVIWFKEWGVEFUBWHVIWEW
+      BWHVIWEWHVHWDCEWHVFEOZSVGWCAVEUCOVFUCOZVGWCUDWHWIVEVFUEDVEUFWIVFWGOWJEWGV
+      FFUBDVFUFUGUHUIUJUKWHWAWGEDVEULFUMUNUGVRWEGWAEVOWAUOZVQWDCEWKVPWCAVOWAVFN
+      UPUIUQURUSUTVRVMGBEVOVEUOZVQVLCEWLVPVKAVOVEVFNUPUIUQVAVBABCDEFVCVD $.
       $( [20-Dec-2006] $) $( [20-Dec-2006] $)
   $}
 
@@ -1794,27 +1970,27 @@ $)
     cvg3 $p |- ( E. j e. ZZ A. k e. ZZ ( j <_ k -> ph ) <->
                E. j e. Z A. k e. W ( j <_ k -> ph ) ) $=
       ( vm cv cle wbr wi cz wral wrex wceq breq1 imbi1d ralbidv cbvrexv wcel
-      wo cr zret zre letrit mpan syl wa rcla4ev cuz cfv eluz1 sseli sylbir
-      sylan ex letrt mp3an2 syl2an exp3a imp an1rs imim1d r19.20dva uzidt
-      ax-mp sselii syl6 jaodan mpdan r19.23aiv wss ssralv r19.22si mp3an1
-      ancrd adantr jctild a1i ancld jcad wb raluz impexp ralbii bitr4 sylib
-      syl5 impbi bitr ) BOZCOZPQZARZCSTZBSUANOZWSPQZARZCSTZNSUAZXACFTZBGUAZXBXF
-      BNSWRXCUBZXAXECSXJWTXDAWRXCWSPUCUDUEZUFXGXIXGXBBGUAZXIXFXLNSXCSUGZDXCPQZX
-      CDPQZUHZXFXLRZXMXCUIUGZXPXCUJZDUIUGZXRXPDHUKZDXCULUMUNXMXNXQXOXMXNUOZXFXL
-      XCGUGZXFXLYBXBXFBXCGXKUPYBXCDUQURZUGYCDXCHUSYDGXCIUTVAVBVCXMXOUOZXFDWSPQZ
-      ARZCSTZXLYEXEYGCSYEWSSUGZUOYFXDAXMYIXOYFXDRZXMYIUOZXOYJYKXOYFXDXRWSUIUGZX
-      OYFUOXDRZXMYIXRXTYLYMYAXCDWSVDVEXSWSUJZVFVGVHVIVJVKDGUGYHXLYDGDIDSUGDYDUG
-      HDVLVMVNXBYHBDGWRDUBZXAYGCSYOWTYFAWRDWSPUCUDUEUPUMVOVPVQVRXBXHBGFSVSXBXHR
-      MXACFSVTVMWAUNXHXGBGWRGUGZEWRPQZWREPQZUHZXHXGRYPWRUIUGZYSYPWRSUGZYTGSWRJU
-      TZWRUJUNZEUIUGZYTYSEKUKZEWRULUMUNYPYSUOEWSPQZWTUOZARZCSTZXGXHYPYQUUIXGRYR
-      YPYQUOZUUIUUAXBUOXGUUJUUIXBUUAUUJUUHXACSUUJYIUOZWTUUGAUUKWTUUFYPYIYQWTUUF
-      RZYPYIUOZYQUULUUMYQWTUUFYTYLYQWTUOUUFRZYPYIUUDYTYLUUNUUEEWRWSVDWBUUCYNVFV
-      GVHVIWCVJVKYPUUAYQUUBWDWEXFXBNWRSXCWRUBZXEXACSUUOXDWTAXCWRWSPUCUDUEUPVOYP
-      YRUOZUUIESUGZUUFARZCSTZUOXGUUPUUIUUQUUSUUIUUQRUUPUUQUUIKWFWFUUPUUHUURCSUU
-      PYIUOZUUFUUGAUUTUUFWTYPYIYRUUFWTRZUUMYRUVAUUMYRUUFWTYTYLYRUUFUOWTRZYPYIYT
-      UUDYLUVBUUEWREWSVDVEUUCYNVFVGVHVIWGVJVKWHXFUUSNESXCEUBZXEUURCSUVCXDUUFAXC
-      EWSPUCUDUEUPVOVPXHXACEUQURZTZUUIUVDFVSXHUVERLXACUVDFVTVMUVEUUFXARZCSTZUUI
-      UUQUVEUVGWIKXACEWJVMUUHUVFCSUUFWTAWKWLWMWNWOVQVRWPWQ $.
+      cr zre a1i zret wa rcla4ev cuz cfv eluz1 sseli sylbir sylan ex letrt
+      mp3an2 syl2an exp3a imp an1rs imim1d r19.20dva uzidt ax-mp sselii mpan
+      syl6 lecase r19.23aiv wss ssralv r19.22si syl wo letrit mp3an1 ancrd
+      adantr jctild ancld jcad jaodan wb raluz impexp ralbii bitr4 sylib syl5
+      mpdan impbi bitr ) BOZCOZPQZARZCSTZBSUANOZWTPQZARZCSTZNSUAZXBCFTZBGUAZXCX
+      GBNSWSXDUBZXBXFCSXKXAXEAWSXDWTPUCUDUEZUFXHXJXHXCBGUAZXJXGXMNSXDSUGZXGXMRD
+      XDDUHUGZXNDHUIZUJXDUKZXNDXDPQULZXGXMXDGUGZXGXMXRXCXGBXDGXLUMXRXDDUNUOZUGX
+      SDXDHUPXTGXDIUQURUSUTXNXDDPQZULZXGDWTPQZARZCSTZXMYBXFYDCSYBWTSUGZULYCXEAX
+      NYFYAYCXERZXNYFULZYAYGYHYAYCXEXDUHUGZWTUHUGZYAYCULXERZXNYFYIXOYJYKXPXDDWT
+      VAVBXQWTUKZVCVDVEVFVGVHDGUGYEXMXTGDIDSUGDXTUGHDVIVJVKXCYEBDGWSDUBZXBYDCSY
+      MXAYCAWSDWTPUCUDUEUMVLVMVNVOXCXIBGFSVPXCXIRMXBCFSVQVJVRVSXIXHBGWSGUGZEWSP
+      QZWSEPQZVTZXIXHRYNWSUHUGZYQYNWSSUGZYRGSWSJUQZWSUKVSZEUHUGZYRYQEKUIZEWSWAV
+      LVSYNYQULEWTPQZXAULZARZCSTZXHXIYNYOUUGXHRYPYNYOULZUUGYSXCULXHUUHUUGXCYSUU
+      HUUFXBCSUUHYFULZXAUUEAUUIXAUUDYNYFYOXAUUDRZYNYFULZYOUUJUUKYOXAUUDYRYJYOXA
+      ULUUDRZYNYFUUBYRYJUULUUCEWSWTVAWBUUAYLVCVDVEVFWCVGVHYNYSYOYTWDWEXGXCNWSSX
+      DWSUBZXFXBCSUUMXEXAAXDWSWTPUCUDUEUMVMYNYPULZUUGESUGZUUDARZCSTZULXHUUNUUGU
+      UOUUQUUGUUORUUNUUOUUGKUJUJUUNUUFUUPCSUUNYFULZUUDUUEAUURUUDXAYNYFYPUUDXARZ
+      UUKYPUUSUUKYPUUDXAYRYJYPUUDULXARZYNYFYRUUBYJUUTUUCWSEWTVAVBUUAYLVCVDVEVFW
+      FVGVHWGXGUUQNESXDEUBZXFUUPCSUVAXEUUDAXDEWTPUCUDUEUMVMWHXIXBCEUNUOZTZUUGUV
+      BFVPXIUVCRLXBCUVBFVQVJUVCUUDXBRZCSTZUUGUUOUVCUVEWIKXBCEWJVJUUFUVDCSUUDXAA
+      WKWLWMWNWOWPVOWQWR $.
       $( [7-Jan-2007] $) $( [27-Dec-2006] $)
   $}
 
@@ -1871,7 +2047,7 @@ $)
     caubnd $p |- E. x e. RR A. y e. NN ( abs ` ( F ` y ) ) < x $=
       ( vu vt cv clt wbr cfv cabs wi cn wral cr wrex cmin co c1 cc0 lt01 wcel
       1re wceq breq2 imbi2d rexralbidv imbi12d rcla4v mp2 ax-mp caddc wa wb
-      ltadd1t mp3an2 cc subclt ffvrni syl2an absclt syl adantl sylanc cle
+      ltadd1t mp3an2 cc subclt ffvelrni syl2an absclt syl adantl sylanc cle
       npcant fveq2d abstrit eqbrtrrd lelttrt adantr axaddrcl mpan syl3anc
       mpand sylbid ancoms imim2d r19.20dva jctild ralbidv rcla4ev syl6 r19.22i
       seq1bnd cif wo lelttrit nnret adantlr max2 ltletrt simpll ifcl mpan2d
@@ -1914,7 +2090,7 @@ $)
     caure $p |- A. z e. RR ( 0 < z -> E. w e. NN A. y e. NN ( w < y ->
                       ( abs ` ( ( G ` y ) - ( G ` w ) ) ) < z ) ) $=
       ( cc0 cv clt wbr cfv cmin co cabs wi cn wral wrex cr wcel wa w3a cle cre
-      wceq fveq2 fveq2d eqeq12d vtoclga opreqan12d cc resubt ffvrni syl2an
+      wceq fveq2 fveq2d eqeq12d vtoclga opreqan12d cc resubt ffvelrni syl2an
       eqtr4d subclt absrelet syl eqbrtrd 3adant3 lelttrt resubclt wf wfn ffnfv
       reclt eqeltrd rgen mpbir2an recnd absclt 3simp3 syl3anc mpand 3com13
       3expa imim2d r19.20dva r19.22dva r19.20i ax-mp ) KCLZMNZDLZBLZMNZWIEOZWHE
@@ -1943,7 +2119,7 @@ $)
     cauim $p |- A. z e. RR ( 0 < z -> E. w e. NN A. y e. NN ( w < y ->
                       ( abs ` ( ( G ` y ) - ( G ` w ) ) ) < z ) ) $=
       ( cc0 cv clt wbr cfv cmin co cabs wi cn wral wrex cr wcel wa w3a cle cim
-      wceq fveq2 fveq2d eqeq12d vtoclga opreqan12d cc imsubt ffvrni syl2an
+      wceq fveq2 fveq2d eqeq12d vtoclga opreqan12d cc imsubt ffvelrni syl2an
       eqtr4d subclt absimlet syl eqbrtrd 3adant3 lelttrt resubclt wf wfn ffnfv
       imclt eqeltrd rgen mpbir2an recnd absclt 3simp3 syl3anc mpand 3com13
       3expa imim2d r19.20dva r19.22dva r19.20i ax-mp ) KCLZMNZDLZBLZMNZWIEOZWHE
@@ -1972,9 +2148,9 @@ $)
        ( abs ` ( ( ( + seq1 F ) ` ( A + B ) ) - ( ( + seq1 F ) ` A ) ) ) <_
        ( ( ( + seq1 G ) ` ( A + B ) ) - ( ( + seq1 G ) ` A ) ) ) $=
       ( vy vz cn wcel caddc co cseq1 cfv cmin cabs cle wbr cv wi c1 wceq
-      opreq2 fveq2d opreq1d breq12d imbi2d cr cc peano2nn ffvrni syl absclt
-      leidt addex wf cvv nnex fex mp2an seq1p1 pncan2t ser1cl sylanc eqtrd wfn
-      fnex wss wral ffnfv eqeltrd rgen mpbir2an axresscn fss fveq2 eqeq12d
+      opreq2 fveq2d opreq1d breq12d imbi2d cr cc peano2nn ffvelrni syl absclt
+      leidt addex wf cvv nnex fex mp2an seq1p1 pncan2t ser1cl1 sylanc eqtrd
+      wfn fnex wss wral ffnfv eqeltrd rgen mpbir2an axresscn fss fveq2 eqeq12d
       vtoclga recnd 3eqtrd 3brtr4d wa abstrit subclt nnaddclt adantr letrt
       axaddcl axaddrcl resubclt ser1recl syl3anc mpand wb leadd1t ax1cn
       axaddass mp3an3 nncnt syl2an eqtr3d addsubt opreq2d 3imtr4d expcom a2d
@@ -2027,75 +2203,4 @@ $)
       $( [20-Apr-2005] $) $( [17-Apr-2005] $)
   $}
 
-  ${
-    $d k j m F $.  $d k j m G $.  $d j m N $.
-    ser1re2.1 $e |- F : NN --> CC $.
-    ser1re2.2 $e |- G e. V $.
-    ser1re2.3 $e |- ( k e. NN -> ( G ` k ) = ( Re ` ( F ` k ) ) ) $.
-    $( The real part of a series. $)
-    ser1re2 $p |- ( N e. NN ->
-                    ( ( + seq1 G ) ` N ) = ( Re ` ( ( + seq1 F ) ` N ) ) ) $=
-      ( vj vm cv caddc cseq1 co cfv cre wceq c1 fveq2 fveq2d eqeq12d cn wcel
-      1nn vtoclga ax-mp addex seq11 cc wf cvv nnex fex mp2an fveq2i 3eqtr4 wa
-      seq1p1 adantr opreq1 adantl readdt ser1cl peano2nn ffvrni syl sylanc
-      opreq2d 3eqtr4rd 3eqtrd ex nnind ) HJZKCLMZNZVLKBLMZNZONZPQVMNZQVONZONZPI
-      JZVMNZWAVONZONZPZWAQKMZVMNZWFVONZONZPZDVMNZDVONZONZPHIDVLQPZVNVRVQVTVLQVM
-      RWNVPVSOVLQVORSTVLWAPZVNWBVQWDVLWAVMRWOVPWCOVLWAVORSTVLWFPZVNWGVQWIVLWFVM
-      RWPVPWHOVLWFVORSTVLDPZVNWKVQWMVLDVMRWQVPWLOVLDVORSTQCNZQBNZONZVRVTQUAUBWR
-      WTPZUCAJZCNZXBBNZONZPZXAAQUAXBQPZXCWRXEWTXBQCRXGXDWSOXBQBRSTGUDUEKCUFFUGV
-      SWSOKBUFUAUHBUIUAUJUBBUJUBEUKUAUHUJBULUMZUGUNUOWAUAUBZWEWJXIWEUPWGWBWFCNZ
-      KMZWDXJKMZWIXIWGXKPWEWAKCUFFUQURWEXKXLPXIWBWDXJKUSUTXIXLWIPWEXIWCWFBNZKMZ
-      ONZWDXMONZKMZWIXLWCUHUBXMUHUBZXOXQPXIWCXMVAWABEVBXIWFUAUBZXRWAVCZUAUHWFBE
-      VDVEVFXIWHXNOWAKBUFXHUQSXIXJXPWDKXIXSXJXPPZXTXFYAAWFUAXBWFPZXCXJXEXPXBWFC
-      RYBXDXMOXBWFBRSTGUDVEVGVHURVIVJVK $.
-      $( [3-Aug-2005] $) $( [2-Apr-2005] $)
-  $}
-
-  ${
-    $d j k m F $.  $d j k m G $.  $d j m A $.
-    ser0cj.1 $e |- F : NN0 --> CC $.
-    ser0cj.2 $e |- G e. V $.
-    ser0cj.3 $e |- ( k e. NN0 -> ( G ` k ) = ( * ` ( F ` k ) ) ) $.
-    $( The complex conjugate of a series. $)
-    ser0cj $p |- ( A e. NN0 ->
-                    ( ( + seq0 G ) ` A ) = ( * ` ( ( + seq0 F ) ` A ) ) ) $=
-      ( vj vm cv caddc cseq0 co cfv ccj wceq cc0 c1 fveq2 fveq2d eqeq12d cn0
-      wcel 0nn0 vtoclga ax-mp addex seq00 cc wf cvv nn0ex fex mp2an fveq2i
-      3eqtr4 wa seq0p1 opreq1 sylan9eq cjaddt ser0cl peano2nn0 ffvrni syl
-      sylanc opreq2d 3eqtr4rd adantr eqtrd ex nn0ind ) HJZKDLMZNZVMKCLMZNZONZPQ
-      VNNZQVPNZONZPIJZVNNZWBVPNZONZPZWBRKMZVNNZWGVPNZONZPZAVNNZAVPNZONZPHIAVMQP
-      ZVOVSVRWAVMQVNSWOVQVTOVMQVPSTUAVMWBPZVOWCVRWEVMWBVNSWPVQWDOVMWBVPSTUAVMWG
-      PZVOWHVRWJVMWGVNSWQVQWIOVMWGVPSTUAVMAPZVOWLVRWNVMAVNSWRVQWMOVMAVPSTUAQDNZ
-      QCNZONZVSWAQUBUCWSXAPZUDBJZDNZXCCNZONZPZXBBQUBXCQPZXDWSXFXAXCQDSXHXEWTOXC
-      QCSTUAGUEUFKDUGFUHVTWTOKCUGUBUICUJUBUKUCCUKUCEULUBUIUKCUMUNZUHUOUPWBUBUCZ
-      WFWKXJWFUQWHWEWGDNZKMZWJXJWFWHWCXKKMXLKDWBUGFURWCWEXKKUSUTXJXLWJPWFXJWDWG
-      CNZKMZONZWEXMONZKMZWJXLWDUIUCXMUIUCZXOXQPXJWDXMVACWBEVBXJWGUBUCZXRWBVCZUB
-      UIWGCEVDVEVFXJWIXNOKCWBUGXIURTXJXKXPWEKXJXSXKXPPZXTXGYABWGUBXCWGPZXDXKXFX
-      PXCWGDSYBXEXMOXCWGCSTUAGUEVEVGVHVIVJVKVL $.
-      $( [15-Jun-2006] $) $( [7-Jun-2006] $)
-  $}
-
-  ${
-    $d x y z F $.  $d x y z G $.  $d y z A $.
-    ser1cj.1 $e |- F : NN --> CC $.
-    ser1cj.2 $e |- G e. V $.
-    ser1cj.3 $e |- ( x e. NN -> ( G ` x ) = ( * ` ( F ` x ) ) ) $.
-    $( The complex conjugate of a series. $)
-    ser1cj $p |- ( A e. NN ->
-                    ( ( + seq1 G ) ` A ) = ( * ` ( ( + seq1 F ) ` A ) ) ) $=
-      ( vy vz cv caddc cseq1 co cfv ccj wceq c1 fveq2 fveq2d eqeq12d cn wcel
-      1nn vtoclga ax-mp addex seq11 cc wf cvv nnex fex mp2an fveq2i 3eqtr4 wa
-      seq1p1 opreq1 sylan9eq cjaddt ser1cl peano2nn ffvrni syl sylanc opreq2d
-      3eqtr4rd adantr eqtrd ex nnind ) HJZKDLMZNZVLKCLMZNZONZPQVMNZQVONZONZPIJZ
-      VMNZWAVONZONZPZWAQKMZVMNZWFVONZONZPZBVMNZBVONZONZPHIBVLQPZVNVRVQVTVLQVMRW
-      NVPVSOVLQVORSTVLWAPZVNWBVQWDVLWAVMRWOVPWCOVLWAVORSTVLWFPZVNWGVQWIVLWFVMRW
-      PVPWHOVLWFVORSTVLBPZVNWKVQWMVLBVMRWQVPWLOVLBVORSTQDNZQCNZONZVRVTQUAUBWRWT
-      PZUCAJZDNZXBCNZONZPZXAAQUAXBQPZXCWRXEWTXBQDRXGXDWSOXBQCRSTGUDUEKDUFFUGVSW
-      SOKCUFUAUHCUIUAUJUBCUJUBEUKUAUHUJCULUMZUGUNUOWAUAUBZWEWJXIWEUPWGWDWFDNZKM
-      ZWIXIWEWGWBXJKMXKWAKDUFFUQWBWDXJKURUSXIXKWIPWEXIWCWFCNZKMZONZWDXLONZKMZWI
-      XKWCUHUBXLUHUBZXNXPPXIWCXLUTWACEVAXIWFUAUBZXQWAVBZUAUHWFCEVCVDVEXIWHXMOWA
-      KCUFXHUQSXIXJXOWDKXIXRXJXOPZXSXFXTAWFUAXBWFPZXCXJXEXOXBWFDRYAXDXLOXBWFCRS
-      TGUDVDVFVGVHVIVJVK $.
-      $( [27-May-2005] $) $( [28-Apr-2005] $)
-  $}
 

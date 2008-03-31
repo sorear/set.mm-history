@@ -4,6 +4,64 @@ $(
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 $)
 
+  $( Alias for ~ axaddcl , for naming consistency with ~ addcl . $)
+  addclt $p |- ( ( A e. CC /\ B e. CC ) -> ( A + B ) e. CC ) $=
+    ( axaddcl ) ABC $.
+    $( [10-Mar-2008] $) $( [10-Mar-2008] $)
+
+  $( Alias for ~ axaddrcl , for naming consistency with ~ readdcl . $)
+  readdclt $p |- ( ( A e. RR /\ B e. RR ) -> ( A + B ) e. RR ) $=
+    ( axaddrcl ) ABC $.
+    $( [10-Mar-2008] $) $( [10-Mar-2008] $)
+
+  $( Alias for ~ axmulcl , for naming consistency with ~ mulcl . $)
+  mulclt $p |- ( ( A e. CC /\ B e. CC ) -> ( A x. B ) e. CC ) $=
+    ( axmulcl ) ABC $.
+    $( [10-Mar-2008] $) $( [10-Mar-2008] $)
+
+  $( Alias for ~ axmulrcl , for naming consistency with ~ remulcl . $)
+  remulclt $p |- ( ( A e. RR /\ B e. RR ) -> ( A x. B ) e. RR ) $=
+    ( axmulrcl ) ABC $.
+    $( [10-Mar-2008] $) $( [10-Mar-2008] $)
+
+  $( Alias for ~ axaddcom , for naming consistency with ~ addcom . $)
+  addcomt $p |- ( ( A e. CC /\ B e. CC ) -> ( A + B ) = ( B + A ) ) $=
+    ( axaddcom ) ABC $.
+    $( [10-Mar-2008] $) $( [10-Mar-2008] $)
+
+  $( Alias for ~ axmulcom , for naming consistency with ~ mulcom . $)
+  mulcomt $p |- ( ( A e. CC /\ B e. CC ) -> ( A x. B ) = ( B x. A ) ) $=
+    ( axmulcom ) ABC $.
+    $( [10-Mar-2008] $) $( [10-Mar-2008] $)
+
+  $( Alias for ~ axaddass , for naming consistency with ~ addass . $)
+  addasst $p |- ( ( A e. CC /\ B e. CC /\ C e. CC ) ->
+                 ( ( A + B ) + C ) = ( A + ( B + C ) ) ) $=
+    ( axaddass ) ABCD $.
+    $( [10-Mar-2008] $) $( [10-Mar-2008] $)
+
+  $( Alias for ~ axmulass , for naming consistency with ~ mulass . $)
+  mulasst $p |- ( ( A e. CC /\ B e. CC /\ C e. CC ) ->
+                 ( ( A x. B ) x. C ) = ( A x. ( B x. C ) ) ) $=
+    ( axmulass ) ABCD $.
+    $( [10-Mar-2008] $) $( [10-Mar-2008] $)
+
+  $( Alias for ~ axdistr , for naming consistency with ~ adddi . $)
+  adddit $p |- ( ( A e. CC /\ B e. CC /\ C e. CC ) ->
+                ( A x. ( B + C ) ) = ( ( A x. B ) + ( A x. C ) ) ) $=
+    ( axdistr ) ABCD $.
+    $( [10-Mar-2008] $) $( [10-Mar-2008] $)
+
+  $( Alias for ~ ax0id , for naming consistency with ~ addid1 . $)
+  addid1t $p |- ( A e. CC -> ( A + 0 ) = A ) $=
+    ( ax0id ) AB $.
+    $( [10-Mar-2008] $) $( [10-Mar-2008] $)
+
+  $( Alias for ~ ax1id , for naming consistency with ~ mulid1 . $)
+  mulid1t $p |- ( A e. CC -> ( A x. 1 ) = A ) $=
+    ( ax1id ) AB $.
+    $( [10-Mar-2008] $) $( [10-Mar-2008] $)
+
   $( The set of real numbers exists. $)
   reex $p |- RR e. V $=
     ( cr cc axcnex axresscn ssexi ) ABCDE $.
@@ -108,19 +166,17 @@ $)
     $}
   $}
 
-  $( 0 is a complex number.  (Proved without referencing ~ ax1cn by Eric
-     Schmidt, 11-Apr-2007.  Compare previous version, ~ 0cnALT .) $)
-  0cn $p |- 0 e. CC $=
-    ( vx ci cv caddc co cc0 wceq cc wrex wcel axicn axnegex ax-mp wa axaddcl
-    mpan adantr wb eleq1 adantl mpbid r19.23aiva ) BACZDEZFGZAHIZFHJZBHJZUFKABL
-    MUEUGAHUCHJZUENUDHJZUGUIUJUEUHUIUJKBUCOPQUEUJUGRUIUDFHSTUAUBM $.
-    $( [12-Apr-2007] $) $( [19-Feb-2005] $)
-
   $( 0 is a complex number. $)
-  0cnALT $p |- 0 e. CC $=
+  0cn $p |- 0 e. CC $=
     ( ci cmul co c1 caddc cc0 cc axi2m1 axicn mulcl ax1cn addcl eqeltrr ) AABCZ
     DECFGHNDAAIIJKLM $.
     $( [20-Feb-2005] $) $( [19-Feb-2005] $)
+
+  $( Identity law for addition. $)
+  addid2t $p |- ( A e. CC -> ( 0 + A ) = A ) $=
+    ( cc wcel cc0 caddc co wceq 0cn axaddcom mpan ax0id eqtrd ) ABCZDAEFZADEFZA
+    DBCMNOGHDAIJAKL $.
+    $( [10-Aug-1999] $)
 
   ${
     addid1.1 $e |- A e. CC $.
@@ -131,7 +187,7 @@ $)
 
     $( Identity law for addition. $)
     addid2 $p |- ( 0 + A ) = A $=
-      ( cc0 caddc co 0cn addcom addid1 eqtr ) CADEACDEACAFBGABHI $.
+      ( cc wcel cc0 caddc co wceq addid2t ax-mp ) ACDEAFGAHBAIJ $.
       $( [23-Nov-1994] $)
 
     $( Identity law for multiplication. $)
@@ -143,24 +199,6 @@ $)
     mulid2 $p |- ( 1 x. A ) = A $=
       ( c1 cmul co ax1cn mulcom mulid1 eqtr ) CADEACDEACAFBGABHI $.
       $( [14-Feb-1995] $)
-
-    ${
-      $d x A $.
-      $( Existence of negatives. $)
-      negex $p |- E. x e. CC ( A + x ) = 0 $=
-        ( cc wcel cv caddc co cc0 wceq wrex axnegex ax-mp ) BDEBAFGHIJADKCABLM
-        $.
-        $( [23-Nov-1994] $)
-
-      ${
-        recex.2 $e |- A =/= 0 $.
-        $( Existence of reciprocals. $)
-        recex $p |- E. x e. CC ( A x. x ) = 1 $=
-          ( cc wcel cc0 wne cv cmul co c1 wceq wrex axrecex mp2an ) BEFBGHBAIJK
-          LMAENCDABOP $.
-          $( [26-Jan-1995] $)
-      $}
-    $}
   $}
 
   ${

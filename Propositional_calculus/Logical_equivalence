@@ -12,28 +12,48 @@ $)
   wb $a wff ( ph <-> ps ) $.
 
   $( This is our first definition, which introduces and defines the
-     biconditional connective ` <-> ` . Unlike most traditional developments,
-     we have chosen not to have a separate symbol such as 'Df.' to mean 'is
-     defined as.'  Instead, we will later use the biconditional connective
-     for this purpose, as it allows us to use logic to manipulate definitions
-     directly ( ~ df-or is its first use).  Here we use the biconditional
-     connective to define itself, a feat which requires a little care.  We
-     define ` ( ph <-> ps ) ` as ` -. ( ( ph -> ps ) -> -. ( ps -> ph ) ) `
-     but we don't yet have a notation that can express this directly, so we
-     use a more complicated expression using the language that we have so
-     far.  The justification for our definition is that if we mechanically
-     replace the first wff above (the definiendum i.e. the thing being
-     defined) with the second (the definiens i.e. the defining expression) in
-     the definition, the definition becomes an instance of previously proved
-     theorem ~ bijust . Note that from Metamath's point of view, a definition
-     is just another axiom; but from our high level point of view, we are are
-     not strengthening the language since if we mechanically eliminate the
-     new symbol ` <-> ` we will not end up with any theorems we could not
-     prove before.  To indicate this fact we prefix definition labels with
-     "df-" instead of "ax-".  (This prefixing is an informal convention that
-     means nothing to the Metamath proof verifier; it is just for human
-     readability.)  See ~ bii and ~ bi for theorems suggesting the typical
-     textbook definition of ` <-> ` . $)
+     biconditional connective ` <-> ` .  We define a wff of the form
+     ` ( ph <-> ps ) ` as an abbreviation for
+     ` -. ( ( ph -> ps ) -> -. ( ps -> ph ) ) ` .
+
+     Unlike most traditional developments, we have chosen not to have a
+     separate symbol such as "Df." to mean "is defined as."  Instead, we will
+     later use the biconditional connective for this purpose ( ~ df-or is its
+     first use), as it allows us to use logic to manipulate definitions
+     directly.  This greatly simplifies many proofs since it eliminates the
+     need for a separate mechanism for introducing and eliminating
+     definitions.  Of course, we cannot use this mechanism to define the
+     biconditional itself, since it hasn't been introduced yet.
+
+     In its most general form, a definition is simply an assertion that
+     introduces a new symbol (or a new combination of existing symbols, as in
+     ~ df-3an ) that is eliminable and does not strengthen the existing
+     language.  The latter requirement means that the set of provable
+     statements not containing the new symbol (or new combination) should
+     remain exactly the same after the definition is introduced.  Our
+     definition of the biconditional may look unusual compared to most
+     definitions, but it strictly satisfies these requirements.
+
+     The justification for our definition is that if we mechanically replace
+     the first wff above (the definiendum i.e. the thing being defined) with
+     the second (the definiens i.e. the defining expression) in the
+     definition, the definition becomes a substitution instance of previously
+     proved theorem ~ bijust .  It is impossible to use ~ df-bi to prove any
+     statement expressed in the original language that can't be proved from
+     the original axioms.  For if it were, we could replace it with instances
+     of ~ bijust throughout the proof, thus obtaining a proof from the
+     original axioms (contradiction).
+
+     Note that from Metamath's point of view, a definition is just another
+     axiom - i.e. an assertion we claim to be true - but from our high level
+     point of view, we are are not strengthening the language.  To indicate
+     this fact, we prefix definition labels with "df-" instead of "ax-".
+     (This prefixing is an informal convention that means nothing to the
+     Metamath proof verifier; it is just for human readability.)
+
+     See ~ bii and ~ bi for theorems suggesting the typical textbook
+     definition of ` <-> ` , showing that our definition has the properties
+     we expect.  $)
   df-bi $a |- -. ( ( ( ph <-> ps ) -> -. ( ( ph -> ps ) -> -. ( ps -> ph ) ) )
         -> -. ( -. ( ( ph -> ps ) -> -. ( ps -> ph ) ) -> ( ph <-> ps ) ) ) $.
 
@@ -110,7 +130,7 @@ $)
     ( wb wi wn bi1 bi2 jc bi3 impi impbi ) ABCZABDZBADZEDELMNABFABGHMNLABIJK $.
     $( [5-Aug-1993] $)
 
-  $( This proof of ~ bii , discovered by Gregory Bush on 8-Mar-04, has
+  $( This proof of ~ bii , discovered by Gregory Bush on 8-Mar-2004, has
      several curious properties.  First, it has only 17 steps directly
      from the axioms and ~ df-bi , compared to over 800 steps were the proof
      of ~ bii expanded into axioms.  Second, step 2 demands only the property
@@ -515,6 +535,11 @@ $)
     syl5bi $p |- ( ph -> ( th -> ch ) ) $=
       ( biimpd syl5 ) ABCDABCEGFH $.
       $( [5-Aug-1993] $)
+
+    $( A mixed syllogism inference. $)
+    syl5cbi $p |- ( th -> ( ph -> ch ) ) $=
+      ( syl5bi com12 ) ADCABCDEFGH $.
+      $( [22-Jun-2007] $) $( [19-Jun-2007] $)
   $}
 
   ${
@@ -524,6 +549,11 @@ $)
     syl5bir $p |- ( ph -> ( th -> ps ) ) $=
       ( biimprd syl5 ) ACBDABCEGFH $.
       $( [3-Apr-1994] $)
+
+    $( A mixed syllogism inference. $)
+    syl5cbir $p |- ( th -> ( ph -> ps ) ) $=
+      ( syl5bir com12 ) ADBABCDEFGH $.
+      $( [20-Jun-2007] $) $( [20-Jun-2007] $)
   $}
 
   ${

@@ -1,0 +1,241 @@
+$(
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+              Functors
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+$)
+
+
+  $( The class of all functors. $)
+  $c Func $.
+
+  $( Extend class notation with the class of all  functors. $)
+  cfunc $a class Func $.
+
+  ${ $d  t u v f o p m n $.
+    $( Function returning all the functors from a category ` t ` to a
+    category ` u ` . Intuitively a functor associate any morphism of ` t `
+    to a morphism of ` u `, any object of ` t ` to an object of ` u `,
+    and respects the identity and the composition. It is a way to say that the
+    structures of ` t ` and ` u ` are "equivalent". Here
+    to capture the idea that a functor associate any object of ` t ` to an
+    object of ` u ` we write that it associate any identity of ` t ` to
+    an identity of ` u ` which simplifies the definition. $)
+    df-func $a |- Func = { <. <. t , u >. , v >. |
+      ( ( t e. Cat /\ u e. Cat ) /\
+      v = { f | ( f : dom ( dom_ ` t ) --> dom ( dom_ ` u ) /\
+      ( A. o e. dom ( id_ ` t )
+      E. p e. dom ( id_ ` u ) ( f ` ( ( id_ ` t ) ` o ) ) =
+           ( ( id_ ` u ) ` p ) /\
+      ( A. m e. dom ( dom_ ` t )
+        ( f ` ( ( id_ ` t ) ` ( ( dom_ ` t ) ` m ) ) ) =
+           ( ( id_ ` u ) ` ( ( dom_ ` u ) ` ( f ` m ) ) ) /\
+       A. m e. dom ( dom_ ` t )
+        ( f ` ( ( id_ ` t ) ` ( ( cod_ ` t ) ` m ) ) ) =
+           ( ( id_ ` u ) ` ( ( cod_ ` u ) ` ( f ` m ) ) ) ) /\
+       A. m e. dom ( dom_ ` t ) A. n e. dom ( dom_ ` t )
+        ( ( ( cod_ ` t ) ` n ) = ( ( dom_ ` t ) ` m ) ->
+          ( f ` ( m ( o_ ` t ) n ) ) =
+           ( ( f ` m ) ( o_ ` u ) ( f ` n ) ) ) ) ) } ) } $.
+  $}
+
+    $v O1 $.
+    $v M1 $.
+    $v O2 $.
+    $v M2 $.
+    $v I1 $.
+    $v D1 $.
+    $v C1 $.
+    $v Ro1 $.
+    $v I2 $.
+    $v D2 $.
+    $v C2 $.
+    $v Ro2 $.
+
+    $( Let ` 01 ` be a class variable. $)
+    co1 $f class O1 $.
+    $( Let ` M1 ` be a class variable. $)
+    cm1 $f class M1 $.
+    $( Let ` 02 ` be a class variable. $)
+    co2 $f class O2 $.
+    $( Let ` M2 ` be a class variable. $)
+    cm2 $f class M2 $.
+
+    $( Let ` I1 ` be a class variable. $)
+    ci1 $f class I1 $.
+    $( Let ` D1 ` be a class variable. $)
+    cd1 $f class D1 $.
+    $( Let ` C1 ` be a class variable. $)
+    cc1 $f class C1 $.
+    $( Let ` Ro1 ` be a class variable. $)
+    cro1 $f class Ro1 $.
+
+    $( Let ` I2 ` be a class variable. $)
+    ci2 $f class I2 $.
+    $( Let ` D2 ` be a class variable. $)
+    cd2 $f class D2 $.
+    $( Let ` C2 ` be a class variable. $)
+    cc2 $f class C2 $.
+    $( Let ` Ro2 ` be a class variable. $)
+    cro2 $f class Ro2 $.
+
+  ${ $d C1 u v $. $d C2 u v $. $d D1 u v $. $d D2 u v $. $d I1 u v $.
+     $d I2 u v $. $d M1 f m t u v $. $d M1 x $. $d M2 f u v $.
+     $d M2 x $. $d O1 o u v $. $d O2 p u v $. $d Ro1 u v $. $d Ro2 u v $.
+     $d T f m n o p t u v $. $d U f m n o p t u v $.
+    isfuna.1 $e |- O1 = dom ( id_ ` T ) $.
+    isfuna.2 $e |- M1 = dom ( dom_ ` T ) $.
+    isfuna.3 $e |- D1 = ( dom_ ` T ) $.
+    isfuna.4 $e |- C1 = ( cod_ ` T ) $.
+    isfuna.5 $e |- I1 = ( id_ ` T ) $.
+    isfuna.6 $e |- Ro1 = ( o_ ` T ) $.
+    isfuna.7 $e |- O2 = dom ( id_ ` U ) $.
+    isfuna.8 $e |- M2 = dom ( dom_ ` U ) $.
+    isfuna.9 $e |- D2 = ( dom_ ` U ) $.
+    isfuna.10 $e |- C2 = ( cod_ ` U ) $.
+    isfuna.11 $e |- I2 = ( id_ ` U ) $.
+    isfuna.12 $e |- Ro2 = ( o_ ` U ) $.
+    $( The class of functors between ` T ` and ` U ` . $)
+    isfuna $p |- ( ( T e. Cat /\ U e. Cat ) -> ( Func ` <. T , U >. ) =
+      { f | ( f : M1 --> M2 /\
+       ( A. o e. O1 E. p e. O2 ( f ` ( I1 ` o ) ) = ( I2 ` p ) /\
+        ( A. m e. M1 ( f ` ( I1  ` ( D1 ` m ) ) ) =
+            ( I2 ` ( D2 ` ( f ` m ) ) ) /\
+          A. m e. M1 ( f ` ( I1 ` ( C1 ` m ) ) ) =
+            ( I2 ` ( C2 ` ( f ` m ) ) ) ) /\
+          A. m e. M1 A. n e. M1 ( ( C1 ` n ) = ( D1 ` m ) ->
+            ( f ` ( m Ro1 n ) ) = ( ( f ` m ) Ro2 ( f ` n ) ) ) ) ) } ) $=
+      ( vx vt vu vv ccat wcel cv wf cfv wceq wrex wral wa co wi w3a cab cvv
+      cop cfunc cm wb cdom_ cdm fvex dmexg ax-mp eqeltr pm3.2i a1i elmapg syl
+      anbi1d abbidv crab mapvalg ancoms mapex eqeltrd rabexg df-rab syl5eqelr
+      eqeltrrd cid_ ccod_ co_ fveq2 dmeqd syl6eqr feq2 fveq1d fveq2d eqeq1d
+      rexbidv raleq12d eqtrd anbi12d eqeq12d opreqd imbi12d 3anbi123d feq3
+      eqcomd rexeq12d 3eqtrd eleq2d bicomd ralbidv2 eleq2i df-func oprabval2g
+      df-opr syl5eqr mpd3an3 ) AUPUQZBUPUQZIKCURZUSZFURZLUTZYHUTZGURZPUTZVAZGJV
+      BZFHVCZDURZMUTZLUTZYHUTZYRYHUTZQUTZPUTZVAZDIVCZYRNUTZLUTZYHUTZUUBRUTZPUTZ
+      VAZDIVCZVDZEURZNUTZYSVAZYRUUOOVEZYHUTZUUBUUOYHUTZSVEZVAZVFZEIVCZDIVCZVGZV
+      DZCVHZVIUQZABVJVKUTZUVHVAYFYGVDZYHKIVLVEZUQZUVFVDZCVHZUVHVIUVKUVNUVGCUVKU
+      VMYIUVFUVKKVIUQZIVIUQZVDZUVMYIVMUVRUVKUVPUVQKBVNUTZVOZVIUGUVSVIUQUVTVIUQB
+      VNVPUVSVIVQVRVSZIAVNUTZVOZVIUAUWBVIUQUWCVIUQAVNVPUWBVIVQVRVSZVTZWAKIYHVIV
+      IWBWCWDWEUVKUVFCUVLWFZVIUVOUVKUVLVIUQUWFVIUQUVKUVLIKULURUSULVHZVIYGYFUVLU
+      WGVAZYGYFVDZUVRUWHUVRUWIUWEWAKIVIVIULWGWCWHUVKUVQUVPVDZUWGVIUQUWJUVKUVQUV
+      PUWDUWAVTWAIKVIVIULWIWCWJUVFCUVLVIWKWCUVFCUVLWLWMWNYFYGUVIVGABVKVEUVHUVJU
+      MUNUOABUPUPUMURZVNUTZVOZUNURZVNUTZVOZYHUSZYJUWKWOUTZUTZYHUTZYMUWNWOUTZUTZ
+      VAZGUXAVOZVBZFUWRVOZVCZYRUWLUTZUWRUTZYHUTZUUBUWOUTZUXAUTZVAZDUWMVCZYRUWKW
+      PUTZUTZUWRUTZYHUTZUUBUWNWPUTZUTZUXAUTZVAZDUWMVCZVDZUUOUXOUTZUXHVAZYRUUOUW
+      KWQUTZVEZYHUTZUUBUUTUWNWQUTZVEZVAZVFZEUWMVCZDUWMVCZVGZVDZCVHUVHVKIUWPYHUS
+      ZYJAWOUTZUTZYHUTZUXBVAZGUXDVBZFUYSVOZVCZYRUWBUTZUYSUTZYHUTZUXLVAZDUWCVCZY
+      RAWPUTZUTZUYSUTZYHUTZUYAVAZDUWCVCZVDZUUOVUKUTZVUFVAZYRUUOAWQUTZVEZYHUTZUY
+      KVAZVFZEUWCVCZDUWCVCZVGZVDZCVHVIUWKAVAZUYQVVHCVVIUWQUYRUYPVVGVVIUWMIVAUWQ
+      UYRVMVVIUWMUWCIVVIUWLUWBUWKAVNWRZWSZUAWTUWMIUWPYHXAWCVVIUXGVUEUYDVUQUYOVV
+      FVVIUXEVUCFUXFVUDVVIUWRUYSUWKAWOWRZWSVVIUXCVUBGUXDVVIUWTVUAUXBVVIUWSUYTYH
+      VVIYJUWRUYSVVLXBXCXDXEXFVVIUXNVUJUYCVUPVVIUXMVUIDUWMUWCVVKVVIUXJVUHUXLVVI
+      UXIVUGYHVVIUXIUXHUYSUTVUGVVIUXHUWRUYSVVLXBVVIUXHVUFUYSVVIYRUWLUWBVVJXBZXC
+      XGXCXDXFVVIUYBVUODUWMUWCVVKVVIUXRVUNUYAVVIUXQVUMYHVVIUXQUXPUYSUTVUMVVIUXP
+      UWRUYSVVLXBVVIUXPVULUYSVVIYRUXOVUKUWKAWPWRZXBXCXGXCXDXFXHVVIUYNVVEDUWMUWC
+      VVKVVIUYMVVDEUWMUWCVVKVVIUYFVUSUYLVVCVVIUYEVURUXHVUFVVIUUOUXOVUKVVNXBVVMX
+      IVVIUYIVVBUYKVVIUYHVVAYHVVIUYGVUTYRUUOUWKAWQWRXJXCXDXKXFXFXLXHWEUWNBVAZVV
+      HUVGCVVOUYRYIVVGUVFVVOUWPKVAUYRYIVMVVOUWPUVTKVVOUWOUVSUWNBVNWRZWSUGWTUWPK
+      IYHXMWCVVOVUEYQVUQUUNVVFUVEVVOVUCYPFVUDHVVOHVUDHVUDVAVVOTWAXNVVOVUBYOGUXD
+      JVVOUXDBWOUTZVOJVVOUXAVVQUWNBWOWRZWSUFWTVVOVUAYLUXBYNVVOUYTYKYHVVOYJUYSLV
+      VOLUYSLUYSVAVVOUDWAXNZXBXCVVOYMUXAPVVOUXAVVQPVVRUJWTZXBXIXOXFVVOVUJUUFVUP
+      UUMVVOVUIUUEDUWCIVVOIUWCIUWCVAVVOUAWAZXNVVOVUHUUAUXLUUDVVOVUGYTYHVVOVUGVU
+      FLUTYTVVOVUFUYSLVVSXBVVOVUFYSLVVOYSVUFVVOYRMUWBMUWBVAVVOUBWAXBXNZXCXGXCVV
+      OUXLUXKVVQUTUUBUVSUTZVVQUTZUUDVVOUXKUXAVVQVVRXBVVOUXKVWCVVQVVOUUBUWOUVSVV
+      PXBXCVVOVWDVWCPUTUUDVVOVWCVVQPVVOPVVQPVVQVAVVOUJWAXNXBVVOVWCUUCPVVOUUBUVS
+      QVVOQUVSQUVSVAVVOUHWAXNXBXCXGXPXIXFVVOVUOUULDUWCIVVOYRUWCUQZYRIUQZVUOUULV
+      VOVWFVWEVVOIUWCYRVWAXQXRVVOVUNUUIUYAUUKVVOVUMUUHYHVVOVUMVULLUTUUHVVOVULUY
+      SLVVSXBVVOVULUUGLVVOYRVUKNVVONVUKNVUKVAVVOUCWAZXNXBXCXGXCVVOUYAUXTPUTUUKV
+      VOUXTUXAPVVTXBVVOUXTUUJPVVOUUBUXSRVVOUXSBWPUTRUWNBWPWRUIWTXBXCXGXIXKXSXHV
+      VOVVEUVDDUWCIVVOVWEVWFVVEUVDVVOVWFVWEVWFVWEVMVVOIUWCYRUAXTWAXRVVOVVDUVCEU
+      WCIVVOUUOUWCUQZUUOIUQZVVDUVCVVOVWIVWHVVOIUWCUUOVWAXQXRVVOVUSUUQVVCUVBVVOV
+      URUUPVUFYSVVOUUPVURVVOUUONVUKVWGXBXNVWBXIVVOVVBUUSUYKUVAVVOVVAUURYHVVOVUT
+      OYRUUOVVOOVUTOVUTVAVVOUEWAXNXJXCVVOUYJSUUBUUTVVOUYJBWQUTSUWNBWQWRUKWTXJXI
+      XKXKXSXKXSXLXHWEUOUNUMCDEFGYAYBABVKYCYDYE $.
+      $( [11-Feb-2008] $) $( [10-Feb-2008] $)
+  $}
+
+
+  ${ $d C1 f $. $d C2 f $. $d D1 f $. $d D2 f $. $d F f m n o p $. $d I1 f $.
+    $d I2 f $. $d M1 f m $. $d M2 f $. $d O1 f o $. $d O2 f p $. $d Ro1 f $.
+    $d Ro2 f $. $d T f m n o p $. $d U f m n o p $.
+    isfunb.1 $e |- O1 = dom ( id_ ` T ) $.
+    isfunb.2 $e |- M1 = dom ( dom_ ` T ) $.
+    isfunb.3 $e |- D1 = ( dom_ ` T ) $.
+    isfunb.4 $e |- C1 = ( cod_ ` T ) $.
+    isfunb.5 $e |- I1 = ( id_ ` T ) $.
+    isfunb.6 $e |- Ro1 = ( o_ ` T ) $.
+    isfunb.7 $e |- O2 = dom ( id_ ` U ) $.
+    isfunb.8 $e |- M2 = dom ( dom_ ` U ) $.
+    isfunb.9 $e |- D2 = ( dom_ ` U ) $.
+    isfunb.10 $e |- C2 = ( cod_ ` U ) $.
+    isfunb.11 $e |- I2 = ( id_ ` U ) $.
+    isfunb.12 $e |- Ro2 = ( o_ ` U ) $.
+    $( The predicate "is a functor" . $)
+    isfunb $p |- ( ( T e. Cat /\ U e. Cat /\ F e. A ) ->
+       ( F e. ( Func ` <. T , U >. ) <->
+       ( F : M1 --> M2 /\ ( A. o e. O1
+        E. p e. O2 ( F ` ( I1 ` o ) ) = ( I2 ` p ) /\
+      ( A. m e. M1
+       ( F ` ( I1  ` ( D1 ` m ) ) ) =
+          ( I2 ` ( D2 ` ( F ` m ) ) ) /\
+      A. m e. M1
+       ( F ` ( I1 ` ( C1 ` m ) ) ) =
+          ( I2 ` ( C2 ` ( F ` m ) ) ) ) /\
+      A. m e. M1 A. n e. M1
+       ( ( C1 ` n ) = ( D1 ` m ) ->
+         ( F ` ( m Ro1 n ) ) =
+          ( ( F ` m ) Ro2 ( F ` n ) ) ) ) ) ) ) $=
+      ( vf ccat wcel w3a cop cfunc cfv cv wf wceq wrex wral wa co wi cab
+      isfuna 3adant3 eleq2d wb feq1 fveq1 eqeq1d rexbidv ralbidv fveq2d
+      eqeq12d anbi12d opreq12d imbi2d 2ralbidv 3anbi123d elabg 3ad2ant3 bitrd
+      ) BUNUOZCUNUOZGAUOZUPZGBCUQURUSZUOGJLUMUTZVAZFUTMUSZWMUSZHUTQUSZVBZHKVCZF
+      IVDZDUTZNUSZMUSZWMUSZXAWMUSZRUSZQUSZVBZDJVDZXAOUSMUSZWMUSZXESUSZQUSZVBZDJ
+      VDZVEZEUTZOUSXBVBZXAXQPVFZWMUSZXEXQWMUSZTVFZVBZVGZEJVDDJVDZUPZVEZUMVHZUOZ
+      JLGVAZWOGUSZWQVBZHKVCZFIVDZXCGUSZXAGUSZRUSZQUSZVBZDJVDZXJGUSZYPSUSZQUSZVB
+      ZDJVDZVEZXRXSGUSZYPXQGUSZTVFZVBZVGZEJVDDJVDZUPZVEZWKWLYHGWHWIWLYHVBWJBCUM
+      DEFHIJKLMNOPQRSTUAUBUCUDUEUFUGUHUIUJUKULVIVJVKWJWHYIUUNVLWIYGUUNUMGAWMGVB
+      ZWNYJYFUUMJLWMGVMUUOWTYNXPUUFYEUULUUOWSYMFIUUOWRYLHKUUOWPYKWQWOWMGVNVOVPV
+      QUUOXIYTXOUUEUUOXHYSDJUUOXDYOXGYRXCWMGVNUUOXFYQQUUOXEYPRXAWMGVNZVRVRVSVQU
+      UOXNUUDDJUUOXKUUAXMUUCXJWMGVNUUOXLUUBQUUOXEYPSUUPVRVRVSVQVTUUOYDUUKDEJJUU
+      OYCUUJXRUUOXTUUGYBUUIXSWMGVNUUOXEYPYAUUHTUUPXQWMGVNWAVSWBWCWDVTWEWFWG $.
+      $( [11-Feb-2008] $) $( [10-Feb-2008] $)
+  $}
+
+  ${ $d F w x y z $. $d M1 x $. $d T w x y z $. $d U w x y z $.
+    fmamo.1 $e |- M1 = dom ( dom_ ` T ) $.
+    fmamo.2 $e |- M2 = dom ( dom_ ` U ) $.
+    $( A functor is a mapping between morphisms. $)
+    fmamo $p |- ( ( T e. Cat /\ U e. Cat ) ->
+      ( F e. ( Func ` <. T , U >. ) -> F : M1 --> M2 ) ) $=
+      ( vz vw vx vy ccat wcel wa cop cfunc cfv wf wi w3a cv cid_ wceq cdm wrex
+      wral cdom_ ccod_ co_ co eqid isfunb pm3.26bda ex 3expia pm2.43d ) ALMZBLM
+      ZNCABOPQZMZDECRZUQURUTUTVASUQURUTTZUTVAVBUTVAHUAAUBQZQCQIUABUBQZQUCIVDUDZ
+      UEHVCUDZUFJUAZAUGQZQZVCQCQVGCQZBUGQZQVDQUCJDUFVGAUHQZQVCQCQVJBUHQZQVDQUCJ
+      DUFNKUAZVLQVIUCVGVNAUIQZUJCQVJVNCQBUIQZUJUCSKDUFJDUFTUSABJKHCIVFDVEEVCVHV
+      LVOVDVKVMVPVFUKFVHUKVLUKVCUKVOUKVEUKGVKUKVMUKVDUKVPUKULUMUNUOUP $.
+      $( [11-Feb-2008] $) $( [10-Feb-2008] $)
+  $}
+
+  ${ $d F m n o p $. $d O1 o $. $d O2 p $. $d T m n o p $. $d U m n o p $.
+    vidfunid.1 $e |- O1 = dom ( id_ ` T ) $.
+    vidfunid.2 $e |- I1 = ( id_ ` T ) $.
+    vidfunid.3 $e |- O2 = dom ( id_ ` U ) $.
+    vidfunid.4 $e |- I2 = ( id_ ` U ) $.
+    $( ` F ` associates every object of ` T ` to an object in ` U ` . For
+    identification of objects with identity see ~ df-func
+    JFM CAT_1 th. 97. $)
+    vidfunid $p |- ( ( T e. Cat /\ U e. Cat ) ->
+       ( F e. ( Func ` <. T , U >. ) ->
+         A. o e. O1
+        E. p e. O2 ( F ` ( I1 ` o ) ) = ( I2 ` p ) ) ) $=
+      ( vm vn ccat wcel wa cop cfunc cfv cv wceq wrex wral wi w3a cdom_ cdm
+      ccod_ co_ co wf eqid isfunb pm3.27bda 3simp1d ex 3expia pm2.43d ) APQZBPQ
+      ZRDABSTUAZQZCUBHUADUAEUBIUAUCEGUDCFUEZVAVBVDVDVEUFVAVBVDUGZVDVEVFVDRVENUB
+      ZAUHUAZUAZHUADUAVGDUAZBUHUAZUAIUAUCNVHUIZUEVGAUJUAZUAHUADUAVJBUJUAZUAIUAU
+      CNVLUERZOUBZVMUAVIUCVGVPAUKUAZULDUAVJVPDUABUKUAZULUCUFOVLUENVLUEZVFVDVLVK
+      UIZDUMVEVOVSUGVCABNOCDEFVLGVTHVHVMVQIVKVNVRJVLUNVHUNVMUNKVQUNLVTUNVKUNVNU
+      NMVRUNUOUPUQURUSUT $.
+      $( [11-Feb-2008] $) $( [10-Feb-2008] $)
+  $}
+
+
