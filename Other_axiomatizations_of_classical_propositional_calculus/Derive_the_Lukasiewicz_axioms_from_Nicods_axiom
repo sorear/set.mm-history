@@ -1,0 +1,112 @@
+$(
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+          Derive the Lukasiewicz axioms from Nicod's axiom
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+$)
+
+  ${
+    $( Minor premise. $)
+    nic-imp.1 $e |- ( ph -/\ ( ch -/\ ps ) ) $.
+     $( Inference for ~ nic-mp using ~ nic-ax as major premise.  (Contributed
+        by Jeff Hoffman, 17-Nov-2007.)  $)
+    nic-imp $p |- ( ( th -/\ ch ) -/\ ( ( ph -/\ th ) -/\ ( ph -/\ th ) ) ) $=
+      ( wta wnand nic-ax nic-mp ) ACBGGDCGADGZJGGFFFGGEABCDFHI $.
+      $( [11-Dec-2008] $) $( [17-Nov-2007] $)
+  $}
+
+  $( Lemma for ~ nic-id . $)
+  nic-idlem1 $p |- ( ( th -/\ ( ta -/\ ( ta -/\ ta ) ) ) -/\
+                 ( ( ( ph -/\ ( ch -/\ ps ) ) -/\ th ) -/\
+                   ( ( ph -/\ ( ch -/\ ps ) ) -/\ th ) ) ) $=
+    ( wnand nic-ax nic-imp ) ACBFFACFAAFZIFFEEEFFDABCAEGH $.
+    $( [11-Dec-2008] $) $( [17-Nov-2007] $)
+
+  ${
+    $v et $. $( Greek eta $)
+    nic-idlem2.we $f wff et $.
+    nic-idlem2.1 $e |- ( et -/\ ( ( ph -/\ ( ch -/\ ps ) ) -/\ th ) ) $.
+     $( Lemma for ~ nic-id .  Inference used by ~ nic-id . $)
+    nic-idlem2 $p |- ( ( th -/\ ( ta -/\ ( ta -/\ ta ) ) ) -/\ et ) $=
+      ( wnand nic-ax nic-imp nic-mp ) FACBHHZDHZHDEEEHHZHZFHZPGOMMFLACHAAHZQHHN
+      DABCAEIJJK $.
+      $( [11-Dec-2008] $) $( [17-Nov-2007] $)
+  $}
+
+  $( Theorem ~ id expressed with ` -/\ ` .  (Contributed by Jeff Hoffman,
+     17-Nov-2007.) $)
+  nic-id $p |- ( ta -/\ ( ta -/\ ta ) ) $=
+    ( wph wps wch wth wnand nic-ax nic-idlem2 nic-idlem1 nic-mp ) BCFZCBFZLFFZD
+    DDFZFZFZCCCFFZFAAAFFZOEEEMDQCCCBEGHMNDPCORFKLLOAIHJ $.
+    $( [11-Dec-2008] $) $( [17-Nov-2007] $)
+
+  $( ` -/\ ` is symmetric.  (Contributed by Jeff Hoffman, 17-Nov-2007.)  $)
+  nic-swap $p |- ( ( th -/\ ph ) -/\ ( ( ph -/\ th ) -/\ ( ph -/\ th ) ) ) $=
+    ( wta wnand nic-id nic-ax nic-mp ) AAADDBADABDZHDDCCCDDAEAAABCFG $.
+    $( [11-Dec-2008] $) $( [17-Nov-2007] $)
+
+  ${
+    nic-isw1.1 $e |- ( th -/\ ph ) $.
+    $( Inference version of ~ nic-swap .  (Contributed by Jeff Hoffman,
+       17-Nov-2007.) $)
+    nic-isw1 $p |- ( ph -/\ th ) $=
+      ( wnand nic-swap nic-mp ) BADABDZGCABEF $.
+      $( [11-Dec-2008] $) $( [17-Nov-2007] $)
+  $}
+
+  ${
+    nic-isw2.1 $e |- ( ps -/\ ( th -/\ ph ) ) $.
+    $( Inference for swapping nested terms.  (Contributed by Jeff Hoffman,
+       17-Nov-2007.) $)
+    nic-isw2 $p |- ( ps -/\ ( ph -/\ th ) ) $=
+      ( wnand nic-swap nic-imp nic-mp nic-isw1 ) BACEZBCAEZEJBEZLDJKKBCAFGHI $.
+      $( [11-Dec-2008] $) $( [17-Nov-2007] $)
+  $}
+
+  ${
+    nic-iimp1.1 $e |- ( ph -/\ ( ch -/\ ps ) ) $.
+    nic-iimp1.2 $e |- ( th -/\ ch ) $.
+    $( Inference version of ~ nic-imp using right-handed term.  (Contributed
+       by Jeff Hoffman, 17-Nov-2007.) $)
+    nic-iimp1 $p |- ( th -/\ ph ) $=
+      ( wnand nic-imp nic-mp nic-isw1 ) DADCGADGZKFABCDEHIJ $.
+      $( [11-Dec-2008] $) $( [17-Nov-2007] $)
+  $}
+
+  ${
+    nic-iimp2.1 $e |- ( ( ph -/\ ps ) -/\ ( ch -/\ ch ) ) $.
+    nic-iimp2.2 $e |- ( th -/\ ph ) $.
+    $( Inference version of ~ nic-imp using left-handed term.  (Contributed
+       by Jeff Hoffman, 17-Nov-2007.) $)
+    nic-iimp2 $p |- ( th -/\ ( ch -/\ ch ) ) $=
+      ( wnand nic-isw1 nic-iimp1 ) CCGZBADJABGEHFI $.
+      $( [11-Dec-2008] $) $( [17-Nov-2007] $)
+  $}
+
+  ${
+    nic-idel.1 $e |- ( ph -/\ ( ch -/\ ps ) ) $.
+    $( Inference to remove the trailing term.  (Contributed by Jeff Hoffman,
+       17-Nov-2007.) $)
+    nic-idel $p |- ( ph -/\ ( ch -/\ ch ) ) $=
+      ( wnand nic-id nic-isw1 nic-imp nic-mp ) CCEZCEAJEZKJCCFGABCJDHI $.
+      $( [11-Dec-2008] $) $( [17-Nov-2007] $)
+  $}
+
+  ${
+    nic-ich.1 $e |- ( ph -/\ ( ps -/\ ps ) ) $.
+    nic-ich.2 $e |- ( ps -/\ ( ch -/\ ch ) ) $.
+    $( Chained inference.  (Contributed by Jeff Hoffman, 17-Nov-2007.) $)
+    nic-ich $p |- ( ph -/\ ( ch -/\ ch ) ) $=
+      ( wnand nic-isw1 nic-imp nic-mp ) CCFZBFAJFZKJBEGABBJDHI $.
+      $( [11-Dec-2008] $) $( [17-Nov-2007] $)
+  $}
+
+  ${
+    nic-idbl.1 $e |- ( ph -/\ ( ps -/\ ps ) ) $.
+    $( Double the terms.  Since doubling is the same as negation,
+       this can be viewed as a contraposition Inference.  (Contributed
+       by Jeff Hoffman, 17-Nov-2007.) $)
+    nic-idbl $p |- ( ( ps -/\ ps ) -/\ ( ( ph -/\ ph ) -/\ ( ph -/\ ph ) ) ) $=
+      ( wnand nic-imp nic-ich ) BBDABDAADABBBCEABBACEF $.
+      $( [11-Dec-2008] $) $( [17-Nov-2007] $)
+  $}
+

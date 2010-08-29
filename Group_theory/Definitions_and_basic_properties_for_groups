@@ -1,0 +1,1437 @@
+$(
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+                Definitions and basic properties for groups
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+$)
+
+  $c Grp $.
+  $c Id $.
+  $c inv $.
+  $c /g $.
+  $c ^g $.
+
+  $( Extend class notation with the class of all group operations. $)
+  cgr $a class Grp $.
+
+  $( Extend class notation with a function mapping a group operation to the
+     group's identity element. $)
+  cgi $a class Id $.
+
+  $( Extend class notation with a function mapping a group operation to the
+     inverse function for the group. $)
+  cgn $a class inv $.
+
+  $( Extend class notation with a function mapping a group operation to the
+     division (or subtraction) operation for the group. $)
+  cgs $a class /g $.
+
+  $( Extend class notation with a function mapping a group operation to the
+     power operation for the group. $)
+  cgx $a class ^g $.
+
+  ${
+    $d f g t u x y z $.
+    $( Define the class of all group operations.  The base set for a group
+       can be determined from its group operation.  Based on the definition in
+       Exercise 28 of [Herstein] p. 54. $)
+    df-grp $a |- Grp = { g | E. t ( g : ( t X. t ) --> t
+       /\ A. x e. t A. y e. t A. z e. t ( ( x g y ) g z ) = ( x g ( y g z ) )
+   /\ E. u e. t A. x e. t ( ( u g x ) = x /\ E. y e. t ( y g x ) = u ) ) } $.
+
+    $( Define a function that maps a group operation to the group's identity
+       element. $)
+    df-gid $a |- Id = { <. g , y >. | y =
+                 U. { u e. ran g | A. x e. ran g ( ( u g x ) = x
+                 /\ ( x g u ) = x ) } } $.
+
+    $( Define a function that maps a group operation to the group's inverse
+       function. $)
+    df-ginv $a |- inv = { <. g , f >. | ( g e. Grp /\ f = { <. x , y >. |
+      ( x e. ran g /\ y = U. { z e. ran g | ( z g x ) = ( Id ` g ) } ) } ) } $.
+
+    $( Define a function that maps a group operation to the group's division
+       (or subtraction) operation. $)
+    df-gdiv $a |- /g = { <. g , f >. | ( g e. Grp /\ f = { <. <. x , y >. ,
+    z >. | ( ( x e. ran g /\ y e. ran g ) /\
+         z = ( x g ( ( inv ` g ) ` y ) ) ) } ) } $.
+
+    $( Define a function that maps a group operation to the group's power
+       operation. $)
+    df-gx $a |- ^g = { <. g , f >. | ( g e. Grp /\ f = { <. <. x , y >. ,
+      z >. | ( ( x e. ran g /\ y e. ZZ ) /\ z = if ( y = 0 , ( Id ` g ) ,
+      if ( 0 < y , ( ( g seq1 ( NN X. { x } ) ) ` y ) ,
+      ( ( inv ` g ) ` ( ( g seq1 ( NN X. { x } ) ) ` -u y ) ) ) ) ) } ) } $.
+  $}
+
+  ${
+    $d g t u x y z G $.  $d g t u x y z X $.
+    isgrp.1 $e |- X = ran G $.
+    $( The predicate "is a group operation."  Note that ` X ` is the base set
+       of the group. $)
+    isgrp $p |- ( G e. A -> ( G e. Grp <-> ( G : ( X X. X ) --> X /\
+       A. x e. X A. y e. X A. z e. X ( ( x G y ) G z ) = ( x G ( y G z ) )
+   /\ E. u e. X A. x e. X ( ( u G x ) = x /\ E. y e. X ( y G x ) = u ) ) ) ) $=
+      ( vt vg wcel cgr cv crn wceq cxp wf co wral wrex wa w3a wex feq1 opreq
+      opreq1d eqtrd opreq2d eqeq12d ralbidv 2ralbidv eqeq1d rexbidv anbi12d
+      rexralbidv 3anbi123d exbidv df-grp elab2g wfo opreq2 id eqcom syl6bb
+      rcla4v eqeq2d rcla4ev ex syld pm3.26 r19.20si syl5 r19.22sdv impcom
+      r19.21aiva anim2i fooprv sylibr forn eqcomd syl 3adant2 pm4.71ri exbii
+      cvv wb rnexg eqeq2i xpeq1 xpeq2 feq2 feq3 bitrd raleq1 raleqd rexeq1
+      anbi2d rexeqd sylbir ceqsexgv ) FEKZFLKZIMZFNZOZXCXCPZXCFQZAMZBMZFRZCMZFR
+      ZXHXIXKFRZFRZOZCXCSZBXCSZAXCSZDMZXHFRZXHOZXIXHFRZXSOZBXCTZUAZAXCSZDXCTZUB
+      ZUAZIUCZGGPZGFQZXOCGSZBGSZAGSZYAYCBGTZUAZAGSZDGTZUBZXAXBYHIUCZYJXFXCJMZQZ
+      XHXIUUBRZXKUUBRZXHXIXKUUBRZUUBRZOZCXCSZBXCSAXCSZXSXHUUBRZXHOZXIXHUUBRZXSO
+      ZBXCTZUAZAXCSDXCTZUBZIUCUUAJFLEUUBFOZUURYHIUUSUUCXGUUJXRUUQYGXFXCUUBFUDUU
+      SUUIXPABXCXCUUSUUHXOCXCUUSUUEXLUUGXNUUSUUEUUDXKFRXLUUDXKUUBFUEUUSUUDXJXKF
+      XHXIUUBFUEUFUGUUSUUGXHUUFFRXNXHUUFUUBFUEUUSUUFXMXHFXIXKUUBFUEUHUGUIUJUKUU
+      SUUPYEDAXCXCUUSUULYAUUOYDUUSUUKXTXHXSXHUUBFUEULUUSUUNYCBXCUUSUUMYBXSXIXHU
+      UBFUEULUMUNUOUPUQABCDIJURUSYHYIIYHXEXGYGXEXRXGYGUAZXFXCFUTZXEUUTXGXKXSXIF
+      RZOZBXCTZDXCTZCXCSZUAUVAYGUVFXGYGUVECXCXKXCKZYGUVEUVGYFUVDDXCUVGYAAXCSZUV
+      DYFUVGUVHXKXSXKFRZOZUVDYAUVJAXKXCXHXKOZYAUVIXKOUVJUVKXTUVIXHXKXHXKXSFVAUV
+      KVBUIUVIXKVCVDVEUVGUVJUVDUVCUVJBXKXCXIXKOUVBUVIXKXIXKXSFVAVFVGVHVIYEYAAXC
+      YAYDVJVKVLVMVNVOVPDBCXCXCXCFVQVRUVAXDXCXFXCFVSVTWAWBWCWDVDXAXDWEKYJYTWFFE
+      WGYHYTIXDWEXEXCGOZYHYTWFGXDXCHWHUVLXGYLXRYOYGYSUVLXGYKXCFQZYLUVLXFYKOXGUV
+      MWFUVLXFGXCPYKXCGXCWIXCGGWJUGXFYKXCFWKWAXCGYKFWLWMXQYNAXCGXPYMBXCGXOCXCGW
+      NWOWOYFYRDXCGYEYQAXCGUVLYDYPYAYCBXCGWPWQWOWRUPWSWTWAWM $.
+      $( [3-Nov-2006] $) $( [10-Oct-2006] $)
+  $}
+
+  ${
+    $d u x y z G $.  $d u x y z U $.  $d u x y z X $.  $d y N $.
+    isgrpi.1 $e |- X e. V $.
+    isgrpi.2 $e |- G : ( X X. X ) --> X $.
+    isgrpi.3 $e |- ( ( x e. X /\ y e. X /\ z e. X ) ->
+                   ( ( x G y ) G z ) = ( x G ( y G z ) ) ) $.
+    isgrpi.4 $e |- U e. X $.
+    isgrpi.5 $e |- ( x e. X -> ( U G x ) = x ) $.
+    isgrpi.6 $e |- ( x e. X -> N e. X ) $.
+    isgrpi.7 $e |- ( x e. X -> ( N G x ) = U ) $.
+    $( Properties that determine a group operation.  Read ` N ` as
+       ` N ( x ) ` . $)
+    isgrpi $p |- G e. Grp $=
+      ( vu cgr wcel cxp wf cv co wceq wral wrex wa w3a rgen3 opreq1 eqeq1d
+      rcla4ev sylanc jca rgen eqeq2 rexbidv anbi12d ralbidv mp2an 3pm3.2i cvv
+      wb xpex fex crn wfo fooprv eqcomd rcla4eopr mp3an1 mpdan mpbir2an forn
+      ax-mp eqcomi isgrp mpbir ) EPQZGGRZGESZATZBTZEUACTZEUAVTWAWBEUAZEUAUBZCGU
+      CBGUCAGUCZOTZVTEUAZVTUBZWAVTEUAZWFUBZBGUDZUEZAGUCZOGUDZUFZVSWEWNIWDABCGGG
+      JUGDGQZDVTEUAZVTUBZWIDUBZBGUDZUEZAGUCZWNKXAAGVTGQZWRWTLFGQFVTEUAZDUBZWTXC
+      WSXEBFGWAFUBWIXDDWAFVTEUHUIUJMNUKULUMWMXBODGWFDUBZWLXAAGXFWHWRWKWTXFWGWQV
+      TWFDVTEUHUIXFWJWSBGWFDWIUNUOUPUQUJURUSEUTQZVQWOVAVSVRUTQXGIGGHHVBVRGUTEVC
+      URABCOUTEGEVDZGVRGEVEZXHGUBXIVSVTWCUBCGUDBGUDZAGUCBCAGGGEVFIXJAGXCVTWQUBZ
+      XJXCWQVTLVGWPXCXKXJKBCGGDVTVTEVHVIVJUMVKVRGEVLVMVNVOVMVP $.
+      $( [4-Nov-2006] $) $( [4-Nov-2006] $)
+  $}
+
+  ${
+    $d w x y z A $.  $d x y z B $.  $d z C $.  $d u w x y z G $.
+    $d u w x y z X $.  $d y U $.
+    grpfo.1 $e |- X = ran G $.
+    $( A group operation maps onto the group's underlying set. $)
+    grpfo $p |- ( G e. Grp -> G : ( X X. X ) -onto-> X ) $=
+      ( vx vy vz vu cgr wcel cxp wf crn wceq wa wfo cv co wral wrex w3a isgrp
+      ibi 3simp1d eqcomi jctir dffo2 sylibr ) AHIZBBJZBAKZALZBMZNUIBAOUHUJULUHU
+      JDPZEPZAQFPZAQUMUNUOAQAQMFBREBRDBRZGPZUMAQUMMUNUMAQUQMEBSNDBRGBSZUHUJUPUR
+      TDEFGHABCUAUBUCBUKCUDUEUIBAUFUG $.
+      $( [31-Oct-2006] $) $( [30-Oct-2006] $)
+
+    $( Closure law for a group operation. $)
+    grpcl $p |- ( ( G e. Grp /\ A e. X /\ B e. X ) -> ( A G B ) e. X ) $=
+      ( cxp wf wcel co cgr foprrn wfo grpfo fof syl syl3an1 ) DDFZDCGZADHBDHABC
+      IDHCJHZABDDDCKSQDCLRCDEMQDCNOP $.
+      $( [19-Oct-2006] $) $( [10-Oct-2006] $)
+
+    $( A group has a left identity element, and every member has a left
+       inverse. $)
+    grplidinv $p |- ( G e. Grp ->
+         E. u e. X A. x e. X ( ( u G x ) = x /\ E. y e. X ( y G x ) = u ) ) $=
+      ( vz cgr wcel cxp wf cv co wceq wral wrex wa w3a isgrp ibi 3simp3d ) DHIZ
+      EEJEDKZALZBLZDMGLZDMUDUEUFDMDMNGEOBEOAEOZCLZUDDMUDNUEUDDMUHNBEPQAEOCEPZUB
+      UCUGUIRABGCHDEFSTUA $.
+      $( [3-Nov-2006] $) $( [2-Nov-2006] $)
+
+    $( The base set of a group is not empty.  (Contributed by Szymon
+       Jaroszewicz, 3-Apr-2007.) $)
+    grpn0 $p |- ( G e. Grp -> X =/= (/) ) $=
+      ( vu vx vy cgr wcel cv co wceq wrex wa wral c0 wne grplidinv rexn0 syl )
+      AGHDIZEIZAJUAKFIUAAJTKFBLMEBNZDBLBOPEFDABCQUBDBRS $.
+      $( [3-Apr-2007] $) $( [2-Mar-2007] $)
+
+    $( A group operation is associative. $)
+    grpass $p |- ( ( G e. Grp /\ ( A e. X /\ B e. X /\ C e. X ) ) ->
+              ( ( A G B ) G C ) = ( A G ( B G C ) ) ) $=
+      ( vx vy vz vu cgr wcel w3a co wceq cv wral opreq1 opreq1d eqeq12d opreq2
+      opreq2d rcla43v cxp wf wrex wa isgrp ibi 3simp2d syl5com imp ) DKLZAELBEL
+      CELMZABDNZCDNZABCDNZDNZOZUNGPZHPZDNZIPZDNZUTVAVCDNZDNZOZIEQHEQGEQZUSUMVGU
+      SAVADNZVCDNZAVEDNZOUOVCDNZABVCDNZDNZOGHIABCEEEUTAOZVDVJVFVKVOVBVIVCDUTAVA
+      DRSUTAVEDRTVABOZVJVLVKVNVPVIUOVCDVABADUASVPVEVMADVABVCDRUBTVCCOZVLUPVNURV
+      CCUODUAVQVMUQADVCCBDUAUBTUCUMEEUDEDUEZVHJPZUTDNUTOVAUTDNVSOHEUFUGGEQJEUFZ
+      UMVRVHVTMGHIJKDEFUHUIUJUKUL $.
+      $( [18-Oct-2006] $) $( [10-Oct-2006] $)
+
+    $( Lemma for ~ grpidinv . $)
+    grpidinvlem1 $p |- ( ( ( G e. Grp /\ ( Y e. X /\ A e. X ) ) /\
+                  ( ( Y G A ) = U /\ ( A G A ) = A ) ) -> ( U G A ) = U ) $=
+      ( cgr wcel wa co wceq opreq1 ad2antrl w3a grpass id 3anidm23 sylan2
+      adantr eqtr3d opreq2 ad2antll simprl 3eqtrd ) CGHZEDHZADHZIZIZEACJZBKZAAC
+      JZAKZIZIZBACJZEULCJZUJBUOUJACJZUPUQUKURUPKUIUMUJBACLMUIURUQKZUNUEUFUGUGNZ
+      USUHEAACDFOUFUGUTUTPQRSTUMUQUJKUIUKULAECUAUBUIUKUMUCUD $.
+      $( [24-Oct-2006] $) $( [10-Oct-2006] $)
+
+    $( Lemma for ~ grpidinv . $)
+    grpidinvlem2 $p |- ( ( ( G e. Grp /\ ( Y e. X /\ A e. X ) ) /\ ( ( U G Y )
+         = Y /\ ( Y G A ) = U ) ) -> ( ( A G Y ) G ( A G Y ) ) = ( A G Y ) ) $=
+      ( cgr wcel wa co wceq w3a simprr simprl grpcl 3com23 3expb 3jca grpass
+      syldan adantr opreq1 adantl pm3.26 eqtr2d id 3anidm13 sylan2 sylan9eqr
+      eqcomd opreq2d eqtrd ) CGHZEDHZADHZIZIZBECJZEKZEACJZBKZIZIZAECJZVDCJZAEVD
+      CJZCJZVDUQVEVGKZVBUMUPUOUNVDDHZLVHUQUOUNVIUMUNUOMUMUNUONUMUNUOVIUMUOUNVIA
+      ECDFOPQRAEVDCDFSTUAVCVFEACVCEVFVBUQEUTECJZVFVBVJUREVAVJURKUSUTBECUBUCUSVA
+      UDUEUMUNUOUNLZVJVFKUPEAECDFSUNUOVKVKUFUGUHUIUJUKUL $.
+      $( [24-Oct-2006] $) $( [10-Oct-2006] $)
+
+    ${
+      $d w x y z U $.  $d w y ph $.  $d y ps $.
+      grpidinvlem3.2 $e |- ( ph <-> A. x e. X ( U G x ) = x ) $.
+      grpidinvlem3.3 $e |- ( ps <-> A. x e. X E. z e. X ( z G x ) = U ) $.
+      $( Lemma for ~ grpidinv . $)
+      grpidinvlem3 $p |- ( ( ( ( G e. Grp /\ U e. X ) /\ ( ph /\ ps ) ) /\
+                  A e. X ) -> E. y e. X ( ( y G A ) = U /\ ( A G y ) = U ) ) $=
+        ( vw cgr wcel wa cv co wceq wrex wral opreq2 eqeq1d rexbidv rcla4cva
+        opreq1 cbvrexv ralbii bitri sylanb adantll id eqeq12d rcla4va grpcl
+        3expa adantllr biimpi ad2antrl ad2antrr sylanc adantr grpidinvlem2
+        pm3.22 ancom31s adantlr adantlll anim1i wi 3expb ad2ant2rl
+        grpidinvlem1 anass an1rs ex syldan imp sylan exp43 r19.23adv sylan2b
+        syl5 mpand exp32 com34 imp32 exp3a imp31 mpd eqtr3d ancld r19.22dva )
+        HNOZGIOZPZABPZPZFIOZPZDQZFHRZGSZDITZXBFWTHRZGSZPZDITWPWRXCWOBWRXCAWTCQZ
+        HRZGSZDITZCIUAZWRXCBXJXCCFIXGFSZXIXBDIXLXHXAGXGFWTHUBUCUDUEBEQZXGHRZGSZ
+        EITZCIUAZXKLXPXJCIXOXIEDIXMWTSXNXHGXMWTXGHUFUCUGUHUIUJUKUKWSXBXFDIWSWTI
+        OZPZXBXEXSXBXEXSXBPZGXDHRZXDGXSYAXDSZXBXDIOZGXGHRZXGSZCIUAZYBXSYEYBCXDI
+        XGXDSZYDYAXGXDXGXDGHUBYGULUMUNWOWRXRYCWPWMWRXRYCWNWMWRXRYCFWTHIJUOZUPUQ
+        UQWQYFWRXRAYFWOBAYFKURUSUTVAVBXTXDXDHRXDSZYAGSZWMXRWRPZPZGWTHRZWTSZXBPY
+        IXTFGHIWTJVCXSYLXBWOWRXRYLWPWMWRXRYLWNXRWRWMYLYKWMVDVEUQUQVBXSYNXBWPWRX
+        RYNWOWPXRYNWRAXRYNBYFXRYNAYEYNCWTIXGWTSZYDYMXGWTXGWTGHUBYOULUMUEKUJVFVF
+        VGVHVAXSYIYJVIZXBWQWRXRYPWQWRXRYPWOABWRXRPZYPVIWOAYQBYPWOAYQBYPVIWOAYQP
+        PZYCBYPWMYQYCWNAWMWRXRYCYHVJZVKYRMQZXDHRZGSZMITZYPYCBPYRUUBYPMIYRYTIOZU
+        UBYIYJWMUUDYCPPZUUBYIPYJYRUUDPXDGHIYTJVLYRUUDUUEWMYQUUDUUEVIZWNAWMYQYCU
+        UFYSWMYCPUUDUUEWMUUDYCUUEWMUUDPYCPUUEWMUUDYCVMURVNVOVPVKVQVRVSVTYCYTXGH
+        RZGSZMITZCIUAZUUCBUUIUUCCXDIYGUUHUUBMIYGUUGUUAGXGXDYTHUBUCUDUNBXQUUJLXP
+        UUICIXOUUHEMIXMYTSXNUUGGXMYTXGHUFUCUGUHUIWAWBWCWDWEWFWGWHVBWIWJVOWKWLWI
+        $.
+        $( [25-Oct-2006] $) $( [11-Oct-2006] $)
+    $}
+
+    $( Lemma for ~ grpidinv . $)
+    grpidinvlem4 $p |- ( ( ( G e. Grp /\ A e. X ) /\ E. y e. X
+             ( ( y G A ) = U /\ ( A G y ) = U ) ) -> ( A G U ) = ( U G A ) ) $=
+      ( cgr wcel wa cv co wceq wrex w3a grpass simpll simplr pm3.27 3jca
+      sylanc opreq2 sylan9eq opreq1 sylan9req anasss exp31 r19.23adv imp ) DGHZ
+      BEHZIZAJZBDKZCLZBULDKZCLZIZAEMBCDKZCBDKZLZUKUQUTAEUKULEHZUQUTUKVAIZUNUPUT
+      VBUNIUPURUOBDKZUSVBUNVCBUMDKZURUIUJVAUJNVCVDLVBBULBDEFOUIUJVAPVBUJVAUJUIU
+      JVAQZUKVARVESTUMCBDUAUBUOCBDUCUDUEUFUGUH $.
+      $( [25-Oct-2006] $) $( [14-Oct-2006] $)
+
+    $( A group has a left and right identity element, and every member has a
+       left and right inverse. $)
+    grpidinv $p |- ( G e. Grp -> E. u e. X A. x e. X ( ( ( u G x ) = x /\
+         ( x G u ) = x ) /\ E. y e. X ( ( y G x ) = u /\ ( x G y ) = u ) ) ) $=
+      ( vz vw cgr wcel cv co wceq wrex wa wral grplidinv opreq2 id eqeq12d
+      rcla4cva pm3.26 r19.20si sylan adantll grpidinvlem4 anim1i adantrr
+      adantr adantl ad2antlr pm3.27 jca biid grpidinvlem3 sylancom sylanc
+      eqtrd r19.21aiva exp32 r19.22dv mpd ) DIJZCKZGKZDLZVEMZHKVEDLVDMHENZOZGEP
+      ZCENVDAKZDLZVKMZVKVDDLZVKMZOZBKZVKDLVDMVKVQDLVDMOBENZOZAEPZCENGHCDEFQVCVJ
+      VTCEVCVDEJZVJVTVCWAVJOZOZVSAEWCVKEJZOZVPVRWEVMVOWBWDVMVCVJWDVMWAVGGEPZWDV
+      MVJVGVMGVKEVEVKMZVFVLVEVKVEVKVDDRWGSTUAVIVGGEVGVHUBUCZUDUEUEZWEVNVLVKVCWD
+      OVRVNVLMWEBVKVDDEFUFWCVCWDVCWBUBUGWCWDVCWAOZWFVHGEPZOZOVRWEWJWLWCWJWDVCWA
+      WJVJWJSUHUIWEWFWKWBWFVCWDVJWFWAWHUJUKWBWKVCWDVJWKWAVIVHGEVGVHULUCUJUKUMUM
+      WFWKGBHVKVDDEFWFUNWKUNUOUPZUQWIURUMWMUMUSUTVAVB $.
+      $( [25-Oct-2006] $) $( [14-Oct-2006] $)
+
+    $( The left identity element of a group is unique.  Lemma 2.2.1(a) of
+       [Herstein] p. 55. $)
+    grpideu $p |- ( G e. Grp -> E! u e. X A. x e. X ( u G x ) = x ) $=
+      ( vw vz vy cgr wcel cv co wceq wral wi wa wrex wreu grpidinv simpll
+      r19.20si opreq2 id eqeq12d cbvralv sylib adantl ad2antlr eqeq1d opreq1
+      anbi12d rexbidv rcla4va adantll pm3.27 sylan2 grpidinvlem4 syldan an1rs
+      adantllr adantr ad2ant2rl ad2ant2lr 3eqtr3d ex mpand r19.21aiva jca
+      r19.22dva mpd ralbidv reu8 sylibr ) CIJZBKZAKZCLZVPMZADNZFKZVPCLZVPMZADNZ
+      VOVTMZOZFDNZPZBDQZVSBDRVNVOGKZCLZWIMZWIVOCLWIMZPZHKZWICLZVOMZWIWNCLZVOMZP
+      ZHDQZPZGDNZBDQWHGHBCDESVNXBWGBDVNVODJZPZXBWGXDXBPZVSWFXBVSXDXBWKGDNVSXAWK
+      GDWKWLWTTUAWKVRGADWIVPMZWJVQWIVPWIVPVOCUBXFUCUDUEUFZUGXEWEFDXEVTDJZPZVSWC
+      WDXBVSXDXHXGUHXIVSWCPZWDXIXJPVTVOCLZVOVTCLZVOVTXIXKXLMZXJVNXBXHXMXCVNXHXB
+      XMVNXHPZXBWNVTCLZVOMZVTWNCLZVOMZPZHDQZXMXNWTGDNZXTXBXHYAXTVNWTXTGVTDWIVTM
+      ZWSXSHDYBWPXPWRXRYBWOXOVOWIVTWNCUBUIYBWQXQVOWIVTWNCUJUIUKULUMUNXAWTGDWMWT
+      UOUAUPHVTVOCDEUQURUSUTVAXDXHXJXKVOMZXBXDWCYCXHVSXCWCYCVNWBYCAVODVPVOMZWAX
+      KVPVOVPVOVTCUBYDUCUDUMUNVBUTXHVSXLVTMZXEWCVRYEAVTDVPVTMZVQXLVPVTVPVTVOCUB
+      YFUCUDUMVCVDVEVFVGVHVEVIVJVSWCBFDWDVRWBADWDVQWAVPVOVTVPCUJUIVKVLVM $.
+      $( [25-Oct-2006] $) $( [14-Oct-2006] $)
+  $}
+
+  $( A group's range in terms of its domain. $)
+  grprndm $p |- ( G e. Grp -> ran G = dom dom G ) $=
+    ( cgr wcel crn cxp wfo cdm wceq eqid grpfo wf fof fdm syl dmeqd dmxpid
+    syl6req ) ABCADZREZRAFZRAGZGZHARRIJTUBSGRTUASTSRAKUASHSRALSRAMNORPQN $.
+    $( [1-May-2008] $) $( [6-Apr-2008] $)
+
+  $( The empty set is not a group. $)
+  0ngrp $p |- -. (/) e. Grp $=
+    ( c0 cgr wcel wne wn wceq eqid nne mpbir crn rn0 eqcomi grpn0 mto ) ABCAADZ
+    OEAAFAGAAHIAAAJAKLMN $.
+    $( [25-Apr-2007] $) $( [25-Apr-2007] $)
+
+  ${
+    grprn.1 $e |- G e. Grp $.
+    grprn.2 $e |- dom G = ( X X. X ) $.
+    $( The range of a group operation.  Useful for satisfying group base set
+       hypotheses of the form ` X = ran G ` . $)
+    grprn $p |- X = ran G $=
+      ( cxp wfn crn wceq wfun cdm df-fn wfo cgr wcel eqid grpfo ax-mp fofun
+      mpbir2an fofn wa fndmu xpid11 sylib mp2an ) ABBEZFZAAGZUHEZFZBUHHZUGAIZAJ
+      UFHAUFKUIUHALZULAMNUMCAUHUHOPQZUIUHARQDSUMUJUNUIUHATQUGUJUAUFUIHUKUFUIAUB
+      BUHUCUDUE $.
+      $( [30-Mar-2008] $) $( [5-Nov-2006] $)
+  $}
+
+  ${
+    $d G u x y $. $d X u x y $.
+    grprlidrid.1  $e |- X = ran G $.
+     $( In a group a left and right identity element is a left identity
+       element.  (Contributed by FL, 5-Feb-2010.) $)
+    grprlidrid  $p |- ( G e. Grp ->
+       U. { u e. X | A. x e. X ( ( u G x ) = x /\ ( x G u ) = x ) } =
+       U. { u e. X | A. x e. X ( u G x ) = x } ) $=
+      ( vy wss cv co wceq wa wral wi wrex wreu crab cuni cgr wcel reuuniss2
+      pm3.26 a1i r19.20dva a1d r19.21aiv ssid jctil grpidinv r19.20si r19.22si
+      syl grpideu jca sylanc ) DDGZBHZAHZCIUQJZUQUPCIUQJZKZADLZURADLZMZBDLZKVAB
+      DNZVBBDOZKVABDPQVBBDPQJCRSZVAVBBDDTVGVDUOVGVCBDVGVCUPDSVGUTURADUTURMVGUQD
+      SKURUSUAUBUCUDUEDUFUGVGVEVFVGUTFHZUQCIUPJUQVHCIUPJKFDNZKZADLZBDNVEAFBCDEU
+      HVKVABDVJUTADUTVIUAUIUJUKABCDEULUMUN $.
+      $( [5-Feb-2010] $) $( [5-Feb-2010] $)
+  $}
+
+  ${
+    $d g u x y $.
+    $( The identity of the empty set is the empty set.  (Contributed by FL,
+       5-Feb-2010.) $)
+    gid0 $p |- ( Id ` (/) ) = (/) $=
+      ( vy vu vx vg c0 cgi cfv cv co wceq wa crn wral crab cuni copab df-gid
+      fveq1i 0ex rneq rabeq syl wcel adantr raleq1d rabbidv eqtrd unieqd rn0
+      ax-mp rab0 eqtri unieqi uni0 syl6eq fvopab ) EFGEAHBHZCHZDHZIURJURUQUSIUR
+      JKZCUSLZMZBVANZOZJDAPZGEEFVECABDQRDAEVDESSUSEJZVDUTCELZMZBVGNZOZEVFVCVIVF
+      VCVBBVGNZVIVFVAVGJZVCVKJUSETZVBBVAVGUAUBVFVBVHBVGVFUQVGUCZKUTCVAVGVFVLVNV
+      MUDUEUFUGUHVJEOEVIEVIVHBENZEVGEJVIVOJUIVHBVGEUAUJVHBUKULUMUNULUOUPUL $.
+      $( [5-Feb-2010] $) $( [5-Feb-2010] $)
+  $}
+
+  ${
+    $d w x y z $.
+    $( ` Id ` is a function.  (Contributed by FL, 5-Feb-2010.) $)
+    fungid $p |- Fun Id $=
+      ( vy vz vx vw cgi wfun cv co wceq wa crn wral crab cuni copab funopabeq
+      wb df-gid funeq ax-mp mpbir ) EFZAGBGZCGZDGZHUDIUDUCUEHUDIJCUEKZLBUFMNZID
+      AOZFZDAUGPEUHIUBUIQCABDREUHSTUA $.
+      $( [5-Feb-2010] $) $( [5-Feb-2010] $)
+  $}
+
+  ${
+    $d u x y z A $.
+    grpsn.1 $e |- A e. V $.
+    $( MAY BE REVISED - this is useless since we have ablsn - delete this if
+       if ever get an example of a non-Abelian group to go here. $)
+    $( The group operation for the singleton group. $)
+    grpsn $p |- { <. <. A , A >. , A >. } e. Grp $=
+      ( vx vy vz cop csn snex cxp wf wf1o opex f1osn f1of ax-mp wceq wb xpsn
+      feq2 mpbir cv co wcel w3a wa opreq2 opreq1 cfv df-opr fvsn eqtri syl6eq
+      sylan9eq opreq1d sylan9eqr 3impa opreq2d 3impb eqtr4d elsn syl3anb snid
+      id 3eqtr4a sylbi a1i isgrpi ) CDEAAAFZAFGZAAGZAHVJVJIZVJVIJZVHGZVJVIJZVMV
+      JVIKVNVHAAALZBMVMVJVINOVKVMPVLVNQAABBRVKVMVJVISOTCUAZAPZDUAZAPZEUAZAPZVPV
+      RVIUBZVTVIUBZVPVRVTVIUBZVIUBZPVPVJUCZVRVJUCVTVJUCVQVSWAUDWCAWEVQVSWAWCAPW
+      AVQVSUEZWCWBAVIUBZAVTAWBVIUFWGWHAAVIUBZAWGWBAAVIVQVSWBAVRVIUBZAVPAVRVIUGV
+      SWJWIAVRAAVIUFWIVHVIUHAAAVIUIVHAVOBUJUKZULUMUNWKULUOUPVQVSWAWEAPVQVSWAUEZ
+      WEAWDVIUBZAVPAWDVIUGWLWMWIAWLWDAAVIVSWAWDAVTVIUBZAVRAVTVIUGWAWNWIAVTAAVIU
+      FWKULUMUQWKULUMURUSCAUTZDAUTEAUTVAABVBZWFVQAVPVIUBZVPPWOVQWIAWQVPWKVPAAVI
+      UFZVQVCVDVEAVJUCWFWPVFWFVQWQAPWOVQWQWIAWRWKULVEVG $.
+      $( [5-Feb-2010] $) $( [4-Nov-2006] $)
+  $}
+
+  ${
+    $d x y A $.  $d g u x y G $.  $d u x y U $.  $d g u x y X $.
+    grpidval.1 $e |- X = ran G $.
+    grpidval.2 $e |- U = ( Id ` G ) $.
+    ${
+      grpidvallem.3 $e |- G e. Grp $.
+      $( The value of the identity element of a group. $)
+      grpidvallem $p |-
+                   U = U. { u e. X | A. x e. X ( u G x ) = x } $=
+        ( vg vy cgi cfv cv co wceq wral crab cuni cvv wcel cgr elisseti crn
+        rnex eqeltri rabex uniex wa rneq rabeq syl adantr wb opreq eqeq1d
+        anbi12d raleq12d rabbidv eqtrd unieqd eqcomi ax-mp unieqi raleq1 a1i
+        rabbii grprlidrid 3eqtri syl6eq copab cres df-gid wrel relopab resid
+        resopab 3eqtr2i fvopab4g mp2an eqtri ) CDKLZBMZAMZDNZWCOZAEPZBEQZRZGDST
+        WHSTWAWHODUAHUBZWGWFBEEDUCZSFDWIUDUEUFUGIJDWBWCIMZNZWCOZWCWBWKNZWCOZUHZ
+        AWKUCZPZBWQQZRZWHSSKWKDOZWTWEWCWBDNZWCOZUHZAWJPZBWJQZRZWHXAWSXFXAWSWRBW
+        JQZXFXAWQWJOZWSXHOWKDUIZWRBWQWJUJUKXAWRXEBWJXAWBWJTZUHZWPXDAWQWJXAXIXKX
+        JULXLWMWEWOXCXAWMWEUMXKXAWLWDWCWBWCWKDUNUOULXAWOXCUMXKXAWNXBWCWCWBWKDUN
+        UOULUPUQURUSUTXGXEBEQZRXDAEPZBEQZRZWHXFXMWJEOZXFXMOEWJFVAZXEBWJEUJVBVCX
+        MXOXEXNBEXEXNUMZWBETXQXSXRXDAWJEVDVBVEVFVCDUATXPWHOHABDEFVGVBVHVIKJMWTO
+        ZIJVJZYASVKZWKSTXTUHIJVJAJBIVLYAVMYBYAOXTIJVNYAVOVBXTIJSVPVQVRVSVT $.
+        $( [5-Feb-2010] $) $( [5-Feb-2010] $)
+    $}
+
+    $( The value of the identity element of a group. $)
+    grpidval $p |- ( G e. Grp ->
+                 U = U. { u e. X | A. x e. X ( u G x ) = x } ) $=
+      ( vy vg cgr wcel cv co wceq wral crab cuni c0 cop csn cif cgi cfv crn
+      fveq2 rneq rabeq syl opreq eqeq1d raleq12d rabbisdv eqtrd unieqd eqeq12d
+      ax-mp wb raleq1 a1i rabbii eqtri unieqi eqeq12i syl5bb wa copab df-gid
+      fveq1i cvv wn wo elisset ancli con3i snex jctir orri ifel mpbir rnex
+      rabex uniex anbi12d 0ex grpsn elimel eqid grprlidrid syl6eq fvopab dedth
+      ) DJKZCBLZALZDMZWNNZAEOZBEPZQZNZWLDRRSRSZTZUAZUBUCZWMWNXCMZWNNZAXCUDZOZBX
+      GPZQZNZDXBDXCNZDUBUCZWPADUDZOZBXNPZQZNXKWTXLXMXDXQXJDXCUBUEXLXPXIXLXPXOBX
+      GPZXIXLXNXGNXPXRNDXCUFZXOBXNXGUGUHXLXOXHBXGXLWPXFAXNXGXSXLWOXEWNWMWNDXCUI
+      UJUKULUMUNUOCXMWSXQGWRXPWRWQBXNPZXPEXNNZWRXTNFWQBEXNUGUPWQXOBXNWQXOUQZWMX
+      NKYAYBFWPAEXNURUPUSUTVAVBVCVDXDXCHLWMWNILZMZWNNZWNWMYCMZWNNZVEZAYCUDZOZBY
+      IPZQZNIHVFZUCXJXCUBYMAHBIVGVHIHXCYLXJXCVIKWLDVIKZVEZWLVJZXBVIKZVEZVKYOYRY
+      OVJYPYQWLYOWLYNDJVLVMVNXAVOVPVQWLDXBVIVRVSZXIXHBXGXCYSVTWAWBYCXCNZYLXFWNW
+      MXCMZWNNZVEZAXGOZBXGPZQZXJYTYKUUEYTYKYJBXGPZUUEYTYIXGNYKUUGNYCXCUFZYJBYIX
+      GUGUHYTYJUUDBXGYTYHUUCAYIXGUUHYTYEXFYGUUBYTYDXEWNWMWNYCXCUIUJYTYFUUAWNWNW
+      MYCXCUIUJWCUKULUMUNXCJKUUFXJNDXBJRWDWEWFABXCXGXGWGWHUPWIWJVAWK $.
+      $( [5-Feb-2010] $) $( [5-Feb-2010] $)
+
+    $( The identity element of a group belongs to the group. $)
+    grpidcl $p |- ( G e. Grp -> U e. X ) $=
+      ( vu vx cgr wcel cv co wceq wral crab cuni grpidval wreu grpideu reucl
+      syl eqeltrd ) BHIZAFJGJZBKUCLGCMZFCNOZCGFABCDEPUBUDFCQUECIGFBCDRUDFCSTUA
+      $.
+      $( [26-Oct-2006] $) $( [24-Oct-2006] $)
+
+    $( A group's properties using the explicit identity element. $)
+    grpidinv2 $p |- ( ( G e. Grp /\ A e. X ) -> ( ( ( U G A ) = A /\
+         ( A G U ) = A ) /\ E. y e. X ( ( y G A ) = U /\ ( A G y ) = U ) ) ) $=
+      ( vx vu cv co wceq wa wrex wral wcel cgr opreq2 id eqeq12d opreq1
+      anbi12d eqeq1d rexbidv rcla4cva crab cuni wreu wss wi ssid simpll
+      r19.20si a1i rgen reuuniss2 mpanl12 grpidinv grpideu sylanc grpidval
+      eqtr4d wb eqeq2 ralbidv reuuni2 grpidcl reuss2 mpbird sylan ) CHJZDKZVKLZ
+      VKCDKZVKLZMZAJZVKDKZCLZVKVQDKZCLZMZAENZMZHEOZBEPCBDKZBLZBCDKZBLZMZVQBDKZC
+      LZBVQDKZCLZMZAENZMZDQPZWDWQHBEVKBLZVPWJWCWPWSVMWGVOWIWSVLWFVKBVKBCDRWSSZT
+      WSVNWHVKBVKBCDUAWTTUBWSWBWOAEWSVSWLWAWNWSVRWKCVKBVQDRUCWSVTWMCVKBVQDUAUCU
+      BUDUBUEWRWEIJZVKDKZVKLZVKXADKZVKLZMZVRXALZVTXALZMZAENZMZHEOZIEUFUGZCLZWRX
+      MXCHEOZIEUFUGZCXLIENZXOIEUHZXMXPLZWREEUIZXLXOUJZIEOZXQXRMZXSEUKZYAIEYAXAE
+      PXKXCHEXCXEXJULUMUNUOZXLXOIEEUPUQHAIDEFURZHIDEFUSZUTHICDEFGVAVBCEPXLIEUHZ
+      WEXNVCWRXLWEIECXACLZXKWDHEYIXFVPXJWCYIXCVMXEVOYIXBVLVKXACVKDUAUCYIXDVNVKX
+      ACVKDRUCUBYIXIWBAEYIXGVSXHWAXACVRVDXACVTVDUBUDUBVEVFCDEFGVGXQXRYHWRXTYBYC
+      YHYDYEXLXOIEEVHUQYFYGUTUTVIVJ $.
+      $( [27-Oct-2006] $) $( [24-Oct-2006] $)
+
+    $( The identity element of a group is a left identity. $)
+    grplid $p |- ( ( G e. Grp /\ A e. X ) -> ( U G A ) = A ) $=
+      ( vy cgr wcel wa co wceq cv wrex grpidinv2 simpll syl ) CHIADIJBACKALZABC
+      KALZJGMZACKBLATCKBLJGDNZJRGABCDEFORSUAPQ $.
+      $( [28-Oct-2006] $) $( [24-Oct-2006] $)
+
+    $( The identity element of a group is a right identity. $)
+    grprid $p |- ( ( G e. Grp /\ A e. X ) -> ( A G U ) = A ) $=
+      ( vy cgr wcel wa co wceq cv wrex grpidinv2 simplr syl ) CHIADIJBACKALZABC
+      KALZJGMZACKBLATCKBLJGDNZJSGABCDEFORSUAPQ $.
+      $( [27-Oct-2006] $) $( [24-Oct-2006] $)
+  $}
+
+  ${
+    $d x y z G $.  $d x y z X $.
+    $d y A $.  $d y B $.  $d y C $.  $d y G $.  $d y X $.
+    grprcan.1 $e |- X = ran G $.
+    $( Right cancellation law for groups. $)
+    grprcan $p |- ( ( G e. Grp /\ ( A e. X /\ B e. X /\ C e. X ) ) ->
+                  ( ( A G C ) = ( B G C ) <-> A = B ) ) $=
+      ( vy cgr wcel co wceq wb wa cv cgi cfv wrex wi eqid grpidinv2 pm3.27
+      r19.22si adantl syl ad2ant2rl opreq1 ad2antll grpass 3exp2 imp41
+      adantlrl adantrr imp42 adantllr 3eqtr3d adantrrl opreq2 ad2antrl grprid
+      ad2antrr ad2ant2r adantr exp45 r19.23adv mpd impbid1 exp43 3imp2 ) DHIZAE
+      IZBEIZCEIZACDJZBCDJZKZABKZLZVIVJVKVLVQVIVJMZVKVLMZMZVOVPVTCGNZDJZDOPZKZGE
+      QZVOVPRZVIVLWEVJVKVIVLMWCCDJCKCWCDJCKMZWACDJWCKZWDMZGEQZMWEGCWCDEFWCSZTWJ
+      WEWGWIWDGEWHWDUAUBUCUDUEVTWDWFGEVTWAEIZWDVOVPVTWLWDVOMMZMZAWCDJZBWCDJZABW
+      NAWBDJZBWBDJZWOWPVTWLVOWQWRKWDVTWLVOMMVMWADJZVNWADJZWQWRVOWSWTKVTWLVMVNWA
+      DUFUGVTWLWSWQKZVOVRVLWLXAVKVIVJVLWLXAVIVJVLWLXAACWADEFUHUIUJUKULVTWLWTWRK
+      ZVOVIVSWLXBVJVIVKVLWLXBVIVKVLWLXBBCWADEFUHUIUMUNULUOUPWMWQWOKZVTWDXCWLVOW
+      BWCADUQURUCWMWRWPKZVTWDXDWLVOWBWCBDUQURUCUOVRWOAKVSWMAWCDEFWKUSUTVTWPBKZW
+      MVIVKXEVJVLBWCDEFWKUSVAVBUOVCVDVEABCDUFVFVGVH $.
+      $( [28-Oct-2006] $) $( [26-Oct-2006] $)
+  $}
+
+  ${
+    $d y z A $.  $d y z G $.  $d y z U $.  $d y z X $.
+    grpinveu.1 $e |- X = ran G $.
+    grpinveu.2 $e |- U = ( Id ` G ) $.
+    $( The left inverse element of a group is unique.  Lemma 2.2.1(b) of
+       [Herstein] p. 55. $)
+    grpinveu $p |- ( ( G e. Grp /\ A e. X ) -> E! y e. X ( y G A ) = U ) $=
+      ( vz cgr wcel wa cv co wceq wi wral wrex wreu grpidinv2 pm3.26 r19.22si
+      adantl syl w3a grprcan eqtr3 syl5bi 3exp2 com24 imp41 an1rs exp3a
+      r19.21adva ancld r19.22dva mpd opreq1 eqeq1d reu8 sylibr ) DIJZBEJZKZALZB
+      DMZCNZHLZBDMZCNZVDVGNZOZHEPZKZAEQZVFAERVCVFAEQZVNVCCBDMBNBCDMBNKZVFBVDDMC
+      NZKZAEQZKVOABCDEFGSVSVOVPVRVFAEVFVQTUAUBUCVCVFVMAEVCVDEJZKZVFVLWAVFVKHEWA
+      VGEJZKVFVIVJVCWBVTVFVIKZVJOZVAVBWBVTWDVAVTWBVBWDVAVTWBVBWDVAVTWBVBUDKVEVH
+      NVJWCVDVGBDEFUEVEVHCUFUGUHUIUJUKULUMUNUOUPVFVIAHEVJVEVHCVDVGBDUQURUSUT $.
+      $( [29-Oct-2006] $) $( [27-Oct-2006] $)
+
+    $( Two ways of saying that an element of a group is the identity element.
+       (Contributed by Paul Chapman, 25-Feb-2008.) $)
+    grpid $p |- ( ( G e. Grp /\ A e. X ) ->
+                  ( A = U <-> ( A G A ) = A ) ) $=
+      ( cgr wcel wa co wceq wb wi grpidcl grprcan 3exp2 mpid pm2.43d imp
+      grplid eqeq2d bitr3d ) CGHZADHZIZAACJZBACJZKZABKZUFAKUCUDUHUILZUCUDUJUCUD
+      BDHZUDUJMBCDEFNUCUDUKUDUJABACDEOPQRSUEUGAUFABCDEFTUAUB $.
+      $( [26-Feb-2008] $) $( [25-Feb-2008] $)
+  $}
+
+  ${
+    $d n x y A $.  $d y B $.  $d y C $.  $d f g n x y G $.  $d f g n x y X $.
+    $d f g n x U $.
+    grpinvfval.1 $e |- X = ran G $.
+    grpinvfval.2 $e |- U = ( Id ` G ) $.
+    grpinvfval.3 $e |- N = ( inv ` G ) $.
+    $( The inverse function of a group. $)
+    grpinvfval $p |- ( G e. Grp -> N = { <. x , n >. | ( x e. X /\
+                     n = U. { y e. X | ( y G x ) = U } ) } ) $=
+      ( vg vf cgr wcel cgn cfv cv co wceq crab cuni wa copab cvv crn rnexg
+      syl5eqel opabex2g syl cgi rneq syl6eqr eleq2d rabeq opreq fveq2 eqeq12d
+      rabbisdv eqtrd unieqd eqeq2d anbi12d opabbidv df-ginv fvopab4g mpdan
+      syl5eq ) EMNZEOPZAQZGNZDQZBQZVJERZCSZBGTZUAZSZUBZADUCZFVHVTUDNZVIVTSVHGUD
+      NWAVHEUEZUDGEMUFHUGADGVQUDUHUIKLEVJKQZUEZNZVLVMVJWCRZWCUJPZSZBWDTZUAZSZUB
+      ZADUCVTMUDOWCESZWLVSADWMWEVKWKVRWMWDGVJWMWDWBGWCEUKHULZUMWMWJVQVLWMWIVPWM
+      WIWHBGTZVPWMWDGSWIWOSWNWHBWDGUNUIWMWHVOBGWMWFVNWGCVMVJWCEUOWMWGEUJPCWCEUJ
+      UPIULUQURUSUTVAVBVCADBLKVDVEVFJVG $.
+      $( [30-Oct-2006] $) $( [26-Oct-2006] $)
+
+    $( The inverse of a group element. $)
+    grpinvval $p |- ( ( G e. Grp /\ A e. X ) ->
+                    ( N ` A ) = U. { y e. X | ( y G A ) = U } ) $=
+      ( vx vn cgr wcel wa cfv cv co wceq crab cuni copab grpinvfval fveq1d
+      adantr cvv opreq2 eqeq1d rabbisdv unieqd eqid fvopab4g pm3.27 crn rnexg
+      syl5eqel rabexg uniexg 3syl sylanc eqtrd ) DLMZBFMZNZBEOZBJPZFMKPAPZVEDQZ
+      CRZAFSZTZRNJKUAZOZVFBDQZCRZAFSZTZVAVDVLRVBVABEVKJACKDEFGHIUBUCUDVBVPUEMZV
+      LVPRVCJKBVJVPFUEVKVEBRZVIVOVRVHVNAFVRVGVMCVEBVFDUFUGUHUIVKUJUKVAVBULVAVQV
+      BVAFUEMVOUEMVQVADUMUEFDLUNGUOVNAFUEUPVOUEUQURUDUSUT $.
+      $( [30-Oct-2006] $) $( [26-Oct-2006] $)
+  $}
+
+  ${
+    $d y A $.  $d y G $.  $d y X $.
+    grpinvcl.1 $e |- X = ran G $.
+    grpinvcl.2 $e |- N = ( inv ` G ) $.
+    $( A group element's inverse is a group element. $)
+    grpinvcl $p |- ( ( G e. Grp /\ A e. X ) -> ( N ` A ) e. X ) $=
+      ( vy cgr wcel wa cfv cv co cgi wceq crab cuni eqid grpinvval wreu
+      grpinveu reucl syl eqeltrd ) BHIADIJZACKGLABMBNKZOZGDPQZDGAUFBCDEUFRZFSUE
+      UGGDTUHDIGAUFBDEUIUAUGGDUBUCUD $.
+      $( [31-Oct-2006] $) $( [27-Oct-2006] $)
+  $}
+
+  ${
+    $d y A $.  $d y G $.  $d y N $.  $d y U $.  $d y X $.
+    grpinv.1 $e |- X = ran G $.
+    grpinv.2 $e |- U = ( Id ` G ) $.
+    grpinv.3 $e |- N = ( inv ` G ) $.
+    $( The properties of a group element's inverse. $)
+    grpinv $p |- ( ( G e. Grp /\ A e. X ) ->
+                 ( ( ( N ` A ) G A ) = U /\ ( A G ( N ` A ) ) = U ) ) $=
+      ( vy cgr wcel wa cfv co wceq cv crab cuni wrex wreu wss wi wral ssid
+      pm3.26 a1i rgen reuuniss2 mpanl12 grpidinv2 pm3.27d grpinveu sylanc
+      grpinvval eqtr4d wb opreq1 eqeq1d opreq2 anbi12d reuuni2 grpinvcl reuss2
+      mpbird ) CJKAEKLZADMZACNZBOZAVFCNZBOZLZIPZACNZBOZAVLCNZBOZLZIEQRZVFOZVEVR
+      VNIEQRZVFVQIESZVNIETZVRVTOZVEEEUAZVQVNUBZIEUCZWAWBLZWCEUDZWEIEWEVLEKVNVPU
+      EUFUGZVQVNIEEUHUIVEBACNAOABCNAOLWAIABCEFGUJUKZIABCEFGULZUMIABCDEFGHUNUOVF
+      EKVQIETZVKVSUPVEVQVKIEVFVLVFOZVNVHVPVJWMVMVGBVLVFACUQURWMVOVIBVLVFACUSURU
+      TVAACDEFHVBWAWBWLVEWDWFWGWLWHWIVQVNIEEVCUIWJWKUMUMVD $.
+      $( [1-Nov-2006] $) $( [27-Oct-2006] $)
+
+    $( The left inverse of a group element. $)
+    grplinv $p |- ( ( G e. Grp /\ A e. X ) -> ( ( N ` A ) G A ) = U ) $=
+      ( cgr wcel wa cfv co wceq grpinv pm3.26d ) CIJAEJKADLZACMBNAQCMBNABCDEFGH
+      OP $.
+      $( [4-Nov-2006] $) $( [27-Oct-2006] $)
+
+    $( The right inverse of a group element. $)
+    grprinv $p |- ( ( G e. Grp /\ A e. X ) -> ( A G ( N ` A ) ) = U ) $=
+      ( cgr wcel wa cfv co wceq grpinv pm3.27d ) CIJAEJKADLZACMBNAQCMBNABCDEFGH
+      OP $.
+      $( [6-Nov-2006] $) $( [27-Oct-2006] $)
+
+    $( The inverse of a group element expressed in terms of the identity
+       element. $)
+    grpinvid1 $p |- ( ( G e. Grp /\ A e. X /\ B e. X ) ->
+                    ( ( N ` A ) = B <-> ( A G B ) = U ) ) $=
+      ( cgr wcel w3a cfv wceq co wa opreq2 adantl grprinv 3adant3 adantr
+      eqtr3d grplinv opreq1d grpinvcl adantrr simprl simprr 3jca grpass syldan
+      3impb grplid 3adant2 3eqtr3d grprid 3eqtr3rd impbida ) DJKZAFKZBFKZLZAEMZ
+      BNZABDOZCNZVBVDPAVCDOZVECVDVGVENVBVCBADQRVBVGCNZVDUSUTVHVAACDEFGHISTUAUBV
+      BVFPVCVEDOZVCCDOZBVCVFVIVJNVBVECVCDQRVBVIBNVFVBVCADOZBDOZCBDOZVIBUSUTVLVM
+      NVAUSUTPVKCBDACDEFGHIUCUDTUSUTVAVLVINZUSUTVAPZVCFKZUTVALVNUSVOPVPUTVAUSUT
+      VPVAADEFGIUEZUFUSUTVAUGUSUTVAUHUIVCABDFGUJUKULUSVAVMBNUTBCDFGHUMUNUOUAVBV
+      JVCNZVFUSUTVRVAUSUTVPVRVQVCCDFGHUPUKTUAUQUR $.
+      $( [10-Nov-2006] $) $( [27-Oct-2006] $)
+
+    $( The inverse of a group element expressed in terms of the identity
+       element. $)
+    grpinvid2 $p |- ( ( G e. Grp /\ A e. X /\ B e. X ) ->
+                    ( ( N ` A ) = B <-> ( B G A ) = U ) ) $=
+      ( cgr wcel w3a cfv wceq co wa opreq1 adantl grplinv 3adant3 adantr
+      eqtr3d grpinvcl grplid syldan eqcomd simprr simprl adantrr 3jca grpass
+      3impb grprinv opreq2d grprid 3adant2 3eqtrd 3eqtr2d impbida ) DJKZAFKZBFK
+      ZLZAEMZBNZBADOZCNZVCVEPVDADOZVFCVEVHVFNVCVDBADQRVCVHCNZVEUTVAVIVBACDEFGHI
+      STUAUBVCVGPVDCVDDOZVFVDDOZBVCVDVJNVGVCVJVDUTVAVJVDNZVBUTVAVDFKZVLADEFGIUC
+      ZVDCDFGHUDUETUFUAVGVKVJNVCVFCVDDQRVCVKBNVGVCVKBAVDDOZDOZBCDOZBUTVAVBVKVPN
+      ZUTVAVBPZVBVAVMLVRUTVSPVBVAVMUTVAVBUGUTVAVBUHUTVAVMVBVNUIUJBAVDDFGUKUEULU
+      TVAVPVQNVBUTVAPVOCBDACDEFGHIUMUNTUTVBVQBNVABCDFGHUOUPUQUAURUS $.
+      $( [23-Nov-2006] $) $( [27-Oct-2006] $)
+  $}
+
+  ${
+    grpinvid.1 $e |- U = ( Id ` G ) $.
+    grpinvid.2 $e |- N = ( inv ` G ) $.
+    $( The inverse of the identity element of a group. $)
+    grpinvid $p |- ( G e. Grp -> ( N ` U ) = U ) $=
+      ( cgr wcel cfv wceq co crn eqid grpidcl grplid mpdan wb grpinvid1
+      mpd3an23 mpbird ) BFGZACHAIZAABJAIZTABKZGZUBABUCUCLZDMZAABUCUEDNOTUDUDUAU
+      BPUFUFAAABCUCUEDEQRS $.
+      $( [28-Feb-2008] $) $( [4-Dec-2006] $)
+  $}
+
+  ${
+    grplcan.1 $e |- X = ran G $.
+    $( Left cancellation law for groups. $)
+    grplcan $p |- ( ( G e. Grp /\ ( A e. X /\ B e. X /\ C e. X ) ) ->
+                  ( ( C G A ) = ( C G B ) <-> A = B ) ) $=
+      ( cgr wcel w3a wa co wceq wi cgn cfv opreq2 adantl cgi eqid grplinv
+      adantlr opreq1d grpinvcl adantrl simprr simprl 3jca grpass syldan
+      anassrs grplid adantr 3eqtr3d adantrr ex exp43 3imp2 impbid1 ) DGHZAEHZBE
+      HZCEHZIJCADKZCBDKZLZABLZUSUTVAVBVEVFMZUSUTVAVBVGUSUTJZVAVBJZJZVEVFVJVEJCD
+      NOZOZVCDKZVLVDDKZABVEVMVNLVJVCVDVLDPQVJVMALZVEVHVBVOVAVHVBJZVLCDKZADKZDRO
+      ZADKZVMAVPVQVSADUSVBVQVSLZUTCVSDVKEFVSSZVKSZTZUAUBUSUTVBVRVMLZUSUTVBJZVLE
+      HZVBUTIWEUSWFJWGVBUTUSVBWGUTCDVKEFWCUCZUDUSUTVBUEUSUTVBUFUGVLCADEFUHUIUJV
+      HVTALVBAVSDEFWBUKULUMUDULVJVNBLZVEUSVIWIUTUSVIJZVQBDKZVSBDKZVNBWJVQVSBDUS
+      VBWAVAWDUDUBUSVIWGVBVAIWKVNLWJWGVBVAUSVBWGVAWHUDUSVAVBUEUSVAVBUFUGVLCBDEF
+      UHUIUSVAWLBLVBBVSDEFWBUKUNUMUAULUMUOUPUQABCDPUR $.
+      $( [11-Nov-2006] $) $( [27-Oct-2006] $)
+  $}
+
+  ${
+    $d u v w x y z G $.  $d u v w x y z X $.
+    isgrp2i.1 $e |- X e. V $.
+    isgrp2i.2 $e |- X =/= (/) $.
+    isgrp2i.3 $e |- G : ( X X. X ) --> X $.
+    isgrp2i.4 $e |- ( ( x e. X /\ y e. X /\ z e. X ) ->
+                    ( ( x G y ) G z ) = ( x G ( y G z ) ) ) $.
+    isgrp2i.5 $e |- ( ( x e. X /\ y e. X ) -> E. z e. X ( z G x ) = y ) $.
+    isgrp2i.6 $e |- ( ( x e. X /\ y e. X ) -> E. z e. X ( x G z ) = y ) $.
+    $( An alternate way to show a group operation.  Exercise 1 of [Herstein]
+       p. 57. $)
+    isgrp2i $p |- G e. Grp $=
+      ( vu vw vv cgr wcel cxp wf cv co wceq wral wrex wa w3a rgen3 wex c0 wne
+      n0 mpbi wi eleq1 anbi1d opreq2 eqeq1d rexbidv imbi12d anbi2d eqeq2
+      chvarv anidms opreq1 cbvrexv sylib vtocl2ga adantlr adantr 3anbi1d
+      opreq1d eqeq12d 3anbi2d opreq2d 3anbi3d 3com12 3expa ad2antlr eqtr3d
+      adantl pm3.27 3eqtr3d exp31 r19.23adv mpd ancoms adantll jca com23
+      r19.21adv r19.22dva 19.23aiv ax-mp 3pm3.2i cvv wb xpex fex mp2an crn wfo
+      fooprv eqcom rexbii r19.21aiva r19.2z mpan syl rgen mpbir2an forn eqcomi
+      isgrp mpbir ) DOPZEEQZEDRZASZBSZDTZCSZDTZXQXRXTDTZDTZUAZCEUBBEUBAEUBZLSZX
+      QDTZXQUAZXRXQDTZYFUAZBEUCZUDZAEUBZLEUCZUEZXPYEYNHYDABCEEEIUFMSZEPZMUGZYNE
+      UHUIZYRGMEUJUKYQYNMYQYFYPDTZYPUAZLEUCZYNYQXTYPDTZYPUAZCEUCZUUBYQUUEXQEPZY
+      QUDZXTXQDTZYPUAZCEUCZULZYQYQUDZUUEULAMXQYPUAZUUGUULUUJUUEUUMUUFYQYQXQYPEU
+      MUNUUMUUIUUDCEUUMUUHUUCYPXQYPXTDUOUPUQURUUFXREPZUDZUUHXRUAZCEUCZULZUUKBMX
+      RYPUAZUUOUUGUUQUUJUUSUUNYQUUFXRYPEUMZUSUUSUUPUUICEXRYPUUHUTUQURJVAVAVBUUD
+      UUACLEXTYFUAUUCYTYPXTYFYPDVCUPVDVEYQUUAYMLEYQYFEPZUDZUUAYLAEUVBUUFUUAYLUV
+      BUUFUUAYLUVBUUFUDZUUAUDZYHYKUVDYPNSZDTZXQUAZNEUCZYHUVCUVHUUAYQUUFUVHUVAYQ
+      UUFUDYPXTDTZXQUAZCEUCZUVHXQXTDTZXRUAZCEUCZUVIXRUAZCEUCUVKABYPXQEEUUMUVMUV
+      OCEUUMUVLUVIXRXQYPXTDVCUPUQXRXQUAUVOUVJCEXRXQUVIUTUQKVFUVJUVGCNEXTUVEUAZU
+      VIUVFXQXTUVEYPDUOUPVDVEVGVHUVBUUAUVHYHULUUFUVBUUAUDZUVGYHNEUVQUVEEPZUVGYH
+      UVQUVRUDZUVGUDYFUVFDTZUVFYGXQUVSUVTUVFUAUVGUVSYTUVEDTZUVTUVFUVBUVRUWAUVTU
+      AZUUAYQUVAUVRUWBUVAYQUVRUWBUUFYQUVRUEZXQYPDTZUVEDTZXQUVFDTZUAZULZUVAYQUVR
+      UEZUWBULALXQYFUAZUWCUWIUWGUWBUWJUUFUVAYQUVRXQYFEUMVIUWJUWEUWAUWFUVTUWJUWD
+      YTUVEDXQYFYPDVCVJXQYFUVFDVCVKURUUFUUNUVRUEZXSUVEDTZXQXRUVEDTZDTZUAZULZUWH
+      BMUUSUWKUWCUWOUWGUUSUUNYQUUFUVRUUTVLUUSUWLUWEUWNUWFUUSXSUWDUVEDXRYPXQDUOV
+      JUUSUWMUVFXQDXRYPUVEDVCVMVKURUUFUUNXTEPZUEZYDULUWPCNUVPUWRUWKYDUWOUVPUWQU
+      VRUUFUUNXTUVEEUMVNUVPYAUWLYCUWNXTUVEXSDUOUVPYBUWMXQDXTUVEXRDUOVMVKURIVAVA
+      VAVOVPVGUUAUWAUVFUAUVBUVRYTYPUVEDVCVQVRVHUVGUVTYGUAUVSUVFXQYFDUOVSUVSUVGV
+      TWAWBWCVGWDUVCYKUUAUVAUUFYKYQUUFUVAYKUUFUVAUDZUUHYFUAZCEUCZYKUURUWSUXAULB
+      LXRYFUAZUUOUWSUUQUXAUXBUUNUVAUUFXRYFEUMUSUXBUUPUWTCEXRYFUUHUTUQURJVAUWTYJ
+      CBEXTXRUAUUHYIYFXTXRXQDVCUPVDVEWEWFVHWGWBWHWIWJWDWKWLWMDWNPZXNYOWOXPXOWNP
+      UXCHEEFFWPXOEWNDWQWRABCLWNDEDWSZEXOEDWTZUXDEUAUXEXPXRUVLUAZCEUCZAEUCZBEUB
+      ACBEEEDXAHUXHBEUUNUXGAEUBZUXHUUNUXGAEUUNUUFUDUVNUXGUUFUUNUVNKWEUVMUXFCEUV
+      LXRXBXCVEXDYSUXIUXHGUXGAEXEXFXGXHXIXOEDXJWLXKXLWLXM $.
+      $( [5-Mar-2007] $) $( [5-Dec-2006] $)
+  $}
+
+  ${
+    $d x y z G $.  $d x y N $.  $d x y z X $.
+    grpasscan1.1 $e |- X = ran G $.
+    grpasscan1.2 $e |- N = ( inv ` G ) $.
+    $( An associative cancellation law for groups.  (Contributed by Paul
+       Chapman, 25-Feb-2008.) $)
+    grpasscan1 $p |- ( ( G e. Grp /\ A e. X /\ B e. X ) ->
+                          ( A G ( ( N ` A ) G B ) ) = B ) $=
+      ( cgr wcel w3a cfv co cgi wceq eqid grprinv 3adant3 opreq1d wa wi
+      grpinvcl grpass 3exp2 imp mpd 3impia grplid 3adant2 3eqtr3d ) CHIZAEIZBEI
+      ZJZAADKZCLZBCLZCMKZBCLZAUNBCLCLZBUMUOUQBCUJUKUOUQNULAUQCDEFUQOZGPQRUJUKUL
+      UPUSNZUJUKSUNEIZULVATZACDEFGUAUJUKVBVCTUJUKVBULVAAUNBCEFUBUCUDUEUFUJULURB
+      NUKBUQCEFUTUGUHUI $.
+      $( [21-Apr-2008] $) $( [25-Feb-2008] $)
+
+    $( An associative cancellation law for groups.  (Contributed by Paul
+       Chapman, 17-Apr-2009.) $)
+    grpasscan2 $p |- ( ( G e. Grp /\ A e. X /\ B e. X ) ->
+                       ( ( A G ( N ` B ) ) G B ) = A ) $=
+      ( cgr wcel w3a cfv co cgi wceq grpass 3simp1 3simp2 grpinvcl 3simp3
+      sylanc 3jca eqid grplinv opreq2d grprid 3eqtrd ) CHIZAEIZBEIZJZABDKZCLBCL
+      ZAUKBCLZCLZACMKZCLZAUGUHUKEIZUIJULUNNUJAUKBCEFOUGUHUIPZUJUHUQUIUGUHUIQZUG
+      UIUQUJBCDEFGRURUGUHUISZTUTUATUJUMUOACUGUIUMUONUJBUOCDEFUOUBZGUCURUTTUDUGU
+      HUPANUJAUOCEFVAUEURUSTUF $.
+      $( [19-Apr-2009] $) $( [17-Apr-2009] $)
+
+    $( Double inverse law for groups.  Lemma 2.2.1(c) of [Herstein] p. 55. $)
+    grp2inv $p |- ( ( G e. Grp /\ A e. X ) -> ( N ` ( N ` A ) ) = A ) $=
+      ( cgr wcel wa cfv co wceq cgi grpinvcl eqid grprinv syldan grplinv
+      eqtr4d w3a wb pm3.27 3jca grplcan mpbid ) BGHZADHZIZACJZUICJZBKZUIABKZLZU
+      JALZUHUKBMJZULUFUGUIDHZUKUOLABCDEFNZUIUOBCDEUOOZFPQAUOBCDEURFRSUFUGUJDHZU
+      GUPTUMUNUAUHUSUGUPUFUGUPUSUQUIBCDEFNQUFUGUBUQUCUJAUIBDEUDQUE $.
+      $( [24-Nov-2006] $) $( [27-Oct-2006] $)
+
+    $( Mapping of the inverse function of a group. $)
+    grpinvf $p |- ( G e. Grp -> N : X -1-1-onto-> X ) $=
+      ( vx vy vz cgr wcel wfn crn wceq cv cfv wi wral w3a wf1o co cgi crab
+      cuni wa copab cvv rnexg syl5eqel rabexg syl uniexg adantr r19.21aiva
+      eqid fnopab2g sylib wb grpinvfval fneq1 mpbird wrex cab fnrnfv fveq2
+      eqeq2d rcla4ev grpinvcl grp2inv eqcomd sylanc ex pm3.27 eqeltrd exp31
+      r19.23adv impbid abbi2dv eqtr4d eqeqan12d anandis syl5bi r19.21aivv 3jca
+      dff1o6 sylibr ) AIJZBCKZBLZCMZFNZBOZGNZBOZMZWJWLMZPZGCQFCQZRCCBSWFWGWIWQW
+      FWGWJCJZWLHNWJATAUAOZMZHCUBZUCZMUDFGUEZCKZWFXBUFJZFCQXDWFXEFCWFXEWRWFXAUF
+      JZXEWFCUFJXFWFALUFCAIUGDUHWTHCUFUIUJXAUFUKUJULUMFGCXBXCXCUNUOUPWFBXCMWGXD
+      UQFHWSGABCDWSUNEURCBXCUSUJUTZWFWHWLWKMZFCVAZGVBZCWFWGWHXJMXGFGCBVCUJWFXIG
+      CWFWLCJZXIWFXKXIWMCJWLWMBOZMZXIWFXKUDZXHXMFWMCWJWMMWKXLWLWJWMBVDVEVFWLABC
+      DEVGXNXLWLWLABCDEVHZVIVJVKWFXHXKFCWFWRXHXKWFWRUDZXHUDWLWKCXPXHVLXPWKCJXHW
+      JABCDEVGULVMVNVOVPVQVRWFWPFGCCWFWRXKUDZWPWFXQUDWKBOZXLMZWOWNWFWRXKXSWOUQX
+      PXNXRWJXLWLWJABCDEVHXOVSVTWKWMBVDWAVKWBWCFGCCBWDWE $.
+      $( [29-Mar-2008] $) $( [29-Mar-2008] $)
+
+    $( The inverse of the group operation reverses the arguments.  Lemma
+       2.2.1(d) of [Herstein] p. 55. $)
+    grpinvop $p |- ( ( G e. Grp /\ A e. X /\ B e. X ) ->
+                   ( N ` ( A G B ) ) = ( ( N ` B ) G ( N ` A ) ) ) $=
+      ( cgr wcel w3a co cfv wceq cgi grpass 3simp1 3simp2 3simp3 grpcl
+      grpinvcl 3adant2 3adant3 syl3anc 3jca sylanc eqid grprinv opreq1d grplid
+      syldan 3eqtr3d opreq2d 3eqtrd wb grpinvid1 mpbird ) CHIZAEIZBEIZJZABCKZDL
+      BDLZADLZCKZMZVAVDCKZCNLZMZUTVFABVDCKZCKZAVCCKZVGUQURUSVDEIZJVFVJMUTABVDCE
+      FOUQURUSPZUTURUSVLUQURUSQUQURUSRZUQVBEIZVCEIZVLUTVBVCCEFSVMUQUSVOURBCDEFG
+      TUAZUQURVPUSACDEFGTZUBZUCZUDUEUTVIVCACUTBVBCKZVCCKZVGVCCKZVIVCUTWAVGVCCUQ
+      USWAVGMURBVGCDEFVGUFZGUGUAUHUQUSVOVPJWBVIMUTBVBVCCEFOVMUTUSVOVPVNVQVSUDUE
+      UQURWCVCMZUSUQURVPWEVRVCVGCEFWDUIUJUBUKULUQURVKVGMUSAVGCDEFWDGUGUBUMUQVAE
+      IVLVEVHUNUTVAVDVGCDEFWDGUOVMABCEFSVTUCUP $.
+      $( [24-Nov-2006] $) $( [27-Oct-2006] $)
+  $}
+
+  ${
+    $d x y z A $.  $d x y z B $.  $d f g x y z G $.  $d f g x y z N $.
+    $d f g x y z X $.
+    grpdiv.1 $e |- X = ran G $.
+    grpdiv.2 $e |- N = ( inv ` G ) $.
+    grpdiv.3 $e |- D = ( /g ` G ) $.
+    $( Group division (or subtraction) operation. $)
+    grpdivfval $p |- ( G e. Grp -> D = { <. <. x , y >. , z >. |
+          ( ( x e. X /\ y e. X ) /\ z = ( x G ( N ` y ) ) ) } ) $=
+      ( vg vf cgr wcel cgs cfv cv wa co wceq copab2 cvv eqid oprabex2g crn
+      rnexg syl5eqel sylanc cgn rneq syl6eqr eleq2d anbi12d opreq fveq2 fveq1d
+      opreq2d eqtrd eqeq2d oprabbidv df-gdiv fvopab4g mpdan syl5eq ) EMNZEOPZAQ
+      ZGNZBQZGNZRZCQZVGVIFPZESZTZRZABCUAZDVEVQUBNZVFVQTGUBNZVSVRVEABCGGVNUBUBVQ
+      VQUCUDVEEUEZUBGEMUFHUGZWAUHKLEVGKQZUEZNZVIWCNZRZVLVGVIWBUIPZPZWBSZTZRZABC
+      UAVQMUBOWBETZWKVPABCWLWFVKWJVOWLWDVHWEVJWLWCGVGWLWCVTGWBEUJHUKZULWLWCGVIW
+      MULUMWLWIVNVLWLWIVGWHESVNVGWHWBEUNWLWHVMVGEWLVIWGFWLWGEUIPFWBEUIUOIUKUPUQ
+      URUSUMUTABCLKVAVBVCJVD $.
+      $( [17-Feb-2008] $) $( [15-Feb-2008] $)
+
+    $( Group division (or subtraction) operation value. $)
+    grpdivval $p |- ( ( G e. Grp /\ A e. X /\ B e. X ) ->
+                   ( A D B ) = ( A G ( N ` B ) ) ) $=
+      ( vx vy vz cgr wcel w3a co cv wa cfv wceq copab2 grpdivfval opreqd
+      3ad2ant1 oprex opreq1 fveq2 opreq2d eqid oprabval2 3adant1 eqtrd ) DMNZAF
+      NZBFNZOABCPZABJQZFNKQZFNRLQUQURESZDPZTRJKLUAZPZABESZDPZUMUNUPVBTUOUMCVAAB
+      JKLCDEFGHIUBUCUDUNUOVBVDTUMJKLABFFUTVDVAAUSDPAVCDUEUQAUSDUFURBTUSVCADURBE
+      UGUHVAUIUJUKUL $.
+      $( [17-Feb-2008] $) $( [15-Feb-2008] $)
+
+    $( Group division by an inverse. $)
+    grpdivinv $p |- ( ( G e. Grp /\ A e. X /\ B e. X ) ->
+                   ( A D ( N ` B ) ) = ( A G B ) ) $=
+      ( cgr wcel w3a cfv co wceq grpdivval grpinvcl 3adant2 syld3an3 grp2inv
+      opreq2d eqtrd ) DJKZAFKZBFKZLZABEMZCNZAUGEMZDNZABDNUCUDUGFKZUHUJOUEAUGCDE
+      FGHIPUCUEUKUDBDEFGHQRSUFUIBADUCUEUIBOUDBDEFGHTRUAUB $.
+      $( [26-Feb-2008] $) $( [15-Feb-2008] $)
+
+    $( Inverse of a group division. $)
+    grpinvdiv $p |- ( ( G e. Grp /\ A e. X /\ B e. X ) ->
+                   ( N ` ( A D B ) ) = ( B D A ) ) $=
+      ( cgr wcel w3a co cfv grpdivval fveq2d wceq grpinvop grpinvcl 3adant2
+      syld3an3 grp2inv opreq1d 3com23 eqtr4d 3eqtrd ) DJKZAFKZBFKZLZABCMZENABEN
+      ZDMZENZULENZAENZDMZBACMZUJUKUMEABCDEFGHIOPUGUHULFKZUNUQQUIAULDEFGHRUGUIUS
+      UHBDEFGHSTUAUJUQBUPDMZURUJUOBUPDUGUIUOBQUHBDEFGHUBTUCUGUIUHURUTQBACDEFGHI
+      OUDUEUF $.
+      $( [26-Feb-2008] $) $( [24-Feb-2008] $)
+  $}
+
+  ${
+    $d x y z G $.  $d x y z X $.
+    grpdivf.1 $e |- X = ran G $.
+    grpdivf.3 $e |- D = ( /g ` G ) $.
+    $( Mapping for group division. $)
+    grpdivf $p |- ( G e. Grp -> D : ( X X. X ) --> X ) $=
+      ( vx vy vz cgr wcel cxp wf cv wa cgn cfv co wceq copab2 wral grpcl eqid
+      grpinvcl 3adant2 syld3an3 3expib r19.21aivv foprab2 sylib grpdivfval
+      feq1d mpbird ) BIJZCCKZCALUNCFMZCJZGMZCJZNHMUOUQBOPZPZBQZRNFGHSZLZUMVACJZ
+      GCTFCTVCUMVDFGCCUMUPURVDUMUPUTCJZVDURUOUTBCDUAUMURVEUPUQBUSCDUSUBZUCUDUEU
+      FUGFGHCCVACVBVBUBUHUIUMUNCAVBFGHABUSCDVFEUJUKUL $.
+      $( [10-Apr-2008] $) $( [10-Apr-2008] $)
+
+    $( Closure of group division (or subtraction) operation. $)
+    grpdivcl $p |- ( ( G e. Grp /\ A e. X /\ B e. X ) -> ( A D B ) e. X ) $=
+      ( cxp wf wcel co cgr foprrn grpdivf syl3an1 ) EEHECIAEJBEJABCKEJDLJABEEEC
+      MCDEFGNO $.
+      $( [24-Feb-2008] $) $( [15-Feb-2008] $)
+
+    $( Double group division. $)
+    grpdivdiv $p |- ( ( G e. Grp /\ ( A e. X /\ B e. X /\ C e. X ) ) ->
+         ( A D ( B D C ) ) = ( A G ( C D B ) ) ) $=
+      ( cgr wcel w3a wa co cgn cfv wceq eqid grpdivval pm3.26 3simp1 adantl
+      grpdivcl 3adant3r1 syl3anc grpinvdiv opreq2d eqtrd ) EIJZAFJZBFJZCFJZKZLZ
+      ABCDMZDMZAUNENOZOZEMZACBDMZEMUHUIUNFJZUOURPUMAUNDEUPFGUPQZHRUHULSULUIUHUI
+      UJUKTUAUHUJUKUTUIBCDEFGHUBUCUDUMUQUSAEUHUJUKUQUSPUIBCDEUPFGVAHUEUCUFUG $.
+      $( [27-Feb-2008] $) $( [24-Feb-2008] $)
+
+    $( Associative-type law for multiplication and division. $)
+    grpmuldivass $p |- ( ( G e. Grp /\ ( A e. X /\ B e. X /\ C e. X ) ) ->
+         ( ( A G B ) D C ) = ( A G ( B D C ) ) ) $=
+      ( cgr wcel w3a wa co cgn cfv wceq 3simp1 adantl 3simp2 eqid grpinvcl
+      3ad2antr3 3jca grpass syldan grpdivval pm3.26 grpcl 3adant3r3 3simp3
+      syl3anc 3adant3r1 opreq2d 3eqtr4d ) EIJZAFJZBFJZCFJZKZLZABEMZCENOZOZEMZAB
+      VCEMZEMZVACDMZABCDMZEMUOUSUPUQVCFJZKVDVFPUTUPUQVIUSUPUOUPUQURQRUSUQUOUPUQ
+      URSRUOUPURVIUQCEVBFGVBTZUAUBUCABVCEFGUDUEUOVAFJZURVGVDPUTVACDEVBFGVJHUFUO
+      USUGUOUPUQVKURABEFGUHUIUSURUOUPUQURUJRUKUTVHVEAEUOUQURVHVEPUPBCDEVBFGVJHU
+      FULUMUN $.
+      $( [24-Feb-2008] $) $( [15-Feb-2008] $)
+
+    ${
+      grpdivid.3 $e |- U = ( Id ` G ) $.
+      $( Division of a group member by itself. $)
+      grpdivid $p |- ( ( G e. Grp /\ A e. X ) -> ( A D A ) = U ) $=
+        ( cgr wcel wa co cgn cfv wceq eqid grpdivval 3anidm23 grprinv eqtrd )
+        DIJZAEJZKAABLZAADMNZNDLZCUAUBUCUEOAABDUDEFUDPZGQRACDUDEFHUFST $.
+        $( [27-Feb-2008] $) $( [15-Feb-2008] $)
+    $}
+
+    $( Group theory analog of ~ pncan . $)
+    grppncan $p |- ( ( G e. Grp /\ A e. X /\ B e. X ) ->
+        ( ( A G B ) D B ) = A ) $=
+      ( cgr wcel w3a co cgi cfv wceq grpmuldivass 3simp1 3simp2 3simp3 3jca
+      sylanc wa eqid grpdivid opreq2d 3adant2 grprid 3adant3 3eqtrd ) DHIZAEIZB
+      EIZJZABDKBCKZABBCKZDKZADLMZDKZAUIUJUKUKJUMUONULABBCDEFGOUIUJUKPULUJUKUKUI
+      UJUKQUIUJUKRZURSTUIUKUOUQNUJUIUKUAUNUPADBCUPDEFGUPUBZUCUDUEUIUJUQANUKAUPD
+      EFUSUFUGUH $.
+      $( [27-Feb-2008] $) $( [15-Feb-2008] $)
+
+    $( Group theory analog of ~ npcan . $)
+    grpnpcan $p |- ( ( G e. Grp /\ A e. X /\ B e. X ) ->
+        ( ( A D B ) G B ) = A ) $=
+      ( cgr wcel w3a co cgn cfv eqid grpdivval opreq1d wceq grpass 3simp1
+      3simp2 grpinvcl 3adant2 3simp3 3jca sylanc cgi wa grplinv opreq2d grprid
+      3adant3 eqtrd 3eqtrd ) DHIZAEIZBEIZJZABCKZBDKABDLMZMZDKZBDKZAUTBDKZDKZAUQ
+      URVABDABCDUSEFUSNZGOPUNUOUTEIZUPJVBVDQUQAUTBDEFRUNUOUPSUQUOVFUPUNUOUPTUNU
+      PVFUOBDUSEFVEUAUBUNUOUPUCUDUEUQVDADUFMZDKZAUNUPVDVHQUOUNUPUGVCVGADBVGDUSE
+      FVGNZVEUHUIUBUNUOVHAQUPAVGDEFVIUJUKULUM $.
+      $( [26-Feb-2008] $) $( [15-Feb-2008] $)
+
+    $( Group theory analog of ~ pnpcan2 . $)
+    grppnpcan2 $p |- ( ( G e. Grp /\ ( A e. X /\ B e. X /\ C e. X ) ) ->
+         ( ( A G C ) D ( B G C ) ) = ( A D B ) ) $=
+      ( cgr wcel w3a wa co cgn cfv wceq eqid grpdivval pm3.26 grpcl 3adant3r2
+      3adant3r1 syl3anc grpinvop opreq2d cgi grprinv 3adant2 opreq1d grpass
+      3simp1 3simp3 grpinvcl 3adant3 3jca sylanc grplid syldan 3eqtr3d adantl
+      3ad2antr3 3ad2antr2 3adant3r3 3eqtr4d 3eqtrd ) EIJZAFJZBFJZCFJZKZLZACEMZB
+      CEMZDMZVLVMENOZOZEMZVLCVOOZBVOOZEMZEMZABDMZVFVLFJZVMFJZVNVQPVKVLVMDEVOFGV
+      OQZHRVFVJSZVFVGVIWCVHACEFGTUAVFVHVIWDVGBCEFGTUBUCVKVPVTVLEVFVHVIVPVTPVGBC
+      EVOFGWEUDUBUEVKACVTEMZEMZAVSEMZWAWBVKWGVSAEVFVHVIWGVSPVGVFVHVIKZCVREMZVSE
+      MZEUFOZVSEMZWGVSWJWKWMVSEVFVIWKWMPVHCWMEVOFGWMQZWEUGUHUIVFVIVRFJZVSFJZKWL
+      WGPWJCVRVSEFGUJVFVHVIUKWJVIWPWQVFVHVIULVFVIWPVHCEVOFGWEUMZUHVFVHWQVIBEVOF
+      GWEUMZUNUOUPVFVHWNVSPZVIVFVHWQWTWSVSWMEFGWOUQURUNUSUBUEVFVJVGVIVTFJZKWAWH
+      PVKVGVIXAVJVGVFVGVHVIUKUTVJVIVFVGVHVIULUTVFWPWQXAVKVRVSEFGTWFVFVGVIWPVHWR
+      VAVFVGVHWQVIWSVBUCUOACVTEFGUJURVFVGVHWBWIPVIABDEVOFGWEHRVCVDVE $.
+      $( [26-Feb-2008] $) $( [15-Feb-2008] $)
+
+    $( Group theory analog of ~ nnncan2 . $)
+    grpnnncan2 $p |- ( ( G e. Grp /\ ( A e. X /\ B e. X /\ C e. X ) ) ->
+         ( ( A D C ) D ( B D C ) ) = ( A D B ) ) $=
+      ( cgr wcel w3a wa co cgn cfv wceq eqid grpdivval 3adant3r2 3adant3r1
+      opreq12d idd grpinvcl ex 3anim123d imp grppnpcan2 syldan eqtrd ) EIJZAFJZ
+      BFJZCFJZKZLZACDMZBCDMZDMACENOZOZEMZBUSEMZDMZABDMZUOUPUTUQVADUJUKUMUPUTPUL
+      ACDEURFGURQZHRSUJULUMUQVAPUKBCDEURFGVDHRTUAUJUNUKULUSFJZKZVBVCPUJUNVFUJUK
+      UKULULUMVEUJUKUBUJULUBUJUMVECEURFGVDUCUDUEUFABUSDEFGHUGUHUI $.
+      $( [27-Feb-2008] $) $( [15-Feb-2008] $)
+
+    $( Group theory analog of ~ npncan . $)
+    grpnpncan $p |- ( ( G e. Grp /\ ( A e. X /\ B e. X /\ C e. X ) ) ->
+             ( ( A D B ) G ( B D C ) ) = ( A D C ) ) $=
+      ( cgr wcel w3a wa co wceq grpdivcl 3adant3r3 3simp2 adantl 3simp3 3jca
+      grpmuldivass syldan grpnpcan 3expb opreq1d 3adantr3 eqtr3d ) EIJZAFJZBFJZ
+      CFJZKZLZABDMZBEMZCDMZUNBCDMEMZACDMZUHULUNFJZUJUKKUPUQNUMUSUJUKUHUIUJUSUKA
+      BDEFGHOPULUJUHUIUJUKQRULUKUHUIUJUKSRTUNBCDEFGHUAUBUHUIUJUPURNUKUHUIUJLLUO
+      ACDUHUIUJUOANABDEFGHUCUDUEUFUG $.
+      $( [28-Feb-2008] $) $( [24-Feb-2008] $)
+  $}
+
+  ${
+    $d G f g x y z $.  $d N f g z $.  $d U f g x y z $.  $d X f g x y z $.
+    $d A x y z $.  $d G x y z $.  $d K x y z $.  $d N x y z $.
+    gxoprval.1 $e |- X = ran G $.
+    gxoprval.2 $e |- U = ( Id ` G ) $.
+    gxoprval.3 $e |- N = ( inv ` G ) $.
+    gxoprval.4 $e |- P = ( ^g ` G ) $.
+    $( The value of the group power operator function.  (Contributed by Paul
+       Chapman, 17-Apr-2009.) $)
+    gxoprval $p |- ( G e. Grp -> P = { <. <. x , y >. , z >. |
+        ( ( x e. X /\ y e. ZZ ) /\
+        z = if ( y = 0 , U , if ( 0 < y , ( ( G seq1 ( NN X. { x } ) ) ` y ) ,
+          ( N ` ( ( G seq1 ( NN X. { x } ) ) ` -u y ) ) ) ) ) } ) $=
+      ( vg vf cgr wcel cgx cfv cv cz wa cc0 wceq clt wbr cn csn cxp cseq1 co
+      cneg cif copab2 cvv crn rnexg syl5eqel zex eqid oprabex2g mpan2 syl cgi
+      cgn rneq syl6eqr eleq2d anbi1d fveq2 fveq1d opreq1 fveq2d eqtrd ifeq2d
+      ifeq1d eqeq2d anbi12d oprabbidv df-gx fvopab4g mpdan syl5eq ) FOPZFQRZASZ
+      HPZBSZTPZUAZCSZWGUBUCZEUBWGUDUEZWGFUFWEUGUHZUIUJZRZWGUKZWNRZGRZULZULZUCZU
+      AZABCUMZDWCXCUNPZWDXCUCWCHUNPZXDWCFUOZUNHFOUPIUQXETUNPXDURABCHTWTUNUNXCXC
+      USUTVAVBMNFWEMSZUOZPZWHUAZWJWKXGVCRZWLWGXGWMUIUJZRZWPXLRZXGVDRZRZULZULZUC
+      ZUAZABCUMXCOUNQXGFUCZXTXBABCYAXJWIXSXAYAXIWFWHYAXHHWEYAXHXFHXGFVEIVFVGVHY
+      AXRWTWJYAXRWKXKWSULWTYAWKXQWSXKYAXQWLXMWRULWSYAWLXPWRXMYAXPXNGRWRYAXNXOGY
+      AXOFVDRGXGFVDVIKVFVJYAXNWQGYAWPXLWNXGFWMUIVKZVJVLVMVNYAWLXMWOWRYAWGXLWNYB
+      VJVOVMVNYAWKXKEWSYAXKFVCREXGFVCVIJVFVOVMVPVQVRABCNMVSVTWALWB $.
+      $( [20-Apr-2009] $) $( [17-Apr-2009] $)
+
+    $( The result of the group power operator.  (Contributed by Paul Chapman,
+       17-Apr-2009.) $)
+    gxval $p |- ( ( G e. Grp /\ A e. X /\ K e. ZZ ) -> ( A P K ) =
+      if ( K = 0 , U , if ( 0 < K , ( ( G seq1 ( NN X. { A } ) ) ` K ) ,
+           ( N ` ( ( G seq1 ( NN X. { A } ) ) ` -u K ) ) ) ) ) $=
+      ( vx vy vz cgr wcel cz co cc0 wceq clt wbr cn csn cxp cseq1 cfv cneg cif
+      wa cv copab2 gxoprval opreqd cgi cvv fvex eqeltri ifex sneq xpeq2 syl
+      opreq2d fveq1d ifeq1d fveq2d ifeq2d eqtrd eqeq1 ifbid breq2 fveq2 negeq
+      3eqtrd eqid oprabval2 sylan9eq 3impb ) DOPZAGPZEQPZAEBRZESTZCSEUAUBZEDUCA
+      UDZUEZUFRZUGZEUHZWGUGZFUGZUIZUIZTVSVTWAUJWBAELUKZGPMUKZQPUJNUKWOSTZCSWOUA
+      UBZWODUCWNUDZUEZUFRZUGZWOUHZWTUGZFUGZUIZUIZTUJLMNULZRWMVSBXGAELMNBCDFGHIJ
+      KUMUNLMNAEGQXFWMXGWPCWQWOWGUGZXBWGUGZFUGZUIZUIZWCCWLCDUOUGUPIDUOUQURWDWHW
+      KEWGUQWJFUQUSUSWNATZWPXEXKCXMXEWQXHXDUIXKXMWQXAXHXDXMWOWTWGXMWSWFDUFXMWRW
+      ETWSWFTWNAUTWRWEUCVAVBVCZVDVEXMWQXDXJXHXMXCXIFXMXBWTWGXNVDVFVGVHVGWOETZXL
+      WCCXKUIWMXOWPWCCXKWOESVIVJXOWCXKWLCXOXKWDXHXJUIWDWHXJUIWLXOWQWDXHXJWOESUA
+      VKVJXOWDXHWHXJWOEWGVLVEXOWDXJWKWHXOXIWJFXOXBWIWGWOEVMVFVFVGVNVGVHXGVOVPVQ
+      VR $.
+      $( [20-Apr-2009] $) $( [17-Apr-2009] $)
+  $}
+
+  ${
+    gxpval.1 $e |- X = ran G $.
+    gxpval.2 $e |- P = ( ^g ` G ) $.
+    $( The result of the group power operator when the exponent is positive.
+       (Contributed by Paul Chapman, 17-Apr-2009.) $)
+    gxpval $p |- ( ( G e. Grp /\ A e. X /\ K e. NN ) ->
+                   ( A P K ) = ( ( G seq1 ( NN X. { A } ) ) ` K ) ) $=
+      ( cgr wcel cn w3a co cc0 wceq cgi cfv clt wbr csn cxp cseq1 cneg cgn cif
+      cz eqid gxval nnz syl3an3 wn wne nnne0 df-ne sylib iffalse syl nngt0
+      iftrue eqtrd 3ad2ant3 ) CHIZAEIZDJIZKADBLZDMNZCOPZMDQRZDCJASTUALZPZDUBVHP
+      CUCPZPZUDZUDZVIVAVBDUEIVDVMNVCABVFCDVJEFVFUFVJUFGUGDUHUIVCVAVMVINVBVCVMVL
+      VIVCVEUJZVMVLNVCDMUKVNDULDMUMUNVEVFVLUOUPVCVGVLVINDUQVGVIVKURUPUSUTUS $.
+      $( [20-Apr-2009] $) $( [17-Apr-2009] $)
+  $}
+
+  ${
+    gxnval.1 $e |- X = ran G $.
+    gxnval.2 $e |- P = ( ^g ` G ) $.
+    gxnval.3 $e |- N = ( inv ` G ) $.
+    $( The result of the group power operator when the exponent is negative.
+       (Contributed by Paul Chapman, 17-Apr-2009.) $)
+    gxnval $p |- ( ( G e. Grp /\ A e. X /\ ( K e. ZZ /\ K < 0 ) ) ->
+        ( A P K ) = ( N ` ( ( G seq1 ( NN X. { A } ) ) ` -u K ) ) ) $=
+      ( cgr wcel cz cc0 clt wbr wa w3a co wceq cgi cfv cn csn cxp cseq1 cneg
+      cif eqid gxval 3adant3r wn cr wne 0re ltne mp3an2 necomd df-ne sylib zre
+      sylan iffalse syl wi ltnsym mpan2 imp eqtrd 3ad2ant3 ) CJKZAFKZDLKZDMNOZP
+      ZQADBRZDMSZCTUAZMDNOZDCUBAUCUDUERZUAZDUFVSUAEUAZUGZUGZWAVJVKVLVOWCSVMABVQ
+      CDEFGVQUHIHUIUJVNVJWCWASVKVNWCWBWAVNVPUKZWCWBSDULKZVMWDVLWEVMPZDMUMWDWFMD
+      WEMULKZVMMDUMUNDMUOUPUQDMURUSDUTZVAVPVQWBVBVCVNVRUKZWBWASVLVMWIVLWEVMWIVD
+      ZWHWEWGWJUNDMVEVFVCVGVRVTWAVBVCVHVIVH $.
+      $( [20-Apr-2009] $) $( [17-Apr-2009] $)
+  $}
+
+  ${
+    gx0.1 $e |- X = ran G $.
+    gx0.2 $e |- U = ( Id ` G ) $.
+    gx0.3 $e |- P = ( ^g ` G ) $.
+    $( The result of the group power operator when the exponent is zero.
+       (Contributed by Paul Chapman, 17-Apr-2009.) $)
+    gx0 $p |- ( ( G e. Grp /\ A e. X ) -> ( A P 0 ) = U ) $=
+      ( cgr wcel wa cc0 co wceq clt wbr cn csn cxp cseq1 cfv cneg cgn cif cz
+      0z eqid gxval mp3an3 iftrue ax-mp syl6eq ) DIJZAEJZKALBMZLLNZCLLOPLDQARST
+      MZUALUBUQUADUCUAZUAUDZUDZCUMUNLUEJUOUTNUFABCDLUREFGURUGHUHUIUPUTCNLUGUPCU
+      SUJUKUL $.
+      $( [20-Apr-2009] $) $( [17-Apr-2009] $)
+  $}
+
+  ${
+    $d A g $.  $d G g $.
+    gx1.1 $e |- X = ran G $.
+    gx1.2 $e |- P = ( ^g ` G ) $.
+    $( The result of the group power operator when the exponent is one.
+       (Contributed by Paul Chapman, 17-Apr-2009.) $)
+    gx1 $p |- ( ( G e. Grp /\ A e. X ) -> ( A P 1 ) = A ) $=
+      ( vg cgr wcel wa c1 co cn csn cxp cseq1 cfv wceq 1nn gxpval mp3an3 cv
+      opreq1 fveq1d eqeq1d visset nnex snex xpex seq11 vtoclg wf fconstg
+      fvconst mpan2 syl sylan9eq eqtrd ) CHIZADIZJAKBLZKCMANZOZPLZQZAUSUTKMIZVA
+      VERSABCKDEFTUAUSUTVEKVCQZAKGUBZVCPLZQZVGRVEVGRGCHVHCRZVJVEVGVKKVIVDVHCVCP
+      UCUDUEVHVCGUFMVBUGAUHUIUJUKUTMVBVCULZVGARZMADUMVLVFVMSMAKVCUNUOUPUQUR $.
+      $( [20-Apr-2009] $) $( [17-Apr-2009] $)
+  $}
+
+  ${
+    gxnn0neg.1 $e |- X = ran G $.
+    gxnn0neg.2 $e |- N = ( inv ` G ) $.
+    gxnn0neg.3 $e |- P = ( ^g ` G ) $.
+    $( A negative group power is the inverse of the positive power (lemma with
+       nonnegative exponent - use ~ gxneg instead).  (Contributed by Paul
+       Chapman, 17-Apr-2009.) $)
+    gxnn0neg $p |- ( ( G e. Grp /\ A e. X /\ K e. NN0 ) ->
+                     ( A P -u K ) = ( N ` ( A P K ) ) ) $=
+      ( cgr wcel cn0 cneg co cfv wceq wa cn cc0 wo w3a csn cxp cseq1 cz clt
+      wbr gxnval nnz znegcl syl nngt0 cr wb nnre lt0neg2 mpbid jca syl3an3
+      gxpval cc nncn negneg fveq2d 3ad2ant3 eqtr4d 3expia cgi negeq neg0
+      syl6eq opreq2d eqid gx0 sylan9eqr opreq2 grpinvid adantr eqtrd ex jaod
+      elnn0 syl5ib 3impia ) CJKZAFKZDLKZADMZBNZADBNZEOZPZWEWFQZDRKZDSPZTWLWGWMW
+      NWLWOWEWFWNWLWEWFWNUAZWIWHMZCRAUBUCUDNZOZEOZWKWEWFWHUEKZWHSUFUGZQWIWTPWNA
+      BCWHEFGIHUHWNXAXBWNDUEKXADUIDUJUKWNSDUFUGZXBDULWNDUMKXCXBUNDUODUPUKUQURUS
+      WPWJWSEWPWJDWROZWSABCDFGIUTWNWEWSXDPWFWNWQDWRWNDVAKWQDPDVBDVCUKVDVEVFVDVF
+      VGWMWOWLWMWOQWICVHOZWKWOWMWIASBNZXEWOWHSABWOWHSMSDSVIVJVKVLABXECFGXEVMZIV
+      NZVOWOWMWKXFEOZXEWOWJXFEDSABVPVDWMXIXEEOZXEWMXFXEEXHVDWEXJXEPWFXECEXGHVQV
+      RVSVOVFVTWADWBWCWD $.
+      $( [20-Apr-2009] $) $( [17-Apr-2009] $)
+  $}
+
+  ${
+    $d A g k m $.  $d G g k m $.  $d K g m $.  $d P k m $.  $d X k m $.
+    gxnn0suc.1 $e |- X = ran G $.
+    gxnn0suc.2 $e |- P = ( ^g ` G ) $.
+    $( Induction on group power (lemma with nonnegative exponent - use ~ gxsuc
+       instead).  (Contributed by Paul Chapman, 17-Apr-2009.) $)
+    gxnn0suc $p |- ( ( G e. Grp /\ A e. X /\ K e. NN0 ) ->
+                     ( A P ( K + 1 ) ) = ( ( A P K ) G A ) ) $=
+      ( vg cgr wcel cn0 c1 caddc co wceq wa cn cc0 wo w3a csn cxp cseq1 cfv cv
+      wi opreq1 fveq1d opreq1d opreq eqtrd eqeq12d imbi2d visset nnex snex
+      xpex seq1p1 vtoclg imp 3adant2 gxpval peano2nn syl3an3 wf fvconst
+      fconstg syl2an 3adant1 eqcomd opreq12d 3eqtr4d 3expia gx1 cgi eqid gx0
+      grplid eqtr4d 3adant3 wb ax1cn addid2i syl6eq opreq2d opreq2 3ad2ant3
+      mpbird jaod elnn0 syl5ib 3impia ) CIJZAEJZDKJZADLMNZBNZADBNZACNZOZWMWNPZD
+      QJZDROZSWTWOXAXBWTXCWMWNXBWTWMWNXBTZWPCQAUAZUBZUCNZUDZDXGUDZWPXFUDZCNZWQW
+      SWMXBXHXKOZWNWMXBXLXBWPHUEZXFUCNZUDZDXNUDZXJXMNZOZUFXBXLUFHCIXMCOZXRXLXBX
+      SXOXHXQXKXSWPXNXGXMCXFUCUGZUHXSXQXIXJXMNXKXSXPXIXJXMXSDXNXGXTUHUIXIXJXMCU
+      JUKULUMDXMXFHUNQXEUOAUPUQURUSUTVAWMWNWPQJZWQXHOXBABCWPEFGVBDVCZVDXDWRXIAX
+      JCABCDEFGVBXDXJAWNXBXJAOZWMQXEXFVEYAYCWNXBQAWPXFVFQAEVGYBVHVIVJVKVLVMWMWN
+      XCWTWMWNXCTWTALBNZARBNZACNZOZWMWNYGXCXAYDAYFABCEFGVNXAYFCVOUDZACNAXAYEYHA
+      CABYHCEFYHVPZGVQUIAYHCEFYIVRUKVSVTXCWMWTYGWAWNXCWQYDWSYFXCWPLABXCWPRLMNLD
+      RLMUGLWBWCWDWEXCWRYEACDRABWFUIULWGWHVMWIDWJWKWL $.
+      $( [20-Apr-2009] $) $( [17-Apr-2009] $)
+
+    $( Closure of the group power operator.  (Contributed by Paul Chapman,
+       17-Apr-2009.) $)
+    gxcl $p |- ( ( G e. Grp /\ A e. X /\ K e. ZZ ) -> ( A P K ) e. X ) $=
+      ( vm vk cgr wcel cz co cv cc0 cneg c1 caddc wa wceq opreq2 eleq1d cgi
+      cfv eqid gx0 grpidcl adantr eqeltrd cn0 wi w3a grpcl 3com23 3expia
+      3adant3 gxnn0suc sylibrd cn cgn gxnn0neg nnnn0 syl3an3 grpinvcl
+      3ad2antl1 ex zindd 3impia ) CJKZAEKZDLKADBMZEKZAHNZBMZEKAOBMZEKAINZBMZEKZ
+      AVPPZBMZEKZAVPQRMZBMZEKZHIDVLVIVJSZVMOTVNVOEVMOABUAUBVMVPTVNVQEVMVPABUAUB
+      VMWBTVNWCEVMWBABUAUBVMVSTVNVTEVMVSABUAUBVMDTVNVKEVMDABUAUBWEVOCUCUDZEABWF
+      CEFWFUEZGUFVIWFEKVJWFCEFWGUGUHUIVIVJVPUJKZVRWDUKVIVJWHULZVRVQACMZEKZWDVIV
+      JVRWKUKWHVIVJVRWKVIVRVJWKVQACEFUMUNUOUPWIWCWJEABCVPEFGUQUBURUOVIVJVPUSKZV
+      RWAUKVIVJWLULZVRWAWMVRSVTVQCUTUDZUDZEWMVTWOTZVRVIVJWHWPWLABCVPWNEFWNUEZGV
+      AVPVBVCUHVIVJVRWOEKWLVQCWNEFWQVDVEUIVFUOVGVH $.
+      $( [20-Apr-2009] $) $( [17-Apr-2009] $)
+  $}
+
+  ${
+    gxneg.1 $e |- X = ran G $.
+    gxneg.2 $e |- N = ( inv ` G ) $.
+    gxneg.3 $e |- P = ( ^g ` G ) $.
+    $( A negative group power is the inverse of the positive power.
+       (Contributed by Paul Chapman, 17-Apr-2009.) $)
+    gxneg $p |- ( ( G e. Grp /\ A e. X /\ K e. ZZ ) ->
+                     ( A P -u K ) = ( N ` ( A P K ) ) ) $=
+      ( cgr wcel cz w3a cn0 cneg wo co cfv wceq cr elznn0 pm3.27bi 3ad2ant3 wi
+      wa gxnn0neg 3adant3l 3expia exp3a 3impia grp2inv 3simp1 gxcl znegcl
+      syl3an3 3adant3r sylanc cc pm3.26 zcn negneg opreq2d 3syl eqtr3d fveq2d
+      jaod mpd ) CJKZAFKZDLKZMZDNKZDOZNKZPZAVMBQZADBQZERZSZVJVHVOVIVJDTKVODUAUB
+      UCVKVLVSVNVHVIVJVLVSUDVHVIUEZVJVLVSVHVIVJVLUEVSVHVIVLVSVJABCDEFGHIUFUGUHU
+      IUJVHVIVJVNVSUDVTVJVNVSVHVIVJVNUEZVSVHVIWAMZVPERZERZVPVRVHVPFKZWDVPSWBVPC
+      EFGHUKVHVIWAULVHVIVJWEVNVHVIVMLKWEVJABCVMFGIUMDUNUOUPUQWBWCVQEWBAVMOZBQZW
+      CVQVHVIVNWGWCSVJABCVMEFGHIUFUGWBVJDURKZWGVQSWAVHVJVIVJVNUSUCDUTWHWFDABDVA
+      VBVCVDVEVDUHUIUJVFVG $.
+      $( [20-Apr-2009] $) $( [17-Apr-2009] $)
+
+    $( The inverse of a negative group power is the positive power.
+       (Contributed by Paul Chapman, 17-Apr-2009.) $)
+    gxneg2 $p |- ( ( G e. Grp /\ A e. X /\ K e. ZZ ) ->
+                   ( N ` ( A P -u K ) ) = ( A P K ) ) $=
+      ( cgr wcel cz w3a cneg co cfv gxneg fveq2d wceq grp2inv 3simp1 gxcl
+      sylanc eqtrd ) CJKZAFKZDLKZMZADNBOZEPADBOZEPZEPZUJUHUIUKEABCDEFGHIQRUEUJF
+      KULUJSUHUJCEFGHTUEUFUGUAABCDFGIUBUCUD $.
+      $( [20-Apr-2009] $) $( [17-Apr-2009] $)
+
+    $( The result of the group power operator when the exponent is minus one.
+       (Contributed by Paul Chapman, 17-Apr-2009.) $)
+    gxm1 $p |- ( ( G e. Grp /\ A e. X ) -> ( A P -u 1 ) = ( N ` A ) ) $=
+      ( cgr wcel wa c1 cneg co cfv cz wceq 1z gxneg mp3an3 gx1 fveq2d eqtrd )
+      CIJZAEJZKZALMBNZALBNZDOZADOUDUELPJUGUIQRABCLDEFGHSTUFUHADABCEFHUAUBUC $.
+      $( [20-Apr-2009] $) $( [17-Apr-2009] $)
+  $}
+
+  ${
+    $d A k m $.  $d G k m $.  $d K m $.  $d P k m $.  $d X k m $.
+    gxcom.1 $e |- X = ran G $.
+    gxcom.2 $e |- P = ( ^g ` G ) $.
+    $( The group power operator commutes with the group operation.
+       (Contributed by Paul Chapman, 17-Apr-2009.) $)
+    gxcom $p |- ( ( G e. Grp /\ A e. X /\ K e. ZZ ) ->
+                  ( ( A P K ) G A ) = ( A G ( A P K ) ) ) $=
+      ( vm vk cgr wcel cz co wceq cv cc0 cneg c1 caddc wa opreq2 opreq1d
+      opreq2d eqeq12d cgi cfv eqid gx0 grplid eqtrd grprid eqtr4d cn0 wi w3a
+      grpass 3simp1 3simp2 gxcl 3jca sylanc nn0z syl3an3 adantr gxnn0suc
+      eqeq1d biimpar 3eqtr4d ex 3expia cn cgn znegcl 3simp3 syl3anc grpinvcl
+      fveq2 adantl grpinvop gxneg 3eqtr3rd grpasscan1 3eqtrd grpasscan2 grpcl
+      eqtr3d nnz syl5 zindd 3impia ) CJKZAEKZDLKADBMZACMZAWMCMZNZAHOZBMZACMZAWR
+      CMZNAPBMZACMZAXACMZNAIOZBMZACMZAXECMZNZAXDQZBMZACMZAXJCMZNZAXDRSMZBMZACMZ
+      AXOCMZNZHIDWPWKWLTZWQPNZWSXBWTXCXTWRXAACWQPABUAZUBXTWRXAACYAUCUDWQXDNZWSX
+      FWTXGYBWRXEACWQXDABUAZUBYBWRXEACYCUCUDWQXNNZWSXPWTXQYDWRXOACWQXNABUAZUBYD
+      WRXOACYEUCUDWQXINZWSXKWTXLYFWRXJACWQXIABUAZUBYFWRXJACYGUCUDWQDNZWSWNWTWOY
+      HWRWMACWQDABUAZUBYHWRWMACYIUCUDXSXBAXCXSXBCUEUFZACMAXSXAYJACABYJCEFYJUGZG
+      UHZUBAYJCEFYKUIUJXSXCAYJCMAXSXAYJACYLUCAYJCEFYKUKUJULWKWLXDUMKZXHXRUNWKWL
+      YMUOZXHXRYNXHTZXGACMZAXFCMZXPXQYNYPYQNZXHWKWLXDLKZYRYMWKWLXEEKZWLUOYRWKWL
+      YSUOZAXEACEFUPWKWLYSUQZUUAWLYTWLWKWLYSURZABCXDEFGUSZUUCUTVAXDVBVCVDYOXOXG
+      ACYNXOXGNXHYNXOXFXGABCXDEFGVEZVFVGUBYNXQYQNXHYNXOXFACUUEUCVDVHVIVJXSYSXHX
+      MUNZXDVKKWKWLYSUUFUUAXHXMUUAXHTZXLACVLUFZUFZCMZACMZXKXLUUGUUJXJACUUGUUJAX
+      JUUICMZCMZAUUIXJCMZCMZXJWKWLXJEKZUUIEKZUOUUJUUMNUUGAXJUUICEFUPUUAWKXHUUBV
+      DZUUGWLUUPUUQUUAWLXHUUCVDZWKWLYSUUPUUGWKWLXILKUUPYSABCXIEFGUSXDVMVCUURUUS
+      UUAYSXHWKWLYSVNVDZVOZWKWLUUQUUGACUUHEFUUHUGZVPUURUUSVAUTVAUUGUULUUNACUUGX
+      FUUHUFZXGUUHUFZUUNUULXHUVCUVDNUUAXFXGUUHVQVRUUGUVCUUIXEUUHUFZCMZUUNWKYTWL
+      UVCUVFNUUGXEACUUHEFUVBVSUURWKWLYSYTUUGUUDUURUUSUUTVOZUUSVOUUGXJUVEUUICWKW
+      LYSXJUVENUUGABCXDUUHEFUVBGVTUURUUSUUTVOZUCULUUGUVDUVEUUICMZUULWKWLYTUVDUV
+      INUUGAXECUUHEFUVBVSUURUUSUVGVOUUGXJUVEUUICUVHUBULWAUCWKWLUUPUUOXJNUUGAXJC
+      UUHEFUVBWBUURUUSUVAVOWCUBWKXLEKZWLUUKXLNUUGXLACUUHEFUVBWDUURWKWLUUPUVJUUG
+      AXJCEFWEUURUUSUVAVOUUSVOWFVIVJXDWGWHWIWJ $.
+      $( [20-Apr-2009] $) $( [17-Apr-2009] $)
+  $}
+
+  ${
+    $d A k m $.  $d G k m $.  $d K k m $.  $d N k m $.  $d P k m $.
+    $d X k m $.
+    gxinv.1 $e |- X = ran G $.
+    gxinv.2 $e |- N = ( inv ` G ) $.
+    gxinv.3 $e |- P = ( ^g ` G ) $.
+    $( The group power operator commutes with the group inverse function.
+       (Contributed by Paul Chapman, 17-Apr-2009.) $)
+    gxinv $p |- ( ( G e. Grp /\ A e. X /\ K e. ZZ ) ->
+                  ( ( N ` A ) P K ) = ( N ` ( A P K ) ) ) $=
+      ( vm vk cgr wcel cz cfv co wceq cv cc0 cneg c1 caddc wa opreq2 fveq2d
+      eqeq12d cgi eqid grpinvid adantr gx0 grpinvcl syldan 3eqtr4rd cn0 wi w3a
+      adantl gxnn0suc 3simp1 3adant3 3simp3 syl3anc gxcom nn0z syl3an3 eqtrd
+      grpinvop gxcl 3simp2 3eqtr4d ex 3expia cn gxneg pm3.27 eqtr4d nnz syl5
+      zindd 3impia ) CLMZAFMZDNMAEOZDBPZADBPZEOZQZWDJRZBPZAWIBPZEOZQWDSBPZASBPZ
+      EOZQWDKRZBPZAWPBPZEOZQZWDWPTZBPZAXABPZEOZQZWDWPUAUBPZBPZAXFBPZEOZQZJKDWHW
+      BWCUCZWISQZWJWMWLWOWISWDBUDXLWKWNEWISABUDUEUFWIWPQZWJWQWLWSWIWPWDBUDXMWKW
+      REWIWPABUDUEUFWIXFQZWJXGWLXIWIXFWDBUDXNWKXHEWIXFABUDUEUFWIXAQZWJXBWLXDWIX
+      AWDBUDXOWKXCEWIXAABUDUEUFWIDQZWJWEWLWGWIDWDBUDXPWKWFEWIDABUDUEUFXKCUGOZEO
+      ZXQWOWMWBXRXQQWCXQCEXQUHZHUIUJXKWNXQEABXQCFGXSIUKUEWBWCWDFMZWMXQQACEFGHUL
+      ZWDBXQCFGXSIUKUMUNWBWCWPUOMZWTXJUPWBWCYBUQZWTXJYCWTUCWDWQCPZWDWSCPZXGXIWT
+      YDYEQYCWQWSWDCUDURYCXGYDQWTYCXGWQWDCPZYDWBXTYBXGYFQYCWDBCWPFGIUSWBWCYBUTZ
+      WBWCXTYBYAVAZWBWCYBVBZVCWBXTYBYFYDQZYCWBXTWPNMZYJYBWDBCWPFGIVDWPVEZVFYGYH
+      YIVCVGUJYCXIYEQWTYCXIWRACPZEOZYEYCXHYMEABCWPFGIUSUEWBWRFMZWCYNYEQYCWRACEF
+      GHVHYGWBWCYKYOYBABCWPFGIVIYLVFWBWCYBVJVCVGUJVKVLVMXKYKWTXEUPZWPVNMWBWCYKY
+      PWBWCYKUQZWTXEYQWTUCZXBWQEOZXDYQXBYSQZWTWBXTYKYTYQWDBCWPEFGHIVOWBWCYKUTWB
+      WCXTYKYAVAWBWCYKVBVCUJYRXCWQEYRXCWSWQYQXCWSQWTABCWPEFGHIVOUJYQWTVPVQUEVQV
+      LVMWPVRVSVTWA $.
+      $( [20-Apr-2009] $) $( [17-Apr-2009] $)
+
+    $( The group power operator commutes with the group inverse function.
+       (Contributed by Paul Chapman, 17-Apr-2009.) $)
+    gxinv2 $p |- ( ( G e. Grp /\ A e. X /\ K e. ZZ ) ->
+                   ( N ` ( ( N ` A ) P K ) ) = ( A P K ) ) $=
+      ( cgr wcel cz w3a cfv co wceq gxinv 3simp1 grpinvcl 3adant3 3simp3
+      syl3anc grp2inv opreq1d eqtr3d ) CJKZAFKZDLKZMZAENZENZDBOZUJDBOENZADBOUFU
+      JFKZUHULUMPUIUJBCDEFGHIQUFUGUHRUFUGUNUHACEFGHSTUFUGUHUAUBUIUKADBUFUGUKAPU
+      HACEFGHUCTUDUE $.
+      $( [20-Apr-2009] $) $( [17-Apr-2009] $)
+  $}
+
+  ${
+    gxsuc.1 $e |- X = ran G $.
+    gxsuc.2 $e |- P = ( ^g ` G ) $.
+    $( Induction on group power.  (Contributed by Paul Chapman,
+       17-Apr-2009.) $)
+    gxsuc $p |- ( ( G e. Grp /\ A e. X /\ K e. ZZ ) ->
+                  ( A P ( K + 1 ) ) = ( ( A P K ) G A ) ) $=
+      ( cgr wcel cz w3a cn0 cneg cn wo c1 caddc co wceq cr wa elznn0nn biimpi
+      pm3.27 orim2i syl 3ad2ant3 wi gxnn0suc 3expia 3adant3 cgn cfv gxcom
+      3simp1 3simp2 pm3.26 syl3anc eqid grp2inv gxcl peano2z sylanc opreq2d
+      cmin cc elnnnn0 pm3.27bi adantl wb zcn ax1cn negdi mpan2 negcl negsub
+      3syl eqtrd eleq1d adantr mpbird syl3an3 opreq1d npcan gxneg 3eqtr3rd
+      fveq2d grpinvop grpinvcl 3eqtr3d eqtr3d grpasscan1 3eqtr2rd exp3a 3impia
+      jaod mpd ) CHIZAEIZDJIZKZDLIZDMZNIZOZADPQRZBRZADBRZACRZSZWTWRXEWSWTXBDTIZ
+      XDUAZOZXEWTXMDUBUCXLXDXBXKXDUDUEUFUGXAXBXJXDWRWSXBXJUHWTWRWSXBXJABCDEFGUI
+      UJUKWRWSWTXDXJUHWRWSUAWTXDXJWRWSWTXDUAZXJWRWSXNKZXIAXHCRZAACULUMZUMZXGCRZ
+      CRZXGWRWSWTXIXPSXOABCDEFGUNWRWSXNUOZWRWSXNUPZXNWRWTWSWTXDUQUGZURXOXSXHACX
+      OXRXGXQUMZXQUMZCRZXSXHXOYEXGXRCWRXGEIZYEXGSXOXGCXQEFXQUSZUTYAWRWSXFJIZYGX
+      OABCXFEFGVAYAYBXOWTYIYCDVBZUFURZVCVDXOYDACRZXQUMZXHXQUMZXQUMZYFXHXOYLYNXQ
+      XOYLAXCBRZYNXOAXFMZPQRZBRZAYQBRZACRZYPYLWRWSYQLIZYSUUASXNABCYQEFGUIXNUUBX
+      CPVERZLIZXDUUDWTXDXCVFIZUUDXCVGVHVIWTUUBUUDVJXDWTYQUUCLWTYQXCPMQRZUUCWTDV
+      FIZYQUUFSZDVKZUUGPVFIZUUHVLDPVMVNUFWTUUGUUEUUFUUCSZUUIDVOZUUEUUJUUKVLXCPV
+      PVNVQVRZVSVTWAWBXOWTYSYPSYCWTYRXCABWTYRUUCPQRZXCWTYQUUCPQUUMWCWTUUGUUEUUN
+      XCSZUUIUULUUEUUJUUOVLXCPWDVNVQVRVDUFXOYTYDACWRWSWTYTYDSZXOWRWSYIUUPWTABCX
+      FXQEFYHGWEYJWBYAYBYCURWCWFWRWSWTYPYNSXOABCDXQEFYHGWEYAYBYCURVRWGWRYDEIZWS
+      YMYFSXOYDACXQEFYHWHYAWRYGUUQXOXGCXQEFYHWIYAYKVCYBURWRXHEIZYOXHSXOXHCXQEFY
+      HUTYAWRWSWTUURXOABCDEFGVAYAYBYCURVCWJWKVDWRWSYGXTXGSXOAXGCXQEFYHWLYAYBYKU
+      RWMUJWNWOWPWQ $.
+      $( [20-Apr-2009] $) $( [17-Apr-2009] $)
+  $}
+
+  ${
+    $d G k m $.  $d K k m $.  $d P k m $.  $d U k m $.
+    gxid.1 $e |- U = ( Id ` G ) $.
+    gxid.2 $e |- P = ( ^g ` G ) $.
+    $( The identity element of a group to any power remains unchanged.
+       (Contributed by Paul Chapman, 17-Apr-2009.) $)
+    gxid $p |- ( ( G e. Grp /\ K e. ZZ ) -> ( U P K ) = U ) $=
+      ( vm vk cgr wcel cz co wceq cv cc0 cneg c1 caddc opreq2 eqeq1d crn eqid
+      grpidcl gx0 mpdan wi cn0 wa gxsuc pm3.26 adantr pm3.27 syl3anc grprid
+      gxcl sylanc eqtr2d biimpd ex nn0z syl5 cn w3a cgn cfv gxneg syl3an2
+      3anidm12 3adant3 fveq2 grpinvid sylan9eqr 3adant2 eqtrd 3expia nnz zindd
+      imp ) CIJZDKJBDALZBMZBGNZALZBMBOALZBMZBHNZALZBMZBWFPZALZBMZBWFQRLZALZBMZG
+      HDWAVSWBOMWCWDBWBOBASTWBWFMWCWGBWBWFBASTWBWLMWCWMBWBWLBASTWBWIMWCWJBWBWIB
+      ASTWBDMWCVTBWBDBASTVSBCUAZJZWEBCWOWOUBZEUCZBABCWOWQEFUDUEVSWFKJZWHWNUFZWF
+      UGJVSWSWTVSWSUHZWHWNXAWGWMBXAWMWGBCLZWGVSWPWSWMXBMXABACWFWOWQFUIVSWSUJZVS
+      WPWSWRUKZVSWSULZUMVSWGWOJZXBWGMXAWGBCWOWQEUNXCVSWPWSXFXABACWFWOWQFUOXCXDX
+      EUMUPUQTURUSWFUTVAVSWSWHWKUFZWFVBJVSWSXGVSWSWHWKVSWSWHVCWJWGCVDVEZVEZBVSW
+      SWJXIMZWHVSWSXJVSWPWSXJVSBACWFXHWOWQXHUBZFVFWRVGVHVIVSWHXIBMWSWHVSXIBXHVE
+      BWGBXHVJBCXHEXKVKVLVMVNVOUSWFVPVAVQVR $.
+      $( [20-Apr-2009] $) $( [17-Apr-2009] $)
+  $}
+
+  ${
+    $d A k m $.  $d G k m $.  $d J k m $.  $d K m $.  $d P k m $.
+    $d X k m $.
+    gxnn0add.1 $e |- X = ran G $.
+    gxnn0add.2 $e |- P = ( ^g ` G ) $.
+    $( The group power of a sum is the group product of the powers (lemma with
+       nonnegative exponent - use ~ gxadd instead).  (Contributed by Paul
+       Chapman, 17-Apr-2009.) $)
+    gxnn0add $p |- ( ( G e. Grp /\ A e. X /\ ( J e. ZZ /\ K e. NN0 ) ) ->
+                     ( A P ( J + K ) ) = ( ( A P J ) G ( A P K ) ) ) $=
+      ( vm vk cgr wcel cz cn0 wa caddc co wceq wi w3a cv cc0 c1 opreq2 opreq2d
+      eqeq12d imbi2d cgi cfv gxcl eqid grprid ex 3ad2ant1 mpd gx0 3adant3 cc
+      zcn addid1 syl 3ad2ant3 3eqtr4rd nn0z ax1cn addass mp3an3 syl2an adantr
+      grpass 3simp1 3adant3r 3adant3l 3simp2 3jca sylanc gxsuc zaddcl syl3an3
+      opreq1 sylan9eq 3eqtr4d eqtr3d 3expia exp3a 3impia com12 a2d nn0ind
+      imp3a ) CKLZAFLZDMLZENLZOADEPQZBQZADBQZAEBQZCQZRZWKWLOZWMWNWTWKWLWMWNWTSW
+      NWKWLWMTZWTXBADIUAZPQZBQZWQAXCBQZCQZRZSXBADUBPQZBQZWQAUBBQZCQZRZSXBADJUAZ
+      PQZBQZWQAXNBQZCQZRZSZXBADXNUCPQZPQZBQZWQAYABQZCQZRZSZXBWTSIJEXCUBRZXHXMXB
+      YHXEXJXGXLYHXDXIABXCUBDPUDUEYHXFXKWQCXCUBABUDUEUFUGXCXNRZXHXSXBYIXEXPXGXR
+      YIXDXOABXCXNDPUDUEYIXFXQWQCXCXNABUDUEUFUGXCYARZXHYFXBYJXEYCXGYEYJXDYBABXC
+      YADPUDUEYJXFYDWQCXCYAABUDUEUFUGXCERZXHWTXBYKXEWPXGWSYKXDWOABXCEDPUDUEYKXF
+      WRWQCXCEABUDUEUFUGXBWQCUHUIZCQZWQXLXJXBWQFLZYMWQRZABCDFGHUJZWKWLYNYOSWMWK
+      YNYOWQYLCFGYLUKZULUMUNUOWKWLXLYMRWMXAXKYLWQCABYLCFGYQHUPUEUQWMWKXJWQRWLWM
+      XIDABWMDURLZXIDRDUSZDUTVAUEVBVCXNNLXNMLZXTYGSXNVDYTXBXSYFXBYTXSYFSZWKWLWM
+      YTUUASXAWMYTUUAWKWLWMYTOZUUAWKWLUUBTZXSYFUUCXSOZAXOUCPQZBQZYCYEUUDUUEYBAB
+      UUCUUEYBRZXSUUBWKUUGWLYRXNURLZUUGWMYTYRUUHUCURLUUGVEDXNUCVFVGYSXNUSVHVBVI
+      UEUUDXRACQZWQXQACQZCQZUUFYEWKYNXQFLZWLTUUIUUKRUUDWQXQACFGVJUUCWKXSWKWLUUB
+      VKVIUUDYNUULWLUUCYNXSWKWLWMYNYTYPVLVIUUCUULXSWKWLYTUULWMABCXNFGHUJVMVIUUC
+      WLXSWKWLUUBVNVIVOVPUUCXSUUFXPACQZUUIWKWLXOMLUUFUUMRUUBABCXOFGHVQDXNVRVSXP
+      XRACVTWAUUCYEUUKRZXSWKWLYTUUNWMWKWLYTTYDUUJWQCABCXNFGHVQUEVMVIWBWCUMWDWEW
+      FWGWHVAWIWGWDWJWF $.
+      $( [20-Apr-2009] $) $( [17-Apr-2009] $)
+
+    $( The group power of a sum is the group product of the powers.
+       (Contributed by Paul Chapman, 17-Apr-2009.) $)
+    gxadd $p |- ( ( G e. Grp /\ A e. X /\ ( J e. ZZ /\ K e. ZZ ) ) ->
+                  ( A P ( J + K ) ) = ( ( A P J ) G ( A P K ) ) ) $=
+      ( cgr wcel cz wa caddc co wceq wi w3a cn0 cneg wo cr elznn0 pm3.27bi
+      adantl gxnn0add 3expia exp3a 3impia adantr cgn cfv eqid grpasscan2
+      3simp1 gxcl zaddcl pm3.26 sylan2 syl3an3 syl3anc pm3.27 jca cc cmin
+      addcl negsub sylancom pncan eqtrd zcn syl syl2an opreq2d 3ad2ant3 gxneg
+      3eqtr3rd opreq1d eqtr3d imp jaod mpd ex imp3a ) CIJZAFJZDKJZEKJZLADEMNZBN
+      ZADBNZAEBNZCNZOZWDWELZWFWGWMWDWEWFWGWMPWDWEWFQZWGWMWOWGLZERJZESZRJZTZWMWG
+      WTWOWGEUAJWTEUBUCUDWPWQWMWSWOWQWMPZWGWDWEWFXAWNWFWQWMWDWEWFWQLWMABCDEFGHU
+      EUFUGUHUIWOWGWSWMPWOWGWSWMWDWEWFWGWSLZWMPWNWFXBWMWDWEWFXBLZWMWDWEXCQZWIWK
+      CUJUKZUKZCNZWKCNZWIWLWDWIFJZWKFJZXHWIOXDWIWKCXEFGXEULZUMWDWEXCUNWDWEWHKJZ
+      XIXCABCWHFGHUOWFWGXLXBDEUPWGWSUQZURZUSWDWEWGXJXCABCEFGHUOXBWGWFXMUDZUSUTX
+      DXGWJWKCXDAWHWRMNZBNZWIAWRBNZCNZWJXGWDWEXLWSLXQXSOXCABCWHWRFGHUEXCXLWSXNX
+      BWSWFWGWSVAUDVBUSXCWDXQWJOWEXCXPDABDVCJZEVCJZXPDOWFXBXTYALXPWHEVDNZDXTYAW
+      HVCJXPYBODEVEWHEVFVGDEVHVIDVJXBWGYAXMEVJVKVLVMVNXDXRXFWICWDWEWGXRXFOXCABC
+      EXEFGXKHVOXOUSVMVPVQVRUFUGUHUGVSVTWAWBUFWCUH $.
+      $( [20-Apr-2009] $) $( [17-Apr-2009] $)
+  $}
+
+  ${
+    gxsub.1 $e |- X = ran G $.
+    gxsub.2 $e |- N = ( inv ` G ) $.
+    gxsub.3 $e |- P = ( ^g ` G ) $.
+    $( The group power of a difference is the group quotient of the powers.
+       (Contributed by Paul Chapman, 17-Apr-2009.) $)
+    gxsub $p |- ( ( G e. Grp /\ A e. X /\ ( J e. ZZ /\ K e. ZZ ) ) ->
+        ( A P ( J - K ) ) = ( ( A P J ) G ( N ` ( A P K ) ) ) ) $=
+      ( cgr wcel cz wa w3a cneg caddc co cmin cfv wceq gxadd znegcl anim2i
+      syl3an3 cc negsub zcn syl2an 3ad2ant3 opreq2d gxneg 3adant3l 3eqtr3d ) CK
+      LZAGLZDMLZEMLZNZOZADEPZQRZBRZADBRZAVABRZCRZADESRZBRVDAEBRFTZCRUOUPUQVAMLZ
+      NVCVFUAUSABCDVAGHJUBURVIUQEUCUDUEUTVBVGABUSUOVBVGUAZUPDUFLEUFLVJUQURDEUGD
+      UHEUHUIUJUKUTVEVHVDCUOUPURVEVHUAUQABCEFGHIJULUMUKUN $.
+      $( [20-Apr-2009] $) $( [17-Apr-2009] $)
+  $}
+
+  ${
+    $d A k m $.  $d G k m $.  $d J k m $.  $d K m $.  $d P k m $.  $d X k m $.
+    gxnn0mul.1 $e |- X = ran G $.
+    gxnn0mul.2 $e |- P = ( ^g ` G ) $.
+    $( The group power of a product is the composition of the powers (lemma
+       with nonnegative exponent - use ~ gxmul instead).  (Contributed by Paul
+       Chapman, 17-Apr-2009.) $)
+    gxnn0mul $p |- ( ( G e. Grp /\ A e. X /\ ( J e. ZZ /\ K e. NN0 ) ) ->
+                     ( A P ( J x. K ) ) = ( ( A P J ) P K ) ) $=
+      ( vm vk cgr wcel cz cn0 wa cmul co wceq wi w3a cv cc0 c1 caddc opreq2
+      opreq2d eqeq12d imbi2d cgi cfv eqid gx0 3adant3 cc zcn mul01 syl
+      3ad2ant3 3simp1 gxcl sylanc 3eqtr4d opreq1 adantl ax1cn adddi mp3an3
+      mulid1 adantr eqtrd nn0cn syl2an gxadd zmulcl nn0z sylan2 pm3.26 jca
+      syl3an3 gxsuc 3adant3r pm3.27 syl3anc ex 3expia exp3a 3impia com12 a2d
+      nn0ind imp3a ) CKLZAFLZDMLZENLZOADEPQZBQZADBQZEBQZRZWLWMOZWNWOWTWLWMWNWOW
+      TSWOWLWMWNTZWTXBADIUAZPQZBQZWRXCBQZRZSXBADUBPQZBQZWRUBBQZRZSXBADJUAZPQZBQ
+      ZWRXLBQZRZSXBADXLUCUDQZPQZBQZWRXQBQZRZSXBWTSIJEXCUBRZXGXKXBYBXEXIXFXJYBXD
+      XHABXCUBDPUEUFXCUBWRBUEUGUHXCXLRZXGXPXBYCXEXNXFXOYCXDXMABXCXLDPUEUFXCXLWR
+      BUEUGUHXCXQRZXGYAXBYDXEXSXFXTYDXDXRABXCXQDPUEUFXCXQWRBUEUGUHXCERZXGWTXBYE
+      XEWQXFWSYEXDWPABXCEDPUEUFXCEWRBUEUGUHXBAUBBQZCUIUJZXIXJWLWMYFYGRWNABYGCFG
+      YGUKZHULUMWNWLXIYFRWMWNXHUBABWNDUNLZXHUBRDUOZDUPUQUFURWLWRFLZXJYGRXBWRBYG
+      CFGYHHULWLWMWNUSABCDFGHUTZVAVBXLNLZXBXPYAXBYMXPYASZWLWMWNYMYNSXAWNYMYNWLW
+      MWNYMOZYNWLWMYOTZXPYAYPXPOXNWRCQZXOWRCQZXSXTXPYQYRRYPXNXOWRCVCVDYPXSYQRXP
+      YPXSAXMDUDQZBQZYQYOWLXSYTRWMYOXRYSABYIXLUNLZXRYSRWNYMYIUUAOXRXMDUCPQZUDQZ
+      YSYIUUAUCUNLXRUUCRVEDXLUCVFVGYIUUCYSRUUAYIUUBDXMUDDVHUFVIVJYJXLVKVLUFURWL
+      WMXMMLZWNOYTYQRYOABCXMDFGHVMYOUUDWNWNXLMLZUUDYMDXLVNXLVOZVPWNYMVQVRVSVJVI
+      YPXTYRRZXPWLYKUUEUUGYPWRBCXLFGHVTWLWMYOUSWLWMWNYKYMYLWAYPYMUUEYOWLYMWMWNY
+      MWBURUUFUQWCVIVBWDWEWFWGWHWIWJWHWEWKWG $.
+      $( [20-Apr-2009] $) $( [17-Apr-2009] $)
+
+    $( The group power of a product is the composition of the powers.
+       (Contributed by Paul Chapman, 17-Apr-2009.) $)
+    gxmul $p |- ( ( G e. Grp /\ A e. X /\ ( J e. ZZ /\ K e. ZZ ) ) ->
+                  ( A P ( J x. K ) ) = ( ( A P J ) P K ) ) $=
+      ( cgr wcel cz wa cmul co wceq wi w3a cn0 cneg wo cr elznn0 pm3.27bi
+      adantl gxnn0mul 3expia exp3a 3impia adantr cgn cfv znegcl pm3.27 anim12i
+      syl3an3 cc mul2neg zcn syl2an 3ad2ant3 opreq2d eqid gxneg pm3.26 opreq1d
+      3eqtr3d gxinv 3simp1 gxcl syl syl3anc eqtrd fveq2d grp2inv sylanc 3eqtrd
+      imp jaod mpd ex imp3a ) CIJZAFJZDKJZEKJZLADEMNZBNZADBNZEBNZOZWBWCLZWDWEWJ
+      WBWCWDWEWJPWBWCWDQZWEWJWLWELZERJZESZRJZTZWJWEWQWLWEEUAJWQEUBUCUDWMWNWJWPW
+      LWNWJPZWEWBWCWDWRWKWDWNWJWBWCWDWNLWJABCDEFGHUEUFUGUHUIWLWEWPWJPWLWEWPWJWB
+      WCWDWEWPLZWJPWKWDWSWJWBWCWDWSLZWJWBWCWTQZWGWHWOBNZCUJUKZUKZWIXCUKZXCUKZWI
+      XAWGWHXCUKZWOBNZXDXAADSZWOMNZBNZAXIBNZWOBNZWGXHWBWCXIKJZWPLXKXMOWTABCXIWO
+      FGHUEWDXNWSWPDULWEWPUMUNUOXAXJWFABWTWBXJWFOZWCDUPJEUPJZXOWDWSDEUQDURWEXPW
+      PEURUIUSUTVAXAXLXGWOBWBWCWDXLXGOWTABCDXCFGXCVBZHVCWDWSVDZUOVEVFWBWHFJZWOK
+      JZXHXDOXAWHBCWOXCFGXQHVGWBWCWTVHZWBWCWDXSWTABCDFGHVIXRUOZXAWEXTWTWBWEWCWS
+      WEWDWEWPVDUDUTZEULVJVKVLXAXBXEXCWBXSWEXBXEOXAWHBCEXCFGXQHVCYAYBYCVKVMWBWI
+      FJZXFWIOXAWICXCFGXQVNYAWBXSWEYDXAWHBCEFGHVIYAYBYCVKVOVPUFUGUHUGVQVRVSVTUF
+      WAUH $.
+      $( [20-Apr-2009] $) $( [17-Apr-2009] $)
+  $}
+
+  ${
+    gxmodid.1 $e |- X = ran G $.
+    gxmodid.2 $e |- U = ( Id ` G ) $.
+    gxmodid.3 $e |- P = ( ^g ` G ) $.
+    $( Casting out powers of the identity element leaves the group power
+       unchanged.  (Contributed by Paul Chapman, 17-Apr-2009.) $)
+    gxmodid $p |- ( ( G e. Grp /\ ( K e. ZZ /\ M e. NN ) /\
+      ( A e. X /\ ( A P M ) = U ) ) -> ( A P ( K mod M ) ) = ( A P K ) ) $=
+      ( cgr wcel cz cn wa co wceq w3a cmo cdiv cfl cfv cmul cneg cmin caddc cr
+      crp modval zre nnrp syl2an 3ad2ant2 opreq2d cc negsub pm3.26 zcn syl
+      zmulcl nnz adantl cc0 wne redivcl nnre nnne0 syl3an 3anidm23 flcl sylanc
+      gxadd 3simp1 3ad2ant3 znegcl jca syl3anc 3eqtr2d mulneg2 gxmul opreq1
+      gxid 3eqtrd eqtr3d grprid gxcl ) DKLZEMLZFNLZOZAGLZAFBPZCQZOZRZAEFSPZBPZA
+      EBPZAFEFTPZUAUBZUCPZUDZBPZDPZWRCDPZWRWOWQAEXAUEPZBPAEXBUFPZBPZXDWOWPXFABW
+      JWGWPXFQZWNEUGLZFUHLXIWHWIEFUIEUJZFUKULUMUNWOXGXFABWJWGXGXFQZWNEUOLZXAUOL
+      ZXLWJEXAUPWJWHXMWHWIUQZEURUSWJXAMLZXNFMLZWTMLZXPWJFWTUTWIXQWHFVAVBZWJWSUG
+      LZXRWHWIXTXJFUGLFVCVDXTWHWIWIEFVEXKFVFFVGVHVIWSVJUSZVKZXAURUSVKUMUNWGWKWH
+      XBMLZOZXHXDQWOABDEXBGHJVLWGWJWNVMZWNWGWKWJWKWMUQVNZWJWGYDWNWJWHYCXOWJXPYC
+      YBXAVOUSVPUMVQVRWOXCCWRDWOAFWTUDZUCPZBPZXCCWOYHXBABWJWGYHXBQZWNFUOLZWTUOL
+      ZYJWJFWTVSWJXQYKXSFURUSWJXRYLYAWTURUSVKUMUNWOYIWLYGBPZCYGBPZCWGWKXQYGMLZO
+      YIYMQWOABDFYGGHJVTYEYFWOXQYOWJWGXQWNXSUMWJWGYOWNWJXRYOYAWTVOUSUMZVPVQWNWG
+      YMYNQZWJWMYQWKWLCYGBWAVBVNWGYOYNCQWOBCDYGIJWBYEYPVKWCWDUNWGWRGLZXEWRQWOWR
+      CDGHIWEYEWGWKWHYRWOABDEGHJWFYEYFWJWGWHWNXOUMVQVKWC $.
+      $( [20-Apr-2009] $) $( [17-Apr-2009] $)
+  $}
+
+  ${
+    resgrprn.1 $e |- H = ( G |` ( Y X. Y ) ) $.
+    $( The underlying set of a group operation which is a restriction of a
+       mapping.  (Contributed by Paul Chapman, 25-Mar-2008.) $)
+    resgrprn $p |- ( ( dom G = ( X X. X ) /\ H e. Grp /\ Y (_ X ) ->
+                        Y = ran H ) $=
+      ( cdm cxp wceq cgr wcel wss w3a crn wa cres sseq2 biimpar ssxp anidms
+      sylan2 ssdmres sylib dmeqi syl5eq 3adant2 wfo wf eqid grpfo fof fdm 3syl
+      3ad2ant2 eqtr3d xpid11 ) AFZCCGZHZBIJZDCKZLZDDGZBMZVCGZHDVCHVABFZVBVDURUT
+      VEVBHUSURUTNZAVBOZFZVBVEVFVBUPKZVHVBHURVBUQKZVIUTURVIVJUPUQVBPQUTVJDCDCRS
+      TVBAUAUBBVGEUCUDUEUSURVEVDHZUTUSVDVCBUFVDVCBUGVKBVCVCUHUIVDVCBUJVDVCBUKUL
+      UMUNDVCUOUB $.
+      $( [25-Apr-2008] $) $( [25-Mar-2008] $)
+  $}
+
+  ${
+    $d A a b g h x y $.  $d B a b $.  $d F x y $.  $d G a b g h x y $.
+    $d X a b g h x y $.
+    grplact.1 $e |- F = { <. g , h >. | ( g e. X /\ h = { <. a , b >. |
+                          ( a e. X /\ b = ( g G a ) ) } ) } $.
+    grplact.2 $e |- X = ran G $.
+
+    $( The left group action of element ` A ` of group ` G ` .  (Contributed by
+       Paul Chapman, 18-Mar-2008.) $)
+    grplactfval $p |- ( ( G e. Grp /\ A e. X ) ->
+                ( F ` A ) = { <. a , b >. | ( a e. X /\ b = ( A G a ) ) } ) $=
+      ( wcel cgr cfv cv co wceq wa copab cvv opreq1 eqeq2d anbi2d opabbidv
+      fvopab4g crn rnexg syl5eqel opabex2g syl sylan2 ancoms ) AFKZELKZADMGNZFK
+      ZHNZAUNEOZPZQZGHRZPZULUTSKZVAUMBCAUOUPBNZUNEOZPZQZGHRUTFSDVCAPZVFUSGHVGVE
+      URUOVGVDUQUPVCAUNETUAUBUCIUDUMFSKVBUMEUESFELUFJUGGHFUQSUHUIUJUK $.
+      $( [18-Mar-2008] $) $( [18-Mar-2008] $)
+
+    $( The value of the left group action of element ` A ` of group ` G ` at
+       ` B ` .  (Contributed by Paul Chapman, 18-Mar-2008.) $)
+    grplactval $p |- ( ( G e. Grp /\ A e. X /\ B e. X ) ->
+                       ( ( F ` A ) ` B ) = ( A G B ) ) $=
+      ( cgr wcel w3a cfv cv co wceq wa copab grplactfval 3adant3 fveq1d opreq2
+      eqid oprex fvopab4 3ad2ant3 eqtrd ) FLMZAGMZBGMZNZBAEOZOBHPZGMIPAUOFQZRSH
+      ITZOZABFQZUMBUNUQUJUKUNUQRULACDEFGHIJKUAUBUCULUJURUSRUKHIBUPUSGUQUOBAFUDU
+      QUEABFUFUGUHUI $.
+      $( [18-Mar-2008] $) $( [18-Mar-2008] $)
+
+    $( The left group action of element ` A ` of group ` G ` maps the
+       underlying set ` X ` of ` G ` one-to-one onto itself.  (Contributed by
+       Paul Chapman, 18-Mar-2008.) $)
+    grplactf1o $p |- ( ( G e. Grp /\ A e. X ) ->
+                       ( F ` A ) : X -1-1-onto-> X ) $=
+      ( vx vy cfv wf1 crn wceq wf1o cgr wcel wa dff1o5 biimpri wf cv wi wral
+      dff13 co copab grpcl 3expia r19.21aiv eqid fopab2 sylib grplactfval
+      feq1d mpbird wb grplactval anim12d imp eqeq12 syl w3a grplcan expcom
+      com23 imp3a impcom bitrd biimpd ex r19.21aivv sylanc wss frn wrex cgn
+      opreq2 eqeq2d rcla4ev grpinvcl syldan 3impia grpasscan1 eqcomd rneqd
+      eleq2d oprex elrnopab syl5bir syld ssrdv eqssd ) FFADMZNZWPOZFPZFFWPQZERS
+      ZAFSZTZWTWQWSTFFWPUAUBFFWPUCZKUDZWPMZLUDZWPMZPZXEXGPZUEZLFUFKFUFZWQXCWQXD
+      XLTKLFFWPUGUBXCXDFFGUDZFSZHUDAXMEUHZPTGHUIZUCZXCXOFSZGFUFXQXCXRGFXAXBXNXR
+      AXMEFJUJUKULGHFFXOXPXPUMZUNUOXCFFWPXPABCDEFGHIJUPZUQURZXCXKKLFFXCXEFSZXGF
+      SZTZXKXCYDTZXIXJYEXIAXEEUHZAXGEUHZPZXJYEXFYFPZXHYGPZTZXIYHUSXCYDYKXCYBYIY
+      CYJXAXBYBYIAXEBCDEFGHIJUTUKXAXBYCYJAXGBCDEFGHIJUTUKVAVBXFYFXHYGVCVDYDXCYH
+      XJUSZYDXAXBYLYDXBXAYLYBYCXBXAYLUEXAYBYCXBVEYLXEXGAEFJVFVGUKVHVIVJVKVLVMVN
+      VOXCWRFXCXDWRFVPYAFFWPVQVDXCLFWRXCYCXGXOPZGFVRZXGWRSZXAXBYCYNAEVSMZMZXGEU
+      HZFSZXGAYREUHZPZYNXAXBYCVEZYMUUAGYRFXMYRPXOYTXGXMYRAEVTWAWBXAXBYCYSXAXBYQ
+      FSZYCYSUEAEYPFJYPUMZWCXAUUCYCYSYQXGEFJUJUKWDWEUUBYTXGAXGEYPFJUUDWFWGVOUKX
+      CYOXGXPOZSZYNXCWRUUEXGXCWPXPXTWHWIUUFYNGHFXOXGXPAXMEWJXSWKUBWLWMWNWOVO $.
+      $( [21-Apr-2008] $) $( [18-Mar-2008] $)
+  $}
+
+

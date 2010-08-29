@@ -1,0 +1,448 @@
+$(
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+                     Definition and basic properties
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+$)
+
+  $c Poset $.
+  $c supw $.
+  $c infw $.
+  $c join $.
+  $c meet $.
+  $c Lat $.
+
+  $( Extend class notation with the class of all posets. $)
+  cps $a class Poset $.
+
+  $( Extend class notation with the supremum of an ordered set. $)
+  cspw $a class supw $.
+
+  $( Extend class notation with the infimum of an ordered set. $)
+  cinf $a class infw $.
+
+  $( Extend class notation with the join of two ordered sets. $)
+  cjn $a class join $.
+
+  $( Extend class notation with the meet of two ordered sets. $)
+  cmee $a class meet $.
+
+  $( Extend class notation with the class of all lattices. $)
+  cla $a class Lat $.
+
+  $( Define the class of all posets (partially ordered sets) with weak
+     ordering (e.g. "less than or equal to" instead of "less than").  A poset
+     is a relation which is transitive, reflexive, and antisymmetric. $)
+  df-ps $a |- Poset = { r | ( Rel r /\ ( r o. r ) (_ r /\
+              ( r i^i `' r ) = ( I |` U. U. r ) ) } $.
+
+  ${
+    $d r x y z w v u $.
+    $( Define suprema under weak orderings.  Unlike ~ df-sup for
+       strong orderings, ` supw ` is evaluates to a member of the field of
+       ` R ` iff the supremum exists.  Read ` R supw A ` as the ` R ` -supremum
+       of set ` A ` . $)
+    df-spw $a |- supw = { <. <. r , x >. , y >. | E. z ( z = { w e. U. U. r |
+       ( A. v e. x v r w /\ A. v e. U. U. r ( A. u e. x u r v -> w r v ) ) } /\
+      y = if ( z =/= (/) , U. z , P~ U. U. U. r ) ) } $.
+
+    $( Define the class of all infima of a weak ordering relation. $)
+    df-nfw $a |- infw = { <. <. r , x >. , y >. | y = ( `' r supw x ) } $.
+
+    $( Define the class of all join operations on weak orderings. $)
+    df-jn $a |- join = { <. r , w >. | w = { <. <. x , y >. , z >. |
+        ( ( x e. U. U. r /\ y e. U. U. r ) /\
+          z = ( r supw { x , y } ) ) } } $.
+
+    $( Define the class of all meet operations on weak orderings. $)
+    df-mee $a |- meet = { <. r , w >. | w = { <. <. x , y >. , z >. |
+        ( ( x e. U. U. r /\ y e. U. U. r ) /\
+          z = ( r infw { x , y } ) ) } } $.
+
+    $( Define the class of all lattices, which are posets in which every two
+       elements have upper and lower bounds. $)
+    df-la $a |- Lat = { r e. Poset | A. x e. dom r A. y e. dom r
+        ( ( r supw { x , y } ) e. dom r /\ ( r infw { x , y } ) e. dom r ) } $.
+  $}
+
+  ${
+    $d r x y R $.
+    $( The predicate "is a poset" i.e. a transitive, reflexive,
+       antisymmetric relation. $)
+    isps $p |- ( R e. A -> ( R e. Poset <-> ( Rel R /\ ( R o. R ) (_ R /\
+                ( R i^i `' R ) = ( I |` U. U. R ) ) ) ) $=
+      ( vr cv wrel ccom wss ccnv cin cid cuni cres wceq w3a cps releq coeq1
+      coeq2 eqtrd id sseq12d cnveq ineq12d unieq unieqd reseq2 syl eqeq12d
+      3anbi123d df-ps elab2g ) CDZEZULULFZULGZULULHZIZJULKZKZLZMZNBEZBBFZBGZBBH
+      ZIZJBKZKZLZMZNCBOAULBMZUMVBUOVDVAVJULBPVKUNVCULBVKUNBULFVCULBULQULBBRSVKT
+      ZUAVKUQVFUTVIVKULBUPVEVLULBUBUCVKUSVHMUTVIMVKURVGULBUDUEUSVHJUFUGUHUICUJU
+      K $.
+      $( [15-May-2008] $) $( [11-May-2008] $)
+  $}
+
+  $( A poset is a relation. $)
+  psrel $p |- ( A e. Poset -> Rel A ) $=
+    ( cps wcel wrel ccom wss ccnv cin cid cuni cres wceq w3a isps ibi 3simp1
+    syl ) ABCZADZAAEAFZAAGHIAJJKLZMZSRUBBANOSTUAPQ $.
+    $( [16-May-2008] $) $( [12-May-2008] $)
+
+  ${
+    $d x y z A $.  $d x y z B $.  $d x y z C $.  $d x y z R $.
+    $( Lemma for ~ psref and others. $)
+    pslem $p |- ( R e. Poset -> ( ( A e. S /\ B e. T /\ C e. U )
+       -> ( ( ( A R B /\ B R C ) -> A R C ) /\ ( ( A e. U. U. R -> A R A ) /\ (
+      ( A R B /\ B R A ) -> A = B ) ) ) ) ) $=
+      ( vx vy vz cps wcel wrel ccom wss ccnv cin cid cuni cres wceq w3a wbr wa
+      wi isps ibi cv wal wral wb breq12 3adant3 3adant1 anbi12d 3adant2
+      imbi12d cla43gv anidms rcla4cv a1i ancoms eqeq12 cla42gv anim12d com12
+      cotr asymref2 syl2anb syl ) DKLZDMZDDNDOZDDPQRDSSZTUAZUBZAELZBFLZCGLZUBZA
+      BDUCZBCDUCZUDZACDUCZUEZAVNLAADUCZUEZWABADUCZUDZABUAZUEZUDZUDZUEZVKVPKDUFU
+      GVMVOWNVLHUHZIUHZDUCZWPJUHZDUCZUDZWOWRDUCZUEZJUIIUIHUIZWOWODUCZHVNUJZWQWP
+      WODUCZUDZWOWPUAZUEZIUIHUIZUDZWNVMVOVTXCXKUDWMVTXCWEXKWLXBWEHIJABCEFGWOAUA
+      ZWPBUAZWRCUAZUBZWTWCXAWDXOWQWAWSWBXLXMWQWAUKXNWOAWPBDULZUMXMXNWSWBUKXLWPB
+      WRCDULUNUOXLXNXAWDUKXMWOAWRCDULUPUQURVQVRXKWLUEVSVQVRUDZXEWGXJWKXEWGUEXQX
+      DWFHAVNXLXDWFUKWOAWOADULUSUTVAXIWKHIABEFXLXMUDZXGWIXHWJXRWQWAXFWHXPXMXLXF
+      WHUKWPBWOADULVBUOWOAWPBVCUQVDVEUMVEVFHIJDVGHIDVHVIUNVJ $.
+      $( [15-May-2008] $) $( [12-May-2008] $)
+
+    $( The domain and range of a poset equal its field. $)
+    psdmrn $p |- ( R e. Poset -> ( dom R = U. U. R /\ ran R = U. U. R ) ) $=
+      ( vx cps wcel cdm cuni wceq crn wss cun ssun1 dmrnssfld sstri a1i cv wbr
+      wi w3a wa pslem simprl syl6 3expd pm2.43d visset breldm ssrdv eqssd
+      ssun2 brelrn jca ) ACDZAEZAFFZGAHZUNGULUMUNUMUNIULUMUMUOJZUNUMUOKALZMNULB
+      UNUMULBOZUNDZURURAPZURUMDULUSUTULUSUSUTQZULUSUSVAQULUSUSUSVAULUSUSUSRUTUT
+      SZUTQZVAVBURURGQZSSVAURURURAUNUNUNTVCVAVDUAUBUCUDUDUDZURURABUEZUFUBUGUHUL
+      UOUNUOUNIULUOUPUNUOUMUIUQMNULBUNUOULUSUTURUODVEURURAVFVFUJUBUGUHUK $.
+      $( [19-May-2008] $) $( [13-May-2008] $)
+  $}
+
+  ${
+    psref.1 $e |- X = dom R $.
+    $( A poset is reflexive. $)
+    psref $p |- ( ( R e. Poset /\ A e. X ) -> A R A ) $=
+      ( cps wcel wbr cuni cdm wceq crn psdmrn pm3.26d syl5eq eleq2d wi w3a wa
+      pslem simprl syl6 3expd pm2.43d sylbid imp ) BEFZACFZAABGZUFUGABHHZFZUHUF
+      CUIAUFBIZUICUFUKUIJBKUIJBLMDNOUFUJUHUFUJUJUHPZUFUJUJULPUFUJUJUJULUFUJUJUJ
+      QUHUHRZUHPZULUMAAJPZRRULAAABUIUIUISUNULUOTUAUBUCUCUCUDUE $.
+      $( [21-May-2008] $) $( [13-May-2008] $)
+
+    $( The range of a poset equals it domain. $)
+    psrn $p |- ( R e. Poset -> X = ran R ) $=
+      ( cps wcel cdm crn cuni wceq wa psdmrn eqtr3 syl syl5eq ) ADEZAFZAGZBOPAH
+      HZIQRIJPQIAKPQRLMCN $.
+      $( [30-Jul-2008] $) $( [7-Jul-2008] $)
+  $}
+
+  $( A poset is antisymmetric. $)
+  psasym $p |- ( ( R e. Poset /\ A R B /\ B R A ) -> A = B ) $=
+    ( cps wcel cvv w3a wbr wa wceq wi cuni pslem simprr syl6 3imp 3simp1 wrel
+    brrelex 3adant3 3adant2 3jca psrel syl3an1 3simpc syl3anc ) CDEZAFEZBFEZUIG
+    ZABCHZBACHZIZABJZUGUKULGUGUJUMUNUGUJUKBBCHIUKKZACLLEAACHKZUMUNKZIIUQABBCFFF
+    MUOUPUQNOPUGUKULQCRZUKULUJUGURUKULGUHUIUIURUKUHULABCSTURULUIUKBACSUAZUSUBCU
+    CUDUGUKULUEUF $.
+    $( [16-May-2008] $) $( [12-May-2008] $)
+
+  $( A poset is transitive. $)
+  pstr $p |- ( ( R e. Poset /\ A R B /\ B R C ) -> A R C ) $=
+    ( cps wcel wbr w3a cvv wa wi cuni wceq pslem pm3.26 syl6 3imp 3simp1
+    adantr wrel brrelex 3adant3 3adant2 pm3.27 3jca psrel syl3anl1 3simpc
+    syl3anc wn cdm sylan breldmg sylancom eqid psref syldan wb brprc adantl
+    mpbird pm2.61dan ) DEFZABDGZBCDGZHZCIFZACDGZVCAIFZBIFZVGHZVDVEJZVHVFVGJVCVK
+    VLVHVCVKVLVHKZADLLFAADGZKVDBADGJABMKJZJVMABCDIIINVMVOOPQVFVCVGVCVDVERSDTZVD
+    VEVGVKVCVPVDVEHZVGJVIVJVGVQVIVGVPVDVIVEABDUAZUBSVQVJVGVPVEVJVDBCDUAUCSVQVGU
+    DUEDUFZUGVFVLVGVCVDVEUHSUIVFVGUJZJVHVNVFVNVTVCVDVNVEVCVDADUKZFZVNVCVDVIWBVP
+    VDVIVCVRVSULABIDUMUNADWAWAUOUPUQUBSVTVHVNURVFACDUSUTVAVB $.
+    $( [18-Jun-2008] $) $( [12-May-2008] $)
+
+  ${
+    $d r u v w x y z A $.  $d r u v w x y z R $.  $d r u v w x y X $.
+    $d r u v w Z $.
+    spwval2.1 $e |- X = U. U. R $.
+    spwval2.2 $e |- Z = { x e. X |
+       ( A. y e. A y R x /\ A. y e. X ( A. z e. A z R y -> x R y ) ) } $.
+    $( Value of supremum under a weak ordering.  Read ` R supw A ` as "the
+       ` R ` -supremum of ` A ` ."   ` U. U. R ` is the field of a relation
+       ` R ` by ~ relfld .  Unlike ~ df-sup for strong orderings, the supremum
+       exists iff ` R supw A ` belongs to the field. $)
+    spwval2 $p |- ( ( R e. U /\ A e. W )
+            -> ( R supw A ) = if ( Z =/= (/) , U. Z , P~ U. X ) ) $=
+      ( vu vr vw vv wcel c0 wne cuni cpw cif cvv cspw co wceq ifcl ancoms
+      uniexg syl syl5eqel pwexg cv wbr wral wi wa crab rabexg sylanc adantr
+      w3a eqid wex wb unieq ifeq1d neeq1 ifbid eqtrd eqeq2d ceqsexgv 3ad2ant1
+      unieqd rabeq breq ralbidv imbi12d raleq12d anbi12d rabbisdv pweq ifeq2d
+      exbidv raleq1 imbi1d anbi1d eqeq1 anbi2d wmo wal moeq ax-gen moexexv
+      mp2an a1i copab2 df-spw visset pm3.2i biantrur oprabbii eqtri oprabvalig
+      elisset id syl3an ax-mp anbi2i rabbii 3eqtri eqeq2i unieqi ifeq2 anbi12i
+      exbii syl5ib sylbird mpi mpd3an3 ) EFPZDGPZIQRZISZHSZTZUAZUBPZEDUCUDYFUEZ
+      XTYGYAYEUBPZYCUBPZYGXTYJYIYGYBYCYEUBUFUGXTYDUBPZYIXTHUBPZYKXTESZSZUBHXTYM
+      UBPYNUBPEFUHYMUBUHUIJUJZHUBUHUIYDUBUKUIXTIUBPZYJXTBULZAULZEUMZBDUNZCULZYQ
+      EUMZCDUNZYRYQEUMZUOZBHUNZUPZAHUQZUBIXTYLUUHUBPYOUUGAHUBURUIKUJZIUBUHUIUSU
+      TXTYAYGVAZYFYFUEZYHYFVBUUJUUKLULZIUEZYFUULQRZUULSZYEUAZUEZUPZLVCZYHXTYAUU
+      SUUKVDZYGXTYPUUTUUIUUQUUKLIUBUUMUUPYFYFUUMUUPUUNYCYEUAYFUUMUUNUUOYCYEUULI
+      VEVFUUMUUNYBYCYEUULIQVGVHVIVJVKUIVLUUJUULYTUUEBYNUNZUPZAYNUQZUEZYFUUNUUOY
+      NSZTZUAZUEZUPZLVCZYHUUSEUBPDUBPYGUVJYHUOXTYAYGUULYQYRMULZUMZBNULZUNZUUAYQ
+      UVKUMZCUVMUNZYRYQUVKUMZUOZBUVKSZSZUNZUPZAUVTUQZUEZOULZUUNUUOUVTSZTZUAZUEZ
+      UPZLVCZUULYSBUVMUNZUUBCUVMUNZUUDUOZBYNUNZUPZAYNUQZUEZUWEUVGUEZUPZLVCUVDUW
+      SUPZLVCUVJMNOEDYFUBUBUBUCUVKEUEZUWJUWTLUXBUWDUWRUWIUWSUXBUWCUWQUULUXBUWCU
+      WBAYNUQZUWQUXBUVTYNUEUWCUXCUEUXBUVSYMUVKEVEVMZUWBAUVTYNVNUIUXBUWBUWPAYNUX
+      BUVNUWLUWAUWOUXBUVLYSBUVMYQYRUVKEVOVPUXBUVRUWNBUVTYNUXDUXBUVPUWMUVQUUDUXB
+      UVOUUBCUVMUUAYQUVKEVOVPYRYQUVKEVOVQVRVSVTVIVJUXBUWHUVGUWEUXBUUNUWGUVFUUOU
+      XBUWFUVEUEUWGUVFUEUXBUVTYNUXDVMUWFUVEWAUIWBVJVSWCUVMDUEZUWTUXALUXEUWRUVDU
+      WSUXEUWQUVCUULUXEUWPUVBAYNUXEUWLYTUWOUVAYSBUVMDWDUXEUWNUUEBYNUXEUWMUUCUUD
+      UUBCUVMDWDWEVPVSVTVJWFWCUWEYFUEZUXAUVILUXFUWSUVHUVDUWEYFUVGWGWHWCUWKOWIZU
+      VKUBPZUVMUBPZUPZUWDLWIUWIOWIZLWJUXGLUWCWKUXKLOUWHWKWLUWDUWILOWMWNWOUCUWKM
+      NOWPUXJUWKUPZMNOWPNOLABCMWQUWKUXLMNOUXJUWKUXHUXIMWRNWRWSWTXAXBXCEFXDDGXDY
+      GXEXFUURUVILUUMUVDUUQUVHIUVCUULIUUHUVBAHUQZUVCKUUGUVBAHUUGUVBVDYRHPUUFUVA
+      YTHYNUEZUUFUVAVDJUUEBHYNWDXGXHWOXIUXNUXMUVCUEJUVBAHYNVNXGXJXKUUPUVGYFYEUV
+      FUEZUUPUVGUEYDUVEUEUXOHYNJXLYDUVEWAXGUUNYEUVFUUOXMXGXKXNXOXPXQXRXS $.
+      $( [14-May-2008] $) $( [13-May-2008] $)
+  $}
+
+  ${
+    $d x y z A $.  $d x y z R $.  $d x y X $.
+    spwval3.1 $e |- X = U. U. R $.
+    spwval3.2 $e |- ( ph
+         <-> ( A. y e. A y R x /\ A. y e. X ( A. z e. A z R y -> x R y ) ) ) $.
+    $( Value of a supremum. $)
+    spwval3 $p |- ( ( R e. U /\ A e. W /\ E. x e. X ph )
+           -> ( R supw A ) = U. { x e. X | ph } ) $=
+      ( wcel wrex w3a cspw co crab c0 wne cuni cpw cif wceq cv wbr wral wi wa
+      wb a1i rabbii spwval2 3adant3 rabn0 iftrue sylbir 3ad2ant3 eqtrd ) FGLZEH
+      LZABIMZNFEOPZABIQZRSZVCTZITUAZUBZVEUSUTVBVGUCVABCDEFGHIVCJACUDZBUDZFUECEU
+      FDUDVHFUEDEUFVIVHFUEUGCIUFUHZBIAVJUIVIILKUJUKULUMVAUSVGVEUCZUTVAVDVKABIUN
+      VDVEVFUOUPUQUR $.
+      $( [24-May-2008] $) $( [13-May-2008] $)
+
+    $( When the supremum of set ` A ` doesn't exist, ` R supw A ` isn't in the
+       the field of order relation ` R ` . $)
+    spwnex3 $p |- ( ( R e. U /\ A e. W /\ -. E. x e. X ph )
+         -> -. ( R supw A ) e. X ) $=
+      ( wcel wrex wn w3a cspw co cuni cpw pwuninel crab c0 wne cif wceq cv wbr
+      wral wi wa wb a1i rabbii spwval2 3adant3 rabn0 notbii iffalse sylbir
+      3ad2ant3 eqtrd eleq1d mtbiri ) FGLZEHLZABIMZNZOZFEPQZILIRSZILITVHVIVJIVHV
+      IABIUAZUBUCZVKRZVJUDZVJVDVEVIVNUEVGBCDEFGHIVKJACUFZBUFZFUGCEUHDUFVOFUGDEU
+      HVPVOFUGUICIUHUJZBIAVQUKVPILKULUMUNUOVGVDVNVJUEZVEVGVLNVRVLVFABIUPUQVLVMV
+      JURUSUTVAVBVC $.
+      $( [14-May-2008] $) $( [13-May-2008] $)
+  $}
+
+  ${
+    $d w x y z A $.  $d y z B $.  $d y z C $.  $d w x y z R $.  $d w x y X $.
+    $d y U $.  $d y W $.
+    spwmo.1 $e |- ( ph
+         <-> ( A. y e. A y R x /\ A. y e. X ( A. z e. A z R y -> x R y ) ) ) $.
+    $( A poset has at most one supremum. $)
+    spwmo $p |- ( R e. Poset -> E* x ( x e. X /\ ph ) ) $=
+      ( vw cps wcel cv wbr wral wi wa wceq wal wmo breq1 cbvralv breq2 ralbidv
+      imbi12d rcla4v imp3a im2anan9r psasym 3expib syl9 com13 exp43 com4r
+      sylbi imp43 com3r imp an4s com12 19.21aivv anbi2i mobii eleq1 syl6bb
+      imbi2d anbi12d mo4 bitri sylibr ) FJKZBLZGKZCLZVKFMZCENZDLZVMFMZDENZVKVMF
+      MZOZCGNZPZPZILZGKZVPWDFMZDENZVRWDVMFMZOZCGNZPZPZPZVKWDQZOZIRBRZVLAPZBSZVJ
+      WOBIWMVJWNVLWEWBWKVJWNOZVLWEPZWBWKPZWSXAVJWTWNVOWAWGWJVJWTWNOOZVOVPVKFMZD
+      ENZWAWGWJXBOOOVNXCCDEVMVPVKFTUAWAWGWJXDXBWAWGWJXDXBWTVJWAWGPZWJXDPZPZWNWT
+      XGVKWDFMZWDVKFMZPVJWNWEXEXHVLXFXIWEWAWGXHVTWGXHOCWDGVMWDQZVRWGVSXHXJVQWFD
+      EVMWDVPFUBUCVMWDVKFUBUDUEUFVLWJXDXIWIXDXIOCVKGVMVKQZVRXDWHXIXKVQXCDEVMVKV
+      PFUBUCVMVKWDFUBUDUEUFUGVJXHXIWNVKWDFUHUIUJUKULUMUNUOUPUQURUSUTWRWCBSWPWQW
+      CBAWBVLHVAVBWCWLBIWNVLWEWBWKVKWDGVCWNVOWGWAWJWNVOVMWDFMZCENWGWNVNXLCEVKWD
+      VMFUBUCXLWFCDEVMVPWDFTUAVDWNVTWICGWNVSWHVRVKWDVMFTVEUCVFVFVGVHVI $.
+      $( [19-May-2008] $) $( [13-May-2008] $)
+
+    $( A supremum is unique. $)
+    spweu $p |- ( ( R e. Poset /\ E. x e. X ph ) -> E! x e. X ph ) $=
+      ( wrex cps wcel wreu wa cv wmo spwmo anim2i reu5 sylibr ancoms ) ABGIZFJK
+      ZABGLZUAUBMUABNGKAMBOZMUCUBUDUAABCDEFGHPQABGRST $.
+      $( [25-May-2008] $) $( [15-May-2008] $)
+
+    $( Property of supremum defining condition for an unordered pair. $)
+    spwpr2 $p |- ( ( ( R e. T /\ A = { B , C } ) /\ ( B e. U /\ C e. W ) )
+       -> ( ph <->
+     ( ( B R x /\ C R x ) /\ A. y e. X ( ( B R y /\ C R y ) -> x R y ) ) ) ) $=
+      ( wcel cpr wceq wa cv wbr wral wi wb raleq1 wal ax-17 breq1 ceqsalg
+      bi2anan9 df-ral wo visset elpr imbi1i jaob bitri albii 19.26 3bitri
+      syl5bb sylan9bb imbi1d ralbidv anbi12d adantll ) HINZEFGOZPZQFJNZGKNZQZQC
+      RZBRZHSZCETZDRZVKHSZDETZVLVKHSZUAZCLTZQZFVLHSZGVLHSZQZFVKHSZGVKHSZQZVRUAZ
+      CLTZQZAVGVJWAWJUBVEVGVJQZVNWDVTWIVGVNVMCVFTZVJWDVMCEVFUCVJVKFPZVMUAZCUDZV
+      KGPZVMUAZCUDZQZWDWLVHWOWBVIWRWCVMWBCFJWBCUEVKFVLHUFUGVMWCCGKWCCUEVKGVLHUF
+      UGUHWLVKVFNZVMUAZCUDWNWQQZCUDWSVMCVFUIXAXBCXAWMWPUJZVMUAXBWTXCVMVKFGCUKUL
+      UMWMVMWPUNUOUPWNWQCUQURUSUTWKVSWHCLWKVQWGVRVGVQVPDVFTZVJWGVPDEVFUCVJVOFPZ
+      VPUAZDUDZVOGPZVPUAZDUDZQZWGXDVHXGWEVIXJWFVPWEDFJWEDUEVOFVKHUFUGVPWFDGKWFD
+      UEVOGVKHUFUGUHXDVOVFNZVPUAZDUDXFXIQZDUDXKVPDVFUIXMXNDXMXEXHUJZVPUAXNXLXOV
+      PVOFGDUKULUMXEVPXHUNUOUPXFXIDUQURUSUTVAVBVCVDMUS $.
+      $( [7-Jul-2008] $) $( [24-Jun-2008] $)
+  $}
+
+  ${
+    $d x y z A $.  $d x y z B $.  $d x y z C $.  $d x y z R $.  $d x U $.
+    $d x y X $.
+    spwval.1 $e |- X = dom R $.
+    spwval.2 $e |- ( ph
+         <-> ( A. y e. A y R x /\ A. y e. X ( A. z e. A z R y -> x R y ) ) ) $.
+    $( Value of a supremum. $)
+    spwval $p |- ( ( R e. Poset /\ A e. W /\ E. x e. X ph )
+           -> ( R supw A ) = U. { x e. X | ph } ) $=
+      ( cps wcel wrex cspw co crab cuni wceq cv wbr wral wi wa eqid biid
+      spwval3 3expib wb cdm crn psdmrn pm3.26d syl5eq raleq1 anbi2d syl5bb
+      rexeqd syl rabeq rabbisdv eqtrd unieqd eqeq2d 3imtr4d 3impib ) FKLZEGLZAB
+      HMZFENOZABHPZQZRZVFVGCSZBSZFTCEUAZDSVMFTDEUAVNVMFTUBZCFQQZUAZUCZBVQMZUCVI
+      VSBVQPZQZRZVGVHUCVLVFVGVTWCVSBCDEFKGVQVQUDVSUEUFUGVFVHVTVGVFHVQRZVHVTUHVF
+      FUIZVQHVFWEVQRFUJVQRFUKULIUMZAVSBHVQWDVOVPCHUAZUCVSAWDWGVRVOVPCHVQUNUOJUP
+      ZUQURUOVFVKWBVIVFVJWAVFWDVJWARWFWDVJABVQPWAABHVQUSWDAVSBVQWHUTVAURVBVCVDV
+      E $.
+      $( [26-May-2008] $) $( [13-May-2008] $)
+
+    $( Closure of a supremum. $)
+    spwcl $p |- ( ( R e. Poset /\ A e. W /\ E. x e. X ph )
+           -> ( R supw A ) e. X ) $=
+      ( cps wcel wrex w3a cspw co crab cuni spwval wa wreu spweu reucl syl
+      3adant2 eqeltrd ) FKLZEGLZABHMZNFEOPABHQRZHABCDEFGHIJSUGUIUJHLZUHUGUITABH
+      UAUKABCDEFHJUBABHUCUDUEUF $.
+      $( [4-Jun-2008] $) $( [15-May-2008] $)
+
+    $( Non-closure when the supremum doesn't exist. $)
+    spwnex $p |- ( ( R e. Poset /\ A e. W /\ -. E. x e. X ph )
+         -> -. ( R supw A ) e. X ) $=
+      ( cps wcel wrex wn cspw co wa cv wbr wral wi cuni eqid biid spwnex3
+      3expia wb wceq cdm crn psdmrn pm3.26d syl5eq raleq1 anbi2d syl5bb rexeqd
+      syl notbid adantr eleq2d 3imtr4d 3impia ) FKLZEGLZABHMZNZFEOPZHLZNZVDVEQC
+      RZBRZFSCETZDRVKFSDETVLVKFSUAZCFUBUBZTZQZBVOMZNZVHVOLZNZVGVJVDVEVSWAVQBCDE
+      FKGVOVOUCVQUDUEUFVDVGVSUGVEVDVFVRVDHVOUHZVFVRUGVDFUIZVOHVDWCVOUHFUJVOUHFU
+      KULIUMZAVQBHVOWBVMVNCHTZQVQAWBWEVPVMVNCHVOUNUOJUPUQURUSUTVDVJWAUGVEVDVIVT
+      VDHVOVHWDVAUSUTVBVC $.
+      $( [24-Jun-2008] $) $( [15-May-2008] $)
+
+    $( A supremum exists iff ` R supw A ` belongs to the domain of ` R ` . $)
+    spwex $p |- ( ( R e. Poset /\ A e. W )
+               -> ( E. x e. X ph <-> ( R supw A ) e. X ) ) $=
+      ( cps wcel wa wrex cspw co spwcl 3expia wn spwnex con4d impbid ) FKLZEGLZ
+      MZABHNZFEOPHLZUCUDUFUGABCDEFGHIJQRUEUFUGUCUDUFSUGSABCDEFGHIJTRUAUB $.
+      $( [25-May-2009] $) $( [15-May-2008] $)
+  $}
+
+  ${
+    $d x y z A $.  $d x y z B $.  $d x y C $.  $d x y z R $.  $d x y X $.
+    spwpr4.1 $e |- X = dom R $.
+    $( Supremum of an unordered pair. $)
+    spwpr4 $p |- ( ( ( R e. Poset /\ C e. D ) /\ ( A R C /\ B R C ) /\
+   A. x e. X ( ( A R x /\ B R x ) -> C R x ) ) -> ( R supw { A , B } ) = C ) $=
+      ( vy vz cps wcel wa wbr cv wi wral cpr cspw co wceq w3a crab cuni cvv
+      wrex biid spwval simpll 3adant3 prex a1i breq2 anbi12d breq1 imbi2d
+      ralbidv rcla4ev 3impb 3adant1l wb eqid spwpr2 mpanl2 wrel psrel brrelex
+      ex anim12d syl imp adantlr sylanc rexbidv mpbird syl3anc rabbisdv unieqd
+      3simpc wreu reuuni2 simplr spweu reubidv mpbid 3eqtrd crn relelrng
+      syl3an2 3com12 3expa psrn ad2antrr eleqtrrd adantrr jca syld3an1 ) FKLZDG
+      LZMZBDFNZCDFNZMZBAOZFNCXDFNMZDXDFNZPZAGQZFBCRZSTZDUAWRDELZMZWTXCXHUBZXJXD
+      IOZFNAXIQJOXDFNJXIQXNXDFNZPAGQMZIGUCZUDZBXNFNZCXNFNZMZXEXOPZAGQZMZIGUCZUD
+      ZDWRXIUELZXPIGUFZXJXRUAXMXPIAJXIFUEGHXPUGZUHWTXCWRXHWRWSXCUIZUJZYGXMBCUKU
+      LXMYHYDIGUFZWSXCXHYLWRWSXCXHYLYDXCXHMZIDGXNDUAZYAXCYCXHYNXSXAXTXBXNDBFUMX
+      NDCFUMUNYNYBXGAGYNXOXFXEXNDXDFUOUPUQUNZURUSUTWTXCYHYLVAXHWTXCMZXPYDIGWRBU
+      ELZCUELZMZXPYDVAZYPWRXIXIUAYSYTXIVBXPIAJXIBCFKUEUEGYIVCVDYJWRXCYSWSWRXCYS
+      WRFVEZXCYSPFVFZUUAXAYQXBYRUUAXAYQBDFVGVHUUAXBYRCDFVGVHVIVJVKVLVMZVNUJVOZV
+      PWTXCXRYFUAXHYPXQYEYPXPYDIGUUCVQVRUJXMYMYFDUAZWTXCXHVSWSYDIGVTZYMUUEVAXMY
+      DYMIGDYOWAWTXCWSXHWRWSXCWBUJXMXPIGVTZUUFWRYHUUGXMXPIAJXIFGYIWCYKUUDVMWTXC
+      UUGUUFVAXHYPXPYDIGUUCWDUJWEVMWEWFXLXCWTXHXLXCMWRWSWRXKXCUIXLXAWSXBXLXAMDF
+      WGZGWRXKXADUUHLZXKWRXAUUIXKUUAXAUUIWRBDEFWHUUBWIWJWKWRGUUHUAXKXAFGHWLWMWN
+      WOWPUJWQ $.
+      $( [8-Jun-2009] $) $( [7-Jul-2008] $)
+
+    ${
+      spwpr5.2 $e |- C = ( R supw { A , B } ) $.
+    $}
+
+    $( Supremum of an unordered pair. $)
+    spwpr4OLD $p |- ( ( ( R e. Poset /\ C e. X ) /\ ( A R C /\ B R C ) /\
+   A. x e. X ( ( A R x /\ B R x ) -> C R x ) ) -> ( R supw { A , B } ) = C ) $=
+      ( vy vz cps wcel wa wbr cv wi wral w3a cpr cspw co crab cuni cvv wrex
+      wceq biid spwval simpll 3adant3 prex a1i breq2 anbi12d breq1 imbi2d
+      ralbidv rcla4ev 3impb 3adant1l wb eqid spwpr2 mpanl2 wrel psrel brrelex
+      ex anim12d syl imp adantlr sylanc rexbidv mpbird syl3anc rabbisdv unieqd
+      3simpc wreu reuuni2 simplr spweu reubidv mpbid 3eqtrd ) EJKZDFKZLZBDEMZCD
+      EMZLZBANZEMCWLEMLZDWLEMZOZAFPZQZEBCRZSTZWLHNZEMAWRPINWLEMIWRPWTWLEMZOAFPL
+      ZHFUAZUBZBWTEMZCWTEMZLZWMXAOZAFPZLZHFUAZUBZDWFWRUCKZXBHFUDZWSXDUEWQXBHAIW
+      REUCFGXBUFZUGWHWKWFWPWFWGWKUHZUIZXMWQBCUJUKWQXNXJHFUDZWGWKWPXRWFWGWKWPXRX
+      JWKWPLZHDFWTDUEZXGWKXIWPXTXEWIXFWJWTDBEULWTDCEULUMXTXHWOAFXTXAWNWMWTDWLEU
+      NUOUPUMZUQURUSWHWKXNXRUTWPWHWKLZXBXJHFWFBUCKZCUCKZLZXBXJUTZYBWFWRWRUEYEYF
+      WRVAXBHAIWRBCEJUCUCFXOVBVCXPWFWKYEWGWFWKYEWFEVDZWKYEOEVEYGWIYCWJYDYGWIYCB
+      DEVFVGYGWJYDCDEVFVGVHVIVJVKVLZVMUIVNZVOWHWKXDXLUEWPYBXCXKYBXBXJHFYHVPVQUI
+      WQXSXLDUEZWHWKWPVRWGXJHFVSZXSYJUTWQXJXSHFDYAVTWHWKWGWPWFWGWKWAUIWQXBHFVSZ
+      YKWFXNYLWQXBHAIWREFXOWBXQYIVLWHWKYLYKUTWPYBXBXJHFYHWCUIWDVLWDWE $.
+      $( [29-Jul-2008] $) $( [7-Jul-2008] $)
+  $}
+
+  ${
+    $d x y z A $.  $d x y z B $.  $d x y C $.  $d x y z R $.  $d x y X $.
+    spwpr4a.1 $e |- X = dom R $.
+    spwpr4a.2 $e |- ( ph <-> ( A. y e. { A , B } y R x /\
+            A. y e. X ( A. z e. { A , B } z R y -> x R y ) ) ) $.
+    $( Supremum of an unordered pair. $)
+    spwpr4aOLD $p |- ( ( ( R e. Poset /\ C e. X ) /\ ( A R C /\ B R C ) /\
+   A. y e. X ( ( A R y /\ B R y ) -> C R y ) ) -> ( R supw { A , B } ) = C ) $=
+      ( cps wcel wa wbr cv wi wral w3a cpr cspw co crab cuni cvv wrex wceq
+      spwval simpll 3adant3 prex a1i breq2 anbi12d breq1 imbi2d ralbidv
+      rcla4ev 3impb 3adant1l wb eqid spwpr2 mpanl2 wrel psrel brrelex ex
+      anim12d syl imp adantlr sylanc rexbidv mpbird syl3anc rabbisdv unieqd
+      3simpc wreu reuuni2 simplr spweu reubidv mpbid 3eqtrd ) HLMZGIMZNZEGHOZFG
+      HOZNZECPZHOFWMHONZGWMHOZQZCIRZSZHEFTZUAUBZABIUCZUDZEBPZHOZFXCHOZNZWNXCWMH
+      OZQZCIRZNZBIUCZUDZGWGWSUEMZABIUFZWTXBUGWRABCDWSHUEIJKUHWIWLWGWQWGWHWLUIZU
+      JZXMWREFUKULWRXNXJBIUFZWHWLWQXQWGWHWLWQXQXJWLWQNZBGIXCGUGZXFWLXIWQXSXDWJX
+      EWKXCGEHUMXCGFHUMUNXSXHWPCIXSXGWOWNXCGWMHUOUPUQUNZURUSUTWIWLXNXQVAWQWIWLN
+      ZAXJBIWGEUEMZFUEMZNZAXJVAZYAWGWSWSUGYDYEWSVBABCDWSEFHLUEUEIKVCVDXOWGWLYDW
+      HWGWLYDWGHVEZWLYDQHVFYFWJYBWKYCYFWJYBEGHVGVHYFWKYCFGHVGVHVIVJVKVLVMZVNUJV
+      OZVPWIWLXBXLUGWQYAXAXKYAAXJBIYGVQVRUJWRXRXLGUGZWIWLWQVSWHXJBIVTZXRYIVAWRX
+      JXRBIGXTWAWIWLWHWQWGWHWLWBUJWRABIVTZYJWGXNYKWRABCDWSHIKWCXPYHVMWIWLYKYJVA
+      WQYAAXJBIYGWDUJWEVMWEWF $.
+      $( [1-Aug-2008] $) $( [7-Jul-2008] $)
+  $}
+
+  ${
+    $d x A $.  $d x B $.  $d x R $.
+    $( Supremum of an unordered pair of comparable elements. $)
+    spwpr4c $p |- ( ( R e. Poset /\ B e. U /\ A R B )
+         -> ( R supw { A , B } ) = B ) $=
+      ( vx cps wcel wa wbr cv wi cdm wral cpr cspw co wceq w3a eqid spwpr4
+      3simpa 3simp3 psref 3simp1 crn cvv brelrng wrel brrelex psrel sylan
+      3adant2 syld3an1 psrn 3ad2ant1 eleqtrrd sylanc jca pm3.27 a1i rgen
+      syl3anc ) CFGZBDGZHABCIZBBCIZHAEJZCIZBVGCIZHVIKZECLZMZCABNOPBQVCVDVERZEAB
+      BDCVKVKSZTVCVDVEUAVMVEVFVCVDVEUBVCBVKGVFVMBCVKVNUCVCVDVEUDVMBCUEZVKAUFGZV
+      DVEBVOGVCABCUFDUGVCVEVPVDCUHVEVPVCABCUICUJUKULUMVCVDVKVOQVECVKVNUNUOUPUQU
+      RVLVMVJEVKVJVGVKGVHVIUSUTVAUTVB $.
+      $( [9-Jun-2009] $) $( [7-Jul-2008] $)
+  $}
+
+  ${
+    $d x y A $.  $d y B $.  $d r x y R $.  $d r x y X $.
+    isla.1 $e |- X = dom R $.
+    $( The predicate "is a lattice" i.e. a poset in which any two elements have
+       upper and lower bounds. $)
+    isla $p |- ( R e. Lat <-> ( R e. Poset /\ A. x e. X A. y e. X
+      ( ( R supw { x , y } ) e. X /\ ( R infw { x , y } ) e. X ) ) ) $=
+      ( vr cv cpr cspw co cdm wcel cinf wa wral cps cla wceq dmeq syl6eqr
+      opreq1 eleq12d anbi12d raleq12d df-la elrab2 ) FGZAGBGHZIJZUGKZLZUGUHMJZU
+      JLZNZBUJOZAUJOCUHIJZDLZCUHMJZDLZNZBDOZADOFCPQUGCRZUOVAAUJDVBUJCKDUGCSETZV
+      BUNUTBUJDVCVBUKUQUMUSVBUIUPUJDUGCUHIUAVCUBVBULURUJDUGCUHMUAVCUBUCUDUDABFU
+      EUF $.
+      $( [10-Jun-2009] $) $( [12-Jun-2008] $)
+
+    $( Closure of the supremum (join) of two lattice elements. $)
+    laspwcl $p |- ( ( R e. Lat /\ A e. X /\ B e. X )
+                -> ( R supw { A , B } ) e. X ) $=
+      ( vx vy cla wcel cpr cspw co cv wral wa cps cinf isla pm3.26 r19.20si
+      adantl sylbi wceq preq1 opreq2d eleq1d preq2 rcla42v mpan9 3impb ) CHIZAD
+      IZBDIZCABJZKLZDIZUKCFMZGMZJZKLZDIZGDNZFDNZULUMOUPUKCPIZVACUSQLDIZOZGDNZFD
+      NZOVCFGCDERVHVCVDVGVBFDVFVAGDVAVESTTUAUBVAUPCAURJZKLZDIFGABDDUQAUCZUTVJDV
+      KUSVICKUQAURUDUEUFURBUCZVJUODVLVIUNCKURBAUGUEUFUHUIUJ $.
+      $( [1-Jul-2009] $) $( [12-Jun-2008] $)
+
+    $( Closure of the infimum (meet) of two lattice elements. $)
+    lanfwcl $p |- ( ( R e. Lat /\ A e. X /\ B e. X )
+                -> ( R infw { A , B } ) e. X ) $=
+      ( vx vy cla wcel cpr cinf co cv wral wa cps cspw isla pm3.27 r19.20si
+      adantl sylbi wceq preq1 opreq2d eleq1d preq2 rcla42v mpan9 3impb ) CHIZAD
+      IZBDIZCABJZKLZDIZUKCFMZGMZJZKLZDIZGDNZFDNZULUMOUPUKCPIZCUSQLDIZVAOZGDNZFD
+      NZOVCFGCDERVHVCVDVGVBFDVFVAGDVEVASTTUAUBVAUPCAURJZKLZDIFGABDDUQAUCZUTVJDV
+      KUSVICKUQAURUDUEUFURBUCZVJUODVLVIUNCKURBAUGUEUFUHUIUJ $.
+      $( [15-Jul-2009] $) $( [20-Jun-2008] $)
+  $}
+
+  ${
+    $d x y R $.
+  $}
+

@@ -23,7 +23,8 @@ $)
      directly.  This greatly simplifies many proofs since it eliminates the
      need for a separate mechanism for introducing and eliminating
      definitions.  Of course, we cannot use this mechanism to define the
-     biconditional itself, since it hasn't been introduced yet.
+     biconditional itself, since it hasn't been introduced yet.  Instead, we
+     use a more general form of definition, described as follows.
 
      In its most general form, a definition is simply an assertion that
      introduces a new symbol (or a new combination of existing symbols, as in
@@ -51,9 +52,11 @@ $)
      (This prefixing is an informal convention that means nothing to the
      Metamath proof verifier; it is just for human readability.)
 
-     See ~ bii and ~ bi for theorems suggesting the typical textbook
-     definition of ` <-> ` , showing that our definition has the properties
-     we expect.  $)
+     See ~ dfbi1 , ~ dfbi2 , and ~ dfbi3 for theorems suggesting typical
+     textbook definitions of ` <-> ` , showing that our definition has the
+     properties we expect.  Theorem ~ dfbi shows this definition rewritten
+     in an abbreviated form after conjunction is introduced, for easier
+     understanding. $)
   df-bi $a |- -. ( ( ( ph <-> ps ) -> -. ( ( ph -> ps ) -> -. ( ps -> ph ) ) )
         -> -. ( -. ( ( ph -> ps ) -> -. ( ps -> ph ) ) -> ( ph <-> ps ) ) ) $.
 
@@ -78,7 +81,7 @@ $)
   ${
     biimp.1 $e |- ( ph <-> ps ) $.
     $( Infer an implication from a logical equivalence. $)
-    biimp $p |- ( ph -> ps ) $=
+    biimpi $p |- ( ph -> ps ) $=
       ( wb wi bi1 ax-mp ) ABDABECABFG $.
       $( [5-Aug-1993] $)
   $}
@@ -86,7 +89,7 @@ $)
   ${
     biimpr.1 $e |- ( ph <-> ps ) $.
     $( Infer a converse implication from a logical equivalence. $)
-    biimpr $p |- ( ps -> ph ) $=
+    biimpri $p |- ( ps -> ph ) $=
       ( wb wi bi2 ax-mp ) ABDBAECABFG $.
       $( [5-Aug-1993] $)
   $}
@@ -119,21 +122,22 @@ $)
     impbi.1 $e |- ( ph -> ps ) $.
     impbi.2 $e |- ( ps -> ph ) $.
     $( Infer an equivalence from an implication and its converse. $)
-    impbi $p |- ( ph <-> ps ) $=
+    impbii $p |- ( ph <-> ps ) $=
       ( wi wb bi3 mp2 ) ABEBAEABFCDABGH $.
       $( [5-Aug-1993] $)
   $}
 
-  $( Relate the biconditional connective to primitive connectives.  See ~ biigb
-     for an unusual version proved directly from axioms. $)
-  bii $p |- ( ( ph <-> ps ) <-> -. ( ( ph -> ps ) -> -. ( ps -> ph ) ) ) $=
-    ( wb wi wn bi1 bi2 jc bi3 impi impbi ) ABCZABDZBADZEDELMNABFABGHMNLABIJK $.
+  $( Relate the biconditional connective to primitive connectives.  See
+     ~ dfbi1gb for an unusual version proved directly from axioms. $)
+  dfbi1 $p |- ( ( ph <-> ps ) <-> -. ( ( ph -> ps ) -> -. ( ps -> ph ) ) ) $=
+    ( wb wi wn bi1 bi2 jc bi3 impi impbii ) ABCZABDZBADZEDELMNABFABGHMNLABIJK
+    $.
     $( [5-Aug-1993] $)
 
-  $( This proof of ~ bii , discovered by Gregory Bush on 8-Mar-2004, has
+  $( This proof of ~ dfbi1 , discovered by Gregory Bush on 8-Mar-2004, has
      several curious properties.  First, it has only 17 steps directly
      from the axioms and ~ df-bi , compared to over 800 steps were the proof
-     of ~ bii expanded into axioms.  Second, step 2 demands only the property
+     of ~ dfbi1 expanded into axioms.  Second, step 2 demands only the property
      of "true"; any axiom (or theorem) could be used.  It might be thought,
      therefore, that it is in some sense redundant, but in fact no proof
      is shorter than this (measured by number of steps).  Third, it illustrates
@@ -143,7 +147,7 @@ $)
      steps that are essentially incomprehensible to humans (other than Gregory
      Bush).  If there were an obfuscated code contest for proofs, this would be
      a contender. $)
-  biigb $p |- ( ( ph <-> ps ) <-> -. ( ( ph -> ps ) -> -. ( ps -> ph ) ) ) $=
+  dfbi1gb $p |- ( ( ph <-> ps ) <-> -. ( ( ph -> ps ) -> -. ( ps -> ph ) ) ) $=
     ( wch wth wb wi wn df-bi ax-1 ax-mp ax-3 ax-2 ) ABEZABFBAFGFGZFNMFGFGZMNEZA
     BHCDCFFZOPFZCDIRGZQGZFZQRFSPOFZSFZFZUASUBISUCTFZFZUDUAFUEUFTGZUCGZFZUEUHUIM
     NHUHUGIJTUCKJUESIJSUCTLJJRQKJJJ $.
@@ -152,172 +156,172 @@ $)
   $( Logical equivalence of commuted antecedents.  Part of Theorem *4.87 of
      [WhiteheadRussell] p. 122. $)
   bi2.04 $p |- ( ( ph -> ( ps -> ch ) ) <-> ( ps -> ( ph -> ch ) ) ) $=
-    ( wi pm2.04 impbi ) ABCDDBACDDABCEBACEF $.
+    ( wi pm2.04 impbii ) ABCDDBACDDABCEBACEF $.
     $( [5-Aug-1993] $)
 
   $( Double negation.  Theorem *4.13 of [WhiteheadRussell] p. 117. $)
-  pm4.13 $p |- ( ph <-> -. -. ph ) $=
-    ( wn negb nega impbi ) AABBACADE $.
+  notnot $p |- ( ph <-> -. -. ph ) $=
+    ( wn notnot1 notnot2 impbii ) AABBACADE $.
     $( [5-Aug-1993] $)
 
   $( Theorem *4.8 of [WhiteheadRussell] p. 122. $)
   pm4.8 $p |-  ( ( ph -> -. ph ) <-> -. ph ) $=
-    ( wn wi pm2.01 ax-1 impbi ) AABZCGADGAEF $.
+    ( wn wi pm2.01 ax-1 impbii ) AABZCGADGAEF $.
     $( [5-Feb-2005] $) $( [3-Jan-2005] $)
 
   $( Theorem *4.81 of [WhiteheadRussell] p. 122. $)
   pm4.81 $p |-  ( ( -. ph -> ph ) <-> ph ) $=
-    ( wn wi pm2.18 pm2.24 impbi ) ABACAADAAEF $.
+    ( wn wi pm2.18 pm2.24 impbii ) ABACAADAAEF $.
     $( [10-Feb-2005] $) $( [3-Jan-2005] $)
 
-  $( Contraposition.  Theorem *4.1 of [WhiteheadRussell] p. 116. $)
-  pm4.1 $p |- ( ( ph -> ps ) <-> ( -. ps -> -. ph ) ) $=
-    ( wi wn con3 ax-3 impbi ) ABCBDADCABEBAFG $.
+  $( Contraposition.  Bidirectional version of ~ con1 . $)
+  con1b $p |- ( ( -. ph -> ps ) <-> ( -. ps -> ph ) ) $=
+    ( wn wi con1 impbii ) ACBDBCADABEBAEF $.
     $( [5-Aug-1993] $)
 
   $( Contraposition.  Bidirectional version of ~ con2 . $)
-  bi2.03 $p |- ( ( ph -> -. ps ) <-> ( ps -> -. ph ) ) $=
-    ( wn wi con2 impbi ) ABCDBACDABEBAEF $.
+  con2b $p |- ( ( ph -> -. ps ) <-> ( ps -> -. ph ) ) $=
+    ( wn wi con2 impbii ) ABCDBACDABEBAEF $.
     $( [5-Aug-1993] $)
 
-  $( Contraposition.  Bidirectional version of ~ con1 . $)
-  bi2.15 $p |- ( ( -. ph -> ps ) <-> ( -. ps -> ph ) ) $=
-    ( wn wi con1 impbi ) ACBDBCADABEBAEF $.
+  $( Contraposition.  Theorem *4.1 of [WhiteheadRussell] p. 116. $)
+  con34b $p |- ( ( ph -> ps ) <-> ( -. ps -> -. ph ) ) $=
+    ( wi wn con3 ax-3 impbii ) ABCBDADCABEBAFG $.
     $( [5-Aug-1993] $)
 
   $( Antecedent absorption implication.  Theorem *5.4 of
      [WhiteheadRussell] p. 125. $)
   pm5.4 $p |- ( ( ph -> ( ph -> ps ) ) <-> ( ph -> ps ) ) $=
-    ( wi pm2.43 ax-1 impbi ) AABCZCGABDGAEF $.
+    ( wi pm2.43 ax-1 impbii ) AABCZCGABDGAEF $.
     $( [5-Aug-1993] $)
 
   $( Distributive law for implication.  Compare Theorem *5.41 of
      [WhiteheadRussell] p. 125. $)
   imdi $p |- ( ( ph -> ( ps -> ch ) ) <->
                ( ( ph -> ps ) -> ( ph -> ch ) ) ) $=
-    ( wi ax-2 pm2.86 impbi ) ABCDDABDACDDABCEABCFG $.
+    ( wi ax-2 pm2.86 impbii ) ABCDDABDACDDABCEABCFG $.
     $( [5-Aug-1993] $)
 
   $( Theorem *5.41 of [WhiteheadRussell] p. 125. $)
   pm5.41 $p |-  ( ( ( ph -> ps ) -> ( ph -> ch ) ) <->
                 ( ph -> ( ps -> ch ) ) ) $=
-    ( wi pm2.86 ax-2 impbi ) ABDACDDABCDDABCEABCFG $.
+    ( wi pm2.86 ax-2 impbii ) ABDACDDABCDDABCEABCFG $.
     $( [10-Feb-2005] $) $( [3-Jan-2005] $)
 
   $( Principle of identity for logical equivalence.  Theorem *4.2 of
      [WhiteheadRussell] p. 117. $)
-  pm4.2 $p |- ( ph <-> ph ) $=
-    ( id impbi ) AAABZDC $.
+  biid $p |- ( ph <-> ph ) $=
+    ( id impbii ) AAABZDC $.
     $( [5-Aug-1993] $)
 
   $( Principle of identity with antecedent. $)
-  pm4.2i $p |- ( ph -> ( ps <-> ps ) ) $=
-    ( wb pm4.2 a1i ) BBCABDE $.
+  biidd $p |- ( ph -> ( ps <-> ps ) ) $=
+    ( wb biid a1i ) BBCABDE $.
     $( [25-Nov-1995] $)
 
   ${
-    bicom.1 $e |- ( ph <-> ps ) $.
+    bicomi.1 $e |- ( ph <-> ps ) $.
     $( Inference from commutative law for logical equivalence. $)
     bicomi $p |- ( ps <-> ph ) $=
-      ( biimpr biimp impbi ) BAABCDABCEF $.
+      ( biimpri biimpi impbii ) BAABCDABCEF $.
       $( [5-Aug-1993] $)
   $}
 
   ${
-    bitr.1 $e |- ( ph <-> ps ) $.
-    bitr.2 $e |- ( ps <-> ch ) $.
+    bitri.1 $e |- ( ph <-> ps ) $.
+    bitri.2 $e |- ( ps <-> ch ) $.
     $( An inference from transitive law for logical equivalence. $)
-    bitr $p |- ( ph <-> ch ) $=
-      ( biimp syl biimpr impbi ) ACABCABDFBCEFGCBABCEHABDHGI $.
+    bitri $p |- ( ph <-> ch ) $=
+      ( biimpi syl biimpri impbii ) ACABCABDFBCEFGCBABCEHABDHGI $.
       $( [5-Aug-1993] $)
   $}
 
   ${
-    bitr2.1 $e |- ( ph <-> ps ) $.
-    bitr2.2 $e |- ( ps <-> ch ) $.
+    bitr2i.1 $e |- ( ph <-> ps ) $.
+    bitr2i.2 $e |- ( ps <-> ch ) $.
     $( An inference from transitive law for logical equivalence. $)
-    bitr2 $p |- ( ch <-> ph ) $=
-      ( bitr bicomi ) ACABCDEFG $.
+    bitr2i $p |- ( ch <-> ph ) $=
+      ( bitri bicomi ) ACABCDEFG $.
       $( [5-Aug-1993] $)
   $}
 
   ${
-    bitr3.1 $e |- ( ps <-> ph ) $.
-    bitr3.2 $e |- ( ps <-> ch ) $.
+    bitr3i.1 $e |- ( ps <-> ph ) $.
+    bitr3i.2 $e |- ( ps <-> ch ) $.
     $( An inference from transitive law for logical equivalence. $)
-    bitr3 $p |- ( ph <-> ch ) $=
-      ( bicomi bitr ) ABCBADFEG $.
+    bitr3i $p |- ( ph <-> ch ) $=
+      ( bicomi bitri ) ABCBADFEG $.
       $( [5-Aug-1993] $)
   $}
 
   ${
-    bitr4.1 $e |- ( ph <-> ps ) $.
-    bitr4.2 $e |- ( ch <-> ps ) $.
+    bitr4i.1 $e |- ( ph <-> ps ) $.
+    bitr4i.2 $e |- ( ch <-> ps ) $.
     $( An inference from transitive law for logical equivalence. $)
-    bitr4 $p |- ( ph <-> ch ) $=
-      ( bicomi bitr ) ABCDCBEFG $.
+    bitr4i $p |- ( ph <-> ch ) $=
+      ( bicomi bitri ) ABCDCBEFG $.
       $( [5-Aug-1993] $)
   $}
 
   ${
-    3bitr.1 $e |- ( ph <-> ps ) $.
-    3bitr.2 $e |- ( ps <-> ch ) $.
-    3bitr.3 $e |- ( ch <-> th ) $.
+    3bitri.1 $e |- ( ph <-> ps ) $.
+    3bitri.2 $e |- ( ps <-> ch ) $.
+    3bitri.3 $e |- ( ch <-> th ) $.
     $( A chained inference from transitive law for logical equivalence. $)
-    3bitr $p |- ( ph <-> th ) $=
-      ( bitr ) ABDEBCDFGHH $.
+    3bitri $p |- ( ph <-> th ) $=
+      ( bitri ) ABDEBCDFGHH $.
       $( [5-Aug-1993] $)
 
     $( A chained inference from transitive law for logical equivalence. $)
-    3bitrr $p |- ( th <-> ph ) $=
-      ( bitr2 bitr3 ) DCAGABCEFHI $.
+    3bitrri $p |- ( th <-> ph ) $=
+      ( bitr2i bitr3i ) DCAGABCEFHI $.
       $( [10-Aug-2006] $) $( [4-Aug-2006] $)
   $}
 
   ${
-    3bitr2.1 $e |- ( ph <-> ps ) $.
-    3bitr2.2 $e |- ( ch <-> ps ) $.
-    3bitr2.3 $e |- ( ch <-> th ) $.
+    3bitr2i.1 $e |- ( ph <-> ps ) $.
+    3bitr2i.2 $e |- ( ch <-> ps ) $.
+    3bitr2i.3 $e |- ( ch <-> th ) $.
     $( A chained inference from transitive law for logical equivalence. $)
-    3bitr2 $p |- ( ph <-> th ) $=
-      ( bitr4 bitr ) ACDABCEFHGI $.
+    3bitr2i $p |- ( ph <-> th ) $=
+      ( bitr4i bitri ) ACDABCEFHGI $.
       $( [10-Aug-2006] $) $( [4-Aug-2006] $)
 
     $( A chained inference from transitive law for logical equivalence. $)
-    3bitr2r $p |- ( th <-> ph ) $=
-      ( bitr4 bitr2 ) ACDABCEFHGI $.
+    3bitr2ri $p |- ( th <-> ph ) $=
+      ( bitr4i bitr2i ) ACDABCEFHGI $.
       $( [10-Aug-2006] $) $( [4-Aug-2006] $)
   $}
 
   ${
-    3bitr3.1 $e |- ( ph <-> ps ) $.
-    3bitr3.2 $e |- ( ph <-> ch ) $.
-    3bitr3.3 $e |- ( ps <-> th ) $.
+    3bitr3i.1 $e |- ( ph <-> ps ) $.
+    3bitr3i.2 $e |- ( ph <-> ch ) $.
+    3bitr3i.3 $e |- ( ps <-> th ) $.
     $( A chained inference from transitive law for logical equivalence. $)
-    3bitr3 $p |- ( ch <-> th ) $=
-      ( bitr3 bitr ) CBDCABFEHGI $.
+    3bitr3i $p |- ( ch <-> th ) $=
+      ( bitr3i bitri ) CBDCABFEHGI $.
       $( [19-Aug-1993] $)
 
     $( A chained inference from transitive law for logical equivalence. $)
-    3bitr3r $p |- ( th <-> ch ) $=
-      ( bitr3 ) DBCGBACEFHH $.
+    3bitr3ri $p |- ( th <-> ch ) $=
+      ( bitr3i ) DBCGBACEFHH $.
       $( [5-Aug-1993] $)
   $}
 
   ${
-    3bitr4.1 $e |- ( ph <-> ps ) $.
-    3bitr4.2 $e |- ( ch <-> ph ) $.
-    3bitr4.3 $e |- ( th <-> ps ) $.
+    3bitr4i.1 $e |- ( ph <-> ps ) $.
+    3bitr4i.2 $e |- ( ch <-> ph ) $.
+    3bitr4i.3 $e |- ( th <-> ps ) $.
     $( A chained inference from transitive law for logical equivalence.  This
        inference is frequently used to apply a definition to both sides of a
        logical equivalence. $)
-    3bitr4 $p |- ( ch <-> th ) $=
-      ( bitr4 bitr ) CADFABDEGHI $.
+    3bitr4i $p |- ( ch <-> th ) $=
+      ( bitr4i bitri ) CADFABDEGHI $.
       $( [5-Aug-1993] $)
 
     $( A chained inference from transitive law for logical equivalence. $)
-    3bitr4r $p |- ( th <-> ch ) $=
-      ( bitr4 bitr2 ) CADFABDEGHI $.
+    3bitr4ri $p |- ( th <-> ch ) $=
+      ( bitr4i bitr2i ) CADFABDEGHI $.
       $( [2-Sep-1995] $)
   $}
 
@@ -329,17 +333,17 @@ $)
 
     $( Introduce an antecedent to both sides of a logical equivalence. $)
     imbi2i $p |- ( ( ch -> ph ) <-> ( ch -> ps ) ) $=
-      ( wi biimp imim2i biimpr impbi ) CAECBEABCABDFGBACABDHGI $.
+      ( wi biimpi imim2i biimpri impbii ) CAECBEABCABDFGBACABDHGI $.
       $( [5-Aug-1993] $)
 
     $( Introduce a consequent to both sides of a logical equivalence. $)
     imbi1i $p |- ( ( ph -> ch ) <-> ( ps -> ch ) ) $=
-      ( wi biimpr imim1i biimp impbi ) ACEBCEBACABDFGABCABDHGI $.
+      ( wi biimpri imim1i biimpi impbii ) ACEBCEBACABDFGABCABDHGI $.
       $( [5-Aug-1993] $)
 
     $( Negate both sides of a logical equivalence. $)
-    negbii $p |- ( -. ph <-> -. ps ) $=
-      ( wn biimpr con3i biimp impbi ) ADBDBAABCEFABABCGFH $.
+    notbii $p |- ( -. ph <-> -. ps ) $=
+      ( wn biimpri con3i biimpi impbii ) ADBDBAABCEFABABCGFH $.
       $( [5-Aug-1993] $)
 
   $}
@@ -349,7 +353,7 @@ $)
     imbi12i.2 $e |- ( ch <-> th ) $.
     $( Join two logical equivalences to form equivalence of implications. $)
     imbi12i $p |- ( ( ph -> ch ) <-> ( ps -> th ) ) $=
-      ( wi imbi2i imbi1i bitr ) ACGADGBDGCDAFHABDEIJ $.
+      ( wi imbi2i imbi1i bitri ) ACGADGBDGCDAFHABDEIJ $.
       $( [5-Aug-1993] $)
   $}
 
@@ -358,7 +362,7 @@ $)
     mpbi.maj $e |- ( ph <-> ps ) $.
     $( An inference from a biconditional, related to modus ponens. $)
     mpbi $p |- ps $=
-      ( biimp ax-mp ) ABCABDEF $.
+      ( biimpi ax-mp ) ABCABDEF $.
       $( [5-Aug-1993] $)
   $}
 
@@ -367,7 +371,7 @@ $)
     mpbir.maj $e |- ( ph <-> ps ) $.
     $( An inference from a biconditional, related to modus ponens. $)
     mpbir $p |- ph $=
-      ( biimpr ax-mp ) BACABDEF $.
+      ( biimpri ax-mp ) BACABDEF $.
       $( [5-Aug-1993] $)
   $}
 
@@ -376,7 +380,7 @@ $)
     mtbi.2 $e |- ( ph <-> ps ) $.
     $( An inference from a biconditional, related to modus tollens. $)
     mtbi $p |- -. ps $=
-      ( wn negbii mpbi ) AEBECABDFG $.
+      ( wn notbii mpbi ) AEBECABDFG $.
       $( [15-Nov-1994] $)
   $}
 
@@ -385,7 +389,7 @@ $)
     mtbir.2 $e |- ( ph <-> ps ) $.
     $( An inference from a biconditional, related to modus tollens. $)
     mtbir $p |- -. ph $=
-      ( wn negbii mpbir ) AEBECABDFG $.
+      ( wn notbii mpbir ) AEBECABDFG $.
       $( [15-Nov-1994] $)
   $}
 
@@ -429,7 +433,7 @@ $)
     a1bi.1 $e |- ph $.
     $( Inference rule introducing a theorem as an antecedent. $)
     a1bi $p |- ( ps <-> ( ph -> ps ) ) $=
-      ( wi ax-1 pm2.27 ax-mp impbi ) BABDZBAEAIBDCABFGH $.
+      ( wi ax-1 pm2.27 ax-mp impbii ) BABDZBAEAIBDCABFGH $.
       $( [5-Aug-1993] $)
   $}
 
@@ -438,7 +442,7 @@ $)
     sylib.2 $e |- ( ps <-> ch ) $.
     $( A mixed syllogism inference from an implication and a biconditional. $)
     sylib $p |- ( ph -> ch ) $=
-      ( biimp syl ) ABCDBCEFG $.
+      ( biimpi syl ) ABCDBCEFG $.
       $( [5-Aug-1993] $)
   $}
 
@@ -448,7 +452,7 @@ $)
     $( A mixed syllogism inference from a biconditional and an implication.
        Useful for substituting an antecedent with a definition. $)
     sylbi $p |- ( ph -> ch ) $=
-      ( biimp syl ) ABCABDFEG $.
+      ( biimpi syl ) ABCABDFEG $.
       $( [5-Aug-1993] $)
   $}
 
@@ -458,7 +462,7 @@ $)
     $( A mixed syllogism inference from an implication and a biconditional.
        Useful for substituting a consequent with a definition. $)
     sylibr $p |- ( ph -> ch ) $=
-      ( biimpr syl ) ABCDCBEFG $.
+      ( biimpri syl ) ABCDCBEFG $.
       $( [5-Aug-1993] $)
   $}
 
@@ -467,7 +471,7 @@ $)
     sylbir.2 $e |- ( ps -> ch ) $.
     $( A mixed syllogism inference from a biconditional and an implication. $)
     sylbir $p |- ( ph -> ch ) $=
-      ( biimpr syl ) ABCBADFEG $.
+      ( biimpri syl ) ABCBADFEG $.
       $( [5-Aug-1993] $)
   $}
 
@@ -514,7 +518,7 @@ $)
        biconditional.  Useful for substituting an embedded antecedent with a
        definition. $)
     syl5ib $p |- ( ph -> ( th -> ch ) ) $=
-      ( biimp syl5 ) ABCDEDBFGH $.
+      ( biimpi syl5 ) ABCDEDBFGH $.
       $( [5-Aug-1993] $)
   $}
 
@@ -524,7 +528,7 @@ $)
     $( A mixed syllogism inference from a nested implication and a
        biconditional. $)
     syl5ibr $p |- ( ph -> ( th -> ch ) ) $=
-      ( biimpr syl5 ) ABCDEBDFGH $.
+      ( biimpri syl5 ) ABCDEBDFGH $.
       $( [5-Aug-1993] $)
   $}
 
@@ -562,7 +566,7 @@ $)
     $( A mixed syllogism inference from a nested implication and a
        biconditional. $)
     syl6ib $p |- ( ph -> ( ps -> th ) ) $=
-      ( biimp syl6 ) ABCDECDFGH $.
+      ( biimpi syl6 ) ABCDECDFGH $.
       $( [5-Aug-1993] $)
   $}
 
@@ -573,7 +577,7 @@ $)
        biconditional.  Useful for substituting an embedded consequent with a
        definition. $)
     syl6ibr $p |- ( ph -> ( ps -> th ) ) $=
-      ( biimpr syl6 ) ABCDEDCFGH $.
+      ( biimpri syl6 ) ABCDEDCFGH $.
       $( [5-Aug-1993] $)
   $}
 
@@ -602,7 +606,7 @@ $)
     $( A mixed syllogism inference from a doubly nested implication and a
        biconditional. $)
     syl7ib $p |- ( ph -> ( ps -> ( ta -> th ) ) ) $=
-      ( biimp syl7 ) ABCDEFECGHI $.
+      ( biimpi syl7 ) ABCDEFECGHI $.
       $( [5-Aug-1993] $)
   $}
 
@@ -612,7 +616,7 @@ $)
     $( A syllogism rule of inference.  The second premise is used to replace
        the consequent of the first premise. $)
     syl8ib $p |- ( ph -> ( ps -> ( ch -> ta ) ) ) $=
-      ( biimp syl8 ) ABCDEFDEGHI $.
+      ( biimpi syl8 ) ABCDEFDEGHI $.
       $( [1-Aug-1994] $)
   $}
 
@@ -622,7 +626,7 @@ $)
     3imtr3.3 $e |- ( ps <-> th ) $.
     $( A mixed syllogism inference, useful for removing a definition from both
        sides of an implication. $)
-    3imtr3 $p |- ( ch -> th ) $=
+    3imtr3i $p |- ( ch -> th ) $=
       ( sylbir sylib ) CBDCABFEHGI $.
       $( [10-Aug-1994] $)
   $}
@@ -633,7 +637,7 @@ $)
     3imtr4.3 $e |- ( th <-> ps ) $.
     $( A mixed syllogism inference, useful for applying a definition to both
        sides of an implication. $)
-    3imtr4 $p |- ( ch -> th ) $=
+    3imtr4i $p |- ( ch -> th ) $=
       ( sylbi sylibr ) CBDCABFEHGI $.
       $( [5-Aug-1993] $)
   $}
@@ -642,7 +646,7 @@ $)
     con1bii.1 $e |- ( -. ph <-> ps ) $.
     $( A contraposition inference. $)
     con1bii $p |- ( -. ps <-> ph ) $=
-      ( wn biimp con1i biimpr con2i impbi ) BDAABADZBCEFBAJBCGHI $.
+      ( wn biimpi con1i biimpri con2i impbii ) BDAABADZBCEFBAJBCGHI $.
       $( [5-Aug-1993] $)
   $}
 
@@ -654,7 +658,7 @@ $)
       $( [5-Aug-1993] $)
   $}
 
-  $( For ~ bicon3 :  See ~ negbii . $)
+  $( For ~ bicon3 :  See ~ notbii . $)
 
   $( For ~ con4bii :  Later. $)
 

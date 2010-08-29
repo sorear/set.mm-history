@@ -13,11 +13,11 @@ $)
   ${
     $d x y z $.
     $( Define exponentiation to nonnegative integer powers.  This definition is
-       not meant to be used directly; instead, ~ exp0t and ~ expp1t provide a
+       not meant to be used directly; instead, ~ exp0 and ~ expp1 provide a
        the standard recursive definition.  The up-arrow notation is used by
        Donald Knuth for iterated exponentiation (_Science_ 194, 1235-1242,
        1976) and is convenient for us since we don't have superscripts.  See
-       ~ expnnvalt for a description of how the recursive sequence builder is
+       ~ expnnval for a description of how the recursive sequence builder is
        used.  10-Jun-2005: The definition was extended to include zero
        exponents, so that ` 0 ^ 0 = 1 ` per the convention of Definition
        10-4.1 of [Gleason] p. 134.  (Based on definition contributed by Raph
@@ -35,15 +35,15 @@ $)
     df-exp $a |- ^ = { <. <. x , y >. , z >. | ( ( x e. CC /\ y e. NN ) /\
           z = ( ( x. seq1 ( NN X. { x } ) ) ` y ) ) }  $.
     dfexp2 $p |- ^ = { <. <. x , y >. , z >. | ( ( x e. CC /\ y e. NN0 ) /\
-        z = ( ( x. seq1 ( { <. 0 , 1 >. } u. ( NN X. { x } ) ) ) ` y ) ) }  $=
-          z = ( ( x. seq0 ( NN0 X. { if ( y = 0 , 1 , x ) } ) ) ` y ) ) }  $=
+        z = ( ( x. seq1 ( { <. 0 , 1 >. } u. ( NN X. { x } ) ) ) ` y ) ) } $=
+          z = ( ( x. seq0 ( NN0 X. { if ( y = 0 , 1 , x ) } ) ) ` y ) ) } $=
     $)
   $}
 
   ${
     $d x y z A $.  $d x y z N $.
     $( Value of exponentiation to nonnegative integer powers. $)
-    expvalt $p |- ( ( A e. CC /\ N e. NN0 ) -> ( A ^ N ) =
+    expval $p |- ( ( A e. CC /\ N e. NN0 ) -> ( A ^ N ) =
                    if ( N = 0 , 1 , ( ( x. seq1 ( NN X. { A } ) ) ` N ) ) ) $=
       ( vx vy vz cc cn0 cv cc0 wceq c1 cmul cn csn cxp cseq1 co cfv cif cexp
       1nn0 elisseti fvex ifex sneq xpeq2 syl opreq2d fveq1d ifeq2d fveq2 eqeq1
@@ -56,10 +56,10 @@ $)
     $( Value of a complex number raised to the 0th power.  Note that under our
        definition, ` 0 ^ 0 = 1 ` , following the convention used by Gleason.
        Part of Definition 10-4.1 of [Gleason] p. 134. $)
-    exp0t $p |- ( A e. CC -> ( A ^ 0 ) = 1 ) $=
+    exp0 $p |- ( A e. CC -> ( A ^ 0 ) = 1 ) $=
       ( cc wcel cc0 cexp co wceq c1 cmul cn csn cxp cseq1 cfv cif cn0 0nn0
-      expvalt mpan2 eqid iftrue ax-mp syl6eq ) ABCZADEFZDDGZHDIJAKLMFNZOZHUDDPC
-      UEUHGQADRSUFUHHGDTUFHUGUAUBUC $.
+      expval mpan2 eqid iftrue ax-mp syl6eq ) ABCZADEFZDDGZHDIJAKLMFNZOZHUDDPCU
+      EUHGQADRSUFUHHGDTUFHUGUAUBUC $.
       $( [11-Jun-2005] $) $( [20-May-2004] $)
   $}
 
@@ -69,18 +69,18 @@ $)
        is the constant function with value ` A ` .  The ` seq1 ` operation
        produces the sequence ` A ` , ` A x. A ` , ` ( A x. A ) x. A ` ,...
        that we evaluate at index ` B ` . $)
-    expnnvalt $p |- ( ( A e. CC /\ B e. NN ) -> ( A ^ B ) =
+    expnnval $p |- ( ( A e. CC /\ B e. NN ) -> ( A ^ B ) =
                    ( ( x. seq1 ( NN X. { A } ) ) ` B ) ) $=
       ( cc wcel cn wa cexp co cc0 wceq c1 cmul csn cxp cseq1 cfv cif cn0
-      expvalt nnnn0t sylan2 wn wne nnne0t df-ne sylib iffalse syl adantl eqtrd
-      ) ACDZBEDZFABGHZBIJZKBLEAMNOHPZQZUOUKBRDUMUPJULABSBTUAULUPUOJZUKULUNUBZUQ
-      ULBIUCURBUDBIUEUFUNKUOUGUHUIUJ $.
+      expval nnnn0 sylan2 wn wne nnne0 df-ne sylib iffalse syl adantl eqtrd )
+      ACDZBEDZFABGHZBIJZKBLEAMNOHPZQZUOUKBRDUMUPJULABSBTUAULUPUOJZUKULUNUBZUQUL
+      BIUCURBUDBIUEUFUNKUOUGUHUIUJ $.
       $( [22-Oct-2004] $) $( [19-Oct-2004] $)
   $}
 
   $( Value of a complex number raised to the first power. $)
-  exp1t $p |- ( A e. CC -> ( A ^ 1 ) = A ) $=
-    ( cc wcel c1 cexp co cmul cn csn cxp cseq1 cfv wceq 1nn expnnvalt mpan2 wf
+  exp1 $p |- ( A e. CC -> ( A ^ 1 ) = A ) $=
+    ( cc wcel c1 cexp co cmul cn csn cxp cseq1 cfv wceq 1nn expnnval mpan2 wf
     fconstg fvconst syl mulex nnex snex xpex seq11 syl5eq eqtrd ) ABCZADEFZDGHA
     IZJZKFLZAUHDHCZUIULMNADOPUHDUKLZAULUHHUJUKQZUNAMZHABRUOUMUPNHADUKSPTGUKUAHU
     JUBAUCUDUEUFUG $.
@@ -88,18 +88,17 @@ $)
 
   $( Value of a complex number raised to a nonnegative integer power plus one.
      Part of Definition 10-4.1 of [Gleason] p. 134. $)
-  expp1t $p |- ( ( A e. CC /\ N e. NN0 ) -> ( A ^ ( N + 1 ) ) =
+  expp1 $p |- ( ( A e. CC /\ N e. NN0 ) -> ( A ^ ( N + 1 ) ) =
                ( ( A ^ N ) x. A ) ) $=
     ( cc wcel cn0 c1 caddc co cexp cmul wceq cn cc0 wo wa csn cxp cseq1 cfv
     mulex nnex snex xpex seq1p1 adantl wf fvconst fconstg peano2nn syl2an
-    opreq2d eqtrd expnnvalt sylan2 opreq1d 3eqtr4d ex opreq1 opreq2 eqeq12d
-    mulid2t exp0t exp1t ax1cn addid2 opreq2i syl5eq 3eqtr4rd syl5cbir jaod
-    elnn0 syl5ib imp ) ACDZBEDZABFGHZIHZABIHZAJHZKZVNBLDZBMKZNVTVOVNWAVTWBVNWAV
-    TVNWAOZVPJLAPZQZRHZSZBWFSZAJHZVQVSWCWGWHVPWESZJHZWIWAWGWKKVNBJWETLWDUAAUBUC
-    UDUEWCWJAWHJLWDWEUFVPLDZWJAKVNWALAVPWEUGLACUHBUIZUJUKULVNWLVQWGKWAAVPUMWMUN
-    WCVRWHAJABUMUOUPUQWBVTAMFGHZIHZAMIHZAJHZKVNWBVQWOVSWQWBVPWNAIBMFGURUKWBVRWP
-    AJBMAIUSUOUTVNFAJHAWQWOAVAVNWPFAJAVBUOVNAFIHAWOAVCWNFAIFVDVEVFVGVHVIVJBVKVL
-    VM $.
+    opreq2d eqtrd expnnval sylan2 opreq1d 3eqtr4d ex opreq1 opreq2 eqeq12d
+    mulid2 exp0 exp1 ax1cn addid2i opreq2i syl5eq 3eqtr4rd syl5cbir jaod elnn0
+    syl5ib imp ) ACDZBEDZABFGHZIHZABIHZAJHZKZVNBLDZBMKZNVTVOVNWAVTWBVNWAVTVNWAO
+    ZVPJLAPZQZRHZSZBWFSZAJHZVQVSWCWGWHVPWESZJHZWIWAWGWKKVNBJWETLWDUAAUBUCUDUEWC
+    WJAWHJLWDWEUFVPLDZWJAKVNWALAVPWEUGLACUHBUIZUJUKULVNWLVQWGKWAAVPUMWMUNWCVRWH
+    AJABUMUOUPUQWBVTAMFGHZIHZAMIHZAJHZKVNWBVQWOVSWQWBVPWNAIBMFGURUKWBVRWPAJBMAI
+    USUOUTVNFAJHAWQWOAVAVNWPFAJAVBUOVNAFIHAWOAVCWNFAIFVDVEVFVGVHVIVJBVKVLVM $.
     $( [27-Jul-2006] $) $( [20-May-2005] $)
 
   ${
@@ -110,8 +109,8 @@ $)
     $( Lemma for proving nonnegative integer exponentiation closure laws. $)
     expcllem $p |- ( ( A e. F /\ B e. NN0 ) -> ( A ^ B ) e. F ) $=
       ( vz vw wcel cn cc0 wceq wo cexp co cn0 cv wi c1 caddc opreq2 eleq1d
-      imbi2d cc sseli exp1t syl ibir wa cmul opreq1 vtocl2ga ancoms adantlr wb
-      expp1t nnnn0t syl2an adantr mpbird exp31 com12 a2d nnind impcom exp0t
+      imbi2d cc sseli exp1 syl ibir wa cmul opreq1 vtocl2ga ancoms adantlr wb
+      expp1 nnnn0 syl2an adantr mpbird exp31 com12 a2d nnind impcom exp0
       sylan9eqr syl6eqel jaodan elnn0 sylan2b ) CEKZDLKZDMNZOCDPQZEKZDRKVNVOVRV
       PVOVNVRVNCISZPQZEKZTVNCUAPQZEKZTVNCJSZPQZEKZTVNCWDUAUBQZPQZEKZTVNVRTIJDVS
       UANZWAWCVNWJVTWBEVSUACPUCUDUEVSWDNZWAWFVNWKVTWEEVSWDCPUCUDUEVSWGNZWAWIVNW
@@ -126,58 +125,58 @@ $)
   ${
     $d x y A $.  $d x y N $.
     $( Closure of exponentiation of nonnegative integers. $)
-    nnexpclt $p |- ( ( A e. NN /\ N e. NN0 ) -> ( A ^ N ) e. NN ) $=
-      ( vx vy cn nnsscn cv nnmulclt 1nn expcllem ) CDABEFCGDGHIJ $.
+    nnexpcl $p |- ( ( A e. NN /\ N e. NN0 ) -> ( A ^ N ) e. NN ) $=
+      ( vx vy cn nnsscn cv nnmulcl 1nn expcllem ) CDABEFCGDGHIJ $.
       $( [28-Jan-2006] $) $( [16-Dec-2005] $)
 
     $( Closure of exponentiation of nonnegative integers. $)
-    nn0expclt $p |- ( ( A e. NN0 /\ N e. NN0 ) -> ( A ^ N ) e. NN0 ) $=
-      ( vx vy cn0 nn0sscn cv nn0mulclt 1nn0 expcllem ) CDABEFCGDGHIJ $.
+    nn0expcl $p |- ( ( A e. NN0 /\ N e. NN0 ) -> ( A ^ N ) e. NN0 ) $=
+      ( vx vy cn0 nn0sscn cv nn0mulcl 1nn0 expcllem ) CDABEFCGDGHIJ $.
       $( [15-Dec-2005] $) $( [14-Dec-2005] $)
 
     $( Closure of exponentiation of integers. $)
-    zexpclt $p |- ( ( A e. ZZ /\ N e. NN0 ) -> ( A ^ N ) e. ZZ ) $=
-      ( vx vy cz zsscn cv zmulclt 1z expcllem ) CDABEFCGDGHIJ $.
+    zexpcl $p |- ( ( A e. ZZ /\ N e. NN0 ) -> ( A ^ N ) e. ZZ ) $=
+      ( vx vy cz zsscn cv zmulcl 1z expcllem ) CDABEFCGDGHIJ $.
       $( [3-May-2006] $) $( [16-Dec-2005] $)
 
     $( Closure of exponentiation of rationals. $)
-    qexpclt $p |- ( ( A e. QQ /\ N e. NN0 ) -> ( A ^ N ) e. QQ ) $=
-      ( vx vy cq qsscn cv qmulclt c1 cz wcel 1z zqt ax-mp expcllem ) CDABEFCGDG
-      HIJKIEKLIMNO $.
+    qexpcl $p |- ( ( A e. QQ /\ N e. NN0 ) -> ( A ^ N ) e. QQ ) $=
+      ( vx vy cq qsscn cv qmulcl c1 cz wcel 1z zq ax-mp expcllem ) CDABEFCGDGHI
+      JKIEKLIMNO $.
       $( [16-Mar-2006] $) $( [16-Dec-2005] $)
 
     $( Closure of exponentiation of reals. $)
-    reexpclt $p |- ( ( A e. RR /\ N e. NN0 ) -> ( A ^ N ) e. RR ) $=
-      ( vx vy cr axresscn cv axmulrcl 1re expcllem ) CDABEFCGDGHIJ $.
+    reexpcl $p |- ( ( A e. RR /\ N e. NN0 ) -> ( A ^ N ) e. RR ) $=
+      ( vx vy cr axresscn cv remulcl 1re expcllem ) CDABEFCGDGHIJ $.
       $( [15-Dec-2005] $) $( [14-Dec-2005] $)
 
     $( Closure law for nonnegative integer exponentiation. $)
-    expclt $p |- ( ( A e. CC /\ N e. NN0 ) -> ( A ^ N ) e. CC ) $=
-      ( vx vy cc ssid cv axmulcl ax1cn expcllem ) CDABEEFCGDGHIJ $.
+    expcl $p |- ( ( A e. CC /\ N e. NN0 ) -> ( A ^ N ) e. CC ) $=
+      ( vx vy cc ssid cv mulcl ax1cn expcllem ) CDABEEFCGDGHIJ $.
       $( [25-Jul-2005] $) $( [26-May-2005] $)
 
     $( Closure law for exponentiation of positive reals. $)
-    rpexpclt $p |- ( ( A e. RR+ /\ N e. NN0 ) -> ( A ^ N ) e. RR+ ) $=
-      ( vx vy crp cr cc rpssre axresscn sstri cv rpmulclt c1 1re lt01 elrpi
-      expcllem ) CDABEEFGHIJCKDKLMNOPQ $.
+    rpexpcl $p |- ( ( A e. RR+ /\ N e. NN0 ) -> ( A ^ N ) e. RR+ ) $=
+      ( vx vy crp cr cc rpssre axresscn sstri cv rpmulcl 1rp expcllem ) CDABEEF
+      GHIJCKDKLMN $.
       $( [20-Mar-2008] $) $( [24-Feb-2008] $)
   $}
 
   $( Exponentiation in terms of predecessor exponent. $)
   expm1t $p |- ( ( A e. CC /\ N e. NN ) -> ( A ^ N ) =
                ( ( A ^ ( N - 1 ) ) x. A ) ) $=
-    ( cc wcel cn wa c1 cmin co caddc cexp cmul wceq nncnt ax1cn npcant mpan2
-    syl opreq2d adantl cn0 expp1t nnm1nn0t sylan2 eqtr3d ) ACDZBEDZFABGHIZGJIZK
-    IZABKIZAUHKIALIZUGUJUKMUFUGUIBAKUGBCDZUIBMZBNUMGCDUNOBGPQRSTUFUHUADUJULMUGA
-    UHUBBUCUDUE $.
+    ( cc wcel cn wa c1 cmin co caddc cexp cmul wceq nncn ax1cn npcan mpan2 syl
+    opreq2d adantl cn0 expp1 nnm1nn0 sylan2 eqtr3d ) ACDZBEDZFABGHIZGJIZKIZABKI
+    ZAUHKIALIZUGUJUKMUFUGUIBAKUGBCDZUIBMZBNUMGCDUNOBGPQRSTUFUHUADUJULMUGAUHUBBU
+    CUDUE $.
     $( [26-Jan-2006] $) $( [19-Dec-2005] $)
 
   ${
     $d j k N $.
     $( Value of one raised to a nonnegative integer power. $)
-    1expt $p |- ( N e. NN0 -> ( 1 ^ N ) = 1 ) $=
-      ( vj vk c1 cv cexp co wceq cc0 caddc opreq2 eqeq1d cc wcel ax1cn exp0t
-      ax-mp cn0 cmul expp1t mpan opreq1 mulid1 syl6eq syl5bir nn0ind ) DBEZFGZD
+    1exp $p |- ( N e. NN0 -> ( 1 ^ N ) = 1 ) $=
+      ( vj vk c1 cv cexp co wceq cc0 caddc opreq2 eqeq1d cc wcel ax1cn exp0
+      ax-mp cn0 cmul expp1 mpan opreq1 mulid1i syl6eq syl5bir nn0ind ) DBEZFGZD
       HDIFGZDHZDCEZFGZDHZDUKDJGZFGZDHZDAFGZDHBCAUGIHUHUIDUGIDFKLUGUKHUHULDUGUKD
       FKLUGUNHUHUODUGUNDFKLUGAHUHUQDUGADFKLDMNZUJODPQUKRNZUPULDSGZDHUMUSUOUTDUR
       USUOUTHODUKTUALUMUTDDSGDULDDSUBDOUCUDUEUF $.
@@ -187,41 +186,41 @@ $)
   ${
     $d j k A $.  $d j k N $.
     $( Natural number exponentiation is 0 iff its mantissa is 0. $)
-    expeq0t $p |- ( ( A e. CC /\ N e. NN ) -> ( ( A ^ N ) = 0 <-> A = 0 ) ) $=
+    expeq0 $p |- ( ( A e. CC /\ N e. NN ) -> ( ( A ^ N ) = 0 <-> A = 0 ) ) $=
       ( vj vk cn wcel cc cexp co cc0 wceq wb cv wi c1 caddc opreq2 eqeq1d
-      bibi1d imbi2d exp1t wa wo cn0 cmul expp1t mul0ort expclt pm3.26 sylanc
-      bitrd nnnn0t sylan2 bi1 idd jaod olc impbid1 sylan9bb exp31 com12 a2d
-      nnind impcom ) BEFAGFZABHIZJKZAJKZLZVEACMZHIZJKZVHLZNVEAOHIZJKZVHLZNVEADM
-      ZHIZJKZVHLZNVEAVQOPIZHIZJKZVHLZNVEVINCDBVJOKZVMVPVEWEVLVOVHWEVKVNJVJOAHQR
-      STVJVQKZVMVTVEWFVLVSVHWFVKVRJVJVQAHQRSTVJWAKZVMWDVEWGVLWCVHWGVKWBJVJWAAHQ
-      RSTVJBKZVMVIVEWHVLVGVHWHVKVFJVJBAHQRSTVEVNAJAUARVQEFZVEVTWDVEWIVTWDNVEWIV
-      TWDVEWIUBWCVSVHUCZVTVHVEVQUDFZWCWJLWIVEWKUBZWCVRAUEIZJKZWJWLWBWMJAVQUFRVR
-      GFVEWNWJLWLVRAUGAVQUHVEWKUIUJUKVQULUMVTWJVHVTVSVHVHVSVHUNVTVHUOUPVHVSUQUR
-      USUTVAVBVCVD $.
+      bibi1d imbi2d exp1 wa wo cn0 cmul expp1 mul0or expcl pm3.26 sylanc bitrd
+      nnnn0 sylan2 bi1 idd jaod olc impbid1 sylan9bb exp31 com12 a2d nnind
+      impcom ) BEFAGFZABHIZJKZAJKZLZVEACMZHIZJKZVHLZNVEAOHIZJKZVHLZNVEADMZHIZJK
+      ZVHLZNVEAVQOPIZHIZJKZVHLZNVEVINCDBVJOKZVMVPVEWEVLVOVHWEVKVNJVJOAHQRSTVJVQ
+      KZVMVTVEWFVLVSVHWFVKVRJVJVQAHQRSTVJWAKZVMWDVEWGVLWCVHWGVKWBJVJWAAHQRSTVJB
+      KZVMVIVEWHVLVGVHWHVKVFJVJBAHQRSTVEVNAJAUARVQEFZVEVTWDVEWIVTWDNVEWIVTWDVEW
+      IUBWCVSVHUCZVTVHVEVQUDFZWCWJLWIVEWKUBZWCVRAUEIZJKZWJWLWBWMJAVQUFRVRGFVEWN
+      WJLWLVRAUGAVQUHVEWKUIUJUKVQULUMVTWJVHVTVSVHVHVSVHUNVTVHUOUPVHVSUQURUSUTVA
+      VBVCVD $.
       $( [27-Jul-2006] $) $( [23-Feb-2005] $)
 
     $( Natural number exponentiation is nonzero iff its mantissa is nonzero. $)
-    expne0t $p |- ( ( A e. CC /\ N e. NN ) ->
-                  ( A =/= 0 <-> ( A ^ N ) =/= 0 ) ) $=
-      ( cc wcel cn wa cc0 cexp co wceq expeq0t bicomd necon3bid ) ACDBEDFZAGABH
-      IZGNOGJAGJABKLM $.
-      $( [8-May-2005] $) $( [6-May-2005] $)
+    expne0 $p |- ( ( A e. CC /\ N e. NN ) ->
+                  ( ( A ^ N ) =/= 0 <-> A =/= 0 ) ) $=
+      ( cc wcel cn wa cexp co cc0 expeq0 necon3bid ) ACDBEDFABGHIAIABJK $.
+      $( [10-Jul-2008] $) $( [6-May-2005] $)
 
     $( Nonnegative integer exponentiation is nonzero if its mantissa is
        nonzero. $)
-    expne0it $p |- ( ( A e. CC /\ N e. NN0 /\ A =/= 0 ) -> ( A ^ N ) =/= 0 ) $=
-      ( cc wcel cn0 cc0 wne cexp co cn wceq wo wi wa expne0t biimpd ex c1
-      ax1ne0 opreq2 exp0t sylan9eqr neeq1d mpbiri a1dd jaod elnn0 syl5ib 3imp
-      ) ACDZBEDZAFGZABHIZFGZUJBJDZBFKZLULUNMZUKUJUOUQUPUJUOUQUJUONULUNABOPQUJUP
-      UNULUJUPUNUJUPNZUNRFGSURUMRFUPUJUMAFHIRBFAHTAUAUBUCUDQUEUFBUGUHUI $.
-      $( [27-Sep-2006] $) $( [2-Aug-2006] $)
+    expne0i $p |- ( ( A e. CC /\ A =/= 0 /\ N e. NN0 )
+                -> ( A ^ N ) =/= 0 ) $=
+      ( cc wcel cc0 wne cn0 cexp co wa cn wceq wo expne0 biimpar an1rs c1
+      ax1ne0 opreq2 exp0 sylan9eqr neeq1d mpbiri adantlr jaodan elnn0 sylan2b
+      3impa ) ACDZAEFZBGDZABHIZEFZUIUJJZBKDZBELZMUMUKUNUOUMUPUIUOUJUMUIUOJUMUJA
+      BNOPUIUPUMUJUIUPJZUMQEFRUQULQEUPUIULAEHIQBEAHSATUAUBUCUDUEBUFUGUH $.
+      $( [1-Jan-2009] $) $( [2-Aug-2006] $)
 
     $( Nonnegative integer exponentiation with a positive mantissa is
        positive. $)
-    expgt0t $p |- ( ( A e. RR /\ N e. NN0 /\ 0 < A ) -> 0 < ( A ^ N ) ) $=
+    expgt0 $p |- ( ( A e. RR /\ N e. NN0 /\ 0 < A ) -> 0 < ( A ^ N ) ) $=
       ( vj vk cr wcel cn0 cc0 clt wbr cexp co wi wa cv c1 caddc wceq opreq2
-      breq2d imbi2d cc recnt exp0t syl lt01 syl5breqr adantr cmul axmulgt0
-      reexpclt pm3.26 sylanc expp1t sylan sylibrd exp4b com12 com34 imp3a a2d
+      breq2d imbi2d cc recn exp0 syl lt01 syl5breqr adantr cmul axmulgt0
+      reexpcl pm3.26 sylanc expp1 sylan sylibrd exp4b com12 com34 imp3a a2d
       nn0ind exp3a 3imp ) AEFZBGFZHAIJZHABKLZIJZVFVEVGVIMVFVEVGVIVEVGNZHACOZKLZ
       IJZMVJHAHKLZIJZMVJHADOZKLZIJZMVJHAVPPQLZKLZIJZMVJVIMCDBVKHRZVMVOVJWBVLVNH
       IVKHAKSTUAVKVPRZVMVRVJWCVLVQHIVKVPAKSTUAVKVSRZVMWAVJWDVLVTHIVKVSAKSTUAVKB
@@ -233,49 +232,49 @@ $)
   $}
 
   $( Value of zero raised to a natural number power. $)
-  0expt $p |- ( N e. NN -> ( 0 ^ N ) = 0 ) $=
-    ( cn wcel cc0 cexp co wceq eqid cc wb 0cn expeq0t mpan mpbiri ) ABCZDAEFDGZ
-    DDGZDHDICOPQJKDALMN $.
+  0exp $p |- ( N e. NN -> ( 0 ^ N ) = 0 ) $=
+    ( cn wcel cc0 cexp co wceq eqid cc wb 0cn expeq0 mpan mpbiri ) ABCZDAEFDGZD
+    DGZDHDICOPQJKDALMN $.
     $( [30-Oct-2004] $) $( [19-Aug-2004] $)
 
   $( Nonnegative integer exponentiation with a nonnegative mantissa is
      nonnegative. $)
-  expge0t $p |- ( ( A e. RR /\ N e. NN0 /\ 0 <_ A ) -> 0 <_ ( A ^ N ) ) $=
-    ( cr wcel cn0 cc0 cle wbr cexp co cn wceq wo wi wa clt expgt0t nnnn0t
-    syl3an2 3expia opreq1 eqeq2d 0expt eqcomd syl5cbi adantl orim12d wb 0re
-    leloet mpan adantr reexpclt sylan2 syl 3imtr4d ex opreq2 breq2d c1 cc
-    recnt exp0t 1re lt01 ltlei syl5breqr syl5cbir a1dd jaod elnn0 syl5ib 3imp
-    ) ACDZBEDZFAGHZFABIJZGHZVNBKDZBFLZMVPVRNZVOVNVSWAVTVNVSWAVNVSOZFAPHZFALZMZF
-    VQPHZFVQLZMZVPVRWBWCWFWDWGVNVSWCWFVNVOWCWFVSABQBRZSTVSWDWGNVNWDFFBIJZLWGVSW
-    DWJVQFFABIUAUBVSWJFBUCUDUEUFUGVNVPWEUHZVSFCDZVNWKUIFAUJUKULWBVQCDZVRWHUHZVN
-    VOWMVSABUMWIUNWLWMWNUIFVQUJUKUOUPUQVNVTVRVPVTVRFAFIJZGHVNVTVQWOFGBFAIURUSVN
-    UTWOFGVNAVADWOUTLAVBAVCUOFUTUIVDVEVFVGVHVIVJBVKVLVM $.
+  expge0 $p |- ( ( A e. RR /\ N e. NN0 /\ 0 <_ A ) -> 0 <_ ( A ^ N ) ) $=
+    ( cr wcel cn0 cc0 cle wbr cexp co cn wceq wo wi wa clt expgt0 nnnn0
+    syl3an2 3expia opreq1 eqeq2d 0exp eqcomd syl5cbi adantl orim12d wb 0re
+    leloe mpan adantr reexpcl sylan2 syl 3imtr4d ex opreq2 breq2d c1 cc recn
+    exp0 1re lt01 ltleii syl5breqr syl5cbir a1dd jaod elnn0 syl5ib 3imp ) ACDZB
+    EDZFAGHZFABIJZGHZVNBKDZBFLZMVPVRNZVOVNVSWAVTVNVSWAVNVSOZFAPHZFALZMZFVQPHZFV
+    QLZMZVPVRWBWCWFWDWGVNVSWCWFVNVOWCWFVSABQBRZSTVSWDWGNVNWDFFBIJZLWGVSWDWJVQFF
+    ABIUAUBVSWJFBUCUDUEUFUGVNVPWEUHZVSFCDZVNWKUIFAUJUKULWBVQCDZVRWHUHZVNVOWMVSA
+    BUMWIUNWLWMWNUIFVQUJUKUOUPUQVNVTVRVPVTVRFAFIJZGHVNVTVQWOFGBFAIURUSVNUTWOFGV
+    NAVADWOUTLAVBAVCUOFUTUIVDVEVFVGVHVIVJBVKVLVM $.
     $( [28-Jul-2006] $) $( [16-Dec-2005] $)
 
   ${
     $d x y A $.  $d x N $.
     $( Natural number exponentiation with a mantissa greater than 1 is
        greater than 1. $)
-    expgt1t $p |- ( ( A e. RR /\ N e. NN /\ 1 < A ) -> 1 < ( A ^ N ) ) $=
+    expgt1 $p |- ( ( A e. RR /\ N e. NN /\ 1 < A ) -> 1 < ( A ^ N ) ) $=
       ( vx vy cr wcel cn c1 clt wbr cexp co wi wa cv caddc wceq opreq2 breq2d
-      imbi2d cc recnt exp1t syl biimpar cn0 cmul mulgt1t reexpclt pm3.26 jca
-      sylan ex expp1t sylibrd nnnn0t sylan2 exp4b com12 com34 imp3a a2d nnind
-      exp3a 3imp ) AEFZBGFZHAIJZHABKLZIJZVGVFVHVJMVGVFVHVJVFVHNZHACOZKLZIJZMVKH
-      AHKLZIJZMVKHADOZKLZIJZMVKHAVQHPLZKLZIJZMVKVJMCDBVLHQZVNVPVKWCVMVOHIVLHAKR
-      STVLVQQZVNVSVKWDVMVRHIVLVQAKRSTVLVTQZVNWBVKWEVMWAHIVLVTAKRSTVLBQZVNVJVKWF
-      VMVIHIVLBAKRSTVFVPVHVFVOAHIVFAUAFZVOAQAUBZAUCUDSUEVQGFZVKVSWBWIVFVHVSWBMW
-      IVFVSVHWBVFWIVSVHWBMMVFWIVSVHWBVFVQUFFZVSVHNZWBMWIVFWJNZWKHVRAUGLZIJZWBWL
-      WKWNVREFZVFNWKWNWLVRAUHWLWOVFAVQUIVFWJUJUKULUMWLWAWMHIWGWJWAWMQVFAVQUNWHU
-      LSUOVQUPUQURUSUTVAVBVCVDUSVE $.
+      imbi2d cc recn exp1 syl biimpar cn0 cmul mulgt1 reexpcl pm3.26 jca sylan
+      ex expp1 sylibrd nnnn0 sylan2 exp4b com12 com34 imp3a a2d nnind exp3a
+      3imp ) AEFZBGFZHAIJZHABKLZIJZVGVFVHVJMVGVFVHVJVFVHNZHACOZKLZIJZMVKHAHKLZI
+      JZMVKHADOZKLZIJZMVKHAVQHPLZKLZIJZMVKVJMCDBVLHQZVNVPVKWCVMVOHIVLHAKRSTVLVQ
+      QZVNVSVKWDVMVRHIVLVQAKRSTVLVTQZVNWBVKWEVMWAHIVLVTAKRSTVLBQZVNVJVKWFVMVIHI
+      VLBAKRSTVFVPVHVFVOAHIVFAUAFZVOAQAUBZAUCUDSUEVQGFZVKVSWBWIVFVHVSWBMWIVFVSV
+      HWBVFWIVSVHWBMMVFWIVSVHWBVFVQUFFZVSVHNZWBMWIVFWJNZWKHVRAUGLZIJZWBWLWKWNVR
+      EFZVFNWKWNWLVRAUHWLWOVFAVQUIVFWJUJUKULUMWLWAWMHIWGWJWAWMQVFAVQUNWHULSUOVQ
+      UPUQURUSUTVAVBVCVDUSVE $.
       $( [27-Jul-2006] $) $( [13-Feb-2005] $)
   $}
 
   $( Nonnegative integer exponentiation with a mantissa greater than or equal
      to 1 is greater than or equal to 1. $)
-  expge1t $p |- ( ( A e. RR /\ N e. NN0 /\ 1 <_ A ) -> 1 <_ ( A ^ N ) ) $=
-    ( cr wcel cn0 c1 cle wbr cexp co cn cc0 wceq wo wi wa clt expgt1t 3expia
-    opreq1 eqeq2d nnnn0t 1expt syl eqcomd syl5cbi adantl orim12d wb 1re leloet
-    mpan adantr reexpclt sylan2 3imtr4d opreq2 cc recnt exp0t sylan9eqr leid
+  expge1 $p |- ( ( A e. RR /\ N e. NN0 /\ 1 <_ A ) -> 1 <_ ( A ^ N ) ) $=
+    ( cr wcel cn0 c1 cle wbr cexp co cn cc0 wceq wo wi wa clt expgt1 3expia
+    opreq1 eqeq2d nnnn0 1exp syl eqcomd syl5cbi adantl orim12d wb 1re leloe
+    mpan adantr reexpcl sylan2 3imtr4d opreq2 cc recn exp0 sylan9eqr leidi
     syl5breqr a1d jaodan elnn0 sylan2b 3impia ) ACDZBEDZFAGHZFABIJZGHZVIBKDZBLM
     ZNVKVMOZVJVIVNVPVOVIVNPZFAQHZFAMZNZFVLQHZFVLMZNZVKVMVQVRWAVSWBVIVNVRWAABRSV
     NVSWBOVIVSFFBIJZMWBVNVSWDVLFFABITUAVNWDFVNVJWDFMBUBZBUCUDUEUFUGUHVIVKVTUIZV
@@ -287,11 +286,11 @@ $)
     $d j k A $.  $d j k B $.  $d j k M $.  $d j N $.
     $( Natural number exponentiation of a product.  Proposition 10-4.2(c) of
        [Gleason] p. 135, restricted to nonnegative integer exponents. $)
-    mulexpt $p |- ( ( A e. CC /\ B e. CC /\ N e. NN0 ) ->
+    mulexp $p |- ( ( A e. CC /\ B e. CC /\ N e. NN0 ) ->
                   ( ( A x. B ) ^ N ) = ( ( A ^ N ) x. ( B ^ N ) ) ) $=
       ( vj vk cc wcel cn0 cmul co cexp wceq wa cv wi cc0 c1 caddc opreq2
-      opreq12d eqeq12d imbi2d axmulcl exp0t syl opreqan12d ax1cn mulid1 syl6eq
-      eqtr4d expp1t sylan adantr opreq1 adantl mul4t expclt anim12i anandirs
+      opreq12d eqeq12d imbi2d mulcl exp0 syl opreqan12d ax1cn mulid1i syl6eq
+      eqtr4d expp1 sylan adantr opreq1 adantl mul4 expcl anim12i anandirs
       pm3.26 sylanc adantlr adantll 3eqtrd exp31 com12 a2d nn0ind exp3a com3l
       3imp ) AFGZBFGZCHGZABIJZCKJZACKJZBCKJZIJZLZVNVLVMVTVNVLVMVTVLVMMZVODNZKJZ
       AWBKJZBWBKJZIJZLZOWAVOPKJZAPKJZBPKJZIJZLZOWAVOENZKJZAWMKJZBWMKJZIJZLZOWAV
@@ -307,123 +306,174 @@ $)
       $( [16-Feb-2005] $) $( [13-Feb-2005] $)
 
     $( Nonnegative integer exponentiation of a reciprocal. $)
-    recexpt $p |- ( ( A e. CC /\ N e. NN0 /\ A =/= 0 ) ->
+    exprec $p |- ( ( A e. CC /\ A =/= 0 /\ N e. NN0 ) ->
+                  ( ( 1 / A ) ^ N ) = ( 1 / ( A ^ N ) ) ) $=
+      ( vj vk cc wcel cc0 wne cn0 c1 cdiv co cexp wceq wa cv wi caddc opreq2
+      opreq2d eqeq12d imbi2d reccl exp0 syl ax1cn div1i syl6eq adantr eqtr4d
+      cmul opreq1 ad2antll expp1 sylan an1rs adantrr divmuldiv mpanl12 expcl
+      expne0i 3com23 3expa jca id adantlr sylanc mulid1i opreq1i syl6req eqtrd
+      3eqtr4d exp43 com12 imp3a a2d nn0ind 3impia ) AEFZAGHZBIFZJAKLZBMLZJABMLZ
+      KLZNZWAVSVTOZWFWGWBCPZMLZJAWHMLZKLZNZQWGWBGMLZJAGMLZKLZNZQWGWBDPZMLZJAWQM
+      LZKLZNZQWGWBWQJRLZMLZJAXBMLZKLZNZQWGWFQCDBWHGNZWLWPWGXGWIWMWKWOWHGWBMSXGW
+      JWNJKWHGAMSTUAUBWHWQNZWLXAWGXHWIWRWKWTWHWQWBMSXHWJWSJKWHWQAMSTUAUBWHXBNZW
+      LXFWGXIWIXCWKXEWHXBWBMSXIWJXDJKWHXBAMSTUAUBWHBNZWLWFWGXJWIWCWKWEWHBWBMSXJ
+      WJWDJKWHBAMSTUAUBWGWMJWOWGWBEFZWMJNAUCZWBUDUEVSWOJNVTVSWOJJKLJVSWNJJKAUDT
+      JUFUGUHUIUJWQIFZWGXAXFXMVSVTXAXFQZVSXMVTXNQVSXMVTXAXFVSXMOZVTXAOOWRWBUKLZ
+      WTWBUKLZXCXEXAXPXQNXOVTWRWTWBUKULUMXOVTXCXPNZXAVSVTXMXRXKXMXRWGWBWQUNXLUO
+      UPUQXOVTXEXQNXAXOVTOZXEJWSAUKLZKLZXQXOXEYANVTXOXDXTJKAWQUNTUIXSXQJJUKLZXT
+      KLZYAWSEFZWSGHZOZWGXQYCNZXSJEFZYHYFWGOYGUFUFJJWSAURUSXSYDYEXOYDVTAWQUTUIV
+      SXMVTYEVSVTXMYEAWQVAVBVCVDVSVTWGXMWGVEVFVGYBJXTKJUFVHVIVJVKUQVLVMVNVOVPVQ
+      VNVR $.
+      $( [7-Mar-2009] $) $( [2-Aug-2006] $)
+
+    $( Nonnegative integer exponentiation of a reciprocal. $)
+    exprecOLD $p |- ( ( A e. CC /\ N e. NN0 /\ A =/= 0 ) ->
                   ( ( 1 / A ) ^ N ) = ( 1 / ( A ^ N ) ) ) $=
       ( vj vk cc wcel cn0 cc0 wne c1 cdiv co cexp wceq wi wa cv caddc opreq2
-      opreq2d eqeq12d imbi2d recclt exp0t syl ax1cn div1 syl6eq adantr eqtr4d
-      cmul opreq1 ad2antll expp1t sylan an1rs adantrr divmuldivt expclt jctil
-      pm3.26 jca expne0it 3expa pm3.27 sylanc mulid1 opreq1i syl6req eqtrd
-      3eqtr4d exp43 com12 imp3a a2d nn0ind exp3a 3imp ) AEFZBGFZAHIZJAKLZBMLZJA
-      BMLZKLZNZVTVSWAWFOVTVSWAWFVSWAPZWBCQZMLZJAWHMLZKLZNZOWGWBHMLZJAHMLZKLZNZO
-      WGWBDQZMLZJAWQMLZKLZNZOWGWBWQJRLZMLZJAXBMLZKLZNZOWGWFOCDBWHHNZWLWPWGXGWIW
-      MWKWOWHHWBMSXGWJWNJKWHHAMSTUAUBWHWQNZWLXAWGXHWIWRWKWTWHWQWBMSXHWJWSJKWHWQ
-      AMSTUAUBWHXBNZWLXFWGXIWIXCWKXEWHXBWBMSXIWJXDJKWHXBAMSTUAUBWHBNZWLWFWGXJWI
-      WCWKWEWHBWBMSXJWJWDJKWHBAMSTUAUBWGWMJWOWGWBEFZWMJNAUCZWBUDUEVSWOJNWAVSWOJ
-      JKLJVSWNJJKAUDTJUFUGUHUIUJWQGFZWGXAXFXMVSWAXAXFOZVSXMWAXNOVSXMWAXAXFVSXMP
-      ZWAXAPPWRWBUKLZWTWBUKLZXCXEXAXPXQNXOWAWRWTWBUKULUMXOWAXCXPNZXAVSWAXMXRXKX
-      MXRWGWBWQUNXLUOUPUQXOWAXEXQNXAXOWAPZXEJWSAUKLZKLZXQXOXEYANWAXOXDXTJKAWQUN
-      TUIXSXQJJUKLZXTKLZYAJEFZWSEFZPZYDVSPZPZWSHIZWAPXQYCNXSJWSJAURXOYHWAXOYFYG
-      XOYEYDAWQUSUFUTXOVSYDVSXMVAUFUTVBUIXSYIWAVSXMWAYIAWQVCVDXOWAVEVBVFYBJXTKJ
-      UFVGVHVIVJUQVKVLVMVNVOVPVQVMVR $.
+      opreq2d eqeq12d imbi2d reccl exp0 syl ax1cn div1i syl6eq adantr eqtr4d
+      cmul opreq1 ad2antll expp1 sylan an1rs adantrr divmuldiv a1i jca simplr
+      pm3.26 anim12i simprr pm3.27 sylanc expcl jctil w3a expne0i 3simp1
+      3simp3 3simp2 syl3anc 3expa mulid1i opreq1i syl6req eqtrd 3eqtr4d exp43
+      com12 imp3a a2d nn0ind exp3a 3imp ) AEFZBGFZAHIZJAKLZBMLZJABMLZKLZNZWIWHW
+      JWOOWIWHWJWOWHWJPZWKCQZMLZJAWQMLZKLZNZOWPWKHMLZJAHMLZKLZNZOWPWKDQZMLZJAXF
+      MLZKLZNZOWPWKXFJRLZMLZJAXKMLZKLZNZOWPWOOCDBWQHNZXAXEWPXPWRXBWTXDWQHWKMSXP
+      WSXCJKWQHAMSTUAUBWQXFNZXAXJWPXQWRXGWTXIWQXFWKMSXQWSXHJKWQXFAMSTUAUBWQXKNZ
+      XAXOWPXRWRXLWTXNWQXKWKMSXRWSXMJKWQXKAMSTUAUBWQBNZXAWOWPXSWRWLWTWNWQBWKMSX
+      SWSWMJKWQBAMSTUAUBWPXBJXDWPWKEFZXBJNAUCZWKUDUEWHXDJNWJWHXDJJKLJWHXCJJKAUD
+      TJUFUGUHUIUJXFGFZWPXJXOYBWHWJXJXOOZWHYBWJYCOWHYBWJXJXOWHYBPZWJXJPPXGWKUKL
+      ZXIWKUKLZXLXNXJYEYFNYDWJXGXIWKUKULUMYDWJXLYENZXJWHWJYBYGXTYBYGWPWKXFUNYAU
+      OUPUQYDWJXNYFNXJYDWJPZXNJXHAUKLZKLZYFYDXNYJNWJYDXMYIJKAXFUNTUIYHYFJJUKLZY
+      IKLZYJJEFZXHEFZPZYMWHPZPZXHHIZWJPZYFYLNZYHYMYMPYNYRPZWPPYTYQYSPZJJXHAURUU
+      BYMYMYMUUBUFUSZUUCUTUUBUUAWPYQYNYSYRYMYNYPVAYRWJVBVCYQWHYSWJYOYMWHVDYRWJV
+      EVCUTVFYDYQWJYDYOYPYDYNYMAXFVGUFVHYDWHYMWHYBVBUFVHUTUIYHYRWJWHYBWJYRWHWJY
+      BYRWHYBWJVIAXFVJWHYBWJVKWHYBWJVLWHYBWJVMVNVOYDWJVEUTVFYKJYIKJUFVPVQVRVSUQ
+      VTWAWBWCWDWEWFWBWG $.
       $( [10-Oct-2006] $) $( [2-Aug-2006] $)
 
     $( Sum of exponents law for nonnegative integer exponentiation.
        Proposition 10-4.2(a) of [Gleason] p. 135. $)
-    expaddt $p |- ( ( A e. CC /\ M e. NN0 /\ N e. NN0 ) ->
+    expadd $p |- ( ( A e. CC /\ M e. NN0 /\ N e. NN0 ) ->
                   ( A ^ ( M + N ) ) = ( ( A ^ M ) x. ( A ^ N ) ) ) $=
       ( vj vk cc wcel cn0 caddc co cexp cmul wceq wa cv wi cc0 c1 opreq2
-      opreq2d eqeq12d imbi2d expclt ax1id syl exp0t adantr nn0cnt ax0id adantl
-      3eqtr4rd ax1cn axaddass mp3an3 syl2an adantll expp1t simpll nn0addclt
-      sylanc eqtr3d adantlr axmulass syl3anc eqtr4d opreq1 syl5bir expcom a2d
-      nn0ind exp3a com3l 3imp ) AFGZBHGZCHGZABCIJZKJZABKJZACKJZLJZMZVPVNVOWBVPV
-      NVOWBVNVONZABDOZIJZKJZVSAWDKJZLJZMZPWCABQIJZKJZVSAQKJZLJZMZPWCABEOZIJZKJZ
-      VSAWOKJZLJZMZPWCABWORIJZIJZKJZVSAXAKJZLJZMZPWCWBPDECWDQMZWIWNWCXGWFWKWHWM
-      XGWEWJAKWDQBISTXGWGWLVSLWDQAKSTUAUBWDWOMZWIWTWCXHWFWQWHWSXHWEWPAKWDWOBIST
-      XHWGWRVSLWDWOAKSTUAUBWDXAMZWIXFWCXIWFXCWHXEXIWEXBAKWDXABISTXIWGXDVSLWDXAA
-      KSTUAUBWDCMZWIWBWCXJWFVRWHWAXJWEVQAKWDCBISTXJWGVTVSLWDCAKSTUAUBWCVSRLJZVS
-      WMWKWCVSFGZXKVSMABUCZVSUDUEWCWLRVSLVNWLRMVOAUFUGTWCWJBAKVOWJBMZVNVOBFGZXN
-      BUHZBUIUEUJTUKWOHGZWCWTXFWCXQWTXFPWCXQNZXFWQALJZWSALJZMWTXRXCXSXEXTXRAWPR
-      IJZKJZXCXSXRYAXBAKVOXQYAXBMZVNXOWOFGZYCVOXQXOYDRFGYCULBWORUMUNXPWOUHUOUPT
-      VNWPHGZYBXSMXRAWPUQVNVOXQURZVOXQYEVNBWOUSUPUTVAXRXEVSWRALJZLJZXTXRXDYGVSL
-      VNXQXDYGMVOAWOUQVBTXLWRFGZVNXTYHMXRVSWRAVCWCXLXQXMUGVNXQYIVOAWOUCVBYFVDVE
-      UAWQWSALVFVGVHVIVJVKVLVM $.
+      opreq2d eqeq12d imbi2d expcl ax1id syl exp0 adantr nn0cn addid1 adantl
+      3eqtr4rd ax1cn addass mp3an3 syl2an adantll expp1 simpll nn0addcl sylanc
+      eqtr3d adantlr mulass syl3anc eqtr4d opreq1 syl5bir expcom a2d nn0ind
+      exp3a com3l 3imp ) AFGZBHGZCHGZABCIJZKJZABKJZACKJZLJZMZVPVNVOWBVPVNVOWBVN
+      VONZABDOZIJZKJZVSAWDKJZLJZMZPWCABQIJZKJZVSAQKJZLJZMZPWCABEOZIJZKJZVSAWOKJ
+      ZLJZMZPWCABWORIJZIJZKJZVSAXAKJZLJZMZPWCWBPDECWDQMZWIWNWCXGWFWKWHWMXGWEWJA
+      KWDQBISTXGWGWLVSLWDQAKSTUAUBWDWOMZWIWTWCXHWFWQWHWSXHWEWPAKWDWOBISTXHWGWRV
+      SLWDWOAKSTUAUBWDXAMZWIXFWCXIWFXCWHXEXIWEXBAKWDXABISTXIWGXDVSLWDXAAKSTUAUB
+      WDCMZWIWBWCXJWFVRWHWAXJWEVQAKWDCBISTXJWGVTVSLWDCAKSTUAUBWCVSRLJZVSWMWKWCV
+      SFGZXKVSMABUCZVSUDUEWCWLRVSLVNWLRMVOAUFUGTWCWJBAKVOWJBMZVNVOBFGZXNBUHZBUI
+      UEUJTUKWOHGZWCWTXFWCXQWTXFPWCXQNZXFWQALJZWSALJZMWTXRXCXSXEXTXRAWPRIJZKJZX
+      CXSXRYAXBAKVOXQYAXBMZVNXOWOFGZYCVOXQXOYDRFGYCULBWORUMUNXPWOUHUOUPTVNWPHGZ
+      YBXSMXRAWPUQVNVOXQURZVOXQYEVNBWOUSUPUTVAXRXEVSWRALJZLJZXTXRXDYGVSLVNXQXDY
+      GMVOAWOUQVBTXLWRFGZVNXTYHMXRVSWRAVCWCXLXQXMUGVNXQYIVOAWOUCVBYFVDVEUAWQWSA
+      LVFVGVHVIVJVKVLVM $.
       $( [2-Dec-2004] $) $( [30-Nov-2004] $)
 
     $( Product of exponents law for natural number exponentiation.  Proposition
        10-4.2(b) of [Gleason] p. 135, restricted to nonnegative integer
        exponents. $)
-    expmult $p |- ( ( A e. CC /\ M e. NN0 /\ N e. NN0 ) ->
+    expmul $p |- ( ( A e. CC /\ M e. NN0 /\ N e. NN0 ) ->
                ( A ^ ( M x. N ) ) = ( ( A ^ M ) ^ N ) ) $=
       ( vj vk cc wcel cn0 cmul co cexp wceq wa cv wi cc0 c1 caddc opreq2
-      opreq2d eqeq12d imbi2d nn0cnt mul01t syl exp0t sylan9eqr expclt eqtr4d
-      ax1cn axdistr mp3an3 ax1id adantr eqtrd syl2an adantll expaddt simpll
-      nn0mulclt simplr syl3anc expp1t sylan opreq1 syl5bir expcom a2d nn0ind
-      exp3a com3l 3imp ) AFGZBHGZCHGZABCIJZKJZABKJZCKJZLZVOVMVNVTVOVMVNVTVMVNMZ
-      ABDNZIJZKJZVRWBKJZLZOWAABPIJZKJZVRPKJZLZOWAABENZIJZKJZVRWKKJZLZOWAABWKQRJ
-      ZIJZKJZVRWPKJZLZOWAVTODECWBPLZWFWJWAXAWDWHWEWIXAWCWGAKWBPBISTWBPVRKSUAUBW
-      BWKLZWFWOWAXBWDWMWEWNXBWCWLAKWBWKBISTWBWKVRKSUAUBWBWPLZWFWTWAXCWDWRWEWSXC
-      WCWQAKWBWPBISTWBWPVRKSUAUBWBCLZWFVTWAXDWDVQWEVSXDWCVPAKWBCBISTWBCVRKSUAUB
-      WAWHQWIVNVMWHAPKJQVNWGPAKVNBFGZWGPLBUCZBUDUETAUFUGWAVRFGZWIQLABUHZVRUFUEU
-      IWKHGZWAWOWTWAXIWOWTOWAXIMZWTWMVRIJZWNVRIJZLWOXJWRXKWSXLXJWRAWLBRJZKJZXKX
-      JWQXMAKVNXIWQXMLZVMXEWKFGZXOVNXIXEXPMZWQWLBQIJZRJZXMXEXPQFGWQXSLUJBWKQUKU
-      LXQXRBWLRXEXRBLXPBUMUNTUOXFWKUCUPUQTVMWLHGZVNXNXKLXJAWLBURVMVNXIUSVNXIXTV
-      MBWKUTUQVMVNXIVAVBUOXGXIWSXLLWAVRWKVCXHVDUAWMWNVRIVEVFVGVHVIVJVKVL $.
+      opreq2d eqeq12d imbi2d nn0cn mul01 syl exp0 sylan9eqr expcl eqtr4d ax1cn
+      adddi mp3an3 ax1id adantr eqtrd syl2an adantll expadd simpll nn0mulcl
+      simplr syl3anc expp1 sylan opreq1 syl5bir expcom a2d nn0ind exp3a com3l
+      3imp ) AFGZBHGZCHGZABCIJZKJZABKJZCKJZLZVOVMVNVTVOVMVNVTVMVNMZABDNZIJZKJZV
+      RWBKJZLZOWAABPIJZKJZVRPKJZLZOWAABENZIJZKJZVRWKKJZLZOWAABWKQRJZIJZKJZVRWPK
+      JZLZOWAVTODECWBPLZWFWJWAXAWDWHWEWIXAWCWGAKWBPBISTWBPVRKSUAUBWBWKLZWFWOWAX
+      BWDWMWEWNXBWCWLAKWBWKBISTWBWKVRKSUAUBWBWPLZWFWTWAXCWDWRWEWSXCWCWQAKWBWPBI
+      STWBWPVRKSUAUBWBCLZWFVTWAXDWDVQWEVSXDWCVPAKWBCBISTWBCVRKSUAUBWAWHQWIVNVMW
+      HAPKJQVNWGPAKVNBFGZWGPLBUCZBUDUETAUFUGWAVRFGZWIQLABUHZVRUFUEUIWKHGZWAWOWT
+      WAXIWOWTOWAXIMZWTWMVRIJZWNVRIJZLWOXJWRXKWSXLXJWRAWLBRJZKJZXKXJWQXMAKVNXIW
+      QXMLZVMXEWKFGZXOVNXIXEXPMZWQWLBQIJZRJZXMXEXPQFGWQXSLUJBWKQUKULXQXRBWLRXEX
+      RBLXPBUMUNTUOXFWKUCUPUQTVMWLHGZVNXNXKLXJAWLBURVMVNXIUSVNXIXTVMBWKUTUQVMVN
+      XIVAVBUOXGXIWSXLLWAVRWKVCXHVDUAWMWNVRIVEVFVGVHVIVJVKVL $.
       $( [3-Feb-2006] $) $( [4-Jan-2006] $)
   $}
 
   $( Exponent subtraction law for nonnegative integer exponentiation. $)
-  expsubt $p |- ( ( ( A e. CC /\ M e. NN0 /\ N e. NN0 ) /\
+  expsub $p |- ( ( ( ( A e. CC /\ A =/= 0 ) /\ M e. NN0 /\ N e. NN0 ) /\
+      N <_ M ) -> ( A ^ ( M - N ) ) = ( ( A ^ M ) / ( A ^ N ) ) ) $=
+    ( cc wcel cc0 wne wa cn0 w3a cle wbr cexp co cdiv cmin wceq cmul caddc
+    expadd simpll 3ad2antl1 3simp3 adantr wb nn0sub ancoms biimpa 3adantl1
+    syl3anc pncan3 nn0cn syl2an opreq2d 3adant1 eqtr3d divmul expcl adantlr
+    3adant3 sylanc 3adant2 expne0i 3expa jca mpbird eqcomd ) ADEZAFGZHZBIEZCIEZ
+    JZCBKLZHZABMNZACMNZONZABCPNZMNZVOVRVTQZVQVTRNZVPQZVOACVSSNZMNZWBVPVHVLVSIEZ
+    WEWBQVOACVSTVJVKVNVHVLVHVIVNUAUBZVMVLVNVJVKVLUCUDVKVLVNWFVJVKVLHZVNWFVLVKVN
+    WFUECBUFUGUHUIZUJVMWEVPQZVNVKVLWJVJWHWDBAMVLVKWDBQZCDEBDEWKVLVKCBUKCULBULUM
+    UGUNUOUDUPVPDEZVTDEZVQDEZVQFGZHWAWCUEVOVPVTVQUQVMWLVNVJVKWLVLVHVKWLVIABURUS
+    UTUDVHWFWMVOAVSURWGWIVAVOWNWOVMWNVNVJVLWNVKVHVLWNVIACURUSVBUDVMWOVNVJVLWOVK
+    VHVIVLWOACVCVDVBUDVEUJVFVG $.
+    $( [12-Jan-2009] $) $( [2-Aug-2006] $)
+
+  $( Exponent subtraction law for nonnegative integer exponentiation. $)
+  expsubOLD $p |- ( ( ( A e. CC /\ M e. NN0 /\ N e. NN0 ) /\
   ( A =/= 0 /\ N <_ M ) ) -> ( A ^ ( M - N ) ) = ( ( A ^ M ) / ( A ^ N ) ) ) $=
     ( cc wcel cn0 w3a cc0 wne cle wbr wa cexp co cdiv cmin wceq cmul caddc
-    expaddt 3simp1 adantr 3simp3 wb nn0subt ancoms biimpa 3adantl1 syl3anc
-    pncan3t nn0cnt syl2an opreq2d 3adant1 eqtr3d adantrl divmult expclt
-    3adant3 3adant2 sylanc 3jca expne0it 3expa 3adantl2 adantrr mpbird eqcomd
-    ) ADEZBFEZCFEZGZAHIZCBJKZLZLZABMNZACMNZONZABCPNZMNZVPVSWAQZVRWARNZVQQZVLVNW
-    DVMVLVNLZACVTSNZMNZWCVQVIVKVTFEZWGWCQWEACVTTVLVIVNVIVJVKUAUBZVLVKVNVIVJVKUC
-    UBVJVKVNWHVIVJVKLZVNWHVKVJVNWHUDCBUEUFUGUHZUIVLWGVQQZVNVJVKWLVIWJWFBAMVKVJW
-    FBQZCDEBDEWMVKVJCBUJCUKBUKULUFUMUNUBUOUPVQDEZVRDEZWADEZGVRHIZWBWDUDVPVQVRWA
-    UQVPWNWOWPVLWNVOVIVJWNVKABURUSUBVLWOVOVIVKWOVJACURUTUBVLVNWPVMVIWHWPWEAVTUR
-    WIWKVAUPVBVLVMWQVNVIVKVMWQVJVIVKVMWQACVCVDVEVFVAVGVH $.
+    expadd 3simp1 adantr 3simp3 wb nn0sub ancoms biimpa 3adantl1 syl3anc
+    pncan3 nn0cn syl2an opreq2d 3adant1 eqtr3d adantrl divmul 3simp2 id
+    anim12i expcl 3adant3 3adant2 sylanc 3jca expne0i 3expa 3adantl2 adantrr
+    mpbird eqcomd ) ADEZBFEZCFEZGZAHIZCBJKZLZLZABMNZACMNZONZABCPNZMNZVSWBWDQZWA
+    WDRNZVTQZVOVQWGVPVOVQLZACWCSNZMNZWFVTVLVNWCFEZWJWFQWHACWCTVOVLVQVLVMVNUAUBZ
+    VOVNVQVLVMVNUCUBVMVNVQWKVLVMVNLZVQWKVNVMVQWKUDCBUEUFUGUHZUIVOWJVTQZVQVMVNWO
+    VLWMWIBAMVNVMWIBQZCDEBDEWPVNVMCBUJCUKBUKULUFUMUNUBUOUPVTDEZWADEZWDDEZGZWAHI
+    ZWEWGUDZVSWQWSWRXALXBWTXALVTWDWAUQWTWQXAWQWRWSUAUBWTWSXAWQWRWSUCUBWTWRXAXAW
+    QWRWSURXAUSUTUIVSWQWRWSVOWQVRVLVMWQVNABVAVBUBVOWRVRVLVNWRVMACVAVCUBVOVQWSVP
+    VLWKWSWHAWCVAWLWNVDUPVEVOVPXAVQVLVNVPXAVMVLVNVPXAVLVPVNXAVLVNVPGACVFVLVNVPU
+    AVLVNVPUCVLVNVPURUIVGVHVIVDVJVK $.
     $( [10-Oct-2006] $) $( [2-Aug-2006] $)
 
+  $( Value of a complex number raised to a nonnegative integer power minus
+     one. $)
+  expm1 $p |- ( ( A e. CC /\ A =/= 0 /\ N e. NN ) -> ( A ^ ( N - 1 ) ) =
+               ( ( A ^ N ) / A ) ) $=
+    ( cc wcel cc0 wne cn w3a c1 cmin co cexp cdiv wa cn0 cle wbr wceq expsub
+    3simpa nnnn0 3ad2ant3 1nn0 a1i 3jca nnge1 sylanc exp1 3ad2ant1 opreq2d
+    eqtrd ) ACDZAEFZBGDZHZABIJKLKZABLKZAILKZMKZUQAMKULUMNZBODZIODZHIBPQZUPUSRUO
+    ABISUOUTVAVBULUMUNTUNULVAUMBUAUBVBUOUCUDUEUNULVCUMBUFUBUGUOURAUQMULUMURARUN
+    AUHUIUJUK $.
+    $( [8-Mar-2009] $) $( [25-Dec-2008] $)
+
   $( Nonnegative integer exponentiation of a quotient. $)
-  divexpt $p |- ( ( ( A e. CC /\ B e. CC /\ N e. NN0 ) /\ B =/= 0 ) ->
+  expdiv $p |- ( ( A e. CC /\ ( B e. CC /\ B =/= 0 ) /\ N e. NN0 ) ->
                 ( ( A / B ) ^ N ) = ( ( A ^ N ) / ( B ^ N ) ) ) $=
-    ( cc wcel cn0 cc0 wne cdiv co cexp wceq wa c1 cmul divrect 3expb opreq1d
-    adantr mulexpt 3expa recclt sylanl2 recexpt an1rs adantll opreq2d expclt
-    adantlr adantlrr expne0it syl3anc eqtr4d 3eqtrd exp42 com34 3imp1 ) ADEZBDE
-    ZCFEZBGHZABIJZCKJZACKJZBCKJZIJZLZURUSVAUTVGURUSVAUTVGURUSVAMZMZUTMZVCANBIJZ
-    OJZCKJZVDVKCKJZOJZVFVIVCVMLUTVIVBVLCKURUSVAVBVLLABPQRSURVKDEZUTVMVOLZVHURVP
-    UTVQAVKCTUABUBUCVJVOVDNVEIJZOJZVFVJVNVRVDOVHUTVNVRLZURUSUTVAVTUSUTVAVTBCUDU
-    AUEUFUGVDDEZVEDEZVEGHZVFVSLVJVDVEPURUTWAVHACUHUIURUSUTWBVAUSUTWBURBCUHUFUJV
-    HUTWCURUSUTVAWCUSUTVAWCBCUKUAUEUFULUMUNUOUPUQ $.
-    $( [9-Jun-2007] $) $( [2-Aug-2006] $)
+    ( cc wcel cc0 wne wa cn0 w3a cdiv co cexp c1 cmul wceq divrec 3expb
+    3adant3 opreq1d mulexp reccl syl3an2 exprec 3expa 3adant1 opreq2d expcl
+    3adant2 adantlr expne0i syl3anc eqtr4d 3eqtrd ) ADEZBDEZBFGZHZCIEZJZABKLZCM
+    LANBKLZOLZCMLZACMLZVBCMLZOLZVEBCMLZKLZUTVAVCCMUOURVAVCPZUSUOUPUQVJABQRSTUOV
+    BDEUSVDVGPURAVBCUABUBUCUTVGVENVHKLZOLZVIUTVFVKVEOURUSVFVKPZUOUPUQUSVMBCUDUE
+    UFUGVEDEZVHDEZVHFGZVIVLPUTVEVHQUOUSVNURACUHUIURUSVOUOUPUSVOUQBCUHUJUFURUSVP
+    UOUPUQUSVPBCUKUEUFULUMUN $.
+    $( [12-Mar-2009] $) $( [2-Aug-2006] $)
 
   $( Ordering relationship for exponentiation. $)
-  expordit $p |- ( ( ( A e. RR /\ M e. NN0 /\ N e. NN0 ) /\
+  expordi $p |- ( ( ( A e. RR /\ M e. NN0 /\ N e. NN0 ) /\
              ( 1 < A /\ M < N ) ) -> ( A ^ M ) < ( A ^ N ) ) $=
-    ( cr wcel cn0 w3a c1 clt wbr wa cexp co cmul cmin cn expgt1t 3simp1 adantr
-    wb cz znnsubt nn0zt syl2an 3adant1 biimpa adantrl simprl syl3anc cc0
-    ltmul1t 1re a1i reexpclt nnnn0t syl sylanc 3adant3 3jca wi lt01 0re
-    axlttrn mp3an12 mpani expgt0t 3expia syld imp adantrr mpbid wceq cc expclt
-    recnt sylan mulid2t caddc recnd 3simp2 expaddt syl3an2 npcant nn0cnt
-    ancoms opreq2d eqtr3d 3brtr3d ) ADEZBFEZCFEZGZHAIJZBCIJZKZKZHABLMZNMZACBOMZ
-    LMZWQNMZWQACLMZIWPHWTIJZWRXAIJZWIWSPEZWMXCWPAWSQWLWIWOWIWJWKRZSWLWNXEWMWLWN
-    XEWJWKWNXETZWIBUAECUAEXGWJWKBCUBBUCCUCUDUEUFZUGWLWMWNUHUIHDEZWTDEZWQDEZGUJW
-    QIJZXCXDTWPHWTWQUKWPXIXJXKXIWPULUMWLWNXJWMWIWSFEZXJWLWNKZAWSUNWLWIWNXFSXNXE
-    XMXHWSUOZUPUQUGWLXKWOWIWJXKWKABUNURSUSWLWMXLWNWLWMXLWIWJWMXLUTWKWIWJKZWMUJA
-    IJZXLWIWMXQUTWJWIUJHIJZWMXQVAUJDEXIWIXRWMKXQUTVBULUJHAVCVDVESWIWJXQXLABVFVG
-    VHURVIVJUQVKWLWRWQVLZWOWIWJXSWKXPWQVMEZXSAVMEZWJXTWIABVNAVOVPWQVQUPURSWPAWS
-    BVRMZLMZXAXBWPYAXEWJGZYCXAVLZWLWNYDWMXNYAXEWJWLYAWNWLAXFVSSXHWLWJWNWIWJWKVT
-    SUSUGYAXMWJYEXEAWSBWAXOWBUPWLYCXBVLWOWLYBCALWJWKYBCVLZWIWKWJYFCVMEBVMEYFWKW
-    JCBWCCWDBWDUDWEUEWFSWGWH $.
+    ( cr wcel cn0 w3a c1 clt wbr wa cexp co cmul cmin cn expgt1 3simp1 adantr
+    wb cz znnsub nn0z syl2an 3adant1 biimpa adantrl simprl syl3anc cc0 1re
+    ltmul1 mp3an1 reexpcl nnnn0 syl sylanc 3adant3 wi lt01 0re axlttrn mp3an12
+    mpani expgt0 3expia syld imp adantrr jca mpbid wceq cc expcl recn sylan
+    mulid2 caddc recnd 3simp2 3jca expadd syl3an2 npcan nn0cn ancoms opreq2d
+    eqtr3d 3brtr3d ) ADEZBFEZCFEZGZHAIJZBCIJZKZKZHABLMZNMZACBOMZLMZWRNMZWRACLMZ
+    IWQHXAIJZWSXBIJZWJWTPEZWNXDWQAWTQWMWJWPWJWKWLRZSWMWOXFWNWMWOXFWKWLWOXFTZWJB
+    UAECUAEXHWKWLBCUBBUCCUCUDUEUFZUGWMWNWOUHUIXADEZWRDEZUJWRIJZKZXDXETZWQHDEZXJ
+    XMXNUKHXAWRULUMWMWOXJWNWJWTFEZXJWMWOKZAWTUNWMWJWOXGSXQXFXPXIWTUOZUPUQUGWQXK
+    XLWMXKWPWJWKXKWLABUNURSWMWNXLWOWMWNXLWJWKWNXLUSWLWJWKKZWNUJAIJZXLWJWNXTUSWK
+    WJUJHIJZWNXTUTUJDEXOWJYAWNKXTUSVAUKUJHAVBVCVDSWJWKXTXLABVEVFVGURVHVIVJUQVKW
+    MWSWRVLZWPWJWKYBWLXSWRVMEZYBAVMEZWKYCWJABVNAVOVPWRVQUPURSWQAWTBVRMZLMZXBXCW
+    QYDXFWKGZYFXBVLZWMWOYGWNXQYDXFWKWMYDWOWMAXGVSSXIWMWKWOWJWKWLVTSWAUGYDXPWKYH
+    XFAWTBWBXRWCUPWMYFXCVLWPWMYECALWKWLYECVLZWJWLWKYICVMEBVMEYIWLWKCBWDCWEBWEUD
+    WFUEWGSWHWI $.
     $( [6-Oct-2006] $) $( [2-Aug-2006] $)
 
   $( Cancellation law for exponentiation. $)
-  expcant $p |- ( ( ( A e. RR /\ M e. NN0 /\ N e. NN0 ) /\
+  expcan $p |- ( ( ( A e. RR /\ M e. NN0 /\ N e. NN0 ) /\
              1 < A ) -> ( ( A ^ M ) = ( A ^ N ) <-> M = N ) ) $=
-    ( cr wcel cn0 w3a c1 clt wbr wa cexp co wceq wo wne wi expordit exp32 imp
-    3com23 orim12d wb lttri2t nn0ret syl2an 3adant1 adantr reexpclt 3impdi
+    ( cr wcel cn0 w3a c1 clt wbr wa cexp co wceq wo wne wi expordi exp32 imp
+    3com23 orim12d wb lttri2 nn0re syl2an 3adant1 adantr reexpcl 3impdi
     3imtr4d necon4d opreq2 impbid1 ) ADEZBFEZCFEZGZHAIJZKZABLMZACLMZNBCNUTBCVAV
     BUTBCIJZCBIJZOZVAVBIJZVBVAIJZOZBCPZVAVBPZUTVCVFVDVGURUSVCVFQURUSVCVFABCRSTU
     RUSVDVGQZUOUQUPUSVKQUOUQUPGUSVDVGACBRSUATUBURVIVEUCZUSUPUQVLUOBDECDEVLUPUQB
@@ -432,23 +482,23 @@ $)
     $( [8-Oct-2006] $) $( [2-Aug-2006] $)
 
   $( Ordering law for exponentiation. $)
-  expordt $p |- ( ( ( A e. RR /\ M e. NN0 /\ N e. NN0 ) /\
+  expord $p |- ( ( ( A e. RR /\ M e. NN0 /\ N e. NN0 ) /\
              1 < A ) -> ( M < N <-> ( A ^ M ) < ( A ^ N ) ) ) $=
-    ( cr wcel cn0 w3a c1 clt wbr wa cexp co wi expordit exp32 imp wceq wo wn
-    expcant biimprd 3com23 orim12d con3d wb axlttri reexpclt syl2an 3impdi
-    adantr nn0ret 3adant1 3imtr4d impbid ) ADEZBFEZCFEZGZHAIJZKZBCIJZABLMZACLMZ
-    IJZUSUTVBVENUSUTVBVEABCOPQVAVCVDRZVDVCIJZSZTZBCRZCBIJZSZTZVEVBVAVLVHVAVJVFV
-    KVGVAVFVJABCUAUBUSUTVKVGNZUPURUQUTVNNUPURUQGUTVKVGACBOPUCQUDUEUSVEVIUFZUTUP
-    UQURVOVCDEVDDEVOUPUQKUPURKVCVDUGABUHACUHUIUJUKUSVBVMUFZUTUQURVPUPBDECDEVPUQ
-    URBCUGBULCULUIUMUKUNUO $.
+    ( cr wcel cn0 w3a c1 clt wbr wa cexp co wi expordi exp32 imp wceq wo wn
+    expcan biimprd 3com23 orim12d con3d wb axlttri reexpcl syl2an 3impdi
+    adantr nn0re 3adant1 3imtr4d impbid ) ADEZBFEZCFEZGZHAIJZKZBCIJZABLMZACLMZI
+    JZUSUTVBVENUSUTVBVEABCOPQVAVCVDRZVDVCIJZSZTZBCRZCBIJZSZTZVEVBVAVLVHVAVJVFVK
+    VGVAVFVJABCUAUBUSUTVKVGNZUPURUQUTVNNUPURUQGUTVKVGACBOPUCQUDUEUSVEVIUFZUTUPU
+    QURVOVCDEVDDEVOUPUQKUPURKVCVDUGABUHACUHUIUJUKUSVBVMUFZUTUQURVPUPBDECDEVPUQU
+    RBCUGBULCULUIUMUKUNUO $.
     $( [9-Oct-2006] $) $( [2-Aug-2006] $)
 
   $( Weak ordering relationship for exponentiation. $)
-  expwordit $p |- ( ( ( A e. RR /\ M e. NN0 /\ N e. NN0 ) /\
+  expwordi $p |- ( ( ( A e. RR /\ M e. NN0 /\ N e. NN0 ) /\
              ( 1 <_ A /\ M <_ N ) ) -> ( A ^ M ) <_ ( A ^ N ) ) $=
-    ( cr wcel cn0 w3a c1 cle wbr cexp co clt wceq wo wi wb 1re leloet mpan
-    3ad2ant1 wa expordt biimpd opreq2 a1i orim12d nn0ret syl2an 3adant1 adantr
-    reexpclt 3adant3 3adant2 sylanc 3imtr4d ex opreq1 breq12d leid 1expt
+    ( cr wcel cn0 w3a c1 cle wbr cexp co clt wceq wo wi wb 1re leloe mpan
+    3ad2ant1 wa expord biimpd opreq2 a1i orim12d nn0re syl2an 3adant1 adantr
+    reexpcl 3adant3 3adant2 sylanc 3imtr4d ex opreq1 breq12d leidi 1exp
     breqan12d mpbiri syl5cbi a1dd jaod sylbid imp32 ) ADEZBFEZCFEZGZHAIJZBCIJZA
     BKLZACKLZIJZVLVMHAMJZHANZOZVNVQPZVIVJVMVTQZVKHDEVIWBRHASTUAVLVRWAVSVLVRWAVL
     VRUBZBCMJZBCNZOZVOVPMJZVOVPNZOZVNVQWCWDWGWEWHWCWDWGABCUCUDWEWHPWCBCAKUEUFUG
@@ -460,74 +510,74 @@ $)
 
   $( The power of a positive number smaller than 1 decreases as its exponent
      increases. $)
-  expord2t $p |- ( ( ( A e. RR /\ M e. NN0 /\ N e. NN0 ) /\
+  expord2 $p |- ( ( ( A e. RR /\ M e. NN0 /\ N e. NN0 ) /\
              ( 0 < A /\ A < 1 ) ) -> ( M < N <-> ( A ^ N ) < ( A ^ M ) ) ) $=
-    ( cr wcel cn0 w3a cc0 clt wbr c1 wa cdiv co cexp wb expordt wne gt0ne0t
-    rerecclt syldan expcom idd 3anim123d impcom adantrr reclt1t biimpa anasss
-    3ad2antl1 sylanc ltrect reexpclt adantr 3adantl2 expgt0t 3expa 3adantl3
-    syl2anc cc wceq recexpt breq12d recnt id 3anim123i bitr4d ) ADEZBFEZCFEZGZH
-    AIJZAKIJZLZLZBCIJZKAMNZBONZVQCONZIJZACONZABONZIJZVQDEZVIVJGZKVQIJZVPVTPVOVQ
-    BCQVKVLWEVMVLVKWEVLVHWDVIVIVJVJVHVLWDVHVLAHRZWDASZATUAUBVLVIUCVLVJUCUDUEUFV
-    HVIVNWFVJVHVLVMWFVHVLLVMWFAUGUHUIUJUKVKVLWCVTPVMVKVLLZWCKWBMNZKWAMNZIJZVTWA
-    DEZHWAIJZWBDEZHWBIJZWCWLPWIWAWBULVHVJVLWMVIVHVJLWMVLACUMUNUOVHVJVLWNVIVHVJV
-    LWNACUPUQUOVHVIVLWOVJVHVILWOVLABUMUNURVHVIVLWPVJVHVIVLWPABUPUQURUSAUTEZVIVJ
-    GZWGVTWLPWIWRWGLVRWJVSWKIWQVIWGVRWJVAZVJWQVIWGWSABVBUQURWQVJWGVSWKVAZVIWQVJ
-    WGWTACVBUQUOVCVKWRVLVHWQVIVIVJVJAVDVIVEVJVEVFUNVHVIVLWGVJWHUJUKVGUFVG $.
+    ( cr wcel cn0 w3a cc0 clt wbr c1 wa cdiv co cexp wb expord wne gt0ne0
+    rereccl syldan expcom idd 3anim123d impcom adantrr reclt1 biimpa anasss
+    3ad2antl1 sylanc ltrec reexpcl adantr 3adantl2 expgt0 3expa 3adantl3
+    syl2anc cc wceq exprecOLD breq12d recn id 3anim123i bitr4d ) ADEZBFEZCFEZGZ
+    HAIJZAKIJZLZLZBCIJZKAMNZBONZVQCONZIJZACONZABONZIJZVQDEZVIVJGZKVQIJZVPVTPVOV
+    QBCQVKVLWEVMVLVKWEVLVHWDVIVIVJVJVHVLWDVHVLAHRZWDASZATUAUBVLVIUCVLVJUCUDUEUF
+    VHVIVNWFVJVHVLVMWFVHVLLVMWFAUGUHUIUJUKVKVLWCVTPVMVKVLLZWCKWBMNZKWAMNZIJZVTW
+    ADEZHWAIJZWBDEZHWBIJZWCWLPWIWAWBULVHVJVLWMVIVHVJLWMVLACUMUNUOVHVJVLWNVIVHVJ
+    VLWNACUPUQUOVHVIVLWOVJVHVILWOVLABUMUNURVHVIVLWPVJVHVIVLWPABUPUQURUSAUTEZVIV
+    JGZWGVTWLPWIWRWGLVRWJVSWKIWQVIWGVRWJVAZVJWQVIWGWSABVBUQURWQVJWGVSWKVAZVIWQV
+    JWGWTACVBUQUOVCVKWRVLVHWQVIVIVJVJAVDVIVEVJVEVFUNVHVIVLWGVJWHUJUKVGUFVG $.
     $( [10-Jul-2007] $) $( [2-Aug-2006] $)
 
   $( Weak ordering relationship for exponentiation.   (Contributed by Paul
      Chapman, 14-Jan-2008.) $)
-  expword2it $p |- ( ( ( A e. RR /\ M e. NN0 /\ N e. NN0 ) /\
+  expword2i $p |- ( ( ( A e. RR /\ M e. NN0 /\ N e. NN0 ) /\
                        ( 0 < A /\ A <_ 1 /\ M < N ) ) ->
                      ( A ^ N ) <_ ( A ^ M ) ) $=
-    ( cr wcel cn0 w3a cc0 clt wbr c1 cle wa cexp co wi wceq wo expord2t biimpd
-    ex exp3a com34 imp3a imp 1expt adantr adantl eqtr4d 3adant1 opreq1
-    3eqtr4rd orim12d wb 1re leloet mpan2 3ad2ant1 reexpclt 3adant2 3adant3 jca
-    syl 3imtr4d df-3an sylan2b ) ADEZBFEZCFEZGZHAIJZAKLJZMZBCIJZMZACNOZABNOZLJZ
-    VKVLVNGVJVOVRVJVMVNVRVJVKVLVNVRPVJVKVNVLVRVJVKVNVLVRPZVJVKVNMZVSVJVTMZAKIJZ
-    AKQZRZVPVQIJZVPVQQZRZVLVRWAWBWEWCWFVJVTWBWEPZVJVKVNWHVJVKWBVNWEVJVKWBVNWEPZ
-    VJVKWBMZWIVJWJMVNWEABCSTUAUBUCUDUEVJWCWFPVTVJWCWFVJWCMKBNOZKCNOZVQVPVJWKWLQ
-    ZWCVHVIWMVGVHVIMWKKWLVHWKKQVIBUFUGVIWLKQVHCUFUHUIUJUGWCVQWKQVJAKBNUKUHWCVPW
-    LQVJAKCNUKUHULUAUGUMVJVLWDUNZVTVGVHWNVIVGKDEWNUOAKUPUQURUGVJVRWGUNZVTVJVPDE
-    ZVQDEZMWOVJWPWQVGVIWPVHACUSUTVGVHWQVIABUSVAVBVPVQUPVCUGVDUAUBUCUDUDUEVKVLVN
-    VEVF $.
+    ( cr wcel cn0 w3a cc0 clt wbr c1 cle wa cexp co wi wceq wo expord2 biimpd
+    ex exp3a com34 imp3a imp 1exp adantr adantl eqtr4d 3adant1 opreq1 3eqtr4rd
+    orim12d wb 1re leloe mpan2 3ad2ant1 reexpcl 3adant2 3adant3 jca syl
+    3imtr4d df-3an sylan2b ) ADEZBFEZCFEZGZHAIJZAKLJZMZBCIJZMZACNOZABNOZLJZVKVL
+    VNGVJVOVRVJVMVNVRVJVKVLVNVRPVJVKVNVLVRVJVKVNVLVRPZVJVKVNMZVSVJVTMZAKIJZAKQZ
+    RZVPVQIJZVPVQQZRZVLVRWAWBWEWCWFVJVTWBWEPZVJVKVNWHVJVKWBVNWEVJVKWBVNWEPZVJVK
+    WBMZWIVJWJMVNWEABCSTUAUBUCUDUEVJWCWFPVTVJWCWFVJWCMKBNOZKCNOZVQVPVJWKWLQZWCV
+    HVIWMVGVHVIMWKKWLVHWKKQVIBUFUGVIWLKQVHCUFUHUIUJUGWCVQWKQVJAKBNUKUHWCVPWLQVJ
+    AKCNUKUHULUAUGUMVJVLWDUNZVTVGVHWNVIVGKDEWNUOAKUPUQURUGVJVRWGUNZVTVJVPDEZVQD
+    EZMWOVJWPWQVGVIWPVHACUSUTVGVHWQVIABUSVAVBVPVQUPVCUGVDUAUBUCUDUDUEVKVLVNVEVF
+    $.
     $( [15-Jan-2008] $) $( [14-Jan-2008] $)
 
   ${
     $d j k A $.  $d j k B $.  $d j k N $.
     $( Weak mantissa ordering relationship for exponentiation. $)
-    expmwordit $p |- ( ( ( A e. RR /\ B e. RR /\ N e. NN0 ) /\
+    expmwordi $p |- ( ( ( A e. RR /\ B e. RR /\ N e. NN0 ) /\
                ( 0 <_ A /\ A <_ B ) ) -> ( A ^ N ) <_ ( B ^ N ) ) $=
       ( vj vk cr wcel cn0 cc0 cle wbr wa cexp co wi cv c1 caddc cmul
-      lemul12itOLD reexpclt adantlr adantr adantll jca expge0t 3expa an1rs
-      adantllr adantlrr anim1i simpll sylanc wceq cc expp1t recnt sylan
-      3brtr4d ex expcom a2d exp0t 1re leid syl6eqbr adantl breqtrrd syl2an
-      opreq2 breq12d imbi2d nn0indALT exp4c com3l 3imp1 ) AFGZBFGZCHGZIAJKZABJK
-      ZLZACMNZBCMNZJKZVSVQVRWBWEOVSVQVRWBWEVQVRLZWBLZADPZMNZBWHMNZJKZOWGAIMNZBI
-      MNZJKZOWGAEPZMNZBWOMNZJKZOWGAWOQRNZMNZBWSMNZJKZOWGWEODECWOHGZWGWRXBWGXCWR
-      XBOWGXCLZWRXBXDWRLZWPASNZWQBSNZWTXAJWPFGZWQFGZLZIWPJKZWRLZLWGXFXGJKXEWPWQ
-      ABTXEXJXLXEXHXIXDXHWRWFXCXHWBVQXCXHVRAWOUAUBUBUCXDXIWRWFXCXIWBVRXCXIVQBWO
-      UAUDUBUCUEXDXKWRWFVTXCXKWAVQVTXCXKVRVQXCVTXKVQXCVTXKAWOUFUGUHUIUJUKUEWGXC
-      WRULUMXDWTXFUNZWRWFXCXMWBVQXCXMVRAUOGZXCXMVQAWOUPAUQZURUBUBUCXDXAXGUNZWRW
-      FXCXPWBVRXCXPVQBUOGZXCXPVRBWOUPBUQZURUDUBUCUSUTVAVBWFWNWBXNXQWNVQVRXNXQLZ
-      WLQWMJXSWLQQJXNWLQUNXQAVCUCQVDVEVFXQWMQUNXNBVCVGVHXOXRVIUCWHIUNZWKWNWGXTW
-      IWLWJWMJWHIAMVJWHIBMVJVKVLWHWOUNZWKWRWGYAWIWPWJWQJWHWOAMVJWHWOBMVJVKVLWHW
-      SUNZWKXBWGYBWIWTWJXAJWHWSAMVJWHWSBMVJVKVLWHCUNZWKWEWGYCWIWCWJWDJWHCAMVJWH
-      CBMVJVKVLVMVNVOVP $.
+      lemul12aOLD reexpcl adantlr adantr adantll jca expge0 3expa an1rs
+      adantllr adantlrr anim1i simpll sylanc wceq cc expp1 recn sylan 3brtr4d
+      ex expcom a2d exp0 1re leidi syl6eqbr adantl breqtrrd syl2an opreq2
+      breq12d imbi2d nn0indALT exp4c com3l 3imp1 ) AFGZBFGZCHGZIAJKZABJKZLZACMN
+      ZBCMNZJKZVSVQVRWBWEOVSVQVRWBWEVQVRLZWBLZADPZMNZBWHMNZJKZOWGAIMNZBIMNZJKZO
+      WGAEPZMNZBWOMNZJKZOWGAWOQRNZMNZBWSMNZJKZOWGWEODECWOHGZWGWRXBWGXCWRXBOWGXC
+      LZWRXBXDWRLZWPASNZWQBSNZWTXAJWPFGZWQFGZLZIWPJKZWRLZLWGXFXGJKXEWPWQABTXEXJ
+      XLXEXHXIXDXHWRWFXCXHWBVQXCXHVRAWOUAUBUBUCXDXIWRWFXCXIWBVRXCXIVQBWOUAUDUBU
+      CUEXDXKWRWFVTXCXKWAVQVTXCXKVRVQXCVTXKVQXCVTXKAWOUFUGUHUIUJUKUEWGXCWRULUMX
+      DWTXFUNZWRWFXCXMWBVQXCXMVRAUOGZXCXMVQAWOUPAUQZURUBUBUCXDXAXGUNZWRWFXCXPWB
+      VRXCXPVQBUOGZXCXPVRBWOUPBUQZURUDUBUCUSUTVAVBWFWNWBXNXQWNVQVRXNXQLZWLQWMJX
+      SWLQQJXNWLQUNXQAVCUCQVDVEVFXQWMQUNXNBVCVGVHXOXRVIUCWHIUNZWKWNWGXTWIWLWJWM
+      JWHIAMVJWHIBMVJVKVLWHWOUNZWKWRWGYAWIWPWJWQJWHWOAMVJWHWOBMVJVKVLWHWSUNZWKX
+      BWGYBWIWTWJXAJWHWSAMVJWHWSBMVJVKVLWHCUNZWKWEWGYCWIWCWJWDJWHCAMVJWHCBMVJVK
+      VLVMVNVOVP $.
       $( [24-Jan-2006] $) $( [18-Dec-2005] $)
   $}
 
   $( Nonnegative integer exponentiation with a mantissa between 0 and 1
      inclusive is less than or equal to 1.  (Contributed by Paul Chapman,
      29-Dec-2007.) $)
-  exple1t $p |- ( ( ( A e. RR /\ 0 <_ A /\ A <_ 1 ) /\ N e. NN0 ) ->
+  exple1 $p |- ( ( ( A e. RR /\ 0 <_ A /\ A <_ 1 ) /\ N e. NN0 ) ->
                   ( A ^ N ) <_ 1 ) $=
-    ( cr wcel cc0 cle wbr c1 w3a cn0 cexp co wi clt wceq wo wb 0re leloet mpan
-    biimpa wa cdiv expge1t 3com23 3expa wne rerecclt 3simp1 gt0ne0t 3adant3
-    sylanc 3simp3 1re lt01 lerec2t mpanl12 ax1cn div1 breq2i syl6bb mpbird jca
-    sylan cc recexpt recnd breqtrd reexpclt 3ad2antl1 expgt0t 3adantl3 mpbid
-    syl6breq ex 3expia opreq1 breq1d cn elnn0 0expt ltlei syl6eqbr opreq2 0cn
-    exp0t ax-mp syl6eq leid jaoi sylbi syl5bi a1d adantl jaodan syldan 3impia
+    ( cr wcel cc0 cle wbr c1 w3a cn0 cexp co wi clt wceq wo wb 0re leloe mpan
+    biimpa wa cdiv expge1 3com23 3expa wne rereccl 3simp1 gt0ne0 3adant3
+    sylanc 3simp3 1re lt01 lerec2 mpanl12 ax1cn div1i breq2i syl6bb mpbird jca
+    sylan cc exprecOLD recnd breqtrd reexpcl 3ad2antl1 expgt0 3adantl3 mpbid
+    syl6breq ex 3expia opreq1 breq1d cn elnn0 0exp ltleii syl6eqbr opreq2 0cn
+    exp0 ax-mp syl6eq leidi jaoi sylbi syl5bi a1d adantl jaodan syldan 3impia
     imp ) ACDZEAFGZAHFGZIBJDZABKLZHFGZWSWTXAXBXDMZWSWTEANGZEAOZPZXAXEMZWSWTXHEC
     DWSWTXHQREASTUAWSXFXIXGWSXFXAXEWSXFXAIZXBXDXJXBUBZXCHHUCLZHFXKHHXCUCLZFGZXC
     XLFGZXKHHAUCLZBKLZXMFXPCDZHXPFGZUBXBHXQFGZXJXRXSXBXTXRXBXSXTXPBUDUEUFXJXRXS
@@ -541,82 +591,87 @@ $)
     $( [30-Dec-2007] $) $( [29-Dec-2007] $)
 
   $( An upper bound on ` A ^ N ` when ` 2 <_ A ` . $)
-  expubndt $p |- ( ( A e. RR /\ N e. NN0 /\ 2 <_ A ) ->
+  expubnd $p |- ( ( A e. RR /\ N e. NN0 /\ 2 <_ A ) ->
                   ( A ^ N ) <_ ( ( 2 ^ N ) x. ( ( A - 1 ) ^ N ) ) ) $=
-    ( cr wcel cn0 c2 cle wbr w3a cexp co c1 cmin cmul cc0 wa expmwordit 3simp1
-    peano2rem 2re axmulrcl mpan syl 3ad2ant1 3simp2 3jca 0re 2pos ltlei wi
-    letrt mp3an12 mpani imp caddc wb resubclt mpan2 leadd2t mp3an1 mpdan
-    biimpa wceq cc recnt 2cn npcant adantr ax1cn subdit mp3an13 2timest mulid1
-    a1i opreq12d addsubt mp3an3 anidms 3eqtrrd 3brtr3d jca 3adant2 sylanc
-    mulexpt recnd sylan 3adant3 breqtrd ) ACDZBEDZFAGHZIZABJKZFALMKZNKZBJKZFBJK
-    WNBJKNKZGWIWOCDZWJIOAGHZAWOGHZPZWMWPGHWLAWOBQWLWIWRWJWIWJWKRWIWJWRWKWIWNCDZ
-    WRASZFCDZXBWRTFWNUAUBUCUDWIWJWKUEUFWIWKXAWJWIWKPZWSWTWIWKWSWIOFGHZWKWSOFUGT
-    UHUIOCDXDWIXFWKPWSUJUGTOFAUKULUMUNXEAFMKZFUOKZXGAUOKZAWOGWIWKXHXIGHZWIXGCDZ
-    WKXJUPZWIXDXKTAFUQURXDWIXKXLTFAXGUSUTVAVBWIXHAVCZWKWIAVDDZXMAVEZXNFVDDZXMVF
-    AFVGURUCVHWIXIWOVCZWKWIXNXQXOXNWOFANKZFLNKZMKZAAUOKZFMKZXIXPXNLVDDWOXTVCVFV
-    IFALVJVKXNXRYAXSFMAVLXSFVCXNFVFVMVNVOXNYBXIVCZXNXNXPYCVFAAFVPVQVRVSUCVHVTWA
-    WBWCWIWJWPWQVCZWKWNVDDZWJYDWIXPYEWJYDVFFWNBWDUTWIWNXCWEWFWGWH $.
+    ( cr wcel cn0 c2 cle wbr w3a cexp co c1 cmin cmul cc0 wa expmwordi 3simp1
+    peano2rem 2re remulcl mpan syl 3ad2ant1 3simp2 3jca 0re 2pos ltleii wi
+    letr mp3an12 mpani imp caddc wb resubcl mpan2 leadd2 mp3an1 mpdan biimpa
+    wceq cc recn 2cn npcan adantr ax1cn subdi mp3an13 2times mulid1i a1i
+    opreq12d addsub mp3an3 anidms 3eqtrrd 3brtr3d jca 3adant2 sylanc mulexp
+    recnd sylan 3adant3 breqtrd ) ACDZBEDZFAGHZIZABJKZFALMKZNKZBJKZFBJKWNBJKNKZ
+    GWIWOCDZWJIOAGHZAWOGHZPZWMWPGHWLAWOBQWLWIWRWJWIWJWKRWIWJWRWKWIWNCDZWRASZFCD
+    ZXBWRTFWNUAUBUCUDWIWJWKUEUFWIWKXAWJWIWKPZWSWTWIWKWSWIOFGHZWKWSOFUGTUHUIOCDX
+    DWIXFWKPWSUJUGTOFAUKULUMUNXEAFMKZFUOKZXGAUOKZAWOGWIWKXHXIGHZWIXGCDZWKXJUPZW
+    IXDXKTAFUQURXDWIXKXLTFAXGUSUTVAVBWIXHAVCZWKWIAVDDZXMAVEZXNFVDDZXMVFAFVGURUC
+    VHWIXIWOVCZWKWIXNXQXOXNWOFANKZFLNKZMKZAAUOKZFMKZXIXPXNLVDDWOXTVCVFVIFALVJVK
+    XNXRYAXSFMAVLXSFVCXNFVFVMVNVOXNYBXIVCZXNXNXPYCVFAAFVPVQVRVSUCVHVTWAWBWCWIWJ
+    WPWQVCZWKWNVDDZWJYDWIXPYEWJYDVFFWNBWDUTWIWNXCWEWFWGWH $.
     $( [24-Jan-2006] $) $( [19-Dec-2005] $)
 
   $( Value of the square of a complex number.  (Contributed by Raph Levien,
      10-Apr-2004.) $)
-  sqvalt $p |- ( A e. CC -> ( A ^ 2 ) = ( A x. A ) ) $=
-    ( cc wcel c2 cexp co c1 cmul caddc cn0 wceq 1nn0 expp1t mpan2 df-2 opreq2i
-    syl5eq exp1t opreq1d eqtrd ) ABCZADEFZAGEFZAHFZAAHFUAAGGIFZEFZUDUBUAGJCUFUD
-    KLAGMNDUEAEOPQUAUCAAHARST $.
+  sqval $p |- ( A e. CC -> ( A ^ 2 ) = ( A x. A ) ) $=
+    ( cc wcel c2 cexp co c1 cmul caddc cn0 wceq 1nn0 expp1 mpan2 df-2 opreq2i
+    syl5eq exp1 opreq1d eqtrd ) ABCZADEFZAGEFZAHFZAAHFUAAGGIFZEFZUDUBUAGJCUFUDK
+    LAGMNDUEAEOPQUAUCAAHARST $.
     $( [28-Jul-2006] $) $( [10-Apr-2004] $)
 
   $( The square of the negative of a number.) $)
-  sqnegt $p |- ( A e. CC -> ( -u A ^ 2 ) = ( A ^ 2 ) ) $=
-    ( cc wcel cneg cmul co c2 cexp wceq mul2negt anidms negclt sqvalt syl
-    3eqtr4d ) ABCZADZQEFZAAEFZQGHFZAGHFPRSIAAJKPQBCTRIALQMNAMO $.
+  sqneg $p |- ( A e. CC -> ( -u A ^ 2 ) = ( A ^ 2 ) ) $=
+    ( cc wcel cneg cmul co c2 cexp wceq mul2neg anidms negcl sqval syl 3eqtr4d
+    ) ABCZADZQEFZAAEFZQGHFZAGHFPRSIAAJKPQBCTRIALQMNAMO $.
     $( [18-Feb-2007] $) $( [15-Jan-2006] $)
 
   $( Closure of square. $)
-  sqclt $p |- ( A e. CC -> ( A ^ 2 ) e. CC ) $=
-    ( cc wcel c2 cexp co cmul sqvalt axmulcl anidms eqeltrd ) ABCZADEFAAGFZBAHL
-    MBCAAIJK $.
+  sqcl $p |- ( A e. CC -> ( A ^ 2 ) e. CC ) $=
+    ( cc wcel c2 cexp co cmul sqval mulcl anidms eqeltrd ) ABCZADEFAAGFZBAHLMBC
+    AAIJK $.
     $( [10-Aug-1999] $)
 
   $( Distribution of square over multiplication. $)
-  sqmult $p |- ( ( A e. CC /\ B e. CC ) ->
+  sqmul $p |- ( ( A e. CC /\ B e. CC ) ->
              ( ( A x. B ) ^ 2 ) = ( ( A ^ 2 ) x. ( B ^ 2 ) ) ) $=
-    ( cc wcel c2 cn0 cmul co cexp wceq 2nn0 mulexpt mp3an3 ) ACDBCDEFDABGHEIHAE
-    IHBEIHGHJKABELM $.
+    ( cc wcel c2 cn0 cmul co cexp wceq 2nn0 mulexp mp3an3 ) ACDBCDEFDABGHEIHAEI
+    HBEIHGHJKABELM $.
     $( [23-Mar-2008] $) $( [21-Mar-2008] $)
+
+  $( A number is zero iff its square is zero. $)
+  sqeq0 $p |- ( A e. CC -> ( ( A ^ 2 ) = 0 <-> A = 0 ) ) $=
+    ( cc wcel c2 cn cexp co cc0 wceq wb 2nn expeq0 mpan2 ) ABCDECADFGHIAHIJKADL
+    M $.
+    $( [12-Apr-2006] $) $( [11-Mar-2006] $)
 
   ${
     sqval.1 $e |- A e. CC $.
     $( Value of square.  Inference version. $)
-    sqval $p |- ( A ^ 2 ) = ( A x. A ) $=
-      ( cc wcel c2 cexp co cmul wceq sqvalt ax-mp ) ACDAEFGAAHGIBAJK $.
+    sqvali $p |- ( A ^ 2 ) = ( A x. A ) $=
+      ( cc wcel c2 cexp co cmul wceq sqval ax-mp ) ACDAEFGAAHGIBAJK $.
       $( [1-Aug-1999] $)
 
     $( Closure of square. $)
-    sqcl $p |- ( A ^ 2 ) e. CC $=
-      ( cc wcel c2 cexp co sqclt ax-mp ) ACDAEFGCDBAHI $.
+    sqcli $p |- ( A ^ 2 ) e. CC $=
+      ( cc wcel c2 cexp co sqcl ax-mp ) ACDAEFGCDBAHI $.
       $( [2-Aug-1999] $)
 
     $( A number is zero iff its square is zero. $)
-    sq00 $p |- ( ( A ^ 2 ) = 0 <-> A = 0 ) $=
-      ( c2 cexp co cc0 wceq cmul sqval eqeq1i msq0 bitr ) ACDEZFGAAHEZFGAFGMNFA
-      BIJABKL $.
+    sqeq0i $p |- ( ( A ^ 2 ) = 0 <-> A = 0 ) $=
+      ( cc wcel c2 cexp co cc0 wceq wb sqeq0 ax-mp ) ACDAEFGHIAHIJBAKL $.
       $( [2-Oct-1999] $)
 
     ${
       sqmul.2 $e |- B e. CC $.
       $( Distribution of square over multiplication. $)
-      sqmul $p |- ( ( A x. B ) ^ 2 ) = ( ( A ^ 2 ) x. ( B ^ 2 ) ) $=
-        ( cc wcel cmul co c2 cexp wceq sqmult mp2an ) AEFBEFABGHIJHAIJHBIJHGHKC
-        DABLM $.
+      sqmuli $p |- ( ( A x. B ) ^ 2 ) = ( ( A ^ 2 ) x. ( B ^ 2 ) ) $=
+        ( cc wcel cmul co c2 cexp wceq sqmul mp2an ) AEFBEFABGHIJHAIJHBIJHGHKCD
+        ABLM $.
         $( [31-Jul-2006] $) $( [3-Sep-1999] $)
 
       ${
         sqdiv.3 $e |- B =/= 0 $.
         $( Distribution of square over division. $)
-        sqdiv $p |- ( ( A / B ) ^ 2 ) = ( ( A ^ 2 ) / ( B ^ 2 ) ) $=
-          ( cdiv co cmul c2 cexp divmuldiv divcl sqval opreq12i 3eqtr4 ) ABFGZP
-          HGAAHGZBBHGZFGPIJGAIJGZBIJGZFGABABCDCDEEKPABCDELMSQTRFACMBDMNO $.
+        sqdivi $p |- ( ( A / B ) ^ 2 ) = ( ( A ^ 2 ) / ( B ^ 2 ) ) $=
+          ( cdiv co cmul c2 cexp divmuldivi divcli sqvali opreq12i 3eqtr4i ) AB
+          FGZPHGAAHGZBBHGZFGPIJGAIJGZBIJGZFGABABCDCDEEKPABCDELMSQTRFACMBDMNO $.
           $( [20-Aug-2001] $)
       $}
     $}
@@ -624,85 +679,79 @@ $)
     ${
       sqreci.1 $e |- A =/= 0 $.
       $( Square of reciprocal. $)
-      sqreci $p |- ( ( 1 / A ) ^ 2 ) = ( 1 / ( A ^ 2 ) ) $=
-        ( c1 cdiv co cmul c2 cexp ax1cn divmuldiv mulid1 opreq1i eqtr reccl
-        sqval opreq2i 3eqtr4 ) DAEFZSGFZDAAGFZEFZSHIFDAHIFZEFTDDGFZUAEFUBDADAJB
-        JBCCKUDDUAEDJLMNSABCOPUCUADEABPQR $.
+      sqrecii $p |- ( ( 1 / A ) ^ 2 ) = ( 1 / ( A ^ 2 ) ) $=
+        ( c1 cdiv co cmul c2 cexp ax1cn divmuldivi mulid1i opreq1i eqtri
+        reccli sqvali opreq2i 3eqtr4i ) DAEFZSGFZDAAGFZEFZSHIFDAHIFZEFTDDGFZUAE
+        FUBDADAJBJBCCKUDDUAEDJLMNSABCOPUCUADEABPQR $.
         $( [17-Sep-1999] $)
     $}
   $}
 
-  $( A number is zero iff its square is zero. $)
-  sq0t $p |- ( A e. CC -> ( ( A ^ 2 ) = 0 <-> A = 0 ) ) $=
-    ( cc wcel c2 cexp co cc0 wceq wb cif opreq1 eqeq1d eqeq1 bibi12d 0cn
-    elimel sq00 dedth ) ABCZADEFZGHZAGHZISAGJZDEFZGHZUCGHZIAGAUCHZUAUEUBUFUGTUD
-    GAUCDEKLAUCGMNUCAGBOPQR $.
-    $( [12-Apr-2006] $) $( [11-Mar-2006] $)
-
   $( A number is nonzero iff its square is nonzero. $)
-  sqne0t $p |- ( A e. CC -> ( ( A ^ 2 ) =/= 0 <-> A =/= 0 ) ) $=
-    ( cc wcel c2 cexp co cc0 sq0t necon3bid ) ABCADEFGAGAHI $.
+  sqne0 $p |- ( A e. CC -> ( ( A ^ 2 ) =/= 0 <-> A =/= 0 ) ) $=
+    ( cc wcel c2 cexp co cc0 sqeq0 necon3bid ) ABCADEFGAGAHI $.
     $( [14-Apr-2006] $) $( [11-Mar-2006] $)
 
   $( Closure of the square of a real number. $)
-  resqclt $p |- ( A e. RR -> ( A ^ 2 ) e. RR ) $=
-    ( cr wcel c2 cn0 cexp co 2nn0 reexpclt mpan2 ) ABCDECADFGBCHADIJ $.
+  resqcl $p |- ( A e. RR -> ( A ^ 2 ) e. RR ) $=
+    ( cr wcel c2 cn0 cexp co 2nn0 reexpcl mpan2 ) ABCDECADFGBCHADIJ $.
     $( [29-Jul-2006] $) $( [18-Oct-1999] $)
 
   $( The square of a non-zero real is positive. $)
-  sqgt0t $p |- ( ( A e. RR /\ A =/= 0 ) -> 0 < ( A ^ 2 ) ) $=
-    ( cr wcel cc0 wne wa cmul co c2 cexp clt msqgt0t wceq cc recnt sqvalt syl
+  sqgt0 $p |- ( ( A e. RR /\ A =/= 0 ) -> 0 < ( A ^ 2 ) ) $=
+    ( cr wcel cc0 wne wa cmul co c2 cexp clt msqgt0 wceq cc recn sqval syl
     adantr breqtrrd ) ABCZADEZFDAAGHZAIJHZKALTUCUBMZUATANCUDAOAPQRS $.
     $( [8-Sep-2007] $) $( [8-Sep-2007] $)
 
   ${
     resqcl.1 $e |- A e. RR $.
     $( Closure of square in reals. $)
-    resqcl $p |- ( A ^ 2 ) e. RR $=
-      ( cr wcel c2 cexp co resqclt ax-mp ) ACDAEFGCDBAHI $.
+    resqcli $p |- ( A ^ 2 ) e. RR $=
+      ( cr wcel c2 cexp co resqcl ax-mp ) ACDAEFGCDBAHI $.
       $( [2-Aug-1999] $)
 
     ${
       lt2sq.2 $e |- B e. RR $.
       $( The square function on nonnegative reals is strictly monotonic. $)
-      lt2sq $p |- ( ( 0 <_ A /\ 0 <_ B ) ->
+      lt2sqi $p |- ( ( 0 <_ A /\ 0 <_ B ) ->
                 ( A < B <-> ( A ^ 2 ) < ( B ^ 2 ) ) ) $=
-        ( cc0 cle wbr wa clt cmul co c2 cexp lt2msq recn sqval breq12i syl6bbr
-        ) EAFGEBFGHABIGAAJKZBBJKZIGALMKZBLMKZIGABCDNUASUBTIAACOPBBDOPQR $.
+        ( cc0 cle wbr wa clt cmul co c2 cexp lt2msqi recni sqvali breq12i
+        syl6bbr ) EAFGEBFGHABIGAAJKZBBJKZIGALMKZBLMKZIGABCDNUASUBTIAACOPBBDOPQR
+        $.
         $( [12-Sep-1999] $)
 
       $( The square function on nonnegative reals is monotonic. $)
-      le2sq $p |- ( ( 0 <_ A /\ 0 <_ B ) ->
+      le2sqi $p |- ( ( 0 <_ A /\ 0 <_ B ) ->
                 ( A <_ B <-> ( A ^ 2 ) <_ ( B ^ 2 ) ) ) $=
-        ( cc0 cle wbr wa cmul co c2 cexp le2msq recn sqval breq12i syl6bbr ) EA
-        FGEBFGHABFGAAIJZBBIJZFGAKLJZBKLJZFGABCDMTRUASFAACNOBBDNOPQ $.
+        ( cc0 cle wbr wa cmul co c2 cexp le2msqi recni sqvali breq12i syl6bbr
+        ) EAFGEBFGHABFGAAIJZBBIJZFGAKLJZBKLJZFGABCDMTRUASFAACNOBBDNOPQ $.
         $( [12-Sep-1999] $)
 
       $( The square function is one-to-one for nonnegative reals. $)
-      sq11 $p |-  ( ( 0 <_ A /\ 0 <_ B ) ->
+      sq11i $p |-  ( ( 0 <_ A /\ 0 <_ B ) ->
                 ( ( A ^ 2 ) = ( B ^ 2 ) <-> A = B ) ) $=
-        ( cc0 cle wbr wa cmul co wceq c2 cexp msq11 recn sqval eqeq12i syl5bb
-        ) EAFGEBFGHAAIJZBBIJZKABKALMJZBLMJZKABCDNUASUBTAACOPBBDOPQR $.
+        ( cc0 cle wbr wa cmul co wceq c2 cexp msq11i recni sqvali eqeq12i
+        syl5bb ) EAFGEBFGHAAIJZBBIJZKABKALMJZBLMJZKABCDNUASUBTAACOPBBDOPQR $.
         $( [27-Oct-1999] $)
     $}
 
     $( The square of a non-zero real is positive. $)
-    sqgt0 $p |- ( A =/= 0 -> 0 < ( A ^ 2 ) ) $=
-      ( cr wcel cc0 wne c2 cexp co clt wbr sqgt0t mpan ) ACDAEFEAGHIJKBALM $.
+    sqgt0i $p |- ( A =/= 0 -> 0 < ( A ^ 2 ) ) $=
+      ( cr wcel cc0 wne c2 cexp co clt wbr sqgt0 mpan ) ACDAEFEAGHIJKBALM $.
       $( [17-Sep-1999] $)
 
     $( A square of a real is nonnegative. $)
-    sqge0 $p |- 0 <_ ( A ^ 2 ) $=
-      ( cc0 cmul co c2 cexp cle msqge0 recn sqval breqtrr ) CAADEAFGEHABIAABJKL
-      $.
+    sqge0i $p |- 0 <_ ( A ^ 2 ) $=
+      ( cc0 cmul co c2 cexp cle msqge0i recni sqvali breqtrri ) CAADEAFGEHABIAA
+      BJKL $.
       $( [3-Aug-1999] $)
   $}
 
   $( The square function is one-to-one for nonnegative reals. $)
-  sq11t $p |- ( ( ( A e. RR /\ 0 <_ A ) /\ ( B e. RR /\ 0 <_ B ) ) ->
+  sq11 $p |- ( ( ( A e. RR /\ 0 <_ A ) /\ ( B e. RR /\ 0 <_ B ) ) ->
                ( ( A ^ 2 ) = ( B ^ 2 ) <-> A = B ) ) $=
     ( cr wcel cc0 cle wbr c2 cexp co wceq wb wa wi cif breq2 anbi1d opreq1
-    eqeq1d eqeq1 bibi12d imbi12d anbi2d eqeq2d eqeq2 0re elimel sq11 dedth2h
+    eqeq1d eqeq1 bibi12d imbi12d anbi2d eqeq2d eqeq2 0re elimel sq11i dedth2h
     imp an4s ) ACDZBCDZEAFGZEBFGZAHIJZBHIJZKZABKZLZULUMMUNUOMZUTULUMVAUTNEULAEO
     ZFGZUOMZVBHIJZUQKZVBBKZLZNVCEUMBEOZFGZMZVEVIHIJZKZVBVIKZLZNABEEAVBKZVAVDUTV
     HVPUNVCUOAVBEFPQVPURVFUSVGVPUPVEUQAVBHIRSAVBBTUAUBBVIKZVDVKVHVOVQUOVJVCBVIE
@@ -710,34 +759,33 @@ $)
     $( [13-Mar-2006] $) $( [8-Apr-2001] $)
 
   $( The square function on nonnegative reals is strictly monotonic. $)
-  lt2sqt $p |- ( ( ( A e. RR /\ 0 <_ A ) /\ ( B e. RR /\ 0 <_ B ) ) ->
+  lt2sq $p |- ( ( ( A e. RR /\ 0 <_ A ) /\ ( B e. RR /\ 0 <_ B ) ) ->
               ( A < B <-> ( A ^ 2 ) < ( B ^ 2 ) ) ) $=
-    ( cr wcel cc0 cle wbr wa clt cmul co c2 cexp lt2msqt wb cc sqvalt
-    breqan12d recnt syl2an ad2ant2r bitr4d ) ACDZEAFGZHBCDZEBFGZHHABIGAAJKZBBJK
-    ZIGZALMKZBLMKZIGZABNUCUEULUIOZUDUFAPDZBPDZUMUCUEUNUOUJUGUKUHIAQBQRASBSTUAUB
-    $.
+    ( cr wcel cc0 cle wbr wa clt cmul co c2 cexp lt2msq wb cc sqval breqan12d
+    recn syl2an ad2ant2r bitr4d ) ACDZEAFGZHBCDZEBFGZHHABIGAAJKZBBJKZIGZALMKZBL
+    MKZIGZABNUCUEULUIOZUDUFAPDZBPDZUMUCUEUNUOUJUGUKUHIAQBQRASBSTUAUB $.
     $( [11-Apr-2006] $) $( [24-Feb-2006] $)
 
   $( The square function on nonnegative reals is monotonic. $)
-  le2sqt $p |- ( ( ( A e. RR /\ 0 <_ A ) /\ ( B e. RR /\ 0 <_ B ) ) ->
+  le2sq $p |- ( ( ( A e. RR /\ 0 <_ A ) /\ ( B e. RR /\ 0 <_ B ) ) ->
               ( A <_ B <-> ( A ^ 2 ) <_ ( B ^ 2 ) ) ) $=
-    ( cr wcel cc0 cle wbr wa cmul co c2 cexp le2msqt wb cc sqvalt breqan12d
-    recnt syl2an ad2ant2r bitr4d ) ACDZEAFGZHBCDZEBFGZHHABFGAAIJZBBIJZFGZAKLJZB
-    KLJZFGZABMUBUDUKUHNZUCUEAODZBODZULUBUDUMUNUIUFUJUGFAPBPQARBRSTUA $.
+    ( cr wcel cc0 cle wbr wa cmul co c2 cexp le2msq wb cc sqval breqan12d recn
+    syl2an ad2ant2r bitr4d ) ACDZEAFGZHBCDZEBFGZHHABFGAAIJZBBIJZFGZAKLJZBKLJZFG
+    ZABMUBUDUKUHNZUCUEAODZBODZULUBUDUMUNUIUFUJUGFAPBPQARBRSTUA $.
     $( [26-Jul-2006] $) $( [18-Oct-1999] $)
 
   $( The square of a 'less than or equal to' ordering. $)
-  le2sqit $p |- ( ( ( A e. RR /\ 0 <_ A ) /\ ( B e. RR /\ A <_ B ) ) ->
+  le2sq2 $p |- ( ( ( A e. RR /\ 0 <_ A ) /\ ( B e. RR /\ A <_ B ) ) ->
               ( A ^ 2 ) <_ ( B ^ 2 ) ) $=
-    ( cr wcel cc0 cle wbr wa c2 cexp co simprr wb simprl wi 0re letrt mp3an1
-    exp4b com23 imp43 jca le2sqt syldan mpbid ) ACDZEAFGZHZBCDZABFGZHZHZUJAIJKB
-    IJKFGZUHUIUJLUHUKUIEBFGZHUJUMMULUIUNUHUIUJNUFUGUIUJUNUFUIUGUJUNOUFUIUGUJUNE
-    CDUFUIUGUJHUNOPEABQRSTUAUBABUCUDUE $.
+    ( cr wcel cc0 cle wbr wa c2 cexp co simprr wb simprl wi 0re letr mp3an1
+    exp4b com23 imp43 jca le2sq syldan mpbid ) ACDZEAFGZHZBCDZABFGZHZHZUJAIJKBI
+    JKFGZUHUIUJLUHUKUIEBFGZHUJUMMULUIUNUHUIUJNUFUGUIUJUNUFUIUGUJUNOUFUIUGUJUNEC
+    DUFUIUGUJHUNOPEABQRSTUAUBABUCUDUE $.
     $( [24-Mar-2008] $) $( [21-Mar-2008] $)
 
   $( A square of a real is nonnegative. $)
-  sqge0t $p |- ( A e. RR -> 0 <_ ( A ^ 2 ) ) $=
-    ( cr wcel cc0 c2 cexp co cle wbr cif wceq opreq1 breq2d 0re elimel sqge0
+  sqge0 $p |- ( A e. RR -> 0 <_ ( A ^ 2 ) ) $=
+    ( cr wcel cc0 c2 cexp co cle wbr cif wceq opreq1 breq2d 0re elimel sqge0i
     dedth ) ABCZDAEFGZHIDRADJZEFGZHIADATKSUADHATEFLMTADBNOPQ $.
     $( [18-Oct-1999] $)
 
@@ -745,23 +793,23 @@ $)
     sumsqne0.1 $e |- A e. RR $.
     sumsqne0.2 $e |- B e. RR $.
     $( The sum of two squares is nonzero iff one of its terms is nonzero. $)
-    sumsqne0 $p |- ( ( A =/= 0 \/ B =/= 0 ) <->
+    sumsqne0i $p |- ( ( A =/= 0 \/ B =/= 0 ) <->
                    ( ( A ^ 2 ) + ( B ^ 2 ) ) =/= 0 ) $=
-      ( cc0 wne wo c2 cexp co caddc clt wbr sqgt0 cle sqge0 cr wcel wb resqcl
-      addge01t mp2an mpbi 0re readdcl ltletr mpan2 gt0ne0 3syl addge02t jaoi
-      wceq wn wa opreq1 opreqan12d cn 2nn 0expt ax-mp opreq12i 0cn addid1 eqtr
-      syl6eq con3i df-ne neorian 3imtr4 impbi ) AEFZBEFZGZAHIJZBHIJZKJZEFZVKVQV
-      LVKEVNLMZEVPLMZVQACNVRVNVPOMZVSEVOOMZVTBDPVNQRZVOQRZWAVTSACTZBDTZVNVOUAUB
-      UCEVNVPUDWDVNVOWDWEUEZUFUGVPWFUHZUIVLEVOLMZVSVQBDNWHVOVPOMZVSEVNOMZWIACPW
-      CWBWJWISWEWDVOVNUJUBUCEVOVPUDWEWFUFUGWGUIUKVPEULZUMAEULZBEULZUNZUMVQVMWNW
-      KWNVPEHIJZWOKJZEWLWMVNWOVOWOKAEHIUOBEHIUOUPWPEEKJEWOEWOEKHUQRWOEULURHUSUT
-      ZWQVAEVBVCVDVEVFVPEVGAEBEVHVIVJ $.
+      ( cc0 wne wo c2 cexp co caddc clt wbr sqgt0i cle sqge0i cr wcel wb
+      resqcli addge01 mp2an mpbi 0re readdcli ltletri mpan2 gt0ne0i 3syl
+      addge02 jaoi wceq wn wa opreq1 opreqan12d cn 2nn 0exp ax-mp opreq12i 0cn
+      addid1i eqtri syl6eq con3i df-ne neorian 3imtr4i impbii ) AEFZBEFZGZAHIJZ
+      BHIJZKJZEFZVKVQVLVKEVNLMZEVPLMZVQACNVRVNVPOMZVSEVOOMZVTBDPVNQRZVOQRZWAVTS
+      ACTZBDTZVNVOUAUBUCEVNVPUDWDVNVOWDWEUEZUFUGVPWFUHZUIVLEVOLMZVSVQBDNWHVOVPO
+      MZVSEVNOMZWIACPWCWBWJWISWEWDVOVNUJUBUCEVOVPUDWEWFUFUGWGUIUKVPEULZUMAEULZB
+      EULZUNZUMVQVMWNWKWNVPEHIJZWOKJZEWLWMVNWOVOWOKAEHIUOBEHIUOUPWPEEKJEWOEWOEK
+      HUQRWOEULURHUSUTZWQVAEVBVCVDVEVFVPEVGAEBEVHVIVJ $.
       $( [25-Jul-2006] $) $( [29-Apr-2005] $)
   $}
 
   $( The square of 0 is 0. $)
   sq0 $p |- ( 0 ^ 2 ) = 0 $=
-    ( cc0 c2 cexp co wceq eqid 0cn sq00 mpbir ) ABCDAEAAEAFAGHI $.
+    ( cc0 c2 cexp co wceq eqid 0cn sqeq0i mpbir ) ABCDAEAAEAFAGHI $.
     $( [7-Jun-2006] $) $( [6-Jun-2006] $)
 
   $( If a number is zero, its square is zero.  (Contributed by FL,
@@ -772,149 +820,150 @@ $)
 
   $( The square of 1 is 1. $)
   sq1 $p |- ( 1 ^ 2 ) = 1 $=
-    ( c2 cn0 wcel c1 cexp co wceq 2nn0 1expt ax-mp ) ABCDAEFDGHAIJ $.
+    ( c2 cn0 wcel c1 cexp co wceq 2nn0 1exp ax-mp ) ABCDAEFDGHAIJ $.
     $( [8-May-2007] $) $( [22-Aug-1999] $)
 
   $( The square of 2 is 4. $)
   sq2 $p |- ( 2 ^ 2 ) = 4 $=
-    ( c2 cexp co cmul c4 2cn sqval 2t2e4 eqtr ) AABCAADCEAFGHI $.
+    ( c2 cexp co cmul c4 2cn sqvali 2t2e4 eqtri ) AABCAADCEAFGHI $.
     $( [22-Aug-1999] $)
 
   $( The square of 3 is 9. $)
   sq3 $p |- ( 3 ^ 2 ) = 9 $=
-    ( c3 c2 cexp co cmul c9 3re recn sqval 3t3e9 eqtr ) ABCDAAEDFAAGHIJK $.
+    ( c3 c2 cexp co cmul c9 3re recni sqvali 3t3e9 eqtri ) ABCDAAEDFAAGHIJK $.
     $( [16-Jun-2006] $) $( [26-Apr-2006] $)
 
   $( The cube of 2 is 8. $)
   cu2 $p |- ( 2 ^ 3 ) = 8 $=
     ( c2 c3 cexp co c1 caddc cmul c8 df-3 opreq2i cc wcel cn0 wceq 2cn 2nn0
-    expp1t mp2an c4 sq2 opreq1i 4t2e8 eqtr 3eqtr ) ABCDAAEFDZCDZAACDZAGDZHBUEAC
-    IJAKLAMLUFUHNOPAAQRUHSAGDHUGSAGTUAUBUCUD $.
+    expp1 mp2an c4 sq2 opreq1i 4t2e8 eqtri 3eqtri ) ABCDAAEFDZCDZAACDZAGDZHBUEA
+    CIJAKLAMLUFUHNOPAAQRUHSAGDHUGSAGTUAUBUCUD $.
     $( [28-Jul-2006] $) $( [2-Aug-2004] $)
 
-  $( Cancel one factor of a square in a ` <_ ` comparison.  Unlike ~ lemul1t ,
+  $( Cancel one factor of a square in a ` <_ ` comparison.  Unlike ~ lemul1 ,
      the common factor ` A ` may be zero. $)
-  sqlecant $p |- ( ( ( A e. RR /\ 0 <_ A ) /\ ( B e. RR /\ 0 <_ B ) ) ->
+  sqlecan $p |- ( ( ( A e. RR /\ 0 <_ A ) /\ ( B e. RR /\ 0 <_ B ) ) ->
       ( ( A ^ 2 ) <_ ( B x. A ) <-> A <_ B ) ) $=
-    ( cr wcel cc0 cle wbr wa c2 cexp co cmul wb clt wceq wo wi 0re leloet mpan
-    w3a cc recnt sqvalt syl 3ad2ant1 adantr breq1d lemul1t bitr4d 3exp1
-    pm2.43a adantrd com23 pm5.1 mul01t sq0 leid eqbrtr syl5breqr adantl opreq1
-    opreq2 breq12d mpbid adantrr breq1 biimpa adantrl sylanc ex a1i jaod
-    sylbid imp31 ) ACDZEAFGZBCDZEBFGZHZAIJKZBALKZFGZABFGZMZVPVQEANGZEAOZPZVTWEQ
-    ZECDVPVQWHMREASTVPWFWIWGVPVTWFWEVPVRWFWEQZVSVRVPWJVPVRVPWFWEVPVRVPUAZWFHZWC
-    AALKZWBFGWDWLWAWMWBFWKWAWMOZWFVPVRWNVPVPAUBDWNAUCAUDUEUFUGUHABAUIUJUKULUMUN
-    WGWIQVPWGVTWEWCWDWEWGVTHWCWDUOWGVRWCVSWGVRHEIJKZBELKZFGZWCVRWQWGVREWPWOFVRB
-    UBDWPEOBUCBUPUEWOEEFUQERURUSUTVAWGWQWCMVRWGWOWAWPWBFEAIJVBEABLVCVDUGVEVFWGV
-    SWDVRWGVSWDEABFVGVHVIVJVKVLVMVNVO $.
+    ( cr wcel cc0 cle wbr wa c2 cexp co cmul wb clt wceq wo wi 0re leloe mpan
+    w3a cc recn sqval syl 3ad2ant1 adantr breq1d lemul1OLD bitr4d 3exp1
+    pm2.43a adantrd com23 pm5.1 mul01 sq0 leidi eqbrtri syl5breqr adantl
+    opreq1 opreq2 breq12d mpbid adantrr breq1 biimpa adantrl sylanc ex a1i
+    jaod sylbid imp31 ) ACDZEAFGZBCDZEBFGZHZAIJKZBALKZFGZABFGZMZVPVQEANGZEAOZPZ
+    VTWEQZECDVPVQWHMREASTVPWFWIWGVPVTWFWEVPVRWFWEQZVSVRVPWJVPVRVPWFWEVPVRVPUAZW
+    FHZWCAALKZWBFGWDWLWAWMWBFWKWAWMOZWFVPVRWNVPVPAUBDWNAUCAUDUEUFUGUHABAUIUJUKU
+    LUMUNWGWIQVPWGVTWEWCWDWEWGVTHWCWDUOWGVRWCVSWGVRHEIJKZBELKZFGZWCVRWQWGVREWPW
+    OFVRBUBDWPEOBUCBUPUEWOEEFUQERURUSUTVAWGWQWCMVRWGWOWAWPWBFEAIJVBEABLVCVDUGVE
+    VFWGVSWDVRWGVSWDEABFVGVHVIVJVKVLVMVNVO $.
     $( [25-Jan-2008] $) $( [17-Jan-2008] $)
 
   $( Factor the difference of two squares. $)
-  subsqt $p |- ( ( A e. CC /\ B e. CC ) ->
+  subsq $p |- ( ( A e. CC /\ B e. CC ) ->
           ( ( A ^ 2 ) - ( B ^ 2 ) ) = ( ( A + B ) x. ( A - B ) ) ) $=
-    ( cc wcel wa caddc co cmin cmul c2 cexp wceq adddirt pm3.26 pm3.27 subclt
-    syl3anc subdit 3anidm12 sqvalt adantr opreq1d eqtr4d axmulcom adantl
-    opreq12d addsubasst sqclt axmulcl sylanc axaddcom pncan3t eqtrd eqtr3d
-    3eqtrrd ) ACDZBCDZEZABFGABHGZIGZAUSIGZBUSIGZFGZAJKGZABIGZHGZVEBJKGZHGZFGZVD
-    VGHGZUPUQUSCDUTVCLURABUSMUPUQNZUPUQOZABPQURVAVFVBVHFURVAAAIGZVEHGZVFUPUQVAV
-    NLAABRSURVDVMVEHUPVDVMLUQATUAUBUCURVBBAIGZBBIGZHGZVHUQUPUQVBVQLURBABRVLVKVL
-    QURVEVOVGVPHABUDUQVGVPLUPBTUEUFUCUFURVFVEFGZVGHGZVIVJVFCDZVECDZVGCDZVSVILUR
-    VFVEVGUGVDCDZWAVTURVDVEPUPWCUQAUHUAZABUIZUJZWEUQWBUPBUHUEQURVRVDVGHURVRVEVF
-    FGZVDVTWAVRWGLURVFVEUKWFWEUJWAWCWGVDLURVEVDULWEWDUJUMUBUNUO $.
+    ( cc wcel wa caddc co cmin cmul c2 cexp wceq adddir pm3.26 pm3.27 subcl
+    syl3anc subdi 3anidm12 sqval adantr opreq1d eqtr4d mulcom adantl opreq12d
+    addsubass sqcl mulcl sylanc addcom pncan3 eqtrd eqtr3d 3eqtrrd ) ACDZBCDZEZ
+    ABFGABHGZIGZAUSIGZBUSIGZFGZAJKGZABIGZHGZVEBJKGZHGZFGZVDVGHGZUPUQUSCDUTVCLUR
+    ABUSMUPUQNZUPUQOZABPQURVAVFVBVHFURVAAAIGZVEHGZVFUPUQVAVNLAABRSURVDVMVEHUPVD
+    VMLUQATUAUBUCURVBBAIGZBBIGZHGZVHUQUPUQVBVQLURBABRVLVKVLQURVEVOVGVPHABUDUQVG
+    VPLUPBTUEUFUCUFURVFVEFGZVGHGZVIVJVFCDZVECDZVGCDZVSVILURVFVEVGUGVDCDZWAVTURV
+    DVEPUPWCUQAUHUAZABUIZUJZWEUQWBUPBUHUEQURVRVDVGHURVRVEVFFGZVDVTWAVRWGLURVFVE
+    UKWFWEUJWAWCWGVDLURVEVDULWEWDUJUMUBUNUO $.
     $( [23-Feb-2008] $) $( [21-Feb-2008] $)
 
   $( Express the difference of the squares of two numbers as a polynomial in
      the difference of the numbers. $)
-  subsq2t $p |- ( ( A e. CC /\ B e. CC ) -> ( ( A ^ 2 ) - ( B ^ 2 ) ) =
+  subsq2 $p |- ( ( A e. CC /\ B e. CC ) -> ( ( A ^ 2 ) - ( B ^ 2 ) ) =
     ( ( ( A - B ) ^ 2 ) + ( ( 2 x. B ) x. ( A - B ) ) ) ) $=
-    ( cc wcel wa caddc co cmin cmul c2 cexp wceq 2cn axmulcl mpan adantl
-    subadd23t mpd3an3 2timest opreq1d pncant anidms eqtrd opreq2d adddirt
-    subclt syl3anc eqtr3d subsqt sqvalt syl 3eqtr4d ) ACDZBCDZEZABFGZABHGZIGZUQ
-    UQIGZJBIGZUQIGZFGZAJKGBJKGHGUQJKGZVAFGUOUQUTFGZUQIGZURVBUOVDUPUQIUOVDAUTBHG
-    ZFGZUPUMUNUTCDZVDVGLUNVHUMJCDUNVHMJBNOPZABUTQRUOVFBAFUNVFBLUMUNVFBBFGZBHGZB
-    UNUTVJBHBSTUNVKBLBBUAUBUCPUDUCTUQCDZVHVLVEVBLUOUQUTUQUEABUFZVIVMUGUHABUIUOV
-    CUSVAFUOVLVCUSLVMUQUJUKTUL $.
+    ( cc wcel wa caddc co cmin cmul c2 cexp wceq 2cn mulcl mpan adantl
+    subadd23 mpd3an3 2times opreq1d pncan anidms eqtrd opreq2d adddir subcl
+    syl3anc eqtr3d subsq sqval syl 3eqtr4d ) ACDZBCDZEZABFGZABHGZIGZUQUQIGZJBIG
+    ZUQIGZFGZAJKGBJKGHGUQJKGZVAFGUOUQUTFGZUQIGZURVBUOVDUPUQIUOVDAUTBHGZFGZUPUMU
+    NUTCDZVDVGLUNVHUMJCDUNVHMJBNOPZABUTQRUOVFBAFUNVFBLUMUNVFBBFGZBHGZBUNUTVJBHB
+    STUNVKBLBBUAUBUCPUDUCTUQCDZVHVLVEVBLUOUQUTUQUEABUFZVIVMUGUHABUIUOVCUSVAFUOV
+    LVCUSLVMUQUJUKTUL $.
     $( [13-Mar-2008] $) $( [21-Feb-2008] $)
 
   ${
     binom2.1 $e |- A e. CC $.
     binom2.2 $e |- B e. CC $.
     $( The square of a binomial. $)
-    binom2 $p |- ( ( A + B ) ^ 2 ) = ( ( ( A ^ 2 ) + ( 2 x.
+    binom2i $p |- ( ( A + B ) ^ 2 ) = ( ( ( A ^ 2 ) + ( 2 x.
                 ( A x. B ) ) ) + ( B ^ 2 ) ) $=
-      ( caddc co cmul c2 cexp addcl adddi adddir mulcom opreq2i eqtr opreq12i
-      mulcl addass opreq1i eqtr3 3eqtr sqval 2times 3eqtr4 ) ABEFZUEGFZAAGFZABG
-      FZUHEFZEFZBBGFZEFZUEHIFAHIFZHUHGFZEFZBHIFZEFUFUEAGFZUEBGFZEFUGUHEFZUHUKEF
-      ZEFZULUEABABCDJZCDKUQUSURUTEUQUGBAGFZEFUSABACDCLVCUHUGEBADCMNOABBCDDLPUSU
-      HEFZUKEFVAULUSUHUKUGUHAACCQZABCDQZJVFBBDDQRVDUJUKEUGUHUHVEVFVFRSTUAUEVBUB
-      UOUJUPUKEUMUGUNUIEACUBUHVFUCPBDUBPUD $.
+      ( caddc co cmul c2 cexp addcli adddii adddiri mulcomi opreq2i eqtri
+      opreq12i mulcli addassi opreq1i eqtr3i 3eqtri sqvali 2timesi 3eqtr4i ) AB
+      EFZUEGFZAAGFZABGFZUHEFZEFZBBGFZEFZUEHIFAHIFZHUHGFZEFZBHIFZEFUFUEAGFZUEBGF
+      ZEFUGUHEFZUHUKEFZEFZULUEABABCDJZCDKUQUSURUTEUQUGBAGFZEFUSABACDCLVCUHUGEBA
+      DCMNOABBCDDLPUSUHEFZUKEFVAULUSUHUKUGUHAACCQZABCDQZJVFBBDDQRVDUJUKEUGUHUHV
+      EVFVFRSTUAUEVBUBUOUJUPUKEUMUGUNUIEACUBUHVFUCPBDUBPUD $.
       $( [11-Aug-1999] $)
 
     $( Product of sum and difference. $)
-    binom2aOLD $p |- ( ( A + B ) x. ( A - B ) ) = ( ( A ^ 2 ) - ( B ^ 2 ) ) $=
-      ( caddc co cmin cmul c2 cexp subcl adddir subdi sqval opreq1i eqtr4
-      mulcom opreq12i sqcl mulcl addsubass addcom pncan3 eqtr eqtr3 3eqtr ) ABE
-      FABGFZHFAUGHFZBUGHFZEFAIJFZABHFZGFZUKBIJFZGFZEFZUJUMGFZABUGCDABCDKLUHULUI
-      UNEUHAAHFZUKGFULAABCCDMUJUQUKGACNOPUIBAHFZBBHFZGFUNBABDCDMUKURUMUSGABCDQB
-      DNRPRULUKEFZUMGFUOUPULUKUMUJUKACSZABCDTZKZVBBDSUAUTUJUMGUTUKULEFUJULUKVCV
-      BUBUKUJVBVAUCUDOUEUF $.
+    binom2aiOLD $p |- ( ( A + B ) x. ( A - B ) ) = ( ( A ^ 2 ) - ( B ^ 2 ) ) $=
+      ( caddc co cmin cmul c2 cexp subcli adddiri subdii sqvali opreq1i eqtr4i
+      mulcomi opreq12i sqcli mulcli addsubassi addcomi pncan3i eqtri eqtr3i
+      3eqtri ) ABEFABGFZHFAUGHFZBUGHFZEFAIJFZABHFZGFZUKBIJFZGFZEFZUJUMGFZABUGCD
+      ABCDKLUHULUIUNEUHAAHFZUKGFULAABCCDMUJUQUKGACNOPUIBAHFZBBHFZGFUNBABDCDMUKU
+      RUMUSGABCDQBDNRPRULUKEFZUMGFUOUPULUKUMUJUKACSZABCDTZKZVBBDSUAUTUJUMGUTUKU
+      LEFUJULUKVCVBUBUKUJVBVAUCUDOUEUF $.
       $( [17-Jun-2005] $) $( [7-Feb-2005] $)
 
     $( Factor the difference of two squares. $)
-    subsq $p |- ( ( A ^ 2 ) - ( B ^ 2 ) ) = ( ( A + B ) x. ( A - B ) ) $=
-      ( cc wcel c2 cexp co cmin caddc cmul wceq subsqt mp2an ) AEFBEFAGHIBGHIJI
-      ABKIABJILIMCDABNO $.
-      $( [?] $) $( [7-Feb-2005] $)
+    subsqi $p |- ( ( A ^ 2 ) - ( B ^ 2 ) ) = ( ( A + B ) x. ( A - B ) ) $=
+      ( cc wcel c2 cexp co cmin caddc cmul wceq subsq mp2an ) AEFBEFAGHIBGHIJIA
+      BKIABJILIMCDABNO $.
+      $( [24-Apr-2008] $) $( [7-Feb-2005] $)
 
     $( The squares of two complex numbers are equal iff one number equals the
        other or its negative.  Lemma 15-4.7 of [Gleason] p. 311 and its
        converse. $)
-    sqeqor $p |- ( ( A ^ 2 ) = ( B ^ 2 ) <-> ( A = B \/ A = -u B ) ) $=
-      ( c2 cexp co wceq caddc cc0 cmin wo cneg cmul binom2aOLD eqeq1i addcl
-      subcl mul0or sqcl subeq0 3bitr3r orcom subneg negcl bitr3 orbi12i 3bitr
-      ) AEFGZBEFGZHZABIGZJHZABKGZJHZLZUOUMLABHZABMZHZLULUNNGZJHUIUJKGZJHUPUKUTV
-      AJABCDOPULUNABCDQABCDRSUIUJACTBDTUAUBUMUOUCUOUQUMUSABCDUAUMAURKGZJHUSVBUL
-      JABCDUDPAURCBDUEUAUFUGUH $.
+    sqeqori $p |- ( ( A ^ 2 ) = ( B ^ 2 ) <-> ( A = B \/ A = -u B ) ) $=
+      ( c2 cexp co wceq caddc cc0 cmin wo cneg cmul binom2aiOLD eqeq1i addcli
+      subcli mul0ori sqcli subeq0i 3bitr3ri orcom subnegi negcli bitr3i
+      orbi12i 3bitri ) AEFGZBEFGZHZABIGZJHZABKGZJHZLZUOUMLABHZABMZHZLULUNNGZJHU
+      IUJKGZJHUPUKUTVAJABCDOPULUNABCDQABCDRSUIUJACTBDTUAUBUMUOUCUOUQUMUSABCDUAU
+      MAURKGZJHUSVBULJABCDUDPAURCBDUEUAUFUGUH $.
       $( [26-Apr-2006] $) $( [15-Jan-2006] $)
 
     $( The two solutions to the difference of squares set equal to zero. $)
-    subsq0 $p |- ( ( ( A ^ 2 ) - ( B ^ 2 ) ) = 0 <-> ( A = B \/ A = -u B ) ) $=
-      ( c2 cexp co cmin cc0 wceq cneg wo sqcl subeq0 sqeqor bitr ) AEFGZBEFGZHG
-      IJQRJABJABKJLQRACMBDMNABCDOP $.
+    subsq0i $p |- ( ( ( A ^ 2 ) - ( B ^ 2 ) ) = 0
+                  <-> ( A = B \/ A = -u B ) ) $=
+      ( c2 cexp co cmin cc0 wceq cneg wo sqcli subeq0i sqeqori bitri ) AEFGZBEF
+      GZHGIJQRJABJABKJLQRACMBDMNABCDOP $.
       $( [4-Aug-2007] $) $( [25-Apr-2006] $)
   $}
 
   $( The squares of two complex numbers are equal iff one number equals the
      other or its negative.  Lemma 15-4.7 of [Gleason] p. 311 and its
      converse. (Contributed by Paul Chapman, 15-Mar-2008.) $)
-  sqeqort $p |- ( ( A e. CC /\ B e. CC ) ->
+  sqeqor $p |- ( ( A e. CC /\ B e. CC ) ->
                   ( ( A ^ 2 ) = ( B ^ 2 ) <-> ( A = B \/ A = -u B ) ) ) $=
     ( cc wcel c2 cexp co wceq cneg wo wb cc0 cif opreq1 eqeq1d eqeq1 orbi12d
-    bibi12d eqeq2d eqeq2 negeq 0cn elimel sqeqor dedth2h ) ACDZBCDZAEFGZBEFGZHZ
-    ABHZABIZHZJZKUFALMZEFGZUIHZUOBHZUOULHZJZKUPUGBLMZEFGZHZUOVAHZUOVAIZHZJZKABL
-    LAUOHZUJUQUNUTVHUHUPUIAUOEFNOVHUKURUMUSAUOBPAUOULPQRBVAHZUQVCUTVGVIUIVBUPBV
-    AEFNSVIURVDUSVFBVAUOTVIULVEUOBVAUASQRUOVAALCUBUCBLCUBUCUDUE $.
+    bibi12d eqeq2d eqeq2 negeq 0cn elimel sqeqori dedth2h ) ACDZBCDZAEFGZBEFGZH
+    ZABHZABIZHZJZKUFALMZEFGZUIHZUOBHZUOULHZJZKUPUGBLMZEFGZHZUOVAHZUOVAIZHZJZKAB
+    LLAUOHZUJUQUNUTVHUHUPUIAUOEFNOVHUKURUMUSAUOBPAUOULPQRBVAHZUQVCUTVGVIUIVBUPB
+    VAEFNSVIURVDUSVFBVAUOTVIULVEUOBVAUASQRUOVAALCUBUCBLCUBUCUDUE $.
     $( [15-Mar-2008] $) $( [15-Mar-2008] $)
 
   $( The square of a binomial.  (Contributed by FL, 10-Dec-2006.) $)
-  binom2t $p |- ( ( A e. CC /\ B e. CC ) -> ( ( A + B ) ^ 2 ) =
+  binom2 $p |- ( ( A e. CC /\ B e. CC ) -> ( ( A + B ) ^ 2 ) =
      ( ( ( A ^ 2 ) + ( 2 x. ( A x. B ) ) ) + ( B ^ 2 ) ) ) $=
     ( cc wcel caddc co c2 cexp cmul wceq cc0 cif opreq1 opreq1d opreq2d
-    opreq12d eqeq12d opreq2 0cn elimel binom2 dedth2h ) ACDZBCDZABEFZGHFZAGHFZG
-    ABIFZIFZEFZBGHFZEFZJUCAKLZBEFZGHFZUMGHFZGUMBIFZIFZEFZUKEFZJUMUDBKLZEFZGHFZU
-    PGUMVAIFZIFZEFZVAGHFZEFZJABKKAUMJZUFUOULUTVIUEUNGHAUMBEMNVIUJUSUKEVIUGUPUIU
-    REAUMGHMVIUHUQGIAUMBIMOPNQBVAJZUOVCUTVHVJUNVBGHBVAUMERNVJUSVFUKVGEVJURVEUPE
-    VJUQVDGIBVAUMIROOBVAGHMPQUMVAAKCSTBKCSTUAUB $.
+    opreq12d eqeq12d opreq2 0cn elimel binom2i dedth2h ) ACDZBCDZABEFZGHFZAGHFZ
+    GABIFZIFZEFZBGHFZEFZJUCAKLZBEFZGHFZUMGHFZGUMBIFZIFZEFZUKEFZJUMUDBKLZEFZGHFZ
+    UPGUMVAIFZIFZEFZVAGHFZEFZJABKKAUMJZUFUOULUTVIUEUNGHAUMBEMNVIUJUSUKEVIUGUPUI
+    UREAUMGHMVIUHUQGIAUMBIMOPNQBVAJZUOVCUTVHVJUNVBGHBVAUMERNVJUSVFUKVGEVJURVEUP
+    EVJUQVDGIBVAUMIROOBVAGHMPQUMVAAKCSTBKCSTUAUB $.
     $( [10-Dec-2006] $) $( [27-Nov-2006] $)
 
   $( If a complex number equals its square, it must be 0 or 1. $)
-  sq01t $p |- ( A e. CC -> ( ( A ^ 2 ) = A <-> ( A = 0 \/ A = 1 ) ) ) $=
-    ( cc wcel c2 cexp co wceq cc0 c1 wo wa wne wn wi cmul wb sqvalt ax1id
-    eqcomd eqeq12d adantr ax1cn mulcant mp3anl3 anabsan bitrd biimpd ex com23
+  sq01 $p |- ( A e. CC -> ( ( A ^ 2 ) = A <-> ( A = 0 \/ A = 1 ) ) ) $=
+    ( cc wcel c2 cexp co wceq cc0 c1 wo wa wne wn wi cmul wb sqval ax1id
+    eqcomd eqeq12d adantr ax1cn mulcan mp3an2 anabss5 bitrd biimpd ex com23
     imp df-ne syl5ibr orrd sq0 opreq1 id 3eqtr4a sq1 jaoi impbid1 ) ABCZADEFZAG
     ZAHGZAIGZJZVAVCVFVAVCKZVDVEVGAHLZVEVDMVAVCVHVENVAVHVCVEVAVHVCVENVAVHKZVCVEV
-    IVCAAOFZAIOFZGZVEVAVCVLPVHVAVBVJAVKAQVAVKAARSTUAVAVHVLVEPZVAVAIBCVHVMUBAAIU
-    CUDUEUFUGUHUIUJAHUKULUMUHVDVCVEVDHDEFHVBAUNAHDEUOVDUPUQVEIDEFIVBAURAIDEUOVE
-    UPUQUSUT $.
+    IVCAAOFZAIOFZGZVEVAVCVLPVHVAVBVJAVKAQVAVKAARSTUAVAVHVLVEPZVAIBCVIVMUBAIAUCU
+    DUEUFUGUHUIUJAHUKULUMUHVDVCVEVDHDEFHVBAUNAHDEUOVDUPUQVEIDEFIVBAURAIDEUOVEUP
+    UQUSUT $.
     $( [9-Jun-2006] $) $( [6-Jun-2006] $)
 
   ${
@@ -923,39 +972,76 @@ $)
     bernneq $p |- ( ( A e. RR /\ N e. NN0 /\ -u 1 <_ A ) ->
                  ( 1 + ( A x. N ) ) <_ ( ( 1 + A ) ^ N ) ) $=
       ( vj vk cr wcel cn0 c1 cneg cle wbr cmul co caddc cexp wi wa cv cc0 wceq
-      opreq2 opreq2d breq12d imbi2d cc recnt mul01t ax1cn addid1 syl6eq
-      axaddcl mpan exp0t syl 1re leid syl5breqr eqbrtrd adantr axaddrcl
-      axmulrcl nn0ret sylan2 pm3.26 sylanc reexpclt sylan mulge0t anidms
-      anim12i msqge0t nn0ge0t mul23t nn0cnt adantl syl3anc breqtrd wb addge01t
-      mpbid axaddass axmulcl muladd11t eqtr4d syl2an w3a lemul1itOLD ad2antrr
-      3jca renegcl leadd2t mp3an13 negid breq1i syl6bb biimpa ad2ant2r simprr
-      jca letrd axdistr mp3an3 ax1id eqtrd mp3an1 expp1t 3brtr4d exp43 com12
-      imp3a a2d nn0ind exp3a 3imp ) AEFZBGFZHIZAJKZHABLMZNMZHANMZBOMZJKZXPXOXRY
-      CPXPXOXRYCXOXRQZHACRZLMZNMZYAYEOMZJKZPYDHASLMZNMZYASOMZJKZPYDHADRZLMZNMZY
-      AYNOMZJKZPYDHAYNHNMZLMZNMZYAYSOMZJKZPYDYCPCDBYESTZYIYMYDUUDYGYKYHYLJUUDYF
-      YJHNYESALUAUBYESYAOUAUCUDYEYNTZYIYRYDUUEYGYPYHYQJUUEYFYOHNYEYNALUAUBYEYNY
-      AOUAUCUDYEYSTZYIUUCYDUUFYGUUAYHUUBJUUFYFYTHNYEYSALUAUBYEYSYAOUAUCUDYEBTZY
-      IYCYDUUGYGXTYHYBJUUGYFXSHNYEBALUAUBYEBYAOUAUCUDXOYMXRXOAUEFZYMAUFZUUHYKHY
-      LJUUHYKHSNMHUUHYJSHNAUGUBHUHUIUJUUHHYLHJUUHYAUEFZYLHTHUEFZUUHUUJUHHAUKULZ
-      YAUMUNHUOUPUQURUNUSYNGFZYDYRUUCUUMXOXRYRUUCPZXOUUMXRUUNPXOUUMXRYRUUCXOUUM
-      QZXRYRQZQZYPANMZYQYALMZUUAUUBJUUQUURYPYALMZUUSUUOUUREFZUUPYPEFZXOUVAUUOYP
-      AUTUUOYOEFZUVBXOYNEFZUVCUUMAYNVAZYNVBZVCHEFZUVCUVBUOHYOUTULUNZXOUUMVDVEZU
-      SUUOUUTEFZUUPUVBYAEFZUVJUUOYPYAVAUVHXOUVKUUMUVGXOUVKUOHAUTULZUSZVEUSUUOUU
-      SEFZUUPYQEFZUVKUVNUUOYQYAVAUVKUUMUVOXOYAYNVFUVLVGZUVMVEUSUUOUURUUTJKUUPUU
-      OUURUURYOALMZNMZUUTJUUOSUVQJKZUURUVRJKZUUOSAALMZYNLMZUVQJUWAEFZUVDQSUWAJK
-      ZSYNJKZQSUWBJKUUOUWAYNVHXOUWCUUMUVDXOUWCAAVAVIUVFVJXOUWDUUMUWEAVKYNVLVJVE
-      UUHUUHYNUEFZUWBUVQTUUOAAYNVMXOUUHUUMUUIUSZUWGUUMUWFXOYNVNZVOVPVQUVAUVQEFZ
-      UVSUVTVRUUOUURUVQVSUVIXOUVDUWIUUMUVCXOUWIXOUVDQYOAVAUVEXOUVDVDVEUVFVCVEVT
-      UUHUWFUVRUUTTXOUUMUUHUWFQZUVRYPAUVQNMNMZUUTYPUEFZUUHUVQUEFZUVRUWKTUWJYPAU
-      VQWAUWJYOUEFZUWLAYNWBZUUKUWNUWLUHHYOUKULUNUUHUWFVDZUWNUUHUWMUWJYOAWBUWOUW
-      PVEVPUWNUUHUUTUWKTUWJYOAWCUWOUWPVEWDUUIUWHWEVQUSUVBUVOUVKWFSYAJKZYRQUUTUU
-      SJKUUQYPYQYAWGUUQUVBUVOUVKUUOUVBUUPUVHUSUUOUVOUUPUVPUSXOUVKUUMUUPUVLWHWIU
-      UQUWQYRXOXRUWQUUMYRXOXRUWQXOXRHXQNMZYAJKZUWQXQEFXOUVGXRUWSVRHUOWJUOXQAHWK
-      WLUWRSYAJHUHWMWNWOWPWQUUOXRYRWRWSVEWTUUOUUAUURTZUUPUUHUWFUWTXOUUMUWJUUAHY
-      OANMZNMZUURUWJYTUXAHNUWJYTYOAHLMZNMZUXAUUHUWFUUKYTUXDTUHAYNHXAXBUWJUXCAYO
-      NUUHUXCATUWFAXCUSUBXDUBUWNUUHUURUXBTZUWJUUKUWNUUHUXEUHHYOAWAXEUWOUWPVEWDU
-      UIUWHWEUSUUOUUBUUSTZUUPUUJUUMUXFXOYAYNXFXOUUHUUJUUIUULUNVGUSXGXHXIXJXKXLX
-      MXIXN $.
+      opreq2 opreq2d breq12d imbi2d cc recn mul01 ax1cn addid1i syl6eq addcl
+      mpan exp0 syl 1re leidi syl5breqr eqbrtrd adantr readdcl remulcl nn0re
+      sylan2 pm3.26 sylanc reexpcl sylan mulge0 axmulrcl anidms msqge0 jca
+      nn0ge0 syl2an mul23 nn0cn adantl syl3anc breqtrd wb addge01 mpbid addass
+      mulcl muladd11 eqtr4d w3a lemul1a renegcli leadd2 mp3an13 negidi breq1i
+      syl6bb biimpa ad2ant2r 3jca simprr letrd adddi mp3an3 ax1id eqtrd mp3an1
+      expp1 3brtr4d exp43 com12 imp3a a2d nn0ind exp3a 3imp ) AEFZBGFZHIZAJKZHA
+      BLMZNMZHANMZBOMZJKZXOXNXQYBPXOXNXQYBXNXQQZHACRZLMZNMZXTYDOMZJKZPYCHASLMZN
+      MZXTSOMZJKZPYCHADRZLMZNMZXTYMOMZJKZPYCHAYMHNMZLMZNMZXTYROMZJKZPYCYBPCDBYD
+      STZYHYLYCUUCYFYJYGYKJUUCYEYIHNYDSALUAUBYDSXTOUAUCUDYDYMTZYHYQYCUUDYFYOYGY
+      PJUUDYEYNHNYDYMALUAUBYDYMXTOUAUCUDYDYRTZYHUUBYCUUEYFYTYGUUAJUUEYEYSHNYDYR
+      ALUAUBYDYRXTOUAUCUDYDBTZYHYBYCUUFYFXSYGYAJUUFYEXRHNYDBALUAUBYDBXTOUAUCUDX
+      NYLXQXNAUEFZYLAUFZUUGYJHYKJUUGYJHSNMHUUGYISHNAUGUBHUHUIUJUUGHYKHJUUGXTUEF
+      ZYKHTHUEFZUUGUUIUHHAUKULZXTUMUNHUOUPUQURUNUSYMGFZYCYQUUBUULXNXQYQUUBPZXNU
+      ULXQUUMPXNUULXQYQUUBXNUULQZXQYQQZQZYOANMZYPXTLMZYTUUAJUUPUUQYOXTLMZUURUUN
+      UUQEFZUUOYOEFZXNUUTUUNYOAUTUUNYNEFZUVAXNYMEFZUVBUULAYMVAZYMVBZVCHEFZUVBUV
+      AUOHYNUTULUNZXNUULVDVEZUSUUNUUSEFZUUOUVAXTEFZUVIUUNYOXTVAUVGXNUVJUULUVFXN
+      UVJUOHAUTULZUSZVEUSUUNUUREFZUUOYPEFZUVJUVMUUNYPXTVAUVJUULUVNXNXTYMVFUVKVG
+      ZUVLVEUSUUNUUQUUSJKUUOUUNUUQUUQYNALMZNMZUUSJUUNSUVPJKZUUQUVQJKZUUNSAALMZY
+      MLMZUVPJUVTEFZSUVTJKZQUVCSYMJKZQSUWAJKXNUULUVTYMVHXNUWBUWCXNUWBAAVIVJAVKV
+      LUULUVCUWDUVEYMVMVLVNUUGUUGYMUEFZUWAUVPTUUNAAYMVOXNUUGUULUUHUSZUWFUULUWEX
+      NYMVPZVQVRVSUUTUVPEFZUVRUVSVTUUNUUQUVPWAUVHXNUVCUWHUULUVBXNUWHXNUVCQYNAVA
+      UVDXNUVCVDVEUVEVCVEWBUUGUWEUVQUUSTXNUULUUGUWEQZUVQYOAUVPNMNMZUUSYOUEFZUUG
+      UVPUEFZUVQUWJTUWIYOAUVPWCUWIYNUEFZUWKAYMWDZUUJUWMUWKUHHYNUKULUNUUGUWEVDZU
+      WMUUGUWLUWIYNAWDUWNUWOVEVRUWMUUGUUSUWJTUWIYNAWEUWNUWOVEWFUUHUWGVNVSUSUVAU
+      VNUVJSXTJKZQZWGYQUUSUURJKUUPYOYPXTWHUUPUVAUVNUWQUUNUVAUUOUVGUSUUNUVNUUOUV
+      OUSUUPUVJUWPUUNUVJUUOUVLUSXNXQUWPUULYQXNXQUWPXNXQHXPNMZXTJKZUWPXPEFXNUVFX
+      QUWSVTHUOWIUOXPAHWJWKUWRSXTJHUHWLWMWNWOWPVLWQUUNXQYQWRVEWSUUNYTUUQTZUUOUU
+      GUWEUWTXNUULUWIYTHYNANMZNMZUUQUWIYSUXAHNUWIYSYNAHLMZNMZUXAUUGUWEUUJYSUXDT
+      UHAYMHWTXAUWIUXCAYNNUUGUXCATUWEAXBUSUBXCUBUWMUUGUUQUXBTZUWIUUJUWMUUGUXEUH
+      HYNAWCXDUWNUWOVEWFUUHUWGVNUSUUNUUAUURTZUUOUUIUULUXFXNXTYMXEXNUUGUUIUUHUUK
+      UNVGUSXFXGXHXIXJXKXLXHXM $.
+      $( [25-Jul-2009] $) $( [21-Feb-2005] $)
+
+    $( Bernoulli's inequality, due to Johan Bernoulli (1667-1748). $)
+    bernneqOLD $p |- ( ( A e. RR /\ N e. NN0 /\ -u 1 <_ A ) ->
+                 ( 1 + ( A x. N ) ) <_ ( ( 1 + A ) ^ N ) ) $=
+      ( vj vk cr wcel cn0 c1 cneg cle wbr cmul co caddc cexp wi wa cv cc0 wceq
+      opreq2 opreq2d breq12d imbi2d cc recn mul01 ax1cn addid1i syl6eq addcl
+      mpan exp0 syl 1re leidi syl5breqr eqbrtrd adantr readdcl remulcl nn0re
+      sylan2 pm3.26 sylanc reexpcl sylan mulge0OLD anidms anim12i msqge0
+      nn0ge0 mul23 nn0cn adantl syl3anc breqtrd wb addge01 mpbid addass mulcl
+      muladd11 eqtr4d syl2an w3a lemul1a renegcli leadd2 mp3an13 negidi breq1i
+      syl6bb biimpa ad2ant2r jca 3jca simprr letrd adddi mp3an3 ax1id eqtrd
+      mp3an1 expp1 3brtr4d exp43 com12 imp3a a2d nn0ind exp3a 3imp ) AEFZBGFZHI
+      ZAJKZHABLMZNMZHANMZBOMZJKZXOXNXQYBPXOXNXQYBXNXQQZHACRZLMZNMZXTYDOMZJKZPYC
+      HASLMZNMZXTSOMZJKZPYCHADRZLMZNMZXTYMOMZJKZPYCHAYMHNMZLMZNMZXTYROMZJKZPYCY
+      BPCDBYDSTZYHYLYCUUCYFYJYGYKJUUCYEYIHNYDSALUAUBYDSXTOUAUCUDYDYMTZYHYQYCUUD
+      YFYOYGYPJUUDYEYNHNYDYMALUAUBYDYMXTOUAUCUDYDYRTZYHUUBYCUUEYFYTYGUUAJUUEYEY
+      SHNYDYRALUAUBYDYRXTOUAUCUDYDBTZYHYBYCUUFYFXSYGYAJUUFYEXRHNYDBALUAUBYDBXTO
+      UAUCUDXNYLXQXNAUEFZYLAUFZUUGYJHYKJUUGYJHSNMHUUGYISHNAUGUBHUHUIUJUUGHYKHJU
+      UGXTUEFZYKHTHUEFZUUGUUIUHHAUKULZXTUMUNHUOUPUQURUNUSYMGFZYCYQUUBUULXNXQYQU
+      UBPZXNUULXQUUMPXNUULXQYQUUBXNUULQZXQYQQZQZYOANMZYPXTLMZYTUUAJUUPUUQYOXTLM
+      ZUURUUNUUQEFZUUOYOEFZXNUUTUUNYOAUTUUNYNEFZUVAXNYMEFZUVBUULAYMVAZYMVBZVCHE
+      FZUVBUVAUOHYNUTULUNZXNUULVDVEZUSUUNUUSEFZUUOUVAXTEFZUVIUUNYOXTVAUVGXNUVJU
+      ULUVFXNUVJUOHAUTULZUSZVEUSUUNUUREFZUUOYPEFZUVJUVMUUNYPXTVAUVJUULUVNXNXTYM
+      VFUVKVGZUVLVEUSUUNUUQUUSJKUUOUUNUUQUUQYNALMZNMZUUSJUUNSUVPJKZUUQUVQJKZUUN
+      SAALMZYMLMZUVPJUVTEFZUVCQSUVTJKZSYMJKZQSUWAJKUUNUVTYMVHXNUWBUULUVCXNUWBAA
+      VAVIUVEVJXNUWCUULUWDAVKYMVLVJVEUUGUUGYMUEFZUWAUVPTUUNAAYMVMXNUUGUULUUHUSZ
+      UWFUULUWEXNYMVNZVOVPVQUUTUVPEFZUVRUVSVRUUNUUQUVPVSUVHXNUVCUWHUULUVBXNUWHX
+      NUVCQYNAVAUVDXNUVCVDVEUVEVCVEVTUUGUWEUVQUUSTXNUULUUGUWEQZUVQYOAUVPNMNMZUU
+      SYOUEFZUUGUVPUEFZUVQUWJTUWIYOAUVPWAUWIYNUEFZUWKAYMWBZUUJUWMUWKUHHYNUKULUN
+      UUGUWEVDZUWMUUGUWLUWIYNAWBUWNUWOVEVPUWMUUGUUSUWJTUWIYNAWCUWNUWOVEWDUUHUWG
+      WEVQUSUVAUVNUVJSXTJKZQZWFYQUUSUURJKUUPYOYPXTWGUUPUVAUVNUWQUUNUVAUUOUVGUSU
+      UNUVNUUOUVOUSUUPUVJUWPUUNUVJUUOUVLUSXNXQUWPUULYQXNXQUWPXNXQHXPNMZXTJKZUWP
+      XPEFXNUVFXQUWSVRHUOWHUOXPAHWIWJUWRSXTJHUHWKWLWMWNWOWPWQUUNXQYQWRVEWSUUNYT
+      UUQTZUUOUUGUWEUWTXNUULUWIYTHYNANMZNMZUUQUWIYSUXAHNUWIYSYNAHLMZNMZUXAUUGUW
+      EUUJYSUXDTUHAYMHWTXAUWIUXCAYNNUUGUXCATUWEAXBUSUBXCUBUWMUUGUUQUXBTZUWIUUJU
+      WMUUGUXEUHHYNAWAXDUWNUWOVEWDUUHUWGWEUSUUNUUAUURTZUUOUUIUULUXFXNXTYMXEXNUU
+      GUUIUUHUUKUNVGUSXFXGXHXIXJXKXLXHXM $.
       $( [11-Oct-2006] $) $( [21-Feb-2005] $)
   $}
 
@@ -963,45 +1049,134 @@ $)
   bernneq2 $p |- ( ( A e. RR /\ N e. NN0 /\ 0 <_ A ) ->
                ( ( ( A - 1 ) x. N ) + 1 ) <_ ( A ^ N ) ) $=
     ( cr wcel cn0 cc0 cle wbr w3a c1 cmin co cmul caddc cexp cneg bernneq
-    peano2rem 3ad2ant1 3simp2 wa wb 0re 1re lesub1t mp3an13 biimpa df-neg
-    syl5eqbr 3adant2 syl3anc wceq cc axmulcl recnd nn0cnt syl2an ax1cn
-    axaddcom mpan syl 3adant3 recnt pncan3t opreq1d 3brtr3d ) ACDZBEDZFAGHZIZJA
-    JKLZBMLZNLZJVKNLZBOLZVLJNLZABOLZGVKCDZVHJPZVKGHZVMVOGHVJVKBQVGVHVRVIARZSVGV
-    HVITVGVIVTVHVGVIUAFJKLZVKVSGVGVIWBVKGHZFCDVGJCDVIWCUBUCUDFAJUEUFUGJUHUIUJUK
-    VGVHVMVPULZVIVGVHUAVLUMDZWDVKUMDBUMDWEVGVHVKBUNVGVKWAUOBUPUQJUMDZWEWDURJVLU
-    SUTVAVBVGVHVOVQULVIVGVNABOVGAUMDZVNAULZAVCWFWGWHURJAVDUTVAVESVF $.
+    peano2rem 3ad2ant1 3simp2 wa wb 0re 1re lesub1 mp3an13 biimpa df-neg
+    syl5eqbr 3adant2 syl3anc wceq cc mulcl recnd nn0cn syl2an ax1cn addcom
+    mpan syl 3adant3 recn pncan3 opreq1d 3brtr3d ) ACDZBEDZFAGHZIZJAJKLZBMLZNLZ
+    JVKNLZBOLZVLJNLZABOLZGVKCDZVHJPZVKGHZVMVOGHVJVKBQVGVHVRVIARZSVGVHVITVGVIVTV
+    HVGVIUAFJKLZVKVSGVGVIWBVKGHZFCDVGJCDVIWCUBUCUDFAJUEUFUGJUHUIUJUKVGVHVMVPULZ
+    VIVGVHUAVLUMDZWDVKUMDBUMDWEVGVHVKBUNVGVKWAUOBUPUQJUMDZWEWDURJVLUSUTVAVBVGVH
+    VOVQULVIVGVNABOVGAUMDZVNAULZAVCWFWGWHURJAVDUTVAVESVF $.
     $( [26-Oct-2007] $) $( [18-Oct-2007] $)
 
   ${
-    $d k A $.  $d k B $.
+    $d j k A $.  $d j k B $.
     $( MAY BE REVISED - note that min w/ ad2antlr, ad2antrl make compressed
        proof longer $)
     $( Exponentiation with a mantissa greater than 1 has no upper bound. $)
-    expnbndt $p |- ( ( A e. RR /\ B e. RR /\ 1 < B ) ->
+    expnbnd $p |- ( ( A e. RR /\ B e. RR /\ 1 < B ) ->
           E. k e. NN A < ( B ^ k ) ) $=
       ( cr wcel c1 clt wbr w3a cv cexp co cn wrex wa wceq opreq2 breq2d
-      rcla4ev 1nn a1i wi 1re axlttrn mp3an2 exp4b com34 3imp1 cc recnt exp1t
-      syl 3ad2ant2 adantr breqtrrd sylanc cle cmin cdiv cfl cfv caddc cn0 cc0
-      flge0nn0t wne redivclt peano2rem adantl wb posdift mpan biimpa gt0ne0t
-      sylan syldan syl3anc adantll divge0t subge0t mpan2 biimparc jca syl2an
-      nn0p1nnt cmul simplr axmulrcl peano2nn0 nn0ret peano2re reexpclt simprl
-      flltp1t ltdivmult 3jca mpbid ltsubaddt bernneq2 lt01 0re mp3an12 mpani
-      ltlet syld imp ltletrd exp43 com4l 3simp1 pm2.61ltle ) ADEZBDEZFBGHZIZABC
-      JZKLZGHZCMNZAFFMEZABFKLZGHZXSXOAFGHZOZXRYBCFMXPFPXQYAAGXPFBKQRSXTYDTUAYDA
-      BYAGXLXMXNYCABGHZXLXMYCXNYEXLXMYCXNYEXLFDEZXMYCXNOYEUBUCAFBUDUEUFUGUHXOYA
-      BPZYCXMXLYGXNXMBUIEYGBUJBUKULUMUNUOUPXLXMXNFAUQHZXSYHXLXMXNXSYHXLXMXNXSAF
-      URLZBFURLZUSLZUTVAZFVBLZMEZABYMKLZGHZXSYHXLOZXMXNOZOZXRYPCYMMXPYMPXQYOAGX
-      PYMBKQRSYSYLVCEZYNYKDEZVDYKUQHZYTYSYKVEXLYRUUAYHYIDEZYJDEZYJVDVFZUUAXLYRO
-      YIYJVGXLUUCYRAVHZUNYRUUDXLXMUUDXNBVHZUNZVIYRUUEXLXMXNVDYJGHZUUEXMXNUUIYFX
-      MXNUUIVJUCFBVKVLVMZUUDUUIUUEXMYJVNUUGVOVPVIVQVRZUUCVDYIUQHZOUUDUUIOUUBYQY
-      RYIYJVSYQUUCUULXLUUCYHUUFVIZXLUULYHXLYFUULYHVJUCAFVTWAWBWCYRUUDUUIUUHUUJW
-      CWDUPZYLWEULYSAYJYMWFLZFVBLZYOYHXLYRWGZYSUUODEZUUPDEUUDYMDEZUURYSYJYMWHYR
-      UUDYQUUHVIZYSYMVCEZUUSYSYTUVAUUNYLWIULZYMWJULZUPZUUOWKULXMUVAYODEYSBYMWLY
-      QXMXNWMZUVBUPYSYIUUOGHZAUUPGHZYSYKYMGHZUVFYSUUAUVHUUKYKWNULUUCUUDUUSIUUIU
-      VHUVFVJYSYIYJYMWOYSUUCUUDUUSYQUUCYRUUMUNUUTUVCWPYRUUIYQUUJVIUPWQXLUURUVFU
-      VGVJZYSXLYFUURUVIUCAFUUOWRUEUUQUVDUPWQXMUVAVDBUQHZUUPYOUQHYSBYMWSUVEUVBYR
-      UVJYQXMXNUVJXMXNVDBGHZUVJXMVDFGHZXNUVKWTVDDEZYFXMUVLXNOUVKUBXAUCVDFBUDXBX
-      CUVMXMUVKUVJUBXAVDBXDVLXEXFVIVQXGUPXHXIUHXLXMXNXJYFXOUCUAXK $.
+      rcla4ev 1nn a1i wi 1re axlttrn mp3an2 exp4b com34 3imp1 cc recn exp1 syl
+      3ad2ant2 adantr breqtrrd sylanc cle cmin cdiv cfl cfv caddc cn0 cc0
+      flge0nn0 wne redivcl peano2rem adantl wb posdif mpan biimpa gt0ne0 sylan
+      syldan syl3anc adantll divge0 subge0 mpan2 biimparc jca syl2an nn0p1nn
+      cmul simplr remulcl peano2nn0 nn0re peano2re reexpcl simprl flltp1
+      ltdivmulOLD 3jca mpbid ltsubadd bernneq2 lt01 0re mp3an12 mpani ltle
+      syld imp ltletrd exp43 com4l 3simp1 pm2.61ltlei ) ADEZBDEZFBGHZIZABCJZKLZ
+      GHZCMNZAFFMEZABFKLZGHZXSXOAFGHZOZXRYBCFMXPFPXQYAAGXPFBKQRSXTYDTUAYDABYAGX
+      LXMXNYCABGHZXLXMYCXNYEXLXMYCXNYEXLFDEZXMYCXNOYEUBUCAFBUDUEUFUGUHXOYABPZYC
+      XMXLYGXNXMBUIEYGBUJBUKULUMUNUOUPXLXMXNFAUQHZXSYHXLXMXNXSYHXLXMXNXSAFURLZB
+      FURLZUSLZUTVAZFVBLZMEZABYMKLZGHZXSYHXLOZXMXNOZOZXRYPCYMMXPYMPXQYOAGXPYMBK
+      QRSYSYLVCEZYNYKDEZVDYKUQHZYTYSYKVEXLYRUUAYHYIDEZYJDEZYJVDVFZUUAXLYROYIYJV
+      GXLUUCYRAVHZUNYRUUDXLXMUUDXNBVHZUNZVIYRUUEXLXMXNVDYJGHZUUEXMXNUUIYFXMXNUU
+      IVJUCFBVKVLVMZUUDUUIUUEXMYJVNUUGVOVPVIVQVRZUUCVDYIUQHZOUUDUUIOUUBYQYRYIYJ
+      VSYQUUCUULXLUUCYHUUFVIZXLUULYHXLYFUULYHVJUCAFVTWAWBWCYRUUDUUIUUHUUJWCWDUP
+      ZYLWEULYSAYJYMWFLZFVBLZYOYHXLYRWGZYSUUODEZUUPDEUUDYMDEZUURYSYJYMWHYRUUDYQ
+      UUHVIZYSYMVCEZUUSYSYTUVAUUNYLWIULZYMWJULZUPZUUOWKULXMUVAYODEYSBYMWLYQXMXN
+      WMZUVBUPYSYIUUOGHZAUUPGHZYSYKYMGHZUVFYSUUAUVHUUKYKWNULUUCUUDUUSIUUIUVHUVF
+      VJYSYIYJYMWOYSUUCUUDUUSYQUUCYRUUMUNUUTUVCWPYRUUIYQUUJVIUPWQXLUURUVFUVGVJZ
+      YSXLYFUURUVIUCAFUUOWRUEUUQUVDUPWQXMUVAVDBUQHZUUPYOUQHYSBYMWSUVEUVBYRUVJYQ
+      XMXNUVJXMXNVDBGHZUVJXMVDFGHZXNUVKWTVDDEZYFXMUVLXNOUVKUBXAUCVDFBUDXBXCUVMX
+      MUVKUVJUBXAVDBXDVLXEXFVIVQXGUPXHXIUHXLXMXNXJYFXOUCUAXK $.
       $( [10-Nov-2007] $) $( [20-Oct-2007] $)
+
+    $( The reciprocal of exponentiation with a mantissa greater than 1 has no
+       lower bound. $)
+    expnlbnd $p |- ( ( A e. RR+ /\ B e. RR /\ 1 < B ) ->
+          E. k e. NN ( 1 / ( B ^ k ) ) < A ) $=
+      ( crp wcel cr c1 clt wbr w3a cdiv co cv cexp cn wrex expnbnd cc0 wne
+      rereccl rpre rpne0 sylanc syl3an1 wa wb ltrec1 elrp biimpi 3ad2ant1
+      adantr cn0 reexpcl nnnn0 sylan2 adantlr expgt0 simpll adantl lt01 wi 0re
+      1re lttr mp3an12 mpani imp syl3anc jca 3adantl1 rexbidva mpbid ) ADEZBFEZ
+      GBHIZJZGAKLZBCMZNLZHIZCOPZGVSKLAHIZCOPVQFEZVNVOWAVMVQBCQAFEZARSWCVMATAUAA
+      UBUCUDVPVTWBCOWDRAHIUEZVSFEZRVSHIZUEZVTWBUFVPVROEZUEAVSUGVPWEWIVMVNWEVOVM
+      WEAUHUIUJUKVNVOWIWHVMVNVOUEZWIUEZWFWGVNWIWFVOVNVRULEZWFWIBVRUMVRUNZUOUPVN
+      WLRBHIZWGWKBVRUQVNVOWIURWIWLWJWMUSWJWNWIVNVOWNVNRGHIZVOWNUTRFEGFEVNWOVOUE
+      WNVAVBVCRGBVDVEVFVGUKVHVIVJUCVKVL $.
+      $( [18-Jul-2008] $) $( [18-Jul-2008] $)
+
+    $( The reciprocal of exponentiation with a mantissa greater than 1 has no
+       lower bound. $)
+    expnlbnd2 $p |- ( ( A e. RR+ /\ B e. RR /\ 1 < B ) ->
+          E. j e. NN A. k e. NN ( j <_ k -> ( 1 / ( B ^ k ) ) < A ) ) $=
+      ( crp wcel cr c1 clt wbr w3a cv cexp co cdiv cn wrex cle wi wral
+      expnlbnd wa cn0 expwordi simpll ad2antrr nnnn0 adantl ad2antlr 3jca 1re
+      ltle mpan imp anim1i sylanc ex cc0 wb lerec reexpcl sylan2 adantlr
+      adantr expgt0 lt01 0re lttr mp3an12 mpani syl3anc syl2anc sylibd
+      3adantl1 imp31 lelttr wne rereccl cc expne0i recn gt0ne0 syldan rpre
+      3ad2ant1 mpand com23 r19.21adva r19.22dva mpd ) AEFZBGFZHBIJZKZHBCLZMNZON
+      ZAIJZCPQWODLZRJZHBWSMNZONZAIJZSZDPTZCPQABCUAWNWRXECPWNWOPFZUBZWRXDDPXGWSP
+      FZUBZWTWRXCXIWTWRXCSXIWTUBXBWQRJZWRXCXGXHWTXJWLWMXFXHWTXJSZSWKWLWMUBZXFUB
+      ZXHXKXMXHUBZWTWPXARJZXJXNWTXOWLWOUCFZWSUCFZKHBRJZWTUBXOXNWTUBZBWOWSUDXSWL
+      XPXQXMWLXHWTWLWMXFUEZUFXMXPXHWTXFXPXLWOUGZUHZUFXHXQXMWTWSUGZUIUJXNXRWTXLX
+      RXFXHWLWMXRHGFZWLWMXRSUKHBULUMUNUFUOUPUQWPGFZURWPIJZXAGFZURXAIJZXOXJUSXNW
+      PXAUTXMYEXHWLXFYEWMWLXPYEXFBWOVAYAVBVCZVDXMYFXHWLXPURBIJZYFXMBWOVEXTYBXLY
+      JXFWLWMYJWLURHIJZWMYJVFURGFYDWLYKWMUBYJSVGUKURHBVHVIVJUNZVDVKVDXLXHYGXFWL
+      XHYGWMWLXQYGXHBWSVAYCVBVCZVCXLXHYHXFWLXQYJYHXLXHUBZBWSVEWLWMXHUEXHXQXLYCU
+      HZXLYJXHYLVDVKVCVLVMUQVNVOXIXJWRUBXCSZWTXBGFZWQGFZAGFZYPXIXBWQAVPWNXHYQXF
+      WLWMXHYQWKYGXAURVQZYQYNXAVRYMBVSFZBURVQZXQYTYNBWSVTWLUUAWMXHBWAZUFXLUUBXH
+      WLWMYJUUBYLBWBWCZVDYOVKUPVNVCXGYRXHWLWMXFYRWKYEWPURVQZYRXMWPVRYIUUAUUBXPU
+      UEXMBWOVTWLUUAWMXFUUCUFXLUUBXFUUDVDYBVKUPVNVDWNYSXFXHWKWLYSWMAWDWEUFVKVDW
+      FUQWGWHWIWJ $.
+      $( [2-Nov-2008] $) $( [18-Jul-2008] $)
   $}
+
+  $( Two ways to express the ` K ` th digit in the decimal (when base
+     ` B = 10 ` ) expansion of a number ` A ` .  ` K = 1 ` corresponds to the
+     first digit after the decimal point. $)
+  digit2 $p |- ( ( A e. RR /\ B e. NN /\ K e. NN )
+    -> ( ( |_ ` ( ( B ^ K ) x. A ) ) mod B ) = ( ( |_ ` ( ( B ^ K ) x.
+      A ) ) - ( B x. ( |_ ` ( ( B ^ ( K - 1 ) ) x. A ) ) ) ) ) $=
+    ( cr wcel cn w3a cexp co cmul cfl cfv cmo cdiv cmin c1 crp wceq modval wa
+    remulcl cn0 reexpcl nnre nnnn0 syl2an sylan 3impa 3comr reflcl syl nnrp
+    3ad2ant2 sylanc fldiv 3simp2 cc cc0 wne div23 expcl nncn 3adant1 recn
+    3ad2ant1 nnne0 jca syl3anc expm1 3expa opreq1d eqtr4d fveq2d eqtrd opreq2d
+    ) ADEZBFEZCFEZGZBCHIZAJIZKLZBMIZWBBWBBNIKLZJIZOIZWBBBCPOIHIZAJIZKLZJIZOIWBD
+    EZBQEZWCWFRVSWBBSVSWADEZWKVQVRVPWMVQVRVPWMVTDEZVPWMVQVRTVTAUABDECUBEZWNVQVR
+    BCUCBUDCUEZUFUGUHUIZWAUJUKVQVPWLVRBULUMUNVSWEWJWBOVSWDWIBJVSWDWABNIZKLZWIWM
+    VQWDWSRVSWABUOWQVPVQVRUPUNVSWRWHKVSWRVTBNIZAJIZWHVTUQEZAUQEZBUQEZBURUSZTZWR
+    XARVSVTABUTVQVRXBVPXDWOXBVQVRBCVABVBZWPUFVCVPVQXCVRAVDVEVQVPXFVRVQXDXEXGBVF
+    VGZUMVHVSWGWTAJVQVRWGWTRZVPXFVRXIVQXDXEVRXIBCVIVJXHUGVCVKVLVMVNVOVOVN $.
+    $( [16-Mar-2009] $) $( [25-Dec-2008] $)
+
+  $( Two ways to express the ` K ` th digit in the decimal expansion of a
+     number ` A ` (when base ` B = 10 ` ).  ` K = 1 ` corresponds to the first
+     digit after the decimal point. $)
+  digit1 $p |- ( ( A e. RR /\ B e. NN /\ K e. NN ) -> ( ( |_ ` ( ( B ^ K ) x.
+        A ) ) mod B ) = ( ( ( |_ ` ( ( B ^ K ) x. A ) ) mod ( B ^ K ) )
+        - ( ( B x. ( |_ ` ( ( B ^ ( K - 1 ) ) x. A ) ) ) mod ( B ^ K ) ) ) ) $=
+    ( cn wcel cr cexp co cmul cfl cfv cmo c1 cmin wceq wa digit2 3coml 3expa
+    opreq1d crp cc0 cle wbr clt modid modcl remulcl cn0 reexpcl nnre nnnn0
+    syl2an sylan reflcl syl nnrp ad2antrr sylanc nnexpcl sylan2 adantr modge0
+    modlt cc nncn exp1 w3a expwordi 1nn0 a1i adantl 3jca nnge1 anim12i
+    eqbrtrrd ltletrd syl2anc modmulnn simpll nnm1nn0 syl3anc expm1t mulcom
+    expcl pm3.26 eqtrd opreq2d mulass recn fveq2d opreq12d 3brtr4d wb
+    modsubdir mpbid 3eqtr3d 3impa 3comr ) BDEZCDEZAFEZBCGHZAIHZJKZBLHZXEXCLHZBB
+    CMNHZGHZAIHZJKZIHZXCLHZNHZOZWTXAXBXOWTXAPZXBPZXFXCLHZXEXLNHZXCLHZXFXNXQXFXS
+    XCLWTXAXBXFXSOZXBWTXAYAABCQRSTXFFEZXCUAEZUBXFUCUDZXFXCUEUDXRXFOXQXFXCUFXEFE
+    ZBUAEZYBXQXEBUGXQXDFEZYEXCFEZXBYGXPXCAUHBFEZCUIEZYHWTXABCUJBUKZCULZUMZUNXDU
+    OUPZWTYFXAXBBUQURZUSZXPYCXBXPXCDEZYCWTYJYQXABCUTYLVAXCUQUPVBZYEYFYDXQXEBVCY
+    NYOUSXQXFBXCYPWTYIXAXBYKURZXPYHXBYMVBYEYFXFBUEUDXQXEBVDYNYOUSXPBXCUCUDXBXPB
+    MGHZBXCUCWTYTBOZXAWTBVEEZUUABVFZBVGUPVBYIMUIEZYJVHMBUCUDZMCUCUDZPYTXCUCUDXP
+    BMCVIXPYIUUDYJWTYIXAYKVBUUDXPVJVKXAYJWTYLVLVMWTUUEXAUUFBVNCVNVOUSVPVBVQVRXQ
+    XMXGUCUDZXTXNOZXQXLBXIIHZLHZBXJIHZJKZUUILHZXMXGUCWTXJFEZXIDEZUUJUUMUCUDXQXJ
+    XIBVSWTXAXBVTXIFEZXBUUNXPXIAUHYIXHUIEZUUPWTXABXHUJYKCWAZUMUNZXPUUOXBWTUUQUU
+    OXABXHUTUURVAVBWBXQXCUUIXLLXPXCUUIOZXBUUBXAUUTWTUUBXAPZXCXIBIHZUUIBCWCXIVEE
+    ZUUBUVBUUIOUVAXIBWDUUBUUQUVCXABXHWEZUURVAUUBXAWFUSWGUUCUNVBZWHXQXEUULXCUUIL
+    XQXDUUKJXQXDUUIAIHZUUKXQXCUUIAIUVETUUBUVCAVEEZUVFUUKOXQBXIAWIWTUUBXAXBUUCUR
+    XPUVCXBUUBUUQUVCWTXAUVDUUCUURUMVBXBUVGXPAWJVLWBWGWKUVEWLWMYEXLFEZYCUUGUUHWN
+    XQXEXLXCWOYNYIXKFEZUVHXQBXKUHYSXQUUNUVIUUSXJUOUPUSYRWBWPWQWRWS $.
+    $( [8-Apr-2009] $)
+
+
 

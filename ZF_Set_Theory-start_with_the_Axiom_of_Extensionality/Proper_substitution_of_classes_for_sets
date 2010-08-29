@@ -9,7 +9,8 @@ $)
     sbhypf.1 $e |- ( ps -> A. x ps ) $.
     sbhypf.2 $e |- ( x = A -> ( ph <-> ps ) ) $.
     $( Introduce an explicit substitution into an implicit substitution
-       hypothesis. $)
+       hypothesis.  See also ~ csbhypf .  (Contributed by Raph Levien,
+       10-Apr-2004.) $)
     sbhypf $p |- ( y = A -> ( [ y / x ] ph <-> ps ) ) $=
       ( cv wceq wa wex wsbc wb visset eqeq1 ceqsexv hbs1 hbbi sbequ12 bicomd
       sylan9bb 19.23ai sylbir ) DHZEIZCHZUDIZUFEIZJZCKACUDLZBMZUHUECUDDNUFUDEOP
@@ -18,28 +19,15 @@ $)
   $}
 
   ${
-    $d ps x $.  $d A x $.  $d x y $.
-    sbhyp.1 $e |- ( x = A -> ( ph <-> ps ) ) $.
-    $( MAY BE REVISED - use ~ sbhypf and make this one obsolete? $)
-    $( Change variable of an implicit substitution hypothesis, introducing an
-       explicit substitution.  (Contributed by Raph Levien, 10-Apr-2004.) $)
-    sbhyp $p |- ( y = A -> ( [ y / x ] ph <-> ps ) ) $=
-      ( cv wceq wa wex wsbc wb visset eqeq1 ceqsexv hbs1 ax-17 hbbi sbequ12
-      bicomd sylan9bb 19.23ai sylbir ) DGZEHZCGZUDHZUFEHZIZCJACUDKZBLZUHUECUDDM
-      UFUDENOUIUKCUJBCACDPBCQRUGUJAUHBUGAUJACDSTFUAUBUC $.
-      $( [25-May-2004] $) $( [10-Apr-2004] $)
-  $}
-
-  ${
     $d x y z $.  $d y z ph $.  $d x z ps $.
     sbralie.1 $e |- ( x = y -> ( ph <-> ps ) ) $.
     $( Implicit to explicit substitution that swaps variables in a quantified
        expression. $)
     sbralie $p |- ( [ x / y ] A. x e. y ph <-> A. y e. x ps ) $=
-      ( vz cv wral wsbc ax-17 hbs1 sbequ12 cbvral sbbii raleq1 sbie bitr sbco2
-      ralbii 3bitr ) ACDGZHZDCGZIZACFGIZFUCHZUEFUAIZDUCHBDUCHUDUEFUAHZDUCIUFUBU
-      HDCAUECFUAAFJZACFKACFLMNUHUFDCUFDJUEFUAUCOPQUEUGFDUCUEDJUEFDKUEFDLMUGBDUC
-      UGACUAIBACDFUIRABCDBCJEPQST $.
+      ( vz cv wral wsbc ax-17 hbs1 sbequ12 cbvral sbbii raleq1 sbie bitri
+      sbco2 ralbii 3bitri ) ACDGZHZDCGZIZACFGIZFUCHZUEFUAIZDUCHBDUCHUDUEFUAHZDU
+      CIUFUBUHDCAUECFUAAFJZACFKACFLMNUHUFDCUFDJUEFUAUCOPQUEUGFDUCUEDJUEFDKUEFDL
+      MUGBDUCUGACUAIBACDFUIRABCDBCJEPQST $.
       $( [6-Sep-2004] $) $( [5-Sep-2004] $)
   $}
 
@@ -75,16 +63,25 @@ $)
   df-sbc $a |- ( [ A / x ] ph <-> A e. { x | ph } ) $.
 
   $( This theorem, which is similar to Theorem 6.7 of [Quine] p. 42, provides
-     us a weak definition of the proper substitution of a class for a set
-     that we will use in place of ~ df-sbc above.  We derive all our results
-     from starting from here instead of ~ df-sbc .  As a consequence we can
-     derive ~ elabs , which is a weaker version of ~ df-sbc that leaves
+     us with a weak definition of the proper substitution of a class for a set,
+     which we will use in place of ~ df-sbc above.  We will derive all our
+     results from starting from here instead of ~ df-sbc . As a consequence, we
+     can derive ~ elabs , which is a weaker version of ~ df-sbc that leaves
      substitution undefined when ` A ` is a proper class.  We thus leave
-     unspecified the "official" behavior for proper classes, which could be
-     as in the ~ sbc5 assertion (always false) or as in ~ sbc6 (always true)
-     or some more meaningful possibility in the future, that some clever
-     person may discover, that is closer to Quine's definition.  (Quine's
-     actual definition cannot be expressed directly in our formal system.) $)
+     unspecified the "official" behavior for proper classes, which could be as
+     in the ~ sbc5 assertion (always false) or as in ~ sbc6 (always true), or
+     some more meaningful possibility in the future, that some clever person
+     may discover, that is closer to Quine's definition.  (Quine's definition
+     has neither behavior for proper classes, and by using ~ dfsbcq as the
+     definition, we leave it unspecified so as not to conflict.  Quine's
+     definition is based on the formula's structure rather than its logical
+     properties and apparently cannot be expressed directly in our formal
+     system.)
+
+     While in principle we could have made this theorem the official
+     definition, we use ~ df-sbc because it is more obviously eliminable and
+     thus easier to justify metalogically.  But to avoid conflict with Quine,
+     we never use ~ df-sbc except indirectly via this theorem. $)
   dfsbcq $p |- ( A = B -> ( [ A / x ] ph <-> [ B / x ] ph ) ) $=
     ( wceq cab wcel wsbc eleq1 df-sbc 3bitr4g ) CDECABFZGDLGABCHABDHCDLIABCJABD
     JK $.
@@ -156,8 +153,8 @@ $)
     hbsbcv.1 $e |- A e. V $.
     $( Bound-variable hypothesis builder for class substitution. $)
     hbsbc1v $p |- ( [ A / x ] ph -> A. x [ A / x ] ph ) $=
-      ( vy cvv wcel wsbc wi wal cv ax-17 hbsbc1 a1bi albii 3imtr4 ) CFGZABCHZIZ
-      SBJRRBJABECFEKCGBLMQRDNZRSBTOP $.
+      ( vy cvv wcel wsbc wi wal cv ax-17 hbsbc1 a1bi albii 3imtr4i ) CFGZABCHZI
+      ZSBJRRBJABECFEKCGBLMQRDNZRSBTOP $.
       $( [18-Aug-1993] $)
   $}
 
@@ -189,8 +186,8 @@ $)
     $( A composition law for class substitution.  Importantly, ` x ` may occur
        free in the class expression substituted for ` A ` . $)
     sbcco2 $p |- ( [ x / y ] [ B / x ] ph <-> [ A / x ] ph ) $=
-      ( wsbc ax-17 cv wceq wb eqcom 3imtr4 dfsbcq syl sbie ) ABEGZABDGZCBRCHCIZ
-      BIZJZEDJZQRKTSJDEJUAUBFSTLEDLMABEDNOP $.
+      ( wsbc ax-17 cv wceq wb eqcom 3imtr4i dfsbcq syl sbie ) ABEGZABDGZCBRCHCI
+      ZBIZJZEDJZQRKTSJDEJUAUBFSTLEDLMABEDNOP $.
       $( [6-Sep-2004] $) $( [5-Sep-2004] $)
   $}
 
@@ -238,16 +235,51 @@ $)
   $}
 
   ${
+    $d y A $.  $d y ph $.  $d x y $.
+    $( An equivalence for class substitution in the spirit of ~df-clab .
+       Note that ` x ` and ` A ` don't have to be distinct. $)
+    sbc7g $p |- ( A e. B -> ( [ A / x ] ph
+                     <-> E. y ( y = A /\ [ y / x ] ph ) ) ) $=
+      ( wcel wsb wsbc cv wceq wa wex sbccog sbc5g bitr3d ) DEFABCGZCDHABDHCIDJP
+      KCLABCDEMPCDENO $.
+      $( [18-Nov-2008] $) $( [18-Nov-2008] $)
+
+    $( This is the closest we can get to ~ df-sbc if we start from ~ dfsbcq
+       (see its comments). $)
+    sbc8g $p |- ( A e. B -> ( [ A / x ] ph <-> A e. { x | ph } ) ) $=
+      ( vy wcel wsbc cv wceq wa wex cab sbc7g wb df-clab anbi2i exbii a1i
+      df-clel syl5rbb bitrd ) CDFZABCGEHZCIZABUCGZJZEKZCABLZFZABECDMUBUDUCUHFZJ
+      ZEKZUGUIULUGNUBUKUFEUJUEUDAEBOPQRECUHSTUA $.
+      $( [18-Nov-2008] $) $( [18-Nov-2008] $)
+  $}
+
+  ${
+    $d y ph $.  $d x ps $.  $d x y A $.
+    cbvsbcv.1 $e |- ( x = y -> ( ph <-> ps ) ) $.
+    $( Change the bound variable of a class substitution using
+       implicit substitution. $)
+    cbvsbcv $p |- ( A e. B -> ( [ A / x ] ph <-> [ A / y ] ps ) ) $=
+      ( wcel cv wceq wa wex wsbc wb eqeq1 anbi12d cbvexv a1i sbc5g 3bitr4d ) EF
+      HZCIZEJZAKZCLZDIZEJZBKZDLZACEMBDEMUEUINUAUDUHCDUBUFJUCUGABUBUFEOGPQRACEFS
+      BDEFST $.
+      $( [30-Sep-2008] $) $( [30-Sep-2008] $)
+  $}
+
+  ${
     $d x A $.
     $( The disjunction of two equivalences for class substitution does not
-       require a class existence hypothesis. $)
+       require a class existence hypothesis.  This theorem tells us that there
+       are only 2 possibilities for defining ` [ A / x ] ph ` behavior at
+       proper classes (given a specific ` A ` ), which is interesting since
+       ~ dfsbcq (from which it is derived) does not say anything obvious about
+       that. $)
     sbc2or $p |- ( ( [ A / x ] ph <-> E. x ( x = A /\ ph ) ) \/
                   ( [ A / x ] ph <-> A. x ( x = A -> ph ) ) ) $=
-      ( cvv wcel wsbc cv wceq wa wex wb wi wal wo sbc5g orc syl wn pm5.15
-      pm5.1 visset eleq1 mpbii adantr con3i nexdv pm2.21d 19.21aiv sylanc
-      bibi2d orbi2d pm2.61i ) CDEZABCFZBGZCHZAIZBJZKZUNUPALZBMZKZNZUMUSVCABCDOU
-      SVBPQUMRZUSUNURRZKZNVCUNURSVDVFVBUSVDVEVAUNVEVAVEVAKVDVEVATVDUQBUQUMUPUMA
-      UPUODEUMBUAUOCDUBUCZUDUEUFVDUTBVDUPAUPUMVGUEUGUHUIUJUKUCUL $.
+      ( cvv wcel wsbc cv wceq wa wex wb wi wal wo sbc5g orcd wn pm5.15 pm5.1
+      visset eleq1 mpbii adantr con3i nexdv pm2.21d 19.21aiv sylanc bibi2d
+      orbi2d pm2.61i ) CDEZABCFZBGZCHZAIZBJZKZUMUOALZBMZKZNZULURVAABCDOPULQZURU
+      MUQQZKZNVBUMUQRVCVEVAURVCVDUTUMVDUTVDUTKVCVDUTSVCUPBUPULUOULAUOUNDEULBTUN
+      CDUAUBZUCUDUEVCUSBVCUOAUOULVFUDUFUGUHUIUJUBUK $.
       $( [26-Oct-2004] $) $( [11-Oct-2004] $)
   $}
 
@@ -308,10 +340,10 @@ $)
     elrabsf $p |- ( A e. { x e. B | ph } <-> ( A e. B /\ [ A / x ] ph ) ) $=
       ( vz vw crab wcel cv wsbc wa ax-17 hbs1 sbequ12 cbvrab eleq2i cvv wi
       hbsbc1 wceq sbceq1a wb wex 19.8a isset sylibr biimt syl bitrd elrabf
-      elisset pm5.32i bitr4 sbccog 3bitr ) DABEIZJDABGKZLZGEIZJZDEJZUTGDLZMZVCA
-      BDLZMURVADAUTBGCEFCKEJGNAGNABGOABGPQRVBVCDSJZVDTZMVEUTVHGHDEHKZDJGNZVIEJG
-      NUTGHDSVJUAUSDUBZUTVDVHUTGDUCVKVGVDVHUDZVKVKGUEVGVKGUFGDUGUHVGVDUIZUJUKUL
-      VCVDVHVCVGVLDEUMVMUJUNUOVCVDVFABGDEUPUNUQ $.
+      elisset pm5.32i bitr4i sbccog 3bitri ) DABEIZJDABGKZLZGEIZJZDEJZUTGDLZMZV
+      CABDLZMURVADAUTBGCEFCKEJGNAGNABGOABGPQRVBVCDSJZVDTZMVEUTVHGHDEHKZDJGNZVIE
+      JGNUTGHDSVJUAUSDUBZUTVDVHUTGDUCVKVGVDVHUDZVKVKGUEVGVKGUFGDUGUHVGVDUIZUJUK
+      ULVCVDVHVCVGVLDEUMVMUJUNUOVCVDVFABGDEUPUNUQ $.
       $( [30-Sep-2003] $)
   $}
 
@@ -320,8 +352,8 @@ $)
     $( Membership in a class abstraction, expressed in terms of class
        substitution.  Theorem 6.13 of [Quine] p. 44. $)
     elabs2 $p |- ( A e. { x | ph } <-> ( A e. V /\ [ A / x ] ph ) ) $=
-      ( vy cab wcel cvv crab wsbc wa rabab eleq2i cv ax-17 elrabsf bitr3 ) CABE
-      ZFCABGHZFCGFABCIJRQCABKLABDCGDMGFBNOP $.
+      ( vy cab wcel cvv crab wsbc wa rabab eleq2i cv ax-17 elrabsf bitr3i ) CAB
+      EZFCABGHZFCGFABCIJRQCABKLABDCGDMGFBNOP $.
       $( [9-Mar-2004] $) $( [7-Mar-2004] $)
   $}
 
@@ -368,7 +400,7 @@ $)
     $d x y $.  $d y A $.  $d y ph $.  $d y ps $.
     $( Move negation in and out of class substitution. $)
     sbcng $p |- ( A e. B -> ( [ A / x ] -. ph <-> -. [ A / x ] ph ) ) $=
-      ( vy wn cv wsbc dfsbcq wceq negbid sbn vtoclbg ) AFZBEGZHABOHZFNBCHABCHZF
+      ( vy wn cv wsbc dfsbcq wceq notbid sbn vtoclbg ) AFZBEGZHABOHZFNBCHABCHZF
       ECDNBOCIOCJPQABOCIKABELM $.
       $( [3-Feb-2004] $) $( [16-Jan-2004] $)
 
@@ -561,16 +593,44 @@ $)
   $}
 
   ${
+    $d x y A $.  $d y B $.  $d x y ps $.
+    sbc2ie.1 $e |- A e. V $.
+    sbc2ie.2 $e |- B e. V $.
+    sbc2ie.3 $e |- ( ( x = A /\ y = B ) -> ( ph <-> ps ) ) $.
+    $( Conversion of implicit substitution to explicit class substitution. $)
+    sbc2ie $p |- ( [ A / x ] [ B / y ] ph <-> ps ) $=
+      ( wsbc cv wceq wi cvv wcel wb sbcimg ax-mp expcom pm5.74d sbcie ax-17
+      sbcgf imbi1i 3bitr3ri pm5.74ri ) ADFJZBCEGCKELZUGBUHAMZDFJZUHDFJZUGMZUHBM
+      ZUHUGMFNOZUJULPHUHADFNQRUIUMDFHDKFLZUHABUHUOABPISTUAUKUHUGUNUKUHPHUHDFNUH
+      DUBUCRUDUEUFUA $.
+      $( [23-Dec-2008] $) $( [16-Dec-2008] $)
+  $}
+
+  ${
+    $d x y A $.  $d y B $.  $d x y ph $.  $d x y ch $.
+    sbc2iedv.1 $e |- A e. V $.
+    sbc2iedv.2 $e |- B e. V $.
+    sbc2iedv.3 $e |- ( ph -> ( ( x = A /\ y = B ) -> ( ps <-> ch ) ) ) $.
+    $( Conversion of implicit substitution to explicit class substitution. $)
+    sbc2iedv $p |- ( ph -> ( [ A / x ] [ B / y ] ps <-> ch ) ) $=
+      ( wsbc wi cvv wcel wb ax-17 sbc19.21g ax-mp sbcbii cv wceq wa impcom
+      pm5.74da sbc2ie 3bitr3ri pm5.74ri ) ABEGKZDFKZCABLZEGKZDFKZAUHLZDFKZACLZA
+      UILZFMNZULUNOHUKUMDFMGMNUKUMOIABEGMAEPQRSRUJUODEFGHIDTFUAETGUAUBZABCAURBC
+      OJUCUDUEUQUNUPOHAUHDFMADPQRUFUG $.
+      $( [27-Dec-2008] $) $( [16-Dec-2008] $)
+  $}
+
+  ${
     $d x y A $.  $d x y B $.  $d y C $.  $d x D $.
     $( Lemma for ~ sbccomg . $)
     sbccomglem $p |- ( ( A e. C /\ B e. D ) ->
                  ( [ A / x ] [ B / y ] ph <-> [ B / y ] [ A / x ] ph ) ) $=
       ( wcel wa wsbc cv wceq wex wb sbc5g sbcbidv ancoms adantr adantl bitr2d
-      excom exdistr an12 exbii 19.42v bitr 3bitr3 syl5bb 3bitrd ) DFHZEGHZIZACE
-      JZBDJZCKELZAIZCMZBDJZBKDLZUQIBMZABDJZCEJZUKUJUNURNUKUMUQBDFACEGOPQUJURUTN
-      UKUQBDFORULUOUSAIZBMZIZCMZVBUTULVBVDCEJZVFUJVAVDCEGABDFOPUKVGVFNUJVDCEGOS
-      TUSUPIZCMBMVHBMZCMUTVFVHBCUAUSUPBCUBVIVECVIUOVCIZBMVEVHVJBUSUOAUCUDUOVCBU
-      EUFUDUGUHUI $.
+      excom exdistr an12 exbii 19.42v bitri 3bitr3i syl5bb 3bitrd ) DFHZEGHZIZA
+      CEJZBDJZCKELZAIZCMZBDJZBKDLZUQIBMZABDJZCEJZUKUJUNURNUKUMUQBDFACEGOPQUJURU
+      TNUKUQBDFORULUOUSAIZBMZIZCMZVBUTULVBVDCEJZVFUJVAVDCEGABDFOPUKVGVFNUJVDCEG
+      OSTUSUPIZCMBMVHBMZCMUTVFVHBCUAUSUPBCUBVIVECVIUOVCIZBMVEVHVJBUSUOAUCUDUOVC
+      BUEUFUDUGUHUI $.
       $( [18-Nov-2005] $) $( [14-Nov-2005] $)
   $}
 
@@ -592,34 +652,38 @@ $)
   $}
 
   ${
-    $d v w z A $.  $d x w B $.  $d v w z C $.  $d w ph $.  $d v w x y z $.
-    $( Interchange class substitution and restricted quantifier. $)
+    $d v w z A $.  $d w x B $.   $d v w C $.   $d w ph $.  $d x y $.
+    $d v w y z $.
+    $( Interchange class substitution and restricted quantifier.  (Unnecessary
+       distinct variable restrictions were removed by David Abernethy,
+       22-Feb-2010.) $)
     sbcralt $p |- ( A. y ( A e. C /\ A. z ( z e. A -> A. y z e. A ) ) ->
                  ( [ A / x ] A. y e. B ph <-> A. y e. B [ A / x ] ph ) ) $=
       ( vw vv wcel cv wal wi wa wral wsbc wceq wb sbc6g adantr a4s hba1 ax-17
-      a1i eleq1 albidv imbi12d a4b1 adantl hbeqd a5i r19.21t syl ralcom4
-      syl5rbb bitrd cvv visset r19.21v albii bitr2 syl6bb ralbidv bitr4d ax-mp
-      sbcbii ralbid 3bitr4d sbccog 3bitr3d ) EGJZDKZEJZVMCLZMZDLZNZCLZACFOZBHKZ
-      PZHEPZABVTPZHEPZCFOZVSBEPZABEPZCFOVRWCCFOZHEPZVTEQZWCMZHLZCFOZWBWEVRWIWJW
-      HMZHLZWMVQWIWORZCVKWPVPWHHEGSTUAVRWKCFOZHLWOWMVRWQWNHVRWJWJCLMZCLWQWNRVQW
-      RCVRCIVTEVQCUBZIKZVTJZXACLMVRXACUCUDVQWTEJZXBCLZMZCVPXDVKVOXDDIVLWTQZVMXB
-      VNXCVLWTEUEZXEVMXBCXFUFUGUHUIUAUJUKWJWCCFULUMUFWKCHFUNUOUPVQWBWIRZCVKXGVP
-      WAWHHEGVTUQJZWAWHRHURXHWABKVTQZAMZBLZCFOZWHXHWAXIVSMZBLZXLVSBVTUQSXLXJCFO
-      ZBLXNXJCBFUNXOXMBXIACFUSUTVAVBXHWCXKCFABVTUQSVCVDVEVFTUAVRWDWLCFWSVQWDWLR
-      ZCVKXPVPWCHEGSTUAVGVHVQWBWFRZCVKXQVPVSBHEGVITUAVRWDWGCFWSVQWDWGRZCVKXRVPA
-      BHEGVITUAVGVJ $.
-      $( [2-Mar-2008] $) $( [1-Mar-2008] $)
+      a1i eleq1 albidv imbi12d a4v adantl hbeqd a5i r19.21t syl ralcom4
+      syl5rbb bitrd cvv visset r19.21v albii bitr2i syl6bb ralbidv bitr4d
+      ax-mp sbcbii ralbid 3bitr4d sbccog 3bitr3d ) EGJZDKZEJZVMCLZMZDLZNZCLZACF
+      OZBHKZPZHEPZABVTPZHEPZCFOZVSBEPZABEPZCFOVRWCCFOZHEPZVTEQZWCMZHLZCFOZWBWEV
+      RWIWJWHMZHLZWMVQWIWORZCVKWPVPWHHEGSTUAVRWKCFOZHLWOWMVRWQWNHVRWJWJCLMZCLWQ
+      WNRVQWRCVRCIVTEVQCUBZIKZVTJZXACLMVRXACUCUDVQWTEJZXBCLZMZCVPXDVKVOXDDIVLWT
+      QZVMXBVNXCVLWTEUEZXEVMXBCXFUFUGUHUIUAUJUKWJWCCFULUMUFWKCHFUNUOUPVQWBWIRZC
+      VKXGVPWAWHHEGVTUQJZWAWHRHURXHWABKVTQZAMZBLZCFOZWHXHWAXIVSMZBLZXLVSBVTUQSX
+      LXJCFOZBLXNXJCBFUNXOXMBXIACFUSUTVAVBXHWCXKCFABVTUQSVCVDVEVFTUAVRWDWLCFWSV
+      QWDWLRZCVKXPVPWCHEGSTUAVGVHVQWBWFRZCVKXQVPVSBHEGVITUAVRWDWGCFWSVQWDWGRZCV
+      KXRVPABHEGVITUAVGVJ $.
+      $( [22-Feb-2010] $) $( [1-Mar-2008] $)
 
-    $( Interchange class substitution and restricted existential
-       quantifier. $)
+    $( Interchange class substitution and restricted existential quantifier.
+       (Unnecessary distinct variable restrictions were removed by David
+       Abernethy, 22-Feb-2010.) $)
     sbcrext $p |- ( A. y ( A e. C /\ A. z ( z e. A -> A. y z e. A ) ) ->
                  ( [ A / x ] E. y e. B ph <-> E. y e. B [ A / x ] ph ) ) $=
       ( wcel cv wal wi wa wrex wsbc wn wral wb dfrex2 sbcbii sbcng bitrd
-      adantr a4s sbcralt hba1 ralbid negbid syl6bbr ) EGHZDIEHZUJCJKDJZLZCJZACF
+      adantr a4s sbcralt hba1 ralbid notbid syl6bbr ) EGHZDIEHZUJCJKDJZLZCJZACF
       MZBENZABENZOZCFPZOZUPCFMUMUOAOZCFPZBENZOZUSULUOVCQZCUIVDUKUIUOVAOZBENVCUN
       VEBEGACFRSVABEGTUAUBUCUMVBURUMVBUTBENZCFPURUTBCDEFGUDUMVFUQCFULCUEULVFUQQ
       ZCUIVGUKABEGTUBUCUFUAUGUAUPCFRUH $.
-      $( [4-Mar-2008] $) $( [1-Mar-2008] $)
+      $( [22-Feb-2010] $) $( [1-Mar-2008] $)
   $}
 
   $( MAY BE REVISED - may be deleted $)
@@ -630,7 +694,7 @@ $)
     sbcralgf $p |- ( A. y A e. C ->
                  ( [ A / x ] A. y e. B ph <-> A. y e. B [ A / x ] ph ) ) $=
       ( vw wcel wal wral cv wsbc wceq wi wb sbc6g a4s hba1 ax-17 a1i hbeqd a5i
-      r19.21t syl albidv ralcom4 syl5rbb bitrd cvv visset r19.21v albii bitr2
+      r19.21t syl albidv ralcom4 syl5rbb bitrd cvv visset r19.21v albii bitr2i
       syl6bb ralbidv bitr4d ax-mp sbcbii ralbid 3bitr4d sbccog 3bitr3d ) EGJZCK
       ZACFLZBIMZNZIENZABVHNZIENZCFLZVGBENZABENZCFLVFVKCFLZIENZVHEOZVKPZIKZCFLZV
       JVMVFVQVRVPPZIKZWAVEVQWCQCVPIEGRSVFVSCFLZIKWCWAVFWDWBIVFVRVRCKPZCKWDWBQVE
@@ -645,23 +709,22 @@ $)
     sbcrexgf $p |- ( A. y A e. C ->
                  ( [ A / x ] E. y e. B ph <-> E. y e. B [ A / x ] ph ) ) $=
       ( wcel wal wrex wsbc wn wral wb dfrex2 sbcbii sbcng bitrd a4s sbcralgf
-      hba1 ralbid negbid syl6bbr ) EGIZCJZACFKZBELZABELZMZCFNZMZUJCFKUGUIAMZCFN
+      hba1 ralbid notbid syl6bbr ) EGIZCJZACFKZBELZABELZMZCFNZMZUJCFKUGUIAMZCFN
       ZBELZMZUMUFUIUQOCUFUIUOMZBELUQUHURBEGACFPQUOBEGRSTUGUPULUGUPUNBELZCFNULUN
       BCDEFGHUAUGUSUKCFUFCUBUFUSUKOCABEGRTUCSUDSUJCFPUE $.
-      $( [?] $) $( [1-Mar-2008] $)
+      $( [13-Apr-2008] $) $( [1-Mar-2008] $)
   $}
 
   ${
-    $d y z A $.  $d x z B $.  $d z ph $.  $d x y z $.
+    $d y z A $.  $d x B $.  $d x y z $.
     $( Interchange class substitution and restricted quantifier. $)
     sbcralg $p |- ( A e. C ->
                  ( [ A / x ] A. y e. B ph <-> A. y e. B [ A / x ] ph ) ) $=
       ( vz wcel cvv wral wsbc wb elisset cv wal wi ax-17 ax-gen wa hbth hban
       sbcralt syl mpan2 ) DFHDIHZACEJBDKABDKCEJLZDFMUEGNDHZUGCOPZGOZUFUHGUGCQRZ
       UEUISZUKCOUFUEUICUECQUICUJTUAABCGDEIUBUCUDUC $.
-      $( [20-Nov-2005] $) $( [15-Nov-2005] $)
+      $( [22-Feb-2010] $) $( [15-Nov-2005] $)
 
-    $d y A $.  $d x B $.  $d x y $.
     $( Interchange class substitution and restricted existential
        quantifier. $)
     sbcrexg $p |- ( A e. C ->
@@ -669,7 +732,7 @@ $)
       ( vz wcel cvv wrex wsbc wb elisset cv wal wi ax-17 ax-gen wa hbth hban
       sbcrext syl mpan2 ) DFHDIHZACEJBDKABDKCEJLZDFMUEGNDHZUGCOPZGOZUFUHGUGCQRZ
       UEUISZUKCOUFUEUICUECQUICUJTUAABCGDEIUBUCUDUC $.
-      $( [30-Nov-2005] $) $( [15-Nov-2005] $)
+      $( [22-Feb-2010] $) $( [15-Nov-2005] $)
   $}
 
   ${
@@ -709,8 +772,8 @@ $)
 
     $( Existence form of ~ ra4sbca . $)
     ra4esbca $p |- ( ( A e. B /\ [ A / x ] ph ) -> E. x e. B ph ) $=
-      ( wcel wsbc wrex wn wral ra4sbc sbcng sylibd ralnex syl5ibr a3d imp ) CDE
-      ZABCFZABDGZQSRQAHZBDIZRHZSHQUATBCFUBTBCDJABCDKLABDMNOP $.
+      ( wcel wsbc wrex wn wral ra4sbc sbcng sylibd ralnex syl5ibr con4d imp )
+      CDEZABCFZABDGZQSRQAHZBDIZRHZSHQUATBCFUBTBCDJABCDKLABDMNOP $.
       $( [22-Mar-2008] $) $( [29-Feb-2008] $)
   $}
 
@@ -720,8 +783,9 @@ $)
        is an axiom of a predicate calculus for a restricted domain.
        Compare the unrestricted ~ stdpc5 . $)
     ra5 $p |- ( A. x e. A ( ph -> ps ) -> ( ph -> A. x e. A ps ) ) $=
-      ( wi wral cv wcel wal df-ral bi2.04 albii bitr stdpc5 sylbi syl6ibr ) ABF
-      ZCDGZACHDIZBFZCJZBCDGSAUAFZCJZAUBFSTRFZCJUDRCDKUEUCCTABLMNAUACEOPBCDKQ $.
+      ( wi wral cv wcel wal df-ral bi2.04 albii bitri stdpc5 sylbi syl6ibr ) AB
+      FZCDGZACHDIZBFZCJZBCDGSAUAFZCJZAUBFSTRFZCJUDRCDKUEUCCTABLMNAUACEOPBCDKQ
+      $.
       $( [17-Jan-2004] $) $( [16-Jan-2004] $)
   $}
 
