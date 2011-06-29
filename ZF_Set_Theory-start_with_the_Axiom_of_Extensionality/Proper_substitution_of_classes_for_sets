@@ -54,9 +54,9 @@ $)
      prove ~ dfsbcq , which will in turn serve as the starting point for all
      theorems based on the definition.  Note: this definition extends or
      "overloads" ~ df-sb which (via ~ df-clab ) becomes a special case of it,
-     so a careful metalogical soundness justification, outside of Metamath,
-     is needed for complete rigor; alternately, we could treat this definition
-     as a new axiom.
+     so a careful metalogical soundness justification, outside of Metamath, is
+     needed for complete rigor; alternately, we could treat this definition as
+     a new axiom.
 
      The related definition ~ df-csb defines proper substitution into a class
      variable (as opposed to a wff variable). $)
@@ -65,8 +65,8 @@ $)
   $( This theorem, which is similar to Theorem 6.7 of [Quine] p. 42, provides
      us with a weak definition of the proper substitution of a class for a set,
      which we will use in place of ~ df-sbc above.  We will derive all our
-     results from starting from here instead of ~ df-sbc . As a consequence, we
-     can derive ~ elabs , which is a weaker version of ~ df-sbc that leaves
+     results from starting from here instead of ~ df-sbc .  As a consequence,
+     we can derive ~ elabs , which is a weaker version of ~ df-sbc that leaves
      substitution undefined when ` A ` is a proper class.  We thus leave
      unspecified the "official" behavior for proper classes, which could be as
      in the ~ sbc5 assertion (always false) or as in ~ sbc6 (always true), or
@@ -94,9 +94,9 @@ $)
 
   ${
     $d ph y $.  $d A y $.  $d x y $.
-    $( Specialization:  if a formula is true for all sets, it is true for
-       any class which is a set.  Similar to Theorem 6.11 of [Quine] p. 44.
-       See also ~ stdpc4 and ~ ra4sbc . $)
+    $( Specialization: if a formula is true for all sets, it is true for any
+       class which is a set.  Similar to Theorem 6.11 of [Quine] p. 44.  See
+       also ~ stdpc4 and ~ ra4sbc . $)
     a4sbc $p |- ( A e. B -> ( A. x ph -> [ A / x ] ph ) ) $=
       ( vy wal wsbc wi cv wceq dfsbcq stdpc4 syl5bi vtocleg ) ABFZABCGZHECDEIZC
       JABQGPOABQCKABELMN $.
@@ -114,8 +114,15 @@ $)
   ${
     $d x ph $.
     sbcthdv.1 $e |- ( ph -> ps ) $.
-    $( Deduction version of ~ sbcth . $)
+    $( Deduction version of ~ sbcth .  (The proof was shortened by Andrew
+       Salmon, 8-Jun-2011.) $)
     sbcthdv $p |- ( ( ph /\ A e. B ) -> [ A / x ] ps ) $=
+      ( wcel wsbc wal a4sbc 19.21aiv syl5 impcom ) DEGZABCDHZNBCIOABCDEJABCFKLM
+      $.
+      $( [8-Jun-2011] $) $( [30-Nov-2005] $)
+
+    $( Deduction version of ~ sbcth . $)
+    sbcthdvOLD $p |- ( ( ph /\ A e. B ) -> [ A / x ] ps ) $=
       ( wcel wa wal wsbc 19.21aiv adantr wi a4sbc adantl mpd ) ADEGZHBCIZBCDJZA
       RQABCFKLQRSMABCDENOP $.
       $( [2-Dec-2005] $) $( [30-Nov-2005] $)
@@ -135,12 +142,26 @@ $)
       $( [13-Oct-2004] $) $( [11-Oct-2004] $)
 
     ${
+      $d x B $.  $d B z $.
+      $( Bound-variable hypothesis builder for class substitution.  (The
+         antecedent ensures that ` A ` is a set, which is necessary if we
+         restrict ourselves to using only the "weak" class substitution
+         definition ~ dfsbcq .)  (Unnecessary distinct variable restrictions
+         were removed by Andrew Salmon, 8-Jun-2011.) $)
+      hbsbc1 $p |- ( ( A e. B -> [ A / x ] ph ) ->
+                        A. x ( A e. B -> [ A / x ] ph ) ) $=
+        ( vz wcel wsbc cv ax-17 hbel hbsbc1g hbim1 ) DEHABDIBBCGDEFGJEHBKLABCDE
+        FMN $.
+        $( [8-Jun-2011] $) $( [23-Aug-1993] $)
+    $}
+
+    ${
       $d x y B $.
       $( Bound-variable hypothesis builder for class substitution.  (The
          antecedent ensures that ` A ` is a set, which is necessary if we
          restrict ourselves to using only the "weak" class substitution
          definition ~ dfsbcq .) $)
-      hbsbc1 $p |- ( ( A e. B -> [ A / x ] ph ) ->
+      hbsbc1OLD $p |- ( ( A e. B -> [ A / x ] ph ) ->
                         A. x ( A e. B -> [ A / x ] ph ) ) $=
         ( wcel wsbc cv ax-17 hbel hbsbc1g hbim1 ) DEGABDHBBCCDEFCIEGBJKABCDEFLM
         $.
@@ -150,9 +171,16 @@ $)
 
   ${
     $d x A y $.
-    hbsbcv.1 $e |- A e. V $.
-    $( Bound-variable hypothesis builder for class substitution. $)
+    hbsbcv.1 $e |- A e. _V $.
+    $( Bound-variable hypothesis builder for class substitution.  (The proof
+       was shortened by Andrew Salmon, 8-Jun-2011.) $)
     hbsbc1v $p |- ( [ A / x ] ph -> A. x [ A / x ] ph ) $=
+      ( vy cvv wcel wsbc wal wi cv ax-17 hbsbc1g ax-mp ) CFGABCHZOBIJDABECFEKCG
+      BLMN $.
+      $( [8-Jun-2011] $) $( [18-Aug-1993] $)
+
+    $( Bound-variable hypothesis builder for class substitution. $)
+    hbsbc1vOLD $p |- ( [ A / x ] ph -> A. x [ A / x ] ph ) $=
       ( vy cvv wcel wsbc wi wal cv ax-17 hbsbc1 a1bi albii 3imtr4i ) CFGZABCHZI
       ZSBJRRBJABECFEKCGBLMQRDNZRSBTOP $.
       $( [18-Aug-1993] $)
@@ -184,17 +212,32 @@ $)
     $d x y $.  $d y ph $.  $d A y $.
     sbcco2.1 $e |- ( x = y -> A = B ) $.
     $( A composition law for class substitution.  Importantly, ` x ` may occur
-       free in the class expression substituted for ` A ` . $)
+       free in the class expression substituted for ` A ` .  (The proof was
+       shortened by Andrew Salmon, 8-Jun-2011.) $)
     sbcco2 $p |- ( [ x / y ] [ B / x ] ph <-> [ A / x ] ph ) $=
+      ( wsbc ax-17 cv wceq wb equcoms dfsbcq bicomd syl sbie ) ABEGZABDGZCBRCHC
+      IBIJDEJZQRKSBCFLSRQABDEMNOP $.
+      $( [8-Jun-2011] $) $( [5-Sep-2004] $)
+
+    $( A composition law for class substitution.  Importantly, ` x ` may occur
+       free in the class expression substituted for ` A ` . $)
+    sbcco2OLD $p |- ( [ x / y ] [ B / x ] ph <-> [ A / x ] ph ) $=
       ( wsbc ax-17 cv wceq wb eqcom 3imtr4i dfsbcq syl sbie ) ABEGZABDGZCBRCHCI
       ZBIZJZEDJZQRKTSJDEJUAUBFSTLEDLMABEDNOP $.
       $( [6-Sep-2004] $) $( [5-Sep-2004] $)
   $}
 
   ${
-    $d x y A $.
-    $( An equivalence for class substitution. $)
+    $d x y A $.  $d y ph $.
+    $( An equivalence for class substitution.  (The proof was shortened by
+       Andrew Salmon, 29-Jun-2011.) $)
     sbc5g $p |- ( A e. B -> ( [ A / x ] ph <-> E. x ( x = A /\ ph ) ) ) $=
+      ( vy cv wsbc wceq wa wex dfsbcq eqeq2 anbi1d exbidv sb5 vtoclbg ) ABEFZGB
+      FZQHZAIZBJABCGRCHZAIZBJECDABQCKQCHZTUBBUCSUAAQCRLMNABEOP $.
+      $( [29-Jun-2011] $) $( [11-Oct-2004] $)
+
+    $( An equivalence for class substitution. $)
+    sbc5gOLD $p |- ( A e. B -> ( [ A / x ] ph <-> E. x ( x = A /\ ph ) ) ) $=
       ( vy cvv wcel wsbc cv wceq wa wex wb wi biimt anbi2d exbidv ax-17 hbsbc1
       sbceq1a imbi2d ceqsexg 3bitr3rd pm5.74rd elisset sylc ) CFGZUGABCHZBICJZA
       KZBLZMCDGUGUGUHUKUGUKUIUGANZKZBLUGUKNUGUHNZUGUJUMBUGAULUIUGAOPQUGUKOULUNB
@@ -204,8 +247,15 @@ $)
 
   ${
     $d x y A $.
-    $( An equivalence for class substitution. $)
+    $( An equivalence for class substitution.  (The proof was shortened by
+       Andrew Salmon, 8-Jun-2011.) $)
     sbc6g $p |- ( A e. B -> ( [ A / x ] ph <-> A. x ( x = A -> ph ) ) ) $=
+      ( wcel wsbc cv wceq wa wex wi wal sbc5g hbe1 ceqex ceqsalg bitr4d ) CDEAB
+      CFBGCHZAIZBJZRAKBLABCDMATBCDSBNABCOPQ $.
+      $( [8-Jun-2011] $) $( [11-Oct-2004] $)
+
+    $( An equivalence for class substitution. $)
+    sbc6gOLD $p |- ( A e. B -> ( [ A / x ] ph <-> A. x ( x = A -> ph ) ) ) $=
       ( vy cvv wcel wsbc cv wceq wi wal wb biimt imbi2d albidv ax-17 hbsbc1
       sbceq1a ceqsalg 3bitr3rd pm5.74rd elisset sylc ) CFGZUEABCHZBICJZAKZBLZMC
       DGUEUEUFUIUEUIUGUEAKZKZBLUEUIKUEUFKZUEUHUKBUEAUJUGUEANOPUEUINUJULBCFABECF
@@ -215,7 +265,7 @@ $)
 
   ${
     $d x A $.
-    sbc5.1 $e |- A e. V $.
+    sbc5.1 $e |- A e. _V $.
     $( An equivalence for class substitution. $)
     sbc5 $p |- ( [ A / x ] ph <-> E. x ( x = A /\ ph ) ) $=
       ( cvv wcel wsbc cv wceq wa wex wb sbc5g ax-mp ) CEFABCGBHCIAJBKLDABCEMN
@@ -225,7 +275,7 @@ $)
 
   ${
     $d x A $.
-    sbc6.1 $e |- A e. V $.
+    sbc6.1 $e |- A e. _V $.
     $( An equivalence for class substitution.  (The proof was shortened by Eric
        Schmidt, 17-Jan-2007.) $)
     sbc6 $p |- ( [ A / x ] ph <-> A. x ( x = A -> ph ) ) $=
@@ -236,8 +286,8 @@ $)
 
   ${
     $d y A $.  $d y ph $.  $d x y $.
-    $( An equivalence for class substitution in the spirit of ~df-clab .
-       Note that ` x ` and ` A ` don't have to be distinct. $)
+    $( An equivalence for class substitution in the spirit of ~df-clab .  Note
+       that ` x ` and ` A ` don't have to be distinct. $)
     sbc7g $p |- ( A e. B -> ( [ A / x ] ph
                      <-> E. y ( y = A /\ [ y / x ] ph ) ) ) $=
       ( wcel wsb wsbc cv wceq wa wex sbccog sbc5g bitr3d ) DEFABCGZCDHABDHCIDJP
@@ -245,8 +295,16 @@ $)
       $( [18-Nov-2008] $) $( [18-Nov-2008] $)
 
     $( This is the closest we can get to ~ df-sbc if we start from ~ dfsbcq
-       (see its comments). $)
+       (see its comments).  (The proof was shortened by Andrew Salmon,
+       29-Jun-2011.) $)
     sbc8g $p |- ( A e. B -> ( [ A / x ] ph <-> A e. { x | ph } ) ) $=
+      ( vy cv wsbc cab wcel dfsbcq eleq1 df-clab bicomi vtoclbg ) ABEFZGZOABHZI
+      ZABCGCQIECDABOCJOCQKRPAEBLMN $.
+      $( [29-Jun-2011] $) $( [18-Nov-2008] $)
+
+    $( This is the closest we can get to ~ df-sbc if we start from ~ dfsbcq
+       (see its comments). $)
+    sbc8gOLD $p |- ( A e. B -> ( [ A / x ] ph <-> A e. { x | ph } ) ) $=
       ( vy wcel wsbc cv wceq wa wex cab sbc7g wb df-clab anbi2i exbii a1i
       df-clel syl5rbb bitrd ) CDFZABCGEHZCIZABUCGZJZEKZCABLZFZABECDMUBUDUCUHFZJ
       ZEKZUGUIULUGNUBUKUFEUJUEUDAEBOPQRECUHSTUA $.
@@ -254,11 +312,23 @@ $)
   $}
 
   ${
-    $d y ph $.  $d x ps $.  $d x y A $.
+    $d y ph $.  $d x ps $.  $d x y $.
     cbvsbcv.1 $e |- ( x = y -> ( ph <-> ps ) ) $.
-    $( Change the bound variable of a class substitution using
-       implicit substitution. $)
+    $( Change the bound variable of a class substitution using implicit
+       substitution.  (The proof was shortened by Andrew Salmon,
+       8-Jun-2011.) $)
     cbvsbcv $p |- ( A e. B -> ( [ A / x ] ph <-> [ A / y ] ps ) ) $=
+      ( wcel cab wsbc wb cbvabv eleq2i a1i sbc8g 3bitr4d ) EFHZEACIZHZEBDIZHZAC
+      EJBDEJSUAKQRTEABCDGLMNACEFOBDEFOP $.
+      $( [8-Jun-2011] $) $( [30-Sep-2008] $)
+  $}
+
+  ${
+    $d y ph $.  $d x ps $.  $d x y A $.
+    cbvsbcvOLD.1 $e |- ( x = y -> ( ph <-> ps ) ) $.
+    $( Change the bound variable of a class substitution using implicit
+       substitution. $)
+    cbvsbcvOLD $p |- ( A e. B -> ( [ A / x ] ph <-> [ A / y ] ps ) ) $=
       ( wcel cv wceq wa wex wsbc wb eqeq1 anbi12d cbvexv a1i sbc5g 3bitr4d ) EF
       HZCIZEJZAKZCLZDIZEJZBKZDLZACEMBDEMUEUINUAUDUHCDUBUFJUCUGABUBUFEOGPQRACEFS
       BDEFST $.
@@ -322,7 +392,7 @@ $)
 
   ${
     $d x A $.  $d x ps $.
-    sbcie.1 $e |- A e. V $.
+    sbcie.1 $e |- A e. _V $.
     sbcie.2 $e |- ( x = A -> ( ph <-> ps ) ) $.
     $( Conversion of implicit substitution to explicit class substitution. $)
     sbcie $p |- ( [ A / x ] ph <-> ps ) $=
@@ -334,7 +404,7 @@ $)
     $d z w A $.  $d y z w B $.  $d z ph $.  $d x y z w $.
     elrabsf.1 $e |- ( y e. B -> A. x y e. B ) $.
     $( Membership in a restricted class abstraction, expressed with explicit
-       class substitution. (The variation ~ elrabf has implicit
+       class substitution.  (The variation ~ elrabf has implicit
        substitution).  The hypothesis specifies that ` x ` must not be a free
        variable in ` B ` . $)
     elrabsf $p |- ( A e. { x e. B | ph } <-> ( A e. B /\ [ A / x ] ph ) ) $=
@@ -351,7 +421,7 @@ $)
     $d x y $.
     $( Membership in a class abstraction, expressed in terms of class
        substitution.  Theorem 6.13 of [Quine] p. 44. $)
-    elabs2 $p |- ( A e. { x | ph } <-> ( A e. V /\ [ A / x ] ph ) ) $=
+    elabs2 $p |- ( A e. { x | ph } <-> ( A e. _V /\ [ A / x ] ph ) ) $=
       ( vy cab wcel cvv crab wsbc wa rabab eleq2i cv ax-17 elrabsf bitr3i ) CAB
       EZFCABGHZFCGFABCIJRQCABKLABDCGDMGFBNOP $.
       $( [9-Mar-2004] $) $( [7-Mar-2004] $)
@@ -360,19 +430,19 @@ $)
   $( Membership in a class abstraction, expressed in terms of class
      substitution.  Conveniently, this theorem has no distinct variable
      restrictions.  Except for the antecedent, this theorem is "almost" like
-     ~ df-sbc but was proved using only ~ dfsbcq as its starting point
-     (making no other reference to ~ df-sbc ).  We prefer not to make direct
-     reference to ~ df-sbc (i.e. commit to it) since its behavior at proper
-     classes is at odds with Quine, whereas ~ dfsbcq is not.  (Quine's class
-     substitution cannot be expressed in closed form.)  This theorem serves
-     as a weaker Quine-compatible substitute for ~ df-sbc . $)
+     ~ df-sbc but was proved using only ~ dfsbcq as its starting point (making
+     no other reference to ~ df-sbc ).  We prefer not to make direct reference
+     to ~ df-sbc (i.e. commit to it) since its behavior at proper classes is at
+     odds with Quine, whereas ~ dfsbcq is not.  (Quine's class substitution
+     cannot be expressed in closed form.)  This theorem serves as a weaker
+     Quine-compatible substitute for ~ df-sbc . $)
   elabsg $p |- ( A e. B -> ( A e. { x | ph } <-> [ A / x ] ph ) ) $=
     ( wcel cvv cab wsbc wb elisset elabs2 baib syl ) CDECFEZCABGEZABCHZICDJONPA
     BCKLM $.
     $( [6-Nov-2005] $) $( [4-Nov-2005] $)
 
   ${
-    elabs.1 $e |- A e. V $.
+    elabs.1 $e |- A e. _V $.
     $( Membership in a class abstraction, expressed in terms of class
        substitution. $)
     elabs $p |- ( A e. { x | ph } <-> [ A / x ] ph ) $=
@@ -425,8 +495,8 @@ $)
       DIACDIZBCDIZGFDEOCPDJPDKQSRTACPDJBCPDJLABCFMN $.
       $( [22-May-2004] $) $( [21-May-2004] $)
 
-    $( Distribution of class substitution over biconditional.  (Contributed
-       by Raph Levien, 10-Apr-2004.) $)
+    $( Distribution of class substitution over biconditional.  (Contributed by
+       Raph Levien, 10-Apr-2004.) $)
     sbcbidig $p |- ( A e. B ->
          ( [ A / x ] ( ph <-> ps ) <-> ( [ A / x ] ph <-> [ A / x ] ps ) ) ) $=
       ( vy wb cv wsbc dfsbcq wceq bibi12d sbbi vtoclbg ) ABGZCFHZIACPIZBCPIZGOC
@@ -462,8 +532,8 @@ $)
   ${
     $d x ph $.
     sbcbidv.1 $e |- ( ph -> ( ps <-> ch ) ) $.
-    $( Formula-building deduction rule for class substitution.  (The proof
-       was shortened by Eric Schmidt, 17-Jan-2007.) $)
+    $( Formula-building deduction rule for class substitution.  (The proof was
+       shortened by Eric Schmidt, 17-Jan-2007.) $)
     sbcbidv $p |- ( ( ph /\ A e. B ) -> ( [ A / x ] ps <-> [ A / x ] ch ) ) $=
       ( ax-17 sbcbid ) ABCDEFADHGI $.
       $( [18-Jan-2007] $) $( [11-Oct-2004] $)
@@ -478,8 +548,20 @@ $)
       $( [11-Nov-2005] $) $( [11-Nov-2005] $)
   $}
 
+  ${
+    $d y ch $.  $d y ps $.  $d y ph $.  $d y A $.  $d x y $.
+    $( Distribution of class substitution over triple conjunction.  (The proof
+       was shortened by Andrew Salmon, 29-Jun-2011.) $)
+    sbc3ang $p |- ( A e. B -> ( [ A / x ] ( ph /\ ps /\ ch ) <->
+                  ( [ A / x ] ph /\ [ A / x ] ps /\ [ A / x ] ch ) ) ) $=
+      ( vy w3a cv wsbc dfsbcq wceq 3anbi123d sb3an vtoclbg ) ABCHZDGIZJADQJZBDQ
+      JZCDQJZHPDEJADEJZBDEJZCDEJZHGEFPDQEKQELRUASUBTUCADQEKBDQEKCDQEKMABCDGNO
+      $.
+    $( [29-Jun-2011] $) $( [14-Dec-2006] $)
+  $}
+
   $( Distribution of class substitution over triple conjunction. $)
-  sbc3ang $p |- ( A e. B -> ( [ A / x ] ( ph /\ ps /\ ch ) <->
+  sbc3angOLD $p |- ( A e. B -> ( [ A / x ] ( ph /\ ps /\ ch ) <->
                 ( [ A / x ] ph /\ [ A / x ] ps /\ [ A / x ] ch ) ) ) $=
     ( wcel w3a wsbc wa df-3an sbcbii sbcang anbi1d syl6bbr 3bitrd ) EFGZABCHZDE
     IABJZCJZDEISDEIZCDEIZJZADEIZBDEIZUBHZRTDEFABCKLSCDEFMQUCUDUEJZUBJUFQUAUGUBA
@@ -488,8 +570,15 @@ $)
 
   ${
     $d y z A $.  $d x y B $.
-    $( Class substitution into a membership relation. $)
+    $( Class substitution into a membership relation.  (The proof was
+       shortened by Andrew Salmon, 29-Jun-2011.) $)
     sbcel1gv $p |- ( A e. C -> ( [ A / x ] x e. B <-> A e. B ) ) $=
+      ( vy cv wcel wsbc dfsbcq eleq1 clelsb3 vtoclbg ) AFCGZAEFZHNCGMABHBCGEBDM
+      ANBINBCJEACKL $.
+      $( [29-Jun-2006] $) $( [17-Nov-2006] $)
+
+    $( Class substitution into a membership relation. $)
+    sbcel1gvOLD $p |- ( A e. C -> ( [ A / x ] x e. B <-> A e. B ) ) $=
       ( vy vz wcel cv wsbc ax-17 eleq1 sbie sbcbii sbccog cvv wb elisset wceq
       wex elex wi hbsbc1 hbbi sbceq1a bitr3d imbi2d 19.23ai pm5.74rd mpcom syl
       3bitr3d ) BDGZAHZCGZAEHZIZEBIUOCGZEBIZUNABIBCGZUPUQEBDUNUQAEUQAJUMUOCKLMU
@@ -500,8 +589,15 @@ $)
 
   ${
     $d y z B $.  $d x y A $.
-    $( Class substitution into a membership relation. $)
+    $( Class substitution into a membership relation.  (The proof was
+       shortened by Andrew Salmon, 29-Jun-2011.) $)
     sbcel2gv $p |- ( B e. C -> ( [ B / x ] A e. x <-> A e. B ) ) $=
+      ( vy cv wcel wsbc dfsbcq eleq2 ax-17 sbie vtoclbg ) BAFZGZAEFZHBPGZOACHBC
+      GECDOAPCIPCBJOQAEQAKNPBJLM $.
+      $( [29-Jun-2011] $) $( [17-Nov-2006] $)
+
+    $( Class substitution into a membership relation. $)
+    sbcel2gvOLD $p |- ( B e. C -> ( [ B / x ] A e. x <-> A e. B ) ) $=
       ( vy vz wcel cv wsbc ax-17 eleq2 sbie sbcbii sbccog cvv wb elisset wceq
       wex elex wi hbsbc1 hbbi sbceq1a bitr3d imbi2d 19.23ai pm5.74rd mpcom syl
       3bitr3d ) CDGZBAHZGZAEHZIZECIBUOGZECIZUNACIBCGZUPUQECDUNUQAEUQAJUMUOBKLMU
@@ -524,8 +620,20 @@ $)
     $d y z A $.  $d y ph $.  $d x y z $.
     hbsbc1gd.1 $e |- ( ph -> A. x ph ) $.
     hbsbc1gd.2 $e |- ( ph -> ( y e. A -> A. x y e. A ) ) $.
-    $( Deduction version of ~ hbsbc1g . $)
+    $( Deduction version of ~ hbsbc1g .  (The proof was shortened by Andrew
+       Salmon, 21-Jun-2011.) $)
     hbsbc1gd $p |- ( ( ph /\ A e. B ) ->
+                   ( [ A / x ] ps -> A. x [ A / x ] ps ) ) $=
+      ( vz cvv wcel wsbc wal wi wa cv cab wceq wb 19.21aiv abidhb eleq1 3syl
+      biimpar hba1 hbab hbsbc1g syl dfsbcq adantr a1d ax-17 a1i hbeld hband
+      anabsi5 albid 3imtr3d elisset sylan2 ) AEJKZBCELZVBCMZNEFKAVAOZBCIPEKZCMZ
+      IQZLZVHCMZVBVCVDVGJKZVHVINAVJVAADPZEKZVLCMNZDMZVGERZVJVASAVMDHTZCDIEUAZVG
+      EJUBUCUDBCDVGJVFCIDVECUEUFUGUHAVHVBSZVAAVNVOVRVPVQBCVGEUIUCUJZVDVHVBCAVAV
+      DCMAAVACAACMAGUKACDEJGHVKJKZVTCMNAVTCULUMUNUOUPVSUQUREFUSUT $.
+      $( [26-Jun-2011] $) $( [23-May-2006] $)
+
+    $( Deduction version of ~ hbsbc1g . $)
+    hbsbc1gdOLD $p |- ( ( ph /\ A e. B ) ->
                    ( [ A / x ] ps -> A. x [ A / x ] ps ) ) $=
       ( vz cvv wcel wsbc wal wi wa cv cab ax-4 impbid2 abbidv wceq eleq1
       albidv cbvabv abid2 3eqtr3g eleq1d biimpar hba1 hbab hbsbc1g syl wb
@@ -544,8 +652,21 @@ $)
     hbsbcgd.2 $e |- ( ph -> A. y ph ) $.
     hbsbcgd.3 $e |- ( ph -> ( z e. A -> A. x z e. A ) ) $.
     hbsbcgd.4 $e |- ( ph -> ( ps -> A. x ps ) ) $.
-    $( Deduction version of ~ hbsbcg . $)
+    $( Deduction version of ~ hbsbcg .  (The proof was shortened by Andrew
+       Salmon, 21-Jun-2011.) $)
     hbsbcgd $p |- ( ( ph /\ A e. C ) ->
+                 ( [ A / y ] ps -> A. x [ A / y ] ps ) ) $=
+      ( vw cvv wcel wsbc wal wi wa cv cab wceq wb 19.21aiv abidhb eleq1 3syl
+      biimpar hba1 hbab hbsbcg syl dfsbcq adantr ax-4 impbid2 sbcbid bitrd a1d
+      ax-17 a1i hbeld hband anabsi5 albid 3imtr3d elisset sylan2 ) AFMNZBDFOZVI
+      CPZQFGNAVHRZBCPZDLSFNZCPZLTZOZVPCPZVIVJVKVOMNZVPVQQAVRVHAESZFNZVTCPQZEPZV
+      OFUAZVRVHUBAWAEJUCZCELFUDZVOFMUEUFUGVLCDEVOMVNCLEVMCUHUIBCUHUJUKVKVPVLDFO
+      ZVIAVPWFUBZVHAWBWCWGWDWEVLDVOFULUFUMAVLBDFMIAVLBBCUNKUOUPUQZVKVPVICAVHVKC
+      PAAVHCAACPAHURACEFMHJVSMNZWICPQAWICUSUTVAVBVCWHVDVEFGVFVG $.
+      $( [21-Jun-2011] $) $( [23-Nov-2005] $)
+
+    $( Deduction version of ~ hbsbcg . $)
+    hbsbcgdOLD $p |- ( ( ph /\ A e. C ) ->
                  ( [ A / y ] ps -> A. x [ A / y ] ps ) ) $=
       ( vw cvv wcel wsbc wal wi wa cv cab ax-4 impbid2 abbidv wceq eleq1
       albidv cbvabv abid2 3eqtr3g eleq1d biimpar hba1 hbab hbsbcg syl wb
@@ -573,8 +694,15 @@ $)
   ${
     $d y A $.  $d y ph $.  $d x y $.
     sbcgf.1 $e |- ( ph -> A. x ph ) $.
-    $( Substitution for a variable not free in a wff does not affect it. $)
+    $( Substitution for a variable not free in a wff does not affect it.  (The
+       proof was shortened by Andrew Salmon, 29-Jun-2011.) $)
     sbcgf $p |- ( A e. B -> ( [ A / x ] ph <-> ph ) ) $=
+      ( vy cv wsbc dfsbcq wceq biidd sbf vtoclbg ) ABFGZHAABCHAFCDABNCINCJAKABF
+      ELM $.
+      $( [29-Jun-2011] $) $( [11-Oct-2004] $)
+
+    $( Substitution for a variable not free in a wff does not affect it. $)
+    sbcgfOLD $p |- ( A e. B -> ( [ A / x ] ph <-> ph ) ) $=
       ( vy wcel cv wsbc sbccog wceq wa wex sbf sbcbii sbc5g elex biantrurd
       19.41v syl6rbbr 3bitrd bitr3d ) CDGZABFHZIZFCIZABCIAABFCDJUCUFAFCIUDCKZAL
       FMZAUEAFCDABFENOAFCDPUCAUGFMZALUHUCUIAFCDQRUGAFSTUAUB $.
@@ -594,8 +722,8 @@ $)
 
   ${
     $d x y A $.  $d y B $.  $d x y ps $.
-    sbc2ie.1 $e |- A e. V $.
-    sbc2ie.2 $e |- B e. V $.
+    sbc2ie.1 $e |- A e. _V $.
+    sbc2ie.2 $e |- B e. _V $.
     sbc2ie.3 $e |- ( ( x = A /\ y = B ) -> ( ph <-> ps ) ) $.
     $( Conversion of implicit substitution to explicit class substitution. $)
     sbc2ie $p |- ( [ A / x ] [ B / y ] ph <-> ps ) $=
@@ -608,8 +736,8 @@ $)
 
   ${
     $d x y A $.  $d y B $.  $d x y ph $.  $d x y ch $.
-    sbc2iedv.1 $e |- A e. V $.
-    sbc2iedv.2 $e |- B e. V $.
+    sbc2iedv.1 $e |- A e. _V $.
+    sbc2iedv.2 $e |- B e. _V $.
     sbc2iedv.3 $e |- ( ph -> ( ( x = A /\ y = B ) -> ( ps <-> ch ) ) ) $.
     $( Conversion of implicit substitution to explicit class substitution. $)
     sbc2iedv $p |- ( ph -> ( [ A / x ] [ B / y ] ps <-> ch ) ) $=
@@ -652,7 +780,7 @@ $)
   $}
 
   ${
-    $d v w z A $.  $d w x B $.   $d v w C $.   $d w ph $.  $d x y $.
+    $d v w z A $.  $d w x B $.  $d v w C $.  $d w ph $.  $d x y $.
     $d v w y z $.
     $( Interchange class substitution and restricted quantifier.  (Unnecessary
        distinct variable restrictions were removed by David Abernethy,
@@ -704,8 +832,7 @@ $)
       EGRSVAVBVEVJVNQCVGBIEGVCSVFVLVOCFWFVEVLVOQCABIEGVCSVAVD $.
       $( [5-Mar-2008] $) $( [1-Mar-2008] $)
 
-    $( Interchange class substitution and restricted existential
-       quantifier. $)
+    $( Interchange class substitution and restricted existential quantifier. $)
     sbcrexgf $p |- ( A. y A e. C ->
                  ( [ A / x ] E. y e. B ph <-> E. y e. B [ A / x ] ph ) ) $=
       ( wcel wal wrex wsbc wn wral wb dfrex2 sbcbii sbcng bitrd a4s sbcralgf
@@ -716,22 +843,39 @@ $)
   $}
 
   ${
-    $d y z A $.  $d x B $.  $d x y z $.
-    $( Interchange class substitution and restricted quantifier. $)
+    $d y z A $.  $d x B $.  $d x y z $.  $d ph z $.  $d B z $.
+    $( Interchange class substitution and restricted quantifier.  (The proof
+       was shortened by Andrew Salmon, 29-Jun-2011.) $)
     sbcralg $p |- ( A e. C ->
                  ( [ A / x ] A. y e. B ph <-> A. y e. B [ A / x ] ph ) ) $=
-      ( vz wcel cvv wral wsbc wb elisset cv wal wi ax-17 ax-gen wa hbth hban
-      sbcralt syl mpan2 ) DFHDIHZACEJBDKABDKCEJLZDFMUEGNDHZUGCOPZGOZUFUHGUGCQRZ
-      UEUISZUKCOUFUEUICUECQUICUJTUAABCGDEIUBUCUDUC $.
+      ( vz wral cv wsbc dfsbcq wceq ralbidv wcel ax-17 hbs1 hbral sbequ12 sbie
+      vtoclbg ) ACEHZBGIZJABUBJZCEHZUABDJABDJZCEHGDFUABUBDKUBDLUCUECEABUBDKMUAU
+      DBGUCBCECIENBOABGPQBIUBLAUCCEABGRMST $.
+      $( [29-Jun-2011] $) $( [15-Nov-2005] $)
+
+    $( Interchange class substitution and restricted quantifier. $)
+    sbcralgOLD $p |- ( A e. C ->
+                 ( [ A / x ] A. y e. B ph <-> A. y e. B [ A / x ] ph ) ) $=
+      ( vz cvv wcel cv wal wi wral wsbc wb wa ax-17 ax-gen hbth hban sbcralt
+      syl elisset sylancl ) DHIZGJDIZUFCKLZGKZACEMBDNABDNCEMOZDFIUEUHPZUJCKUIUE
+      UHCUECQUHCUGGUFCQRZSTABCGDEHUAUBDFUCUKUD $.
       $( [22-Feb-2010] $) $( [15-Nov-2005] $)
 
-    $( Interchange class substitution and restricted existential
-       quantifier. $)
+    $( Interchange class substitution and restricted existential quantifier.
+       (The proof was shortened by Andrew Salmon, 29-Jun-2011.) $)
     sbcrexg $p |- ( A e. C ->
                  ( [ A / x ] E. y e. B ph <-> E. y e. B [ A / x ] ph ) ) $=
-      ( vz wcel cvv wrex wsbc wb elisset cv wal wi ax-17 ax-gen wa hbth hban
-      sbcrext syl mpan2 ) DFHDIHZACEJBDKABDKCEJLZDFMUEGNDHZUGCOPZGOZUFUHGUGCQRZ
-      UEUISZUKCOUFUEUICUECQUICUJTUAABCGDEIUBUCUDUC $.
+      ( vz wrex cv wsbc dfsbcq wceq rexbidv wcel ax-17 hbs1 hbrex sbequ12 sbie
+      vtoclbg ) ACEHZBGIZJABUBJZCEHZUABDJABDJZCEHGDFUABUBDKUBDLUCUECEABUBDKMUAU
+      DBGUCBCECIENBOABGPQBIUBLAUCCEABGRMST $.
+      $( [29-Jun-2011] $) $( [15-Nov-2005] $)
+
+    $( Interchange class substitution and restricted existential quantifier. $)
+    sbcrexgOLD $p |- ( A e. C ->
+                 ( [ A / x ] E. y e. B ph <-> E. y e. B [ A / x ] ph ) ) $=
+      ( vz cvv wcel cv wal wi wrex wsbc wb wa ax-17 ax-gen hbth hban sbcrext
+      syl elisset sylancl ) DHIZGJDIZUFCKLZGKZACEMBDNABDNCEMOZDFIUEUHPZUJCKUIUE
+      UHCUECQUHCUGGUFCQRZSTABCGDEHUAUBDFUCUKUD $.
       $( [22-Feb-2010] $) $( [15-Nov-2005] $)
   $}
 
@@ -779,9 +923,9 @@ $)
 
   ${
     ra5.1 $e |- ( ph -> A. x ph ) $.
-    $( Restricted quantifier version of Axiom 5 of [Mendelson] p. 69.  This
-       is an axiom of a predicate calculus for a restricted domain.
-       Compare the unrestricted ~ stdpc5 . $)
+    $( Restricted quantifier version of Axiom 5 of [Mendelson] p. 69.  This is
+       an axiom of a predicate calculus for a restricted domain.  Compare the
+       unrestricted ~ stdpc5 . $)
     ra5 $p |- ( A. x e. A ( ph -> ps ) -> ( ph -> A. x e. A ps ) ) $=
       ( wi wral cv wcel wal df-ral bi2.04 albii bitri stdpc5 sylbi syl6ibr ) AB
       FZCDGZACHDIZBFZCJZBCDGSAUAFZCJZAUBFSTRFZCJUDRCDKUEUCCTABLMNAUACEOPBCDKQ

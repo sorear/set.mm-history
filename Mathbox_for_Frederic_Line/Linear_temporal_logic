@@ -1,0 +1,222 @@
+$(
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+              Linear temporal logic
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+$)
+
+  $c [.] $. $( A box. $)
+  $c <> $. $( A diamond. $)
+  $c () $. $( A circle. $)
+  $c until $. $( Until. $)
+
+
+  $( A now and always true proposition is well formed. $)
+  wbox $a wff [.] ph $.
+
+  $( A now or sometime in the future true proposition is well formed. $)
+  wdia $a wff <> ph $.
+
+  $( A proposition true in the next step is well formed. $)
+  wcirc $a wff () ph $.
+
+  $( The proposition ` ph ` is true until ` ps ` is true is well formed. $)
+  wunt $a wff ( ph until ps ) $.
+
+  $( If ` ( ph -> ps ) ` and ` ph ` always hold then ` ps ` always holds. $)
+  ax-ltl1 $a |- ( [.] ( ph -> ps ) -> ( [.] ph -> [.] ps ) ) $.
+
+  $( ` ph ` doesn't hold in the next step iff in the next step ` -. ph `
+     holds. $)
+  ax-ltl2 $a |- ( -. () ph <-> () -. ph ) $.
+
+  $( If in the next step ` ph -> ps ` and ` ph ` hold then in the next step
+     ` ps ` holds. $)
+  ax-ltl3 $a |- ( () ( ph -> ps ) -> ( () ph -> () ps ) ) $.
+
+  $( Suppose that it is always true that if ` ph ` is true in the current step
+     then ` ph ` is true in the next step.  Suppose that ` ph ` is true in the
+     first step.  Then ` ph ` will always be true. $)
+  ax-ltl4 $a |- ( ( [.] ( ph -> () ph ) /\ ph ) -> [.] ph ) $.
+
+  ${
+    ax-lmp.1 $e |- ph $.
+    $( If ` ph ` is a theorem then it always holds. $)
+    ax-lmp $a |- [.] ph $.
+  $}
+
+  ${
+    ax-nmp.1 $e |- ph $.
+    $( If ` ph ` is a theorem then it holds in the next step. $)
+    ax-nmp $a |- () ph $.
+  $}
+
+  $( Diamond ` ph ` means "now or sometimes in the future ` ph ` holds". $)
+  df-dia $a |- ( <> ph <-> -. [.] -. ph ) $.
+
+  ${
+    impbox.1 $e |- ( ph -> ps ) $.
+    $( If ` ph -> ps ` is unconditionally true and if ` ph ` is true now and
+       always be true in the future then ` ps ` is true now and always be true
+       in the future. $)
+    impbox $p |- ( [.] ph -> [.] ps ) $=
+      ( wi wbox ax-lmp ax-ltl1 ax-mp ) ABDZEAEBEDICFABGH $.
+      $( [22-Feb-2011] $) $( [22-Feb-2011] $)
+  $}
+
+  ${
+    bibox.1 $e |- ( ph <-> ps ) $.
+    $( If ` ph <-> ps ` is unconditionally true then ` ph ` is true now and
+       always be true in the future is equivalent to ` ps ` is true now and
+       always be true in the future. $)
+    bibox $p |- ( [.] ph <-> [.] ps ) $=
+      ( wbox biimpi impbox biimpri impbii ) ADBDABABCEFBAABCGFH $.
+      $( [22-Feb-2011] $) $( [22-Feb-2011] $)
+  $}
+
+  ${
+    impxt.1 $e |- ( ph -> ps ) $.
+    $( If ` ph -> ps ` holds unconditionally and if ` ph ` holds in the next
+       step then ` ps ` holds in the next step. $)
+    impxt $p |- ( () ph -> () ps ) $=
+      ( wi wcirc ax-nmp ax-ltl3 ax-mp ) ABDZEAEBEDICFABGH $.
+      $( [20-Mar-2011] $) $( [20-Mar-2011] $)
+  $}
+
+  ${
+    binxt.1 $e |- ( ph <-> ps ) $.
+    $( If ` ph <-> ps ` holds unconditionally then ` ph ` holds in the next
+       step iff ` ps ` holds in the next step. $)
+    binxt $p |- ( () ph <-> () ps ) $=
+      ( wcirc biimpi impxt biimpri impbii ) ADBDABABCEFBAABCGFH $.
+      $( [20-Mar-2011] $) $( [20-Mar-2011] $)
+  $}
+
+  $( ` ( ph \/ ps ) ` holds in the next step iff ` ph ` holds in the next step
+     or ` ps ` holds in the next step. $)
+  nxtor $p |- ( () ( ph \/ ps ) <-> ( () ph \/ () ps ) ) $=
+    ( wn wi wcirc wo ax-ltl3 ax-ltl2 syl5ib df-or pm2.24 impxt ax-1 jaoi
+    sylbir impbii binxt 3bitr4i ) ACZBDZEZAEZCZBEZDZABFZEUBUDFZUAUEUASEUDUCSBGA
+    HIUEUGUAUBUDJZUBUAUDATABKLBTBSMLNOPUFTABJQUHR $.
+    $( [20-Mar-2011] $) $( [20-Mar-2011] $)
+
+  $( ` ( ph /\ ps ) ` holds in the next step iff ` ph ` holds in the next step
+     and ` ps ` holds in the next step. $)
+  nxtand $p |- ( () ( ph /\ ps ) <-> ( () ph /\ () ps ) ) $=
+    ( wa wcirc wn wo anor binxt ax-ltl2 nxtor bicomi orbi12i bitri notbii
+    bitr4i 3bitr2i ) ABCZDAEZBEZFZEZDTDZEZADZBDZCZQUAABGHTIUCUDEZUEEZFZEUFUBUIU
+    BRDZSDZFUIRSJUJUGUKUHUGUJAIKUHUKBIKLMNUDUEGOP $.
+    $( [20-Mar-2011] $) $( [20-Mar-2011] $)
+
+  $( ` ph ` holds now and will always hold in the future iff it is not true
+     that ` -. ph ` holds now or sometimes in the future. $)
+  boxeq $p |- ( [.] ph <-> -. <> -. ph ) $=
+    ( wbox wn wdia notnot bibox notbii df-dia bicomi 3bitri ) ABZKCZCACZCZBZCZC
+    MDZCKELPKOANAEFGGPQQPMHIGJ $.
+    $( [22-Feb-2011] $) $( [22-Feb-2011] $)
+
+  ${
+    bidia.1 $e |- ( ph <-> ps ) $.
+    $( If ` ph <-> ps ` holds then ` ph ` eventually holds iff ` ps `
+       eventually holds. $)
+    bidia $p |- ( <> ph <-> <> ps ) $=
+      ( wn wbox wdia notbii bibox df-dia 3bitr4i ) ADZEZDBDZEZDAFBFLNKMABCGHGAI
+      BIJ $.
+      $( [20-Mar-2011] $) $( [20-Mar-2011] $)
+  $}
+
+  $( It's false that ` ph ` eventually holds iff ` -. ph ` always holds. $)
+  notev $p |- ( -. <> ph <-> [.] -. ph ) $=
+    ( wn wbox wdia df-dia bicomi con1bii ) ABCZADZIHBAEFG $.
+    $( [20-Mar-2011] $) $( [20-Mar-2011] $)
+
+  $( It's false that ` ph ` always holds iff ` -. ph ` eventually holds. $)
+  notal $p |- ( -. [.] ph <-> <> -. ph ) $=
+    ( wn wdia wbox boxeq bicomi con1bii ) ABCZADZIHBAEFG $.
+    $( [20-Mar-2011] $) $( [20-Mar-2011] $)
+
+  $( ` ph ` holds until ` ps ` iff ` ps ` holds or ` ph ` holds and in the next
+     step ` ph ` holds until ` ps ` . $)
+  ax-ltl5 $a |- ( ( ph until ps ) <->
+   ( ps \/ ( ph /\ () ( ph until ps ) ) ) ) $.
+
+  $( If ` ph ` holds until ` ps ` then eventually ` ps ` holds. $)
+  ax-ltl6 $a |- ( ( ph until ps ) -> <> ps ) $.
+
+  $( If ` ps ` doesn't hold in the first step and ` ph ` holds until ` ps `
+     then ` ph ` holds. $)
+  nopsthph $p |- ( ( -. ps /\ ( ph until ps ) ) -> ph ) $=
+    ( wunt wn wcirc wa wo wi ax-ltl5 orcom pm5.61 simpll sylbi ex impcom ) ABCZ
+    BDZAPBAPEZFZGZQAHZABITSBGZUABSJUBQAUBQFSQFASBKARQLMNMMO $.
+    $( [20-Mar-2011] $) $( [20-Mar-2011] $)
+
+  $( If ` ph ` doesn't hold in the first step and ` ph ` holds until ` ps `
+     then ` ps ` holds in the first step. $)
+  phthps $p |- ( ( -. ph /\ ( ph until ps ) ) -> ps ) $=
+    ( wunt wn nopsthph expcom con1d impcom ) ABCZADBIBABDIAABEFGH $.
+    $( [20-Mar-2011] $) $( [20-Mar-2011] $)
+
+  $( Eventually ` ph ` expressed with the ` until ` operator. $)
+  evpexun $p |- ( <> ph <-> ( T. until ph ) ) $=
+    ( wdia wtru wunt wn wbox wcirc wa wo orc ax-ltl5 sylibr con3i impbox notev
+    3imtr4i con4i wi trcrm biimpri olcd ax-lmp df-dia con34b bibox ax-ltl2
+    imbi2i ax-ltl4 ex sylbi con1d com12 mpi syl ax-ltl6 impbii ) ABZCADZUQURBZU
+    RUSUQUREZFZAEZFUSEUQEUTVBAURAACURGZHZIZURAVDJCAKZLMNUROAOPQUSVCURRZFZURVGVC
+    VEURVCVDAVDVCVCSTUAVFLUBUSVAEZVHURRURUCVHVIURVHURVAVHUTVCEZRZFZUTVARZVGVKVC
+    URUDUEVLUTUTGZRZFZVMVKVOVJVNUTURUFUGUEVPUTVAUTUHUIUJUJUKULUJUMUNCAUOUP $.
+    $( [20-Mar-2011] $) $( [20-Mar-2011] $)
+
+  $( ` ph ` always holds iff ` ph ` holds in the first step and always holds in
+     the next step. $)
+  albineal $p |- ( [.] ph <-> ( ph /\ () [.] ph ) ) $=
+    ( wbox wn wdia wtru wunt wcirc wa wo boxeq evpexun ax-ltl5 bitri notbii
+    ioran notnot bicomi trcrm ax-ltl2 bitr2i binxt 3bitri anbi12i ) ABZACZDZCZU
+    EEEUEFZGZHZIZCZAUDGZHZAJZUFUKUFUHUKUEKZEUELMNULUECZUJCZHUNUEUJOUQAURUMAUQAP
+    QURUICUHCZGUMUJUIUIRNUHSUSUDUDUGUSUOUFUHUPNTUAUBUCMUB $.
+    $( [20-Mar-2011] $) $( [20-Mar-2011] $)
+
+  $( If ` ph ` always holds, it holds in the first step. $)
+  alneal1 $p |- ( [.] ph -> ph ) $=
+    ( wbox wcirc albineal pm3.26bi ) ABZAFCADE $.
+    $( [20-Mar-2011] $) $( [20-Mar-2011] $)
+
+  $( If ` ph ` always holds, it always holds in the next step. $)
+  alneal2 $p |- ( [.] ph -> () [.] ph ) $=
+    ( wbox wcirc albineal pm3.27bi ) ABZAFCADE $.
+    $( [20-Mar-2011] $) $( [20-Mar-2011] $)
+
+  $( If ` ph ` always holds, it holds in the next step. $)
+  alne $p |- ( [.] ph -> () ph ) $=
+    ( wbox wcirc alneal2 alneal1 impxt syl ) ABZHCACADHAAEFG $.
+    $( [20-Mar-2011] $) $( [20-Mar-2011] $)
+
+  $( It is always true that ` ph ` always holds iff ` ph ` always holds. $)
+  alalifal $p |- ( [.] [.] ph <-> [.] ph ) $=
+    ( wbox alneal1 wcirc wi alneal2 a1i impbox ax-ltl4 mpancom impbii ) ABZBZLL
+    CLLDEZBLMANNAAFGHLIJK $.
+    $( [20-Mar-2011] $) $( [20-Mar-2011] $)
+
+  $( It is eventually true that ` ph ` eventually holds iff ` ph ` eventually
+     holds. $)
+  evevifev $p |- ( <> <> ph <-> <> ph ) $=
+    ( wdia wn wbox df-dia notbii bibox notnot bicomi alalifal 3bitri 3bitr4i )
+    ABZCZDZCACZDZCZMBMOQORCZDQDQNSMRAEZFGSQQSQHIGPJKFMETL $.
+    $( [20-Mar-2011] $) $( [20-Mar-2011] $)
+
+  $( If ` ph ` is always true then it is always true that ` ph ` holds in the
+     next step. $)
+  althalne $p |- ( [.] ph -> [.] () ph ) $=
+    ( wbox wcirc alalifal alne impbox sylbir ) ABZHBACZBADHIAEFG $.
+    $( [20-Mar-2011] $) $( [20-Mar-2011] $)
+
+  $( ` T. ` is true in every step.  (The proof was shortened by Andrew Salmon,
+     7-May-2011.) $)
+  trtrst $p |- [.] T. $=
+    ( wtru trutru ax-lmp ) ABC $.
+    $( [12-May-2011] $) $( [20-Mar-2011] $)
+
+  $( It's true that ` ph ` is true until true is true. $)
+  unttr $p |- ( ph until T. ) $=
+    ( wtru wunt wcirc wa wo wbox trtrst alneal1 ax-mp orci ax-ltl5 mpbir ) ABCZ
+    BANDEZFBOBGBHBIJKABLM $.
+    $( [20-Mar-2011] $) $( [27-Feb-2011] $)
+

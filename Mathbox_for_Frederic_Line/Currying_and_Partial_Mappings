@@ -13,29 +13,30 @@ $)
   $( Extend class notation with the definition of currying. $)
   ccur2 $a class cur2 $.
 
-  ${ $d f g x y $.
-  $( Definition of currying (1st sort). Currying the operation ` f ` consists
-     in creating a mapping that returns for every value ` x ` of ` dom dom f `
-     the partial application of ` f ` to ` x ` . $)
-  df-cur1 $a |- cur1 = { <. f , g >. | ( ( Fun f /\ Rel dom f ) /\
+  ${
+    $d f g x y $.
+    $( Definition of currying (1st sort).  Currying the operation ` f `
+       consists in creating a mapping that returns for every value ` x ` of
+       ` dom dom f ` the partial application of ` f ` to ` x ` . $)
+    df-cur1 $a |- cur1 = { <. f , g >. | ( ( Fun f /\ Rel dom f ) /\
    g = { <. x , y >. | ( x e. dom dom f
-     /\ y = ( f o. `' ( 2nd |` ( { x } X. V ) ) ) ) } ) } $.
+     /\ y = ( f o. `' ( 2nd |` ( { x } X. _V ) ) ) ) } ) } $.
 
 
-  $( Definition of currying (2nd sort). Currying the operation ` f ` consists
-     in creating a mapping that returns for every value ` x ` of ` ran dom f `
-     the partial application of ` f ` to ` x ` . $)
-  df-cur2 $a |- cur2 = { <. f , g >. | ( Fun f /\ Rel dom f /\
+    $( Definition of currying (2nd sort).  Currying the operation ` f `
+       consists in creating a mapping that returns for every value ` x ` of
+       ` ran dom f ` the partial application of ` f ` to ` x ` . $)
+    df-cur2 $a |- cur2 = { <. f , g >. | ( Fun f /\ Rel dom f /\
    g = { <. x , y >. | ( x e. ran dom f
-     /\ y = ( f o. `' ( 1st |` ( V X. { x } ) ) ) ) } ) } $.
+     /\ y = ( f o. `' ( 1st |` ( _V X. { x } ) ) ) ) } ) } $.
   $}
 
   ${
     $d F f g x y $.
     $( The value of a curried operation. $)
-    cur1val $p |- ( ( F e. A /\ Fun F  /\ Rel dom F ) -> ( cur1 ` F )
+    cur1val $p |- ( ( F e. A /\ Fun F /\ Rel dom F ) -> ( cur1 ` F )
       = { <. x , y >. | ( x e. dom dom F /\
-        y = ( F o. `' ( 2nd |` ( { x } X. V ) ) ) ) } ) $=
+        y = ( F o. `' ( 2nd |` ( { x } X. _V ) ) ) ) } ) $=
       ( vf vg cvv wcel cv cdm c2nd csn cxp cres ccnv ccom wceq wa copab wfun
       wrel ccur1 cfv w3a df-cur1 funeq wb dmeq releq syl anbi12d dmeqd eleq2d
       coeq1 eqeq2d opabbidv fvopab6 elisset 3ad2ant1 dmexg opabex2g 3simpc
@@ -48,12 +49,12 @@ $)
   $}
 
   ${
-    $d A x y $. $d B x y $. $d C x y $. $d D x y $. $d F x y $.
+    $d A x y $.  $d B x y $.  $d C x y $.  $d D x y $.  $d F x y $.
     $( The value of a curried operation. $)
     cur1vald $p |- (
       ( ( F Fn ( A X. B ) /\ B =/= (/) ) /\ ( A e. C /\ B e. D ) )
         -> ( cur1 ` F ) = { <. x , y >. | ( x e. A /\
-          y = ( F o. `' ( 2nd |` ( { x } X. V ) ) ) ) } ) $=
+          y = ( F o. `' ( 2nd |` ( { x } X. _V ) ) ) ) } ) $=
       ( cxp wfn c0 wne wa wcel ccur1 cfv cv cdm c2nd csn cvv cres ccnv ccom
       wceq copab wfun wrel cur1val wi w3a fnex 3simp1 xpexg 3adant1 sylanc
       3expib adantr imp fnfun ad2antrr fndm relxp wb releq eqcoms mpbii syl
@@ -68,14 +69,14 @@ $)
   $}
 
   ${
-    $d A x y $. $d B f x y $. $d C x y $. $d D x y $. $d F f x y $.
+    $d A x y $.  $d B f x y $.  $d C x y $.  $d D x y $.  $d F f x y $.
     domrancur1b.1 $e |- A e. C $.
     domrancur1b.2 $e |- B e. D $.
     domrancur1b.3 $e |- B =/= (/) $.
     domrancur1b.4 $e |- F Fn ( A X. B ) $.
-    $( The currying of a mapping ` F ` whose domain is ` ( A X. B ) `
-       is a mapping whose domain is ` A ` and the range, the class
-       of all the functions from ` B ` to ` ran F ` . $)
+    $( The currying of a mapping ` F ` whose domain is ` ( A X. B ) ` is a
+       mapping whose domain is ` A ` and the range, the class of all the
+       functions from ` B ` to ` ran F ` . $)
     domrancur1b $p |-
       ( cur1 ` F ) : A --> { f | f : B --> ran F } $=
       ( vx vy c2nd cv csn cvv cxp cres ccnv ccom crn wf cab wcel wral ccur1
@@ -103,7 +104,7 @@ $)
   $}
 
   ${
-    $d A x y z $. $d B x y z $. $d C y z $. $d F x z $.
+    $d A x y z $.  $d B x y z $.  $d C y z $.  $d F x z $.
     $( Functionality of an ordered-pair class abstraction. $)
     fopab2g $p |- ( F = { <. x , y >. | ( x e. A /\ y = C ) } ->
        ( A. x e. A C e. B <-> F : A --> B ) ) $=
@@ -131,7 +132,7 @@ $)
   ${
     $( Lemma for ~ domrancur1c . $)
     domrancur1clem $p |- ( ( F Fn ( A X. B ) /\ ( A e. C /\ B e. D ) )
-       -> ( F o. `' ( 2nd |` M ) ) e. V ) $=
+       -> ( F o. `' ( 2nd |` M ) ) e. _V ) $=
       ( cvv wcel c2nd cres ccnv wfun ccom cxp wfn wa cofunex2g fnex xpexg
       sylan2 wfo fo2nd fofun ax-mp funres funcnvcnv sylancl ) EGHZIFJZKZKLZEUJM
       GHEABNZOZACHBDHPZPEUJGQUMULGHUHUNULGERABCDSTUILZUKILZUOGGIUAUPUBGGIUCUDFI
@@ -140,10 +141,10 @@ $)
   $}
 
   ${
-    $d A x y $. $d B f x y $. $d C x y $. $d D x y $. $d F f x y $.
-    $( The currying of a mapping ` F ` whose domain is ` ( A X. B ) `
-       is a mapping whose domain is ` A ` and the range, the class
-       of all the functions from ` B ` to ` ran F ` . $)
+    $d A x y $.  $d B f x y $.  $d C x y $.  $d D x y $.  $d F f x y $.
+    $( The currying of a mapping ` F ` whose domain is ` ( A X. B ) ` is a
+       mapping whose domain is ` A ` and the range, the class of all the
+       functions from ` B ` to ` ran F ` . $)
     domrancur1c $p |-
       ( ( ( A e. C /\ B e. D ) /\ ( B =/= (/) /\ F Fn ( A X. B ) ) ) ->
         ( cur1 ` F ) : A --> { f | f : B --> ran F } ) $=
@@ -179,12 +180,12 @@ $)
   $}
 
   ${
-    $d B f $. $d F f $. $d O f $.
-    $( The value of a curried function at ` 0 e. A ` is a mapping. $)
+    $d B f $.  $d F f $.  $d O f $.
+    $( The value of a curried function at ` O e. A ` is a mapping. $)
     valcurfn $p |- ( ( ( A e. C /\ B e. D ) /\
                ( B =/= (/) /\ F Fn ( A X. B ) ) /\ O e. A )
         ->
-        ( ( cur1 ` F ) ` O ) : B --> ran F )  $=
+        ( ( cur1 ` F ) ` O ) : B --> ran F ) $=
       ( vf wcel wa c0 wne cxp wfn crn ccur1 cfv wf cv cab wi domrancur1c
       ffvelrn fvex feq1 elab sylib ex syl 3impia ) ACHBDHIZBJKEABLMIZFAHZBENZFE
       OPZPZQZUJUKIABUMGRZQZGSZUNQZULUPTABCDGEUAUTULUPUTULIUOUSHUPAUSFUNUBURUPGU
@@ -193,14 +194,14 @@ $)
   $}
 
   ${
-    $d F x y $. $d G x y $. $d O x y $.
-    valcurfn1.1 $e |- G = ( F o. `' ( 2nd |` ( { O } X. V ) ) ) $.
+    $d F x y $.  $d G x y $.  $d O x y $.
+    valcurfn1.1 $e |- G = ( F o. `' ( 2nd |` ( { O } X. _V ) ) ) $.
     $( The value of a curried function at ` O e. A ` is a partial
        application. $)
     valcurfn1 $p |- ( ( ( A e. C /\ B e. D ) /\
                ( B =/= (/) /\ F Fn ( A X. B ) ) /\ O e. A )
         ->
-        ( ( cur1 ` F ) ` O ) = G  ) $=
+        ( ( cur1 ` F ) ` O ) = G ) $=
       ( vx vy wcel wa c0 wne cxp wfn w3a ccur1 cfv cv cdm c2nd csn cvv cres
       ccnv ccom wceq copab wfun wrel cur1val wi fnex ex xpexg syl5 adantl
       impcom 3adant3 fnfun 3ad2ant2 fndm relxp releq mpbiri syl syl3anc fveq1d
@@ -220,14 +221,14 @@ $)
   $}
 
   ${
-    $d A x y $. $d B x y $. $d F x y $. $d O x y $.
+    $d A x y $.  $d B x y $.  $d F x y $.  $d O x y $.
     $( The value of a curried function at ` O e. A ` is a partial
        application. $)
     valcurfn2 $p |- ( ( ( A e. C /\ B e. D ) /\
                ( B =/= (/) /\ F Fn ( A X. B ) ) /\ O e. A )
         ->
         ( ( cur1 ` F ) ` O ) =
-        { <. x , y >. | ( x e. B /\ y = ( O F x ) ) }  ) $=
+        { <. x , y >. | ( x e. B /\ y = ( O F x ) ) } ) $=
       ( wcel wa c0 wne cxp wfn w3a ccur1 cfv c2nd csn cvv cres ccnv ccom cv co
       wceq copab eqid valcurfn1 curry1 simprr 3adant3 3simp3 sylanc eqtrd ) CEI
       DFIJZDKLZGCDMNZJZHCIZOZHGPQQGRHSTMUAUBUCZAUDZDIBUDHVCGUEUFJABUGZCDEFGVBHV
@@ -236,13 +237,13 @@ $)
   $}
 
   ${
-    $d A x y $. $d B x y $. $d F x y $. $d O x y $. $d P x y $.
-    $( The value at ` P e. B ` of the value of a curried function
-       at ` 0 e. A ` equals ` ( O F P ) ` . $)
+    $d A x y $.  $d B x y $.  $d F x y $.  $d O x y $.  $d P x y $.
+    $( The value at ` P e. B ` of the value of a curried function at ` O e. A `
+       equals ` ( O F P ) ` . $)
     valvalcurfn $p |- ( ( ( A e. C /\ B e. D ) /\
                ( B =/= (/) /\ F Fn ( A X. B ) ) /\ ( O e. A /\ P e. B ) )
         ->
-        ( ( ( cur1 ` F ) ` O ) ` P ) = ( O F P ) )  $=
+        ( ( ( cur1 ` F ) ` O ) ` P ) = ( O F P ) ) $=
       ( vx vy wcel wa c0 wne cxp wfn w3a ccur1 cfv cv co wceq copab valcurfn2
       3adant3r fveq1d cvv opreq2 eqid fvopab4g pm3.27 3ad2ant3 oprex sylancl
       eqtrd ) ACJBDJKZBLMFABNOKZGAJZEBJZKZPZEGFQRRZREHSZBJISGVBFTZUAKHIUBZRZGEF
@@ -250,4 +251,5 @@ $)
       UHUIUSUOURUPUQURUJUKGEFULUMUN $.
       $( [18-May-2010] $) $( [17-May-2010] $)
   $}
+
 

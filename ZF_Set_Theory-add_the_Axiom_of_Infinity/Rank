@@ -19,37 +19,37 @@ $)
     $d x y z $.
     $( Define the cumulative hierarchy of sets function, using Takeuti and
        Zaring's notation ( ` R1 ` ).  Starting with the empty set, this
-       function builds up layers of sets where the next layer is the power
-       set of the previous layer (and the union of previous layers when the
+       function builds up layers of sets where the next layer is the power set
+       of the previous layer (and the union of previous layers when the
        argument is a limit ordinal).  Using the Axiom of Regularity, we can
        show that any set whatsoever belongs to one of the layers of this
-       hierarchy (see ~ tz9.13 ).  Our definition expresses Definition 9.9
-       of [TakeutiZaring] p. 76 in a closed form, from which we derive the
+       hierarchy (see ~ tz9.13 ).  Our definition expresses Definition 9.9 of
+       [TakeutiZaring] p. 76 in a closed form, from which we derive the
        recursive definition as theorems ~ r10 , ~ r1suc , and ~ r1lim .
        Theorem ~ r1val1 shows a recursive definition that works for all values,
        and theorems ~ r1val2 and ~ r1val3 show the value expressed in terms of
-       rank.  Other notations for this function are  _R_ with the argument
-       as a subscript (Equation 3.1 of [BellMachover] p. 477), ` V ` with a
-       a subscript (Definition of [Enderton] p. 202), _M_ with a subscript
+       rank.  Other notations for this function are _R_ with the argument as a
+       subscript (Equation 3.1 of [BellMachover] p. 477), ` _V ` with a a
+       subscript (Definition of [Enderton] p. 202), _M_ with a subscript
        (Definition 15.19 of [Monk1] p. 113), the capital Greek letter psi
-       (Definition of [Mendelson] p. 281), and bold-face R (Definition 2.1
-       of [Kunen] p. 95). $)
-    df-r1 $a |- R1 = rec ( { <. x , y >. | y = P~ x } , (/) ) $.
+       (Definition of [Mendelson] p. 281), and bold-face R (Definition 2.1 of
+       [Kunen] p. 95). $)
+    df-r1 $a |- R1 = rec ( { <. x , y >. | y = ~P x } , (/) ) $.
 
-    $( Define the rank function.  See ~ rankval , ~ rankval2 , ~ rankval3 ,
-       or ~ rankval4 its value.  The rank is a kind of "inverse" of the
-       cumulative hierarchy of sets function ` R1 ` :  given a set, it returns
-       an ordinal number telling us the smallest layer of the hierarchy to
-       which the set belongs.  Based on Definition 9.14 of [TakeutiZaring]
-       p. 79.  Theorem ~ rankid illustrates the "inverse" concept.  Another
-       nice theorem showing the relationship is ~ rankr1a . $)
+    $( Define the rank function.  See ~ rankval , ~ rankval2 , ~ rankval3 , or
+       ~ rankval4 its value.  The rank is a kind of "inverse" of the cumulative
+       hierarchy of sets function ` R1 ` : given a set, it returns an ordinal
+       number telling us the smallest layer of the hierarchy to which the set
+       belongs.  Based on Definition 9.14 of [TakeutiZaring] p. 79.  Theorem
+       ~ rankid illustrates the "inverse" concept.  Another nice theorem
+       showing the relationship is ~ rankr1a . $)
     df-rank $a |- rank =
           { <. x , y >. | y = |^| { z e. On | x e. ( R1 ` suc z ) } } $.
   $}
 
   ${
     $d x y z w v u $.  $d y z v A $.  $d y v u F $.
-    trcl.1 $e |- A e. V $.
+    trcl.1 $e |- A e. _V $.
     trcl.2 $e |- F =
                ( rec ( { <. z , w >. | w = ( z u. U. z ) } , A ) |` om ) $.
     trcl.3 $e |- C = U_ y e. om ( F ` y ) $.
@@ -58,7 +58,7 @@ $)
        show an explicit expression for the transitive closure rather than just
        its existence.  See ~ tz9.1 for an abbreviated version showing
        existence. $)
-    trcl $p |- ( A (_ C /\ Tr C /\ A. x ( ( A (_ x /\ Tr x ) -> C (_ x ) ) $=
+    trcl $p |- ( A C_ C /\ Tr C /\ A. x ( ( A C_ x /\ Tr x ) -> C C_ x ) ) $=
       ( vv vu wss wtr cv wa wi wal com cfv ciun wrex c0 wcel peano1 cuni cun
       wceq copab crdg cres fveq1i cvv fr0g ax-mp eqtr2i eqimssi fveq2 sseq2d
       rcla4ev mp2an ssiun sseqtr4i dftr2 csuc eliun anbi2i r19.42v bitr4i
@@ -91,27 +91,36 @@ $)
 
   ${
     $d A x y z w v $.
-    tz9.1.1 $e |- A e. V $.
+    tz9.1.1 $e |- A e. _V $.
     $( Every set has a transitive closure (smallest transitive extension).
        Theorem 9.1 of [TakeutiZaring] p. 73.  See ~ trcl for an explicit
-       expression for the transitive closure. $)
-    tz9.1 $p |- E. x ( A (_ x /\ Tr x
-                /\ A. y ( ( A (_ y /\ Tr y ) -> x (_ y ) ) $=
+       expression for the transitive closure.  Apparently open problems are
+       whether this theorem can be proved without the Axiom of Infinity; if
+       not, then whether it implies Infinity; and if not, what is the
+       "property" that Infinity has that the other axioms don't have that is
+       weaker than Infinity itself?
+
+       (Added 22-Mar-2011) The following article seems to answer the first
+       question, that it can't be proved without Infinity, in the affirmative:
+       Mancini, Antonella and Zambella, Domenico (2001).  "A note on recursive
+       models of set theories." _Notre Dame Journal of Formal Logic_,
+       42(2):109-115.  (Thanks to Scott Fenton.) $)
+    tz9.1 $p |- E. x ( A C_ x /\ Tr x
+                /\ A. y ( ( A C_ y /\ Tr y ) -> x C_ y ) ) $=
       ( vz vv vw com cv cuni cun wceq copab crdg cres cfv ciun wss wtr wa wi
       wal w3a wex eqid trcl omex fvex iunex sseq2 treq sseq1 imbi2d albidv
       3anbi123d cla4ev ax-mp ) CEHEIZFIGIZUSJKLGFMCNHOZPZQZRZVBSZCBIZRVESTZVBVE
       RZUAZBUBZUCZCAIZRZVKSZVFVKVERZUAZBUBZUCZAUDBEGFCVBUTDUTUEVBUEUFVQVJAVBEHV
       AUGURUTUHUIVKVBLZVLVCVMVDVPVIVKVBCUJVKVBUKVRVOVHBVRVNVGVFVKVBVEULUMUNUOUP
       UQ $.
-      $( [15-Sep-2003] $)
+      $( [22-Mar-2011] $) $( [15-Sep-2003] $)
   $}
 
   ${
     $d x y z w A $.
-    $( The strong form of the Axiom of Regularity, which does not require
-       that ` A ` be a set.  Axiom 6' of [TakeutiZaring] p. 21.  The proof
-       makes use of a special case of Proposition 9.4 of [TakeutiZaring]
-       p. 75. $)
+    $( The strong form of the Axiom of Regularity, which does not require that
+       ` A ` be a set.  Axiom 6' of [TakeutiZaring] p. 21.  The proof makes use
+       of a special case of Proposition 9.4 of [TakeutiZaring] p. 75. $)
     zfregs $p |- ( A =/= (/) -> E. x e. A ( x i^i A ) = (/) ) $=
       ( vz vy vw c0 wne cv wcel wex cin wceq wrex n0 csn wss wtr wa wi wal w3a
       snex tz9.1 trel inass incom ineq2i eqtri eleq2i elin bitr2i ne0i sylbi
@@ -133,7 +142,7 @@ $)
   ${
     $d x y z A $.
     $( Set (epsilon) induction.  Theorem 5.22 of [TakeutiZaring] p. 21. $)
-    setind $p |- ( A. x ( x (_ A -> x e. A ) -> A = V ) $=
+    setind $p |- ( A. x ( x C_ A -> x e. A ) -> A = _V ) $=
       ( vy cv wss wcel wi wal cvv cdif c0 wceq cin wrex wn sseq1 eleq1 imbi12d
       a4v ssindif0 syl5ibr eldifn nsyli imp nrexdv zfregs necon1bi syl vdif0
       sylibr ) ADZBEZUKBFZGZAHZIBJZKLZBILUOCDZUPMKLZCUPNZOUQUOUSCUPUOURUPFZUSOU
@@ -146,7 +155,7 @@ $)
     $d x A $.
     $( Set (epsilon) induction, stated compactly.  Given as a homework problem
        in 1992 by George Boolos (1940-1996). $)
-    setind2 $p |- ( P~ A (_ A -> A = V ) $=
+    setind2 $p |- ( ~P A C_ A -> A = _V ) $=
       ( vx cpw wss cv wcel wi wal cvv wceq dfss2 visset elpw imbi1i albii
       bitri setind sylbi ) ACZADZBEZADZUAAFZGZBHZAIJTUASFZUCGZBHUEBSAKUGUDBUFUB
       UCUAABLMNOPBAQR $.
@@ -162,8 +171,8 @@ $)
       ax-mp mpbir ) CDEZAFBFGHBAIZJKZDEZJSLCTHRUAMBANDCTOPQ $.
       $( [5-Oct-2003] $) $( [5-Oct-2003] $)
 
-    $( Value of the cumulative hierarchy of sets function at ` (/) ` .
-       Part of Definition 9.9 of [TakeutiZaring] p. 76. $)
+    $( Value of the cumulative hierarchy of sets function at ` (/) ` .  Part of
+       Definition 9.9 of [TakeutiZaring] p. 76. $)
     r10 $p |- ( R1 ` (/) ) = (/) $=
       ( vy vx c0 cr1 cfv cv cpw wceq copab crdg df-r1 fveq1i 0ex rdg0 eqtri )
       CDECAFBFGHBAIZCJZECCDQBAKLCPMNO $.
@@ -174,7 +183,7 @@ $)
     $d x y z A $.
     $( Value of the cumulative hierarchy of sets function at a successor
        ordinal.  Part of Definition 9.9 of [TakeutiZaring] p. 76. $)
-    r1suc $p |- ( A e. On -> ( R1 ` suc A ) = P~ ( R1 ` A ) ) $=
+    r1suc $p |- ( A e. On -> ( R1 ` suc A ) = ~P ( R1 ` A ) ) $=
       ( vx vy vz con0 wcel cr1 cfv cpw cvv csuc wceq fvex pwex c0 cv ax-17
       df-r1 pweq rdgsucopab mpan2 ) AEFAGHZIZJFAKGHUCLUBAGMNBCDOABPZIUCJGDPZOFB
       QUEAFBQUEUCFBQBCRUDUBSTUA $.
@@ -183,8 +192,8 @@ $)
 
   ${
     $d x y z A $.
-    $( Value of the cumulative hierarchy of sets function at a limit
-       ordinal.  Part of Definition 9.9 of [TakeutiZaring] p. 76. $)
+    $( Value of the cumulative hierarchy of sets function at a limit ordinal.
+       Part of Definition 9.9 of [TakeutiZaring] p. 76. $)
     r1lim $p |- ( ( A e. B /\ Lim A ) -> ( R1 ` A ) = U_ x e. A ( R1 ` x ) ) $=
       ( vz vy wcel wlim wa cv cpw wceq copab c0 crdg cfv ciun cr1 rdglim2a
       df-r1 fveq1i a1i iuneq2i 3eqtr4g ) BCFBGHBDIEIJKEDLZMNZOABAIZUEOZPBQOABUF
@@ -243,15 +252,15 @@ $)
 
   $( Ordering relation for the cumulative hierarchy of sets.  Part of
      Proposition 9.10(2) of [TakeutiZaring] p. 77. $)
-  r1ord2 $p |- ( B e. On -> ( A e. B -> ( R1 ` A ) (_ ( R1 ` B ) ) ) $=
+  r1ord2 $p |- ( B e. On -> ( A e. B -> ( R1 ` A ) C_ ( R1 ` B ) ) ) $=
     ( con0 wcel cr1 cfv wss r1ord wtr wi r1tr trss ax-mp syl6 ) BCDABDAEFZBEFZD
     ZOPGZABHPIQRJBKPOLMN $.
     $( [22-Sep-2003] $)
 
-  $( Ordering relation for the cumulative hierarchy of sets.  Part of
-     Theorem 3.3(i) of [BellMachover] p. 478. $)
-  r1ord3 $p |- ( ( A e. On /\ B e. On ) -> ( A (_ B ->
-               ( R1 ` A ) (_ ( R1 ` B ) ) ) $=
+  $( Ordering relation for the cumulative hierarchy of sets.  Part of Theorem
+     3.3(i) of [BellMachover] p. 478. $)
+  r1ord3 $p |- ( ( A e. On /\ B e. On ) -> ( A C_ B ->
+               ( R1 ` A ) C_ ( R1 ` B ) ) ) $=
     ( con0 wcel wa wss wceq wo cr1 cfv onsseleq wi r1ord2 adantl fveq2 eqimss
     syl a1i jaod sylbid ) ACDZBCDZEZABFABDZABGZHAIJZBIJZFZABKUCUDUHUEUBUDUHLUAA
     BMNUEUHLUCUEUFUGGUHABIOUFUGPQRST $.
@@ -261,7 +270,7 @@ $)
     $d x y z w v A $.
     $( The value of the cumulative hierarchy of sets function expressed
        recursively.  Theorem 7Q of [Enderton] p. 202. $)
-    r1val1 $p |- ( A e. On -> ( R1 ` A ) = U_ x e. A P~ ( R1 ` x ) ) $=
+    r1val1 $p |- ( A e. On -> ( R1 ` A ) = U_ x e. A ~P ( R1 ` x ) ) $=
       ( vy con0 wcel cr1 cfv cv cpw ciun c0 wceq csuc wrex cvv wlim wa w3o wss
       onzsl 0ss fveq2 r10 syl6eq sseq1d mpbiri ax-17 hbiu1 hbss r1suc
       sylan9eqr visset sucid eleq2 ssiun2 syl adantl eqsstrd ex r19.23ai r1lim
@@ -280,11 +289,11 @@ $)
 
   ${
     $d x y z w v A $.  $d x y u F $.
-    tz9.12lem.1 $e |- A e. V $.
+    tz9.12lem.1 $e |- A e. _V $.
     tz9.12lem.2 $e |- F =
                    { <. z , w >. | w = |^| { v e. On | z e. ( R1 ` v ) } } $.
     $( Lemma for ~ tz9.12 . $)
-    tz9.12lem1 $p |- ( F " A ) (_ On $=
+    tz9.12lem1 $p |- ( F " A ) C_ On $=
       ( vy vx cima con0 cv wcel cop wa wex visset elima3 cr1 cfv crab cint
       wceq copab eleq2i eleq1 rabbisdv inteqd eqeq2d eqeq1 opelopab bitri cvv
       19.8a isset sylibr c0 wne wi intex wss ssrab2 oninton mpan syl5cbir
@@ -306,51 +315,51 @@ $)
     $( Lemma for ~ tz9.12 . $)
     tz9.12lem3 $p |- ( A. x e. A E. y e. On x e. ( R1 ` y ) ->
                     A e. ( R1 ` suc suc U. ( F " A ) ) ) $=
-      ( cv cr1 cfv wcel con0 wrex wral cima cuni csuc wa wss cdm wi crab c0
-      wne wceq fveq2 eleq2d rcla4ev rabn0 sylibr cint cvv cop wex copab eleq2i
-      visset eleq1 rabbisdv inteqd eqeq2d eqeq1 opelopab bitri exbii eldm2
-      isset 3bitr4i intex bitr4i wfun funopabeq wb funeq ax-mp mpbir funfvima
-      mpan syl tz9.12lem1 onsucuni sseli tz9.12lem2 r1ord2 syl6 imp fvopabg
-      fveq1i syl5eq sylbi ssrab2 onint eqeltrd hbrab1 hbint hbeleq hbopab
-      hbxfr ax-17 hbfv hbel elrabf pm3.27bi 3syl adantr sseldd exp31 com3r
-      r19.23adv r19.20i cpw r1suc elpw dfss3 3bitri ) AJZBJZKLZMZBNOZAFPXRGFQZR
-      SZKLZMZAFPZFYDSKLZMZYBYFAFXRFMZYAYFBNXSNMZYAYJYFYKYAYJYFYKYATZYJTXRGLZKLZ
-      YEXRYLYJYNYEUAZYLYJYMYCMZYOYLXRGUBMZYJYPUCZYLXREJZKLZMZENUDZUEUFZYQYLUUAE
-      NOUUCUUAYAEXSNYSXSUGYTXTXRYSXSKUHUIUJUUAENUKULZYQUUBUMZUNMZUUCXRXSUOZGMZB
-      UPXSUUEUGZBUPYQUUFUUHUUIBUUHUUGDJZCJZYTMZENUDZUMZUGZCDUQZMUUIGUUPUUGIURUU
-      OUUJUUEUGUUICDXRXSAUSZBUSUUKXRUGZUUNUUEUUJUURUUMUUBUURUULUUAENUUKXRYTUTVA
-      VBZVCUUJXSUUEVDVEVFVGBXRGUUQVHBUUEVIVJUUBVKZVLULGVMZYQYRUVAUUPVMZCDUUNVNG
-      UUPUGUVAUVBVOIGUUPVPVQVRFXRGVSVTWAYPYMYDMZYOYCYDYMYCNUAYCYDUACDEFGHIWBYCW
-      CVQWDYDNMZUVCYOUCCDEFGHIWEZYMYDWFVQWAWGWHYLXRYNMZYJYLUUCYMUUBMZUVFUUDUUCY
-      MUUEUUBUUCUUFYMUUEUGUUTUUFXRUUPLZUUEYMXRUNMUUFUVHUUEUGUUQCDXRUUNUUEUNUNUU
-      SWIVTXRGUUPIWJWKWLUUBNUAUUCUUEUUBMUUAENWMUUBWNVTWOUVGYMNMUVFUUAUVFEBYMNEB
-      XRGEBGUUPIUUOCDEBEDUUNEDUUMUULEDNWPWQWRWSWTXSXRMEXAZXBZYKEXAEBBXRYNUVIEBY
-      MKXSKMEXAUVJXBXCYSYMUGYTYNXRYSYMKUHUIXDXEXFXGXHXIXJXKXLYIFYEXMZMFYEUAYGYH
-      UVKFUVDYHUVKUGUVEYDXNVQURFYEHXOAFYEXPXQUL $.
+      ( cv cr1 cfv wcel con0 wrex wral cima cuni csuc wa wss wfun cdm wi
+      funfvima crab cint wceq copab funopabeq wb funeq ax-mp mpbir c0 wne
+      fveq2 eleq2d rcla4ev rabn0 sylibr cvv cop wex eleq2i visset eleq1
+      rabbisdv inteqd eqeq2d eqeq1 opelopab bitri exbii eldm2 isset 3bitr4i
+      intex bitr4i sylancr tz9.12lem1 onsucuni sseli tz9.12lem2 r1ord2 syl
+      syl6 imp fvopabg mpan fveq1i syl5eq sylbi ssrab2 onint eqeltrd hbrab1
+      hbint hbeleq hbopab hbxfr ax-17 hbfv hbel elrabf pm3.27bi 3syl adantr
+      sseldd exp31 com3r r19.23adv r19.20i cpw r1suc elpw dfss3 3bitri ) AJZBJZ
+      KLZMZBNOZAFPXSGFQZRSZKLZMZAFPZFYESKLZMZYCYGAFXSFMZYBYGBNXTNMZYBYKYGYLYBYK
+      YGYLYBTZYKTXSGLZKLZYFXSYMYKYOYFUAZYMYKYNYDMZYPGUBZXSGUCMZYKYQUDYMFXSGUEYR
+      DJZCJZEJZKLZMZENUFZUGZUHZCDUIZUBZCDUUFUJGUUHUHYRUUIUKIGUUHULUMUNYMXSUUCMZ
+      ENUFZUOUPZYSYMUUJENOUULUUJYBEXTNUUBXTUHUUCYAXSUUBXTKUQURUSUUJENUTVAZYSUUK
+      UGZVBMZUULXSXTVCZGMZBVDXTUUNUHZBVDYSUUOUUQUURBUUQUUPUUHMUURGUUHUUPIVEUUGY
+      TUUNUHUURCDXSXTAVFZBVFUUAXSUHZUUFUUNYTUUTUUEUUKUUTUUDUUJENUUAXSUUCVGVHVIZ
+      VJYTXTUUNVKVLVMVNBXSGUUSVOBUUNVPVQUUKVRZVSVAVTYQYNYEMZYPYDYEYNYDNUAYDYEUA
+      CDEFGHIWAYDWBUMWCYENMZUVCYPUDCDEFGHIWDZYNYEWEUMWFWGWHYMXSYOMZYKYMUULYNUUK
+      MZUVFUUMUULYNUUNUUKUULUUOYNUUNUHUVBUUOXSUUHLZUUNYNXSVBMUUOUVHUUNUHUUSCDXS
+      UUFUUNVBVBUVAWIWJXSGUUHIWKWLWMUUKNUAUULUUNUUKMUUJENWNUUKWOWJWPUVGYNNMUVFU
+      UJUVFEBYNNEBXSGEBGUUHIUUGCDEBEDUUFEDUUEUUDEDNWQWRWSWTXAXTXSMEXBZXCZYLEXBE
+      BBXSYOUVIEBYNKXTKMEXBUVJXCXDUUBYNUHUUCYOXSUUBYNKUQURXEXFXGXHXIXJXKXLXMYJF
+      YFXNZMFYFUAYHYIUVKFUVDYIUVKUHUVEYEXOUMVEFYFHXPAFYFXQXRVA $.
       $( [22-Sep-2003] $)
   $}
 
   ${
     $d x y z w v A $.
-    tz9.12.1 $e |- A e. V $.
+    tz9.12.1 $e |- A e. _V $.
     $( A set is well-founded if all of its elements are well-founded.
-       Proposition 9.12 of [TakeutiZaring] p. 78.  The main proof consists
-       of ~ tz9.12lem1 through ~ tz9.12lem3 . $)
+       Proposition 9.12 of [TakeutiZaring] p. 78.  The main proof consists of
+       ~ tz9.12lem1 through ~ tz9.12lem3 . $)
     tz9.12 $p |- ( A. x e. A E. y e. On x e. ( R1 ` y ) ->
               E. y e. On A e. ( R1 ` y ) ) $=
-      ( vw vz vv cv cr1 cfv wcel con0 wrex wral crab cint wceq copab cima cuni
-      csuc eqid tz9.12lem3 tz9.12lem2 onsuci fveq2 eleq2d rcla4ev mpan syl ) AH
-      BHZIJZKBLMACNCEHFHGHIJKGLOPQFERZCSTUAZUAZIJZKZCULKZBLMZABFEGCUMDUMUBZUCUO
-      LKUQUSUNFEGCUMDUTUDUEURUQBUOLUKUOQULUPCUKUOIUFUGUHUIUJ $.
+      ( vw vz vv cv cr1 cfv wcel con0 crab cint wceq copab cima cuni csuc wrex
+      wral fveq2 eleq2d rcla4ev eqid tz9.12lem2 onsuci tz9.12lem3 sylancr ) EHF
+      HGHIJKGLMNOFEPZCQRSZSZLKCULIJZKZCBHZIJZKZBLTAHUPKBLTACUAUQUNBULLUOULOUPUM
+      CUOULIUBUCUDUKFEGCUJDUJUEZUFUGABFEGCUJDURUHUI $.
       $( [22-Sep-2003] $)
   $}
 
   ${
     $d x y z w A $.
-    tz9.13.1 $e |- A e. V $.
+    tz9.13.1 $e |- A e. _V $.
     $( Every set is well-founded, assuming the Axiom of Regularity.  In other
-       words, every set belongs to a layer of the cumulative hierarchy of sets.
-       Proposition 9.13 of [TakeutiZaring] p. 78. $)
+       words, every set belongs to a layer of the cumulative hierarchy of
+       sets.  Proposition 9.13 of [TakeutiZaring] p. 78. $)
     tz9.13 $p |- E. x e. On A e. ( R1 ` x ) $=
       ( vy vz vw cv cr1 cfv wcel con0 wrex cab cvv wss wi wceq setind wral
       ssel visset eleq1 rexbidv elab syl6ib r19.21aiv tz9.12 syl sylibr mpg
@@ -375,8 +384,8 @@ $)
   ${
     $d x A $.
     $( Every set is well-founded, assuming the Axiom of Regularity.
-       Proposition 9.13 of [TakeutiZaring] p. 78.  This variant of
-       ~ tz9.13g is useful in proofs of theorems about the rank function. $)
+       Proposition 9.13 of [TakeutiZaring] p. 78.  This variant of ~ tz9.13g is
+       useful in proofs of theorems about the rank function. $)
     rankwflem $p |- ( A e. B -> E. x e. On A e. ( R1 ` suc x ) ) $=
       ( wcel cv cr1 cfv con0 wrex csuc tz9.13g wss suceloni visset sucid
       r1ord2 mpi syl sseld r19.22i ) BCDBAEZFGZDZAHIBUAJZFGZDZAHIABCKUCUFAHUAHD
@@ -389,14 +398,14 @@ $)
     $( Every set belongs to some value of the cumulative hierarchy of sets
        function ` R1 ` , i.e. the indexed union of all values of ` R1 ` is the
        universe.  Lemma 9.3 of [Jech] p. 71. $)
-    jech9.3 $p |- U_ x e. On ( R1 ` x ) = V $=
+    jech9.3 $p |- U_ x e. On ( R1 ` x ) = _V $=
       ( vy con0 cv cr1 cfv ciun cvv wcel wrex visset tz9.13 eliun mpbir 2th
       eqriv ) BACADEFZGZHBDZRIZSHITSQIACJASBKZLASCQMNUAOP $.
       $( [12-Oct-2003] $) $( [4-Oct-2003] $)
 
     $( The cumulative hierarchy of sets covers the universe.  Proposition 4.45
        (b) to (a) of [Mendelson] p. 281. $)
-    unir1 $p |- U. ( R1 " On ) = V $=
+    unir1 $p |- U. ( R1 " On ) = _V $=
       ( vx cr1 con0 cima cuni crn cv cfv ciun cvv cdm wfn wceq r1fnon fndm
       ax-mp imaeq2i imadmrn eqtr3i unieqi fniunfv jech9.3 3eqtr2i ) BCDZEBFZEZA
       CAGBHIZJUDUEBBKZDUDUEUHCBBCLZUHCMNCBOPQBRSTUIUGUFMNACBUAPAUBUC $.
@@ -405,9 +414,9 @@ $)
 
   ${
     $d x y z A $.
-    rankval.1 $e |- A e. V $.
-    $( Value of the rank function.  Definition 9.14 of [TakeutiZaring]
-       p. 79 (proved as a theorem from our definition). $)
+    rankval.1 $e |- A e. _V $.
+    $( Value of the rank function.  Definition 9.14 of [TakeutiZaring] p. 79
+       (proved as a theorem from our definition). $)
     rankval $p |- ( rank ` A ) = |^| { x e. On | A e. ( R1 ` suc x ) } $=
       ( vz vy crnk cfv cv csuc cr1 wcel con0 crab cint wceq copab df-rank
       fveq1i c0 wne cvv wrex rankwflem ax-mp rabn0 mpbir intex mpbi eleq1
@@ -419,10 +428,10 @@ $)
 
   ${
     $d x y A $.
-    $( Value of the rank function.  Definition 9.14 of [TakeutiZaring]
-       p. 79 (proved as a theorem from our definition).  This
-       variant of ~ rankval expresses the class existence requirement as an
-       antecedent instead of a hypothesis. $)
+    $( Value of the rank function.  Definition 9.14 of [TakeutiZaring] p. 79
+       (proved as a theorem from our definition).  This variant of ~ rankval
+       expresses the class existence requirement as an antecedent instead of a
+       hypothesis. $)
     rankvalg $p |- ( A e. B ->
                    ( rank ` A ) = |^| { x e. On | A e. ( R1 ` suc x ) } ) $=
       ( vy cv crnk cfv csuc cr1 wcel con0 crab cint wceq fveq2 eleq1 rabbisdv
@@ -433,7 +442,7 @@ $)
     $( Value of an alternate definition of the rank function.  Definition of
        [BellMachover] p. 478. $)
     rankval2 $p |- ( A e. B ->
-                   ( rank ` A ) = |^| { x e. On | A (_ ( R1 ` x ) } ) $=
+                   ( rank ` A ) = |^| { x e. On | A C_ ( R1 ` x ) } ) $=
       ( wcel crnk cfv cv csuc cr1 con0 crab cint wss rankvalg cpw r1suc eleq2d
       fvex elpw2 syl6bb rabbii inteqi syl6eq ) BCDBEFBAGZHIFZDZAJKZLBUDIFZMZAJK
       ZLABCNUGUJUFUIAJUDJDZUFBUHOZDUIUKUEULBUDPQBUHUDIRSTUAUBUC $.
@@ -445,16 +454,16 @@ $)
     $( The rank of a set is an ordinal number.  Proposition 9.15(1) of
        [TakeutiZaring] p. 79. $)
     rankon $p |- ( rank ` A ) e. On $=
-      ( vx cvv wcel crnk cfv con0 cv csuc cr1 crab cint rankvalg c0 wne wrex
-      rankwflem rabn0 sylibr wss ssrab2 oninton mpan syl eqeltrd wn fvprc
-      0elon syl6eqel pm2.61i ) ACDZAEFZGDUKULABHIJFDZBGKZLZGBACMUKUNNOZUOGDZUKU
-      MBGPUPBACQUMBGRSUNGTUPUQUMBGUAUNUBUCUDUEUKUFULNGAEUGUHUIUJ $.
+      ( vx cvv wcel crnk cfv con0 cv csuc cr1 crab cint rankvalg wss c0 wne
+      oninton ssrab2 wrex rankwflem rabn0 sylibr sylancr eqeltrd wn fvprc
+      0elon syl6eqel pm2.61i ) ACDZAEFZGDUJUKABHIJFDZBGKZLZGBACMUMGNUMOPZUNGDUJ
+      UMQULBGRUJULBGSUOBACTULBGUAUBUCUDUJUEUKOGAEUFUGUHUI $.
       $( [5-Oct-2003] $) $( [5-Oct-2003] $)
   $}
 
   ${
     $d x y A $.
-    rankid.1 $e |- A e. V $.
+    rankid.1 $e |- A e. _V $.
     $( Identity law for the rank function. $)
     rankid $p |- A e. ( R1 ` suc ( rank ` A ) ) $=
       ( vx vy cv csuc cr1 cfv wcel con0 crab cint crnk wrex cvv rankwflem
@@ -466,10 +475,10 @@ $)
   $}
 
   ${
-    rankr1lem.1 $e |- A e. V $.
+    rankr1lem.1 $e |- A e. _V $.
     $( Lemma for ~ rankr1 . $)
     rankr1lem $p |- ( B e. On ->
-                    ( -. A e. ( R1 ` B ) -> B (_ ( rank ` A ) ) ) $=
+                    ( -. A e. ( R1 ` B ) -> B C_ ( rank ` A ) ) ) $=
       ( con0 wcel cr1 cfv wn crnk csuc wss wb rankon onsuci ontri1 mpan rankid
       wi r1ord3 ssel syl6 mpii sylbird con1d onsssuc mpan2 sylibrd ) BDEZABFGZE
       ZHBAIGZJZEZBUKKZUHUMUJUHUMHZULBKZUJULDEZUHUPUOLUKAMZNZULBOPUHUPAULFGZEZUJ
@@ -479,10 +488,9 @@ $)
 
   ${
     $d x y z A $.  $d x y z B $.
-    rankr1.1 $e |- A e. V $.
-    $( A relationship between the rank function and the cumulative hierarchy
-       of sets function ` R1 ` .  Proposition 9.15(2) of [TakeutiZaring]
-       p. 79. $)
+    rankr1.1 $e |- A e. _V $.
+    $( A relationship between the rank function and the cumulative hierarchy of
+       sets function ` R1 ` .  Proposition 9.15(2) of [TakeutiZaring] p. 79. $)
     rankr1 $p |- ( B = ( rank ` A ) <->
                  ( -. A e. ( R1 ` B ) /\ A e. ( R1 ` suc B ) ) ) $=
       ( vx vy crnk cfv wceq cr1 wcel wn csuc wa con0 rankon eleq1 mpbiri word
@@ -521,9 +529,8 @@ $)
 
   ${
     $d x A $.  $d x B $.
-    $( A relationship between the rank function and the cumulative hierarchy
-       of sets function ` R1 ` .  Proposition 9.15(2) of [TakeutiZaring]
-       p. 79. $)
+    $( A relationship between the rank function and the cumulative hierarchy of
+       sets function ` R1 ` .  Proposition 9.15(2) of [TakeutiZaring] p. 79. $)
     rankr1g $p |- ( A e. C -> ( B = ( rank ` A ) <->
                  ( -. A e. ( R1 ` B ) /\ A e. ( R1 ` suc B ) ) ) ) $=
       ( vx cv crnk cfv wceq cr1 wcel wn csuc wa wb fveq2 eqeq2d eleq1 notbid
@@ -534,12 +541,12 @@ $)
   $}
 
   ${
-    ssrankr1.1 $e |- A e. V $.
+    ssrankr1.1 $e |- A e. _V $.
     $( A relationship between an ordinal number less than or equal to a rank,
        and the cumulative hierarchy of sets ` R1 ` .  Proposition 9.15(3) of
        [TakeutiZaring] p. 79. $)
     ssrankr1 $p |- ( B e. On ->
-                   ( B (_ ( rank ` A ) <-> -. A e. ( R1 ` B ) ) ) $=
+                   ( B C_ ( rank ` A ) <-> -. A e. ( R1 ` B ) ) ) $=
       ( con0 wcel crnk cfv wss cr1 wn wa csuc wceq eqid rankr1 mpbi pm3.26i wi
       rankon r1ord3 mpan2 imp sseld mtoi ex rankr1lem impbid ) BDEZBAFGZHZABIGZ
       EZJZUHUJUMUHUJKZULAUIIGZEZUPJZAUILIGEZUIUIMUQURKUINAUICOPQUNUKUOAUHUJUKUO
@@ -548,7 +555,7 @@ $)
   $}
 
   ${
-    rankr1a.1 $e |- A e. V $.
+    rankr1a.1 $e |- A e. _V $.
     $( A relationship between rank and ` R1 ` , clearly equivalent to
        ~ ssrankr1 and friends through trichotomy, but in Raph's opinion
        considerably more intuitive.  See ~ rankr1b for the subset verion.
@@ -571,7 +578,7 @@ $)
     $( The value of the cumulative hierarchy of sets function expressed in
        terms of rank.  Theorem 15.18 of [Monk1] p. 113. $)
     r1val3 $p |- ( A e. On ->
-                 ( R1 ` A ) = U_ x e. A P~ { y | ( rank ` y ) e. x } ) $=
+                 ( R1 ` A ) = U_ x e. A ~P { y | ( rank ` y ) e. x } ) $=
       ( con0 wcel cr1 cfv cv cpw ciun crnk cab r1val1 wceq wral wa onelon
       r1val2 pweq 3syl r19.21aiva iuneq2 syl eqtrd ) CDEZCFGACAHZFGZIZJZACBHKGU
       FEBLZIZJZACMUEUHUKNZACOUIULNUEUMACUEUFCEPUFDEUGUJNUMCUFQBUFRUGUJSTUAACUHU
@@ -580,7 +587,7 @@ $)
   $}
 
   ${
-    rankel.1 $e |- B e. V $.
+    rankel.1 $e |- B e. _V $.
     $( The membership relation is inherited by the rank function.  Proposition
        9.16 of [TakeutiZaring] p. 79. $)
     rankel $p |- ( A e. B -> ( rank ` A ) e. ( rank ` B ) ) $=
@@ -597,8 +604,8 @@ $)
 
   ${
     $d x y A $.
-    rankval3.1 $e |- A e. V $.
-    $( The value of the rank function expressed recursively:  the rank of a set
+    rankval3.1 $e |- A e. _V $.
+    $( The value of the rank function expressed recursively: the rank of a set
        is the smallest ordinal number containing the ranks of all members of
        the set.  Proposition 9.17 of [TakeutiZaring] p. 79. $)
     rankval3 $p |- ( rank ` A ) =
@@ -619,18 +626,18 @@ $)
     $d x y A $.
     $( Any class whose elements have bounded rank is a set.  Proposition 9.19
        of [TakeutiZaring] p. 80. $)
-    bndrank $p |- ( E. x e. On A. y e. A ( rank ` y ) (_ x -> A e. V ) $=
+    bndrank $p |- ( E. x e. On A. y e. A ( rank ` y ) C_ x -> A e. _V ) $=
       ( cv crnk cfv wss wral cvv wcel con0 csuc cr1 visset rankid wi word wb
-      eloni rankon onordi ordsucsssuc mpan syl suceloni onsuci r1ord3 sylbid
+      ordsucsssuc rankon onordi eloni sylancr r1ord3 onsuci suceloni sylbid
       ssel syl6 mpii r19.20sdv dfss3 fvex ssex sylbir r19.23aiv ) BDZEFZADZGZBC
-      HZCIJZAKUTKJZVBURUTLZMFZJZBCHZVCVDVAVGBCVDVAURUSLZMFZJZVGURBNOVDVAVJVFGZV
-      KVGPVDVAVIVEGZVLVDUTQZVAVMRZUTSUSQVNVOUSURTZUAUSUTUBUCUDVDVEKJZVMVLPZUTUE
-      VIKJVQVRUSVPUFVIVEUGUCUDUHVJVFURUIUJUKULVHCVFGVCBCVFUMCVFVEMUNUOUPUJUQ $.
+      HZCIJZAKUSKJZVAUQUSLZMFZJZBCHZVBVCUTVFBCVCUTUQURLZMFZJZVFUQBNOVCUTVIVEGZV
+      JVFPVCUTVHVDGZVKURQUSQUTVLRVCURUSSURUQTZUAUSUBUCVHKJVDKJVLVKPVCVHVDUDURVM
+      UEUSUFUCUGVIVEUQUHUIUJUKVGCVEGVBBCVEULCVEVDMUMUNUOUIUP $.
       $( [20-Nov-2003] $) $( [13-Oct-2003] $)
 
     $( The elements of a proper class have unbounded rank.  Exercise 2 of
        [TakeutiZaring] p. 80. $)
-    unbndrank $p |- ( -. A e. V -> A. x e. On E. y e. A x e. ( rank ` y ) ) $=
+    unbndrank $p |- ( -. A e. _V -> A. x e. On E. y e. A x e. ( rank ` y ) ) $=
       ( cv crnk cfv wcel wrex con0 wral cvv wn wss wb rankon ontri1 mpan
       ralbidv ralnex syl6bb rexbiia rexnal bitri bndrank sylbir con1i ) ADZBDZE
       FZGZBCHZAIJZCKGZULLZUIUGMZBCJZAIHZUMUQUKLZAIHUNUPURAIUGIGZUPUJLZBCJURUSUO
@@ -639,9 +646,9 @@ $)
   $}
 
   ${
-    rankpw.1 $e |- A e. V $.
+    rankpw.1 $e |- A e. _V $.
     $( The rank of a power set.  Part of Exercise 30 of [Enderton] p. 207. $)
-    rankpw $p |- ( rank ` P~ A ) = suc ( rank ` A ) $=
+    rankpw $p |- ( rank ` ~P A ) = suc ( rank ` A ) $=
       ( crnk cfv csuc cpw wceq cr1 wcel wn pwex rankr1 wss eqid pm3.26bi ax-mp
       pwid ssel mpi mto elpw mtbir con0 rankon r1suc eleq2i rankid eleqtri
       mpbi sspwb sseqtr4i mpbir onsuci eleqtrri mpbir2an eqcomi ) ACDZEZAFZCDZU
@@ -657,7 +664,7 @@ $)
     $( The rank of a set belongs to a limit ordinal iff the rank of its power
        set does. $)
     ranklim $p |- ( Lim B ->
-                  ( ( rank ` A ) e. B <-> ( rank ` P~ A ) e. B ) ) $=
+                  ( ( rank ` A ) e. B <-> ( rank ` ~P A ) e. B ) ) $=
       ( vx cvv wcel wlim crnk cfv cpw wb wa csuc limsuc adantl cv wceq pweq
       fveq2d fveq2 suceq syl eqeq12d visset rankpw vtoclg eleq1d adantr bitr4d
       wn c0 fvprc pwexb notbii sylbi eqtr4d pm2.61ian ) ADEZBFZAGHZBEZAIZGHZBEZ
@@ -666,13 +673,13 @@ $)
       RVMUSVBBVMUSUJVBAGUKVMVADEZUIVBUJPUQVNAULUMVAGUKUNUOUFUGUP $.
       $( [19-Sep-2006] $) $( [18-Sep-2006] $)
 
-    $( A stronger property of ` R1 ` than ~ rankpw .  The latter merely
-       proves that ` R1 ` of the successor is a power set, but here we prove
-       that if ` A ` is in the cumulative hierarchy, then ` P~ A ` is in the
-       cumulative hierarchy of the successor.  (Contributed by Raph Levien,
+    $( A stronger property of ` R1 ` than ~ rankpw .  The latter merely proves
+       that ` R1 ` of the successor is a power set, but here we prove that if
+       ` A ` is in the cumulative hierarchy, then ` ~P A ` is in the cumulative
+       hierarchy of the successor.  (Contributed by Raph Levien,
        29-May-2004.) $)
     r1pw $p |- ( B e. On ->
-                 ( A e. ( R1 ` B ) <-> P~ A e. ( R1 ` suc B ) ) ) $=
+                 ( A e. ( R1 ` B ) <-> ~P A e. ( R1 ` suc B ) ) ) $=
       ( vx cvv wcel con0 cr1 cfv cpw csuc wb wi cv wceq eleq1 pweq eleq1d
       bibi12d imbi2d crnk visset rankr1a word eloni ordsucelsuc syl bitrd
       rankpw eleq1i syl6bbr suceloni pwex bitr4d vtoclg wn elisset pwexb
@@ -689,7 +696,7 @@ $)
     $( MAY BE REVISED - can ranklim + rankr1a shorten this? $)
     $( The cumulative hierarchy of a limit ordinal is closed under power set.
        (Contributed by Raph Levien, 29-May-2004.) $)
-    r1pwcl $p |- ( Lim B -> ( A e. ( R1 ` B ) <-> P~ A e. ( R1 ` B ) ) ) $=
+    r1pwcl $p |- ( Lim B -> ( A e. ( R1 ` B ) <-> ~P A e. ( R1 ` B ) ) ) $=
       ( vx vy cvv wcel wlim cr1 cfv cpw wb wi wa cv wrex csuc ciun r1lim
       eleq2d eliun syl6bb con0 onelon limelon sylan r1pw syl rexbidva wex
       limsuc anbi1d visset sucex wceq eleq1 fveq2 anbi12d cla4ev syl6bi
@@ -708,10 +715,10 @@ $)
   $}
 
   ${
-    rankss.1 $e |- B e. V $.
+    rankss.1 $e |- B e. _V $.
     $( The subset relation is inherited by the rank function.  Exercise 1 of
        [TakeutiZaring] p. 80. $)
-    rankss $p |- ( A (_ B -> ( rank ` A ) (_ ( rank ` B ) ) $=
+    rankss $p |- ( A C_ B -> ( rank ` A ) C_ ( rank ` B ) ) $=
       ( cpw wcel crnk cfv wss pwex rankel elpw2 csuc rankpw eleq2i con0 wb
       rankon onsssuc mp2an bitr4i 3imtr3i ) ABDZEAFGZUBFGZEZABHUCBFGZHZAUBBCIJA
       BCKUEUCUFLZEZUGUDUHUCBCMNUCOEUFOEUGUIPAQBQUCUFRSTUA $.
@@ -720,7 +727,7 @@ $)
 
   ${
     $d x y z A $.
-    ranksn.1 $e |- A e. V $.
+    ranksn.1 $e |- A e. _V $.
     $( The rank of a singleton.  Theorem 15.17(v) of [Monk1] p. 112. $)
     ranksn $p |- ( rank ` { A } ) = suc ( rank ` A ) $=
       ( vy vx cv crnk cfv wcel csn wral con0 crab cint csuc wb wi wal wceq
@@ -747,8 +754,8 @@ $)
 
   ${
     $d x y z A $.  $d x y z B $.
-    rankun.1 $e |- A e. V $.
-    rankun.2 $e |- B e. V $.
+    rankun.1 $e |- A e. _V $.
+    rankun.2 $e |- B e. _V $.
     $( The rank of the union of two sets.  Theorem 15.17(iii) of [Monk1]
        p. 112. $)
     rankun $p |- ( rank ` ( A u. B ) ) = ( ( rank ` A ) u. ( rank ` B ) ) $=
@@ -783,7 +790,7 @@ $)
   $}
 
   $( Any set is a subset of the hierarchy of its rank. $)
-  r1rankid $p |- ( A e. B -> A (_ ( R1 ` ( rank ` A ) ) ) $=
+  r1rankid $p |- ( A e. B -> A C_ ( R1 ` ( rank ` A ) ) ) $=
     ( wcel crnk cfv cr1 cpw wss csuc wn wceq wa eqid rankr1g mpbii pm3.27d
     con0 rankon r1suc ax-mp syl6eleq elpwg mpbid ) ABCZAADEZFEZGZCAUFHUDAUEIFEZ
     UGUDAUFCJZAUHCZUDUEUEKUIUJLUEMAUEBNOPUEQCUHUGKARUESTUAAUFBUBUC $.
@@ -806,7 +813,7 @@ $)
 
   ${
     $d x A $.
-    rankeq0.1 $e |- A e. V $.
+    rankeq0.1 $e |- A e. _V $.
     $( A set is empty iff its rank is empty. $)
     rankeq0 $p |- ( A = (/) <-> ( rank ` A ) = (/) ) $=
       ( vx c0 wceq crnk cfv fveq2 con0 wcel 0elon rankonid mpbi syl6eq cv cr1
@@ -854,10 +861,10 @@ $)
 
   ${
     $d x y z A $.  $d x B $.
-    rankr1b.1 $e |- A e. V $.
+    rankr1b.1 $e |- A e. _V $.
     $( A relationship between rank and ` R1 ` .  See ~ rankr1a for the
        membership version. $)
-    rankr1b $p |- ( B e. On -> ( A (_ ( R1 ` B ) <-> ( rank ` A ) (_ B ) ) $=
+    rankr1b $p |- ( B e. On -> ( A C_ ( R1 ` B ) <-> ( rank ` A ) C_ B ) ) $=
       ( con0 wcel cr1 cfv wss crnk wceq rankr1id biimpi sseq2d fvex rankss
       syl5bi wi rankon r1ord3 mpan cvv r1rankid ax-mp sstr syl6 impbid ) BDEZAB
       FGZHZAIGZBHZUGUJUHIGZHUKUIUGULBUJUGULBJBKLMAUHBFNOPUGUKUJFGZUHHZUIUJDEUGU
@@ -873,7 +880,7 @@ $)
 
     $( Upper bound of the rank of a union.  Part of Exercise 30 of [Enderton]
        p. 207. $)
-    rankuniss $p |- ( rank ` U. A ) (_ ( rank ` A ) $=
+    rankuniss $p |- ( rank ` U. A ) C_ ( rank ` A ) $=
       ( cuni crnk cfv rankuni word wss rankon onordi orduniss ax-mp eqsstri )
       ACDEADEZCZNAFNGONHNAIJNKLM $.
       $( [30-Nov-2003] $) $( [30-Nov-2003] $)
@@ -896,19 +903,19 @@ $)
 
     $( The rank of a set is bounded by a bound for the successor of its
        members. $)
-    rankbnd $p |- ( A. x e. A suc ( rank ` x ) (_ B <-> ( rank ` A ) (_ B ) $=
+    rankbnd $p |- ( A. x e. A suc ( rank ` x ) C_ B <-> ( rank ` A ) C_ B ) $=
       ( crnk cfv wss cv csuc ciun wral rankval4 sseq1i iunss bitr2i ) BEFZCGABA
       HEFIZJZCGQCGABKPRCABDLMABQCNO $.
       $( [21-Sep-2006] $) $( [18-Sep-2006] $)
 
     $( The rank of a set is bounded by the successor of a bound for its
        members. $)
-    rankbnd2 $p |- ( B e. On -> ( A. x e. A ( rank ` x ) (_ B <->
-                  ( rank ` A ) (_ suc B ) ) $=
-      ( con0 wcel crnk cfv cuni wss csuc cv wral word wb eloni rankon onssi
-      ordunisssuc mpan syl ciun rankuni rankuni2 eqtr3i sseq1i iunss bitr2i
-      syl5bb ) CEFZBGHZIZCJZUKCKJZALGHZCJABMZUJCNZUMUNOZCPUKEJUQURUKBQRUKCSTUAU
-      MABUOUBZCJUPULUSCBIGHULUSBUCABDUDUEUFABUOCUGUHUI $.
+    rankbnd2 $p |- ( B e. On -> ( A. x e. A ( rank ` x ) C_ B <->
+                  ( rank ` A ) C_ suc B ) ) $=
+      ( con0 wcel crnk cfv cuni wss csuc cv wral word wb ordunisssuc rankon
+      onssi eloni sylancr ciun rankuni rankuni2 eqtr3i sseq1i iunss bitr2i
+      syl5bb ) CEFZBGHZIZCJZUJCKJZALGHZCJABMZUJEJCNULUMOUIUJCPUJBQRCSTULABUNUAZ
+      CJUOUKUPCBIGHUKUPBUBABDUCUDUEABUNCUFUGUH $.
       $( [5-Jan-2007] $) $( [15-Sep-2006] $)
 
     $( A relationship that can be used for computation of rank. $)
@@ -932,10 +939,10 @@ $)
   $}
 
   ${
-    rankelun.1 $e |- A e. V $.
-    rankelun.2 $e |- B e. V $.
-    rankelun.3 $e |- C e. V $.
-    rankelun.4 $e |- D e. V $.
+    rankelun.1 $e |- A e. _V $.
+    rankelun.2 $e |- B e. _V $.
+    rankelun.3 $e |- C e. _V $.
+    rankelun.4 $e |- D e. _V $.
     $( Rank membership is inherited by union. $)
     rankelun $p |- ( ( ( rank ` A ) e. ( rank ` C ) /\ ( rank ` B ) e.
           ( rank ` D ) ) -> ( rank ` ( A u. B ) ) e. ( rank ` ( C u. D ) ) ) $=
@@ -972,10 +979,10 @@ $)
   $}
 
   ${
-    rankxpl.1 $e |- A e. V $.
-    rankxpl.2 $e |- B e. V $.
+    rankxpl.1 $e |- A e. _V $.
+    rankxpl.2 $e |- B e. _V $.
     $( A lower bound on the rank of a cross product. $)
-    rankxpl $p |- ( ( A X. B ) =/= (/) -> ( rank ` ( A u. B ) ) (_
+    rankxpl $p |- ( ( A X. B ) =/= (/) -> ( rank ` ( A u. B ) ) C_
                   ( rank ` ( A X. B ) ) ) $=
       ( cxp c0 wne cun crnk cfv cuni unixp fveq2d wss xpex uniex rankuniss
       sstri a1i eqsstr3d ) ABEZFGZABHZIJUAKZKZIJZUAIJZUBUEUCIABLMUFUGNUBUFUDIJU
@@ -983,7 +990,7 @@ $)
       $( [25-Sep-2006] $) $( [18-Sep-2006] $)
 
     $( An upper bound on the rank of a cross product. $)
-    rankxpu $p |- ( rank ` ( A X. B ) ) (_
+    rankxpu $p |- ( rank ` ( A X. B ) ) C_
                  suc suc ( rank ` ( A u. B ) ) $=
       ( cxp crnk cfv cun cpw csuc wss xpsspw unex pwex rankss ax-mp rankpw
       wceq suceq eqtri sseqtri ) ABEZFGZABHZIZIZFGZUDFGJZJZUBUFKUCUGKABLUBUFUEU
@@ -993,32 +1000,32 @@ $)
 
   ${
     $d x y z A $.  $d x y z B $.
-    rankxplim.1 $e |- A e. V $.
-    rankxplim.2 $e |- B e. V $.
-    $( The rank of a cross product when the rank of the union of its
-       arguments is a limit ordinal.  Part of Exercise 4 of [Kunen] p. 107.
-       See ~ rankxpsuc for the successor case. $)
+    rankxplim.1 $e |- A e. _V $.
+    rankxplim.2 $e |- B e. _V $.
+    $( The rank of a cross product when the rank of the union of its arguments
+       is a limit ordinal.  Part of Exercise 4 of [Kunen] p. 107.  See
+       ~ rankxpsuc for the successor case. $)
     rankxplim $p |- ( ( Lim ( rank ` ( A u. B ) ) /\ ( A X. B ) =/= (/) ) ->
                     ( rank ` ( A X. B ) ) = ( rank ` ( A u. B ) ) ) $=
       ( vx vy vz cun crnk cfv wlim cxp c0 wne wa wss cv cop csuc wral wcel cpw
-      visset rankelun rankel syl2an adantl wb ranklim bitrd adantr mpbid cpr
-      cuni pwuni wceq uniop pweq ax-mp sseqtri unipr sspwb mpbi sstri unex
-      pwex rankss con0 wi rankon ontr2 mp2an mpan syl onsucssi sylib ex
-      r19.21aivv fveq2 suceq sseq1d ralxp xpex rankbnd bitr3i rankxpl eqssd )
-      ABHZIJZKZABLZMNZOWKIJZWIWJWMWIPZWLWJEQZFQZRZIJZSZWIPZFBTEATZWNWJWTEFABWJW
-      OAUAZWPBUAZOZWTWJXDOZWRWIUAZWTXEWOWPHZUBZUBZIJZWIUAZXFXEXGIJWIUAZXKXDXLWJ
-      WOIJAIJUAWPIJBIJUAXLXBXCWOWPABEUCZFUCZCDUDWOACUEWPBDUEUFUGWJXLXKUHXDWJXLX
-      HIJWIUAXKXGWIUIXHWIUIUJUKULWRXJPZXKXFWQXIPXOWQWOWPUMZUBZXIWQWQUNZUBZXQWQU
-      OXRXPUPXSXQUPWOWPUQXRXPURUSUTXPXHPXQXIPXPXPUNZUBZXHXPUOXTXGUPYAXHUPWOWPXM
-      XNVAXTXGURUSUTXPXHVBVCVDWQXIXHXGWOWPXMXNVEVFVFVGUSWRVHUAWIVHUAXOXKOXFVIWQ
-      VJZWHVJZWRXJWIVKVLVMVNWRWIYBYCVOVPVQVRXAGQZIJZSZWIPZGWKTWNYGWTGEFABYDWQUP
-      ZYFWSWIYHYEWRUPYFWSUPYDWQIVSYEWRVTVNWAWBGWKWIABCDWCWDWEVPUKWLWIWMPWJABCDW
-      FUGWG $.
+      con0 wi rankon ontr2 mp2an cpr cuni pwuni wceq uniop pweq ax-mp sseqtri
+      visset unipr sspwb mpbi sstri unex pwex rankss rankelun rankel syl2an
+      adantl wb ranklim bitrd adantr mpbid sylancr onsucssi sylib ex
+      r19.21aivv fveq2 suceq syl sseq1d ralxp xpex rankbnd bitr3i rankxpl
+      eqssd ) ABHZIJZKZABLZMNZOWKIJZWIWJWMWIPZWLWJEQZFQZRZIJZSZWIPZFBTEATZWNWJW
+      TEFABWJWOAUAZWPBUAZOZWTWJXDOZWRWIUAZWTWRWOWPHZUBZUBZIJZPZXJWIUAZXFXEWRUCU
+      AWIUCUAXKXLOXFUDWQUEZWHUEZWRXJWIUFUGWQXIPXKWQWOWPUHZUBZXIWQWQUIZUBZXPWQUJ
+      XQXOUKXRXPUKWOWPULXQXOUMUNUOXOXHPXPXIPXOXOUIZUBZXHXOUJXSXGUKXTXHUKWOWPEUP
+      ZFUPZUQXSXGUMUNUOXOXHURUSUTWQXIXHXGWOWPYAYBVAVBVBVCUNXEXGIJWIUAZXLXDYCWJW
+      OIJAIJUAWPIJBIJUAYCXBXCWOWPABYAYBCDVDWOACVEWPBDVEVFVGWJYCXLVHXDWJYCXHIJWI
+      UAXLXGWIVIXHWIVIVJVKVLVMWRWIXMXNVNVOVPVQXAGQZIJZSZWIPZGWKTWNYGWTGEFABYDWQ
+      UKZYFWSWIYHYEWRUKYFWSUKYDWQIVRYEWRVSVTWAWBGWKWIABCDWCWDWEVOVKWLWIWMPWJABC
+      DWFVGWG $.
       $( [26-Sep-2006] $) $( [19-Sep-2006] $)
 
 
-    $( If the rank of a cross product is a limit ordinal, so is the rank of
-       the union of its arguments. $)
+    $( If the rank of a cross product is a limit ordinal, so is the rank of the
+       union of its arguments. $)
     rankxplim2 $p |- ( Lim ( rank ` ( A X. B ) ) ->
                      Lim ( rank ` ( A u. B ) ) ) $=
       ( cxp c0 wne crnk cfv wlim cun wcel wceq wn 0ellim n0i df-ne xpex

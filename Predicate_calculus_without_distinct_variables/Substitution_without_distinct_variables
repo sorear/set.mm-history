@@ -17,7 +17,7 @@ $)
        set variable ` x ` in wff ` ph ` ."
 
        (The purpose of introducing ` wff [ A / x ] ph ` here is to allow us to
-       express i.e. "prove" the ~ wsb of predicate calculus in terms of the
+       express i.e.  "prove" the ~ wsb of predicate calculus in terms of the
        ~ wsbc of set theory, so that we don't "overload" its connectives with
        two syntax definitions.  This is done to prevent ambiguity that would
        complicate some Metamath parsers.  The class variable ` A ` is
@@ -30,13 +30,12 @@ $)
   $( Extend wff definition to include proper substitution (read "the wff that
      results when ` y ` is properly substituted for ` x ` in wff ` ph ` ").
 
-     (Instead of introducing ~ wsb as an axiomatic statement, as was done
-     in an older version of this database, we introduce it by "proving" a
-     special case of set theory's more general ~ wsbc .  This lets us avoid
-     overloading its connectives, thus preventing ambiguity that would
-     complicate some Metamath parsers.  Note: To see the proof steps of
-     this syntax proof, type "show proof wsb /all" in the Metamath
-     program.) $)
+     (Instead of introducing ~ wsb as an axiomatic statement, as was done in an
+     older version of this database, we introduce it by "proving" a special
+     case of set theory's more general ~ wsbc .  This lets us avoid overloading
+     its connectives, thus preventing ambiguity that would complicate some
+     Metamath parsers.  Note:  To see the proof steps of this syntax proof,
+     type "show proof wsb /all" in the Metamath program.) $)
   wsb $p wff [ y / x ] ph $=
     ( cv wsbc ) ABCDE $.
     $( [24-Jan-2006] $)
@@ -62,20 +61,19 @@ $)
      ~ stdpc4 .
 
      Our notation was introduced in Haskell B. Curry's _Foundations of
-     Mathematical Logic_ (1977), p. 316 and is frequently used in textbooks
-     of lambda calculus and combinatory logic.  This notation improves the
-     common but ambiguous notation, " ` ph ( y ) ` is the wff that results
-     when ` y ` is properly substituted for ` x ` in ` ph ( x ) ` ."  For
-     example, if the original ` ph ( x ) ` is ` x = y ` , then ` ph ( y ) `
-     is ` y = y ` , from which we obtain that ` ph ( x ) ` is ` x = x ` .  So
-     what exactly does ` ph ( x ) ` mean?  Curry's notation solves this
-     problem.
+     Mathematical Logic_ (1977), p. 316 and is frequently used in textbooks of
+     lambda calculus and combinatory logic.  This notation improves the common
+     but ambiguous notation, " ` ph ( y ) ` is the wff that results when ` y `
+     is properly substituted for ` x ` in ` ph ( x ) ` ."  For example, if the
+     original ` ph ( x ) ` is ` x = y ` , then ` ph ( y ) ` is ` y = y ` , from
+     which we obtain that ` ph ( x ) ` is ` x = x ` .  So what exactly does
+     ` ph ( x ) ` mean?  Curry's notation solves this problem.
 
      In most books, proper substitution has a somewhat complicated recursive
-     definition with multiple cases based on the occurrences of free and
-     bound variables in the wff.  Instead, we use a remarkable little formula
-     that is exactly equivalent and gives us a single direct definition.  We
-     later prove that our definition has the properties we expect of proper
+     definition with multiple cases based on the occurrences of free and bound
+     variables in the wff.  Instead, we use a remarkable little formula that is
+     exactly equivalent and gives us a single direct definition.  We later
+     prove that our definition has the properties we expect of proper
      substitution (see theorems ~ sbequ , ~ sbcom2 and ~ sbid2v ).
 
      Note that our definition is valid even when ` x ` and ` y ` are replaced
@@ -124,14 +122,14 @@ $)
 
   $( One direction of a simplified definition of substitution. $)
   sb2 $p |- ( A. x ( x = y -> ph ) -> [ y / x ] ph ) $=
-    ( weq wi wal wa wex wsb ax-4 equs4 jca df-sb sylibr ) BCDZAEZBFZPOAGBHZGABC
-    IQPRPBJABCKLABCMN $.
+    ( wsb weq wi wa wex wal df-sb ax-4 equs4 sylanbrc ) ABCDBCEZAFZNAGBHOBIABCJ
+    OBKABCLM $.
     $( [5-Aug-1993] $)
 
   $( An equality theorem for substitution. $)
   sbequ1 $p |- ( x = y -> ( ph -> [ y / x ] ph ) ) $=
-    ( weq wsb wa wi wex pm3.4 19.8a jca df-sb sylibr ex ) BCDZAABCEZOAFZOAGZQBH
-    ZFPQRSOAIQBJKABCLMN $.
+    ( weq wsb wi wa wex df-sb pm3.4 19.8a sylanbrc ex ) BCDZAABCEZONAFNAGZBHPAB
+    CINAJPBKLM $.
     $( [5-Aug-1993] $)
 
   $( An equality theorem for substitution. $)
@@ -141,10 +139,11 @@ $)
     $( [5-Aug-1993] $)
 
   $( One of the two equality axioms of standard predicate calculus, called
-     substitutivity of equality.  (The other one is ~ stdpc6 .)  Translated
-     to traditional notation, it can be read:
-     " ` x = y -> ( ph ( x , x ) -> ph ( x , y ) ) ` , provided that ` y ` is
-     free for ` x ` in ` ph ( x , y ) ` ."  Axiom 7 of [Mendelson] p. 95. $)
+     substitutivity of equality.  (The other one is ~ stdpc6 .)  Translated to
+     traditional notation, it can be
+     read:  " ` x = y -> ( ph ( x , x ) -> ph ( x , y ) ) ` , provided that
+     ` y ` is free for ` x ` in ` ph ( x , y ) ` ."  Axiom 7 of [Mendelson]
+     p. 95. $)
   stdpc7 $p |- ( x = y -> ( [ x / y ] ph -> ph ) ) $=
     ( wsb wi sbequ2 equcoms ) ACBDAECBACBFG $.
     $( [15-Feb-2005] $) $( [15-Feb-2005] $)
@@ -154,8 +153,14 @@ $)
     ( weq wsb sbequ1 sbequ2 impbid ) BCDAABCEABCFABCGH $.
     $( [5-Aug-1993] $)
 
-  $( An equality theorem for substitution. $)
+  $( An equality theorem for substitution.  (The proof was shortened by Andrew
+     Salmon, 21-Jun-2011.) $)
   sbequ12r $p |- ( x = y -> ( [ x / y ] ph <-> ph ) ) $=
+    ( wsb wb weq sbequ12 bicomd equcoms ) ACBDZAECBCBFAJACBGHI $.
+    $( [26-Jun-2011] $) $( [6-Oct-2004] $)
+
+  $( An equality theorem for substitution. $)
+  sbequ12rOLD $p |- ( x = y -> ( [ x / y ] ph <-> ph ) ) $=
     ( weq wsb wb sbequ12 equcom bicom 3imtr4i ) CBDAACBEZFBCDKAFACBGBCHKAIJ $.
     $( [7-Oct-2004] $) $( [6-Oct-2004] $)
 
@@ -164,8 +169,8 @@ $)
     ( weq wsb sbequ12 wb equcoms bitr3d ) BCDAABCEACBEZABCFAJGCBACBFHI $.
     $( [5-Aug-1993] $)
 
-  $( An identity theorem for substitution.  Remark 9.1 in [Megill] p. 447
-     (p. 15 of the preprint). $)
+  $( An identity theorem for substitution.  Remark 9.1 in [Megill] p. 447 (p.
+     15 of the preprint). $)
   sbid $p |- ( [ x / x ] ph <-> ph ) $=
     ( wsb weq wb equid sbequ12 ax-mp bicomi ) AABBCZBBDAJEBFABBGHI $.
     $( [5-Aug-1993] $)
@@ -205,8 +210,14 @@ $)
 
   ${
     hbs1f.1 $e |- ( ph -> A. x ph ) $.
-    $( If ` x ` is not free in ` ph ` , it is not free in ` [ y / x ] ph ` . $)
+    $( If ` x ` is not free in ` ph ` , it is not free in ` [ y / x ] ph ` .
+       (The proof was shortened by Andrew Salmon, 25-May-2011.) $)
     hbs1f $p |- ( [ y / x ] ph -> A. x [ y / x ] ph ) $=
+      ( wal wsb sbf albii 3imtr4i ) AABEABCFZJBEDABCDGZJABKHI $.
+      $( [25-May-2011] $) $( [5-Aug-1993] $)
+
+    $( If ` x ` is not free in ` ph ` , it is not free in ` [ y / x ] ph ` . $)
+    hbs1fOLD $p |- ( [ y / x ] ph -> A. x [ y / x ] ph ) $=
       ( wsb wal weq wex wa sb1 19.41 sylib pm3.27d stdpc4 a5i 3syl ) ABCEZAABFQ
       BFQBCGZBHZAQRAIBHSAIABCJRABDKLMDAQBABCNOP $.
       $( [5-Aug-1993] $)
@@ -225,8 +236,15 @@ $)
   ${
     sbt.1 $e |- ph $.
     $( A substitution into a theorem remains true.  (See ~ chvar and ~ chvarv
-       for versions, using implicit substitition. $)
+       for versions, using implicit substitition.)  (The proof was shortened by
+       Andrew Salmon, 25-May-2011.) $)
     sbt $p |- [ y / x ] ph $=
+      ( wsb hbth sbf mpbir ) ABCEADABCABDFGH $.
+      $( [25-May-2011] $) $( [21-Jan-2004] $)
+
+    $( A substitution into a theorem remains true.  (See ~ chvar and ~ chvarv
+       for versions, using implicit substitition.) $)
+    sbtOLD $p |- [ y / x ] ph $=
       ( weq wi wsb sb2 a1i mpg ) BCEZAFABCGBABCHAKDIJ $.
       $( [21-Jan-2004] $) $( [21-Jan-2004] $)
   $}
@@ -246,8 +264,18 @@ $)
     sbied.2 $e |- ( ph -> ( ch -> A. x ch ) ) $.
     sbied.3 $e |- ( ph -> ( x = y -> ( ps <-> ch ) ) ) $.
     $( Conversion of implicit substitution to explicit substitution (deduction
-       version of ~ sbie ). $)
+       version of ~ sbie ).  (The proof was shortened by Andrew Salmon,
+       25-May-2011.) $)
     sbied $p |- ( ph -> ( [ y / x ] ps <-> ch ) ) $=
+      ( wsb wex weq wa wb wi bi1 syl6 imp3a 19.22d sb1 syl5 19.9d syld wal bi2
+      com23 19.20d sb2 impbid ) ABDEIZCAUICDJZCADEKZBLZDJUJUIAULCDFAUKBCAUKBCMZ
+      BCNHBCOPQRBDESTCADFGUAUBACCDUCZUIGAUNUKBNZDUCUIACUODFAUKCBAUKUMCBNHBCUDPU
+      EUFBDEUGPUBUH $.
+      $( [25-May-2011] $) $( [30-Jun-1994] $)
+
+    $( Conversion of implicit substitution to explicit substitution (deduction
+       version of ~ sbie ). $)
+    sbiedOLD $p |- ( ph -> ( [ y / x ] ps <-> ch ) ) $=
       ( wsb wal wi wex weq wa wb bi1 syl6 imp3a 19.20i 19.22 syl sb1 syl5 hba1
       19.23 sylib ax-4 syld a4s bi2 com23 19.20ii sb2 impbid ) ABDEIZCAADJZUOCK
       FUPUOCDLZCUPDEMZBNZDLZUQUOUPUSCKZDJUTUQKAVADAURBCAURBCOZBCKHBCPQRSUSCDTUA

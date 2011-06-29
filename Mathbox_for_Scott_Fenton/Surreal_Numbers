@@ -1,0 +1,133 @@
+$(
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+        Surreal Numbers
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+$)
+
+  $( Set up the new syntax for surreal numbers $)
+  $c No <s bday $.
+  $( PLEASE PUT DESCRIPTION HERE. $)
+  csur $a class No $.
+  $( PLEASE PUT DESCRIPTION HERE. $)
+  cslt $a class <s $.
+  $( PLEASE PUT DESCRIPTION HERE. $)
+  cbday $a class bday $.
+
+  ${
+    $d f a $.
+    $( Define the class of surreal numbers.  The surreal numbers are a proper
+       class of numbers developed by John H. Conway and introduced by Donald
+       Knuth in 1975.  They form a proper class into which all ordered fields
+       can be embedded.  The approach we take to defining them was first
+       introduced by Hary Goshnor, and is based on the conception of a "sign
+       expansion" of a surreal number.  We define the surreals as
+       ordinal-indexed sequences of ` 1o ` and ` 2o ` , analagous to Goshnor's
+       ` ( - ) ` and ` ( + ) ` .
+
+       After introducing this definition, we will abstract away from it using
+       axioms that Norman Alling developed in "Foundations of Analysis over
+       Surreal Number Fields."  This is done in a effort to be agnostic towards
+       the exact implementation of surreals. $)
+    df-no $a |- No = { f | E. a e. On f : a --> { 1o , 2o } } $.
+  $}
+
+  ${
+    $d f g x y $.
+    $( Next, we introduce surreal less-than, a comparison relationship over the
+       surreals by lexicographically ordering them. $)
+    df-slt $a |- <s = { <. f , g >. | ( ( f e. No /\ g e. No ) /\
+                         E. x e. On (
+                            A. y e. x ( f ` y ) = ( g ` y ) /\
+                              ( f ` x ) { <. 1o , (/) >. ,
+                                          <. 1o , 2o >. ,
+                                          <. (/) , 2o >. } ( g ` x ) ) ) } $.
+  $}
+
+  $( Finally, we introduce the birthday function.  This function maps each
+     surreal to an ordinal.  In our implementation, this is the domain of the
+     sign function.  The important properties of this function are established
+     later $)
+  df-bday $a |- bday = ( x e. No |-> dom x ) $.
+
+
+  ${
+    $d x y z $.
+    $( Lemma for ~ axsltso .  The sign expansion relationship totally orders
+       the surreal signs $)
+    axsltsolem $p |- { <. 1o , (/) >. , <. 1o , 2o >. , <. (/) , 2o >. }
+                      Or ( { 1o , 2o } u. { (/) } ) $=
+      ( vx vy vz c1o c2o c0 ctp cop wor cpr csn cun cv wbr wn wcel wceq wa w3o
+      wne 1n0 df-ne mpbi eqtr2 mto con0 wb 1on 0elon csuc suc11 df-2o df-1o
+      eqeq12i syl5bb mp2an nemtbir ancoms nsuceq0 eqeq1i 3pm3.2ni visset 0ex
+      2on elisseti brtp mtbir a1i wi w3a pm2.21i ad2ant2rl expcom 3mix2 ex
+      3jaod ad2ant2lr 3jaoi imp anbi12i 3imtr4i weq eqtr3 3mix2d 3mix1d 3mix1
+      3mix3d 3mix3 eltp biid 3orbi123i itlso df-tp soeq2 ax-mp ) DEFGZDFHDEHFEH
+      GZIZDEJFKLZWQIZABCWPWQAMZXAWQNZOXAWPPZXBXADQZXAFQZRZXDXAEQZRZXEXGRZSXFXHX
+      IXFDFQZDFTXJOUADFUBUCZXADFUDUEXHEDQZXLDFUADUFPZFUFPZXLXJUGUHUIXMXNRDUJZFU
+      JZQXJXLDFUKEXODXPULUMUNUOUPUQZXGXDXLXAEDUDURUEXIEFQZXRXOFDUSEXOFULUTUQZXG
+      XEXRXAEFUDURUEVADFDEFEXAXAAVBZXTVCEUFVDVEZYAVFVGVHXABMZWQNZYBCMZWQNZRZXAY
+      DWQNZVIXCYBWPPZYDWPPVJXDYBFQZRZXDYBEQZRZXEYKRZSZYBDQZYDFQZRZYOYDEQZRZYIYR
+      RZSZRXDYPRZXDYRRZXEYRRZSZYFYGYNUUAUUEYJUUAUUEVIYLYMYJYQUUEYSYTYQYJUUEYOYI
+      UUEYPXDYOYIRZUUEUUFXJXKYBDFUDUEVKZVLVMYSYJUUEYOYIUUEYRXDUUGVLVMYJYTUUEXDY
+      RUUEYIYIUUCUUBUUDVNVLVOVPYLYQUUEYSYTYLYQUUEYKYOUUEXDYPYKYORZUUEUUHXLXQYBE
+      DUDUEVKZVQVOYLYSUUEYKYOUUEXDYRUUIVQVOYLYTUUEYKYIUUEXDYRYKYIRZUUEUUJXRXSYB
+      EFUDUEVKZVQVOVPYMYQUUEYSYTYMYQUUEYKYOUUEXEYPUUIVQVOYMYSUUEYKYOUUEXEYRUUIV
+      QVOYMYTUUEYKYIUUEXEYRUUKVQVOVPVRVSYCYNYEUUADFDEFEXAYBXTBVBZVCYAYAVFZDFDEF
+      EYBYDUULCVBZVCYAYAVFVTDFDEFEXAYDXTUUNVCYAYAVFWAVHXDXGXESZYOYKYISZRYNABWBZ
+      YOXERZYOXGRZYIXGRZSZSZXCYHRYCUUQYBXAWQNZSUUOUUPUVBXDUUPUVBVIXGXEXDYOUVBYK
+      YIXDYOUVBXDYORUUQYNUVAXAYBDWCWDVOXDYKUVBYLYNUUQUVAYLYJYMVNWEVOXDYIUVBYJYN
+      UUQUVAYJYLYMWFWEVOVPXGYOUVBYKYIYOXGUVBUUSUVAYNUUQUUSUURUUTVNWGVMXGYKUVBXG
+      YKRUUQYNUVAXAYBEWCWDVOYIXGUVBUUTUVAYNUUQUUTUURUUSWHWGVMVPXEYOUVBYKYIYOXEU
+      VBUURUVAYNUUQUURUUSUUTWFWGVMXEYKUVBYMYNUUQUVAYMYJYLWHWEVOXEYIUVBXEYIRUUQY
+      NUVAXAYBFWCWDVOVPVRVSXCUUOYHUUPXADEFXTWIYBDEFUULWIVTYCYNUUQUUQUVCUVAUUMUU
+      QWJDFDEFEYBXAUULXTVCYAYAVFWKWAWLWPWSQWRWTUGDEFWMWPWSWQWNWOUC $.
+      $( [8-Jun-2011] $)
+  $}
+
+  ${
+    $d A f x $.
+    $( Membership in the surreals. $)
+    elno $p |- ( A e. No <-> E. x e. On A : x --> { 1o , 2o } ) $=
+      ( vf csur wcel cvv cv c1o c2o cpr wf con0 wrex elisset wi visset fex
+      mpan2 a1i r19.23aiv wceq feq1 rexbidv df-no elab2g pm5.21nii ) BDEBFEZAGZ
+      HIJZBKZALMZBDNUJUGALUJUGOUHLEUJUHFEUGAPUHUIFBQRSTUHUICGZKZALMUKCBDFULBUAU
+      MUJALUHUIULBUBUCCAUDUEUF $.
+      $( [11-Jun-2011] $)
+  $}
+
+  ${
+    $d f g x y $.
+    $( Surreal less than totally orders the surreals.  Alling's axiom (O). $)
+    axsltso $p |- <s Or No $=
+      ( vx vy vf vg c1o c2o cpr c0 cop ctp cslt csur axsltsolem df-no df-slt
+      wcel wceq wo wne wn 1n0 necom mpbi df-ne csuc nsuceq0 df-2o neeq2i
+      bitr4i pm3.2ni elpri mto soseq ) ABEFGZEHIEFIHFIJKCDLMCANABCDOHUNPHEQZHFQ
+      ZRUOUPHESZUOTEHSUQUAEHUBUCHEUDUCHFSZUPTEUEZHSZUREUFUTHUSSURUSHUBFUSHUGUHU
+      IUCHFUDUCUJHEFUKULUM $.
+      $( [9-Jun-2011] $)
+  $}
+
+  ${
+    $d f x y $.
+    $( The birthday function maps the surreals onto the ordinals.  Alling's
+       axiom (B). $)
+    axbday $p |- bday : No -onto-> On $=
+      ( vf vx vy csur con0 cbday wfo wfn crn wceq df-fo cv cdm cvv wcel wral
+      dmexg rgen df-bday mptfn mpbi wrex cab rnmpt c1o csn cxp dmeq eqeq2d
+      rcla4ev c2o cpr wf wss 1on elisseti fconst snsspr1 fss mp2an feq2 mpan2
+      elno sylibr c0 wne snnz dmxp ax-mp eqcomi sylancl wi weq wa eleq1
+      biimpcd eqtr3 eqcom sylanb syl5 exp3a fdm r19.23aiv sylbi impbii abbi2i
+      eqtr4i mpbir2an ) DEFGFDHZFIZEJDEFKALZMZNOZADPWIWMADWKDQRADWLFASZTUAWJBLZ
+      WLJZADUBZBUCEABDWLFWNUDWQBEWOEOZWQWOUEUFZUGZDOZWOWTMZJZWQWRWPXCAWTDWKWTJW
+      LXBWOWKWTUHUIUJWRCLZUEUKULZWTUMZCEUBZXAWRWOXEWTUMZXGWOWSWTUMWSXEUNXHWOUEU
+      EEUOUPZUQUEUKURWOWSXEWTUSUTXFXHCWOEXDWOXEWTVAUJVBCWTVCVDXBWOWSVEVFXBWOJUE
+      XIVGWOWSVHVIVJVKWPWRADWKDOXDXEWKUMZCEUBWPWRVLZCWKVCXJXKCEXDEOZWLXDJZXKXJX
+      LXMWPWRXLCBVMZWRXMWPVNXNXLWRXDWOEVOVPXDWLJWPXNXMXDWOWLVQWLXDVRVSVTWAXDXEW
+      KWBVTWCWDWCWEWFWGWH $.
+      $( [11-Jun-2011] $)
+
+  $}
+
+$( (End of Scott Fenton's mathbox.) $)
+
+

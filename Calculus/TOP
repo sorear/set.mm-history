@@ -17,7 +17,7 @@
     @( Define the notion of neighborhoods: "neigh" is a relation that relates
       a subset of the real numbers to a point within it for which it acts as a
       neighborhood.  (Contributed by Roy F. Longton, 7-Aug-2005.) @)
-    df-neigh @a |- neigh = { <. x , y >. | ( ( x (_ RR /\ y e. RR ) /\ E. z e.
+    df-neigh @a |- neigh = { <. x , y >. | ( ( x C_ RR /\ y e. RR ) /\ E. z e.
       RR ( 0 < z /\ A. w e. RR ( ( 0 <_ w /\ w < z ) -> ( ( y + w ) e. x /\
       ( y - w ) e.  x ) ) ) ) } @.
   @}
@@ -36,12 +36,12 @@
 
   @{
     @d S x y z w @.  @d A x y z w @.
-    neigh.1 @e |- S e. V @.
-    neigh.2 @e |- A e. V @.
+    neigh.1 @e |- S e. _V @.
+    neigh.2 @e |- A e. _V @.
     @( Express the predicate: ` S ` is a neighborhood of ` A ` .  (Contributed
        by Roy F. Longton, 7-Aug-2005.) @)
     neighbr @p |- ( S neigh A <->
-      ( ( S (_ RR /\ A e. RR ) /\ E. z e. RR ( 0 < z
+      ( ( S C_ RR /\ A e. RR ) /\ E. z e. RR ( 0 < z
       /\ A. w e. RR ( ( 0 <_ w /\ w < z ) -> ( ( A + w ) e. S /\ ( A - w ) e.
       S ) ) ) ) ) @=
       ( vx vy cv cr wss wcel wa cc0 clt wbr cle caddc co cmin wi wral wrex
@@ -83,7 +83,7 @@
       contained within the set.  (Contributed by Roy F. Longton,
       7-Aug-2005.) @)
     df-openROY @a |- OpenROY =
-                     { x | A. y e. x E. z ( z (_ x /\ z neigh y ) } @.
+                     { x | A. y e. x E. z ( z C_ x /\ z neigh y ) } @.
   @}
 
     @c cont @.
@@ -99,8 +99,8 @@
       function is continuous on a domain if and only if every open subset of
       its range has an open preimage under the function.  (Contributed by Roy
       F. Longton, 7-Aug-2005.) @)
-    df-cont @a |- cont = { <. f , x >. | ( f Fn x /\ A. y ( y (_ ( f " x ) ->
-  ( OpenROY y -> ( E. z ( z (_ x /\ OpenROY z /\ y = ( f " z ) ) ) ) ) ) ) } @.
+    df-cont @a |- cont = { <. f , x >. | ( f Fn x /\ A. y ( y C_ ( f " x ) ->
+  ( OpenROY y -> ( E. z ( z C_ x /\ OpenROY z /\ y = ( f " z ) ) ) ) ) ) ) } @.
   @}
 
     @( Two nonnegative numbers compare the same as their squares.
@@ -143,11 +143,11 @@
 
   @{
     @d A w z @.  @d B w z @.
-    neighre.1 @e |- A e. V @.
-    neighre.2 @e |- B e. V @.
+    neighre.1 @e |- A e. _V @.
+    neighre.2 @e |- B e. _V @.
     @( Every neighborhood is a subset of ` RR ` .  (Contributed by Roy F.
       Longton, 8-Aug-2005.) @)
-    neighre @p |- ( A neigh B -> A (_ RR ) @=
+    neighre @p |- ( A neigh B -> A C_ RR ) @=
       ( vz vw cneigh wbr cr wss wcel wa cc0 cv clt cle caddc co cmin wi wral
       wrex neighbr pm3.26bi pm3.26d ) ABGHZAIJZBIKZUFUGUHLMENZOHMFNZPHUJUIOHLBU
       JQRAKBUJSRAKLTFIUALEIUBEFBACDUCUDUE @.
@@ -157,7 +157,7 @@
   @(
   @{
     @d A w z @.  @d B w z @.
-    ncenre.1 @e |- B e. V @.
+    ncenre.1 @e |- B e. _V @.
     This was probably not provable with the old df-neigh.
     ncenre @p |- ( A neigh B -> B e. RR ) @=
       cA cB cneigh wbr cB cr wcel cB cr wcel wa wi cA cB cneigh wbr cB cr
@@ -222,7 +222,7 @@
     @( The class of all neighborhoods exists.
   (Contributed by Roy F. Longton,
       29-Aug-2005.) @)
-    neighex @p |- neigh e. V @=
+    neighex @p |- neigh e. _V @=
       ( vx vy vz vw cneigh cv cr wss wcel wa cc0 clt wbr cle caddc co cmin wi
       wral wrex copab cvv df-neigh cpw cxp reex pwex xpex pm3.26 ssopab2i
       df-pw abeq2i anbi1i opabbii sseqtr4i df-xp ssexi
@@ -234,16 +234,15 @@
   @}
 
 
-
   @{
     @d x y z @.
-    open @p |- ( x e. OpenROY <-> A. y e. x E. z ( z (_ x /\ z neigh y ) ) @=
+    open @p |- ( x e. OpenROY <-> A. y e. x E. z ( z C_ x /\ z neigh y ) ) @=
       ( cv wss cneigh wbr wa wex wral copen df-openROY abeq2i ) CDZADZENBDFGHCI
       BOJAKABCLM @.
       @( [ ?] @) @( [10-Aug-2005] @)
   @}
 
-    openex @p |- OpenROY e. V @=
+    openex @p |- OpenROY e. _V @=
       (  ) ? @.
 
     reopen @p |- RR e. OpenROY @=
@@ -256,5 +255,4 @@
   @}
 
 $)
-
 

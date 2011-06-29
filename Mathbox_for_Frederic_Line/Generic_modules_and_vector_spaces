@@ -1,0 +1,790 @@
+$(
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+              Generic modules and vector spaces
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+$)
+
+  $c Vec $.
+
+  $( Extend class notation with the class of all generic vector spaces and
+     modules. $)
+  cvec $a class Vec $.
+
+  ${
+    $d g h s a b u x v y $.
+    $( Definition of a vector space ( ` <. g , h >. ` is a field ), or of a
+       module ( ` <. g , h >. ` is a ring ). $)
+    df-vec $a |- Vec = { z | E. g E. h E. a E. b
+     ( z = <. <. g , h >. , <. a , b >. >. /\
+        ( a e. Abel
+         /\ b : ( ran g X. ran a ) --> ran a
+         /\ A. u e. ran a ( ( ( Id ` h ) b u ) = u /\ A. x e. ran g
+           ( A. v e. ran a ( x b ( u a v ) ) = ( ( x b u ) a ( x b v ) )
+              /\ A. y e. ran g ( ( ( x g y ) b u ) = ( ( x b u ) a ( y b u ) )
+              /\ ( ( x h y ) b u ) = ( x b ( y b u ) ) ) ) ) ) ) } $.
+  $}
+
+
+  ${
+    $d A a b g h u v x y $.  $d B a b g h u v x y $.  $d G a b g h u x y $.
+    $d H a b g h u x y $.  $d a b g h u v x y z $.
+    vecval1b.1 $e |- X = ran G $.
+    vecval1b.4 $e |- W = ran A $.
+    $( The predicate "is a vector space" or "is a module". $)
+    vecval1b $p |- ( ( ( G e. M /\ H e. N /\ A e. O ) /\ B e. P )
+      -> ( <. G , H >. Vec <. A , B >. <->
+      ( A e. Abel /\ B : ( X X. W ) --> W
+       /\ A. u e. W ( ( ( Id ` H ) B u ) = u
+          /\ A. x e. X (
+             A. v e. W
+                 ( x B ( u A v ) ) = ( ( x B u ) A ( x B v ) )
+             /\ A. y e. X ( ( ( x G y ) B u ) = ( ( x B u ) A ( y B u ) )
+             /\ ( ( x H y ) B u ) = ( x B ( y B u ) ) ) ) ) ) ) ) $=
+      ( vz vg vh va vb wcel w3a wa cop cvec wbr cabl crn cxp wf cgi cfv cv co
+      wceq wral wex cab wb rneq xpeq1 feq2 3syl opreq opreq1d eqeq1d anbi1d
+      raleqbidv anbi2d ralbidv 3anbi23d fveq2 anbi12d 3anbi3d eleq1 feq23
+      xpeq2 syl sylanc opreq2d eqeq12d eqeq2d 3anbi123d feq1 opreq12d id eqidd
+      opreq123d elo df-vec eleq2i syl5bb df-br biid eqcomi xpeq12i mp2an
+      imbi1i ralbii2 anbi12i imbi12i anbi2i 3anbi123i syl6bb ) HJUBIKUBELUBUCFG
+      UBUDZHIUEZEFUEZUFUGZEUHUBZHUIZEUIZUJZXLFUKZIULUMZDUNZFUOZXPUPZAUNZXPCUNZE
+      UOZFUOZXSXPFUOZXSXTFUOZEUOZUPZCXLUQZXSBUNZHUOZXPFUOZYCYHXPFUOZEUOZUPZXSYH
+      IUOZXPFUOZXSYKFUOZUPZUDZBXKUQZUDZAXKUQZUDZDXLUQZUCZXJNMUJZMFUKZXRYFCMUQZY
+      RBNUQZUDZANUQZUDZDMUQZUCXFXGXHUEZUFUBZUUDXIXFUUMQUNRUNZSUNZUETUNZUAUNZUEU
+      EUPUUQUHUBZUUOUIZUUQUIZUJZUVAUURUKZUUPULUMZXPUURUOZXPUPZXSXPXTUUQUOZUURUO
+      ZXSXPUURUOZXSXTUURUOZUUQUOZUPZCUVAUQZXSYHUUOUOZXPUURUOZUVIYHXPUURUOZUUQUO
+      ZUPZXSYHUUPUOZXPUURUOZXSUVPUURUOZUPZUDZBUUTUQZUDZAUUTUQZUDZDUVAUQZUCZUDUA
+      URTURSURRURQUSZUBUUDUUNUWIUUSXKUVAUJZUVAUURUKZUVFUVMYIXPUURUOZUVQUPZUWBUD
+      ZBXKUQZUDZAXKUQZUDZDUVAUQZUCUUSUWLXOXPUURUOZXPUPZUVMUWNYNXPUURUOZUWAUPZUD
+      ZBXKUQZUDZAXKUQZUDZDUVAUQZUCXJXMXLUURUKZUXBXSYAUURUOZUVIUVJEUOZUPZCXLUQZU
+      WMUVIUVPEUOZUPZUXDUDZBXKUQZUDZAXKUQZUDZDXLUQZUCUUDQRSUATHIEFJKLGUUOHUPZUV
+      CUWLUWHUWTUUSUYDUUTXKUPUVBUWKUPUVCUWLUTUUOHVAZUUTXKUVAVBUVBUWKUVAUURVCVDU
+      YDUWGUWSDUVAUYDUWFUWRUVFUYDUWEUWQAUUTXKUYEUYDUWDUWPUVMUYDUWCUWOBUUTXKUYEU
+      YDUVRUWNUWBUYDUVOUWMUVQUYDUVNYIXPUURXSYHUUOHVEVFVGVHVIVJVIVJVKVLUUPIUPZUW
+      TUXJUUSUWLUYFUWSUXIDUVAUYFUVFUXBUWRUXHUYFUVEUXAXPUYFUVDXOXPUURUUPIULVMVFV
+      GUYFUWQUXGAXKUYFUWPUXFUVMUYFUWOUXEBXKUYFUWBUXDUWNUYFUVTUXCUWAUYFUVSYNXPUU
+      RXSYHUUPIVEVFVGVJVKVJVKVNVKVOUUQEUPZUUSXJUWLUXKUXJUYCUUQEUHVPUWKXMUPZUVAX
+      LUPZUWLUXKUTUYGUWKUVAXMXLUURVQUYGUYIUYHUUQEVAZUVAXLXKVRVSUYJVTUYGUXIUYBDU
+      VAXLUYJUYGUXHUYAUXBUYGUXGUXTAXKUYGUVMUXOUXFUXSUYGUVLUXNCUVAXLUYJUYGUVHUXL
+      UVKUXMUYGUVGYAXSUURXPXTUUQEVEWAUVIUVJUUQEVEWBVIUYGUXEUXRBXKUYGUWNUXQUXDUY
+      GUVQUXPUWMUVIUVPUUQEVEWCVHVKVNVKVJVIWDUURFUPZUXKXNUYCUUCXJXMXLUURFWEUYKUY
+      BUUBDXLUYKUXBXRUYAUUAUYKUXAXQXPXOXPUURFVEVGUYKUXTYTAXKUYKUXOYGUXSYSUYKUXN
+      YFCXLUYKUXLYBUXMYEXSYAUURFVEUYKUVIYCUVJYDEXSXPUURFVEZXSXTUURFVEWFWBVKUYKU
+      XRYRBXKUYKUXQYMUXDYQUYKUWMYJUXPYLYIXPUURFVEUYKUVIYCUVPYKEUYLYHXPUURFVEZWF
+      WBUYKUXCYOUWAYPYNXPUURFVEUYKXSXSUVPYKUURFUYKWGUYKXSWHUYMWIWBVNVKVNVKVNVKV
+      LWJUFUWJUUMABQCDRSTUAWKWLWMXGXHUFWNWMXJXJXNUUFUUCUULXJWOXMUUEUPXLMUPXNUUF
+      UTXKNXLMNXKOWPZMXLPWPZWQUYOXMXLUUEMFVQWRUUBUUKDXLMXPXLUBXPMUBUUBUUKXLMXPU
+      YOWLUUAUUJXRYTUUIAXKNXSXKUBXSNUBYTUUIXKNXSUYNWLYGUUGYSUUHYFYFCXLMXTXLUBXT
+      MUBYFXLMXTUYOWLWSWTYRYRBXKNYHXKUBYHNUBYRXKNYHUYNWLWSWTXAXBWTXCXBWTXDXE $.
+      $( [20-Sep-2010] $) $( [12-Jul-2010] $)
+  $}
+
+  ${
+    $d A a b g h $.  $d B a b g h $.  $d G a b g h $.  $d H a b g h $.
+    $d R a b g h u v x y z $.  $d W a b g h $.  $d X a b g h $.
+    vecval3b.1 $e |- X = ran G $.
+    vecval3b.2 $e |- G = ( 1st ` ( 1st ` R ) ) $.
+    vecval3b.3 $e |- H = ( 2nd ` ( 1st ` R ) ) $.
+    vecval3b.4 $e |- A = ( 1st ` ( 2nd ` R ) ) $.
+    vecval3b.5 $e |- B = ( 2nd ` ( 2nd ` R ) ) $.
+    vecval3b.6 $e |- W = ran A $.
+    $( The "axioms" of a vector space or module. $)
+    vecval3b $p |- ( R e. Vec ->
+      ( A e. Abel /\ B : ( X X. W ) --> W
+       /\ A. u e. W ( ( ( Id ` H ) B u ) = u
+          /\ A. x e. X (
+             A. v e. W
+                 ( x B ( u A v ) ) = ( ( x B u ) A ( x B v ) )
+             /\ A. y e. X ( ( ( x G y ) B u ) = ( ( x B u ) A ( y B u ) )
+             /\ ( ( x H y ) B u ) = ( x B ( y B u ) ) ) ) ) ) ) $=
+      ( vz vg vh va vb cvec wcel cv cop wceq cabl crn cxp wf cgi cfv co wral
+      wa w3a wex cab df-vec eleq2i c1st c2nd wb feq23 rneq xpeq1 syl eqidd
+      sylanc eleq2d opreq opreq1d eqeq1d anbi1d imbi12d ralbidv2 anbi2d
+      raleqbidv ralbidv 3anbi23d fveq2 anbi12d 3anbi3d eleq1 xpeq2 opreq2d
+      eqeq12d eqeq2d 3anbi123d feq1 opreq12d id opreq123d eqcomi eleq1i a1i
+      rneqi eqtr4i xpeq12i feq123 mp3an fveq2i equid opreq123i eqeq1i opreqi
+      eqeq12i imbi12i ralbii2 anbi12i bitrd eloi sylbi ) GUCUDGRUESUEZTUEZUFUAU
+      EZUBUEZUFUFUGXQUHUDZXOUIZXQUIZUJZYAXRUKZXPULUMZDUEZXRUNZYEUGZAUEZYECUEZXQ
+      UNZXRUNZYHYEXRUNZYHYIXRUNZXQUNZUGZCYAUOZYHBUEZXOUNZYEXRUNZYLYQYEXRUNZXQUN
+      ZUGZYHYQXPUNZYEXRUNZYHYTXRUNZUGZUPZBXTUOZUPZAXTUOZUPZDYAUOZUQZUPUBURUAURT
+      URSURRUSZUDEUHUDZKJUJZJFUKZIULUMZYEFUNZYEUGZYHYEYIEUNZFUNZYHYEFUNZYHYIFUN
+      ZEUNZUGZCJUOZYHYQHUNZYEFUNZUVCYQYEFUNZEUNZUGZYHYQIUNZYEFUNZYHUVJFUNZUGZUP
+      ZBKUOZUPZAKUOZUPZDJUOZUQZUCUUNGABRCDSTUAUBUTVAUUMXSGVBUMZVBUMZUIZYAUJZYAX
+      RUKZYGYPYHYQUWEUNZYEXRUNZUUAUGZUUFUPZBUWFUOZUPZAUWFUOZUPZDYAUOZUQXSUWHUWD
+      VCUMZULUMZYEXRUNZYEUGZYPUWKYHYQUWRUNZYEXRUNZUUEUGZUPZBUWFUOZUPZAUWFUOZUPZ
+      DYAUOZUQGVCUMZVBUMZUHUDZUWFUXLUIZUJZUXNXRUKZUXAYHYEYIUXLUNZXRUNZYLYMUXLUN
+      ZUGZCUXNUOZUWJYLYTUXLUNZUGZUXDUPZBUWFUOZUPZAUWFUOZUPZDUXNUOZUQZUWCRSTUBUA
+      GXOUWEUGZYCUWHUULUWQXSYBUWGUGZYAYAUGYCUWHVDUYKYBYAUWGYAXRVEUYKXTUWFUGUYLX
+      OUWEVFZXTUWFYAVGVHUYKYAVIVJUYKUUKUWPDYAUYKUUJUWOYGUYKUUIUWNAXTUWFUYMUYKUU
+      HUWMYPUYKUUGUWLBXTUWFUYKYQXTUDYQUWFUDZUUGUWLUYKXTUWFYQUYMVKUYKUUBUWKUUFUY
+      KYSUWJUUAUYKYRUWIYEXRYHYQXOUWEVLVMVNVOVPVQVRVSVRVTWAXPUWRUGZUWQUXJXSUWHUY
+      OUWPUXIDYAUYOYGUXAUWOUXHUYOYFUWTYEUYOYDUWSYEXRXPUWRULWBVMVNUYOUWNUXGAUWFU
+      YOUWMUXFYPUYOUWLUXEBUWFUYOUUFUXDUWKUYOUUDUXCUUEUYOUUCUXBYEXRYHYQXPUWRVLVM
+      VNVRVTVRVTWCVTWDXQUXLUGZXSUXMUWHUXPUXJUYIXQUXLUHWEUWGUXOUGZYAUXNUGZUWHUXP
+      VDUYPUWGYAUXOUXNXRVEUYPUYRUYQXQUXLVFZYAUXNUWFWFVHUYSVJUYPUXIUYHDYAUXNUYPY
+      EYAUDYEUXNUDZUXIUYHUYPYAUXNYEUYSVKUYPUXHUYGUXAUYPUXGUYFAUWFUYPYPUYAUXFUYE
+      UYPYOUXTCYAUXNUYPYIYAUDYIUXNUDZYOUXTUYPYAUXNYIUYSVKUYPYKUXRYNUXSUYPYJUXQY
+      HXRYEYIXQUXLVLWGYLYMXQUXLVLWHVPVQUYPUXEUYDBUWFUYPUWKUYCUXDUYPUUAUYBUWJYLY
+      TXQUXLVLWIVOVTWCVTVRVPVQWJXRUXKVCUMZUGZUYJUXMUXOUXNVUBUKZUWSYEVUBUNZYEUGZ
+      YHUXQVUBUNZYHYEVUBUNZYHYIVUBUNZUXLUNZUGZCUXNUOZUWIYEVUBUNZVUHYQYEVUBUNZUX
+      LUNZUGZUXBYEVUBUNZYHVUNVUBUNZUGZUPZBUWFUOZUPZAUWFUOZUPZDUXNUOZUQUWCVUCUXP
+      VUDUYIVVEUXMUXOUXNXRVUBWKVUCUYHVVDDUXNVUCUXAVUFUYGVVCVUCUWTVUEYEUWSYEXRVU
+      BVLVNVUCUYFVVBAUWFVUCUYAVULUYEVVAVUCUXTVUKCUXNVUCUXRVUGUXSVUJYHUXQXRVUBVL
+      VUCYLVUHYMVUIUXLYHYEXRVUBVLZYHYIXRVUBVLWLWHVTVUCUYDVUTBUWFVUCUYCVUPUXDVUS
+      VUCUWJVUMUYBVUOUWIYEXRVUBVLVUCYLVUHYTVUNUXLVVFYQYEXRVUBVLZWLWHVUCUXCVUQUU
+      EVURUXBYEXRVUBVLVUCYHYHYTVUNXRVUBVUCWMVUCYHVIVVGWNWHWCVTWCVTWCVTWAVUCUXMU
+      UOVUDUUQVVEUWBUXMUUOVDVUCUXLEUHEUXLOWOZWPWQVUDUUQVDZVUCVUBFUGUXOUUPUGUXNJ
+      UGVVIFVUBPWOZUWFKUXNJUWFHUIKUWEHHUWEMWOZWRLWSZUXNEUIJUXLEVVHWRQWSZWTVVMUX
+      OUXNUUPJVUBFXAXBWQVVEUWBVDVUCVVDUWADUXNJUYTYEJUDVVDUWAUXNJYEVVMVAVUFUUTVV
+      CUVTVUEUUSYEUWSYEUURYEVUBFUWRIULIUWRNWOZXCDXDZVVJXEXFVVBUVSAUWFKYHUWFUDYH
+      KUDVVBUVSUWFKYHVVLVAVULUVGVVAUVRVUKUVFCUXNJVUAYIJUDVUKUVFUXNJYIVVMVAVUGUV
+      BVUJUVEYHUXQYHUVAVUBFAXDZUXLEYEYIVVHXGVVJXEVUHVUIUVCUVDUXLEVUBFYHYEVVJXGZ
+      VUBFYHYIVVJXGVVHXEXHXIXJVUTUVQBUWFKUYNYQKUDVUTUVQUWFKYQVVLVAVUPUVLVUSUVPV
+      UMUVIVUOUVKUWIYEUVHYEVUBFUWEHYHYQVVKXGVVOVVJXEVUHVUNUVCUVJUXLEVVQVUBFYQYE
+      VVJXGZVVHXEXHVUQUVNVURUVOUXBYEUVMYEVUBFUWRIYHYQVVNXGVVOVVJXEYHVUNYHUVJVUB
+      FVVPVVRVVJXEXHXKXIXJXKXIXJXKXIXJWQWJXLXMXN $.
+      $( [20-Sep-2010] $) $( [12-Jul-2010] $)
+  $}
+
+  ${
+    $d R w x y z $.
+    vecax1.1 $e |- +w = ( 1st ` ( 2nd ` R ) ) $.
+    $( 1st "axiom" of a vector space or module.  The vector addition is an
+       abelian group. $)
+    vecax1 $p |- ( R e. Vec -> +w e. Abel ) $=
+      ( vw vx vz vy cvec wcel cabl c1st cfv crn cxp c2nd wf cgi cv co wceq
+      wral wa eqid vecval3b 3simp1d ) AHIBJIAKLZKLZMZBMZNUIAOLOLZPUFOLZQLDRZUJS
+      ULTERZULFRZBSUJSUMULUJSZUMUNUJSBSTFUIUAUMGRZUGSULUJSUOUPULUJSZBSTUMUPUKSU
+      LUJSUMUQUJSTUBGUHUAUBEUHUAUBDUIUAEGFDBUJAUGUKUIUHUHUCUGUCUKUCCUJUCUIUCUDU
+      E $.
+      $( [20-Sep-2010] $) $( [14-Sep-2010] $)
+  $}
+
+  ${
+    $d R w x y z $.
+    vecax2.1 $e |- X = ran ( 1st ` ( 1st ` R ) ) $.
+    vecax2.5 $e |- .w = ( 2nd ` ( 2nd ` R ) ) $.
+    vecax2.6 $e |- W = ran ( 1st ` ( 2nd ` R ) ) $.
+    $( 2nd "axiom" of a vector space or module.  Domain, codomain and
+       functionality of the multiplication of a vector by a scalar. $)
+    vecax2 $p |- ( R e. Vec -> .w : ( X X. W ) --> W ) $=
+      ( vw vx vz vy cvec wcel c2nd cfv c1st cabl cxp wf cgi cv co wceq wral wa
+      eqid vecval3b 3simp2d ) ALMANOPOZQMCBRBDSAPOZNOZTOHUAZDUBULUCIUAZULJUAZUI
+      UBDUBUMULDUBZUMUNDUBUIUBUCJBUDUMKUAZUJPOZUBULDUBUOUPULDUBZUIUBUCUMUPUKUBU
+      LDUBUMURDUBUCUEKCUDUEICUDUEHBUDIKJHUIDAUQUKBCEUQUFUKUFUIUFFGUGUH $.
+      $( [20-Sep-2010] $) $( [14-Sep-2010] $)
+  $}
+
+  ${
+    $d R u x y z $.
+    vecax3.2 $e |- .w = ( 2nd ` ( 2nd ` R ) ) $.
+    vecax3.3 $e |- W = ran ( 1st ` ( 2nd ` R ) ) $.
+    vecax3.4 $e |- 1t = ( Id ` ( 2nd ` ( 1st ` R ) ) ) $.
+    $( 3rd "axiom" of a vector space or module.  Multiplication by 1. $)
+    vecax3 $p |- ( R e. Vec -> A. u e. W ( 1t .w u ) = u ) $=
+      ( vx vz vy cvec wcel cv co wceq c2nd cfv c1st wral wa crn cabl cxp wf
+      cgi w3a eqid vecval3b opreq1i eqeq1i anbi1i ralbii 3anbi3i sylibr
+      3simp3d pm3.26 r19.20si syl ) BLMZDANZEOZVAPZINZVAJNZBQRSRZOEOVDVAEOZVDVE
+      EOVFOPJCTVDKNZBSRZSRZOVAEOVGVHVAEOZVFOPVDVHVIQRZOVAEOVDVKEOPUAKVJUBZTUAIV
+      MTZUAZACTZVCACTUTVFUCMZVMCUDCEUEZVPUTVQVRVLUFRZVAEOZVAPZVNUAZACTZUGVQVRVP
+      UGIKJAVFEBVJVLCVMVMUHVJUHVLUHVFUHFGUIVPWCVQVRVOWBACVCWAVNVBVTVADVSVAEHUJU
+      KULUMUNUOUPVOVCACVCVNUQURUS $.
+      $( [20-Sep-2010] $) $( [13-Sep-2010] $)
+  $}
+
+  ${
+    $d R u v x y $.
+    vecax4.1 $e |- X = ran ( 1st ` ( 1st ` R ) ) $.
+    vecax4.4 $e |- +w = ( 1st ` ( 2nd ` R ) ) $.
+    vecax4.5 $e |- .w = ( 2nd ` ( 2nd ` R ) ) $.
+    vecax4.6 $e |- W = ran ( 1st ` ( 2nd ` R ) ) $.
+    $( 4th "axiom" of a vector space or module.  Multiplication by a scalar
+       distributes over vector addition. $)
+    vecax4 $p |- ( R e. Vec ->
+          A. u e. W A. x e. X
+             A. v e. W
+                 ( x .w ( u +w v ) ) = ( ( x .w u ) +w ( x .w v ) ) ) $=
+      ( vy cvec wcel c1st cfv c2nd cgi cv co wceq wral wa cabl cxp wf eqid crn
+      eqcomi rneqi eqtri vecval3b 3simp3d pm3.26 r19.20si adantl syl ) DNOZDPQZ
+      RQZSQCTZHUAVBUBZATZVBBTZGUAHUAVDVBHUAZVDVEHUAGUAUBBEUCZVDMTZUTPQZUAVBHUAV
+      FVHVBHUAZGUAUBVDVHVAUAVBHUAVDVJHUAUBUDMFUCZUDZAFUCZUDZCEUCZVGAFUCZCEUCUSG
+      UEOFEUFEHUGVOAMBCGHDVIVAEFIVIUHVAUHJKEDRQPQZUIGUILVQGGVQJUJUKULUMUNVNVPCE
+      VMVPVCVLVGAFVGVKUOUPUQUPUR $.
+      $( [20-Sep-2010] $) $( [13-Sep-2010] $)
+  $}
+
+  ${
+    $d R u x y z $.
+    vecax5.1 $e |- X = ran ( 1st ` ( 1st ` R ) ) $.
+    vecax5.2 $e |- +t = ( 1st ` ( 1st ` R ) ) $.
+    vecax5.4 $e |- +w = ( 1st ` ( 2nd ` R ) ) $.
+    vecax5.5 $e |- .w = ( 2nd ` ( 2nd ` R ) ) $.
+    vecax5.6 $e |- W = ran ( 1st ` ( 2nd ` R ) ) $.
+    $( 5th "axiom" of a vector space or module.  Multiplication by a sum of
+       scalars. $)
+    vecax5 $p |- ( R e. Vec -> A. u e. W A. x e. X A. y e. X
+        ( ( x +t y ) .w u ) = ( ( x .w u ) +w ( y .w u ) ) ) $=
+      ( vz cvec wcel c1st cfv c2nd cgi cv co wceq wral wa cabl cxp wf crn
+      eqcomi rneqi eqtri eqid vecval3b 3simp3d pm3.26 r19.20si adantl syl ) DPQ
+      ZDRSZTSZUASCUBZIUCVDUDZAUBZVDOUBZHUCIUCVFVDIUCZVFVGIUCHUCUDOEUEZVFBUBZGUC
+      VDIUCVHVJVDIUCZHUCUDZVFVJVCUCVDIUCVFVKIUCUDZUFZBFUEZUFZAFUEZUFZCEUEZVLBFU
+      EZAFUEZCEUEVAHUGQFEUHEIUIVSABOCHIDGVCEFFVBRSZUJGUJJWBGGWBKUKULUMKVCUNLMED
+      TSRSZUJHUJNWCHHWCLUKULUMUOUPVRWACEVQWAVEVPVTAFVOVTVIVNVLBFVLVMUQURUSURUSU
+      RUT $.
+      $( [20-Sep-2010] $) $( [13-Sep-2010] $)
+  $}
+
+  ${
+    $d R u x y z $.
+    vecax6.1 $e |- X = ran ( 1st ` ( 1st ` R ) ) $.
+    vecax6.3 $e |- .t = ( 2nd ` ( 1st ` R ) ) $.
+    vecax6.5 $e |- .w = ( 2nd ` ( 2nd ` R ) ) $.
+    vecax6.6 $e |- W = ran ( 1st ` ( 2nd ` R ) ) $.
+    $( 6th "axiom" of a vector space or module.  Relation between scalar
+       multiplication and vector multiplication. $)
+    vecax6 $p |- ( R e. Vec -> A. u e. W A. x e. X A. y e. X
+       ( ( x .t y ) .w u ) = ( x .w ( y .w u ) ) ) $=
+      ( vz cvec wcel cgi cfv cv co wceq c2nd c1st wral wa cabl cxp wf eqid
+      vecval3b 3simp3d pm3.27 r19.20si adantl syl ) DNOZGPQCRZHSUPTZARZUPMRZDUA
+      QUBQZSHSURUPHSZURUSHSUTSTMEUCZURBRZDUBQUBQZSUPHSVAVCUPHSZUTSTZURVCGSUPHSU
+      RVEHSTZUDZBFUCZUDZAFUCZUDZCEUCZVGBFUCZAFUCZCEUCUOUTUEOFEUFEHUGVMABMCUTHDV
+      DGEFIVDUHJUTUHKLUIUJVLVOCEVKVOUQVJVNAFVIVNVBVHVGBFVFVGUKULUMULUMULUN $.
+      $( [20-Sep-2010] $) $( [13-Sep-2010] $)
+  $}
+
+  ${
+    $d +t u x y $.  $d +w u x y $.  $d .w u x y $.  $d A x y $.  $d B y $.
+    $d R u x y $.  $d U u x y $.  $d W u $.  $d X u x y $.
+    vecax5b.1 $e |- X = ran ( 1st ` ( 1st ` R ) ) $.
+    vecax5b.2 $e |- +t = ( 1st ` ( 1st ` R ) ) $.
+    vecax5b.4 $e |- +w = ( 1st ` ( 2nd ` R ) ) $.
+    vecax5b.5 $e |- .w = ( 2nd ` ( 2nd ` R ) ) $.
+    vecax5b.6 $e |- W = ran ( 1st ` ( 2nd ` R ) ) $.
+    $( Multiplication by a sum of scalars. $)
+    vecax5b $p |- ( ( R e. Vec /\ ( U e. W /\ A e. X /\ B e. X ) ) ->
+        ( ( A +t B ) .w U ) = ( ( A .w U ) +w ( B .w U ) ) ) $=
+      ( vx vy vu cvec wcel cv co wceq wral w3a vecax5 opreq2 opreq12d eqeq12d
+      opreq1 opreq1d opreq2d rcla43v mpan9 ) CRSOTZPTZGUAZQTZIUAZUNUQIUAZUOUQIU
+      AZHUAZUBZPFUCOFUCQEUCDESAFSBFSUDABGUAZDIUAZADIUAZBDIUAZHUAZUBZOPQCEFGHIJK
+      LMNUEVBVHUPDIUAZUNDIUAZUODIUAZHUAZUBAUOGUAZDIUAZVEVKHUAZUBQOPDABEFFUQDUBZ
+      URVIVAVLUQDUPIUFVPUSVJUTVKHUQDUNIUFUQDUOIUFUGUHUNAUBZVIVNVLVOVQUPVMDIUNAU
+      OGUIUJVQVJVEVKHUNADIUIUJUHUOBUBZVNVDVOVGVRVMVCDIUOBAGUFUJVRVKVFVEHUOBDIUI
+      UKUHULUM $.
+      $( [20-Sep-2010] $) $( [13-Sep-2010] $)
+  $}
+
+  ${
+    claddinvvec.1 $e |- W = ran ( 1st ` ( 2nd ` R ) ) $.
+    claddinvvec.2 $e |- ~w = ( inv ` ( 1st ` ( 2nd ` R ) ) ) $.
+    $( Closure of the additive inverse of a vector. $)
+    claddinvvec $p |- ( ( R e. Vec
+        /\ U e. W )
+          -> ( ~w ` U ) e. W ) $=
+      ( cvec wcel cfv c2nd c1st cabl wi eqid vecax1 cgr ablgrp grpinvcl ex syl
+      imp ) AGHZBCHZBDICHZUBAJIKIZLHZUCUDMZAUEUENOUFUEPHZUGUEQUHUCUDBUEDCEFRSTT
+      UA $.
+      $( [20-Sep-2010] $) $( [13-Sep-2010] $)
+
+    $( Double inverse law for vector additive inverse. $)
+    vec2inv $p |- ( ( R e. Vec /\ U e. W ) -> ( ~w ` ( ~w ` U ) ) = U ) $=
+      ( cvec wcel cfv wceq c2nd c1st cabl cgr wi eqid vecax1 ablgrp grp2inv ex
+      3syl imp ) AGHZBCHZBDIDIBJZUCAKILIZMHUFNHZUDUEOAUFUFPQUFRUGUDUEBUFDCEFSTU
+      AUB $.
+      $( [20-Sep-2010] $) $( [13-Sep-2010] $)
+  $}
+
+
+  ${
+    sum2vv.1 $e |- +w = ( 1st ` ( 2nd ` R ) ) $.
+    sum2vv.2 $e |- W = ran +w $.
+    $( The sum of two vectors is a vector. $)
+    sum2vv $p |- ( ( R e. Vec /\ V1 e. W /\ V2 e. W )
+      -> ( V1 +w V2 ) e. W ) $=
+      ( cvec wcel co cabl cgr wi vecax1 ablgrp grpcl 3exp 3syl 3imp ) AHIZCBIZD
+      BIZCDEJBIZTEKIELIZUAUBUCMMAEFNEOUDUAUBUCCDEBGPQRS $.
+      $( [20-Sep-2010] $) $( [13-Sep-2010] $)
+
+    ${
+      addnull1.1 $e |- 0w = ( Id ` +w ) $.
+      $( Addition of the null vector. $)
+      addnull1 $p |- ( ( R e. Vec /\ U e. W )
+        -> ( U +w 0w ) = U ) $=
+        ( cgr wcel co wceq cvec grprid cabl vecax1 ablgrp syl sylan ) DIJZBCJBE
+        DKBLAMJZBEDCGHNUADOJTADFPDQRS $.
+        $( [20-Sep-2010] $) $( [13-Sep-2010] $)
+
+
+      $( Addition of the null vector. $)
+      addnull2 $p |- ( ( R e. Vec /\ U e. W )
+        -> ( 0w +w U ) = U ) $=
+        ( cvec wcel co wceq cabl cgr wi vecax1 ablgrp grplid ex 3syl imp ) AIJZ
+        BCJZEBDKBLZUBDMJDNJZUCUDOADFPDQUEUCUDBEDCGHRSTUA $.
+        $( [20-Sep-2010] $) $( [13-Sep-2010] $)
+    $}
+
+
+    $( The addition of vectors is associative. $)
+    addvecass $p |- ( ( R e. Vec /\ ( V1 e. W /\ V2 e. W /\ V3 e. W ) )
+       -> ( V1 +w ( V2 +w V3 ) ) = ( ( V1 +w V2 ) +w V3 ) ) $=
+      ( cvec wcel w3a co wceq cabl cgr wi vecax1 ablgrp wa grpass eqcomd ex
+      3syl imp ) AIJZCBJDBJEBJKZCDEFLFLZCDFLEFLZMZUEFNJFOJZUFUIPAFGQFRUJUFUIUJU
+      FSUHUGCDEFBHTUAUBUCUD $.
+      $( [20-Sep-2010] $) $( [13-Sep-2010] $)
+
+
+    $( The addition of vectors is associative. $)
+    addvecom $p |- ( ( R e. Vec /\ ( V1 e. W /\ V2 e. W ) )
+       -> ( V1 +w V2 ) = ( V2 +w V1 ) ) $=
+      ( cvec wcel wa co wceq cabl wi vecax1 ablcom 3expib syl imp ) AHIZCBIZDBI
+      ZJZCDEKDCEKLZTEMIZUCUDNAEFOUEUAUBUDCDEBGPQRS $.
+      $( [20-Sep-2010] $) $( [13-Sep-2010] $)
+
+    ${
+      invaddvec.2 $e |- ~w = ( inv ` +w ) $.
+      $( Additive inverse of a sum of vectors. $)
+      invaddvec $p |- ( ( R e. Vec /\ ( V1 e. W /\ V2 e. W ) )
+         -> ( ~w ` ( V1 +w V2 ) ) = ( ( ~w ` V1 ) +w ( ~w ` V2 ) ) ) $=
+        ( cvec wcel wa co cfv wceq cabl cgr wi vecax1 ablgrp grpinvop 3expib
+        3syl imp crn c2nd c1st rneqi eqtri cgn fveq2i claddinvvec ex anim12d
+        ancomd addvecom syldan eqtrd ) AJKZCBKZDBKZLZLZCDEMFNZDFNZCFNZEMZVFVEEM
+        ZUSVBVDVGOZUSEPKEQKZVBVIRAEGSETVJUTVAVICDEFBHIUAUBUCUDUSVBVEBKZVFBKZLVG
+        VHOVCVLVKUSVBVLVKLUSUTVLVAVKUSUTVLACBFBEUEAUFNUGNZUEHEVMGUHUIZFEUJNVMUJ
+        NIEVMUJGUKUIZULUMUSVAVKADBFVNVOULUMUNUDUOABVEVFEGHUPUQUR $.
+        $( [20-Sep-2010] $) $( [13-Sep-2010] $)
+    $}
+  $}
+
+  ${
+    prodvs.1 $e |- +w = ( 1st ` ( 2nd ` R ) ) $.
+    prodvs.2 $e |- .w = ( 2nd ` ( 2nd ` R ) ) $.
+    prodvs.3 $e |- W = ran +w $.
+    prodvs.4 $e |- X = ran +t $.
+    prodvs.5 $e |- +t = ( 1st ` ( 1st ` R ) ) $.
+    $( The product of a vector by a scalar is a vector. $)
+    prodvs $p |- ( ( R e. Vec /\ A e. X /\ U e. W )
+      -> ( A .w U ) e. W ) $=
+      ( cxp wf wcel co cvec foprrn crn c1st cfv rneqi eqtri c2nd vecax2
+      syl3an1 ) EDNDHOAEPCDPACHQDPBRPACDEDHSBDEHEFTBUAUBUAUBZTLFUHMUCUDJDGTBUEU
+      BUAUBZTKGUIIUCUDUFUG $.
+      $( [20-Sep-2010] $) $( [12-Sep-2010] $)
+  $}
+
+  ${
+    vecsrcan.1 $e |- -w = ( /g ` +w ) $.
+    vecsrcan.2 $e |- W = ran +w $.
+    vecsrcan.3 $e |- +w = ( 1st ` ( 2nd ` R ) ) $.
+    $( Right cancellation law for vector substraction. $)
+    vecsrcan $p |- ( ( R e. Vec /\ ( V1 e. W /\ V2 e. W /\ V3 e. W ) ) ->
+                  ( ( V1 -w V3 ) = ( V2 -w V3 ) <-> V1 = V2 ) ) $=
+      ( cvec wcel w3a co wceq wb cabl cgr wi vecax1 ablgrp grpdrcan ex 3syl
+      imp ) AKLZCBLDBLEBLMZCEGNDEGNOCDOPZUFFQLFRLZUGUHSAFJTFUAUIUGUHCDEGFBIHUBU
+      CUDUE $.
+      $( [20-Sep-2010] $) $( [12-Sep-2010] $)
+
+
+    $( Left cancellation law for vector substraction. $)
+    vecslcan $p |- ( ( R e. Vec /\ ( V1 e. W /\ V2 e. W /\ V3 e. W ) ) ->
+                  ( ( V3 -w V1 ) = ( V3 -w V2 ) <-> V1 = V2 ) ) $=
+      ( cvec wcel w3a co wceq wb cabl cgr wi vecax1 ablgrp grpdlcan ex 3syl
+      imp ) AKLZCBLDBLEBLMZECGNEDGNOCDOPZUFFQLFRLZUGUHSAFJTFUAUIUGUHCDEGFBIHUBU
+      CUDUE $.
+      $( [20-Sep-2010] $) $( [12-Sep-2010] $)
+
+  $}
+
+
+  ${
+    vwit.1 $e |- 0w = ( Id ` +w ) $.
+    vwit.2 $e |- +w = ( 1st ` ( 2nd ` R ) ) $.
+    vwit.3 $e |- -w = ( /g ` +w ) $.
+    vwit.4 $e |- W = ran +w $.
+    $( A vector minus itself equals zero. $)
+    vwit $p |- ( ( R e. Vec /\ U e. W ) -> ( U -w U ) = 0w ) $=
+      ( cgr wcel co wceq cvec grpdivid cabl vecax1 ablgrp syl sylan ) DKLZBCLBB
+      EMFNAOLZBEFDCJIGPUCDQLUBADHRDSTUA $.
+      $( [20-Sep-2010] $) $( [12-Sep-2010] $)
+
+    ${
+      vwit.5 $e |- ~w = ( inv ` +w ) $.
+      $( Definition of the substraction of two vectors. $)
+      sub2vec $p |- ( ( R e. Vec /\ ( V1 e. W /\ V2 e. W ) )
+        -> ( V1 -w V2 ) = ( V1 +w ( ~w ` V2 ) ) ) $=
+        ( cgr wcel co cfv wceq cvec wa grpdivval cabl vecax1 ablgrp syl adantr
+        simprl simprr syl3anc ) ENOZCBOZDBOZCDFPCDHQEPRASOZUKULTZTCDFEHBLMKUAUM
+        UJUNUMEUBOUJAEJUCEUDUEUFUMUKULUGUMUKULUHUI $.
+        $( [20-Sep-2010] $) $( [12-Sep-2010] $)
+    $}
+
+    $( Moving a vector from the right member of an equation into the left
+       member. $)
+    mvecrtol $p |- ( ( R e. Vec /\ ( V1 e. W /\ V2 e. W ) )
+         -> ( V1 = V2 <-> ( V1 -w V2 ) = 0w ) ) $=
+      ( cvec wcel wa co wceq cgr w3a wb grpdrcan cabl vecax1 ablgrp syl adantr
+      simprl simprr 3jca sylanc vwit adantrl eqeq2d bitr3d ) ALMZCBMZDBMZNZNZCD
+      FOZDDFOZPZCDPZUSGPEQMZUOUPUPRVAVBSURCDDFEBKJTUNVCUQUNEUAMVCAEIUBEUCUDUEUR
+      UOUPUPUNUOUPUFUNUOUPUGZVDUHUIURUTGUSUNUPUTGPUOADBEFGHIJKUJUKULUM $.
+      $( [20-Sep-2010] $) $( [12-Sep-2010] $)
+
+
+    $( Double substraction of vectors. $)
+    dblsubvec $p |- ( ( R e. Vec /\ ( V1 e. W /\ V2 e. W /\ V3 e. W ) )
+         -> ( ( V1 -w V2 ) -w V3 ) = ( V1 -w ( V2 +w V3 ) ) ) $=
+      ( cvec wcel w3a wa co cgn cfv wceq eqid sub2vec 3adantr3 opreq1d pm3.26
+      sum2vv 3simpr1 crn c2nd c1st rneqi eqtri fveq2i claddinvvec 3ad2antr2
+      syl3anc 3simpr3 sylan32c invaddvec 3adantr1 eqcomd opreq2d 3ad2antr3
+      3jca addvecass syldan 3adant3r1 3eqtr4d 3eqtrd ) AMNZCBNZDBNZEBNZOZPZCDGQ
+      ZEGQCDFRSZSZFQZEGQZVSEVQSZFQZCDEFQZGQZVOVPVSEGVJVKVLVPVSTVMABCDFGHVQIJKLV
+      QUAZUBUCUDVJVSBNZVMVTWBTVOVJVNUEZVJVKVRBNZWFVOABCVRFJLUFWGVJVKVLVMUGZVJVK
+      VLWHVMADBVQBFUHAUISUJSZUHLFWJJUKULZFWJRJUMZUNUOZUPVJVKVLVMUQABVSEFGHVQIJK
+      LWEUBURVOCVRWAFQZFQZCWCVQSZFQZWBWDVOWNWPCFVOWPWNVJVLVMWPWNTVKABDEFVQJLWEU
+      SUTVAVBVJVNVKWHWABNZOZWBWOTVOVKWHWRWIWMVJVKVMWRVLAEBVQWKWLUNVCVDVJWSPWOWB
+      ABCVRWAFJLVEVAVFVJVKWCBNZWDWQTVOWGWIVJVLVMWTVKABDEFJLUFVGABCWCFGHVQIJKLWE
+      UBURVHVI $.
+      $( [20-Sep-2010] $) $( [12-Sep-2010] $)
+
+    ${
+      vecrcan.1 $e |- +w = ( 1st ` ( 2nd ` R ) ) $.
+      vecrcan.2 $e |- W = ran +w $.
+      $( Right cancellation law for vector addition. $)
+      vecrcan $p |- ( ( R e. Vec /\ ( V1 e. W /\ V2 e. W /\ V3 e. W ) ) ->
+                  ( ( V1 +w V3 ) = ( V2 +w V3 ) <-> V1 = V2 ) ) $=
+        ( cvec wcel w3a co wceq wb cabl cgr wi vecax1 ablgrp grprcan ex 3syl
+        imp ) AOPZCBPDBPEBPQZCEFRDEFRSCDSTZUJFUAPFUBPZUKULUCAFJUDFUEUMUKULCDEFB
+        LUFUGUHUI $.
+        $( [20-Sep-2010] $) $( [12-Sep-2010] $)
+
+
+      $( Left cancellation law for vector addition. $)
+      veclcan $p |- ( ( R e. Vec /\ ( V1 e. W /\ V2 e. W /\ V3 e. W ) ) ->
+                  ( ( V3 +w V1 ) = ( V3 +w V2 ) <-> V1 = V2 ) ) $=
+        ( cvec wcel w3a co wceq wb cabl cgr wi vecax1 ablgrp grplcan ex 3syl
+        imp ) AOPZCBPDBPEBPQZECFREDFRSCDSTZUJFUAPFUBPZUKULUCAFJUDFUEUMUKULCDEFB
+        LUFUGUHUI $.
+        $( [20-Sep-2010] $) $( [12-Sep-2010] $)
+    $}
+
+
+    $( Moving a vector from the right member of an equation into the left
+       member. $)
+    mvecrtol2 $p |- ( ( R e. Vec /\ ( V1 e. W /\ V2 e. W /\ V3 e. W ) )
+         -> ( V1 = ( V2 +w V3 ) <-> ( V1 -w V2 ) = V3 ) ) $=
+      ( cvec wcel w3a wa co wceq cgr wb grpdrcan cabl vecax1 ablgrp syl adantr
+      3simpr1 sum2vv 3adant3r1 3simpr2 3jca sylanc addvecom 3adantr1 opreq1d
+      cgn cfv pm3.26 wi 3exp com3l impcom 3adant1 eqid sub2vec sylan32c
+      3simpr3 crn c2nd c1st rneqi eqtri fveq2i claddinvvec 3ad2antr2 addvecass
+      syldan 3simp2 jca sylan2 eqcomd opreq2d 3eqtr2d vwit addnull1 3ad2antr3
+      eqtrd 3eqtrd eqeq2d bitr3d ) AMNZCBNZDBNZEBNZOZPZCDGQZDEFQZDGQZRZCWRRZWQE
+      RFSNZWLWRBNZWMOWTXATWPCWRDGFBLKUAWKXBWOWKFUBNXBAFJUCFUDUEUFWPWLXCWMWKWLWM
+      WNUGWKWMWNXCWLABDEFJLUHUIWKWLWMWNUJZUKULWPWSEWQWPWSEDFQZDGQZEDDGQZFQZEWPW
+      RXEDGWKWMWNWRXERWLABDEFJLUMUNUOWPXFXEDFUPUQZUQZFQZEDXJFQZFQZXHWKXEBNZWMXF
+      XKRWPWKWOURWOWKXNWMWNWKXNUSZWLWNWMXOWKWNWMXNWKWNWMXNABEDFJLUHUTVAVBVCVBXD
+      ABXEDFGHXIIJKLXIVDZVEVFWKWOWNWMXJBNZOXMXKRWPWNWMXQWKWLWMWNVGXDWKWLWMXQWNA
+      DBXIBFVHAVIUQVJUQZVHLFXRJVKVLFXRUPJVMVNVOUKABEDXJFJLVPVQWPXLXGEFWPXGXLWKW
+      MWMPXGXLRWOABDDFGHXIIJKLXPVEWOWMWMWLWMWNVRZXSVSVTWAWBWCWPXHEHFQZEWPXGHEFW
+      KWLWMXGHRWNADBFGHIJKLWDVOWBWKWLWNXTERWMAEBFHJLIWEWFWGWHWIWJ $.
+      $( [20-Sep-2010] $) $( [12-Sep-2010] $)
+  $}
+
+  ${
+    prvs.1 $e |- X = ran ( 1st ` ( 1st ` R ) ) $.
+    prvs.2 $e |- W = ran ( 1st ` ( 2nd ` R ) ) $.
+    prvs.3 $e |- .w = ( 2nd ` ( 2nd ` R ) ) $.
+    $( The product of a vector by a scalar is a vector. $)
+    prvs $p |- ( ( R e. Vec /\ A e. X /\ U e. W ) -> ( A .w U ) e. W ) $=
+      ( cxp wf wcel co cvec foprrn vecax2 syl3an1 ) EDJDFKAELCDLACFMDLBNLACDEDF
+      OBDEFGIHPQ $.
+      $( [20-Sep-2010] $) $( [12-Sep-2010] $)
+  $}
+
+
+  ${
+    mulveczer.1 $e |- W = ran ( 1st ` ( 2nd ` R ) ) $.
+    mulveczer.2 $e |- 0t = ( Id ` +t ) $.
+    mulveczer.3 $e |- +t = ( 1st ` ( 1st ` R ) ) $.
+    mulveczer.4 $e |- .t = ( 2nd ` ( 1st ` R ) ) $.
+    mulveczer.5 $e |- .w = ( 2nd ` ( 2nd ` R ) ) $.
+    mulveczer.6 $e |- 0w = ( Id ` ( 1st ` ( 2nd ` R ) ) ) $.
+    $( Multiplication of a vector by zero. $)
+    mulveczer $p |- ( ( R e. Vec /\ <. +t , .t >. e. Ring /\
+         U e. W ) -> ( 0t .w U ) = 0w ) $=
+      ( cvec wcel cop cring w3a co c2nd cfv c1st cgs wceq crn cvv fvex eqeltri
+      op1st eqcomi eqid ring0cl wa ring0lid eqcomd mpdan 3ad2ant2 opreq1d
+      vecax5b 3simp1 3simp3 rneqi 3jca sylanc eqtrd wb mvecrtol2 prodvs
+      syl3an2 mpbid vwit eqtr3d ) AOPZDEQZRPZBCPZSZFBGTZVSAUAUBUCUBZUDUBZTZVSHV
+      RVSVSVSVTTZUEZWBVSUEZVRVSFFDTZBGTZWCVRFWFBGVPVNFWFUEZVQVPFDUFZPZWHVODWIFV
+      OUCUBDDEDAUCUBZUCUBZUGKWKUCUHUIUJUKZWIULZJUMZVPWJUNWFFFVODWIFWMWNJUOUPUQU
+      RUSVNVQFWLUFZPZWQSWGWCUEVRFFABCWPDVTGWPULKVTULZMIUTVNVPVQVAZVRVQWQWQVNVPV
+      QVBVPVNWQVQVODWPFWMWLDDWLKUKVCJUMURZWTVDVEVFVNVSCPZXAXASWDWEVGVRACVSVSVSV
+      TWAHNWRWAULZIVHWSVRXAXAXAVNWJVQXAVPFABCWIDVTGWRMIWNKVIWOVJZXCXCVDVEVKVNXA
+      WBHUEVRAVSCVTWAHNWRXBIVLWSXCVEVM $.
+      $( [20-Sep-2010] $) $( [12-Sep-2010] $)
+  $}
+
+
+  ${
+    mulinvsca.1 $e |- X = ran +t $.
+    mulinvsca.2 $e |- W = ran ( 1st ` ( 2nd ` R ) ) $.
+    mulinvsca.3 $e |- .w = ( 2nd ` ( 2nd ` R ) ) $.
+    mulinvsca.4 $e |- ~t = ( inv ` +t ) $.
+    mulinvsca.5 $e |- ~w = ( inv ` ( 1st ` ( 2nd ` R ) ) ) $.
+    mulinvsca.6 $e |- +t = ( 1st ` ( 1st ` R ) ) $.
+    mulinvsca.7 $e |- .t = ( 2nd ` ( 1st ` R ) ) $.
+    $( Multiplication by the inverse of a scalar. $)
+    mulinvsca $p |- ( ( R e. Vec /\ <. +t , .t >. e. Ring
+        /\ ( A e. X /\ U e. W ) )
+          -> ( ( ~t ` A ) .w U ) = ( ~w ` ( A .w U ) ) ) $=
+      ( cvec wcel cop cring wa w3a co cfv c2nd c1st wceq cgs 3simp1 eqid
+      prodvs 3expb 3adant2 jca cgi wi vwit pm3.26 mulveczer 3adant3l cgr
+      grprinv cvv fvex eqeltri op1st eqcomi ringgrp 3ad2ant2 3ad2ant3 sylanc
+      eqcomd opreq1d eqtr3d adantl eqtrd ex syl mpcom crn rneqi eqtri prvs
+      pm3.27 syl3anc sub2vec sylan32c vecax5b rnginvcl adantrr 3adant1 3jca
+      3eqtr3rd wb grplcan cabl vecax1 ablgrp 3ad2ant1 claddinvvec mpbid ) BRSZF
+      GTZUASZAESZCDSZUBZUCZACIUDZAHUEZCIUDZBUFUEUGUEZUDZXJXJJUEZXMUDZUHZXLXOUHZ
+      XIXJXJXMUIUEZUDZAXKFUDZCIUDZXPXNXCXJDSZUBZXIXTYBUHZXIXCYCXCXEXHUJZXCXHYCX
+      EXCXFXGYCABCDEFXMIXMUKZMLKPULUMUNZUOYDXTXMUPUEZUHZXIYEUQBXJDXMXSYIYIUKZYG
+      XSUKZLURYJXIYEYJXIUBXTYIYBYJXIUSXIYIYBUHYJXIFUPUEZCIUDZYIYBXCXEXGYNYIUHXF
+      BCDFGYMIYILYMUKZPQMYKUTVAXIYMYACIXIYAYMFVBSZXFYAYMUHXIAYMFHEKYONVCXEXCYPX
+      HXDFXDUGUEFFGFBUGUEZUGUEZVDPYQUGVEVFVGVHVIVJXHXCXFXEXFXGUSVKZVLVMVNVOVPVQ
+      VRVSVTXCYCYCXTXPUHXIYFXCXFXGYCXIABCDEIEFWAYRWAKFYRPWBWCZLMWDYFYSXHXCXGXEX
+      FXGWEVKZWFZUUBBDXJXJXMXSYIJYKYGYLLOWGWHXCXGXFXKESZUCYBXNUHXIAXKBCDEFXMIYT
+      PYGMLWIYFXIXGXFUUCUUAYSXEXHUUCXCXEXFUUCXGAFGHEKNWJWKWLZWMVLWNXMVBSZXLDSZX
+      ODSZYCUCXQXRWOXIXLXOXJXMDLWPXCXEUUEXHXCXMWQSUUEBXMYGWRXMWSVSWTXIUUFUUGYCX
+      CUUCXGUUFXIXKBCDEIYTLMWDYFUUDUUAWFXCYCUUGXIBXJDJLOXAYFYHVLYHWMVLXB $.
+      $( [20-Sep-2010] $) $( [12-Sep-2010] $)
+  $}
+
+  ${
+    $d +t u x y $.  $d .t u x y $.  $d R u x y $.  $d W x y $.  $d X y $.
+    muldisc.1 $e |- X = ran ( 1st ` ( 1st ` R ) ) $.
+    muldisc.2 $e |- +t = ( 1st ` ( 1st ` R ) ) $.
+    muldisc.4 $e |- +w = ( 1st ` ( 2nd ` R ) ) $.
+    muldisc.5 $e |- .w = ( 2nd ` ( 2nd ` R ) ) $.
+    muldisc.6 $e |- W = ran ( 1st ` ( 2nd ` R ) ) $.
+    muldisc.7 $e |- -t = ( /g ` +t ) $.
+    muldisc.8 $e |- -w = ( /g ` +w ) $.
+    muldisc.9 $e |- .t = ( 2nd ` ( 1st ` R ) ) $.
+    $( Multiplication by a difference of scalars. $)
+    muldisc $p |- ( ( R e. Vec /\ <. +t , .t >. e. Ring )
+        -> A. u e. W A. x e. X A. y e. X
+          ( ( x -t y ) .w u ) = ( ( x .w u ) -w ( y .w u ) ) ) $=
+      ( cvec wcel cop cring wa cv co wceq wral cgn cfv cgr c1st crn rneqi
+      eqcomi eqid grpdivval cvv fvex eqeltri op1st ringgrp adantl ad2antrr
+      eleq2i biimpi ad2antlr syl3anc opreq1d w3a vecax5b simplll simplrl
+      simplrr fveq2i grpinvcl syl5eqelr sylan 3jca sylanc c2nd mulinvsca
+      simpllr jca opreq2d 3eqtrd eqtri cabl vecax1 ablgrp syl adantr wi prvs
+      3exp com3l impcom com12 imp com3r eqtr4d r19.21aiva ex r19.21aivv ) DUAUB
+      ZGIUCZUDUBZUEZAUFZBUFZHUGZCUFZLUGZXJXMLUGZXKXMLUGZKUGZUHZBFUIZCAEFXIXMEUB
+      ZXJFUBZUEZXSXIYBUEZXRBFYCXKFUBZUEZXNXOXPJUJUKZUKZJUGZXQYEXNXJXKGUJUKZUKZG
+      UGZXMLUGZXOYJXMLUGZJUGZYHYEXLYKXMLGULUBZXJDUMUKZUMUKZUNZUBZXKYRUBZXLYKUHY
+      EXJXKHGYIYRGUNYRGYQNUOUPYIUQZRURXIYOYBYDXHYOXFXGGXGUMUKGGIGYQUSNYPUMUTVAV
+      BUPVCZVDVEYBYSXIYDYAYSXTYAYSFYRXJMVFVGVDVHYDYTYCYDYTFYRXKMVFVGVDZVIVJXFXT
+      YAYJFUBZVKYLYNUHYEXJYJDXMEFGJLMNOPQVLXFXHYBYDVMZYEXTYAUUDXIXTYAYDVNZXIXTY
+      AYDVOYQULUBZYDUUDYCXKYQYIFMGYQUJNVPVQXHUUGXFYBXHGULYQUUBNVRVHVSVTWAYEYMYG
+      XOJXFXHYTXTUEYMYGUHYEXKDXMEYRGIYILYFYQGGYQNUPUOQPUUAJDWBUKUMUKZUJOVPNTWCU
+      UEXFXHYBYDWDYEYTXTUUCUUFWEVIWFWGJULUBZXOEUBZXPEUBZXQYHUHYEXOXPKJYFEEUUHUN
+      JUNQUUHJJUUHOUPUOWHYFUQSURXIUUIYBYDXFUUIXHXFJWIUBUUIDJOWJJWKWLWMVEYCUUJYD
+      XIYBUUJXFYBUUJWNXHYBXFUUJYAXTXFUUJWNXFYAXTUUJXFYAXTUUJXJDXMEFLMQPWOWPWQWR
+      WSWMWTWMYCYDUUKYBXIYDUUKWNZXTXIUULWNYAXIYDXTUUKXFYDXTUUKWNWNXHXFYDXTUUKXK
+      DXMEFLMQPWOWPWMXAWMWRWTVIXBXCXDXE $.
+      $( [20-Sep-2010] $) $( [12-Sep-2010] $)
+  $}
+
+  ${
+    $d +t u x y $.  $d -t u x y $.  $d -w u x y $.  $d .t u x y $.
+    $d .w u x y $.  $d A x y $.  $d B y $.  $d R u x y $.  $d U u x y $.
+    $d W u x y $.  $d X u x y $.
+    vecax5c.1 $e |- X = ran +t $.
+    vecax5c.2 $e |- +t = ( 1st ` ( 1st ` R ) ) $.
+    vecax5c.3 $e |- -t = ( /g ` +t ) $.
+    vecax5c.4 $e |- +w = ( 1st ` ( 2nd ` R ) ) $.
+    vecax5c.5 $e |- -w = ( /g ` +w ) $.
+    vecax5c.6 $e |- .w = ( 2nd ` ( 2nd ` R ) ) $.
+    vecax5c.7 $e |- W = ran +w $.
+    vecax5c.8 $e |- .t = ( 2nd ` ( 1st ` R ) ) $.
+    $( Multiplication by a difference of scalars. $)
+    vecax5c $p |- ( ( R e. Vec /\ <. +t , .t >. e. Ring ) -> (
+        ( U e. W /\ A e. X /\ B e. X ) ->
+          ( ( A -t B ) .w U ) = ( ( A .w U ) -w ( B .w U ) ) ) ) $=
+      ( vx vy vu wcel w3a cv co wceq wral cvec cop cring wa opreq2 opreq12d
+      eqeq12d opreq1 opreq1d opreq2d rcla43v crn c1st cfv rneqi eqtri c2nd
+      muldisc syl5com ) DEUDAFUDBFUDUEUAUFZUBUFZHUGZUCUFZLUGZVIVLLUGZVJVLLUGZKU
+      GZUHZUBFUIUAFUIUCEUIABHUGZDLUGZADLUGZBDLUGZKUGZUHZCUJUDGIUKULUDUMVQWCVKDL
+      UGZVIDLUGZVJDLUGZKUGZUHAVJHUGZDLUGZVTWFKUGZUHUCUAUBDABEFFVLDUHZVMWDVPWGVL
+      DVKLUNWKVNWEVOWFKVLDVILUNVLDVJLUNUOUPVIAUHZWDWIWGWJWLVKWHDLVIAVJHUQURWLWE
+      VTWFKVIADLUQURUPVJBUHZWIVSWJWBWMWHVRDLVJBAHUNURWMWFWAVTKVJBDLUQUSUPUTUAUB
+      UCCEFGHIJKLFGVACVBVCVBVCZVAMGWNNVDVENPREJVACVFVCVBVCZVASJWOPVDVEOQTVGVH
+      $.
+      $( [20-Sep-2010] $) $( [12-Sep-2010] $)
+  $}
+
+  ${
+    $d +t k s u y $.  $d +w k s $.  $d .t k $.  $d .w s $.  $d 0t s $.
+    $d 0w k s $.  $d N k s u y $.  $d R k $.  $d S1 s u y $.  $d S2 s u y $.
+    $d U s $.  $d W k $.  $d X k s y $.
+    svli2.1 $e |- X = ran +t $.
+    svli2.2 $e |- 0t = ( Id ` +t ) $.
+    svli2.7 $e |- +t = ( 1st ` ( 1st ` R ) ) $.
+    svli2.3 $e |- .t = ( 2nd ` ( 1st ` R ) ) $.
+    svli2.4 $e |- 0w = ( Id ` +w ) $.
+    svli2.5 $e |- +w = ( 1st ` ( 2nd ` R ) ) $.
+    svli2.6 $e |- W = ran +w $.
+    svli2.8 $e |- .w = ( 2nd ` ( 2nd ` R ) ) $.
+    $( If a finite sequence of vectors ` U ( k ) ` are linearly independant,
+       two combinations of those vectors are equal iff the scalars are
+       equal. $)
+    svli2 $p |-
+       ( ( ( R e. Vec
+                /\ <. +t , .t >. e. Ring
+                /\ N e. NN )
+         /\ (
+                   A. k e. ( 1 ... N ) U e. W
+                /\ A. k e. ( 1 ... N ) S1 e. X
+                /\ A. k e. ( 1 ... N ) S2 e. X )
+         /\ A. s e. ( X ^m ( 1 ... N ) )
+                  ( prod_ k e. ( 1 ... N ) +w ( ( s ` k ) .w U ) = 0w
+                           -> A. k e. ( 1 ... N ) ( s ` k ) = 0t ) )
+        -> (
+               prod_ k e. ( 1 ... N ) +w ( S1 .w U ) =
+               prod_ k e. ( 1 ... N ) +w ( S2 .w U )
+                   <-> A. k e. ( 1 ... N ) S1 = S2 ) ) $=
+      ( vy vu cvec wcel cop cring cn w3a c1 cfz co wral cv cfv cprd wceq wi cm
+      cgs wa wb eqid mvecrtol 3simp1 3ad2ant1 cuz cabl clfsebs5 elnnuz biimpi
+      3ad2ant3 adantr vecax1 r19.26 prodvs 3exp com13 imp com12 r19.20sdv
+      sylbir 3adant3 syl3anc 3adant2 jca sylanc sylanbrc 3jca fprodsub eqcomd
+      syl eqeq1d vecax5c ex r19.26t syl5ibr cvv c2nd c1st fvex eqeltri prodeq2
+      copab wf cgr grpdivcl 3expib 3adant1 op1st eqcomi ringgrp syl5com
+      3ad2ant2 fopab2 sylib crn rnex oprex elmap sylibr wel ax-17 hbopab1 hbeq
+      fveq1 opreq1d a1d r19.21ai ralbid imbi12d fvopab2 mpan2 mprg eqeq1i
+      ralbiia imbi12i syl6bb rcla4v opreq1 r19.20si adantl rneqi eqtri cgi
+      fveq2i mulveczer 3expia ad2antrr cmagm cexid cin fincmpzer cmnd ablgrp
+      grpmnd mndmgmid 3syl 3eqtrd impbid mpdan grpdivzer com3l r19.15 syl6com
+      impcom 3bitrd ) AUFUGZJKUHZUIUGZDUJUGZUKZBEUGZCULDUMUNZUOZHFUGZCUVPUOZIFU
+      GZCUVPUOZUKZUVPCUPZGUPZUQZBNUNZCMURZOUSZUWELUSZCUVPUOZUTZGFUVPVAUNZUOZUKZ
+      UVPHBNUNZCMURZUVPIBNUNZCMURZUSZUWPUWRMVBUQZUNZOUSZUVPUWOUWQUWTUNZCMURZOUS
+      ZHIUSZCUVPUOZUVJUWPEUGZUWREUGZVCZUWSUXBVDUWNAEUWPUWRMUWTOTUAUWTVEZUBVFUVN
+      UWBUVJUWMUVJUVLUVMVGVHUVNUWBUXJUWMUVNUWBVCZUXHUXIDULVIUQUGZMVJUGZUWOEUGZC
+      UVPUOZUXHUXLUWOCMULDEUBVKUVNUXMUWBUVMUVJUXMUVLUVMUXMDVLVMVNZVOZUVNUXNUWBU
+      VJUVLUXNUVMAMUAVPZVHVOZUVNUWBUXPUVJUVLUWBUXPUTUVMUWBUVJUXPUVQUVSUVJUXPUTZ
+      UWAUVQUVSVCUVOUVRVCZCUVPUOZUYAUVOUVRCUVPVQUVJUYCUXPUVJUYBUXOCUVPUYBUVJUXO
+      UVOUVRUVJUXOUTUVJUVRUVOUXOUVJUVRUVOUXOHABEFJMNUAUCUBPRVRVSVTWAWBWCWBWDWEW
+      BVHWAZWFUXMUXNUWQEUGZCUVPUOZUXIUXLUWQCMULDEUBVKUXRUXTUVNUWBUYFUVJUVLUWBUY
+      FUTUVMUWBUVJUYFUVQUWAUVJUYFUTZUVSUVQUWAVCUVOUVTVCZCUVPUOZUYGUVOUVTCUVPVQU
+      VJUYIUYFUVJUYHUYECUVPUYHUVJUYEUVOUVTUVJUYEUTUVJUVTUVOUYEUVJUVTUVOUYEIABEF
+      JMNUAUCUBPRVRVSVTWAWBWCWBWDWGWBVHWAZWFWHWEWIUWNUXAUXDOUWNUXMUXOUYEVCCUVPU
+      OZUXNUKZUXAUXDUSUVNUWBUYLUWMUXLUXMUYKUXNUXRUYKUXPUYFUXLUXOUYECUVPVQUYDUYJ
+      WJUXTWKWEUYLUXDUXAUWOUWQUWTCMULDEUBUXKWLWMWNWOUWNUXEUVPHIJVBUQZUNZBNUNZCM
+      URZOUSZUYNLUSZCUVPUOZUXGUWNUXDUYPOUWNUXCUYOUSZCUVPUOZUXDUYPUSUVNUWBVUAUWM
+      UVNUWBVUAUVNUVOUVRUVTUKZCUVPUOZVUAUWBUVNVUBUYTCUVPUVNVUBUYTUVNVUBVCUYOUXC
+      UVNVUBUYOUXCUSZUVJUVLVUBVUDUTUVMHIABEFJUYMKMUWTNPRUYMVEZUAUXKUCUBSWPWEWAW
+      MWQWCUVOUVRUVTCUVPWRZWSWAWEUVPUXCUYOWTCMMAXAUQZXBUQZWTUAVUGXBXCXDZXEWNWOU
+      WNUWCUVPUGZUDUPUYNUSVCZCUDXFZUWLUGZUYQUYSVDUVNUWBVUMUWMUXLUVPFVULXGZVUMUX
+      LUYNFUGZCUVPUOZVUNUVNUWBVUPUVLUVJUWBVUPUTUVMUWBJXHUGZVUPUVLUVSUWAVUQVUPUT
+      ZUVQUVSUWAVCUVRUVTVCZCUVPUOZVURUVRUVTCUVPVQVUQVUTVUPVUQVUSVUOCUVPVUQUVRUV
+      TVUOHIUYMJFPVUEXIXJWCWBWDXKUVKJUVKXBUQJJKJAXBUQZXBUQWTRVVAXBXCXDZXLXMXNZX
+      OXPWACUDUVPFUYNVULVULVEXQXRFUVPVULFJXSWTPJVVBXTXDULDUMYAYBYCWEUWNVUMVCZUY
+      QUYSUWNVUMUYQUYSUTZUWMUVNVUMVVEUTUWBVUMUWMVVEUWKVVEGVULUWLUWDVULUSZUWKUVP
+      UWCVULUQZBNUNZCMURZOUSZVVGLUSZCUVPUOZUTVVEVVFUWHVVJUWJVVLVVFUWGVVIOVVFUWF
+      VVHUSZCUVPUOUWGVVIUSVVFVVMCUVPCUEUEUWDVULUEGYDCYEVUKCUDUEYFYGZVVFVVMVUJVV
+      FUWEVVGBNUWCUWDVULYHZYIYJYKUVPUWFVVHWTCMVUIXEWNWOVVFUWIVVKCUVPVVNVVFUWEVV
+      GLVVOWOYLYMVVJUYQVVLUYSVVIUYPOVVHUYOUSVVIUYPUSCUVPUVPVVHUYOWTCMVUIXEVUJVV
+      GUYNBNVUJUYNWTUGVVGUYNUSHIUYMYACUDUVPUYNWTYNYOZYIYPYQVVKUYRCUVPVUJVVGUYNL
+      VVPWOYRYSYTUUAWBVNWAVVDUYSUYQVVDUYSVCUYPUVPLBNUNZCMURZUVPOCMURZOUYSUYPVVR
+      USZVVDUYSUYOVVQUSZCUVPUOVVTUYRVWACUVPUYNLBNUUBUUCUVPUYOVVQWTCMVUIXEWNUUDU
+      WNVVRVVSUSZVUMUYSUVNUWBVWBUWMUXLVVQOUSZCUVPUOZVWBUVNUWBVWDUVJUVLUWBVWDUTU
+      VMUWBUVJUVLVCZVWDUVQUVSVWEVWDUTUWAVWEUVQVWDVWEUVOVWCCUVPUVJUVLUVOVWCABEJK
+      LNOEMXSVUHXSUBMVUHUAUUEUUFQRSUCOMUUGUQVUHUUGUQTMVUHUUGUAUUHUUFUUIUUJWCWBV
+      HWBWEWAUVPVVQOWTCMVUIXEWNWEUUKUWNVVSOUSZVUMUYSUVNUWBVWFUWMUXMMUULUUMUUNUG
+      ZVWFUVNOCMULDTUUOUXQUVJUVLVWGUVMUVJUXNMUUPUGZVWGUXSUXNMXHUGVWHMUUQMUURWNM
+      UUSUUTVHWIVHUUKUVAWQUVBUVCUVNUWBUYSUXGVDZUWMUWBUVNVWIUWBVUCUVNVWIUTVUFUVN
+      VUCUYRUXFVDZCUVPUOZVWIUVLUVJVUCVWKUTZUVMUVLVUQVWLVVCVUQVUBVWJCUVPVUBVUQVW
+      JUVRUVTVUQVWJUTZUVOUVRUVTVWMVUQUVRUVTVWJVUQUVRUVTVWJHIUYMLJFPQVUEUVDVSUVE
+      WAXKWBWCWNXPUYRUXFCUVPUVFUVGWDUVHWEUVIUVI $.
+      $( [6-Dec-2010] $) $( [9-Nov-2010] $)
+  $}
+
+  $c SubVec $.
+
+  $( Extend class notation with the class of all generic subspace vector spaces
+     and modules. $)
+  csvec $a class SubVec $.
+
+  ${
+    $d x y v w $.
+    $( A sub-vector space ` v ` of a vector space ` x ` is a vector space that
+       has the same scalar set than ` x ` , whose addition and whose
+       multiplication are restrictions of those of ` x ` . $)
+    df-svs $a |- SubVec = { <. x , y >. | ( x e. Vec /\
+       y = { v e. Vec | ( ( 1st ` v ) = ( 1st ` x ) /\
+       ( 1st ` ( 2nd ` v ) ) C_ ( 1st ` ( 2nd ` x ) ) /\
+       ( 2nd ` ( 2nd ` v ) ) = ( ( 2nd ` ( 2nd ` x ) ) |`
+          ( ran ( 1st ` ( 1st ` x ) ) X. ran ( 1st ` ( 2nd ` v ) ) ) ) ) } ) }
+        $.
+
+    $( A textbook definition.  A sub-vector space of a vector space ` x ` is a
+       subset that is itself a vector space under the inherited operations. $)
+    svs2 $p |- SubVec = { <. x , y >. | ( x e. Vec /\
+       y = { v e. Vec | ( ( 1st ` v ) = ( 1st ` x ) /\
+         E. w e. ~P ran ( 1st ` ( 2nd ` x ) )
+         ( ( 1st ` ( 2nd ` v ) ) = ( ( 1st ` ( 2nd ` x ) ) |` ( w X. w ) ) /\
+           ( 2nd ` ( 2nd ` v ) ) = ( ( 2nd ` ( 2nd ` x ) ) |`
+             ( ran ( 1st ` ( 1st ` x ) ) X. w ) ) ) ) } ) } $=
+      ( csvec cv cvec wcel c1st cfv wceq c2nd wss crn cxp cres w3a crab wa
+      copab cpw wrex df-svs wi rnss fvex rnex elpw biimpri xpeq12 anidms
+      reseq2 syl eqeq2d xpeq2 anbi12d rcla4ev ex cabl cgr eqid vecax1 ablgrp
+      wfo wfun grpfo fofun cdm funssres dmrngrp eqtr eqcomd eqcoms 3syl syl9
+      imp adantr 3adant3 3simp3 jca syl5com 3exp com14 pm2.43i com12 resss
+      sseq1 mpbiri 3ad2ant2 sseq2 ssdmres dmeq idd a1i com13 com3l dmxpid
+      sylancl sylbi syl6bi com24 3imp xpss12 visset sylancb impcom biimpd
+      r19.23aiv impbid pm5.32da 3anass syl5bb rabbidv pm5.32i opabbii eqtri )
+      EAFZGHZBFZDFZIJXQIJZKZXTLJZIJZXQLJZIJZMZYCLJZYELJZYAIJNZYDNZOZPZKZQZDGRZK
+      ZSZABTXRXSYBYDYFCFZYSOZPZKZYHYIYJYSOZPZKZSZCYFNZUAZUBZSZDGRZKZSZABTABDUCY
+      RUUMABXRYQUULXRYPUUKXSXRYOUUJDGXRXTGHZSZYBYGYNSZSUUJYOUUOYBUUPUUIUUOYBSZU
+      UPUUIUUPUUQUUIYGYNUUQUUIUDZYGYNUURUDZYGYKUUGMZYKUUHHZYGUUSUDYDYFUEUVAUUTY
+      KUUGYDYCIUFUGUHUIUUQYGYNUVAUUIUUQYGYNUVAUUIUDUVAYDYFYKYKOZPZKZYNSZUUIUUQY
+      GYNQZUVAUVEUUIUUFUVECYKUUHYSYKKZUUBUVDUUEYNUVGUUAUVCYDUVGYTUVBKZUUAUVCKUV
+      GUVHYSYKYSYKUJUKYTUVBYFULUMUNUVGUUDYMYHUVGUUCYLKZUUDYMKZYSYKYJUOZUUCYLYIU
+      LZUMUNUPUQURUVFUVDYNUUQYGUVDYNUUQYGUVDUUOYGUVDUDZYBXRUUNUVMXRYFUSHZYFUTHZ
+      UUNUVMUDZXQYFYFVAVBZYFVCZUVOUUGUUGOZUUGYFVDYFVEZUVPYFUUGUUGVAVFUVSUUGYFVG
+      UVTYGYFYDVHZPZYDKZUUNUVDUVTYGUWCYFYDVIURUUNYDUSHZYDUTHZUWCUVDUDZXTYDYDVAV
+      BZYDVCZUWEUWAUVBKZUWFYDVJZUWIUWBUVCKUWFUWAUVBYFULUWFUVCUWBUVCUWBKZUWCUVDU
+      WKUWCSUVCYDUVCUWBYDVKVLURVMUMUMVNVOVNVNVPVQVPVRUUQYGYNVSVTWAWBWCVNWDVPWEU
+      UIUUQUUPUUFUUQUUPUDCUUHYSUUHHZUUFUUQUUPUWLUUFUUQQYGYNUUFUWLYGUUQUUBYGUUEU
+      UBYGUUAYFMYFYTWFYDUUAYFWGWHVQWIUWLUUFUUQYNUUFUWLUUQYNUDZUUBUUEUWLUWMUDUUB
+      UUQUWLUUEYNUUBUUQUWLUUEYNUDUUBUUQUWLQZUUEYNUWNUUDYMYHUWNUVIUVJUWNUVGUVIUU
+      BUUQUWLUVGUUQUUBUWLUVGUDZUUOYBUUBUWOUDZUUNXRYBUWPUDZUUNXRUWQUDZUUNUWDUWEU
+      UNUWRUDZUWGUWHUWEUWIUWSUWJUWAVHZUVBVHZKZUXAYKKZUWSUWIUXBUXCSUWTYKKZUWSUWT
+      UXAYKVKXRUUNUXDUWQXRUVNUVOUUNUXDUWQUDUDZUVQUVRUVOYFVHZUVSKZUXEYFVJUXGUUNU
+      XDUWQUXGUUNUXDQZYBUUBUWOUWLUXHYBUUBQZUVGYSUUGMZUXJUXIUVGUDUWLUXIYTUVSMZUV
+      GUXJUXJSUXHYBUUBUXKUVGUDUXHUXKUUBYBUVGUXGUUNUXDUXKUUBYBUVGUDZUDZUDUXGUXKU
+      XDUUNUXMUXKUXDUUNUXMUDUDZUDUVSUXFUVSUXFKUXKYTUXFMZUXNUVSUXFYTWJUXOUUAVHZY
+      TKZUXNYTYFWKUXPVHZYTVHZKZUXSYSKZUXNUXQUXTUYASUXRYSKZUXNUXRUXSYSVKUUBUXDUU
+      NUYBUXLUUBUWAUXPKUWTUXRKUXDUUNUYBUXLUDUDZUDZYDUUAWLUWAUXPWLUYDUXRUWTUXRUW
+      TKZUXDUYCUYEUXDSUXRYKKZUYCUXRUWTYKVKUYBUYFUUNUXLUYFUUNUXLUDZUDYSUXRYSUXRK
+      ZUYFUYGUYHUYFSUVGUYGYSUXRYKVKYBUUNUVGUVGUUNUVGUVGUDUDYBUUNUVGWMWNWOUMURVM
+      WPUMURVMVNWCUMUXPYTWLYSWQWRWSWTVMXAXBXAXBYSUUGYSUUGXCWAYSUUGCXDUHZUYIXEWE
+      WBWBUMVNWOUMUWAUVBWLYKWQWRUMVNWDXFVPWEXBUVKUMUVLUMUNXGWBXAVPWEXBVTWBXHWEX
+      IXJYBYGYNXKXLXMUNXNXOXP $.
+      $( [31-Dec-2010] $) $( [31-Dec-2010] $)
+
+    $( A very concise definition of a subspace of a vector space. $)
+    svs3 $p |- SubVec = { <. x , y >. | ( x e. Vec /\
+       y = { v e. Vec | ( ( 1st ` v ) = ( 1st ` x ) /\
+       ( 1st ` ( 2nd ` v ) ) C_ ( 1st ` ( 2nd ` x ) ) /\
+       ( 2nd ` ( 2nd ` v ) ) C_ ( 2nd ` ( 2nd ` x ) ) ) } ) } $=
+      ( csvec cv cvec wcel c1st cfv wceq c2nd wss crn cxp cres w3a crab wa
+      copab df-svs resss sseq1 mpbiri cdm wi fveq2 rneqd eqcoms xpeq1 syl
+      eqeq1d imbi2d wf eqid vecax2 fdm eqcomd a1d adantl syl5bi impcom imp
+      adantr reseq2 wfun funssres ffun ad2antrr sylan eqtr2d ex impbid2
+      pm5.32da 3anass 3bitr4g rabbidv eqeq2d pm5.32i opabbii eqtri ) DAEZFGZBEZ
+      CEZHIZWAHIZJZWDKIZHIZWAKIZHIZLZWHKIZWJKIZWFHIZMZWIMZNZOZJZPZCFQZJZRZABSWB
+      WCWGWLWMWNLZPZCFQZJZRZABSABCTXDXIABWBXCXHWBXBXGWCWBXAXFCFWBWDFGZRZWGWLWTR
+      ZRWGWLXERZRXAXFXKWGXLXMXKWGRZWLWTXEXNWLRZWTXEWTXEWSWNLWNWRUAWMWSWNUBUCXOX
+      EWTXOXERZWSWNWMUDZOZWMXPWRXQJZWSXRJXOXSXEXNWLXSWGXKWLXSUEZXKXTUEWFWEWFWEJ
+      ZWLWEHIZMZWQNZXQJZUEZXTXKYAYEXSWLYAYDWRXQYAYCWPJZYDWRJYGWEWFWGYBWOWEWFHUF
+      UGUHYCWPWQUIUJUKULXJYFWBXJYEWLXJYDWQWMUMZYEWDWQYCWMYCUNWMUNWQUNUOYHXQYDYD
+      WQWMUPUQUJURUSUTUHVAVBVCWRXQWNVDUJWNVEZXEXRWMJXOWNWMVFXKYIWGWLWBYIXJWBWPW
+      KMZNZYJWNUMYIWAYJWPWNWPUNWNUNYJUNUOYKYJWNVGUJVCVHVIVJVKVLVMVMWGWLWTVNWGWL
+      XEVNVOVPVQVRVSVT $.
+      $( [30-Dec-2010] $) $( [30-Dec-2010] $)
+
+  $}
+

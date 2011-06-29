@@ -19,20 +19,20 @@ $)
 
   ${
     $d v w x y z $.
-    $( Define a function on topologies whose value is the set of closed
-       sets of the topology. $)
+    $( Define a function on topologies whose value is the set of closed sets of
+       the topology. $)
     df-cld $a |- Clsd = { <. z , w >. | ( z e. Top /\ w = { x |
-                  ( x (_ U. z /\ ( U. z \ x ) e. z ) } ) } $.
+                  ( x C_ U. z /\ ( U. z \ x ) e. z ) } ) } $.
 
-    $( Define a function on topologies whose value is the interior function
-       on the subsets of the base set.  See ~ ntrval . $)
+    $( Define a function on topologies whose value is the interior function on
+       the subsets of the base set.  See ~ ntrval . $)
     df-ntr $a |- int = { <. z , w >. | ( z e. Top /\ w = { <. x , y >. |
-                 ( x (_ U. z /\ y = U. { v e. z | v (_ x } ) } ) } $.
+                 ( x C_ U. z /\ y = U. { v e. z | v C_ x } ) } ) } $.
 
-    $( Define a function on topologies whose value is the closure function
-       on the subsets of the base set.  See ~ clsval . $)
+    $( Define a function on topologies whose value is the closure function on
+       the subsets of the base set.  See ~ clsval . $)
     df-cls $a |- cls = { <. z , w >. | ( z e. Top /\ w = { <. x , y >. |
-               ( x (_ U. z /\ y = |^| { v e. ( Clsd ` z ) | x (_ v } ) } ) } $.
+               ( x C_ U. z /\ y = |^| { v e. ( Clsd ` z ) | x C_ v } ) } ) } $.
   $}
 
   ${
@@ -41,7 +41,7 @@ $)
     $( The set of closed sets of a topology.  (Note that the set of open sets
        is just the topology itself, so we don't have a separate definition.) $)
     cldval $p |- ( J e. Top ->
-               ( Clsd ` J ) = { x | ( x (_ X /\ ( X \ x ) e. J ) } ) $=
+               ( Clsd ` J ) = { x | ( x C_ X /\ ( X \ x ) e. J ) } ) $=
       ( vz vw ctop wcel cv wss cdif wa cab cvv ccld cfv wceq cuni uniexg
       syl5eqel abssexg syl unieq syl6eqr sseq2d difeq1d id eleq12d anbi12d
       abbidv df-cld fvopab4g mpdan ) BGHZAIZCJZCUOKZBHZLZAMZNHZBOPUTQUNCNHVAUNB
@@ -50,8 +50,8 @@ $)
       $( [4-Oct-2006] $) $( [2-Oct-2006] $)
 
     $( The interior function on the subsets of a topology's base set. $)
-    ntrfval $p |- ( J e. Top -> ( int ` J ) =  { <. x , y >. | ( x (_ X /\
-                     y = U. { v e. J | v (_ x } ) } ) $=
+    ntrfval $p |- ( J e. Top -> ( int ` J ) = { <. x , y >. | ( x C_ X /\
+                     y = U. { v e. J | v C_ x } ) } ) $=
       ( vz vw ctop wcel cv wss crab cuni wceq wa copab cvv cnt cfv cpw uniexg
       syl5eqel pwexg opabex2g 3syl visset elpw anbi1i opabbii syl5eqelr unieq
       syl6eqr sseq2d rabeq unieqd eqeq2d anbi12d opabbidv df-ntr fvopab4g
@@ -62,8 +62,8 @@ $)
       $( [12-Sep-2006] $) $( [10-Sep-2006] $)
 
     $( The closure function on the subsets of a topology's base set. $)
-    clsfval $p |- ( J e. Top -> ( cls ` J ) =  { <. x , y >. | ( x (_ X /\
-                     y = |^| { v e. ( Clsd ` J ) | x (_ v } ) } ) $=
+    clsfval $p |- ( J e. Top -> ( cls ` J ) = { <. x , y >. | ( x C_ X /\
+                     y = |^| { v e. ( Clsd ` J ) | x C_ v } ) } ) $=
       ( vz vw ctop wcel cv wss ccld cfv crab cint wceq wa copab cvv ccl cpw
       cuni uniexg syl5eqel pwexg opabex2g 3syl visset elpw anbi1i opabbii
       syl5eqelr unieq syl6eqr sseq2d fveq2 rabeq syl inteqd eqeq2d anbi12d
@@ -80,7 +80,7 @@ $)
     iscld.1 $e |- X = U. J $.
     $( The predicate " ` S ` is a closed set." $)
     iscld $p |- ( J e. Top -> ( S e. ( Clsd ` J ) <->
-                 ( S (_ X /\ ( X \ S ) e. J ) ) ) $=
+                 ( S C_ X /\ ( X \ S ) e. J ) ) ) $=
       ( vx ctop wcel ccld cfv cv wss cdif wa cab cldval eleq2d cvv elisset
       adantl ssexg ancoms cuni uniexg syl5eqel sylan adantrr wceq sseq1 difeq2
       eleq1d anbi12d elabg pm5.21nd bitrd ) BFGZABHIZGAEJZCKZCUQLZBGZMZENZGZACK
@@ -90,14 +90,14 @@ $)
 
     $( A subset of the underlying set of a topology is closed iff its
        complement is open. $)
-    iscld2 $p |- ( ( J e. Top /\ S (_ X ) ->
+    iscld2 $p |- ( ( J e. Top /\ S C_ X ) ->
                   ( S e. ( Clsd ` J ) <-> ( X \ S ) e. J ) ) $=
       ( ctop wcel ccld cfv wss cdif wa iscld ibar bicomd sylan9bb ) BEFABGHFACI
       ZCAJBFZKZPQABCDLPQRPQMNO $.
       $( [5-Oct-2006] $) $( [4-Oct-2006] $)
 
     $( A closed set is a subset of the underlying set of a topology. $)
-    cldss $p |- ( ( J e. Top /\ S e. ( Clsd ` J ) ) -> S (_ X ) $=
+    cldss $p |- ( ( J e. Top /\ S e. ( Clsd ` J ) ) -> S C_ X ) $=
       ( ctop wcel ccld cfv wss cdif iscld pm3.26bda ) BEFABGHFACICAJBFABCDKL $.
       $( [15-Oct-2006] $) $( [5-Oct-2006] $)
 
@@ -108,7 +108,7 @@ $)
 
     $( A subset of the underlying set of a topology is open iff its complement
        is closed. $)
-    isopn2 $p |- ( ( J e. Top /\ S (_ X ) ->
+    isopn2 $p |- ( ( J e. Top /\ S C_ X ) ->
                   ( S e. J <-> ( X \ S ) e. ( Clsd ` J ) ) ) $=
       ( ctop wcel wss wa cdif ccld cfv wb difss iscld2 mpan2 wceq dfss4 biimpi
       eleq1d sylan9bb bicomd ) BEFZACGZHCAIZBJKFZABFZUBUECUDIZBFZUCUFUBUDCGUEUH
@@ -131,8 +131,8 @@ $)
     $( The interior of a subset of a topology's base set is the union of all
        the open sets it includes.  Definition of interior of [Munkres]
        p. 94. $)
-    ntrval $p |- ( ( J e. Top /\ S (_ X ) -> ( ( int ` J ) ` S ) =
-                 U. { x e. J | x (_ S } ) $=
+    ntrval $p |- ( ( J e. Top /\ S C_ X ) -> ( ( int ` J ) ` S ) =
+                 U. { x e. J | x C_ S } ) $=
       ( vy vz ctop wcel wss wa cnt cfv cv cpw crab cuni wceq copab ntrfval
       adantr visset elpw anbi1i opabbii syl6eqr fveq1d cvv sseq2 rabbisdv
       unieqd eqid fvopab4g wi uniexg syl5eqel elpw2g biimprd syl imp rabexg
@@ -146,8 +146,8 @@ $)
     $( The closure of a subset of a topology's base set is the intersection of
        all the closed sets that include it.  Definition of closure of [Munkres]
        p. 94. $)
-    clsval $p |- ( ( J e. Top /\ S (_ X ) -> ( ( cls ` J ) ` S ) =
-                 |^| { x e. ( Clsd ` J ) | S (_ x } ) $=
+    clsval $p |- ( ( J e. Top /\ S C_ X ) -> ( ( cls ` J ) ` S ) =
+                 |^| { x e. ( Clsd ` J ) | S C_ x } ) $=
       ( vy vz ctop wcel wss wa ccl cfv cv cpw ccld crab cint wceq copab
       clsfval adantr visset elpw anbi1i opabbii syl6eqr fveq1d cvv sseq1
       rabbisdv inteqd eqid fvopab4g elpw2g biimpar cuni uniexg syl5eqel sylan
@@ -183,7 +183,7 @@ $)
       $( [17-Oct-2006] $) $( [5-Oct-2006] $)
 
     $( The intersection of a set of closed sets is closed. $)
-    intcld $p |- ( ( J e. Top /\ A =/= (/) /\ A (_ ( Clsd ` J ) ) ->
+    intcld $p |- ( ( J e. Top /\ A =/= (/) /\ A C_ ( Clsd ` J ) ) ->
                   |^| A e. ( Clsd ` J ) ) $=
       ( vx ctop wcel c0 wne ccld cfv wss w3a cv ciin cint wral iincld dfss3
       syl3an3b intiin syl5eqel ) BDEZAFGZABHIZJZKCACLZMZUCANUAUBUEUCECAOUFUCEUD
@@ -216,7 +216,7 @@ $)
     $d x T $.
     clscld.1 $e |- X = U. J $.
     $( The closure of a subset of a topology's underlying set is closed. $)
-    clscld $p |- ( ( J e. Top /\ S (_ X ) ->
+    clscld $p |- ( ( J e. Top /\ S C_ X ) ->
                  ( ( cls ` J ) ` S ) e. ( Clsd ` J ) ) $=
       ( vx ctop wcel wss wa ccl cfv cv ccld crab cint clsval c0 wne intcld
       pm3.26 topcld anim1i sseq2 elrab sylibr ne0i syl ssrab2 a1i syl3anc
@@ -226,14 +226,14 @@ $)
       $( [21-Oct-2006] $) $( [4-Oct-2006] $)
 
     $( The interior of a subset of a topology's underlying set is open. $)
-    ntropn $p |- ( ( J e. Top /\ S (_ X ) -> ( ( int ` J ) ` S ) e. J ) $=
+    ntropn $p |- ( ( J e. Top /\ S C_ X ) -> ( ( int ` J ) ` S ) e. J ) $=
       ( vx ctop wcel wss wa cnt cfv cv crab cuni ntrval ssrab2 uniopn mpan2
       adantr eqeltrd ) BFGZACHZIABJKKELAHZEBMZNZBEABCDOUAUEBGZUBUAUDBHUFUCEBPUD
       BQRST $.
       $( [21-Sep-2006] $) $( [11-Sep-2006] $)
 
     $( Express closure in terms of interior. $)
-    clsval2 $p |- ( ( J e. Top /\ S (_ X ) -> ( ( cls ` J ) ` S ) =
+    clsval2 $p |- ( ( J e. Top /\ S C_ X ) -> ( ( cls ` J ) ` S ) =
                  ( X \ ( ( int ` J ) ` ( X \ S ) ) ) ) $=
       ( vy vz vx ctop wcel wss wa cv cdif crab cuni ccld cfv cint cnt ccl wn
       wi wral cldopn wceq sseq1 eleq2 notbid imbi12d rcla4v syl adantrl sscon
@@ -257,7 +257,7 @@ $)
       $( [16-Oct-2006] $) $( [10-Sep-2006] $)
 
     $( Interior expressed in terms of closure. $)
-    ntrval2 $p |- ( ( J e. Top /\ S (_ X ) ->
+    ntrval2 $p |- ( ( J e. Top /\ S C_ X ) ->
                  ( ( int ` J ) ` S ) = ( X \ ( ( cls ` J ) ` ( X \ S ) ) ) ) $=
       ( ctop wcel wss wa cdif ccl cfv cnt wceq difss clsval2 mpan2 adantr
       dfss4 biimpi fveq2d adantl difeq2d eqtrd ntropn eltopss syldan sylib
@@ -267,7 +267,7 @@ $)
       $( [15-Dec-2007] $) $( [1-Oct-2007] $)
 
     $( Subset relationship for closure. $)
-    clsss $p |- ( ( J e. Top /\ S (_ X /\ T (_ S ) -> ( ( cls ` J ) ` T ) (_
+    clsss $p |- ( ( J e. Top /\ S C_ X /\ T C_ S ) -> ( ( cls ` J ) ` T ) C_
                  ( ( cls ` J ) ` S ) ) $=
       ( vx ctop wcel wss w3a cv ccld cfv crab cint ccl wi sstr2 adantr
       ss2rabdv intss syl 3ad2ant3 wceq clsval 3simp1 impcom 3adant1 sylanc
@@ -277,7 +277,7 @@ $)
       $( [17-Feb-2007] $) $( [10-Feb-2007] $)
 
     $( Subset relationship for interior. $)
-    ntrss $p |- ( ( J e. Top /\ S (_ X /\ T (_ S ) -> ( ( int ` J ) ` T ) (_
+    ntrss $p |- ( ( J e. Top /\ S C_ X /\ T C_ S ) -> ( ( int ` J ) ` T ) C_
                  ( ( int ` J ) ` S ) ) $=
       ( ctop wcel wss cnt cfv wa cdif ccl clsss 3expb sscon adantl difss jctil
       sylan2 syl wceq ntrval2 sstr2 impcom adantrr 3sstr4d 3impb ) CFGZADHZBAHZ
@@ -287,13 +287,13 @@ $)
       $( [21-Feb-2008] $) $( [3-Oct-2007] $)
 
     $( A subset of a topology's underlying set is included in its closure. $)
-    sscls $p |- ( ( J e. Top /\ S (_ X ) -> S (_ ( ( cls ` J ) ` S ) ) $=
+    sscls $p |- ( ( J e. Top /\ S C_ X ) -> S C_ ( ( cls ` J ) ` S ) ) $=
       ( vx ctop wcel wss wa cv ccld cfv crab cint ccl ssintub a1i clsval
       sseqtr4d ) BFGACHIZAAEJHEBKLZMNZABOLLAUBHTEAUAPQEABCDRS $.
       $( [22-Feb-2007] $) $( [22-Feb-2007] $)
 
     $( A subset includes its interior. $)
-    ntrss2 $p |- ( ( J e. Top /\ S (_ X ) -> ( ( int ` J ) ` S ) (_ S ) $=
+    ntrss2 $p |- ( ( J e. Top /\ S C_ X ) -> ( ( int ` J ) ` S ) C_ S ) $=
       ( vx vy ctop wcel wss wa cnt cfv cv crab cuni ntrval wrex elunirab wi
       ssel impcom a1i r19.23aiv sylbi ssriv eqsstrd ) BGHACIJZABKLLEMZAIZEBNOZA
       EABCDPUJAIUGFUJAFMZUJHUKUHHZUIJZEBQUKAHZUIEUKBRUMUNEBUMUNSUHBHUIULUNUHAUK
@@ -302,20 +302,20 @@ $)
 
     $( The closure of a subset of a topological space is included in the
        space. $)
-    clsss3 $p |- ( ( J e. Top /\ S (_ X ) -> ( ( cls ` J ) ` S ) (_ X ) $=
+    clsss3 $p |- ( ( J e. Top /\ S C_ X ) -> ( ( cls ` J ) ` S ) C_ X ) $=
       ( ctop wcel wss ccl cfv ccld clscld cldss syldan ) BEFACGABHIIZBJIFNCGABC
       DKNBCDLM $.
       $( [1-Mar-2007] $) $( [26-Feb-2007] $)
 
     $( The interior of a subset of a topological space is included in the
        space. $)
-    ntrss3 $p |- ( ( J e. Top /\ S (_ X ) -> ( ( int ` J ) ` S ) (_ X ) $=
+    ntrss3 $p |- ( ( J e. Top /\ S C_ X ) -> ( ( int ` J ) ` S ) C_ X ) $=
       ( ctop wcel wss cnt cfv ntropn eltopss syldan ) BEFACGABHIIZBFMCGABCDJMBC
       DKL $.
       $( [18-Feb-2008] $) $( [1-Oct-2007] $)
 
     $( The complement of a closure is open. $)
-    cmclsopn $p |- ( ( J e. Top /\ S (_ X ) ->
+    cmclsopn $p |- ( ( J e. Top /\ S C_ X ) ->
                  ( X \ ( ( cls ` J ) ` S ) ) e. J ) $=
       ( ctop wcel wss wa ccl cfv cdif cnt clsval2 difeq2d wceq difss ntropn
       mpan2 eltopss mpdan dfss4 sylib eqeltrd adantr ) BEFZACGZHZCABIJJZKCCCAKZ
@@ -324,7 +324,7 @@ $)
       $( [27-Feb-2007] $) $( [11-Sep-2006] $)
 
     $( The complement of an interior is closed. $)
-    cmntrcld $p |- ( ( J e. Top /\ S (_ X ) ->
+    cmntrcld $p |- ( ( J e. Top /\ S C_ X ) ->
                  ( X \ ( ( int ` J ) ` S ) ) e. ( Clsd ` J ) ) $=
       ( ctop wcel wss wa cnt cfv cdif ccl ccld ntrval2 difeq2d wceq difss
       clsss3 mpan2 dfss4 sylib clscld eqeltrd adantr ) BEFZACGZHZCABIJJZKCCCAKZ
@@ -333,7 +333,7 @@ $)
       $( [22-Apr-2008] $) $( [1-Oct-2007] $)
 
     $( A subset is closed iff it equals its own closure. $)
-    iscld3 $p |- ( ( J e. Top /\ S (_ X ) -> ( S e. ( Clsd ` J ) <->
+    iscld3 $p |- ( ( J e. Top /\ S C_ X ) -> ( S e. ( Clsd ` J ) <->
                  ( ( cls ` J ) ` S ) = S ) ) $=
       ( ctop wcel wss wa ccld cfv ccl wceq wi cldcls ex adantr eleq1 clscld
       syl5cbi impbid ) BEFZACGZHZABIJZFZABKJJZALZUAUEUGMUBUAUEUGABNOPUGUFUDFUEU
@@ -341,14 +341,14 @@ $)
       $( [26-Feb-2007] $) $( [2-Oct-2006] $)
 
     $( A subset is closed iff it contains its own closure. $)
-    iscld4 $p |- ( ( J e. Top /\ S (_ X ) -> ( S e. ( Clsd ` J ) <->
-                 ( ( cls ` J ) ` S ) (_ S ) ) $=
+    iscld4 $p |- ( ( J e. Top /\ S C_ X ) -> ( S e. ( Clsd ` J ) <->
+                 ( ( cls ` J ) ` S ) C_ S ) ) $=
       ( ctop wcel wss wa ccld cfv ccl wceq iscld3 sscls biantrud eqss syl6rbbr
       bitrd ) BEFACGHZABIJFABKJJZALZTAGZABCDMSUBUBATGZHUASUCUBABCDNOTAPQR $.
       $( [2-Feb-2008] $) $( [31-Jan-2008] $)
 
     $( A subset is open iff it equals its own interior. $)
-    isopn3 $p |- ( ( J e. Top /\ S (_ X ) -> ( S e. J <->
+    isopn3 $p |- ( ( J e. Top /\ S C_ X ) -> ( S e. J <->
                  ( ( int ` J ) ` S ) = S ) ) $=
       ( vx ctop wcel wss wa cnt cfv wceq cv crab cuni ntrval unimax sylan9eq
       ex eleq1 ntropn syl5cbi impbid ) BFGACHIZABGZABJKKZALZUDUEUGUDUEUFEMAHEBN
@@ -356,14 +356,14 @@ $)
       $( [10-Oct-2006] $) $( [9-Oct-2006] $)
 
     $( The closure operation is idempotent. $)
-    clsidm $p |- ( ( J e. Top /\ S (_ X ) ->
+    clsidm $p |- ( ( J e. Top /\ S C_ X ) ->
                ( ( cls ` J ) ` ( ( cls ` J ) ` S ) ) = ( ( cls ` J ) ` S ) ) $=
       ( ctop wcel wss wa ccl cfv ccld wceq clscld wb clsss3 iscld3 syldan
       mpbid ) BEFZACGZHABIJZJZBKJFZUBUAJUBLZABCDMSTUBCGUCUDNABCDOUBBCDPQR $.
       $( [28-Apr-2008] $) $( [2-Oct-2007] $)
 
     $( The interior operation is idempotent. $)
-    ntridm $p |- ( ( J e. Top /\ S (_ X ) ->
+    ntridm $p |- ( ( J e. Top /\ S C_ X ) ->
                ( ( int ` J ) ` ( ( int ` J ) ` S ) ) = ( ( int ` J ) ` S ) ) $=
       ( ctop wcel wss wa cnt cfv wceq ntropn wb ntrss3 isopn3 syldan mpbid ) BE
       FZACGZHABIJZJZBFZUATJUAKZABCDLRSUACGUBUCMABCDNUABCDOPQ $.
@@ -383,7 +383,7 @@ $)
 
     $( A subset with an empty interior cannot cover a whole (nonempty)
        topology. $)
-    0ntr $p |- ( ( ( J e. Top /\ X =/= (/) ) /\ ( S (_ X
+    0ntr $p |- ( ( ( J e. Top /\ X =/= (/) ) /\ ( S C_ X
                /\ ( ( int ` J ) ` S ) = (/) ) ) -> ( X \ S ) =/= (/) ) $=
       ( ctop wcel wss cnt cfv c0 wceq wa wne cdif wi fveq2 ntrtop sylan9eqr
       eqeq1d biimpd ex eqss syl5ibr exp3a com34 imp32 ssdif0 necon3d imp an1rs
@@ -393,36 +393,36 @@ $)
       $( [2-Nov-2006] $) $( [12-Sep-2006] $)
 
     $( If a subset is included in a closed set, so is the subset's closure. $)
-    clsss2 $p |- ( ( J e. Top /\ C e. ( Clsd ` J ) /\ S (_ C ) ->
-                 ( ( cls ` J ) ` S ) (_ C ) $=
+    clsss2 $p |- ( ( J e. Top /\ C e. ( Clsd ` J ) /\ S C_ C ) ->
+                 ( ( cls ` J ) ` S ) C_ C ) $=
       ( ctop wcel ccld cfv wss w3a ccl clsss cldss 3adant3 syld3an2 wceq
       cldcls sseqtrd ) CFGZACHIGZBAJZKBCLIZIZAUCIZATADJZUBUDUEJUAABCDEMTUAUFUBA
       CDENOPTUAUEAQUBACROS $.
       $( [28-Feb-2007] $) $( [22-Feb-2007] $)
 
     $( Membership in a closure.  Theorem 6.5(a) of [Munkres] p. 95. $)
-    elcls $p |- ( ( J e. Top /\ S (_ X /\ P e. X ) -> ( P e. ( ( cls ` J ) ` S
+    elcls $p |- ( ( J e. Top /\ S C_ X /\ P e. X ) -> ( P e. ( ( cls ` J ) ` S
                 ) <-> A. x e. J ( P e. x -> ( x i^i S ) =/= (/) ) ) ) $=
       ( ctop wcel wss w3a ccl cfv cv cin c0 wne wi wral wn wa wrex cdif wceq
       eleq2 ineq1 neeq1d notbid anbi12d rcla4ev cmclsopn 3adant3 adantr eldif
       biimpri 3ad2antl3 pm3.27 sscls jca ssin sylib dfin4 syl6ss wb reldisj
-      adantl mpbird nne incom eqeq1i bitri sylibr sylanc ccld clsss2 pm3.26
-      ad2antrr opncld adantlr biimpa adantll syl3anc sseld eldifn syl6 con2d
-      df-ne con2bii sylan2br exp31 com34 imp4a r19.23adv imp 3adantl3 impbida
-      rexanali syl6bb con4bid ) DGHZCEIZBEHZJZBCDKLLZHZBAMZHZXECNZOPZQADRZXBXDS
-      ZXFXHSZTZADUAZXISXBXJXMEXCUBZDHZBXNHZXNCNZOPZSZTZXMXBXJTZXLXTAXNDXEXNUCZX
-      FXPXKXSXEXNBUDYBXHXRYBXGXQOXEXNCUEUFUGUHUIXBXOXJWSWTXOXACDEFUJUKULYAXPXSX
-      AWSXJXPWTXPXAXJTBEXCUMUNUOXBXSXJWSWTXSXAWSWTTZCXNNZOUCZXSYCYECEXNUBZIZYCC
-      EXCNZYFYCWTCXCIZTCYHIYCWTYIWSWTUPCDEFUQURCEXCUSUTEXCVAVBWTYEYGVCWSCXNEVDV
-      EVFXSXQOUCYEXQOVGXQYDOXNCVHVIVJVKUKULURVLWSWTXMXJXAYCXMXJYCXLXJADYCXEDHZX
-      FXKXJYCYJXKXFXJYCYJXKXFXJQZYCYJTZCXENZOUCZYKXKYLYNTZXDXFYOXDBEXEUBZHXFSYO
-      XCYPBWSYPDVMLHZCYPIZXCYPIYOYPCDEFVNYCWSYJYNWSWTVOVPYLYQYNWSYJYQWTXEDEFVQV
-      RULYCYNYRYJWTYNYRWSWTYNYRCXEEVDVSVTVRWAWBBEXEWCWDWEYNXGOUCZXKYMXGOCXEVHVI
-      XHYSXGOWFWGVJWHWIWJWKWLWMWNWOXFXHADWPWQWR $.
+      adantl mpbird nne incom eqeq1i bitri sylibr sylanc ccld clsss2 simplll
+      opncld adantlr biimpa adantll syl3anc sseld eldifn syl6 con2d df-ne
+      con2bii sylan2br exp31 com34 imp4a r19.23adv imp 3adantl3 impbida
+      rexanali syl6bb con4bid ) DGHZCEIZBEHZJZBCDKLLZHZBAMZHZXDCNZOPZQADRZXAXCS
+      ZXEXGSZTZADUAZXHSXAXIXLEXBUBZDHZBXMHZXMCNZOPZSZTZXLXAXITZXKXSAXMDXDXMUCZX
+      EXOXJXRXDXMBUDYAXGXQYAXFXPOXDXMCUEUFUGUHUIXAXNXIWRWSXNWTCDEFUJUKULXTXOXRW
+      TWRXIXOWSXOWTXITBEXBUMUNUOXAXRXIWRWSXRWTWRWSTZCXMNZOUCZXRYBYDCEXMUBZIZYBC
+      EXBNZYEYBWSCXBIZTCYGIYBWSYHWRWSUPCDEFUQURCEXBUSUTEXBVAVBWSYDYFVCWRCXMEVDV
+      EVFXRXPOUCYDXPOVGXPYCOXMCVHVIVJVKUKULURVLWRWSXLXIWTYBXLXIYBXKXIADYBXDDHZX
+      EXJXIYBYIXJXEXIYBYIXJXEXIQZYBYITZCXDNZOUCZYJXJYKYMTZXCXEYNXCBEXDUBZHXESYN
+      XBYOBWRYODVMLHZCYOIZXBYOIYNYOCDEFVNWRWSYIYMVOYKYPYMWRYIYPWSXDDEFVPVQULYBY
+      MYQYIWSYMYQWRWSYMYQCXDEVDVRVSVQVTWABEXDWBWCWDYMXFOUCZXJYLXFOCXDVHVIXGYRXF
+      OWEWFVJWGWHWIWJWKWLWMWNXEXGADWOWPWQ $.
       $( [28-Feb-2007] $) $( [22-Feb-2007] $)
 
     $( Membership in a closure. $)
-    elcls2 $p |- ( ( J e. Top /\ S (_ X ) -> ( P e. ( ( cls ` J ) ` S
+    elcls2 $p |- ( ( J e. Top /\ S C_ X ) -> ( P e. ( ( cls ` J ) ` S
          ) <-> ( P e. X /\ A. x e. J ( P e. x -> ( x i^i S ) =/= (/) ) ) ) ) $=
       ( ctop wcel wss wa ccl cfv cv cin c0 wne wi wral wb clsss3 ssel pm4.71rd
       syl elcls 3expa pm5.32da bitrd ) DGHZCEIZJZBCDKLLZHZBEHZULJZUMBAMZHUOCNOP
@@ -433,7 +433,7 @@ $)
     $( Any open set containing a point that belongs to the closure of a subset
        intersects the subset.  One direction of Theorem 6.5(a) of [Munkres]
        p. 95. $)
-    clsndisj $p |- ( ( ( J e. Top /\ S (_ X /\ P e. ( ( cls ` J ) ` S ) ) /\
+    clsndisj $p |- ( ( ( J e. Top /\ S C_ X /\ P e. ( ( cls ` J ) ` S ) ) /\
                ( U e. J /\ P e. U ) ) -> ( U i^i S ) =/= (/) ) $=
       ( vx cv wcel cin c0 wne wi wral wa ctop wss ccl cfv w3a wceq eleq2 ineq1
       neeq1d imbi12d rcla4cv imp32 elcls biimpa 3simp1 3simp2 clsss3 sseld
@@ -445,7 +445,7 @@ $)
 
     $( A subset whose closure has an empty interior also has an empty
        interior. $)
-    ntrcls0 $p |- ( ( J e. Top /\ S (_ X /\ ( ( int ` J ) `
+    ntrcls0 $p |- ( ( J e. Top /\ S C_ X /\ ( ( int ` J ) `
                 ( ( cls ` J ) ` S ) ) = (/) ) -> ( ( int ` J ) ` S ) = (/) ) $=
       ( ctop wcel wss ccl cfv cnt c0 wceq w3a wa ntrss pm3.26 clsss3 sscls
       syl3anc 3adant3 wb sseq2 3ad2ant3 mpbid ss0 syl ) BEFZACGZABHIIZBJIZIZKLZ
@@ -454,8 +454,8 @@ $)
       $( [20-May-2008] $) $( [4-Oct-2007] $)
 
     $( Two ways to say that a subset has an empty interior. $)
-    ntreq0 $p |- ( ( J e. Top /\ S (_ X ) -> ( ( ( int ` J ) ` S ) = (/) <->
-               A. x e. J ( x (_ S -> x = (/) ) ) ) $=
+    ntreq0 $p |- ( ( J e. Top /\ S C_ X ) -> ( ( ( int ` J ) ` S ) = (/) <->
+               A. x e. J ( x C_ S -> x = (/) ) ) ) $=
       ( vy ctop wcel wss wa cnt cfv c0 wceq cv crab cuni wi wral ntrval eqeq1d
       wn wal wb wrex elunirab notbii noel bibif ax-mp ralnex 3bitr4i albii
       dfcleq ralcom4 wex neq0 imbi1i 19.23v imnan 3bitr2ri con34b bitr4i
@@ -486,7 +486,7 @@ $)
     elcls3.2 $e |- X = U. J $.
     $( Membership in a closure in terms of the members of a basis.  Theorem
        6.5(b) of [Munkres] p. 95. $)
-    elcls3 $p |- ( ( B e. Bases /\ S (_ X /\ P e. X ) -> ( P e. ( ( cls ` J ) `
+    elcls3 $p |- ( ( B e. Bases /\ S C_ X /\ P e. X ) -> ( P e. ( ( cls ` J ) `
                  S ) <-> A. x e. B ( P e. x -> ( x i^i S ) =/= (/) ) ) ) $=
       ( vy vz ctb wcel wss w3a ccl cfv cv cin c0 wne wi wral ctop wb elcls ctg
       tgcl syl5eqel syl3an1 bastg syl6ssr sseld imim1d r19.20dv2 3ad2ant1 wa

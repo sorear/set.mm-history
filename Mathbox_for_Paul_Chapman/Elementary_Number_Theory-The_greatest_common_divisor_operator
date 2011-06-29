@@ -1,0 +1,374 @@
+$(
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+       Elementary Number Theory - The greatest common divisor operator
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+$)
+
+  $c gcd $.
+
+  $( Extend the definition of a class to include the greatest common divisor
+     operator. $)
+  cgcd $a class gcd $.
+
+  ${
+    $d n x y z $.
+    $( Define the ` gcd ` operator. $)
+    df-gcd $a |- gcd = { <. <. x , y >. , z >. | ( ( x e. ZZ /\ y e. ZZ ) /\
+                         z = if ( ( x = 0 /\ y = 0 ) , 0 ,
+                             sup ( { n e. ZZ |
+                                   ( n || x /\ n || y ) } , RR , < ) ) ) } $.
+  $}
+
+  ${
+    $d M n x y z $.  $d N n x y z $.
+    $( The value of the ` gcd ` operator. ` ( M gcd N ) ` is the greatest
+       common divisor of ` M ` and ` N ` .  If ` M ` and ` N ` are both ` 0 ` ,
+       the result is defined conventionally as ` 0 ` .  (Contributed by Paul
+       Chapman, 21-Mar-2011.) $)
+    gcdval $p |- ( ( M e. ZZ /\ N e. ZZ ) -> ( M gcd N ) =
+              if ( ( M = 0 /\ N = 0 ) , 0 ,
+                   sup ( { n e. ZZ | ( n || M /\ n || N ) } , RR , < ) ) ) $=
+      ( vx vy vz cz cv cc0 wceq wa cdivides wbr crab cr clt csup cif cgcd 0z
+      elisseti ltso supex ifex eqeq1 anbi1d wb wcel breq2 adantr rabbidv
+      supeq1d ifbieq2d anbi2d df-gcd oprabval2 ) DEFBCGGDHZIJZEHZIJZKZIAHZUQLMZ
+      VBUSLMZKZAGNZOPQZRBIJZCIJZKZIVBBLMZVBCLMZKZAGNZOPQZRSVHUTKZIVKVDKZAGNZOPQ
+      ZRVJIVOIGTUAOVNPUBUCUDUQBJZVAVPVGVSIVTURVHUTUQBIUEUFVTOVFVRPVTVEVQAGVTVEV
+      QUGVBGUHZVTVCVKVDUQBVBLUIUFUJUKULUMUSCJZVPVJVSVOIWBUTVIVHUSCIUEUNWBOVRVNP
+      WBVQVMAGWBVQVMUGWAWBVDVLVKUSCVBLUIUNUJUKULUMDEFAUOUP $.
+      $( [22-Jun-2011] $) $( [21-Mar-2011] $)
+  $}
+
+  $( The value, by convention, of the ` gcd ` operator when both operands are
+     ` 0 ` .  (Contributed by Paul Chapman, 21-Mar-2011.) $)
+  gcd0val $p |- ( 0 gcd 0 ) = 0 $=
+    ( vn cc0 cgcd co wceq wa cv cdivides wbr cz crab cr clt csup cif wcel 0z
+    gcdval mp2an eqid iftrue eqtri ) BBCDZBBEZUDFZBAGBHIZUFFAJKLMNZOZBBJPZUIUCU
+    HEQQABBRSUDUDUHBEBTZUJUEBUGUASUB $.
+    $( [21-Mar-2011] $) $( [21-Mar-2011] $)
+
+  ${
+    $d M n $.  $d N n $.
+    $( The value of the ` gcd ` operator when at least one operand is nonzero.
+       (Contributed by Paul Chapman, 21-Mar-2011.) $)
+    gcdn0val $p |- ( ( ( M e. ZZ /\ N e. ZZ ) /\ -. ( M = 0 /\ N = 0 ) ) ->
+        ( M gcd N ) = sup ( { n e. ZZ | ( n || M /\ n || N ) } , RR , < ) ) $=
+      ( cz wcel wa cc0 wceq wn cgcd co cv cdivides wbr crab cr clt csup cif
+      gcdval iffalse sylan9eq ) BDECDEFBGHCGHFZIBCJKUCGALZBMNUDCMNFADOPQRZSUEAB
+      CTUCGUEUAUB $.
+      $( [21-Mar-2011] $) $( [21-Mar-2011] $)
+  $}
+
+  ${
+    $d A n w x y z $.  $d S w x $.
+    gcdcllem1.1 $e |- S = { z e. ZZ | A. n e. A z || n } $.
+    $( Lemma for ~ gcdn0cl , ~ gcddvds and ~ dvdslegcd . $)
+    gcdcllem1 $p |- ( ( A C_ ZZ /\ E. n e. A n =/= 0 ) ->
+                      ( S =/= (/) /\ E. x e. RR A. y e. S y <_ x ) ) $=
+      ( vw cz wss cv cc0 wne wrex wa c0 cle wbr wral cr c1 wcel cdivides ssel
+      1dvds syl6 r19.21aiv 1z wceq breq1 ralbidv elrab2 biimpri mpan syl ne0i
+      adantr wi cabs cfv r19.26 pm3.35 a1i rgen r19.20 ax-mp sylbir pm3.27bi
+      adantl dvdsleabs 3expia imp sylan2 anassrs com23 r19.21aiva ancoms
+      pm3.26bi sylanc neeq1 fveq2 breq2d imbi12d cbvralv ralbii ralcom r19.21v
+      3bitri sylib cc ssel2 zssre sstr mpan2 sylan recn abscl 3syl wb breq2
+      rcla4edv syldan imim2d mpd r19.23v cbvrexv sylan2b jca ) DIJZFKZLMZFDNZOE
+      PMZBKZAKZQRZBESZATNZXIXMXLXIUAEUBZXMXIUAXJUCRZFDSZXSXIXTFDXIXJDUBZXJIUBZX
+      TDIXJUDZXJUEUFUGUAIUBZYAXSUHXSYEYAOCKZXJUCRZFDSZYACUAIEYFUAUIYGXTFDYFUAXJ
+      UCUJUKGULUMUNUOEUAUPUOUQXIHKZLMZHDNZXRXLXIYKXRXIYJXRURZHDSZYKXRURXIYJXNYI
+      USUTZQRZBESZURZHDSZYMXIXKXNXJUSUTZQRZURZFDSZBESZYRXIUUBBEXNXJUCRZFDSZUUDU
+      UAURZFDSZUUBXIXNEUBZOUUEUUGOUUDUUFOZFDSZUUBUUDUUFFDVAUUIUUAURZFDSUUJUUBUR
+      UUKFDUUKYBUUDUUAVBVCVDUUIUUAFDVEVFVGUUHUUEXIUUHXNIUBZUUEYHUUECXNIEYFXNUIY
+      GUUDFDYFXNXJUCUJUKGULZVHVIXIUULUUGUUHUULXIUUGUULXIOZUUFFDUUNYBOXKUUDYTUUL
+      XIYBXKUUDYTURZURZUULYCUUPXIYBOUULYCXKUUOXNXJVJVKXIYBYCYDVLVMVNVOVPVQUUHUU
+      LUUEUUMVRVMVSVPUUCYJYOURZHDSZBESUUQBESZHDSYRUUBUURBEUUAUUQFHDXJYIUIZXKYJY
+      TYOXJYILVTZUUTYSYNXNQXJYIUSWAWBWCWDWEUUQBHEDWFUUSYQHDYJYOBEWGWEWHWIXIYQYL
+      URZHDSYRYMURXIUVBHDXIYIDUBZOZYPXRYJXIUVCYNTUBZYPXRURUVDYITUBZYIWJUBUVEDTJ
+      ZUVCUVFXIDTYIWKXIITJUVGWLDITWMWNWOYIWPYIWQWRXIXQYPAYNTXOYNUIZXQYPWSXIUVHX
+      PYOBEXOYNXNQWTUKVIXAXBXCVPYQYLHDVEUOXDYJXRHDXEWIVLXKYJFHDUVAXFXGXH $.
+      $( [31-Mar-2011] $) $( [21-Mar-2011] $)
+  $}
+
+  ${
+    $d K z $.  $d M n x y z $.  $d N n x y z $.  $d R x y $.  $d S x y $.
+    gcdcllem2.1 $e |- S = { z e. ZZ | A. n e. { M , N } z || n } $.
+    gcdcllem2.2 $e |- R = { z e. ZZ | ( z || M /\ z || N ) } $.
+    $( Lemma for ~ gcdn0cl , ~ gcddvds and ~ dvdslegcd . $)
+    gcdcllem2 $p |- ( ( M e. ZZ /\ N e. ZZ ) -> R = S ) $=
+      ( vx cz wcel wa cv cdivides wbr cpr wral wi breq2 rcla4v anim12ii prid1g
+      prid2g syl2an wceq wo biimprcd jaao visset elpr syl5ib r19.21aiv a1i
+      impbid anbi2d breq1 ralbidv elrab2 syl5bb anbi12d syl6rbbr eqrdv ) EJKZFJ
+      KZLZIBCVEIMZCKZVFJKZVFENOZVFFNOZLZLZVFBKVEVHVFDMZNOZDEFPZQZLVLVGVEVPVKVHV
+      EVPVKEVOKZFVOKZVPVKRVCVDVQVPVIVRVJVNVIDEVOVMEVFNSZTVNVJDFVOVMFVFNSZTUAEFJ
+      UBEFJUCUDVKVPRVEVKVNDVOVKVMEUEZVMFUEZUFVNVMVOKVIWAVNVJWBWAVNVIVSUGWBVNVJV
+      TUGUHVMEFDUIUJUKULUMUNUOAMZVMNOZDVOQVPAVFJCWCVFUEZWDVNDVOWCVFVMNUPUQGURUS
+      WCENOZWCFNOZLVKAVFJBWEWFVIWGVJWCVFENUPWCVFFNUPUTHURVAVB $.
+      $( [31-Mar-2011] $) $( [21-Mar-2011] $)
+
+    $( Lemma for ~ gcdn0cl , ~ gcddvds and ~ dvdslegcd . $)
+    gcdcllem3 $p |- ( ( ( M e. ZZ /\ N e. ZZ ) /\ -. ( M = 0 /\ N = 0 ) ) ->
+        ( sup ( R , RR , < ) e. NN /\
+          ( sup ( R , RR , < ) || M /\ sup ( R , RR , < ) || N ) /\
+          ( ( K e. ZZ /\ K || M /\ K || N ) -> K <_ sup ( R , RR , < ) ) ) ) $=
+      ( vy vx cz wcel wa cc0 wceq wn cr clt csup cn cdivides wbr w3a cle wi c1
+      1dvds anim12i cv breq1 anbi12d elrab2 1z mpbiran sylibr adantr c0 wne
+      wral wrex cpr wss gcdcllem1 wal wo eleq1 biimprcd jaao visset elpr
+      syl5ib 19.21aiv dfss2 neeq1 rcla4ev prid1g sylan adantlr prid2g adantll
+      jaodan neorian sylan2br sylanc wb gcdcllem2 raleq1 rexbidv syl mpbird
+      crab ssrab2 eqsstri zssre sstri suprub ex mp3an1 mpd suprzcl cbvrabv
+      eqtri sylib pm3.26d elnnz1 baib pm3.27d biimpri 3impb syl5 3jca ) FLMZGLM
+      ZNZFOPGOPNQZNZBRSTZUAMZXRFUBUCZXRGUBUCZNZELMZEFUBUCZEGUBUCZUDZEXRUEUCZUFX
+      QXSUGXRUEUCZXQUGBMZYHXOYIXPXOUGFUBUCZUGGUBUCZNZYIXMYJXNYKFUHGUHUIYIUGLMYL
+      AUJZFUBUCZYMGUBUCZNZYLAUGLBYMUGPYNYJYOYKYMUGFUBUKYMUGGUBUKULIUMUNUOUPUQXQ
+      BURUSZJUJKUJZUEUCZJBUTZKRVAZNZYIYHUFZXQUUBCURUSZYSJCUTZKRVAZNZFGVBZLVCZDU
+      JZOUSZDUUHVAZUUGXQKJAUUHCDHVDXOUUIXPXOYRUUHMZYRLMZUFZKVEUUIXOUUOKXOYRFPZY
+      RGPZVFUUNUUMXMUUPUUNXNUUQUUPUUNXMYRFLVGVHUUQUUNXNYRGLVGVHVIYRFGKVJVKVLVMK
+      UUHLVNUPUQXOFOUSZGOUSZVFUULXPXOUURUULUUSXMUURUULXNFUUHMUURUULXMUUKUURDFUU
+      HUUJFOVOVPFGLVQVRVSXNUUSUULXMGUUHMUUSUULXNUUKUUSDGUUHUUJGOVOVPFGLVTVRWAWB
+      FOGOWCWDWEXOUUBUUGWFZXPXOBCPZUUTABCDFGHIWGUVAYQUUDUUAUUFBCURVOUVAYTUUEKRY
+      SJBCWHWIULWJUQWKZBRVCZYQUUAUUCBLRBYPALWLZLIYPALWMWNZWOWPZUVCYQUUAUDZYIYHK
+      JBUGWQWRWSWJWTXQXRLMZXSYHWFXQUVHYBXQXRBMZUVHYBNXQUUBUVIUVBBLVCYQUUAUVIUVE
+      KJBXAWSWJYRFUBUCZYRGUBUCZNZYBKXRLBYRXRPUVJXTUVKYAYRXRFUBUKYRXRGUBUKULBUVD
+      UVLKLWLIYPUVLAKLYMYRPYNUVJYOUVKYMYRFUBUKYMYRGUBUKULXBXCUMXDZXEXSUVHYHXRXF
+      XGWJWKXQUVHYBUVMXHXQEBMZYGYFXQUUBUVNYGUFZUVBUVCYQUUAUVOUVFUVGUVNYGKJBEWQW
+      RWSWJYCYDYEUVNUVNYCYDYENZNYPUVPAELBYMEPYNYDYOYEYMEFUBUKYMEGUBUKULIUMXIXJX
+      KXL $.
+      $( [31-Mar-2011] $) $( [21-Mar-2011] $)
+  $}
+
+  ${
+    $d K n $.  $d M n z $.  $d N n z $.
+    $( Closure of the ` gcd ` operator.  (Contributed by Paul Chapman,
+       21-Mar-2011.) $)
+    gcdn0cl $p |- ( ( ( M e. ZZ /\ N e. ZZ ) /\ -. ( M = 0 /\ N = 0 ) ) ->
+                    ( M gcd N ) e. NN ) $=
+      ( vn cK vz cz wcel wa cc0 wceq wn cgcd co cv cdivides wbr crab cr clt
+      csup cn gcdn0val w3a cle wi cpr wral eqid gcdcllem3 3simp1d eqeltrd ) AFG
+      BFGHAIJBIJHKHZABLMCNZAOPUMBOPHCFQZRSTZUACABUBULUOUAGUOAOPUOBOPHDFGDAOPDBO
+      PUCDUOUDPUECUNUMENOPEABUFUGCFQZEDABUPUHUNUHUIUJUK $.
+      $( [21-Mar-2011] $) $( [21-Mar-2011] $)
+
+    $( The ` gcd ` of two integers divides each of them.  (Contributed by Paul
+       Chapman, 21-Mar-2011.) $)
+    gcddvds $p |- ( ( M e. ZZ /\ N e. ZZ ) ->
+                    ( ( M gcd N ) || M /\ ( M gcd N ) || N ) ) $=
+      ( vn cK vz cz wcel wa cc0 wceq cgcd co cdivides wbr 0z dvds0 ax-mp breq2
+      bi2anan9 anidm syl6bb mpbiri opreq2 opreq1 sylan9eqr gcd0val syl6eq
+      breq1d anbi12d mpbird adantl wn cv crab cr clt csup cn w3a cle wi cpr
+      wral eqid gcdcllem3 3simp2d gcdn0val pm2.61dan ) AFGBFGHZAIJZBIJZHZABKLZA
+      MNZVMBMNZHZVLVPVIVLVPIAMNZIBMNZHZVLVSIIMNZIFGVTOIPQVLVSVTVTHVTVJVQVTVKVRV
+      TAIIMRBIIMRSVTTUAUBVLVNVQVOVRVLVMIAMVLVMIIKLZIVKVJVMAIKLWABIAKUCAIIKUDUEU
+      FUGZUHVLVMIBMWBUHUIUJUKVIVLULHZVPCUMZAMNWDBMNHCFUNZUOUPUQZAMNZWFBMNZHZWCW
+      FURGWIDFGDAMNDBMNUSDWFUTNVACWEWDEUMMNEABVBVCCFUNZEDABWJVDWEVDVEVFWCVNWGVO
+      WHWCVMWFAMCABVGZUHWCVMWFBMWKUHUIUJVH $.
+      $( [21-Mar-2011] $) $( [21-Mar-2011] $)
+
+    $( An integer which divides both operands of the ` gcd ` is bounded by it.
+       (Contributed by Paul Chapman, 21-Mar-2011.) $)
+    dvdslegcd $p |- ( ( ( K e. ZZ /\ M e. ZZ /\ N e. ZZ ) /\
+                        -. ( M = 0 /\ N = 0 ) ) ->
+                      ( ( K || M /\ K || N ) -> K <_ ( M gcd N ) ) ) $=
+      ( vn vz cz wcel w3a cc0 wceq wa wn cdivides wbr cgcd co cle wi cv crab
+      cr clt csup cn cpr wral eqid gcdcllem3 3simp3d gcdn0val breq2d sylibrd
+      com12 3expb exp3a ex com23 impcom 3impb imp ) AFGZBFGZCFGZHBIJCIJKLZABMNZ
+      ACMNZKZABCOPZQNZRZVAVBVCVDVJRZVBVCKZVAVKVLVDVAVJVLVDVAVJRVLVDKZVAVGVIVAVG
+      KVMVIVAVEVFVMVIRVMVAVEVFHZVIVMVNADSZBMNVOCMNKDFTZUAUBUCZQNZVIVMVQUDGVQBMN
+      VQCMNKVNVRRDVPVOESMNEBCUEUFDFTZEABCVSUGVPUGUHUIVMVHVQAQDBCUJUKULUMUNUMUOU
+      PUQURUSUT $.
+      $( [21-Mar-2011] $) $( [21-Mar-2011] $)
+  $}
+
+  $( Closure of the ` gcd ` operator.  (Contributed by Paul Chapman,
+     21-Mar-2011.) $)
+  gcdcl $p |- ( ( M e. ZZ /\ N e. ZZ ) -> ( M gcd N ) e. NN0 ) $=
+    ( cz wcel wa cc0 wceq cgcd co cn0 0nn0 opreq2 opreq1 sylan9eqr gcd0val
+    syl6eq eleq1d mpbiri adantl wn cn gcdn0cl nnnn0 syl pm2.61dan ) ACDBCDEZAFG
+    ZBFGZEZABHIZJDZUIUKUFUIUKFJDKUIUJFJUIUJFFHIZFUHUGUJAFHIULBFAHLAFFHMNOPQRSUF
+    UITEUJUADUKABUBUJUCUDUE $.
+    $( [21-Mar-2011] $) $( [21-Mar-2011] $)
+
+  ${
+    $d n x y z $.
+    $( Domain and codomain of the ` gcd ` operator.  (Contributed by Paul
+       Chapman, 31-Mar-2011.) $)
+    gcdf $p |- gcd : ( ZZ X. ZZ ) --> NN0 $=
+      ( vx vy vz vn cz cxp cn0 cgcd wf wfn cv co wcel wral ffnoprv cc0 wceq wa
+      cdivides wbr crab cr clt csup cif 0z elisseti ltso supex ifex df-gcd
+      fnoprab2 gcdcl rgen2 mpbir2an ) EEFZGHIHUPJAKZBKZHLGMZBENAENABEEGHOABCEEU
+      QPQURPQRZPDKZUQSTVAURSTRDEUAZUBUCUDZUEHUTPVCPEUFUGUBVBUCUHUIUJABCDUKULUSA
+      BEEUQURUMUNUO $.
+      $( [31-Mar-2011] $) $( [31-Mar-2011] $)
+  $}
+
+  ${
+    $d M n $.  $d N n $.
+    $( The ` gcd ` operator is commutative.  (Contributed by Paul Chapman,
+       21-Mar-2011.) $)
+    gcdcom $p |- ( ( M e. ZZ /\ N e. ZZ ) -> ( M gcd N ) = ( N gcd M ) ) $=
+      ( vn cz wcel wa cc0 wceq cv cdivides wbr crab cr clt csup cif cgcd co
+      ancom wb a1i rabbii supeq1i ifbieq2i gcdval ancoms 3eqtr4d ) ADEZBDEZFZAG
+      HZBGHZFZGCIZAJKZUNBJKZFZCDLZMNOZPZULUKFZGUPUOFZCDLZMNOZPZABQRBAQRZUTVEHUJ
+      UMVAUSVDGUKULSMURVCNUQVBCDUQVBTUNDEUOUPSUAUBUCUDUACABUEUIUHVFVEHCBAUEUFUG
+      $.
+      $( [22-Jun-2011] $) $( [21-Mar-2011] $)
+  $}
+
+  $( The ` gcd ` of two integers is zero iff they are both zero.  (Contributed
+     by Paul Chapman, 21-Mar-2011.) $)
+  gcdeq0 $p |- ( ( M e. ZZ /\ N e. ZZ ) ->
+                 ( ( M gcd N ) = 0 <-> ( M = 0 /\ N = 0 ) ) ) $=
+    ( cz wcel wa cgcd co cc0 wceq wne wn cn gcdn0cl nnne0 syl ex con1d nne
+    syl5ibr opreq12 gcd0val syl6eq impbid1 ) ACDBCDEZABFGZHIZAHIBHIEZUDUEHJZKUG
+    UFUDUGUHUDUGKZUHUDUIEUELDUHABMUENOPQUEHRSUGUEHHFGHAHBHFTUAUBUC $.
+    $( [21-Mar-2011] $) $( [21-Mar-2011] $)
+
+  $( The gcd of two integers is positive (nonzero) iff they are not both zero.
+     (Contributed by Paul Chapman, 22-Jun-2011.) $)
+  gcdn0gt0 $p |- ( ( M e. ZZ /\ N e. ZZ ) ->
+                   ( -. ( M = 0 /\ N = 0 ) <-> 0 < ( M gcd N ) ) ) $=
+    ( cz wcel wa cc0 cgcd co clt wbr wne wceq wn cn0 wb gcdcl cr cle 0re
+    leltne mp3an1 nn0re nn0ge0 sylanc syl gcdeq0 notbid df-ne syl5bb bitr2d )
+    ACDBCDEZFABGHZIJZULFKZAFLBFLEZMZUKULNDZUMUNOZABPULQDZFULRJZURUQFQDUSUTURSFU
+    LTUAULUBULUCUDUEUKULFLZMUPUNUKVAUOABUFUGULFUHUIUJ $.
+    $( [22-Jun-2011] $) $( [22-Jun-2011] $)
+
+  $( The ` gcd ` of ` 0 ` and an integer is the integer's absolute value.
+     (Contributed by Paul Chapman, 21-Mar-2011.) $)
+  gcd0id $p |- ( N e. ZZ -> ( 0 gcd N ) = ( abs ` N ) ) $=
+    ( cz wcel cc0 wceq cgcd co cabs cfv opreq2 gcd0val syl6eq fveq2 abs0
+    eqtr4d adantl wne wn wa cle wbr cdivides 0z gcddvds mpan pm3.27d adantr wi
+    dvdsleabs cn0 gcdcl nn0z syl syl3an1 3anidm12 mpd nn0abscl dvds0 iddvds wb
+    absdvdsb anidms mpbid jca w3a dvdslegcd ex mp3an2 mpancom df-ne eqid
+    biantrur notbii bitri syl5ib imp cr letri3 zre sylanc mpbird sylan2br
+    pm2.61dan ) ABCZADEZDAFGZAHIZEZWEWHWDWEWFDWGWEWFDDFGDADDFJKLWEWGDHIDADHMNLO
+    PWDADQZWHWERZWDWISZWHWFWGTUAZWGWFTUAZSZWKWLWMWKWFAUBUAZWLWDWOWIWDWFDUBUAZWO
+    DBCZWDWPWOSUCDAUDUEUFUGWDWIWOWLUHZWFBCZWDWIWRWDWFAUIWDWFUJCZWSWQWDWTUCDAUKU
+    EWFULUMZUNUOUPWKWGDUBUAZWGAUBUAZSZWMWDXDWIWDXBXCWDWGBCZXBWDWGUJCXEAUQWGULUM
+    ZWGURUMWDAAUBUAZXCAUSWDXGXCUTAAVAVBVCVDUGWDWIXDWMUHZWDDDEZWESZRZXHWIXEWDXKX
+    HUHZXFXEWQWDXLUCXEWQWDVEXKXHWGDAVFVGVHVIWIWJXKADVJZWEXJXIWEDVKVLVMVNVOVPUPV
+    DWDWHWNUTZWIWFVQCZWGVQCZXNWDWFWGVRWDWSXOXAWFVSUMWDXEXPXFWGVSUMVTUGWAXMWBWC
+    $.
+    $( [31-Mar-2011] $) $( [21-Mar-2011] $)
+
+  $( The ` gcd ` of an integer and ` 0 ` is the integer's absolute value.
+     (Contributed by Paul Chapman, 31-Mar-2011.) $)
+  gcdid0 $p |- ( N e. ZZ -> ( N gcd 0 ) = ( abs ` N ) ) $=
+    ( cz wcel cc0 cgcd co cabs cfv wceq 0z gcdcom mpan gcd0id eqtr3d ) ABCZDAEF
+    ZADEFZAGHDBCOPQIJDAKLAMN $.
+    $( [31-Mar-2011] $) $( [31-Mar-2011] $)
+
+  $( The ` gcd ` of a nonnegative integer with ` 0 ` is itself.  (Contributed
+     by Paul Chapman, 31-Mar-2011.) $)
+  nn0gcdid0 $p |- ( N e. NN0 -> ( N gcd 0 ) = N ) $=
+    ( cn0 wcel cc0 cgcd co cabs cfv cz wceq nn0z 0z gcdcom mpan gcd0id eqtr3d
+    syl cr cle wbr absid nn0re nn0ge0 sylanc eqtrd ) ABCZADEFZAGHZAUFAICZUGUHJA
+    KUIDAEFZUGUHDICUIUJUGJLDAMNAOPQARCDASTUHAJUFAUAAUBAUCUDUE $.
+    $( [31-Mar-2011] $) $( [31-Mar-2011] $)
+
+  $( Negating one operand of ` gcd ` does not alter the result.  (Contributed
+     by Paul Chapman, 21-Mar-2011.) $)
+  gcdneg $p |- ( ( M e. ZZ /\ N e. ZZ ) -> ( M gcd -u N ) = ( M gcd N ) ) $=
+    ( cz wcel wa cgcd co cneg cc0 wceq opreq12 adantl wb cc zcn negeq0 syl
+    anbi2d syl6bi imp eqtr4d wn cle wbr cdivides gcddvds dvdsnegb cn0 gcdcl
+    nn0z pm3.27 sylanc mpbid wi notbid w3a dvdslegcd ex pm3.26 znegcl syl3anc
+    sylbid com12 mpdi impcom sylan2 mpbird jca cr letri3 zre adantr pm2.61dan
+    eqcomd ) ACDZBCDZEZABFGZABHZFGZVQAIJZBIJZEZVRVTJZVQWCEVRIIFGZVTWCVRWEJVQAIB
+    IFKLVQWCVTWEJZVQWCWAVSIJZEZWFVPWCWHMVOVPWBWGWAVPBNDWBWGMBOBPQRLZAIVSIFKSTUA
+    VQWCUBZEZWDVRVTUCUDZVTVRUCUDZEZWKWLWMWJVQWLWJVQVRAUEUDZVRVSUEUDZEZWLVQWOVRB
+    UEUDZEWQABUFVQWRWPWOVRCDZVPWRWPMVQVRBUGVQVRUHDWSABUIVRUJQZVOVPUKZULRUMVQWJW
+    QWLUNZVQWJWHUBZXBVQWCWHWIUOWSVOVSCDZXCXBUNVQWSVOXDUPXCXBVRAVSUQURWTVOVPUSZV
+    PXDVOBUTZLZVAVBVCVDVEWJVQWMWJVQVTAUEUDZVTBUEUDZEZWMVQXJXHVTVSUEUDZEZVOXDXLV
+    QAVSUFXEXGULVQXIXKXHVTCDZVPXIXKMVQVTBUGVOXDXMVPVOXDEVTUHDXMAVSUIVTUJQXFVFZX
+    AULRVGVQWJXJWMUNZXMVOVPWJXOUNVQXMVOVPUPWJXOVTABUQURXNXEXAVAVCVDVEVHVQWDWNMZ
+    WJVRVIDZVTVIDZXPVQVRVTVJVQWSXQWTVRVKQVQXMXRXNVTVKQULVLVGVMVN $.
+    $( [31-Mar-2011] $) $( [21-Mar-2011] $)
+
+  $( Negating one operand of the ` gcd ` operator does not alter the result.
+     (Contributed by Paul Chapman, 22-Jun-2011.) $)
+  neggcd $p |- ( ( M e. ZZ /\ N e. ZZ ) -> ( -u M gcd N ) = ( M gcd N ) ) $=
+    ( cz wcel wa cneg cgcd co wceq gcdneg ancoms gcdcom znegcl sylan 3eqtr4d )
+    ACDZBCDZEBAFZGHZBAGHZRBGHZABGHQPSTIBAJKRCDQUASIPRBLAMNABLO $.
+    $( [22-Jun-2011] $) $( [22-Jun-2011] $)
+
+  ${
+    gcdaddmlem.1 $e |- K e. ZZ $.
+    gcdaddmlem.2 $e |- M e. ZZ $.
+    gcdaddmlem.3 $e |- N e. ZZ $.
+    $( Lemma for ~ gcdaddm . $)
+    gcdaddmlem $p |- ( M gcd N ) = ( M gcd ( ( K x. M ) + N ) ) $=
+      ( cc0 wceq cmul co caddc wa wn cgcd cle wbr cdivides cz wcel gcddvds
+      mp2an pm3.26i c1 wi cn0 gcdcl nn0z ax-mp w3a 1z dvds2ln mpanl12 mp3an cc
+      zcn mulid2i opreq2i breqtri pm3.2i zmulcl zaddcl dvdslegcd ex mpi cneg
+      znegcl mulneg1i opreq12i mulcli negcli addcomi negidi eqtri opreq1i
+      addassi addid2i 3eqtr3i anim12i cr zre letri3i sylibr wo pm4.57 opreq2
+      mul01i syl6eq opreq1d eqeq1d pm5.32i opreq12 sylbir eqtr4d sylbi jaoi
+      pm2.61i ) BGHZABIJZCKJZGHZLZMZWQCGHZLZMZLZBCNJZBWSNJZHZXFXGXHOPZXHXGOPZLX
+      IXBXJXEXKXBXGBQPZXGWSQPZLZXJXLXMXLXGCQPZBRSZCRSZXLXOLZEFBCTUAZUBXGWRUCCIJ
+      ZKJZWSQXRXGYAQPZXSXGRSZXPXQXRYBUDZXGUESZYCXPXQYEEFBCUFUAXGUGUHZEFARSZUCRS
+      ZYCXPXQUIYDDUJAUCXGBCUKULUMUHXTCWRKCXQCUNSFCUOUHZUPUQURUSYCXPWSRSZXBXNXJU
+      DZUDYFEWRRSZXQYJYGXPYLDEABUTUAFWRCVAUAZYCXPYJUIXBYKXGBWSVBVCUMVDXEXHBQPZX
+      HCQPZLZXKYNYOYNXHWSQPZXPYJYNYQLZEYMBWSTUAZUBXHAVEZBIJZUCWSIJZKJZCQYRXHUUC
+      QPZYSXHRSZXPYJYRUUDUDZXHUESZUUEXPYJUUGEYMBWSUFUAXHUGUHZEYMYTRSZYHUUEXPYJU
+      IUUFYGUUIDAVFUHUJYTUCXHBWSUKULUMUHUUCWRVEZWSKJZCUUAUUJUUBWSKABYGAUNSDAUOU
+      HZXPBUNSEBUOUHZVGWSYJWSUNSYMWSUOUHUPVHUUJWRKJZCKJGCKJZUUKCUUNGCKUUNWRUUJK
+      JGUUJWRWRABUULUUMVIZVJZUUPVKWRUUPVLVMVNUUJWRCUUQUUPYIVOCYIVPZVQVMURUSUUEX
+      PXQXEYPXKUDZUDUUHEFUUEXPXQUIXEUUSXHBCVBVCUMVDVRXGXHYCXGVSSYFXGVTUHUUEXHVS
+      SUUHXHVTUHWAWBXFMXAXDWCXIXAXDWDXAXIXDXAXDXIWQWTXCWQWSCGWQWSUUOCWQWRGCKWQW
+      RAGIJGBGAIWEAUULWFWGWHUURWGWIWJZXDXGGGNJZXHBGCGNWKXDXAXHUVAHUUTBGWSGNWKWL
+      WMZWNUVBWOWNWP $.
+      $( [31-Mar-2011] $) $( [31-Mar-2011] $)
+  $}
+
+  $( Adding a multiple of one operand of ` gcd ` to the other does not alter
+     the result.  (Contributed by Paul Chapman, 31-Mar-2011.) $)
+  gcdaddm $p |- ( ( K e. ZZ /\ M e. ZZ /\ N e. ZZ ) ->
+                  ( M gcd N ) = ( M gcd ( N + ( K x. M ) ) ) ) $=
+    ( cz wcel w3a cgcd co cmul caddc wceq cc0 cif opreq1 opreq1d opreq2d
+    eqeq2d id opreq2 opreq12d eqeq12d 0z elimel gcdaddmlem dedth3h cc wa
+    addcom mulcl zcn syl2an 3impa eqtrd ) ADEZBDEZCDEZFZBCGHZBABIHZCJHZGHZBCUSJ
+    HZGHUNUOUPURVAKURBUNALMZBIHZCJHZGHZKUOBLMZCGHZVGVCVGIHZCJHZGHZKVGUPCLMZGHZV
+    GVIVLJHZGHZKABCLLLAVCKZVAVFURVPUTVEBGVPUSVDCJAVCBINOPQBVGKZURVHVFVKBVGCGNVQ
+    BVGVEVJGVQRVQVDVICJBVGVCISOTUACVLKZVHVMVKVOCVLVGGSVRVJVNVGGCVLVIJSPUAVCVGVL
+    ALDUBUCBLDUBUCCLDUBUCUDUEUQUTVBBGUNUOUPUTVBKZUSUFEZCUFEVSUNUOUGUPUSCUHAUFEB
+    UFEVTUNUOABUIAUJBUJUKCUJUKULPUM $.
+    $( [31-Mar-2011] $) $( [31-Mar-2011] $)
+
+  $( The ` gcd ` of a number and itself is its absolute value.  (Contributed by
+     Paul Chapman, 31-Mar-2011.) $)
+  gcdid $p |- ( N e. ZZ -> ( N gcd N ) = ( abs ` N ) ) $=
+    ( cz wcel cc0 cgcd co c1 cmul caddc cabs cfv wceq 1z 0z gcdaddm mp3an13
+    gcdid0 cc zcn mulid2 opreq2d addid2 eqtrd syl 3eqtr3rd ) ABCZADEFZADGAHFZIF
+    ZEFZAJKAAEFGBCUFDBCUGUJLMNGADOPAQUFUIAAEUFARCZUIALASUKUIDAIFAUKUHADIATUAAUB
+    UCUDUAUE $.
+    $( [31-Mar-2011] $) $( [31-Mar-2011] $)
+
+  $( The ` gcd ` of two integers is the same as that of their absolute values.
+     (Contributed by Paul Chapman, 31-Mar-2011.) $)
+  gcdabs $p |- ( ( M e. ZZ /\ N e. ZZ ) ->
+                 ( ( abs ` M ) gcd ( abs ` N ) ) = ( M gcd N ) ) $=
+    ( cz wcel wa cabs cfv wceq cneg wo cgcd co cr absor anim12i zre syl2an wi
+    opreq12 a1i gcdneg ancoms gcdcom znegcl sylan 3eqtr4d sylan9eqr ex eqtrd
+    ccased mpd ) ACDZBCDZEZAFGZAHZUOAIZHZJZBFGZBHZUTBIZHZJZEZUOUTKLZABKLZHZAMDZ
+    BMDZVEULUMVIUSVJVDANBNOAPBPQUNUPVAURVCVHUPVAEVHRUNUOAUTBKSTUNURVAEZVHVKUNVF
+    UQBKLZVGUOUQUTBKSUNBUQKLZBAKLZVLVGUMULVMVNHBAUAUBUQCDZUMVLVMHULUQBUCAUDZUEA
+    BUCUFZUGUHUNUPVCEZVHVRUNVFAVBKLVGUOAUTVBKSABUAUGUHUNURVCEZVHVSUNVFUQVBKLZVG
+    UOUQUTVBKSUNVTVLVGVOUMVTVLHULUQBUAVPUEVQUIUGUHUJUK $.
+    $( [31-Mar-2011] $) $( [31-Mar-2011] $)
+
+  $( The ` gcd ` remains unchanged if one operand is replaced with its
+     remainder modulo the other.  (Contributed by Paul Chapman,
+     31-Mar-2011.) $)
+  modgcd $p |- ( ( M e. ZZ /\ N e. NN ) ->
+                 ( ( M mod N ) gcd N ) = ( M gcd N ) ) $=
+    ( cz wcel cn wa cmo co cgcd cdiv cfl cfv cneg cmul caddc cmin cr crp wceq
+    modval zre nnrp syl2an cc w3a mulneg1 mulcom negeqd eqtrd ancoms 3adant1
+    opreq2d negsub mulcl sylan2 3impb recnd adantr nnre adantl cc0 wne redivcl
+    nnne0 syl3an 3anidm23 flcl syl zcn syl3anc eqtr4d gcdaddm znegcl nnz
+    pm3.26 gcdcom cn0 zmodcl nn0z sylanc 3eqtr3d ) ACDZBEDZFZBABGHZIHZBAIHZWEBI
+    HZABIHZWDWFBAABJHZKLZMZBNHZOHZIHZWGWDWEWNBIWDWEABWKNHZPHZWNAQDZBRDWEWQSWBWC
+    ABTAUAZBUBUCAUDDZBUDDZWKUDDZWNWQSWDWTXAXBUEZWNAWPMZOHZWQXCWMXDAOXAXBWMXDSZW
+    TXBXAXFXBXAFZWMWKBNHZMXDWKBUFXGXHWPWKBUGUHUIUJUKULWTXAXBXEWQSZWTWPUDDXIXAXB
+    FAWPUMBWKUNUOUPUIWBWTWCWBAWSUQURWCXAWBWCBBUSZUQUTWDWKCDZXBWDWJQDZXKWBWCXLWR
+    BQDBVAVBXLWBWCWCABVCWSXJBVDVEVFWJVGVHZWKVIVHVJVKULWLCDZBCDZWBWGWOSWDWLBAVLW
+    DXKXNXMWKVMVHWCXOWBBVNUTZWBWCVOZVJVKXOWECDZWFWHSWDBWEVPXPWDWEVQDXRABVRWEVSV
+    HVTXOWBWGWISWDBAVPXPXQVTWA $.
+    $( [31-Mar-2011] $) $( [31-Mar-2011] $)
+

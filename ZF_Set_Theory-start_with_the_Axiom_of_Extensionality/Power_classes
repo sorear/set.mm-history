@@ -5,36 +5,44 @@ $(
 $)
 
   $( Declare the symbol for power class. $)
-  $c P~ $.  $( Calligraphic P $)
+  $c ~P $.  $( Calligraphic P $)
 
   $( Extend class notation to include power class.  (The tilde in the Metamath
      token is meant to suggest the calligraphic font of the P.) $)
-  cpw $a class P~ A $.
+  cpw $a class ~P A $.
 
   ${
     $d x A $.  $d y A $.  $d w x $.  $d w y $.  $d w A $.  $d w z $.  $d z x $.
     $d z y $.  $d z A $.
     $( Soundness justification theorem for ~ df-pw .  (Contributed by Rodolfo
+       Medina, 28-Apr-2010.)  (The proof was shortened by Andrew Salmon,
+       29-Jun-2011.) $)
+    pwjust $p |- { x | x C_ A } = { y | y C_ A } $=
+      ( vz cv wss cab sseq1 cbvabv eqtri ) AEZCFZAGDEZCFZDGBEZCFZBGLNADKMCHINPD
+      BMOCHIJ $.
+      $( [29-Jun-2011] $) $( [28-Apr-2010] $)
+
+    $( Soundness justification theorem for ~ df-pw .  (Contributed by Rodolfo
        Medina, 28-Apr-2010.) $)
-       pwjust $p |- { x | x (_ A } = { y | y (_ A } $=
-         ( vz vw cv wss cab wsbc wcel wa wb wal sbsslem df-clab bitri 3bitr4i
-         eqriv ) DAFCGZAHZBFCGZBHZSADFZIEFZUCJZUDCJKUELEMZUCTJUCUBJZADECNSDAOUG
-         UABUCIUFUADBOBDECNPQR $.
-         $( [12-Jul-2010] $) $( [28-Apr-2010] $)
+    pwjustOLD $p |- { x | x C_ A } = { y | y C_ A } $=
+      ( vz vw cv wss cab wsbc wcel wa wb wal sbsslem df-clab bitri 3bitr4i
+      eqriv ) DAFCGZAHZBFCGZBHZSADFZIEFZUCJZUDCJKUELEMZUCTJUCUBJZADECNSDAOUGUAB
+      UCIUFUADBOBDECNPQR $.
+      $( [12-Jul-2010] $) $( [28-Apr-2010] $)
   $}
 
   ${
     $d x A $.
-    $( Define power class.  Definition 5.10 of [TakeutiZaring] p. 17,
-       but we also let it apply to proper classes, i.e. those that are not
-       members of ` V ` . $)
-    df-pw $a |- P~ A = { x | x (_ A } $.
+    $( Define power class.  Definition 5.10 of [TakeutiZaring] p. 17, but we
+       also let it apply to proper classes, i.e. those that are not members of
+       ` _V ` . $)
+    df-pw $a |- ~P A = { x | x C_ A } $.
   $}
 
   ${
     $d x A $.  $d x B $.
     $( Equality theorem for the power class. $)
-    pweq $p |- ( A = B -> P~ A = P~ B ) $=
+    pweq $p |- ( A = B -> ~P A = ~P B ) $=
       ( vx wceq cv wss cab cpw sseq2 abbidv df-pw 3eqtr4g ) ABDZCEZAFZCGNBFZCGA
       HBHMOPCABNIJCAKCBKL $.
       $( [5-Aug-1993] $)
@@ -43,9 +51,9 @@ $)
   ${
     $d A x $.  $d B x $.
     ${
-      elpw.1 $e |- A e. V $.
+      elpw.1 $e |- A e. _V $.
       $( Membership in a power class.  Theorem 86 of [Suppes] p. 47. $)
-      elpw $p |- ( A e. P~ B  <-> A (_ B ) $=
+      elpw $p |- ( A e. ~P B <-> A C_ B ) $=
         ( vx cv cpw wcel wss eleq1 sseq1 df-pw abeq2i vtoclb ) DEZBFZGNBHZAOGAB
         HDACNAOINABJPDODBKLM $.
         $( [31-Dec-1993] $)
@@ -53,31 +61,37 @@ $)
 
     $( Membership in a power class.  Theorem 86 of [Suppes] p. 47.  See also
        ~ elpw2g . $)
-    elpwg $p |- ( A e. C -> ( A e. P~ B  <-> A (_ B ) ) $=
+    elpwg $p |- ( A e. C -> ( A e. ~P B <-> A C_ B ) ) $=
       ( vx cv cpw wcel wss wb wceq eleq1 sseq1 bibi12d visset elpw vtoclg ) DEZ
       BFZGZQBHZIARGZABHZIDACQAJSUATUBQARKQABLMQBDNOP $.
       $( [6-Aug-2000] $)
   $}
 
   $( Subset relation implied by membership in a power class. $)
-  elpwi $p |- ( A e. P~ B -> A (_ B ) $=
+  elpwi $p |- ( A e. ~P B -> A C_ B ) $=
     ( cpw wcel wss elpwg ibi ) ABCZDABEABHFG $.
     $( [20-Feb-2007] $) $( [17-Feb-2007] $)
+
+  $( If ` A ` belongs to a part of ` C ` then ` A ` belongs to ` C ` .
+     (Contributed by FL, 3-Aug-2009.) $)
+  elelpwi $p |- ( ( A e. B /\ B e. ~P C ) -> A e. C ) $=
+    ( cpw wcel elpwi sseld impcom ) BCDEZABEACEIBCABCFGH $.
+    $( [4-Mar-2011] $) $( [2-Aug-2009] $)
 
   ${
     $d y z A $.  $d x y z $.
     hbpw.1 $e |- ( y e. A -> A. x y e. A ) $.
     $( Bound-variable hypothesis builder for power class. $)
-    hbpw $p |- ( y e. P~ A -> A. x y e. P~ A ) $=
+    hbpw $p |- ( y e. ~P A -> A. x y e. ~P A ) $=
       ( vz cv wss wal cpw wcel ax-17 hbel hbss visset elpw albii 3imtr4i ) BFZC
       GZSAHRCIJZTAHAERCEFZRJAKABBUACRUAJAKDLMRCBNOZTSAUBPQ $.
       $( [6-Nov-2003] $) $( [28-Oct-2003] $)
   $}
 
   ${
-    pwid.1 $e |- A e. V $.
+    pwid.1 $e |- A e. _V $.
     $( A set is a member of its power class.  Theorem 87 of [Suppes] p. 47. $)
-    pwid $p |- A e. P~ A $=
+    pwid $p |- A e. ~P A $=
       ( cpw wcel wss ssid elpw mpbir ) AACDAAEAFAABGH $.
       $( [5-Aug-1993] $)
   $}
@@ -85,7 +99,7 @@ $)
   ${
     $d x A $.  $d x B $.
     $( Subclass relationship for power class. $)
-    pwss $p |- ( P~ A (_ B <-> A. x ( x (_ A -> x e. B ) ) $=
+    pwss $p |- ( ~P A C_ B <-> A. x ( x C_ A -> x e. B ) ) $=
       ( cpw wss cv wcel wi wal dfss2 df-pw abeq2i imbi1i albii bitri ) BDZCEAFZ
       PGZQCGZHZAIQBEZSHZAIAPCJTUBARUASUAAPABKLMNO $.
       $( [23-Jun-2009] $) $( [21-Jun-2009] $)

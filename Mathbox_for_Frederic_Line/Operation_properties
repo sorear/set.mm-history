@@ -11,16 +11,16 @@ $)
   ccm1 $a class Com1 $.
 
 
-  ${ $d g x y $.
-    $( A device to add commutativity to magmas, semi-groups,
-       monoids and so on. A commutative group is composed of 5 properties
-       (internal operation, commutativity, associativity, existence of
-       a neutral element and an inverse. If we switch on
-       or off those four properties we get 32 structures. Instead of
-       giving a name to those 32 structures, I suggest we use intersected
-       classes and speak of ` ( Magma i^i Com1 ) ` or
+  ${
+    $d g x y $.
+    $( A device to add commutativity to magmas, semi-groups, monoids and so
+       on.  A commutative group is composed of 5 properties (internal
+       operation, commutativity, associativity, existence of a neutral element
+       and an inverse).  If we switch on or off those four properties we get 32
+       structures.  Instead of giving a name to those 32 structures, I suggest
+       we use intersected classes and speak of ` ( Magma i^i Com1 ) ` or
        ` ( Magma i^i ExId ) ` . $)
-    df-com1 $a |- Com1 = { g |  A. x e. dom dom g A. y e. dom dom g
+    df-com1 $a |- Com1 = { g | A. x e. dom dom g A. y e. dom dom g
       ( x g y ) = ( y g x ) } $.
   $}
 
@@ -30,17 +30,49 @@ $)
      operations. $)
   cass $a class Ass $.
 
-  ${ $d g x y z $.
-  $( A device to add associativity to various sorts of internal operations.
-     The definition is meaningful when ` g ` is a magma at least. $)
-  df-ass $a |- Ass = { g | A. x e. dom dom g A. y e. dom dom g
+  ${
+    $d g x y z $.
+    $( A device to add associativity to various sorts of internal operations.
+       The definition is meaningful when ` g ` is a magma at least. $)
+    df-ass $a |- Ass = { g | A. x e. dom dom g A. y e. dom dom g
     A. z e. dom dom g ( ( x g y ) g z ) = ( x g ( y g z ) ) } $.
   $}
 
-  ${ $d G g x y z $. $d X g x y z $.
+  ${
+    iscom.1 $e |- X = dom dom G $.
+    ${
+      $d G a x y $.  $d X a $.
+      $( The predicate "is a commutative operation". $)
+      iscom $p |- ( G e. A -> ( G e. Com1 <-> A. x e. X A. y e. X
+      ( x G y ) = ( y G x ) ) ) $=
+        ( va cv co wceq cdm wral ccm1 wcel dmeq eqcomd dmeqd syl5req eleq2d
+        opreq eqeq12d imbi12d ralbidv2 df-com1 elab2g ) AHZBHZGHZIZUGUFUHIZJZBU
+        HKZKZLZAUMLUFUGDIZUGUFDIZJZBELZAELGDMCUHDJZUNURAUMEUSUFUMNUFENUNURUSUME
+        UFUSDKZKUMEUSUTULUSULUTUHDOPQFRZSUSUKUQBUMEUSUGUMNUGENUKUQUSUMEUGVASUSU
+        IUOUJUPUFUGUHDTUGUFUHDTUAUBUCUBUCABGUDUE $.
+        $( [20-Sep-2010] $) $( [5-Sep-2010] $)
+    $}
+
+    ${
+      $d A x y $.  $d B y $.  $d G x y $.  $d X x y $.
+      $( The predicate "is a commutative operation". $)
+      iscomb $p |- ( ( G e. Com1 /\ A e. X /\ B e. X )
+       -> ( A G B ) = ( B G A ) ) $=
+        ( vx vy ccm1 wcel co wceq wi cv wral iscom opreq1 opreq2 eqeq12d
+        rcla42v ex com3r syl6bi pm2.43i 3imp ) CHIZADIZBDIZABCJZBACJZKZUEUFUGUJ
+        LLZUEUEFMZGMZCJZUMULCJZKZGDNFDNZUKFGHCDEOUFUGUQUJUFUGUQUJLUPUJAUMCJZUMA
+        CJZKFGABDDULAKUNURUOUSULAUMCPULAUMCQRUMBKURUHUSUIUMBACQUMBACPRSTUAUBUCU
+        D $.
+        $( [20-Sep-2010] $) $( [14-Sep-2010] $)
+    $}
+  $}
+
+
+  ${
+    $d G g x y z $.  $d X g x y z $.
     isass.1 $e |- X = dom dom G $.
     $( The predicate "is an associative operation". $)
-    isass $p |- ( G e. A -> ( G e. Ass <-> A. x e. X A. y e. X  A. z e. X
+    isass $p |- ( G e. A -> ( G e. Ass <-> A. x e. X A. y e. X A. z e. X
       ( ( x G y ) G z ) = ( x G ( y G z ) ) ) ) $=
       ( vg cv co wceq cdm wral cass wcel w3a wi wal dmeq dmeqd eleq2d
       3anbi123d opreq opreq1d eqtrd opreq2d eqeq12d imbi12d albidv 2albidv
@@ -58,29 +90,48 @@ $)
 
   $c ExId $.
 
-  $( Extend class notation with the class of all the internal operations
-     with an identity element. $)
+  $( Extend class notation with the class of all the internal operations with
+     an identity element. $)
   cexid $a class ExId $.
 
-  ${ $d g x y $.
-  $( A device to add an identity element to various sorts
-     of internal operations. $)
-  df-exid $a |- ExId = { g | E. x e. dom dom g A. y e. dom dom g
+  ${
+    $d g x y $.
+    $( A device to add an identity element to various sorts of internal
+       operations. $)
+    df-exid $a |- ExId = { g | E. x e. dom dom g A. y e. dom dom g
     ( ( y g x ) = y /\ ( x g y ) = y ) } $.
   $}
 
-  ${ $d G g x y $. $d X g $.
+  ${
+    $d G g x y $.  $d X g $.
     isexid.1 $e |- X = dom dom G $.
     $( The predicate ` G ` has a left and right identity element. $)
     isexid $p |- ( G e. A -> ( G e. ExId <-> E. x e. X A. y e. X
       ( ( y G x ) = y /\ ( x G y ) = y ) ) ) $=
       ( vg cv co wceq wa cdm wral wrex cexid dmeq dmeqd opreq eqeq1d anbi12d
-      raleq12d rexeq12d wcel eqcomi eleq2i imbi1i ralbii2 anbi12i rexbii2
+      raleqbidv rexeqbidv wcel eqcomi eleq2i imbi1i ralbii2 anbi12i rexbii2
       syl6bb df-exid elab2g ) BHZAHZGHZIZUMJZUNUMUOIZUMJZKZBUOLZLZMZAVBNZUMUNDI
       ZUMJZUNUMDIZUMJZKZBEMZAENZGDOCUODJZVDVIBDLZLZMZAVNNVKVLVCVOAVBVNVLVAVMUOD
       PQZVLUTVIBVBVNVPVLUQVFUSVHVLUPVEUMUMUNUODRSVLURVGUMUNUMUODRSTUAUBVOVJAVNE
       UNVNUCUNEUCVOVJVNEUNEVNFUDZUEVIVIBVNEUMVNUCUMEUCVIVNEUMVQUEUFUGUHUIUJABGU
       KUL $.
       $( [3-Nov-2009] $) $( [2-Nov-2009] $)
+  $}
+
+  $c Free $.
+
+  $( Extend class notation to include the class of free operations. $)
+  cfree $a class Free $.
+
+  ${
+    $d g b x n f k $.
+    $( Definition of a free operation: a subset of the underlying set of the
+       operation is a basis for every element of the underlying set (that is
+       every element can be decomposed into a sequence of elements of the basis
+       in a unique way).  Meaningful if ` g ` is a magma, a semi-group, a
+       monoide. $)
+    df-free $a |- Free = { g | E. b e. ~P dom dom g A. x e. dom dom g
+      E! n e. NN E! f e. X_ k e. ( 1 (,) n ) b x =
+                    prod_ k e. ( 1 (,) n ) g ( f ` k ) } $.
   $}
 
