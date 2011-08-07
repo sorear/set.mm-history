@@ -1,0 +1,332 @@
+$(
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+                    From groups to Hilbert spaces
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+$)
+
+
+  $c GrpNEW $.
+  $c +g $.
+  $c 0g $.
+  $c -g $.
+  $c AbelNEW $.
+  $c RingNEW $.
+  $c .r $.
+  $c 1rNEW $.
+  $c C_rng $.
+  $c DivRingNEW $.
+  $c invr $.
+  $c LVec $.
+  $c vbase $.
+  $c vadd $.
+  $c vsca $.
+  $c 0vNEW $.
+  $c -vNEW $.
+  $c RVecNEW $.
+  $c +ss $.
+  $c SubSpNEW $.
+  $c spanNEW $.
+  $c o+ $.
+  $c Ev $.
+  $c /v $.
+  $c LVec* $.
+  $c *v $.
+  $c PreHil $.
+  $c ip $.
+  $c normv $.
+  $c ocv $.
+  $c CSubSp $.
+  $c Hil $.
+
+  $( Extend class notation with class of all groups. $)
+  cgrp $a class GrpNEW $.
+
+  $( Extend class notation with group operation. $)
+  cplusg $a class +g $.
+
+  $( Extend class notation with group identity element. $)
+  c0g $a class 0g $.
+
+  $( Extend class notation with inverse of group element. $)
+  cminusg $a class -g $.
+
+  $( Extend class notation with class of all Abelian groups. $)
+  cabel $a class AbelNEW $.
+
+  $( Extend class notation with class of all rings. $)
+  crg $a class RingNEW $.
+
+  $( Extend class notation with ring multiplication. $)
+  cmulr $a class .r $.
+
+  $( Extend class notation with ring unit. $)
+  cur $a class 1rNEW $.
+
+  $( Extend class notation subring. $)
+  csrng $a class C_rng $.
+
+  $( Extend class notation with class of all division rings. $)
+  cdivring $a class DivRingNEW $.
+
+  $( Extend class notation with multiplicative inverse. $)
+  cinvr $a class invr $.
+
+  $( Extend class notation with class of all left vector spaces. $)
+  clvec $a class LVec $.
+
+  $( Extend class notation with set of vectors in a left vector space. $)
+  cvbase $a class vbase $.
+
+  $( Extend class notation with vector addition. $)
+  cvadd $a class vadd $.
+
+  $( Extend class notation with scalar product. $)
+  cvsca $a class vsca $.
+
+  $( Extend class notation with zero vector. $)
+  czv $a class 0vNEW $.
+
+  $( Extend class notation with vector subtraction. $)
+  cminusv $a class -vNEW $.
+
+  $( Extend class notation with class of all right vector spaces. $)
+  crvec $a class RVecNEW $.
+
+  $( Extend class notation with subspace sum. $)
+  cplusss $a class +ss $.
+
+  $( Extend class notation with set of all subspaces in a vector space. $)
+  cssp $a class SubSpNEW $.
+
+  $( Extend class notation with span of a set of vectors. $)
+  cspan $a class spanNEW $.
+
+  $( Extend class notation with direct sum. $)
+  coplus $a class o+ $.
+
+  $( Extend class notation with vector equivalence classes. $)
+  cev $a class Ev $.
+
+  $( Extend class notation with quotient space. $)
+  cqv $a class /v $.
+
+  $( Extend class notation with class of all left vector spaces over
+     *-fields. $)
+  clvecs $a class LVec* $.
+
+  $( Extend class notation with involution. $)
+  cstv $a class *v $.
+
+  $( Extend class notation with class all pre-Hilbert spaces. $)
+  cprehil $a class PreHil $.
+
+  $( Extend class notation with Hermitian form (inner product). $)
+  cipr $a class ip $.
+
+  $( Extend class notation with norm of a vector. $)
+  cnormv $a class normv $.
+
+  $( Extend class notation with orthocomplement of a subspace. $)
+  cocv $a class ocv $.
+
+  $( Extend class notation with set of closed subspaces. $)
+  ccsubsp $a class CSubSp $.
+
+  $( Extend class notation with class of all Hilbert spaces. $)
+  chs $a class Hil $.
+
+  ${
+    $d a b c e f g h i k m p q r s t u v w x y z $.
+    $( Define class of all groups.  Def. 8.5.1, p. 213. $)
+    df-group $a |- GrpNEW = Struct ( 2 , f , E. g E. p ( g = ( f ` 1 )
+       /\ p = ( f ` 2 ) /\ A. a e. g A. b e. g A. c e. g ( ( a p b ) e. g
+            /\ ( ( a p b ) p c ) = ( a p ( b p c ) ) /\
+          E. e e. g A. a e. g ( ( e p a ) = a /\
+            E. m e. g ( m p a ) = e ) ) ) ) $.
+
+    $( Define group operation.  Def. 8.5.2, p. 214. $)
+    df-plusg $a |- +g = ( g e. _V |-> ( g ` 2 ) ) $.
+
+    $( Define group identity element.  Def. 8.5.4, p. 215. $)
+    df-0g $a |- 0g = ( g e. _V |-> ( iota e ( e e. ( base ` g ) /\
+      A. x e. ( base ` g ) ( e ( +g ` g ) x ) = x ) ) ) $.
+
+    $( Define inverse of group element.  Def. 8.5.4, p. 215. $)
+    df-minusg $a |- -g = ( g e. _V |-> ( x e. ( base ` g ) |-> ( iota w
+          ( w e. ( base ` g ) /\ ( w ( +g ` g ) x ) = ( 0g ` g ) ) ) ) ) $.
+
+    $( Define class of all Abelian groups.  Def. 8.5.5, p. 215. $)
+    df-abel $a |- AbelNEW = { g e. GrpNEW | A. a e. ( base ` g )
+      A. b e. ( base ` g ) ( a ( +g ` g ) b ) = ( b ( +g ` g ) a ) } $.
+
+    $( Define class of all rings (with unit).  Def. 8.5.6, p. 216. $)
+    df-ringu $a |- RingNEW = Struct ( 3 , f , ( f e. AbelNEW /\
+        E. r E. p E. t ( ( r = ( base ` f ) /\ p = ( +g ` f )
+        /\ t = ( f ` 3 ) ) /\ A. x e. r A. y e. r A. z e. r
+           ( ( x t y ) e. r /\ ( ( ( x t y ) t z ) = ( x t ( y t z ) )
+            /\ ( x t ( y p z ) ) = ( ( x t y ) p ( x t z ) )
+            /\ ( ( x p y ) t z ) = ( ( x t z ) p ( y t z ) ) ) )
+        /\ E. u e. r A. x e. r ( ( x t u ) = x /\ ( u t x ) = x ) ) ) ) $.
+
+    $( Define ring multiplication.  Def. 8.5.7, p. 216. $)
+    df-mulr $a |- .r = ( r e. _V |-> ( r ` 3 ) ) $.
+
+    $( Define ring unit.  Def. 8.5.7, p. 216. $)
+    df-ur $a |- 1rNEW = ( r e. _V |-> ( iota u ( u e. ( base ` r ) /\
+      A. x e. ( base ` r ) ( ( x ( .r ` r ) u ) = x
+           /\ ( u ( .r ` r ) x ) = x ) ) ) ) $.
+
+    $( Define ` s ` is a subring of ` r ` .  Def. 8.5.8, p. 216. $)
+    df-subring $a |- C_rng = { <. s , r >. | ( ( base ` s ) C_ ( base ` r )
+        /\ A. x e. ( base ` s ) A. y e. ( base ` s ) ( ( x ( +g ` s ) y )
+  = ( x ( +g ` r ) y ) /\ ( x ( .r ` s ) y ) = ( x ( .r ` r ) y ) ) ) } $.
+
+    $( Define class of all division rings.  Def. 8.5.9, p. 217. $)
+    df-divring $a |- DivRingNEW = { r e. RingNEW |
+      { <. 1 , ( ( base ` r ) \ ( 0g ` r ) ) >. , <. 2 , ( .r ` r ) >. }
+        e. GrpNEW } $.
+
+    $( Define multiplicative inverse.  Def. 8.5.10, p. 217. $)
+    df-invr $a |- invr = ( r e. _V |-> ( -g `
+      { <. 1 , ( ( base ` r ) \ ( 0g ` r ) ) >. , <. 2 , ( .r ` r ) >. } ) ) $.
+
+    $( Define class of all left vector spaces.  Def. 8.5.11, p. 218. $)
+    df-lvec $a |- LVec = Struct ( 6 , f , ( f e. DivRing /\
+      E. k E. p E. t E. v E. a E. s
+         ( ( k = ( base ` f ) /\ p = ( +g ` f ) /\ t = ( .r ` f ) )
+          /\ ( v = ( f ` 4 ) /\ a = ( f ` 5 ) /\ s = ( f ` 6 ) )
+          /\ ( { <. 1 , v >. , <. 2 , a >. } e. AbelNEW
+             /\ A. q e. k A. r e. k A. x e. v A. w e. v
+               ( ( ( r s w ) e. v
+                 /\ ( r s ( w a x ) ) = ( ( r s w ) a ( r s x ) )
+                 /\ ( ( q p r ) s w ) = ( ( q s w ) a ( r s w ) )
+               ) /\ ( ( q s ( r s w ) ) = ( ( q t r ) s w )
+                 /\ ( ( 1rNEW ` f ) s w ) = w ) ) ) ) ) ) $.
+
+    $( Define set of vectors in a vector space ` v ` .  Def. 8.5.12,
+       p. 219. $)
+    df-vbase $a |- vbase = ( v e. _V |-> ( v ` 4 ) ) $.
+
+    $( Define vector addition.  Def. 8.5.12, p. 219. $)
+    df-vadd $a |- vadd = ( v e. _V |-> ( v ` 5 ) ) $.
+
+    $( Define scalar product.  Def. 8.5.12, p. 219. $)
+    df-vsca $a |- vsca = ( v e. _V |-> ( v ` 6 ) ) $.
+
+    $( Define zero vector.  Def. 8.5.13, p. 219. $)
+    df-zv $a |- 0vNEW = ( v e. _V |-> ( 0g `
+             { <. 1 , ( vbase ` v ) >. , <. 2 , ( vadd ` v ) >. } ) ) $.
+
+    $( Define vector subtraction.  Def. 8.5.14, p. 220. $)
+    df-minusv $a |- -vNEW = ( v e. _V |-> ( x e. ( vbase ` v ) ,
+         y e. ( vbase ` v ) |-> ( x ( vadd ` v )
+ ( ( -g ` { <. 1 , ( vbase ` v ) >. , <. 2 , ( vadd ` v ) >. } ) ` y ) ) ) ) $.
+
+    $( Define class of all right vector spaces.  Def. 8.5.15, p. 220. $)
+    df-rvec $a |- RVecNEW = Struct ( 6 , f , ( f e. DivRing /\
+      E. k E. p E. t E. v E. a E. s (
+         ( k = ( base ` f ) /\ p = ( +g ` f ) /\ t = ( .r ` f ) )
+          /\ ( v = ( f ` 4 ) /\ a = ( f ` 5 ) /\ s = ( f ` 6 ) )
+          /\ ( { <. 1 , v >. , <. 2 , a >. } e. AbelNEW
+             /\ A. q e. k A. r e. k A. x e. v A. w e. v
+               ( ( ( w s r ) e. v
+                 /\ ( ( w a x ) s r ) = ( ( w s r ) a ( x s r ) )
+                 /\ ( w s ( q p r ) ) = ( ( w s q ) a ( w s r ) )
+               ) /\ ( ( ( w s q ) s r ) = ( w s ( q t r ) )
+                 /\ ( w s ( 1rNEW ` f ) ) = w ) ) ) ) ) ) $.
+
+    $( Define subspace sum.  Def. 8.5.16, p. 221. $)
+    df-plusss $a |- +ss = ( v e. _V |-> ( x e. ~P ( vbase ` v ) ,
+        y e. ~P ( vbase ` v ) |-> { w e. ( vbase ` v )
+            | E. t e. x E. u e. y w = ( t ( vadd ` v ) u ) } ) ) $.
+
+    $( Define set of all subspaces of left vector space ` v ` .  Def. 8.5.17,
+       p. 222. $)
+    df-sbsp $a |- SubSpNEW = ( v e. _V |-> { s e. ~P ( vbase ` v )
+      | ( ( 0vNEW ` v ) e. s /\ A. x e. s A. y e. s ( x ( vadd ` v ) y ) e. s
+          /\ A. x e. ( base ` v ) A. y e. s ( x ( vsca ` v ) y ) e. s ) } ) $.
+
+    $( Define span of a set of vectors.  Def. 8.5.18, p. 244. $)
+    df-vspan $a |- spanNEW = ( v e. _V |-> ( m e. ~P ( vbase ` v ) |->
+       |^| { s e. ( SubSpNEW ` v ) | m C_ s } ) ) $.
+
+    $( Define direct sum of two left vectors spaces.  Def. 8.5.19, p. 223. $)
+    df-oplus $a |- o+ = ( v e. _V , w e. _V |-> ( { <. 1 , ( base ` v ) >. ,
+       <. 2 , ( +g ` v ) >. , <. 3 , ( .r ` v ) >. } u. {
+       <. 4 , ( ( vbase ` v ) X. ( vbase ` w ) ) >. ,
+       <. 5 , ( x e. ( ( vbase ` v ) X. ( vbase ` w ) ) ,
+                y e. ( ( vbase ` v ) X. ( vbase ` w ) ) |->
+                  <. ( ( 1st ` x ) ( vadd ` v ) ( 1st ` y ) ) ,
+                     ( ( 2nd ` x ) ( vadd ` w ) ( 2nd ` y ) ) >. ) >. ,
+       <. 6 , ( k e. ( base ` v ) ,
+                x e. ( ( vbase ` v ) X. ( vbase ` w ) ) |->
+                  <. ( k ( vsca ` v ) ( 1st ` x ) ) ,
+                     ( k ( vsca ` w ) ( 2nd ` x ) ) >. ) >. } ) ) $.
+
+    $( Define vector equivalence mod ` m ` .  Def. 8.5.20, p. 223. $)
+    df-ev $a |- Ev = ( v e. _V , m e. _V |-> { <. x , y >. |
+       ( x e. ( vbase ` v ) /\ y e. ( vbase ` v ) /\
+       ( x ( -vNEW ` v ) y ) e. ( vbase ` m ) ) } ) $.
+
+    $( Define quotient space.  Def. 8.5.21, p. 223. $)
+    df-quov $a |- /v = ( v e. _V , m e. _V |-> ( { <. 1 , ( base ` v ) >. ,
+       <. 2 , ( +g ` v ) >. , <. 3 , ( .r ` v ) >. } u. {
+       <. 4 , ( ( vbase ` v ) /. ( v Ev m ) ) >. ,
+       <. 5 , { <. <. a , b >. , c >. | E. x e. ( vbase ` v )
+          E. y e. ( vbase ` v ) ( a = [ x ] ( v Ev m )
+            /\ b = [ y ] ( v Ev m )
+            /\ c = [ ( x ( vadd ` v ) y ) ] ( v Ev m ) ) } >. ,
+       <. 6 , { <. <. a , b >. , c >. | ( a e. ( base ` v ) /\
+          E. y e. ( vbase ` v ) ( b = [ y ] ( v Ev m )
+            /\ c = [ ( x ( vsca ` v ) y ) ] ( v Ev m ) ) ) } >. } ) ) $.
+
+    $( Define class of all left vector spaces over *-fields (star fields).
+       Def. 8.5.22, p. 224. $)
+    df-lvecstar $a |- LVec* = Struct ( 7 , f , ( f e. LVec /\
+       E. k E. p E. t E. i ( ( k = ( base ` f ) /\ p = ( +g ` f )
+          /\ t = ( .r ` f ) ) /\ ( i = ( f ` 7 ) /\
+         A. q e. k A. r e. k ( ( ( i ` q ) e. k
+              /\ ( i ` ( q p r ) ) = ( ( i ` q ) p ( i ` r ) )
+         ) /\ ( ( i ` ( q t r ) ) = ( ( i ` r ) t ( i ` q ) )
+           /\ ( i ` ( i ` q ) ) = q ) ) ) ) ) ) $.
+
+    $( Define involution (the star operation of a star field).  Def. 8.5.23,
+       p. 225. $)
+    df-starv $a |- *v = ( v e. _V |-> ( v ` 7 ) ) $.
+
+    $( Define class all pre-Hilbert spaces.  Def. 8.5.24, p. 225. $)
+    df-prehil $a |- PreHil = Struct ( 8 , f , ( f e. LVec* /\
+       E. k E. p E. t E. v E. a E. s E. i E. h (
+         ( k = ( base ` f ) /\ p = ( +g ` f ) /\ t = ( .r ` f ) )
+      /\ ( v = ( vbase ` f ) /\ a = ( vadd ` f ) /\ i = ( *v ` f ) )
+      /\ ( h = ( f ` 8 )
+          /\ A. q e. k A. r e. k A. x e. v A. y e. v A. z e. v (
+            ( ( x h y ) e. k
+              /\ ( ( ( q s x ) a ( r s y ) ) h z )
+                  = ( ( q t ( x h z ) ) p ( r t ( y h z ) ) )
+              /\ ( x h ( ( q s y ) a ( r s z ) ) )
+                  = ( ( ( x h y ) t ( i ` q ) ) p ( ( x h z ) t ( i ` r ) ) )
+       ) /\ ( ( A. w e. v ( x h w ) = ( 0g ` f )
+                \/ A. w e. v ( w h x ) = ( 0g ` f ) ) -> x = ( 0vNEW ` f ) )
+              /\ ( i ` ( x h y ) ) = ( y h x ) ) ) ) ) ) $.
+
+    $( Define Hermitian form (inner product).  Def. 8.5.25, p. 226. $)
+    df-inprod $a |- ip = ( v e. _V |-> ( v ` 8 ) ) $.
+
+    $( Define norm of a vector.  Def. 8.5.26, p. 226. $)
+    df-normv $a |- normv = ( h e. _V |-> ( v ( ip ` h ) v ) ) $.
+
+    $( Define orthocomplement of a subspace.  Def. 8.5.27, p. 227. $)
+    df-ocv $a |- ocv = ( h e. _V |-> ( s e. ~P ( vbase ` h ) |->
+   { x e. ( vbase ` h ) | A. y e. s ( x ( ip ` h ) y ) = ( 0vNEW ` h ) } ) ) $.
+
+    $( Define set of closed subspaces.  Def. 8.5.28, p. 226. $)
+    df-csubsp $a |- CSubSp = ( h e. _V |-> { s e. ~P ( vbase ` h )
+        | s = ( ( oc ` h ) ` ( ( oc ` h ) ` s ) ) } ) $.
+
+    $( Define class of all Hilbert spaces.  Def. 8.5.30, p. 228. $)
+    df-hil $a |- Hil = { h e. PreHil | A. s e. ( CSubSp ` h )
+          ( s ( +ss ` h ) ( ( oc ` h ) ` s ) ) = ( vbase ` h ) } $.
+  $}
+
+
