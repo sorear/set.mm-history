@@ -24,19 +24,28 @@ $)
 
   $( If ` ( ph -> ps ) ` and ` ph ` always hold then ` ps ` always holds.
 
-     Linear temporal logic (LTL) is a kind of modal logic.  In classical logic,
-     propositions doesn't depend on the time.  In LTL the "world" evolved.  A
-     proposition that is true in one state of the "world" may be false in the
-     next one.  We will imagine the world as a sequence of states with a first
-     state and future states. ` [.] ph ` means ` ph ` is true in every state of
-     the world, in the first state as well as in the future states. ` () ph `
-     means ` ph ` is true in the next state of the world. ` <> ph ` means that
-     ` ph ` is true in one state of the world at least but we don't know
-     exactly which one.  It can be the first state, it can be a future state.
-     It is read ` ph ` is eventually true.  When no operator is used in front
-     of a proposition, it means that ` ph ` is unconditionnaly true or that it
-     is true in the current state ( depending on the context). ` ph until ps `
-     means ` ph ` is true in every state of the world until ` ps ` is true. $)
+     Propositional  Linear temporal  logic (LTL)  is a  kind  of modal
+     logic.  It is composed of  the axioms of classical logic plus the
+     axioms ~  ax-ltl1, ~ ax-ltl2 , ~  ax-ltl3 , ax-ltl4 ,  ~ ax-lmp ,
+     and ~ ax-nmp .  In  classical logic, propositions don't depend on
+     the time.  In LTL the "world" evolves.  We will imagine the world
+     as a  sequence of  states with a  first state and  future states.
+     Instead of  state I  will also use  the term "step"  to emphasize
+     that  LTL is  used to  formalize the  evolution of  process  in a
+     computer.  A proposition that is true in one state of the "world"
+     may be false in the next one.  The proposition ` [.] ph ` means `
+     ph ` is true  in every state of the world, in  the first state as
+     well as in the future states.  It is read " ` ph ` is always true
+     " or " ` ph ` always holds  ".  The proposition ` () ph ` means `
+     ph ` is true in the next state of the world. The proposition ` <>
+     ph ` means that ` ph ` is true in one state of the world at least
+     but we don't know exactly which  one.  It can be the first state,
+     it can be a future state.  It is read " ` ph ` is eventually true
+     " or  " ` ph  ` eventually holds".   When no operator is  used in
+     front of a  proposition, it means that `  ph ` is unconditionnaly
+     true or that  it is true in the current state  ( depending on the
+     context). ` ph until ps ` means  ` ph ` is true in every state of
+     the world until ` ps ` is true. $)
   ax-ltl1 $a |- ( [.] ( ph -> ps ) -> ( [.] ph -> [.] ps ) ) $.
 
   $( ` ph ` doesn't hold in the next step iff in the next step ` -. ph `
@@ -111,13 +120,6 @@ $)
     AJKLMUATUBASABNOBSBAPOQR $.
     $( [9-Jul-2011] $) $( [20-Mar-2011] $)
 
-  $( ` ( ph \/ ps ) ` holds in the next state iff ` ph ` holds in the next
-     state or ` ps ` holds in the next state. $)
-  nxtorOLD $p |- ( () ( ph \/ ps ) <-> ( () ph \/ () ps ) ) $=
-    ( wn wi wcirc wo ax-ltl3 ax-ltl2 syl5ib df-or pm2.24 impxt ax-1 jaoi
-    sylbir impbii binxt 3bitr4i ) ACZBDZEZAEZCZBEZDZABFZEUBUDFZUAUEUASEUDUCSBGA
-    HIUEUGUAUBUDJZUBUAUDATABKLBTBSMLNOPUFTABJQUHR $.
-    $( [20-Mar-2011] $) $( [20-Mar-2011] $)
   $( ` ( ph /\ ps ) ` holds in the next step iff ` ph ` holds in the next step
      and ` ps ` holds in the next step.  (The proof was shortened by Andrew
      Salmon, 9-Jul-2011.) $)
@@ -126,14 +128,6 @@ $)
     ADZBDZCPQROAABEFOBABGFHQRPQBOIZDRPIASABJFBOKLMN $.
     $( [9-Jul-2011] $) $( [20-Mar-2011] $)
 
-  $( ` ( ph /\ ps ) ` holds in the next state iff ` ph ` holds in the next
-     state and ` ps ` holds in the next state. $)
-  nxtandOLD $p |- ( () ( ph /\ ps ) <-> ( () ph /\ () ps ) ) $=
-    ( wa wcirc wn wo anor binxt ax-ltl2 nxtor bicomi orbi12i bitri notbii
-    bitr4i 3bitr2i ) ABCZDAEZBEZFZEZDTDZEZADZBDZCZQUAABGHTIUCUDEZUEEZFZEUFUBUIU
-    BRDZSDZFUIRSJUJUGUKUHUGUJAIKUHUKBIKLMNUDUEGOP $.
-    $( [20-Mar-2011] $) $( [20-Mar-2011] $)
-
   $( ` ph ` holds now and will always hold in the future iff it is not true
      that ` -. ph ` holds now or sometimes in the future.  (The proof was
      shortened by Andrew Salmon, 9-Jul-2011.) $)
@@ -141,12 +135,6 @@ $)
     ( wn wdia wbox df-dia notnot bicomi bibox notbii bitri con2bii ) ABZCZADZML
     BZDZBNBLEPNOAAOAFGHIJK $.
     $( [9-Jul-2011] $) $( [22-Feb-2011] $)
-
-  $( ` ph ` always holds iff it is not true that ` -. ph ` eventually holds. $)
-  boxeqOLD $p |- ( [.] ph <-> -. <> -. ph ) $=
-    ( wbox wn wdia notnot bibox notbii df-dia bicomi 3bitri ) ABZKCZCACZCZBZCZC
-    MDZCKELPKOANAEFGGPQQPMHIGJ $.
-    $( [22-Feb-2011] $) $( [22-Feb-2011] $)
 
   ${
     bidia.1 $e |- ( ph <-> ps ) $.
@@ -183,13 +171,6 @@ $)
     ( wunt wn wcirc wa wo wi ax-ltl5 pm3.26 orim2i ord sylbi impcom ) ABCZBDZAO
     BAOEZFZGZPAHABISBARABAQJKLMN $.
     $( [9-Jul-2011] $) $( [20-Mar-2011] $)
-
-  $( If ` ps ` doesn't hold in the current step and ` ph ` holds until ` ps `
-     then ` ph ` holds in the current step. $)
-  nopsthphOLD $p |- ( ( -. ps /\ ( ph until ps ) ) -> ph ) $=
-    ( wunt wn wcirc wa wo wi ax-ltl5 orcom pm5.61 simpll sylbi ex impcom ) ABCZ
-    BDZAPBAPEZFZGZQAHZABITSBGZUABSJUBQAUBQFSQFASBKARQLMNMMO $.
-    $( [20-Mar-2011] $) $( [20-Mar-2011] $)
 
   $( If ` ph ` doesn't hold in the current step and ` ph ` holds until ` ps `
      then ` ps ` holds in the current step. $)
@@ -243,13 +224,6 @@ $)
     ( wdia wn wbox notev bibox alalifal bitri notbii df-dia 3bitr4i ) ABZCZDZCA
     CZDZCLBLNPNPDPMPAEFOGHILJAJK $.
     $( [9-Jul-2011] $) $( [20-Mar-2011] $)
-
-  $( It is eventually true that ` ph ` eventually holds iff ` ph ` eventually
-     holds. $)
-  evevifevOLD $p |- ( <> <> ph <-> <> ph ) $=
-    ( wdia wn wbox df-dia notbii bibox notnot bicomi alalifal 3bitri 3bitr4i )
-    ABZCZDZCACZDZCZMBMOQORCZDQDQNSMRAEZFGSQQSQHIGPJKFMETL $.
-    $( [20-Mar-2011] $) $( [20-Mar-2011] $)
 
   $( If ` ph ` is always true then it is always true that ` ph ` holds in the
      next step. $)
