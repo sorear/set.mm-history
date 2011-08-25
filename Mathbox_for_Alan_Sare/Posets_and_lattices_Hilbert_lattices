@@ -1,0 +1,251 @@
+$(
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+                      Posets and lattices; Hilbert lattices
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+$)
+
+  $c base $.
+  $c le $.
+  $c PosetNEW $.
+  $c lt $.
+  $c geNEW $.
+  $c gt $.
+  $c lub $.
+  $c glb $.
+  $c join $.
+  $c meet $.
+  $c 1. $.
+  $c 0. $.
+  $c LatNEW $.
+  $c ComplLat $.
+  $c oc $.
+  $c OP $.
+  $c OL $.
+  $c OML $.
+  $c <oNEW $.
+  $c AtomsNEW $.
+  $c AtLat $.
+  $c AtsLat $.
+  $c CvLat $.
+  $c HL $.
+
+  $( Extend class notation with the class of all base set extractors. $)
+  cbs $a class base $.
+
+  $( Extend class notation with less-than-or-equal for posets. $)
+  cple $a class le $.
+
+  $( Extend class notation with the class of posets. $)
+  cpo $a class PosetNEW $.
+
+  $( Extend class notation with less-than for posets. $)
+  cplt $a class lt $.
+
+  $( Extend class notation with greater-than-or-equal for posets. $)
+  cpge $a class geNEW $.
+
+  $( Extend class notation with greater-than for posets. $)
+  cpgt $a class gt $.
+
+  $( Extend class notation with poset least upper bound. $)
+  club $a class lub $.
+
+  $( Extend class notation with poset greatest lower bound. $)
+  cglb $a class glb $.
+
+  $( Extend class notation with poset join. $)
+  cjn $a class join $.
+
+  $( Extend class notation with poset meet. $)
+  cmee $a class meet $.
+
+  $( Extend class notation with poset unit. $)
+  cp1 $a class 1. $.
+
+  $( Extend class notation with poset zero. $)
+  cp0 $a class 0. $.
+
+  $( Extend class notation with lattices. $)
+  clat $a class LatNEW $.
+
+  $( Extend class notation with complete lattices. $)
+  ccla $a class ComplLat $.
+
+  $( Extend class notation with the class of orthocomplementation
+     extractors. $)
+  coc $a class oc $.
+
+  $( Extend class notation with orthoposets. $)
+  cops $a class OP $.
+
+  $( Extend class notation with orthlattices. $)
+  col $a class OL $.
+
+  $( Extend class notation with orthomodular lattices. $)
+  coml $a class OML $.
+
+  $( Extend class notation with covering relation. $)
+  ccvr $a class <oNEW $.
+
+  $( Extend class notation with atoms. $)
+  catm $a class AtomsNEW $.
+
+  $( Extend class notation with atomic lattices. $)
+  cal $a class AtLat $.
+
+  $( Extend class notation with atomistic lattices. $)
+  cas $a class AtsLat $.
+
+  $( Extend class notation with lattices with the covering property. $)
+  clc $a class CvLat $.
+
+  $( Extend class notation with Hilbert lattices. $)
+  chlt $a class HL $.
+
+  $( Define the class of base set extractors for posets and related
+     structures.  Def. 8.4.2 p. 203. $)
+  df-base $a |- base = ( p e. _V |-> ( p ` 1 ) ) $.
+
+  $( Define less-than-or-equal ordering for posets and related structures.
+     Def. 8.4.2 p. 204. $)
+  df-ple $a |- le = ( p e. _V |-> ( p ` 2 ) ) $.
+
+  ${
+    $d f b r x y z $.
+    $( Define the class of posets.  Def. 8.4.1 p. 203. $)
+    df-poset $a |- PosetNEW = Struct ( 2 , f , E. b E. r
+              ( ( b = ( base ` f )
+               /\ r = ( le ` f )
+             ) /\ b =/= (/)
+               /\ A. x e. b A. y e. b A. z e. b ( x r x
+                 /\ ( ( x r y /\ y r x ) -> x = y )
+                 /\ ( ( x r y /\ y r z ) -> x r z ) ) ) ) $.
+  $}
+
+  $( Define less-than ordering for posets and related structures.  Def. 8.4.3
+     p. 204. $)
+  df-plt $a |- lt = ( p e. _V |-> ( ( le ` p ) \ _I ) ) $.
+
+  $( Define the class of greater-than-or-equal ordering for posets and related
+     structures.  Def. 8.4.3 p. 204. $)
+  df-pge $a |- geNEW = ( p e. _V |-> `' ( le ` p ) ) $.
+
+  $( Define the class of greater-than ordering for posets and related
+     structures.  Def. 8.4.3 p. 204. $)
+  df-pgt $a |- gt = ( p e. _V |-> `' ( lt ` p ) ) $.
+
+  ${
+    $d p s t u x y z $.
+    $( Define poset least upper bound.  If it doesn't exist, an undefined value
+       not in the base set is returned.  Def. 8.4.4 p. 205. $)
+    df-lub $a |- lub = ( p e. _V |-> ( s e. ~P ( base ` p ) |->
+     { t | E. u ( u = { x e. ( base ` p ) | ( A. y e. s y ( le ` p ) x
+                          /\ A. z e. ( base ` p )
+                             ( A. y e. s y ( le ` p ) z -> x ( le ` p ) z ) ) }
+      /\ t = if ( E. v u = { v } , U. u , ( Undef ` ( base ` p ) ) ) ) } ) ) $.
+
+    $( Define poset greatest lower bound.  Def. 8.4.4 p. 205. $)
+    df-glb $a |- glb = ( p e. _V |-> ( s e. ~P ( base ` p ) |->
+          { t | E. u ( u = { x e. ( base ` p ) | ( A. y e. s y ( ge ` p ) x /\
+       A. z e. ( base ` p ) ( A. y e. s y ( ge ` p ) z -> x ( ge ` p ) z ) ) }
+         /\ t = if ( E. v u = { v } , U. u , ( Undef ` P ) ) ) } ) ) $.
+
+    $( Define poset join.  Def. 8.4.4 p. 205. $)
+    df-join $a |- join = ( p e. _V |-> ( x e. ( base ` p ) , y e. ( base ` p )
+        |-> ( ( lub ` p ) ` { x , y } ) ) ) $.
+
+    $( Define poset meet.  Def. 8.4.4 p. 205. $)
+    df-meet $a |- meet = ( p e. _V |-> ( x e. ( base ` p ) , y e. ( base ` p )
+        |-> ( ( glb ` p ) ` { x , y } ) ) ) $.
+  $}
+
+  $( Define poset unit.  Def. 8.4.4 p. 205. $)
+  df-p1 $a |- 1. = ( p e. _V |-> ( ( lub ` p ) ` ( base ` p ) ) ) $.
+
+  $( Define poset zero.  Def. 8.4.4 p. 205. $)
+  df-p0 $a |- 0. = ( p e. _V |-> ( ( glb ` p ) ` ( base ` p ) ) ) $.
+
+  ${
+    $d p s x y $.
+    $( Define the class of all lattices.  Def. 8.4.5 p. 207. $)
+    df-lat $a |- LatNEW = { p e. PosetNEW | A. x e. ( base ` p )
+       A. y e. ( base ` p ) ( ( x ( join ` p ) y ) e. ( base ` p )
+          /\ ( x ( meet ` p ) y ) e. ( base ` p ) ) } $.
+
+    $( Define the class of all lattices.  Def. 8.4.5 p. 207. $)
+    df-clat $a |- ComplLat = { p e. PosetNEW | A. s ( s C_ ( base ` p )
+      -> ( ( ( lub ` p ) ` s ) e. ( base ` p ) /\
+           ( ( glb ` p ) ` s ) e. ( base ` p ) ) ) } $.
+  $}
+
+  $( Define the class of orthocomplementation extractors for posets and related
+     structures.  Def. 8.4.9 p. 208. $)
+  df-ocomp $a |- oc = ( p e. _V |-> ( p ` 3 ) ) $.
+
+  ${
+    $d a b c l p o $.
+    $( Define the class of orthoposets.  Def. 8.4.10 p. 209. $)
+    df-oposet $a |- OP = Struct ( 3 , p ,
+       ( ( p e. PosetNEW
+        /\ ( 0. ` p ) e. ( base ` p )
+      ) /\ ( 1. ` p ) e. ( base ` p )
+        /\ E. o
+           ( o = ( oc ` p )
+          /\ A. a e. ( base ` p ) A. b e. ( base ` p )
+               ( ( ( o ` ( o ` a ) ) = a
+                /\ ( a ( le ` p ) b -> ( o ` b ) ( le ` p ) ( o ` a ) )
+              ) /\ ( a ( meet ` p ) ( o ` a ) ) = ( 0. ` p )
+                /\ ( a ( join ` p ) ( o ` a ) ) = ( 1. ` p )
+         ) ) ) ) $.
+
+    $( Define the class of orthoposets.  Def. 8.4.11 p. 209. $)
+    df-ol $a |- OL = ( Lat i^i OP ) $.
+
+    $( Define the class of orthomodular lattices.  Def. 8.4.12 p. 209. $)
+    df-oml $a |- OML = { l e. OL | A. a e. ( base ` l ) A. b e. ( base ` l )
+       ( a ( le ` l ) b -> b = ( a ( join ` l ) ( b ( meet ` l )
+          ( ( oc ` l ) ` a ) ) ) ) } $.
+  $}
+
+  ${
+    $d p l c a b $.
+    $( Define the covering relation for posets.  Def. 8.4.13 p. 209. $)
+    df-covers $a |- <oNEW = ( p e. _V |-> { <. a , b >. | ( ( a e. ( base ` p )
+               /\ b e. ( base ` p ) )
+           /\ a ( lt ` p ) b /\ -. E. z e. ( base ` p )
+              ( a ( lt ` p ) z /\ z ( lt ` p ) b ) ) } ) $.
+
+    $( Define the class of poset atoms.  Def. 8.4.14 p. 210. $)
+    df-atoms $a |- AtomsNEW = ( p e. _V |-> { a e. ( base ` p ) |
+                      ( 0. ` p ) ( <oNEW ` p ) a } ) $.
+
+    $( Define the class of atomic lattices.  Def. 8.4.15 p. 210. $)
+    df-atlat $a |- AtLat = { l e. LatNEW | A. a e. ( base ` l )
+       ( a =/= ( 0. ` l ) ->
+          E. b e. ( AtomsNEW ` l ) b ( le ` l ) a ) } $.
+
+    $( Define the class of atomistic lattices.  Def. 8.4.16 p. 210. $)
+    df-atslat $a |- AtsLat = { l e. AtLat | A. a e. ( base ` l )
+         a = ( ( lub ` l ) ` { p e. ( AtomsNEW ` l ) | p ( le ` l ) a } ) } $.
+
+    $( Define the class of lattices with the covering property.  Def. 8.4.17
+       p. 210. $)
+    df-cvlat $a |- CvLat = { l e. ( LatNEW i^i AtLat ) | A. a e. ( base ` l )
+       A. p e. ( AtomsNEW ` l ) ( ( a ( meet ` l ) p ) = ( 0. ` l )
+          -> a ( <oNEW ` l ) ( a ( join ` l ) p ) ) } $.
+
+    $( Define the class of Hilbert lattices, which are complete, atomistic
+       lattices satisfying the superposition principle and minimum height.
+       Def. 8.4.18 p. 211. $)
+    df-hlat $a |- HL = { l e. ( ( OML i^i ComplLat ) i^i AtLat ) |
+      ( A. a e. ( AtomsNEW ` l ) A. b e. ( AtomsNEW ` l ) ( a =/= b
+       -> ( E. c e. ( AtomsNEW ` l )
+             ( c =/= a /\ c =/= b /\ c ( le ` l ) ( a ( join ` l ) b ) )
+         /\ A. c e. ( AtomsNEW ` l )
+            ( ( c =/= a /\ c =/= b /\ c ( le ` l ) ( a ( join ` l ) b ) )
+          -> a ( le ` l ) ( b ( join ` l ) c ) ) ) )
+      /\ E. a e. ( base ` l ) E. b e. ( base ` l ) E. c e. ( base ` l )
+          ( ( ( 0. ` l ) ( lt ` l ) a /\ a ( lt ` l ) b )
+        /\ ( b ( lt ` l ) c /\ c ( lt ` l ) ( 1. ` l ) ) ) ) } $.
+  $}
+

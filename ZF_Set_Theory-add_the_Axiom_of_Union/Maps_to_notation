@@ -4,19 +4,19 @@ $(
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 $)
 
-  $c |-> $.  $( "Maps to" symbol $)
+  $c |-> $.  $( Maps-to symbol $)
 
-  $( Extend the definition of a class to include "maps to" notation for
-     defining a function via a rule. $)
+  $( Extend the definition of a class to include maps-to notation for defining
+     a function via a rule. $)
   cmpt $a class ( x e. A |-> B ) $.
 
-  $( Extend the definition of a class to include "maps to" notation for
-     defining an operation via a rule. $)
+  $( Extend the definition of a class to include maps-to notation for defining
+     an operation via a rule. $)
   cmpt2 $a class ( x e. A , y e. B |-> C ) $.
 
   ${
     $d x y $.  $d y A $.  $d y B $.
-    $( Define "maps to" notation for defining a function via a rule.  Read as
+    $( Define maps-to notation for defining a function via a rule.  Read as
        "the function defined by the map from ` x ` (in ` A ` ) to
        ` B ( x ) ` ."  The class expression ` B ` is the value of the function
        at ` x ` and normally contains the variable ` x ` .  An example is the
@@ -28,7 +28,7 @@ $)
 
   ${
     $d x z $.  $d y z $.  $d z A $.  $d z B $.  $d z C $.
-    $( Define "maps to" notation for defining an operation via a rule.  Read as
+    $( Define maps-to notation for defining an operation via a rule.  Read as
        "the operation defined by the map from ` x , y ` (in ` A X. B ` ) to
        ` B ( x , y ) ` ."  An extension of ~ df-mpt for two arguments. $)
     df-mpt2 $a |- ( x e. A , y e. B |-> C ) =
@@ -36,26 +36,56 @@ $)
   $}
 
   ${
+    $d y A $.  $d y C $.  $d y B $.  $d y D $.  $d x y ph $.
+    mpteq12dv.1 $e |- ( ph -> A = C ) $.
+    mpteq12dv.2 $e |- ( ph -> B = D ) $.
+    $( An equality inference for the maps to notation. $)
+    mpteq12dv $p |- ( ph -> ( x e. A |-> B ) = ( x e. C |-> D ) ) $=
+      ( vy cv wcel wceq wa copab cmpt eleq2d eqeq2d anbi12d opabbidv df-mpt
+      3eqtr4g ) ABJZCKZIJZDLZMZBINUBEKZUDFLZMZBINBCDOBEFOAUFUIBIAUCUGUEUHACEUBG
+      PADFUDHQRSBICDTBIEFTUA $.
+      $( [24-Aug-2011] $)
+  $}
+
+  ${
+    $d A x y $.  $d C y $.
+    $( If the domain of a function given by maps-to notation is a set, the
+       function is a set.  (Contributed by FL, 6-Jun-2011.) $)
+    mptexg $p |- ( A e. B -> ( x e. A |-> C ) e. _V ) $=
+      ( vy wcel cv wceq wa copab cvv cmpt opabex2g df-mpt syl5eqel ) BCFAGBFEGD
+      HIAEJKABDLAEBDCMAEBDNO $.
+      $( [6-Jun-2011] $)
+  $}
+
+  ${
     $d x y A $.  $d y B $.  $d x C y $.  $d x D y $.
-    mptg.1 $e |- ( x = A -> B = C ) $.
-    mptg.2 $e |- F = ( x e. D |-> B ) $.
-    $( Value of a function given by a "maps to" rule.  Equivalent to
+    fvmptg.1 $e |- ( x = A -> B = C ) $.
+    fvmptg.2 $e |- F = ( x e. D |-> B ) $.
+    $( Value of a function given by a maps-to rule.  Equivalent to
        ~ fvopab4g . $)
-    mptg $p |- ( ( A e. D /\ C e. R ) -> ( F ` A ) = C ) $=
+    fvmptg $p |- ( ( A e. D /\ C e. R ) -> ( F ` A ) = C ) $=
       ( vy cmpt cv wcel wceq wa copab df-mpt eqtri fvopab4g ) AJBCDEFGHGAECKALE
       MJLCNOAJPIAJECQRS $.
       $( [4-Aug-2008] $) $( [2-Oct-2007] $)
+
+    ${
+      fvmpt.3 $e |- C e. _V $.
+      $( Value of a function given by a maps-to rule. $)
+      fvmpt $p |- ( A e. D -> ( F ` A ) = C ) $=
+        ( wcel cvv cfv wceq fvmptg mpan2 ) BEJDKJBFLDMIABCDEKFGHNO $.
+        $( [17-Aug-2011] $)
+    $}
   $}
 
   ${
     $d x y z A $.  $d x B y z $.  $d x C y z $.  $d x D y z $.  $d x G $.
     $d z R $.  $d y S z $.
-    mpt2g.1 $e |- ( x = A -> R = G ) $.
-    mpt2g.2 $e |- ( y = B -> G = S ) $.
-    mpt2g.3 $e |- F = ( x e. C , y e. D |-> R ) $.
-    $( Value of an operation given by a "maps to" rule.  Equivalent to
+    ovmpt2g.1 $e |- ( x = A -> R = G ) $.
+    ovmpt2g.2 $e |- ( y = B -> G = S ) $.
+    ovmpt2g.3 $e |- F = ( x e. C , y e. D |-> R ) $.
+    $( Value of an operation given by a maps-to rule.  Equivalent to
        ~ oprabval2g . $)
-    mpt2g $p |- ( ( A e. C /\ B e. D /\ S e. H ) -> ( A F B ) = S ) $=
+    ovmpt2g $p |- ( ( A e. C /\ B e. D /\ S e. H ) -> ( A F B ) = S ) $=
       ( vz cmpt2 cv wcel wa wceq copab2 df-mpt2 eqtri oprabval2g ) ABOCDEFGHIJK
       LMIABEFGPAQERBQFRSOQGTSABOUANABOEFGUBUCUD $.
       $( [6-Aug-2008] $) $( [2-Oct-2007] $)
