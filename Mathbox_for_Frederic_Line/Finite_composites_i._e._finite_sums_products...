@@ -4,25 +4,37 @@ $(
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 $)
 
-  $c prod_ $. $( Product sign. $)
+  $c prod3_ $. $( Product sign. $)
 
   $( Extend class notation to include finite products/sums. $)
-  cprd $a class prod_ k e. A G B $.
+  cprd $a class prod3_ k e. A G B $.
 
   ${
     $d m n x y k $.  $d m n x y A $.  $d m n x y G $.  $d m n x y B $.
+    $( Part of the definition of ~ df-prod2 .  Don't use by itself. $)
+    df-prod $a |- prod3_ k e. A G B = { x | E. m E. n e. ( ZZ>= ` m )
+        ( A = ( m ... n ) /\
+      x e. ( ( <. m , G >. seq ( { <. k , y >. | y = B } |` ZZ ) ) ` n ) ) } $.
+  $}
+
+  $c prod_ $. $( Product sign. $)
+
+  $( Extend class notation to include finite products/sums. $)
+  cprd2 $a class prod_ k e. A G B $.
+
+  ${
     $( Define the composite for the law ` G ` of a finite sequence of elements
        whose values are defined by the expression ` B ` and whose set of
-       indices is ` A ` .  It may be thougt as a product (if ` G ` is a
-       multiplication), a sum (if ` G ` is an addition) or whatever.  The
-       variable ` k ` is normally a free variable in ` B ` ( i.e. ` B ` can be
-       thought of as ` B ( k ) ` ).  The definition is meaningful when ` A ` is
-       a finite set of sequential integers and ` G ` is an internal operation.
-       Our definition corresponds to the first part of the definition of
-       ~ df-sum .  The operation ` + ` has been replaced by the generic
-       operation ` G ` .  The reference to the concept of limit has been
-       removed because one wants to use the product in contexts where limits
-       are irrelevant.  I could be still more generic and replace
+       indices is ` A ` . ` A ` may be empty.  It may be thougt as a product
+       (if ` G ` is a multiplication), a sum (if ` G ` is an addition) or
+       whatever.  The variable ` k ` is normally a free variable in ` B `
+       ( i.e. ` B ` can be thought of as ` B ( k ) ` ).  The definition is
+       meaningful when ` A ` is a finite set of sequential integers and ` G `
+       is an internal operation.  Our definition corresponds to the first part
+       of the definition of ~ df-sum .  The operation ` + ` has been replaced
+       by the generic operation ` G ` .  The reference to the concept of limit
+       has been removed because one wants to use the product in contexts where
+       limits are irrelevant.  I could be still more generic and replace
        ` ( m ... n ) ` by a finite totally ordered set.  I would then get the
        definition given by Bourbaki in the first chapter of the algebra book of
        his treatise ( A I.3 def.4 ).  I don't because the present definition is
@@ -31,53 +43,62 @@ $)
        I don't specify anything about ` G ` because nothing is required of
        ` g ` in the definition of ` seq ` .  I hope it will be ok.  Otherwise
        one could add ` G e. Magma ` . $)
-    df-prod $a |- prod_ k e. A G B = { x | E. m E. n e. ( ZZ>= ` m )
-        ( A = ( m ... n ) /\
-      x e. ( ( <. m , G >. seq ( { <. k , y >. | y = B } |` ZZ ) ) ` n ) ) } $.
+    df-prod2 $a |- prod_ k e. A G B =
+       if ( A = (/) , ( Id ` G ) , prod3_ k e. A G B ) $.
   $}
 
   ${
     $d A m n x y $.  $d B m n x y $.  $d G m n x y $.  $d k m n x y $.
     $( A finite composite is a set. $)
     prodex $p |- prod_ k e. A G B e. _V $=
-      ( vm vn vx vy cprd cv cfz co wceq cop copab cz cres cseqz cfv wcel wa
-      cuz wrex wex cab cvv df-prod cle wbr 2rexuz abbii zex fvex anass ancom
-      bitr3i ssab2 eqsstri ssexi abrexex2 eqeltri ) ABCDIAEJZFJZKLMZGJVCVBDNHJB
-      MCHOPQRLZSZTZUAZFVBUBSUCEUDZGUEZUFGHABCEFDUGVJVBVCUHUIZVHUAZFPUCZEPUCZGUE
-      UFVIVNGVHEFUJUKVMEGPULVLFGPULVLGUEZVFVCVEUMVOVGVKVDUAZUAZGUEVFVLVQGVLVPVG
-      UAVQVKVDVGUNVPVGUOUPUKVPGVFUQURUSUTUTVAVA $.
-      $( [23-Jun-2010] $) $( [23-Jun-2010] $)
+      ( vm vn vx vy cprd2 c0 wceq cgi cfv cprd cif cvv df-prod2 fvex cv cfz co
+      cop copab cz cres cseqz wcel wa cuz wrex wex cab df-prod cle wbr 2rexuz
+      abbii zex anass ancom bitr3i ssab2 eqsstri ssexi abrexex2 eqeltri ifex )
+      ABCDIAJKZDLMZABCDNZOPABCDQVHVIVJDLRVJAESZFSZTUAKZGSVLVKDUBHSBKCHUCUDUEUFU
+      AZMZUGZUHZFVKUIMUJEUKZGULZPGHABCEFDUMVSVKVLUNUOZVQUHZFUDUJZEUDUJZGULPVRWC
+      GVQEFUPUQWBEGUDURWAFGUDURWAGULZVOVLVNRWDVPVTVMUHZUHZGULVOWAWFGWAWEVPUHWFV
+      TVMVPUSWEVPUTVAUQWEGVOVBVCVDVEVEVFVFVGVF $.
+      $( [19-Sep-2011] $)
   $}
+
+  $( The value of ` prod_ k e. (/) G B ` . $)
+  valproemset $p |- prod_ k e. (/) G B = ( Id ` G ) $=
+    ( c0 cprd2 wceq cgi cfv cprd cif df-prod2 eqid iftrue ax-mp eqtri ) DABCEDD
+    FZCGHZDABCIZJZQDABCKPSQFDLPQRMNO $.
+    $( [19-Sep-2011] $)
 
   ${
     $d A m n x y $.  $d B m n x y $.  $d C m n x y $.  $d G m n x y $.
     $d k m n x y $.
     $( Equality theorem for a composite. $)
     prodeq1 $p |- ( A = B -> prod_ k e. A G C = prod_ k e. B G C ) $=
-      ( vm vn vx vy wceq cv cfz co cop copab cz cres cseqz cfv wcel wa cuz
-      wrex wex cab cprd eqeq1 anbi1d rexbidv exbidv abbidv df-prod 3eqtr4g ) AB
-      JZAFKZGKZLMZJZHKUPUOENIKCJDIOPQRMSTZUAZGUOUBSZUCZFUDZHUEBUQJZUSUAZGVAUCZF
-      UDZHUEACDEUFBCDEUFUNVCVGHUNVBVFFUNUTVEGVAUNURVDUSABUQUGUHUIUJUKHIACDFGEUL
-      HIBCDFGEULUM $.
-      $( [20-Sep-2010] $) $( [5-Sep-2010] $)
+      ( vm vn vx vy wceq c0 cgi cfv cprd cif cprd2 eqeq1 eqidd cv cfz co cop
+      copab cz cres cseqz wcel wa cuz wrex wex cab anbi1d rexbidv exbidv
+      abbidv df-prod 3eqtr4g ifbieq12d df-prod2 ) ABJZAKJZELMZACDENZOBKJZVCBCDE
+      NZOACDEPBCDEPVAVBVEVCVDVCVFABKQVAVCRVAAFSZGSZTUAZJZHSVHVGEUBISCJDIUCUDUEU
+      FUAMUGZUHZGVGUIMZUJZFUKZHULBVIJZVKUHZGVMUJZFUKZHULVDVFVAVOVSHVAVNVRFVAVLV
+      QGVMVAVJVPVKABVIQUMUNUOUPHIACDFGEUQHIBCDFGEUQURUSACDEUTBCDEUTUR $.
+      $( [19-Sep-2011] $)
   $}
 
   ${
     $d A k m n x y $.  $d B m n x y $.  $d G k m n x y $.
     hbprod1.1 $e |- ( x e. A -> A. k x e. A ) $.
     $( Bound-variable hypothesis builder for ` prod_ ` . $)
-    hbprod1 $p |- ( x e. prod_ k e. A G B -> A. k x e. prod_ k e. A G B ) $=
-      ( vm vn vy cprd cv cfz co wceq cop copab cz cres cseqz cfv wcel wa cuz
-      wrex wex cab df-prod ax-17 hbopab1 hbres hbopr hbfv hban hbrex hbex hbab
-      hbxfr ) DABCDEJBGKZHKZLMNZAKZUSUREOZIKCNZDIPZQRZSMZTUAZUBZHURUCTZUDZGUEZA
-      UFAIBCDGHEUGVKDAAVJDGVHDHVIUSVIUADUHUTVGDUTDUHDAUSVFDAVBVESVAVBUADUHVASUA
-      DUHDAVDQVCDIAUIVAQUADUHUJUKVAUSUADUHULUMUNUOUPUQ $.
+    hbprod1 $p |- ( x e. prod_ k e. A G B ->
+      A. k x e. prod_ k e. A G B ) $=
+      ( vm vn vy cprd2 c0 wceq cgi cfv cprd cif df-prod2 ax-17 cv wcel cfz co
+      cop copab cz cres cseqz wa cuz wrex wex cab df-prod hbopab1 hbres hbopr
+      wel hbfv hban hbrex hbex hbab hbxfr hbif ) DABCDEJBKLZEMNZBCDEOZPBCDEQVED
+      AVFVGVEDRASZVFTDRDAVGBGSZHSZUAUBLZVHVJVIEUCZISCLZDIUDZUEUFZUGUBZNTZUHZHVI
+      UINZUJZGUKZAULAIBCDGHEUMWADAAVTDGVRDHVSVJVSTDRVKVQDVKDRDAVJVPDAVLVOUGVHVL
+      TDRVHUGTDRDAVNUEVMDIAUNVHUETDRUOUPAHUQDRURUSUTVAVBVCVDVC $.
       $( [20-Sep-2010] $) $( [14-Sep-2010] $)
   $}
 
   ${
-    $d A m n w y z $.  $d B m n w y z $.  $d G m n w y z $.  $d k m n w x z $.
-    $d x y z $.
+    $d A m n w x y z $.  $d B m n w y z $.  $d G m n w x y z $.
+    $d k m n w x y z $.
     hbprod.1 $e |- ( y e. A -> A. x y e. A ) $.
     hbprod.2 $e |- ( y e. G -> A. x y e. G ) $.
     hbprod.3 $e |- ( y e. B -> A. x y e. B ) $.
@@ -85,59 +106,63 @@ $)
        (effectively) not free in ` A ` , ` G ` and ` B ` , it is not free in
        ` prod_ k e. A G B ` . $)
     hbprod $p |- ( y e. prod_ k e. A G B -> A. x y e. prod_ k e. A G B ) $=
-      ( vm vn vz vw cprd cv cfz co wceq cop copab cz cres cseqz cfv wcel wa
-      cuz wrex wex cab df-prod ax-17 hbeq wal wi eleq1 albid imbi12d hbop
-      chvar hbopab hbres hbopr hbfv hban hbrex hbex hbab hbxfr ) ABCDEFNCJOZKOZ
-      PQZRZLOZVKVJFSZMOZDRZEMTZUAUBZUCQZUDUEZUFZKVJUGUDZUHZJUIZLUJLMCDEJKFUKWEA
-      LBWDAJWBAKWCVKWCUEAULVMWAAABBCVLGBOZVLUEAULUMALVKVTALVOVSUCWFVOUEZWGAUNZU
-      OVNVOUEZWIAUNZUOZBLWKBULWFVNRZWGWIWHWJWFVNVOUPZWLWGWIAWLAULWMUQURABVJFWFV
-      JUEAULHUSUTVNUCUEAULALVRUAVQEMALABBVPDWFVPUEAULIUMVAVNUAUEAULVBVCVNVKUEAU
-      LVDVEVFVGVHVI $.
-      $( [20-Sep-2010] $) $( [5-Sep-2010] $)
+      ( vm vn vz vw cprd2 c0 wceq cgi cfv cprd cif df-prod2 ax-17 cv wcel cfz
+      co cop copab cz cres cseqz wa cuz wrex wex cab df-prod hbeq wal wi weq
+      eleq1 albid imbi12d wel hbop chvar hbopab hbres hbopr hbfv hban hbrex
+      hbex hbab hbxfr hbif ) ABCDEFNCOPZFQRZCDEFSZTCDEFUAVRABVSVTVRAUBBUCZVSUDA
+      UBABVTCJUCZKUCZUEUFZPZLUCZWCWBFUGZMUCZDPZEMUHZUIUJZUKUFZRUDZULZKWBUMRZUNZ
+      JUOZLUPLMCDEJKFUQWQALBWPAJWNAKWOWCWOUDAUBWEWMAABBCWDGWAWDUDAUBURALWCWLALW
+      GWKUKWAWGUDZWRAUSZUTWFWGUDZWTAUSZUTZBLXBBUBBLVAZWRWTWSXAWAWFWGVBZXCWRWTAX
+      CAUBXDVCVDABWBFBJVEAUBHVFVGWFUKUDAUBALWJUIWIEMALABBWHDBMVEAUBIURVHWFUIUDA
+      UBVIVJLKVEAUBVKVLVMVNVOVPVQVP $.
+      $( [19-Sep-2011] $)
   $}
 
   ${
     $d A k m n x y $.  $d B m n x y $.  $d C m n x y $.  $d G m n x y $.
     prodeq2.1 $e |- G e. D $.
     $( Equality theorem for a composite. $)
-    prodeq2 $p |- ( A. k e. A B = C
-      -> prod_ k e. A G B = prod_ k e. A G C ) $=
-      ( vm vn vx vy wceq wral cv cfz co cop copab cz cres cseqz cfv wcel wa
-      cuz wrex wex cab cprd hbra1 ax-17 ra4 imp eqeq2d pm5.32da opabbid
-      resopab 3eqtr4g adantr reseq2 adantl 3eqtr3d opreq2d fveq1d adantlr
-      elfzelz fvres syl eqtr4d rgen elisseti wfun cvv funopabeq zex resfunexg
-      mp2an oprex seqzfveq mpan2 ad2antlr 3eqtr4d eleq2d rexbidva exbidv
-      abbidv df-prod ) BCLZEAMZAHNZINZOPZLZJNZWKWJFQZKNZBLZEKRZSTZUAPUBZUCZUDZI
-      WJUEUBZUFZHUGZJUHWMWNWKWOWPCLZEKRZSTZUAPUBZUCZUDZIXCUFZHUGZJUHABEFUIACEFU
-      IWIXEXMJWIXDXLHWIXBXKIXCWIWKXCUCZUDZWMXAXJXOWMUDZWTXIWNXPWKWOWRWLTZUAPZUB
-      ZWKWOXGWLTZUAPZUBZWTXIWIWMXSYBLXNWIWMUDZWKXRYAYCXQXTWOUAYCWRATZXGATZXQXTW
-      IYDYELWMWIENAUCZWQUDZEKRYFXFUDZEKRYDYEWIYGYHEKWHEAUJWIKUKWIYFWQXFWIYFUDBC
-      WPWIYFWHWHEAULUMUNUOUPWQEKAUQXFEKAUQURUSWMYDXQLWIAWLWRUTVAWMYEXTLWIAWLXGU
-      TVAVBVCVDVEXNWTXSLZWIWMXNWNWSUBZWNXQUBZLZJWLMYIYLJWLWNWLUCZYJWNWRUBZYKYMW
-      NSUCZYJYNLWNWJWKVFZWNSWRVGVHWNWLWRVGVIVJFJWSXQWJWKFDGVKZWRVLZSVMUCZWSVMUC
-      EKBVNZVOWRSVMVPVQYRWLVMUCZXQVMUCYTWJWKOVRZWRWLVMVPVQVSVTWAXNXIYBLZWIWMXNW
-      NXHUBZWNXTUBZLZJWLMUUCUUFJWLYMUUDWNXGUBZUUEYMYOUUDUUGLYPWNSXGVGVHWNWLXGVG
-      VIVJFJXHXTWJWKYQXGVLZYSXHVMUCEKCVNZVOXGSVMVPVQUUHUUAXTVMUCUUIUUBXGWLVMVPV
-      QVSVTWAWBWCUOWDWEWFJKABEHIFWGJKACEHIFWGUR $.
-      $( [20-Sep-2010] $) $( [5-Sep-2010] $)
+    prodeq2 $p |- ( A. k e. A B = C ->
+      prod_ k e. A G B = prod_ k e. A G C ) $=
+      ( vm vn vx vy wceq wral c0 cgi cfv cprd cif cprd2 cv cfz co cop copab cz
+      cres cseqz wcel wa cuz wrex wex cab hbra1 ax-17 ra4 imp eqeq2d pm5.32da
+      opabbid resopab 3eqtr4g adantr reseq2 adantl 3eqtr3d opreq2d fveq1d
+      adantlr elfzelz fvres syl eqtr4d rgen elisseti wfun cvv funopabeq zex
+      resfunexg mp2an oprex seqzfveq mpan2 ad2antlr 3eqtr4d eleq2d rexbidva
+      exbidv abbidv df-prod ifeq2d df-prod2 ) BCLZEAMZANLZFOPZABEFQZRWPWQACEFQZ
+      RABEFSACEFSWOWPWRWSWQWOAHTZITZUAUBZLZJTZXAWTFUCZKTZBLZEKUDZUEUFZUGUBPZUHZ
+      UIZIWTUJPZUKZHULZJUMXCXDXAXEXFCLZEKUDZUEUFZUGUBPZUHZUIZIXMUKZHULZJUMWRWSW
+      OXOYCJWOXNYBHWOXLYAIXMWOXAXMUHZUIZXCXKXTYEXCUIZXJXSXDYFXAXEXHXBUFZUGUBZPZ
+      XAXEXQXBUFZUGUBZPZXJXSWOXCYIYLLYDWOXCUIZXAYHYKYMYGYJXEUGYMXHAUFZXQAUFZYGY
+      JWOYNYOLXCWOETAUHZXGUIZEKUDYPXPUIZEKUDYNYOWOYQYREKWNEAUNWOKUOWOYPXGXPWOYP
+      UIBCXFWOYPWNWNEAUPUQURUSUTXGEKAVAXPEKAVAVBVCXCYNYGLWOAXBXHVDVEXCYOYJLWOAX
+      BXQVDVEVFVGVHVIYDXJYILZWOXCYDXDXIPZXDYGPZLZJXBMYSUUBJXBXDXBUHZYTXDXHPZUUA
+      UUCXDUEUHZYTUUDLXDWTXAVJZXDUEXHVKVLXDXBXHVKVMVNFJXIYGWTXAFDGVOZXHVPZUEVQU
+      HZXIVQUHEKBVRZVSXHUEVQVTWAUUHXBVQUHZYGVQUHUUJWTXAUAWBZXHXBVQVTWAWCWDWEYDX
+      SYLLZWOXCYDXDXRPZXDYJPZLZJXBMUUMUUPJXBUUCUUNXDXQPZUUOUUCUUEUUNUUQLUUFXDUE
+      XQVKVLXDXBXQVKVMVNFJXRYJWTXAUUGXQVPZUUIXRVQUHEKCVRZVSXQUEVQVTWAUURUUKYJVQ
+      UHUUSUULXQXBVQVTWAWCWDWEWFWGUSWHWIWJJKABEHIFWKJKACEHIFWKVBWLABEFWMACEFWMV
+      B $.
+      $( [19-Sep-2011] $)
   $}
 
   ${
     $d A m n x y $.  $d B m n x y $.  $d C m n x y $.  $d G m n x y $.
-    $d j k m n x y $.
+    $d j m n x y $.  $d k m n x y $.
     cbvprod.1 $e |- ( x e. B -> A. k x e. B ) $.
     cbvprod.2 $e |- ( x e. C -> A. j x e. C ) $.
     cbvprod.3 $e |- ( j = k -> B = C ) $.
     $( Change bound variable in a finite composite. $)
     cbvprodi $p |- prod_ j e. A G B = prod_ k e. A G C $=
-      ( vm vn vy cv cfz co wceq cop copab cz cres cseqz cfv wcel wa cuz wrex
-      wex cab cprd hbeleq eqeq2d cbvopab1 reseq1 ax-mp opreq2i fveq1i eleq2i
-      anbi2i rexbii exbii abbii df-prod 3eqtr4i ) BKNZLNZOPQZMNZVFVEGRZANZCQZEA
-      SZTUAZUBPZUCZUDZUEZLVEUFUCZUGZKUHZMUIVGVHVFVIVJDQZFASZTUAZUBPZUCZUDZUEZLV
-      RUGZKUHZMUIBCEGUJBDFGUJVTWIMVSWHKVQWGLVRVPWFVGVOWEVHVFVNWDVMWCVIUBVLWBQVM
-      WCQVKWAEAFFACHUKEADIUKENFNQCDVJJULUMVLWBTUNUOUPUQURUSUTVAVBMABCEKLGVCMABD
-      FKLGVCVD $.
-      $( [20-Sep-2010] $) $( [5-Sep-2010] $)
+      ( vm vn vy c0 wceq cgi cfv cprd cif cprd2 biid cv cfz co cop copab cz
+      cres cseqz wcel wa cuz wrex wex cab hbeleq weq eqeq2d cbvopab1 reseq1
+      ax-mp opreq2i fveq1i eleq2i anbi2i rexbii exbii abbii df-prod 3eqtr4i
+      ifbieq2i df-prod2 ) BNOZGPQZBCEGRZSVMVNBDFGRZSBCEGTBDFGTVMVMVOVPVNVMUABKU
+      BZLUBZUCUDOZMUBZVRVQGUEZAUBZCOZEAUFZUGUHZUIUDZQZUJZUKZLVQULQZUMZKUNZMUOVS
+      VTVRWAWBDOZFAUFZUGUHZUIUDZQZUJZUKZLWJUMZKUNZMUOVOVPWLXAMWKWTKWIWSLWJWHWRV
+      SWGWQVTVRWFWPWEWOWAUIWDWNOWEWOOWCWMEAFFACHUPEADIUPEFUQCDWBJURUSWDWNUGUTVA
+      VBVCVDVEVFVGVHMABCEKLGVIMABDFKLGVIVJVKBCEGVLBDFGVLVJ $.
+      $( [19-Sep-2011] $)
   $}
 
   ${
@@ -145,13 +170,15 @@ $)
     $d k m n x y $.
     $( Equality theorem for a composite. $)
     prodeq3 $p |- ( G = H -> prod_ k e. A G C = prod_ k e. A H C ) $=
-      ( vm vn vx vy wceq cv cfz co cop copab cz cres cseqz cfv wcel wa cuz
-      wrex wex cab cprd opeq2 opreq1d fveq1d eleq2d anbi2d rexbidv exbidv
-      abbidv df-prod 3eqtr4g ) DEJZAFKZGKZLMJZHKZUSURDNZIKBJCIOPQZRMZSZTZUAZGUR
-      UBSZUCZFUDZHUEUTVAUSURENZVCRMZSZTZUAZGVHUCZFUDZHUEABCDUFABCEUFUQVJVQHUQVI
-      VPFUQVGVOGVHUQVFVNUTUQVEVMVAUQUSVDVLUQVBVKVCRDEURUGUHUIUJUKULUMUNHIABCFGD
-      UOHIABCFGEUOUP $.
-      $( [20-Sep-2010] $) $( [5-Sep-2010] $)
+      ( vm vn vx vy wceq c0 cgi cfv cprd cif cprd2 ifeq12 fveq2 cv cfz co cop
+      copab cz cres cseqz wcel wa cuz wrex wex cab opeq2 opreq1d fveq1d eleq2d
+      anbi2d rexbidv exbidv abbidv df-prod 3eqtr4g sylanc df-prod2 ) DEJZAKJZDL
+      MZABCDNZOZVFELMZABCENZOZABCDPABCEPVGVJJVHVKJVIVLJVEVFVGVJVHVKQDELRVEAFSZG
+      SZTUAJZHSZVNVMDUBZISBJCIUCUDUEZUFUAZMZUGZUHZGVMUIMZUJZFUKZHULVOVPVNVMEUBZ
+      VRUFUAZMZUGZUHZGWCUJZFUKZHULVHVKVEWEWLHVEWDWKFVEWBWJGWCVEWAWIVOVEVTWHVPVE
+      VNVSWGVEVQWFVRUFDEVMUMUNUOUPUQURUSUTHIABCFGDVAHIABCFGEVAVBVCABCDVDABCEVDV
+      B $.
+      $( [19-Sep-2011] $)
   $}
 
   ${
@@ -162,10 +189,10 @@ $)
     prodeq123i.4 $e |- G e. F $.
     $( Conditions for two composites to be equal. $)
     prodeq123i $p |- prod_ k e. A G C = prod_ k e. B H D $=
-      ( wceq cprd wral prodeq2 prodeq1 ax-mp prodeq3 eqtri syl6eq mprg ) CDMZAC
-      EGNZBDEHNZMEAUCEAOUDADEGNZUEACDFEGLPUFBDEGNZUEABMUFUGMIABDEGQRGHMUGUEMJBD
-      EGHSRTUAKUB $.
-      $( [20-Sep-2010] $) $( [5-Sep-2010] $)
+      ( wceq cprd2 wral prodeq2 prodeq1 ax-mp prodeq3 eqtri syl6eq mprg ) CDMZA
+      CEGNZBDEHNZMEAUCEAOUDADEGNZUEACDFEGLPUFBDEGNZUEABMUFUGMIABDEGQRGHMUGUEMJB
+      DEGHSRTUAKUB $.
+      $( [6-Sep-2011] $) $( [6-Sep-2010] $)
   $}
 
   ${
@@ -176,25 +203,25 @@ $)
     prodeq123d.4 $e |- G e. F $.
     $( Conditions for two composites to be equal. $)
     prodeq123d $p |- ( ph -> prod_ k e. A G C = prod_ k e. B H D ) $=
-      ( cprd wceq wral prodeq2 syl prodeq3 prodeq1 3eqtrd ) ABDFHNZBEFHNZBEFINZ
-      CEFINZADEOFBPUBUCOLBDEGFHMQRAHIOUCUDOKBEFHISRABCOUDUEOJBCEFITRUA $.
-      $( [20-Sep-2010] $) $( [5-Sep-2010] $)
+      ( cprd2 wceq wral prodeq2 syl prodeq3 prodeq1 3eqtrd ) ABDFHNZBEFHNZBEFIN
+      ZCEFINZADEOFBPUBUCOLBDEGFHMQRAHIOUCUDOKBEFHISRABCOUDUEOJBCEFITRUA $.
+      $( [6-Sep-2011] $) $( [5-Sep-2010] $)
   $}
 
   ${
     prodeq1d.1 $e |- ( ph -> A = B ) $.
     $( Conditions for two composites to be equal. $)
     prodeq1d $p |- ( ph -> prod_ k e. A G C = prod_ k e. B G C ) $=
-      ( wceq cprd prodeq1 syl ) ABCHBDEFICDEFIHGBCDEFJK $.
-      $( [20-Sep-2010] $) $( [5-Sep-2010] $)
+      ( wceq cprd2 prodeq1 syl ) ABCHBDEFICDEFIHGBCDEFJK $.
+      $( [6-Sep-2011] $) $( [5-Sep-2010] $)
   $}
 
   ${
     prodeq2d.2 $e |- ( ph -> G = H ) $.
     $( Conditions for two composites to be equal. $)
     prodeq2d $p |- ( ph -> prod_ k e. A G C = prod_ k e. A H C ) $=
-      ( wceq cprd prodeq3 syl ) AEFHBCDEIBCDFIHGBCDEFJK $.
-      $( [20-Sep-2010] $) $( [5-Sep-2010] $)
+      ( wceq cprd2 prodeq3 syl ) AEFHBCDEIBCDFIHGBCDEFJK $.
+      $( [6-Sep-2011] $) $( [5-Sep-2010] $)
   $}
 
   ${
@@ -203,8 +230,8 @@ $)
     prodeq3d.4 $e |- G e. F $.
     $( Conditions for two composites to be equal. $)
     prodeq3d $p |- ( ph -> prod_ k e. A G C = prod_ k e. A G D ) $=
-      ( wceq wral cprd prodeq2 syl ) ACDJEBKBCEGLBDEGLJHBCDFEGIMN $.
-      $( [20-Sep-2010] $) $( [5-Sep-2010] $)
+      ( wceq wral cprd2 prodeq2 syl ) ACDJEBKBCEGLBDEGLJHBCDFEGIMN $.
+      $( [6-Sep-2011] $) $( [5-Sep-2010] $)
   $}
 
   ${
@@ -213,13 +240,13 @@ $)
     prodeqfv.2 $e |- F = { <. k , y >. | ( k e. B /\ y = A ) } $.
     prodeqfv.3 $e |- G e. F $.
     $( Convert a composite of function values to a composite of classes
-       A(k). $)
+       ` A ( k ) ` . $)
     prodeqfv $p |- ( C C_ B
      -> prod_ k e. C G ( F ` k ) = prod_ k e. C G A ) $=
       ( wss cv cfv wceq wcel wa ssel2 copab fvopab2 mpan2 fveq1i syl5eq syl
       r19.21aiva prodeq3d ) DCLZDFMZGNZBFGHUGUIBOZFDUGUHDPQUHCPZUJDCUHRUKUHUKAM
       BOQFASZNZBUIUKBEPUMBOIFACBETUAUHGULJUBUCUDUEKUF $.
-      $( [20-Sep-2010] $) $( [5-Sep-2010] $)
+      $( [19-Sep-2011] $)
   $}
 
   ${
@@ -228,18 +255,25 @@ $)
     $( Special case of composite over a finite index set. $)
     dffprod $p |- ( N e. ( ZZ>= ` M ) -> prod_ k e. ( M ... N ) G A =
      ( ( <. M , G >. seq ( { <. k , y >. | y = A } |` ZZ ) ) ` N ) ) $=
-      ( vm vn vx cuz cfv wcel cfz co cv wceq cop copab cz cres cseqz wa wrex
-      wex cab cprd cvv wb visset fzopth mpan2 eqcom anbi12i syl6bb anbi1d
-      rexbidv exbidv cle wbr breq1 opeq1 opreq1d fveq1d eleq2d anbi12d breq2
-      fveq2 ceqsrex2v eluzel2 eluzelz sylanc eluzle biantrurd bitr4d 2rexuz
-      an12 2rexbii bitri syl5bb bitrd abbi1dv df-prod syl5eq ) FEJKLZEFMNZGOZHO
-      ZMNPZIOZWGWFDQZAOBPCARSTZUANZKZLZUBZHWFJKZUCZGUDZIUEFEDQZWKUANZKZWEBCDUFW
-      DWRIXAWDWRWFEPZWGFPZUBZWNUBZHWPUCZGUDZWIXALZWDWQXFGWDWOXEHWPWDWHXDWNWDWHE
-      WFPZFWGPZUBZXDWDWGUGLWHXKUHHUIUGWFWGEFUJUKXIXBXJXCEWFULFWGULUMUNUOUPUQWDX
-      DWFWGURUSZWNUBZUBZHSUCGSUCZXHXGWDXOEFURUSZXHUBZXHESLFSLXOXQUHWDXMEWGURUSZ
-      WIWGWTKZLZUBXQGHEFSSXBXLXRWNXTWFEWGURUTXBWMXSWIXBWGWLWTXBWJWSWKUAWFEDVAVB
-      VCVDVEXCXRXPXTXHWGFEURVFXCXSXAWIWGFWTVGVDVEVHEFVIEFVJVKWDXPXHEFVLVMVNXGXL
-      XEUBZHSUCGSUCXOXEGHVOYAXNGHSSXLXDWNVPVQVRVSVTWAIAWEBCGHDWBWC $.
+      ( vm vn vx cuz cfv wcel cfz co c0 wceq cgi cprd cif cop cv copab cz cres
+      cseqz cprd2 cle wbr w3a wi eluz2 wn clt 3simp3 cxr wa wb cr zssre ressxr
+      sstri sseli anim12i 3adant3 xrlenlt syl mpbid fzn notbid iffalse eqeq1
+      wrex wex cab cvv visset fzopth mpan2 eqcom anbi12i syl6bb anbi1d rexbidv
+      exbidv breq1 opeq1 opreq1d fveq1d eleq2d anbi12d breq2 fveq2 ceqsrex2v
+      eluzel2 eluzelz sylanc eluzle biantrurd bitr4d 2rexuz an12 2rexbii bitri
+      syl5bb bitrd abbi1dv df-prod syl5eq syl5bir sylbi pm2.43i df-prod2 ) FEJK
+      LZEFMNZOPZDQKZXNBCDRZSZFEDTZAUABPCAUBUCUDZUENZKZXNBCDUFXMXRYBPZXMEUCLZFUC
+      LZEFUGUHZUIZXMYCUJZEFUKYGXOULZYHYGFEUMUHZULZYIYGYFYKYDYEYFUNYGEUOLZFUOLZU
+      PZYFYKUQYDYEYNYFYDYLYEYMUCUOEUCURUOUSUTVAZVBUCUOFYOVBVCVDEFVEVFVGYDYEYKYI
+      UQYFYDYEUPYJXOEFVHVIVDVGYIXRXQPZYHXOXPXQVJYPYCXQYBPXMXRXQYBVKXMXNGUAZHUAZ
+      MNPZIUAZYRYQDTZXTUENZKZLZUPZHYQJKZVLZGVMZIVNYBXQXMUUHIYBXMUUHYQEPZYRFPZUP
+      ZUUDUPZHUUFVLZGVMZYTYBLZXMUUGUUMGXMUUEUULHUUFXMYSUUKUUDXMYSEYQPZFYRPZUPZU
+      UKXMYRVOLYSUURUQHVPVOYQYREFVQVRUUPUUIUUQUUJEYQVSFYRVSVTWAWBWCWDXMUUKYQYRU
+      GUHZUUDUPZUPZHUCVLGUCVLZUUOUUNXMUVBYFUUOUPZUUOYDYEUVBUVCUQXMUUTEYRUGUHZYT
+      YRYAKZLZUPUVCGHEFUCUCUUIUUSUVDUUDUVFYQEYRUGWEUUIUUCUVEYTUUIYRUUBYAUUIUUAX
+      SXTUEYQEDWFWGWHWIWJUUJUVDYFUVFUUOYRFEUGWKUUJUVEYBYTYRFYAWLWIWJWMEFWNEFWOW
+      PXMYFUUOEFWQWRWSUUNUUSUULUPZHUCVLGUCVLUVBUULGHWTUVGUVAGHUCUCUUSUUKUUDXAXB
+      XCXDXEXFIAXNBCGHDXGXHXIVFVFXJXKXNBCDXLXH $.
       $( [20-Sep-2010] $) $( [5-Sep-2010] $)
   $}
 
@@ -251,7 +285,7 @@ $)
        infinite series. $)
     fprodserz $p |- ( N e. ( ZZ>= ` M ) ->
       prod_ k e. ( M ... N ) G ( F ` k ) = ( ( <. M , G >. seq F ) ` N ) ) $=
-      ( vy cuz cfv wcel cfz co cv cprd cop wceq copab cz cres cseqz dffprod
+      ( vy cuz cfv wcel cfz co cv cprd2 cop wceq copab cz cres cseqz dffprod
       eluzel2 elisseti seqzres2 syl fveq1d eqtrd ) GFKLMZFGNOCPDLZCEQGFERZJPULS
       CJTUAUBUCOZLGUMDUCOZLJULCEFGUDUKGUNUOUKFUAMUNUOSFGUEJECDFEBIUFDAHUFUGUHUI
       UJ $.
@@ -268,9 +302,9 @@ $)
        distinct variable condition. $)
     fprodserzfi $p |- ( N e. ( ZZ>= ` M ) -> prod_ k e. ( M ... N ) G ( F ` k )
                    = ( ( <. M , G >. seq F ) ` N ) ) $=
-      ( vj cuz cfv wcel cfz co cv cprd cop cseqz fprodserz ax-17 hbfv fveq2
-      cbvprodi syl5eq ) HGMNOGHPQZLRZENZLFSHGFTEUAQNUHDRZENZDFSBCLEFGHIJUBAUHUL
-      UJDLFARZULOLUCDAUIEKUMUIODUCUDUKUIEUEUFUG $.
+      ( vj cuz cfv wcel cfz co cv cprd2 cop cseqz fprodserz ax-17 wel hbfv
+      fveq2 cbvprodi syl5eq ) HGMNOGHPQZLRZENZLFSHGFTEUAQNUIDRZENZDFSBCLEFGHIJU
+      BAUIUMUKDLFARUMOLUCDAUJEKALUDDUCUEULUJEUFUGUH $.
       $( [20-Sep-2010] $) $( [5-Sep-2010] $)
   $}
 
@@ -282,9 +316,9 @@ $)
        composite with only one term) is ` B ` i.e. ` A ( M ) ` . $)
     fprod1i $p |- ( ( B e. C /\ M e. ZZ ) ->
                    prod_ k e. ( M ... M ) G A = B ) $=
-      ( vy vx wcel cz wa cfz co cprd cop cv wceq copab cseqz cfv cvv wral
+      ( vy vx wcel cz wa cfz co cprd2 cop cv wceq copab cseqz cfv cvv wral
       elisset eleq1d biimprcd elfz1eq syl5 r19.21aiv wi elfzelz fvopab2 ex syl
-      r19.20i prodeq3d 3syl cuz uzid zex opabex2 hbopab1 fprodserzfi sylan9req
+      ralimia prodeq3d 3syl cuz uzid zex opabex2 hbopab1 fprodserzfi sylan9req
       elisseti seqz1 adantl eqid fvopab4g ancoms 3eqtrd ) BCLZGMLZNGGOPZAEFQZGG
       FRESZMLZJSATNZEJUAZUBPUCZGWAUCZBVNVOVQVPVRWAUCZEFQZWBVNBUDLZAUDLZEVPUEZWE
       VQTBCUFWFWGEVPWFVRGTZWGVRVPLZWIWGWFWIABUDHUGUHVRGUIUJUKWHVPWDAEDFWGWDATZE
@@ -304,7 +338,7 @@ $)
        the previous term composed with ` A ( N + 1 ) = B ` . $)
     fprodp1i $p |- ( N e. ( ZZ>= ` M ) -> prod_ k e. ( M ... ( N + 1 ) ) G A =
                 ( prod_ k e. ( M ... N ) G A G B ) ) $=
-      ( vy vx cuz cfv wcel c1 caddc co cfz cprd cop cv cz wceq wa copab cseqz
+      ( vy vx cuz cfv wcel c1 caddc co cfz cprd2 cop cv cz wceq wa copab cseqz
       peano2uz cvv zex opabex2 elisseti hbopab1 fprodserzfi syl prodeq2
       fvopab2 elfzelz sylancl mprg syl5eqr seqzp1 syl5reqr eluzelz peano2z
       eqid fvopab4 3syl opreq12d 3eqtrd ) IHPQZRZHISTUAZUBUAZAEGUCZVPHGUDEUEZUF
@@ -326,9 +360,9 @@ $)
        effectively not free in ` B ` . $)
     fprod1fi $p |- ( ( B e. C /\ M e. ZZ )
        -> prod_ k e. ( M ... M ) G A = B ) $=
-      ( vj vy wcel cz wa cfz co cv csb cprd ax-17 csbhypf fprod1i visset
-      hbcsb1 csbeq1a cbvprodi syl5eq ) CDNHONPHHQRZFLSZBTZLGUACUJBFGUAULCDELGHF
-      LAHBCASHNFUBJKUCIUDMUJBULFLGMSZBNLUBFMUKBLUEUMUKNFUBUFFUKBUGUHUI $.
+      ( vj vy wcel cz wa cfz co cv csb cprd2 ax-17 csbhypf fprod1i visset wel
+      hbcsb1 csbeq1a cbvprodi syl5eq ) CDNHONPHHQRZFLSZBTZLGUACUKBFGUAUMCDELGHF
+      LAHBCASHNFUBJKUCIUDMUKBUMFLGMSBNLUBFMULBLUEMLUFFUBUGFULBUHUIUJ $.
       $( [20-Sep-2010] $) $( [5-Sep-2010] $)
   $}
 
@@ -339,11 +373,11 @@ $)
     $( Lemma for ~ fsum1s . $)
     fprod1slem $p |- ( M e. ZZ ->
                     prod_ k e. ( M ... M ) G A = [_ M / k ]_ A ) $=
-      ( vx vy cv cfz co cprd csb wceq cz opreq12 anidms prodeq1d csbeq1
-      eqeq12d cvv wcel visset elisseti csbex ax-17 hbcsb1 csbeq1a fprod1fi
-      mpan vtoclga ) IKZUNLMZADENZDUNAOZPZFFLMZADENZDFAOZPIFQUNFPZUPUTUQVAVBUOU
-      SADEVBUOUSPUNFUNFLRSTDUNFAUAUBUQUCUDUNQUDURDUNAIUEZABGUFUGJAUQUCCDEUNHDJU
-      NAVCJKUNUDDUHUIDUNAUJUKULUM $.
+      ( vx vy cv cfz co cprd2 csb wceq cz opreq12 anidms prodeq1d csbeq1
+      eqeq12d cvv wcel visset elisseti csbex wel ax-17 hbcsb1 csbeq1a fprod1fi
+      mpan vtoclga ) IKZUOLMZADENZDUOAOZPZFFLMZADENZDFAOZPIFQUOFPZUQVAURVBVCUPU
+      TADEVCUPUTPUOFUOFLRSTDUOFAUAUBURUCUDUOQUDUSDUOAIUEZABGUFUGJAURUCCDEUOHDJU
+      OAVDJIUHDUIUJDUOAUKULUMUN $.
       $( [20-Sep-2010] $) $( [5-Sep-2010] $)
   $}
 
@@ -354,13 +388,13 @@ $)
        a composite with only one term) is ` A ( M ) ` . $)
     fprod1s $p |- ( ( M e. ZZ /\ A. k e. ( M ... M ) A e. B ) ->
                     prod_ k e. ( M ... M ) G A = [_ M / k ]_ A ) $=
-      ( vx vy cz wcel cvv cfz co wral cprd csb wceq wa crab class2set
-      fprod1slem adantr class2seteq r19.20si prodeq3d adantl wsbc fz1sbc cv wi
-      equid a1i sbc19.20dv mpan sylbid sbceqdig sylibd imp 3eqtr3d elisset
-      sylan2 ) FJKZALKZDFFMNZOZVEADEPZDFAQZRABKZDVEOVCVFSVEVDHATZDEPZDFVJQZVGVH
-      VCVKVLRVFVJLCDEFHAUAGUBUCVFVKVGRVCVFVEVJADCEVDVJARZDVEHALUDZUEGUFUGVCVFVL
-      VHRZVCVFVMDFUHZVOVCVFVDDFUHZVPVDDFUIIUJZVRRZVCVQVPUKIULVSVDVMDFJVDVMUKVSV
-      NUMUNUOUPDFVJAJUQURUSUTVIVDDVEABVAUEVB $.
+      ( vx vy cz wcel cvv cfz co wral cprd2 csb wceq wa crab class2set
+      fprod1slem adantr class2seteq ralimi prodeq3d adantl wsbc fz1sbc weq wi
+      equid a1i sbcimdv mpan sylbid sbceqdig sylibd imp 3eqtr3d elisset sylan2
+      ) FJKZALKZDFFMNZOZVEADEPZDFAQZRABKZDVEOVCVFSVEVDHATZDEPZDFVJQZVGVHVCVKVLR
+      VFVJLCDEFHAUAGUBUCVFVKVGRVCVFVEVJADCEVDVJARZDVEHALUDZUEGUFUGVCVFVLVHRZVCV
+      FVMDFUHZVOVCVFVDDFUHZVPVDDFUIIIUJZVCVQVPUKIULVRVDVMDFJVDVMUKVRVNUMUNUOUPD
+      FVJAJUQURUSUTVIVDDVEABVAUEVB $.
       $( [20-Sep-2010] $) $( [5-Sep-2010] $)
 
     ${
@@ -369,7 +403,7 @@ $)
          (i.e. a composite with only one term) is ` A ( M ) ` . $)
       fprod1s2 $p |- ( ( M e. ZZ /\ [_ M / k ]_ A e. B ) ->
                     prod_ k e. ( M ... M ) G A = [_ M / k ]_ A ) $=
-        ( cz wcel csb cvv cfz co wral cprd wceq wsbc fz1sbc sbcel1g bitrd
+        ( cz wcel csb cvv cfz co wral cprd2 wceq wsbc fz1sbc sbcel1g bitrd
         elisset syl5bir imp fprod1s syldan ) FHIZDFAJZBIZAKIZDFFLMZNZUJADEOUGPU
         FUHUKUFUKUGKIZUHUFUKUIDFQULUIDFRDFAKHSTUGBUAUBUCAKCDEFGUDUE $.
         $( [20-Sep-2010] $) $( [5-Sep-2010] $)
@@ -382,7 +416,7 @@ $)
        a composite with only one term) is ` A ( M ) ` . $)
     fprod1s1 $p |- ( ( G e. D /\ M e. ZZ /\ A. k e. ( M ... M ) A e. B ) ->
                     prod_ k e. ( M ... M ) G A = [_ M / k ]_ A ) $=
-      ( wcel cz cfz co wral cprd csb wceq cvv wi elisset caddc cif prodeq3
+      ( wcel cz cfz co wral cprd2 csb wceq cvv wi elisset caddc cif prodeq3
       eqeq1d imbi2d addex elimel fprod1s ex dedth syl 3imp ) ECGZFHGZABGDFFIJZK
       ZULADELZDFAMZNZUJEOGZUKUMUPPZPZECQUQUSUKUMULADUQERSZLZUONZPZPEREUTNZURVCU
       KVDUPVBUMVDUNVAUOULADEUTTUAUBUBUKUMVBABODUTFEROUCUDUEUFUGUHUI $.
@@ -390,8 +424,7 @@ $)
   $}
 
   ${
-    $d A j z $.  $d B x z $.  $d G z $.  $d M z $.  $d N k z $.  $d j k z $.
-    $d k x z $.  $d B j $.  $d M j $.  $d N j $.
+    $d A j z $.  $d B j z $.  $d B x $.  $d G z $.  $d M j z $.  $d N j k z $.
     fprodp1fi.1 $e |- A e. C $.
     fprodp1fi.2 $e |- B e. D $.
     fprodp1fi.3 $e |- ( x e. B -> A. k x e. B ) $.
@@ -401,11 +434,11 @@ $)
        the previous term composed with ` A ( N + 1 ) = B ` . $)
     fprodp1fi $p |- ( N e. ( ZZ>= ` M ) -> prod_ k e. ( M ... ( N + 1 ) ) G A =
                 ( prod_ k e. ( M ... N ) G A G B ) ) $=
-      ( vj vz cuz cfv wcel c1 caddc co cfz cv csb cprd cvv visset elisseti
-      csbex ax-17 hblem csbhypf fprodp1i hbcsb1 csbeq1a cbvprodi opreq1i
-      3eqtr4g ) JIRSTIJUAUBUCZUDUCZFPUEZBUFZPHUGIJUDUCZVDPHUGZCHUCVBBFHUGVEBFHU
-      GZCHUCVDCUHEPGHIJFVCBPUIZBDKUJUKLOFPQVABCQUEZVATFULFAQCMUMNUNUOQVBBVDFPHV
-      IBTPULZFQVCBVHVIVCTFULUPZFVCBUQZURVGVFCHQVEBVDFPHVJVKVLURUSUT $.
+      ( vj vz cuz cfv wcel c1 caddc co cfz cv csb cprd2 cvv visset elisseti
+      csbex ax-17 hblem csbhypf fprodp1i wel hbcsb1 csbeq1a cbvprodi opreq1i
+      3eqtr4g ) JIRSTIJUAUBUCZUDUCZFPUEZBUFZPHUGIJUDUCZVEPHUGZCHUCVCBFHUGVFBFHU
+      GZCHUCVECUHEPGHIJFVDBPUIZBDKUJUKLOFPQVBBCQUEZVBTFULFAQCMUMNUNUOQVCBVEFPHV
+      JBTPULZFQVDBVIQPUPFULUQZFVDBURZUSVHVGCHQVFBVEFPHVKVLVMUSUTVA $.
       $( [20-Sep-2010] $) $( [5-Sep-2010] $)
   $}
 
@@ -416,12 +449,12 @@ $)
     $( Lemma for ~ fprodp1s . $)
     fprodp1slem $p |- ( N e. ( ZZ>= ` M ) -> prod_ k e. ( M ... ( N + 1 ) ) G A
            = ( prod_ k e. ( M ... N ) G A G [_ ( N + 1 ) / k ]_ A ) ) $=
-      ( vj vx cv c1 caddc co cfz cprd csb wceq cuz cfv opreq1 opreq2d prodeq1d
-      opreq2 csbeq1d opreq12d eqeq12d cvv oprex elisseti csbex wcel ax-17
-      hbcsb1 csbeq1a fprodp1fi vtoclga ) FJLZMNOZPOZADEQZFUSPOZADEQZDUTARZEOZSF
-      GMNOZPOZADEQZFGPOZADEQZDVGARZEOZSJGFTUAUSGSZVBVIVFVMVNVAVHADEVNUTVGFPUSGM
-      NUBZUCUDVNVDVKVEVLEVNVCVJADEUSGFPUEUDVNDUTVGAVOUFUGUHKAVEBUIDCEFUSHDUTAUS
-      MNUJZABHUKULDKUTAVPKLUTUMDUNUODUTAUPIUQUR $.
+      ( vj vx cv c1 caddc co cfz cprd2 csb wceq cuz cfv opreq1 opreq2d
+      prodeq1d opreq2 csbeq1d opreq12d eqeq12d cvv oprex elisseti csbex wcel
+      ax-17 hbcsb1 csbeq1a fprodp1fi vtoclga ) FJLZMNOZPOZADEQZFUSPOZADEQZDUTAR
+      ZEOZSFGMNOZPOZADEQZFGPOZADEQZDVGARZEOZSJGFTUAUSGSZVBVIVFVMVNVAVHADEVNUTVG
+      FPUSGMNUBZUCUDVNVDVKVEVLEVNVCVJADEUSGFPUEUDVNDUTVGAVOUFUGUHKAVEBUIDCEFUSH
+      DUTAUSMNUJZABHUKULDKUTAVPKLUTUMDUNUODUTAUPIUQUR $.
       $( [20-Sep-2010] $) $( [5-Sep-2010] $)
   $}
 
@@ -434,19 +467,19 @@ $)
                /\ A. k e. ( M ... ( N + 1 ) ) A e. B )
             -> prod_ k e. ( M ... ( N + 1 ) ) G A =
                 ( prod_ k e. ( M ... N ) G A G [_ ( N + 1 ) / k ]_ A ) ) $=
-      ( vx cuz cfv wcel cvv c1 caddc co cfz wral cprd csb wceq wa crab
-      class2set fprodp1slem adantr class2seteq r19.20si prodeq3d adantl cv cz
-      wss fzssp1 eluzel2 eluzelz sylanc sseld wi a1i imim12d r19.20dv2 imp
-      wsbc ra4sbca peano2uz eluzfz2 syl sylan equid oprex sbc19.20dv mp2an wb
+      ( vx cuz cfv wcel cvv c1 caddc co cfz wral cprd2 csb wceq wa crab
+      class2set fprodp1slem adantr class2seteq ralimi prodeq3d adantl cv cz
+      wss fzssp1 eluzel2 eluzelz sylanc sseld wi a1i imim12d ralimdv2 imp wsbc
+      ra4sbca peano2uz eluzfz2 syl sylan weq equid oprex sbcimdv mp2an wb
       sbceqdig ax-mp sylib opreq12d 3eqtr3d elisset sylan2 ) GFJKZLZAMLZDFGNOPZ
-      QPZRZWFADESZFGQPZADESZDWEATZEPZUAABLZDWFRWCWGUBZWFWDIAUCZDESZWIWODESZDWEW
-      OTZEPZWHWLWCWPWSUAWGWOMCDEFGIAUDHUEUFWGWPWHUAWCWGWFWOADCEWDWOAUAZDWFIAMUG
-      ZUHHUIUJWNWQWJWRWKEWNWIWOADCEWCWGWTDWIRWCWDWTDWFWIWCDUKZWILXBWFLWDWTWCWIW
-      FXBFULLGULLWIWFUMWCFGUNFGUOFGUPUQURWDWTUSZWCXAUTVAVBVCHUIWNWTDWEVDZWRWKUA
-      ZWNWDDWEVDZXDWEWFLZWGXFWCWDDWEWFVEWCWEWBLXGFGVFFWEVGVHVIIUKZXHUAZWEMLZXFX
-      DUSIVJGNOVKZXIWDWTDWEMXCXIXAUTVLVMVHXJXDXEVNXKDWEWOAMVOVPVQVRVSWMWDDWFABV
-      TUHWA $.
-      $( [20-Sep-2010] $) $( [5-Sep-2010] $)
+      QPZRZWGADESZFGQPZADESZDWFATZEPZUAABLZDWGRWDWHUBZWGWEIAUCZDESZWJWPDESZDWFW
+      PTZEPZWIWMWDWQWTUAWHWPMCDEFGIAUDHUEUFWHWQWIUAWDWHWGWPADCEWEWPAUAZDWGIAMUG
+      ZUHHUIUJWOWRWKWSWLEWOWJWPADCEWDWHXADWJRWDWEXADWGWJWDDUKZWJLXCWGLWEXAWDWJW
+      GXCFULLGULLWJWGUMWDFGUNFGUOFGUPUQURWEXAUSZWDXBUTVAVBVCHUIWOXADWFVDZWSWLUA
+      ZWOWEDWFVDZXEWFWGLZWHXGWDWEDWFWGVEWDWFWCLXHFGVFFWFVGVHVIIIVJZWFMLZXGXEUSI
+      VKGNOVLZXIWEXADWFMXDXIXBUTVMVNVHXJXEXFVOXKDWFWPAMVPVQVRVSVTWNWEDWGABWAUHW
+      B $.
+      $( [19-Sep-2011] $)
   $}
 
   ${
@@ -458,7 +491,7 @@ $)
         A. k e. ( M ... ( N + 1 ) ) A e. B )
             -> prod_ k e. ( M ... ( N + 1 ) ) G A =
                 ( prod_ k e. ( M ... N ) G A G [_ ( N + 1 ) / k ]_ A ) ) $=
-      ( wcel cuz cfv c1 caddc co cfz wral cprd csb wceq cvv wi elisset cif
+      ( wcel cuz cfv c1 caddc co cfz wral cprd2 csb wceq cvv wi elisset cif
       prodeq3 id eqidd opreq123d eqeq12d imbi2d addex elimel fprodp1s ex dedth
       syl 3imp ) ECHZGFIJHZABHDFGKLMZNMZOZUSADEPZFGNMZADEPZDURAQZEMZRZUPESHZUQU
       TVFTZTZECUAVGVIUQUTUSADVGELUBZPZVBADVJPZVDVJMZRZTZTELEVJRZVHVOUQVPVFVNUTV
@@ -472,7 +505,7 @@ $)
     $( Relation between ` sum_ ` and ` prod_ ` . $)
     relsumprd $p |- ( N e. ( ZZ>= ` M ) ->
         sum_ k e. ( M ... N ) B = prod_ k e. ( M ... N ) + B ) $=
-      ( vy cuz cfv wcel cfz co csu caddc cop cv wceq copab cz cres cseqz cprd
+      ( vy cuz cfv wcel cfz co csu caddc cop cv wceq copab cz cres cseqz cprd2
       dffsum dffprod eqtr4d ) DCFGHCDIJZABKDCLMENAOBEPQRSJGUDABLTEABCDUAEABLCDU
       BUC $.
       $( [20-Sep-2010] $) $( [5-Sep-2010] $)
@@ -485,7 +518,7 @@ $)
        composite with only one term) is ` B ` i.e. ` A ( M ) ` . $)
     fprod1i2 $p |- ( ( B e. C /\ M e. ZZ /\ G e. D ) ->
                    prod_ k e. ( M ... M ) G A = B ) $=
-      ( wcel cz cfz co cprd wceq cvv wi elisset caddc cif prodeq3 eqeq1d
+      ( wcel cz cfz co cprd2 wceq cvv wi elisset caddc cif prodeq3 eqeq1d
       imbi2d addex elimel fprod1i ex dedth syl com3l 3imp ) BCIZGJIZFDIZGGKLZAE
       FMZBNZUMUKULUPUMFOIZUKULUPPZPZFDQUQUSUKULUNAEUQFRSZMZBNZPZPFRFUTNZURVCUKV
       DUPVBULVDUOVABUNAEFUTTUAUBUBUKULVBABCOEUTGHFROUCUDUEUFUGUHUIUJ $.
@@ -502,7 +535,7 @@ $)
        ` ( A ( M ) G A ( M + 1 ) ) ` . $)
     fprod1ib $p |- ( ( B1 e. C /\ B2 e. C /\ M e. ZZ ) ->
                    prod_ k e. ( M ... ( M + 1 ) ) G A = ( B1 G B2 ) ) $=
-      ( va wcel cz w3a c1 caddc co cfz cprd csb cuz cfv wral wceq fprodp1s1
+      ( va wcel cz w3a c1 caddc co cfz cprd2 csb cuz cfv wral wceq fprodp1s1
       a1i uzid 3ad2ant3 cv wo cpr fzpr eleq2d wi visset elpr orim12i a1d sylbi
       com12 sylbid eleq1a jaao 3adant3 syld r19.21aiv syl3anc fprod1i 3adant2
       oprex ax-17 csbief opreq12d eqtrd ) GBMZHBMZFNMZOZFFPQRZSRZADETZFFSRADETZ

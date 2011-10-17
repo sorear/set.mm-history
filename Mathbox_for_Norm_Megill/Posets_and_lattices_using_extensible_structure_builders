@@ -1,0 +1,1814 @@
+$(
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+               Posets and lattices using extensible structure builders
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+$)
+
+  $c base $.
+  $c le $.
+  $c PosetNEW $.
+  $c lt $.
+  $c geNEW $.
+  $c gt $.
+  $c lub $.
+  $c glb $.
+  $c join $.
+  $c meet $.
+
+  $( Extend class notation with the class of all base set extractors. $)
+  cbs $a class base $.
+
+  $( Extend class notation with less-than-or-equal for posets. $)
+  cple $a class le $.
+
+  $( Extend class notation with the class of posets. $)
+  cpo $a class PosetNEW $.
+
+  $( Extend class notation with less-than for posets. $)
+  cplt $a class lt $.
+
+  $( Extend class notation with greater-than-or-equal for posets. $)
+  cpge $a class geNEW $.
+
+  $( Extend class notation with greater-than for posets. $)
+  cpgt $a class gt $.
+
+  $( Extend class notation with poset least upper bound. $)
+  club $a class lub $.
+
+  $( Extend class notation with poset greatest lower bound. $)
+  cglb $a class glb $.
+
+  $( Extend class notation with poset join. $)
+  cjn $a class join $.
+
+  $( Extend class notation with poset meet. $)
+  cmee $a class meet $.
+
+  $( Def. 8.4.2 p. 204 $)
+  $( Define the class of base set extractors for posets and related
+     structures. $)
+  df-base $a |- base = ( p e. _V |-> ( p ` 1 ) ) $.
+
+  ${
+    $d p P $.
+    baseval.1 $e |- P e. _V $.
+    $( Value of the base set extractor. $)
+    baseval $p |- ( base ` P ) = ( P ` 1 ) $=
+      ( vp cbs c1 df-base strcval ) DCAEBCFG $.
+      $( [4-Sep-2011] $)
+  $}
+
+  $( Def. 8.4.2 p. 204. $)
+  $( Define less-than-or-equal ordering for posets and related structures. $)
+  df-ple $a |- le = ( p e. _V |-> ( p ` 2 ) ) $.
+
+  ${
+    $d p P $.
+    pleval.1 $e |- P e. _V $.
+    $( Value of the poset ordering extractor. $)
+    pleval $p |- ( le ` P ) = ( P ` 2 ) $=
+      ( vp cple c2 df-ple strcval ) DCAEBCFG $.
+      $( [9-Sep-2011] $)
+  $}
+
+  ${
+    $d f b r x y z $.
+    $( Def. 8.4.1 p. 203. $)
+    $( Define the class of posets. $)
+    df-poset $a |- PosetNEW = Struct ( 2 , f , E. b E. r
+              ( b = ( base ` f )
+               /\ r = ( le ` f )
+              /\ ( b =/= (/)
+               /\ A. x e. b A. y e. b A. z e. b ( x r x
+                 /\ ( ( x r y /\ y r x ) -> x = y )
+                 /\ ( ( x r y /\ y r z ) -> x r z ) ) ) ) ) $.
+  $}
+
+  ${
+    $d b p r x y z B $.  $d b p r P $.  $d b p r x y z R $.
+    ispos.0NEW $e |- S = Struct ( 2 , p , T. ) $.
+    ispos.1NEW $e |- B = ( base ` P ) $.
+    ispos.2NEW $e |- R = ( le ` P ) $.
+    $( The predicate "is a poset." $)
+    isposNEW $p |- ( P e. PosetNEW <-> ( P e. S /\ B =/= (/)
+            /\ A. x e. B A. y e. B A. z e. B ( x R x
+                 /\ ( ( x R y /\ y R x ) -> x = y )
+                 /\ ( ( x R y /\ y R z ) -> x R z ) ) ) ) $=
+      ( vb vr cpo wcel cv cbs cfv wceq cple c0 wne wbr wa wi w3a wral wex c2
+      cstru df-poset eleq2i fveq2 syl6eqr eqeq2d 3anbi12d 2exbidv elstr2 cvv
+      fvex eqeltri neeq1 raleq raleqbi1dv anbi12d breq imbi1d imbi12d
+      3anbi123d ralbidv 2ralbidv anbi2d ceqsex2v anbi2i 3anass bitr4i 3bitri )
+      ENOELPZHPZQRZSZMPZVSTRZSZVRUAUBZAPZWFWBUCZWFBPZWBUCZWHWFWBUCZUDZWFWHSZUEZ
+      WIWHCPZWBUCZUDZWFWNWBUCZUEZUFZCVRUGZBVRUGZAVRUGZUDZUFZMUHLUHZHUIUJZOEGOZV
+      RDSZWBFSZXCUFZMUHLUHZUDZXGDUAUBZWFWFFUCZWFWHFUCZWHWFFUCZUDZWLUEZXOWHWNFUC
+      ZUDZWFWNFUCZUEZUFZCDUGZBDUGADUGZUFZNXFEABCHMLUKULXEXKGHEUIIVSESZXDXJLMYGW
+      AXHWDXIXCYGVTDVRYGVTEQRZDVSEQUMJUNUOYGWCFWBYGWCETRZFVSETUMKUNUOUPUQURXLXG
+      XMYEUDZUDYFXKYJXGXCXMWSCDUGZBDUGZADUGZUDYJLMDFDYHUSJEQUTVAFYIUSKETUTVAXHW
+      EXMXBYMVRDUAVBXAYLAVRDWTYKBVRDWSCVRDVCVDVDVEXIYMYEXMXIYKYDABDDXIWSYCCDXIW
+      GXNWMXRWRYBWFWFWBFVFXIWKXQWLXIWIXOWJXPWFWHWBFVFZWHWFWBFVFVEVGXIWPXTWQYAXI
+      WIXOWOXSYNWHWNWBFVFVEWFWNWBFVFVHVIVJVKVLVMVNXGXMYEVOVPVQ $.
+      $( [9-Sep-2011] $)
+  $}
+
+  ${
+    $d p x y z B $.  $d p P $.  $d p x y z R $.  $d x y z X $.  $d y z Y $.
+    $d z Z $.
+    poslem.1 $e |- B = ( base ` P ) $.
+    poslem.2 $e |- R = ( le ` P ) $.
+    $( Lemma for poset properties. $)
+    poslem $p |- ( ( P e. PosetNEW /\ ( X e. B /\ Y e. B /\ Z e. B ) )
+                -> ( X R X
+                 /\ ( ( X R Y /\ Y R X ) -> X = Y )
+                 /\ ( ( X R Y /\ Y R Z ) -> X R Z ) ) ) $=
+      ( vx vy vz vp cpo wcel cv wbr wa wceq wi w3a wral wtru c2 cstru c0 wne
+      eqid isposNEW 3simp3bi breq1 breq2 bitrd anbi12d eqeq1 imbi12d biidd
+      3anbi123d eqeq2 anbi2d rcla43v mpan9 ) BMNZIOZVCCPZVCJOZCPZVEVCCPZQZVCVER
+      ZSZVFVEKOZCPZQZVCVKCPZSZTZKAUAJAUAIAUAZDANEANFANTDDCPZDECPZEDCPZQZDERZSZV
+      SEFCPZQZDFCPZSZTZVBBUBLUCUDZNAUEUFVQIJKABCWILWIUGGHUHUIVPWHVRDVECPZVEDCPZ
+      QZDVERZSZWJVLQZDVKCPZSZTVRWCVSEVKCPZQZWPSZTIJKDEFAAAVCDRZVDVRVJWNVOWQXAVD
+      DVCCPVRVCDVCCUJVCDDCUKULXAVHWLVIWMXAVFWJVGWKVCDVECUJZVCDVECUKUMVCDVEUNUOX
+      AVMWOVNWPXAVFWJVLVLXBXAVLUPUMVCDVKCUJUOUQVEERZVRVRWNWCWQWTXCVRUPXCWLWAWMW
+      BXCWJVSWKVTVEEDCUKZVEEDCUJUMVEEDURUOXCWOWSWPWPXCWJVSVLWRXDVEEVKCUJUMXCWPU
+      PUOUQVKFRZVRVRWCWCWTWGXEVRUPXEWCUPXEWSWEWPWFXEWRWDVSVKFECUKUSVKFDCUKUOUQU
+      TVA $.
+      $( [11-Sep-2011] $)
+
+    $( A poset ordering is reflexive. $)
+    posref $p |- ( ( P e. PosetNEW /\ X e. B ) -> X R X ) $=
+      ( cpo wcel wa wbr wceq wi w3a poslem id 3jca sylan2 3simp1 syl ) BGHZDAHZ
+      IDDCJZUBUBIZDDKLZUCUBLZMZUBTUAUAUAMUFUAABCDDDEFNUAUAUAUAUAOZUGUGPQUBUDUER
+      S $.
+      $( [11-Sep-2011] $)
+
+    $( A poset ordering is asymetric. $)
+    posasym $p |- ( ( P e. PosetNEW /\ X e. B /\ Y e. B )
+                -> ( ( X R Y /\ Y R X ) -> X = Y ) ) $=
+      ( cpo wcel w3a wbr wa wceq wi poslem 3simp1 3simp2 3simp3 syl3an2c syl )
+      BHIZDAIZEAIZJZDDCKZDECKZEDCKLDEMNZUFEECKLUFNZJZUGUAUBUCUCUIUDABCDEEFGOUAU
+      BUCPUAUBUCQUAUBUCRZUJSUEUGUHQT $.
+      $( [11-Sep-2011] $)
+
+    $( A poset ordering is transitive. $)
+    postrNEW $p |- ( ( P e. PosetNEW /\ ( X e. B /\ Y e. B /\ Z e. B ) )
+                -> ( ( X R Y /\ Y R Z ) -> X R Z ) ) $=
+      ( cpo wcel w3a wa wbr wceq wi poslem 3simp3d ) BIJDAJEAJFAJKLDDCMDECMZEDC
+      MLDENOREFCMLDFCMOABCDEFGHPQ $.
+      $( [11-Sep-2011] $)
+  $}
+
+  ${
+    $d p x y z B $.  $d p P $.  $d p x y z R $.
+    isposi.0NEW $e |- P e. Struct ( 2 , p , T. ) $.
+    isposi.1NEW $e |- B = ( base ` P ) $.
+    isposi.2NEW $e |- R = ( le ` P ) $.
+    isposi.3NEW $e |- B =/= (/) $.
+    isposi.4NEW $e |- ( x e. B -> x R x ) $.
+    isposi.5NEW $e |- ( ( x e. B /\ y e. B ) ->
+                   ( ( x R y /\ y R x ) -> x = y ) ) $.
+    isposi.6NEW $e |- ( ( x e. B /\ y e. B /\ z e. B ) ->
+                   ( ( x R y /\ y R z ) -> x R z ) ) $.
+    $( Properties that determine a poset (constructed structure version). $)
+    isposiNEW $p |- P e. PosetNEW $=
+      ( cpo wcel wtru c2 cstru c0 wne cv wbr wa wceq wi w3a wral eqid isposNEW
+      3ad2ant1 3adant3 3jca rgen3 mpbir3an ) EOPEQGRSZPDTUAAUBZUQFUCZUQBUBZFUCZ
+      USUQFUCUDUQUSUEUFZUTUSCUBZFUCUDUQVBFUCUFZUGZCDUHBDUHADUHABCDEFUPGUPUIIJUJ
+      HKVDABCDDDUQDPZUSDPZVBDPZUGURVAVCVEVFURVGLUKVEVFVAVGMULNUMUNUO $.
+      $( [11-Sep-2011] $)
+  $}
+
+  ${
+    $d p x y z B $.  $d p P $.  $d p x y z R $.
+    isposix.aNEW $e |- B e. _V $.
+    isposix.bNEW $e |- R e. _V $.
+    isposix.1NEW $e |- P = { <. 1 , B >. , <. 2 , R >. } $.
+    isposix.2NEW $e |- B =/= (/) $.
+    isposix.3NEW $e |- ( x e. B -> x R x ) $.
+    isposix.4NEW $e |- ( ( x e. B /\ y e. B ) ->
+                   ( ( x R y /\ y R x ) -> x = y ) ) $.
+    isposix.5NEW $e |- ( ( x e. B /\ y e. B /\ z e. B ) ->
+                   ( ( x R y /\ y R z ) -> x R z ) ) $.
+    $( Properties that determine a poset (explicit structure version). $)
+    isposixNEW $p |- P e. PosetNEW $=
+      ( vp stb2strx cbs df-base stb2v1x cple df-ple stb2v2x isposiNEW ) ABCDEFN
+      NEDFGHIOPNEDFGHINQRSNEDFGHINTUAJKLMUB $.
+      $( [11-Sep-2011] $)
+  $}
+
+  $( Def. 8.4.3 p. 204. $)
+  $( Define less-than ordering for posets and related structures. $)
+  df-plt $a |- lt = ( p e. _V |-> ( ( le ` p ) \ _I ) ) $.
+
+  ${
+    $d p P $.
+    pltval.1 $e |- R = ( le ` P ) $.
+    pltval.2 $e |- S = ( lt ` P ) $.
+    $( Less-than relation. $)
+    pltval $p |- ( ( P e. A /\ X e. B /\ Y e. C )
+        -> ( X S Y <-> ( X R Y /\ X =/= Y ) ) ) $=
+      ( vp wcel wbr wne wa wb cple cfv cid cdif wceq cplt cvv elisset cv fveq2
+      difeq1d df-plt fvex difexg ax-mp fvmpt syl syl5eq breq wn ideqg
+      necon3bbid adantl anbi2d difeq1i breqi brdif bitr3i syl5bb sylan9bb
+      3impb ) DALZGBLZHCLZGHFMZGHEMZGHNZOZPVHVKGHDQRZSTZMZVIVJOZVNVHFVPUAVKVQPV
+      HDUBRZVPFVHDUCLVSVPUADAUDKDKUEZQRZSTVPUCUBVTDUAWAVOSVTDQUFUGKUHVOUCLVPUCL
+      DQUIVOSUCUJUKULUMJUNGHFVPUOUMVRVLGHSMZUPZOZVNVQVRWCVMVLVJWCVMPVIVJWBGHGHC
+      UQURUSUTVQGHESTZMWDGHWEVPEVOSIVAVBGHESVCVDVEVFVG $.
+      $( [12-Oct-2011] $)
+  $}
+
+  $( Def. 8.4.3 p. 204. $)
+  $( Define the class of greater-than-or-equal ordering for posets and related
+     structures. $)
+  df-pge $a |- geNEW = ( p e. _V |-> `' ( le ` p ) ) $.
+
+  $( Def. 8.4.3 p. 204. $)
+  $( Define the class of greater-than ordering for posets and related
+     structures. $)
+  df-pgt $a |- gt = ( p e. _V |-> `' ( lt ` p ) ) $.
+
+  ${
+    $d p P $.  $d p R $.
+    pgeval.1 $e |- R = ( le ` P ) $.
+    pgeval.2 $e |- S = ( geNEW ` P ) $.
+    $( Value of greater-than-or-equal ordering for a poset. $)
+    pgeval $p |- ( ( P e. A /\ X e. B /\ Y e. C ) -> ( X S Y <-> Y R X ) ) $=
+      ( vp wcel wbr wb ccnv wa wceq cpge cfv cvv elisset cv cple fveq2 syl6eqr
+      cnveq syl df-pge fvex eqeltri cnvex fvmpt syl5eq breq brcnvg sylan9bb
+      3impb ) DALZGBLZHCLZGHFMZHGEMZNURVAGHEOZMZUSUTPVBURFVCQVAVDNURDRSZVCFURDT
+      LVEVCQDAUAKDKUBZUCSZOZVCTRVFDQZVGEQVHVCQVIVGDUCSZEVFDUCUDIUEVGEUFUGKUHEEV
+      JTIDUCUIUJUKULUGJUMGHFVCUNUGGHBCEUOUPUQ $.
+      $( [17-Sep-2011] $)
+  $}
+
+  ${
+    $d p x y z B $.  $d p P $.  $d p x y z S $.  $d x y z X $.  $d y z Y $.
+    $d z Z $.
+    posgelem.1 $e |- B = ( base ` P ) $.
+    posgelem.2 $e |- S = ( geNEW ` P ) $.
+    $( Lemma for poset properties, using greater-than-or-equal ordering. $)
+    posgelem $p |- ( ( P e. PosetNEW /\ ( X e. B /\ Y e. B /\ Z e. B ) )
+                -> ( X S X
+                 /\ ( ( X S Y /\ Y S X ) -> X = Y )
+                 /\ ( ( X S Y /\ Y S Z ) -> X S Z ) ) ) $=
+      ( cpo wcel w3a wa wbr wceq wi cple cfv eqid posref wb pgeval 3anidm23
+      mpbird 3ad2antr1 3com23 anbi12d posasym sylbid ancomsd 3adant3r3
+      postrNEW 3anrev sylan2b 3adant3r1 3adant3r2 3imtr4d 3jca ) BIJZDAJZEAJZFA
+      JZKZLZDDCMZDECMZEDCMZLDENZOZVEEFCMZLDFCMZOURUTUSVDVAURUSLVDDDBPQZMZABVKDG
+      VKRZSURUSVDVLTIAABVKCDDVMHUAUBUCUDURUSUTVHVAURUSUTKZVFVEVGVNVFVELDEVKMZED
+      VKMZLVGVNVFVOVEVPURUTUSVFVOTIAABVKCEDVMHUAUEIAABVKCDEVMHUAZUFABVKDEGVMUGU
+      HUIUJVCVIVEVJVCFEVKMZVPLZFDVKMZVIVELVJURVAUTUSKVSVTOVBABVKFEDGVMUKUSUTVAU
+      LUMVCVIVRVEVPURUTVAVIVRTUSIAABVKCEFVMHUAUNURUSUTVEVPTVAVQUJUFURUSVAVJVTTU
+      TIAABVKCDFVMHUAUOUPUIUQ $.
+      $( [17-Sep-2011] $)
+
+    $( A poset ordering is reflexive, using greater-than-or-equal ordering. $)
+    posgeref $p |- ( ( P e. PosetNEW /\ X e. B ) -> X S X ) $=
+      ( cpo wcel wa wbr wceq wi w3a posgelem id 3jca sylan2 3simp1 syl ) BGHZDA
+      HZIDDCJZUBUBIZDDKLZUCUBLZMZUBTUAUAUAMUFUAABCDDDEFNUAUAUAUAUAOZUGUGPQUBUDU
+      ERS $.
+      $( [17-Sep-2011] $)
+
+    $( A poset ordering is asymetric, using greater-than-or-equal ordering. $)
+    posgeasym $p |- ( ( P e. PosetNEW /\ X e. B /\ Y e. B )
+                -> ( ( X S Y /\ Y S X ) -> X = Y ) ) $=
+      ( cpo wcel w3a wbr wa wceq wi posgelem 3simp1 3simp2 3simp3 syl3an2c syl
+      ) BHIZDAIZEAIZJZDDCKZDECKZEDCKLDEMNZUFEECKLUFNZJZUGUAUBUCUCUIUDABCDEEFGOU
+      AUBUCPUAUBUCQUAUBUCRZUJSUEUGUHQT $.
+      $( [17-Sep-2011] $)
+
+    $( A poset ordering is transitive, using greater-than-or-equal ordering. $)
+    posgetrNEW $p |- ( ( P e. PosetNEW /\ ( X e. B /\ Y e. B /\ Z e. B ) )
+                -> ( ( X S Y /\ Y S Z ) -> X S Z ) ) $=
+      ( cpo wcel w3a wa wbr wceq wi posgelem 3simp3d ) BIJDAJEAJFAJKLDDCMDECMZE
+      DCMLDENOREFCMLDFCMOABCDEFGHPQ $.
+      $( [17-Sep-2011] $)
+  $}
+
+  ${
+    $d p s t u x y z $.
+    $( Def. 8.4.4 p. 205. $)
+    $( Define poset least upper bound.  If it doesn't exist, an undefined value
+       not in the base set is returned. $)
+    df-lub $a |- lub = ( p e. _V |-> ( s e. ~P ( base ` p ) |->
+        ( iota_ x e. ( base ` p ) ( A. y e. s y ( le ` p ) x
+                          /\ A. z e. ( base ` p )
+                  ( A. y e. s y ( le ` p ) z -> x ( le ` p ) z ) ) ) ) ) $.
+
+    $( Def. 8.4.4 p. 205. $)
+    $( Define poset least upper bound.  If it doesn't exist, an undefined value
+       not in the base set is returned. $)
+    $(
+    df-lubOLD $a |- lub = ( p e. _V |-> ( s e. ~P ( base ` p ) |->
+     { t | E. u ( u = { x e. ( base ` p ) | ( A. y e. s y ( le ` p ) x
+                          /\ A. z e. ( base ` p )
+                             ( A. y e. s y ( le ` p ) z -> x ( le ` p ) z ) ) }
+      /\ t = if ( E. v u = { v } , U. u , ( Undef ` ( base ` p ) ) ) ) } ) ) $.
+    $)
+
+    $( Def. 8.4.4 p. 205. $)
+    $( Define poset greatest lower bound. $)
+    df-glb $a |- glb = ( p e. _V |-> ( s e. ~P ( base ` p ) |->
+        ( iota_ x e. ( base ` p ) ( A. y e. s y ( geNEW ` p ) x
+                          /\ A. z e. ( base ` p )
+                  ( A. y e. s y ( geNEW ` p ) z -> x ( geNEW ` p ) z ) ) ) ) )
+        $.
+
+    $( Def. 8.4.4 p. 205. $)
+    $( Define poset greatest lower bound. $)
+    $(
+    df-glbOLD $a |- glb = ( p e. _V |-> ( s e. ~P ( base ` p ) |->
+          { t | E. u ( u = { x e. ( base ` p ) | ( A. y e. s y ( geNEW ` p ) x
+        /\
+       A. z e. ( base ` p ) ( A. y e. s y ( geNEW ` p ) z -> x ( geNEW ` p ) z
+        ) ) }
+      /\ t = if ( E. v u = { v } , U. u , ( Undef ` ( base ` p ) ) ) ) } ) ) $.
+    $)
+
+    $( Def. 8.4.4 p. 205. $)
+    $( Define poset join. $)
+    df-join $a |- join = ( p e. _V |-> ( x e. ( base ` p ) , y e. ( base ` p )
+        |-> ( ( lub ` p ) ` { x , y } ) ) ) $.
+
+    $( Def. 8.4.4 p. 205. $)
+    $( Define poset meet. $)
+    df-meet $a |- meet = ( p e. _V |-> ( x e. ( base ` p ) , y e. ( base ` p )
+        |-> ( ( glb ` p ) ` { x , y } ) ) ) $.
+  $}
+
+  ${
+    $d p s x z B $.  $d p s x y z P $.  $d p R $.
+    lubfval.1 $e |- B = ( base ` P ) $.
+    lubfval.2 $e |- R = ( le ` P ) $.
+    lubfval.3 $e |- U = ( lub ` P ) $.
+    $( Value of least upper bound function of a poset. $)
+    lubfval $p |- ( P e. A -> U = ( s e. ~P B |-> ( iota_ x e. B
+         ( A. y e. s y R x /\ A. z e. B ( A. y e. s y R z -> x R z ) ) ) ) ) $=
+      ( vp wcel cvv cpw cv wbr wral wi wa crio cmpt wceq elisset club cfv cbs
+      cple fveq2 syl6eqr pweq syl wb breq ralbidv imbi12d raleqbidv anbi12d
+      riotaeqbidv mpteq12dv df-lub fvex eqeltri pwex mptexg ax-mp fvmpt syl5eq
+      ) FDNFONZHIEPZBQZAQZGRZBIQZSZVLCQZGRZBVOSZVMVQGRZTZCESZUAZAEUBZUCZUDFDUEV
+      JFUFUGWEHMFIMQZUHUGZPZVLVMWFUIUGZRZBVOSZVLVQWIRZBVOSZVMVQWIRZTZCWGSZUAZAW
+      GUBZUCWEOUFWFFUDZIWHWRVKWDWSWGEUDWHVKUDWSWGFUHUGZEWFFUHUJJUKZWGEULUMWSWQW
+      CAWGEXAWSWKVPWPWBWSWJVNBVOWSWIGUDZWJVNUNWSWIFUIUGGWFFUIUJKUKZVLVMWIGUOUMU
+      PWSWOWACWGEXAWSWMVSWNVTWSWLVRBVOWSXBWLVRUNXCVLVQWIGUOUMUPWSXBWNVTUNXCVMVQ
+      WIGUOUMUQURUSUTVAABCIMVBVKONWEONEEWTOJFUHVCVDVEIVKWDOVFVGVHLVIUM $.
+      $( [12-Sep-2011] $)
+  $}
+
+  ${
+    $d s x z B $.  $d s x y z P $.  $d s R $.  $d s x y z S $.
+    lubval.1 $e |- B = ( base ` P ) $.
+    lubval.2 $e |- R = ( le ` P ) $.
+    lubval.3 $e |- U = ( lub ` P ) $.
+    $( Value of least upper bound of a poset. $)
+    lubval $p |- ( ( P e. A /\ S C_ B ) -> ( U ` S ) = ( iota_ x e. B
+           ( A. y e. S y R x /\ A. z e. B ( A. y e. S y R z -> x R z ) ) ) ) $=
+      ( vs wcel wss cfv cpw cv wbr wral wi wa crio cmpt lubfval fveq1d wceq
+      cbs cvv fvex eqeltri elpw2 raleq imbi1d ralbidv anbi12d riotabidv eqid
+      riotaex fvmpt sylbir sylan9eq ) FDNZHEOZHIPHMEQZBRZARZGSZBMRZTZVFCRZGSZBV
+      ITZVGVKGSZUAZCETZUBZAEUCZUDZPZVHBHTZVLBHTZVNUAZCETZUBZAEUCZVCHIVSABCDEFGI
+      MJKLUEUFVDHVENVTWFUGHEEFUHPUIJFUHUJUKULMHVRWFVEVSVIHUGZVQWEAEWGVJWAVPWDVH
+      BVIHUMWGVOWCCEWGVMWBVNVLBVIHUMUNUOUPUQVSURWEAEUSUTVAVB $.
+      $( [12-Sep-2011] $)
+  $}
+
+  ${
+    $d p s x z B $.  $d p s x y z P $.  $d p R $.
+    glbfval.1 $e |- B = ( base ` P ) $.
+    glbfval.2 $e |- R = ( geNEW ` P ) $.
+    glbfval.3 $e |- G = ( glb ` P ) $.
+    $( Value of least upper bound function of a poset. $)
+    glbfval $p |- ( P e. A -> G = ( s e. ~P B |-> ( iota_ x e. B
+         ( A. y e. s y R x /\ A. z e. B ( A. y e. s y R z -> x R z ) ) ) ) ) $=
+      ( vp wcel cvv cpw cv wbr wral wi wa crio cmpt wceq elisset cglb cfv cbs
+      cpge fveq2 syl6eqr pweq syl wb breq ralbidv imbi12d raleqbidv anbi12d
+      riotaeqbidv mpteq12dv df-glb fvex eqeltri pwex mptexg ax-mp fvmpt syl5eq
+      ) FDNFONZHIEPZBQZAQZGRZBIQZSZVLCQZGRZBVOSZVMVQGRZTZCESZUAZAEUBZUCZUDFDUEV
+      JFUFUGWEHMFIMQZUHUGZPZVLVMWFUIUGZRZBVOSZVLVQWIRZBVOSZVMVQWIRZTZCWGSZUAZAW
+      GUBZUCWEOUFWFFUDZIWHWRVKWDWSWGEUDWHVKUDWSWGFUHUGZEWFFUHUJJUKZWGEULUMWSWQW
+      CAWGEXAWSWKVPWPWBWSWJVNBVOWSWIGUDZWJVNUNWSWIFUIUGGWFFUIUJKUKZVLVMWIGUOUMU
+      PWSWOWACWGEXAWSWMVSWNVTWSWLVRBVOWSXBWLVRUNXCVLVQWIGUOUMUPWSXBWNVTUNXCVMVQ
+      WIGUOUMUQURUSUTVAABCIMVBVKONWEONEEWTOJFUHVCVDVEIVKWDOVFVGVHLVIUM $.
+      $( [12-Sep-2011] $)
+  $}
+
+  ${
+    $d s x z B $.  $d s x y z P $.  $d s R $.  $d s x y z S $.
+    glbval.1 $e |- B = ( base ` P ) $.
+    glbval.2 $e |- R = ( geNEW ` P ) $.
+    glbval.3 $e |- G = ( glb ` P ) $.
+    $( Value of greatest lower bound of a poset. $)
+    glbval $p |- ( ( P e. A /\ S C_ B ) -> ( G ` S ) = ( iota_ x e. B
+           ( A. y e. S y R x /\ A. z e. B ( A. y e. S y R z -> x R z ) ) ) ) $=
+      ( vs wcel wss cfv cpw cv wbr wral wi wa crio cmpt glbfval fveq1d wceq
+      cbs cvv fvex eqeltri elpw2 raleq imbi1d ralbidv anbi12d riotabidv eqid
+      riotaex fvmpt sylbir sylan9eq ) FDNZHEOZHIPHMEQZBRZARZGSZBMRZTZVFCRZGSZBV
+      ITZVGVKGSZUAZCETZUBZAEUCZUDZPZVHBHTZVLBHTZVNUAZCETZUBZAEUCZVCHIVSABCDEFGI
+      MJKLUEUFVDHVENVTWFUGHEEFUHPUIJFUHUJUKULMHVRWFVEVSVIHUGZVQWEAEWGVJWAVPWDVH
+      BVIHUMWGVOWCCEWGVMWBVNVLBVIHUMUNUOUPUQVSURWEAEUSUTVAVB $.
+      $( [12-Sep-2011] $)
+
+    $d y B $.  $d x y z R $.
+    $( Properties of greatest lower bound of a poset. $)
+    glbprop $p |- ( ( P e. A /\ S C_ B /\ ( G ` S ) e. B ) ->
+         ( A. y e. S y R ( G ` S )
+               /\ A. z e. B ( A. y e. S y R z -> ( G ` S ) R z ) ) ) $=
+      ( vx vs wcel wss cfv cv wbr wral wi wa crio wreu cbs cvv fvex eqeltri
+      riotaclb biimpri wceq eqid hbriota1 wal ax-17 hbbr hbral hbim hban a1i
+      hbra1 hbriota hbeq breq2 ralbid breq1 imbi2d anbi12d riota2f mpbiri
+      mpdan glbval eleq1d wb breq2d ralbidv breq1d elisset sylan 3imtr4d
+      3impia ) ECNZGDOZGHPZDNZAQZWCFRZAGSZWEBQZFRZAGSZWCWHFRZTZBDSZUAZWAWBUAZWE
+      LQZFRZAGSZWJWPWHFRZTZBDSZUAZLDUBZDNZWEXCFRZAGSZWJXCWHFRZTZBDSZUAZWDWNXDXJ
+      TWOXDXBLDUCZXJXKXDXBLDDEUDPUEIEUDUFUGUHUIXDXKUAXJXCXCUJXCUKXBXJLMDXCXBLMD
+      ULZXJXJLUMTXDXFXILXELAGWEGNLUNLMWEXCFMQZWENLUNXMFNLUNZXLUOUPXHLBDWHDNZLUN
+      WJXGLWJLUNLMXCWHFXLXNXMWHNLUNUOUQUPURUSWPXCUJZWRXFXAXIXPWQXEAGAMMWPXCXMWP
+      NZAUNXBALMDWRXAAWQAGUTWTABDXOAUNWJWSAWIAGUTWSAUNUQUPURXMDNZAUNVAVBWPXCWEF
+      VCVDXPWTXHBDBMMWPXCXQBUNXBBLMDWRXABWRBUNWTBDUTURXRBUNVAVBXPWSXGWJWPXCWHFV
+      EVFVDVGVHVIVJUSWOWCXCDLABCDEFGHIJKVKVLEUENZWBWNXJVMWAXSWBUAZWGXFWMXIXTWFX
+      EAGXTWCXCWEFLABUEDEFGHIJKVKZVNVOXTWLXHBDXTWKXGWJXTWCXCWHFYAVPVFVOVGECVQVR
+      VSVT $.
+      $( [12-Oct-2011] $)
+  $}
+
+  ${
+    $d s x y z B $.  $d s x y z P $.  $d s x y z R $.  $d s x y z S $.
+    glbprople.1 $e |- B = ( base ` P ) $.
+    glbprople.2 $e |- R = ( le ` P ) $.
+    glbprople.3 $e |- G = ( glb ` P ) $.
+    $( Properties of greatest lower bound of a poset.  Same as ~ glbprop with
+       less-than-or-equal ordering. $)
+    glbprople $p |- ( ( P e. A /\ S C_ B /\ ( G ` S ) e. B ) ->
+         ( A. y e. S ( G ` S ) R y
+               /\ A. z e. B ( A. y e. S z R y -> z R ( G ` S ) ) ) ) $=
+      ( cvv wcel wss cfv cv wbr wral wi wa w3a cpge eqid glbprop wb visset
+      fvex pgeval mp3an23 ralbidv imbi12d anbi12d 3ad2ant1 mpbid elisset
+      syl3an1 ) ELMZGDNZGHOZDMZUSAPZFQZAGRZBPZVAFQZAGRZVDUSFQZSZBDRZTZECMUQURUT
+      UAVAUSEUBOZQZAGRZVAVDVKQZAGRZUSVDVKQZSZBDRZTZVJABLDEVKGHIVKUCZKUDUQURVSVJ
+      UEUTUQVMVCVRVIUQVLVBAGUQVALMZUSLMZVLVBUEAUFZGHUGZLLLEFVKVAUSJVTUHUIUJUQVQ
+      VHBDUQVOVFVPVGUQVNVEAGUQWAVDLMZVNVEUEWCBUFZLLLEFVKVAVDJVTUHUIUJUQWBWEVPVG
+      UEWDWFLLLEFVKUSVDJVTUHUIUKUJULUMUNECUOUP $.
+      $( [12-Oct-2011] $)
+
+    $d y X $.  $d y G $.
+    $( A greatest lower bound is a least element. $)
+    glble $p |- ( ( ( P e. A /\ S C_ B ) /\ ( ( G ` S ) e. B /\ X e. S ) )
+                   -> ( G ` S ) R X ) $=
+      ( vy vz wcel wss cfv wbr wi w3a cv wral glbprople pm3.26d breq2 rcla4cv
+      syl 3exp imp43 ) CAMZEBNZEFOZBMZGEMZUJGDPZUHUIUKULUMQZUHUIUKRZUJKSZDPZKET
+      ZUNUOURLSZUPDPKETUSUJDPQLBTKLABCDEFHIJUAUBUQUMKGEUPGUJDUCUDUEUFUG $.
+      $( [12-Oct-2011] $)
+  $}
+
+  ${
+    $d p x y B $.  $d p x y P $.  $d p U $.
+    joinfval.1 $e |- B = ( base ` P ) $.
+    joinfval.3 $e |- U = ( lub ` P ) $.
+    joinfval.4 $e |- J = ( join ` P ) $.
+    $( Value of join function for a poset. $)
+    joinfval $p |- ( P e. A
+               -> J = ( x e. B , y e. B |-> ( U ` { x , y } ) ) ) $=
+      ( vp wcel cvv cv cpr cfv cmpt2 wceq elisset cjn cbs club fveq2 syl6eqr
+      fveq1d mpt2eq123dv df-join fvex eqeltri mpt2exg mp2an fvmpt syl5eq syl )
+      ECLEMLZGABDDANBNOZFPZQZRECSUOETPURGKEABKNZUAPZUTUPUSUBPZPZQURMTUSERZABUTU
+      TVBDDUQVCUTEUAPZDUSEUAUCHUDZVEVCUPVAFVCVAEUBPFUSEUBUCIUDUEUFABKUGDMLZVFUR
+      MLDVDMHEUAUHUIZVGABDDUQMMUJUKULJUMUN $.
+      $( [12-Sep-2011] $)
+  $}
+
+  ${
+    $d x y B $.  $d x y P $.  $d x y U $.  $d x y X $.  $d x y Y $.
+    joinval.1 $e |- B = ( base ` P ) $.
+    joinval.3 $e |- U = ( lub ` P ) $.
+    joinval.4 $e |- J = ( join ` P ) $.
+    $( Value of join for a poset. $)
+    joinval $p |- ( ( P e. A /\ X e. B /\ Y e. B ) -> ( X J Y ) =
+              ( U ` { X , Y } ) ) $=
+      ( vx vy wcel co cpr cfv wceq wa cv cmpt2 joinfval opreqd preq1 fveq2d
+      preq2 eqid fvex ovmpt2 sylan9eq 3impb ) CAMZFBMZGBMZFGENZFGOZDPZQUKULUMRU
+      NFGKLBBKSZLSZOZDPZTZNUPUKEVAFGKLABCDEHIJUAUBKLFGBBUTUPVAFUROZDPUQFQUSVBDU
+      QFURUCUDURGQVBUODURGFUEUDVAUFUODUGUHUIUJ $.
+      $( [12-Sep-2011] $)
+  $}
+
+  ${
+    $d x z B $.  $d x z J $.  $d x y z P $.  $d x y z R $.  $d x y z X $.
+    $d x y z Y $.  $d z Z $.
+    joinval2.1 $e |- B = ( base ` P ) $.
+    joinval2.2 $e |- R = ( le ` P ) $.
+    joinval2.4 $e |- J = ( join ` P ) $.
+    $( Value of join for a poset with GLB expanded. $)
+    joinval2 $p |- ( ( P e. A /\ X e. B /\ Y e. B ) ->
+      ( X J Y ) = ( iota_ x e. B ( ( X R x /\ Y R x )
+              /\ A. z e. B ( ( X R z /\ Y R z ) -> x R z ) ) ) ) $=
+      ( vy wcel w3a co cpr club cfv cv wbr wa wi wral crio eqid joinval wceq
+      wss lubval prssg ibi sylan2 wsbc ralprg breq1 sbcieg bi2anan9 bitrd
+      imbi1d ralbidv anbi12d riotabidv adantl eqtrd 3impb ) ECNZHDNZIDNZOHIGPHI
+      QZERSZSZHATZFUAZIVMFUAZUBZHBTZFUAZIVQFUAZUBZVMVQFUAZUCZBDUDZUBZADUEZCDEVK
+      GHIJVKUFZLUGVGVHVIVLWEUHVGVHVIUBZUBVLMTZVMFUAZMVJUDZWHVQFUAZMVJUDZWAUCZBD
+      UDZUBZADUEZWEVGVJDUIZVLWPUHWGAMBCDEFVJVKJKWFUJWGWQHIDDDUKULUMWGWPWEUHVGWG
+      WOWDADWGWJVPWNWCWGWJWIMHUNZWIMIUNZUBVPWIMHIDDUOVHWRVNVIWSVOWIVNMHDWHHVMFU
+      PUQWIVOMIDWHIVMFUPUQURUSWGWMWBBDWGWLVTWAWGWLWKMHUNZWKMIUNZUBVTWKMHIDDUOVH
+      WTVRVIXAVSWKVRMHDWHHVQFUPUQWKVSMIDWHIVQFUPUQURUSUTVAVBVCVDVEVFVE $.
+      $( [16-Sep-2011] $)
+
+    $( Lemma for join properties. $)
+    joinlem $p |- ( ( ( P e. A /\ X e. B /\ Y e. B ) /\ ( X J Y ) e. B )
+           -> ( ( X R ( X J Y ) /\ Y R ( X J Y ) )
+              /\ A. z e. B ( ( X R z /\ Y R z ) -> ( X J Y ) R z ) ) ) $=
+      ( vx wcel w3a co wbr wa cv wi wral wsbc crio joinval2 eleq1d wreu cbs
+      cfv cvv fvex eqeltri riotaclb riota4 sylbir syl6bi wceq wb dfsbcq syl
+      sylibrd oprex breq2 anbi12d breq1 imbi2d ralbidv sbcie syl6ib imp ) DBMGC
+      MHCMNZGHFOZCMZGVJEPZHVJEPZQZGARZEPHVOEPQZVJVOEPZSZACTZQZVIVKGLRZEPZHWAEPZ
+      QZVPWAVOEPZSZACTZQZLVJUAZVTVIVKWHLWHLCUBZUAZWIVIVKWJCMZWKVIVJWJCLABCDEFGH
+      IJKUCZUDWLWHLCUEWKWHLCCDUFUGUHIDUFUIUJUKWHLCULUMUNVIVJWJUOWIWKUPWMWHLVJWJ
+      UQURUSWHVTLVJGHFUTWAVJUOZWDVNWGVSWNWBVLWCVMWAVJGEVAWAVJHEVAVBWNWFVRACWNWE
+      VQVPWAVJVOEVCVDVEVBVFVGVH $.
+      $( [16-Sep-2011] $)
+
+    $( A join's first argument is less than or equal to the join. $)
+    lejoin1 $p |- ( ( ( P e. A /\ X e. B /\ Y e. B ) /\ ( X J Y ) e. B )
+            -> X R ( X J Y ) ) $=
+      ( vz wcel w3a co wa wbr cv wi wral joinlem pm3.26d ) CALFBLGBLMFGENZBLOZF
+      UBDPZGUBDPZUCUDUEOFKQZDPGUFDPOUBUFDPRKBSKABCDEFGHIJTUAUA $.
+      $( [16-Sep-2011] $)
+
+    $( A join's second argument is less than or equal to the join. $)
+    lejoin2 $p |- ( ( ( P e. A /\ X e. B /\ Y e. B ) /\ ( X J Y ) e. B )
+            -> Y R ( X J Y ) ) $=
+      ( vz wcel w3a co wa wbr cv wi wral joinlem pm3.26d pm3.27d ) CALFBLGBLMFG
+      ENZBLOZFUCDPZGUCDPZUDUEUFOFKQZDPGUGDPOUCUGDPRKBSKABCDEFGHIJTUAUB $.
+      $( [16-Sep-2011] $)
+
+    $( A join is less than or equal to a third value iff each argument is less
+       than or equal to the third value. $)
+    joinle $p |- ( ( P e. PosetNEW /\ ( X e. B /\ Y e. B /\ Z e. B )
+          /\ ( X J Y ) e. B ) -> ( ( X R Z /\ Y R Z ) <-> ( X J Y ) R Z ) ) $=
+      ( vz cpo wcel w3a co wbr wa wi cv wral joinlem pm3.27d wceq breq2
+      anbi12d imbi12d rcla4cv syl ex com23 3exp 3impd 3imp lejoin1 3adant3r3
+      3impia postrNEW 3exp2 com34 imp32 3adantr2 mpand lejoin2 3adant3r1 jcad
+      impbid ) BLMZEAMZFAMZGAMZNZEFDOZAMZNZEGCPZFGCPZQZVLGCPZVGVKVMVQVRRZVGVHVI
+      VJVMVSRZVGVHVIVJVTRVGVHVINZVMVJVSWAVMVJVSRZWAVMQZEKSZCPZFWDCPZQZVLWDCPZRZ
+      KATZWBWCEVLCPZFVLCPZQWJKLABCDEFHIJUAUBWIVSKGAWDGUCZWGVQWHVRWMWEVOWFVPWDGE
+      CUDWDGFCUDUEWDGVLCUDUFUGUHUIUJUKULUMVNVRVOVPVNWKVRVOVGVKVMWKVGVHVIVMWKRVJ
+      WAVMWKLABCDEFHIJUNUIUOUPVGVKVMWKVRQVORZVGVHVJVMWNRZVIVGVHVJWOVGVHVMVJWNVG
+      VHVMVJWNABCEVLGHIUQURUSUTVAUPVBVNWLVRVPVGVKVMWLVGVHVIVMWLRVJWAVMWLLABCDEF
+      HIJVCUIUOUPVGVKVMWLVRQVPRZVGVIVJVMWPRZVHVGVIVJWQVGVIVMVJWPVGVIVMVJWPABCFV
+      LGHIUQURUSUMVDUPVBVEVF $.
+      $( [16-Sep-2011] $)
+  $}
+
+  ${
+    $d p x y B $.  $d p x y P $.  $d p G $.
+    meetfval.1 $e |- B = ( base ` P ) $.
+    meetfval.3 $e |- G = ( glb ` P ) $.
+    meetfval.4 $e |- M = ( meet ` P ) $.
+    $( Value of meet function for a poset. $)
+    meetfval $p |- ( P e. A
+               -> M = ( x e. B , y e. B |-> ( G ` { x , y } ) ) ) $=
+      ( vp wcel cvv cv cpr cfv cmpt2 wceq elisset cmee cbs cglb fveq2 syl6eqr
+      fveq1d mpt2eq123dv df-meet fvex eqeltri mpt2exg mp2an fvmpt syl5eq syl )
+      ECLEMLZGABDDANBNOZFPZQZRECSUOETPURGKEABKNZUAPZUTUPUSUBPZPZQURMTUSERZABUTU
+      TVBDDUQVCUTEUAPZDUSEUAUCHUDZVEVCUPVAFVCVAEUBPFUSEUBUCIUDUEUFABKUGDMLZVFUR
+      MLDVDMHEUAUHUIZVGABDDUQMMUJUKULJUMUN $.
+      $( [12-Sep-2011] $)
+  $}
+
+  ${
+    $d x y B $.  $d x y P $.  $d x y G $.  $d x y X $.  $d x y Y $.
+    meetval.1 $e |- B = ( base ` P ) $.
+    meetval.3 $e |- G = ( glb ` P ) $.
+    meetval.4 $e |- M = ( meet ` P ) $.
+    $( Value of meet for a poset. $)
+    meetval $p |- ( ( P e. A /\ X e. B /\ Y e. B ) -> ( X M Y ) =
+              ( G ` { X , Y } ) ) $=
+      ( vx vy wcel co cpr cfv wceq wa cv cmpt2 meetfval opreqd preq1 fveq2d
+      preq2 eqid fvex ovmpt2 sylan9eq 3impb ) CAMZFBMZGBMZFGENZFGOZDPZQUKULUMRU
+      NFGKLBBKSZLSZOZDPZTZNUPUKEVAFGKLABCDEHIJUAUBKLFGBBUTUPVAFUROZDPUQFQUSVBDU
+      QFURUCUDURGQVBUODURGFUEUDVAUFUODUGUHUIUJ $.
+      $( [12-Sep-2011] $)
+  $}
+
+  ${
+    $d x z B $.  $d x z M $.  $d x y z P $.  $d x y z S $.  $d x y z X $.
+    $d x y z Y $.  $d z Z $.
+    meetval2.1 $e |- B = ( base ` P ) $.
+    meetval2.2 $e |- S = ( geNEW ` P ) $.
+    meetval2.4 $e |- M = ( meet ` P ) $.
+    $( Value of meet for a poset with GLB expanded. $)
+    meetval2 $p |- ( ( P e. A /\ X e. B /\ Y e. B ) ->
+      ( X M Y ) = ( iota_ x e. B ( ( X S x /\ Y S x )
+              /\ A. z e. B ( ( X S z /\ Y S z ) -> x S z ) ) ) ) $=
+      ( vy wcel w3a co cpr cglb cfv cv wbr wa wi wral crio eqid meetval wceq
+      wss glbval prssg ibi sylan2 wsbc ralprg breq1 sbcieg bi2anan9 bitrd
+      imbi1d ralbidv anbi12d riotabidv adantl eqtrd 3impb ) ECNZHDNZIDNZOHIGPHI
+      QZERSZSZHATZFUAZIVMFUAZUBZHBTZFUAZIVQFUAZUBZVMVQFUAZUCZBDUDZUBZADUEZCDEVK
+      GHIJVKUFZLUGVGVHVIVLWEUHVGVHVIUBZUBVLMTZVMFUAZMVJUDZWHVQFUAZMVJUDZWAUCZBD
+      UDZUBZADUEZWEVGVJDUIZVLWPUHWGAMBCDEFVJVKJKWFUJWGWQHIDDDUKULUMWGWPWEUHVGWG
+      WOWDADWGWJVPWNWCWGWJWIMHUNZWIMIUNZUBVPWIMHIDDUOVHWRVNVIWSVOWIVNMHDWHHVMFU
+      PUQWIVOMIDWHIVMFUPUQURUSWGWMWBBDWGWLVTWAWGWLWKMHUNZWKMIUNZUBVTWKMHIDDUOVH
+      WTVRVIXAVSWKVRMHDWHHVQFUPUQWKVSMIDWHIVQFUPUQURUSUTVAVBVCVDVEVFVE $.
+      $( [17-Sep-2011] $)
+
+    $( Lemma for meet properties. $)
+    meetlem $p |- ( ( ( P e. A /\ X e. B /\ Y e. B ) /\ ( X M Y ) e. B )
+           -> ( ( X S ( X M Y ) /\ Y S ( X M Y ) )
+              /\ A. z e. B ( ( X S z /\ Y S z ) -> ( X M Y ) S z ) ) ) $=
+      ( vx wcel w3a co wbr wa cv wi wral wsbc crio meetval2 eleq1d wreu cbs
+      cfv cvv fvex eqeltri riotaclb riota4 sylbir syl6bi wceq wb dfsbcq syl
+      sylibrd oprex breq2 anbi12d breq1 imbi2d ralbidv sbcie syl6ib imp ) DBMGC
+      MHCMNZGHFOZCMZGVJEPZHVJEPZQZGARZEPHVOEPQZVJVOEPZSZACTZQZVIVKGLRZEPZHWAEPZ
+      QZVPWAVOEPZSZACTZQZLVJUAZVTVIVKWHLWHLCUBZUAZWIVIVKWJCMZWKVIVJWJCLABCDEFGH
+      IJKUCZUDWLWHLCUEWKWHLCCDUFUGUHIDUFUIUJUKWHLCULUMUNVIVJWJUOWIWKUPWMWHLVJWJ
+      UQURUSWHVTLVJGHFUTWAVJUOZWDVNWGVSWNWBVLWCVMWAVJGEVAWAVJHEVAVBWNWFVRACWNWE
+      VQVPWAVJVOEVCVDVEVBVFVGVH $.
+      $( [17-Sep-2011] $)
+
+    $( A meet's first argument is greater than or equal to the meet. $)
+    lemeet1 $p |- ( ( ( P e. A /\ X e. B /\ Y e. B ) /\ ( X M Y ) e. B )
+            -> X S ( X M Y ) ) $=
+      ( vz wcel w3a co wa wbr cv wi wral meetlem pm3.26d ) CALFBLGBLMFGENZBLOZF
+      UBDPZGUBDPZUCUDUEOFKQZDPGUFDPOUBUFDPRKBSKABCDEFGHIJTUAUA $.
+      $( [17-Sep-2011] $)
+
+    $( A meet's second argument is greater than or equal to the meet. $)
+    lemeet2 $p |- ( ( ( P e. A /\ X e. B /\ Y e. B ) /\ ( X M Y ) e. B )
+            -> Y S ( X M Y ) ) $=
+      ( vz wcel w3a co wa wbr cv wi wral meetlem pm3.26d pm3.27d ) CALFBLGBLMFG
+      ENZBLOZFUCDPZGUCDPZUDUEUFOFKQZDPGUGDPOUCUGDPRKBSKABCDEFGHIJTUAUB $.
+      $( [17-Sep-2011] $)
+
+    $( A meet is greater than or equal to a third value iff each argument is
+       greater than or equal to the third value. $)
+    meetle $p |- ( ( P e. PosetNEW /\ ( X e. B /\ Y e. B /\ Z e. B )
+          /\ ( X M Y ) e. B ) -> ( ( X M Y ) S Z <-> ( X S Z /\ Y S Z ) ) ) $=
+      ( vz cpo wcel w3a co wbr wa wi lemeet1 ex 3adant3r3 3impia posgetrNEW
+      3exp2 com34 imp32 3adantr2 mpand lemeet2 3imp 3adant3r1 jcad cv wral
+      meetlem pm3.27d wceq breq2 anbi12d imbi12d rcla4cv syl com23 3exp 3impd
+      impbid ) BLMZEAMZFAMZGAMZNZEFDOZAMZNZVLGCPZEGCPZFGCPZQZVNVOVPVQVNEVLCPZVO
+      VPVGVKVMVSVGVHVIVMVSRVJVGVHVINZVMVSLABCDEFHIJSTUAUBVGVKVMVSVOQVPRZVGVHVJV
+      MWARZVIVGVHVJWBVGVHVMVJWAVGVHVMVJWAABCEVLGHIUCUDUEUFUGUBUHVNFVLCPZVOVQVGV
+      KVMWCVGVHVIVMWCRVJVTVMWCLABCDEFHIJUITUAUBVGVKVMWCVOQVQRZVGVIVJVMWDRZVHVGV
+      IVJWEVGVIVMVJWDVGVIVMVJWDABCFVLGHIUCUDUEUJUKUBUHULVGVKVMVRVORZVGVHVIVJVMW
+      FRZVGVHVIVJWGRVTVMVJWFVTVMVJWFRZVTVMQZEKUMZCPZFWJCPZQZVLWJCPZRZKAUNZWHWIV
+      SWCQWPKLABCDEFHIJUOUPWOWFKGAWJGUQZWMVRWNVOWQWKVPWLVQWJGECURWJGFCURUSWJGVL
+      CURUTVAVBTVCVDVEUJVF $.
+      $( [17-Sep-2011] $)
+  $}
+
+  ${
+    joincom.1 $e |- B = ( base ` P ) $.
+    joincom.4 $e |- J = ( join ` P ) $.
+    $( The join of a poset commutes.  (This may not be a theorem under other
+       definitions of meet.) $)
+    joincomALT $p |- ( ( P e. A /\ X e. B /\ Y e. B ) -> ( X J Y ) =
+              ( Y J X ) ) $=
+      ( wcel w3a cpr club cfv co wceq prcom fveq2i a1i eqid joinval 3com23
+      3eqtr4rd ) CAIZEBIZFBIZJZFEKZCLMZMZEFKZUHMZFEDNZEFDNUIUKOUFUGUJUHFEPQRUCU
+      EUDULUIOABCUHDFEGUHSZHTUAABCUHDEFGUMHTUB $.
+      $( [16-Sep-2011] $)
+
+    $( The join of a poset commutes.  (The antecedent
+       ` ( X J Y ) e. B /\ ( Y J X ) e. B ` i.e.  "the joins exist" could be
+       omitted as an artefact of our particular join definition, but other
+       definitions may require it.) $)
+    joincom $p |- ( ( ( P e. PosetNEW /\ X e. B /\ Y e. B ) /\
+         ( ( X J Y ) e. B /\ ( Y J X ) e. B ) ) -> ( X J Y ) = ( Y J X ) ) $=
+      ( cpo wcel w3a co wceq wa joincomALT adantr ) BHIDAIEAIJDECKZEDCKZLPAIQAI
+      MHABCDEFGNO $.
+      $( [16-Sep-2011] $)
+  $}
+
+  ${
+    meetcom.1 $e |- B = ( base ` P ) $.
+    meetcom.4 $e |- M = ( meet ` P ) $.
+    $( The meet of a poset commutes.  (This may not be a theorem under other
+       definitions of meet.) $)
+    meetcomALT $p |- ( ( P e. A /\ X e. B /\ Y e. B ) -> ( X M Y ) =
+              ( Y M X ) ) $=
+      ( wcel w3a cpr cglb cfv co wceq prcom fveq2i a1i eqid meetval 3com23
+      3eqtr4rd ) CAIZEBIZFBIZJZFEKZCLMZMZEFKZUHMZFEDNZEFDNUIUKOUFUGUJUHFEPQRUCU
+      EUDULUIOABCUHDFEGUHSZHTUAABCUHDEFGUMHTUB $.
+      $( [17-Sep-2011] $)
+
+    $( The meet of a poset commutes.  (The antecedent
+       ` ( X M Y ) e. B /\ ( Y M X ) e. B ` i.e.  "the meets exist" could be
+       omitted as an artefact of our particular join definition, but other
+       definitions may require it.) $)
+    meetcom $p |- ( ( ( P e. PosetNEW /\ X e. B /\ Y e. B ) /\
+         ( ( X M Y ) e. B /\ ( Y M X ) e. B ) ) -> ( X M Y ) = ( Y M X ) ) $=
+      ( cpo wcel w3a co wceq wa meetcomALT adantr ) BHIDAIEAIJDECKZEDCKZLPAIQAI
+      MHABCDEFGNO $.
+      $( [17-Sep-2011] $)
+  $}
+
+  $c 1. $.
+  $c 0. $.
+  $c LatNEW $.
+  $c ComplLat $.
+  $c oc $.
+  $c OP $.
+  $c OL $.
+  $c OML $.
+
+  $( Extend class notation with poset unit. $)
+  cp1 $a class 1. $.
+
+  $( Extend class notation with poset zero. $)
+  cp0 $a class 0. $.
+
+  $( Extend class notation with lattices. $)
+  clat $a class LatNEW $.
+
+  $( Extend class notation with complete lattices. $)
+  ccla $a class ComplLat $.
+
+  $( Extend class notation with the class of orthocomplementation
+     extractors. $)
+  coc $a class oc $.
+
+  $( Extend class notation with orthoposets. $)
+  cops $a class OP $.
+
+  $( Extend class notation with orthlattices. $)
+  col $a class OL $.
+
+  $( Extend class notation with orthomodular lattices. $)
+  coml $a class OML $.
+
+  $( Def. 8.4.4 p. 205. $)
+  $( Define poset unit. $)
+  df-p1 $a |- 1. = ( p e. _V |-> ( ( lub ` p ) ` ( base ` p ) ) ) $.
+
+  $( Def. 8.4.4 p. 205. $)
+  $( Define poset zero. $)
+  df-p0 $a |- 0. = ( p e. _V |-> ( ( glb ` p ) ` ( base ` p ) ) ) $.
+
+  ${
+    $d p B $.  $d p G $.  $d p P $.
+    p0val.1 $e |- B = ( base ` P ) $.
+    p0val.2 $e |- G = ( glb ` P ) $.
+    p0val.3 $e |- Z = ( 0. ` P ) $.
+    $( Value of poset zero. $)
+    p0val $p |- ( P e. A -> Z = ( G ` B ) ) $=
+      ( vp wcel cvv cfv wceq elisset cp0 cv cbs cglb fveq2 syl6eqr fveq12d
+      df-p0 fvex fvmpt syl5eq syl ) CAJCKJZEBDLZMCANUGCOLUHEICIPZQLZUIRLZLUHKOU
+      ICMZUJBUKDULUKCRLDUICRSGTULUJCQLBUICQSFTUAIUBBDUCUDHUEUF $.
+      $( [12-Oct-2011] $)
+  $}
+
+  ${
+    p0le.1 $e |- B = ( base ` P ) $.
+    p0le.2 $e |- R = ( le ` P ) $.
+    p0le.3 $e |- Z = ( 0. ` P ) $.
+    $( Poset zero (if defined) is less than any element. $)
+    p0le $p |- ( ( P e. PosetNEW /\ Z e. B /\ X e. B ) -> Z R X ) $=
+      ( cpo wcel w3a cglb cfv wceq eqid p0val 3ad2ant1 wss wbr glble 3simp1
+      ssid a1i wa adantr pm3.27 eqeltrrd 3adant3 3simp3 syl2anc eqbrtrd ) BIJZE
+      AJZDAJZKZEABLMZMZDCULUMEUQNZUNIABUPEFUPOZHPZQULAARZUQAJZUNUQDCSUOIABCAUPD
+      FGUSTULUMUNUAVAUOAUBUCULUMVBUNULUMUDEUQAULURUMUTUEULUMUFUGUHULUMUNUIUJUK
+      $.
+      $( [12-Oct-2011] $)
+  $}
+
+  ${
+    $d p s x y $.
+    $( Def. 8.4.5 p. 207. $)
+    $( Define the class of all lattices. $)
+    df-lat $a |- LatNEW = { p e. PosetNEW | A. x e. ( base ` p )
+       A. y e. ( base ` p ) ( ( x ( join ` p ) y ) e. ( base ` p )
+          /\ ( x ( meet ` p ) y ) e. ( base ` p ) ) } $.
+
+    $( Def. 8.4.5 p. 207. $)
+    $( Define the class of all complete lattices. $)
+    df-clat $a |- ComplLat = { p e. PosetNEW | A. s ( s C_ ( base ` p )
+      -> ( ( ( lub ` p ) ` s ) e. ( base ` p ) /\
+           ( ( glb ` p ) ` s ) e. ( base ` p ) ) ) } $.
+  $}
+
+  ${
+    $d l x y B $.  $d l J $.  $d l x y L $.  $d l M $.
+    islat.1 $e |- B = ( base ` L ) $.
+    islat.2 $e |- J = ( join ` L ) $.
+    islat.3 $e |- M = ( meet ` L ) $.
+    $( The predicate "is a lattice." $)
+    islat $p |- ( L e. LatNEW <-> ( L e. PosetNEW /\
+             A. x e. B A. y e. B ( ( x J y ) e. B /\ ( x M y ) e. B ) ) ) $=
+      ( vl cv cjn cfv co cbs wcel cmee wa wral cpo clat wceq fveq2 syl6eqr
+      raleqdv raleqbidv opreqd eleq12d anbi12d 2ralbidv bitrd df-lat elrab2 )
+      AKZBKZJKZLMZNZUPOMZPZUNUOUPQMZNZUSPZRZBUSSZAUSSZUNUODNZCPZUNUOFNZCPZRZBCS
+      ACSZJETUAUPEUBZVFVDBCSZACSVLVMVEVNAUSCVMUSEOMCUPEOUCGUDZVMVDBUSCVOUEUFVMV
+      DVKABCCVMUTVHVCVJVMURVGUSCVMUQDUNUOVMUQELMDUPELUCHUDUGVOUHVMVBVIUSCVMVAFU
+      NUOVMVAEQMFUPEQUCIUDUGVOUHUIUJUKABJULUM $.
+      $( [12-Sep-2011] $)
+  $}
+
+  ${
+    $d x y B $.  $d x y J $.  $d x y L $.  $d x y M $.  $d x y X $.  $d y Y $.
+    latlem.1 $e |- B = ( base ` L ) $.
+    latlem.2 $e |- J = ( join ` L ) $.
+    latlem.3 $e |- M = ( meet ` L ) $.
+    $( Lemma for lattice properties. $)
+    latlem $p |- ( ( L e. LatNEW /\ X e. B /\ Y e. B ) ->
+           ( ( X J Y ) e. B /\ ( X M Y ) e. B ) ) $=
+      ( vx vy clat wcel co wa cv wral wceq opreq1 eleq1d anbi12d opreq2
+      rcla42v cpo islat pm3.27bi syl5com 3impib ) CLMZEAMZFAMZEFBNZAMZEFDNZAMZO
+      ZUJUKOJPZKPZBNZAMZUQURDNZAMZOZKAQJAQZUPUIVCUPEURBNZAMZEURDNZAMZOJKEFAAUQE
+      RZUTVFVBVHVIUSVEAUQEURBSTVIVAVGAUQEURDSTUAURFRZVFUMVHUOVJVEULAURFEBUBTVJV
+      GUNAURFEDUBTUAUCUICUDMVDJKABCDGHIUEUFUGUH $.
+      $( [14-Sep-2011] $)
+  $}
+
+  ${
+    $d x y L $.
+    $( A lattice is a poset. $)
+    latpos $p |- ( L e. LatNEW -> L e. PosetNEW ) $=
+      ( vx vy clat wcel cpo cv cjn cfv co cbs cmee wa wral eqid islat pm3.26bi
+      ) ADEAFEBGZCGZAHIZJAKIZERSALIZJUAEMCUANBUANBCUATAUBUAOTOUBOPQ $.
+      $( [17-Sep-2011] $)
+  $}
+
+  ${
+    latjcl.1 $e |- B = ( base ` L ) $.
+    latjcl.2 $e |- J = ( join ` L ) $.
+    $( Closure of join operation in a lattice. $)
+    latjcl $p |- ( ( L e. LatNEW /\ X e. B /\ Y e. B ) -> ( X J Y ) e. B ) $=
+      ( clat wcel w3a co cmee cfv eqid latlem pm3.26d ) CHIDAIEAIJDEBKAIDECLMZK
+      AIABCQDEFGQNOP $.
+      $( [14-Sep-2011] $)
+  $}
+
+  ${
+    latmcl.1 $e |- B = ( base ` L ) $.
+    latmcl.3 $e |- M = ( meet ` L ) $.
+    $( Closure of meet operation in a lattice. $)
+    latmcl $p |- ( ( L e. LatNEW /\ X e. B /\ Y e. B ) -> ( X M Y ) e. B ) $=
+      ( clat wcel w3a cjn cfv co eqid latlem pm3.27d ) BHIDAIEAIJDEBKLZMAIDECMA
+      IAQBCDEFQNGOP $.
+      $( [14-Sep-2011] $)
+  $}
+
+  ${
+    $d x y B $.  $d x y L $.
+    islati.1 $e |- L e. PosetNEW $.
+    islati.2 $e |- B = ( base ` L ) $.
+    islati.3 $e |- J = ( join ` L ) $.
+    islati.4 $e |- M = ( meet ` L ) $.
+    islati.5 $e |- ( ( x e. B /\ y e. B ) -> ( x J y ) e. B ) $.
+    islati.6 $e |- ( ( x e. B /\ y e. B ) -> ( x M y ) e. B ) $.
+    $( Properties that determine a lattice. $)
+    islati $p |- L e. LatNEW $=
+      ( clat wcel cpo cv co wa wral islat jca rgen2a mpbir2an ) EMNEONAPZBPZDQC
+      NZUDUEFQCNZRZBCSACSABCDEFHIJTGUHABCUDCNUECNRUFUGKLUAUBUC $.
+      $( [12-Sep-2011] $)
+  $}
+
+  ${
+    latasym.1 $e |- B = ( base ` L ) $.
+    latasym.2 $e |- R = ( le ` L ) $.
+    $( A lattice ordering is reflexive. $)
+    latref $p |- ( ( L e. LatNEW /\ X e. B ) -> X R X ) $=
+      ( cpo wcel wbr clat posref latpos sylan ) CGHDAHDDBICJHACBDEFKCLM $.
+      $( [8-Oct-2011] $)
+
+    $( A lattice ordering is asymetric. $)
+    latasym $p |- ( ( L e. LatNEW /\ X e. B /\ Y e. B )
+                -> ( ( X R Y /\ Y R X ) -> X = Y ) ) $=
+      ( cpo wcel wbr wa wceq wi clat posasym latpos syl3an1 ) CHIDAIEAIDEBJEDBJ
+      KDELMCNIACBDEFGOCPQ $.
+      $( [8-Oct-2011] $)
+  $}
+
+  ${
+    latjcom.1 $e |- B = ( base ` P ) $.
+    latjcom.4 $e |- J = ( join ` P ) $.
+    $( The join of a lattice commutes. $)
+    latjcom $p |- ( ( P e. LatNEW /\ X e. B /\ Y e. B ) -> ( X J Y ) =
+              ( Y J X ) ) $=
+      ( clat wcel w3a co wa wceq latjcl 3com23 jca cpo joincom latpos syl3anl1
+      mpdan ) BHIZDAIZEAIZJZDECKZAIZEDCKZAIZLZUFUHMZUEUGUIACBDEFGNUBUDUCUIACBED
+      FGNOPBQIUCUDUJUKUBABCDEFGRBSTUA $.
+      $( [16-Sep-2011] $)
+  $}
+
+  ${
+    latlej.1 $e |- B = ( base ` P ) $.
+    latlej.2 $e |- R = ( le ` P ) $.
+    latlej.4 $e |- J = ( join ` P ) $.
+    $( A join's first argument is less than or equal to the join. $)
+    latlej1 $p |- ( ( P e. LatNEW /\ X e. B /\ Y e. B )
+            -> X R ( X J Y ) ) $=
+      ( clat wcel w3a co wbr latjcl lejoin1 mpdan ) BJKEAKFAKLEFDMZAKERCNADBEFG
+      IOJABCDEFGHIPQ $.
+      $( [17-Sep-2011] $)
+
+    $( A join's second argument is less than or equal to the join. $)
+    latlej2 $p |- ( ( P e. LatNEW /\ X e. B /\ Y e. B )
+            -> Y R ( X J Y ) ) $=
+      ( clat wcel w3a co wbr latjcl lejoin2 mpdan ) BJKEAKFAKLEFDMZAKFRCNADBEFG
+      IOJABCDEFGHIPQ $.
+      $( [17-Sep-2011] $)
+
+    $( A join is less than or equal to a third value iff each argument is less
+       than or equal to the third value. $)
+    latjle $p |- ( ( P e. LatNEW /\ ( X e. B /\ Y e. B /\ Z e. B ) )
+                      -> ( ( X R Z /\ Y R Z ) <-> ( X J Y ) R Z ) ) $=
+      ( clat wcel w3a wa co wbr wb latjcl 3adant3r3 cpo joinle latpos syl3an1
+      3expa mpdan ) BKLZEALZFALZGALZMZNEFDOZALZEGCPFGCPNUKGCPQZUFUGUHULUIADBEFH
+      JRSUFUJULUMBTLUJULUMUFABCDEFGHIJUABUBUCUDUE $.
+      $( [17-Sep-2011] $)
+  $}
+
+  ${
+    latidm.1 $e |- B = ( base ` L ) $.
+    latidm.4 $e |- J = ( join ` L ) $.
+    $( Lattice join is idempotent. $)
+    latjidm $p |- ( ( L e. LatNEW /\ X e. B ) -> ( X J X ) = X ) $=
+      ( clat wcel wa co cple cfv wbr wceq eqid latref jca w3a wb pm3.27 3jca
+      latjle syldan mpbid latlej1 3anidm23 wi latasym pm3.26 latjcl syl3anc
+      mp2and ) CGHZDAHZIZDDBJZDCKLZMZDUPUQMZUPDNZUODDUQMZVAIZURUOVAVAAUQCDEUQOZ
+      PZVDQUMUNUNUNUNRVBURSUOUNUNUNUMUNTZVEVEUAACUQBDDDEVCFUBUCUDUMUNUSACUQBDDE
+      VCFUEUFUMUPAHZUNURUSIUTUGUOAUQCUPDEVCUHUMUNUIUMUNVFABCDDEFUJUFVEUKUL $.
+      $( [8-Oct-2011] $)
+  $}
+
+  ${
+    joinass.1 $e |- B = ( base ` P ) $.
+    joinass.4 $e |- J = ( join ` P ) $.
+    $( The join of a lattice is associative.  Lemma 2.2 in [MegPav2002]
+       p. 362. $)
+    joinass $p |- ( ( P e. LatNEW /\ ( X e. B /\ Y e. B /\ Z e. B ) ) ->
+             ( ( X J Y ) J Z ) = ( X J ( Y J Z ) ) ) $=
+      ( clat wcel w3a wa co cple cfv wbr wceq eqid latlej1 pm3.26 3simpr1
+      latjcl 3adant3r1 syl3anc cpo postrNEW latpos adantr 3simpr2 3jca jca
+      latlej2 sylc wb latjle syl3an2c mpbid 3simpr3 3adant3r3 lejoin1 sylanc
+      lejoin2 wi posasym mp2and ) BIJZDAJZEAJZFAJZKZLZDECMZFCMZDEFCMZCMZBNOZPZV
+      OVMVPPZVMVOQZVKVLVOVPPZFVOVPPZLZVQVKVTWAVKDVOVPPZEVOVPPZLZVTVKWCWDVFVGVNA
+      JZWCVKABVPCDVNGVPRZHSVFVJTZVFVGVHVIUAZVFVHVIWFVGACBEFGHUBUCZUDBUEJZVHWFVO
+      AJZKZLEVNVPPZVNVOVPPZLWDVKABVPEVNVOGWGUFVKWKWMVFWKVJBUGUHZVKVHWFWLVFVGVHV
+      IUIZWJVFVGWFWLVKACBDVNGHUBWHWIWJUDZUJUKVKWNWOVFVHVIWNVGABVPCEFGWGHSUCVFVG
+      WFWOVKABVPCDVNGWGHULWHWIWJUDZUKUMUKVFVGVHWLWEVTUNVKABVPCDEVOGWGHUOWHWIWQW
+      RUPUQWKVIWFWLKZLFVNVPPZWOLWAVKABVPFVNVOGWGUFVKWKWTWPVKVIWFWLVFVGVHVIURZWJ
+      WRUJUKVKXAWOVFVHVIXAVGABVPCEFGWGHULUCWSUKUMUKVFVLAJZVIWLWBVQUNVKABVPCVLFV
+      OGWGHUOWHVFVGVHXCVIACBDEGHUBUSZXBWRUPUQVKDVMVPPZVNVMVPPZLZVRVKXEXFWKVGXCV
+      MAJZKZLDVLVPPZVLVMVPPZLXEVKABVPDVLVMGWGUFVKWKXIWPVKVGXCXHWIXDVFXCVIXHVKAC
+      BVLFGHUBWHXDXBUDZUJUKVKXJXKVFVGVHXJVIABVPCDEGWGHSUSVFXCVIKZXHXKVKIABVPCVL
+      FGWGHUTVKVFXCVIWHXDXBUJZXLVAZUKUMVKEVMVPPZFVMVPPZLZXFVKXPXQWKVHXCXHKZLEVL
+      VPPZXKLXPVKABVPEVLVMGWGUFVKWKXSWPVKVHXCXHWQXDXLUJUKVKXTXKVFVGVHXTVIABVPCD
+      EGWGHULUSXOUKUMXMXHXQVKIABVPCVLFGWGHVBXNXLVAUKVFVHVIXHXRXFUNVKABVPCEFVMGW
+      GHUOWHWQXBXLUPUQUKVFVGWFXHXGVRUNVKABVPCDVNVMGWGHUOWHWIWJXLUPUQWKXHWLVQVRL
+      VSVCVKABVPVMVOGWGVDWPXLWRUDVE $.
+      $( [17-Sep-2011] $)
+  $}
+
+  ${
+    $d l B $.  $d l G $.  $d l s L $.  $d l U $.
+    isclat.1 $e |- B = ( base ` L ) $.
+    isclat.2 $e |- U = ( lub ` L ) $.
+    isclat.3 $e |- G = ( glb ` L ) $.
+    $( The predicate "is an complete lattice." $)
+    isclat $p |- ( L e. ComplLat <-> ( L e. PosetNEW /\
+             A. s ( s C_ B -> ( ( U ` s ) e. B /\ ( G ` s ) e. B ) ) ) ) $=
+      ( vl cv cbs cfv wss club wcel cglb wa wi wal cpo ccla wceq fveq2 syl6eqr
+      sseq2d fveq1d eleq12d anbi12d imbi12d albidv df-clat elrab2 ) EJZIJZKLZMZ
+      UMUNNLZLZUOOZUMUNPLZLZUOOZQZRZESUMAMZUMBLZAOZUMCLZAOZQZRZESIDTUAUNDUBZVDV
+      KEVLUPVEVCVJVLUOAUMVLUODKLAUNDKUCFUDZUEVLUSVGVBVIVLURVFUOAVLUMUQBVLUQDNLB
+      UNDNUCGUDUFVMUGVLVAVHUOAVLUMUTCVLUTDPLCUNDPUCHUDUFVMUGUHUIUJEIUKUL $.
+      $( [12-Sep-2011] $)
+  $}
+
+  ${
+    $d s B $.  $d s U $.  $d s G $.  $d s L $.  $d s S $.
+    clatlem.1 $e |- B = ( base ` L ) $.
+    clatlem.2 $e |- U = ( lub ` L ) $.
+    clatlem.3 $e |- G = ( glb ` L ) $.
+    $( Lemma for properties of a complete lattice. $)
+    clatlem $p |- ( ( L e. ComplLat /\ S C_ B ) ->
+           ( ( U ` S ) e. B /\ ( G ` S ) e. B ) ) $=
+      ( vs ccla wcel wss cfv wa cv wi wal cpw cbs cvv fvex eqeltri elpw2 wceq
+      sseq1 fveq2 eleq1d anbi12d imbi12d cla4gv sylbir com23 pm2.43i cpo
+      isclat pm3.27bi syl5com imp ) EJKZBALZBCMZAKZBDMZAKZNZUTIOZALZVFCMZAKZVFD
+      MZAKZNZPZIQZVEUSUTVNVEPUTVNUTVEUTBARZKVNUTVEPZPBAAESMTFESUAUBUCVMVPIBVOVF
+      BUDZVGUTVLVEVFBAUEVQVIVBVKVDVQVHVAAVFBCUFUGVQVJVCAVFBDUFUGUHUIUJUKULUMUSE
+      UNKVNACDEIFGHUOUPUQUR $.
+      $( [14-Sep-2011] $)
+  $}
+
+  ${
+    clatlubcl.1 $e |- B = ( base ` L ) $.
+    clatlubcl.2 $e |- U = ( lub ` L ) $.
+    $( LUB always exists in a complete lattice. $)
+    clatlubcl $p |- ( ( L e. ComplLat /\ S C_ B ) -> ( U ` S ) e. B ) $=
+      ( ccla wcel wss wa cfv cglb eqid clatlem pm3.26d ) DGHBAIJBCKAHBDLKZKAHAB
+      CPDEFPMNO $.
+      $( [14-Sep-2011] $)
+  $}
+
+  ${
+    clatglbcl.1 $e |- B = ( base ` L ) $.
+    clatglbcl.3 $e |- G = ( glb ` L ) $.
+    $( GLB always exists in a complete lattice. $)
+    clatglbcl $p |- ( ( L e. ComplLat /\ S C_ B ) -> ( G ` S ) e. B ) $=
+      ( ccla wcel wss wa club cfv eqid clatlem pm3.27d ) DGHBAIJBDKLZLAHBCLAHAB
+      PCDEPMFNO $.
+      $( [14-Sep-2011] $)
+  $}
+
+  ${
+    $d s L $.
+    isclati.1 $e |- L e. PosetNEW $.
+    isclati.2 $e |- B = ( base ` L ) $.
+    isclati.3 $e |- U = ( lub ` L ) $.
+    isclati.4 $e |- G = ( glb ` L ) $.
+    isclati.5 $e |- ( s C_ B -> ( U ` s ) e. B ) $.
+    isclati.6 $e |- ( s C_ B -> ( G ` s ) e. B ) $.
+    $( Properties that determine a complete lattice. $)
+    isclati $p |- L e. ComplLat $=
+      ( ccla wcel cpo cv wss cfv wa wi wal isclat jca ax-gen mpbir2an ) DLMDNME
+      OZAPZUEBQAMZUECQAMZRSZETABCDEGHIUAFUIEUFUGUHJKUBUCUD $.
+      $( [12-Sep-2011] $)
+  $}
+
+  ${
+    $d s x y L $.
+    $( A complete lattice is a lattice. $)
+    clatlat $p |- ( L e. ComplLat -> L e. LatNEW ) $=
+      ( vs vx vy cpo wcel cv cbs cfv wss club cglb wa wi wal cjn co cmee wral
+      ccla clat w3a cpr zfpair wceq sseq1 fveq2 eleq1d anbi12d imbi12d cla4v
+      imp visset prss sylan2b 3adant1 wb eqid joinval meetval 3expb 3adant2
+      mpbird 3exp r19.21advv imdistani isclat islat 3imtr4i ) AEFZBGZAHIZJZVKAK
+      IZIZVLFZVKALIZIZVLFZMZNZBOZMVJCGZDGZAPIZQZVLFZWCWDARIZQZVLFZMZDVLSCVLSZMA
+      TFAUAFVJWBWLVJWBWKCDVLVLVJWBWCVLFZWDVLFZMZWKVJWBWOUBWKWCWDUCZVNIZVLFZWPVQ
+      IZVLFZMZWBWOXAVJWBWPVLJZXAWOWBXBXAWAXBXANBWPCDUDVKWPUEZVMXBVTXAVKWPVLUFXC
+      VPWRVSWTXCVOWQVLVKWPVNUGUHXCVRWSVLVKWPVQUGUHUIUJUKULWCWDVLCUMDUMUNUOUPVJW
+      OWKXAUQZWBVJWMWNXDVJWMWNUBZWGWRWJWTXEWFWQVLEVLAVNWEWCWDVLURZVNURZWEURZUSU
+      HXEWIWSVLEVLAVQWHWCWDXFVQURZWHURZUTUHUIVAVBVCVDVEVFVLVNVQABXFXGXIVGCDVLWE
+      AWHXFXHXJVHVI $.
+      $( [18-Sep-2011] $)
+  $}
+
+  $( Def. 8.4.9 p. 208. $)
+  $( Define the class of orthocomplementation extractors for posets and related
+     structures. $)
+  df-ocomp $a |- oc = ( p e. _V |-> ( p ` 3 ) ) $.
+
+  ${
+    $d a b c l p o $.
+    $( Def. 8.4.10 p. 209. $)
+    $( Define the class of orthoposets. $)
+    df-oposet $a |- OP = Struct ( 3 , p ,
+       ( ( p e. PosetNEW
+        /\ ( 0. ` p ) e. ( base ` p )
+       /\ ( 1. ` p ) e. ( base ` p ) )
+        /\ E. o
+           ( o = ( oc ` p )
+          /\ A. a e. ( base ` p ) A. b e. ( base ` p )
+               ( ( o ` ( o ` a ) ) = a
+                /\ ( a ( le ` p ) b -> ( o ` b ) ( le ` p ) ( o ` a ) )
+                /\ ( ( a ( join ` p ) ( o ` a ) ) = ( 1. ` p )
+                   /\ ( a ( meet ` p ) ( o ` a ) ) = ( 0. ` p ) )
+         ) ) ) ) $.
+
+    $( Define the class of ortholattices.  Definition from [Kalmbach] p. 16. $)
+    df-ol $a |- OL = ( LatNEW i^i OP ) $.
+
+    $( Define the class of orthomodular lattices.  Definition from [Kalmbach]
+       p. 16. $)
+    df-oml $a |- OML = { l e. OL | A. a e. ( base ` l ) A. b e. ( base ` l )
+       ( a ( le ` l ) b -> b = ( a ( join ` l ) ( b ( meet ` l )
+          ( ( oc ` l ) ` a ) ) ) ) } $.
+  $}
+
+  ${
+    $d n p x y B $.  $d n p F $.  $d n p J $.  $d n p M $.  $d n p x y N $.
+    $d n p x y P $.  $d n p R $.  $d n p T $.
+    isopos.0 $e |- S = Struct ( 3 , p , T. ) $.
+    isopos.1 $e |- B = ( base ` P ) $.
+    isopos.2 $e |- R = ( le ` P ) $.
+    isopos.3 $e |- N = ( oc ` P ) $.
+    isopos.4 $e |- J = ( join ` P ) $.
+    isopos.5 $e |- M = ( meet ` P ) $.
+    isopos.6 $e |- F = ( 0. ` P ) $.
+    isopos.7 $e |- T = ( 1. ` P ) $.
+    $( The predicate "is an orthoposet." $)
+    isopos $p |- ( P e. OP <-> ( P e. S
+            /\ ( P e. PosetNEW /\ F e. B /\ T e. B )
+            /\ A. x e. B A. y e. B ( ( N ` ( N ` x ) ) = x
+               /\ ( x R y -> ( N ` y ) R ( N ` x ) )
+               /\ ( ( x J ( N ` x ) ) = T /\ ( x M ( N ` x ) ) = F ) ) ) ) $=
+      ( vn cops wcel cv cpo cp0 cfv cbs cp1 w3a coc wceq cple wbr wi cjn co
+      cmee wa wral wex c3 cstru df-oposet eleq2i eleq1 fveq2 syl6eqr eleq12d
+      3anbi123d eqeq2d wb breq syl imbi12d opreqd eqeq12d anbi12d 3anbi23d
+      raleqbidv exbidv elstr2 cvv fvex eqeltri id fveq1 fveq12d eqeq1d breq12d
+      imbi2d opreq2d 2ralbidv ceqsexv anbi2i 3anass bitr4i 3bitri ) DUBUCDLUDZU
+      EUCZWSUFUGZWSUHUGZUCZWSUIUGZXBUCZUJZUAUDZWSUKUGZULZAUDZXGUGZXGUGZXJULZXJB
+      UDZWSUMUGZUNZXNXGUGZXKXOUNZUOZXJXKWSUPUGZUQZXDULZXJXKWSURUGZUQZXAULZUSZUJ
+      ZBXBUTZAXBUTZUSZUAVAZUSZLVBVCZUCDFUCZDUEUCZHCUCZGCUCZUJZXGKULZXMXJXNEUNZX
+      QXKEUNZUOZXJXKIUQZGULZXJXKJUQZHULZUSZUJZBCUTZACUTZUSZUAVAZUSZUSZYNYRXJKUG
+      ZKUGZXJULZYTXNKUGZUUOEUNZUOZXJUUOIUQZGULZXJUUOJUQZHULZUSZUJZBCUTACUTZUJZU
+      BYMDUALABVDVEYLUUMFLDVBMWSDULZXFYRYKUULUVIWTYOXCYPXEYQWSDUEVFUVIXAHXBCUVI
+      XADUFUGHWSDUFVGSVHZUVIXBDUHUGCWSDUHVGNVHZVIUVIXDGXBCUVIXDDUIUGGWSDUIVGTVH
+      ZUVKVIVJUVIYJUUKUAUVIXIYSYIUUJUVIXHKXGUVIXHDUKUGZKWSDUKVGPVHVKUVIYHUUIAXB
+      CUVKUVIYGUUHBXBCUVKUVIXSUUBYFUUGXMUVIXPYTXRUUAUVIXOEULZXPYTVLUVIXODUMUGEW
+      SDUMVGOVHZXJXNXOEVMVNUVIUVNXRUUAVLUVOXQXKXOEVMVNVOUVIYBUUDYEUUFUVIYAUUCXD
+      GUVIXTIXJXKUVIXTDUPUGIWSDUPVGQVHVPUVLVQUVIYDUUEXAHUVIYCJXJXKUVIYCDURUGJWS
+      DURVGRVHVPUVJVQVRVSVTVTVRWAVRWBUUNYNYRUVGUSZUSUVHUUMUVPYNUULUVGYRUUJUVGUA
+      KKUVMWCPDUKWDWEYSUUHUVFABCCYSXMUUQUUBUUTUUGUVEYSXLUUPXJYSXKUUOXGKYSWFXJXG
+      KWGZWHWIYSUUAUUSYTYSXQUURXKUUOEXNXGKWGUVQWJWKYSUUDUVBUUFUVDYSUUCUVAGYSXKU
+      UOXJIUVQWLWIYSUUEUVCHYSXKUUOXJJUVQWLWIVRVJWMWNWOWOYNYRUVGWPWQWR $.
+      $( [13-Sep-2011] $)
+  $}
+
+  ${
+    $d p x y P $.
+    $( Every orthoposet is a poset. $)
+    opposet $p |- ( P e. OP -> P e. PosetNEW ) $=
+      ( vp vy vx cops wcel wtru c3 cstru cpo cp0 cfv cbs cp1 w3a cv coc wceq
+      cple wbr wi cjn co cmee wa wral eqid isopos 3simpl1 3adant1 sylbi ) AEFAG
+      BHIZFZAJFZAKLZAMLZFZANLZUPFZOZCPZAQLZLZVBLVARVADPZASLZTVDVBLVCVETUAVAVCAU
+      BLZUCURRVAVCAUDLZUCUORUEODUPUFCUPUFZOUNCDUPAVEULURUOVFVGVBBULUGUPUGVEUGVB
+      UGVFUGVGUGUOUGURUGUHUTVHUNUMUNUQUSVHUIUJUK $.
+      $( [12-Oct-2011] $)
+  $}
+
+  ${
+    $d p x y B $.  $d p x y P $.  $d p Z $.
+    op0.1 $e |- B = ( base ` P ) $.
+    op0.3 $e |- Z = ( 0. ` P ) $.
+    $( An orthoposet has a zero element. $)
+    op0 $p |- ( P e. OP -> Z e. B ) $=
+      ( vp vx vy cops wcel wtru c3 cstru cpo cp1 cfv w3a cv coc wceq cple wbr
+      wi cjn co cmee wa wral eqid isopos 3simpl2 3adant1 sylbi ) BIJBKFLMZJZBNJ
+      ZCAJZBOPZAJZQZGRZBSPZPZVBPVATVAHRZBUAPZUBVDVBPVCVEUBUCVAVCBUDPZUEURTVAVCB
+      UFPZUECTUGQHAUHGAUHZQUQGHABVEUNURCVFVGVBFUNUIDVEUIVBUIVFUIVGUIEURUIUJUTVH
+      UQUOUPUQUSVHUKULUM $.
+      $( [12-Oct-2011] $)
+  $}
+
+  ${
+    op0le.1 $e |- B = ( base ` P ) $.
+    op0le.2 $e |- R = ( le ` P ) $.
+    op0le.3 $e |- Z = ( 0. ` P ) $.
+    $( Poset zero (if defined) is less than any element. $)
+    op0le $p |- ( ( P e. OP /\ X e. B ) -> Z R X ) $=
+      ( cops wcel wbr op0 adantr cpo p0le opposet syl3an1 3com23 mpd3an3 ) BIJZ
+      DAJZEAJZEDCKZTUBUAABEFHLMTUBUAUCBNJUBUAUCTABCDEFGHOBPQRS $.
+      $( [12-Oct-2011] $)
+  $}
+
+  ${
+    $d p x y B $.  $d p x y F $.  $d p x y J $.  $d p x y M $.  $d p x y N $.
+    $d p x y P $.  $d p x y R $.  $d p x y T $.  $d x y X $.  $d y Y $.
+    oposlem.1 $e |- B = ( base ` P ) $.
+    oposlem.2 $e |- R = ( le ` P ) $.
+    oposlem.3 $e |- N = ( oc ` P ) $.
+    oposlem.4 $e |- J = ( join ` P ) $.
+    oposlem.5 $e |- M = ( meet ` P ) $.
+    oposlem.6 $e |- F = ( 0. ` P ) $.
+    oposlem.7 $e |- T = ( 1. ` P ) $.
+    $( Lemma for orthoposet properties. $)
+    oposlem $p |- ( ( P e. OP /\ X e. B /\ Y e. B )
+                -> ( ( N ` ( N ` X ) ) = X
+               /\ ( X R Y -> ( N ` Y ) R ( N ` X ) )
+               /\ ( ( X J ( N ` X ) ) = T /\ ( X M ( N ` X ) ) = F ) ) ) $=
+      ( vx vy vp cops wcel cfv wceq wbr wi co wa w3a cv wral wtru c3 cstru cpo
+      eqid isopos 3simp3bi fveq2 fveq2d id eqeq12d breq1 breq2d imbi12d
+      opreq12d eqeq1d anbi12d 3anbi123d breq2 breq1d 3anbi2d rcla42v mpan9
+      3impb ) BUAUBZIAUBZJAUBZIHUCZHUCZIUDZIJCUEZJHUCZVSCUEZUFZIVSFUGZDUDZIVSGU
+      GZEUDZUHZUIZVPRUJZHUCZHUCZWLUDZWLSUJZCUEZWPHUCZWMCUEZUFZWLWMFUGZDUDZWLWMG
+      UGZEUDZUHZUIZSAUKRAUKZVQVRUHWKVPBULTUMUNZUBBUOUBEAUBDAUBUIXGRSABCXHDEFGHT
+      XHUPKLMNOPQUQURXFWKWAIWPCUEZWRVSCUEZUFZWJUIRSIJAAWLIUDZWOWAWTXKXEWJXLWNVT
+      WLIXLWMVSHWLIHUSZUTXLVAZVBXLWQXIWSXJWLIWPCVCXLWMVSWRCXMVDVEXLXBWGXDWIXLXA
+      WFDXLWLIWMVSFXNXMVFVGXLXCWHEXLWLIWMVSGXNXMVFVGVHVIWPJUDZXKWEWAWJXOXIWBXJW
+      DWPJICVJXOWRWCVSCWPJHUSVKVEVLVMVNVO $.
+      $( [13-Sep-2011] $)
+  $}
+
+  ${
+    oposococ.1 $e |- B = ( base ` P ) $.
+    oposococ.3 $e |- N = ( oc ` P ) $.
+    $( Double negative law for orthoposets. $)
+    oposococ $p |- ( ( P e. OP /\ X e. B ) -> ( N ` ( N ` X ) ) = X ) $=
+      ( cops wcel wa cfv wceq cple wbr wi cjn co cp1 cmee cp0 w3a eqid oposlem
+      3anidm23 3simp1d ) BGHZDAHZIDCJZCJDKZDDBLJZMUGUGUIMNZDUGBOJZPBQJZKDUGBRJZ
+      PBSJZKIZUEUFUHUJUOTABUIULUNUKUMCDDEUIUAFUKUAUMUAUNUAULUAUBUCUD $.
+      $( [13-Sep-2011] $)
+  $}
+
+  ${
+    oposcon3.1 $e |- B = ( base ` P ) $.
+    oposcon3.2 $e |- R = ( le ` P ) $.
+    oposcon3.3 $e |- N = ( oc ` P ) $.
+    $( Contraposition law for orthoposets. $)
+    oposcon3 $p |- ( ( P e. OP /\ X e. B /\ Y e. B )
+                -> ( X R Y -> ( N ` Y ) R ( N ` X ) ) ) $=
+      ( cops wcel w3a cfv wceq wbr wi cjn co cp1 cmee cp0 wa eqid oposlem
+      3simp2d ) BJKEAKFAKLEDMZDMENEFCOFDMUFCOPEUFBQMZRBSMZNEUFBTMZRBUAMZNUBABCU
+      HUJUGUIDEFGHIUGUCUIUCUJUCUHUCUDUE $.
+      $( [13-Sep-2011] $)
+  $}
+
+  ${
+    oposexmid.1 $e |- B = ( base ` P ) $.
+    oposexmid.3 $e |- N = ( oc ` P ) $.
+    oposexmid.4 $e |- J = ( join ` P ) $.
+    oposexmid.7 $e |- T = ( 1. ` P ) $.
+    $( Law of excluded middle for orthoposets. $)
+    oposexmid $p |- ( ( P e. OP /\ X e. B )
+                -> ( X J ( N ` X ) ) = T ) $=
+      ( cops wcel wa cfv co wceq cmee cp0 cple wbr wi w3a eqid oposlem
+      3anidm23 3simp3d pm3.26d ) BKLZFALZMZFFENZDOCPZFUKBQNZOBRNZPZUJUKENFPZFFB
+      SNZTUKUKUQTUAZULUOMZUHUIUPURUSUBABUQCUNDUMEFFGUQUCHIUMUCUNUCJUDUEUFUG $.
+      $( [13-Sep-2011] $)
+  $}
+
+  ${
+    oposnoncon.1 $e |- B = ( base ` P ) $.
+    oposnoncon.3 $e |- N = ( oc ` P ) $.
+    oposnoncon.5 $e |- M = ( meet ` P ) $.
+    oposnoncon.6 $e |- F = ( 0. ` P ) $.
+    $( Law of noncontradiction for orthoposets. $)
+    oposnoncon $p |- ( ( P e. OP /\ X e. B )
+                -> ( X M ( N ` X ) ) = F ) $=
+      ( cops wcel wa cfv cjn co cp1 wceq cple wbr wi w3a eqid oposlem 3anidm23
+      3simp3d pm3.27d ) BKLZFALZMZFFENZBONZPBQNZRZFUKDPCRZUJUKENFRZFFBSNZTUKUKU
+      QTUAZUNUOMZUHUIUPURUSUBABUQUMCULDEFFGUQUCHULUCIJUMUCUDUEUFUG $.
+      $( [13-Sep-2011] $)
+  $}
+
+  ${
+    $d p x y B $.  $d p F $.  $d p J $.  $d p M $.  $d p x y N $.
+    $d p x y P $.  $d p R $.  $d p T $.
+    isoposi.a $e |- P e. Struct ( 3 , p , T. ) $.
+    isoposi.0 $e |- P e. PosetNEW $.
+    isoposi.1 $e |- B = ( base ` P ) $.
+    isoposi.2 $e |- R = ( le ` P ) $.
+    isoposi.3 $e |- N = ( oc ` P ) $.
+    isoposi.4 $e |- J = ( join ` P ) $.
+    isoposi.5 $e |- M = ( meet ` P ) $.
+    isoposi.6 $e |- F = ( 0. ` P ) $.
+    isoposi.7 $e |- T = ( 1. ` P ) $.
+    isoposi.8 $e |- F e. B $.
+    isoposi.9 $e |- T e. B $.
+    isoposi.10 $e |- ( x e. B -> ( N ` ( N ` x ) ) = x ) $.
+    isoposi.11 $e |- ( ( x e. B /\ y e. B ) ->
+                   ( x R y -> ( N ` y ) R ( N ` x ) ) ) $.
+    isoposi.12 $e |- ( x e. B -> ( x J ( N ` x ) ) = T ) $.
+    isoposi.13 $e |- ( x e. B -> ( x M ( N ` x ) ) = F ) $.
+    $( Properties that determine an orthoposet (constructed structure
+       version). $)
+    isoposi $p |- P e. OP $=
+      ( cops wcel wtru c3 cstru cpo w3a cv cfv wceq wbr wi co wa wral eqid
+      isopos 3pm3.2i adantr jca 3jca rgen2a mpbir3an ) DUGUHDUIKUJUKZUHDULUHZGC
+      UHZFCUHZUMAUNZJUOZJUOVNUPZVNBUNZEUQVQJUOVOEUQURZVNVOHUSFUPZVNVOIUSGUPZUTZ
+      UMZBCVAACVAABCDEVJFGHIJKVJVBNOPQRSTVCLVKVLVMMUAUBVDWBABCVNCUHZVQCUHZUTVPV
+      RWAWCVPWDUCVEUDWCWAWDWCVSVTUEUFVFVEVGVHVI $.
+      $( [13-Sep-2011] $)
+  $}
+
+  ${
+    $d p x y B $.  $d p F $.  $d p J $.  $d p M $.  $d p x y N $.
+    $d p x y P $.  $d p R $.  $d p T $.
+    isoposix.a $e |- P = { <. 1 , B >. , <. 2 , R >. , <. 3 , N >. } $.
+    isoposix.0 $e |- P e. PosetNEW $.
+    isoposix.1 $e |- B e. _V $.
+    isoposix.2 $e |- R e. _V $.
+    isoposix.3 $e |- N e. _V $.
+    isoposix.4 $e |- J = ( join ` P ) $.
+    isoposix.5 $e |- M = ( meet ` P ) $.
+    isoposix.6 $e |- F = ( 0. ` P ) $.
+    isoposix.7 $e |- T = ( 1. ` P ) $.
+    isoposix.8 $e |- F e. B $.
+    isoposix.9 $e |- T e. B $.
+    isoposix.10 $e |- ( x e. B -> ( N ` ( N ` x ) ) = x ) $.
+    isoposix.11 $e |- ( ( x e. B /\ y e. B ) ->
+                      ( x R y -> ( N ` y ) R ( N ` x ) ) ) $.
+    isoposix.12 $e |- ( x e. B -> ( x J ( N ` x ) ) = T ) $.
+    isoposix.13 $e |- ( x e. B -> ( x M ( N ` x ) ) = F ) $.
+    $( Properties that determine an orthoposet (explicit structure version). $)
+    isoposix $p |- P e. OP $=
+      ( vp stb3strx cbs df-base stb3v1x cple df-ple stb3v2x coc df-ocomp
+      stb3v3x isoposi ) ABCDEFGHIJUFUFDCEJMNOKUGLUHUFDCEJMNOKUFUIUJUKUFDCEJMNOK
+      UFULUMUNUFDCEJMNOKUFUOUPPQRSTUAUBUCUDUEUQ $.
+      $( [14-Sep-2011] $)
+  $}
+
+  $( The predicate "is an ortholattice." $)
+  isolat $p |- ( L e. OL <-> ( L e. LatNEW /\ L e. OP ) ) $=
+    ( col wcel clat cops cin wa df-ol eleq2i elin bitri ) ABCADEFZCADCAECGBLAHI
+    ADEJK $.
+    $( [18-Sep-2011] $)
+
+  $( An ortholattice is a lattice. $)
+  ollat $p |- ( L e. OL -> L e. LatNEW ) $=
+    ( col wcel clat cops isolat pm3.26bi ) ABCADCAECAFG $.
+    $( [18-Sep-2011] $)
+
+  $( An ortholattice is an orthoposet. $)
+  olop  $p |- ( L e. OL -> L e. OP ) $=
+    ( col wcel clat cops isolat pm3.27bi ) ABCADCAECAFG $.
+    $( [18-Sep-2011] $)
+
+  $( An ortholattice is a poset. $)
+  olpos  $p |- ( L e. OL -> L e. PosetNEW ) $=
+    ( col wcel cops cpo olop opposet syl ) ABCADCAECAFAGH $.
+    $( [16-Oct-2011] $)
+
+  ${
+    isolati.1 $e |- L e. LatNEW $.
+    isolati.2 $e |- L e. OP $.
+    $( Properties that determine an ortholattice. $)
+    isolati $p |- L e. OL $=
+      ( col wcel clat cops isolat mpbir2an ) ADEAFEAGEAHBCI $.
+      $( [18-Sep-2011] $)
+  $}
+
+  ${
+    $d l x y B $.  $d l J $.  $d l x y L $.  $d l M $.  $d l N $.  $d l R $.
+    isoml.1 $e |- B = ( base ` L ) $.
+    isoml.2 $e |- R = ( le ` L ) $.
+    isoml.4 $e |- J = ( join ` L ) $.
+    isoml.5 $e |- M = ( meet ` L ) $.
+    isoml.3 $e |- N = ( oc ` L ) $.
+    $( The predicate "is an orthomodular lattice." $)
+    isoml $p |- ( L e. OML <-> ( L e. OL /\ A. x e. B A. y e. B
+       ( x R y -> y = ( x J ( y M ( N ` x ) ) ) ) ) ) $=
+      ( vl cv cple cfv wbr coc cmee co cjn wceq wi cbs wral col coml fveq2
+      syl6eqr wb breq syl eqidd fveq1d opreq123d eqeq2d imbi12d raleqbidv
+      df-oml elrab2 ) AOZBOZNOZPQZRZVCVBVCVBVDSQZQZVDTQZUAZVDUBQZUAZUCZUDZBVDUE
+      QZUFZAVOUFVBVCDRZVCVBVCVBHQZGUAZEUAZUCZUDZBCUFZACUFNFUGUHVDFUCZVPWCAVOCWD
+      VOFUEQCVDFUEUIIUJZWDVNWBBVOCWEWDVFVQVMWAWDVEDUCVFVQUKWDVEFPQDVDFPUIJUJVBV
+      CVEDULUMWDVLVTVCWDVBVBVJVSVKEWDVKFUBQEVDFUBUIKUJWDVBUNWDVCVCVHVRVIGWDVIFT
+      QGVDFTUILUJWDVCUNWDVBVGHWDVGFSQHVDFSUIMUJUOUPUPUQURUSUSABNUTVA $.
+      $( [18-Sep-2011] $)
+  $}
+
+  ${
+    $d x y L $.
+    $( An orthomodular lattice is an ortholattice. $)
+    omlol $p |- ( L e. OML -> L e. OL ) $=
+      ( vx vy coml wcel col cv cple cfv wbr coc cmee co cjn wceq wi cbs wral
+      eqid isoml pm3.26bi ) ADEAFEBGZCGZAHIZJUCUBUCUBAKIZIALIZMANIZMOPCAQIZRBUH
+      RBCUHUDUGAUFUEUHSUDSUGSUFSUESTUA $.
+      $( [18-Sep-2011] $)
+  $}
+
+  ${
+    $d x y B $.  $d x y J $.  $d x y L $.  $d x y M $.  $d x y N $.
+    $d x y R $.  $d x y X $.  $d y Y $.
+    omllaw.1 $e |- B = ( base ` L ) $.
+    omllaw.2 $e |- R = ( le ` L ) $.
+    omllaw.4 $e |- J = ( join ` L ) $.
+    omllaw.5 $e |- M = ( meet ` L ) $.
+    omllaw.3 $e |- N = ( oc ` L ) $.
+    $( The orthomodular law. $)
+    omllaw $p |- ( ( L e. OML /\ X e. B /\ Y e. B ) ->
+            ( X R Y -> Y = ( X J ( Y M ( N ` X ) ) ) ) ) $=
+      ( vx vy coml wcel wbr cfv co wceq wi wa cv wral breq1 id fveq2 opreq2d
+      opreq12d eqeq2d imbi12d breq2 opreq1 eqeq12d rcla42v col isoml pm3.27bi
+      syl5com 3impib ) DPQZGAQZHAQZGHBRZHGHGFSZETZCTZUAZUBZVCVDUCNUDZOUDZBRZVLV
+      KVLVKFSZETZCTZUAZUBZOAUENAUEZVJVBVRVJGVLBRZVLGVLVFETZCTZUAZUBNOGHAAVKGUAZ
+      VMVTVQWCVKGVLBUFWDVPWBVLWDVKGVOWACWDUGWDVNVFVLEVKGFUHUIUJUKULVLHUAZVTVEWC
+      VIVLHGBUMWEVLHWBVHWEUGWEWAVGGCVLHVFEUNUIUOULUPVBDUQQVSNOABCDEFIJKLMURUSUT
+      VA $.
+      $( [18-Sep-2011] $)
+  $}
+
+  ${
+    $d x y B $.  $d x y L $.
+    isomli.0 $e |- L e. OL $.
+    isomli.1 $e |- B = ( base ` L ) $.
+    isomli.2 $e |- R = ( le ` L ) $.
+    isomli.4 $e |- J = ( join ` L ) $.
+    isomli.5 $e |- M = ( meet ` L ) $.
+    isomli.6 $e |- N = ( oc ` L ) $.
+    isomli.7 $e |- ( ( x e. B /\ y e. B ) ->
+                      ( x R y -> y = ( x J ( y M ( N ` x ) ) ) ) ) $.
+    $( Properties that determine an orthomodular lattice. $)
+    isomli $p |- L e. OML $=
+      ( coml wcel col cv wbr cfv co wceq wi wral isoml rgen2a mpbir2an ) FPQFRQ
+      ASZBSZDTUJUIUJUIHUAGUBEUBUCUDZBCUEACUEABCDEFGHJKLMNUFIUKABCOUGUH $.
+      $( [18-Sep-2011] $)
+  $}
+
+  $c <oNEW $.
+  $c AtomsNEW $.
+  $c AtLat $.
+  $(
+  $c AtsLat $.
+  $c CvLat $.
+  $)
+  $c HL $.
+
+  $( Extend class notation with covering relation. $)
+  ccvr $a class <oNEW $.
+
+  $( Extend class notation with atoms. $)
+  catm $a class AtomsNEW $.
+
+  $( Extend class notation with atomic lattices. $)
+  cal $a class AtLat $.
+
+  $( Extend class notation with atomistic lattices. $)
+  $(
+  cas $a class AtsLat $.
+  $)
+
+  $( Extend class notation with lattices with the covering property. $)
+  $(
+  clc $a class CvLat $.
+  $)
+
+  $( Extend class notation with Hilbert lattices. $)
+  chlt $a class HL $.
+
+  ${
+    $d p l c a b $.
+    $( Def. 8.4.13 p. 209. $)
+    $( Define the covering relation ("is covered by") for posets. $)
+    df-covers $a |- <oNEW = ( p e. _V |-> { <. a , b >. | ( ( a e. ( base ` p )
+               /\ b e. ( base ` p ) )
+           /\ a ( lt ` p ) b /\ -. E. z e. ( base ` p )
+              ( a ( lt ` p ) z /\ z ( lt ` p ) b ) ) } ) $.
+
+    $( Def. 8.4.14 p. 210. $)
+    $( Define the class of poset atoms. $)
+    df-atoms $a |- AtomsNEW = ( p e. _V |-> { a e. ( base ` p ) |
+                      ( 0. ` p ) ( <oNEW ` p ) a } ) $.
+
+    $( Def. 8.4.15 p. 210. $)
+    $( Define the class of atomic lattices. $)
+    df-atlat $a |- AtLat = { l e. LatNEW | A. a e. ( base ` l )
+       ( a =/= ( 0. ` l ) ->
+          E. b e. ( AtomsNEW ` l ) b ( le ` l ) a ) } $.
+
+    $( Def. 8.4.16 p. 210. $)
+    $( Define the class of atomistic lattices.  Every non-zero element
+       is the join of all atoms less than it.  If an
+        orthomodular lattice is atomic, then it is also atomistic
+      (Beltrametti_Cassinelli p. 98). $)
+    $(
+    df-atslat $a |- AtsLat = { l e. LatNEW | A. a e. ( base ` l )
+         a = ( ( lub ` l ) ` { p e. ( AtomsNEW ` l ) | p ( le ` l ) a } ) } $.
+    $)
+
+    $( Def. 8.4.17 p. 210. $)
+    $( Define the class of lattices with the covering property. $)
+    $(
+    df-cvlat $a |- CvLat = { l e. AtLat | A. a e. ( base ` l )
+       A. p e. ( AtomsNEW ` l ) ( ( a ( meet ` l ) p ) = ( 0. ` l )
+          -> a ( <oNEW ` l ) ( a ( join ` l ) p ) ) } $.
+    $)
+
+    $( Def. 8.4.18 p. 211. $)
+    $( Define the class of Hilbert lattices, which are complete, atomic
+       lattices satisfying the superposition principle and minimum height. $)
+    df-hlat $a |- HL = { l e. ( ( OML i^i ComplLat ) i^i AtLat ) |
+      ( A. a e. ( AtomsNEW ` l ) A. b e. ( AtomsNEW ` l ) ( a =/= b
+       -> ( E. c e. ( AtomsNEW ` l )
+             ( c =/= a /\ c =/= b /\ c ( le ` l ) ( a ( join ` l ) b ) )
+         /\ A. c e. ( AtomsNEW ` l )
+            ( ( c =/= a /\ c =/= b /\ c ( le ` l ) ( a ( join ` l ) b ) )
+          -> a ( le ` l ) ( b ( join ` l ) c ) ) ) )
+      /\ E. a e. ( base ` l ) E. b e. ( base ` l ) E. c e. ( base ` l )
+          ( ( ( 0. ` l ) ( lt ` l ) a /\ a ( lt ` l ) b )
+        /\ ( b ( lt ` l ) c /\ c ( lt ` l ) ( 1. ` l ) ) ) ) } $.
+  $}
+
+  ${
+    $d p x y z B $.  $d p x y z P $.  $d p R $.
+    cvrfval.1 $e |- B = ( base ` P ) $.
+    cvrfval.3 $e |- R = ( lt ` P ) $.
+    cvrfval.4 $e |- C = ( <oNEW ` P ) $.
+    $( Value of covers relation "is covered by". $)
+    cvrfval $p |- ( P e. A -> C = { <. x , y >. | ( ( x e. B /\ y e. B )
+                  /\ x R y /\ -. E. z e. B ( x R z /\ z R y ) ) } ) $=
+      ( vp wcel cvv cv wa wbr wrex wn w3a copab wceq elisset ccvr cfv cbs cplt
+      fveq2 syl6eqr eleq2d anbi12d wb breq syl rexeqbidv notbid 3anbi123d
+      opabbidv df-covers 3anass opabbii cxp fvex eqeltri xpex opabssxp ssexi
+      fvmpt syl5eq ) GDMGNMZFAOZEMZBOZEMZPZVKVMHQZVKCOZHQZVQVMHQZPZCERZSZTZABUA
+      ZUBGDUCVJGUDUEWDFLGVKLOZUFUEZMZVMWFMZPZVKVMWEUGUEZQZVKVQWJQZVQVMWJQZPZCWF
+      RZSZTZABUAWDNUDWEGUBZWQWCABWRWIVOWKVPWPWBWRWGVLWHVNWRWFEVKWRWFGUFUEZEWEGU
+      FUHIUIZUJWRWFEVMWTUJUKWRWJHUBZWKVPULWRWJGUGUEHWEGUGUHJUIZVKVMWJHUMUNWRWOW
+      AWRWNVTCWFEWTWRWLVRWMVSWRXAWLVRULXBVKVQWJHUMUNWRXAWMVSULXBVQVMWJHUMUNUKUO
+      UPUQURCLABUSWDVOVPWBPZPZABUAZNWCXDABVOVPWBUTVAXEEEVBEEEWSNIGUFVCVDZXFVEXC
+      ABEEVFVGVDVHKVIUN $.
+      $( [18-Sep-2011] $)
+  $}
+
+  ${
+    $d x y z B $.  $d x y z P $.  $d x y S $.  $d x y z X $.  $d x y z Y $.
+    cvrval.1 $e |- B = ( base ` P ) $.
+    cvrval.3 $e |- S = ( lt ` P ) $.
+    cvrval.4 $e |- C = ( <oNEW ` P ) $.
+    $( Equivalence for covers relation "is covered by". $)
+    cvrval $p |- ( ( P e. A /\ X e. B /\ Y e. B ) -> ( X C Y <->
+               ( X S Y /\ -. E. z e. B ( X S z /\ z S Y ) ) ) ) $=
+      ( vx vy wcel w3a wbr cv wa wrex wn copab wb wceq cvrfval 3anass opabbii
+      syl6eq breq syl 3ad2ant1 cop breq1 anbi1d rexbidv notbid anbi12d breq2
+      anbi2d opelopab2 df-br syl5bb 3adant1 bitrd ) EBNZGCNZHCNZOGHDPZGHLQZCNMQ
+      ZCNRZVHVIFPZVHAQZFPZVLVIFPZRZACSZTZRZRZLMUAZPZGHFPZGVLFPZVLHFPZRZACSZTZRZ
+      VDVEVGWAUBZVFVDDVTUCWIVDDVJVKVQOZLMUAVTLMABCDEFIJKUDWJVSLMVJVKVQUEUFUGGHD
+      VTUHUIUJVEVFWAWHUBVDVEVFRGHUKVTNWHWAVRGVIFPZWCVNRZACSZTZRWHLMGHCCVHGUCZVK
+      WKVQWNVHGVIFULWOVPWMWOVOWLACWOVMWCVNVHGVLFULUMUNUOUPVIHUCZWKWBWNWGVIHGFUQ
+      WPWMWFWPWLWEACWPVNWDWCVIHVLFUQURUNUOUPUSGHVTUTVAVBVC $.
+      $( [18-Sep-2011] $)
+
+    $( The covers relation implies the less-than relation. $)
+    cvrlt $p |- ( ( ( P e. A /\ X e. B /\ Y e. B ) /\ X C Y ) -> X S Y ) $=
+      ( vz wcel w3a wbr cv wa wrex wn cvrval pm3.26bda ) DALFBLGBLMFGCNFGENFKOZ
+      ENUAGENPKBQRKABCDEFGHIJST $.
+      $( [8-Oct-2011] $)
+
+    $d z S $.  $d z Z $.
+    $( There is no element between the two arguments of the covers relation. $)
+    cvrnbtwn $p |- ( ( ( P e. A /\ X e. B /\ Y e. B ) /\ ( Z e. B /\ X C Y ) )
+             -> -. ( X S Z /\ Z S Y ) ) $=
+      ( vz wcel w3a wbr wa wn cv wrex wb cvrval adantr wi wral wceq breq2
+      breq1 anbi12d notbid rcla4v ralnex syl5ibr adantld adantl sylbid impr )
+      DAMFBMGBMNZHBMZFGCOZFHEOZHGEOZPZQZUQURPUSFGEOZFLRZEOZVEGEOZPZLBSQZPZVCUQU
+      SVJTURLABCDEFGIJKUAUBURVJVCUCUQURVIVCVDURVHQZLBUDVCVIVKVCLHBVEHUEZVHVBVLV
+      FUTVGVAVEHFEUFVEHGEUGUHUIUJVHLBUKULUMUNUOUP $.
+      $( [8-Oct-2011] $)
+  $}
+
+  ${
+    cvrle.1 $e |- B = ( base ` P ) $.
+    cvrle.3 $e |- R = ( le ` P ) $.
+    cvrle.4 $e |- C = ( <oNEW ` P ) $.
+    $( The covers relation implies the less-than-or-equal relation. $)
+    cvrle $p |- ( ( ( P e. A /\ X e. B /\ Y e. B ) /\ X C Y ) -> X R Y ) $=
+      ( wcel w3a wbr cplt cfv eqid cvrlt wne pltval pm3.26bda syldan ) DAKFBKGB
+      KLZFGCMFGDNOZMZFGEMZABCDUCFGHUCPZJQUBUDUEFGRABBDEUCFGIUFSTUA $.
+      $( [12-Oct-2011] $)
+
+    $( The covering relation implies no in-betweenness.  Part of proof of Lemma
+       7.5.1 of [MaedaMaeda] p. 31. $)
+    cvrnbtwn4 $p |- ( ( ( P e. PosetNEW /\ X e. B /\ Y e. B )
+                     /\ ( Z e. B /\ X C Y ) )
+             -> ( ( X R Z /\ Z R Y ) <-> ( X = Z \/ Z = Y ) ) ) $=
+      ( cpo wcel w3a wbr wa wceq wo cplt cfv wn wi eqid cvrnbtwn wne wb pltval
+      3expa 3adantl3 adantrr 3com23 3adantl2 anbi12d neanior anbi2i an4 bitr3i
+      syl6rbbr notbid iman syl5rbb mpbid breq1 posref 3ad2antl1 syl5cbir breq2
+      cvrle adantrl jaod syl5cbi jcad impbid ) CKLZEALZFALZMZGALZEFBNZOOZEGDNZG
+      FDNZOZEGPZGFPZQZVSEGCRSZNZGFWFNZOZTZWBWEUAZKABCWFEFGHWFUBZJUCVSWBWETZOZTW
+      JWKVSWNWIVSWIVTEGUDZOZWAGFUDZOZOZWNVSWGWPWHWRVPVQWGWPUEZVRVMVNVQWTVOVMVNV
+      QWTKAACDWFEGIWLUFUGUHUIVPVQWHWRUEZVRVMVOVQXAVNVMVOVQXAVMVQVOXAKAACDWFGFIW
+      LUFUJUGUKUIULWNWBWOWQOZOWSXBWMWBEGGFUMUNVTWAWOWQUOUPUQURWBWEUSUTVAVSWEVTW
+      AVSWCVTWDWCVTGGDNZVSEGGDVBVPVQXCVRVMVNVQXCVOACDGHIVCVDUIZVEWDVTEFDNZVSGFE
+      DVFVPVRXEVQKABCDEFHIJVGVHZVEVIVSWCWAWDWCXEWAVSEGFDVBXFVJWDXCWAVSGFGDVFXDV
+      JVIVKVL $.
+      $( [12-Oct-2011] $)
+  $}
+
+  ${
+    $d x y z B $.  $d x y z P $.  $d x y R $.  $d x y z X $.  $d x y z Y $.
+    cvrne.1 $e |- B = ( base ` P ) $.
+    cvrne.4 $e |- C = ( <oNEW ` P ) $.
+    $( The covers relation implies inequality. $)
+    cvrne $p |- ( ( ( P e. A /\ X e. B /\ Y e. B ) /\ X C Y ) -> X =/= Y ) $=
+      ( wcel w3a wbr cplt cfv wne eqid cvrlt cple pltval pm3.27bda syldan ) DAI
+      EBIFBIJZEFCKEFDLMZKZEFNZABCDUBEFGUBOZHPUAUCEFDQMZKUDABBDUFUBEFUFOUERST $.
+      $( [13-Oct-2011] $)
+  $}
+
+  ${
+    $d p x B $.  $d p C $.  $d p x P $.  $d p Z $.
+    patoms.1 $e |- B = ( base ` P ) $.
+    patoms.3 $e |- Z = ( 0. ` P ) $.
+    patoms.4 $e |- C = ( <oNEW ` P ) $.
+    patoms.5 $e |- A = ( AtomsNEW ` P ) $.
+    $( The set of atoms in a poset. $)
+    patoms $p |- ( P e. D -> A = { x e. B | Z C x } ) $=
+      ( vp wcel cvv cv wbr crab wceq elisset catm cfv cp0 ccvr cbs fveq2
+      syl6eqr wb breq syl breq1d bitrd rabeqbidv df-atoms fvex eqeltri rabex
+      fvmpt syl5eq ) FEMFNMZBGAOZDPZACQZRFESUSFTUAVBBLFLOZUBUAZUTVCUCUAZPZAVCUD
+      UAZQVBNTVCFRZVFVAAVGCVHVGFUDUAZCVCFUDUEHUFVHVFVDUTDPZVAVHVEDRVFVJUGVHVEFU
+      CUADVCFUCUEJUFVDUTVEDUHUIVHVDGUTDVHVDFUBUAGVCFUBUEIUFUJUKULLAUMVAACCVINHF
+      UDUNUOUPUQKURUI $.
+      $( [18-Sep-2011] $)
+  $}
+
+  ${
+    $d x B $.  $d x C $.  $d x P $.  $d x X $.  $d x Z $.
+    isatom.1 $e |- B = ( base ` P ) $.
+    isatom.3 $e |- Z = ( 0. ` P ) $.
+    isatom.4 $e |- C = ( <oNEW ` P ) $.
+    isatom.5 $e |- A = ( AtomsNEW ` P ) $.
+    $( The predicate "is an atom". $)
+    isatom $p |- ( P e. D -> ( X e. A <-> ( X e. B /\ Z C X ) ) ) $=
+      ( vx wcel cv wbr crab wa patoms eleq2d breq2 elrab syl6bb ) EDMZFAMFGLNZC
+      OZLBPZMFBMGFCOZQUCAUFFLABCDEGHIJKRSUEUGLFBUDFGCTUAUB $.
+      $( [18-Sep-2011] $)
+  $}
+
+  ${
+    atombase.1 $e |- B = ( base ` P ) $.
+    atombase.2 $e |- A = ( AtomsNEW ` P ) $.
+    $( An atom is a member of the lattice base set (i.e. a lattice element). $)
+    atombase $p |- ( X e. A -> X e. B ) $=
+      ( cvv wcel catm cfv c0 wceq n0i eqeq1i biimpri nsyl fvprc nsyl2 cp0 ccvr
+      wbr eqid isatom pm3.26bda mpancom ) CGHZDAHZDBHZUGCIJZKLZUFUGAKLZUJADMUKU
+      JAUIKFNOPCIQRUFUGUHCSJZDCTJZUAABUMGCDULEULUBUMUBFUCUDUE $.
+      $( [10-Oct-2011] $)
+  $}
+
+  ${
+    leatom.1 $e |- B = ( base ` P ) $.
+    leatom.2 $e |- R = ( le ` P ) $.
+    leatom.3 $e |- Z = ( 0. ` P ) $.
+    leatom.4 $e |- A = ( AtomsNEW ` P ) $.
+    $( A poset element less than or equal to an atom equals either zero or the
+       atom. $)
+    leatom $p |- ( ( P e. OP /\ X e. B /\ Y e. A )
+                      -> ( X R Y <-> ( X = Z \/ X = Y ) ) ) $=
+      ( cops wcel w3a wbr wa wceq wo op0le 3adant3 biantrurd ccvr cfv wb
+      3simp1 op0 3ad2ant1 atombase 3ad2ant3 3jca 3simp2 eqid isatom pm3.27bda
+      3adant2 cpo cvrnbtwn4 opposet syl3anl1 sylan32c eqcom orbi1i syl6bb
+      bitrd ) CLMZEBMZFAMZNZEFDOZGEDOZVIPZEGQZEFQZRZVHVJVIVEVFVJVGBCDEGHIJSTUAV
+      HVKGEQZVMRZVNVEGBMZFBMZNVFGFCUBUCZOZVKVPUDZVHVHVEVQVRVEVFVGUEVEVFVQVGBCGH
+      JUFUGVGVEVRVFABCFHKUHUIUJVEVFVGUKVEVGVTVFVEVGVRVTABVSLCFGHJVSULZKUMUNUOCU
+      PMVQVRVFVTPWAVEBVSCDGFEHIWBUQCURUSUTVOVLVMGEVAVBVCVD $.
+      $( [12-Oct-2011] $)
+  $}
+
+  ${
+    atomn0.1 $e |- Z = ( 0. ` P ) $.
+    atomn0.2 $e |- A = ( AtomsNEW ` P ) $.
+    $( An atom is not the poset zero. $)
+    atomn0 $p |- ( ( P e. OP /\ X e. A ) -> X =/= Z ) $=
+      ( cops wcel cbs cfv w3a ccvr wbr wne wa wi eqid cvrne necomd ex 3com23
+      pm3.26 atombase adantl op0 adantr 3jca isatom pm3.27bda sylc ) BGHZCBIJZH
+      ZDULHZKDCBLJZMZCDNZUKCAHZOZUKUNUMUPUQPUKUNUMKZUPUQUTUPODCGULUOBDCULQZUOQZ
+      RSTUAUSUKUMUNUKURUBURUMUKAULBCVAFUCUDUKUNURULBDVAEUEUFUGUKURUMUPAULUOGBCD
+      VAEVBFUHUIUJ $.
+      $( [13-Oct-2011] $)
+  $}
+
+  ${
+    atomcmp.1 $e |- R = ( le ` P ) $.
+    atomcmp.2 $e |- A = ( AtomsNEW ` P ) $.
+    $( If two atoms are comparable, they are equal. $)
+    atomcmp $p |- ( ( P e. OP /\ X e. A /\ Y e. A ) -> ( X R Y <-> X = Y ) ) $=
+      ( cops wcel w3a wbr wceq cp0 cfv cbs eqid op0le atombase sylan2 3adant3
+      wa wne atomn0 necomd wo wi cpo ccvr wb opposet 3ad2ant1 op0 3ad2ant3
+      3jca 3ad2ant2 isatom pm3.27bda 3adant2 cvrnbtwn4 sylan32c biimpd neor
+      syl6ib mpid mpand breq2 posref syl2an syl5cbi impbid ) BHIZDAIZEAIZJZDECK
+      ZDELZVNBMNZDCKZVOVPVKVLVRVMVKDBONZIZVRVLVSBCDVQVSPZFVQPZQAVSBDWAGRZSTVNVR
+      VOUAZVQDUBZVPVKVLWEVMVKVLUADVQABDVQWBGUCUDTVNWDVQDLVPUEZWEVPUFVNWDWFBUGIZ
+      VQVSIZEVSIZJVTVQEBUHNZKZWDWFUIVNVNWGWHWIVKVLWGVMBUJZUKVKVLWHVMVSBVQWAWBUL
+      UKVMVKWIVLAVSBEWAGRUMUNVLVKVTVMWCUOVKVMWKVLVKVMWIWKAVSWJHBEVQWAWBWJPZGUPU
+      QURVSWJBCVQEDWAFWMUSUTVAVPVQDVBVCVDVEVPDDCKZVOVNDEDCVFVKVLWNVMWGVTWNVKVLV
+      SBCDWAFVGWLWCVHTVIVJ $.
+      $( [13-Oct-2011] $)
+  $}
+
+  ${
+    $d l y A $.  $d l x B $.  $d l x y L $.  $d l R $.  $d l Z $.
+    isatlat.1 $e |- B = ( base ` L ) $.
+    isatlat.2 $e |- R = ( le ` L ) $.
+    isatlat.3 $e |- Z = ( 0. ` L ) $.
+    isatlat.4 $e |- A = ( AtomsNEW ` L ) $.
+    $( The predicate "is an atomic lattice."  Every nonzero element is less
+       than or equal to an atom. $)
+    isatlat $p |- ( L e. AtLat <-> ( L e. LatNEW
+        /\ A. x e. B ( x =/= Z -> E. y e. A y R x ) ) ) $=
+      ( vl cv cp0 cfv wne cple wbr catm wrex wi cbs wral clat cal wceq fveq2
+      syl6eqr neeq2d wb breq syl rexeqbidv imbi12d raleqbidv df-atlat elrab2 )
+      AMZLMZNOZPZBMZURUSQOZRZBUSSOZTZUAZAUSUBOZUCURGPZVBURERZBCTZUAZADUCLFUDUEU
+      SFUFZVGVLAVHDVMVHFUBODUSFUBUGHUHVMVAVIVFVKVMUTGURVMUTFNOGUSFNUGJUHUIVMVDV
+      JBVECVMVEFSOCUSFSUGKUHVMVCEUFVDVJUJVMVCFQOEUSFQUGIUHVBURVCEUKULUMUNUOABLU
+      PUQ $.
+      $( [18-Sep-2011] $)
+  $}
+
+  ${
+    $d y A $.  $d x B $.  $d x y L $.
+    isatlati.1 $e |- L e. LatNEW $.
+    isatlati.2 $e |- B = ( base ` L ) $.
+    isatlati.3 $e |- R = ( le ` L ) $.
+    isatlati.4 $e |- Z = ( 0. ` L ) $.
+    isatlati.5 $e |- A = ( AtomsNEW ` L ) $.
+    isatlati.6 $e |- ( ( x e. B /\ x =/= Z ) ->
+                          E. y e. A y R x ) $.
+    $( Properties that determine an atomic lattice. $)
+    isatlati $p |- L e. AtLat $=
+      ( cal wcel clat cv wne wbr wrex wi wral isatlat ex rgen mpbir2an ) FNOFPO
+      AQZGRZBQUGESBCTZUAZADUBABCDEFGIJKLUCHUJADUGDOUHUIMUDUEUF $.
+      $( [18-Sep-2011] $)
+  $}
+
+  $(
+  @{
+    @d l y A @.  @d l x B @.  @d l C @.  @d l J @.  @d l x y L @.  @d l M @.
+    @d l Z @.
+    iscvlat.1 @e |- B = ( base ` L ) @.
+    iscvlat.2 @e |- J = ( join ` L ) @.
+    iscvlat.3 @e |- M = ( meet ` L ) @.
+    iscvlat.4 @e |- Z = ( 0. ` L ) @.
+    iscvlat.5 @e |- C = ( <oNEW ` L ) @.
+    iscvlat.6 @e |- A = ( AtomsNEW ` L ) @.
+    @( The predicate "is a lattice with the covering property". @)
+    iscvlat @p |- ( L e. CvLat <-> ( L e. AtLat
+      /\ A. x e. B A. y e. A ( ( x M y ) = Z -> x C ( x J y ) ) ) ) @=
+      ( vl cv cmee cfv co cp0 wceq cjn ccvr wbr wi catm wral cbs cal clc fveq2
+      syl6eqr opreqd eqeq12d wb breq syl breq2d bitrd imbi12d raleqbidv
+      df-cvlat elrab2 ) AQZBQZPQZRSZTZVGUASZUBZVEVEVFVGUCSZTZVGUDSZUEZUFZBVGUGS
+      ZUHZAVGUISZUHVEVFHTZIUBZVEVEVFFTZEUEZUFZBCUHZADUHPGUJUKVGGUBZVRWEAVSDWFVS
+      GUISDVGGUIULJUMWFVPWDBVQCWFVQGUGSCVGGUGULOUMWFVKWAVOWCWFVIVTVJIWFVHHVEVFW
+      FVHGRSHVGGRULLUMUNWFVJGUASIVGGUAULMUMUOWFVOVEVMEUEZWCWFVNEUBVOWGUPWFVNGUD
+      SEVGGUDULNUMVEVMVNEUQURWFVMWBVEEWFVLFVEVFWFVLGUCSFVGGUCULKUMUNUSUTVAVBVBB
+      APVCVD @.
+      @( [18-Sep-2011] @)
+  @}
+
+  @{
+    @d y A @.  @d x y B @.  @d x y L @.
+    iscvlati.0 @e |- L e. AtLat @.
+    iscvlati.1 @e |- B = ( base ` L ) @.
+    iscvlati.2 @e |- J = ( join ` L ) @.
+    iscvlati.3 @e |- M = ( meet ` L ) @.
+    iscvlati.4 @e |- Z = ( 0. ` L ) @.
+    iscvlati.5 @e |- C = ( <oNEW ` L ) @.
+    iscvlati.6 @e |- A = ( AtomsNEW ` L ) @.
+    iscvlati.7 @e |- ( ( x e. B /\ y e. A /\ ( x M y ) = Z )
+                          -> x C ( x J y ) ) @.
+    @( Properties that a lattice with the covering property. @)
+    iscvlati @p |- L e. CvLat @=
+      ( clc wcel cal cv co wceq wbr wi wral iscvlat 3expia rgen2 mpbir2an ) GRS
+      GTSAUAZBUAZHUBIUCZUKUKULFUBEUDZUEZBCUFADUFABCDEFGHIKLMNOPUGJUOABDCUKDSULC
+      SUMUNQUHUIUJ @.
+      @( [18-Sep-2011] @)
+  @}
+  $)
+
+  ${
+    $d l x y z A $.  $d l x y z B $.  $d l J $.  $d l x y z L $.  $d l R $.
+    $d l S $.  $d l U $.  $d l Z $.
+    ishlat.1 $e |- B = ( base ` L ) $.
+    ishlat.2 $e |- R = ( le ` L ) $.
+    ishlat.3 $e |- S = ( lt ` L ) $.
+    ishlat.4 $e |- J = ( join ` L ) $.
+    ishlat.6 $e |- Z = ( 0. ` L ) $.
+    ishlat.7 $e |- U = ( 1. ` L ) $.
+    ishlat.8 $e |- A = ( AtomsNEW ` L ) $.
+    $( The predicate "is a Hilbert lattice," which is a complete, atomic
+       lattice satisfying the superposition principle and minimum height. $)
+    ishlat $p |- ( L e. HL <-> ( ( L e. OML /\ L e. ComplLat /\ L e. AtLat )
+      /\ ( A. x e. A A. y e. A ( x =/= y ->
+             ( E. z e. A ( z =/= x /\ z =/= y /\ z R ( x J y ) )
+            /\ A. z e. A ( ( z =/= x /\ z =/= y /\ z R ( x J y ) )
+               -> x R ( y J z ) ) ) )
+      /\ E. x e. B E. y e. B E. z e. B
+            ( ( Z S x /\ x S y ) /\ ( y S z /\ z S U ) ) ) ) ) $=
+      ( vl chlt wcel coml ccla cin cal cv wne co wbr w3a wrex wi wral wa cjn
+      cfv cple catm cp0 cplt cp1 cbs wceq fveq2 syl6eqr wb breq syl opreqd
+      breq2d bitrd 3anbi3d rexeqbidv imbi12d raleqbidv anbi12d imbi2d breq1d
+      df-hlat elrab2 elin anbi1i df-3an 3bitr4ri bitr4i ) JTUAJUBUCUDZUEUDZUAZA
+      UFZBUFZUGZCUFZWIUGZWLWJUGZWLWIWJIUHZFUIZUJZCDUKZWQWIWJWLIUHZFUIZULZCDUMZU
+      NZULZBDUMZADUMZKWIGUIZWIWJGUIZUNZWJWLGUIZWLHGUIZUNZUNZCEUKZBEUKZAEUKZUNZU
+      NJUBUAZJUCUAZJUEUAZUJZXQUNWKWMWNWLWIWJSUFZUOUPZUHZYBUQUPZUIZUJZCYBURUPZUK
+      ZYGWIWJWLYCUHZYEUIZULZCYHUMZUNZULZBYHUMZAYHUMZYBUSUPZWIYBUTUPZUIZWIWJYSUI
+      ZUNZWJWLYSUIZWLYBVAUPZYSUIZUNZUNZCYBVBUPZUKZBUUHUKZAUUHUKZUNXQSJWGTYBJVCZ
+      YQXFUUKXPUULYPXEAYHDUULYHJURUPDYBJURVDRVEZUULYOXDBYHDUUMUULYNXCWKUULYIWRY
+      MXBUULYGWQCYHDUUMUULYFWPWMWNUULYFWLYDFUIZWPUULYEFVCZYFUUNVFUULYEJUQUPFYBJ
+      UQVDMVEZWLYDYEFVGVHUULYDWOWLFUULYCIWIWJUULYCJUOUPIYBJUOVDOVEZVIVJVKVLZVMU
+      ULYLXACYHDUUMUULYGWQYKWTUURUULYKWIYJFUIZWTUULUUOYKUUSVFUUPWIYJYEFVGVHUULY
+      JWSWIFUULYCIWJWLUUQVIVJVKVNVOVPVQVOVOUULUUJXOAUUHEUULUUHJVBUPEYBJVBVDLVEZ
+      UULUUIXNBUUHEUUTUULUUGXMCUUHEUUTUULUUBXIUUFXLUULYTXGUUAXHUULYTYRWIGUIZXGU
+      ULYSGVCZYTUVAVFUULYSJUTUPGYBJUTVDNVEZYRWIYSGVGVHUULYRKWIGUULYRJUSUPKYBJUS
+      VDPVEVRVKUULUVBUUAXHVFUVCWIWJYSGVGVHVPUULUUCXJUUEXKUULUVBUUCXJVFUVCWJWLYS
+      GVGVHUULUUEWLUUDGUIZXKUULUVBUUEUVDVFUVCWLUUDYSGVGVHUULUUDHWLGUULUUDJVAUPH
+      YBJVAVDQVEVJVKVPVPVMVMVMVPABCSVSVTYAWHXQJWFUAZXTUNXRXSUNZXTUNWHYAUVEUVFXT
+      JUBUCWAWBJWFUEWAXRXSXTWCWDWBWE $.
+      $( [18-Sep-2011] $)
+  $}
+
+  ${
+    $d x y z A $.  $d x y z B $.  $d x y z L $.
+    ishlati.a $e |- L e. OML $.
+    ishlati.b $e |- L e. ComplLat $.
+    ishlati.c $e |- L e. AtLat $.
+    ishlati.1 $e |- B = ( base ` L ) $.
+    ishlati.2 $e |- R = ( le ` L ) $.
+    ishlati.3 $e |- S = ( lt ` L ) $.
+    ishlati.4 $e |- J = ( join ` L ) $.
+    ishlati.6 $e |- Z = ( 0. ` L ) $.
+    ishlati.7 $e |- U = ( 1. ` L ) $.
+    ishlati.8 $e |- A = ( AtomsNEW ` L ) $.
+    ishlati.9 $e |- A. x e. A A. y e. A ( x =/= y ->
+             ( E. z e. A ( z =/= x /\ z =/= y /\ z R ( x J y ) )
+            /\ A. z e. A ( ( z =/= x /\ z =/= y /\ z R ( x J y ) )
+               -> x R ( y J z ) ) ) ) $.
+    ishlati.10 $e |- E. x e. B E. y e. B E. z e. B
+            ( ( Z S x /\ x S y ) /\ ( y S z /\ z S U ) ) $.
+    $( Properties that determine a Hilbert lattice. $)
+    ishlati $p |- L e. HL $=
+      ( chlt wcel coml ccla cal w3a cv wne co wbr wrex wi wral wa ishlat
+      3pm3.2i pm3.2i mpbir2an ) JUDUEJUFUEZJUGUEZJUHUEZUIAUJZBUJZUKCUJZVEUKVGVF
+      UKVGVEVFIULFUMUIZCDUNVHVEVFVGIULFUMUOCDUPUQUOBDUPADUPZKVEGUMVEVFGUMUQVFVG
+      GUMVGHGUMUQUQCEUNBEUNAEUNZUQABCDEFGHIJKOPQRSTUAURVBVCVDLMNUSVIVJUBUCUTVA
+      $.
+      $( [18-Sep-2011] $)
+  $}
+
+

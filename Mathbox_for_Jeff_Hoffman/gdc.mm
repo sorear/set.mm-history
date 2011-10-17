@@ -15,7 +15,7 @@ $)
     nnssi2 $p |- ( ( A e. NN /\ B e. NN ) -> ps ) $=
       ( cn wcel wa w3a sseli 3anim123i 3anidm23 syl ) CIJZDIJZKCEJZDEJZALZBQRUA
       QSRTRAIECFMIEDFMGNOHP $.
-      $( [17-Jun-2008] $) $( [17-Jun-2008] $)
+      $( [17-Jun-2008] $)
   $}
 
   ${
@@ -27,7 +27,7 @@ $)
     nnssi3 $p |- ( ( A e. NN /\ B e. NN /\ C e. NN ) -> ps ) $=
       ( wcel w3a cn sseli 3anim123i 3ad2ant3 sylanc ) CFJZDFJZEFJZKABCLJZDLJZEL
       JZKITQUARUBSLFCGMLFDGMLFEGMNUBTAUAHOP $.
-      $( [17-Jun-2008] $) $( [17-Jun-2008] $)
+      $( [17-Jun-2008] $)
   $}
 
   $( Please add description here. $)
@@ -45,7 +45,7 @@ $)
     UMCUNZACUOUPWRWOBCUJUMWSBCUOUPUQURWOWNWQWDVSUSUTVAVBUCVCVDVEVRWIWGOWBVRWHWF
     DBUJEZAUJEZCUJEZWRKZWHWFUKVRBACVFVPVOWTVQBVGVHVOVPXAVQAVGVIVQVOXCVPVQXBWRCV
     GWSVJVKVLVBVMVN $.
-    $( [17-Jun-2008] $) $( [17-Jun-2008] $)
+    $( [17-Jun-2008] $)
 
   $( A factor of a natural number cannot exceed it. $)
   nndivlub $p |- ( ( A e. NN /\ B e. NN )
@@ -56,7 +56,7 @@ $)
     JKZCDZBALIZMUSURVFUSVBURVEUSUTVABNBOPURVCVDANAOPQRVFVISVGLIZVHVFVIAAJKZVGLI
     ZVJVBVEVIVLTBAAUAUBVEVLVJTZVBAUCDZAGUDZVMVEVNVOEVKSVGLAUEUFVCVNVDAUGUHGFDVC
     VDVOUIGAUJUKULUMUNVGUOUPUQ $.
-    $( [17-Jun-2008] $) $( [17-Jun-2008] $)
+    $( [17-Jun-2008] $)
 
   $c gcdOLD $. $( The greatest common divisor $)
 
@@ -79,12 +79,12 @@ $)
     ee7.2aOLD $p |- ( ( A e. NN /\ B e. NN )
          -> ( A < B -> gcdOLD ( A , B ) = gcdOLD ( A , ( B - A ) ) ) ) $=
       ( vx cn wcel wa clt wbr wgcdOLD cmin co wceq cv cdiv crab csup wb wi w3a
-      nndivsub exp32 com23 3expia imp pm5.32d rabbidv supeq1 syl df-gcdOLD
+      nndivsub exp32 com23 3expia imp pm5.32d rabbidva supeq1 syl df-gcdOLD
       3eqtr4g ex ) ADEZBDEZFZABGHZABIZABAJKZIZLUNUOFZACMZNKDEZBUTNKDEZFZCDOZDGP
       ZVAUQUTNKDEZFZCDOZDGPZUPURUSVDVHLVEVILUSVCVGCDUSUTDEZFVAVBVFUSVJVAVBVFQZR
       ZUNUOVJVLRUNVJUOVLULUMVJUOVLRULUMVJSZVAUOVKVMVAUOVKABUTTUAUBUCUBUDUDUEUFD
       VDVHGUGUHCABUICAUQUIUJUK $.
-      $( [17-Jun-2008] $) $( [17-Jun-2008] $)
+      $( [17-Jun-2008] $)
   $}
 
 $( (End of Jeff Hoffman's mathbox.) $)

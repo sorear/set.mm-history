@@ -5,33 +5,61 @@ $(
 $)
 
   $c mxl $.
-  $c ge $.
+  $c mnl $.
   $c ub $.
+  $c lb $.
   $c Preset $.
+  $c ge $.
+  $c se $.
+  $c AntiDir $.
 
-  $( Extend class notation with the class of all the preorder. $)
+  $( Extend class notation with the class of all the presets. $)
   cpreset $a class Preset $.
 
   $( Extend class notation with a function that returns the maximal elements of
      a preset. $)
   cmxl $a class mxl $.
 
-  $( Extend class notation with a function that returns the greatest element of
-     a poset. $)
-  cge $a class ge $.
+  $( Extend class notation with a function that returns the minimal elements of
+     a preset. $)
+  cmnl $a class mnl $.
 
   $( Extend class notation with a function that returns the upper bounds of a
      part of a preset. $)
   cub $a class ub $.
 
-  $( Define the class of all preorders.  A preorder is a transitive and
-     reflexive relation. $)
+  $( Extend class notation with a function that returns the lower bounds of a
+     part of a preset. $)
+  clb $a class lb $.
+
+  $( Extend class notation with a function that returns the greatest element of
+     a poset. $)
+  cge $a class ge $.
+
+  $( Extend class notation with a function that returns the smallest element of
+     a poset. $)
+  cse $a class se $.
+
+  $( Extend class notation with the class of all the anti-directions. $)
+  cantidir $a class AntiDir $.
+
+  $( Define the class of all presets.  A preset is a transitive and reflexive
+     relation.  ("preset" is the short for preordered set.) $)
   df-prs $a |- Preset = { r | ( Rel r /\ ( r o. r ) C_ r /\
               ( _I |` U. U. r ) C_ r ) } $.
 
   ${
+    $d r x y z $.
+    $( An antidirected set (also called a set filtering on the left by
+       Bourbaki) is a preset whose every pair of elements has a lower bound. $)
+    df-antidir $a |- AntiDir = ( Preset i^i
+     { r | A. x e. U. U. r A. y e. U. U. r
+          E. z e. U. U. r z e. ( r lb { x , y } ) } ) $.
+  $}
+
+  ${
     $d R r $.
-    $( The predicate "is a preorder". $)
+    $( The predicate "is a preset". $)
     isprs $p |- ( R e. A -> ( R e. Preset <->
        ( Rel R /\ ( R o. R ) C_ R /\ ( _I |` U. U. R ) C_ R ) ) ) $=
       ( vr cv wrel ccom wss cid cuni cres w3a cpreset wceq releq wb coeq1
@@ -39,88 +67,96 @@ $)
       elab2g ) CDZEZUHUHFZUHGZHUHIZIZJZUHGZKBEZBBFZBGZHBIZIZJZBGZKCBLAUHBMZUIUP
       UKURUOVBUHBNUJUQMVCUKUROVCUJBUHFUQUHBUHPUHBBQRUJUQUHBSTUNVAMZVCUOVBOVCUMU
       TMVDVCULUSUHBUAUBUMUTHUCUDUNVAUHBSTUECUFUG $.
-      $( [1-May-2011] $) $( [1-May-2011] $)
+      $( [1-May-2011] $)
   $}
 
-  $( A preorder is a relation. $)
+  $( A preset is a relation. $)
   preorel $p |- ( R e. Preset -> Rel R ) $=
     ( cpreset wcel wrel ccom wss cid cuni cres w3a isprs ibi 3simp1d ) ABCZADZA
     AEAFZGAHHIAFZNOPQJBAKLM $.
-    $( [18-May-2011] $) $( [18-May-2011] $)
+    $( [18-May-2011] $)
 
   ${
-    preoref.1 $e |- X = U. U. R $.
-    $( A preorder is reflexive. $)
-    preoref1 $p |- ( R e. Preset -> ( _I |` X ) C_ R ) $=
-      ( cpreset wcel cid cuni cres wrel ccom wss w3a isprs ibi 3simp3d wceq
-      reseq2 ax-mp syl5ss ) ADEZFAGGZHZAFBHZTAIZAAJAKZUBAKZTUDUEUFLDAMNOBUAPUCU
-      BPCBUAFQRS $.
-      $( [18-May-2011] $) $( [18-May-2011] $)
+    $d R x $.
+    $( The domain of a preset equals its field. $)
+    preodom2 $p |- ( R e. Preset -> dom R = U. U. R ) $=
+      ( vx cpreset wcel cdm cuni wceq wrel ccom wss cid cres w3a isprs cv wbr
+      wral domfldref ref3w sylan2br 3adant2 syl6bi pm2.43i ) ACDZAEAFFZGZUDUDAH
+      ZAAIAJZKUELAJZMUFCANUGUIUFUHUGBOZUJAPBUEQUFUIBARBASTUAUBUC $.
+        $( [22-May-2011] $)
+  $}
+
+  ${
+    preoref12.1 $e |- X = dom R $.
+    $( The field of a preset is a set. $)
+    ppldrels $p |- ( R e. Preset -> X e. _V ) $=
+      ( cpreset wcel cdm cvv dmexg syl5eqel ) ADEAFGBADHCI $.
+      $( [19-Sep-2011] $)
+
+    $( A preset is reflexive. $)
+    preoref12 $p |- ( R e. Preset -> ( _I |` X ) C_ R ) $=
+      ( cpreset wcel cid cres cuni wceq cdm preodom2 syl5eq reseq2 syl wrel
+      ccom wss w3a isprs ibi 3simp3d eqsstrd ) ADEZFBGZFAHHZGZAUCBUEIUDUFIUCAJU
+      EBAKCLBUEFMNUCAOZAAPAQZUFAQZUCUGUHUIRDASTUAUB $.
+      $( [18-May-2011] $)
 
     ${
       $d A x $.  $d R x $.
-      $( A preorder is reflexive. $)
-      preoref2 $p |- ( ( R e. Preset /\ A e. X ) -> A R A ) $=
-        ( vx cpreset wcel wbr cid cres wss wi preoref1 cv cuni wral ref3w wceq
-        eqcomi reseq2 ax-mp sseq1i bitri eleq2i wb breq12 anidms rcla4va ex
-        sylbi com12 sylbir syl imp ) BFGZACGZAABHZUOICJZBKZUPUQLZBCDMUSENZVABHZ
-        EBOOZPZUTVDIVCJZBKUSEBQVEURBVCCRVEURRCVCDSVCCITUAUBUCUPVDUQUPAVCGZVDUQL
-        CVCADUDVFVDUQVBUQEAVCVAARVBUQUEVAAVAABUFUGUHUIUJUKULUMUN $.
-        $( [22-May-2011] $) $( [22-May-2011] $)
+      $( A preset is reflexive. $)
+      preoref22 $p |- ( ( R e. Preset /\ A e. X ) -> A R A ) $=
+        ( vx cpreset wcel wbr cdm cuni wceq cid cres wss wi wa eqtr cv wral
+        ref3w wb breq12 anidms rcla4va expcom sylbir reseq2 sseq1d eleq2
+        imbi1d imbi12d mpbiri syl mpan preodom2 preoref12 sylc imp ) BFGZACGZAA
+        BHZBIZBJJZKZLCMZBNZUTVAOZUSCVBKZVDVFVGOZDVHVDPCVCKZVICVBVCQVJVILVCMZBNZ
+        AVCGZVAOZOVLERZVOBHZEVCSZVNEBTVMVQVAVPVAEAVCVOAKVPVAUAVOAVOABUBUCUDUEUF
+        VJVFVLVGVNVJVEVKBCVCLUGUHVJUTVMVACVCAUIUJUKULUMUNBUOBCDUPUQUR $.
+        $( [22-May-2011] $)
     $}
 
     ${
       $d R x $.
-      $( The domain of a preorder equals its field. $)
-      preodom $p |- ( R e. Preset -> dom R = X ) $=
-        ( vx cpreset wcel cdm wceq wrel ccom wss cid cuni cres w3a isprs cv
-        wbr wral wa domfldref syl6eqr ref3w sylan2br 3adant2 syl6bi pm2.43i )
-        AEFZAGZBHZUHUHAIZAAJAKZLAMMZNAKZOUJEAPUKUNUJULUKDQZUOARDUMSZUJUNUKUPTUI
-        UMBDAUACUBDAUCUDUEUFUG $.
-        $( [22-May-2011] $) $( [22-May-2011] $)
+      $( The range of a preset equals its field. $)
+      preoran2 $p |- ( R e. Preset -> ran R = X ) $=
+        ( vx cpreset wcel crn wceq wrel ccom wss cid cuni cres w3a isprs cv
+        wbr wral wa cdm domrngref syl5req ref3w sylan2br 3adant2 syl6bi
+        pm2.43i ) AEFZAGZBHZUIUIAIZAAJAKZLAMMZNAKZOUKEAPULUOUKUMULDQZUPARDUNSZU
+        KUOULUQTAUAUJBDAUBCUCDAUDUEUFUGUH $.
+        $( [22-May-2011] $)
     $}
 
-    ${
-      $d R x $.
-      $( The range of a preorder equals its field. $)
-      preoran $p |- ( R e. Preset -> ran R = X ) $=
-        ( vx cpreset wcel cdm crn wrel ccom wss cid cuni cres w3a wceq isprs
-        ibi cv wbr wral domrngref ref3w sylan2br 3adant2 syl preodom eqtr3d )
-        AEFZAGZAHZBUIAIZAAJAKZLAMMZNAKZOZUJUKPZUIUPEAQRULUOUQUMULDSZURATDUNUAUQ
-        UODAUBDAUCUDUEUFABCUGUH $.
-        $( [22-May-2011] $) $( [22-May-2011] $)
-    $}
+    $( If ` A <_ B ` then ` A ` belongs to the field of the preset. $)
+    pre1befi2 $p |- ( ( R e. Preset /\ A R B ) -> A e. X ) $=
+      ( cpreset wcel wbr wa cdm wrel releldm preorel sylan syl6eleqr ) CFGZABCH
+      ZIACJZDCKQARGPABCLCMNEO $.
+      $( [23-May-2011] $)
 
-    $( If ` <_ ` is a preorder and ` A <_ B ` then ` A ` belongs to the field
-       of the preorder. $)
-    pre1befi $p |- ( ( R e. Preset /\ A R B ) -> A e. X ) $=
-      ( cpreset wcel wbr cdm wceq wi preodom eqcom biimpi eleq2d imbi2d wrel
-      preorel releldm ex syl syl5bir mpcom imp ) CFGZABCHZADGZCIZDJZUEUFUGKZCDE
-      LUIUJUFAUHGZKZUEUIUGUKUFUIDUHAUIDUHJUHDMNOPUECQZULCRUMUFUKABCSTUAUBUCUD
-      $.
-      $( [23-May-2011] $) $( [23-May-2011] $)
-
-    $( If ` <_ ` is a preorder and ` A <_ B ` then ` B ` belongs to the field
-       of the preorder. $)
-    pre2befi $p |- ( ( R e. Preset /\ B e. C /\ A R B ) -> B e. X ) $=
-      ( cpreset wcel wbr crn wceq wi preoran eqcom biimpi eleq2d imbi2d wrel
-      relelrng 3exp preorel syl5com syl5bir mpcom 3imp ) DGHZBCHZABDIZBEHZDJZEK
-      ZUFUGUHUILZLZDEFMUKUMUGUHBUJHZLZLUFUKULUOUGUKUIUNUHUKEUJBUKEUJKUJENOPQQUG
-      DRZUOUFUGUPUHUNABCDSTDUAUBUCUDUE $.
-      $( [23-May-2011] $) $( [23-May-2011] $)
-
+    $( If ` A <_ B ` then ` B ` belongs to the field of the preset. $)
+    pre2befi2 $p |- ( ( R e. Preset /\ B e. C /\ A R B ) -> B e. X ) $=
+      ( cpreset wcel wbr w3a crn wrel wi relelrng 3exp preorel syl5com 3imp wb
+      preoran2 eqcomd eleq2d 3ad2ant1 mpbird ) DGHZBCHZABDIZJBEHZBDKZHZUEUFUGUJ
+      UFDLZUGUJMUEUFUKUGUJABCDNODPQRUEUFUHUJSUGUEEUIBUEUIEDEFTUAUBUCUD $.
+      $( [23-May-2011] $)
   $}
 
-  $( A preorder is transitive. $)
+  ${
+    domcnvpre.1 $e |- X = dom R $.
+    $( If ` R ` is a preset, its domain and the domain of its converse are
+       equal. $)
+    domcnvpre $p |- ( R e. Preset -> X = dom `' R ) $=
+      ( cpreset wcel crn ccnv cdm preoran2 df-rn syl5reqr ) ADEAFBAGHABCIAJK $.
+      $( [19-Sep-2011] $)
+  $}
+
+  $( A preset is transitive. $)
   preotr1 $p |- ( R e. Preset -> ( R o. R ) C_ R ) $=
     ( cpreset wcel wrel ccom wss cid cuni cres w3a isprs ibi 3simp2d ) ABCZADZA
     AEAFZGAHHIAFZNOPQJBAKLM $.
-    $( [22-May-2011] $) $( [22-May-2011] $)
+    $( [22-May-2011] $)
 
 
   ${
     $d A x y z $.  $d B x y z $.  $d C x y z $.  $d R x y z $.
-    $( A preorder is transitive. $)
+    $( A preset is transitive. $)
     preotr2 $p |- ( ( R e. Preset /\ ( A R B /\ B R C /\ C e. D ) )
       -> A R C ) $=
       ( vx vy vz cpreset wcel wbr w3a ccom wss wi preotr1 cv wa wal cotr wrel
@@ -135,138 +171,282 @@ $)
       ZLZWBWRWCVNXCVSVJWAVKXCVQAVRBEWTXAXBUFZWTXAXBUGZUHXCVRBVTCEXEWTXAXBUIZUHU
       JXCVQAVTCEXDXFUHUKULUMUNUOUPUQURUSUTUQVAVBURVBVCVDUTUQVAVBVCVBVAVEVCUTUOV
       FVGVH $.
-      $( [23-May-2011] $) $( [23-May-2011] $)
+      $( [23-May-2011] $)
   $}
 
-  $( The composition of a preorder with itself. $)
+  $( The composite of a preset with itself. $)
   altprs2 $p |- ( R e. Preset -> ( R o. R ) = R ) $=
     ( cpreset wcel ccom wceq wrel wss cid cuni cres w3a isprs 3simp2
     reflincror 3adant2 eqssd syl6bi pm2.43i ) ABCZAADZAEZSSAFZTAGZHAIIJAGZKZUAB
     ALUETAUBUCUDMUBUDATGUCANOPQR $.
-    $( [13-May-2011] $) $( [13-May-2011] $)
+    $( [13-May-2011] $)
 
-  $( A partial order is a preorder.  (The proof was shortened by Andrew Salmon,
-     12-Aug-2011.) $)
+  $( A partial order is a preset. $)
   posprs $p |- Poset C_ Preset $=
-    ( vr cv wrel ccom wss ccnv cin cid cuni cres wceq w3a cab cps cpreset
-    inss1 sseq1 mpbii 3anim3i ss2abi df-ps df-prs 3sstr4i ) ABZCZUDUDDUDEZUDUDF
-    ZGZHUDIIJZKZLZAMUEUFUIUDEZLZAMNOUKUMAUJULUEUFUJUHUDEULUDUGPUHUIUDQRSTAUAAUB
-    UC $.
-    $( [12-Aug-2011] $) $( [1-May-2011] $)
-
-  $( A partial order is a preorder. $)
-  posprsOLD $p |- Poset C_ Preset $=
     ( vr cv wrel ccom wss ccnv cin cid cuni cres wceq w3a cab cps cpreset
     inss1 sseq1 mpbiri eqcoms 3anim3i ss2abi df-ps df-prs 3sstr4i ) ABZCZUEUEDU
     EEZUEUEFZGZHUEIIJZKZLZAMUFUGUJUEEZLZAMNOULUNAUKUMUFUGUMUJUIUJUIKUMUIUEEUEUH
     PUJUIUEQRSTUAAUBAUCUD $.
-    $( [1-May-2011] $) $( [1-May-2011] $)
+    $( [1-May-2011] $)
+  $( A poset is a preset. $)
+  posispre $p |- ( A e. Poset -> A e. Preset ) $=
+    ( cps cpreset posprs sseli ) BCADE $.
+    $( [19-Sep-2011] $)
+
+
+  $( The empty set is a poset. $)
+  empos $p |- (/) e. Poset $=
+    ( c0 cps wcel wrel ccom wss ccnv cin cid cuni cres wceq cvv w3a wb 0ex
+    isps ax-mp rel0 co01 eqimssi cnv0 ineq2i inidm uni0 unieqi eqtri reseq2
+    res0 eqtr2i 3eqtri mpbir3an ) ABCZADZAAEZAFZAAGZHZIAJZJZKZLZAMCUMUNUPVBNOPM
+    AQRSUOAATUAURAAHAVAUQAAUBUCAUDVAIAKZAUTALVAVCLUTUSAUSAUEUFUEUGUTAIUHRIUIUJU
+    KUL $.
+    $( [7-Oct-2008] $) $( [6-Oct-2008] $)
+
+  $( The converse of a preset is a preset.  In the general case
+     ` ( ``' R e. Preset -> R e. Preset ) ` is not true.  See ~ dupre2 for a
+     special case where the property holds. $)
+  dupre1 $p |- ( R e. Preset -> `' R e. Preset ) $=
+    ( cpreset wcel ccnv wrel ccom wss cid cuni cres w3a relcnv a1i12 preorel
+    a1d impbid wb reltrncnv syl relrefcnv 3anbi123d isprs cvv cnvexg 3bitr4d
+    ibi ) ABCZADZBCZUGAEZAAFAGZHAIIJAGZKUHEZUHUHFUHGZHUHIIJUHGZKZUGUIUGUJUMUKUN
+    ULUOUGUJUMUGUJUMALMUGUJUMANZOPUGUJUKUNQUQARSUGUJULUOQUQATSUABAUBUGUHUCCUIUP
+    QABUDUCUHUBSUEUF $.
+    $( [19-Sep-2011] $) $( [5-Jan-2009] $)
+
+  $( The converse of a preset is a preset. $)
+  dupre2 $p |- ( Rel R -> ( R e. Preset <-> `' R e. Preset ) ) $=
+    ( wrel cpreset wcel ccnv dupre1 wceq wi dfrel2 eleq1 syl5bir eqcoms sylbi
+    impbid2 ) ABZACDZAEZCDZAFOQEZAGRPHZAITASASGPSCDRASCJQFKLMN $.
+    $( [19-Sep-2011] $)
+
+  $( The converse of a poset is a poset.  In the general case
+     ` ( ``' R e. Poset -> R e. Poset ) ` is not true.  See ~ dupos2 for a
+     special case where the property holds. $)
+  dupos1 $p |- ( R e. Poset -> `' R e. Poset ) $=
+    ( cps wcel ccnv wrel ccom wss cin cid cuni cres wceq w3a isps wi relcnv
+    a1i cnvss cnvco syl5ssr dfrel2 ineq2 eqeq1d imbi2d wa reseq2 eqeq2d biimpa
+    incom syl5eq ex syl5bir sylbi psrel relcnvfld syl sylc 3anim123d sylbid
+    pm2.43i cvv wb cnvexg mpbird ) ABCZADZBCZVFEZVFVFFZVFGZVFVFDZHZIVFJJZKZLZMZ
+    VEVPVEVEAEZAAFZAGZAVFHZIAJJZKZLZMVPBANVEVQVHVSVJWCVOVQVHOVEVHVQAPQQVSVJOVEV
+    SVRDVFVIVRARAASTQVQWAVMLZWCVOOZVEVQVKALZWDWEOAUAWFWEWCVFAHZVNLZOWDWFVOWHWCW
+    FVLWGVNVKAVFUBUCUDWDWCWHWDWCUEVTVNWGWDWCVTVNLWDWBVNVTWAVMIUFUGUHVFAUIUJUKUL
+    UMAUNZVEVQWDWIAUOUPUQURUSUTVEVFVACVGVPVBABVCVAVFNUPVD $.
+    $( [28-Jan-2009] $) $( [5-Jan-2009] $)
+
+  $( The converse of a poset is a poset. $)
+  dupos2 $p |- ( Rel R -> ( R e. Poset <-> `' R e. Poset ) ) $=
+    ( wrel cps wcel ccnv dupos1 wceq wi dfrel2 eleq1 biimpd sylbi syl5 impbid2
+    ) ABZACDZAEZCDZAFOQEZCDZPROSAGZTPHAIUATPSACJKLQFMN $.
+    $( [28-Jan-2009] $) $( [5-Jan-2009] $)
+
+
+  ${
+    $d A r x y $.  $d R r x y $.
+    $( Value of an infimum under a weak ordering. $)
+    nfwval $p |- ( ( R e. U /\ A e. W ) -> ( R infw A ) = ( `' R supw A ) ) $=
+      ( vr vx vy cv ccnv cspw co cinf oprex wceq cnveq opreq1d opreq2 df-nfw
+      oprabval5 ) EFGBACDEHZIZFHZJKBIZAJKLUCUBJKUCAJMTBNUAUCUBJTBOPUBAUCJQFGERS
+      $.
+      $( [7-Sep-2009] $) $( [6-Sep-2009] $)
+  $}
 
   ${
     $d r y a b $.
     $( Define the maximal elements of a set.  I.e. the elements of the set that
-       are not smaller than the other elements.  Meaningful is ` r ` is at
-       least a preorder.  Read ` ( mxl `` R ) ` as the maximal elements of the
-       set ` U. U. R ` preordered by ` R ` .  To have the minimal elements use
-       the idiom ` ( mxl `` ``' R ) ` .  Bourbaki E III 8.  Experimental. $)
+       are not smaller than the other elements.  Meaningful if ` r ` is at
+       least a preset.  Read ` ( mxl `` R ) ` as the maximal elements of the
+       set ` U. U. R ` preordered by ` R ` .  Bourbaki E III 8.
+       Experimental. $)
     df-mxl $a |- mxl = { <. r , y >. |
        y = { a e. U. U. r | A. b e. U. U. r ( a r b -> a = b ) } } $.
+  $}
+
+  ${
+    $d r y a b $.
+    $( Define the minimal elements of a set.  I.e. the elements of the set that
+       are not greater than the other elements.  Meaningful is ` r ` is at
+       least a preset.  Read ` ( mnl `` R ) ` as the minimal elements of the
+       set ` U. U. R ` preordered by ` R ` .  Bourbaki E III 8.
+       Experimental. $)
+    df-mnl $a |- mnl = { <. r , y >. |
+       y = { a e. U. U. r | A. b e. U. U. r ( b r a -> b = a ) } } $.
+  $}
+
+  ${
+    $d r y $.
+    $( Define the greatest element of a poset.  I.e. the element of the poset
+       that is larger than the other elements.  Meaningful is ` r ` is at least
+       a poset.  Bourbaki E III 10.  Experimental. $)
+    df-ge $a |- ge = { <. r , y >. | y = ( r supw dom r ) } $.
+  $}
+
+  ${
+    $d r y $.
+    $( Define the smallest element of a poset.  I.e. the element of the poset
+       that is smaller than the other elements.  Meaningful is ` r ` is at
+       least a poset.  Experimental. $)
+    df-se $a |- se = { <. r , y >. | y = ( r infw dom r ) } $.
+  $}
+
+  ${
+    $d R r x $.  $d X r x $.
+    gepsup.1 $e |- X = dom R $.
+    $( The greatest element of a Poset is the supremum of the Poset. $)
+    gepsup $p |- ( R e. A -> ( ge ` R ) = ( R supw X ) ) $=
+      ( vx vr wcel cv cdm cspw co wceq copab cfv cge cvv oprex id dmeq syl6eqr
+      opreq12d fvopabg mpan2 df-ge fveq1i syl5eq ) BAGZBEHFHZUHIZJKZLFEMZNZBCJK
+      ZBONUGUMPGULUMLBCJQFEBUJUMAPUHBLZUHBUICJUNRUNUIBICUHBSDTUAUBUCBOUKEFUDUEU
+      F $.
+      $( [19-Sep-2011] $)
+  $}
+
+  ${
+    $d R r x $.  $d X r x $.
+    seinf.1 $e |- X = dom R $.
+    $( The smallest element of a Poset is the infimum of the Poset. $)
+    seinf $p |- ( R e. A -> ( se ` R ) = ( R infw X ) ) $=
+      ( vx vr wcel cv cdm cinf co wceq copab cfv cse cvv oprex id dmeq syl6eqr
+      opreq12d fvopabg mpan2 df-se fveq1i syl5eq ) BAGZBEHFHZUHIZJKZLFEMZNZBCJK
+      ZBONUGUMPGULUMLBCJQFEBUJUMAPUHBLZUHBUICJUNRUNUIBICUHBSDTUAUBUCBOUKEFUDUEU
+      F $.
+      $( [19-Sep-2011] $)
   $}
 
   ${
     $d r x y a b $.
     $( In French, "majorants". $)
     $( Define the upper bounds of a set ` x ` .  Meaningful if ` r ` is at
-       least a preorder, and ` x ` a subset of the field of ` r ` .  For the
-       lower bounds use the converse relation ` ``' r ` Bourbaki E.III.9 def.
-       5.  Experimental. $)
+       least a preset, and ` x ` a subset of the field of ` r ` .  Bourbaki
+       E.III.9 def. 5.  Experimental. $)
     df-ub $a |- ub = { <. <. r , x >. , y >. |
       y = { a e. U. U. r | A. b e. x b r a } } $.
   $}
 
   ${
+    $d r x y a b $.
+    $( In French, "minorants". $)
+    $( Define the lower bounds of a set ` x ` .  Meaningful if ` r ` is at
+       least a preset, and ` x ` a subset of the field of ` r ` .
+       Experimental. $)
+    df-lb $a |- lb = { <. <. r , x >. , y >. |
+       y = { a e. U. U. r | A. b e. x a r b } } $.
+  $}
+
+
+  ${
+    $d A a b r x y $.  $d R a b r x y $.  $d X a $.
+    ubos2.1 $e |- X = dom R $.
+    $( The upper bounds of ` A ` . $)
+    ubos2 $p |- ( ( R e. Preset /\ A e. B ) -> ( R ub A ) = { a e. X |
+      A. b e. A b R a } ) $=
+      ( vr vx vy cpreset wcel cub co cv wbr wral crab wceq cdm cuni wi
+      preodom2 wa eqtr rabeq eqeq2d imbi2d cvv unieq unieqd breq ralbidv
+      rabeqbidv raleq rabbidv copab2 cxp cres df-ub wrel reloprab reldmoprab
+      resid2 mp2an resoprab 3eqtr2i oprabval2g 3expia elisset anim12i dmexg
+      eqeltrrd adantr rabexg syl sylc ex syl5bir mpan mpcom imp ) CKLZABLZCAMNZ
+      FOZEOZCPZFAQZEDRZSZCTZCUAZUAZSZWCWDWKUBZCUCZDWLSZWOWCWPUBZGWRWOUDDWNSZWSD
+      WLWNUEWTWPWDWEWIEWNRZSZUBWCWTWKXBWDWTWJXAWEWIEDWNUFUGUHWCWDXBCUILZAUILZUD
+      XAUILZXBWCWDUDZXCXDXEXBHIJCAUIUIWFWGHOZPZFIOZQZEXGUAZUAZRZXAMWHFXIQZEWNRU
+      IXGCSZXJXNEXLWNXOXKWMXGCUJUKXOXHWHFXIWFWGXGCULUMUNXIASXNWIEWNWHFXIAUOUPMJ
+      OXMSZHIJUQZXQUIUIURUSZXGUILXIUILUDXPUDHIJUQIJHEFUTXQVAXQTVAXRXQSXPHIJVBXP
+      HIJVCXQVDVEXPHIJUIUIVFVGVHVIWCXCWDXDCKVJABVJVKXFWNUILZXEWCXSWDWCWLWNUIWQC
+      KVLVMVNWIEWNUIVOVPVQVRVSVPVTWAWB $.
+      $( [19-Sep-2011] $) $( [18-Sep-2011] $)
+  $}
+
+  ${
     $d A a b r x y $.  $d R a b r x y $.  $d X a r x y $.
     ubos.1 $e |- X = U. U. R $.
-    $( The ` R ` -upper bounds of ` A ` . $)
+    $( The upper bounds of ` A ` . $)
     ubos $p |- ( ( R e. S /\ A e. B ) -> ( R ub A ) = { a e. X |
       A. b e. A b R a } ) $=
       ( vr vx vy cvv wcel wa cv wbr wral crab cub co wceq cuni unieq unieqd
-      rabeq syl breq ralbidv rabbisdv eqcoms ax-mp a1i 3eqtrd raleq1 copab2
-      cxp cres df-ub wrel cdm reloprab reldmoprab resid2 mp2an resoprab
-      3eqtr2i oprabval2g 3expia elisset anim12i uniexg syl5eqel adantr rabexg
-      sylc ) CLMZALMZNGOZFOZCPZGAQZFERZLMZCASTWBUAZCDMZABMZNZVPVQWCWDIJKCALLVRV
-      SIOZPZGJOZQZFWHUBZUBZRZWBSVTGWJQZFERZLWHCUAZWNWKFCUBZUBZRZWOFWSRZWPWQWMWS
-      UAWNWTUAWQWLWRWHCUCUDWKFWMWSUEUFWQWKWOFWSWQWIVTGWJVRVSWHCUGUHUIXAWPUAZWQE
-      WSUAXBHXBWSEWOFWSEUEUJUKULUMWJAUAWOWAFEVTGWJAUNUISKOWNUAZIJKUOZXDLLUPUQZW
-      HLMWJLMNXCNIJKUOJKIFGURXDUSXDUTUSXEXDUAXCIJKVAXCIJKVBXDVCVDXCIJKLLVEVFVGV
-      HWEVPWFVQCDVIABVIVJWGELMZWCWEXFWFWEWSLEWEWRLMWSLMCDVKWRLVKUFHVLVMWAFELVNU
-      FVO $.
-      $( [16-May-2011] $) $( [16-May-2011] $)
+      rabeq syl breq ralbidv rabbidv eqcoms ax-mp a1i 3eqtrd raleq copab2 cxp
+      cres df-ub wrel cdm reloprab reldmoprab resid2 mp2an resoprab 3eqtr2i
+      oprabval2g 3expia elisset anim12i uniexg syl5eqel adantr rabexg sylc ) CL
+      MZALMZNGOZFOZCPZGAQZFERZLMZCASTWBUAZCDMZABMZNZVPVQWCWDIJKCALLVRVSIOZPZGJO
+      ZQZFWHUBZUBZRZWBSVTGWJQZFERZLWHCUAZWNWKFCUBZUBZRZWOFWSRZWPWQWMWSUAWNWTUAW
+      QWLWRWHCUCUDWKFWMWSUEUFWQWKWOFWSWQWIVTGWJVRVSWHCUGUHUIXAWPUAZWQEWSUAXBHXB
+      WSEWOFWSEUEUJUKULUMWJAUAWOWAFEVTGWJAUNUISKOWNUAZIJKUOZXDLLUPUQZWHLMWJLMNX
+      CNIJKUOJKIFGURXDUSXDUTUSXEXDUAXCIJKVAXCIJKVBXDVCVDXCIJKLLVEVFVGVHWEVPWFVQ
+      CDVIABVIVJWGELMZWCWEXFWFWEWSLEWEWRLMWSLMCDVKWRLVKUFHVLVMWAFELVNUFVO $.
+      $( [16-May-2011] $)
+  $}
+
+  ${
+    $d A b x $.  $d R b x $.  $d U b x $.  $d X x $.
+    puub2.1 $e |- X = dom R $.
+    $( The predicate " ` U ` is an upper bound of ` A ` ." $)
+    puub2 $p |- ( ( R e. Preset /\ A e. B ) -> ( U e. ( R ub A ) <-> ( U e. X
+        /\
+      A. b e. A b R U ) ) ) $=
+      ( vx cpreset wcel wa cub co cv wbr wral crab ubos2 eleq2d wceq breq2
+      ralbidv elrab syl6bb ) CIJABJKZDCALMZJDFNZHNZCOZFAPZHEQZJDEJUGDCOZFAPZKUE
+      UFUKDABCEHFGRSUJUMHDEUHDTUIULFAUHDUGCUAUBUCUD $.
+      $( [16-May-2011] $)
   $}
 
   ${
     $d A a b $.  $d R a b $.  $d U a b $.  $d X a $.
     puub.1 $e |- X = U. U. R $.
-    $( The predicate " ` U ` is a ` R ` -upper bound of ` A ` ." $)
+    $( The predicate " ` U ` is an upper bound of ` A ` ." $)
     puub $p |- ( ( R e. S /\ A e. B ) -> ( U e. ( R ub A ) <-> ( U e. X /\
       A. b e. A b R U ) ) ) $=
       ( va wcel wa cub co cv wbr wral crab ubos eleq2d wceq breq2 ralbidv
       elrab syl6bb ) CDJABJKZECALMZJEGNZINZCOZGAPZIFQZJEFJUGECOZGAPZKUEUFUKEABC
       DFIGHRSUJUMIEFUHETUIULGAUHEUGCUAUBUCUD $.
-      $( [16-May-2011] $) $( [16-May-2011] $)
+      $( [16-May-2011] $)
   $}
 
   ${
     $d A b $.  $d R b $.  $d U b $.  $d V b $.  $d W b $.
-    $( If ` <_ ` is a preorder and ` U <_ V ` and ` U ` is an upper bound of
-       ` A ` then ` V ` is an upper bound of ` A ` .  Bourbaki E.III.9 nb 8. $)
-    prltub2 $p |- ( ( R e. Preset /\ A e. B /\
+    $( If ` R ` is a preset, ` U R V ` and ` U ` is an upper bound of ` A `
+       then ` V ` is an upper bound of ` A ` .  Bourbaki E.III.9 nb 8. $)
+    prltub $p |- ( ( R e. Preset /\ A e. B /\
       ( U e. ( R ub A ) /\ U R V /\ V e. W ) )
          -> V e. ( R ub A ) ) $=
-      ( vb cpreset wcel cub co wbr w3a cuni cvv wi eqid fldrels wa cv wral
-      pre2befi 3exp com13 imp 3adant1 com12 adantr 3adant2 puub preotr2 expcom
-      com14 3imp r19.20dva a1dd com4r adantl syl6bi pm2.43a com4l com3l jca wb
-      3ad2ant1 mpbird ex mpid ) CHIZABIZDCAJKZIZDECLZEFIZMZEVKIZVIVJCNNZOIZVOVP
-      PZCHVQVQQZRVIVJVRVSPVIVJSZVRVOVPWAVRVOMZVPEVQIZGTZECLZGAUAZSZWBWCWFWAVOWC
-      VRWAVOWCVIVOWCPVJVOVIWCVMVNVIWCPZVLVMVNWHVIVNVMWCVIVNVMWCDEFCVQVTUBUCUDUE
-      UFUGUHUEUIWAVRVOWFVOWAVRWFVLVMVNWAVRWFPZPWAVLVMVNWIVLWAVMVNWIPPZWAVLDVQIZ
-      WDDCLZGAUAZSWAWJPZABCHDVQGVTUJWMWNWKWAVMVNWMWIVIVMVNWMWIPZPPVJVIVMVNWOVIV
-      MVNMZWMWFVRWPWLWEGAWPWLWEPZWDAIVIVMVNWQWLVMVNVIWEWLVMVNVIWEPVIWLVMVNMWEWD
-      DEFCUKULUCUMUNUHUOUPUCUHUQURUSUTVAUNVBUNVCWAVRVPWGVDVOABCHEVQGVTUJVEVFUCV
-      GVHUN $.
-      $( [23-May-2011] $) $( [23-May-2011] $)
+      ( vb cpreset wcel cub co wbr w3a cdm cvv wi dmexg wa cv wral eqid
+      pre2befi2 pm3.26 3ad2ant1 3simp3 3ad2ant3 3simp2 syl3anc puub2 preotr2
+      expcom 3exp com14 3imp adantr ralimdvaa a1dd com4r adantl syl6bi pm2.43a
+      com4l com3l jca wb mpbird ex mpid ) CHIZABIZDCAJKZIZDECLZEFIZMZEVKIZVIVJC
+      NZOIZVOVPPZCHQVIVJVRVSPVIVJRZVRVOVPVTVRVOMZVPEVQIZGSZECLZGATZRZWAWBWEVIVN
+      VMWBWADEFCVQVQUAZUBVTVRVIVOVIVJUCUDVOVTVNVRVLVMVNUEUFVOVTVMVRVLVMVNUGUFUH
+      VTVRVOWEVOVTVRWEVLVMVNVTVRWEPZPVTVLVMVNWHVLVTVMVNWHPPZVTVLDVQIZWCDCLZGATZ
+      RVTWIPZABCDVQGWGUIWLWMWJVTVMVNWLWHVIVMVNWLWHPZPPVJVIVMVNWNVIVMVNMZWLWEVRW
+      OWKWDGAWOWKWDPZWCAIVIVMVNWPWKVMVNVIWDWKVMVNVIWDPVIWKVMVNMWDWCDEFCUJUKULUM
+      UNUOUPUQULUOURUSUTVAVBUNVCUNVDVTVRVPWFVEVOABCEVQGWGUIUDVFULVGVHUN $.
+      $( [19-Sep-2011] $) $( [23-May-2011] $)
   $}
 
   ${
     $d A x $.  $d B x $.  $d R x $.  $d U x $.
-    $( If ` <_ ` is a preorder and ` U ` is an upper bound of ` A ` and
-       ` B C_ A ` then ` U ` is an upper bound of ` B ` .  Bourbaki E.III.9 n
-       8. $)
+    $( If ` U ` is an upper bound of ` A ` and ` B C_ A ` then ` U ` is an
+       upper bound of ` B ` .  Bourbaki E.III.9 n 8. $)
     ubpar $p |- ( ( R e. Preset /\ A e. C /\ B C_ A ) -> ( U e. ( R ub A ) ->
        U e. ( R ub B ) ) ) $=
-      ( vx cpreset wcel wss w3a cub co cuni cv wbr wral wa wi eqid puub biimpd
-      3adant3 simprl ssralv 3ad2ant3 com12 adantl impcom jca wb cvv ssexg ex
-      expcom syl6com com3r 3imp adantr mpbird syld ) DGHZACHZBAIZJZEDAKLHZEDMMZ
-      HZFNEDOZFAPZQZEDBKLHZVAVBVEVJRVCVAVBQVEVJACDGEVFFVFSZTUAUBVDVJVKVDVJQZVKV
+      ( vx cpreset wcel wss w3a cub co cdm cv wbr wral wa wi eqid puub2 biimpd
+      3adant3 simprl ssralv 3ad2ant3 com12 adantl impcom jca cvv wb 3simp1
+      ssexg ancoms 3adant1 adantr syl mpbird ex syld ) DGHZACHZBAIZJZEDAKLHZEDM
+      ZHZFNEDOZFAPZQZEDBKLHZVAVBVEVJRVCVAVBQVEVJACDEVFFVFSZTUAUBVDVJVKVDVJQZVKV
       GVHFBPZQZVMVGVNVDVGVIUCVJVDVNVIVDVNRVGVDVIVNVCVAVIVNRVBVHFBAUDUEUFUGUHUIV
-      DVKVOUJZVJVAVBVCVPVBVCVAVPVCVBBUKHZVAVPRVCVBVQBACULUMVAVQVPBUKDGEVFFVLTUN
-      UOUPUQURUSUMUT $.
-      $( [23-May-2011] $) $( [23-May-2011] $)
+      MVABUJHZQZVKVOUKVDVQVJVDVAVPVAVBVCULVBVCVPVAVCVBVPBACUMUNUOUIUPBUJDEVFFVL
+      TUQURUSUT $.
+      $( [19-Sep-2011] $) $( [23-May-2011] $)
   $}
 
   ${
     $d A x y z $.  $d R x y z $.  $d X x y $.
     supdef.1 $e |- X = dom R $.
-    $( If it exists, a ` R ` -supremum of ` A ` is greater or equal to every
-       element of ` A ` and is the least element of the upper bounds of
-       ` A ` .  Here the existence of the supremum is expressed by the idiom
-       ` ( R supw A ) e. X ` . $)
+    $( If it exists, a supremum of ` A ` is greater or equal to every element
+       of ` A ` and is the least upper bound of ` A ` .  Here the existence of
+       the supremum is expressed by the idiom ` ( R supw A ) e. X ` . $)
     supdef $p |- ( ( R e. Poset /\ A e. W /\ ( R supw A ) e. X ) ->
        ( A. y e. A y R ( R supw A ) /\
          A. y e. X ( A. z e. A z R y -> ( R supw A ) R y ) ) ) $=
       ( vx cps wcel cspw co w3a cv wbr wral wi wa wrex biid spwex biimp3ar
       wreu spweu ex crab cuni cdm wceq crn psdmrn eleq2 imbi1d ralbidv2 anbi2d
-      anbi12d rexbidv2 eqtr rabeq eqcoms eqcom biimpi biidd raleqbidv rabbisdv
+      anbi12d rexbidv2 eqtr rabeq eqcoms eqcom biimpi biidd raleqbidv rabbidv
       eqtrd unieqd eqeq2d eleq1 biimpd breq2 ralbidv breq1 imbi2d elrab3
       3ad2ant3 syl9 syl6bi com23 syl mpan adantr 3ad2ant1 pm2.43i eqid spwval3
       syl5com 3expia com12 com4t 3adant3 syl6bir 3impia reucl2 syl6 mpd ) DIJZC
@@ -283,52 +463,252 @@ $)
       YCWSYBVIVJUTWTWQUUKXQQWRWTUUKXQXJXQHWSFXCWSUIZXEXMXIXPUULXDXLACXCWSXBDVKV
       LUULXHXOAFUULXGXNXFXCWSXBDVMVNVLUPVOVJVPVQVRVSVTWAWBVTWCWDUUAHABCDIEYKYKW
       EUUATWFWGWHWIVRWJWKWDUUHWGWAWBVTWCWDWIWLWMWDXJHFWNWGWOVSWCWDWP $.
-      $( [23-May-2011] $) $( [23-May-2011] $)
+      $( [23-May-2011] $)
   $}
 
   ${
-    $d R a b r y $.  $d X a r y $.
+    $d A x $.  $d R x y $.  $d X x y $.
+    supdefa.1 $e |- X = dom R $.
+    $( The greatest element of a poset is greater than the other elements of
+       the poset. $)
+    supdefa $p |- ( ( R e. Poset /\ A e. X /\ ( R supw X ) e. X )
+       -> A R ( R supw X ) ) $=
+      ( vx vy wcel cv cspw co wbr wral cps w3a breq1 rcla4v 3simp2 wi cvv wa
+      supdef cdm dmexg syl5eqel 3ad2ant1 syld3an2 pm3.26d sylc ) ACGZEHZBCIJZBK
+      ZECLZAUKBKZBMGZUIUKCGZNZULUNEACUJAUKBOPUOUIUPQUQUMFHUJBKFCLUKUJBKRECLZUOC
+      SGZUPUMURTUIEFCBSCDUAUOUIUSUPUOBUBSCBMUCDUDUEUFUGUH $.
+      $( [19-Sep-2011] $)
+  $}
+
+  ${
+    $d R a b r x $.  $d X a b $.
+    mxlelt2.1 $e |- X = dom R $.
+    $( The maximal elements of the preset ` R ` . $)
+    mxlelt2 $p |- ( R e. Preset -> ( mxl ` R ) = { a e. X | A. b e. X ( a R b
+      -> a = b ) } ) $=
+      ( vr vx cdm cuni wceq cpreset wcel cmxl cfv cv wbr weq wi wral crab
+      preodom2 wa eqtr id raleqdv rabeqbidv eqeq2d cvv unieq unieqd breq
+      imbi1d raleqbidv copab cres df-mxl wrel relopab resid ax-mp resopab
+      3eqtr2i fvopab4g elisset dmexg eqeltrrd rabexg syl sylanc syl5bir mpan
+      mpcom ) AHZAIZIZJZAKLZAMNZCOZDOZAPZCDQZRZDBSZCBTZJZAUAZBVMJZVPVQWFRZEWHVP
+      UBBVOJZWIBVMVOUCWJWFVRWCDVOSZCVOTZJZVQWJWEWLVRWJWDWKCBVOWJUDZWJWCDBVOWNUE
+      UFUGAUHLWLUHLZWMVQFGAVSVTFOZPZWBRZDWPIZIZSZCWTTZWLUHUHMWPAJZXAWKCWTVOXCWS
+      VNWPAUIUJZXCWRWCDWTVOXDXCWQWAWBVSVTWPAUKULUMUFMGOXBJZFGUNZXFUHUOZWPUHLXEU
+      BFGUNGFCDUPXFUQXGXFJXEFGURXFUSUTXEFGUHVAVBVCAKVDVQVOUHLWOVQVMVOUHWGAKVEVF
+      WKCVOUHVGVHVIVJVHVKVL $.
+      $( [19-Sep-2011] $) $( [16-May-2011] $)
+  $}
+
+  ${
+    $d R a b r x $.  $d X a r x $.
     mxlelt.1 $e |- X = U. U. R $.
-    $( The maximal elements of the preorder ` R ` . $)
+    $( The maximal elements of the preset ` R ` . $)
     mxlelt $p |- ( R e. S -> ( mxl ` R ) = { a e. X | A. b e. X ( a R b
       -> a = b ) } ) $=
-      ( vr vy cvv wcel cv wbr wceq wi wral crab cmxl cfv cuni unieq unieqd
-      rabeq syl eleq2d breq imbi1d imbi12d ralbidv2 rabbisdv eqcomi ax-mp wb
-      eleq2i imbi1i ralbii2 a1i rabbii eqtri 3eqtrd copab cres wa df-mxl wrel
-      relopab resid resopab 3eqtr2i fvopab4g elisset uniexg syl5eqel rabexg
-      sylanc ) AIJDKZEKZALZVOVPMZNZECOZDCPZIJZAQRWAMABJZGHAVOVPGKZLZVRNZEWDSZSZ
-      OZDWHPZWAIIQWDAMZWJWIDASZSZPZVSEWMOZDWMPZWAWKWHWMMWJWNMWKWGWLWDATUAZWIDWH
-      WMUBUCWKWIWODWMWKWFVSEWHWMWKVPWHJVPWMJZWFVSWKWHWMVPWQUDWKWEVQVRVOVPWDAUEU
-      FUGUHUIWPWAMWKWPWODCPZWAWMCMWPWSMCWMFUJZWODWMCUBUKWOVTDCWOVTULVOCJVSVSEWM
-      CWRVPCJVSWMCVPWTUMUNUOUPUQURUPUSQHKWJMZGHUTZXBIVAZWDIJXAVBGHUTHGDEVCXBVDX
-      CXBMXAGHVEXBVFUKXAGHIVGVHVIABVJWCCIJWBWCWMICWCWLIJWMIJABVKWLIVKUCFVLVTDCI
-      VMUCVN $.
-      $( [16-May-2011] $) $( [16-May-2011] $)
+      ( vr vx cvv wcel cv wbr weq wi wral crab cmxl cfv wceq cuni unieq unieqd
+      syl6eqr eleq2d breq imbi1d imbi12d ralbidv2 rabeqbidv copab cres wa
+      df-mxl wrel relopab resid ax-mp resopab 3eqtr2i fvopab4g elisset uniexg
+      syl syl5eqel rabexg sylanc ) AIJDKZEKZALZDEMZNZECOZDCPZIJZAQRVMSABJZGHAVG
+      VHGKZLZVJNZEVPTZTZOZDVTPZVMIIQVPASZWAVLDVTCWCVTATZTZCWCVSWDVPAUAUBFUCZWCV
+      RVKEVTCWCVHVTJVHCJVRVKWCVTCVHWFUDWCVQVIVJVGVHVPAUEUFUGUHUIQHKWBSZGHUJZWHI
+      UKZVPIJWGULGHUJHGDEUMWHUNWIWHSWGGHUOWHUPUQWGGHIURUSUTABVAVOCIJVNVOWEICVOW
+      DIJWEIJABVBWDIVBVCFVDVLDCIVEVCVF $.
+      $( [13-Sep-2011] $) $( [16-May-2011] $)
   $}
 
   ${
-    $d A a b $.  $d R a b $.  $d X a $.
-    ismxl.1 $e |- X = U. U. R $.
-    $( The element ` A ` is a maximal element of the preorder ` R ` . $)
-    ismxl $p |- ( R e. S -> ( A e. ( mxl ` R ) <->
+    $d R a b r x $.  $d X a b $.
+    mnlelt2.1 $e |- X = dom R $.
+    $( The minimal elements of the preset ` R ` . $)
+    mnlelt2 $p |- ( R e. Preset -> ( mnl ` R ) = { a e. X | A. b e. X ( b R a
+      -> b = a ) } ) $=
+      ( vr vx cdm cuni wceq cpreset wcel cmnl cfv cv wbr weq wi wral crab
+      preodom2 wa eqtr id raleq rabeqbidv eqeq2d cvv unieq unieqd eleq2d breq
+      imbi1d imbi12d ralbidv2 copab cres df-mnl wrel relopab resid ax-mp
+      resopab 3eqtr2i fvopab4g elisset uniexg syl rabexg sylanc syl5bir mpan
+      mpcom ) AHZAIZIZJZAKLZAMNZDOZCOZAPZDCQZRZDBSZCBTZJZAUABVNJZVQVRWGRZEWHVQU
+      BBVPJZWIBVNVPUCWJWGVSWDDVPSZCVPTZJZVRWJWFWLVSWJWEWKCBVPWJUDWDDBVPUEUFUGAU
+      HLWLUHLZWMVRFGAVTWAFOZPZWCRZDWOIZIZSZCWSTZWLUHUHMWOAJZWTWKCWSVPXBWRVOWOAU
+      IUJZXBWQWDDWSVPXBVTWSLVTVPLWQWDXBWSVPVTXCUKXBWPWBWCVTWAWOAULUMUNUOUFMGOXA
+      JZFGUPZXEUHUQZWOUHLXDUBFGUPGFCDURXEUSXFXEJXDFGUTXEVAVBXDFGUHVCVDVEAKVFVRV
+      PUHLZWNVRVOUHLXGAKVGVOUHVGVHWKCVPUHVIVHVJVKVHVLVM $.
+      $( [19-Sep-2011] $)
+  $}
+
+  ${
+    $d A a b $.  $d R a b $.  $d X a b $.
+    ismxl2.1 $e |- X = dom R $.
+    $( The predicate " ` A ` is a maximal element of the preset ` R ` " . $)
+    ismxl2 $p |- ( R e. Preset -> ( A e. ( mxl ` R ) <->
        ( A e. X /\ A. b e. X ( A R b -> A = b ) ) ) ) $=
-      ( va wcel cmxl cfv cv wbr wceq wi wral crab wa mxlelt eleq2d breq1 eqeq1
-      imbi12d ralbidv elrab syl6bb ) BCHZABIJZHAGKZEKZBLZUHUIMZNZEDOZGDPZHADHAU
-      IBLZAUIMZNZEDOZQUFUGUNABCDGEFRSUMURGADUHAMZULUQEDUSUJUOUKUPUHAUIBTUHAUIUA
-      UBUCUDUE $.
-      $( [22-May-2011] $) $( [22-May-2011] $)
+      ( va cpreset wcel cmxl cfv cv wbr weq wi wral crab wceq wa mxlelt2
+      eleq2d breq1 eqeq1 imbi12d ralbidv elrab syl6bb ) BGHZABIJZHAFKZDKZBLZFDM
+      ZNZDCOZFCPZHACHAUJBLZAUJQZNZDCOZRUGUHUOABCFDESTUNUSFACUIAQZUMURDCUTUKUPUL
+      UQUIAUJBUAUIAUJUBUCUDUEUF $.
+      $( [22-May-2011] $)
   $}
 
 
   ${
-    $d r y z w a $.
-    $( Define the greatest element of a poset.  I. e. the (unique if it exists)
-       element of the poset that is greater than the other elements of the
-       poset.  For the least element use the converse of ` r ` .
-       Experimental.  Bourbaki E.R. 25 5 $)
-    df-ge $a |- ge = { <. r , y >. | E. z (
-      z = { w e. U. U. r | A. a e. U. U. r a r w }
-        /\ y = if ( z =/= (/) , U. z , ~P U. U. U. r ) ) } $.
+    $d A b x $.  $d R b x $.  $d X b x $.
+    ismnl2.1 $e |- X = dom R $.
+    $( The predicate " ` A ` is a minimal element of the preset ` R ` " . $)
+    ismnl2 $p |- ( R e. Preset -> ( A e. ( mnl ` R ) <->
+       ( A e. X /\ A. b e. X ( b R A -> b = A ) ) ) ) $=
+      ( vx cpreset wcel cmnl cfv cv wbr weq wi wral crab wceq wa mnlelt2
+      eleq2d breq2 eqeq2 imbi12d ralbidv elrab syl6bb ) BGHZABIJZHADKZFKZBLZDFM
+      ZNZDCOZFCPZHACHUIABLZUIAQZNZDCOZRUGUHUOABCFDESTUNUSFACUJAQZUMURDCUTUKUPUL
+      UQUJAUIBUAUJAUIUBUCUDUEUF $.
+      $( [19-Sep-2011] $)
+  $}
+
+
+  ${
+    $d R x y $.
+    $( The minimal elements of a preset are the maximal elements of the
+       converse preset. $)
+    mnlmxl2 $p |- ( R e. Preset -> ( mnl ` R ) = ( mxl ` `' R ) ) $=
+      ( vy vx cpreset wcel cv wbr weq wi cdm wral crab ccnv cmnl cfv cmxl eqid
+      domcnvpre raleqdv wb cvv visset wa brcnvg bicomd mp2an equcom imbi12i
+      a1i ralbidv bitrd rabeqbidv mnlelt2 wceq dupre1 mxlelt2 syl 3eqtr4d ) ADE
+      ZBFZCFZAGZBCHZIZBAJZKZCVELVAUTAMZGZCBHZIZBVGJZKZCVKLZANOVGPOZUSVFVLCVEVKA
+      VEVEQZRZUSVFVDBVKKVLUSVDBVEVKVPSUSVDVJBVKVDVJTUSVBVHVCVIVAUAEZUTUAEZVBVHT
+      CUBBUBVQVRUCVHVBVAUTUAUAAUDUEUFBCUGUHUIUJUKULAVECBVOUMUSVGDEVNVMUNAUOVGVK
+      CBVKQUPUQUR $.
+      $( [19-Sep-2011] $)
+  $}
+
+  ${
+    $( The maximal elements of a preset are the minimal elements of the
+       converse preset. $)
+    mxlmnl2 $p |- ( R e. Preset -> ( mxl ` R ) = ( mnl ` `' R ) ) $=
+      ( cpreset wcel cmxl cfv ccnv cmnl wceq wrel wi preorel dfrel2 biimpi
+      fveq2 eqeq1d dupre1 mnlmxl2 syl eqcomd syl5bir eqcoms 3syl pm2.43i ) ABCZ
+      ADEZAFZGEZHZUDAIZUFFZAHZUDUHJZAKUIUKALMULAUJAUJHZUHUJDEZUGHUDUMUEUNUGAUJD
+      NOUDUGUNUDUFBCUGUNHAPUFQRSTUAUBUC $.
+      $( [19-Sep-2011] $)
+  $}
+
+  ${
+    $d R x y $.  $d X x y $.
+    defgelem.1 $e |- X = dom R $.
+    $( Lemma for ~ defge . $)
+    defgelem $p |- ( ( R e. Poset /\ R =/= (/) ) -> ( ( R supw X ) e. X
+       <-> A. x e. X x R ( R supw X ) ) ) $=
+      ( vy cps wcel c0 wne wa cspw co cv wbr wral wi cvv cdm dmexg syl5eqel
+      w3a supdef pm3.26d 3exp mpd adantr crn wceq psrn eqcomd eleq2 ralbidv
+      imbi1d imbi2d wrel psrel reldm0 eqeq1i syl6bbr necon3bid biimpd syl
+      r19.2zrr ex syl6 syl5bir mpcom imp visset oprex brelrn ralimi syl5
+      impbid ) BFGZBHIZJZBCKLZCGZAMZVRBNZACOZVOVSWBPZVPVOCQGZWCVOBRZQCBFSDTVOWD
+      VSWBVOWDVSUAWBEMVTBNECOVRVTBNPACOAECBQCDUBUCUDUEUFVQVRBUGZGZACOZVSWBVOVPW
+      HVSPZWFCUHZVOVPWIPZVOCWFBCDUIUJWJWKVPVSACOZVSPZPVOWJWIWMVPWJWHWLVSWJWGVSA
+      CWFCVRUKULUMUNVOVPCHIZWMVOBUOZVPWNPBUPWOVPWNWOBHCHWOBHUHWEHUHCHUHBUQCWEHD
+      URUSUTVAVBWNWLVSVSACVCVDVEVFVGVHWAWGACVTVRBAVIBCKVJVKVLVMVN $.
+      $( [19-Sep-2011] $)
+  $}
+
+  ${
+    $d R x $.  $d X x $.
+    defselem.1 $e |- X = dom R $.
+    $( Lemma for ~ defse . $)
+    defselem $p |- ( ( R e. Poset /\ R =/= (/) ) -> ( ( R infw X ) e. X
+       <-> A. x e. X ( R infw X ) R x ) ) $=
+      ( cps wcel c0 wne wa cinf co cv wbr wral wb cvv ccnv cspw wceq wi pm3.26
+      cdm dmexg syl5eqel adantr jca nfwval eleq1 breq1 ralbidv bibi12d cpreset
+      crn posispre eqid preoran2 dfdm4 eqtr opreq2 id eleq12d eleq2 breq2d
+      imbi12d ralbidv2 defgelem syl5bir syl sylancr mpan 3syl dupos1 wrel
+      preorel cnveq3 biimprd necon3d imp sylc oprex brcnvg mpan2 ralbiia
+      syl6bb pm2.43i ) BEFZBGHZIZBCJKZCFZWIALZBMZACNZOZWHWFCPFZIWIBQZCRKZSZWHWN
+      TWHWFWOWFWGUAWFWOWGWFBUBZPCBEUCDUDUEUFCBEPUGWRWNWQCFZWQWKBMZACNZOWHWRWJWT
+      WMXBWIWQCUHWRWLXAACWIWQWKBUIUJUKWHWTWKWQWPMZACNZXBWPEFZXEWPGHZIZWTXDOZWHX
+      EWPULFWPUMZWPUBZSZXGXHTZWPUNWPXJXJUOZUPWSXISZXKXLBUQCWSSZWSXJSZXLXNXKIXOX
+      PICXJSZXLCWSXJURXQXHWPXJRKZXJFZWKXRWPMZAXJNZOXGXQWTXSXDYAXQWQXRCXJCXJWPRU
+      SZXQUTVAXQXCXTACXJXQWKCFZWKXJFXCXTCXJWKVBXQWQXRWKWPYBVCVDVEUKAWPXJXMVFVGV
+      HDWSXIXJURVIVJVKWFXEWGBVLUEZWHXEXFYDWFWGXFWFWPGBGWFBULFBVMZWPGSZBGSZTBUNB
+      VNYEYGYFBVOVPVKVQVRUFVSXCXAACYCWQPFXCXAOWPCRVTWKWQCPBWAWBWCWDVGVKWE $.
+      $( [19-Sep-2011] $)
+  $}
+
+
+  ${
+    $d R x $.  $d X x $.
+    defge.1 $e |- X = dom R $.
+    $( The greatest element of a poset is an element that is greater than the
+       other elements of the poset.  Use the idiom ` ( ge `` R ) e. X ` when
+       you mean the greatest element of ` X ` exists. $)
+    defge $p |- ( ( R e. Poset /\ R =/= (/) ) -> ( ( ge ` R ) e. X
+       <-> A. x e. X x R ( ge ` R ) ) ) $=
+      ( cps wcel c0 wne cge cfv cv wbr wral wb cspw co wceq wa wi gepsup eleq1
+      breq2 ralbidv bibi12d defgelem syl5bir syl anabsi5 ) BEFZBGHZBIJZCFZAKZUK
+      BLZACMZNZUIUKBCOPZQZUIUJRZUPSEBCDTURUPUQCFZUMUQBLZACMZNUSURULUTUOVBUKUQCU
+      AURUNVAACUKUQUMBUBUCUDABCDUEUFUGUH $.
+      $( [19-Sep-2011] $)
+  $}
+
+  ${
+    $d R x $.  $d X x $.
+    defse.1 $e |- X = dom R $.
+    $( The smallest element of a poset is an element that is smaller than the
+       other elements of the poset.  Use the idiom ` ( se `` R ) e. X ` when
+       you mean the smallest element of ` X ` exists. $)
+    defse $p |- ( ( R e. Poset /\ R =/= (/) ) -> ( ( se ` R ) e. X
+       <-> A. x e. X ( se ` R ) R x ) ) $=
+      ( cps wcel c0 wne cse cfv cv wbr wral wb cinf co wceq wa wi seinf eleq1
+      breq1 ralbidv bibi12d defselem syl5bir syl anabsi5 ) BEFZBGHZBIJZCFZUKAKZ
+      BLZACMZNZUIUKBCOPZQZUIUJRZUPSEBCDTURUPUQCFZUQUMBLZACMZNUSURULUTUOVBUKUQCU
+      AURUNVAACUKUQUMBUBUCUDABCDUEUFUGUH $.
+      $( [19-Sep-2011] $)
+  $}
+
+ $( If the underlying set of a Preset is not empty, the Preset is not
+       empty . See reldm0 $)
+
+  ${
+    $d A x y $.  $d R x y $.  $d X x $.
+    supaub.1 $e |- X = dom R $.
+    $( If it exists, a supremum of ` A ` is an upper bound for ` A ` . $)
+    supaub $p |- ( ( R e. Poset /\ A e. W /\ ( R supw A ) e. X ) ->
+        ( R supw A ) e. ( R ub A ) ) $=
+      ( vx vy cps wcel cspw co w3a cub cdm cv wbr wral wa eleq2i biimpi
+      3ad2ant3 wi supdef pm3.26d jca wb cpreset eqid puub2 posispre sylan
+      3adant3 mpbird ) BHIZACIZBAJKZDIZLZUPBAMKIZUPBNZIZFOZUPBPFAQZRZURVAVCUQUN
+      VAUOUQVADUTUPESTUAURVCGOVBBPGAQUPVBBPUBFDQFGABCDEUCUDUEUNUOUSVDUFZUQBUGIU
+      OVEUNACBUPUTFUTUHUIBUJUKULUM $.
+      $( [19-Sep-2011] $)
+  $}
+
+  ${
+    $d A x z $.  $d R x z $.  $d W x $.  $d X x $.
+    suplub2.1 $e |- X = dom R $.
+    $( If it exists, a supremum of ` A ` is the least upper bound for
+       ` A ` . $)
+    suplub2 $p |- ( ( R e. Poset /\ A e. W /\ ( R supw A ) e. X ) ->
+        A. x e. ( R ub A ) ( R supw A ) R x ) $=
+      ( vz cps wcel cspw co w3a cv wbr cub cdm wral wa wi wb cpreset eqid
+      puub2 posispre sylan 3adant3 supdef eleq2i syl3an3b pm3.27d r19.21bi ex
+      com3l imp syl6bi pm2.43a r19.21aiv ) CHIZBDIZCBJKZEIZLZUTAMZCNZACBOKZVCVE
+      IZVBVDVBVFVCCPZIZGMVCCNGBQZRZVBVDSZURUSVFVJTZVACUAIUSVLURBDCVCVGGVGUBZUCC
+      UDUEUFVHVIVKVBVHVIVDVBVHVIVDSZVBVNAVGVBVCUTCNABQZVNAVGQZURUSUTVGIVOVPRVAA
+      GBCDVGVMUGEVGUTFUHUIUJUKULUMUNUOUPUQ $.
+      $( [19-Sep-2011] $)
+  $}
+
+  ${
+    $d R x $.  $d X x $.
+    geme2.1 $e |- X = dom R $.
+    $( The greatest element of ` X ` is a maximal element. $)
+    geme2 $p |- ( ( R e. Poset /\ ( R supw X ) e. X ) ->
+     ( R supw X ) e. ( mxl ` R ) ) $=
+      ( vx cps wcel cspw co wa cmxl cfv cdm cv wbr wceq wi wral eleq2i biimpi
+      adantl w3a opreq2 breq2d 3anbi3d psasym syl6bi eqcoms ax-mp 3exp com23
+      simpll eqid supdefa pm3.27 opreq2i eleq12i ad2antlr syl3anc sylc
+      r19.21aiva jca wb cpreset posispre ismxl2 syl adantr mpbird ) AEFZABGHZBF
+      ZIZVJAJKFZVJALZFZVJDMZANZVJVPOZPZDVNQZIZVLVOVTVKVOVIVKVOBVNVJCRSTVLVSDVNV
+      IVPAVNGHZANZVSVLVPVNFZIZVIVQWCVRVIVQWCVRBVNOVIVQWCUAZVRPZCWGVNBVNBOZWFVIV
+      QVPVJANZUAVRWHWCWIVIVQWHWBVJVPAVNBAGUBUCUDVJVPAUEUFUGUHUIUJVIVKWDUKZVIWDW
+      BVNFZWCWEVPAVNVNULZUMWJVLWDUNVKWKVIWDVKWKVJWBBVNBVNAGCUOCUPSUQURUSUTVAVIV
+      MWAVBZVKVIAVCFWMAVDVJAVNDWLVEVFVGVH $.
+      $( [19-Sep-2011] $)
   $}
 
   ${
@@ -468,43 +848,31 @@ $)
   $}
 
   ${
-    $d A r x y $.  $d R r x y $.
-    $( Value of an infimum under a weak ordering. $)
-    nfwval $p |- ( ( R e. U /\ A e. W ) -> ( R infw A ) = ( `' R supw A ) ) $=
-      ( vr vx vy cv ccnv cspw co cinf oprex wceq cnveq opreq1d opreq2 df-nfw
-      oprabval5 ) EFGBACDEHZIZFHZJKBIZAJKLUCUBJKUCAJMTBNUAUCUBJTBOPUBAUCJQFGERS
-      $.
-      $( [7-Sep-2009] $) $( [6-Sep-2009] $)
+    $d R x y $.
+    $( The converse of a toset is a toset.  In the general case
+       ` ( ``' R e. Toset -> R e. Toset ) ` is not true.  See ~ dutos2 for a
+       special case where the property holds. $)
+    dutos1 $p |- ( R e. Toset -> `' R e. Toset ) $=
+      ( vx vy ccha wcel ccnv cps cv wbr wo cuni wral wa eqid istoset dupos1
+      adantr ax-17 hbra1 hban hbral wi wrel wceq psrel relcnvfld eleq2 anbi12d
+      imbi1d pm2.27 orcom brcnvg bicomd wb ancoms orbi12d biimpcd sylbi syl6
+      pm2.43a ex com3r syl6bi a1d 3syl pm2.43i ra42 syl5 imp31 r19.21ai jca
+      cvv cnvexg syl mpbird ) ADEZAFZDEZVQGEZBHZCHZVQIZWAVTVQIZJZCVQKKZLZBWELZM
+      ZVPWHVPVPAGEZVTWAAIZWAVTAIZJZCAKKZLZBWMLZMZWHBCDAWMWMNOWPVSWGWIVSWOAPQWPW
+      FBWEWIWOBWIBRWNBWMSTWPVTWEEZWFWPWQMWDCWEWPWQCWIWOCWICRWNCBWMVTWMEZCRWLCWM
+      SUATWQCRTWIWOWQWAWEEZWDUBZWIWRWAWMEZMZWLUBZWQWTUBZWOWIXCXDUBZWIAUCWMWEUDZ
+      WIXEUBAUEAUFXFXEWIXFXCWQWSMZWLUBZXDXFXBXGWLXFWRWQXAWSWMWEVTUGWMWEWAUGUHUI
+      WQWSXHWDWQWSXHWDUBXHXGWDXGXHWLXGWDUBZXGWLUJWLWKWJJZXIWJWKUKXGXJWDXGWKWBWJ
+      WCXGWBWKVTWAWEWEAULUMWSWQWJWCUNWSWQMWCWJWAVTWEWEAULUMUOUPUQURUSUTVAVBVCVD
+      VEVFWLBCWMWMVGVHVIVJVAVJVKVCVFVPVQVLEVRWHUNADVMBCVLVQWEWENOVNVO $.
+      $( [19-Sep-2011] $)
   $}
 
-  $( The empty set is a poset. $)
-  empos $p |- (/) e. Poset $=
-    ( c0 cps wcel wrel ccom wss ccnv cin cid cuni cres wceq w3a rel0 co01
-    eqimssi cnv0 ineq2i inidm uni0 unieqi eqtri reseq2 ax-mp res0 eqtr2i
-    3eqtri 3pm3.2i cvv wb 0ex isps mpbir ) ABCZADZAAEZAFZAAGZHZIAJZJZKZLZMZUOUQ
-    VCNUPAAOPUSAAHAVBURAAQRASVBIAKZAVAALVBVELVAUTAUTATUATUBVAAIUCUDIUEUFUGUHAUI
-    CUNVDUJUKUIAULUDUM $.
-    $( [7-Oct-2008] $) $( [6-Oct-2008] $)
-
-  $( The converse of a poset is a poset.  In the general case
-     ` ( ``' R e. Poset -> R e. Poset ) ` is not true.  See ~ dupos2 for a
-     special case where the property holds. $)
-  dupos1 $p |- ( R e. Poset -> `' R e. Poset ) $=
-    ( cps wcel ccnv wrel ccom wss cin cid cuni cres wceq w3a isps wi relcnv
-    a1i cnvss cnvco syl5ssr dfrel2 ineq2 eqeq1d imbi2d wa reseq2 eqeq2d biimpa
-    incom syl5eq ex syl5bir sylbi psrel relcnvfld syl sylc 3anim123d sylbid
-    pm2.43i cvv wb cnvexg mpbird ) ABCZADZBCZVFEZVFVFFZVFGZVFVFDZHZIVFJJZKZLZMZ
-    VEVPVEVEAEZAAFZAGZAVFHZIAJJZKZLZMVPBANVEVQVHVSVJWCVOVQVHOVEVHVQAPQQVSVJOVEV
-    SVRDVFVIVRARAASTQVQWAVMLZWCVOOZVEVQVKALZWDWEOAUAWFWEWCVFAHZVNLZOWDWFVOWHWCW
-    FVLWGVNVKAVFUBUCUDWDWCWHWDWCUEVTVNWGWDWCVTVNLWDWBVNVTWAVMIUFUGUHVFAUIUJUKUL
-    UMAUNZVEVQWDWIAUOUPUQURUSUTVEVFVACVGVPVBABVCVAVFNUPVD $.
-    $( [28-Jan-2009] $) $( [5-Jan-2009] $)
-
-  $( The converse of a poset is a poset. $)
-  dupos2 $p |- ( Rel R -> ( R e. Poset <-> `' R e. Poset ) ) $=
-    ( wrel cps wcel ccnv dupos1 wceq wi dfrel2 eleq1 biimpd sylbi syl5 impbid2
-    ) ABZACDZAEZCDZAFOQEZCDZPROSAGZTPHAIUATPSACJKLQFMN $.
-    $( [28-Jan-2009] $) $( [5-Jan-2009] $)
+  $( The converse of a toset is a toset. $)
+  dutos2 $p |- ( Rel R -> ( R e. Toset <-> `' R e. Toset ) ) $=
+    ( wrel ccha wcel ccnv dutos1 wceq wi dfrel2 eleq1 syl5bir eqcoms sylbi
+    impbid2 ) ABZACDZAEZCDZAFOQEZAGRPHZAITASASGPSCDRASCJQFKLMN $.
+    $( [19-Sep-2011] $)
 
   ${
     $d x y z $.
@@ -526,6 +894,72 @@ $)
       $( [3-Aug-2009] $) $( [2-Aug-2009] $)
   $}
 
+  ${
+    $d R x y $.  $d X x y $.
+    istoset2.1 $e |- X = dom R $.
+    $( The predicate is a toset. ` dom R ` is preferred to ` U. U. R ` to
+       express the underling set. $)
+    istoset2 $p |- ( R e. Toset <->
+      ( R e. Poset /\ A. x e. X A. y e. X ( x R y \/ y R x ) ) ) $=
+      ( ccha wcel cps cv wbr wo wral wa cdm cuni wceq cdir tosdir sseli dirdm
+      syl wi eqtr id raleq raleqbidv anbi2d eqid istoset ibi syl5bir mpan
+      mpcom cpreset posispre preodom2 biidd imbi1d biimprd exp3a pm2.43i 3syl
+      imp impbii ) CFGZCHGZAIZBIZCJVHVGCJKZBDLZADLZMZCNZCOOZPZVEVLVECQGVOFQCRSC
+      TUADVMPZVOVEVLUBZEVPVOMZDVNPZVQDVMVNUCZVSVLVFVIBVNLZAVNLZMZVEVSVKWBVFVSVJ
+      WAADVNVSUDZVIBDVNUEUFUGVEWCABFCVNVNUHZUIUJUKUAULUMVFVKVEVFVKVEUBZVFCUNGVO
+      VFWFUBZCUOCUPVPVOWGEVRVSWGVTVSWFWBVEUBZVFVSVKWBVEVSVJWAADVNWDVSVIVIBDVNWD
+      VSVIUQUFUFURVFWHVFVFWBVEVFVEWCABHCVNWEUIUSUTVAUKUAULVBVAVCVD $.
+      $( [19-Sep-2011] $)
+  $}
+
+  ${
+    $( Value of an infimum under a weak ordering. $)
+    supwval $p |- ( ( Rel R /\ R e. U /\ A e. W ) ->
+       ( R supw A ) = ( `' R infw A ) ) $=
+      ( wrel wcel w3a cspw co ccnv cinf wceq dfrel2 opreq1 eqcoms sylbi
+      3ad2ant1 cvv wa nfwval eqcomd cnvexg 3ad2ant2 3simp3 sylanc eqtrd ) BEZBC
+      FZADFZGZBAHIZBJZJZAHIZULAKIZUGUHUKUNLZUIUGUMBLUPBMUPBUMBUMAHNOPQULRFZUIUN
+      UOLUJUQUISUOUNAULRDTUAUHUGUQUIBCUBUCUGUHUIUDUEUF $.
+      $( [19-Sep-2011] $)
+  $}
+
+  ${
+    $( Infimum of an unordered pair of comparable elements. $)
+    nfwpr4c $p |- ( ( R e. Poset /\ B e. U /\ A R B )
+         -> ( R infw { A , B } ) = A ) $=
+      ( cps wcel wbr w3a cpr cinf co ccnv cspw cvv wceq wa nfwval prcom
+      opreq2i syl6eq 3simp1 prex sylancl spwpr4c dupos1 3ad2ant1 wrel brrelex
+      psrel 3simp3 sylanc wi wb brcnvg 3simp2 sylan 3adant2 biimprcd 3ad2ant3
+      pm2.43i syl3anc eqtrd ) CEFZBDFZABCGZHZCABIZJKZCLZBAIZMKZAVCVGNFZVHVKOVFV
+      CVLPVHVIVGMKVKVGCENQVGVJVIMABRSTVCVDVEUAABUBUCVIEFZANFZBAVIGZVKAOVFBAVINU
+      DVCVDVMVECUEUFCUGZVEVNVFABCUHZVCVDVPVECUIZUFVCVDVEUJUKVFVOVEVCVFVOULVDVFV
+      OVEVDVNVOVEUMVFBADNCUNVCVDVEUOVCVEVNVDVPVEVNVCVQVRUPUQUKURUSUTVAVB $.
+      $( [19-Sep-2011] $)
+  $}
+
+  ${
+    $d u v x $.
+    $( A totally ordered set is a lattice. $)
+    tolat $p |- Toset C_ Lat $=
+      ( vx vu vv ccha cla wss cv wcel wi dfss2 cps wbr wo cdm wral wa cpr cspw
+      co cinf wceq cvv visset spwpr4c 3exp mpi impcom cpreset posispre eqid
+      pre2befi2 syl eqeltrd nfwpr4c breldm adantr jca ex wb prcom opreq2
+      eleq1d ax-mp sylibr opreq2i syl5eqel jaoi com12 ralimdvaa imdistani
+      istoset2 isla 3imtr4i mpgbir ) DEFAGZDHZVOEHZIAADEJVOKHZBGZCGZVOLZVTVSVOL
+      ZMZCVONZOZBWDOZPVRVOVSVTQZRSZWDHZVOWGTSZWDHZPZCWDOZBWDOZPVPVQVRWFWNVRWEWM
+      BWDVRWEWMIVSWDHZVRWCWLCWDVRWCWLIVTWDHZWCVRWLWAVRWLIWBWAVRWLWAVRPZWIWKWQWH
+      VTWDVRWAWHVTUAZVRVTUBHZWAWRICUCZVRWSWAWRVSVTVOUBUDUEUFUGVRWAWPVRWSWAWPIZW
+      TVRVOUHHZWSXAIVOUIZXBWSWAWPVSVTUBVOWDWDUJZUKUEULUFUGUMWQWJVSWDVRWAWJVSUAZ
+      VRWSWAXEIWTVRWSWAXEVSVTVOUBUNUEUFUGWAWOVRVSVTVOBUCZUOUPUMUQURWBVRWLWBVRPZ
+      WIWKXGVOVTVSQZRSZWDHZWIXGXIVSWDVRWBXIVSUAZVRVSUBHZWBXKIXFVRXLWBXKVTVSVOUB
+      UDUEUFUGVRWBWOVRXBWBWOIZXCXBXLXMXFXBXLWBWOVTVSUBVOWDXDUKUEUFULUGUMWGXHUAZ
+      WIXJUSVSVTUTZXNWHXIWDWGXHVORVAVBVCVDXGVOXHTSZWDWJXGXPVTWDVRWBXPVTUAZVRXLW
+      BXQIXFVRXLWBXQVTVSVOUBUNUEUFUGWBWPVRVTVSVOWTUOUPUMWGXHVOTXOVEVFUQURVGVHUP
+      VIUPVIVJBCVOWDXDVKBCVOWDXDVLVMVN $.
+      $( [19-Sep-2011] $)
+
+  $}
+
   $( A restriction of the identity is a poset. $)
   dispos $p |- ( A e. B -> ( _I |` A ) e. Poset ) $=
     ( wcel cid cres cps wrel ccom wss ccnv cin cuni wceq w3a relres wf wf1o
@@ -542,7 +976,7 @@ $)
     ( wcel cop cid cdif wn wbr wa ididg df-br sylib notnot intnand eldif
     notbii sylibr ) ABDZAAEZCFGZDZHZAAUAIZHSTCDZTFDZHZJZHUCSUGUESUFUGHSAAFIUFAB
     KAAFLMUFNMOUBUHTCFPQRUDUBAAUALQR $.
-    $( [30-Dec-2010] $) $( [30-Dec-2010] $)
+    $( [30-Dec-2010] $)
 
   ${
     $d r x $.
@@ -564,7 +998,7 @@ $)
       GZXCXOWDWFUOWGYDWNWNWGYDTWFWDURUSUTVAVBVCVDVBVDVBVAVDVEVAVFVBVCUIBWDVGBWD
       VHVIVCVJVKVLVMVLVNVOVPWEWGWLVQVRWOWEWGWLWEWNWLQWNWEWGWLWFWDVSVTWEWNWLVQVR
       WAWBWC $.
-      $( [30-Dec-2010] $) $( [30-Dec-2010] $)
+      $( [30-Dec-2010] $)
   $}
 
   ${
@@ -575,7 +1009,7 @@ $)
       isps relin1 tricptr cv wbr wral wa wi wal asymref2 df-ral uuniin ssel
       elin visset brxp pm2.27 int2rel biimpri ex syl6 com3r sylbir fldsqcp2
       eleq2i sylancb impcom sylbi ax-mp com12 a4s adantr r19.21aiv expcom imp
-      19.20i2 adantl jca sylibr 3anim123i syl6bi pm2.43i cvv wb inex1g syl
+      2alimi adantl jca sylibr 3anim123i syl6bi pm2.43i cvv wb inex1g syl
       mpbird ) BFGZBAAHZIZFGZWHJZWHWHKWHLZWHWHMINWHOOZPQZRZWFWNWFWFBJZBBKBLZBBM
       INBOOZPQZRWNFBSWOWJWPWKWRWMBWGTABUAWRCUBZWSWHUCZCWLUDZWSDUBZWHUCZXBWSWHUC
       ZUEZWSXBQZUFZDUGCUGZUEWMWRXAXHWRWTCWLWRWSWSBUCZCWQUDZWSEUBZBUCXKWSBUCUEWS
@@ -587,7 +1021,48 @@ $)
       SXBWGUCZUEXDYLUFZWSXBBWGUPYGYNYMXDYGYLXDYHXBWSWGUCZUEYGYLUFZXBWSBWGUPYHYP
       YOYGYHYLYIXFUOVLVJVFVHVJVFVMVHVNVOVFVPCDWHUHVQVRVSVTWFWHWAGWIWNWBBWGFWCWA
       WHSWDWE $.
-      $( [24-Jan-2010] $) $( [24-Jan-2010] $)
+      $( [24-Jan-2010] $)
+  $}
+
+  ${
+    $d A x y $.  $d R x y $.  $d X x $.
+    rngsubpos.1 $e |- X = dom R $.
+    $( Field of a subposet. $)
+    rngsubpos $p |- ( ( R e. Poset /\ A C_ X )
+      -> dom ( R i^i ( A X. A ) ) = A ) $=
+      ( vx vy cps wcel wss wa cv wbr wrex wral cxp cin cdm wceq breq2 rcla4ev
+      pm3.27 ssel psref ex syl9r imp31 sylanc r19.21aiva dminxp sylibr ) BGHZAC
+      IZJZEKZFKZBLZFAMZEANBAAOPQARUMUQEAUNAHZUNUNBLZUQUMURJUPUSFUNAUOUNUNBSTUMU
+      RUAUKULURUSULURUNCHZUKUSACUNUBUKUTUSUNBCDUCUDUEUFUGUHEFAABUIUJ $.
+      $( [19-Sep-2011] $)
+  $}
+
+  ${
+    $d A x y $.  $d R x y $.  $d X y $.
+    defge2.1 $e |- X = dom R $.
+    $( The greatest element of the subset of a poset is an element that is
+       greater than the other elements of the subset. $)
+    defge2 $p |- ( ( R e. Poset /\ A =/= (/) /\ A C_ X ) -> (
+        ( ge ` ( R i^i ( A X. A ) ) ) e. A
+       <-> A. x e. A x ( R i^i ( A X. A ) )
+          ( ge ` ( R i^i ( A X. A ) ) ) ) ) $=
+      ( vy cps wcel c0 wne wss w3a cxp cin cge cfv cv wbr wral wb cdm eqid
+      defge pospos 3ad2ant1 wa wex wi n0 cop visset opelxp ssel wrel cuni
+      domintreflem psrel wceq crn psdmrn eleq2 imbi1d psref ex syl5bir imp31
+      r19.21aiva eqcoms adantr mpcom sylanc wrex eleq1 rcla4ev df-rex sylib
+      syl6bi com3l eleq2s syl6 com14 com13 sylbir anidms pm2.43i 19.23aiv
+      sylbi com12 3imp bnj1269 sylibr rngsubpos eqcom biimpi eleq2d raleqdv
+      bibi12d syl 3adant2 mpbird ) CGHZBIJZBDKZLZCBBMZNZOPZBHZAQZXGXFRZABSZTZXG
+      XFUAZHZXJAXMSZTZXFGHZXFIJZXPXDAXFXMXMUBUCXAXBXQXCBCUDUEXDXICHXIXEHZUFAUGZ
+      XRXAXBXCXTXBXAXCXTUHZXBFQZBHZFUGXAYAUHZFBUIYCYDFYCYDYCYCYDUHZYCYCUFYBYBUJ
+      ZXEHZYEYBYBBBFUKZULXAYCYGYAXCYCYGXAXTXCYCYBDHYGXAXTUHUHZBDYBUMYIYBCUAZDXA
+      YBYJHZYGXTXAYKYFCHZYGXTUHCUNXIXICRZACUOUOZSZYKYLTXAAYBCYHUPCUQYJYNURZCUSY
+      NURZUFXAYOCUTYPXAYOUHZYQYRYNYJYNYJURZXAYOYSXAUFYMAYNYSXAXIYNHZYMYSYTYMUHX
+      IYJHZYMUHXAYSYTUUAYMYNYJXIVAVBXAUUAYMXICYJYJUBVCVDVEVFVGVDVHVIVJVKYLYGXTY
+      LYGUFXSACVLXTXSYGAYFCXIYFXEVMVNXSACVOVPVDVQVREVSVTWAWBWCWDWEWFWGWHWIACXEW
+      JWKVKXAXCXLXPTZXBXAXCUFXMBURZUUBBCDEWLUUCXHXNXKXOUUCBXMXGUUCBXMURXMBWMWNZ
+      WOUUCXJABXMUUDWPWQWRWSWT $.
+      $( [19-Sep-2011] $)
   $}
 
   ${
@@ -599,19 +1074,19 @@ $)
       a1d syl6 3imp sseli pm3.26bi syl syl5 imp fldsqcp2 eleq2i biimpi
       3ad2ant3 adantl sylbi anim12i visset brxp sylibr jca andir sylib sqpeq
       ersymb anbi2i orbi2i int2rel orbi12i ex r19.21ai 3exp com23 mpan com12
-      r19.20i2 adantr cvv wb inex1g ad2antrr mpbird syli pm2.43i ) BEFZBAAGZHZE
-      FZWNWNBIFZCJZDJZBKZWTWSBKZLZDBMMZNZCXDNZOZWQWNWNXGCDEBXDXDPQRXGWNWQXGWNOZ
-      WQWPIFZWSWTWPKZWTWSWPKZLZDWPMMZNZCXMNZOZXGXPWNWRXIXFXOABSXEXNCXDXMWSXMFZW
-      SXDFZXETZXNXMXDWOMMZHZUAZXQXSXNTZBWOUBZYBXQOWSYAFZYCXMYAWSUCYEXRWSXTFZOYC
-      WSXDXTUDXRYFYCXRXSYFXNXRXSYFXNXRXSYFUEZXLDXMXRXSYFDXRDUFZXRXEDYHXCDXDUGUH
-      YFDUFUIYGWTXMFZXLYGYIOZXAWSWTWOKZOZXBWTWSWOKZOZLZXLYJYLXBYKOZLZYOYJXCYKOY
-      QYJXCYKYGYIXCYGWTXDFZXCYIXRXSYFYRXCTZXRXSXEYFYSTXRXEUJXEYSYFXCDXDUKULUMUN
-      YIWTYAFZYRXMYAWTYDUOZYTYRWTXTFZWTXDXTUDZUPUQURUSYJWSAFZWTAFZOYKYGUUDYIUUE
-      YFXRUUDXSYFUUDXTAWSAUTZVAVBVCYIYTUUEUUAYTYRUUBOUUEUUCUUBUUEYRUUBUUEXTAWTU
-      UFVAVBVDVEUQVFWSWTAADVGZVHVIVJXAXBYKVKVLYPYNYLYKYMXBWSWTWOCVGUUGAVMVNVOVP
-      VLXJYLXKYNWSWTBWOVQWTWSBWOVQVRVIVSVTWAWBUSVEUQWCWDWEVFWFXHWPWGFZWQXPWHWRU
-      UHXFWNBWOIWIWJCDWGWPXMXMPQUQWKVSWLWM $.
-      $( [24-Jan-2010] $) $( [24-Jan-2010] $)
+      ralimi2 adantr cvv wb inex1g ad2antrr mpbird syli pm2.43i ) BEFZBAAGZHZEF
+      ZWNWNBIFZCJZDJZBKZWTWSBKZLZDBMMZNZCXDNZOZWQWNWNXGCDEBXDXDPQRXGWNWQXGWNOZW
+      QWPIFZWSWTWPKZWTWSWPKZLZDWPMMZNZCXMNZOZXGXPWNWRXIXFXOABSXEXNCXDXMWSXMFZWS
+      XDFZXETZXNXMXDWOMMZHZUAZXQXSXNTZBWOUBZYBXQOWSYAFZYCXMYAWSUCYEXRWSXTFZOYCW
+      SXDXTUDXRYFYCXRXSYFXNXRXSYFXNXRXSYFUEZXLDXMXRXSYFDXRDUFZXRXEDYHXCDXDUGUHY
+      FDUFUIYGWTXMFZXLYGYIOZXAWSWTWOKZOZXBWTWSWOKZOZLZXLYJYLXBYKOZLZYOYJXCYKOYQ
+      YJXCYKYGYIXCYGWTXDFZXCYIXRXSYFYRXCTZXRXSXEYFYSTXRXEUJXEYSYFXCDXDUKULUMUNY
+      IWTYAFZYRXMYAWTYDUOZYTYRWTXTFZWTXDXTUDZUPUQURUSYJWSAFZWTAFZOYKYGUUDYIUUEY
+      FXRUUDXSYFUUDXTAWSAUTZVAVBVCYIYTUUEUUAYTYRUUBOUUEUUCUUBUUEYRUUBUUEXTAWTUU
+      FVAVBVDVEUQVFWSWTAADVGZVHVIVJXAXBYKVKVLYPYNYLYKYMXBWSWTWOCVGUUGAVMVNVOVPV
+      LXJYLXKYNWSWTBWOVQWTWSBWOVQVRVIVSVTWAWBUSVEUQWCWDWEVFWFXHWPWGFZWQXPWHWRUU
+      HXFWNBWOIWIWJCDWGWPXMXMPQUQWKVSWLWM $.
+      $( [24-Jan-2010] $)
   $}
 
 
@@ -623,48 +1098,167 @@ $)
        eyes of a topologist. $)
     toplat $p |- ( J e. Top -> ( C i^i ( J X. J ) ) e. Lat ) $=
       ( vx vy va ctop wcel cxp cin cps cv cpr cspw co cinf wa wral cla inposet
-      cuni cvv wbr wi wceq cdm domncnt eqcomi spwpr4 adantr zfpair uniex jctir
-      wss w3a simprl uniopn visset prss sylan2b prid1 a1i ssid jctil ssuni syl
-      3jca definc sylibr simprr prid2 jca cun unss ad2antrl unipr sseq1i
-      biimpi ex sylbi expcom 3ad2ant3 com12 imp r19.21aiva syl3anc eqeltrd
-      ccnv cint nfwval crn ranncnt df-rn eqtr3i dupos1 c0 wne prnz intex mpbi
-      intpr eleq1i adantl pm3.26 inss1 inex1 syl5eqbr brcnvg mpbird adantlr
-      pm3.27 inss2 eqsstri adantll inopn 3expb syl5eqel sylanc simplr ad2antrr
-      ssin syl6ssr syl2ani wb sylan biimpd syl2and pm3.2i exp31 r19.21aiv
-      3eqtrd r19.21aivv isla ) DIJZCDDKLZMJZYQFNZGNZOZPQZDJZYQUUARQZDJZSZGDTFDT
-      ZSYQUAJYPYRUUGBADICEUBZYPUUFFGDDYPYSDJZYTDJZSZUUFYPUUKSZUUCUUEUULUUBUUAUC
-      ZDYRUUMUDJZSYSUUMYQUEZYTUUMYQUEZSYSHNZYQUEZYTUUQYQUEZSZUUMUUQYQUEZUFZHDTU
-      UBUUMUGUULHYSYTUUMUDYQDYQUHDBADCEUIUJZUKUULYRUUNYPYRUUKUUHULZUUAFGUMZUNZU
-      OUULUUOUUPUULUUIUUMDJZYSUUMUPZUQUUOUULUUIUVGUVHYPUUIUUJURZYPUUADUPUVGUUKU
-      UADUSYSYTDFUTZGUTZVAVBZUULYSYSUPZYSUUAJZSUVHUULUVNUVMUVNUULYSYTUVJVCVDYSV
-      EVFYSYSUUAVGVHVIBADDCUUMYSUDUDUVJUVFEVJVKUULUUJUVGYTUUMUPZUQUUPUULUUJUVGU
-      VOYPUUIUUJVLZUVLUULYTYTUPZYTUUAJZSUVOUULUVRUVQUVRUULYSYTUVKVMVDYTVEVFYTYT
-      UUAVGVHVIBADDCUUMYTUDUDUVKUVFEVJVKVNUULUVBHDUUTUULUUQDJZSZUVAUURUUSUVTUVA
-      UFZUURUUIUVSYSUUQUPZUQUUSUWAUFZBADDCUUQYSUDUDUVJHUTZEVJUWBUUIUWCUVSUUSUWB
-      UWAUUSUUJUVSYTUUQUPZUQUWBUWAUFZBADDCUUQYTUDUDUVKUWDEVJUWEUUJUWFUVSUWBUWEU
-      WAUWBUWESYSYTVOZUUQUPZUWAYSYTUUQVPUWHUVTUVAUWHUVTSZUVGUVSUUMUUQUPZUQUVAUW
-      IUVGUVSUWJUULUVGUWHUVSUVLVQUWHUULUVSVLUWHUWJUVTUWHUWJUWGUUMUUQUUMUWGYSYTU
-      VJUVKVRUJVSVTULVIBADDCUUQUUMUDUDUVFUWDEVJVKWAWBWCWDWBWEWDWBWFWEWGWHUVLWIU
-      ULUUDYSYTLZDUULUUDYQWJZUUAPQZUUAWKZUWKUULYRUUAUDJZSUUDUWMUGUULYRUWOUVDUVE
-      UOUUAYQMUDWLVHUWLMJZUWNUDJZSYSUWNUWLUEZYTUWNUWLUEZSZYSUUQUWLUEZYTUUQUWLUE
-      ZSZUWNUUQUWLUEZUFZHDTUWMUWNUGUULHYSYTUWNUDUWLDYQWMDUWLUHBADCEWNYQWOWPUKUU
-      LUWPUWQYPUWPUUKYPYRUWPUUHYQWQVHULUUAWRWSUWQYSYTUVJWTUUAXAXBZUOUUKUWNDJZUW
-      TUULUUKUXGSUWRUWSUUIUXGUWRUUJUUIUXGSZUWRUWNYSYQUEUXHUWKYSUWNYQUXHUWKDJZUU
-      IUWKYSUPZUQUWKYSYQUEUXHUXIUUIUXJUXGUXIUUIUXGUXIUWNUWKDYSYTUVJUVKXCZXDVTXE
-      UUIUXGXFUXJUXHYSYTXGVDVIBADDCYSUWKUDUDYSYTUVJXHUVJEVJVKUXKXIYSUWNDDYQXJXK
-      XLUUJUXGUWSUUIUUJUXGSZUWSUWNYTYQUEZUXLUXGUUJUWNYTUPZUQUXMUXLUXGUUJUXNUUJU
-      XGXMUUJUXGXFUXNUXLUWNUWKYTUXKYSYTXNXOVDVIBADDCYTUWNUDUDUXFUVKEVJVKYTUWNDD
-      YQXJXKXPVNYPUUKXMUULUWKDUWNYPUUIUUJUXIYSYTDXQXRZUXKXSZXTUULUXEHDUULUVSUXC
-      UXDUVTUXCSZUXDUUQUWNYQUEZUVTUXCUXRUVTUUQYSYQUEZUUQYTYQUEZUXRUXAUXBUVTUVSU
-      UIUUQYSUPZUQZUVSUUJUUQYTUPZUQZUXRUXSUXTUVTUYBUYDSZUXRUVTUYESZUVSUXGUUQUWN
-      UPZUQUXRUYFUVSUXGUYGUULUVSUYEYAUULUXGUVSUYEUXPYBUYEUYGUVTUYBUYDUYGUYAUVSU
-      YDUYGUFUUIUYDUYAUYGUYCUVSUYAUYGUFUUJUYAUYCUYGUYAUYCSZUUQUWKUWNUYHUUQUWKUP
-      UUQYSYTYCVTUXKYDWCWDWEWDWFXEVIBADDCUWNUUQUDUDUWDUXFEVJVKWAUXSUYBBADDCYSUU
-      QUDUDUWDUVJEVJVTUXTUYDBADDCYTUUQUDUDUWDUVKEVJVTYEUVTUXAUXSUUIUVSUXAUXSYFU
-      ULYSUUQDDYQXJUVIYGYHUVTUXBUXTUUJUVSUXBUXTYFUULYTUUQDDYQXJUVPYGYHYIWFUXQUW
-      QUUQUDJZSZUXDUXRYFUYJUXQUWQUYIUXFUWDYJVDUWNUUQUDUDYQXJVHXKYKYLWHUWNUWKUGU
-      ULUXKVDYMUXOWIVNWAYNVNFGYQDUVCYOVK $.
+      cuni cvv wbr wi wceq cdm domncnt eqcomi spwpr4 adantr zfpair2 uniex
+      jctir wss w3a simprl uniopn visset prss sylan2b prid1 a1i ssid jctil
+      ssuni syl 3jca definc sylibr simprr prid2 jca cun unss ad2antrl unipr
+      sseq1i biimpi ex sylbi expcom 3ad2ant3 com12 imp r19.21aiva syl3anc
+      eqeltrd ccnv cint nfwval crn ranncnt df-rn eqtr3i dupos1 c0 wne prnz
+      intex mpbi intpr eleq1i adantl pm3.26 inss1 inex1 syl5eqbr brcnvg mpbird
+      adantlr pm3.27 inss2 eqsstri adantll inopn 3expb syl5eqel sylanc simplr
+      ad2antrr ssin syl6ssr syl2ani wb sylan biimpd syl2and pm3.2i exp31
+      r19.21aiv 3eqtrd r19.21aivv isla ) DIJZCDDKLZMJZYQFNZGNZOZPQZDJZYQUUARQZD
+      JZSZGDTFDTZSYQUAJYPYRUUGBADICEUBZYPUUFFGDDYPYSDJZYTDJZSZUUFYPUUKSZUUCUUEU
+      ULUUBUUAUCZDYRUUMUDJZSYSUUMYQUEZYTUUMYQUEZSYSHNZYQUEZYTUUQYQUEZSZUUMUUQYQ
+      UEZUFZHDTUUBUUMUGUULHYSYTUUMUDYQDYQUHDBADCEUIUJZUKUULYRUUNYPYRUUKUUHULZUU
+      AFGUMZUNZUOUULUUOUUPUULUUIUUMDJZYSUUMUPZUQUUOUULUUIUVGUVHYPUUIUUJURZYPUUA
+      DUPUVGUUKUUADUSYSYTDFUTZGUTZVAVBZUULYSYSUPZYSUUAJZSUVHUULUVNUVMUVNUULYSYT
+      UVJVCVDYSVEVFYSYSUUAVGVHVIBADDCUUMYSUDUDUVJUVFEVJVKUULUUJUVGYTUUMUPZUQUUP
+      UULUUJUVGUVOYPUUIUUJVLZUVLUULYTYTUPZYTUUAJZSUVOUULUVRUVQUVRUULYSYTUVKVMVD
+      YTVEVFYTYTUUAVGVHVIBADDCUUMYTUDUDUVKUVFEVJVKVNUULUVBHDUUTUULUUQDJZSZUVAUU
+      RUUSUVTUVAUFZUURUUIUVSYSUUQUPZUQUUSUWAUFZBADDCUUQYSUDUDUVJHUTZEVJUWBUUIUW
+      CUVSUUSUWBUWAUUSUUJUVSYTUUQUPZUQUWBUWAUFZBADDCUUQYTUDUDUVKUWDEVJUWEUUJUWF
+      UVSUWBUWEUWAUWBUWESYSYTVOZUUQUPZUWAYSYTUUQVPUWHUVTUVAUWHUVTSZUVGUVSUUMUUQ
+      UPZUQUVAUWIUVGUVSUWJUULUVGUWHUVSUVLVQUWHUULUVSVLUWHUWJUVTUWHUWJUWGUUMUUQU
+      UMUWGYSYTUVJUVKVRUJVSVTULVIBADDCUUQUUMUDUDUVFUWDEVJVKWAWBWCWDWBWEWDWBWFWE
+      WGWHUVLWIUULUUDYSYTLZDUULUUDYQWJZUUAPQZUUAWKZUWKUULYRUUAUDJZSUUDUWMUGUULY
+      RUWOUVDUVEUOUUAYQMUDWLVHUWLMJZUWNUDJZSYSUWNUWLUEZYTUWNUWLUEZSZYSUUQUWLUEZ
+      YTUUQUWLUEZSZUWNUUQUWLUEZUFZHDTUWMUWNUGUULHYSYTUWNUDUWLDYQWMDUWLUHBADCEWN
+      YQWOWPUKUULUWPUWQYPUWPUUKYPYRUWPUUHYQWQVHULUUAWRWSUWQYSYTUVJWTUUAXAXBZUOU
+      UKUWNDJZUWTUULUUKUXGSUWRUWSUUIUXGUWRUUJUUIUXGSZUWRUWNYSYQUEUXHUWKYSUWNYQU
+      XHUWKDJZUUIUWKYSUPZUQUWKYSYQUEUXHUXIUUIUXJUXGUXIUUIUXGUXIUWNUWKDYSYTUVJUV
+      KXCZXDVTXEUUIUXGXFUXJUXHYSYTXGVDVIBADDCYSUWKUDUDYSYTUVJXHUVJEVJVKUXKXIYSU
+      WNDDYQXJXKXLUUJUXGUWSUUIUUJUXGSZUWSUWNYTYQUEZUXLUXGUUJUWNYTUPZUQUXMUXLUXG
+      UUJUXNUUJUXGXMUUJUXGXFUXNUXLUWNUWKYTUXKYSYTXNXOVDVIBADDCYTUWNUDUDUXFUVKEV
+      JVKYTUWNDDYQXJXKXPVNYPUUKXMUULUWKDUWNYPUUIUUJUXIYSYTDXQXRZUXKXSZXTUULUXEH
+      DUULUVSUXCUXDUVTUXCSZUXDUUQUWNYQUEZUVTUXCUXRUVTUUQYSYQUEZUUQYTYQUEZUXRUXA
+      UXBUVTUVSUUIUUQYSUPZUQZUVSUUJUUQYTUPZUQZUXRUXSUXTUVTUYBUYDSZUXRUVTUYESZUV
+      SUXGUUQUWNUPZUQUXRUYFUVSUXGUYGUULUVSUYEYAUULUXGUVSUYEUXPYBUYEUYGUVTUYBUYD
+      UYGUYAUVSUYDUYGUFUUIUYDUYAUYGUYCUVSUYAUYGUFUUJUYAUYCUYGUYAUYCSZUUQUWKUWNU
+      YHUUQUWKUPUUQYSYTYCVTUXKYDWCWDWEWDWFXEVIBADDCUWNUUQUDUDUWDUXFEVJVKWAUXSUY
+      BBADDCYSUUQUDUDUWDUVJEVJVTUXTUYDBADDCYTUUQUDUDUWDUVKEVJVTYEUVTUXAUXSUUIUV
+      SUXAUXSYFUULYSUUQDDYQXJUVIYGYHUVTUXBUXTUUJUVSUXBUXTYFUULYTUUQDDYQXJUVPYGY
+      HYIWFUXQUWQUUQUDJZSZUXDUXRYFUYJUXQUWQUYIUXFUWDYJVDUWNUUQUDUDYQXJVHXKYKYLW
+      HUWNUWKUGUULUXKVDYMUXOWIVNWAYNVNFGYQDUVCYOVK $.
       $( [7-Sep-2009] $) $( [6-Sep-2009] $)
+  $}
+
+  ${
+    $d r u x y z $.
+    $( A directed set (also called a set filtering on the right by Bourbaki) is
+       a preordered set whose every pair of elements has an upper bound. $)
+    dfdir2 $p |- Dir = ( Preset i^i { r | A. x e. U. U. r A. y e. U. U. r
+      E. z e. U. U. r z e. ( r ub { x , y } ) } ) $=
+      ( vu cdir cv wrel cid cuni cres wss wa ccom wbr wrex wral cab w3a cpr
+      cub co wcel cpreset cin df-dir simpll simplr simprl 3jca simprr jca
+      3simpa adantr 3simpl3 pm3.27 jca32 impbii cvv wb eqid puub visset zfpair
+      a1i sylancr wsb ralpr csb sbcbr1g ax-mp wceq csbvarg breq1i biimpi sylbi
+      anim12i adantl weq wo wi elpr breq1 syl5bir jaoi impcom r19.21aiva ex
+      impbid2 bitr2d rexbidva ralbidva ralbiia anbi2i 3simp1 3simp3 3simp2
+      anim1i 3bitri abbii inab df-prs eqcomi ineq1i eqtr3i 3eqtri ) FDGZHZIXGJJ
+      ZKXGLZMZXGXGNXGLZAGZCGZXGOZBGZXNXGOZMZCXIPZBXIQZAXIQZMZMZDRXHXLXJSZXNXGXM
+      XPTZUAUBUCZCXIPZBXIQZAXIQZMZDRZUDYIDRZUEZABCDUFYCYJDYCXHXJXLSZYAMZYNYIMZY
+      JYCYOYCYNYAYCXHXJXLXHXJYBUGXHXJYBUHXKXLYAUIUJXKXLYAUKULYOXKXLYAYNXKYAXHXJ
+      XLUMUNXHXJXLYAUOYNYAUPUQURYAYIYNXTYHAXIXMXIUCZXSYGBXIYQXPXIUCMZXRYFCXIYRX
+      NXIUCZMZYFYSEGZXNXGOZEYEQZMZXRXGUSUCYEUSUCZYFUUDUTYTYEUSXGUSXNXIEXIVAVBDV
+      CUUEYTABVDVEVFYTUUDXRUUCXRYSUUCUUBEAVGZUUBEBVGZMXRUUBEXMXPAVCZBVCZVHUUFXO
+      UUGXQUUFEXMUUAVIZXNXGOZXOXMUSUCZUUFUUKUTUUHEXMUUAXNUSXGVJVKUUKXOUUJXMXNXG
+      UULUUJXMVLUUHEXMUSVMVKVNVOVPUUGEXPUUAVIZXNXGOZXQXPUSUCZUUGUUNUTUUIEXPUUAX
+      NUSXGVJVKUUNXQUUMXPXNXGUUOUUMXPVLUUIEXPUSVMVKVNVOVPVQVPVRYTXRUUDYTXRMZYSU
+      UCYRYSXRUHUUPUUBEYEUUAYEUCZUUPUUBUUQEAVSZEBVSZVTUUPUUBWAZUUAXMXPEVCWBUURU
+      UTUUSUURUUBXOUUPUUAXMXNXGWCYTXOXQUIWDUUSUUBXQUUPUUAXPXNXGWCYTXOXQUKWDWEVP
+      WFWGULWHWIWJWKWLWMWNYPYJYNYDYIYNXHXLXJXHXJXLWOXHXJXLWPXHXJXLWQUJWRYDYNYIY
+      DXHXJXLXHXLXJWOXHXLXJWPXHXLXJWQUJWRURWSWTYDDRZYLUEYKYMYDYIDXAUVAUDYLUDUVA
+      DXBXCXDXEXF $.
+      $( [19-Sep-2011] $)
+  $}
+
+  ${
+    $d D d x y z $.  $d X x y z $.
+    isdir2.1 $e |- X = dom D $.
+    $( Alternate definition of a direction. $)
+    isdir2 $p |- ( D e. Dir <-> ( D e. Preset /\
+     A. x e. X A. y e. X E. z e. X z e. ( D ub { x , y } ) ) ) $=
+      ( vd cdir wcel cpreset cv cpr cub co cuni wrex wral cab cin wa dfdir2
+      eleq2i elin ax-17 wceq unieq unieqd eleq2d opreq1 anbi12d rexbidv2
+      imbi12d ralbidv2 elabgf cdm wb eqtr rexeq raleqbi1dv eqcoms syl preodom2
+      sylancr bitrd pm5.32i 3bitri ) DHIDJCKZGKZAKZBKZLZMNZIZCVHOZOZPZBVOQZAVOQ
+      ZGRZSZIDJIZDVSIZTWAVGDVKMNZIZCEPZBEQZAEQZTHVTDABCGUAUBDJVSUCWAWBWGWAWBWDC
+      DOZOZPZBWIQZAWIQZWGVRWLGADJVIDIGUDWLGUDVHDUEZVQWKAVOWIWMVIVOIVIWIIVQWKWMV
+      OWIVIWMVNWHVHDUFUGZUHWMVPWJBVOWIWMVJVOIVJWIIVPWJWMVOWIVJWNUHWMVMWDCVOWIWM
+      VGVOIVGWIIVMWDWMVOWIVGWNUHWMVLWCVGVHDVKMUIUHUJUKULUMULUMUNEDUOZUEZWOWIUEZ
+      WLWGUPZWAWPWQTEWIUEWREWOWIUQWRWIEWKWFAWIEWJWEBWIEWDCWIEURUSUSUTVAFDVBVCVD
+      VEVF $.
+      $( [19-Sep-2011] $)
+  $}
+
+  ${
+    $d D x y z $.
+    $( A direction is a preset. $)
+    dirpre $p |- ( D e. Dir -> D e. Preset ) $=
+      ( vz vx vy cdir wcel cpreset cv cpr cub co cdm wrex wral eqid isdir2
+      pm3.26bi ) AEFAGFBHACHDHIJKFBALZMDRNCRNCDBARROPQ $.
+      $( [19-Sep-2011] $)
+  $}
+
+  ${
+    $d D x y z $.  $d X x y z $.
+    dirub.1 $e |- X = dom D $.
+    $( In a direction, every pair of elements has an upper bound. $)
+    dirub $p |- ( D e. Dir -> A. x e. X A. y e. X E. z e. X z e.
+      ( D ub { x , y } ) ) $=
+      ( cdir wcel cpreset cv cpr cub co wrex wral isdir2 pm3.27bi ) DGHDIHCJDAJ
+      BJKLMHCENBEOAEOABCDEFPQ $.
+      $( [19-Sep-2011] $)
+  $}
+
+  ${
+    $d p x y z $.
+    $( A lattice is a direction. $)
+    latdir $p |- Lat C_ Dir $=
+      ( vp vx vy vz cla cdir cv cps wcel cpr cspw co cdm cinf wa wral cpreset
+      cub wrex posispre adantr wi cvv zfpair eqid supaub 3exp com3l ax-mp
+      eleq1 rcla4ev ex syld com12 ralimdvaa imp jca isla isdir2 3imtr4i ssriv
+      ) AEFAGZHIZVBBGZCGZJZKLZVBMZIZVBVFNLVHIZOZCVHPZBVHPZOZVBQIZDGZVBVFRLZIZDV
+      HSZCVHPZBVHPZOVBEIVBFIVNVOWAVCVOVMVBTUAVCVMWAVCVLVTBVHVCVLVTUBVDVHIVCVKVS
+      CVHVCVKVSUBVEVHIVKVCVSVIVCVSUBVJVIVCVGVQIZVSVFUCIZVIVCWBUBUBBCUDVCWCVIWBV
+      CWCVIWBVFVBUCVHVHUEZUFUGUHUIVIWBVSVRWBDVGVHVPVGVQUJUKULUMUAUNUAUOUAUOUPUQ
+      BCVBVHWDURBCDVBVHWDUSUTVA $.
+      $( [19-Sep-2011] $)
+  $}
+
+
+  $c OrHom $.
+
+  $( Extend class notation with the the class of all the order
+     homomorphisms. $)
+  cincfun $a class OrHom $.
+
+  $c DecFun $.
+
+  $( Extend class notation with the the class of all decreasing functions. $)
+  cdecfun $a class DecFun $.
+
+  $c OrIso $.
+
+  $( Extend class notation with the the class of all the order isomorphisms. $)
+  coriso $a class OrIso $.
+
+  ${
+    $d r s y f a b $.
+    $( Order homomorphism.  Increasing function. $)
+    orHom-df $a |- OrHom = { <. <. r , s >. , y >. | y = { f | ( f : U. U. r
+      --> U. U. s /\ A. a e. U. U. r
+      A. b e. U. U. r ( a r b -> ( f ` a ) s ( f ` b ) ) ) } } $.
+
+    $( Order isomorphism. $)
+    orIso-df $a |- OrIso = { <. <. r , s >. , y >. | y = { f | ( f : U. U. r
+      --> U. U. s /\ A. a e. U. U. r
+      A. b e. U. U. r ( a r b <-> ( f ` a ) s ( f ` b ) ) ) } } $.
+
+    $( Decreasing function. $)
+    decfun-df $a |- DecFun = { <. <. r , s >. , y >. | y = { f | ( f : U. U. r
+      --> U. U. s /\ A. a e. U. U. r A. b e. U. U. r
+      ( a r b -> ( f ` a ) r ( f ` b ) ) ) } } $.
   $}
 
 

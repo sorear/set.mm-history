@@ -1,132 +1,8 @@
 $(
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-        Cardinal numbers
+        Cardinal number theorems using the Axiom of Choice
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 $)
-
-  $( Introduce new constant symbols. $)
-  $c card $. $( Cardinal size function $)
-  $c aleph $. $( Aleph function $)
-  $c cf $. $( Cofinality function $)
-
-  $( Extend class definition to include the cardinal size function. $)
-  ccrd $a class card $.
-
-  $( Extend class definition to include the aleph function. $)
-  cale $a class aleph $.
-
-  $( Extend class definition to include the cofinality function. $)
-  ccf $a class cf $.
-
-  ${
-    $d x y z $.
-    $( Define the cardinal number function.  The cardinal number of a set is
-       the least ordinal number equinumerous to it.  In other words, it is the
-       "size" of the set.  Definition of [Enderton] p. 197.  See ~ cardval for
-       its value, ~ cardval2 for a simpler version of its value.  The principle
-       theorem relating cardinality to equinumerosity is ~ carden .  Our
-       notation is from Enderton.  Other textbooks often use a double bar over
-       the set to express this function. $)
-    df-card $a |- card = { <. x , y >. | y = |^| { z e. On | z ~~ x } } $.
-  $}
-
-  ${
-    $d x y z $.
-    $( Define the aleph function.  Our definition expresses Definition 12 of
-       [Suppes] p. 229 in a closed form, from which we derive the recursive
-       definition as theorems ~ aleph0 , ~ alephsuc , and ~ alephlim .  The
-       aleph function provides a one-to-one, onto mapping from the ordinal
-       numbers to the infinite cardinal numbers.  Roughly, any aleph is the
-       smallest infinite cardinal number whose size is strictly greater than
-       any aleph before it. $)
-    df-aleph $a |- aleph = rec ( { <. x , y >. | y = |^| { z e. On |
-                   x ~< z } } , om ) $.
-  $}
-
-  ${
-    $d x y z w v u $.
-    $( Define the cofinality function.  Definition B of Saharon Shelah,
-       _Cardinal Arithmetic_ (1994), p. xxx (Roman numeral 30).  See ~ cfval
-       for its value and a description. $)
-    df-cf $a |- cf = { <. x , y >. | ( x e. On /\
-                y = |^| { z | E. w ( z = ( card ` w ) /\
-                ( w C_ x /\ A. v e. x E. u e. w v C_ u ) ) } ) } $.
-  $}
-
-  ${
-    $d x y z A $.
-    $( The value of the cardinal number function with an ordinal number as its
-       argument.  Unlike ~ cardval , this theorem does not require the Axiom of
-       Choice. $)
-    oncardval $p |- ( A e. On -> ( card ` A ) = |^| { x e. On | x ~~ A } ) $=
-      ( vz vy con0 wcel cv cen wbr crab cint wceq copab cfv ccrd wss c0 wne
-      oninton ssrab2 wrex enrefg breq1 rcla4ev mpdan rabn0 sylibr sylancr
-      breq2 rabbisdv inteqd fvopabg df-card fveq1i syl5eq ) BEFZBCGAGZDGZHIZAEJ
-      ZKZLDCMZNZUQBHIZAEJZKZBONUPVFEFZVCVFLVEEPVEQRZVGUPVESVDAETUPVDAEUAZVHUPBB
-      HIZVIBEUBVDVJABEUQBBHUCUDUEVDAEUFUGUHDCBVAVFEEURBLZUTVEVKUSVDAEURBUQHUIUJ
-      UKULUEBOVBDCAUMUNUO $.
-      $( [24-Nov-2003] $) $( [24-Nov-2003] $)
-
-    $( The cardinal number of an ordinal number is an ordinal number.  Unlike
-       ~ cardon , this theorem does not require the Axiom of Choice. $)
-    oncardon $p |- ( A e. On -> ( card ` A ) e. On ) $=
-      ( vx con0 wcel ccrd cfv cv cen wbr crab cint oncardval wss c0 wne
-      oninton ssrab2 cvv fvex syl6eqelr intex sylibr sylancr eqeltrd ) ACDZAEFZ
-      BGAHIZBCJZKZCBALZUHCMUHNOZUICDUEUHPUGBCQUEUIRDUKUEUIUFRUJAESTUHUAUBUCUD
-      $.
-      $( [28-Jul-2004] $) $( [26-Jul-2004] $)
-
-    $( Any ordinal number is equinumerous to its cardinal number.  Unlike
-       ~ cardid , this theorem does not require the Axiom of Choice. $)
-    oncardid $p |- ( A e. On -> ( card ` A ) ~~ A ) $=
-      ( vx con0 wcel ccrd cfv cv cen wbr crab cint oncardval wss c0 wne onint
-      ssrab2 cvv fvex syl6eqelr intex sylibr sylancr eqeltrd breq1 elrab
-      pm3.27bi syl ) ACDZAEFZBGZAHIZBCJZDZUJAHIZUIUJUMKZUMBALZUMCMUMNOZUPUMDUIU
-      MPULBCQUIUPRDURUIUPUJRUQAESTUMUAUBUCUDUNUJCDUOULUOBUJCUKUJAHUEUFUGUH $.
-      $( [28-Jul-2004] $) $( [26-Jul-2004] $)
-
-    $( The cardinal of an ordinal number is less than or equal to the ordinal
-       number.  Proposition 10.6(3) of [TakeutiZaring] p. 85. $)
-    cardonle $p |- ( A e. On -> ( card ` A ) C_ A ) $=
-      ( vx con0 wcel ccrd cfv cv cen wbr crab cint oncardval wss enrefg wa
-      breq1 elrab intss1 sylbir mpdan eqsstrd ) ACDZAEFBGZAHIZBCJZKZABALUBAAHIZ
-      UFAMZACNUBUGOAUEDUHUDUGBACUCAAHPQAUERSTUA $.
-      $( [25-Nov-2003] $) $( [22-Oct-2003] $)
-  $}
-
-  $( The cardinality of the empty set is the empty set. $)
-  card0 $p |- ( card ` (/) ) = (/) $=
-    ( c0 ccrd cfv wss wceq con0 wcel 0elon cardonle ax-mp ss0b mpbi ) ABCZADZMA
-    EAFGNHAIJMKL $.
-    $( [25-Nov-2003] $) $( [25-Oct-2003] $)
-
-  $( The cardinality of a natural number is the number.  Corollary 10.23 of
-     [TakeutiZaring] p. 90. $)
-  cardnn $p |- ( A e. om -> ( card ` A ) = A ) $=
-    ( com wcel ccrd cfv wn wceq csdm wbr cen sdomnen con0 nnon oncardid syl
-    nsyl3 wpss wb oncardon word ordelpss eloni syl2an mpancom wo wss cardonle
-    onsseleq mpbid elnn expcom eleq1a jaod mpd nnsdomo bitr4d mtbird ord ) ABCZ
-    ADEZACZFUTAGZUSVAUTAHIZVCUTAJIZUSUTAKUSALCZVDAMZANOPUSVAUTAQZVCUSVEVAVGRZVF
-    UTLCZVEVHASZUTTATVHVIVEUTAUAUTUBAUBUCUDOUTBCZUSVCVGRUSVAVBUEZVKUSVEVLVFVEUT
-    AUFZVLAUGVIVEVMVLRVJUTAUHUDUIOZUSVAVKVBVAUSVKUTAUJUKABUTULUMUNUTAUOUDUPUQUS
-    VAVBVNURUN $.
-    $( [10-Jul-2004] $) $( [28-Oct-2003] $)
-
-  $( The cardinality of the successor of a finite ordinal (natural number).
-     This theorem does not hold for infinite ordinals; see ~ cardsucinf . $)
-  cardsucnn $p |- ( A e. om -> ( card ` suc A ) = suc ( card ` A ) ) $=
-    ( com wcel csuc ccrd cfv wceq peano2 cardnn syl suceq eqtr4d ) ABCZADZEFZNA
-    EFZDZMNBCONGAHNIJMPAGQNGAIPAKJL $.
-    $( [15-Nov-2008] $) $( [7-Nov-2008] $)
-
-  $( The set of natural numbers is a cardinal number.  Theorem 18.11 of [Monk1]
-     p. 133. $)
-  cardom $p |- ( card ` om ) = om $=
-    ( com ccrd cfv wcel wn wceq cen wbr con0 omelon oncardid ax-mp csdm nnsdom
-    sdomnen syl mt2 wss wo cardonle oncardon onsseli mpbi ori ) ABCZADZEUEAFZUF
-    UEAGHZAIDZUHJAKLUFUEAMHUHEUENUEAOPQUFUGUEARZUFUGSUIUJJATLUEAUIUEIDJAUALJUBU
-    CUDL $.
-    $( [9-Dec-2003] $) $( [28-Oct-2003] $)
 
   ${
     $d x y z A $.
@@ -135,14 +11,14 @@ $)
        value. $)
     cardval $p |- ( card ` A ) = |^| { x e. On | x ~~ A } $=
       ( vz vy cvv wcel ccrd cfv cv cen wbr con0 crab cint wceq copab wrex
-      numth2 intexrab mpbi breq2 rabbisdv inteqd fvopabg mpan2 df-card fveq1i
+      numth2 intexrab mpbi breq2 rabbidv inteqd fvopabg mpan2 df-card fveq1i
       syl5eq wn c0 fvprc cab wa visset enref brprc mpbiri biantrud abbidv
       df-rab syl6reqr abid2 syl6eq inton eqtr4d pm2.61i ) BEFZBGHZAIZBJKZALMZNZ
       OVGBCIVIDIZJKZALMZNZODCPZHZVLVHVGVLEFZVRVLOVJALQVSABRVJALSTDCBVPVLEEVMBOZ
       VOVKVTVNVJALVMBVIJUAUBUCUDUEBGVQDCAUFUGUHVGUIZVHUJVLBGUKWAVLLNUJWAVKLWAVK
       VILFZAULZLWAWCWBVJUMZAULVKWAWBWDAWAVJWBWAVJVIVIJKVIAUNUOVIBJUPUQURUSVJALU
       TVAALVBVCUCVDVCVEVF $.
-      $( [21-Oct-2003] $) $( [21-Oct-2003] $)
+      $( [21-Oct-2003] $)
 
     $( The cardinal number of a set is an ordinal number.  Proposition 10.6(1)
        of [TakeutiZaring] p. 85.  Unlike Takeuti/Zaring's proposition, we need
@@ -179,9 +55,9 @@ $)
        by Paul Chapman, 11-Apr-2009.) $)
     ficardom $p |- ( A e. Fin -> ( card ` A ) e. om ) $=
       ( vx cfn wcel ccrd cfv com cv cen wbr wrex isfi biimpi wi wral cardid
-      entr mpan a1i rgen r19.22 ax-mp biimpri 3syl con0 wb cardon onfin sylib
-      ) ACDZAEFZCDZUKGDZUJABHZIJZBGKZUKUNIJZBGKZULUJUPBALMUOUQNZBGOUPURNUSBGUSU
-      NGDUKAIJUOUQAPUKAUNQRSTUOUQBGUAUBULURBUKLUCUDUKUEDULUMUFAUGUKUHUBUI $.
+      entr mpan a1i rgen rexim ax-mp biimpri 3syl con0 wb cardon onfin sylib )
+      ACDZAEFZCDZUKGDZUJABHZIJZBGKZUKUNIJZBGKZULUJUPBALMUOUQNZBGOUPURNUSBGUSUNG
+      DUKAIJUOUQAPUKAUNQRSTUOUQBGUAUBULURBUKLUCUDUKUEDULUMUFAUGUKUHUBUI $.
       $( [14-Apr-2009] $) $( [11-Apr-2009] $)
   $}
 
@@ -297,7 +173,7 @@ $)
     ( wcel wa ccrd cfv wss cdom wbr csdm wn carddom wb cardsdom ancoms notbid
     con0 cardon ontri1 mp2an syl5bb bitr3d ) ACEZBDEZFZAGHZBGHZIZABJKBALKZMZABC
     DNUGUIUHEZMZULUJUGUMUKUFUEUMUKOBADCPQRUHSEUISEUJUNOATBTUHUIUAUBUCUD $.
-    $( [4-Jan-2004] $) $( [4-Jan-2004] $)
+    $( [4-Jan-2004] $)
 
   $( Trichotomy of equinumerosity and strict dominance.  This theorem is
      equivalent to the Axiom of Choice.  Theorem 8 of [Suppes] p. 242. $)
@@ -665,66 +541,13 @@ $)
   $}
 
   ${
-    $d x y z $.
-    $( The aleph function is a function on the class of ordinal numbers. $)
-    alephfnon $p |- aleph Fn On $=
-      ( vy vx vz cale con0 wfn cv csdm wbr crab cint wceq copab com crdg
-      rdgfnon wb df-aleph fneq1 ax-mp mpbir ) DEFZAGBGCGHICEJKLBAMZNOZEFZNUCPDU
-      DLUBUEQBACREDUDSTUA $.
-      $( [22-Oct-2003] $) $( [21-Oct-2003] $)
-
-    $( The first infinite cardinal number, discovered by Georg Cantor in 1873,
-       has the same size as the set of natural numbers ` om ` (and under our
-       particular definition is also equal to it).  In the literature, the
-       argument of the aleph function is often written as a subscript, and the
-       first aleph is written ` aleph ` _0.  Exercise 3 of [TakeutiZaring]
-       p. 91.  Also Definition 12(i) of [Suppes] p. 228.  From Mosh&eacute
-       Machover, _Set Theory, Logic, and Their Limitations_, p. 95:
-       "Aleph...the first letter in the Hebrew alphabet...is also the first
-       letter of the Hebrew word...(_einsoph_, meaning infinity), which is a
-       cabbalistic appellation of the deity.  The notation is due to Cantor,
-       who was deeply interested in mysticism." $)
-    aleph0 $p |- ( aleph ` (/) ) = om $=
-      ( vy vx vz c0 cale cfv cv csdm wbr con0 crab cint wceq copab com crdg
-      df-aleph fveq1i omex rdg0 eqtri ) DEFDAGBGCGHICJKLMBANZOPZFODEUCBACQROUBS
-      TUA $.
-      $( [21-Oct-2003] $) $( [21-Oct-2003] $)
-  $}
-
-  ${
     $d x y z w A $.
-    $( Value of the aleph function at a limit ordinal.  Definition 12(iii) of
-       [Suppes] p. 91. $)
-    alephlim $p |- ( ( A e. B /\ Lim A ) -> ( aleph ` A ) =
-                   U_ x e. A ( aleph ` x ) ) $=
-      ( vz vy vw wcel wlim wa cv csdm wbr con0 crab cint wceq copab com crdg
-      cfv ciun cale rdglim2a df-aleph fveq1i a1i iuneq2i 3eqtr4g ) BCGBHIBDJEJF
-      JKLFMNOPEDQZRSZTABAJZUJTZUABUBTABUKUBTZUAARBCUIUCBUBUJEDFUDZUEABUMULUMULP
-      UKBGUKUBUJUNUEUFUGUH $.
-      $( [22-Oct-2003] $) $( [21-Oct-2003] $)
-
-    $( An aleph is an ordinal number. $)
-    alephon $p |- ( aleph ` A ) e. On $=
-      ( vx vy vz vw con0 wcel cale cfv cv c0 csuc wceq fveq2 eleq1d com aleph0
-      omelon eqeltri csdm wbr crab cint cvv wb wa ax-17 df-aleph breq1
-      rabbisdv inteqd rdgsucopab onintrab syl6rbbr ex ibd wn rdgsucopabn 0elon
-      syl6eqel pm2.61d1 a1d wlim ciun wral visset alephlim mpan fvex iunon
-      syl5bir tfinds cdm wfn alephfnon fndm ax-mp eleq2i notbii ndmfv sylbir
-      pm2.61i ) AFGZAHIZFGZBJZHIZFGZKHIZFGCJZHIZFGZWJLZHIZFGZWEBCAWFKMWGWIFWFKH
-      NOWFWJMWGWKFWFWJHNOWFWMMWGWNFWFWMHNOWFAMWGWDFWFAHNOWIPFQRSWJFGZWOWLWPWKWF
-      TUAZBFUBZUCZUDGZWOWPWTWOWPWTWTWOUEWPWTUFZWOWSFGWTXAWNWSFDCEPWJDJZWFTUAZBF
-      UBZUCZWSUDHEJZPGDUGZXFWJGDUGZXFWSGDUGZDCBUHZXBWKMZXDWRXKXCWQBFXBWKWFTUIUJ
-      UKZULOWQBUMUNUOUPWTUQWNKFDCEPWJXEWSHXGXHXIXJXLURUSUTVAVBWFVCZWHCWFWKVDZFG
-      WLCWFVEXMWGXNFWFUDGXMWGXNMBVFZCWFUDVGVHOCWFWKXOWJHVIVJVKVLWCUQZWDKFXPAHVM
-      ZGZUQWDKMXRWCXQFAHFVNXQFMVOFHVPVQVRVSAHVTWAUSUTWB $.
-      $( [10-Dec-2003] $) $( [10-Nov-2003] $)
-
     $( Value of the aleph function at a successor ordinal.  Definition 12(ii)
        of [Suppes] p. 91. $)
     alephsuc $p |- ( A e. On -> ( aleph ` suc A ) =
                     |^| { x e. On | ( aleph ` A ) ~< x } ) $=
       ( vy vz vw con0 wcel cale cfv cv csdm wbr crab cint cvv csuc wceq wrex
-      fvex numthcor ax-mp intexrab mpbi com ax-17 df-aleph breq1 rabbisdv
+      fvex numthcor ax-mp intexrab mpbi com ax-17 df-aleph breq1 rabbidv
       inteqd rdgsucopab mpan2 ) BFGBHIZAJZKLZAFMZNZOGZBPHIUPQUNAFRZUQULOGURBHSA
       ULOTUAUNAFUBUCCDEUDBCJZUMKLZAFMZNUPOHEJZUDGCUEVBBGCUEVBUPGCUECDAUFUSULQZV
       AUOVCUTUNAFUSULUMKUGUHUIUJUK $.
@@ -902,9 +725,9 @@ $)
        of ` |^| { z e. On | x ~< z } ` in ~ df-aleph . $)
     alephsuc2 $p |- ( A e. On ->
                 ( aleph ` suc A ) = { x e. On | x ~<_ ( aleph ` A ) } ) $=
-      ( con0 wcel cv cale cfv cdom wbr crab csuc csdm alephsucdom rabbisdv
-      ccrd alephcard cardval2 eqtr3i syl6reqr ) BCDZAEZBFGHIZACJUABKZFGZLIZACJZ
-      UDTUBUEACUABMNUDOGUDUFUCPAUDQRS $.
+      ( con0 wcel cv cale cfv cdom wbr crab csuc csdm alephsucdom rabbidv ccrd
+      alephcard cardval2 eqtr3i syl6reqr ) BCDZAEZBFGHIZACJUABKZFGZLIZACJZUDTUB
+      UEACUABMNUDOGUDUFUCPAUDQRS $.
       $( [13-Feb-2004] $) $( [3-Nov-2003] $)
   $}
 
@@ -931,7 +754,7 @@ $)
        that equality can sometimes hold.) $)
     alephle $p |- ( A e. On -> A C_ ( aleph ` A ) ) $=
       ( vx vy cv cale cfv wss wceq id fveq2 sseq12d con0 wcel wral wa
-      alephord2i imp wi ontr2 onelon alephon sylancl mpan2d r19.20dva wn wb
+      alephord2i imp wi ontr2 onelon alephon sylancl mpan2d ralimdvaa wn wb
       ontri1 mpan2 elirr eleq1 rcla4cv mtoi syl5bir syld tfis3 ) BDZUPEFZGZCDZU
       SEFZGZAAEFZGBCAUPUSHZUPUSUQUTVCIUPUSEJKUPAHZUPAUQVBVDIUPAEJKUPLMZVACUPNUS
       UQMZCUPNZURVEVAVFCUPVEUSUPMZOZVAUTUQMZVFVEVHVJUSUPPQUSLMUQLMZVAVJOVFRVIUS
@@ -1120,12 +943,12 @@ $)
     $( Lemma for ~ alephfp . $)
     alephfplem4 $p |- U. ( H " om ) e. ran aleph $=
       ( vz com cale crn cun wf cv cfv wcel wrex cima cuni wss wfn wral ffnfv
-      wceq copab c0 crdg cres frfnom wb fneq1 ax-mp mpbir alephfplem3 rgen
-      mpbir2an ssun2 fss mp2an peano1 alephfplem1 fveq2 eleq1d rcla4ev cvv wa
-      wi omex cardinfima ) FFGHZIZCJZEKZCLZVGMZEFNZCFOPVGMZFVGCJZVGVHQVIVOCFRZV
-      LEFSEFVGCTVPBKAKGLUAABUBZUCGLZUDFUEZFRZVRVQUFCVSUAVPVTUGDFCVSUHUIUJVLEFAB
-      ECDUKULUMVGFUNFVGVHCUOUPUCFMUCCLZVGMZVMUQABCDURVLWBEUCFVJUCUAVKWAVGVJUCCU
-      SUTVAUPFVBMVIVMVCVNVDVEEFVBCVFUIUP $.
+      wceq copab c0 crdg cres frfnom fneq1i mpbir alephfplem3 rgen mpbir2an
+      ssun2 fss mp2an peano1 alephfplem1 fveq2 eleq1d rcla4ev cvv wa wi omex
+      cardinfima ax-mp ) FFGHZIZCJZEKZCLZVFMZEFNZCFOPVFMZFVFCJZVFVGQVHVNCFRZVKE
+      FSEFVFCTVOBKAKGLUAABUBZUCGLZUDFUEZFRVQVPUFFCVRDUGUHVKEFABECDUIUJUKVFFULFV
+      FVGCUMUNUCFMUCCLZVFMZVLUOABCDUPVKVTEUCFVIUCUAVJVSVFVIUCCUQURUSUNFUTMVHVLV
+      AVMVBVCEFUTCVDVEUN $.
       $( [20-Jan-2005] $) $( [5-Nov-2004] $)
 
     $( The aleph function has a fixed point.  Similar to Proposition 11.18 of
@@ -1135,7 +958,7 @@ $)
     alephfp $p |- ( aleph ` U. ( H " om ) ) = U. ( H " om ) $=
       ( vz vv com cima cuni cv cale cfv wceq con0 wrex crn wcel alephfplem4
       wss ccrd wa isinfcard cardalephex biimpa sylbir ax-mp wn alephle elirr
-      wi wfun wb wfn copab c0 crdg cres frfnom fneq1 mpbir fnfun eluniima
+      wi wfun wb wfn copab c0 crdg cres frfnom fneq1i mpbir fnfun eluniima
       alephfplem3 alephsson sseli alephord2i 3syl csuc alephfplem2 peano2
       fnfvelrn mpan fnima syl6eleqr syl eqeltrrd elssuni sseld syld r19.23aiv
       sylbi eleq2 imbi12d mpbii mtoi anim12i word ordtri4 eloni alephon onordi
@@ -1143,12 +966,12 @@ $)
       ZMZENOZXAKLZXAMZXAKPZQZXEABCDRXIGXASZXATLXAMZUAXEXAUBXJXKXEEXAUCUDUEUFXDX
       GENXBNQZXDUAZXGXFXCMZXMXAXBKXMXBXAXMXBXAMZXBXCMZXMXPXBXCSZXBXCQZUGZUAZXLX
       QXDXSXBUHXDXRXCXCQZXCUIXDXBXAQZXCXAQZUJXRYAUJYBXBFJZCLZQZFGOZYCCUKZYBYGUL
-      CGUMZYHYIBJAJKLMABUNZUOKLZUPGUQZGUMZYKYJURCYLMYIYMULDGCYLUSUFUTZGCVAUFFGX
-      BCVBUFYFYCFGYDGQZYFXCYEKLZQZYCYOYEXHQYENQYFYQUJABFCDVCXHNYEVDVEXBYEVFVGYO
-      YPXAXCYOYPWTQYPXASYOYDVHZCLZYPWTABFCDVIYOYRGQZYSWTQYDVJYTYSCPZWTYIYTYSUUA
-      QYNGYRCVKVLYIWTUUAMYNGCVMUFVNVOVPYPWTVQVOVRVSVTWAXDYBXRYCYAXAXCXBWBXAXCXC
-      WBWCWDWEWFXLXPXTULZXDXBWGXCWGUUBXLXBXCWHXBWIXCXBWJWKWLWMWNXDXOXPULXLXAXCX
-      BWOWPWNWQWRXDXGXNULXLXAXCXFWOWPWNWSUF $.
+      CGUMZYHYIBJAJKLMABUNZUOKLZUPGUQZGUMYKYJURGCYLDUSUTZGCVAUFFGXBCVBUFYFYCFGY
+      DGQZYFXCYEKLZQZYCYNYEXHQYENQYFYPUJABFCDVCXHNYEVDVEXBYEVFVGYNYOXAXCYNYOWTQ
+      YOXASYNYDVHZCLZYOWTABFCDVIYNYQGQZYRWTQYDVJYSYRCPZWTYIYSYRYTQYMGYQCVKVLYIW
+      TYTMYMGCVMUFVNVOVPYOWTVQVOVRVSVTWAXDYBXRYCYAXAXCXBWBXAXCXCWBWCWDWEWFXLXPX
+      TULZXDXBWGXCWGUUAXLXBXCWHXBWIXCXBWJWKWLWMWNXDXOXPULXLXAXCXBWOWPWNWQWRXDXG
+      XNULXLXAXCXFWOWPWNWSUF $.
       $( [20-Jan-2005] $) $( [6-Nov-2004] $)
   $}
 
@@ -1215,7 +1038,7 @@ $)
       biimpi alephord2i elirr eleq2 mtbiri con2i syl6 r19.21aiv 3jca fvex
       fveq2 id eqeq12d sseq2 eqeq1 notbid ralbidv 3anbi123d elab sylibr wrex
       alephord2 bicomd sylan9bbr biimpcd pm3.27 jcad exp4c com3r imp4b
-      r19.22dv2 cardalephex biimpac syl5 imp dfrex2 sylib nan mpbir ex visset
+      reximdv2 cardalephex biimpac syl5 imp dfrex2 sylib nan mpbir ex visset
       df-3an bitri notbii syl6ibr sylanc ) CEFZAGZHFZWRIZJWRKZWRBGZEFZIZLZBCMZN
       ZAOZPZDGZXHPZLZDWQMZWQXHQIZCRPZXHRKXIXMSXNTXGARWTXAWRRPZXFWTWSRPXPWRUAWSW
       RRUBUCUDUEDWQXHUFUGXOWQHFZWQIZJWQKZWQXCIZLZBCMZNZXIXOXRXSYBXRXOCUHUIXOXSC

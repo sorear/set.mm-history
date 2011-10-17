@@ -1,0 +1,490 @@
+$(
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+        Cardinal numbers
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+$)
+
+  $( Introduce new constant symbols. $)
+  $c card $. $( Cardinal size function $)
+  $c aleph $. $( Aleph function $)
+  $c cf $. $( Cofinality function $)
+
+  $( Extend class definition to include the cardinal size function. $)
+  ccrd $a class card $.
+
+  $( Extend class definition to include the aleph function. $)
+  cale $a class aleph $.
+
+  $( Extend class definition to include the cofinality function. $)
+  ccf $a class cf $.
+
+  ${
+    $d x y z $.
+    $( Define the cardinal number function.  The cardinal number of a set is
+       the least ordinal number equinumerous to it.  In other words, it is the
+       "size" of the set.  Definition of [Enderton] p. 197.  See ~ cardval for
+       its value, ~ cardval2 for a simpler version of its value.  The principle
+       theorem relating cardinality to equinumerosity is ~ carden .  Our
+       notation is from Enderton.  Other textbooks often use a double bar over
+       the set to express this function. $)
+    df-card $a |- card = { <. x , y >. | y = |^| { z e. On | z ~~ x } } $.
+  $}
+
+  ${
+    $d x y z $.
+    $( Define the aleph function.  Our definition expresses Definition 12 of
+       [Suppes] p. 229 in a closed form, from which we derive the recursive
+       definition as theorems ~ aleph0 , ~ alephsuc , and ~ alephlim .  The
+       aleph function provides a one-to-one, onto mapping from the ordinal
+       numbers to the infinite cardinal numbers.  Roughly, any aleph is the
+       smallest infinite cardinal number whose size is strictly greater than
+       any aleph before it. $)
+    df-aleph $a |- aleph = rec ( { <. x , y >. | y = |^| { z e. On |
+                   x ~< z } } , om ) $.
+  $}
+
+  ${
+    $d x y z w v u $.
+    $( Define the cofinality function.  Definition B of Saharon Shelah,
+       _Cardinal Arithmetic_ (1994), p. xxx (Roman numeral 30).  See ~ cfval
+       for its value and a description. $)
+    df-cf $a |- cf = { <. x , y >. | ( x e. On /\
+                y = |^| { z | E. w ( z = ( card ` w ) /\
+                ( w C_ x /\ A. v e. x E. u e. w v C_ u ) ) } ) } $.
+  $}
+
+  ${
+    $d x y z A $.
+    $( The value of the cardinal number function with an ordinal number as its
+       argument.  Unlike ~ cardval , this theorem does not require the Axiom of
+       Choice. $)
+    oncardval $p |- ( A e. On -> ( card ` A ) = |^| { x e. On | x ~~ A } ) $=
+      ( vz vy con0 wcel cv cen wbr crab cint wceq copab cfv ccrd wss c0 wne
+      oninton ssrab2 wrex enrefg breq1 rcla4ev mpdan rabn0 sylibr sylancr
+      breq2 rabbidv inteqd fvopabg df-card fveq1i syl5eq ) BEFZBCGAGZDGZHIZAEJZ
+      KZLDCMZNZUQBHIZAEJZKZBONUPVFEFZVCVFLVEEPVEQRZVGUPVESVDAETUPVDAEUAZVHUPBBH
+      IZVIBEUBVDVJABEUQBBHUCUDUEVDAEUFUGUHDCBVAVFEEURBLZUTVEVKUSVDAEURBUQHUIUJU
+      KULUEBOVBDCAUMUNUO $.
+      $( [24-Nov-2003] $)
+
+    $( The cardinal number of an ordinal number is an ordinal number.  Unlike
+       ~ cardon , this theorem does not require the Axiom of Choice. $)
+    oncardon $p |- ( A e. On -> ( card ` A ) e. On ) $=
+      ( vx con0 wcel ccrd cfv cv cen wbr crab cint oncardval wss c0 wne
+      oninton ssrab2 cvv fvex syl6eqelr intex sylibr sylancr eqeltrd ) ACDZAEFZ
+      BGAHIZBCJZKZCBALZUHCMUHNOZUICDUEUHPUGBCQUEUIRDUKUEUIUFRUJAESTUHUAUBUCUD
+      $.
+      $( [28-Jul-2004] $) $( [26-Jul-2004] $)
+
+    $( Any ordinal number is equinumerous to its cardinal number.  Unlike
+       ~ cardid , this theorem does not require the Axiom of Choice. $)
+    oncardid $p |- ( A e. On -> ( card ` A ) ~~ A ) $=
+      ( vx con0 wcel ccrd cfv cv cen wbr crab cint oncardval wss c0 wne onint
+      ssrab2 cvv fvex syl6eqelr intex sylibr sylancr eqeltrd breq1 elrab
+      pm3.27bi syl ) ACDZAEFZBGZAHIZBCJZDZUJAHIZUIUJUMKZUMBALZUMCMUMNOZUPUMDUIU
+      MPULBCQUIUPRDURUIUPUJRUQAESTUMUAUBUCUDUNUJCDUOULUOBUJCUKUJAHUEUFUGUH $.
+      $( [28-Jul-2004] $) $( [26-Jul-2004] $)
+
+    $( The cardinal of an ordinal number is less than or equal to the ordinal
+       number.  Proposition 10.6(3) of [TakeutiZaring] p. 85. $)
+    cardonle $p |- ( A e. On -> ( card ` A ) C_ A ) $=
+      ( vx con0 wcel ccrd cfv cv cen wbr crab cint oncardval wss enrefg wa
+      breq1 elrab intss1 sylbir mpdan eqsstrd ) ACDZAEFBGZAHIZBCJZKZABALUBAAHIZ
+      UFAMZACNUBUGOAUEDUHUDUGBACUCAAHPQAUERSTUA $.
+      $( [25-Nov-2003] $) $( [22-Oct-2003] $)
+  $}
+
+  $( The cardinality of the empty set is the empty set. $)
+  card0 $p |- ( card ` (/) ) = (/) $=
+    ( c0 ccrd cfv wss wceq con0 wcel 0elon cardonle ax-mp ss0b mpbi ) ABCZADZMA
+    EAFGNHAIJMKL $.
+    $( [25-Nov-2003] $) $( [25-Oct-2003] $)
+
+  $( The cardinality of a natural number is the number.  Corollary 10.23 of
+     [TakeutiZaring] p. 90. $)
+  cardnn $p |- ( A e. om -> ( card ` A ) = A ) $=
+    ( com wcel ccrd cfv wn wceq csdm wbr cen sdomnen con0 nnon oncardid syl
+    nsyl3 wpss wb oncardon word ordelpss eloni syl2an mpancom wo wss cardonle
+    onsseleq mpbid elnn expcom eleq1a jaod mpd nnsdomo bitr4d mtbird ord ) ABCZ
+    ADEZACZFUTAGZUSVAUTAHIZVCUTAJIZUSUTAKUSALCZVDAMZANOPUSVAUTAQZVCUSVEVAVGRZVF
+    UTLCZVEVHASZUTTATVHVIVEUTAUAUTUBAUBUCUDOUTBCZUSVCVGRUSVAVBUEZVKUSVEVLVFVEUT
+    AUFZVLAUGVIVEVMVLRVJUTAUHUDUIOZUSVAVKVBVAUSVKUTAUJUKABUTULUMUNUTAUOUDUPUQUS
+    VAVBVNURUN $.
+    $( [10-Jul-2004] $) $( [28-Oct-2003] $)
+
+  $( The cardinality of the successor of a finite ordinal (natural number).
+     This theorem does not hold for infinite ordinals; see ~ cardsucinf . $)
+  cardsucnn $p |- ( A e. om -> ( card ` suc A ) = suc ( card ` A ) ) $=
+    ( com wcel csuc ccrd cfv wceq peano2 cardnn syl suceq eqtr4d ) ABCZADZEFZNA
+    EFZDZMNBCONGAHNIJMPAGQNGAIPAKJL $.
+    $( [15-Nov-2008] $) $( [7-Nov-2008] $)
+
+  $( The set of natural numbers is a cardinal number.  Theorem 18.11 of [Monk1]
+     p. 133. $)
+  cardom $p |- ( card ` om ) = om $=
+    ( com ccrd cfv wcel wn wceq cen wbr con0 omelon oncardid ax-mp csdm nnsdom
+    sdomnen syl mt2 wss wo cardonle oncardon onsseli mpbi ori ) ABCZADZEUEAFZUF
+    UEAGHZAIDZUHJAKLUFUEAMHUHEUENUEAOPQUFUGUEARZUFUGSUIUJJATLUEAUIUEIDJAUALJUBU
+    CUDL $.
+    $( [9-Dec-2003] $) $( [28-Oct-2003] $)
+
+  ${
+    $d x y z $.
+    $( The aleph function is a function on the class of ordinal numbers. $)
+    alephfnon $p |- aleph Fn On $=
+      ( vy vx vz cale con0 wfn cv csdm wbr crab cint wceq copab com crdg
+      rdgfnon df-aleph fneq1i mpbir ) DEFAGBGCGHICEJKLBAMZNOZEFNTPEDUABACQRS $.
+      $( [22-Oct-2003] $) $( [21-Oct-2003] $)
+
+    $( The first infinite cardinal number, discovered by Georg Cantor in 1873,
+       has the same size as the set of natural numbers ` om ` (and under our
+       particular definition is also equal to it).  In the literature, the
+       argument of the aleph function is often written as a subscript, and the
+       first aleph is written ` aleph ` _0.  Exercise 3 of [TakeutiZaring]
+       p. 91.  Also Definition 12(i) of [Suppes] p. 228.  From Mosh&eacute
+       Machover, _Set Theory, Logic, and Their Limitations_, p. 95:
+       "Aleph...the first letter in the Hebrew alphabet...is also the first
+       letter of the Hebrew word...(_einsoph_, meaning infinity), which is a
+       cabbalistic appellation of the deity.  The notation is due to Cantor,
+       who was deeply interested in mysticism." $)
+    aleph0 $p |- ( aleph ` (/) ) = om $=
+      ( vy vx vz c0 cale cfv cv csdm wbr con0 crab cint wceq copab com crdg
+      df-aleph fveq1i omex rdg0 eqtri ) DEFDAGBGCGHICJKLMBANZOPZFODEUCBACQROUBS
+      TUA $.
+      $( [21-Oct-2003] $)
+  $}
+
+  ${
+    $d x y z w A $.
+    $( Value of the aleph function at a limit ordinal.  Definition 12(iii) of
+       [Suppes] p. 91. $)
+    alephlim $p |- ( ( A e. B /\ Lim A ) -> ( aleph ` A ) =
+                   U_ x e. A ( aleph ` x ) ) $=
+      ( vz vy vw wcel wlim wa cv csdm wbr con0 crab cint wceq copab com crdg
+      cfv ciun cale rdglim2a df-aleph fveq1i a1i iuneq2i 3eqtr4g ) BCGBHIBDJEJF
+      JKLFMNOPEDQZRSZTABAJZUJTZUABUBTABUKUBTZUAARBCUIUCBUBUJEDFUDZUEABUMULUMULP
+      UKBGUKUBUJUNUEUFUGUH $.
+      $( [22-Oct-2003] $) $( [21-Oct-2003] $)
+
+    $( An aleph is an ordinal number. $)
+    alephon $p |- ( aleph ` A ) e. On $=
+      ( vx vy vz vw con0 wcel cale cfv cv c0 csuc wceq fveq2 eleq1d com aleph0
+      omelon eqeltri csdm wbr crab cint cvv wb wa ax-17 df-aleph breq1 rabbidv
+      inteqd rdgsucopab onintrab syl6rbbr ex ibd wn rdgsucopabn 0elon syl6eqel
+      pm2.61d1 a1d wlim ciun wral visset alephlim mpan fvex iunon syl5bir
+      tfinds cdm wfn alephfnon fndm ax-mp eleq2i notbii ndmfv sylbir pm2.61i )
+      AFGZAHIZFGZBJZHIZFGZKHIZFGCJZHIZFGZWJLZHIZFGZWEBCAWFKMWGWIFWFKHNOWFWJMWGW
+      KFWFWJHNOWFWMMWGWNFWFWMHNOWFAMWGWDFWFAHNOWIPFQRSWJFGZWOWLWPWKWFTUAZBFUBZU
+      CZUDGZWOWPWTWOWPWTWTWOUEWPWTUFZWOWSFGWTXAWNWSFDCEPWJDJZWFTUAZBFUBZUCZWSUD
+      HEJZPGDUGZXFWJGDUGZXFWSGDUGZDCBUHZXBWKMZXDWRXKXCWQBFXBWKWFTUIUJUKZULOWQBU
+      MUNUOUPWTUQWNKFDCEPWJXEWSHXGXHXIXJXLURUSUTVAVBWFVCZWHCWFWKVDZFGWLCWFVEXMW
+      GXNFWFUDGXMWGXNMBVFZCWFUDVGVHOCWFWKXOWJHVIVJVKVLWCUQZWDKFXPAHVMZGZUQWDKMX
+      RWCXQFAHFVNXQFMVOFHVPVQVRVSAHVTWAUSUTWB $.
+      $( [10-Dec-2003] $) $( [10-Nov-2003] $)
+
+    $( The initial ordinal of a successor index is the smallest ordinal
+       strictly larger than the previous initial ordinal.  (Contributed by Jeff
+       Hankins, 23-Oct-2009.) $)
+    omsubsuc $p |- ( A e. On
+           -> ( aleph ` suc A ) = |^| { x e. On | ( aleph ` A ) ~< x } ) $=
+      ( vz vy vw con0 wcel csuc cv csdm wbr crab cint wceq copab com crdg cfv
+      cale rdgsuc wfun cop wrex cvv alephon onsdom ax-mp intexrab mpbi funopfv
+      funopabeq a1i breq2 cbvrabv inteqi fvex breq1 rabbidv inteqd eqeq2d
+      eqeq1 opelopab sylibr sylc df-aleph fveq1i fveq2i eqcomi syl5eq eqtrd )
+      BFGZBHZCIZDIZEIZJKZEFLZMZNZDCOZPQZRZBSRZAIZJKZAFLZMZVLSRVKWBBWARZVTRZWGPB
+      VTTVKWCVTRZWGWIVTUAZWCWGUBVTGZWJWGNVKWCWGVTWEAFUCZWGUDGWCFGWMBUEAWCUFUGWE
+      AFUHUIZUJWKVKDCVRUKULVKWGWCVOJKZEFLZMZNZWLWRVKWFWPWEWOAEFWDVOWCJUMUNUOULV
+      SVMWQNWRDCWCWGBSUPWNVNWCNZVRWQVMWSVQWPWSVPWOEFVNWCVOJUQURUSUTVMWGWQVAVBVC
+      VDWJWIWCWHVTBSWADCEVEZVFVGVHVIVJVLSWAWTVFVI $.
+      $( [23-Oct-2009] $)
+
+    $( An initial ordinal with successor index.  (Contributed by Jeff Hankins,
+       26-Oct-2009.) $)
+    omsubsuc2 $p |- ( A e. On
+          -> ( aleph ` suc A ) = { x e. On | x ~<_ ( aleph ` A ) } ) $=
+      ( vy vz con0 wcel csuc cale cfv cv csdm wbr crab cint cdom omsubsuc wa
+      wrex alephon onsdom ax-mp onintrab2 mpbi a1i onelon sylancom wi wn breq2
+      onnminsb adantl wb domtriord mpan2 sylibrd ex com23 imp jcai wal wss
+      sdomirr cvv fvex sdomdomtr simprlr domtr visset ssdomg ad2antll simplrr
+      sylanc expr mtoi word ordtri1 eloni syl2an ancoms con2bid adantlr
+      ad2ant2lr mpbird exp31 elrab syl7ib 19.21adv elint syl6ibr impbid breq1
+      syl6bbr eqrdv eqtrd ) BEFZBGHIBHIZAJZKLZAEMZNZWQWPOLZAEMZABPWOCWTXBWOCJZW
+      TFZXCEFZXCWPOLZQZXCXBFWOXDXGWOXDXGWOXDQZXEXFWOXDWTEFZXEXIXHWRAERZXIWPEFZX
+      JBSZAWPTUAWRAUBUCUDWTXCUEUFWOXDXEXFUGWOXEXDXFWOXEXDXFUGWOXEQXDWPXCKLZUHZX
+      FXEXDXNUGWOWRXMAXCWQXCWPKUIUJUKXEXFXNULZWOXEXKXOXLXCWPUMUNUKUOUPUQURUSUPW
+      OXGDJZWSFZXCXPFZUGZDUTXDWOXGXSDWOXGXPEFZWPXPKLZQZXRXQWOXGYBXRWOXGQZYBQZXR
+      XPXCVAZUHZYDYEWPWPKLZWPVBYCYBYEYGYAXPWPOLZYGYCYBYEQZQZWPVCFYAYHQYGUGBHVDW
+      PXPWPVCVEUAYCXTYAYEVFXPXCOLZXFYHYJXPXCWPVGYEYKYCYBXPVCFYEYKUGDVHXPXCVCVIU
+      AVJWOXEXFYIVKVLVLVMVNXGXTXRYFULZWOYAXEXTYLXFXEXTQYEXRXTXEYEXRUHULZXPVOXCV
+      OYMXTXEXPXCVPXPVQXCVQVRVSVTWAWBWCWDWRYAAXPEWQXPWPKUIWEWFWGDXCWSCVHWHWIWJX
+      AXFAXCEWQXCWPOWKWEWLWMWN $.
+      $( [26-Oct-2009] $)
+  $}
+
+  ${
+    $d j k m z A $.  $d k B $.
+    $( Lemma for ~ omsubsdom . $)
+    omsubsdomlem1 $p |- ( A e. On -> ( aleph ` A ) ~< ( aleph ` suc A ) ) $=
+      ( vz vm con0 wcel cale cfv cv csdm wbr crab cint csuc wrex alephon
+      onsdom ax-mp a1i ax-17 hbrab1 hbint hbbr breq2 onminsb syl omsubsuc
+      breqtrrd ) ADEZAFGZUIBHZIJZBDKZLZAMFGIUHUKBDNZUIUMIJZUNUHUIDEUNAOBUIPQRUK
+      UOBBCUIUMICHZUIEBSUPIEBSBCULUKBCDTUAUBUJUMUIIUCUDUEBAUFUG $.
+      $( [23-Oct-2009] $)
+
+    $( Lemma for ~ omsubsdom . $)
+    omsubsdomlem2 $p |- ( ( A e. On /\ B e. On )
+          -> ( A e. B -> ( aleph ` A ) ~< ( aleph ` B ) ) ) $=
+      ( vk vj vm con0 wcel cale cfv csdm wbr wi cv csuc wceq fveq2 breq2d
+      omsubsdomlem1 wa sdomtr adantr sylan2 expcom wlim wral ciun wex hbra1
+      ax-17 hbiu1 hbbr hbim ra4 com12 adantl cdom cvv visset fvex iunex
+      sdomdomtr ax-mp wss ssdomg a1i ssiun2 sylc imim2d com23 impcom syld
+      19.23ai imp cuni limuni eleq2d biimpa eluni sylib sylan alephlim mpan
+      ad2antrr eqcomd breqtrd ex tfindsg2 ) BFGZABGZAHIZBHIZJKZLAFGWHWIWLWJCMZH
+      IZJKZWJANZHIZJKWJDMZHIZJKZWJWRNZHIZJKZWLCDBAWMWPOWNWQWJJWMWPHPQWMWROWNWSW
+      JJWMWRHPQWMXAOWNXBWJJWMXAHPQWMBOWNWKWJJWMBHPQARWTWRFGZAWRGZSZXCWTWSXBJKZX
+      CXFWJWSXBTXDXGXEWRRUAUBUCWMUDZAWMGZSZXEWTLZDWMUEZWOXJXLSZWJDWMWSUFZWNJXEW
+      RWMGZSZDUGZXLWJXNJKZXJXQXLXRXPXLXRLDXLXRDXKDWMUHDEWJXNJEMZWJGDUIXSJGDUIDE
+      WMWSUJUKULXPXLXKXRXOXLXKLXEXLXOXKXKDWMUMUNUOXOXEXKXRLXOXKXEXRXOWTXRXEWTXO
+      XRWTWSXNUPKZXRXOXNUQGWTXTSXRLDWMWSCURZWRHUSZUTWJWSXNUQVAVBWSUQGZWSXNVCXTX
+      OWSXNUQVDYCXOYBVEDWMWSVFVGUBUCVHVIVJVKVLVMXJAWMVNZGZXQXHXIYEXHWMYDAWMVOVP
+      VQDAWMVRVSVTXMWNXNXHWNXNOZXIXLWMUQGXHYFYADWMUQWAWBWCWDWEWFWGWFUO $.
+      $( [23-Oct-2009] $)
+  $}
+
+  $( Relationship between ordering on ordinal numbers and strict dominance of
+     infinite initial ordinal numbers, which are frequently denoted by omega
+     with an ordinal number subscript.  The ` aleph ` notation is being
+     recycled for this purpose, although the aleph function does not have the
+     same meaning if Choice is not assumed.  (Closure is given by ~ alephon ,
+     which does not use Choice.)  (Contributed by Jeff Hankins,
+     23-Oct-2009.) $)
+  omsubsdom $p |- ( ( A e. On /\ B e. On )
+        -> ( A e. B <-> ( aleph ` A ) ~< ( aleph ` B ) ) ) $=
+    ( con0 wcel wa cale cfv csdm wbr omsubsdomlem2 wn wceq wo word wb ordtri2
+    eloni syl2an con2bid bicomd cen cvv eqeng fvex a1i fveq2 adantl sylc wi
+    cdom brsdom pm3.27bi mt2d ex sbth sdomdom syl6 ancoms imp expcom sdomnen
+    pm2.65d jaod sylbid impcon4bid ) ACDZBCDZEZABDZAFGZBFGZHIZABJVHVIKZABLZBADZ
+    MZVLKZVHVPVMVHVIVPANBNVIVPKOVFVGABPAQBQRSTVHVNVQVOVHVNVQVHVNEZVLVJVKUAIZVJU
+    BDZVJVKLZVSVRVJVKUBUCVTVRAFUDUEVNWAVHABFUFUGUHVLVSKZUIZVRVLVJVKUJIZWBVJVKUK
+    ULUEUMUNVHVOVQVHVOEZVLVSVLWEVSWDVKVJUJIZVSVLWEVJVKUOVJVKUPVHVOWFVGVFVOWFUIV
+    GVFEVOVKVJHIWFBAJVKVJUPUQURUSRUTWCWEVJVKVAUEVBUNVCVDVE $.
+    $( [23-Oct-2009] $)
+
+  $( Relationship between inclusion of ordinal numbers and dominance of
+     infinite initial ordinals.  (Contributed by Jeff Hankins, 23-Oct-2009.) $)
+  omsubdom $p |- ( ( A e. On /\ B e. On )
+        -> ( A C_ B <-> ( aleph ` A ) ~<_ ( aleph ` B ) ) ) $=
+    ( con0 wcel wa wss cale cfv cdom wbr wceq wo word wb ordsseleq eloni
+    syl2an csdm omsubsdom sdomdom syl6bi cen wi fveq2 cvv fvex eqeng ax-mp syl
+    a1i endom syl6 jaod sylbid wn ordtri2or ancoms ord con1d sdomnen sbth ex
+    mtod syld impcon4bid ) ACDZBCDZEZABFZAGHZBGHZIJZVHVIABDZABKZLZVLAMZBMZVIVON
+    VFVGABOAPZBPZQVHVMVLVNVHVMVJVKRJVLABSVJVKTUAVHVNVJVKUBJZVLVNVTUCVHVNVJVKKZV
+    TABGUDVJUEDWAVTUCAGUFVJVKUEUGUHUIUJVJVKUKULUMUNVHVIUOBADZVLUOZVHWBVIVHWBVIV
+    GVFWBVILZVQVPWDVGVFBAUPVSVRQUQURUSVHWBVKVJRJZWCVGVFWBWENBASUQWEVLVKVJUBJZVK
+    VJUTWEVKVJIJZVLWFUCVKVJTWGVLWFVKVJVAVBUIVCUAVDVE $.
+    $( [23-Oct-2009] $)
+
+  $( Relationship between ordering of ordinal numbers and ordering of infinite
+     initial ordinals.  (Contributed by Jeff Hankins, 23-Oct-2009.) $)
+  omsubel $p |- ( ( A e. On /\ B e. On )
+        -> ( A e. B <-> ( aleph ` A ) e. ( aleph ` B ) ) ) $=
+    ( con0 wcel wa cale cfv csdm wbr omsubsdom wss wn cen cdom wi sbth cvv
+    fvex ssdomg ax-mp sylan2 expcom adantl sdomdom syl5 sdomnen a1i pm2.65d ex
+    word wo alephon eloni ordtri2or mp2an ori con4d sylbid onelss syl wb
+    omsubdom adantr mpbird wceq ordsseleq syl2an idd ordirr fveq2 eleq2d mtbii
+    con2d imp pm2.21d jaod mpd impbid ) ACDZBCDZEZABDZAFGZBFGZDZWAWBWCWDHIZWEAB
+    JWAWEWFWAWDWCKZWFLZWELZWAWGWHWAWGEZWFWCWDMIZWJWCWDNIZWKWFWGWLWKOWAWLWGWKWLW
+    DWCNIZWKWGWCWDPWDQDWGWMOBFRWDWCQSTUAUBUCWCWDUDUEWFWKLOWJWCWDUFUGUHUIWEWGWCU
+    JZWDUJZWEWGUKWCCDZWNAULZWCUMTZWDCDZWOBULZWDUMTWCWDUNUOUPUEUQURWAWEWBWAWEEZA
+    BKZWBXAXBWLWEWLWAWEWCWDKZWLWSWEXCOWTWDWCUSTWPXCWLOWQWCWDCSTUTUCWAXBWLVAWEAB
+    VBVCVDXAXBWBABVEZUKZWBWAXBXEVAZWEAUJBUJXFVSVTABVFAUMBUMVGVCXAWBWBXDXAWBVHXA
+    XDWBWAWEXDLWAXDWEXDWIOWAXDWCWCDZWEWNXGLWRWCVITXDWCWDWCABFVJVKVLUGVMVNVOVPUR
+    VQUIVR $.
+    $( [23-Oct-2009] $)
+
+  $( Relationship between inclusion of ordinal numbers and inclusion of
+     infinite initial ordinals.  (Contributed by Jeff Hankins, 23-Oct-2009.) $)
+  omsubss $p |- ( ( A e. On /\ B e. On )
+       -> ( A C_ B <-> ( aleph ` A ) C_ ( aleph ` B ) ) ) $=
+    ( con0 wcel wa wn cale cfv wss wb omsubel ancoms notbid word ordtri1 eloni
+    syl2an alephon ax-mp mp2an a1i 3bitr4d ) ACDZBCDZEZBADZFZBGHZAGHZDZFZABIZUI
+    UHIZUEUFUJUDUCUFUJJBAKLMANBNULUGJUCUDABOAPBPQUMUKJZUEUINZUHNZUNUICDUOARUIPS
+    UHCDUPBRUHPSUIUHOTUAUB $.
+    $( [23-Oct-2009] $)
+
+  ${
+    $d j k x y A $.  $d j k x y B $.
+    $( If an ordinal is smaller than an initial ordinal, it is strictly
+       dominated by it.  (Contributed by Jeff Hankins, 24-Oct-2009.) $)
+    elomsubsd $p |- ( ( A e. On /\ B e. On )
+          -> ( A e. ( aleph ` B ) <-> A ~< ( aleph ` B ) ) ) $=
+      ( vk vj vx vy con0 wcel wa cale cfv csdm wbr wi cv c0 csuc wceq fveq2
+      eleq2d breq2d imbi12d imbi2d com nnsdom aleph0 eleq2i breq2i 3imtr4i a1i
+      crab cint cdom cen wn wss ssdomg simplr wrex alephon onsdom ax-mp
+      onintrab2 mpbi onelss adantl sylc wb word eloni ordtri1 mpan syl con2bid
+      biimpa a1d sdomentr simpllr ensymg pm3.27 ax-17 hbrab1 hbint hbbr breq2
+      onminsb jctil ex jcad elrab syl6ibr intss1 syl6 mtod jca brsdom sylibr
+      omsubsuc adantr 3imtr4d wlim wral w3a ciun hbra1 hban hbiu1 ra4 com12
+      cvv visset fvex iunex sdomdomtr ssiun2 sylan2 expcom imim2d syl6d imp3a
+      r19.23ad eliun syl5ib 3adant1 alephlim 3ad2ant1 3exp tfinds impcom
+      domtriord 3imtr3d impcon4bid ) AGHZBGHZIZABJKZHZAYPLMZYNYMYQYRNZYMACOZJKZ
+      HZAUUALMZNZNYMAPJKZHZAUUELMZNZNYMADOZJKZHZAUUJLMZNZNZYMAUUIQZJKZHZAUUPLMZ
+      NZNZYMYSNCDBYTPRZUUDUUHYMUVAUUBUUFUUCUUGUVAUUAUUEAYTPJSZTUVAUUAUUEALUVBUA
+      UBUCYTUUIRZUUDUUMYMUVCUUBUUKUUCUULUVCUUAUUJAYTUUIJSZTUVCUUAUUJALUVDUAUBUC
+      YTUUORZUUDUUSYMUVEUUBUUQUUCUURUVEUUAUUPAYTUUOJSZTUVEUUAUUPALUVFUAUBUCYTBR
+      ZUUDYSYMUVGUUBYQUUCYRUVGUUAYPAYTBJSZTUVGUUAYPALUVHUAUBUCUUHYMAUDHAUDLMUUF
+      UUGAUEUUEUDAUFUGUUEUDALUFUHUIUJUUIGHZUUTUUNUVIYMUUSUVIYMIZAUUJEOZLMZEGUKZ
+      ULZHZAUVNLMZUUQUURUVJUVOUVPUVJUVOIZAUVNUMMZAUVNUNMZUOZIUVPUVQUVRUVTYMAUVN
+      UPZUVRUVQAUVNGUQUVIYMUVOURZUVOUWAUVJUVNGHZUVOUWANUVLEGUSZUWCUUJGHZUWDUUIU
+      TZEUUJVAZVBUVLEVCVDZUVNAVEVBVFVGUVQUVSUVNAUPZUVJUVOUWIUOUVJUWIUVOYMUWIUVO
+      UOVHZUVIYMAVIZUWJAVJZUVNVIZUWKUWJUWCUWMUWHUVNVJVBUVNAVKVLVMVFVNVOUVQUVSAU
+      VMHZUWIUVQUVSYMUUJALMZIUWNUVQUVSYMUWOUVQYMUVSUWBVPUVQUVSUWOYMUUJUVNLMZUVN
+      AUNMZIUWOUVQUVSIZUUJUVNAGVQUVIYMUVOUVSVRUWRUWQUWPUWCUVSUWQUWRAUVNGVSUWCUW
+      RUWHUJUVQUVSVTVGUWEUWPUWFUWEUWDUWPUWGUVLUWPEEFUUJUVNLFOZUUJHEWAUWSLHZEWAE
+      FUVMUVLEFGWBWCWDUVKUVNUUJLWEWFVMVBWGVGWHWIUVLUWOEAGUVKAUUJLWEWJWKAUVMWLWM
+      WNWOAUVNWPWQWHUVIUUQUVOVHYMUVIUUPUVNAEUUIWRZTWSUVIUURUVPVHYMUVIUUPUVNALUX
+      AUAWSWTWHVPYTXAZUUNDYTXBZYMUUDUXBUXCYMXCADYTUUJXDZHZAUXDLMZUUBUUCUXCYMUXE
+      UXFNUXBUXCYMIZUUKDYTUSUXFUXEUXGUUKUXFDYTUXCYMDUUNDYTXEYMDWAXFDFAUXDLUWSAH
+      DWAUWTDWADFYTUUJXGWDUUIYTHZUXGUUKUXFNZUXHUXCYMUXIUXHUXCYMUUMUXIUXCUXHUUNU
+      UNDYTXHXIUXHUULUXFUUKUULUXHUXFUULUUJUXDUMMZUXFUXHUXDXJHUULUXJIUXFNDYTUUJC
+      XKZUUIJXLZXMAUUJUXDXJXNVBUXHUUJUXDUPZUXJDYTUUJXOUUJXJHUXMUXJNUXLUUJUXDXJU
+      QVBVMXPXQXRXSXTXIYADAYTUUJYBYCYDUXBUXCUUBUXEVHYMUXBUUAUXDAYTXJHUXBUUAUXDR
+      UXKDYTXJYEVLZTYFUXBUXCUUCUXFVHYMUXBUUAUXDALUXNUAYFWTYGYHYIYOYPAUPZYPAUMMZ
+      YQUOZYRUOZUXOUXPNZYOYPXJHUXSBJXLYPAXJUQVBUJYMUXOUXQVHZYNYMUWKUXTUWLYPVIZU
+      WKUXTYPGHZUYABUTZYPVJVBYPAVKVLVMWSYMUXPUXRVHZYNUYBYMUYDUYCYPAYJVLWSYKYL
+      $.
+      $( [24-Oct-2009] $)
+  $}
+
+  $( A dominated initial ordinal is included.  (Contributed by Jeff Hankins,
+     24-Oct-2009.) $)
+  omsubdmss $p |- ( ( A e. On /\ B e. On )
+        -> ( ( aleph ` A ) C_ B <-> ( aleph ` A ) ~<_ B ) ) $=
+    ( con0 wcel wa cale cfv wn csdm wbr wss cdom wb elomsubsd ancoms notbid
+    word eloni alephon ax-mp ordtri1 mpan syl adantl domtriord 3bitr4d ) ACDZBC
+    DZEZBAFGZDZHZBUJIJZHZUJBKZUJBLJZUIUKUMUHUGUKUMMBANOPUHUOULMZUGUHBQZUQBRUJQZ
+    URUQUJCDZUSASZUJRTUJBUAUBUCUDUHUPUNMZUGUTUHVBVAUJBUEUBUDUF $.
+    $( [24-Oct-2009] $)
+
+  ${
+    $d t w x y z A $.
+    $( An infinite initial ordinal is a limit ordinal.  (Contributed by Jeff
+       Hankins, 29-Oct-2009.) $)
+    omsublim $p |- ( A e. On -> Lim ( aleph ` A ) ) $=
+      ( vx vy vz vw vt cv cale cfv wlim c0 csuc wceq wb fveq2 limeq syl com
+      limom aleph0 ax-mp mpbir con0 wcel word wral w3a alephon eloni a1i cdom
+      wbr wa 0elon cvv wss 0ex 0ss ssdomg mp2 pm3.2i crab omsubsuc2 eleq2d
+      breq1 elrab syl6rbb mpbii wi suceloni adantr wo ordom ordtri2or mpan2
+      adantl peano2 omelon onelss omsubss mpan syl5ssr sylan9ssr sylc ex a1dd
+      cen endomtr infensuc ad2ant2lr visset sucex ensymg simprr sylanc exp32
+      jaod mpd imp3a jcad syl6bb 3imtr4d r19.21aiv 3jca dflim4 sylibr a1d wrex
+      cab cuni wne limuni3 0ellim eqid eqeq2d rcla4ev fvex eqeq1 rexbidv elab
+      ne0i rcla4cv biimprcd sylan9r r19.23adv syl5ib ciun alephlim dfiun2
+      syl6eq mpbird tfinds ) BGZHIZJZKHIZJZCGZHIZJZYRLZHIZJZAHIZJZBCAYMKMYNYPMY
+      OYQNYMKHOYNYPPQYMYRMYNYSMYOYTNYMYRHOYNYSPQYMUUAMYNUUBMYOUUCNYMUUAHOYNUUBP
+      QYMAMYNUUDMYOUUENYMAHOYNUUDPQYQRJZSYPRMYQUUFNTYPRPUAUBYRUCUDZUUCYTUUGUUBU
+      EZKUUBUDZYMLZUUBUDZBUUBUFZUGUUCUUGUUHUUIUULUUHUUGUUBUCUDUUHUUAUHUUBUIUAUJ
+      UUGKUCUDZKYSUKULZUMZUUIUUMUUNUNKUOUDKYSUPUUNUQYSURKYSUOUSUTVAUUGUUIKYMYSU
+      KULZBUCVBZUDUUOUUGUUBUUQKBYRVCVDUUPUUNBKUCYMKYSUKVEVFVGVHUUGUUKBUUBUUGYMU
+      CUDZUUPUMZUUJUCUDZUUJYSUKULZUMZYMUUBUDZUUKUUGUUSUUTUVAUUSUUTVIUUGUURUUTUU
+      PYMVJVKUJUUGUURUUPUVAUUGUURUUPUVAVIZUUGUURUMZYMRUDZRYMUPZVLZUVDUURUVHUUGU
+      URYMUEZUVHYMUIUVIRUEUVHVMYMRVNVOQVPUVEUVFUVDUVGUUGUVFUVDVIUURUUGUVFUVAUUP
+      UUGUVFUVAUUJRUDZUUJYSUPUVAUUGUVFUMUUJYSRUSUVFUVJUUGYMVQZVPUVFUUGUUJRYSUVF
+      UVJUUJRUPZUVKRUCUDUVJUVLVIVRRUUJVSUAQUUGYPYSRUUGKYRUPZYPYSUPZYRURUUMUUGUV
+      MUVNNUNKYRVTWAVHTWBWCWDWEWFVKUVEUVGUUPUVAUUJYMWGULZUUPUVAUVEUVGUUPUMUMZUU
+      JYMYSWHUVPYMUUJWGULZUVOUURUVGUVQUUGUUPYMWIWJUUJUOUDUVQUVOVIYMBWKZWLYMUUJU
+      OWMUAQUVEUVGUUPWNWOWPWQWRWEWSWTUUGUVCYMDGZYSUKULZDUCVBZUDUUSUUGUUBUWAYMDY
+      RVCZVDUVTUUPDYMUCUVSYMYSUKVEVFXAUUGUUKUUJUWAUDUVBUUGUUBUWAUUJUWBVDUVTUVAD
+      UUJUCUVSUUJYSUKVEVFXAXBXCXDBUUBXEXFXGYMJZYTCYMUFZYOUWCUWDUMZYOEGZUVSHIZMZ
+      DYMXHZEXIZXJZJZUWJKXKZFGZJZFUWJUFUWLUWEFUWJXLUWEYPUWJUDZUWMUWEYPUWGMZDYMX
+      HZUWPUWCUWRUWDUWCKYMUDZUWRYMXMUWSYPYPMZUWRYPXNUWQUWTDKYMUVSKMUWGYPYPUVSKH
+      OXOXPVOQVKUWIUWREYPKHXQUWFYPMUWHUWQDYMUWFYPUWGXRXSXTXFUWJYPYAQUWEUWOFUWJU
+      WEUWNUWGMZDYMXHZUWOUWNUWJUDUWEUXAUWODYMUWDUVSYMUDUWGJZUWCUXAUWOVIZYTUXCCU
+      VSYMYRUVSMYSUWGMYTUXCNYRUVSHOYSUWGPQYBUXCUXDVIUWCUXAUWOUXCUWNUWGPYCUJYDYE
+      UWIUXBEUWNFWKUWFUWNMUWHUXADYMUWFUWNUWGXRXSXTYFXCWOUWCYOUWLNZUWDUWCYNUWKMU
+      XEUWCYNDYMUWGYGZUWKYMUOUDUWCYNUXFMUVRDYMUOYHWADEYMUWGUVSHXQYIYJYNUWKPQVKY
+      KWEYL $.
+      $( [29-Oct-2009] $)
+  $}
+
+  ${
+    $d x y z A $.
+    $( An initial ordinal includes its index.  (Contributed by Jeff Hankins,
+       26-Oct-2009.) $)
+    omsubindss $p |- ( A e. On -> A C_ ( aleph ` A ) ) $=
+      ( vx vy vz cv cale cfv wss wceq id fveq2 sseq12d con0 wcel wral wa wi
+      rcla4v w3a ontr2 onelon 3adant3 alephon jctir 3simp3 3simp2 wb omsubel
+      ancoms syldan mpbid jca sylc 3exp com3l syld com13 imp ssrdv ex tfis3 )
+      BEZVBFGZHZCEZVEFGZHZAAFGZHBCAVBVEIZVBVEVCVFVIJVBVEFKLVBAIZVBAVCVHVJJVBAFK
+      LVBMNZVGCVBOZVDVKVLPDVBVCVKVLDEZVBNZVMVCNZQVNVLVKVOVNVLVMVMFGZHZVKVOQVGVQ
+      CVMVBVEVMIZVEVMVFVPVRJVEVMFKLRVKVNVQVOVKVNVQVOVMMNZVCMNZPVQVPVCNZPVOVKVNV
+      QSZVMVPVCTWBVSVTVKVNVSVQVBVMUAZUBVBUCUDWBVQWAVKVNVQUEWBVNWAVKVNVQUFVKVNVN
+      WAUGZVQVKVNVSWDWCVSVKWDVMVBUHUIUJUBUKULUMUNUOUPUQURUSUTVA $.
+      $( [26-Oct-2009] $)
+  $}
+
+  ${
+    $d x y z A $.
+    $( An infinite ordinal is equinumerous to an infinite initial ordinal.
+       (Contributed by Jeff Hankins, 23-Oct-2009.) $)
+    infenomsub $p |- ( ( A e. On /\ om C_ A ) -> E. x e. ran aleph x ~~ A ) $=
+      ( vy vz cv cale cfv cdom wbr con0 crab cint crn wcel cen wrex com wss wa
+      breq1 rcla4ev wfn fnfvelrn alephfnon a1i omsubindss ssdomg mpd wceq
+      fveq2 breq2d mpdan adantr onintrab2 sylib sylanc c0 csuc wlim wo word
+      eloni w3o ordzsl 3orass bitri syl wi breq1d aleph0 sseq1i cvv fvex ax-mp
+      sylbir syl5bir ax-17 hbrab1 hbint hbfv hbbr onminsb anim12d com12 ancoms
+      wb sbthbg sylibd ensymg csdm wn onnminsb simplr visset sucid eleq2
+      mpbiri adantl sylc eleq2d omsubsuc2 sylan9bbr elrab pm3.27bi syl6bi mtod
+      exp31 r19.23adv wral onelon ex syli r19.21aiv ralnex ciun alephlim sylan
+      alephon onelss syl5 reximdvai eliun syl5ib sylbid jaod imp elomsubsd
+      pm3.26 mtbid adantlr jca bren2 sylibr ) BCEZFGZHIZCJKZLZFGZFMZNZYSBOIZAEZ
+      BOIZAYTPBJNZQBRZSZUUDUUBAYSYTUUCYSBOTUAFJUBZYRJNZUUAUUGJYRFUCUUHUUGUDUEUU
+      GYPCJPZUUIUUEUUJUUFUUEBBFGZHIZUUJUUEBUUKRUULBUFBUUKJUGUHYPUULCBJYNBUIYOUU
+      KBHYNBFUJUKUAULZUMZYPCUNZUOZUPUUGYRUQUIZYRDEZURZUIZDJPZYRUSZUTZUTZUUBUUGU
+      UIUVDUUPUUIYRVAZUVDYRVBUVEUUQUVAUVBVCUVDDYRVDUUQUVAUVBVEVFUOVGUUGUUQUUBUV
+      CUUGUUQYSBHIZBYSHIZSZUUBUUFUUEUUQUVHVHUUQUUFUUESUVHUUQUUFUVFUUEUVGUUQUVFU
+      QFGZBHIZUUFUUQYSUVIBHYRUQFUJVIUUFUVIBRZUVJUVIQBVJVKUVIVLNUVKUVJVHUQFVMUVI
+      BVLUGVNVOVPUUEUVGVHUUQUUEUUJUVGUUMYPUVGCCABYSHUUCBNCVQUUCHNCVQCAYRFUUCFNC
+      VQCAYQYPCAJVRVSVTWAYNYRUIYOYSBHYNYRFUJUKWBZVGUEWCWDWEUUEUVHUUBWFUUFYSBJWG
+      UMWHUUGUVCUUBYSVLNZBYSOIZUUBUUGUVCSZBYSVLWIUVMUVOYRFVMUEUVOUVGBYSWJIZWKZS
+      UVNUVOUVGUVQUUGUVGUVCUUGUUJUVGUUNUVLVGUMUUEUVCUVQUUFUUEUVCSZBYSNZUVPUUEUV
+      CUVSWKZUUEUVAUVTUVBUUEUUTUVTDJUUEUURJNZUUTUVTUUEUWASZUUTSZUVSBUURFGZHIZUW
+      AUURYRNZUWEWKZUWCYPUWECUURYNUURUIYOUWDBHYNUURFUJUKWLZUUEUWAUUTWMUUTUWFUWB
+      UUTUWFUURUUSNUURDWNWOYRUUSUURWPWQWRWSUWCUVSBYNUWDHIZCJKZNZUWEUUTUVSBUUSFG
+      ZNZUWBUWKUUTYSUWLBYRUUSFUJWTUWAUWMUWKWFUUEUWAUWLUWJBCUURXAWTWRXBUWKUUEUWE
+      UWIUWECBJYNBUWDHTXCXDXEXFXGXHUUEUVBUVTUUEUVBSZUVSUWEDYRPZUWNUWGDYRXIUWOWK
+      UWNUWGDYRUUEUWFUWGVHUVBUWFUUEUWAUWGUUEUUIUWFUWAVHUUEUUJUUIUUMUUOUOZUUIUWF
+      UWAYRUURXJXKVGUWHXLUMXMUWEDYRXNUOUWNUVSBDYRUWDXOZNZUWOUUIUVBUVSUWRWFUUEUU
+      IUVBSYSUWQBDYRJXPWTUWPXQUWNBUWDNZDYRPUWOUWRUWNUWSUWEDYRUUEUWFUWSUWEVHZVHU
+      VBUUEUWFUWTUUEUWFSBUWDRZUWEUWSUUEUXAUWEVHUWFBUWDJUGUMUWDJNUWSUXAVHUURXRUW
+      DBXSVNXTXKUMYADBYRUWDYBYCYDXFXKYEYFUUEUUIUVSUVPWFUVRBYRYGUUEUVCYHUUEUUIUV
+      CUWPUMUPYIYJYKBYSYLYMWSXKYEUHUP $.
+      $( [23-Oct-2009] $)
+  $}
+
+  ${
+    $d w x y z A $.
+    $( An infinite initial ordinal is characterized by the property of being
+       initial - that is, it is a subset of any dominating ordinal.
+       (Contributed by Jeff Hankins, 29-Oct-2009.) $)
+    omsubinit $p |- ( ( A e. On /\ om C_ A )
+          -> ( A e. ran aleph <-> A. x e. On ( A ~<_ x -> A C_ x ) ) ) $=
+      ( vy vz vw con0 wcel com wss wa cv cale cfv wceq wrex cdom wbr wi wral
+      crn breq1 sseq1 imbi12d omsubdmss biimprd syl5cbi adantl expr com23 impr
+      r19.21aiv exp32 r19.23adv cen infenomsub imbi1d ensymg simpll simprr
+      sylc endom syl fveq2 eqeq1d rcla4ev simplrl wb ancoms adantlr syl5
+      adantr pm3.27 eqssd sylanc ex imim2d mpid alephon breq2 sseq2 rcla4v
+      ax-mp wfn alephfnon fvelrnb syl5ib mpd impbid syl5bb ) BFGZHBIZJZCKZLMZBN
+      ZCFOZBAKZPQZBWQIZRZAFSZBLTZGZWLWPXAWLWOXACFWLWMFGZWOXAWLXDWOJJWTAFWLXDWOW
+      QFGZWTRWLXDJXEWOWTWLXDXEWOWTRZXDXEJZXFWLWOWNWQPQZWNWQIZRWTXGWOXHWRXIWSWNB
+      WQPUAWNBWQUBUCXGXIXHWMWQUDUEUFUGUHUIUJUKULUMWLDKZBUNQZDXBOXAWPRZDBUOWLXKX
+      LDXBWLEKZLMZXJNZEFOZXKXLRZXJXBGZWLXOXQEFWLXMFGZXOXQRXOXNBUNQZXLRXQWLXSJZX
+      OXTXKXLXNXJBUNUAUPWLXSXTXLWLXSXTJZJZBXNPQZBXNIZRZWPXAYCYFYDWPYCBXNUNQZYDW
+      JXTYGYCXNBFUQWJWKYBURWLXSXTUSUTBXNVAVBYCYEWPYDYCYEWPXSXNBNZWPYCYEJZWOYHCX
+      MFWMXMNWNXNBWMXMLVCVDVEWLXSXTYEVFYIXNBYCXNBIZYEWLXSXTYJYAXNBPQZYJXTYAYJYK
+      WJXSYJYKVGZWKXSWJYLXMBUDVHVIUEXNBVAVJUJVKYCYEVLVMVNVOVPVQXNFGXAYFRXMVRWTY
+      FAXNFWQXNNWRYDWSYEWQXNBPVSWQXNBVTUCWAWBVJUHUFVOUMLFWCZXRXPVGWDEFXJLWEWBWF
+      UMWGWHYMXCWPVGWDCFBLWEWBWI $.
+      $( [29-Oct-2009] $)
+  $}
+
