@@ -4,1713 +4,183 @@ $(
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 $)
 
-  $c ->.. $. $(  Symbol for meta-implication
-      [10-Nov-2010] $)
 
-  $c [. $. $( Left parenthesis for meta-implication.
-      [6-Apr-2011] $)
-
-  $c ]. $. $( Right parenthesis for meta-implication.
-      [6-Apr-2011] $)
-
-  $c . $. $( Right and left meta-parenthesis for conjunction.
-      [10-Nov-2010] $)
-
-  $c ->... $. $(  Symbol for meta-implication for virtual hypotheses.
+  $c (. $. $( Left parenthesis for virtual deduction for virtual hypotheses.
       [21-Apr-2011] $)
 
-  $c (. $. $( Left parenthesis for meta-implication for virtual hypotheses.
-      [21-Apr-2011] $)
+  $c ). $. $( Right parenthesis for virtual deduction.
+      [9-Nov-2011] $)
 
-  $c ). $. $( Right parenthesis for meta-implication for virtual hypotheses.
-      [21-Apr-2011] $)
+  $c |-. $. $(  Symbol for virtual inference.
+      [9-Nov-2011] $)
 
   ${
-    $( Syntax for virtual deduction.  The arrow is the virtual deduction
-       symbol.  We also call it the symbol for "meta-implication" because it is
-       a "meta-connective" connecting "individual" wffs.  The virtual deduction
-       symbol is a second symbol denoting implication.  Our virtual deduction
-       employs a variant of the natural deduction calculi for Intuitionistic
-       and Classical logic due to Gentzen and Prawitz.  We call the "deduction"
-       "virtual" because, although proofs using virtual deduction are
-       constructed as if rules of natural deduction were being applied, each
-       virtual deduction is actually an implication.  Using virtual deduction,
-       Hilbert-style axiomatic proofs may be directly constructed using
-       intuitionistic logic.  The deductions are virtual just as classes in set
-       theory may be interpreted as virtual (merely defined terms).  Similarly,
-       the individual wffs in the antecedent of a virtual deduction are
-       "virtual hypotheses" and the individual wffs in the consequent of a
-       virtual deduction are "virtual conclusions". $)
-    wimeta $a wff [. ph ->.. ps ]. $.
-      $( [23-Mar-2011] $)
+    $( Natural Deduction is a well known proof method orignally proposed by
+       Gentzen in 1935 and comprehensively summarized by Prawitz in his 1965
+       monograph "Natural deduction: a proof-theoretic study".  Gentzen wished
+       to construct "a formalism that comes as close as possible to natural
+       reasoning".  Natural deduction is a response to dissatisfaction with
+       axiomatic proofs such as Hilbert-style axiomatic proofs, which the
+       proofs of Metamath are.  In 1926, in Poland, Lukasiewicz advocated a
+       more natural treatment of logic.  Jaskowski made the earliest attempts
+       at defining a more natural deduction.  Natural deduction in its modern
+       form was independently proposed by Gentzen.
+
+       Natural Deduction cannot be done within a Hilbert-style deduction
+       system.  This is because the objects being deduced from and the object
+       being deduced are deductions.  A deduction is not a wff and therefore
+       cannot cannot be a step in a Hilbert-style deduction system proof.  The
+       introduction of virtual deductions make it possible to construct proofs
+       in a Hilbert-style deduction systems by a means essentially equivalent
+       to Natural Deduction.
+
+       The concept of the virtual deduction is analogous to the concept of
+       virtual classes, as described in Quine's "Set Theory and Its Logic",
+       pages 15 to 21.  Metamath's class abstractions are virtual classes.
+       Virtual classes are also used in Takeuti and Zaring's "Introduction to
+       Axiomatic Set Theory".  Classes are introduced as defined terms.  As
+       Quine states on page 16, " ... there remains no hint of there being such
+       a thing as the class ` { x | ph } ` ".  In Takeuti and Zaring,
+
+       ` ( x e. { y | ph } <-> [ x / y ] ph ) ` .
+
+       ` [ x / y ] ph ` is the narrower sense wff corresponding to the wider
+       sense wff ` x e. { y | ph } ` .  Every wider sense wff is an
+       abbreviation for a wff in the original sense.  A set ` x ` belongs to
+       the class ` { y | ph } ` if and only if ` [ x / y ] ph ` .  A class is a
+       virtual object.  Although thought of as an object containing sets, class
+       abstractions do not actually exist.  A class is merely a term in an
+       abbreviation for a wff in which no classes occur.
+
+       The notion of virtual classes is useful because it allows for the
+       succinct resolution of Russell's paradox because virtual classes which
+       are not sets cannot be members of a virtual class.
+
+       A virtual deduction is also merely an abbreviation for a wff.
+
+
+       ` ( (. ph , ps , ` ... ` , ch , ... , th |-. et ). <-> `
+       ` ( ( ph /\ ps ` ... ` /\ ch ` ... ` /\ th ) -> et ) ) `
+
+       is the definition of the virtual deduction
+
+       ` (. ph , ps , ` ... ` , ch , ` ... ` , th |-. et ). `
+
+       This virtual deduction is interpreted as
+
+       ` ph , ps , ` ... ` , ch , ` ... ` , th ` infer ` et ` .
+
+       ` ph , ps , ` ... ` , ch , ` ... ` , th ` are "hypotheses" and ` et ` is
+       the "conclusion".  An alternate definition of a virtual deduction is
+
+
+       ` ( (. ph , ps , ` ... ` , ch , ` ...
+       ` , th |-. et ). <-> ( ph -> ( ps -> ` ... ` -> ( ch -> ` ...
+       ` -> ( th -> et ) ` ... ` ) ` ... ` ) ) ) `
+
+       Just as the abbreviation ` x e. { y | ph } ` should be thought of as
+       stating that x is contained in the class ` { y | ph } ` even though the
+       entity ` { y | ph } ` does not actually exist and x cannot be contained
+       in a non-existent entity, the abbreviation ` (. ph , ps , ` ...
+       ` , ch , ` ... ` , th |-. et ). ` should be thought of as stating that
+       the hypotheses ` ph , ps , ` ... ` , ch , ` ... ` , th ` together infer
+       ` et ` , even though ` ph , ps , ` ... ` , ch , ` ... ` , th ` are not
+       actually hypotheses and therefore can not infer anything.
+
+       Natural Deduction relies on the Deduction Theorem.  The Deduction
+       Theorem is valid for sentences, but is not valid for all formulas.  The
+       rules of Natural Deduction of a natural deduction calculus applicable to
+       any wff must be such that if
+
+       ` (. ph , ps , ` ... ` , ch , ` ... ` , th |-. et ). `
+
+       then
+
+       ` ( ( ph /\ ps ` ... ` /\ ch ` ... ` /\ th ) -> et ) `
+
+       Only then is the Deduction Theorem true for that universe of wffs.  The
+       satisfaction of this meta-rule is implicit in the definition of a
+       virtual deduction.  Although wffs which are virtual deductions are not
+       real deductions, they are meta-logically equivalent to their
+       corresponding real deductions.  If
+
+       ` (. ph , ps , ` ... ` , ch , ` ... ` , th |-. et ). `
+
+       then
+
+       ` ph ` & ` ps ` ... & ` ch ` ... & ` th ` infer ` et `
+
+       Every virtual deduction meta-infers it corresponding deduction, although
+       some deductions do not have a corresponding virtual deduction.  Virtual
+       Natural Deduction may be employed to prove theorems or deductions in a
+       Hilbert-style deduction system in a natural and intuitive manner.
+       Natural Deduction is used to prove theorems or deductions within a
+       Genzten system.  "Virtual Natural Deduction" or, "Virtual Deduction",
+       for short, is essentially Natural Deduction for use within Hilbert-style
+       deduction systems.  Hopefully, the term for the proof method, "Virtual
+       Deduction", will not be confused with the term "virtual deduction", a
+       type of wff.
+
+       Proving a theorem by Virtual Deduction is proving a theorem by
+       deduction, which is how all theorems within a Hilbert-style deduction
+       system are proven.
+
+       A Gentzen Natural Deduction system requires Natural Deduction axioms and
+       rules of inference.  Adding the above definition of a virtual deduction
+       transforms any Hilbert-style deduction system into a Virtual Natural
+       Deduction system.  No additional axioms or rules of inference are
+       needed.  Every step in any Virtual Deduction proof may be deduced from
+       the axioms and rules of inference of the Hilbert-style deduction system
+       (for those steps in which no virtual deductions occur) or those axioms
+       and rules and the above virtual deduction definition (for those steps in
+       which one or more virtual deductions occur).  The idn* theorems
+       (identity theorems), the in* deductions (introduction rules), the e*
+       deductions (elimination rules), and the gen* deductions (generalizing
+       rules) are Metamath theorems or deductions deduced from the axioms,
+       ~ ax-gen , and ~ ax-mp , and the virtual deduction definitions.  These
+       are the only theorems or deductions in which virtual deductions occur
+       which would be needed directly to construct most Virtual Deduction
+       proofs.
+
+       By introducing the virtual deduction definition, we have eliminated the
+       need for a Natural Deduction system (a Gentzen system) within which to
+       prove theorems by Natural Deduction or an equivalent method.  With the
+       introduction of the virtual deduction definition, we may prove theorems
+       within a Hilbert-style deduction system by a means essentially the same
+       as Natural Deduction. $)
+    vd1 $a wff (. ph |-. ps ). $.
+      $( [14-Nov-2011] $)
   $}
 
   ${
-    $( Definition of meta-implication. $)
-    df-wimeta $a |- ( [. ph ->.. ps ]. <-> ( ph -> ps ) ) $.
-      $( [10-Nov-2010] $)
+    $( Definition of virtual deduction. $)
+    df-vd1 $a |- ( (. ph |-. ps ). <-> ( ph -> ps ) ) $.
+      $( [14-Nov-2011] $)
   $}
 
   ${
-    dfwimetai.1 $e |- [. ph ->.. ps ]. $.
-    $( Inference form of ~ df-wimeta . $)
-    dfwimetai $p |- ( ph -> ps ) $=
-      ( wimeta wi df-wimeta mpbi ) ABDABECABFG $.
-      $( [12-Nov-2010] $)
+    dfvd1i.1 $e |- (. ph |-. ps ). $.
+    $( Inference form of ~ df-vd1 . $)
+    dfvd1i $p |- ( ph -> ps ) $=
+      ( vd1 wi df-vd1 mpbi ) ABDABECABFG $.
+      $( [14-Nov-2011] $)
   $}
 
   ${
-    dfwimetair.1 $e |- ( ph -> ps ) $.
-    $( Inference form of ~ df-wimeta with the meta-implication as the
+    dfvd1ir.1 $e |- ( ph -> ps ) $.
+    $( Inference form of ~ df-vd1 with the virtual deduction as the
        assertion. $)
-    dfwimetair $p |- [. ph ->.. ps ]. $=
-      ( wimeta wi df-wimeta mpbir ) ABDABECABFG $.
-      $( [12-Nov-2010] $)
+    dfvd1ir $p |- (. ph |-. ps ). $=
+      ( vd1 wi df-vd1 mpbir ) ABDABECABFG $.
+      $( [14-Nov-2011] $)
   $}
 
   ${
-    $( Syntax for meta-conjunction. $)
-    wameta $a wff . ph , ps . $.
-      $( [10-Nov-2010] $)
-  $}
-
-  ${
-    $( Definition of meta-conjunction. $)
-    df-wameta $a |- ( . ph , ps . <-> ( ph /\ ps ) ) $.
-      $( [10-Nov-2010] $)
-  $}
-
-  ${
-    dfwiwametai.1 $e |- [. . ph , ps . ->.. ch ]. $.
-    $( Definition of the meta-form of an implication having an antecedent of
-       two wffs conjoined. $)
-    dfwiwametai $p |- ( ( ph /\ ps ) -> ch ) $=
-      ( wa wameta df-wameta dfwimetai sylbir ) ABEABFZCABGJCDHI $.
-      $( [26-Nov-2010] $)
-  $}
-
-  ${
-    sylbimt.1 $e |- ( ph <-> ps ) $.
-    sylbimt.2 $e |- ( ps -> ch ) $.
-    $( ~ sylbi with a meta-implication assertion. $)
-    sylbimt $p |- [. ph ->.. ch ]. $=
-      ( sylbi dfwimetair ) ACABCDEFG $.
-      $( [12-Nov-2010] $)
-  $}
-
-  ${
-    sylibrmt.1 $e |- ( ph -> ps ) $.
-    sylibrmt.2 $e |- ( ch <-> ps ) $.
-    $( ~ sylibr with a meta-implication assertion. $)
-    sylibrmt $p |- [. ph ->.. ch ]. $=
-      ( sylibr dfwimetair ) ACABCDEFG $.
-      $( [12-Nov-2010] $)
-  $}
-
-  ${
-    adantrmt.1 $e |- ( ph -> ps ) $.
-    $( ~ adantr with a meta-implication assertion. $)
-    adantrmt $p |- [. . ph , ch . ->.. ps ]. $=
-      ( wameta wa df-wameta adantr sylbimt ) ACEACFBACGABCDHI $.
-      $( [12-Nov-2010] $)
-  $}
-
-  ${
-    adantrmt2.1 $e |- [. ph ->.. ps ]. $.
-    $( Virtual deduction form of ~ adantr . $)
-    adantrmt2 $p |- [. . ph , ch . ->.. ps ]. $=
-      ( dfwimetai adantrmt ) ABCABDEF $.
-      $( [14-Mar-2011] $)
-  $}
-
-  ${
-    $( Virtual deduction identity rule which is ~ id with meta-connective
+    $( Virtual deduction identity rule which is ~ id with virtual deduction
        symbols. $)
-    idn1 $p |- [. ph ->.. ph ]. $=
-      ( id dfwimetair ) AAABC $.
+    idn1 $p |- (. ph |-. ph ). $=
+      ( id dfvd1ir ) AAABC $.
       $( [24-Jun-2011] $)
-  $}
-
-  ${
-    $( A 2-element right-nested conjunction meta-implies the 0th element. $)
-    s20 $p |- [. . ph , ps . ->.. ph ]. $=
-      ( idn1 adantrmt2 ) AABACD $.
-      $( [14-Mar-2011] $)
-  $}
-
-  ${
-    $( A 2-element right-nested conjunction meta-implies the 1st element. $)
-    s21 $p |- [. . ph , ps . ->.. ps ]. $=
-      ( wameta wa df-wameta id adantl sylbi dfwimetair ) ABCZBJABDBABEBBABFGHI
-      $.
-      $( [14-Mar-2011] $)
-  $}
-
-  ${
-    $( A 3-element right-nested conjunction meta-implies the 0th element. $)
-    s30 $p |- [. . . ph , ps . , ch . ->.. ph ]. $=
-      ( wameta s20 adantrmt2 ) ABDACABEF $.
-      $( [14-Mar-2011] $)
-  $}
-
-  ${
-    $( A 3-element right-nested conjunction meta-implies the 1st element. $)
-    s31 $p |- [. . . ph , ps . , ch . ->.. ps ]. $=
-      ( wameta s21 adantrmt2 ) ABDBCABEF $.
-      $( [14-Mar-2011] $)
-  $}
-
-  ${
-    $( A 4-element right-nested conjunction meta-implies the 0th element. $)
-    s40 $p |- [. . . . ph , ps . , ch . , th . ->.. ph ]. $=
-      ( wameta s30 adantrmt2 ) ABECEADABCFG $.
-      $( [14-Mar-2011] $)
-  $}
-
-  ${
-    $( A 4-element right-nested conjunction meta-implies the 1st element. $)
-    s41 $p |- [. . . . ph , ps . , ch . , th . ->.. ps ]. $=
-      ( wameta s31 adantrmt2 ) ABECEBDABCFG $.
-      $( [14-Mar-2011] $)
-  $}
-
-  ${
-    $( A 5-element right-nested conjunction meta-implies the 0th element. $)
-    s50 $p |- [. . . . . ph , ps . , ch . , th . , ta . ->.. ph ]. $=
-      ( wameta s40 adantrmt2 ) ABFCFDFAEABCDGH $.
-      $( [14-Mar-2011] $)
-  $}
-
-  ${
-    $( A 5-element right-nested conjunction meta-implies the 1st element. $)
-    s51 $p |- [. . . . . ph , ps . , ch . , th . , ta . ->.. ps ]. $=
-      ( wameta s41 adantrmt2 ) ABFCFDFBEABCDGH $.
-      $( [14-Mar-2011] $)
-  $}
-
-  ${
-    $( A 6-element right-nested conjunction meta-implies the 0th element. $)
-    s60 $p |- [. . . . . . ph , ps . , ch . , th . , ta . , et . ->.. ph ]. $=
-      ( wameta s50 adantrmt2 ) ABGCGDGEGAFABCDEHI $.
-      $( [14-Mar-2011] $)
-  $}
-
-  ${
-    $( A 6-element right-nested conjunction meta-implies the 1st element. $)
-    s61 $p |- [. . . . . . ph , ps . , ch . , th . , ta . , et . ->.. ps ]. $=
-      ( wameta s51 adantrmt2 ) ABGCGDGEGBFABCDEHI $.
-      $( [14-Mar-2011] $)
-  $}
-
-  ${
-    $( A 7-element right-nested conjunction meta-implies the 0th element. $)
-    s70 $p |- [. . . . . . . ph , ps . , ch . , th . , ta . , et . , ze .
-               ->.. ph ]. $=
-      ( wameta s60 adantrmt2 ) ABHCHDHEHFHAGABCDEFIJ $.
-      $( [14-Mar-2011] $)
-  $}
-
-  ${
-    $( A 7-element right-nested conjunction meta-implies the 1st element. $)
-    s71 $p |- [. . . . . . . ph , ps . , ch . , th . , ta . , et . , ze .
-               ->.. ps ]. $=
-      ( wameta s61 adantrmt2 ) ABHCHDHEHFHBGABCDEFIJ $.
-      $( [14-Mar-2011] $)
-  $}
-
-  ${
-    $( A 8-element right-nested conjunction meta-implies the 0th element. $)
-    s80 $p |- [. . . . . . . . ph , ps . , ch . , th . , ta . , et . , ze . ,
-               si . ->.. ph ]. $=
-      ( wameta s70 adantrmt2 ) ABICIDIEIFIGIAHABCDEFGJK $.
-      $( [14-Mar-2011] $)
-  $}
-
-  ${
-    $( A 8-element right-nested conjunction meta-implies the 1st element. $)
-    s81 $p |- [. . . . . . . . ph , ps . , ch . , th . , ta . , et . , ze . ,
-                si . ->.. ps ]. $=
-      ( wameta s71 adantrmt2 ) ABICIDIEIFIGIBHABCDEFGJK $.
-      $( [14-Mar-2011] $)
-  $}
-
-  ${
-    $( A 9-element right-nested conjunction meta-implies the 0th element. $)
-    s90 $p |- [. . . . . . . . . ph , ps . , ch . , th . , ta . , et . , ze . ,
-                si . , rh . ->.. ph ]. $=
-      ( wameta s80 adantrmt2 ) ABJCJDJEJFJGJHJAIABCDEFGHKL $.
-      $( [14-Mar-2011] $)
-  $}
-
-  ${
-    $( A 9-element right-nested conjunction meta-implies the 1st element. $)
-    s91 $p |- [. . . . . . . . . ph , ps . , ch . , th . , ta . , et . , ze . ,
-               si . , rh . ->.. ps ]. $=
-      ( wameta s81 adantrmt2 ) ABJCJDJEJFJGJHJBIABCDEFGHKL $.
-      $( [14-Mar-2011] $)
-  $}
-
-  ${
-    $v la $.
-    st00.wla $f wff la $.
-    $( A 10-element right-nested conjunction meta-implies the 0th element. $)
-    st00 $p |- [. . . . . . . . . . ph , ps . , ch . , th . , ta . , et . ,
-                ze . , si . , rh . , la . ->.. ph ]. $=
-      ( wameta s90 adantrmt2 ) ABKCKDKEKFKGKHKIKAJABCDEFGHILM $.
-      $( [14-Mar-2011] $)
-  $}
-
-  ${
-
-    $v la $.
-    st01.wla $f wff la $.
-    $( A 10-element right-nested conjunction meta-implies the 1st element. $)
-    st01 $p |- [. . . . . . . . . . ph , ps . , ch . , th . , ta . , et . ,
-                ze . , si . , rh . , la . ->.. ps ]. $=
-      ( wameta s91 adantrmt2 ) ABKCKDKEKFKGKHKIKBJABCDEFGHILM $.
-      $( [14-Mar-2011] $)
-  $}
-
-  ${
-    ah.1 $e |- [. ph ->.. ps ]. $.
-    $( Add a virtual hypothesis to a virtual deduction.  Duplicate this virtual
-       hypothesis as the last virtual conclusion.  "ah" is an abbreviation for
-       "add (virtual) hypothesis". $)
-    ah $p |- [. . ph , ch . ->.. . ps , ch . ]. $=
-      ( wameta wa dfwimetai anim1i df-wameta 3imtr4i dfwimetair ) ACEZBCEZACFBC
-      FLMABCABDGHACIBCIJK $.
-      $( [18-Mar-2011] $)
-  $}
-
-  ${
-    aah.1 $e |- ph $.
-    $( Add a virtual hypthesis to a theorem, converting the theorem into a
-       virtual deduction.  Duplicate this virtual hypothesis as the last
-       virtual conclusion. $)
-    aah $p |- [. ps ->.. . ph , ps . ]. $=
-      ( wameta wa jctl df-wameta sylibr dfwimetair ) BABDZBABEJBACFABGHI $.
-      $( [18-Mar-2011] $)
-  $}
-
-  ${
-    a5h.1 $e |- [. ph ->.. ps ]. $.
-    a5h.2 $e |- ( ch -> ( th -> ( ta -> ( et -> ( ze -> si ) ) ) ) ) $.
-    a5h.3 $e |- [. ps ->.. ch ]. $.
-    a5h.4 $e |- [. ps ->.. th ]. $.
-    a5h.5 $e |- [. ps ->.. ta ]. $.
-    a5h.6 $e |- [. ps ->.. et ]. $.
-    a5h.7 $e |- [. ps ->.. ze ]. $.
-    $( Meta-conjoin to the consequent of a meta-implication a wff which is the
-       end wff of a five-antecedent nested implication. $)
-    a5h $p |- [. ph ->.. . ps , si . ]. $=
-      ( wa wameta dfwimetai wi syl syl5 pm2.43i jca df-wameta sylibrmt ) ABHPBH
-      QABHABIRZABHUFBHBGHBBGHSZBFUGBBFUGSZBEUHBBEUHSZBDUIBBCDUISBCKRJTBDLRUAUBB
-      EMRUAUBBFNRUAUBBGORUAUBTUCBHUDUE $.
-      $( [17-Mar-2011] $)
-  $}
-
-  ${
-    a4h.1 $e |- [. ph ->.. ps ]. $.
-    a4h.2 $e |- ( ch -> ( th -> ( ta -> ( et -> ze ) ) ) ) $.
-    a4h.3 $e |- [. ps ->.. ch ]. $.
-    a4h.4 $e |- [. ps ->.. th ]. $.
-    a4h.5 $e |- [. ps ->.. ta ]. $.
-    a4h.6 $e |- [. ps ->.. et ]. $.
-    $( Meta-conjoin to the consequent of a meta-implication a wff which is the
-       end wff of a four-antecedent nested implication. $)
-    a4h $p |- [. ph ->.. . ps , ze . ]. $=
-      ( wi a1i a5h ) ABCCDEFGHCDEFGNNNNCIOJJKLMP $.
-      $( [17-Mar-2011] $)
-  $}
-
-  ${
-    a3h.1 $e |- [. ph ->.. ps ]. $.
-    a3h.2 $e |- ( ch -> ( th -> ( ta -> et ) ) ) $.
-    a3h.3 $e |- [. ps ->.. ch ]. $.
-    a3h.4 $e |- [. ps ->.. th ]. $.
-    a3h.5 $e |- [. ps ->.. ta ]. $.
-    $( Meta-conjoin to the consequent of a meta-implication a wff which is the
-       end wff of a three-antecedent nested implication. $)
-    a3h $p |- [. ph ->.. . ps , et . ]. $=
-      ( wi a1i a4h ) ABCCDEFGCDEFLLLCHMIIJKN $.
-      $( [17-Mar-2011] $)
-  $}
-
-  ${
-    a2h.1 $e |- [. ph ->.. ps ]. $.
-    a2h.2 $e |- ( ch -> ( th -> ta ) ) $.
-    a2h.3 $e |- [. ps ->.. ch ]. $.
-    a2h.4 $e |- [. ps ->.. th ]. $.
-    $( Meta-conjoin to the consequent of a meta-implication a wff which is the
-       end wff of a two-antecedent nested implication. $)
-    a2h $p |- [. ph ->.. . ps , ta . ]. $=
-      ( wi a1i a3h ) ABCCDEFCDEJJCGKHHIL $.
-      $( [17-Mar-2011] $)
-  $}
-
-  ${
-    a1h.1 $e |- [. ph ->.. ps ]. $.
-    a1h.2 $e |- ( ch -> th ) $.
-    a1h.3 $e |- [. ps ->.. ch ]. $.
-    $( Meta-conjoin to the consequent of a meta-implication a wff which is the
-       consequent of an implication. $)
-    a1h $p |- [. ph ->.. . ps , th . ]. $=
-      ( wi a1i a2h ) ABCCDECDHCFIGGJ $.
-      $( [17-Mar-2011] $)
-  $}
-
-  ${
-    a0h.1 $e |- [. ph ->.. ps ]. $.
-    a0h.2 $e |- ch $.
-    $( Meta-conjoin to the consequent of a meta-implication a theorem. $)
-    a0h $p |- [. ph ->.. . ps , ch . ]. $=
-      ( id a1i dfwimetair a1h ) ABCCDCFBCCBEGHI $.
-      $( [8-Apr-2011] $)
-  $}
-
-  ${
-    a10.1 $e |- [. ph ->.. ps ]. $.
-    a10.2 $e |- ( ps -> ch ) $.
-    $( Special case of ~ a1h .  The "1" in "a10" indicates that the original
-       virtual deduction has 1 virtual conclusion.  The "0" in "a10" indicates
-       that the antecedent of the implication is the 0th virtual conclusion of
-       the original virtual deduction. $)
-    a10 $p |- [. ph ->.. . ps , ch . ]. $=
-      ( idn1 a1h ) ABBCDEBFG $.
-      $( [18-Mar-2011] $)
-  $}
-
-  ${
-    a10bi.1 $e |- [. ph ->.. ps ]. $.
-    a10bi.2 $e |- ( ps <-> ch ) $.
-    $( Biconditional form of ~ a10 . $)
-    a10bi $p |- [. ph ->.. . ps , ch . ]. $=
-      ( biimpi a10 ) ABCDBCEFG $.
-      $( [19-Mar-2011] $)
-  $}
-
-  ${
-    a10bir.1 $e |- [. ph ->.. ps ]. $.
-    a10bir.2 $e |- ( ch <-> ps ) $.
-    $( Right biconditional form of ~ a10 . $)
-    a10bir $p |- [. ph ->.. . ps , ch . ]. $=
-      ( biimpri a10 ) ABCDCBEFG $.
-      $( [19-Mar-2011] $)
-  $}
-
-  ${
-    a20.1 $e |- [. ph ->.. . ps , ch . ]. $.
-    a20.2 $e |- ( ps -> th ) $.
-    $( Special case of ~ a1h .  The "2" in "a20" indicates that the original
-       virtual deduction has 2 virtual conclusions.  The "0" in "a20" indicates
-       that the antecedent of the implication is the 0th virtual conclusion of
-       the original virtual deduction. $)
-    a20 $p |- [. ph ->.. . . ps , ch . , th . ]. $=
-      ( wameta s20 a1h ) ABCGBDEFBCHI $.
-      $( [18-Mar-2011] $)
-  $}
-
-  ${
-    a20bi.1 $e |- [. ph ->.. . ps , ch . ]. $.
-    a20bi.2 $e |- ( ps <-> th ) $.
-    $( Biconditional form of ~ a20 . $)
-    a20bi $p |- [. ph ->.. . . ps , ch . , th . ]. $=
-      ( biimpi a20 ) ABCDEBDFGH $.
-      $( [19-Mar-2011] $)
-  $}
-
-  ${
-    a20bir.1 $e |- [. ph ->.. . ps , ch . ]. $.
-    a20bir.2 $e |- ( th <-> ps ) $.
-    $( Right biconditional form of ~ a20 . $)
-    a20bir $p |- [. ph ->.. . . ps , ch . , th . ]. $=
-      ( biimpri a20 ) ABCDEDBFGH $.
-      $( [19-Mar-2011] $)
-  $}
-
-  ${
-    a21.1 $e |- [. ph ->.. . ps , ch . ]. $.
-    a21.2 $e |- ( ch -> th ) $.
-    $( Special case of ~ a1h .  The "2" in "a21" indicates that the original
-       virtual deduction has 2 virtual conclusions.  The "1" in "a21" indicates
-       that the antecedent of the implication is the 1th virtual conclusion of
-       the original virtual deduction. $)
-    a21 $p |- [. ph ->.. . . ps , ch . , th . ]. $=
-      ( wameta s21 a1h ) ABCGCDEFBCHI $.
-      $( [18-Mar-2011] $)
-  $}
-
-  ${
-    a21bi.1 $e |- [. ph ->.. . ps , ch . ]. $.
-    a21bi.2 $e |- ( ch <-> th ) $.
-    $( Biconditional form of ~ a21 . $)
-    a21bi $p |- [. ph ->.. . . ps , ch . , th . ]. $=
-      ( biimpi a21 ) ABCDECDFGH $.
-      $( [21-Mar-2011] $)
-  $}
-
-  ${
-    a21bir.1 $e |- [. ph ->.. . ps , ch . ]. $.
-    a21bir.2 $e |- ( th <-> ch ) $.
-    $( Right biconditional form of ~ a21 . $)
-    a21bir $p |- [. ph ->.. . . ps , ch . , th . ]. $=
-      ( biimpri a21 ) ABCDEDCFGH $.
-      $( [19-Mar-2011] $)
-  $}
-
-  ${
-    a30.1 $e |- [. ph ->.. . . ps , ch . , th . ]. $.
-    a30.2 $e |- ( ps -> ta ) $.
-    $( Special case of ~ a1h . $)
-    a30 $p |- [. ph ->.. . . . ps , ch . , th . , ta . ]. $=
-      ( wameta s30 a1h ) ABCHDHBEFGBCDIJ $.
-      $( [18-Mar-2011] $)
-  $}
-
-  ${
-    a30bi.1 $e |- [. ph ->.. . . ps , ch . , th . ]. $.
-    a30bi.2 $e |- ( ps <-> ta ) $.
-    $( Biconditional form of ~ a30 . $)
-    a30bi $p |- [. ph ->.. . . . ps , ch . , th . , ta . ]. $=
-      ( biimpi a30 ) ABCDEFBEGHI $.
-      $( [21-Mar-2011] $)
-  $}
-
-  ${
-    a30bir.1 $e |- [. ph ->.. . . ps , ch . , th . ]. $.
-    a30bir.2 $e |- ( ta <-> ps ) $.
-    $( Right biconditional form of ~ a30 . $)
-    a30bir $p |- [. ph ->.. . . . ps , ch . , th . , ta . ]. $=
-      ( biimpri a30 ) ABCDEFEBGHI $.
-      $( [21-Mar-2011] $)
-  $}
-
-  ${
-    a31.1 $e |- [. ph ->.. . . ps , ch . , th . ]. $.
-    a31.2 $e |- ( ch -> ta ) $.
-    $( Special case of ~ a1h . $)
-    a31 $p |- [. ph ->.. . . . ps , ch . , th . , ta . ]. $=
-      ( wameta s31 a1h ) ABCHDHCEFGBCDIJ $.
-      $( [18-Mar-2011] $)
-  $}
-
-  ${
-    a31bi.1 $e |- [. ph ->.. . . ps , ch . , th . ]. $.
-    a31bi.2 $e |- ( ch <-> ta ) $.
-    $( Biconditional form of ~ a31 . $)
-    a31bi $p |- [. ph ->.. . . . ps , ch . , th . , ta . ]. $=
-      ( biimpi a31 ) ABCDEFCEGHI $.
-      $( [21-Mar-2011] $)
-  $}
-
-  ${
-    a31bir.1 $e |- [. ph ->.. . . ps , ch . , th . ]. $.
-    a31bir.2 $e |- ( ta <-> ch ) $.
-    $( Right biconditional form of ~ a31 . $)
-    a31bir $p |- [. ph ->.. . . . ps , ch . , th . , ta . ]. $=
-      ( biimpri a31 ) ABCDEFECGHI $.
-      $( [21-Mar-2011] $)
-  $}
-
-  ${
-    a40.1 $e |- [. ph ->.. . . . ps , ch . , th . , ta . ]. $.
-    a40.2 $e |- ( ps -> et ) $.
-    $( Special case of ~ a1h . $)
-    a40 $p |- [. ph ->.. . . . . ps , ch . , th . , ta . , et . ]. $=
-      ( wameta s40 a1h ) ABCIDIEIBFGHBCDEJK $.
-      $( [18-Mar-2011] $)
-  $}
-
-  ${
-    a40bi.1 $e |- [. ph ->.. . . . ps , ch . , th . , ta . ]. $.
-    a40bi.2 $e |- ( ps <-> et ) $.
-    $( Biconditional form of ~ a40 . $)
-    a40bi $p |- [. ph ->.. . . . . ps , ch . , th . , ta . , et . ]. $=
-      ( biimpi a40 ) ABCDEFGBFHIJ $.
-      $( [19-Apr-2011] $)
-  $}
-
-  ${
-    a40bir.1 $e |- [. ph ->.. . . . ps , ch . , th . , ta . ]. $.
-    a40bir.2 $e |- ( et <-> ps ) $.
-    $( Right biconditional form of ~ a40 . $)
-    a40bir $p |- [. ph ->.. . . . . ps , ch . , th . , ta . , et . ]. $=
-      ( biimpri a40 ) ABCDEFGFBHIJ $.
-      $( [19-Apr-2011] $)
-  $}
-
-  ${
-    a41.1 $e |- [. ph ->.. . . . ps , ch . , th . , ta . ]. $.
-    a41.2 $e |- ( ch -> et ) $.
-    $( Special case of ~ a1h . $)
-    a41 $p |- [. ph ->.. . . . . ps , ch . , th . , ta . , et . ]. $=
-      ( wameta s41 a1h ) ABCIDIEICFGHBCDEJK $.
-      $( [18-Mar-2011] $)
-  $}
-
-  ${
-    a41bi.1 $e |- [. ph ->.. . . . ps , ch . , th . , ta . ]. $.
-    a41bi.2 $e |- ( ch <-> et ) $.
-    $( Biconditional form of ~ a41 . $)
-    a41bi $p |- [. ph ->.. . . . . ps , ch . , th . , ta . , et . ]. $=
-      ( biimpi a41 ) ABCDEFGCFHIJ $.
-      $( [19-Apr-2011] $)
-  $}
-
-  ${
-    a41bir.1 $e |- [. ph ->.. . . . ps , ch . , th . , ta . ]. $.
-    a41bir.2 $e |- ( et <-> ch ) $.
-    $( Right biconditional form of ~ a41 . $)
-    a41bir $p |- [. ph ->.. . . . . ps , ch . , th . , ta . , et . ]. $=
-      ( biimpri a41 ) ABCDEFGFCHIJ $.
-      $( [19-Apr-2011] $)
-  $}
-
-  ${
-    a50.1 $e |- [. ph ->.. . . . . ps , ch . , th . , ta . , et . ]. $.
-    a50.2 $e |- ( ps -> ze ) $.
-    $( Special case of ~ a1h . $)
-    a50 $p |- [. ph ->.. . . . . . ps , ch . , th . , ta . , et . , ze . ]. $=
-      ( wameta s50 a1h ) ABCJDJEJFJBGHIBCDEFKL $.
-      $( [18-Mar-2011] $)
-  $}
-
-  ${
-    a50bi.1 $e |- [. ph ->.. . . . . ps , ch . , th . , ta . , et . ]. $.
-    a50bi.2 $e |- ( ps <-> ze ) $.
-    $( Biconditional form of ~ a50 . $)
-    a50bi $p |- [. ph ->.. . . . . . ps , ch . , th . , ta . , et . ,
-    ze . ]. $=
-      ( biimpi a50 ) ABCDEFGHBGIJK $.
-      $( [19-Apr-2011] $)
-  $}
-
-  ${
-    a50bir.1 $e |- [. ph ->.. . . . . ps , ch . , th . , ta . , et . ]. $.
-    a50bir.2 $e |- ( ze <-> ps ) $.
-    $( Right biconditional form of ~ a50 . $)
-    a50bir $p |- [. ph ->.. . . . . . ps , ch . , th . , ta . , et . ,
-    ze . ]. $=
-      ( biimpri a50 ) ABCDEFGHGBIJK $.
-      $( [19-Apr-2011] $)
-  $}
-
-  ${
-    a51.1 $e |- [. ph ->.. . . . . ps , ch . , th . , ta . , et . ]. $.
-    a51.2 $e |- ( ch -> ze ) $.
-    $( Special case of ~ a1h . $)
-    a51 $p |- [. ph ->.. . . . . . ps , ch . , th . , ta . , et . , ze . ]. $=
-      ( wameta s51 a1h ) ABCJDJEJFJCGHIBCDEFKL $.
-      $( [18-Mar-2011] $)
-  $}
-
-  ${
-    a51bi.1 $e |- [. ph ->.. . . . . ps , ch . , th . , ta . , et . ]. $.
-    a51bi.2 $e |- ( ch <-> ze ) $.
-    $( Biconditional form of ~ a51 . $)
-    a51bi $p |- [. ph ->.. . . . . . ps , ch . , th . , ta . , et . ,
-    ze . ]. $=
-      ( biimpi a51 ) ABCDEFGHCGIJK $.
-      $( [19-Apr-2011] $)
-  $}
-
-  ${
-    a51bir.1 $e |- [. ph ->.. . . . . ps , ch . , th . , ta . , et . ]. $.
-    a511bir.2 $e |- ( ze <-> ch ) $.
-    $( Right biconditional form of ~ a51 . $)
-    a51bir $p |- [. ph ->.. . . . . . ps , ch . , th . , ta . , et . ,
-    ze . ]. $=
-      ( biimpri a51 ) ABCDEFGHGCIJK $.
-      $( [19-Apr-2011] $)
-  $}
-
-  ${
-    a60.1 $e |- [. ph ->.. . . . . . ps , ch . , th . , ta . , et . ,
-    ze . ]. $.
-    a60.2 $e |- ( ps -> si ) $.
-    $( Special case of ~ a1h . $)
-    a60 $p |- [. ph ->.. . . . . . . ps , ch . , th . , ta . , et . , ze . ,
-                si . ]. $=
-      ( wameta s60 a1h ) ABCKDKEKFKGKBHIJBCDEFGLM $.
-      $( [18-Mar-2011] $)
-  $}
-
-  ${
-    a60bi.1 $e |- [. ph ->.. . . . . . ps , ch . , th . , ta . , et . ,
-    ze . ]. $.
-    a60bi.2 $e |- ( ps <-> si ) $.
-    $( Biconditional form of ~ a60 . $)
-    a60bi $p |- [. ph ->.. . . . . . . ps , ch . , th . , ta . , et . , ze . ,
-                si . ]. $=
-      ( biimpi a60 ) ABCDEFGHIBHJKL $.
-      $( [19-Apr-2011] $)
-  $}
-
-  ${
-    a60bir.1 $e |- [. ph ->.. . . . . . ps , ch . , th . , ta . , et . ,
-    ze . ]. $.
-    a60bir.2 $e |- ( si <-> ps ) $.
-    $( Right biconditional form of ~ a60 . $)
-    a60bir $p |- [. ph ->.. . . . . . . ps , ch . , th . , ta . , et . , ze . ,
-                si . ]. $=
-      ( biimpri a60 ) ABCDEFGHIHBJKL $.
-      $( [19-Apr-2011] $)
-  $}
-
-  ${
-    a61.1 $e |- [. ph ->.. . . . . . ps , ch . , th . , ta . , et . ,
-    ze . ]. $.
-    a61.2 $e |- ( ch -> si ) $.
-    $( Special case of ~ a1h . $)
-    a61 $p |- [. ph ->.. . . . . . . ps , ch . , th . , ta . , et . , ze . ,
-                si . ]. $=
-      ( wameta s61 a1h ) ABCKDKEKFKGKCHIJBCDEFGLM $.
-      $( [18-Mar-2011] $)
-  $}
-
-  ${
-    a61bi.1 $e |- [. ph ->.. . . . . . ps , ch . , th . , ta . , et . ,
-    ze . ]. $.
-    a61bi.2 $e |- ( ch <-> si ) $.
-    $( Biconditional form of ~ a61 . $)
-    a61bi $p |- [. ph ->.. . . . . . . ps , ch . , th . , ta . , et . , ze . ,
-                si . ]. $=
-      ( biimpi a61 ) ABCDEFGHICHJKL $.
-      $( [19-Apr-2011] $)
-  $}
-
-  ${
-    a61bir.1 $e |- [. ph ->.. . . . . . ps , ch . , th . , ta . , et . ,
-    ze . ]. $.
-    a61bir.2 $e |- ( si <-> ch ) $.
-    $( Right biconditional form of ~ a61 . $)
-    a61bir $p |- [. ph ->.. . . . . . . ps , ch . , th . , ta . , et . , ze . ,
-                si . ]. $=
-      ( biimpri a61 ) ABCDEFGHIHCJKL $.
-      $( [19-Apr-2011] $)
-  $}
-
-  ${
-    a70.1 $e |- [. ph ->.. . . . . . . ps , ch . , th . , ta . , et . , ze . ,
-                  si . ]. $.
-    a70.2 $e |- ( ps -> rh ) $.
-    $( Special case of ~ a1h . $)
-    a70 $p |- [. ph ->.. . . . . . . . ps , ch . , th . , ta . , et . , ze . ,
-                si . , rh . ]. $=
-      ( wameta s70 a1h ) ABCLDLELFLGLHLBIJKBCDEFGHMN $.
-      $( [18-Mar-2011] $)
-  $}
-
-  ${
-    a70bi.1 $e |- [. ph ->.. . . . . . . ps , ch . , th . , ta . , et . ,
-    ze . , si . ]. $.
-    a70bi.2 $e |- ( ps <-> rh ) $.
-    $( Biconditional form of ~ a70 . $)
-    a70bi $p |- [. ph ->.. . . . . . . . ps , ch . , th . , ta . , et . ,
-    ze . , si . , rh . ]. $=
-      ( biimpi a70 ) ABCDEFGHIJBIKLM $.
-      $( [19-Apr-2011] $)
-  $}
-
-  ${
-    a70bir.1 $e |- [. ph ->.. . . . . . . ps , ch . , th . , ta . , et . ,
-    ze . ,
-                  si . ]. $.
-    a70bir.2 $e |- ( rh <-> ps ) $.
-    $( Right biconditional form of ~ a70 . $)
-    a70bir $p |- [. ph ->.. . . . . . . . ps , ch . , th . , ta . , et . ,
-    ze . ,
-                si . , rh . ]. $=
-      ( biimpri a70 ) ABCDEFGHIJIBKLM $.
-      $( [19-Apr-2011] $)
-  $}
-
-  ${
-    a71.1 $e |- [. ph ->.. . . . . . . ps , ch . , th . , ta . , et . , ze . ,
-                 si . ]. $.
-    a71.2 $e |- ( ch -> rh ) $.
-    $( Special case of ~ a1h . $)
-    a71 $p |- [. ph ->.. . . . . . . . ps , ch . , th . , ta . , et . , ze . ,
-                si . , rh . ]. $=
-      ( wameta s71 a1h ) ABCLDLELFLGLHLCIJKBCDEFGHMN $.
-      $( [18-Mar-2011] $)
-  $}
-
-  ${
-    a71bi.1 $e |- [. ph ->.. . . . . . . ps , ch . , th . , ta . , et . ,
-    ze . , si . ]. $.
-    a71bi.2 $e |- ( ch <-> rh ) $.
-    $( Biconditional form of ~ a71 . $)
-    a71bi $p |- [. ph ->.. . . . . . . . ps , ch . , th . , ta . , et . ,
-    ze . , si . , rh . ]. $=
-      ( biimpi a71 ) ABCDEFGHIJCIKLM $.
-      $( [19-Apr-2011] $)
-  $}
-
-  ${
-    a71bir.1 $e |- [. ph ->.. . . . . . . ps , ch . , th . , ta . , et . ,
-    ze . ,
-                  si . ]. $.
-    a71bir.2 $e |- ( rh <-> ch ) $.
-    $( Right biconditional form of ~ a71 . $)
-    a71bir $p |- [. ph ->.. . . . . . . . ps , ch . , th . , ta . , et . ,
-    ze . ,
-                si . , rh . ]. $=
-      ( biimpri a71 ) ABCDEFGHIJICKLM $.
-      $( [19-Apr-2011] $)
-  $}
-
-  ${
-    a201.1 $e |- [. ph ->.. . ps , ch . ]. $.
-    a201.2 $e |- ( ps -> ( ch -> th ) ) $.
-    $( Special case of ~ a2h .  The "2" in "a201" indicates that the original
-       virtual deduction has 2 virtual conclusions.  The "0" in "a201"
-       indicates that the 0th antecedent of the nested implication is the 0th
-       virtual conclusion of the original virtual deduction.  The "1" in "a201"
-       indicates that the 1st antecedent of the nested implication is the 1st
-       virtual conclusion of the original virtual deduction. $)
-    a201 $p |- [. ph ->.. . . ps , ch . , th . ]. $=
-      ( wameta s20 s21 a2h ) ABCGBCDEFBCHBCIJ $.
-      $( [18-Mar-2011] $)
-  $}
-
-  ${
-    a201an.1 $e |- [. ph ->.. . ps , ch . ]. $.
-    a201an.2 $e |- ( ( ps /\ ch ) -> th ) $.
-    $( Conjunction form of ~ a201 . $)
-    a201an $p |- [. ph ->.. . . ps , ch . , th . ]. $=
-      ( ex a201 ) ABCDEBCDFGH $.
-      $( [18-Mar-2011] $)
-  $}
-
-  ${
-    a210.1 $e |- [. ph ->.. . ps , ch . ]. $.
-    a210.2 $e |- ( ch -> ( ps -> th ) ) $.
-    $( Special case of ~ a2h .  The "2" in "a210" indicates that the original
-       virtual deduction has 2 virtual conclusions.  The "1" in "a210"
-       indicates that the 0th antecedent of the nested implication is the 1st
-       virtual conclusion of the original virtual deduction.  The "0" in "a210"
-       indicates that the 1st antecedent of the nested implication is the 0th
-       virtual conclusion of the original virtual deduction. $)
-    a210 $p |- [. ph ->.. . . ps , ch . , th . ]. $=
-      ( wameta s21 s20 a2h ) ABCGCBDEFBCHBCIJ $.
-      $( [19-Mar-2011] $)
-  $}
-
-  ${
-    a301.1 $e |- [. ph ->.. . . ps , ch . , th . ]. $.
-    a301.2 $e |- ( ps -> ( ch -> ta ) ) $.
-    $( Special case of ~ a2h . $)
-    a301 $p |- [. ph ->.. . . . ps , ch . , th . , ta . ]. $=
-      ( wameta s30 s31 a2h ) ABCHDHBCEFGBCDIBCDJK $.
-      $( [19-Mar-2011] $)
-  $}
-
-  ${
-    a302.1 $e |- [. ph ->.. . . ps , ch . , th . ]. $.
-    a302.2 $e |- ( ps -> ( th -> ta ) ) $.
-    $( Special case of ~ a2h . $)
-    a302 $p |- [. ph ->.. . . . ps , ch . , th . , ta . ]. $=
-      ( wameta s30 s21 a2h ) ABCHZDHBDEFGBCDILDJK $.
-      $( [19-Mar-2011] $)
-  $}
-
-  ${
-    a310.1 $e |- [. ph ->.. . . ps , ch . , th . ]. $.
-    a310.2 $e |- ( ch -> ( ps -> ta ) ) $.
-    $( Special case of ~ a2h . $)
-    a310 $p |- [. ph ->.. . . . ps , ch . , th . , ta . ]. $=
-      ( wameta s31 s30 a2h ) ABCHDHCBEFGBCDIBCDJK $.
-      $( [19-Mar-2011] $)
-  $}
-
-  ${
-    a312.1 $e |- [. ph ->.. . . ps , ch . , th . ]. $.
-    a312.2 $e |- ( ch -> ( th -> ta ) ) $.
-    $( Special case of ~ a2h . $)
-    a312 $p |- [. ph ->.. . . . ps , ch . , th . , ta . ]. $=
-      ( wameta s31 s21 a2h ) ABCHZDHCDEFGBCDILDJK $.
-      $( [19-Mar-2011] $)
-  $}
-
-  ${
-    a312an.1 $e |- [. ph ->.. . . ps , ch . , th . ]. $.
-    a312an.2 $e |- ( ( ch /\ th ) -> ta ) $.
-    $( Conjunction form of ~ a312 . $)
-    a312an $p |- [. ph ->.. . . . ps , ch . , th . , ta . ]. $=
-      ( ex a312 ) ABCDEFCDEGHI $.
-      $( [9-Apr-2011] $)
-  $}
-
-  ${
-    a320.1 $e |- [. ph ->.. . . ps , ch . , th . ]. $.
-    a320.2 $e |- ( th -> ( ps -> ta ) ) $.
-    $( Special case of ~ a2h . $)
-    a320 $p |- [. ph ->.. . . . ps , ch . , th . , ta . ]. $=
-      ( wameta s21 s30 a2h ) ABCHZDHDBEFGLDIBCDJK $.
-      $( [19-Mar-2011] $)
-  $}
-
-  ${
-    a321.1 $e |- [. ph ->.. . . ps , ch . , th . ]. $.
-    a321.2 $e |- ( th -> ( ch -> ta ) ) $.
-    $( Special case of ~ a2h . $)
-    a321 $p |- [. ph ->.. . . . ps , ch . , th . , ta . ]. $=
-      ( wameta s21 s31 a2h ) ABCHZDHDCEFGLDIBCDJK $.
-      $( [19-Mar-2011] $)
-  $}
-
-  ${
-    a321an.1 $e |- [. ph ->.. . . ps , ch . , th . ]. $.
-    a321an.2 $e |- ( ( th /\ ch ) -> ta ) $.
-    $( Conjunction form of ~ a321 . $)
-    a321an $p |- [. ph ->.. . . . ps , ch . , th . , ta . ]. $=
-      ( ex a321 ) ABCDEFDCEGHI $.
-      $( [19-Mar-2011] $)
-  $}
-
-  ${
-    a401.1 $e |- [. ph ->.. . . . ps , ch . , th . , ta . ]. $.
-    a401.2 $e |- ( ps -> ( ch -> et ) ) $.
-    $( Special case of ~ a2h . $)
-    a401 $p |- [. ph ->.. . . . . ps , ch . , th . , ta . , et . ]. $=
-      ( wameta s40 s41 a2h ) ABCIDIEIBCFGHBCDEJBCDEKL $.
-      $( [19-Mar-2011] $)
-  $}
-
-  ${
-    a402.1 $e |- [. ph ->.. . . . ps , ch . , th . , ta . ]. $.
-    a402.2 $e |- ( ps -> ( th -> et ) ) $.
-    $( Special case of ~ a2h . $)
-    a402 $p |- [. ph ->.. . . . . ps , ch . , th . , ta . , et . ]. $=
-      ( wameta s40 s31 a2h ) ABCIZDIEIBDFGHBCDEJMDEKL $.
-      $( [19-Mar-2011] $)
-  $}
-
-  ${
-    a403.1 $e |- [. ph ->.. . . . ps , ch . , th . , ta . ]. $.
-    a403.2 $e |- ( ps -> ( ta -> et ) ) $.
-    $( Special case of ~ a2h . $)
-    a403 $p |- [. ph ->.. . . . . ps , ch . , th . , ta . , et . ]. $=
-      ( wameta s40 s21 a2h ) ABCIDIZEIBEFGHBCDEJMEKL $.
-      $( [19-Mar-2011] $)
-  $}
-
-  ${
-    a410.1 $e |- [. ph ->.. . . . ps , ch . , th . , ta . ]. $.
-    a410.2 $e |- ( ch -> ( ps -> et ) ) $.
-    $( Special case of ~ a2h . $)
-    a410 $p |- [. ph ->.. . . . . ps , ch . , th . , ta . , et . ]. $=
-      ( wameta s41 s40 a2h ) ABCIDIEICBFGHBCDEJBCDEKL $.
-      $( [19-Mar-2011] $)
-  $}
-
-  ${
-    a412.1 $e |- [. ph ->.. . . . ps , ch . , th . , ta . ]. $.
-    a412.2 $e |- ( ch -> ( th -> et ) ) $.
-    $( Special case of ~ a2h . $)
-    a412 $p |- [. ph ->.. . . . . ps , ch . , th . , ta . , et . ]. $=
-      ( wameta s41 s31 a2h ) ABCIZDIEICDFGHBCDEJMDEKL $.
-      $( [19-Mar-2011] $)
-  $}
-
-  ${
-    a413.1 $e |- [. ph ->.. . . . ps , ch . , th . , ta . ]. $.
-    a413.2 $e |- ( ch -> ( ta -> et ) ) $.
-    $( Special case of ~ a2h . $)
-    a413 $p |- [. ph ->.. . . . . ps , ch . , th . , ta . , et . ]. $=
-      ( wameta s41 s21 a2h ) ABCIDIZEICEFGHBCDEJMEKL $.
-      $( [19-Mar-2011] $)
-  $}
-
-  ${
-    a420.1 $e |- [. ph ->.. . . . ps , ch . , th . , ta . ]. $.
-    a420.2 $e |- ( th -> ( ps -> et ) ) $.
-    $( Special case of ~ a2h . $)
-    a420 $p |- [. ph ->.. . . . . ps , ch . , th . , ta . , et . ]. $=
-      ( wameta s31 s40 a2h ) ABCIZDIEIDBFGHMDEJBCDEKL $.
-      $( [19-Mar-2011] $)
-  $}
-
-  ${
-    a421.1 $e |- [. ph ->.. . . . ps , ch . , th . , ta . ]. $.
-    a421.2 $e |- ( th -> ( ch -> et ) ) $.
-    $( Special case of ~ a2h . $)
-    a421 $p |- [. ph ->.. . . . . ps , ch . , th . , ta . , et . ]. $=
-      ( wameta s31 s41 a2h ) ABCIZDIEIDCFGHMDEJBCDEKL $.
-      $( [19-Mar-2011] $)
-  $}
-
-  ${
-    a430.1 $e |- [. ph ->.. . . . ps , ch . , th . , ta . ]. $.
-    a430.2 $e |- ( ta -> ( ps -> et ) ) $.
-    $( Special case of ~ a2h . $)
-    a430 $p |- [. ph ->.. . . . . ps , ch . , th . , ta . , et . ]. $=
-      ( wameta s21 s40 a2h ) ABCIDIZEIEBFGHMEJBCDEKL $.
-      $( [19-Mar-2011] $)
-  $}
-
-  ${
-    a431.1 $e |- [. ph ->.. . . . ps , ch . , th . , ta . ]. $.
-    a431.2 $e |- ( ta -> ( ch -> et ) ) $.
-    $( Special case of ~ a2h . $)
-    a431 $p |- [. ph ->.. . . . . ps , ch . , th . , ta . , et . ]. $=
-      ( wameta s21 s41 a2h ) ABCIDIZEIECFGHMEJBCDEKL $.
-      $( [19-Mar-2011] $)
-  $}
-
-  ${
-    a501.1 $e |- [. ph ->.. . . . . ps , ch . , th . , ta . , et . ]. $.
-    a501.2 $e |- ( ps -> ( ch -> ze ) ) $.
-    $( Special case of ~ a2h . $)
-    a501 $p |- [. ph ->.. . . . . . ps , ch . , th . , ta . , et . , ze . ]. $=
-      ( wameta s50 s51 a2h ) ABCJDJEJFJBCGHIBCDEFKBCDEFLM $.
-      $( [16-Apr-2011] $)
-  $}
-
-  ${
-    a502.1 $e |- [. ph ->.. . . . . ps , ch . , th . , ta . , et . ]. $.
-    a502.2 $e |- ( ps -> ( th -> ze ) ) $.
-    $( Special case of ~ a2h . $)
-    a502 $p |- [. ph ->.. . . . . . ps , ch . , th . , ta . , et . , ze . ]. $=
-      ( wameta s50 s41 a2h ) ABCJZDJEJFJBDGHIBCDEFKNDEFLM $.
-      $( [16-Apr-2011] $)
-  $}
-
-  ${
-    a503.1 $e |- [. ph ->.. . . . . ps , ch . , th . , ta . , et . ]. $.
-    a503.2 $e |- ( ps -> ( ta -> ze ) ) $.
-    $( Special case of ~ a2h . $)
-    a503 $p |- [. ph ->.. . . . . . ps , ch . , th . , ta . , et . , ze . ]. $=
-      ( wameta s50 s31 a2h ) ABCJDJZEJFJBEGHIBCDEFKNEFLM $.
-      $( [5-Apr-2011] $)
-  $}
-
-  ${
-    a504.1 $e |- [. ph ->.. . . . . ps , ch . , th . , ta . , et . ]. $.
-    a504.2 $e |- ( ps -> ( et -> ze ) ) $.
-    $( Special case of ~ a2h . $)
-    a504 $p |- [. ph ->.. . . . . . ps , ch . , th . , ta . , et . , ze . ]. $=
-      ( wameta s50 s21 a2h ) ABCJDJEJZFJBFGHIBCDEFKNFLM $.
-      $( [10-Apr-2011] $)
-  $}
-
-  ${
-    a512.1 $e |- [. ph ->.. . . . . ps , ch . , th . , ta . , et . ]. $.
-    a512.2 $e |- ( ch -> ( th -> ze ) ) $.
-    $( Special case of ~ a2h . $)
-    a512 $p |- [. ph ->.. . . . . . ps , ch . , th . , ta . , et . , ze . ]. $=
-      ( wameta s51 s41 a2h ) ABCJZDJEJFJCDGHIBCDEFKNDEFLM $.
-      $( [16-Apr-2011] $)
-  $}
-
-  ${
-    a513.1 $e |- [. ph ->.. . . . . ps , ch . , th . , ta . , et . ]. $.
-    a513.2 $e |- ( ch -> ( ta -> ze ) ) $.
-    $( Special case of ~ a2h . $)
-    a513 $p |- [. ph ->.. . . . . . ps , ch . , th . , ta . , et . , ze . ]. $=
-      ( wameta s51 s31 a2h ) ABCJDJZEJFJCEGHIBCDEFKNEFLM $.
-      $( [16-Apr-2011] $)
-  $}
-
-  ${
-    a514.1 $e |- [. ph ->.. . . . . ps , ch . , th . , ta . , et . ]. $.
-    a514.2 $e |- ( ch -> ( et -> ze ) ) $.
-    $( Special case of ~ a2h . $)
-    a514 $p |- [. ph ->.. . . . . . ps , ch . , th . , ta . , et . , ze . ]. $=
-      ( wameta s51 s21 a2h ) ABCJDJEJZFJCFGHIBCDEFKNFLM $.
-      $( [10-Apr-2011] $)
-  $}
-
-  ${
-    a520.1 $e |- [. ph ->.. . . . . ps , ch . , th . , ta . , et . ]. $.
-    a520.2 $e |- ( th -> ( ps -> ze ) ) $.
-    $( Special case of ~ a2h . $)
-    a520 $p |- [. ph ->.. . . . . . ps , ch . , th . , ta . , et . , ze . ]. $=
-      ( wameta s41 s50 a2h ) ABCJZDJEJFJDBGHINDEFKBCDEFLM $.
-      $( [16-Apr-2011] $)
-  $}
-
-  ${
-    a521.1 $e |- [. ph ->.. . . . . ps , ch . , th . , ta . , et . ]. $.
-    a521.2 $e |- ( th -> ( ch -> ze ) ) $.
-    $( Special case of ~ a2h . $)
-    a521 $p |- [. ph ->.. . . . . . ps , ch . , th . , ta . , et . , ze . ]. $=
-      ( wameta s41 s51 a2h ) ABCJZDJEJFJDCGHINDEFKBCDEFLM $.
-      $( [16-Apr-2011] $)
-  $}
-
-  ${
-    a530.1 $e |- [. ph ->.. . . . . ps , ch . , th . , ta . , et . ]. $.
-    a530.2 $e |- ( ta -> ( ps -> ze ) ) $.
-    $( Special case of ~ a2h . $)
-    a530 $p |- [. ph ->.. . . . . . ps , ch . , th . , ta . , et . , ze . ]. $=
-      ( wameta s31 s50 a2h ) ABCJDJZEJFJEBGHINEFKBCDEFLM $.
-      $( [16-Apr-2011] $)
-  $}
-
-  ${
-    a531.1 $e |- [. ph ->.. . . . . ps , ch . , th . , ta . , et . ]. $.
-    a531.2 $e |- ( ta -> ( ch -> ze ) ) $.
-    $( Special case of ~ a2h . $)
-    a531 $p |- [. ph ->.. . . . . . ps , ch . , th . , ta . , et . , ze . ]. $=
-      ( wameta s31 s51 a2h ) ABCJDJZEJFJECGHINEFKBCDEFLM $.
-      $( [16-Apr-2011] $)
-  $}
-
-  ${
-    a540.1 $e |- [. ph ->.. . . . . ps , ch . , th . , ta . , et . ]. $.
-    a540.2 $e |- ( et -> ( ps -> ze ) ) $.
-    $( Special case of ~ a2h . $)
-    a540 $p |- [. ph ->.. . . . . . ps , ch . , th . , ta . , et . , ze . ]. $=
-      ( wameta s21 s50 a2h ) ABCJDJEJZFJFBGHINFKBCDEFLM $.
-      $( [16-Apr-2011] $)
-  $}
-
-  ${
-    a541.1 $e |- [. ph ->.. . . . . ps , ch . , th . , ta . , et . ]. $.
-    a541.2 $e |- ( et -> ( ch -> ze ) ) $.
-    $( Special case of ~ a2h . $)
-    a541 $p |- [. ph ->.. . . . . . ps , ch . , th . , ta . , et . , ze . ]. $=
-      ( wameta s21 s51 a2h ) ABCJDJEJZFJFCGHINFKBCDEFLM $.
-      $( [16-Apr-2011] $)
-  $}
-
-  ${
-    a615.1 $e |- [. ph ->.. . . . . . ps , ch . , th . , ta . , et . ,
-    ze . ]. $.
-    a615.2 $e |- ( ch -> ( ze -> si ) ) $.
-    $( Special case of ~ a2h . $)
-    a615 $p |- [. ph ->.. . . . . . . ps , ch . , th . , ta . , et . ,
-    ze . ,
-                si . ]. $=
-      ( wameta s61 s21 a2h ) ABCKDKEKFKZGKCGHIJBCDEFGLOGMN $.
-      $( [21-Mar-2011] $)
-  $}
-
-  ${
-    a706.1 $e |- [. ph ->.. . . . . . . ps , ch . , th . , ta . , et . ,
-    ze . ,
-                  si . ]. $.
-    a706.2 $e |- ( ps -> ( si -> rh ) ) $.
-    $( Special case of ~ a2h . $)
-    a706 $p |- [. ph ->.. . . . . . . . ps , ch . , th . , ta . , et . ,
-    ze . ,
-                  si . , rh . ]. $=
-      ( wameta s70 s21 a2h ) ABCLDLELFLGLZHLBHIJKBCDEFGHMPHNO $.
-      $( [15-Apr-2011] $)
-  $}
-
-  ${
-    a3012.1 $e |- [. ph ->.. . . ps , ch . , th . ]. $.
-    a3012.2 $e |- ( ps -> ( ch -> ( th -> ta ) ) ) $.
-    $( Special case of ~ a3h . $)
-    a3012 $p |- [. ph ->.. . . . ps , ch . , th . , ta . ]. $=
-      ( wameta s30 s31 s21 a3h ) ABCHZDHBCDEFGBCDIBCDJMDKL $.
-      $( [18-Apr-2011] $)
-  $}
-
-  ${
-    a3021.1 $e |- [. ph ->.. . . ps , ch . , th . ]. $.
-    a3021.2 $e |- ( ps -> ( th -> ( ch -> ta ) ) ) $.
-    $( Special case of ~ a3h . $)
-    a3021 $p |- [. ph ->.. . . . ps , ch . , th . , ta . ]. $=
-      ( wameta s30 s21 s31 a3h ) ABCHZDHBDCEFGBCDIMDJBCDKL $.
-      $( [18-Apr-2011] $)
-  $}
-
-  ${
-    a3102.1 $e |- [. ph ->.. . . ps , ch . , th . ]. $.
-    a3102.2 $e |- ( ch -> ( ps -> ( th -> ta ) ) ) $.
-    $( Special case of ~ a3h . $)
-    a3102 $p |- [. ph ->.. . . . ps , ch . , th . , ta . ]. $=
-      ( wameta s31 s30 s21 a3h ) ABCHZDHCBDEFGBCDIBCDJMDKL $.
-      $( [18-Apr-2011] $)
-  $}
-
-  ${
-    a3120.1 $e |- [. ph ->.. . . ps , ch . , th . ]. $.
-    a3120.2 $e |- ( ch -> ( th -> ( ps -> ta ) ) ) $.
-    $( Special case of ~ a3h . $)
-    a3120 $p |- [. ph ->.. . . . ps , ch . , th . , ta . ]. $=
-      ( wameta s31 s21 s30 a3h ) ABCHZDHCDBEFGBCDIMDJBCDKL $.
-      $( [18-Apr-2011] $)
-  $}
-
-  ${
-    a3201.1 $e |- [. ph ->.. . . ps , ch . , th . ]. $.
-    a3201.2 $e |- ( th -> ( ps -> ( ch -> ta ) ) ) $.
-    $( Special case of ~ a3h . $)
-    a3201 $p |- [. ph ->.. . . . ps , ch . , th . , ta . ]. $=
-      ( wameta s21 s30 s31 a3h ) ABCHZDHDBCEFGMDIBCDJBCDKL $.
-      $( [18-Apr-2011] $)
-  $}
-
-  ${
-    a3210.1 $e |- [. ph ->.. . . ps , ch . , th . ]. $.
-    a3210.2 $e |- ( th -> ( ch -> ( ps -> ta ) ) ) $.
-    $( Special case of ~ a3h . $)
-    a3210 $p |- [. ph ->.. . . . ps , ch . , th . , ta . ]. $=
-      ( wameta s21 s31 s30 a3h ) ABCHZDHDCBEFGMDIBCDJBCDKL $.
-      $( [18-Apr-2011] $)
-  $}
-
-  ${
-    a4012.1 $e |- [. ph ->.. . . . ps , ch . , th . , ta . ]. $.
-    a4012.2 $e |- ( ps -> ( ch -> ( th -> et ) ) ) $.
-    $( Special case of ~ a3h . $)
-    a4012 $p |- [. ph ->.. . . . . ps , ch . , th . , ta . , et . ]. $=
-      ( wameta s40 s41 s31 a3h ) ABCIZDIEIBCDFGHBCDEJBCDEKNDELM $.
-      $( [18-Apr-2011] $)
-  $}
-
-  ${
-    a4013.1 $e |- [. ph ->.. . . . ps , ch . , th . , ta . ]. $.
-    a4013.2 $e |- ( ps -> ( ch -> ( ta -> et ) ) ) $.
-    $( Special case of ~ a3h . $)
-    a4013 $p |- [. ph ->.. . . . . ps , ch . , th . , ta . , et . ]. $=
-      ( wameta s40 s41 s21 a3h ) ABCIDIZEIBCEFGHBCDEJBCDEKNELM $.
-      $( [18-Apr-2011] $)
-  $}
-
-  ${
-    a4021.1 $e |- [. ph ->.. . . . ps , ch . , th . , ta . ]. $.
-    a4021.2 $e |- ( ps -> ( th -> ( ch -> et ) ) ) $.
-    $( Special case of ~ a3h . $)
-    a4021 $p |- [. ph ->.. . . . . ps , ch . , th . , ta . , et . ]. $=
-      ( wameta s40 s31 s41 a3h ) ABCIZDIEIBDCFGHBCDEJNDEKBCDELM $.
-      $( [18-Apr-2011] $)
-  $}
-
-  ${
-    a4023.1 $e |- [. ph ->.. . . . ps , ch . , th . , ta . ]. $.
-    a4023.2 $e |- ( ps -> ( th -> ( ta -> et ) ) ) $.
-    $( Special case of ~ a3h . $)
-    a4023 $p |- [. ph ->.. . . . . ps , ch . , th . , ta . , et . ]. $=
-      ( wameta s40 s31 s21 a3h ) ABCIZDIZEIBDEFGHBCDEJNDEKOELM $.
-      $( [18-Apr-2011] $)
-  $}
-
-  ${
-    a4031.1 $e |- [. ph ->.. . . . ps , ch . , th . , ta . ]. $.
-    a4031.2 $e |- ( ps -> ( ta -> ( ch -> et ) ) ) $.
-    $( Special case of ~ a3h . $)
-    a4031 $p |- [. ph ->.. . . . . ps , ch . , th . , ta . , et . ]. $=
-      ( wameta s40 s21 s41 a3h ) ABCIDIZEIBECFGHBCDEJNEKBCDELM $.
-      $( [18-Apr-2011] $)
-  $}
-
-  ${
-    a4032.1 $e |- [. ph ->.. . . . ps , ch . , th . , ta . ]. $.
-    a4032.2 $e |- ( ps -> ( ta -> ( th -> et ) ) ) $.
-    $( Special case of ~ a3h . $)
-    a4032 $p |- [. ph ->.. . . . . ps , ch . , th . , ta . , et . ]. $=
-      ( wameta s40 s21 s31 a3h ) ABCIZDIZEIBEDFGHBCDEJOEKNDELM $.
-      $( [18-Apr-2011] $)
-  $}
-
-  ${
-    a4102.1 $e |- [. ph ->.. . . . ps , ch . , th . , ta . ]. $.
-    a4102.2 $e |- ( ch -> ( ps -> ( th -> et ) ) ) $.
-    $( Special case of ~ a3h . $)
-    a4102 $p |- [. ph ->.. . . . . ps , ch . , th . , ta . , et . ]. $=
-      ( wameta s41 s40 s31 a3h ) ABCIZDIEICBDFGHBCDEJBCDEKNDELM $.
-      $( [18-Apr-2011] $)
-  $}
-
-  ${
-    a4103.1 $e |- [. ph ->.. . . . ps , ch . , th . , ta . ]. $.
-    a4103.2 $e |- ( ch -> ( ps -> ( ta -> et ) ) ) $.
-    $( Special case of ~ a3h . $)
-    a4103 $p |- [. ph ->.. . . . . ps , ch . , th . , ta . , et . ]. $=
-      ( wameta s41 s40 s21 a3h ) ABCIDIZEICBEFGHBCDEJBCDEKNELM $.
-      $( [18-Apr-2011] $)
-  $}
-
-  ${
-    a4120.1 $e |- [. ph ->.. . . . ps , ch . , th . , ta . ]. $.
-    a4120.2 $e |- ( ch -> ( th -> ( ps -> et ) ) ) $.
-    $( Special case of ~ a3h . $)
-    a4120 $p |- [. ph ->.. . . . . ps , ch . , th . , ta . , et . ]. $=
-      ( wameta s41 s31 s40 a3h ) ABCIZDIEICDBFGHBCDEJNDEKBCDELM $.
-      $( [18-Apr-2011] $)
-  $}
-
-  ${
-    a4123.1 $e |- [. ph ->.. . . . ps , ch . , th . , ta . ]. $.
-    a4123.2 $e |- ( ch -> ( th -> ( ta -> et ) ) ) $.
-    $( Special case of ~ a3h . $)
-    a4123 $p |- [. ph ->.. . . . . ps , ch . , th . , ta . , et . ]. $=
-      ( wameta s41 s31 s21 a3h ) ABCIZDIZEICDEFGHBCDEJNDEKOELM $.
-      $( [18-Apr-2011] $)
-  $}
-
-  ${
-    a4130.1 $e |- [. ph ->.. . . . ps , ch . , th . , ta . ]. $.
-    a4130.2 $e |- ( ch -> ( ta -> ( ps -> et ) ) ) $.
-    $( Special case of ~ a3h . $)
-    a4130 $p |- [. ph ->.. . . . . ps , ch . , th . , ta . , et . ]. $=
-      ( wameta s41 s21 s40 a3h ) ABCIDIZEICEBFGHBCDEJNEKBCDELM $.
-      $( [18-Apr-2011] $)
-  $}
-
-  ${
-    a4132.1 $e |- [. ph ->.. . . . ps , ch . , th . , ta . ]. $.
-    a4132.2 $e |- ( ch -> ( ta -> ( th -> et ) ) ) $.
-    $( Special case of ~ a3h . $)
-    a4132 $p |- [. ph ->.. . . . . ps , ch . , th . , ta . , et . ]. $=
-      ( wameta s41 s21 s31 a3h ) ABCIZDIZEICEDFGHBCDEJOEKNDELM $.
-      $( [18-Apr-2011] $)
-  $}
-
-  ${
-    a4231.1 $e |- [. ph ->.. . . . ps , ch . , th . , ta . ]. $.
-    a4231.2 $e |- ( th -> ( ta -> ( ch -> et ) ) ) $.
-    $( Special case of ~ a3h . $)
-    a4231 $p |- [. ph ->.. . . . . ps , ch . , th . , ta . , et . ]. $=
-      ( wameta s31 s21 s41 a3h ) ABCIZDIZEIDECFGHNDEJOEKBCDELM $.
-      $( [21-Mar-2011] $)
-  $}
-
-  ${
-    a5043.1 $e |- [. ph ->.. . . . . ps , ch . , th . , ta . , et . ]. $.
-    a5043.2 $e |- ( ps -> ( et -> ( ta -> ze ) ) ) $.
-    $( Special case of ~ a3h . $)
-    a5043 $p |- [. ph ->.. . . . . . ps , ch . , th . , ta . , et . ,
-    ze . ]. $=
-      ( wameta s50 s21 s31 a3h ) ABCJDJZEJZFJBFEGHIBCDEFKPFLOEFMN $.
-      $( [16-Apr-2011] $)
-  $}
-
-  ${
-    a7036.1 $e |- [. ph ->.. . . . . . . ps , ch . , th . , ta . , et . ,
-    ze . ,
-                  si . ]. $.
-    a7036.2 $e |- ( ps -> ( ta -> ( si -> rh ) ) ) $.
-    $( Special case of ~ a3h . $)
-    a7036 $p |- [. ph ->.. . . . . . . . ps , ch . , th . , ta . , et . ,
-    ze . ,
-                  si . , rh . ]. $=
-      ( wameta s70 s51 s21 a3h ) ABCLDLZELFLGLZHLBEHIJKBCDEFGHMQEFGHNRHOP $.
-      $( [21-Mar-2011] $)
-  $}
-
-  ${
-    aa5h.1 $e |- ph $.
-    aa5h.2 $e |- ( ps -> ( ch -> ( th -> ( ta -> ( et -> ze ) ) ) ) ) $.
-    aa5h.3 $e |- [. ph ->.. ps ]. $.
-    aa5h.4 $e |- [. ph ->.. ch ]. $.
-    aa5h.5 $e |- [. ph ->.. th ]. $.
-    aa5h.6 $e |- [. ph ->.. ta ]. $.
-    aa5h.7 $e |- [. ph ->.. et ]. $.
-    $( When each antecedent of a 5-nested implication is a conjunct of a nested
-       conjunction, add the consequent of the 5-nested implication to the end
-       of the nested conjunction. $)
-    aa5h $p |- . ph , ze . $=
-      ( wameta idn1 a5h dfwimetai ax-mp ) AAGOZHATAABCDEFGAPIJKLMNQRS $.
-      $( [18-Mar-2011] $)
-  $}
-
-  ${
-    aa4h.1 $e |- ph $.
-    aa4h.2 $e |- ( ps -> ( ch -> ( th -> ( ta -> et ) ) ) ) $.
-    aa4h.3 $e |- [. ph ->.. ps ]. $.
-    aa4h.4 $e |- [. ph ->.. ch ]. $.
-    aa4h.5 $e |- [. ph ->.. th ]. $.
-    aa4h.6 $e |- [. ph ->.. ta ]. $.
-    $( When each antecedent of a 4-nested implication is a conjunct of a nested
-       conjunction, add the consequent of the 4-nested implication to the end
-       of the nested conjunction. $)
-    aa4h $p |- . ph , et . $=
-      ( wi a1i aa5h ) ABBCDEFGBCDEFMMMMBHNIIJKLO $.
-      $( [18-Mar-2011] $)
-  $}
-
-  ${
-    aa3h.1 $e |- ph $.
-    aa3h.2 $e |- ( ps -> ( ch -> ( th -> ta ) ) ) $.
-    aa3h.3 $e |- [. ph ->.. ps ]. $.
-    aa3h.4 $e |- [. ph ->.. ch ]. $.
-    aa3h.5 $e |- [. ph ->.. th ]. $.
-    $( When each antecedent of a 3-nested implication is a conjunct of a nested
-       conjunction, add the consequent of the 3-nested implication to the end
-       of the nested conjunction. $)
-    aa3h $p |- . ph , ta . $=
-      ( wi a1i aa4h ) ABBCDEFBCDEKKKBGLHHIJM $.
-      $( [18-Mar-2011] $)
-  $}
-
-  ${
-    aa2h.1 $e |- ph $.
-    aa2h.2 $e |- ( ps -> ( ch -> th ) ) $.
-    aa2h.3 $e |- [. ph ->.. ps ]. $.
-    aa2h.4 $e |- [. ph ->.. ch ]. $.
-    $( When each antecedent of a 2-nested implication is a conjunct of a nested
-       conjunction, add the consequent of the 2-nested implication to the end
-       of the nested conjunction. $)
-    aa2h $p |- . ph , th . $=
-      ( wi a1i aa3h ) ABBCDEBCDIIBFJGGHK $.
-      $( [18-Mar-2011] $)
-  $}
-
-  ${
-    aa1h.1 $e |- ph $.
-    aa1h.2 $e |- ( ps -> ch ) $.
-    aa1h.3 $e |- [. ph ->.. ps ]. $.
-    $( When the antecedent of an implication is a conjunct of a nested
-       conjunction, add the consequent of the implication to the end of the
-       nested conjunction. $)
-    aa1h $p |- . ph , ch . $=
-      ( wi a1i aa2h ) ABBCDBCGBEHFFI $.
-      $( [18-Mar-2011] $)
-  $}
-
-  ${
-    aa0h.1 $e |- ph $.
-    aa0h.2 $e |- ps $.
-    $( Conjoin a theorem to another theorem. $)
-    aa0h $p |- . ph , ps . $=
-      ( a1i idn1 aa1h ) AABCBADEAFG $.
-      $( [18-Mar-2011] $)
-  $}
-
-  ${
-    aa10.1 $e |- ph $.
-    aa10.2 $e |- ( ph -> ps ) $.
-    $( Special case of ~ aa1h .  The "1" of "aa10" indicates that the original
-       theorem is a single wff.  The "0" of "aa10" indicates that the
-       antecedent of the implication is the 0th conjunct of the original
-       conjunction, which in this case is the single wff. $)
-    aa10 $p |- . ph , ps . $=
-      ( idn1 aa1h ) AABCDAEF $.
-      $( [18-Mar-2011] $)
-  $}
-
-  ${
-    aa201.1 $e |- . ph , ps . $.
-    aa201.2 $e |- ( ph -> ( ps -> ch ) ) $.
-    $( Special case of ~ aa2h .  The "2" of "aa201" indicates that the original
-       theorem is the conjunction of 2 wffs.  The "0" of "aa201" indicates that
-       the 0th antecedent of the nested implication is the 0th conjunct of the
-       original conjunction.  The "1" of "aa201" indicates that the 1st
-       antecedent of the nested impolication is the 1st conjunct of the
-       original conjunction. $)
-    aa201 $p |- . . ph , ps . , ch . $=
-      ( wameta s20 s21 aa2h ) ABFABCDEABGABHI $.
-      $( [21-Mar-2011] $)
-  $}
-
-  ${
-    aa210.1 $e |- . ph , ps . $.
-    aa210.2 $e |- ( ps -> ( ph -> ch ) ) $.
-    $( Special case of ~ aa2h .  The "2" of "aa210" indicates that the original
-       theorem is the conjunction of 2 wffs.  The "1" of "aa210" indicates that
-       the 0th antecedent of the nested implication is the 1st conjunct of the
-       original conjunction.  The "0" of "aa210" indicates that the 1st
-       antecedent of the nested implication is the 0th conjunct of the original
-       conjunction. $)
-    aa210 $p |- . . ph , ps . , ch . $=
-      ( wameta s21 s20 aa2h ) ABFBACDEABGABHI $.
-      $( [21-Mar-2011] $)
-  $}
-
-  ${
-    aa301.1 $e |- . . ph , ps . , ch . $.
-    aa301.2 $e |- ( ph -> ( ps -> th ) ) $.
-    $( Special case of ~ aa2h .  The "3" of "aa301" indicates that the original
-       theorem is a 3-right nested conjunction.  The "0" of "aa301" indicates
-       that the 0th antecedent of the nested implication is the 0th conjunct of
-       the original conjunction.  The "1" of "aa301" indicates that the 1st
-       antecedent of the nested impolication is the 1st conjunct of the
-       original conjunction. $)
-    aa301 $p |- . . . ph , ps . , ch . , th . $=
-      ( wameta s30 s31 aa2h ) ABGCGABDEFABCHABCIJ $.
-      $( [21-Mar-2011] $)
-  $}
-
-  ${
-    aa302.1 $e |- . . ph , ps . , ch . $.
-    aa302.2 $e |- ( ph -> ( ch -> th ) ) $.
-    $( Special case of ~ aa2h .  The "3" of "aa302" indicates that the original
-       theorem is a 3-right nested conjunction.  The "0" of "aa302" indicates
-       that the 0th antecedent of the nested implication is the 0th conjunct of
-       the original conjunction.  The "2" of "aa302" indicates that the 1st
-       antecedent of the nested impolication is the 2nd conjunct of the
-       original conjunction. $)
-    aa302 $p |- . . . ph , ps . , ch . , th . $=
-      ( wameta s30 s21 aa2h ) ABGZCGACDEFABCHKCIJ $.
-      $( [21-Mar-2011] $)
-  $}
-
-  ${
-    aa605.1 $e |- . . . . . ph , ps . , ch . , th . , ta . , et . $.
-    aa605.2 $e |- ( ph -> ( et -> ze ) ) $.
-    $( Special case of ~ aa2h .  The "6" of "aa605" indicates that the original
-       theorem is a 6-right nested conjunction.  The "0" of "aa605" indicates
-       that the 0th antecedent of the nested implication is the 0th conjunct of
-       the original conjunction.  The "5" of "aa605" indicates that the 1st
-       antecedent of the nested impolication is the 5th conjunct of the
-       original conjunction. $)
-    aa605 $p |- . . . . . . ph , ps . , ch . , th . , ta . , et . , ze . $=
-      ( wameta s60 s21 aa2h ) ABJCJDJEJZFJAFGHIABCDEFKNFLM $.
-      $( [12-Apr-2011] $)
-  $}
-
-  ${
-    aa4123.1 $e |- . . . ph , ps . , ch . , th . $.
-    aa4123.2 $e |- ( ps -> ( ch -> ( th -> ta ) ) ) $.
-    $( Special case of ~ aa3h . $)
-    aa4123 $p |- . . . . ph , ps . , ch . , th . , ta . $=
-      ( wameta s41 s31 s21 aa3h ) ABHZCHZDHBCDEFGABCDIMCDJNDKL $.
-      $( [12-Apr-2011] $)
-  $}
-
-
-  ${
-    aa4213.1 $e |- . . . ph , ps . , ch . , th . $.
-    aa4213.2 $e |- ( ch -> ( ps -> ( th -> ta ) ) ) $.
-    $( Special case of ~ aa3h . $)
-    aa4213 $p |- . . . . ph , ps . , ch . , th . , ta . $=
-      ( wameta s31 s41 s21 aa3h ) ABHZCHZDHCBDEFGMCDIABCDJNDKL $.
-      $( [12-Apr-2011] $)
-  $}
-
-  ${
-    dt1.1 $e |- [. ph ->.. . ps , ch . ]. $.
-    $( Convert the sole virtual hypothesis of a virtual deduction into the
-       antecedent of the last element of the virtual conclusion.  Eliminate all
-       other virtual conclusions. $)
-    dt1 $p |- ( ph -> ch ) $=
-      ( wameta wa dfwimetai df-wameta sylib pm3.27d ) ABCABCEZBCFAKDGBCHIJ $.
-      $( [18-Mar-2011] $)
-  $}
-
-  ${
-    $v la $.
-    $v ka $.
-    $v mu $.
-    dt28.wla $f wff la $.
-    dt28.wka $f wff ka $.
-    dt28.wmu $f wff mu $.
-    dt28.1 $e |- [. . ph , ps . ->.. . . . . . . . . . ch , th . , ta . ,
-    et . , ze . , si . , rh . , la . , ka . , mu . ]. $.
-    dt28.2 $e |- [. ph ->.. ch ]. $.
-    $( Convert the last virtual hypothesis of a 2-virtual hypothesis virtual
-       deduction into the antecedent of an implication who consequent is the
-       last virtual conclusion of the original virtual deduction.  Eliminate
-       the 8 virtual conclusions immediately preceding the last.  The remaining
-       virtual conclusions are virtually inferred by the remaining virtual
-       hypothesis. $)
-    dt28 $p |- [. ph ->.. . ch , ( ps -> mu ) . ]. $=
-      ( wi wa wameta dfwimetai df-wameta dt1 sylbir ex jca sylibrmt ) ACBLOZPCU
-      EQACUEACNRABLABPABQZLABSUFCDQEQFQGQHQIQJQKQLMTUAUBUCCUESUD $.
-      $( [18-Mar-2011] $)
-  $}
-
-  ${
-    $v la $.
-    $v ka $.
-    dt27.wla $f wff la $.
-    dt27.wka $f wff ka $.
-    dt27.1 $e |- [. . ph , ps . ->.. . . . . . . . . ch , th . , ta . , et . ,
-                   ze . , si . , rh . , la . , ka . ]. $.
-    dt27.2 $e |- [. ph ->.. ch ]. $.
-    $( Convert the last virtual hypothesis of a 2-virtual hypothesis virtual
-       deduction into the antecedent of an implication whose consequent is the
-       last virtual conclusion of the original virtual deduction.  Eliminate
-       the 7 virtual conclusions immediately preceding the last.  The remaining
-       virtual conclusions are virtually inferred by the remaining virtual
-       hypothesis. $)
-    dt27 $p |- [. ph ->.. . ch , ( ps -> ka ) . ]. $=
-      ( wameta id s21 a1h dt28 ) ABCDEFGHIJKKABNCDNENFNGNHNINJNZKNKKLKOSKPQMR
-      $.
-      $( [18-Mar-2011] $)
-  $}
-
-  ${
-    $v la $.
-    dt26.wla $f wff la $.
-    dt26.1 $e |- [. . ph , ps . ->.. . . . . . . . ch , th . , ta . , et . ,
-                   ze . , si . , rh . , la . ]. $.
-    dt26.2 $e |- [. ph ->.. ch ]. $.
-    $( Convert the last virtual hypothesis of a 2-virtual hypothesis virtual
-       deduction into the antecedent of an implication whose consequent is the
-       last virtual conclusion of the original virtual deduction.  Eliminate
-       the 6 virtual conclusions immediately preceding the last.  The remaining
-       virtual conclusions are virtually inferred by the remaining virtual
-       hypothesis. $)
-    dt26 $p |- [. ph ->.. . ch , ( ps -> la ) . ]. $=
-      ( wameta id s21 a1h dt27 ) ABCDEFGHIJJABMCDMEMFMGMHMIMZJMJJKJNRJOPLQ $.
-      $( [18-Mar-2011] $)
-  $}
-
-  ${
-    dt25.1 $e |- [. . ph , ps . ->.. . . . . . . ch , th . , ta . , et . ,
-                   ze . , si . , rh . ]. $.
-    dt25.2 $e |- [. ph ->.. ch ]. $.
-    $( Convert the last virtual hypothesis of a 2-virtual hypothesis virtual
-       deduction into the antecedent of an implication whose consequent is the
-       last virtual conclusion of the original virtual deduction.  Eliminate
-       the 5 virtual conclusions immediately preceding the last.  The remaining
-       virtual conclusions are virtually inferred by the remaining virtual
-       hypothesis. $)
-    dt25 $p |- [. ph ->.. . ch , ( ps -> rh ) . ]. $=
-      ( wameta id s21 a1h dt26 ) ABCDEFGHIIABLCDLELFLGLHLZILIIJIMQINOKP $.
-      $( [18-Mar-2011] $)
-  $}
-
-  ${
-    dt24.1 $e |- [. . ph , ps . ->.. . . . . . ch , th . , ta . , et . , ze . ,
-                  si . ]. $.
-    dt24.2 $e |- [. ph ->.. ch ]. $.
-    $( Convert the last virtual hypothesis of a 2-virtual hypothesis virtual
-       deduction into the antecedent of an implication whose consequent is the
-       last virtual conclusion of the original virtual deduction.  Eliminate
-       the 4 virtual conclusions immediately preceding the last.  The remaining
-       virtual conclusions are virtually inferred by the remaining virtual
-       hypothesis. $)
-    dt24 $p |- [. ph ->.. . ch , ( ps -> si ) . ]. $=
-      ( wameta id s21 a1h dt25 ) ABCDEFGHHABKCDKEKFKGKZHKHHIHLPHMNJO $.
-      $( [18-Mar-2011] $)
-  $}
-
-  ${
-    dt23.1 $e |- [. . ph , ps . ->.. . . . . ch , th . , ta . , et . ,
-    ze . ]. $.
-    dt23.2 $e |- [. ph ->.. ch ]. $.
-    $( Convert the last virtual hypothesis of a 2-virtual hypothesis virtual
-       deduction into the antecedent of an implication whose consequent is the
-       last virtual conclusion of the original virtual deduction.  Eliminate
-       the 3 virtual conclusions immediately preceding the last.  The remaining
-       virtual conclusions are virtually inferred by the remaining virtual
-       hypothesis. $)
-    dt23 $p |- [. ph ->.. . ch , ( ps -> ze ) . ]. $=
-      ( wameta id s21 a1h dt24 ) ABCDEFGGABJCDJEJFJZGJGGHGKOGLMIN $.
-      $( [18-Mar-2011] $)
-  $}
-
-  ${
-    dt22.1 $e |- [. . ph , ps . ->.. . . . ch , th . , ta . , et . ]. $.
-    dt22.2 $e |- [. ph ->.. ch ]. $.
-    $( Convert the last virtual hypothesis of a 2-virtual hypothesis virtual
-       deduction into the antecedent of an implication whose consequent is the
-       last virtual conclusion of the original virtual deduction.  Eliminate
-       the 2 virtual conclusions immediately preceding the last.  The remaining
-       virtual conclusions are virtually inferred by the remaining virtual
-       hypothesis. $)
-    dt22 $p |- [. ph ->.. . ch , ( ps -> et ) . ]. $=
-      ( wameta id s21 a1h dt23 ) ABCDEFFABICDIEIZFIFFGFJNFKLHM $.
-      $( [18-Mar-2011] $)
-  $}
-
-  ${
-    dt21.1 $e |- [. . ph , ps . ->.. . . ch , th . , ta . ]. $.
-    dt21.2 $e |- [. ph ->.. ch ]. $.
-    $( Convert the last virtual hypothesis of a 2-virtual hypothesis virtual
-       deduction into the antecedent of an implication whose consequent is the
-       last virtual conclusion of the original virtual deduction.  Eliminate
-       the virtual conclusion immediately preceding the last.  The remaining
-       virtual conclusions are virtually inferred by the remaining virtual
-       hypothesis. $)
-    dt21 $p |- [. ph ->.. . ch , ( ps -> ta ) . ]. $=
-      ( wameta id s21 a1h dt22 ) ABCDEEABHCDHZEHEEFEIMEJKGL $.
-      $( [18-Mar-2011] $)
-  $}
-
-  ${
-    dt15.1 $e |- [. ph ->.. . . . . . . ps , ch . , th . , ta . , et . ,
-    ze . , si . ]. $.
-    dt15.2 $e |- ps $.
-    $( Convert the sole virtual hypothesis of a virtual deduction into an
-       antecendent implying the last virtual conclusion of that virtual
-       deduction.  Eliminate the 5 virtual conclusions immediately preceding
-       the last.  Retain the intial segment of virtual conclusions not
-       virtually inferred by the virtual hypothesis. $)
-    dt15 $p |- . ps , ( ph -> si ) . $=
-      ( wi wameta dt1 aa0h ) BAHKJABCLDLELFLGLHIMN $.
-      $( [18-Mar-2011] $)
-  $}
-
-  ${
-    dt14.1 $e |- [. ph ->.. . . . . . ps , ch . , th . , ta . , et . ,
-    ze . ]. $.
-    dt14.2 $e |- ps $.
-    $( Convert the sole virtual hypothesis of a virtual deduction into an
-       antecendent implying the last virtual conclusion of that virtual
-       deduction.  Eliminate the 4 virtual conclusions immediately preceding
-       the last.  Retain the intial segment of virtual conclusions not
-       virtually inferred by the virtual hypothesis. $)
-    dt14 $p |- . ps , ( ph -> ze ) . $=
-      ( wi wameta dt1 aa0h ) BAGJIABCKDKEKFKGHLM $.
-      $( [18-Mar-2011] $)
-  $}
-
-  ${
-    dt13.1 $e |- [. ph ->.. . . . . ps , ch . , th . , ta . , et . ]. $.
-    dt13.2 $e |- ps $.
-    $( Convert the sole virtual hypothesis of a virtual deduction into an
-       antecendent implying the last virtual conclusion of that virtual
-       deduction.  Eliminate the 3 virtual conclusions immediately preceding
-       the last.  Retain the intial segment of virtual conclusions not
-       virtually inferred by the virtual hypothesis. $)
-    dt13 $p |- . ps , ( ph -> et ) . $=
-      ( wi wameta dt1 aa0h ) BAFIHABCJDJEJFGKL $.
-      $( [18-Mar-2011] $)
-  $}
-
-  ${
-    dt12.1 $e |- [. ph ->.. . . . ps , ch . , th . , ta . ]. $.
-    dt12.2 $e |- ps $.
-    $( Convert the sole virtual hypothesis of a virtual deduction into an
-       antecendent implying the last virtual conclusion of that virtual
-       deduction.  Eliminate the 2 virtual conclusions immediately preceding
-       the last.  Retain the intial segment of virtual conclusions not
-       virtually inferred by the virtual hypothesis. $)
-    dt12 $p |- . ps , ( ph -> ta ) . $=
-      ( wi wameta dt1 aa0h ) BAEHGABCIDIEFJK $.
-      $( [18-Mar-2011] $)
-  $}
-
-  ${
-    dt11.1 $e |- [. ph ->.. . . ps , ch . , th . ]. $.
-    dt11.2 $e |- ps $.
-    $( Convert the sole virtual hypothesis of a virtual deduction into an
-       antecendent implying the last virtual conclusion of that virtual
-       deduction.  Eliminate the virtual conclusion immediately preceding the
-       last.  Retain the intial segment of virtual conclusions not virtually
-       inferred by the virtual hypothesis. $)
-    dt11 $p |- . ps , ( ph -> th ) . $=
-      ( wi wameta dt1 aa0h ) BADGFABCHDEIJ $.
-      $( [18-Mar-2011] $)
-  $}
-
-  ${
-    dt0.1 $e |- . ph , ps . $.
-    $( Eliminate all but the last element of a nested conjunction. $)
-    dt0 $p |- ps $=
-      ( wameta wa df-wameta mpbi pm3.27i ) ABABDABECABFGH $.
-      $( [18-Mar-2011] $)
-  $}
-
-  ${
-    agen11.1 $e |- [. ph ->.. ps ]. $.
-    agen11.2 $e |- ( ph -> A. x ph ) $.
-    $( Meta-connected form of a theorem similar to ~ 19.21ai . $)
-    agen11 $p |- [. ph ->.. . ps , A. x ps . ]. $=
-      ( wal wa wameta dfwimetai 19.21ai jca df-wameta sylibrmt ) ABBCFZGBNHABNA
-      BDIZABCEOJKBNLM $.
-      $( [12-Nov-2010] $)
-  $}
-
-  ${
-    agen12.1 $e |- [. ph ->.. . ps , ch . ]. $.
-    agen12.2 $e |- ( ph -> A. x ph ) $.
-    $( Meta-connected form of a theorem similar to ~ 19.21ai for an original
-       virtual deduction having two virtual conclusions. $)
-    agen12 $p |- [. ph ->.. . . ps , ch . , A. x ch . ]. $=
-      ( wameta wal wa dfwimetai dt1 19.21ai jca df-wameta sylibr dfwimetair )
-      ABCGZCDHZGZAQRISAQRAQEJACDFABCEKLMQRNOP $.
-      $( [19-Mar-2011] $)
   $}
 
   ${
@@ -1723,450 +193,349 @@ $)
   $}
 
   ${
-    agen21.1 $e |- [. ph ->.. ps ]. $.
-    agen21.2 $e |- ( ph -> A. x A. y ph ) $.
-    $( Meta-connected form of a theorem similar to ~ 19.21ai for two
-       quantifying variables. $)
-    agen21 $p |- [. ph ->.. . ps , A. x A. y ps . ]. $=
-      ( wal wa wameta dfwimetai ax67to7 ax-4 3syl syl 19.21ai jca df-wameta
-      sylibrmt ) ABBDGZCGZHBTIABTABEJZASCAADGZCGZACGZDGUDFACDKUDDLMABDAUCUBFUBC
-      LNUAOOPBTQR $.
-      $( [21-Mar-2011] $)
-  $}
-
-  ${
-    agen22.1 $e |- [. ph ->.. . ps , ch . ]. $.
-    agen22.2 $e |- ( ph -> A. x A. y ph ) $.
-    $( Meta-connected form of a theorem similar to ~ 19.21ai for two
-       quantifying variables for a original virtual deduction having two
-       virtual conclusions. $)
-    agen22 $p |- [. ph ->.. . . ps , ch . , A. x A. y ch . ]. $=
-      ( wameta wal wa dfwimetai ax67to7 syl ax-4 dt1 19.21ai jca df-wameta
-      sylibr dfwimetair ) ABCHZCEIZDIZHZAUAUCJUDAUAUCAUAFKAUBDAADIZEIZUEAAEIZDI
-      ZUFGADELMUEENMACEAUHUGGUGDNMABCFOPPQUAUCRST $.
-      $( [21-Mar-2011] $)
-  $}
-
-  ${
-    aagen11.1 $e |- ph $.
-    $( If a wff is a theorem, then the conjunction of itself and itself
-       generalized is a theorem. $)
-    aagen11 $p |- . ph , A. x ph . $=
-      ( wal ax-gen aa0h ) AABDCABCEF $.
-      $( [21-Mar-2011] $)
-  $}
-
-  ${
-    aagen12.1 $e |- . ph , ps . $.
-    $( If the conjunction of two wffs is a theorem, then the conjunction of
-       itself and the last conjunct generalized is a theorem. $)
-    aagen12 $p |- . . ph , ps . , A. x ps . $=
-      ( wameta wal dt0 ax-gen aa0h ) ABEBCFDBCABDGHI $.
-      $( [21-Mar-2011] $)
-  $}
-
-  ${
-    aagen21.1 $e |- ph $.
-    $( If a wff is a theorem, then the conjunction of itself and itself
-       generalized with respect to 2 variables is a theorem. $)
-    aagen21 $p |- . ph , A. x A. y ph . $=
-      ( wal gen2 aa0h ) AACEBEDABCDFG $.
-      $( [21-Mar-2011] $)
-  $}
-
-  ${
-    aagen22.1 $e |- . ph , ps . $.
-    $( If the conjunction of two wffs is a theorem, then the conjunction of
-       itself and the last conjunct generalized with respect to 2 variables is
-       a theorem. $)
-    aagen22 $p |- . . ph , ps . , A. x A. y ps . $=
-      ( wameta wal dt0 gen2 aa0h ) ABFBDGCGEBCDABEHIJ $.
-      $( [21-Mar-2011] $)
-  $}
-
-  ${
-    $( Left-to-right part of definition of meta-implication. $)
-    dfwimetaimp $p |- ( [. ph ->.. ps ]. -> ( ph -> ps ) ) $=
-      ( wimeta wi df-wimeta biimpi ) ABCABDABEF $.
+    $( Left-to-right part of definition of virtual deduction. $)
+    dfvd1imp $p |- ( (. ph |-. ps ). -> ( ph -> ps ) ) $=
+      ( vd1 wi df-vd1 biimpi ) ABCABDABEF $.
       $( [21-Apr-2011] $)
   $}
 
   ${
-    $( Right-to-left part of definition of meta-implication. $)
-    dfwimetaimpr $p |- ( ( ph -> ps ) -> [. ph ->.. ps ]. ) $=
-      ( wimeta wi df-wimeta biimpri ) ABCABDABEF $.
+    $( Right-to-left part of definition of virtual deduction. $)
+    dfvd1impr $p |- ( ( ph -> ps ) -> (. ph |-. ps ). ) $=
+      ( vd1 wi df-vd1 biimpri ) ABCABDABEF $.
       $( [21-Apr-2011] $)
   $}
 
   ${
-    $( Syntax for meta-implication for virtual hypotheses. $)
-    wihmeta $a wff (. ph ->... ps ). $.
-      $( [21-Apr-2011] $)
+    $( Syntax for a 2-hypothesis virtual deduction. $)
+    vd2 $a wff (. ph , ps |-. ch ). $.
+      $( [14-Nov-2011] $)
   $}
 
   ${
-    $( Definition of meta-implication for virtual hypotheses. $)
-    df-wihmeta $a |- ( (. ph ->... ps ). <-> ( ph -> ps ) ) $.
-      $( [21-Apr-2011] $)
+    $( Definition of a 2-hypothesis virtual deduction. $)
+    df-vd2 $a |- ( (. ph , ps |-. ch ). <-> ( ( ph /\ ps ) -> ch ) ) $.
+      $( [14-Nov-2011] $)
   $}
 
   ${
-    $( Definition of meta-implication for 2 virtual hypotheses. $)
-    dfwih2mt $p |- ( (. ph ->... [. ps ->.. ch ]. ). <->
-    ( ph -> ( ps -> ch ) ) ) $=
-      ( wimeta wihmeta wi df-wihmeta df-wimeta imbi2i bitri ) ABCDZEAKFABCFZFAK
-      GKLABCHIJ $.
-      $( [12-Jun-2011] $)
+    $( Definition of a 2-hypothesis virtual deduction. $)
+    dfvd2 $p |- ( (. ph , ps |-. ch ). <-> ( ph -> ( ps -> ch ) ) ) $=
+      ( vd2 wa wi df-vd2 impexp bitri ) ABCDABECFABCFFABCGABCHI $.
+      $( [14-Nov-2011] $)
   $}
 
   ${
-    dfwih2mti.1 $e |- (. ph ->... [. ps ->.. ch ]. ). $.
-    $( Inference form of left-to-right implication of ~ dfwih2mt . $)
-    dfwih2mti $p |- ( ph -> ( ps -> ch ) ) $=
-      ( wimeta wihmeta wi dfwih2mt mpbi ) ABCEFABCGGDABCHI $.
-      $( [12-Jun-2011] $)
+    dfvd2i.1 $e |- (. ph , ps |-. ch ). $.
+    $( Inference form of ~ dfvd2 . $)
+    dfvd2i $p |- ( ph -> ( ps -> ch ) ) $=
+      ( vd2 wi dfvd2 mpbi ) ABCEABCFFDABCGH $.
+      $( [14-Nov-2011] $)
   $}
 
   ${
-    dfwih2mtir.1 $e |- ( ph -> ( ps -> ch ) ) $.
-    $( Inference form of right-to-left implication of ~ dfwih2mt . $)
-    dfwih2mtir $p |- (. ph ->... [. ps ->.. ch ]. ). $=
-      ( wimeta wihmeta wi dfwih2mt mpbir ) ABCEFABCGGDABCHI $.
-      $( [12-Jun-2011] $)
+    dfvd2ir.1 $e |- ( ph -> ( ps -> ch ) ) $.
+    $( Right-to-left inference form of ~ dfvd2 . $)
+    dfvd2ir $p |- (. ph , ps |-. ch ). $=
+      ( vd2 wi dfvd2 mpbir ) ABCEABCFFDABCGH $.
+      $( [14-Nov-2011] $)
   $}
 
   ${
-    $( Definition of meta-implication for 3 virtual hypotheses. $)
-    dfwih3mt $p |- ( (. ph ->... (. ps ->... [. ch ->.. th ]. ). ). <->
-    ( ph -> ( ps -> ( ch -> th ) ) ) ) $=
-      ( wimeta wihmeta wi df-wihmeta dfwih2mt imbi2i bitri ) ABCDEFZFALGABCDGGZ
-      GALHLMABCDIJK $.
-      $( [12-Jun-2011] $)
+    $( Syntax for a 3-hypothesis virtual deduction. $)
+    vd3 $a wff (. ph , ps , ch |-. th ). $.
+      $( [14-Nov-2011] $)
   $}
 
   ${
-    dfwih3mti.1 $e |- (. ph ->... (. ps ->... [. ch ->.. th ]. ). ). $.
-    $( Inference form of left-to-right implication of ~ dfwih3mt . $)
-    dfwih3mti $p |- ( ph -> ( ps -> ( ch -> th ) ) ) $=
-      ( wimeta wihmeta wi dfwih3mt mpbi ) ABCDFGGABCDHHHEABCDIJ $.
-      $( [12-Jun-2011] $)
+    $( Definition of a 3-hypothesis virtual deduction. $)
+    df-vd3 $a |- ( (. ph , ps , ch |-. th ). <->
+                 ( ( ph /\ ps /\ ch ) -> th ) ) $.
+      $( [14-Nov-2011] $)
   $}
 
   ${
-    dfwih3mtir.1 $e |- ( ph -> ( ps -> ( ch -> th ) ) ) $.
-    $( Inference form of right-to-left implication of ~ dfwih3mt . $)
-    dfwih3mtir $p |- (. ph ->... (. ps ->... [. ch ->.. th ]. ). ). $=
-      ( wimeta wihmeta wi dfwih3mt mpbir ) ABCDFGGABCDHHHEABCDIJ $.
-      $( [12-Jun-2011] $)
+    $( Definition of a 3-hypothesis virtual deduction. $)
+    dfvd3 $p |- ( (. ph , ps , ch |-. th ). <->
+                 ( ph -> ( ps -> ( ch -> th ) ) ) ) $=
+      ( vd3 w3a wi df-vd3 wa df-3an imbi1i impexp bitri ) ABCDEABCFZDGZABCDGZGG
+      ZABCDHOABIZPGZQORCIZDGSNTDABCJKRCDLMABPLMM $.
+      $( [14-Nov-2011] $)
   $}
 
   ${
-    wih01.1 $e |- ph $.
+    dfvd3i.1 $e |- (. ph , ps , ch |-. th ). $.
+    $( Inference form of ~ dfvd3 . $)
+    dfvd3i $p |- ( ph -> ( ps -> ( ch -> th ) ) ) $=
+      ( vd3 wi dfvd3 mpbi ) ABCDFABCDGGGEABCDHI $.
+      $( [14-Nov-2011] $)
+  $}
+
+  ${
+    dfvd3ir.1 $e |- ( ph -> ( ps -> ( ch -> th ) ) ) $.
+    $( Right-to-left inference form of ~ dfvd3 . $)
+    dfvd3ir $p |- (. ph , ps , ch |-. th ). $=
+      ( vd3 wi dfvd3 mpbir ) ABCDFABCDGGGEABCDHI $.
+      $( [14-Nov-2011] $)
+  $}
+
+  ${
+    vd01.1 $e |- ph $.
     $( A virtual hypothesis virtually infers a theorem. $)
-    wih01 $p |- [. ps ->.. ph ]. $=
-      ( a1i dfwimetair ) BAABCDE $.
+    vd01 $p |- (. ps |-. ph ). $=
+      ( a1i dfvd1ir ) BAABCDE $.
       $( [14-Jun-2011] $)
   $}
 
   ${
-    wih02.1 $e |- ph $.
+    vd02.1 $e |- ph $.
     $( 2 virtual hypotheses virtually infer a theorem. $)
-    wih02 $p |- (. ps ->... [. ch ->.. ph ]. ). $=
-      ( wi a1i dfwih2mtir ) BCACAEBACDFFG $.
+    vd02 $p |- (. ps , ch |-. ph ). $=
+      ( wi a1i dfvd2ir ) BCACAEBACDFFG $.
       $( [14-Jun-2011] $)
   $}
 
   ${
-    wih03.1 $e |- ph $.
+    vd03.1 $e |- ph $.
     $( A theorem is virtually inferred by the 3 virtual hypotheses. $)
-    wih03 $p |- (. ps ->... (. ch ->... [. th ->.. ph ]. ). ). $=
-      ( wi a1i dfwih3mtir ) BCDACDAFZFBICADEGGGH $.
+    vd03 $p |- (. ps , ch , th |-. ph ). $=
+      ( wi a1i dfvd3ir ) BCDACDAFZFBICADEGGGH $.
       $( [12-Jun-2011] $)
   $}
 
   ${
-    wih12.1 $e |- [. ph ->.. ps ]. $.
+    vd12.1 $e |- (. ph |-. ps ). $.
     $( A virtual deduction with 1 virtual hypothesis virtually inferring a
        virtual conclusion infers that the same conclusion is virtually inferred
        by the same virtual hypothesis and an additional hypothesis. $)
-    wih12 $p |- (. ph ->... [. ch ->.. ps ]. ). $=
-      ( dfwimetai a1d dfwih2mtir ) ACBABCABDEFG $.
+    vd12 $p |- (. ph , ch |-. ps ). $=
+      ( dfvd1i a1d dfvd2ir ) ACBABCABDEFG $.
       $( [12-Jun-2011] $)
   $}
 
   ${
-    wih13.1 $e |- [. ph ->.. ps ]. $.
+    vd13.1 $e |- (. ph |-. ps ). $.
     $( A virtual deduction with 1 virtual hypothesis virtually inferring a
        virtual conclusion infers that the same conclusion is virtually inferred
        by the same virtual hypothesis and a two additional hypotheses. $)
-    wih13 $p |- (. ph ->... (. ch ->... [. th ->.. ps ]. ). ). $=
-      ( dfwimetai a1d a1dd dfwih3mtir ) ACDBACBDABCABEFGHI $.
+    vd13 $p |- (. ph , ch , th |-. ps ). $=
+      ( dfvd1i a1d a1dd dfvd3ir ) ACDBACBDABCABEFGHI $.
       $( [12-Jun-2011] $)
   $}
 
   ${
-    wih23.1 $e |- (. ph ->... [. ps ->.. ch ]. ). $.
+    vd23.1 $e |- (. ph , ps |-. ch ). $.
     $( A virtual deduction with 2 virtual hypotheses virtually inferring a
        virtual conclusion infers that the same conclusion is virtually inferred
        by the same 2 virtual hypotheses and a third hypothesis. $)
-    wih23 $p |- (. ph ->... (. ps ->... [. th ->.. ch ]. ). ). $=
-      ( dfwih2mti a1dd dfwih3mtir ) ABDCABCDABCEFGH $.
+    vd23 $p |- (. ph , ps , th |-. ch ). $=
+      ( dfvd2i a1dd dfvd3ir ) ABDCABCDABCEFGH $.
       $( [12-Jun-2011] $)
   $}
 
   ${
-    $( Left-to-right part of definition of meta-implication for virtual
-       hypotheses. $)
-    dfwihmetaimp $p |- ( (. ph ->... ps ). -> ( ph -> ps ) ) $=
-      ( wihmeta wi df-wihmeta biimpi ) ABCABDABEF $.
-      $( [21-Apr-2011] $)
-  $}
-
-  ${
-    $( Right-to-left part of definition of meta-implication for virtual
-       hypotheses. $)
-    dfwihmetaimpr $p |- ( ( ph -> ps ) -> (. ph ->... ps ). ) $=
-      ( wihmeta wi df-wihmeta biimpri ) ABCABDABEF $.
-      $( [21-Apr-2011] $)
-  $}
-
-  ${
-    $( The meta-implication form of a 2-antecedent nested implication implies
+    $( The virtual deduction form of a 2-antecedent nested implication implies
        the 2-antecedent nested implication. $)
-    df2himp $p |- ( (. ph ->... [. ps ->.. ch ]. ). -> ( ph -> ( ps ->
-    ch ) ) ) $=
-      ( wimeta wihmeta wi dfwihmetaimp dfwimetaimp syl6 ) ABCDZEAJBCFAJGBCHI $.
+    dfvd2imp $p |- ( (. ph , ps |-. ch ). -> ( ph -> ( ps -> ch ) ) ) $=
+      ( vd2 wi dfvd2 biimpi ) ABCDABCEEABCFG $.
       $( [21-Apr-2011] $)
   $}
 
   ${
-    $( A 2-antecedent nested implication implies its meta-implication form. $)
-    df2himpr $p |- ( ( ph -> ( ps -> ch ) ) -> (. ph ->... [. ps ->..
-    ch ]. ). ) $=
-      ( wi wimeta wihmeta dfwimetaimpr imim1 mpi dfwihmetaimpr syl ) ABCDZDZABC
-      EZDZANFMLNDOBCGALNHIANJK $.
+    $( A 2-antecedent nested implication implies its virtual deduction form. $)
+    dfvd2impr $p |- ( ( ph -> ( ps -> ch ) ) -> (. ph , ps |-. ch ). ) $=
+      ( vd2 wi dfvd2 biimpri ) ABCDABCEEABCFG $.
       $( [21-Apr-2011] $)
   $}
 
   ${
-    in1.1 $e |- [. ph ->.. ps ]. $.
+    in1.1 $e |- (. ph |-. ps ). $.
     $( Virtual deduction introduction rule of converting the virtual hypothesis
        of a 1-virtual hypothesis virtual deduction into an antecedent. $)
     in1 $p |- ( ph -> ps ) $=
-      ( wimeta wi dfwimetaimp ax-mp ) ABDABECABFG $.
+      ( vd1 wi dfvd1imp ax-mp ) ABDABECABFG $.
       $( [21-Apr-2011] $)
   $}
 
   ${
     iin1.1 $e |- ( ph -> ps ) $.
-    $( ~ in1 without meta-connectives. $)
+    $( ~ in1 without virtual deductions. $)
     iin1 $p |- ( ph -> ps ) $=
       (  ) C $.
       $( [23-Jul-2011] $)
   $}
 
   ${
-    in2.1 $e |- (. ph ->... [. ps ->.. ch ]. ). $.
+    in2.1 $e |- (. ph , ps |-. ch ). $.
     $( The virtual deduction introduction rule of converting the end virtual
        hypothesis of 2 virtual hypotheses into an antecedent. $)
-    in2 $p |- [. ph ->.. ( ps -> ch ) ]. $=
-      ( wi wimeta wihmeta df2himp ax-mp dfwimetaimpr ) ABCEZEZAKFABCFGLDABCHIAK
-      JI $.
+    in2 $p |- (. ph |-. ( ps -> ch ) ). $=
+      ( wi dfvd2i dfvd1ir ) ABCEABCDFG $.
       $( [21-Apr-2011] $)
   $}
 
   ${
     iin2.1 $e |- ( ph -> ( ps -> ch ) ) $.
-    $( ~ in2 without meta-connectives. $)
+    $( ~ in2 without virtual deductions. $)
     iin2 $p |- ( ph -> ( ps -> ch ) ) $=
       (  ) D $.
       $( [20-Jun-2011] $)
   $}
 
   ${
-    in3.1 $e |- (. ph ->... (. ps ->... [. ch ->.. th ]. ). ). $.
+    in3.1 $e |- (. ph , ps , ch |-. th ). $.
     $( The virtual deduction introduction rule of converting the end virtual
        hypothesis of 3 virtual hypotheses into an antecedent. $)
-    in3 $p |- (. ph ->... [. ps ->.. ( ch -> th ) ]. ). $=
-      ( wi dfwih3mti dfwih2mtir ) ABCDFABCDEGH $.
+    in3 $p |- (. ph , ps |-. ( ch -> th ) ). $=
+      ( wi dfvd3i dfvd2ir ) ABCDFABCDEGH $.
       $( [12-Jun-2011] $)
   $}
 
   ${
-    iin3.1 $e |- ( ph -> ( ps -> ( ch -> th ) ) ) $.
-    $( ~ in3 without meta-connectives. $)
-    iin3 $p |- ( ph -> ( ps -> ( ch -> th ) ) ) $=
-      (  ) E $.
-      $( [23-Jul-2011] $)
-  $}
-
-  ${
-    $( Virtual deduction identity rule which is ~ idd with meta-connective
+    $( Virtual deduction identity rule which is ~ idd with virtual deduction
        symbols. $)
-    idn2 $p |- (. ph ->... [. ps ->.. ps ]. ). $=
-      ( wi wimeta wihmeta id a1i df2himpr ax-mp ) ABBCZCABBDEJABFGABBHI $.
+    idn2 $p |- (. ph , ps |-. ps ). $=
+      ( idd dfvd2ir ) ABBABCD $.
       $( [21-Apr-2011] $)
   $}
 
   ${
     $( Virtual deduction identity rule for 3 virtual hypotheses. $)
-    idn3 $p |- (. ph ->... (. ps ->... [. ch ->.. ch ]. ). ). $=
-      ( wimeta wihmeta wi idn2 a1i dfwihmetaimpr ax-mp ) ABCCDEZFAKEKABCGHAKIJ
-      $.
+    idn3 $p |- (. ph , ps , ch |-. ch ). $=
+      ( wi idd a1i dfvd3ir ) ABCCBCCDDABCEFG $.
       $( [11-Jun-2011] $)
   $}
 
   ${
-    $( ~ idn3 without meta-connectives. $)
-    iidn3 $p |- ( ph -> ( ps -> ( ch -> ch ) ) ) $=
-      ( wi id a1i12 ) ABCCDCEF $.
-      $( [23-Jul-2011] $)
-  $}
-
-  ${
     $d x ph $.
-    gen11.1 $e |- [. ph ->.. ps ]. $.
+    gen11.1 $e |- (. ph |-. ps ). $.
     $( Virtual deduction generalizing rule for 1 quantifying variable and 1
-       virtual hypothesis. ~ 19.21aiv is ~ gen11 without meta-connectives. $)
-    gen11 $p |- [. ph ->.. A. x ps ]. $=
-      ( wal wi wimeta dfwimetaimp ax-mp 19.21aiv dfwimetaimpr ) ABCEZFALGABCABG
+       virtual hypothesis. ~ 19.21aiv is ~ gen11 without virtual deductions. $)
+    gen11 $p |- (. ph |-. A. x ps ). $=
+      ( wal wi vd1 dfvd1imp ax-mp 19.21aiv dfvd1impr ) ABCEZFALGABCABG
       ABFDABHIJALKI $.
       $( [21-Apr-2011] $)
   $}
 
   ${
     $d x ph $.  $d y ph $.
-    gen12.1 $e |- [. ph ->.. ps ]. $.
+    gen12.1 $e |- (. ph |-. ps ). $.
     $( Virtual deduction generalizing rule for 2 quantifying variables and 1
-       virtual hypothesis. ~ gen12 is ~ 19.21aivv with meta-connectives. $)
-    gen12 $p |- [. ph ->.. A. x A. y ps ]. $=
-      ( wal in1 19.21aivv dfwimetair ) ABDFCFABCDABEGHI $.
+       virtual hypothesis. ~ gen12 is ~ 19.21aivv with virtual deductions. $)
+    gen12 $p |- (. ph |-. A. x A. y ps ). $=
+      ( wal in1 19.21aivv dfvd1ir ) ABDFCFABCDABEGHI $.
       $( [2-May-2011] $)
   $}
 
   ${
     $d x ph $.  $d x ps $.
-    gen21.1 $e |- (. ph ->... [. ps ->.. ch ]. ). $.
+    gen21.1 $e |- (. ph , ps |-. ch ). $.
     $( Virtual deduction generalizing rule for 1 quantifying variables and 2
-       virtual hypothesis. ~ gen21 is ~ 19.21adv with meta-connectives. $)
-    gen21 $p |- (. ph ->... [. ps ->.. A. x ch ]. ). $=
-      ( wal wi wimeta wihmeta df2himp ax-mp 19.21adv df2himpr ) ABCDFZGGABNHIAB
-      CDABCHIABCGGEABCJKLABNMK $.
+       virtual hypothesis. ~ gen21 is ~ 19.21adv with virtual deductions. $)
+    gen21 $p |- (. ph , ps |-. A. x ch ). $=
+      ( wal dfvd2i 19.21adv dfvd2ir ) ABCDFABCDABCEGHI $.
       $( [25-Jul-2011] $)
   $}
 
   ${
     $d x ph $.  $d y ph $.  $d x ps $.  $d y ps $.
-    gen22.1 $e |- (. ph ->... [. ps ->.. ch ]. ). $.
+    gen22.1 $e |- (. ph , ps |-. ch ). $.
     $( Virtual deduction generalizing rule for 2 quantifying variables and 2
        virtual hypothesis. $)
-    gen22 $p |- (. ph ->... [. ps ->.. A. x A. y ch ]. ). $=
-      ( wal wi wimeta wihmeta df2himp ax-mp 19.21adv df2himpr ) ABCEGZDGZHHABPI
-      JABODABCEABCIJABCHHFABCKLMMABPNL $.
+    gen22 $p |- (. ph , ps |-. A. x A. y ch ). $=
+      ( wal dfvd2i 19.21adv dfvd2ir ) ABCEGZDGABKDABCEABCFHIIJ $.
       $( [25-Jul-2011] $)
   $}
 
   ${
     $d x ph $.  $d y ph $.  $d x ps $.  $d y ps $.
     ggen22.1 $e |- ( ph -> ( ps -> ch ) ) $.
-    $( ~ gen22 without meta-connectives. $)
+    $( ~ gen22 without virtual deductions. $)
     ggen22 $p |- ( ph -> ( ps -> A. x A. y ch ) ) $=
       ( wal 19.21adv ) ABCEGDABCEFHH $.
       $( [25-Jul-2011] $)
   $}
 
   ${
-    e1_.1 $e |- [. ph ->.. ps ]. $.
+    e1_.1 $e |- (. ph |-. ps ). $.
     e1_.2 $e |- ( ps -> ch ) $.
-    $( A Virtual deduction elimination rule. ~ syl is ~ e1_ without
-       meta-connectives. $)
-    e1_ $p |- [. ph ->.. ch ]. $=
-      ( dfwimetai syl dfwimetair ) ACABCABDFEGH $.
+    $( A Virtual deduction elimination rule. ~ syl is ~ e1_ without virtual
+       deductions. $)
+    e1_ $p |- (. ph |-. ch ). $=
+      ( dfvd1i syl dfvd1ir ) ACABCABDFEGH $.
       $( [11-Jun-2011] $)
   $}
 
   ${
-    e1bi.1 $e |- [. ph ->.. ps ]. $.
+    e1bi.1 $e |- (. ph |-. ps ). $.
     e1bi.2 $e |- ( ps <-> ch ) $.
-    $( Biconditional form of ~ e1_ . ~ sylib is ~ e1bi without
-       meta-connectives. $)
-    e1bi $p |- [. ph ->.. ch ]. $=
+    $( Biconditional form of ~ e1_ . ~ sylib is ~ e1bi without virtual
+       deductions. $)
+    e1bi $p |- (. ph |-. ch ). $=
       ( biimpi e1_ ) ABCDBCEFG $.
       $( [15-Jun-2011] $)
   $}
 
   ${
-    e1bir.1 $e |- [. ph ->.. ps ]. $.
+    e1bir.1 $e |- (. ph |-. ps ). $.
     e1bir.2 $e |- ( ch <-> ps ) $.
-    $( Right biconditional form of ~ e1_ . ~ sylibr is ~ e1bir without
-       meta-connectives. $)
-    e1bir $p |- [. ph ->.. ch ]. $=
+    $( Right biconditional form of ~ e1_ . ~ sylibr is ~ e1bir without virtual
+       deductions. $)
+    e1bir $p |- (. ph |-. ch ). $=
       ( biimpri e1_ ) ABCDCBEFG $.
       $( [24-Jun-2011] $)
   $}
 
   ${
-    e2.1 $e |- (. ph ->... [. ps ->.. ch ]. ). $.
+    e2.1 $e |- (. ph , ps |-. ch ). $.
     e2.2 $e |- ( ch -> th ) $.
-    $( A virtual deduction elimination rule. ~ syl6 is ~ e2 without
-       meta-connectives. $)
-    e2 $p |- (. ph ->... [. ps ->.. th ]. ). $=
-      ( wi wimeta wihmeta df2himp ax-mp syl6 df2himpr ) ABDGGABDHIABCDABCHIABCG
-      GEABCJKFLABDMK $.
+    $( A virtual deduction elimination rule. ~ syl6 is ~ e2 without virtual
+       deductions. $)
+    e2 $p |- (. ph , ps |-. th ). $=
+      ( dfvd2i syl6 dfvd2ir ) ABDABCDABCEGFHI $.
       $( [21-Apr-2011] $)
   $}
 
   ${
-    e2bi.1 $e |- (. ph ->... [. ps ->.. ch ]. ). $.
+    e2bi.1 $e |- (. ph , ps |-. ch ). $.
     e2bi.2 $e |- ( ch <-> th ) $.
-    $( Bi-conditional form of ~ e2 . ~ syl6ib is ~ e2bi without
-       meta-connectives. $)
-    e2bi $p |- (. ph ->... [. ps ->.. th ]. ). $=
+    $( Bi-conditional form of ~ e2 . ~ syl6ib is ~ e2bi without virtual
+       deductions. $)
+    e2bi $p |- (. ph , ps |-. th ). $=
       ( biimpi e2 ) ABCDECDFGH $.
       $( [10-Jun-2011] $)
   $}
 
   ${
-    e2bir.1 $e |- (. ph ->... [. ps ->.. ch ]. ). $.
+    e2bir.1 $e |- (. ph , ps |-. ch ). $.
     e2bir.2 $e |- ( th <-> ch ) $.
-    $( Right bi-conditional form of ~ e2 . ~ syl6ibr is ~ e2bir without
-       meta-connectives. $)
-    e2bir $p |- (. ph ->... [. ps ->.. th ]. ). $=
+    $( Right bi-conditional form of ~ e2 . ~ syl6ibr is ~ e2bir without virtual
+       deductions. $)
+    e2bir $p |- (. ph , ps |-. th ). $=
       ( biimpri e2 ) ABCDEDCFGH $.
       $( [29-Apr-2011] $)
   $}
 
   ${
-    e222.1 $e |- (. ph ->... [. ps ->.. ch ]. ). $.
-    e222.2 $e |- (. ph ->... [. ps ->.. th ]. ). $.
-    e222.3 $e |- (. ph ->... [. ps ->.. ta ]. ). $.
+    e222.1 $e |- (. ph , ps |-. ch ). $.
+    e222.2 $e |- (. ph , ps |-. th ). $.
+    e222.3 $e |- (. ph , ps |-. ta ). $.
     e222.4 $e |- ( ch -> ( th -> ( ta -> et ) ) ) $.
     $( A virtual deduction elimination rule. $)
-    e222 $p |- (. ph ->... [. ps ->.. et ]. ). $=
-      ( wa wi dfwih2mti imp syl syl5 pm2.43i ex dfwih2mtir ) ABFABFABKZFTEFTTEF
+    e222 $p |- (. ph , ps |-. et ). $=
+      ( wa wi dfvd2i imp syl syl5 pm2.43i ex dfvd2ir ) ABFABFABKZFTEFTTEF
       LZTDUATTCDUALABCABCGMNJOABDABDHMNPQABEABEIMNPQRS $.
       $( [12-Jun-2011] $)
   $}
 
   ${
-    ee222.1 $e |- ( ph -> ( ps -> ch ) ) $.
-    ee222.2 $e |- ( ph -> ( ps -> th ) ) $.
-    ee222.3 $e |- ( ph -> ( ps -> ta ) ) $.
-    ee222.4 $e |- ( ch -> ( th -> ( ta -> et ) ) ) $.
-    $( ~ e222 without meta-connectives. $)
-    ee222 $p |- ( ph -> ( ps -> et ) ) $=
-      ( wa imp wi sylc mpd ex ) ABFABKZEFABEILCDEFMQJABCGLABDHLNOP $.
-      $( [7-Jul-2011] $)
-  $}
-
-  ${
-    e220.1 $e |- (. ph ->... [. ps ->.. ch ]. ). $.
-    e220.2 $e |- (. ph ->... [. ps ->.. th ]. ). $.
+    e220.1 $e |- (. ph , ps |-. ch ). $.
+    e220.2 $e |- (. ph , ps |-. th ). $.
     e220.3 $e |- ta $.
     e220.4 $e |- ( ch -> ( th -> ( ta -> et ) ) ) $.
     $( A virtual deduction elimination rule. $)
-    e220 $p |- (. ph ->... [. ps ->.. et ]. ). $=
-      ( wih02 e222 ) ABCDEFGHEABIKJL $.
+    e220 $p |- (. ph , ps |-. et ). $=
+      ( vd02 e222 ) ABCDEFGHEABIKJL $.
       $( [24-Jun-2011] $)
   $}
 
@@ -2175,20 +544,20 @@ $)
     ee220.2 $e |- ( ph -> ( ps -> th ) ) $.
     ee220.3 $e |- ta $.
     ee220.4 $e |- ( ch -> ( th -> ( ta -> et ) ) ) $.
-    $( ~ e220 without meta-connectives. $)
+    $( ~ e220 without virtual deductions. $)
     ee220 $p |- ( ph -> ( ps -> et ) ) $=
       ( a1i12 ee222 ) ABCDEFGHABEIKJL $.
       $( [12-Jul-2011] $)
   $}
 
   ${
-    e202.1 $e |- (. ph ->... [. ps ->.. ch ]. ). $.
+    e202.1 $e |- (. ph , ps |-. ch ). $.
     e202.2 $e |- th $.
-    e202.3 $e |- (. ph ->... [. ps ->.. ta ]. ). $.
+    e202.3 $e |- (. ph , ps |-. ta ). $.
     e202.4 $e |- ( ch -> ( th -> ( ta -> et ) ) ) $.
     $( A virtual deduction elimination rule. $)
-    e202 $p |- (. ph ->... [. ps ->.. et ]. ). $=
-      ( wih02 e222 ) ABCDEFGDABHKIJL $.
+    e202 $p |- (. ph , ps |-. et ). $=
+      ( vd02 e222 ) ABCDEFGDABHKIJL $.
       $( [24-Jun-2011] $)
   $}
 
@@ -2197,7 +566,7 @@ $)
     ee202.2 $e |- th $.
     ee202.3 $e |- ( ph -> ( ps -> ta ) ) $.
     ee202.4 $e |- ( ch -> ( th -> ( ta -> et ) ) ) $.
-    $( ~ e202 without meta-connectives. $)
+    $( ~ e202 without virtual deductions. $)
     ee202 $p |- ( ph -> ( ps -> et ) ) $=
       ( wi a1i ee222 ) ABCDEFGBDKADBHLLIJM $.
       $( [13-Jul-2011] $)
@@ -2205,12 +574,12 @@ $)
 
   ${
     e022.1 $e |- ph $.
-    e022.2 $e |- (. ps ->... [. ch ->.. th ]. ). $.
-    e022.3 $e |- (. ps ->... [. ch ->.. ta ]. ). $.
+    e022.2 $e |- (. ps , ch |-. th ). $.
+    e022.3 $e |- (. ps , ch |-. ta ). $.
     e022.4 $e |- ( ph -> ( th -> ( ta -> et ) ) ) $.
     $( A virtual deduction elimination rule. $)
-    e022 $p |- (. ps ->... [. ch ->.. et ]. ). $=
-      ( wih02 e222 ) BCADEFABCGKHIJL $.
+    e022 $p |- (. ps , ch |-. et ). $=
+      ( vd02 e222 ) BCADEFABCGKHIJL $.
       $( [24-Jun-2011] $)
   $}
 
@@ -2219,7 +588,7 @@ $)
     ee022.2 $e |- ( ps -> ( ch -> th ) ) $.
     ee022.3 $e |- ( ps -> ( ch -> ta ) ) $.
     ee022.4 $e |- ( ph -> ( th -> ( ta -> et ) ) ) $.
-    $( ~ e022 without meta-connectives. $)
+    $( ~ e022 without virtual deductions. $)
     ee022 $p |- ( ps -> ( ch -> et ) ) $=
       ( wi a1i ee222 ) BCADEFCAKBACGLLHIJM $.
       $( [13-Jul-2011] $)
@@ -2228,11 +597,11 @@ $)
   ${
     e002.1 $e |- ph $.
     e002.2 $e |- ps $.
-    e002.3 $e |- (. ch ->... [. th ->.. ta ]. ). $.
+    e002.3 $e |- (. ch , th |-. ta ). $.
     e002.4 $e |- ( ph -> ( ps -> ( ta -> et ) ) ) $.
     $( A virtual deduction elimination rule. $)
-    e002 $p |- (. ch ->... [. th ->.. et ]. ). $=
-      ( wih02 e222 ) CDABEFACDGKBCDHKIJL $.
+    e002 $p |- (. ch , th |-. et ). $=
+      ( vd02 e222 ) CDABEFACDGKBCDHKIJL $.
       $( [24-Jun-2011] $)
   $}
 
@@ -2241,7 +610,7 @@ $)
     ee002.2 $e |- ps $.
     ee002.3 $e |- ( ch -> ( th -> ta ) ) $.
     ee002.4 $e |- ( ph -> ( ps -> ( ta -> et ) ) ) $.
-    $( ~ e002 without meta-connectives. $)
+    $( ~ e002 without virtual deductions. $)
     ee002 $p |- ( ch -> ( th -> et ) ) $=
       ( wi a1i ee222 ) CDABEFDAKCADGLLDBKCBDHLLIJM $.
       $( [13-Jul-2011] $)
@@ -2249,12 +618,12 @@ $)
 
   ${
     e020.1 $e |- ph $.
-    e020.2 $e |- (. ps ->... [. ch ->.. th ]. ). $.
+    e020.2 $e |- (. ps , ch |-. th ). $.
     e020.3 $e |- ta $.
     e020.4 $e |- ( ph -> ( th -> ( ta -> et ) ) ) $.
     $( A virtual deduction elimination rule. $)
-    e020 $p |- (. ps ->... [. ch ->.. et ]. ). $=
-      ( wih02 e222 ) BCADEFABCGKHEBCIKJL $.
+    e020 $p |- (. ps , ch |-. et ). $=
+      ( vd02 e222 ) BCADEFABCGKHEBCIKJL $.
       $( [24-Jun-2011] $)
   $}
 
@@ -2263,20 +632,20 @@ $)
     ee020.2 $e |- ( ps -> ( ch -> th ) ) $.
     ee020.3 $e |- ta $.
     ee020.4 $e |- ( ph -> ( th -> ( ta -> et ) ) ) $.
-    $( ~ e020 without meta-connectives. $)
+    $( ~ e020 without virtual deductions. $)
     ee020 $p |- ( ps -> ( ch -> et ) ) $=
       ( wi a1i ee222 ) BCADEFCAKBACGLLHCEKBECILLJM $.
       $( [13-Jul-2011] $)
   $}
 
   ${
-    e200.1 $e |- (. ph ->... [. ps ->.. ch ]. ). $.
+    e200.1 $e |- (. ph , ps |-. ch ). $.
     e200.2 $e |- th $.
     e200.3 $e |- ta $.
     e200.4 $e |- ( ch -> ( th -> ( ta -> et ) ) ) $.
     $( A virtual deduction elimination rule. $)
-    e200 $p |- (. ph ->... [. ps ->.. et ]. ). $=
-      ( wih02 e222 ) ABCDEFGDABHKEABIKJL $.
+    e200 $p |- (. ph , ps |-. et ). $=
+      ( vd02 e222 ) ABCDEFGDABHKEABIKJL $.
       $( [24-Jun-2011] $)
   $}
 
@@ -2285,20 +654,20 @@ $)
     ee200.2 $e |- th $.
     ee200.3 $e |- ta $.
     ee200.4 $e |- ( ch -> ( th -> ( ta -> et ) ) ) $.
-    $( ~ e200 without meta-connectives. $)
+    $( ~ e200 without virtual deductions. $)
     ee200 $p |- ( ph -> ( ps -> et ) ) $=
       ( wi a1i ee222 ) ABCDEFGBDKADBHLLBEKAEBILLJM $.
       $( [13-Jul-2011] $)
   $}
 
   ${
-    e221.1 $e |- (. ph ->... [. ps ->.. ch ]. ). $.
-    e221.2 $e |- (. ph ->... [. ps ->.. th ]. ). $.
-    e221.3 $e |- [. ph ->.. ta ]. $.
+    e221.1 $e |- (. ph , ps |-. ch ). $.
+    e221.2 $e |- (. ph , ps |-. th ). $.
+    e221.3 $e |- (. ph |-. ta ). $.
     e221.4 $e |- ( ch -> ( th -> ( ta -> et ) ) ) $.
     $( A virtual deduction elimination rule. $)
-    e221 $p |- (. ph ->... [. ps ->.. et ]. ). $=
-      ( wih12 e222 ) ABCDEFGHAEBIKJL $.
+    e221 $p |- (. ph , ps |-. et ). $=
+      ( vd12 e222 ) ABCDEFGHAEBIKJL $.
       $( [24-Jun-2011] $)
   $}
 
@@ -2307,20 +676,20 @@ $)
     ee221.2 $e |- ( ph -> ( ps -> th ) ) $.
     ee221.3 $e |- ( ph -> ta ) $.
     ee221.4 $e |- ( ch -> ( th -> ( ta -> et ) ) ) $.
-    $( ~ e221 without meta-connectives. $)
+    $( ~ e221 without virtual deductions. $)
     ee221 $p |- ( ph -> ( ps -> et ) ) $=
       ( a1d ee222 ) ABCDEFGHAEBIKJL $.
       $( [13-Jul-2011] $)
   $}
 
   ${
-    e212.1 $e |- (. ph ->... [. ps ->.. ch ]. ). $.
-    e212.2 $e |- [. ph ->.. th ]. $.
-    e212.3 $e |- (. ph ->... [. ps ->.. ta ]. ). $.
+    e212.1 $e |- (. ph , ps |-. ch ). $.
+    e212.2 $e |- (. ph |-. th ). $.
+    e212.3 $e |- (. ph , ps |-. ta ). $.
     e212.4 $e |- ( ch -> ( th -> ( ta -> et ) ) ) $.
     $( A virtual deduction elimination rule. $)
-    e212 $p |- (. ph ->... [. ps ->.. et ]. ). $=
-      ( wih12 e222 ) ABCDEFGADBHKIJL $.
+    e212 $p |- (. ph , ps |-. et ). $=
+      ( vd12 e222 ) ABCDEFGADBHKIJL $.
       $( [24-Jun-2011] $)
   $}
 
@@ -2329,20 +698,20 @@ $)
     ee212.2 $e |- ( ph -> th ) $.
     ee212.3 $e |- ( ph -> ( ps -> ta ) ) $.
     ee212.4 $e |- ( ch -> ( th -> ( ta -> et ) ) ) $.
-    $( ~ e212 without meta-connectives. $)
+    $( ~ e212 without virtual deductions. $)
     ee212 $p |- ( ph -> ( ps -> et ) ) $=
       ( a1d ee222 ) ABCDEFGADBHKIJL $.
       $( [13-Jul-2011] $)
   $}
 
   ${
-    e122.1 $e |- [. ph ->.. ps ]. $.
-    e122.2 $e |- (. ph ->... [. ch ->.. th ]. ). $.
-    e122.3 $e |- (. ph ->... [. ch ->.. ta ]. ). $.
+    e122.1 $e |- (. ph |-. ps ). $.
+    e122.2 $e |- (. ph , ch |-. th ). $.
+    e122.3 $e |- (. ph , ch |-. ta ). $.
     e122.4 $e |- ( ps -> ( th -> ( ta -> et ) ) ) $.
     $( A virtual deduction elimination rule. $)
-    e122 $p |- (. ph ->... [. ch ->.. et ]. ). $=
-      ( wih12 e222 ) ACBDEFABCGKHIJL $.
+    e122 $p |- (. ph , ch |-. et ). $=
+      ( vd12 e222 ) ACBDEFABCGKHIJL $.
       $( [24-Jun-2011] $)
   $}
 
@@ -2351,20 +720,20 @@ $)
     ee122.2 $e |- ( ph -> ( ch -> th ) ) $.
     ee122.3 $e |- ( ph -> ( ch -> ta ) ) $.
     ee122.4 $e |- ( ps -> ( th -> ( ta -> et ) ) ) $.
-    $( ~ e122 without meta-connectives. $)
+    $( ~ e122 without virtual deductions. $)
     ee122 $p |- ( ph -> ( ch -> et ) ) $=
       ( a1d ee222 ) ACBDEFABCGKHIJL $.
       $( [13-Jul-2011] $)
   $}
 
   ${
-    e112.1 $e |- [. ph ->.. ps ]. $.
-    e112.2 $e |- [. ph ->.. ch ]. $.
-    e112.3 $e |- (. ph ->... [. th ->.. ta ]. ). $.
+    e112.1 $e |- (. ph |-. ps ). $.
+    e112.2 $e |- (. ph |-. ch ). $.
+    e112.3 $e |- (. ph , th |-. ta ). $.
     e112.4 $e |- ( ps -> ( ch -> ( ta -> et ) ) ) $.
     $( A virtual deduction elimination rule. $)
-    e112 $p |- (. ph ->... [. th ->.. et ]. ). $=
-      ( wih12 e222 ) ADBCEFABDGKACDHKIJL $.
+    e112 $p |- (. ph , th |-. et ). $=
+      ( vd12 e222 ) ADBCEFABDGKACDHKIJL $.
       $( [24-Jun-2011] $)
   $}
 
@@ -2373,20 +742,20 @@ $)
     ee112.2 $e |- ( ph -> ch ) $.
     ee112.3 $e |- ( ph -> ( th -> ta ) ) $.
     ee112.4 $e |- ( ps -> ( ch -> ( ta -> et ) ) ) $.
-    $( ~ e112 without meta-connectives. $)
+    $( ~ e112 without virtual deductions. $)
     ee112 $p |- ( ph -> ( th -> et ) ) $=
       ( a1d ee222 ) ADBCEFABDGKACDHKIJL $.
       $( [13-Jul-2011] $)
   $}
 
   ${
-    e121.1 $e |- [. ph ->.. ps ]. $.
-    e121.2 $e |- (. ph ->... [. ch ->.. th ]. ). $.
-    e121.3 $e |- [. ph ->.. ta ]. $.
+    e121.1 $e |- (. ph |-. ps ). $.
+    e121.2 $e |- (. ph , ch |-. th ). $.
+    e121.3 $e |- (. ph |-. ta ). $.
     e121.4 $e |- ( ps -> ( th -> ( ta -> et ) ) ) $.
     $( A virtual deduction elimination rule. $)
-    e121 $p |- (. ph ->... [. ch ->.. et ]. ). $=
-      ( wih12 e222 ) ACBDEFABCGKHAECIKJL $.
+    e121 $p |- (. ph , ch |-. et ). $=
+      ( vd12 e222 ) ACBDEFABCGKHAECIKJL $.
       $( [24-Jun-2011] $)
   $}
 
@@ -2395,20 +764,20 @@ $)
     ee121.2 $e |- ( ph -> ( ch -> th ) ) $.
     ee121.3 $e |- ( ph -> ta ) $.
     ee121.4 $e |- ( ps -> ( th -> ( ta -> et ) ) ) $.
-    $( ~ e121 without meta-connectives. $)
+    $( ~ e121 without virtual deductions. $)
     ee121 $p |- ( ph -> ( ch -> et ) ) $=
       ( a1d ee222 ) ACBDEFABCGKHAECIKJL $.
       $( [13-Jul-2011] $)
   $}
 
   ${
-    e211.1 $e |- (. ph ->... [. ps ->.. ch ]. ). $.
-    e211.2 $e |- [. ph ->.. th ]. $.
-    e211.3 $e |- [. ph ->.. ta ]. $.
+    e211.1 $e |- (. ph , ps |-. ch ). $.
+    e211.2 $e |- (. ph |-. th ). $.
+    e211.3 $e |- (. ph |-. ta ). $.
     e211.4 $e |- ( ch -> ( th -> ( ta -> et ) ) ) $.
     $( A virtual deduction elimination rule. $)
-    e211 $p |- (. ph ->... [. ps ->.. et ]. ). $=
-      ( wih12 e222 ) ABCDEFGADBHKAEBIKJL $.
+    e211 $p |- (. ph , ps |-. et ). $=
+      ( vd12 e222 ) ABCDEFGADBHKAEBIKJL $.
       $( [24-Jun-2011] $)
   $}
 
@@ -2417,20 +786,20 @@ $)
     ee211.2 $e |- ( ph -> th ) $.
     ee211.3 $e |- ( ph -> ta ) $.
     ee211.4 $e |- ( ch -> ( th -> ( ta -> et ) ) ) $.
-    $( ~ e211 without meta-connectives. $)
+    $( ~ e211 without virtual deductions. $)
     ee211 $p |- ( ph -> ( ps -> et ) ) $=
       ( a1d ee222 ) ABCDEFGADBHKAEBIKJL $.
       $( [13-Jul-2011] $)
   $}
 
   ${
-    e210.1 $e |- (. ph ->... [. ps ->.. ch ]. ). $.
-    e210.2 $e |- [. ph ->.. th ]. $.
+    e210.1 $e |- (. ph , ps |-. ch ). $.
+    e210.2 $e |- (. ph |-. th ). $.
     e210.3 $e |- ta $.
     e210.4 $e |- ( ch -> ( th -> ( ta -> et ) ) ) $.
     $( A virtual deduction elimination rule. $)
-    e210 $p |- (. ph ->... [. ps ->.. et ]. ). $=
-      ( wih01 e211 ) ABCDEFGHEAIKJL $.
+    e210 $p |- (. ph , ps |-. et ). $=
+      ( vd01 e211 ) ABCDEFGHEAIKJL $.
       $( [24-Jun-2011] $)
   $}
 
@@ -2439,20 +808,20 @@ $)
     ee210.2 $e |- ( ph -> th ) $.
     ee210.3 $e |- ta $.
     ee210.4 $e |- ( ch -> ( th -> ( ta -> et ) ) ) $.
-    $( ~ e210 without meta-connectives. $)
+    $( ~ e210 without virtual deductions. $)
     ee210 $p |- ( ph -> ( ps -> et ) ) $=
       ( a1d wi a1i ee222 ) ABCDEFGADBHKBELAEBIMMJN $.
       $( [14-Jul-2011] $)
   $}
 
   ${
-    e201.1 $e |- (. ph ->... [. ps ->.. ch ]. ). $.
+    e201.1 $e |- (. ph , ps |-. ch ). $.
     e201.2 $e |- th $.
-    e201.3 $e |- [. ph ->.. ta ]. $.
+    e201.3 $e |- (. ph |-. ta ). $.
     e201.4 $e |- ( ch -> ( th -> ( ta -> et ) ) ) $.
     $( A virtual deduction elimination rule. $)
-    e201 $p |- (. ph ->... [. ps ->.. et ]. ). $=
-      ( wih01 e211 ) ABCDEFGDAHKIJL $.
+    e201 $p |- (. ph , ps |-. et ). $=
+      ( vd01 e211 ) ABCDEFGDAHKIJL $.
       $( [24-Jun-2011] $)
   $}
 
@@ -2461,20 +830,20 @@ $)
     ee201.2 $e |- th $.
     ee201.3 $e |- ( ph -> ta ) $.
     ee201.4 $e |- ( ch -> ( th -> ( ta -> et ) ) ) $.
-    $( ~ e201 without meta-connectives. $)
+    $( ~ e201 without virtual deductions. $)
     ee201 $p |- ( ph -> ( ps -> et ) ) $=
       ( wi a1i a1d ee222 ) ABCDEFGBDKADBHLLAEBIMJN $.
       $( [14-Jul-2011] $)
   $}
 
   ${
-    e120.1 $e |- [. ph ->.. ps ]. $.
-    e120.2 $e |- (. ph ->... [. ch ->.. th ]. ). $.
+    e120.1 $e |- (. ph |-. ps ). $.
+    e120.2 $e |- (. ph , ch |-. th ). $.
     e120.3 $e |- ta $.
     e120.4 $e |- ( ps -> ( th -> ( ta -> et ) ) ) $.
     $( A virtual deduction elimination rule. $)
-    e120 $p |- (. ph ->... [. ch ->.. et ]. ). $=
-      ( wih12 e220 ) ACBDEFABCGKHIJL $.
+    e120 $p |- (. ph , ch |-. et ). $=
+      ( vd12 e220 ) ACBDEFABCGKHIJL $.
       $( [10-Jun-2011] $)
   $}
 
@@ -2483,7 +852,7 @@ $)
     ee120.2 $e |- ( ph -> ( ch -> th ) ) $.
     ee120.3 $e |- ta $.
     ee120.4 $e |- ( ps -> ( th -> ( ta -> et ) ) ) $.
-    $( Virtual deduction rule ~ e120 without meta-connective symbols. $)
+    $( Virtual deduction rule ~ e120 without virtual deduction symbols. $)
     ee120 $p |- ( ph -> ( ch -> et ) ) $=
       ( a1d wi a1i ee222 ) ACBDEFABCGKHCELAECIMMJN $.
       $( [14-Jul-2011] $)
@@ -2491,12 +860,12 @@ $)
 
   ${
     e021.1 $e |- ph $.
-    e021.2 $e |- (. ps ->... [. ch ->.. th ]. ). $.
-    e021.3 $e |- [. ps ->.. ta ]. $.
+    e021.2 $e |- (. ps , ch |-. th ). $.
+    e021.3 $e |- (. ps |-. ta ). $.
     e021.4 $e |- ( ph -> ( th -> ( ta -> et ) ) ) $.
     $( A virtual deduction elimination rule. $)
-    e021 $p |- (. ps ->... [. ch ->.. et ]. ). $=
-      ( wih01 e121 ) BACDEFABGKHIJL $.
+    e021 $p |- (. ps , ch |-. et ). $=
+      ( vd01 e121 ) BACDEFABGKHIJL $.
       $( [24-Jun-2011] $)
   $}
 
@@ -2505,7 +874,7 @@ $)
     ee021.2 $e |- ( ps -> ( ch -> th ) ) $.
     ee021.3 $e |- ( ps -> ta ) $.
     ee021.4 $e |- ( ph -> ( th -> ( ta -> et ) ) ) $.
-    $( ~ e021 without meta-connectives. $)
+    $( ~ e021 without virtual deductions. $)
     ee021 $p |- ( ps -> ( ch -> et ) ) $=
       ( wi a1i a1d ee222 ) BCADEFCAKBACGLLHBECIMJN $.
       $( [14-Jul-2011] $)
@@ -2513,12 +882,12 @@ $)
 
   ${
     e012.1 $e |- ph $.
-    e012.2 $e |- [. ps ->.. ch ]. $.
-    e012.3 $e |- (. ps ->... [. th ->.. ta ]. ). $.
+    e012.2 $e |- (. ps |-. ch ). $.
+    e012.3 $e |- (. ps , th |-. ta ). $.
     e012.4 $e |- ( ph -> ( ch -> ( ta -> et ) ) ) $.
     $( A virtual deduction elimination rule. $)
-    e012 $p |- (. ps ->... [. th ->.. et ]. ). $=
-      ( wih01 e112 ) BACDEFABGKHIJL $.
+    e012 $p |- (. ps , th |-. et ). $=
+      ( vd01 e112 ) BACDEFABGKHIJL $.
       $( [24-Jun-2011] $)
   $}
 
@@ -2527,7 +896,7 @@ $)
     ee012.2 $e |- ( ps -> ch ) $.
     ee012.3 $e |- ( ps -> ( th -> ta ) ) $.
     ee012.4 $e |- ( ph -> ( ch -> ( ta -> et ) ) ) $.
-    $( ~ e012 without meta-connectives. $)
+    $( ~ e012 without virtual deductions. $)
     ee012 $p |- ( ps -> ( th -> et ) ) $=
       ( wi a1i a1d ee222 ) BDACEFDAKBADGLLBCDHMIJN $.
       $( [14-Jul-2011] $)
@@ -2535,13 +904,13 @@ $)
 
 
   ${
-    e102.1 $e |- [. ph ->.. ps ]. $.
+    e102.1 $e |- (. ph |-. ps ). $.
     e102.2 $e |- ch $.
-    e102.3 $e |- (. ph ->... [. th ->.. ta ]. ). $.
+    e102.3 $e |- (. ph , th |-. ta ). $.
     e102.4 $e |- ( ps -> ( ch -> ( ta -> et ) ) ) $.
     $( A virtual deduction elimination rule. $)
-    e102 $p |- (. ph ->... [. th ->.. et ]. ). $=
-      ( wih01 e112 ) ABCDEFGCAHKIJL $.
+    e102 $p |- (. ph , th |-. et ). $=
+      ( vd01 e112 ) ABCDEFGCAHKIJL $.
       $( [24-Jun-2011] $)
   $}
 
@@ -2550,38 +919,28 @@ $)
     ee102.2 $e |- ch $.
     ee102.3 $e |- ( ph -> ( th -> ta ) ) $.
     ee102.4 $e |- ( ps -> ( ch -> ( ta -> et ) ) ) $.
-    $( ~ e102 without meta-connectives. $)
+    $( ~ e102 without virtual deductions. $)
     ee102 $p |- ( ph -> ( th -> et ) ) $=
       ( a1d wi a1i ee222 ) ADBCEFABDGKDCLACDHMMIJN $.
       $( [14-Jul-2011] $)
   $}
 
   ${
-    e22.1 $e |- (. ph ->... [. ps ->.. ch ]. ). $.
-    e22.2 $e |- (. ph ->... [. ps ->.. th ]. ). $.
+    e22.1 $e |- (. ph , ps |-. ch ). $.
+    e22.2 $e |- (. ph , ps |-. th ). $.
     e22.3 $e |- ( ch -> ( th -> ta ) ) $.
     $( A virtual deduction elimination rule. $)
-    e22 $p |- (. ph ->... [. ps ->.. ta ]. ). $=
+    e22 $p |- (. ph , ps |-. ta ). $=
       ( wi a1i e222 ) ABCCDEFFGCDEIICHJK $.
       $( [2-May-2011] $)
   $}
 
   ${
-    ee22.1 $e |- ( ph -> ( ps -> ch ) ) $.
-    ee22.2 $e |- ( ph -> ( ps -> th ) ) $.
-    ee22.3 $e |- ( ch -> ( th -> ta ) ) $.
-    $( Virtual deduction rule ~ e22 without meta-connective symbols. $)
-    ee22 $p |- ( ph -> ( ps -> ta ) ) $=
-      ( wi syl6 mpdd ) ABDEGABCDEIFHJK $.
-      $( [2-May-2011] $)
-  $}
-
-  ${
-    e22an.1 $e |- (. ph ->... [. ps ->.. ch ]. ). $.
-    e22an.2 $e |- (. ph ->... [. ps ->.. th ]. ). $.
+    e22an.1 $e |- (. ph , ps |-. ch ). $.
+    e22an.2 $e |- (. ph , ps |-. th ). $.
     e22an.3 $e |- ( ( ch /\ th ) -> ta ) $.
     $( Conjunction form of ~ e22 . $)
-    e22an $p |- (. ph ->... [. ps ->.. ta ]. ). $=
+    e22an $p |- (. ph , ps |-. ta ). $=
       ( ex e22 ) ABCDEFGCDEHIJ $.
       $( [11-Jun-2011] $)
   $}
@@ -2590,20 +949,20 @@ $)
     ee22an.1 $e |- ( ph -> ( ps -> ch ) ) $.
     ee22an.2 $e |- ( ph -> ( ps -> th ) ) $.
     ee22an.3 $e |- ( ( ch /\ th ) -> ta ) $.
-    $( ~ e22an without meta-connectives. $)
+    $( ~ e22an without virtual deductions. $)
     ee22an $p |- ( ph -> ( ps -> ta ) ) $=
       ( ex ee22 ) ABCDEFGCDEHIJ $.
       $( [8-Jul-2011] $)
   $}
 
   ${
-    e111.1 $e |- [. ph ->.. ps ]. $.
-    e111.2 $e |- [. ph ->.. ch ]. $.
-    e111.3 $e |- [. ph ->.. th ]. $.
+    e111.1 $e |- (. ph |-. ps ). $.
+    e111.2 $e |- (. ph |-. ch ). $.
+    e111.3 $e |- (. ph |-. th ). $.
     e111.4 $e |- ( ps -> ( ch -> ( th -> ta ) ) ) $.
     $( A virtual deduction elimination rule. $)
-    e111 $p |- [. ph ->.. ta ]. $=
-      ( wi dfwimetai syl syl5 pm2.43i dfwimetair ) AEAEADEAADEJZACPAABCPJABFKIL
+    e111 $p |- (. ph |-. ta ). $=
+      ( wi dfvd1i syl syl5 pm2.43i dfvd1ir ) AEAEADEAADEJZACPAABCPJABFKIL
       ACGKMNADHKMNO $.
       $( [14-Jun-2011] $)
   $}
@@ -2613,20 +972,20 @@ $)
     ee111.2 $e |- ( ph -> ch ) $.
     ee111.3 $e |- ( ph -> th ) $.
     ee111.4 $e |- ( ps -> ( ch -> ( th -> ta ) ) ) $.
-    $( ~ e111 without meta-connectives. $)
+    $( ~ e111 without virtual deductions. $)
     ee111 $p |- ( ph -> ta ) $=
       ( wi sylc mpd ) ADEHBCDEJAIFGKL $.
       $( [7-Jul-2011] $)
   $}
 
   ${
-    e110.1 $e |- [. ph ->.. ps ]. $.
-    e110.2 $e |- [. ph ->.. ch ]. $.
+    e110.1 $e |- (. ph |-. ps ). $.
+    e110.2 $e |- (. ph |-. ch ). $.
     e110.3 $e |- th $.
     e110.4 $e |- ( ps -> ( ch -> ( th -> ta ) ) ) $.
     $( A virtual deduction elimination rule. $)
-    e110 $p |- [. ph ->.. ta ]. $=
-      ( wih01 e111 ) ABCDEFGDAHJIK $.
+    e110 $p |- (. ph |-. ta ). $=
+      ( vd01 e111 ) ABCDEFGDAHJIK $.
       $( [24-Jun-2011] $)
   $}
 
@@ -2635,20 +994,20 @@ $)
     ee110.2 $e |- ( ph -> ch ) $.
     ee110.3 $e |- th $.
     ee110.4 $e |- ( ps -> ( ch -> ( th -> ta ) ) ) $.
-    $( ~ e110 without meta-connectives. $)
+    $( ~ e110 without virtual deductions. $)
     ee110 $p |- ( ph -> ta ) $=
       ( a1i ee111 ) ABCDEFGDAHJIK $.
       $( [22-Jul-2011] $)
   $}
 
   ${
-    e101.1 $e |- [. ph ->.. ps ]. $.
+    e101.1 $e |- (. ph |-. ps ). $.
     e101.2 $e |- ch $.
-    e101.3 $e |- [. ph ->.. th ]. $.
+    e101.3 $e |- (. ph |-. th ). $.
     e101.4 $e |- ( ps -> ( ch -> ( th -> ta ) ) ) $.
     $( A virtual deduction elimination rule. $)
-    e101 $p |- [. ph ->.. ta ]. $=
-      ( wih01 e111 ) ABCDEFCAGJHIK $.
+    e101 $p |- (. ph |-. ta ). $=
+      ( vd01 e111 ) ABCDEFCAGJHIK $.
       $( [24-Jun-2011] $)
   $}
 
@@ -2657,7 +1016,7 @@ $)
     ee101.2 $e |- ch $.
     ee101.3 $e |- ( ph -> th ) $.
     ee101.4 $e |- ( ps -> ( ch -> ( th -> ta ) ) ) $.
-    $( ~ e101 without meta-connectives. $)
+    $( ~ e101 without virtual deductions. $)
     ee101 $p |- ( ph -> ta ) $=
       ( a1i ee111 ) ABCDEFCAGJHIK $.
       $( [23-Jul-2011] $)
@@ -2665,12 +1024,12 @@ $)
 
   ${
     e011.1 $e |- ph $.
-    e011.2 $e |- [. ps ->.. ch ]. $.
-    e011.3 $e |- [. ps ->.. th ]. $.
+    e011.2 $e |- (. ps |-. ch ). $.
+    e011.3 $e |- (. ps |-. th ). $.
     e011.4 $e |- ( ph -> ( ch -> ( th -> ta ) ) ) $.
     $( A virtual deduction elimination rule. $)
-    e011 $p |- [. ps ->.. ta ]. $=
-      ( wih01 e111 ) BACDEABFJGHIK $.
+    e011 $p |- (. ps |-. ta ). $=
+      ( vd01 e111 ) BACDEABFJGHIK $.
       $( [24-Jun-2011] $)
   $}
 
@@ -2679,20 +1038,20 @@ $)
     ee011.2 $e |- ( ps -> ch ) $.
     ee011.3 $e |- ( ps -> th ) $.
     ee011.4 $e |- ( ph -> ( ch -> ( th -> ta ) ) ) $.
-    $( ~ e011 without meta-connectives. $)
+    $( ~ e011 without virtual deductions. $)
     ee011 $p |- ( ps -> ta ) $=
       ( a1i ee111 ) BACDEABFJGHIK $.
       $( [25-Jul-2011] $)
   $}
 
   ${
-    e100.1 $e |- [. ph ->.. ps ]. $.
+    e100.1 $e |- (. ph |-. ps ). $.
     e100.2 $e |- ch $.
     e100.3 $e |- th $.
     e100.4 $e |- ( ps -> ( ch -> ( th -> ta ) ) ) $.
     $( A virtual deduction elimination rule. $)
-    e100 $p |- [. ph ->.. ta ]. $=
-      ( wih01 e111 ) ABCDEFCAGJDAHJIK $.
+    e100 $p |- (. ph |-. ta ). $=
+      ( vd01 e111 ) ABCDEFCAGJDAHJIK $.
       $( [24-Jun-2011] $)
   $}
 
@@ -2701,7 +1060,7 @@ $)
     ee100.2 $e |- ch $.
     ee100.3 $e |- th $.
     ee100.4 $e |- ( ps -> ( ch -> ( th -> ta ) ) ) $.
-    $( ~ e100 without meta-connectives. $)
+    $( ~ e100 without virtual deductions. $)
     ee100 $p |- ( ph -> ta ) $=
       ( a1i ee111 ) ABCDEFCAGJDAHJIK $.
       $( [23-Jul-2011] $)
@@ -2709,12 +1068,12 @@ $)
 
   ${
     e010.1 $e |- ph $.
-    e010.2 $e |- [. ps ->.. ch ]. $.
+    e010.2 $e |- (. ps |-. ch ). $.
     e010.3 $e |- th $.
     e010.4 $e |- ( ph -> ( ch -> ( th -> ta ) ) ) $.
     $( A virtual deduction elimination rule. $)
-    e010 $p |- [. ps ->.. ta ]. $=
-      ( wih01 e111 ) BACDEABFJGDBHJIK $.
+    e010 $p |- (. ps |-. ta ). $=
+      ( vd01 e111 ) BACDEABFJGDBHJIK $.
       $( [24-Jun-2011] $)
   $}
 
@@ -2723,7 +1082,7 @@ $)
     ee010.2 $e |- ( ps -> ch ) $.
     ee010.3 $e |- th $.
     ee010.4 $e |- ( ph -> ( ch -> ( th -> ta ) ) ) $.
-    $( ~ e010 without meta-connectives. $)
+    $( ~ e010 without virtual deductions. $)
     ee010 $p |- ( ps -> ta ) $=
       ( a1i ee111 ) BACDEABFJGDBHJIK $.
       $( [23-Jul-2011] $)
@@ -2732,11 +1091,11 @@ $)
   ${
     e001.1 $e |- ph $.
     e001.2 $e |- ps $.
-    e001.3 $e |- [. ch ->.. th ]. $.
+    e001.3 $e |- (. ch |-. th ). $.
     e001.4 $e |- ( ph -> ( ps -> ( th -> ta ) ) ) $.
     $( A virtual deduction elimination rule. $)
-    e001 $p |- [. ch ->.. ta ]. $=
-      ( wih01 e111 ) CABDEACFJBCGJHIK $.
+    e001 $p |- (. ch |-. ta ). $=
+      ( vd01 e111 ) CABDEACFJBCGJHIK $.
       $( [24-Jun-2011] $)
   $}
 
@@ -2745,18 +1104,18 @@ $)
     ee001.2 $e |- ps $.
     ee001.3 $e |- ( ch -> th ) $.
     ee001.4 $e |- ( ph -> ( ps -> ( th -> ta ) ) ) $.
-    $( ~ e001 without meta-connectives. $)
+    $( ~ e001 without virtual deductions. $)
     ee001 $p |- ( ch -> ta ) $=
       ( a1i ee111 ) CABDEACFJBCGJHIK $.
       $( [23-Jul-2011] $)
   $}
 
   ${
-    e11.1 $e |- [. ph ->.. ps ]. $.
-    e11.2 $e |- [. ph ->.. ch ]. $.
+    e11.1 $e |- (. ph |-. ps ). $.
+    e11.2 $e |- (. ph |-. ch ). $.
     e11.3 $e |- ( ps -> ( ch -> th ) ) $.
     $( A virtual deduction elimination rule. $)
-    e11 $p |- [. ph ->.. th ]. $=
+    e11 $p |- (. ph |-. th ). $=
       ( wi a1i e111 ) ABBCDEEFBCDHHBGIJ $.
       $( [14-Jun-2011] $)
   $}
@@ -2765,19 +1124,19 @@ $)
     ee11.1 $e |- ( ph -> ps ) $.
     ee11.2 $e |- ( ph -> ch ) $.
     ee11.3 $e |- ( ps -> ( ch -> th ) ) $.
-    $( ~ e11 without meta-connectives. ~ sylc is also ~ e11 without
-       meta-connectives, except with a different order of hypotheses. $)
+    $( ~ e11 without virtual deductions. ~ sylc is also ~ e11 without virtual
+       deductions, except with a different order of hypotheses. $)
     ee11 $p |- ( ph -> th ) $=
       ( wi a1i ee111 ) ABBCDEEFBCDHHBGIJ $.
       $( [8-Jul-2011] $)
   $}
 
   ${
-    e11an.1 $e |- [. ph ->.. ps ]. $.
-    e11an.2 $e |- [. ph ->.. ch ]. $.
+    e11an.1 $e |- (. ph |-. ps ). $.
+    e11an.2 $e |- (. ph |-. ch ). $.
     e11an.3 $e |- ( ( ps /\ ch ) -> th ) $.
     $( Conjunction form of ~ e11 . $)
-    e11an $p |- [. ph ->.. th ]. $=
+    e11an $p |- (. ph |-. th ). $=
       ( ex e11 ) ABCDEFBCDGHI $.
       $( [15-Jun-2011] $)
   $}
@@ -2786,8 +1145,8 @@ $)
     ee11an.1 $e |- ( ph -> ps ) $.
     ee11an.2 $e |- ( ph -> ch ) $.
     ee11an.3 $e |- ( ( ps /\ ch ) -> th ) $.
-    $( ~ e11an without meta-connectives. ~ sylanc is also ~ e11an without
-       meta-connectives, exept with a different order of hypotheses. $)
+    $( ~ e11an without virtual deductions. ~ sylanc is also ~ e11an without
+       virtual deductions, exept with a different order of hypotheses. $)
     ee11an $p |- ( ph -> th ) $=
       ( ex ee11 ) ABCDEFBCDGHI $.
       $( [8-Jul-2011] $)
@@ -2795,11 +1154,11 @@ $)
 
   ${
     e01.1 $e |- ph $.
-    e01.2 $e |- [. ps ->.. ch ]. $.
+    e01.2 $e |- (. ps |-. ch ). $.
     e01.3 $e |- ( ph -> ( ch -> th ) ) $.
     $( A virtual deduction elimination rule. $)
-    e01 $p |- [. ps ->.. th ]. $=
-      ( wih01 e11 ) BACDABEHFGI $.
+    e01 $p |- (. ps |-. th ). $=
+      ( vd01 e11 ) BACDABEHFGI $.
       $( [25-Jul-2011] $)
   $}
 
@@ -2807,7 +1166,7 @@ $)
     ee01.1 $e |- ph $.
     ee01.2 $e |- ( ps -> ch ) $.
     ee01.3 $e |- ( ph -> ( ch -> th ) ) $.
-    $( ~ e01 without meta-connective symbols. $)
+    $( ~ e01 without virtual deduction symbols. $)
     ee01 $p |- ( ps -> th ) $=
       ( a1i ee11 ) BACDABEHFGI $.
       $( [20-Apr-2011] $)
@@ -2815,10 +1174,10 @@ $)
 
   ${
     e01an.1 $e |- ph $.
-    e01an.2 $e |- [. ps ->.. ch ]. $.
+    e01an.2 $e |- (. ps |-. ch ). $.
     e01an.3 $e |- ( ( ph /\ ch ) -> th ) $.
     $( Conjunction form of ~ e01 . $)
-    e01an $p |- [. ps ->.. th ]. $=
+    e01an $p |- (. ps |-. th ). $=
       ( ex e01 ) ABCDEFACDGHI $.
       $( [11-Jun-2011] $)
   $}
@@ -2827,8 +1186,8 @@ $)
     ee01an.1 $e |- ph $.
     ee01an.2 $e |- ( ps -> ch ) $.
     ee01an.3 $e |- ( ( ph /\ ch ) -> th ) $.
-    $( ~ e01an without meta-connectives. ~ sylancr is also a form of ~ e01an
-       without meta-connective, except the order of the hypotheses is
+    $( ~ e01an without virtual deductions. ~ sylancr is also a form of ~ e01an
+       without virtual deduction, except the order of the hypotheses is
        different. $)
     ee01an $p |- ( ps -> th ) $=
       ( sylancr ) ACDBGEFH $.
@@ -2836,12 +1195,12 @@ $)
   $}
 
   ${
-    e10.1 $e |- [. ph ->.. ps ]. $.
+    e10.1 $e |- (. ph |-. ps ). $.
     e10.2 $e |- ch $.
     e10.3 $e |- ( ps -> ( ch -> th ) ) $.
     $( A virtual deduction elimination rule. $)
-    e10 $p |- [. ph ->.. th ]. $=
-      ( wih01 e11 ) ABCDECAFHGI $.
+    e10 $p |- (. ph |-. th ). $=
+      ( vd01 e11 ) ABCDECAFHGI $.
       $( [14-Jun-2011] $)
   $}
 
@@ -2849,18 +1208,18 @@ $)
     ee10.1 $e |- ( ph -> ps ) $.
     ee10.2 $e |- ch $.
     ee10.3 $e |- ( ps -> ( ch -> th ) ) $.
-    $( ~ e10 without meta-connectives. $)
+    $( ~ e10 without virtual deductions. $)
     ee10 $p |- ( ph -> th ) $=
       ( a1i ee11 ) ABCDECAFHGI $.
       $( [25-Jul-2011] $)
   $}
 
   ${
-    e10an.1 $e |- [. ph ->.. ps ]. $.
+    e10an.1 $e |- (. ph |-. ps ). $.
     e10an.2 $e |- ch $.
     e10an.3 $e |- ( ( ps /\ ch ) -> th ) $.
     $( Conjunction form of ~ e10 . $)
-    e10an $p |- [. ph ->.. th ]. $=
+    e10an $p |- (. ph |-. th ). $=
       ( ex e10 ) ABCDEFBCDGHI $.
       $( [15-Jun-2011] $)
   $}
@@ -2869,8 +1228,8 @@ $)
     ee10an.1 $e |- ( ph -> ps ) $.
     ee10an.2 $e |- ch $.
     ee10an.3 $e |- ( ( ps /\ ch ) -> th ) $.
-    $( ~ e10an without meta-connectives. ~ sylancl is also ~ e10an without
-       meta-connectives, except the order of the hypotheses is different. $)
+    $( ~ e10an without virtual deductions. ~ sylancl is also ~ e10an without
+       virtual deductions, except the order of the hypotheses is different. $)
     ee10an $p |- ( ph -> th ) $=
       ( sylancl ) BCDAGEFH $.
       $( [25-Jul-2011] $)
@@ -2878,11 +1237,11 @@ $)
 
   ${
     e02.1 $e |- ph $.
-    e02.2 $e |- (. ps ->... [. ch ->.. th ]. ). $.
+    e02.2 $e |- (. ps , ch |-. th ). $.
     e02.3 $e |- ( ph -> ( th -> ta ) ) $.
     $( A virtual deduction elimination rule. $)
-    e02 $p |- (. ps ->... [. ch ->.. ta ]. ). $=
-      ( wih02 e22 ) BCADEABCFIGHJ $.
+    e02 $p |- (. ps , ch |-. ta ). $=
+      ( vd02 e22 ) BCADEABCFIGHJ $.
       $( [14-Jun-2011] $)
   $}
 
@@ -2890,7 +1249,7 @@ $)
     ee02.1 $e |- ph $.
     ee02.2 $e |- ( ps -> ( ch -> th ) ) $.
     ee02.3 $e |- ( ph -> ( th -> ta ) ) $.
-    $( ~ e02 without meta-connectives. $)
+    $( ~ e02 without virtual deductions. $)
     ee02 $p |- ( ps -> ( ch -> ta ) ) $=
       ( wi a1i ee22 ) BCADECAIBACFJJGHK $.
       $( [8-Jul-2011] $)
@@ -2898,10 +1257,10 @@ $)
 
   ${
     e02an.1 $e |- ph $.
-    e02an.2 $e |- (. ps ->... [. ch ->.. th ]. ). $.
+    e02an.2 $e |- (. ps , ch |-. th ). $.
     e02an.3 $e |- ( ( ph /\ th ) -> ta ) $.
     $( Conjunction form of ~ e02 . $)
-    e02an $p |- (. ps ->... [. ch ->.. ta ]. ). $=
+    e02an $p |- (. ps , ch |-. ta ). $=
       ( ex e02 ) ABCDEFGADEHIJ $.
       $( [15-Jun-2011] $)
   $}
@@ -2910,19 +1269,19 @@ $)
     ee02an.1 $e |- ph $.
     ee02an.2 $e |- ( ps -> ( ch -> th ) ) $.
     ee02an.3 $e |- ( ( ph /\ th ) -> ta ) $.
-    $( ~ e02an without meta-connectives. $)
+    $( ~ e02an without virtual deductions. $)
     ee02an $p |- ( ps -> ( ch -> ta ) ) $=
       ( ex ee02 ) ABCDEFGADEHIJ $.
       $( [8-Jul-2011] $)
   $}
 
   ${
-    e12.1 $e |- [. ph ->.. ps ]. $.
-    e12.2 $e |- (. ph ->... [. ch ->.. th ]. ). $.
+    e12.1 $e |- (. ph |-. ps ). $.
+    e12.2 $e |- (. ph , ch |-. th ). $.
     e12.3 $e |- ( ps -> ( th -> ta ) ) $.
     $( A virtual deduction elimination rule. $)
-    e12 $p |- (. ph ->... [. ch ->.. ta ]. ). $=
-      ( wih12 e22 ) ACBDEABCFIGHJ $.
+    e12 $p |- (. ph , ch |-. ta ). $=
+      ( vd12 e22 ) ACBDEABCFIGHJ $.
       $( [21-Apr-2011] $)
   $}
 
@@ -2930,40 +1289,30 @@ $)
     ee12.1 $e |- ( ph -> ps ) $.
     ee12.2 $e |- ( ph -> ( ch -> th ) ) $.
     ee12.3 $e |- ( ps -> ( th -> ta ) ) $.
-    $( Virtual deduction rule ~ e12 without meta-connective symbols. $)
+    $( Virtual deduction rule ~ e12 without virtual deduction symbols. $)
     ee12 $p |- ( ph -> ( ch -> ta ) ) $=
       ( wi syl syld ) ACDEGABDEIFHJK $.
       $( [20-Apr-2011] $)
   $}
 
   ${
-    e12an.1 $e |- [. ph ->.. ps ]. $.
-    e12an.2 $e |- (. ph ->... [. ch ->.. th ]. ). $.
+    e12an.1 $e |- (. ph |-. ps ). $.
+    e12an.2 $e |- (. ph , ch |-. th ). $.
     e12an.3 $e |- ( ( ps /\ th ) -> ta ) $.
     $( Conjunction form of ~ e12 . $)
-    e12an $p |- (. ph ->... [. ch ->.. ta ]. ). $=
+    e12an $p |- (. ph , ch |-. ta ). $=
       ( ex e12 ) ABCDEFGBDEHIJ $.
       $( [11-Jun-2011] $)
   $}
 
   ${
-    ee12an.1 $e |- ( ph -> ps ) $.
-    ee12an.2 $e |- ( ph -> ( ch -> th ) ) $.
-    ee12an.3 $e |- ( ( ps /\ th ) -> ta ) $.
-    $( ~ e12an without meta-connectives. $)
-    ee12an $p |- ( ph -> ( ch -> ta ) ) $=
-      ( ex ee12 ) ABCDEFGBDEHIJ $.
-      $( [8-Jul-2011] $)
-  $}
 
-  ${
-
-    e20.1 $e |- (. ph ->... [. ps ->.. ch ]. ). $.
+    e20.1 $e |- (. ph , ps |-. ch ). $.
     e20.2 $e |- th $.
     e20.3 $e |- ( ch -> ( th -> ta ) ) $.
     $( A virtual deduction elimination rule. $)
-    e20 $p |- (. ph ->... [. ps ->.. ta ]. ). $=
-      ( wih02 e22 ) ABCDEFDABGIHJ $.
+    e20 $p |- (. ph , ps |-. ta ). $=
+      ( vd02 e22 ) ABCDEFDABGIHJ $.
       $( [14-Jun-2011] $)
   $}
 
@@ -2971,7 +1320,7 @@ $)
     ee20.1 $e |- ( ph -> ( ps -> ch ) ) $.
     ee20.2 $e |- th $.
     ee20.3 $e |- ( ch -> ( th -> ta ) ) $.
-    $( ~ e20 without meta-connectives. $)
+    $( ~ e20 without virtual deductions. $)
     ee20 $p |- ( ph -> ( ps -> ta ) ) $=
       ( a1i12 ee22 ) ABCDEFABDGIHJ $.
       $( [8-Jul-2011] $)
@@ -2979,11 +1328,11 @@ $)
 
   ${
 
-    e20an.1 $e |- (. ph ->... [. ps ->.. ch ]. ). $.
+    e20an.1 $e |- (. ph , ps |-. ch ). $.
     e20an.2 $e |- th $.
     e20an.3 $e |- ( ( ch /\ th ) -> ta ) $.
     $( Conjunction form of ~ e20 . $)
-    e20an $p |- (. ph ->... [. ps ->.. ta ]. ). $=
+    e20an $p |- (. ph , ps |-. ta ). $=
       ( ex e20 ) ABCDEFGCDEHIJ $.
       $( [15-Jun-2011] $)
   $}
@@ -2992,7 +1341,7 @@ $)
     ee20an.1 $e |- ( ph -> ( ps -> ch ) ) $.
     ee20an.2 $e |- th $.
     ee20an.3 $e |- ( ( ch /\ th ) -> ta ) $.
-    $( ~ e20an without meta-connectives. $)
+    $( ~ e20an without virtual deductions. $)
     ee20an $p |- ( ph -> ( ps -> ta ) ) $=
       ( ex ee20 ) ABCDEFGCDEHIJ $.
       $( [8-Jul-2011] $)
@@ -3000,12 +1349,12 @@ $)
 
   ${
 
-    e21.1 $e |- (. ph ->... [. ps ->.. ch ]. ). $.
-    e21.2 $e |- [. ph ->.. th ]. $.
+    e21.1 $e |- (. ph , ps |-. ch ). $.
+    e21.2 $e |- (. ph |-. th ). $.
     e21.3 $e |- ( ch -> ( th -> ta ) ) $.
     $( A virtual deduction elimination rule. $)
-    e21 $p |- (. ph ->... [. ps ->.. ta ]. ). $=
-      ( wih12 e22 ) ABCDEFADBGIHJ $.
+    e21 $p |- (. ph , ps |-. ta ). $=
+      ( vd12 e22 ) ABCDEFADBGIHJ $.
       $( [12-Jun-2011] $)
   $}
 
@@ -3013,7 +1362,7 @@ $)
     ee21.1 $e |- ( ph -> ( ps -> ch ) ) $.
     ee21.2 $e |- ( ph -> th ) $.
     ee21.3 $e |- ( ch -> ( th -> ta ) ) $.
-    $( ~ e21 without meta-connectives. $)
+    $( ~ e21 without virtual deductions. $)
     ee21 $p |- ( ph -> ( ps -> ta ) ) $=
       ( a1d ee22 ) ABCDEFADBGIHJ $.
       $( [8-Jul-2011] $)
@@ -3021,11 +1370,11 @@ $)
 
   ${
 
-    e21an.1 $e |- (. ph ->... [. ps ->.. ch ]. ). $.
-    e21an.2 $e |- [. ph ->.. th ]. $.
+    e21an.1 $e |- (. ph , ps |-. ch ). $.
+    e21an.2 $e |- (. ph |-. th ). $.
     e21an.3 $e |- ( ( ch /\ th ) -> ta ) $.
     $( Conjunction form of ~ e21 . $)
-    e21an $p |- (. ph ->... [. ps ->.. ta ]. ). $=
+    e21an $p |- (. ph , ps |-. ta ). $=
       ( ex e21 ) ABCDEFGCDEHIJ $.
       $( [15-Jun-2011] $)
   $}
@@ -3034,20 +1383,20 @@ $)
     ee21an.1 $e |- ( ph -> ( ps -> ch ) ) $.
     ee21an.2 $e |- ( ph -> th ) $.
     ee21an.3 $e |- ( ( ch /\ th ) -> ta ) $.
-    $( ~ e21an without meta-connectives. $)
+    $( ~ e21an without virtual deductions. $)
     ee21an $p |- ( ph -> ( ps -> ta ) ) $=
       ( ex ee21 ) ABCDEFGCDEHIJ $.
       $( [8-Jul-2011] $)
   $}
 
   ${
-    e333.1 $e |- (. ph ->... (. ps ->... [. ch ->.. th ]. ). ). $.
-    e333.2 $e |- (. ph ->... (. ps ->... [. ch ->.. ta ]. ). ). $.
-    e333.3 $e |- (. ph ->... (. ps ->... [. ch ->.. et ]. ). ). $.
+    e333.1 $e |- (. ph , ps , ch |-. th ). $.
+    e333.2 $e |- (. ph , ps , ch |-. ta ). $.
+    e333.3 $e |- (. ph , ps , ch |-. et ). $.
     e333.4 $e |- ( th -> ( ta -> ( et -> ze ) ) ) $.
     $( A virtual deduction elimination rule. $)
-    e333 $p |- (. ph ->... (. ps ->... [. ch ->.. ze ]. ). ). $=
-      ( w3a wi dfwih3mti 3imp syl syl5 pm2.43i 3exp dfwih3mtir ) ABCGABCGABCLZG
+    e333 $p |- (. ph , ps , ch |-. ze ). $=
+      ( w3a wi dfvd3i 3imp syl syl5 pm2.43i 3exp dfvd3ir ) ABCGABCGABCLZG
       UAFGUAUAFGMZUAEUBUAUADEUBMABCDABCDHNOKPABCEABCEINOQRABCFABCFJNOQRST $.
       $( [12-Jun-2011] $)
   $}
@@ -3057,18 +1406,18 @@ $)
     ee333.2 $e |- ( ph -> ( ps -> ( ch -> ta ) ) ) $.
     ee333.3 $e |- ( ph -> ( ps -> ( ch -> et ) ) ) $.
     ee333.4 $e |- ( th -> ( ta -> ( et -> ze ) ) ) $.
-    $( ~ e333 without meta-connectives. $)
+    $( ~ e333 without virtual deductions. $)
     ee333 $p |- ( ph -> ( ps -> ( ch -> ze ) ) ) $=
       ( w3a 3imp wi sylc mpd 3exp ) ABCGABCLZFGABCFJMDEFGNRKABCDHMABCEIMOPQ $.
       $( [7-Jul-2011] $)
   $}
 
   ${
-    e33.1 $e |- (. ph ->... (. ps ->... [. ch ->.. th ]. ). ). $.
-    e33.2 $e |- (. ph ->... (. ps ->... [. ch ->.. ta ]. ). ). $.
+    e33.1 $e |- (. ph , ps , ch |-. th ). $.
+    e33.2 $e |- (. ph , ps , ch |-. ta ). $.
     e33.3 $e |- ( th -> ( ta -> et ) ) $.
     $( A virtual deduction elimination rule. $)
-    e33 $p |- (. ph ->... (. ps ->... [. ch ->.. et ]. ). ). $=
+    e33 $p |- (. ph , ps , ch |-. et ). $=
       ( wi a1i e333 ) ABCDDEFGGHDEFJJDIKL $.
       $( [12-Jun-2011] $)
   $}
@@ -3077,18 +1426,18 @@ $)
     ee33.1 $e |- ( ph -> ( ps -> ( ch -> th ) ) ) $.
     ee33.2 $e |- ( ph -> ( ps -> ( ch -> ta ) ) ) $.
     ee33.3 $e |- ( th -> ( ta -> et ) ) $.
-    $( ~ e33 without meta-connectives. $)
+    $( ~ e33 without virtual deductions. $)
     ee33 $p |- ( ph -> ( ps -> ( ch -> et ) ) ) $=
       ( wi a1d ee333 ) ABCDDEFGGHDEFJDIKL $.
       $( [7-Jul-2011] $)
   $}
 
   ${
-    e33an.1 $e |- (. ph ->... (. ps ->... [. ch ->.. th ]. ). ). $.
-    e33an.2 $e |- (. ph ->... (. ps ->... [. ch ->.. ta ]. ). ). $.
+    e33an.1 $e |- (. ph , ps , ch |-. th ). $.
+    e33an.2 $e |- (. ph , ps , ch |-. ta ). $.
     e33an.3 $e |- ( ( th /\ ta ) -> et ) $.
     $( Conjunction form of ~ e33 . $)
-    e33an $p |- (. ph ->... (. ps ->... [. ch ->.. et ]. ). ). $=
+    e33an $p |- (. ph , ps , ch |-. et ). $=
       ( ex e33 ) ABCDEFGHDEFIJK $.
       $( [15-Jun-2011] $)
   $}
@@ -3097,56 +1446,47 @@ $)
     ee33an.1 $e |- ( ph -> ( ps -> ( ch -> th ) ) ) $.
     ee33an.2 $e |- ( ph -> ( ps -> ( ch -> ta ) ) ) $.
     ee33an.3 $e |- ( ( th /\ ta ) -> et ) $.
-    $( ~ e33an without meta-connectives. $)
+    $( ~ e33an without virtual deductions. $)
     ee33an $p |- ( ph -> ( ps -> ( ch -> et ) ) ) $=
       ( ex ee33 ) ABCDEFGHDEFIJK $.
       $( [8-Jul-2011] $)
   $}
 
   ${
-    e3.1 $e |- (. ph ->... (. ps ->... [. ch ->.. th ]. ). ). $.
+    e3.1 $e |- (. ph , ps , ch |-. th ). $.
     e3.2 $e |- ( th -> ta ) $.
     $( Meta-connective form of ~ syl8 . $)
-    e3 $p |- (. ph ->... (. ps ->... [. ch ->.. ta ]. ). ). $=
+    e3 $p |- (. ph , ps , ch |-. ta ). $=
       ( wi a1i e33 ) ABCDDEFFDEHDGIJ $.
       $( [15-Jun-2011] $)
   $}
 
   ${
-    e3bi.1 $e |- (. ph ->... (. ps ->... [. ch ->.. th ]. ). ). $.
+    e3bi.1 $e |- (. ph , ps , ch |-. th ). $.
     e3bi.2 $e |- ( th <-> ta ) $.
-    $( Biconditional form of ~ e3 . ~ syl8ib is ~ e3bi without
-       meta-connectives. $)
-    e3bi $p |- (. ph ->... (. ps ->... [. ch ->.. ta ]. ). ). $=
+    $( Biconditional form of ~ e3 . ~ syl8ib is ~ e3bi without virtual
+       deductions. $)
+    e3bi $p |- (. ph , ps , ch |-. ta ). $=
       ( biimpi e3 ) ABCDEFDEGHI $.
       $( [15-Jun-2011] $)
   $}
 
   ${
-    e3bir.1 $e |- (. ph ->... (. ps ->... [. ch ->.. th ]. ). ). $.
+    e3bir.1 $e |- (. ph , ps , ch |-. th ). $.
     e3bir.2 $e |- ( ta <-> th ) $.
     $( Right biconditional form of ~ e3 . $)
-    e3bir $p |- (. ph ->... (. ps ->... [. ch ->.. ta ]. ). ). $=
+    e3bir $p |- (. ph , ps , ch |-. ta ). $=
       ( biimpri e3 ) ABCDEFEDGHI $.
       $( [15-Jun-2011] $)
   $}
 
   ${
-    ee3bir.1 $e |- ( ph -> ( ps -> ( ch -> th ) ) ) $.
-    ee3bir.2 $e |- ( ta <-> th ) $.
-    $( Right-biconditional form of ~ e3 without meta-connectives. $)
-    ee3bir $p |- ( ph -> ( ps -> ( ch -> ta ) ) ) $=
-      ( bicomi syl8ib ) ABCDEFEDGHI $.
-      $( [13-Aug-2011] $) $( [22-Jul-2011] $)
-  $}
-
-  ${
     e03.1 $e |- ph $.
-    e03.2 $e |- (. ps ->... (. ch ->... [. th ->.. ta ]. ). ). $.
+    e03.2 $e |- (. ps , ch , th |-. ta ). $.
     e03.3 $e |- ( ph -> ( ta -> et ) ) $.
     $( A virtual deduction elimination rule. $)
-    e03 $p |- (. ps ->... (. ch ->... [. th ->.. et ]. ). ). $=
-      ( wih03 e33 ) BCDAEFABCDGJHIK $.
+    e03 $p |- (. ps , ch , th |-. et ). $=
+      ( vd03 e33 ) BCDAEFABCDGJHIK $.
       $( [12-Jun-2011] $)
   $}
 
@@ -3154,7 +1494,7 @@ $)
     ee03.1 $e |- ph $.
     ee03.2 $e |- ( ps -> ( ch -> ( th -> ta ) ) ) $.
     ee03.3 $e |- ( ph -> ( ta -> et ) ) $.
-    $( ~ e03 without meta-connectives. $)
+    $( ~ e03 without virtual deductions. $)
     ee03 $p |- ( ps -> ( ch -> ( th -> et ) ) ) $=
       ( a1i a1d a1dd ee33 ) BCDAEFBCADBACABGJKLHIM $.
       $( [17-Jul-2011] $)
@@ -3162,10 +1502,10 @@ $)
 
   ${
     e03an.1 $e |- ph $.
-    e03an.2 $e |- (. ps ->... (. ch ->... [. th ->.. ta ]. ). ). $.
+    e03an.2 $e |- (. ps , ch , th |-. ta ). $.
     e03an.3 $e |- ( ( ph /\ ta ) -> et ) $.
     $( Conjunction form of ~ e03 . $)
-    e03an $p |- (. ps ->... (. ch ->... [. th ->.. et ]. ). ). $=
+    e03an $p |- (. ps , ch , th |-. et ). $=
       ( ex e03 ) ABCDEFGHAEFIJK $.
       $( [12-Jun-2011] $)
   $}
@@ -3181,12 +1521,12 @@ $)
   $}
 
   ${
-    e30.1 $e |- (. ph ->... (. ps ->... [. ch ->.. th ]. ). ). $.
+    e30.1 $e |- (. ph , ps , ch |-. th ). $.
     e30.2 $e |- ta $.
     e30.3 $e |- ( th -> ( ta -> et ) ) $.
     $( A virtual deduction elimination rule. $)
-    e30 $p |- (. ph ->... (. ps ->... [. ch ->.. et ]. ). ). $=
-      ( wih03 e33 ) ABCDEFGEABCHJIK $.
+    e30 $p |- (. ph , ps , ch |-. et ). $=
+      ( vd03 e33 ) ABCDEFGEABCHJIK $.
       $( [12-Jun-2011] $)
   $}
 
@@ -3194,18 +1534,18 @@ $)
     ee30.1 $e |- ( ph -> ( ps -> ( ch -> th ) ) ) $.
     ee30.2 $e |- ta $.
     ee30.3 $e |- ( th -> ( ta -> et ) ) $.
-    $( ~ e30 without meta-connectives. $)
+    $( ~ e30 without virtual deductions. $)
     ee30 $p |- ( ph -> ( ps -> ( ch -> et ) ) ) $=
       ( wi a1i ee33 ) ABCDEFGBCEJZJAMBECHKKKIL $.
       $( [17-Jul-2011] $)
   $}
 
   ${
-    e30an.1 $e |- (. ph ->... (. ps ->... [. ch ->.. th ]. ). ). $.
+    e30an.1 $e |- (. ph , ps , ch |-. th ). $.
     e30an.2 $e |- ta $.
     e30an.3 $e |- ( ( th /\ ta ) -> et ) $.
     $( A virtual deduction elimination rule. $)
-    e30an $p |- (. ph ->... (. ps ->... [. ch ->.. et ]. ). ). $=
+    e30an $p |- (. ph , ps , ch |-. et ). $=
       ( ex e30 ) ABCDEFGHDEFIJK $.
       $( [24-Jun-2011] $)
   $}
@@ -3221,31 +1561,21 @@ $)
   $}
 
   ${
-    e13.1 $e |- [. ph ->.. ps ]. $.
-    e13.2 $e |- (. ph ->... (. ch ->... [. th ->.. ta ]. ). ). $.
+    e13.1 $e |- (. ph |-. ps ). $.
+    e13.2 $e |- (. ph , ch , th |-. ta ). $.
     e13.3 $e |- ( ps -> ( ta -> et ) ) $.
     $( A virtual deduction elimination rule. $)
-    e13 $p |- (. ph ->... (. ch ->... [. th ->.. et ]. ). ). $=
-      ( wih13 e33 ) ACDBEFABCDGJHIK $.
+    e13 $p |- (. ph , ch , th |-. et ). $=
+      ( vd13 e33 ) ACDBEFABCDGJHIK $.
       $( [13-Jun-2011] $)
   $}
 
   ${
-    ee13.1 $e |- ( ph -> ps ) $.
-    ee13.2 $e |- ( ph -> ( ch -> ( th -> ta ) ) ) $.
-    ee13.3 $e |- ( ps -> ( ta -> et ) ) $.
-    $( ~ e13 without meta-connectives. $)
-    ee13 $p |- ( ph -> ( ch -> ( th -> et ) ) ) $=
-      ( wi a1d ee33 ) ACDBEFADBJCABDGKKHIL $.
-      $( [8-Jul-2011] $)
-  $}
-
-  ${
-    e13an.1 $e |- [. ph ->.. ps ]. $.
-    e13an.2 $e |- (. ph ->... (. ch ->... [. th ->.. ta ]. ). ). $.
+    e13an.1 $e |- (. ph |-. ps ). $.
+    e13an.2 $e |- (. ph , ch , th |-. ta ). $.
     e13an.3 $e |- ( ( ps /\ ta ) -> et ) $.
     $( A virtual deduction elimination rule. $)
-    e13an $p |- (. ph ->... (. ch ->... [. th ->.. et ]. ). ). $=
+    e13an $p |- (. ph , ch , th |-. et ). $=
       ( ex e13 ) ABCDEFGHBEFIJK $.
       $( [24-Jun-2011] $)
   $}
@@ -3254,19 +1584,19 @@ $)
     ee13an.1 $e |- ( ph -> ps ) $.
     ee13an.2 $e |- ( ph -> ( ch -> ( th -> ta ) ) ) $.
     ee13an.3 $e |- ( ( ps /\ ta ) -> et ) $.
-    $( ~ e13an without meta-connectives. $)
+    $( ~ e13an without virtual deductions. $)
     ee13an $p |- ( ph -> ( ch -> ( th -> et ) ) ) $=
       ( ex ee13 ) ABCDEFGHBEFIJK $.
       $( [8-Jul-2011] $)
   $}
 
   ${
-    e31.1 $e |- (. ph ->... (. ps ->... [. ch ->.. th ]. ). ). $.
-    e31.2 $e |- [. ph ->.. ta ]. $.
+    e31.1 $e |- (. ph , ps , ch |-. th ). $.
+    e31.2 $e |- (. ph |-. ta ). $.
     e31.3 $e |- ( th -> ( ta -> et ) ) $.
     $( A virtual deduction elimination rule. $)
-    e31 $p |- (. ph ->... (. ps ->... [. ch ->.. et ]. ). ). $=
-      ( wih13 e33 ) ABCDEFGAEBCHJIK $.
+    e31 $p |- (. ph , ps , ch |-. et ). $=
+      ( vd13 e33 ) ABCDEFGAEBCHJIK $.
       $( [13-Jun-2011] $)
   $}
 
@@ -3274,18 +1604,18 @@ $)
     ee31.1 $e |- ( ph -> ( ps -> ( ch -> th ) ) ) $.
     ee31.2 $e |- ( ph -> ta ) $.
     ee31.3 $e |- ( th -> ( ta -> et ) ) $.
-    $( ~ e31 without meta-connectives. $)
+    $( ~ e31 without virtual deductions. $)
     ee31 $p |- ( ph -> ( ps -> ( ch -> et ) ) ) $=
       ( wi a1d ee33 ) ABCDEFGACEJBAECHKKIL $.
       $( [25-Jul-2011] $)
   $}
 
   ${
-    e31an.1 $e |- (. ph ->... (. ps ->... [. ch ->.. th ]. ). ). $.
-    e31an.2 $e |- [. ph ->.. ta ]. $.
+    e31an.1 $e |- (. ph , ps , ch |-. th ). $.
+    e31an.2 $e |- (. ph |-. ta ). $.
     e31an.3 $e |- ( ( th /\ ta ) -> et ) $.
     $( A virtual deduction elimination rule. $)
-    e31an $p |- (. ph ->... (. ps ->... [. ch ->.. et ]. ). ). $=
+    e31an $p |- (. ph , ps , ch |-. et ). $=
       ( ex e31 ) ABCDEFGHDEFIJK $.
       $( [24-Jun-2011] $)
   $}
@@ -3294,19 +1624,19 @@ $)
     ee31an.1 $e |- ( ph -> ( ps -> ( ch -> th ) ) ) $.
     ee31an.2 $e |- ( ph -> ta ) $.
     ee31an.3 $e |- ( ( th /\ ta ) -> et ) $.
-    $( ~ e31an without meta-connectives. $)
+    $( ~ e31an without virtual deductions. $)
     ee31an $p |- ( ph -> ( ps -> ( ch -> et ) ) ) $=
       ( wi a1d ee33an ) ABCDEFGACEJBAECHKKIL $.
       $( [14-Jul-2011] $)
   $}
 
   ${
-    e23.1 $e |- (. ph ->... [. ps ->.. ch ]. ). $.
-    e23.2 $e |- (. ph ->... (. ps ->... [. th ->.. ta ]. ). ). $.
+    e23.1 $e |- (. ph , ps |-. ch ). $.
+    e23.2 $e |- (. ph , ps , th |-. ta ). $.
     e23.3 $e |- ( ch -> ( ta -> et ) ) $.
     $( A virtual deduction elimination rule. $)
-    e23 $p |- (. ph ->... (. ps ->... [. th ->.. et ]. ). ). $=
-      ( wih23 e33 ) ABDCEFABCDGJHIK $.
+    e23 $p |- (. ph , ps , th |-. et ). $=
+      ( vd23 e33 ) ABDCEFABCDGJHIK $.
       $( [12-Jun-2011] $)
   $}
 
@@ -3314,18 +1644,18 @@ $)
     ee23.1 $e |- ( ph -> ( ps -> ch ) ) $.
     ee23.2 $e |- ( ph -> ( ps -> ( th -> ta ) ) ) $.
     ee23.3 $e |- ( ch -> ( ta -> et ) ) $.
-    $( ~ e23 without meta-connectives. $)
+    $( ~ e23 without virtual deductions. $)
     ee23 $p |- ( ph -> ( ps -> ( th -> et ) ) ) $=
       ( a1dd ee33 ) ABDCEFABCDGJHIK $.
       $( [17-Jul-2011] $)
   $}
 
   ${
-    e23an.1 $e |- (. ph ->... [. ps ->.. ch ]. ). $.
-    e23an.2 $e |- (. ph ->... (. ps ->... [. th ->.. ta ]. ). ). $.
+    e23an.1 $e |- (. ph , ps |-. ch ). $.
+    e23an.2 $e |- (. ph , ps , th |-. ta ). $.
     e23an.3 $e |- ( ( ch /\ ta ) -> et ) $.
     $( A virtual deduction elimination rule. $)
-    e23an $p |- (. ph ->... (. ps ->... [. th ->.. et ]. ). ). $=
+    e23an $p |- (. ph , ps , th |-. et ). $=
       ( ex e23 ) ABCDEFGHCEFIJK $.
       $( [24-Jun-2011] $)
   $}
@@ -3334,19 +1664,19 @@ $)
     ee23an.1 $e |- ( ph -> ( ps -> ch ) ) $.
     ee23an.2 $e |- ( ph -> ( ps -> ( th -> ta ) ) ) $.
     ee23an.3 $e |- ( ( ch /\ ta ) -> et ) $.
-    $( ~ e23an without meta-connectives. $)
+    $( ~ e23an without virtual deductions. $)
     ee23an $p |- ( ph -> ( ps -> ( th -> et ) ) ) $=
       ( a1dd ee33an ) ABDCEFABCDGJHIK $.
       $( [14-Jul-2011] $)
   $}
 
   ${
-    e32.1 $e |- (. ph ->... (. ps ->... [. ch ->.. th ]. ). ). $.
-    e32.2 $e |- (. ph ->... [. ps ->.. ta ]. ). $.
+    e32.1 $e |- (. ph , ps , ch |-. th ). $.
+    e32.2 $e |- (. ph , ps |-. ta ). $.
     e32.3 $e |- ( th -> ( ta -> et ) ) $.
     $( A virtual deduction elimination rule. $)
-    e32 $p |- (. ph ->... (. ps ->... [. ch ->.. et ]. ). ). $=
-      ( wih23 e33 ) ABCDEFGABECHJIK $.
+    e32 $p |- (. ph , ps , ch |-. et ). $=
+      ( vd23 e33 ) ABCDEFGABECHJIK $.
       $( [12-Jun-2011] $)
   $}
 
@@ -3354,18 +1684,18 @@ $)
     ee32.1 $e |- ( ph -> ( ps -> ( ch -> th ) ) ) $.
     ee32.2 $e |- ( ph -> ( ps -> ta ) ) $.
     ee32.3 $e |- ( th -> ( ta -> et ) ) $.
-    $( ~ e32 without meta-connectives. $)
+    $( ~ e32 without virtual deductions. $)
     ee32 $p |- ( ph -> ( ps -> ( ch -> et ) ) ) $=
       ( a1dd ee33 ) ABCDEFGABECHJIK $.
       $( [18-Jul-2011] $)
   $}
 
   ${
-    e32an.1 $e |- (. ph ->... (. ps ->... [. ch ->.. th ]. ). ). $.
-    e32an.2 $e |- (. ph ->... [. ps ->.. ta ]. ). $.
+    e32an.1 $e |- (. ph , ps , ch |-. th ). $.
+    e32an.2 $e |- (. ph , ps |-. ta ). $.
     e32an.3 $e |- ( ( th /\ ta ) -> et ) $.
     $( A virtual deduction elimination rule. $)
-    e32an $p |- (. ph ->... (. ps ->... [. ch ->.. et ]. ). ). $=
+    e32an $p |- (. ph , ps , ch |-. et ). $=
       ( ex e32 ) ABCDEFGHDEFIJK $.
       $( [24-Jun-2011] $)
   $}
@@ -3374,20 +1704,20 @@ $)
     ee32an.1 $e |- ( ph -> ( ps -> ( ch -> th ) ) ) $.
     ee32an.2 $e |- ( ph -> ( ps -> ta ) ) $.
     ee32an.3 $e |- ( ( th /\ ta ) -> et ) $.
-    $( ~ e33an without meta-connectives. $)
+    $( ~ e33an without virtual deductions. $)
     ee32an $p |- ( ph -> ( ps -> ( ch -> et ) ) ) $=
       ( a1dd ee33an ) ABCDEFGABECHJIK $.
       $( [14-Jul-2011] $)
   $}
 
   ${
-    e123.1 $e |- [. ph ->.. ps ]. $.
-    e123.2 $e |- (. ph ->... [. ch ->.. th ]. ). $.
-    e123.3 $e |- (. ph ->... (. ch ->... [. ta ->.. et ]. ). ). $.
+    e123.1 $e |- (. ph |-. ps ). $.
+    e123.2 $e |- (. ph , ch |-. th ). $.
+    e123.3 $e |- (. ph , ch , ta |-. et ). $.
     e123.4 $e |- ( ps -> ( th -> ( et -> ze ) ) ) $.
     $( A virtual deduction elimination rule. $)
-    e123 $p |- (. ph ->... (. ch ->... [. ta ->.. ze ]. ). ). $=
-      ( wih13 wih23 e333 ) ACEBDFGABCEHLACDEIMJKN $.
+    e123 $p |- (. ph , ch , ta |-. ze ). $=
+      ( vd13 vd23 e333 ) ACEBDFGABCEHLACDEIMJKN $.
       $( [12-Jun-2011] $)
   $}
 
@@ -3396,7 +1726,7 @@ $)
     ee123.2 $e |- ( ph -> ( ch -> th ) ) $.
     ee123.3 $e |- ( ph -> ( ch -> ( ta -> et ) ) ) $.
     ee123.4 $e |- ( ps -> ( th -> ( et -> ze ) ) ) $.
-    $( ~ e123 without meta-connectives. $)
+    $( ~ e123 without virtual deductions. $)
     ee123 $p |- ( ph -> ( ch -> ( ta -> ze ) ) ) $=
       ( wi a1d a1dd ee333 ) ACEBDFGAEBLCABEHMMACDEINJKO $.
       $( [25-Jul-2011] $)
@@ -3407,8 +1737,8 @@ $)
     e000.2 $e |- ps $.
     e000.3 $e |- ch $.
     e000.4 $e |- ( ph -> ( ps -> ( ch -> th ) ) ) $.
-    $( A virtual deduction elimination rule.  The non-meta-connective form of
-       ~ e000 is the meta-connective form. $)
+    $( A virtual deduction elimination rule.  The non-virtual deduction form of
+       ~ e000 is the virtual deduction form. $)
     e000 $p |- th $=
       ( wi mp2 ax-mp ) CDGABCDIEFHJK $.
       $( [14-Jun-2011] $)
@@ -3418,8 +1748,8 @@ $)
     e00.1 $e |- ph $.
     e00.2 $e |- ps $.
     e00.3 $e |- ( ph -> ( ps -> ch ) ) $.
-    $( Elimination rule identical to ~ mp2 .  The non-meta-connective form is
-       the meta-connective form, which is ~ mp2 . $)
+    $( Elimination rule identical to ~ mp2 .  The non-virtual deduction form is
+       the virtual deduction form, which is ~ mp2 . $)
     e00 $p |- ch $=
       ( mp2 ) ABCDEFG $.
       $( [14-Jun-2011] $)
@@ -3429,8 +1759,8 @@ $)
     e00an.1 $e |- ph $.
     e00an.2 $e |- ps $.
     e00an.3 $e |- ( ( ph /\ ps ) -> ch ) $.
-    $( Elimination rule identical to ~ mp2an .  The non-meta-connective form is
-       the meta-connective form, which is ~ mp2an . $)
+    $( Elimination rule identical to ~ mp2an .  The non-virtual deduction form
+       is the virtual deduction form, which is ~ mp2an . $)
     e00an $p |- ch $=
       ( mp2an ) ABCDEFG $.
       $( [15-Jun-2011] $)
@@ -3439,8 +1769,8 @@ $)
   ${
     e0_.1 $e |- ph $.
     e0_.2 $e |- ( ph -> ps ) $.
-    $( Elimination rule identical to ~ ax-mp .  The non-meta-connective form is
-       the meta-connective form, which is ~ ax-mp . $)
+    $( Elimination rule identical to ~ ax-mp .  The non-virtual deduction form
+       is the virtual deduction form, which is ~ ax-mp . $)
     e0_ $p |- ps $=
       ( ax-mp ) ABCDE $.
       $( [14-Jun-2011] $)
@@ -3449,8 +1779,8 @@ $)
   ${
     e0bi.1 $e |- ph $.
     e0bi.2 $e |- ( ph <-> ps ) $.
-    $( Elimination rule identical to ~ mpbi .  The non-meta-connective form is
-       the meta-connective form, which is ~ mpbi . $)
+    $( Elimination rule identical to ~ mpbi .  The non-virtual deduction form
+       is the virtual deduction form, which is ~ mpbi . $)
     e0bi $p |- ps $=
       ( mpbi ) ABCDE $.
       $( [15-Jun-2011] $)
@@ -3459,8 +1789,8 @@ $)
   ${
     e0bir.1 $e |- ph $.
     e0bir.2 $e |- ( ps <-> ph ) $.
-    $( Elimination rule identical to ~ mpbir .  The non-meta-connective form is
-       the meta-connective form, which is ~ mpbir . $)
+    $( Elimination rule identical to ~ mpbir .  The non-virtual deduction form
+       is the virtual deduction form, which is ~ mpbir . $)
     e0bir $p |- ps $=
       ( mpbir ) BACDE $.
       $( [15-Jun-2011] $)

@@ -43,6 +43,14 @@ $( We will use the following descriptive terms very loosely:  A "theorem"
   $}
 
   ${
+    imim2i.1 $e |- ( ph -> ps ) $.
+    $( Inference adding common antecedents in an implication. $)
+    imim2i $p |- ( ( ch -> ph ) -> ( ch -> ps ) ) $=
+      ( wi a1i a2i ) CABABECDFG $.
+      $( [5-Aug-1993] $)
+  $}
+
+  ${
     $( First of 2 premises for ~ syl . $)
     syl.1 $e |- ( ph -> ps ) $.
     $( Second of 2 premises for ~ syl . $)
@@ -51,13 +59,19 @@ $( We will use the following descriptive terms very loosely:  A "theorem"
        ~ imim1 , which Russell and Whitehead call "the principle of the
        syllogism...because...the syllogism in Barbara is derived from them"
        (quote after Theorem *2.06 of [WhiteheadRussell] p. 101).  Some authors
-       call this law a "hypothetical syllogism."
+       call this law a "hypothetical syllogism."  (The proof was shortened by
+       O'Cat, 20-Oct-2011.)
 
        (A bit of trivia: this is the most commonly referenced assertion in our
        database.  In second place is ~ ax-mp , followed by ~ visset , ~ bitri ,
        ~ imp , and ~ ex .  The Metamath program command 'show usage' shows the
        number of references.) $)
     syl $p |- ( ph -> ch ) $=
+      ( wi imim2i ax-mp ) ABFACFDBCAEGH $.
+      $( [22-Oct-2011] $) $( [5-Aug-1993] $)
+
+    $( An inference version of the transitive laws for implication. $)
+    sylOLD $p |- ( ph -> ch ) $=
       ( wi a1i a2i ax-mp ) ABFACFDABCBCFAEGHI $.
       $( [5-Aug-1993] $)
   $}
@@ -122,18 +136,29 @@ $( We will use the following descriptive terms very loosely:  A "theorem"
     imim1i $p |- ( ( ps -> ch ) -> ( ph -> ch ) ) $=
       ( wi imim1 ax-mp ) ABEBCEACEEDABCFG $.
       $( [5-Aug-1993] $)
+  $}
 
-    $( Inference adding common antecedents in an implication. $)
-    imim2i $p |- ( ( ch -> ph ) -> ( ch -> ps ) ) $=
-      ( wi a1i a2i ) CABABECDFG $.
+  ${
+    syl5.1 $e |- ( ph -> ( ps -> ch ) ) $.
+    syl5.2 $e |- ( th -> ps ) $.
+    $( A syllogism rule of inference.  The second premise is used to replace
+       the second antecedent of the first premise. $)
+    syl5 $p |- ( ph -> ( th -> ch ) ) $=
+      ( wi imim1i syl ) ABCGDCGEDBCFHI $.
       $( [5-Aug-1993] $)
   $}
 
   ${
     imim12i.1 $e |- ( ph -> ps ) $.
     imim12i.2 $e |- ( ch -> th ) $.
-    $( Inference joining two implications. $)
+    $( Inference joining two implications.  (The proof was shortened by O'Cat,
+       29-Oct-2011.) $)
     imim12i $p |- ( ( ps -> ch ) -> ( ph -> th ) ) $=
+      ( wi imim2i syl5 ) BCGBDACDBFHEI $.
+      $( [3-Nov-2011] $) $( [5-Aug-1993] $)
+
+    $( Inference joining two implications. $)
+    imim12iOLD $p |- ( ( ps -> ch ) -> ( ph -> th ) ) $=
       ( wi imim2i imim1i syl ) BCGBDGADGCDBFHABDEIJ $.
       $( [5-Aug-1993] $)
   $}
@@ -153,16 +178,6 @@ $( We will use the following descriptive terms very loosely:  A "theorem"
     $( Inference chaining two syllogisms. $)
     3syl $p |- ( ph -> th ) $=
       ( syl ) ACDABCEFHGH $.
-      $( [5-Aug-1993] $)
-  $}
-
-  ${
-    syl5.1 $e |- ( ph -> ( ps -> ch ) ) $.
-    syl5.2 $e |- ( th -> ps ) $.
-    $( A syllogism rule of inference.  The second premise is used to replace
-       the second antecedent of the first premise. $)
-    syl5 $p |- ( ph -> ( th -> ch ) ) $=
-      ( wi imim1i syl ) ABCGDCGEDBCFHI $.
       $( [5-Aug-1993] $)
   $}
 
@@ -244,15 +259,6 @@ $( We will use the following descriptive terms very loosely:  A "theorem"
     imim1d $p |- ( ph -> ( ( ch -> th ) -> ( ps -> th ) ) ) $=
       ( wi imim1 syl ) ABCFCDFBDFFEBCDGH $.
       $( [3-Apr-1994] $)
-  $}
-
-  ${
-    imim12d.1 $e |- ( ph -> ( ps -> ch ) ) $.
-    imim12d.2 $e |- ( ph -> ( th -> ta ) ) $.
-    $( Deduction combining antecedents and consequents. $)
-    imim12d $p |- ( ph -> ( ( ch -> th ) -> ( ps -> ta ) ) ) $=
-      ( wi imim1d imim2d syld ) ACDHBDHBEHABCDFIADEBGJK $.
-      $( [7-Aug-1994] $)
   $}
 
   $( Swap antecedents.  Theorem *2.04 of [WhiteheadRussell] p. 100. $)
@@ -508,6 +514,21 @@ $( We will use the following descriptive terms very loosely:  A "theorem"
     syl6d $p |- ( ph -> ( ps -> ( ch -> ta ) ) ) $=
       ( wi a1d syldd ) ABCDEFADEHBGIJ $.
       $( [3-Feb-2006] $) $( [5-Aug-1993] $)
+  $}
+
+  ${
+    imim12d.1 $e |- ( ph -> ( ps -> ch ) ) $.
+    imim12d.2 $e |- ( ph -> ( th -> ta ) ) $.
+    $( Deduction combining antecedents and consequents.  (The proof was
+       shortened by O'Cat, 30-Oct-2011.) $)
+    imim12d $p |- ( ph -> ( ( ch -> th ) -> ( ps -> ta ) ) ) $=
+      ( wi imim2d syl5d ) ACDHCEBADECGIFJ $.
+      $( [3-Nov-2011] $) $( [7-Aug-1994] $)
+
+    $( Deduction combining antecedents and consequents. $)
+    imim12dOLD $p |- ( ph -> ( ( ch -> th ) -> ( ps -> ta ) ) ) $=
+      ( wi imim1d imim2d syld ) ACDHBDHBEHABCDFIADEBGJK $.
+      $( [7-Aug-1994] $)
   $}
 
   ${
