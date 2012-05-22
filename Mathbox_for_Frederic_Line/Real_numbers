@@ -1,0 +1,475 @@
+$(
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+              Real numbers
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+$)
+
+  $c -e $. $( the negative of an extended real number. $)
+  $c +e $. $( Addition of extended real numbers. $)
+  $c xe $. $( Multiplication of extended real numbers. $)
+
+  $( Extend class notation to include the negative of an extended number. $)
+  clminex $a class -e A $.
+
+  $( Extend class notation to include the negative of an extended number. $)
+  claddex $a class +e $.
+
+
+  $( Define the negative of an extended real number. $)
+  df-nege $a |- -e A = if ( A = +oo , -oo , if ( A = -oo , +oo , -u A ) ) $.
+
+  $( Define addition over extended real numbers. $)
+  df-adde $a |- +e = { <. <. x , y >. , z >. | ( x e. RR* /\ y e. RR*
+   /\ z = if ( A = +oo ,
+          if ( B = -oo , ~P RR* , +oo ) ,
+       if ( A = -oo ,
+          if ( B = +oo , ~P RR* , -oo ) ,
+             if ( B = +oo , +oo ,
+               if ( B = -oo , -oo , ( A + B ) ) ) ) ) ) } $.
+
+  $( Minus ` +oo ` .  Bourbaki TG IV.15. $)
+  mpinf $p |- -e +oo = -oo $=
+    ( cpnf clminex wceq cmnf cneg cif df-nege eqid iftrue ax-mp eqtri ) ABAACZD
+    ADCAAEFZFZDAGLNDCAHLDMIJK $.
+    $( [16-Apr-2012] $) $( [26-Dec-2011] $)
+
+  $( Minus ` -oo ` .  Bourbaki TG IV.15. $)
+  miminf $p |- -e -oo = +oo $=
+    ( cmnf clminex cpnf wceq cneg cif df-nege wn wne pnfnemnf df-ne necom
+    bitr3i mpbir iffalse eqid iftrue ax-mp syl6eq eqtri ) ABACDZAAADZCAEZFZFZCA
+    GUAHZUECDUFCAIZJUFACIUGACKACLMNUFUEUDCUAAUDOUBUDCDAPUBCUCQRSRT $.
+    $( [16-Apr-2012] $) $( [26-Dec-2011] $)
+
+
+  $( Minus a real number.  Bourbaki TG IV.15. $)
+  mreal $p |- ( A e. RR -> -e A = -u A ) $=
+    ( cr wcel cmnf wne cpnf clminex cneg wceq renemnf renepnf wa cif df-nege
+    a1i wn df-ne iffalse sylbi adantl adantr 3eqtrd syl11anc ) ABCADEZAFEZAGZAH
+    ZIAJAKUDUELZUFAFIZDADIZFUGMZMZUKUGUFULIUHANOUEULUKIZUDUEUIPUMAFQUIDUKRSTUDU
+    KUGIZUEUDUJPUNADQUJFUGRSUAUBUC $.
+    $( [16-Apr-2012] $) $( [26-Dec-2011] $)
+
+
+  ${
+    mamb.1 $e |- A = B $.
+    $( Equality of two extended numbers with ` -e ` in front of them. $)
+    mamb $p |- -e A = -e B $=
+      ( cpnf wceq cmnf cneg cif clminex wn wi eqeq1 notbid biimpd ax-mp wa
+      iffalse adantl negeqi a1i eqcomd adantr 3eqtrd ex syl6bi pm2.43i syl6bir
+      iftrue sylan9eq ecase mpancom df-nege 3eqtr4i ) ADEZFAFEZDAGZHZHZBDEZFBFE
+      ZDBGZHZHZAIBIUNUSURVCEZUSJZUNJZVDABEZVFVEKCVGVFVEVGUNUSABDLMZNOVEVFPZURUQ
+      VBVCVFURUQEZVEUNFUQQZRUQVBEZVIUOUTVLUOJZVLVGVMVMVLKZKCVGVMUTJZVNVGUOUTABF
+      LMZVOVMVLVOVMPZUQUPVAVBVMUQUPEZVOUODUPQZRUPVAEZVQABCSZTVOVAVBEZVMVOVBVAUT
+      DVAQUAZUBUCUDUEOUFVOVLVGVOVOVLKZKCVGVOVMWDVPVMVOVLVMVOPZUQUPVAVBVMVRVOVSU
+      BVTWEWATVOWBVMWCRUCUDUGOUFUOUTUQDVBUODUPUHUTVBDUTDVAUHUAUIUJZTVEVBVCEZVFV
+      EVCVBUSFVBQUAZUBUCUKVEVDVGVEVEVDKZKCVGVEVFWIVHVFVEVDVFVEPZURUQVBVCVFVJVEV
+      KUBVLWJWFTVEWGVFWHRUCUDUGOUFUNUSURFVCUNFUQUHUSVCFUSFVBUHUAUIUJAULBULUM $.
+      $( [16-Apr-2012] $) $( [26-Dec-2011] $)
+  $}
+
+  ${
+    nolimf.1 $e |- Y = U. L $.
+    nolimf.2 $e |- J = ( topGen ` ran (,) ) $.
+    ${
+      $d F x $.  $d J x $.  $d L x $.  $d Y x $.
+      $( A numerical function has at most one limit value. $)
+      nolimf $p |- ( ( L e. Fil /\ F : Y --> RR )
+       -> E* x x e. ( ( J fLimf L ) ` F ) ) $=
+        ( cfil wcel cha cr wf cv cflimf co cfv wmo cioo crn ctg rehaus eqeltri
+        cuni unieqi ctb wceq retopbas unitg ax-mp unirnioo 3eqtrri holimf
+        mp3an2 ) DHICJIEKBLAMBCDNOPIAQCRSZTPZJGUAUBABCDKEFCUCUOUCZUNUCZKCUOGUDU
+        NUEIUPUQUFUGUNUHUIUJUKULUM $.
+        $( [6-Dec-2010] $) $( [14-Nov-2010] $)
+    $}
+
+    ${
+      $d F x $.  $d J x $.  $d L x $.  $d Y x $.
+      $( A numerical convergent function has one limit value. $)
+      nolimf2 $p |- ( ( L e. Fil /\ F : Y --> RR /\
+       ( ( J fLimf L ) ` F ) =/= (/) )
+         -> E! x x e. ( ( J fLimf L ) ` F ) ) $=
+        ( cfil wcel cr wf cflimf co cfv c0 wne w3a cv wmo weu nolimf 3adant3
+        wb n0moeu 3ad2ant3 mpbid ) DHIZEJBKZBCDLMNZOPZQARUIIZASZUKATZUGUHULUJAB
+        CDEFGUAUBUJUGULUMUCUHAUIUDUEUF $.
+        $( [6-Dec-2010] $) $( [14-Nov-2010] $)
+    $}
+
+  $}
+
+  ${
+
+    flimfnein.2 $e |- Y = U. L $.
+    flimfnein.3 $e |- A = U. ( ( J fLimf L ) ` F ) $.
+    flimfnein.4 $e |- J = ( topGen ` ran (,) ) $.
+
+    ${
+      $d F s $.  $d L s $.  $d N s $.  $d Y s $.
+      $( A neighborhood of the limit value ` A ` of a convergent numerical
+         function ` F ` contains the image of a filter element. $)
+      flimfnein $p |- ( ( ( L e. Fil /\ F : Y --> RR )
+         /\ ( ( J fLimf L ) ` F ) =/= (/)
+         /\ N e. ( ( nei ` J ) ` { A } ) ) -> E. s e. L ( F " s ) C_ N ) $=
+        ( cha wcel cfil cr wf w3a cflimf co cfv c0 wne csn cnei cv cima wss
+        wrex wa cioo crn ctg wceq cuni unieq uniretop syl6req ax-mp flimfneih
+        rehaus eqeltri a1i simpl simpr 3jca syl3an1 ) CKLZDMLZFNBOZPBCDQRSTUAEA
+        UBCUCSSLBGUDUEEUFGDUGVGVHUHZABCDENFGCUIUJUKSZULZNCUMZULJVKVLVJUMNCVJUNU
+        OUPUQHIURVIVFVGVHVFVICVJKJUSUTVAVGVHVBVGVHVCVDVE $.
+        $( [6-Dec-2010] $) $( [18-Nov-2010] $)
+    $}
+
+    ${
+      $( The limit of a numerical convergent function belongs to ` RR ` . $)
+      limnumrr $p |- ( ( L e. Fil /\ F : Y --> RR /\
+       ( ( J fLimf L ) ` F ) =/= (/) )
+         -> A e. RR ) $=
+        ( cfil wcel cr wf cflimf co cfv c0 wne w3a ctop cioo crn ctg retop
+        eqeltri a1i simp1 simp2 cha rehaus simp3 wceq cuni unieq uniretop
+        syl6req ax-mp limvinlv syl31anc flimfelbas ) DIJZEKBLZBCDMNOZPQZRZCSJZU
+        TVAAVBJZAKJVEVDCTUAUBOZSHUCUDUEUTVAVCUFZUTVAVCUGZVDCUHJZUTVAVCVFVJVDCVG
+        UHHUIUDUEVHVIUTVAVCUJABCDKECVGUKZKCULZUKHVKVLVGULKCVGUMUNUOUPZFGUQURABC
+        DKEVMFUSUR $.
+        $( [6-Dec-2010] $) $( [22-Nov-2010] $)
+    $}
+
+  $}
+
+  ${
+    cinei.1 $e |- J = ( topGen ` ran (,) ) $.
+    $( A centered interval is a neighborhood of its center. $)
+    cinei $p |- ( ( A e. RR /\ B e. RR+ )
+      -> ( ( A - B ) (,) ( A + B ) ) e. ( ( nei ` J ) ` { A } ) ) $=
+      ( cr wcel crp wa ctop cmin co caddc cioo csn cnei cfv crn ctg retop
+      eqeltri a1i iooretop eleqtrri cbci opnneip syl111anc ) AEFBGFHZCIFZABJKZA
+      BLKZMKZCFZAUKFUKANCOPPFUHUGCMQRPZIDSTUAULUGUKUMCUIUJUBDUCUAABUDACUKUEUF
+      $.
+      $( [6-Dec-2010] $) $( [18-Nov-2010] $)
+  $}
+
+  ${
+    flimfneic.1 $e |- X = U. J $.
+    flimfneic.2 $e |- Y = U. L $.
+    flimfneic.3 $e |- A = U. ( ( J fLimf L ) ` F ) $.
+    flimfneic.4 $e |- J = ( topGen ` ran (,) ) $.
+    flimfneic.5 $e |- N = ( ( A - B ) (,) ( A + B ) ) $.
+    $( A centered interval of the limit value ` A ` of a convergent numerical
+       function ` F ` contains the image of a filter element. $)
+    flimfneic $p |- ( ( ( L e. Fil /\ F : Y --> X )
+       /\ ( ( J fLimf L ) ` F ) =/= (/)
+       /\ B e. RR+ ) -> A e. ( ( J fLimf L ) ` F ) ) $=
+      ( cfil wcel wf wa cflimf co cfv c0 wne crp w3a cha cioo crn ctg cuni
+      rehaus eqeltri a1i simp1l wceq wb unieqi eqtri feq3 ax-mp biimpi adantl
+      3ad2ant1 simp2 eqcomi limvinlv syl31anc ) ENOZHGCPZQZCDERSTZUAUBZBUCOZUDZ
+      DUEOZVGHUFUGUHTZUIZCPZVKAVJOVNVMDVOUELUJUKULVGVHVKVLUMVIVKVQVLVHVQVGVHVQG
+      VPUNVHVQUOGDUIZVPIDVOLUPZUQGVPHCURUSUTVAVBVIVKVLVCACDEVPHVRVPVSVDJKVEVF
+      $.
+      $( [6-Dec-2010] $) $( [18-Nov-2010] $)
+  $}
+
+  ${
+    $d F s $.  $d L s $.  $d N s $.  $d Y s $.
+    flimfneicn.2 $e |- Y = U. L $.
+    flimfneicn.3 $e |- A = U. ( ( J fLimf L ) ` F ) $.
+    flimfneicn.4 $e |- J = ( topGen ` ran (,) ) $.
+    flimfneicn.5 $e |- N = ( ( A - B ) (,) ( A + B ) ) $.
+    $( A centered interval of the limit value ` A ` of a convergent numerical
+       function ` F ` contains the image of a filter element. $)
+    flimfneicn $p |- ( ( ( L e. Fil /\ F : Y --> RR )
+       /\ ( ( J fLimf L ) ` F ) =/= (/)
+       /\ B e. RR+ ) -> E. s e. L ( F " s ) C_ N ) $=
+      ( cfil wcel cr wf wa cflimf co cfv c0 wne csn cnei cv cima wss wrex crp
+      flimfnein wi ctop cioo crn ctg retop eqeltri a1i simpll simplr cha
+      rehaus cuni unieqi uniretop eqtr2i limvinlv mp3anl1 flimfelbas syl31anc
+      ex cmin caddc cinei syl5eqel syl6 3imp syld3an3 ) EMNZGOCPZQZCDERSTZUAUBZ
+      FAUCDUDTTZNZCHUEUFFUGHEUHBUINZACDEFGHIJKUJWAWCWFWEWAWCAONZWFWEUKWAWCWGWAW
+      CQZDULNZVSVTAWBNZWGWIWHDUMUNUOTZULKUPUQURVSVTWCUSVSVTWCUTDVANVSVTWCWJDWKV
+      AKVBUQACDEOGDVCWKVCODWKKVDVEVFZIJVGVHACDEOGWLIVIVJVKWGWFWEWGWFQABVLSABVMS
+      UMSWDFABDKVNLVOVKVPVQVR $.
+      $( [6-Dec-2010] $) $( [18-Nov-2010] $)
+  $}
+
+  ${
+    lvsovso.1 $e |- Y = U. F $.
+    lvsovso.2 $e |- L1 = U. ( ( J fLimf F ) ` F1 ) $.
+    lvsovso.3 $e |- L2 = U. ( ( J fLimf F ) ` F2 ) $.
+    lvsovso.4 $e |- J = ( topGen ` ran (,) ) $.
+
+    ${
+      $d F a r s x $.  $d F1 a r s x $.  $d F2 a r s x $.  $d J r s x $.
+      $d L1 r s x $.  $d L2 r s x $.  $d Y r s x $.
+      $( If the limit values of two convergent numerical functions are strictly
+         ordered, the values of the functions are strictly ordered for some
+         element of the filter.  Bourbaki TG IV.18 prop. 2. $)
+      lvsovso $p |- ( ( ( F e. Fil /\ F1 : Y --> RR /\ F2 : Y --> RR ) /\
+           ( ( ( J fLimf F ) ` F1 ) =/= (/) /\
+             ( ( J fLimf F ) ` F2 ) =/= (/) /\
+             L1 < L2 ) )
+         -> E. a e. F A. x e. a ( F1 ` x ) < ( F2 ` x ) ) $=
+        ( vr vs cv cima cmin co cabs cfv c2 cdiv caddc cioo wss wrex wa cfil
+        wcel cr wf w3a cflimf c0 wne clt wbr wral crp simpl1 simpl2 jca simpr1
+        cc0 elrp cc wi limnumrr recnd 3expia com12 3ad2ant2 3adant2 imp
+        3ad2ant1 3adant3 subcl syl11anc abscl syl rehalfcl resubcl simpr3 wb
+        posdif mpbid gt0ne0 absgt0 halfpos2 sylanbrc simpl3 simpr2 eqid
+        flimfneicn anim12i syl33anc cin filint ad2antlr cuni elunii syl6eleqr
+        expcom ffvelrn adantl adantr 3jca wfun cdm ffun elssuni wceq sseq2
+        biimpd eqcoms ax-mp fdm eqcomd sseq2d biimpcd 3syl impcom 3exp
+        funfvima2 syl6 3imp 3ad2ant3 3impia imp31 recn ancoms halfcl add12
+        syl111anc 2halves cle 0re jctil biimp3a ltle sylc absid eqtr2d addcl
+        subadd eqtrd simpl mpbird breq2 anbi1d imbi2d ssel2 elioooord simpr
+        an4s ex syl5bir mpd axlttrn r19.21aiv raleq rcla4ev com14 pm2.43i
+        inss1 inss2 imass2 mp2an sstr2 im2anan9 syl7 3expib com23 anabsi5
+        com3l r19.23aiva mpcom ) FNPZQZHIHRSZTUAZUBUCSZRSZHUWCUDSZUESZUFZNBUGZG
+        OPZQZIUWCRSZIUWCUDSZUESZUFZOBUGZUHZBUIUJZDUKFULZDUKGULZUMZFCBUNSZUAUOUP
+        ZGUXAUAUOUPZHIUQURZUMZUHZAPZFUAZUXGGUAZUQURZAEPZUSZEBUGZUXFUWQUWRUHZUXB
+        UWCUTUJZUWQUWSUHZUXCUXOUWPUXFUWQUWRUWQUWRUWSUXEVAZUWQUWRUWSUXEVBZVCUWTU
+        XBUXCUXDVDUXOUWCUKUJZVEUWCUQURZUXFUWCVFUXFUWBUKUJZUXSUXFUWAVGUJZUYAUXFI
+        VGUJZHVGUJZUYBUWTUXEUYCUWQUWSUXEUYCVHUWRUXEUXPUYCUXCUXBUXPUYCVHUXDUXPUX
+        CUYCUWQUWSUXCUYCUWQUWSUXCUMIIGCBDJLMVIZVJVKVLVMVLVNVOUWTUXEUYDUWQUWRUXE
+        UYDVHUWSUXEUXNUYDUXBUXCUXNUYDVHUXDUXNUXBUYDUWQUWRUXBUYDUWQUWRUXBUMHHFCB
+        DJKMVIZVJVKVLVPVLVQVOIHVRZVSZUWAVTZWAZUWBWBZWAZUXFVEUWBUQURZUXTUXFUWAVE
+        UPZUYMUXFUWAUKUJZVEUWAUQURZUYNUXFIUKUJZHUKUJZUYOUWTUXEUYQUWQUWSUXEUYQVH
+        UWRUXEUXPUYQUXCUXBUXPUYQVHUXDUXPUXCUYQUWQUWSUXCUYQUYEVKVLVMVLVNVOZUWTUX
+        EUYRUWQUWRUXEUYRVHUWSUXEUXNUYRUXBUXCUXNUYRVHUXDUXNUXBUYRUWQUWRUXBUYRUYF
+        VKVLVPVLVQVOZIHWCZVSUXFUXDUYPUWTUXBUXCUXDWDZUXFUYRUYQUXDUYPWEUYTUYSHIWF
+        ZVSWGUWAWHVSUXFUYBUYNUYMWEUYHUWAWIWAWGUXFUYAUYMUXTWEUYJUWBWJWAWGWKZUXFU
+        WQUWSUXQUWQUWRUWSUXEWLZVCUWTUXBUXCUXDWMVUDUXNUXBUXOUMUWHUXPUXCUXOUMUWOH
+        UWCFCBUWFDNJKMUWFWNWOIUWCGCBUWMDOJLMUWMWNWOWPWQUWHUWOUXFUXMVHZUWGUWOVUF
+        VHNBUWOUVSBUJZUWGUHZVUFUWNVUHVUFVHOBVUHUWIBUJZUWNUHVUFVUGVUIUWGUWNVUFVU
+        GVUIUHZUWGUWNUHZVUFUXFVUJVUKUXMUWTUXEVUJVUKUXMVHZVHZUWQUWRUXFVUMVHUWSUW
+        QVUJUXFVULUWQVUGVUIUXFVULVHZUWQVUGVUIUMUVSUWIWRZBUJZVUNUVSUWIBWSVUPUXFF
+        VUOQZUWFUFZGVUOQZUWMUFZUHZUXMVUKVUPUXFVVAUXMVHVHVVAVUPUXFVUPUXMVVAVUPUX
+        FVUPUXMVHZVHVVAVUPUHZUXFUXJAVUOUSZVVBVVCUXFVVDVVCUXFUHZUXJAVUOVVEUXGVUO
+        UJZUXHUKUJZUWKUKUJZUXIUKUJZUMZUXHUWKUQURZUWKUXIUQURZUHZUHZUXJVVEVVFVVNV
+        VEVVFUHZVVJVVMVVOVVGVVHVVIVVOUWRUXGDUJZVVGUXFUWRVVCVVFUXRWTVVEVVFVVPVUP
+        VVFVVPVHVVAUXFVVFVUPVVPVVFVUPUHUXGBXAZDUXGVUOBXBJXCXDWTVOZDUKUXGFXEVSVV
+        EVVHVVFVVEUYQUXSVVHUXFUYQVVCUYSXFUXFUXSVVCUYLXFIUWCWCVSXGVVOUWSVVPVVIUX
+        FUWSVVCVVFVUEWTVVRDUKUXGGXEVSXHVVOUXHVUQUJZUXIVUSUJZUHZVVMVVCUXFVVFVWAV
+        UPUXFVVFVWAVHZVHVVAUXFVUPVWBUWTVUPVWBVHUXEUWTVUPVVFVWAUWTVUPVVFUMVVSVVT
+        UWTVUPVVFVVSUWTVUPFXIZVUOFXJZUFZUHZVVFVVSVHUWQUWRVUPVWFVHZUWSUWRUWQVWGU
+        WRUWQVUPVWFUWRUWQVUPUMVWCVWEUWRUWQVWCVUPDUKFXKVPUWRVUPVWEUWQVUPUWRVWEVU
+        PVUOVVQUFZVUODUFZUWRVWEVHVUOBXLZDVVQXMVWHVWIVHZJVWKVVQDVVQDXMVWHVWIVVQD
+        VUOXNXOXPXQZUWRVWIVWEUWRDVWDVUOUWRVWDDDUKFXRXSXTYAYBYCVNVCYDYCVQVUOUXGF
+        YEYFYGUWTVUPVVFVVTUWTVUPUHGXIZVUOGXJZUFZVVFVVTVHUWTVWMVUPUWSUWQVWMUWRDU
+        KGXKYHXGUWTVUPVWOUWSUWQVUPVWOVHUWRVUPUWSVWOVUPVWHVWIUWSVWOVHVWJVWLUWSVW
+        IVWOUWSDVWNVUOUWSVWNDDUKGXRXSXTYAYBVLYHVOVUOUXGGYEVSYIVCYDXGVLXFYJVVEVW
+        AVVMVHZVVFVVCUXFVWPVVAUXFVWPVHVUPUXFVVAVWPUXFUWKUWEXMZVVAVWPVHUXFUYRUYQ
+        UXDVWQUYTUYSVUBUYRUYQUXDUMZVWQUWCUWEUDSZIXMZVWRVWSHUWCUWCUDSZUDSZIVWRUW
+        CVGUJZUYDVXCVWSVXBXMUYRUYQVXCUXDUYRUYQUHZUYAUWBVGUJZVXCVXDUYCUYDUHZUYBU
+        YAUYQUYRVXFUYQUYCUYRUYDIYKZHYKZWPYLZUYGUYIYBUWBYKZUWBYMZYBVQZUYRUYQUYDU
+        XDVXHVPVXLUWCHUWCYNYOVWRUWAVXAXMZVXBIXMZVWRVXAUWBUWAVWRVXEVXAUWBXMUYRUY
+        QVXEUXDVXDUYBUYAVXEVXDVXFUYBVXIUYGWAZUYIVXJYBVQUWBYPWAVWRUYOVEUWAYQURZU
+        WBUWAXMUYRUYQUYOUXDUYQUYRUYOVUAYLZVQVWRVEUKUJZUYOUHZUYPVXPUYRUYQVXSUXDV
+        XDUYOVXRVXQYRYSVQUYRUYQUXDUYPVUCYTVEUWAUUAUUBUWAUUCVSUUDVWRUYCUYDVXAVGU
+        JZUMZVXMVXNWEUYRUYQVYAUXDVXDUYCUYDVXTUYQUYCUYRVXGXFZUYRUYDUYQVXHXGVXDUX
+        SVXCVXCUHVXTVXDUYBUYAUXSVXOUYIUYKYBZUXSVXCVXCUWCYKZVYDVCUWCUWCUUEYBXHVQ
+        IHVXAUUFWAWGUUGVWRUYCVXCUWEVGUJZUMZVWQVWTWEUYRUYQVYFUXDVXDUYCVXCVYEVYBV
+        XDUYAVXEVXCVXDUYOUYBUYAVXQUWAYKUYIYBVXJVXKYBVXDUYRUXSUHUYDVXCUHVYEVXDUY
+        RUXSUYRUYQUUHVYCVCUYRUYDUXSVXCVXHVYDWPHUWCUUEYBXHVQIUWCUWEUUFWAUUIYOVWQ
+        VWPVWAUXHUWEUQURZVVLUHZVHVVAVWQVVMVYHVWAVWQVVKVYGVVLUWKUWEUXHUQUUJUUKUU
+        LVVAVWAVYHVURVVSVUTVVTVYHVURVVSUHZVYGVUTVVTUHZVVLVYIUXHUWFUJUWDUXHUQURZ
+        VYGUHVYGVUQUWFUXHUUMUXHUWDUWEUUNVYKVYGUUOYBVYJUXIUWMUJVVLUXIUWLUQURZUHV
+        VLVUSUWMUXIUUMUXIUWKUWLUUNVVLVYLUUHYBWPUUPUUQUURWAVLXGVOXGUUSVCUUQVVJVV
+        MUXJUXHUWKUXIUUTVOYFUVAUUQVUPVVDUXMUXLVVDEVUOBUXJAUXKVUOUVBUVCXDYFUUQUV
+        DUVEVUQUVTUFZVUSUWJUFZUHZVUKVVAVHVUOUVSUFZVUOUWIUFZVYOUVSUWIUVFUVSUWIUV
+        GVYPVYMVYQVYNVUOUVSFUVHVUOUWIGUVHWPUVIVYMUWGVURVYNUWNVUTVUQUVTUWFUVJVUS
+        UWJUWMUVJUVKXQUVLWAUVMUVNVPUVOUVPVOUUPXDUVQVLUVQVOUVR $.
+        $( [6-Dec-2010] $)
+    $}
+
+    ${
+      $d F a x $.  $d F1 a x $.  $d F2 a x $.  $d J a x $.  $d L1 x $.
+      $d L2 x $.  $d Y a x $.
+      $( Condition on the elements of the filter so that the limits are weakly
+         ordered.  Bourbaki TG IV.18 prop. 1. $)
+      lvsovso2 $p |- ( ( ( F e. Fil /\ F1 : Y --> RR /\ F2 : Y --> RR ) /\
+           ( ( ( J fLimf F ) ` F1 ) =/= (/) /\
+             ( ( J fLimf F ) ` F2 ) =/= (/) /\
+             A. a e. F E. x e. a ( F1 ` x ) <_ ( F2 ` x ) ) )
+         -> L1 <_ L2 ) $=
+        ( cflimf co cfv c0 wne cv cle wbr wrex wral w3a cfil wcel cr wf wi clt
+        wn lvsovso ex 3com23 3expd com13 3imp cxr wb simp31 simp33 simp2 3jca
+        limnumrr rexr 3syl simp32 simp1 xrltnle syl11anc bicomd wa ad2antrr
+        cuni elunii expcom a1i imp31 syl6eleqr jca ffvelrn ralbidva ralnex
+        syl5bbr rexbidva rexnal 3imtr4d con4d 3exp com34 impcom ) FCBNOZPQRZGWL
+        PQRZASZFPZWOGPZTUAZAESZUBZEBUCZUDBUEUFZDUGFUHZDUGGUHZUDZHITUAZWMWNXAXEX
+        FUIWMWNXEXAXFWMWNXEXAXFUIWMWNXEUDZXFXAXGIHUJUAZWQWPUJUAZAWSUCZEBUBZXFUK
+        ZXAUKZWMWNXEXHXKUIZXEWNWMXNXEWNWMXHXKXBXDXCWNWMXHUDZXKUIXBXDXCUDXOXKABC
+        DEGFIHJLKMULUMUNUOUPUQXGXHXLXGIURUFZHURUFZXHXLUSXGXBXDWNUDIUGUFXPXGXBXD
+        WNWMWNXBXCXDUTZWMWNXBXCXDVAZWMWNXEVBVCIGCBDJLMVDIVEVFXGXBXCWMUDHUGUFXQX
+        GXBXCWMXRWMWNXBXCXDVGZWMWNXEVHVCHFCBDJKMVDHVEVFIHVIVJVKXGWTUKZEBUBXKXMX
+        GYAXJEBXGWSBUFZVLZWRUKZAWSUCXJYAYCYDXIAWSYCWOWSUFZVLZXIYDYFWQURUFZWPURU
+        FZXIYDUSYFXDWODUFZVLWQUGUFYGYFXDYIXGXDYBYEXSVMYFWOBVNZDXGYBYEWOYJUFZYBY
+        EYKUIUIXGYEYBYKWOWSBVOVPVQVRJVSZVTDUGWOGWAWQVEVFYFXCYIVLWPUGUFYHYFXCYIX
+        GXCYBYEXTVMYLVTDUGWOFWAWPVEVFWQWPVIVJVKWBWRAWSWCWDWEWTEBWFWDWGWHWIWJUQW
+        K $.
+        $( [30-Dec-2010] $)
+    $}
+
+    ${
+      $d F a x $.  $d F1 a x $.  $d F2 a x $.  $d J a x $.  $d L1 x $.
+      $d L2 x $.  $d Y a x $.
+      $( Condition on the values of two numerical functions so that their
+         limits are weakly ordered.  Bourbaki TG IV.18 th. 1.  (Proof shortened
+         by NM, 18-Jul-2011.) $)
+      lvsovso3 $p |- ( ( ( F e. Fil /\ F1 : Y --> RR /\ F2 : Y --> RR ) /\
+           ( ( ( J fLimf F ) ` F1 ) =/= (/) /\
+             ( ( J fLimf F ) ` F2 ) =/= (/) /\
+             A. x e. Y ( F1 ` x ) <_ ( F2 ` x ) ) )
+         -> L1 <_ L2 ) $=
+        ( va cfil wcel cr wf w3a cflimf co cfv c0 wne cv cle wbr wral wrex wa
+        simpr1 simpr2 cuni wss wi elssuni eqcomi sseq2i ssralv r19.2z ex a1i
+        com13 syl6 com4l 3ad2ant3 elfilnemp syl5com com23 3ad2ant1 imp com3l
+        pm2.43i com3r sylbi mpcom com12 r19.21aiv 3jca lvsovso2 syldan ) BNOZDP
+        EQZDPFQZRZECBSTZUAUBUCZFWEUAUBUCZAUDZEUAWHFUAUEUFZADUGZRZWFWGWIAMUDZUHZ
+        MBUGZRGHUEUFWDWKUIZWFWGWNWDWFWGWJUJWDWFWGWJUKWOWMMBWLBOZWOWMWLBULZUMZWP
+        WOWMUNZWLBUOWRWLDUMZWPWSUNWQDWLDWQIUPUQWPWOWTWMWPWOWTWMUNZUNWOWPWPXAWDW
+        KWPWPXAUNZUNZWAWBWKXCUNWCWAWPWKXBWAWPWKXBUNWKWLUBUCZXBWAWPUIWJWFXDXBUNW
+        GWTWJXDWPWMWTWJWIAWLUGZXDWPWMUNUNWIAWLDURWPXDXEWMXDXEWMUNUNWPXDXEWMWIAW
+        LUSUTVAVBVCVDVEWLBVFVGUTVHVIVJVKVLVMVNVOVPVQVRABCDMEFGHIJKLVSVT $.
+        $( [16-May-2011] $) $( [18-Jul-2011] $)
+    $}
+  $}
+
+
+  ${
+    $d A x y z $.  $d C x y z $.  $d F w x $.  $d F x y z $.
+    $( The supremum of a numerical function ` F ` is greater or equal to every
+       element of ` ( F `` A ) ` .  Bourbaki TG IV.20. $)
+    supnuf $p |- ( ( F : A --> RR* /\ A e. _V /\ C e. A ) -> ( F ` C ) <_ ( <_
+        supw ran F ) ) $=
+      ( vx vw vy vz cxr wf cvv wcel w3a cfv cle crn cspw co wbr cps cv wral wi
+      wa lteqtpos a1i cdm wfun wceq fdm eleq1 biimpd eqcoms syl imp 3adant3
+      ffun 3ad2ant1 funrnex sylc wrex wss frn xrex ssex clt wn xrsupss wb
+      adantr sseld simplr xrlenlt syl11anc ralbidva simpr xrltnle bicomd
+      ad2antrr rexbidva rexnal syl5bbr imbi12d con34b syl5bb anbi12d mpbird
+      domleqt eqcomi biid spwcl syl111anc 3jca supdef eqcomd eleq2d biimpa
+      3adant2 fvelrn breq1 rcla4va ex com12 3syl pm2.43i ) AHCIZAJKZBAKZLZBCMZN
+      COZPQZNRZXHNSKZXJJKZXKHKZLDTZXKNRZDXJUAZETXPNREXJUAXKXPNRUBDHUAZUCXHXLUBZ
+      XHXMXNXOXMXHUDUEZXHCUFZJKZCUGZXNXEXFYCXGXEXFYCXEYBAUHXFYCUBZAHCUIZYEAYBAY
+      BUHXFYCAYBJUJUKULUMUNUOXEXFYDXGAHCUPUQZJCURUSXHXMXNFTZXPNRZFXJUAZGTZYHNRZ
+      GXJUAZXPYHNRZUBZFHUAZUCZDHUTZXOYAXEXFXNXGXEXJHVAZXNAHCVBZXJHVCVDUMUQXHYRX
+      PYHVERVFZFXJUAZYHXPVERZYHYKVERZGXJUTZUBZFHUAZUCZDHUTZXHYSUUIXEXFYSXGYTUQZ
+      DFGXJVGUMXHYQUUHDHXHXPHKZUCZYJUUBYPUUGUULYIUUAFXJUULYHXJKZUCYHHKZUUKYIUUA
+      VHUULUUMUUNUULXJHYHXHYSUUKUUJVIVJUNXHUUKUUMVKYHXPVLVMVNUULYOUUFFHUULUUNUC
+      ZYNVFZYMVFZUBUUFYOUUOUUPUUCUUQUUEUUOUUCUUPUUOUUNUUKUUCUUPVHUULUUNVOXHUUKU
+      UNVKYHXPVPVMVQUUOYLVFZGXJUTUUEUUQUUOUURUUDGXJUUOYKXJKZUCZUUDUURUUTUUNYKHK
+      ZUUDUURVHUULUUNUUSVKUUOUUSUVAXHUUSUVAUBZUUKUUNXEXFUVBXGXEXJHYKYTVJUQVRUNY
+      HYKVPVMVQVSYLGXJVTWAWBYMYNWCWDVNWEVSWFYQDFGXJNJHNUFHWGWHZYQWIWJWKWLDEXJNJ
+      HUVCWMXRXTXSXHXRXLXHXIXJKZXRXLUBXHYDBYBKZUVDYGXEXGUVEXFXEXGUVEXEAYBBXEYBA
+      YFWNWOWPWQBCWRVMUVDXRXLXQXLDXIXJXPXIXKNWSWTXAUMXBVIXCXD $.
+      $( [16-Apr-2012] $) $( [25-Dec-2011] $)
+  $}
+
+
+  ${
+    $d A x $.  $d C x $.  $d V x $.
+    supnufb.1 $e |- F = ( x e. A |-> U ) $.
+    supnufb.2 $e |- ( x = C -> U = V ) $.
+    $( The supremum of a numerical function ` F ` is greater or equal to every
+       element of ` ( F `` A ) ` .  Bourbaki TG IV.20. $)
+    supnufb $p |- ( ( A. x e. A U e. RR* /\ A e. M
+       /\ ( C e. A /\ V e. N ) ) -> V <_ ( <_ supw ran F ) ) $=
+      ( cxr wcel wral wa w3a cfv cle crn cspw co wceq fvmptg 3ad2ant3 wf cvv
+      wbr fopab2a biimpi 3ad2ant1 elisset 3ad2ant2 simp3l supnuf syl111anc
+      eqbrtrrd ) DKLABMZBFLZCBLZHGLZNZOZCEPZHQERSTZQUTUPVBHUAUQACDHBGEJIUBUCVAB
+      KEUDZBUELZURVBVCQUFUPUQVDUTUPVDABKDEIUGUHUIUQUPVEUTBFUJUKUPUQURUSULBCEUMU
+      NUO $.
+      $( [16-Apr-2012] $) $( [25-Dec-2011] $)
+  $}
+
+  ${
+    $d A x y z $.
+    $( Two ways to express the supremum of a set of extended reals. $)
+    supexr $p |- ( A C_ RR* -> ( <_ supw A ) = sup ( A , RR* , < ) ) $=
+      ( vy vx vz cxr wss cle cspw co cv wbr wral wi wa crab c0 wne cuni cpw
+      cif clt wn wrex csup cvv wcel wceq fldleqt eqcomi eqid spwval2 cps
+      lteqtpos elisseti xrex ssex sylancr xrsupss wb ssel xrlenlt ex syl6
+      com23 imp31 ralbidva xrltnle ancoms bicomd adantll adantr rexbidva
+      rexnal syl5bbr imbi12d con34b syl5bb anbi12d rabbidva neeq1d rabn0
+      syl6bb mpbird iftrue syl unieqd eqtrd df-sup a1i 3eqtrd ) AEFZGAHIZBJZCJZ
+      GKZBALZDJZWMGKZDALZWNWMGKZMZBELZNZCEOZPQZXDRZERSZTZWNWMUAKUBZBALZWMWNUAKZ
+      WMWQUAKZDAUCZMZBELZNZCEOZRZAEUAUDZGUEUFAUEUFWLXHUGWKCBDAGUEUEEXDGRREUHUIX
+      DUJUKGULUMUNAEUOUPUQWKXHXFXRWKXEXHXFUGWKXEXPCEUCZCBDAURWKXEXQPQXTWKXDXQPW
+      KXCXPCEWKWNEUFZNZWPXJXBXOYBWOXIBAWKYAWMAUFZWOXIUSZWKYCYAYDWKYCWMEUFZYAYDM
+      AEWMUTYEYAYDWMWNVAVBVCVDVEVFYBXAXNBEYBYENZWTUBZWSUBZMXNXAYFYGXKYHXMYAYEYG
+      XKUSWKYAYENXKYGYEYAXKYGUSWMWNVGVHVIVJYFWRUBZDAUCXMYHYFYIXLDAYBYEWQAUFZYIX
+      LUSZWKYEYJYKMMYAWKYJYEYKWKYJWQEUFZYEYKMAEWQUTYLYEYKYLYENXLYIYEYLXLYIUSWMW
+      QVGVHVIVBVCVDVKVEVLWRDAVMVNVOWSWTVPVQVFVRVSZVTXPCEWAWBWCXEXFXGWDWEWKXDXQY
+      MWFWGXRXSUGWKXSXRCBDEAUAWHUIWIWJ $.
+      $( [16-Apr-2012] $) $( [25-Dec-2011] $)
+  $}
+
+  $c sup_ $. $( The supremum of an indexed class. $)
+  $( Extend class notation to include the supremum of the class B. $)
+  clsupp $a class sup_ x e. A B $.
+
+  $c inf_ $. $( The infimum of an indexed class. $)
+  $( Extend class notation to include the infimum of the class B. $)
+  clinfp $a class inf_ x e. A B $.
+
+  $( Definition of the supremum of an indexed class of extended reals. $)
+  df-supp $a |- sup_ x e. A B = ( <_ supw ( ( x e. A |-> B ) " A ) ) $.
+
+  $( Definition of the infimum of an indexed class of extended reals. $)
+  df-infp $a |- inf_ x e. A B = ( <_ infw ( ( x e. A |-> B ) " A ) ) $.
+
+  $( The supremum of a set of extended reals always exists. see supxrcl $)
+
+  ${
+    $d A x y $.  $d B y $.
+    supbrr.1 $e |- B e. C $.
+    $( The supremum of a set of extended reals always exists. $)
+    supbrr $p |- ( A. x e. A B e. RR* -> sup_ x e. A B e. RR* ) $=
+      ( vy cxr wcel wral cle cmpt cima cspw co clsupp clt csup wss wceq crn
+      wfn cvv elisset ralimi eqid mptfn sylib fnima syl eqcomd sseq1d biimpd
+      df-mpt elisseti rnssopab syl5ib pm2.43i supexr supxrcl eqeltrd df-supp
+      syl5eqel ) CGHZABIZJABCKZBLZMNZGABCOVDVGVFGPQZGVDVFGRZVGVHSVDVIVDVETZGRZV
+      IVDVDVKVIVDVJVFGVDVFVJVDVEBUAZVFVJSVDCUBHZABIVLVCVMABCGUCUDABCVEVEUEUFUGB
+      VEUHUIUJUKULAFBGCVEAFBCUMCDEUNUOUPUQZVFURUIVDVIVHGHVNVFUSUIUTABCVAVB $.
+      $( [16-Apr-2012] $) $( [16-Apr-2012] $)
+  $}
+
+  $c Frf $. $( Frechet' s filter. $)
+
+  $( Extends class notation with Frechet's filter. $)
+  cfrf $a class Frf $.
+
+  ${
+    $d x b $.
+    $( Frechet's filter.  Used to define the limit of a sequence. $)
+    df-frf $a |- Frf = { x | E. b ( b C_ NN /\ b e. Fin /\ x = ( A \ b ) ) } $.
+  $}
+
+  $c slope $.
+
+  $( Extend class notation to include slope. $)
+  cslope $a class slope $.
+
+  ${
+    $( Taux d'accroissement. $)
+    $( Definition of the slope of the function ` f ` at the point ` a ` .
+       Meaningful if ` f ` is a function of a real variable and ` a ` an
+       element of its domain.  Experimental. $)
+    df-slope $a |- slope = { <. <. f , a >. , y >. |
+       y = ( x e. ( dom f \ { a } ) |->
+         ( ( ( f ` x ) - ( f ` a ) ) / ( x - a ) ) ) } $.
+  $}
+
+  $( Declare the derivative functional. $)
+  $c der $.
+
+  $( Extend class notation to include the derivative functional. $)
+  cder $a class der $.
+
+  ${
+    $( Derivative of a function ` f ` at ` a ` .  Meaningful when the domain of
+       ` f ` is an interval of ` RR ` , when ` a ` belongs to the domain of
+       ` f ` , when the domain of ` f ` is not ` { a } ` and when the values of
+       ` f ` are in the topological vector space ` v ` .  Experimental. $)
+    df-der $a |- der = { <. v , y >. | ( v e. TopVec /\
+          y = { <. <. f , a >. , z >. |
+             z = U. ( ( ( 2nd ` ( 2nd ` v ) )
+                 fLimf ( ( nei ` ( topGen ` ran (,) ) ) ` { a } ) ) `
+                        ( f slope a ) ) } ) } $.
+  $}
+
+

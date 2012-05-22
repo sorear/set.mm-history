@@ -4,196 +4,376 @@ $(
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 $)
 
-  $c Trcl $.
-  $( Define the transitive closure class as a class. $)
-  ctrcl $a class Trcl ( R , A , X ) $.
+  $c TrPred $.
+  $( Define the transitive predecessor class as a class. $)
+  ctrpred $a class TrPred ( R , A , X ) $.
 
   ${
-    $d R a b y $.  $d A a b y $.  $d X a b y $.
-    $( Define the transitive closure of a class ` X ` under a relationship and
-       a class.  This class can be thought of as the "smallest" class
-       containing all elements of ` A ` that are linked to ` X ` by a chain of
-       ` R ` relationships.  Definition based off of Lemma 4.2 of Don Monk's
-       notes for Advanced Set Theory, which can be found at
-       ~ http://euclid.colorado.edu/~~monkd/settheory . $)
-    df-trcl $a |- Trcl ( R , A , X ) =
-                        U. ran ( rec ( { <. a , b >. |
-                                 b = U_ y e. a Pred ( R , A , y ) } ,
-                                 Pred ( R , A , X ) ) |` om ) $.
+    $d R a y $.  $d A a y $.  $d X a y $.
+    $( Define the transitive predecessors of a class ` X ` under a relationship
+       ` R ` and a class ` A ` .  This class can be thought of as the
+       "smallest" class containing all elements of ` A ` that are linked to
+       ` X ` by a chain of ` R ` relationships (see ~ trpredtr and
+       ~ trpredmintr ).  Definition based off of Lemma 4.2 of Don Monk's notes
+       for Advanced Set Theory, which can be found at
+       ~ http://euclid.colorado.edu/~~monkd/settheory (check The Internet
+       Archive for it now as Prof.  Monk appears to have rewritten his
+       website). $)
+    df-trpred $a |- TrPred ( R , A , X ) =
+                        U. ran ( rec ( ( a e. _V |->
+                                         U_ y e. a Pred ( R , A , y ) ) ,
+                                       Pred ( R , A , X ) ) |` om ) $.
   $}
 
   ${
-    $d R a b y $.  $d S a b y $.  $d A a b y $.  $d B a b y $.  $d X a b y $.
-    $d Y a b y $.
-
-    $( Equality theorem for transitive closure. $)
-    trcleq1 $p |- ( R = S -> Trcl ( R , A , X ) = Trcl ( S , A , X ) ) $=
-      ( vb vy va wceq cv cpred ciun copab crdg com cres crn cuni ctrcl wel
-      predeq1 adantr iuneq2dv eqeq2d opabbidv rdgeq1 syl rdgeq2 eqtrd reseq1
-      rneqd unieqd df-trcl 3eqtr4g ) BCHZEIZFGIZABFIZJZKZHZGELZABDJZMZNOZPZQUOF
-      UPACUQJZKZHZGELZACDJZMZNOZPZQABDRACDRUNVEVMUNVDVLUNVCVKHVDVLHUNVCVIVBMZVK
-      UNVAVIHVCVNHUNUTVHGEUNUSVGUOUNFUPURVFUNURVFHFGSABCUQTUAUBUCUDVBVAVIUEUFUN
-      VBVJHVNVKHABCDTVBVJVIUGUFUHVCVKNUIUFUJUKFABDGEULFACDGEULUM $.
-      $( [2-Feb-2011] $)
-
-    $( Equality theorem for the transitive closure. $)
-    trcleq2 $p |- ( A = B -> Trcl ( R , A , X ) = Trcl ( R , B , X ) ) $=
-      ( vb vy va wceq cv cpred ciun copab crdg com cres crn cuni ctrcl wel
-      predeq2 adantr iuneq2dv eqeq2d opabbidv rdgeq1 syl rdgeq2 eqtrd reseq1
-      rneqd unieqd df-trcl 3eqtr4g ) ABHZEIZFGIZACFIZJZKZHZGELZACDJZMZNOZPZQUOF
-      UPBCUQJZKZHZGELZBCDJZMZNOZPZQACDRBCDRUNVEVMUNVDVLUNVCVKHVDVLHUNVCVIVBMZVK
-      UNVAVIHVCVNHUNUTVHGEUNUSVGUOUNFUPURVFUNURVFHFGSABCUQTUAUBUCUDVBVAVIUEUFUN
-      VBVJHVNVKHABCDTVBVJVIUGUFUHVCVKNUIUFUJUKFACDGEULFBCDGEULUM $.
-      $( [2-Feb-2011] $)
-
-    $( Equality theorem for the transitive closure. $)
-    trcleq3 $p |- ( X = Y -> Trcl ( R , A , X ) = Trcl ( R , A , Y ) ) $=
-      ( vb vy va wceq cv cpred ciun copab crdg com cres crn cuni ctrcl predeq3
-      rdgeq2 reseq1 3syl rneqd unieqd df-trcl 3eqtr4g ) CDHZEIFGIABFIJKHGELZABC
-      JZMZNOZPZQUHABDJZMZNOZPZQABCRABDRUGULUPUGUKUOUGUIUMHUJUNHUKUOHABCDSUIUMUH
-      TUJUNNUAUBUCUDFABCGEUEFABDGEUEUF $.
-      $( [2-Feb-2011] $)
+    $d R a i y $.  $d A a i y $.  $d X a i y $.
+    $( A definition of the transitive predecessors of a class in terms of
+       indexed union. $)
+    dftrpred2 $p |- TrPred ( R , A , X ) =
+        U_ i e. om ( ( rec ( ( a e. _V |-> U_ y e. a Pred ( R , A , y ) ) ,
+                             Pred ( R , A , X ) ) |` om ) ` i ) $=
+      ( ctrpred cvv cv cpred ciun cmpt crdg com cres crn cuni cfv df-trpred
+      wfn wceq frfnom fniunfv ax-mp eqtr4i ) BCEGFHAFIBCAIJKLZBCEJZMNOZPQZDNDIU
+      HRKZABCEFSUHNTUJUIUAUGUFUBDNUHUCUDUE $.
+      $( [12-May-2012] $) $( [28-Apr-2012] $)
   $}
 
   ${
-    trcleq1d.1 $e |- ( ph -> R = S ) $.
-    $( Equality deduction for the transitive closure. $)
-    trcleq1d $p |- ( ph -> Trcl ( R , A , X ) = Trcl ( S , A , X ) ) $=
-      ( wceq ctrcl trcleq1 syl ) ACDGBCEHBDEHGFBCDEIJ $.
-      $( [2-Feb-2011] $)
-  $}
+    $d R a y $.  $d S a y $.  $d A a y $.  $d B a y $.  $d X a y $.
+    $d Y a y $.
 
-  ${
-    trcleq2d.1 $e |- ( ph -> A = B ) $.
-    $( Equality deduction for the transitive closure. $)
-    trcleq2d $p |- ( ph -> Trcl ( R , A , X ) = Trcl ( R , B , X ) ) $=
-      ( wceq ctrcl trcleq2 syl ) ABCGBDEHCDEHGFBCDEIJ $.
+    $( Equality theorem for transitive predecessors. $)
+    trpredeq1 $p |- ( R = S -> TrPred ( R , A , X ) = TrPred ( S , A , X ) ) $=
+      ( va vy wceq cvv cv cpred ciun cmpt crdg com cres crn cuni ctrpred eqidd
+      wel predeq1 adantr iuneq2dv mpteq12dv rdgeq12 syl11anc reseq1 syl rneqd
+      unieqd df-trpred 3eqtr4g ) BCGZEHFEIZABFIZJZKZLZABDJZMZNOZPZQEHFUNACUOJZK
+      ZLZACDJZMZNOZPZQABDRACDRUMVBVIUMVAVHUMUTVGGZVAVHGUMURVEGUSVFGVJUMEHUQHVDU
+      MHSUMFUNUPVCUMUPVCGFETABCUOUAUBUCUDABCDUAUSVFURVEUEUFUTVGNUGUHUIUJFABDEUK
+      FACDEUKUL $.
       $( [2-Feb-2011] $)
-  $}
 
-  ${
-    trcleq3d.1 $e |- ( ph -> X = Y ) $.
-    $( Equality deduction for the transitive closure. $)
-    trcleq3d $p |- ( ph -> Trcl ( R , A , X ) = Trcl ( R , A , Y ) ) $=
-      ( wceq ctrcl trcleq3 syl ) ADEGBCDHBCEHGFBCDEIJ $.
+    $( Equality theorem for transitive predecessors. $)
+    trpredeq2 $p |- ( A = B -> TrPred ( R , A , X ) = TrPred ( R , B , X ) ) $=
+      ( va vy wceq cvv cv cpred ciun cmpt crdg com cres crn cuni ctrpred eqidd
+      wcel predeq2 adantr iuneq2dv mpteq12dv wa rdgeq12 reseq1 syl syl11anc
+      rneqd unieqd df-trpred 3eqtr4g ) ABGZEHFEIZACFIZJZKZLZACDJZMZNOZPZQEHFUOB
+      CUPJZKZLZBCDJZMZNOZPZQACDRBCDRUNVCVJUNVBVIUNUSVFGZUTVGGZVBVIGZUNEHURHVEUN
+      HSUNFUOUQVDUNUQVDGUPUOTABCUPUAUBUCUDABCDUAVKVLUEVAVHGVMUTVGUSVFUFVAVHNUGU
+      HUIUJUKFACDEULFBCDEULUM $.
+      $( [2-Feb-2011] $)
+
+    $( Equality theorem for transitive predecessors. $)
+    trpredeq3 $p |- ( X = Y -> TrPred ( R , A , X ) = TrPred ( R , A , Y ) ) $=
+      ( va vy wceq cvv cv cpred ciun cmpt crdg com cres crn cuni ctrpred
+      predeq3 rdgeq2 reseq1 syl rneqd unieqd df-trpred 3eqtr4g ) CDGZEHFEIABFIJ
+      KLZABCJZMZNOZPZQUHABDJZMZNOZPZQABCRABDRUGULUPUGUKUOUGUIUMGZUKUOGZABCDSUQU
+      JUNGURUIUMUHTUJUNNUAUBUBUCUDFABCEUEFABDEUEUF $.
       $( [2-Feb-2011] $)
   $}
 
   ${
-    $d R a b y i $.  $d A a b y i $.  $d X a b y i $.  $d Y a b y i $.
-    $( Technzical lemma for the properties of the transitive closure.  A set is
-       an element of the transitive closure iff it is in some value of the
-       underlying function. $)
-    eltrcl $p |- ( Y e. Trcl ( R , A , X ) <->
-                    E. i e. om Y e. ( ( rec ( { <. a , b >. |
-                                        b = U_ y e. a Pred ( R , A , y ) } ,
+    trpredeq1d.1 $e |- ( ph -> R = S ) $.
+    $( Equality deduction for transitive predecessors. $)
+    trpredeq1d $p |- ( ph -> TrPred ( R , A , X ) = TrPred ( S , A , X ) ) $=
+      ( wceq ctrpred trpredeq1 syl ) ACDGBCEHBDEHGFBCDEIJ $.
+      $( [2-Feb-2011] $)
+  $}
+
+  ${
+    trpredeq2d.1 $e |- ( ph -> A = B ) $.
+    $( Equality deduction for transitive predecessors. $)
+    trpredeq2d $p |- ( ph -> TrPred ( R , A , X ) = TrPred ( R , B , X ) ) $=
+      ( wceq ctrpred trpredeq2 syl ) ABCGBDEHCDEHGFBCDEIJ $.
+      $( [2-Feb-2011] $)
+  $}
+
+  ${
+    trpredeq3d.1 $e |- ( ph -> X = Y ) $.
+    $( Equality deduction for transitive predecessors. $)
+    trpredeq3d $p |- ( ph -> TrPred ( R , A , X ) = TrPred ( R , A , Y ) ) $=
+      ( wceq ctrpred trpredeq3 syl ) ADEGBCDHBCEHGFBCDEIJ $.
+      $( [2-Feb-2011] $)
+  $}
+
+  ${
+    $d R a y i $.  $d A a y i $.  $d X a y i $.  $d Y a y i $.
+    $( A class is a transitive predecessor iff it is in some value of the
+       underlying function.  This theorem is not really meant to be used
+       directly: instead refer to ~ trpredpred and ~ trpredmintr . $)
+    eltrpred $p |- ( Y e. TrPred ( R , A , X ) <->
+                    E. i e. om Y e. ( ( rec ( ( a e. _V |->
+                                              U_ y e. a Pred ( R , A , y ) ) ,
                                         Pred ( R , A , X ) ) |` om ) ` i ) ) $=
-      ( ctrcl wcel cv cpred ciun wceq copab crdg com cres crn cuni cfv cdm
-      wrex df-trcl eleq2i wfun wb wfn frfnom fnfun ax-mp elunirn fndm rexeq
-      3bitri ) FBCEIZJFHKAGKBCAKLMNGHOZBCELZPQRZSTZJZFDKUSUAJZDUSUBZUCZVBDQUCZU
-      PUTFABCEGHUDUEUSUFZVAVDUGUSQUHZVFURUQUIZQUSUJUKDFUSULUKVCQNZVDVEUGVGVIVHQ
-      USUMUKVBDVCQUNUKUO $.
-      $( [18-Feb-2011] $)
+      ( ctrpred wcel com cv cvv cpred ciun cmpt crdg cres cfv wrex dftrpred2
+      eleq2i eliun bitri ) FBCEHZIFDJDKGLAGKBCAKMNOBCEMPJQRZNZIFUEIDJSUDUFFABCD
+      EGTUADFJUEUBUC $.
+      $( [12-May-2012] $) $( [28-Apr-2012] $)
   $}
 
   ${
     $d A a b d e j $.  $d A a d e y $.  $d B j $.  $d i j $.  $d j y $.
     $d R a b d e j $.  $d R y $.  $d X a d e j $.
-    $( Technical lemma for transitive closure properties.  All values of the
-       transitive closure's underlying function are subsets of the base set. $)
-    trcllem1 $p |- ( Pred ( R , A , X ) e. B ->
-                      ( ( rec ( { <. a , b >. |
-                                        b = U_ y e. a Pred ( R , A , y ) } ,
-                                        Pred ( R , A , X ) ) |` om ) ` i )
+    $( Technical lemma for transitive predecessors properties.  All values of
+       the transitive predecessors' underlying function are subsets of the base
+       set. $)
+    trpredlem1 $p |- ( Pred ( R , A , X ) e. B ->
+                      ( ( rec ( ( a e. _V |-> U_ y e. a Pred ( R , A , y ) ) ,
+                                Pred ( R , A , X ) ) |` om ) ` i )
                        C_ A ) $=
-      ( vj ve vd cv com wcel cpred ciun wceq copab crdg cres cfv wss wi c0
-      csuc wrex wo nn0suc fveq2 sseq1d predss fr0g mpbiri syl5bir wa cvv iunss
-      a1i mprgbir ax-17 wel wal hbopab1 hbrdg hbres hbfv hbrex eliun albii
-      3imtr4i predeq3 cbviunv eqeq2i opabbii rdgeq1 reseq1 syl ax-mp iuneq1
-      frsucopab wn 0ss frsucopabn adantl pm2.61dan adantr wb mpbird a1d
-      r19.23aiva jaoi nfvres pm2.61i ) ELZMNZBDFOZCNZWNHLZAGLZBDALZOZPZQZGHRZWP
-      SZMTZUAZBUBZUCZWOWNUDQZWNILZUEZQZIMUFZUGXIIWNUHXJXIXNXJXHUDXFUAZBUBZWQXJX
-      GXOBWNUDXFUIUJWQXPWPBUBBDFUKWQXOWPBWPCXDULUJUMUNXMXIIMXKMNZXMUOZXHWQXRXHX
-      LXFUAZBUBZXQXTXMXQJXKXFUAZBDJLZOZPZUPNZXTXQYEUOZXTYDBUBZYGYCBUBZJYAJYAYCB
-      UQYHYBYANBDYBUKURUSYFXSYDBGHKWPXKJWSYCPZYDUPXFKLZWPNGUTZKIVAGUTZYJYCNZJYA
-      UFZYNGVBYJYDNZYOGVBYMGJYAGJXKXFGJXEMGJWPXDXCGHJVCYBWPNGUTVDYBMNGUTVEJIVAG
-      UTVFYMGUTVGJYJYAYCVHZYOYNGYPVIVJZXDWRYIQZGHRZQZXFYSWPSZMTQZXCYRGHXBYIWRAJ
-      WSXAYCBDWTYBVKVLVMVNYTXEUUAQUUBWPXDYSVOXEUUAMVPVQVRZJWSYAYCVSZVTUJUMXQYEW
-      AZUOZXTUDBUBZBWBZUUFXSUDBUUEXSUDQXQGHKWPXKYIYDXFYKYLYQUUCUUDWCWDUJUMWEWFX
-      MXHXTWGXQXMXGXSBWNXLXFUIUJWDWHWIWJWKVQWOWAZXHWQUUIXHUUGUUHUUIXGUDBWNMXEWL
-      UJUMWIWM $.
-      $( [18-Feb-2011] $)
+      ( vj ve vd cv com wcel cpred cvv ciun cmpt crdg cres cfv wss wi c0 wceq
+      csuc wrex wo nn0suc fveq2 sseq1d predss fr0g mpbiri syl5bir wa iunss a1i
+      mprgbir ax-17 wal hbmpt1 hbrdg hbres hbfv hbrex eliun albii 3imtr4i eqid
+      predeq3 cbviunv mpteqi rdgeq1 reseq1 syl ax-mp iuneq1 frsucmpt wn 0ss
+      frsucmptn adantl pm2.61dan adantr wb mpbird r19.23aiva a1d jaoi nfvres
+      pm2.61i ) EKZLMZBDFNZCMZWLGOAGKZBDAKZNZPZQZWNRZLSZTZBUAZUBZWMWLUCUDZWLHKZ
+      UEZUDZHLUFZUGXEHWLUHXFXEXJXFXDUCXBTZBUAZWOXFXCXKBWLUCXBUIUJWOXLWNBUABDFUK
+      WOXKWNBWNCWTULUJUMUNXJXDWOXIXDHLXGLMZXIUOXDXHXBTZBUAZXMXOXIXMIXGXBTZBDIKZ
+      NZPZOMZXOXMXTUOZXOXSBUAZYBXRBUAZIXPIXPXRBUPYCXQXPMBDXQUKUQURYAXNXSBGJWNXG
+      IWPXRPZXSOXBJKZWNMGUSZYEXGMGUSZYEXRMZIXPUFZYIGUTYEXSMZYJGUTYHGIXPGIXGXBGI
+      XALGIWNWTGIOWSVAXQWNMGUSVBXQLMGUSVCXQXGMGUSVDYHGUSVEIYEXPXRVFZYJYIGYKVGVH
+      ZWTGOYDQZUDZXBYMWNRZLSUDZGOWSOYDOVIAIWPWRXRBDWQXQVJVKVLYNXAYOUDYPWNWTYMVM
+      XAYOLVNVOVPZIWPXPXRVQZVRUJUMXMXTVSZUOZXOUCBUAZBVTZYTXNUCBYSXNUCUDXMGJWNXG
+      YDXSXBYFYGYLYQYRWAWBUJUMWCWDXIXDXOWEXMXIXCXNBWLXHXBUIUJWBWFWGWHWIVOWMVSZX
+      DWOUUCXDUUAUUBUUCXCUCBWLLXAWJUJUMWHWK $.
+      $( [12-May-2012] $) $( [28-Apr-2012] $)
+
   $}
 
   ${
-    $d R a b y z $.  $d A a b y z $.  $d X a b y z $.
+    $d R a y z $.  $d A a y z $.  $d X a y z $.
     $( Assuming it exists, the predecessor class is a subset of the transitive
-       closure. $)
-    trclpred $p |- ( Pred ( R , A , X ) e. B ->
-                      Pred ( R , A , X ) C_ Trcl ( R , A , X ) ) $=
-      ( vb vy va vz cpred wcel cv ciun wceq copab crdg com cres crn cuni ctrcl
-      wss wbr wex c0 cfv fr0g wfun cdm wb wfn frfnom fnfun ax-mp peano1 fndm
-      eleqtrri funbrfvbg mp3an12 mpbid 0ex breq1 cla4ev syl elrng mpbird
-      elssuni df-trcl syl6ssr ) ACDIZBJZVIEKFGKACFKILMGENZVIOPQZRZSZACDTVJVIVMJ
-      ZVIVNUAVJVOHKZVIVLUBZHUCZVJUDVIVLUBZVRVJUDVLUEVIMZVSVIBVKUFVLUGZUDVLUHZJV
-      JVTVSUIVLPUJZWAVIVKUKZPVLULUMUDPWBUNWCWBPMWDPVLUOUMUPUDVIBVLUQURUSVQVSHUD
-      UTVPUDVIVLVAVBVCHVIVLBVDVEVIVMVFVCFACDGEVGVH $.
+       predecessors. $)
+    trpredpred $p |- ( Pred ( R , A , X ) e. B ->
+                      Pred ( R , A , X ) C_ TrPred ( R , A , X ) ) $=
+      ( va vy vz cpred wcel cvv cv ciun cmpt crdg com cres crn cuni ctrpred
+      wss wbr wex c0 cfv wceq fr0g wfun cdm wb wfn frfnom fnfun ax-mp peano1
+      fndm eleqtrri funbrfvbg mp3an12 mpbid 0ex breq1 cla4ev syl elrng mpbird
+      elssuni df-trpred syl6ssr ) ACDHZBIZVIEJFEKACFKHLMZVINOPZQZRZACDSVJVIVMIZ
+      VIVNTVJVOGKZVIVLUAZGUBZVJUCVIVLUAZVRVJUCVLUDVIUEZVSVIBVKUFVLUGZUCVLUHZIVJ
+      VTVSUIVLOUJZWAVIVKUKZOVLULUMUCOWBUNWCWBOUEWDOVLUOUMUPUCVIBVLUQURUSVQVSGUC
+      UTVPUCVIVLVAVBVCGVIVLBVDVEVIVMVFVCFACDEVGVH $.
       $( [18-Feb-2011] $)
   $}
 
   ${
     $d R a b i y z $.  $d A a b i y z $.  $d B i z $.  $d X a b i y z $.
-    $( The transitive closure is a subset of the base class. $)
-    trclss $p |- ( Pred ( R , A , X ) e. B ->
-                    Trcl ( R , A , X ) C_ A ) $=
-      ( vb vy va vi vz cpred wcel cv ciun wceq copab crdg com cres crn cuni
-      ctrcl wbr wex wss wi wal cfv wfn wb frfnom visset fnbrfvb mpan biimprd
-      sseq1 trcllem1 syl5cbi syl9r cdm breldm fndm ax-mp syl6eleq syl5 pm2.43d
-      19.23adv 19.21aiv wral unissb df-ral elrn imbi1i albii 3bitri sylibr
-      df-trcl syl5ss ) ACDJZBKZELFGLACFLJMNGEOZVRPQRZSZTZAACDUAVSHLZILZWAUBZHUC
-      ZWEAUDZUEZIUFZWCAUDZVSWIIVSWFWHHVSWFWHVSWDQKZWFWHUEWFWLWFWDWAUGZWENZVSWHW
-      LWNWFWAQUHZWLWNWFUIVRVTUJZQWDWEWAIUKZULUMUNWNWMAUDWHVSWMWEAUOFABCHDGEUPUQ
-      URWFWDWAUSZQWDWEWAHUKUTWOWRQNWPQWAVAVBVCVDVEVFVGWKWHIWBVHWEWBKZWHUEZIUFWJ
-      IWBAVIWHIWBVJWTWIIWSWGWHHWEWAWQVKVLVMVNVOFACDGEVPVQ $.
+    $( The transitive predecessors form a subset of the base class. $)
+    trpredss $p |- ( Pred ( R , A , X ) e. B ->
+                    TrPred ( R , A , X ) C_ A ) $=
+      ( vi va vy cpred wcel com cv cvv ciun cmpt crdg cres cfv ctrpred wss
+      wral trpredlem1 a1d r19.21aiv iunss sylibr dftrpred2 syl5ss ) ACDHZBIZEJE
+      KZFLGFKACGKHMNUHOJPQZMZAACDRUIUKASZEJTULASUIUMEJUIUMUJJIGABCEDFUAUBUCEJUK
+      AUDUEGACEDFUFUG $.
       $( [20-Feb-2011] $)
   $}
 
   ${
-    $d R a b f g h t x y z $.  $d A a b f g h t x y z $.
-    $d X a b f g h t x y z $.  $d Y a h $.
-    $( The transitive closure is transitive in ` R ` and ` A ` $)
-    trcltr $p |- ( ( X e. A /\ A. x e. A Pred ( R , A , x ) e. _V ) ->
-                    ( Y e. Trcl ( R , A , X ) ->
-                      Pred ( R , A , Y ) C_ Trcl ( R , A , X ) ) ) $=
-      ( va vz vt vy vh vf vg vb wcel cv cpred cvv wral wa ciun wceq copab crdg
-      com cres cfv cdm wrex crn cuni wss ctrcl wi csuc ssuni ax-17 ax17el weq
-      pm3.27 iuneq1 predeq3 cbviunv syl6eq adantr eqeq12d cbvopabv rdgeq1
-      ax-mp reseq1 frsucopab iunexg fvex setlikespec trcllem1 syl ssralv
-      cbvsetlike syl5ib com12 adantl mpd sylancr sylan2 sseq2d ssiun2s syl5bir
-      expcom imp32 wfn fnfvelrn frfnom peano2 ad2antrl sylanc exp32 fndm
-      eleq2i r19.23adv df-trcl wfun wb fnfun elunirn bitri sseq2i 3imtr4g ) DBN
-      ZBCAOPQNABRZSZEFOZGOZHIOZBCHOZPZTZUAZIGUBZBCDPZUCZUDUEZUFZNZFXTUGZUHZBCEP
-      ZXTUIZUJZUKZEBCDULZNZYEYIUKXIYBYHFYCXIXJUDNZYBYHUMXJYCNXIYKYBYHYEXJUNZXTU
-      FZUKZYMYFNZYHXIYKYBSSYEYMYFUOXIYKYBYNYKXIYBYNUMYKXISZYNYEJYABCJOZPZTZUKYB
-      YPYMYSYEYKYSQNZYMYSUAXIKLMXRXJJKOZYRTZYSQXTMOZXRNKUPMFKUQUUCYSNKUPXSLOZUU
-      BUAZKLUBZXRUCZUAZXTUUGUDUEUAXQUUFUAUUHXPUUEIGKLIKURZGLURZSXKUUDXOUUBUUIUU
-      JUSUUIXOUUBUAUUJUUIXOHUUAXNTUUBHXLUUAXNUTHJUUAXNYRBCXMYQVAVBVCVDVEVFXRXQU
-      UFVGVHXSUUGUDVIVHJUUAYAYRUTVJYAQNYRQNZJYARZYTXIJYAYRQQVKXJXTVLXIYABUKZUUL
-      XIXRQNUUMABCDVMHBQCFDIGVNVOXHUUMUULUMXGUUMXHUULUUMUUKJBRUULXHUUKJYABVPAJB
-      CVQVRVSVTWAWBWCWDJYAYREYEBCYQEVAWEWFWGWHYKYOXIYBXTUDWIZYLUDNYOYKUDYLXTWJX
-      RXQWKZXJWLWBWMWNWOYCUDXJUUNYCUDUAUUOUDXTWPVHWQVRWRYJEYGNZYDYIYGEHBCDIGWSZ
-      WQXTWTZUUPYDXAUUNUURUUOUDXTXBVHFEXTXCVHXDYIYGYEUUQXEXF $.
+    $d A a b f i j t x y $.  $d R a b f i j t x y $.  $d X a b f i j t x y $.
+    $d Y a b f i j t y $.
+    $( The transitive predecessors are transitive in ` R ` and ` A ` $)
+    trpredtr $p |- ( ( X e. A /\ A. x e. A Pred ( R , A , x ) e. _V ) ->
+                    ( Y e. TrPred ( R , A , X ) ->
+                      Pred ( R , A , Y ) C_ TrPred ( R , A , X ) ) ) $=
+      ( vi va vy vt vf vb vj wcel cv cpred cvv wral wa ciun cmpt crdg com cres
+      cfv wrex ctrpred wss csuc simplr peano2 syl simpr ssid jctir wceq
+      predeq3 sseq2d rcla4ev ssiun setlikespec trpredlem1 sseld wi expcom
+      adantl syld r19.21aiv adantr fvex iunexg mpan ax-17 ax17el iuneq1
+      cbviunv syl5eq cbvmpt rdgeq1 reseq1 ax-mp frsucmpt syl11anc mpbird jca
+      fveq2 dftrpred2 syl6ssr ex r19.23adva eltrpred syl5ib ) DBMZBCANOPMABQZRZ
+      EFNZGPHGNZBCHNZOZSZTZBCDOZUAZUBUCZUDZMZFUBUEBCEOZBCDUFZUGZEXGMWNXEXHFUBWN
+      WOUBMZRZXEXHXJXERZWOUHZUBMZXFXLXCUDZUGZRZXHXKXMXOXKXIXMWNXIXEUIZWOUJUKXKX
+      OXFIXDBCINZOZSZUGZXKXEXFXFUGZRZYAXKXEYBXJXEULXFUMUNYCXFXSUGZIXDUEYAYDYBIE
+      XDXREUOXSXFXFBCXREUPUQURIXDXSXFUSUKUKXKXNXTXFXKXIXTPMZXNXTUOXQXKXSPMZIXDQ
+      ZYEXJYGXEWNYGXIWNYFIXDWNXRXDMXRBMZYFWNXDBXRWNXAPMXDBUGABCDUTHBPCFDGVAUKVB
+      WMYHYFVCWLYHWMYFABCXRUTVDVEVFVGVHVHXDPMYGYEWOXCVIIXDXSPPVJVKUKJKXAWOIJNZX
+      SSZXTPXCKNZXAMJVLKFJVMYKXTMJVLWTJPYJTZUOZXCYLXAUAZUBUCUOZGJKPWSYJYKWSMJVL
+      YKYJMGVLWPYIUOIWPXSSYJWSIWPYIXSVNHIWPWRXSBCWQXRUPVOVPVQYMXBYNUOYOXAWTYLVR
+      XBYNUBVSUKVTIYIXDXSVNWAWBUQWCWDXPXFLUBLNZXCUDZSZXGXPXFYQUGZLUBUEXFYRUGYSX
+      OLXLUBYPXLUOYQXNXFYPXLXCWEUQURLUBYQXFUSUKHBCLDGWFWGUKWHWIHBCFDEGWJWK $.
       $( [20-Feb-2011] $)
   $}
 
   ${
-    $d R a b y $.  $d A a b y $.  $d X a b y $.
-    $( The transitive closure of a relation exists (NOTE: this is the first
-       theorem in the transitive closure series that requires infinity). $)
-    trclex $p |- Trcl ( R , A , X ) e. _V $=
-      ( vb vy va ctrcl cv cpred ciun wceq copab crdg com cres crn cuni cvv
-      df-trcl wfn wcel frfnom omex fnex mp2an rnex uniex eqeltri ) ABCGDHEFHABE
-      HIJKFDLZABCIZMNOZPZQREABCFDSULUKUKNTNRUAUKRUAUJUIUBUCNRUKUDUEUFUGUH $.
+    $d A x y $.  $d R x y $.  $d X x y $.  $d B y $.  $d A x y a b c d i j k $.
+    $d B i j k $.  $d R a b c d i j k $.  $d X a b c i j k $.
+    $( The transitive predecessors form the smallest class transitive in ` R `
+       and ` A ` .  That is, if ` B ` is another ` R ` , ` A ` transitive class
+       containing ` Pred ( R , A , X ) ` , then
+       ` TrPred ( R , A , X ) C_ B ` $)
+    trpredmintr $p |- ( ( ( X e. A /\ A. x e. A Pred ( R , A , x ) e. _V ) /\
+                         ( A. y e. B Pred ( R , A , y ) C_ B /\
+                           Pred ( R , A , X ) C_ B ) ) ->
+                       TrPred ( R , A , X ) C_ B ) $=
+      ( vi va vj vk vc vd vb wcel cv cpred cvv wral wa wss com ciun cmpt crdg
+      cres cfv ctrpred wi c0 csuc wceq fveq2 sseq1d imbi2d weq setlikespec
+      fr0g syl adantr simprr eqsstrd ax-17 wel eqid iuneq1 predeq3 cbviunv
+      syl5eq cbvmpt rdgeq1 reseq1 ax-mp fveq1i eqeq2i sylbi frsucmpt iunexg
+      fvex trpredlem1 sseld expcom adantl syld r19.21aiv ad2antrr sylancr
+      sylan2 hbra1 hban ssel ra4 ad2antrl sylan9r r19.21ai sseq1i anbi2i
+      sylan2b iunss sylibr exp32 a2d finds com12 dftrpred2 syl5ss ) FCNZCEAOPQN
+      ACRZSZCEBOZPZDTZBDRZCEFPZDTZSZSZGUAGOZHQBHOZXJUBZUCZXMUDZUAUEZUFZUBZDCEFU
+      GXPYCDTZGUARYDDTXPYEGUAXQUANXPYEXPIOZYBUFZDTZUHXPUIYBUFZDTZUHXPJOZYBUFZDT
+      ZUHXPYKUJZYBUFZDTZUHXPYEUHIJXQYFUIUKZYHYJXPYQYGYIDYFUIYBULUMUNIJUOZYHYMXP
+      YRYGYLDYFYKYBULUMUNYFYNUKZYHYPXPYSYGYODYFYNYBULUMUNIGUOZYHYEXPYTYGYCDYFXQ
+      YBULUMUNXPYIXMDXHYIXMUKZXOXHXMQNZUUAACEFUPZXMQXTUQURUSXHXLXNUTVAYKUANZXPY
+      MYPUUDXPYMYPUUDXPYMSZSZYOBYKKQLKOZCELOZPZUBZUCZXMUDZUAUEZUFZXJUBZDUUDUUOQ
+      NZYOUUOUKUUEHMXMYKXSUUOQYBMOZXMNHVBMJVCHVBUUQUUONHVBYBVDXRYLUKXRUUNUKXSUU
+      OUKYLUUNXRYKYBUUMXTUUKUKZYBUUMUKZHKMQXSUUJUUQXSNKVBUUQUUJNHVBHKUOLXRUUIUB
+      UUJXSLXRUUGUUIVEBLXRXJUUICEXIUUHVFVGVHVIUURYAUULUKUUSXMXTUUKVJYAUULUAVKUR
+      VLVMZVNBXRUUNXJVEVOVPUUNQNXJQNZBUUNRZUUPUUEBUUNXJQQVQYKUUMVRXHUVBXOYMXHUV
+      ABUUNXHXIUUNNZXICNZUVAXHUUNCXIXHUUBUUNCTUUCLCQEJFKVSURVTXGUVDUVAUHXFUVDXG
+      UVAACEXIUPWAWBWCWDWEWFWGUUFXKBUUNRZUUODTUUDXPUUNDTZSZUVEUUEUVGUVEUUDUVGXK
+      BUUNXPUVFBXHXOBXHBVBXLXNBXKBDWHXNBVBWIWIUVFBVBWIUVFUVCXIDNZXPXKUUNDXIWJXL
+      UVHXKUHXHXNXKBDWKWLWMWNWBYMUVFXPYLUUNDUUTWOWPWQBUUNXJDWRWSVAWTXAXBXCWDGUA
+      YCDWRWSBCEGFHXDXE $.
+      $( [12-May-2012] $) $( [25-Apr-2012] $)
+  $}
+
+  ${
+    $d A x y $.  $d R x y $.  $d X x y $.  $d Y x y $.
+    $( Given a transitive predecessor ` Y ` of ` X ` , the transitive
+       predecessors of ` Y ` are a subset of the transitive predecessors of
+       ` X ` . $)
+    trpredelss $p |- ( ( X e. A /\ A. x e. A Pred ( R , A , x ) e. _V ) ->
+                      ( Y e. TrPred ( R , A , X ) ->
+                        TrPred ( R , A , Y ) C_ TrPred ( R , A , X ) ) ) $=
+      ( vy wcel cv cpred cvv wral wa ctrpred wss setlikespec trpredss syl
+      sseld imp simplr trpredtr r19.21aiv adantr trpredmintr syl22anc ex ) DBGZ
+      BCAHIJGABKZLZEBCDMZGZBCEMUJNZUIUKLEBGZUHBCFHZIUJNZFUJKZBCEIUJNZULUIUKUMUI
+      UJBEUIBCDIJGUJBNABCDOBJCDPQRSUGUHUKTUIUPUKUIUOFUJABCDUNUAUBUCUIUKUQABCDEU
+      ASAFBUJCEUDUEUF $.
+      $( [12-May-2012] $) $( [25-Apr-2012] $)
+  $}
+
+  ${
+    $d A x y z $.  $d R x y z $.  $d X x y z $.
+    $( The transitive predecessors of ` X ` are equal to the predecessors of
+       ` X ` together with their transitive predecessors. $)
+    dftrpred3g $p |- ( ( X e. A /\ A. x e. A Pred ( R , A , x ) e. _V ) ->
+                    TrPred ( R , A , X ) =
+                    ( Pred ( R , A , X ) u.
+                      U_ y e. Pred ( R , A , X ) TrPred ( R , A , y ) ) ) $=
+      ( vz wcel cv cpred cvv wral wa ctrpred ciun cun wss wo wi setlikespec
+      trpredpred syl expcom adantl predel syl5 ancld wrex weq trpredeq3 sseq2d
+      rcla4ev ssiun syl6 ancoms adantll trpredss sseld ad2antlr syld imp simpr
+      simplr trpredelss syl11anc sstrd exp31 reximdvai eliun syl5ib jaod ssun4
+      elun r19.21aiv ssun1 jctir trpredmintr mpdan iunss sylibr jca unss sylib
+      eqssd ) ECGZCDAHIJGACKZLZCDEMZCDEIZBWHCDBHZMZNZOZWFCDFHZIZWLPZFWLKZWHWLPZ
+      LWGWLPWFWPWQWFWOFWLWFWMWHGZWMWKGZQZWOWMWLGWFWTWNWKPZWOWFWRXAWSWFWRWRWNCDW
+      MMZPZLZXAWFWRXCWFWMCGZXCWRWEXEXCRWDXEWEXCXEWELWNJGZXCACDWMSZCJDWMTZUAUBUC
+      CDEWMUDUEUFXDWNWJPZBWHUGZXAXIXCBWMWHBFUHWJXBWNCDWIWMUIUJUKBWHWJWNULZUAUMW
+      FWMWJGZBWHUGZXAWSWFXMXJXAWFXLXIBWHWFWICGZXLXIRWIWHGZWFXNXLXIWFXNLZXLLZWNX
+      BWJXQXFXCXPXLXFXPXLXEXFXPWJCWMXPCDWIIJGZWJCPWEXNXRWDXNWEXRACDWISUNUOCJDWI
+      UPUAUQWEXEXFRWDXNXEWEXFXGUBURUSUTXHUAXPXLXBWJPZXPXNWEXLXSRWFXNVAWDWEXNVBA
+      CDWIWMVCVDUTVEVFCDEWIUDUEVGXKUMBWMWHWJVHVIVJWNWKWHVKUMWMWHWKVLVIVMWHWKVNV
+      OAFCWLDEVPVQWFWHWGPZWKWGPZLWLWGPWFXTYAWFWHJGXTACDESCJDETUAZWFWJWGPZBWHKYA
+      WFYCBWHWFXOWIWGGYCWFWHWGWIYBUQACDEWIVCUSVMBWHWJWGVRVSVTWHWKWGWAWBWC $.
+      $( [12-May-2012] $) $( [26-Apr-2012] $)
+  $}
+
+  ${
+    $d A x y $.  $d R x y $.  $d X x y $.
+    $( Another recursive expression for the transitive predecessors. $)
+    dftrpred4g $p |- ( ( X e. A /\ A. x e. A Pred ( R , A , x ) e. _V ) ->
+        TrPred ( R , A , X ) =
+        U_ y e. Pred ( R , A , X ) ( { y } u. TrPred ( R , A , y ) ) ) $=
+      ( wcel cv cpred cvv wral wa ctrpred ciun cun csn dftrpred3g iunun iunid
+      uneq1i eqtri syl6eqr ) ECFCDAGHIFACJKCDELCDEHZBUBCDBGZLZMZNZBUBUCOZUDNMZA
+      BCDEPUHBUBUGMZUENUFBUBUGUDQUIUBUEBUBRSTUA $.
+      $( [12-May-2012] $) $( [27-Apr-2012] $)
+  $}
+
+  ${
+    $d A x y $.  $d R x y $.  $d X x y $.
+    $( If ` R ` partially orders ` A ` , then the transitive predecessors are
+       the same as the immediate predecessors . $)
+    trpredpo $p |- ( ( R Po A /\ X e. A /\
+                        A. x e. A Pred ( R , A , x ) e. _V ) ->
+                      TrPred ( R , A , X ) = Pred ( R , A , X ) ) $=
+      ( vy wpo wcel cv cpred cvv wral w3a ctrpred wss simp2 simp3 wa predpo
+      r19.21aiv 3adant3 ssid a1i trpredmintr syl22anc setlikespec trpredpred
+      syl 3adant1 eqssd ) BCFZDBGZBCAHIJGABKZLZBCDMZBCDIZUMUKULBCEHZIUONZEUOKZU
+      OUONZUNUONUJUKULOUJUKULPUJUKURULUJUKQUQEUOBCDUPRSTUSUMUOUAUBAEBUOCDUCUDUK
+      ULUOUNNZUJUKULQUOJGUTABCDUEBJCDUFUGUHUI $.
+      $( [12-May-2012] $) $( [28-Apr-2012] $)
+  $}
+
+  ${
+    $d R a i j k y z $.  $d X a i j k y z $.
+    $( The class of transitive predecessors is empty when ` A ` is empty. $)
+    trpred0 $p |- TrPred ( R , (/) , X ) = (/) $=
+      ( vi va vy vj c0 ctrpred com cv cvv cpred ciun cmpt crdg cres cfv
+      dftrpred2 wcel wceq csuc wrex wo nn0suc fveq2 0ex fr0g ax-mp syl6eq
+      eqeq1d ax-17 wel eqid eqidd frsucmpt mpan2 syl5cbir r19.23aiv jaoi syl
+      pred0 a1i iuneq2i iun0 eqtri mpteqi rdgeq12 mp2an reseq1 fveq1i syl5eq
+      3eqtri ) GABHCICJZDKEDJZGAEJZLZMZNZGABLZOZIPZQZMCIGMGEGACBDRCIWBGVMISZVMD
+      KGNZGOZIPZQZGWBWCVMGTZVMFJZUAZTZFIUBZUCWGGTZFVMUDWHWMWLWHWGGWFQZGVMGWFUEG
+      KSZWNGTUFGKWDUGUHUIWKWMFIWKWMWJWFQZGTZWIISZWKWGWPGVMWJWFUEUJWRWOWQUFDCGWI
+      GGKWFVMGSDUKZCFULDUKWSWFUMVNWIWFQTGUNUOUPUQURUSUTVMWAWFVTWETZWAWFTVRWDTVS
+      GTWTDKVQKGKUMVQEVNGMGEVNVPGVPGTEDULAVOVAVBVCEVNVDVEVFABVAVSGVRWDVGVHVTWEI
+      VIUHVJVKVCCIVDVL $.
+      $( [12-May-2012] $) $( [30-Apr-2012] $)
+  $}
+
+  ${
+    $d R a y $.  $d A a y $.  $d X a y $.
+    $( The transitive predecessors of a relation form a set (NOTE: this is the
+       first theorem in the transitive predecessor series that requires
+       infinity). $)
+    trpredex $p |- TrPred ( R , A , X ) e. _V $=
+      ( va vy ctrpred cvv cv cpred ciun cmpt crdg com cres crn cuni df-trpred
+      wfn wcel frfnom omex fnex mp2an rnex uniex eqeltri ) ABCFDGEDHABEHIJKZABC
+      IZLMNZOZPGEABCDQUJUIUIMRMGSUIGSUHUGTUAMGUIUBUCUDUEUF $.
       $( [18-Feb-2011] $)
   $}
+
+  ${
+    $d A x z $.  $d R x z $.  $d X x z $.  $d Y z $.  $d A a i j y x z $.
+    $d R a i j y $.  $d X a i j y $.  $d Y a i j y $.
+    $( If ` Y ` is an ` R ` , ` A ` transitive predecessor, then it is either
+       an immediate predecessor or there is a transitive predecessor between
+       ` Y ` and ` X ` $)
+    trpredrec $p |- ( ( X e. A /\ A. x e. A Pred ( R , A , x ) e. _V ) ->
+       ( Y e. TrPred ( R , A , X ) -> ( Y e. Pred ( R , A , X ) \/
+         E. z e. TrPred ( R , A , X ) Y R z ) ) ) $=
+      ( vi va vy vj wcel cv cpred cvv wral wa ciun cmpt crdg com cres cfv wrex
+      wbr ctrpred wo c0 wceq csuc wi fveq2 eleq2d anbi2d biimpd setlikespec
+      fr0g syl biimpa syl6com ax-17 wel wal hbmpt1 hbrdg hbres hbfv hbrex
+      eliun albii 3imtr4i eqid iuneq1 predeq3 cbviunv syl5eq frsucmpt iunexg
+      fvex wss trpredlem1 sseld expcom adantl syld r19.21aiv sylancr sylan2
+      expimpd ssiun2 dftrpred2 syl6ssr visset elpredim a1i anim12d reximdv2
+      com12 sylbi pm2.43d com23 r19.23adv orim12d ex nn0suc syl5 eltrpred
+      syl5ib ) ECKZCDALMNKACOZPZFGLZHNIHLZCDILZMZQZRZCDEMZSZTUAZUBZKZGTUCFXQKZF
+      BLZDUDZBCDEUEZUCZUFZFYEKXJYAYGGTXJXKUGUHZXKJLZUIZUHZJTUCZUFZYAYGUJXKTKXJY
+      AYMYGXJYAYMYGUJXJYAPZYHYBYLYFYHYNXJFUGXSUBZKZPZYBYHYNYQYHYAYPXJYHXTYOFXKU
+      GXSUKULUMUNXJYPYBXJYOXQFXJXQNKZYOXQUHACDEUOZXQNXPUPUQULURUSYNYKYFJTYNYKYI
+      TKZYFYKYNXJFYJXSUBZKZPZYTYFUJZYKYNUUCYKYAUUBXJYKXTUUAFXKYJXSUKULUMUNUUCYT
+      YFYTUUCFBYIXSUBZCDYCMZQZKZUUDYTXJUUBUUHYTXJPZUUBUUHUUIUUAUUGFYTUUGNKZUUAU
+      UGUHXJHGXQYIXOUUGNXSXKXQKHUTGJVAHUTXKUUFKZBUUEUCZUULHVBXKUUGKZUUMHVBUUKHB
+      UUEHBYIXSHBXRTHBXQXPHBNXOVCYCXQKHUTVDYCTKHUTVEBJVAHUTVFUUKHUTVGBXKUUEUUFV
+      HZUUMUULHUUNVIVJXSVKXLUUEUHBXLUUFQUUGXOBXLUUEUUFVLIBXLXNUUFCDXMYCVMVNVOVP
+      UUENKUUFNKZBUUEOUUJXJBUUEUUFNNVQYIXSVRXJUUOBUUEXJYCUUEKZYCCKZUUOXJUUECYCX
+      JYRUUECVSYSICNDJEHVTUQWAXIUUQUUOUJXHUUQXIUUOACDYCUOWBWCWDWEWFWGULUNWHUUHF
+      UUFKZBUUEUCZUUDBFUUEUUFVHYTUUSYFYTUURYDBUUEYEYTUUPYCYEKUURYDYTUUEYEYCYTUU
+      EJTUUEQYEJTUUEWIICDJEHWJWKWAUURYDUJYTCDYCFBWLWMWNWOWPWQWRUSWSUSWTXAXBXCWT
+      JXKXDXEXAICDGEFHXFXG $.
+      $( [12-May-2012] $) $( [9-May-2012] $)
+  $}
+
+
+  $(
+  @{ @d R x z @. @d A x z @. @d X x z @.
+     trpredfrirr.1 @e |- R Fr A @.
+     trpredfrirr.2 @e |- A. x e. A Pred ( R , A , x ) e. _V @.
+
+     @( If ` R ` is founded and set-like over ` A ` , then the transitive
+        predecessor set is irreflexive @)
+     trpredfrirr @p |- ( X e. A -> -. X e. TrPred ( R , A , X ) ) @=
+       ( vz wcel ctrpred cpred cv wbr wrex wo wn wa nrexdv wfr predfrirr ax-mp
+       jctil ioran sylibr cvv wral wi trpredrec mpan2 mtod ) DBHZDBCDIZHZDBCDJH
+       ZDGKCLZGUKMZNZUJUMOZUOOZPUPOUJURUQUJUNGUK?QBCRUQEBCDSTUAUMUOUBUCUJBCAKJU
+       DHABUEULUPUFFAGBCDDUGUHUI @.
+       @( [12-May-2012] @) @( [10-May-2012] @)
+  @}
+  $)
 
