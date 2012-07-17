@@ -1,0 +1,72 @@
+$(
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+              Product and sum of two objects
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+$)
+
+  $c ProdObj $.
+
+  $( Extend class notation with the class of all object products. $)
+  cprodo $a class ProdObj $.
+
+  ${
+    $d c a b m n f g h $.
+    $( " A product in a category ` C ` of two objects ` a ` and ` b ` is a
+       ` C ` -object ` a x. b ` together with a pair ( ` m : a x. b --> a ` ,
+       ` n : a x. b --> b ` ) of ` C ` -arrows such that for any pair of ` C `
+       -arrows of the form ( ` f : c --> a ` , ` g : c --> b ` ) there is
+       exactly one arrow ` <. f , g >. : c --> a x. b ` such that
+       ` m o. <. f , g >. = f ` and ` n o. <. f , g >. = g ` ".  Goldblatt
+       p. 47.  Experimental. $)
+    df-prodobj $a |- ProdObj = ( c e. Cat |->
+      ( a e. dom ( id_ ` c ) , b e. dom ( id_ ` c ) |->
+         { <. m , n >. |
+          ( ( m e. dom ( dom_ ` c )
+          /\ n e. dom ( dom_ ` c ) )
+          /\ ( ( ( dom_ ` c ) ` m ) = ( ( dom_ ` c ) ` n )
+          /\ ( ( cod_ ` c ) ` m ) = a
+          /\ ( ( cod_ ` c ) ` n ) = b )
+          /\ A. f e. dom ( dom_ ` c ) A. g e. dom ( dom_ ` c )
+             ( ( ( ( dom_ ` c ) ` f ) = ( ( dom_ ` c ) ` g )
+             /\ ( ( cod_ ` c ) ` f ) = a
+             /\ ( ( cod_ ` c ) ` g ) = b )
+             /\ E! h e. dom ( dom_ ` c )
+                 ( ( ( dom_ ` c ) ` h ) = ( ( dom_ ` c ) ` f )
+                 /\ ( ( cod_ ` c ) ` h ) = ( ( dom_ ` c ) ` m )
+                 /\ ( ( m ( o_ ` c ) h ) = f
+                 /\ ( n ( o_ ` c ) h ) = g ) ) ) ) } ) ) $.
+  $}
+
+  $c SumObj $.
+
+  $( Extend class notation with the class of all object sums. $)
+  csumo $a class SumObj $.
+
+  ${
+    $d c a b m n f g h $.
+    $( " A co-product of C-objects ` a ` and ` b ` is a C-object ` a + b `
+       together with a pair ( ` m : a --> a + b ` , ` n : b --> a + b ` ) of
+       C-arrows such that for any pair of C-arrows of the form
+       ( ` f : a --> c ` , ` g : b --> c ` ) there is exactly one arrow
+       ` [ f , g ] : a + b --> c ` such that ` [ f , g ] o. m = f ` and
+       ` [ f , g ] o. n = g ` ".  Goldblatt p. 54.  Experimental. $)
+    df-sumobj $a |- SumObj = ( c e. Cat |->
+      ( a e. dom ( id_ ` c ) , b e. dom ( id_ ` c ) |->
+       { <. m , n >. |
+          ( ( m e. dom ( dom_ ` c )
+          /\ n e. dom ( dom_ ` c ) )
+          /\ ( ( ( cod_ ` c ) ` m ) = ( ( cod_ ` c ) ` n )
+          /\ ( ( dom_ ` c ) ` m ) = a
+          /\ ( ( dom_ ` c ) ` n ) = b )
+          /\ A. f e. dom ( dom_ ` c ) A. g e. dom ( dom_ ` c )
+             ( ( ( ( cod_ ` c ) ` f ) = ( ( cod_ ` c ) ` g )
+             /\ ( ( dom_ ` c ) ` f ) = a
+             /\ ( ( dom_ ` c ) ` g ) = b )
+             /\ E! h e. dom ( dom_ ` c )
+                 ( ( ( cod_ ` c ) ` h ) = ( ( cod_ ` c ) ` f )
+                 /\ ( ( dom_ ` c ) ` h ) = ( ( cod_ ` c ) ` m )
+                 /\ ( ( h ( o_ ` c ) m ) = f
+                 /\ ( h ( o_ ` c ) n ) = g ) ) ) ) } ) ) $.
+  $}
+
+

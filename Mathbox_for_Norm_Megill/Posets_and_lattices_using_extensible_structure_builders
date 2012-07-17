@@ -4,7 +4,6 @@ $(
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 $)
 
-  $c base $.
   $c le $.
   $c PosetNEW $.
   $c lt $.
@@ -14,9 +13,6 @@ $)
   $c glb $.
   $c join $.
   $c meet $.
-
-  $( Extend class notation with the class of all base set extractors. $)
-  cbs $a class base $.
 
   $( Extend class notation with less-than-or-equal for posets. $)
   cple $a class le $.
@@ -44,20 +40,6 @@ $)
 
   $( Extend class notation with poset meet. $)
   cmee $a class meet $.
-
-  $( Def. 8.4.2 p. 204 $)
-  $( Define the class of base set extractors for posets and related
-     structures. $)
-  df-base $a |- base = ( p e. _V |-> ( p ` 1 ) ) $.
-
-  ${
-    $d p K $.
-    baseval.1 $e |- K e. _V $.
-    $( Value of the base set extractor. $)
-    baseval $p |- ( base ` K ) = ( K ` 1 ) $=
-      ( vp cbs c1 df-base strcval ) DCAEBCFG $.
-      $( [4-Sep-2011] $)
-  $}
 
   $( Def. 8.4.2 p. 204. $)
   $( Define less-than-or-equal ordering for posets and related structures. $)
@@ -3714,14 +3696,26 @@ $)
       ( clat wcel co chlt latjcl hllat atombase syl3an ) DJKEBKFBKEFCLBKDMKEAKF
       AKBCDEFGHNDOABEDGIPABFDGIPQ $.
       $( [15-Jun-2012] $)
+  $}
 
+  ${
+    hlatjcom.j $e |- J = ( join ` K ) $.
+    hlatjcom.a $e |- A = ( AtomsNEW ` K ) $.
     $( Commutatitivity of join operation.  Frequently-used special case of
        ~ latjcom for atoms. $)
     hlatjcom $p |- ( ( K e. HL /\ X e. A /\ Y e. A )
                -> ( X J Y ) = ( Y J X ) ) $=
-      ( clat wcel co wceq chlt latjcom hllat atombase syl3an ) DJKEBKFBKEFCLFEC
-      LMDNKEAKFAKBCDEFGHODPABEDGIQABFDGIQR $.
+      ( clat wcel cbs cfv co wceq chlt eqid latjcom hllat atombase syl3an ) CHI
+      DCJKZIETIDEBLEDBLMCNIDAIEAITBCDETOZFPCQATDCUAGRATECUAGRS $.
       $( [15-Jun-2012] $)
+
+    $( TODO: Use in place of ~ latjcom when it shortens proofs $)
+    $( Idempotence of join operation.  Frequently-used special case of
+       ~ latjcom for atoms. $)
+    hlatjidm $p |- ( ( K e. HL /\ X e. A ) -> ( X J X ) = X ) $=
+      ( clat wcel cbs cfv co wceq chlt eqid latjidm hllat atombase syl2an ) CGH
+      DCIJZHDDBKDLCMHDAHSBCDSNZEOCPASDCTFQR $.
+      $( [15-Ju1-2012] $)
   $}
 
   ${
@@ -4272,6 +4266,62 @@ $)
   $}
 
   ${
+    $d p q A $.  $d p q K $.
+    atex.1 $e |- A = ( AtomsNEW ` K ) $.
+    $( At least one atom exists. $)
+    atex $p |- ( K e. HL -> A =/= (/) ) $=
+      ( vp vq chlt wcel cv wex c0 wne wrex hl2atom wa df-rex exsimplOLD sylbi
+      syl n0 sylibr ) BFGZDHZAGZDIZAJKUAUBEHKEALZDALZUDABEDCMUFUCUENDIUDUEDAOUC
+      UEDPQRDAST $.
+      $( [15-Jul-2012] $)
+  $}
+
+  ${
+    intnat.b $e |- B = ( base ` K ) $.
+    intnat.l $e |- L = ( le ` K ) $.
+    intnat.m $e |- M = ( meet ` K ) $.
+    intnat.a $e |- A = ( AtomsNEW ` K ) $.
+    $( If the intersection with a non-majorizing element is an atom, the
+       intersecting element is not an atom. $)
+    intnat $p |- ( ( ( K e. HL /\ X e. B /\ Y e. B )
+        /\ ( -. Y L X /\ ( X M Y ) e. A ) ) -> -. Y e. A ) $=
+      ( chlt wcel w3a wbr wn co wa cp0 cfv wne cops simpll1 hlop syl eqid
+      atomn0 sylancom ex wceq clat hllat simpll2 simpll3 latmcom syl111anc
+      simplr col cal wb hlol hlatl simpr atomnle syl211anc mpbid eqtrd
+      necon3ad syld impr ) CLMZFBMZGBMZNZGFDOPZFGEQZAMZGAMZPZVNVORZVQVPCSTZUAZV
+      SVTVQWBVTVQCUBMZWBVTVQRVKWCVKVLVMVOVQUCCUDUEAVPCWAWAUFZKUGUHUIVTVRVPWAVTV
+      RVPWAUJVTVRRZVPGFEQZWAWECUKMZVLVMVPWFUJWEVKWGVKVLVMVOVRUCZCULUEVKVLVMVOVR
+      UMZVKVLVMVOVRUNBCEFGHJUOUPWEVOWFWAUJZVNVOVRUQWECURMZCUSMZVRVLVOWJUTWEVKWK
+      WHCVAUEWEVKWLWHCVBUEVTVRVCWIABGCDEFWAHIJWDKVDVEVFVGUIVHVIVJ $.
+      $( [26-Jun-2012] $)
+  $}
+
+  ${
+    2lnne.l $e |- L = ( le ` K ) $.
+    2lnne.j $e |- J = ( join ` K ) $.
+    2lnne.a $e |- A = ( AtomsNEW ` K ) $.
+    $( Condition implying that two intersecting lines are different. $)
+    2llnne2 $p |- ( ( K e. HL /\ ( P e. A /\ R e. A ) /\
+       -. P L ( R J Q ) ) -> ( R J P ) =/= ( R J Q ) ) $=
+      ( chlt wcel wa co wbr wn wne wceq breq2 clat cbs cfv hllat adantr eqid
+      atombase ad2antll ad2antrl latlej2 syl111anc syl5cbi necon3bd 3impia ) FK
+      LZBALZDALZMZBDCENZGOZPDBENZURQUNUQMZUSUTURUTURRBUTGOZUSVAUTURBGSVAFTLZDFU
+      AUBZLZBVDLZVBUNVCUQFUCUDUPVEUNUOAVDDFVDUEZJUFUGUOVFUNUPAVDBFVGJUFUHVDEFGD
+      BVGHIUIUJUKULUM $.
+      $( [13-Jun-2012] $)
+
+    $( Condition implying that two intersecting lines are different. $)
+    2llnne $p |- ( ( K e. HL /\ ( P e. A /\ Q e. A /\ R e. A ) /\
+       ( P =/= Q /\ -. R L ( P J Q ) ) ) -> ( R J P ) =/= ( R J Q ) ) $=
+      ( chlt wcel w3a wne co wbr wn wa simp1 simp21 simp23 wi hlatexch2 simp22
+      3jca syld3an2 con3d 3exp imp4a 3imp 2llnne2 syl121anc ) FKLZBALZCALZDALZM
+      ZBCNZDBCEOGPZQZRZMUMUNUPBDCEOZGPZQZDBEOVBNUMUQVASUMUNUOUPVATUMUNUOUPVAUAU
+      MUQVAVDUMUQURUTVDUMUQURUTVDUBUMUQURMZVCUSUMUNUPUOMURVCUSUBUQABDCEFGHIJUCV
+      EUNUPUOUMUNUOUPURTUMUNUOUPURUAUMUNUOUPURUDUEUFUGUHUIUJABCDEFGHIJUKUL $.
+      $( [29-May-2012] $)
+  $}
+
+  ${
     $d q z A $.  $d q z B $.  $d q z J $.  $d q z K $.  $d q z L $.
     $d q z X $.  $d q z P $.
     cvr1.b $e |- B = ( base ` K ) $.
@@ -4611,13 +4661,13 @@ $)
       ( chlt wcel w3a co wbr wceq wne wa wn cmee cfv eqid atmnem0 cbs wb cvrp
       atombase syl3an2 atomcvr0 3adant3 biantrurd 3bitrd wi simp1 cops hlop
       3ad2ant1 op0cl syl 3ad2ant2 clat latjcl hllat syl3an cvrntr syl13anc
-      sylbid necon4ad opreq2 breq2d latjidm syl11anc breqtrrd syl5cbi impbid )
-      FLMZCAMZDAMZNZGCDEOZBPZCDQZVTWBCDVTCDRZGCBPZCWABPZSZWBTZVTWDCDFUAUBZOGQZW
-      FWGACDFWIGWIUCZIKUDVQCFUEUBZMZVSWJWFUFVRAWLBDEFWICGWLUCZHWKIJKUGAWLCFWNKU
-      HZUIVTWEWFVQVRWEVSABLCFGIJKUJUKZULUMVTVQGWLMZWMWAWLMZWGWHUNVQVRVSUOVTFUPM
-      ZWQVQVRWSVSFUQURWLFGWNIUSUTVRVQWMVSWOVAZFVBMZWMDWLMWRVQVRVSWLEFCDWNHVCFVD
-      ZWOAWLDFWNKUHVELWLBFGCWAWNJVFVGVHVIWCGCCEOZBPWBVTWCXCWAGBCDCEVJVKVTGCXCBW
-      PVTXAWMXCCQVQVRXAVSXBURWTWLEFCWNHVLVMVNVOVP $.
+      sylbid necon4ad opreq2 breq2d hlatjidm breqtrrd syl5cbi impbid ) FLMZCAMZ
+      DAMZNZGCDEOZBPZCDQZVSWACDVSCDRZGCBPZCVTBPZSZWATZVSWCCDFUAUBZOGQZWEWFACDFW
+      HGWHUCZIKUDVPCFUEUBZMZVRWIWEUFVQAWKBDEFWHCGWKUCZHWJIJKUGAWKCFWMKUHZUIVSWD
+      WEVPVQWDVRABLCFGIJKUJUKZULUMVSVPGWKMZWLVTWKMZWFWGUNVPVQVRUOVSFUPMZWPVPVQW
+      RVRFUQURWKFGWMIUSUTVQVPWLVRWNVAFVBMWLDWKMWQVPVQVRWKEFCDWMHVCFVDWNAWKDFWMK
+      UHVELWKBFGCVTWMJVFVGVHVIWBGCCEOZBPWAVSWBWSVTGBCDCEVJVKVSGCWSBWOVPVQWSCQVR
+      AEFCHKVLUKVMVNVO $.
       $( [29-Nov-2011] $)
   $}
 
@@ -4630,15 +4680,14 @@ $)
       ( chlt wcel w3a wne co wn wa cp0 cfv ccvr wbr simpl1 simpl2 eqid
       atomcvr0 syl11anc atcvr1 biimpa cbs wi cops hlop syl op0cl atombase clat
       hllat simpl3 latjcl syl111anc cvrntr syl13anc mp2and simpll1 sylancom
-      mtand ex wceq opreq2 eleq1d 3ad2ant1 3ad2ant2 latjidm simp2 eqeltrd
-      syl5cbi necon3bd impbid ) EHIZBAIZCAIZJZBCKZBCDLZAIZMZVSVTWCVSVTNZWBEOPZW
-      AEQPZRZWDWEBWFRZBWAWFRZWGMZWDVPVQWHVPVQVRVTSZVPVQVRVTTZAWFHBEWEWEUAZWFUAZ
-      GUBUCVSVTWIAWFBCDEFWNGUDUEWDVPWEEUFPZIZBWOIZWAWOIZWHWINWJUGWKWDEUHIZWPWDV
-      PWSWKEUIUJWOEWEWOUAZWMUKUJWDVQWQWLAWOBEWTGULZUJZWDEUMIZWQCWOIZWRWDVPXCWKE
-      UNZUJXBWDVRXDVPVQVRVTUOAWOCEWTGULUJWODEBCWTFUPUQHWOWFEWEBWAWTWNURUSUTWDWB
-      VPWGVPVQVRVTWBVAAWFHWAEWEWMWNGUBVBVCVDVSWBBCBCVEZBBDLZAIWBVSXFXGWAABCBDVF
-      VGVSXGBAVSXCWQXGBVEVPVQXCVRXEVHVQVPWQVRXAVIWODEBWTFVJUCVPVQVRVKVLVMVNVO
-      $.
+      mtand ex wceq opreq2 eleq1d hlatjidm 3adant3 simp2 eqeltrd syl5cbi
+      necon3bd impbid ) EHIZBAIZCAIZJZBCKZBCDLZAIZMZVRVSWBVRVSNZWAEOPZVTEQPZRZW
+      CWDBWERZBVTWERZWFMZWCVOVPWGVOVPVQVSSZVOVPVQVSTZAWEHBEWDWDUAZWEUAZGUBUCVRV
+      SWHAWEBCDEFWMGUDUEWCVOWDEUFPZIZBWNIZVTWNIZWGWHNWIUGWJWCEUHIZWOWCVOWRWJEUI
+      UJWNEWDWNUAZWLUKUJWCVPWPWKAWNBEWSGULUJZWCEUMIZWPCWNIZWQWCVOXAWJEUNUJWTWCV
+      QXBVOVPVQVSUOAWNCEWSGULUJWNDEBCWSFUPUQHWNWEEWDBVTWSWMURUSUTWCWAVOWFVOVPVQ
+      VSWAVAAWEHVTEWDWLWMGUBVBVCVDVRWABCBCVEZBBDLZAIWAVRXCXDVTABCBDVFVGVRXDBAVO
+      VPXDBVEVQADEBFGVHVIVOVPVQVJVKVLVMVN $.
       $( [14-Jun-2012] $)
   $}
 
@@ -4653,15 +4702,14 @@ $)
     atcvrj0 $p |- ( ( K e. HL /\ ( X e. B /\ P e. A /\ Q e. A )
        /\ X C ( P J Q ) ) -> ( X = Z <-> P = Q ) ) $=
       ( chlt wcel w3a co wbr wceq wi wa breq1 biimpd adantl wb atcvr0eq
-      3adant3r1 adantr sylibd ex com23 3impia clat hllat simpr3 atombase syl
-      latjidm syl11anc breq2d cops hlop simpr1 cple cfv eqid atomcvreq0
-      syl111anc sylbid opreq1 biimpac syl5 exp3a impbid ) GOPZHBPZDAPZEAPZQZHDE
-      FRZCSZQHITZDETZVPVTWBWCWDUAVPVTUBZWCWBWDWEWCWBWDUAWEWCUBWBIWACSZWDWCWBWFU
-      AWEWCWBWFHIWACUCUDUEWEWFWDUFZWCVPVRVSWGVQACDEFGIKLMNUGUHUIUJUKULUMVPVTWBW
-      DWCUAWEWBWDWCWEHEEFRZCSZWCWBWDUBWEWIHECSZWCWEWHEHCWEGUNPZEBPZWHETVPWKVTGU
-      OUIWEVSWLVPVQVRVSUPZABEGJNUQURBFGEJKUSUTVAWEWJWCWEGVBPZVQVSWJWCUFVPWNVTGV
-      CUIVPVQVRVSVDWMABCEGGVEVFZHIJWOVGLMNVHVIUDVJWDWBWIWDWAWHHCDEEFVKVAVLVMVNU
-      MVO $.
+      3adant3r1 adantr sylibd ex com23 3impia simpr3 hlatjidm syldan breq2d
+      cops hlop simpr1 cple cfv eqid atomcvreq0 syl111anc sylbid opreq1
+      biimpac syl5 exp3a impbid ) GOPZHBPZDAPZEAPZQZHDEFRZCSZQHITZDETZVLVPVRVSV
+      TUAVLVPUBZVSVRVTWAVSVRVTUAWAVSUBVRIVQCSZVTVSVRWBUAWAVSVRWBHIVQCUCUDUEWAWB
+      VTUFZVSVLVNVOWCVMACDEFGIKLMNUGUHUIUJUKULUMVLVPVRVTVSUAWAVRVTVSWAHEEFRZCSZ
+      VSVRVTUBWAWEHECSZVSWAWDEHCVLVPVOWDETVLVMVNVOUNZAFGEKNUOUPUQWAWFVSWAGURPZV
+      MVOWFVSUFVLWHVPGUSUIVLVMVNVOUTWGABCEGGVAVBZHIJWIVCLMNVDVEUDVFVTVRWEVTVQWD
+      HCDEEFVGUQVHVIVJUMVK $.
       $( [29-Nov-2011] $)
   $}
 
@@ -4767,18 +4815,18 @@ $)
     $( An equivalence of less-than ordering and covers relation. $)
     atltcvr $p |- ( ( K e. HL /\ ( P e. A /\ Q e. A /\ R e. A ) )
            -> ( P S ( Q J R ) <-> P C ( Q J R ) ) ) $=
-      ( chlt wcel w3a wa co wbr wi wceq opreq1 clat cbs cfv hllat adantr
-      simpr3 eqid atombase syl latjidm syl11anc sylan9eqr breq2d cops wn hlop
-      simpr1 atnlt syl111anc pm2.21d sylbid wne cple simpl simpr2 latjcl pltle
-      simpll simplr simpr 3jca anassrs atcvrj2 ex syld pm2.61dane cvrlt impbid
-      ) HMNZCANZDANZEANZOZPZCDEGQZFRZCWFBRZWEWGWHSDEWEDETZPZWGCEFRZWHWJWFECFWIW
-      EWFEEGQZEDEEGUAWEHUBNZEHUCUDZNZWLETVTWMWDHUEUFZWEWCWOVTWAWBWCUGZAWNEHWNUH
-      ZKUIUJZWNGHEWRJUKULUMUNWEWKWHSWIWEWKWHWEHUONZWAWCWKUPVTWTWDHUQUFVTWAWBWCU
-      RZWQACEFHIKUSUTVAUFVBWEDEVCZPZWGCWFHVDUDZRZWHWEWGXESZXBWEVTWAWFWNNZXFVTWD
-      VEZXAWEWMDWNNZWOXGWPWEWBXIVTWAWBWCVFAWNDHWRKUIUJWSWNGHDEWRJVGUTZMAWNFHXDC
-      WFXDUHZIVHUTUFXCXEWHXCXEPVTWDXBXEPZOZWHWEXBXEXMWEXLPVTWDXLVTWDXLVIVTWDXLV
-      JWEXLVKVLVMABCDEGHXDXKJLKVNUJVOVPVQWEVTCWNNZXGWHWGSXHWEWAXNXAAWNCHWRKUIUJ
-      XJVTXNXGOWHWGMWNBFHCWFWRILVRVOUTVS $.
+      ( chlt wcel w3a wa co wbr wi wceq opreq1 simpr3 hlatjidm syldan
+      sylan9eqr breq2d cops wn hlop adantr simpr1 atnlt syl111anc pm2.21d
+      sylbid wne cple cfv cbs simpl clat hllat simpr2 eqid atombase syl latjcl
+      pltle simpll simplr simpr 3jca anassrs atcvrj2 ex syld pm2.61dane cvrlt
+      impbid ) HMNZCANZDANZEANZOZPZCDEGQZFRZCWFBRZWEWGWHSDEWEDETZPZWGCEFRZWHWJW
+      FECFWIWEWFEEGQZEDEEGUAVTWDWCWLETVTWAWBWCUBZAGHEJKUCUDUEUFWEWKWHSWIWEWKWHW
+      EHUGNZWAWCWKUHVTWNWDHUIUJVTWAWBWCUKZWMACEFHIKULUMUNUJUOWEDEUPZPZWGCWFHUQU
+      RZRZWHWEWGWSSZWPWEVTWAWFHUSURZNZWTVTWDUTZWOWEHVANZDXANZEXANZXBVTXDWDHVBUJ
+      WEWBXEVTWAWBWCVCAXADHXAVDZKVEVFWEWCXFWMAXAEHXGKVEVFXAGHDEXGJVGUMZMAXAFHWR
+      CWFWRVDZIVHUMUJWQWSWHWQWSPVTWDWPWSPZOZWHWEWPWSXKWEXJPVTWDXJVTWDXJVIVTWDXJ
+      VJWEXJVKVLVMABCDEGHWRXIJLKVNVFVOVPVQWEVTCXANZXBWHWGSXCWEWAXLWOAXACHXGKVEV
+      FXHVTXLXBOWHWGMXABFHCWFXGILVRVOUMVS $.
       $( [7-Feb-2012] $)
   $}
 
@@ -5021,7 +5069,7 @@ $)
     3noncol.l $e |- L = ( le ` K ) $.
     3noncol.j $e |- J = ( join ` K ) $.
     3noncol.a $e |- A = ( AtomsNEW ` K ) $.
-    $( A way to express 3 non-colinear atoms (rotated right 2 places). $)
+    $( Two ways to express 3 non-colinear atoms (rotated right 2 places). $)
     3noncolr2 $p |- ( ( K e. HL /\ ( P e. A /\ Q e. A /\ R e. A )
   /\ ( P =/= Q /\ -. R L ( P J Q ) ) ) -> ( Q =/= R /\ -. P L ( Q J R ) ) ) $=
       ( chlt wcel w3a wne co wbr wn wa clat cbs cfv hllat 3ad2ant1 simp23 eqid
@@ -5031,18 +5079,17 @@ $)
       AZLZBWALZCWALZVNVRVSRVFVJVTVOFUBUCVPVIWBVFVGVHVIVOUDZAWADFWAUEZJUFUGVPVGW
       CVFVGVHVIVOUHZAWABFWFJUFUGVPVHWDVFVGVHVIVOUIZAWACFWFJUFUGVFVJVKVNUJZWAEFG
       DBCWFHIUKULUMUNVPVQVMWIVPVQDCBEOZGPZVMVPVFVGVIVHVKVQWKUOVFVJVOUPZWGWEWHVF
-      VJVKVNUQABDCEFGHIJURULVPVLWJDGVPVFVGVHVLWJUSWLWGWHAWAEFBCWFIJUTVAVBVCVDVE
-      $.
-      $( [?] $) $( [12-Jul-2012] $)
+      VJVKVNUQABDCEFGHIJURULVPVLWJDGVPVFVGVHVLWJUSWLWGWHAEFBCIJUTVAVBVCVDVE $.
+      $( [12-Jul-2012] $)
 
-    $( A way to express 3 non-colinear atoms (rotated right 1 place). $)
+    $( Two ways to express 3 non-colinear atoms (rotated right 1 place). $)
     3noncolr1 $p |- ( ( K e. HL /\ ( P e. A /\ Q e. A /\ R e. A )
   /\ ( P =/= Q /\ -. R L ( P J Q ) ) ) -> ( R =/= P /\ -. Q L ( R J P ) ) ) $=
       ( chlt wcel w3a wne co wbr wn wa simp1 simp22 simp23 simp21 3noncolr2
       syl131anc ) FKLZBALZCALZDALZMZBCNDBCEOGPQRZMUEUGUHUFCDNBCDEOGPQRDBNCDBEOG
       PQRUEUIUJSUEUFUGUHUJTUEUFUGUHUJUAUEUFUGUHUJUBABCDEFGHIJUCACDBEFGHIJUCUD
       $.
-      $( [?] $) $( [12-Jul-2012] $)
+      $( [12-Jul-2012] $)
 
     $( TODO: replace with ~ 3noncolr2 ? $)
     $( Atom exchange combined with contraposition. $)
@@ -5056,9 +5103,9 @@ $)
     hlatcon2 $p |- ( ( K e. HL /\ ( P e. A /\ Q e. A /\ R e. A )
        /\ ( P =/= Q /\ -. R L ( P J Q ) ) ) -> -. P L ( R J Q ) ) $=
       ( chlt wcel w3a wne co wbr wn wa 3noncolr2 simprd wceq simp1 simp22
-      simp23 cbs cfv eqid hlatjcom syl111anc breq2d mtbid ) FKLZBALZCALZDALZMZB
-      CNDBCEOGPQRZMZBCDEOZGPZBDCEOZGPURCDNUTQABCDEFGHIJSTURUSVABGURULUNUOUSVAUA
-      ULUPUQUBULUMUNUOUQUCULUMUNUOUQUDAFUEUFZEFCDVBUGIJUHUIUJUK $.
+      simp23 hlatjcom syl111anc breq2d mtbid ) FKLZBALZCALZDALZMZBCNDBCEOGPQRZM
+      ZBCDEOZGPZBDCEOZGPUOCDNUQQABCDEFGHIJSTUOUPURBGUOUIUKULUPURUAUIUMUNUBUIUJU
+      KULUNUCUIUJUKULUNUDAEFCDIJUEUFUGUH $.
       $( [13-Jun-2012] $)
 
     $( A way to express 4 non-colinear atoms (rotated right 3 places). $)
@@ -5477,5 +5524,201 @@ $)
       BZXBHJWMWNXJNVEVBWHWJWRWOVFZWTWOXDWHWJWRWOVGWTXFWLXBSZXGXHWOXDVHXIWTWRXNX
       MAXBWLHXJPVIUOXKXLXBHIJWLWMWNXJLNVJVKVLAXBWLHIWPKXJLOPVMVNVOVPVQVRVS $.
       $( [3-Jul-2012] $)
+  $}
+
+  ${
+    3at.l $e |- L = ( le ` K ) $.
+    3at.j $e |- J = ( join ` K ) $.
+    3at.a $e |- A = ( AtomsNEW ` K ) $.
+    $( Lemma for ~ 3at . $)
+    3atlem1 $p |- ( ( ( K e. HL /\ ( P e. A /\ Q e. A /\ R e. A )
+   /\ ( S e. A /\ T e. A /\ U e. A ) ) /\ ( -. R L ( P J Q )
+   /\ -. P L ( T J U ) /\ -. Q L ( P J U ) )
+    /\ ( ( P J Q ) J R ) L ( ( S J T ) J U ) )
+          -> ( ( P J Q ) J R ) = ( ( S J T ) J U ) ) $=
+      ( chlt wcel w3a co wbr wn clat cbs cfv wceq simp11 hllat syl simp131
+      eqid atombase simp132 simp133 latjass syl13anc wa simp121 simp122
+      simp123 simp3 eqbrtrrd wb hlatjcl syl111anc latjcl latjle12 mpbird
+      simpld breqtrd simp22 hlexchb2 syl131anc mpbid latj12 3eqtr2d 3brtr3d
+      simp23 latj13 simprd simp21 latjcom 3eqtr2rd ) INOZBAOZCAOZDAOZPZEAOZFAOZ
+      GAOZPZPZDBCHQZJRSZBFGHQZJRSZCBGHQZJRSZPZWKDHQZEFHQZGHQZJRZPZWTGWKHQZDWKHQ
+      ZWRXBWTFWOHQZCWOHQZXCXBWTEWMHQZBWMHQZXEXBITOZEIUAUBZOZFXJOZGXJOZWTXGUCXBW
+      AXIWAWEWIWQXAUDZIUEUFZXBWFXKWFWGWHWAWEWQXAUGZAXJEIXJUHZMUIUFXBWGXLWFWGWHW
+      AWEWQXAUJZAXJFIXQMUIUFZXBWHXMWFWGWHWAWEWQXAUKZAXJGIXQMUIUFZXJHIEFGXQLULUM
+      ZXBBXGJRZXHXGUCZXBBWTXGJXBBWTJRZCDHQZWTJRZXBYEYGUNZBYFHQZWTJRZXBWRYIWTJXB
+      XIBXJOZCXJOZDXJOZWRYIUCXOXBWBYKWBWCWDWAWIWQXAUOZAXJBIXQMUIUFZXBWCYLWBWCWD
+      WAWIWQXAUPZAXJCIXQMUIUFZXBWDYMWBWCWDWAWIWQXAUQZAXJDIXQMUIUFZXJHIBCDXQLULU
+      MWJWQXAURZUSZXBXIYKYFXJOZWTXJOZYHYJUTXOYOXBWAWCWDUUBXNYPYRAXJHICDXQLMVAVB
+      XBXIWSXJOZXMUUCXOXBWAWFWGUUDXNXPXRAXJHIEFXQLMVAVBYAXJHIWSGXQLVCVBZXJHIJBY
+      FWTXQKLVDUMVEVFYBVGXBWAWBWFWMXJOZWNYCYDUTXNYNXPXBWAWGWHUUFXNXRXTAXJHIFGXQ
+      LMVAVBWJWLWNWPXAVHAXJBEHIJWMXQKLMVIVJVKXBXIYKXLXMXHXEUCXOYOXSYAXJHIBFGXQL
+      VLUMVMZXBCXEJRZXFXEUCZXBUUHBDHQZXEJRZXBUUHUUKUNZCUUJHQZXEJRZXBYIWTUUMXEJU
+      UAXBXIYKYLYMYIUUMUCXOYOYQYSXJHIBCDXQLVLUMUUGVNXBXIYLUUJXJOZXEXJOZUULUUNUT
+      XOYQXBWAWBWDUUOXNYNYRAXJHIBDXQLMVAVBXBXIXLWOXJOZUUPXOXSXBWAWBWHUUQXNYNXTA
+      XJHIBGXQLMVAVBZXJHIFWOXQLVCVBXJHIJCUUJXEXQKLVDUMVEVFXBWAWCWGUUQWPUUHUUIUT
+      XNYPXRUURWJWLWNWPXAVOAXJCFHIJWOXQKLMVIVJVKXBXIYLYKXMXFXCUCXOYQYOYAXJHICBG
+      XQLVPUMVMZXBDXCJRZXDXCUCZXBDWTXCJXBWKWTJRZDWTJRZXBUVBUVCUNZXAYTXBXIWKXJOZ
+      YMUUCUVDXAUTXOXBWAWBWCUVEXNYNYPAXJHIBCXQLMVAVBZYSUUEXJHIJWKDWTXQKLVDUMVEV
+      QUUSVGXBWAWDWHUVEWLUUTUVAUTXNYRXTUVFWJWLWNWPXAVRAXJDGHIJWKXQKLMVIVJVKXBXI
+      YMUVEXDWRUCXOYSUVFXJHIDWKXQLVSVBVT $.
+      $( [22-Jun-2012] $)
+
+    $( Lemma for ~ 3at . $)
+    3atlem2 $p |- ( ( ( K e. HL /\ ( P e. A /\ Q e. A /\ R e. A )
+        /\ ( S e. A /\ T e. A /\ U e. A ) ) /\ ( -. R L ( P J Q )
+            /\ ( P =/= U /\ P L ( T J U ) ) /\ -. Q L ( P J U ) )
+        /\ ( ( P J Q ) J R ) L ( ( S J T ) J U ) )
+      -> ( ( P J Q ) J R ) = ( ( S J T ) J U ) ) $=
+      ( chlt wcel w3a co wbr wn wne wa wceq simp3 clat cbs cfv wb simp11 hllat
+      syl simp121 simp122 eqid hlatjcl syl111anc simp123 atombase simp131
+      simp132 simp133 latjcl latjle12 syl13anc mpbird simprd simp22r simp22l
+      hlatexchb2 syl131anc mpbid opreq2d latjass latj12 latj32 3brtr3d
+      breqtrrd simp23 hlexchb2 3eqtrd 3eqtr4rd breqtrd simp21 hlexchb1 eqtr4d
+      ) INOZBAOZCAOZDAOZPZEAOZFAOZGAOZPZPZDBCHQZJRSZBGTZBFGHQZJRZUAZCBGHQZJRSZP
+      ZWODHQZEFHQZGHQZJRZPZXDWOGHQZXFXHDXIJRZXDXIUBZXHDXFXIJXHWOXFJRZDXFJRZXHXL
+      XMUAZXGWNXCXGUCZXHIUDOZWOIUEUFZOZDXQOZXFXQOZXNXGUGXHWEXPWEWIWMXCXGUHZIUIU
+      JZXHWEWFWGXRYAWFWGWHWEWMXCXGUKZWFWGWHWEWMXCXGULZAXQHIBCXQUMZLMUNUOZXHWHXS
+      WFWGWHWEWMXCXGUPZAXQDIYEMUQUJZXHXPXEXQOZGXQOZXTYBXHWEWJWKYIYAWJWKWLWEWIXC
+      XGURZWJWKWLWEWIXCXGUSZAXQHIEFYELMUNUOXHWLYJWJWKWLWEWIXCXGUTZAXQGIYEMUQUJZ
+      XQHIXEGYELVAUOXQHIJWODXFYEKLVBVCVDVEXHEXAHQZEWRHQZXIXFXHXAWREHXHWSXAWRUBZ
+      WQWSWPXBWNXGVFXHWEWFWKWLWQWSYQUGYAYCYLYMWQWSWPXBWNXGVGABFGHIJKLMVHVIVJVKZ
+      XHXIBCGHQHQZCXAHQZYOXHXPBXQOZCXQOZYJXIYSUBYBXHWFUUAYCAXQBIYEMUQUJZXHWGUUB
+      YDAXQCIYEMUQUJZYNXQHIBCGYELVLVCXHXPUUAUUBYJYSYTUBYBUUCUUDYNXQHIBCGYELVMVC
+      XHCYOJRZYTYOUBZXHCYPYOJXHBDHQZYPJRZCYPJRZXHUUHUUIUAZUUGCHQZYPJRZXHXDXFUUK
+      YPJXOXHXPUUAUUBXSXDUUKUBYBUUCUUDYHXQHIBCDYELVNVCXHXPEXQOZFXQOZYJXFYPUBYBX
+      HWJUUMYKAXQEIYEMUQUJZXHWKUUNYLAXQFIYEMUQUJYNXQHIEFGYELVLVCZVOXHXPUUGXQOZU
+      UBYPXQOZUUJUULUGYBXHWEWFWHUUQYAYCYGAXQHIBDYELMUNUOUUDXHXPUUMWRXQOZUURYBUU
+      OXHWEWKWLUUSYAYLYMAXQHIFGYELMUNUOXQHIEWRYELVAUOXQHIJUUGCYPYEKLVBVCVDVEYRV
+      PXHWEWGWJXAXQOZXBUUEUUFUGYAYDYKXHWEWFWLUUTYAYCYMAXQHIBGYELMUNUOWNWPWTXBXG
+      VQAXQCEHIJXAYEKLMVRVIVJVSUUPVTZWAXHWEWHWLXRWPXJXKUGYAYGYMYFWNWPWTXBXGWBAX
+      QDGHIJWOYEKLMWCVIVJUVAWD $.
+      $( [22-Jun-2012] $)
+
+    $( Lemma for ~ 3at . $)
+    3atlem3 $p |- ( ( ( K e. HL /\ ( P e. A /\ Q e. A /\ R e. A )
+        /\ ( S e. A /\ T e. A /\ U e. A ) ) /\ ( -. R L ( P J Q )
+            /\ P =/= U /\ -. Q L ( P J U ) )
+        /\ ( ( P J Q ) J R ) L ( ( S J T ) J U ) )
+      -> ( ( P J Q ) J R ) = ( ( S J T ) J U ) ) $=
+      ( chlt wcel w3a co wbr wn wne wceq wa simpl1 simpl21 simpl22 simpr jca
+      simpl23 simpl3 3atlem2 syl131anc 3atlem1 pm2.61dan ) INOBAOCAODAOPEAOFAOG
+      AOPPZDBCHQZJRSZBGTZCBGHQJRSZPZUODHQZEFHQGHQZJRZPZBFGHQJRZUTVAUAZVCVDUBZUN
+      UPUQVDUBURVBVEUNUSVBVDUCUPUQURUNVBVDUDVFUQVDUPUQURUNVBVDUEVCVDUFUGUPUQURU
+      NVBVDUHUNUSVBVDUIABCDEFGHIJKLMUJUKVCVDSZUBUNUPVGURVBVEUNUSVBVGUCUPUQURUNV
+      BVGUDVCVGUFUPUQURUNVBVGUHUNUSVBVGUIABCDEFGHIJKLMULUKUM $.
+      $( [23-Jun-2012] $)
+
+    $( Lemma for ~ 3at . $)
+    3atlem4 $p |- ( ( ( K e. HL /\ ( P e. A /\ Q e. A /\ R e. A )
+        /\ ( S e. A /\ T e. A ) ) /\ ( -. R L ( P J Q )
+            /\ P =/= Q )
+        /\ ( ( P J Q ) J R ) L ( ( S J T ) J R ) )
+      -> ( ( P J Q ) J R ) = ( ( S J T ) J R ) ) $=
+      ( chlt wcel w3a wa co wbr wn wne wceq simp11 simp12 simp13l simp13r
+      simp123 3jca simp2l clat cbs cfv hllat syl eqid atombase simp121 simp122
+      latnlej syl131anc simpld necomd wi simp2r hlatexch1 mtod simp3 3atlem3
+      syl331anc ) HMNZBANZCANZDANZOZEANZFANZPZOZDBCGQZIRZSZBCTZPZVRDGQZEFGQDGQZ
+      IRZOZVIVMVNVOVLOVTBDTCBDGQIRZSWEWCWDUAVIVMVPWBWEUBZVIVMVPWBWEUCWFVNVOVLVN
+      VOVIVMWBWEUDVNVOVIVMWBWEUEVJVKVLVIVPWBWEUFZUGVQVTWAWEUHZWFDBWFDBTZDCTZWFH
+      UINZDHUJUKZNZBWNNZCWNNZVTWKWLPWFVIWMWHHULUMWFVLWOWIAWNDHWNUNZLUOUMWFVJWPV
+      JVKVLVIVPWBWEUPZAWNBHWRLUOUMWFVKWQVJVKVLVIVPWBWEUQZAWNCHWRLUOUMWJWNGHIDBC
+      WRJKURUSUTVAWFWGVSWJWFVIVKVLVJCBTWGVSVBWHWTWIWSWFBCVQVTWAWEVCVAACDBGHIJKL
+      VDUSVEVQWBWEVFABCDEFDGHIJKLVGVH $.
+      $( [23-Jun-2012] $)
+
+    $( Lemma for ~ 3at . $)
+    3atlem5 $p |- ( ( ( K e. HL /\ ( P e. A /\ Q e. A /\ R e. A )
+        /\ ( S e. A /\ T e. A /\ U e. A ) ) /\ ( -. R L ( P J Q )
+            /\ P =/= Q /\ -. Q L ( P J U ) )
+        /\ ( ( P J Q ) J R ) L ( ( S J T ) J U ) )
+      -> ( ( P J Q ) J R ) = ( ( S J T ) J U ) ) $=
+      ( chlt wcel w3a co wbr wn wne wceq wa wi opreq2 eqcoms breq2d eqeq2d
+      imbi12d simp1l simp1r1 simp2 simp1r3 simp3 3atlem3 syl131anc 3expia
+      simp11 simp123 simp122 simp121 3jca simp131 simp132 jca simp21 simp22
+      hlatexch2 mtod clat cbs cfv hllat syl eqid atombase latnlej simprd
+      3atlem4 syl321anc simpl1 simpl21 simpl22 simpl23 latj31 syl13anc breq1d
+      eqeq1d 3imtr4d pm2.61ne 3impia ) INOZBAOZCAOZDAOZPZEAOZFAOZGAOZPZPZDBCHQZ
+      JRZSZBCTZCBGHQJRSZPZXADHQZEFHQZGHQZJRZXGXIUAZWTXFUBZXJXKUCXGXHBHQZJRZXGXM
+      UAZUCBGBGUAZXJXNXKXOXPXIXMXGJXIXMUAGBGBXHHUDUEZUFXPXIXMXGXQUGUHXLBGTZXJXK
+      XLXRXJPWTXCXRXEXJXKWTXFXRXJUIXCXDXEWTXRXJUJXLXRXJUKXCXDXEWTXRXJULXLXRXJUM
+      ABCDEFGHIJKLMUNUOUPXLDCHQZBHQZXMJRZXTXMUAZXNXOWTXFYAYBWTXFYAPZWKWNWMWLPWP
+      WQUBBXSJRZSDCTZYAYBWKWOWSXFYAUQZYCWNWMWLWLWMWNWKWSXFYAURZWLWMWNWKWSXFYAUS
+      ZWLWMWNWKWSXFYAUTZVAYCWPWQWPWQWRWKWOXFYAVBWPWQWRWKWOXFYAVCVDYCYDXBWTXCXDX
+      EYAVEZYCWKWLWNWMXDYDXBUCYFYIYGYHWTXCXDXEYAVFABDCHIJKLMVGUOVHYCIVIOZDIVJVK
+      ZOZBYLOZCYLOZXCYEYCWKYKYFIVLZVMYCWNYMYGAYLDIYLVNZMVOZVMYCWLYNYIAYLBIYQMVO
+      ZVMYCWMYOYHAYLCIYQMVOZVMYJYKYMYNYOPXCPDBTYEYLHIJDBCYQKLVPVQUOWTXFYAUMADCB
+      EFHIJKLMVRVSUPXLXGXTXMJXLYKYNYOYMXGXTUAXLWKYKWKWOWSXFVTYPVMXLWLYNWLWMWNWK
+      WSXFWAYSVMXLWMYOWLWMWNWKWSXFWBYTVMXLWNYMWLWMWNWKWSXFWCYRVMYLHIBCDYQLWDWEZ
+      WFXLXGXTXMUUAWGWHWIWJ $.
+      $( [23-Jun-2012] $)
+
+    $( Lemma for ~ 3at . $)
+    3atlem6 $p |- ( ( ( K e. HL /\ ( P e. A /\ Q e. A /\ R e. A )
+        /\ ( S e. A /\ T e. A /\ U e. A ) ) /\ ( -. R L ( P J Q )
+            /\ P =/= Q /\ Q L ( P J U ) )
+        /\ ( ( P J Q ) J R ) L ( ( S J T ) J U ) )
+      -> ( ( P J Q ) J R ) = ( ( S J T ) J U ) ) $=
+      ( chlt wcel w3a co wbr wn wne clat cbs cfv wceq simp11 hllat syl simp121
+      eqid atombase simp122 simp123 latj32 syl13anc 3jca simp13 simp21 wi
+      simp22 necomd hlatexch1 syl131anc mtod latnlej simpld simp23 wb simp133
+      hlatexchb1 mpbid breq2d mtbid simp3 eqbrtrrd 3atlem5 syl331anc eqtrd ) IN
+      OZBAOZCAOZDAOZPZEAOZFAOZGAOZPZPZDBCHQZJRZSZBCTZCBGHQZJRZPZWHDHQZEFHQGHQZJ
+      RZPZWOBDHQZCHQZWPWRIUAOZBIUBUCZOZCXBOZDXBOZWOWTUDWRVRXAVRWBWFWNWQUEZIUFUG
+      ZWRVSXCVSVTWAVRWFWNWQUHZAXBBIXBUIZMUJUGZWRVTXDVSVTWAVRWFWNWQUKZAXBCIXIMUJ
+      UGZWRWAXEVSVTWAVRWFWNWQULZAXBDIXIMUJUGZXBHIBCDXILUMUNZWRVRVSWAVTPWFCWSJRZ
+      SBDTZDWLJRZSWTWPJRWTWPUDXFWRVSWAVTXHXMXKUOVRWBWFWNWQUPWRXPWIWGWJWKWMWQUQZ
+      WRVRVTWAVSCBTZXPWIURXFXKXMXHWRBCWGWJWKWMWQUSUTZACDBHIJKLMVAVBVCWRXAXEXCXD
+      WJXQXGXNXJXLXSXAXEXCXDPWJPZDBYBDBTDCTXBHIJDBCXIKLVDVEUTVBWRWIXRXSWRWHWLDJ
+      WRWMWHWLUDZWGWJWKWMWQVFWRVRVTWEVSXTWMYCVGXFXKWCWDWEVRWBWNWQVHXHYAACGBHIJK
+      LMVIVBVJVKVLWRWOWTWPJXOWGWNWQVMVNABDCEFGHIJKLMVOVPVQ $.
+      $( [23-Jun-2012] $)
+
+    $( Lemma for ~ 3at . $)
+    3atlem7 $p |- ( ( ( K e. HL /\ ( P e. A /\ Q e. A /\ R e. A )
+        /\ ( S e. A /\ T e. A /\ U e. A ) ) /\ ( -. R L ( P J Q )
+            /\ P =/= Q )
+        /\ ( ( P J Q ) J R ) L ( ( S J T ) J U ) )
+      -> ( ( P J Q ) J R ) = ( ( S J T ) J U ) ) $=
+      ( chlt wcel w3a co wbr wn wne wa wceq simpl1 simpl2l simpl2r simpr
+      simpl3 3atlem6 syl131anc 3atlem5 pm2.61dan ) INOBAOCAODAOPEAOFAOGAOPPZDBC
+      HQZJRSZBCTZUAZUMDHQZEFHQGHQZJRZPZCBGHQJRZUQURUBZUTVAUAULUNUOVAUSVBULUPUSV
+      AUCUNUOULUSVAUDUNUOULUSVAUEUTVAUFULUPUSVAUGABCDEFGHIJKLMUHUIUTVASZUAULUNU
+      OVCUSVBULUPUSVCUCUNUOULUSVCUDUNUOULUSVCUEUTVCUFULUPUSVCUGABCDEFGHIJKLMUJU
+      IUK $.
+      $( [23-Jun-2012] $)
+
+    $( Any three non-colinear atoms in a (lattice) plane determine the plane
+       uniquely.  This is the 2-dimensional analogue of ~ ps-1 for lines and
+       ~ 4at for volumes.  I could not find this proof in the literature on
+       projective geometry (where it is either given as an axiom or stated as
+       an unproved fact), but it is similar to Theorem 15 of Veblen, "The
+       Foundations of Geometry" (1911), p. 18, which uses different axioms.
+       This proof was written before I became aware of Veblen's, and it is
+       possible that a shorter proof could be obtained by using Veblen's proof
+       for hints. $)
+    3at $p |- ( ( ( K e. HL /\ ( P e. A /\ Q e. A /\ R e. A ) /\
+     ( S e. A /\ T e. A /\ U e. A ) ) /\ ( -. R L ( P J Q ) /\ P =/= Q ) )
+     -> ( ( ( P J Q ) J R ) L ( ( S J T ) J U )
+          <-> ( ( P J Q ) J R ) = ( ( S J T ) J U ) ) ) $=
+      ( chlt wcel w3a co wbr wn wne wa wceq 3atlem7 3expia wi clat breq2 cbs
+      cfv simpl simpr1 eqid atombase syl simpr2 latjcl syl111anc simpr3 latref
+      syldan syl5cbi hllat sylan 3adant3 adantr impbid ) INOZBAOZCAOZDAOZPZEAOF
+      AOGAOPZPZDBCHQZJRSBCTUAZUAVNDHQZEFHQGHQZJRZVPVQUBZVMVOVRVSABCDEFGHIJKLMUC
+      UDVMVSVRUEZVOVGVKVTVLIUFOZVKVTVGVSVPVPJRZVRWAVKUAZVPVQVPJUGWAVKVPIUHUIZOZ
+      WBWCWAVNWDOZDWDOZWEWAVKUJZWCWABWDOZCWDOZWFWHWCVHWIWAVHVIVJUKAWDBIWDULZMUM
+      UNWCVIWJWAVHVIVJUOAWDCIWKMUMUNWDHIBCWKLUPUQWCVJWGWAVHVIVJURAWDDIWKMUMUNWD
+      HIVNDWKLUPUQWDIJVPWKKUSUTVAIVBVCVDVEVF $.
+      $( [23-Jun-2012] $)
+
+$(
+    @( If the join three non-colinear atoms is less than or equal to three
+       others, then the others are also non-colinear. @)
+    3atne @p |- ( ( ( K e. HL /\ ( P e. A /\ Q e. A /\ R e. A ) /\
+     ( S e. A /\ T e. A /\ U e. A ) ) /\ ( -. R L ( P J Q ) /\ P =/= Q )
+        /\ ( ( P J Q ) J R ) L ( ( S J T ) J U ) )
+     -> ( S =/= T /\ -. U L ( S J T ) ) ) @=
+      ? @.
+      @( [23-Jun-2012] @)
+$)
   $}
 
