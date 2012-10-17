@@ -5,23 +5,38 @@ $(
 $)
 
 
-  $c kleene $.
+  $c Kleene $.
 
   $( Extend class notation with the kleene star. $)
-  ckln $a class kleene $.
+  ckln $a class Kleene $.
+
+  $c Words $.
+
+  $( Extend class notation with the class of words of a given size. $)
+  cwrd $a class Words $.
 
   ${
-    $d x y a b u $.
-    $( The Kleene star of a set ` x ` is the set of all the finite sequences of
-       elements of this set.  Experimental. $)
-    df-kle $a |- kleene = { <. x , y >. |
-       y = { <. a , b >. | E. u e. NN0 ( a = ( 1 ... u ) /\ b : a --> x ) } }
-        $.
+    $d x y $.
+    $( The words of size ` y ` over an alphabet ` x ` are the finite sequences
+       over ` x ` of size ` y ` .  Their domains are fiercely set to
+       ` ( 1 ... y ) ` so that I can concatenate them easily.  The case
+       ` y = 0 ` is a bit tricky and corresponds to the unique empty word
+       (often denoted by an epsilon or by ` 1 ` in textbooks.)
+       Experimental. $)
+    df-words $a |- Words = ( x e. _V , y e. NN0 |-> ( x ^m ( 1 ... y ) ) ) $.
+  $}
+
+  ${
+    $d x y a u $.
+    $( The Kleene star of an alphabet ` x ` is the set of all the finite
+       sequences of elements of this alphabet.  Experimental. $)
+    df-kle $a |- Kleene = { <. x , y >. |
+       y = U. { a | E. u e. NN0 a = ( x ^m ( 1 ... u ) ) } } $.
   $}
 
   $c Grammar $.
 
-  $( Extend class notation with the class of all the grammars. $)
+  $( Extend class notation with the class of all grammars. $)
   cgrm $a class Grammar $.
 
   ${
@@ -34,7 +49,7 @@ $)
       x = <. <. n , t >. , <. p , s >. >. /\
       ( n e. Fin /\ t e. Fin /\ ( n i^i t ) = (/) ) /\
       p = { <. l , r >. |
-        ( l e. ( kleene ` ( n u. t ) ) /\ r e. ( kleene ` ( n u. t ) )
+        ( l e. ( Kleene ` ( n u. t ) ) /\ r e. ( Kleene ` ( n u. t ) )
           /\ E. a e. NN ( l ` a ) e. n ) } /\ s e. n ) } $.
   $}
 
@@ -65,11 +80,10 @@ $)
 
   ${
     $d x g y a b $.
-    $( Concatenations of two sequences of symbols.  Experimental. $)
-    df-conc $a |- conc = ( g e. Grammar |-> ( x e. ( kleene ` ( sym ` g ) ) , y
-      e. ( kleene ` ( sym ` g ) ) |-> ( x u. { <. a , b >. | ( a e. ( (
-      ( # ` x ) + 1 ) ... ( ( # ` x ) + ( # ` y ) ) ) /\ b = ( y ` ( a -
-      ( # ` x ) ) ) ) } ) ) ) $.
+    $( Concatenation of two words.  Experimental. $)
+    df-conc $a |- conc = ( x e. _V , y e. _V |->
+      ( x u. { <. a , b >. | ( a e. ( ( ( # ` x ) + 1 ) ... ( ( # ` x )
+        + ( # ` y ) ) ) /\ b = ( y ` ( a - ( # ` x ) ) ) ) } ) ) $.
   $}
 
   $c derv $.
@@ -82,8 +96,8 @@ $)
     $( The relation ` u ` derives ` v ` in one step in the grammar ` g ` .
        Experimental. $)
     df-derv $a |- derv = ( g e. Grammar |-> { <. x , y >. | ( x e. (
-     kleene ` g ) /\ y e. ( kleene ` g ) /\ E. u e. ( kleene ` g ) E. v
-     e. ( kleene ` g ) E. p e. ( kleene ` g ) E. q e. ( kleene ` g ) ( x =
+     Kleene ` g ) /\ y e. ( Kleene ` g ) /\ E. u e. ( Kleene ` g ) E. v
+     e. ( Kleene ` g ) E. p e. ( Kleene ` g ) E. q e. ( Kleene ` g ) ( x =
      ( ( u ( conc ` g ) p ) ( conc ` g ) v ) /\ <. p , q >. e. (
      prdct ` g ) /\ y = ( ( u ( conc ` g ) q ) ( conc ` g ) v ) ) ) }
      ) $.

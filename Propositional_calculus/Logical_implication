@@ -4,14 +4,14 @@ $(
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 $)
 
-$( The results in this section make use of the first 2 axioms only.  In
-   an implication, the wff before the arrow is called the "antecedent"
-   and the wff after the arrow is called the "consequent." $)
+$( The results in this section are based on implication only, and avoid ax-3.
+   In an implication, the wff before the arrow is called the "antecedent" and
+   the wff after the arrow is called the "consequent." $)
 
-$( We will use the following descriptive terms very loosely:  A "theorem"
-   usually has no $e hypotheses.  An "inference" has one or more $e hypotheses.
-   A "deduction" is an inference in which the hypotheses and the result
-   share the same antecedent. $)
+$( We will use the following descriptive terms very loosely:  A "closed form"
+   or "tautology" has no $e hypotheses.  An "inference" has one or more $e
+   hypotheses.  A "deduction" is an inference in which the hypotheses and the
+   conclusion share the same antecedent. $)
 
   ${
     $( Premise for ~ a1i . $)
@@ -211,9 +211,24 @@ $( We will use the following descriptive terms very loosely:  A "theorem"
       $( [5-Aug-1993] $)
   $}
 
+  ${
+    imim2d.1 $e |- ( ph -> ( ps -> ch ) ) $.
+    $( Deduction adding nested antecedents. $)
+    imim2d $p |- ( ph -> ( ( th -> ps ) -> ( th -> ch ) ) ) $=
+      ( wi a1d a2d ) ADBCABCFDEGH $.
+      $( [5-Aug-1993] $)
+  $}
+
+  $( A closed form of syllogism (see ~ syl ).  Theorem *2.05 of
+     [WhiteheadRussell] p. 100.  (The proof was shortened by Wolf Lammen,
+     6-Sep-2012.) $)
+  imim2 $p |- ( ( ph -> ps ) -> ( ( ch -> ph ) -> ( ch -> ps ) ) ) $=
+    ( wi id imim2d ) ABDZABCGEF $.
+    $( [6-Sep-2012] $) $( [5-Aug-1993] $)
+
   $( A closed form of syllogism (see ~ syl ).  Theorem *2.05 of
      [WhiteheadRussell] p. 100. $)
-  imim2 $p |- ( ( ph -> ps ) -> ( ( ch -> ph ) -> ( ch -> ps ) ) ) $=
+  imim2OLD $p |- ( ( ph -> ps ) -> ( ( ch -> ph ) -> ( ch -> ps ) ) ) $=
     ( wi ax-1 a2d ) ABDZCABGCEF $.
     $( [5-Aug-1993] $)
 
@@ -229,14 +244,6 @@ $( We will use the following descriptive terms very loosely:  A "theorem"
        interchanging the original antecedent and consequent. $)
     imim1iOLD $p |- ( ( ps -> ch ) -> ( ph -> ch ) ) $=
       ( wi imim1 ax-mp ) ABEBCEACEEDABCFG $.
-      $( [5-Aug-1993] $)
-  $}
-
-  ${
-    imim2d.1 $e |- ( ph -> ( ps -> ch ) ) $.
-    $( Deduction adding nested antecedents. $)
-    imim2d $p |- ( ph -> ( ( th -> ps ) -> ( th -> ch ) ) ) $=
-      ( wi a1d a2d ) ADBCABCFDEGH $.
       $( [5-Aug-1993] $)
   $}
 
@@ -442,23 +449,28 @@ $( We will use the following descriptive terms very loosely:  A "theorem"
   $}
 
   ${
+    imim12d.1 $e |- ( ph -> ( ps -> ch ) ) $.
+    imim12d.2 $e |- ( ph -> ( th -> ta ) ) $.
+    $( Deduction combining antecedents and consequents.  (The proof was
+       shortened by O'Cat, 30-Oct-2011.) $)
+    imim12d $p |- ( ph -> ( ( ch -> th ) -> ( ps -> ta ) ) ) $=
+      ( wi imim2d syl5d ) ACDHCEBADECGIFJ $.
+      $( [3-Nov-2011] $) $( [7-Aug-1994] $)
+  $}
+
+  ${
     imim1d.1 $e |- ( ph -> ( ps -> ch ) ) $.
-    $( Deduction adding nested consequents. $)
+    $( Deduction adding nested consequents.  (The proof was shortened by Wolf
+       Lammen, 12-Sep-2012.) $)
     imim1d $p |- ( ph -> ( ( ch -> th ) -> ( ps -> th ) ) ) $=
+      ( idd imim12d ) ABCDDEADFG $.
+      $( [12-Sep-2012] $) $( [3-Apr-1994] $)
+
+    $( Deduction adding nested consequents. $)
+    imim1dOLD $p |- ( ph -> ( ( ch -> th ) -> ( ps -> th ) ) ) $=
       ( wi imim1 syl ) ABCFCDFBDFFEBCDGH $.
       $( [3-Apr-1994] $)
   $}
-
-  $( Swap antecedents.  Theorem *2.04 of [WhiteheadRussell] p. 100. $)
-  pm2.04 $p |- ( ( ph -> ( ps -> ch ) ) -> ( ps -> ( ph -> ch ) ) ) $=
-    ( wi ax-2 ax-1 syl5 ) ABCDDABDACDBABCEBAFG $.
-    $( [5-Aug-1993] $)
-
-  $( Theorem *2.83 of [WhiteheadRussell] p. 108. $)
-  pm2.83 $p |- ( ( ph -> ( ps -> ch ) ) -> ( ( ph -> ( ch -> th ) ) ->
-                ( ph -> ( ps -> th ) ) ) ) $=
-    ( wi imim1 imim3i ) BCECDEBDEABCDFG $.
-    $( [3-Jan-2005] $)
 
   $( This theorem, called "Assertion," can be thought of as closed form of
      modus ponens ~ ax-mp .  Theorem *2.27 of [WhiteheadRussell] p. 104. $)
@@ -474,11 +486,6 @@ $( We will use the following descriptive terms very loosely:  A "theorem"
       ( wi pm2.27 syl9 ) ABCDFCDECDGH $.
       $( [4-Aug-2012] $) $( [5-Aug-1993] $)
 
-    $( Commutation of antecedents.  Swap 2nd and 3rd. $)
-    com23OLD $p |- ( ph -> ( ch -> ( ps -> th ) ) ) $=
-      ( wi pm2.04 syl ) ABCDFFCBDFFEBCDGH $.
-      $( [5-Aug-1993] $)
-
     $( Commutation of antecedents.  Rotate right. $)
     com3r $p |- ( ch -> ( ph -> ( ps -> th ) ) ) $=
       ( wi com23 com12 ) ACBDFABCDEGH $.
@@ -490,16 +497,41 @@ $( We will use the following descriptive terms very loosely:  A "theorem"
       ( com3r com23 ) CABDABCDEFG $.
       $( [28-Jul-2012] $) $( [25-Apr-1994] $)
 
-    $( Commutation of antecedents.  Swap 1st and 3rd. $)
-    com13OLD $p |- ( ch -> ( ps -> ( ph -> th ) ) ) $=
-      ( wi com12 com23 ) BCADFBACDABCDFEGHG $.
-      $( [25-Apr-1994] $)
-
     $( Commutation of antecedents.  Rotate left.  (The proof was shortened by
        Wolf Lammen, 28-Jul-2012.) $)
     com3l $p |- ( ps -> ( ch -> ( ph -> th ) ) ) $=
       ( com3r ) CABDABCDEFF $.
       $( [28-Jul-2012] $) $( [25-Apr-1994] $)
+  $}
+
+  $( Swap antecedents.  Theorem *2.04 of [WhiteheadRussell] p. 100.  (The proof
+     was shortened by Wolf Lammen, 12-Sep-2012.) $)
+  pm2.04 $p |- ( ( ph -> ( ps -> ch ) ) -> ( ps -> ( ph -> ch ) ) ) $=
+    ( wi id com23 ) ABCDDZABCGEF $.
+    $( [12-Sep-2012] $) $( [5-Aug-1993] $)
+
+  $( Swap antecedents.  Theorem *2.04 of [WhiteheadRussell] p. 100. $)
+  pm2.04OLD $p |- ( ( ph -> ( ps -> ch ) ) -> ( ps -> ( ph -> ch ) ) ) $=
+    ( wi ax-2 ax-1 syl5 ) ABCDDABDACDBABCEBAFG $.
+    $( [5-Aug-1993] $)
+
+  $( Theorem *2.83 of [WhiteheadRussell] p. 108. $)
+  pm2.83 $p |- ( ( ph -> ( ps -> ch ) ) -> ( ( ph -> ( ch -> th ) ) ->
+                ( ph -> ( ps -> th ) ) ) ) $=
+    ( wi imim1 imim3i ) BCECDEBDEABCDFG $.
+    $( [3-Jan-2005] $)
+
+  ${
+    com3.1OLD $e |- ( ph -> ( ps -> ( ch -> th ) ) ) $.
+    $( Commutation of antecedents.  Swap 2nd and 3rd. $)
+    com23OLD $p |- ( ph -> ( ch -> ( ps -> th ) ) ) $=
+      ( wi pm2.04 syl ) ABCDFFCBDFFEBCDGH $.
+      $( [5-Aug-1993] $)
+
+    $( Commutation of antecedents.  Swap 1st and 3rd. $)
+    com13OLD $p |- ( ch -> ( ps -> ( ph -> th ) ) ) $=
+      ( wi com12 com23 ) BCADFBACDABCDFEGHG $.
+      $( [25-Apr-1994] $)
 
     $( Commutation of antecedents.  Rotate left. $)
     com3lOLD $p |- ( ps -> ( ch -> ( ph -> th ) ) ) $=
@@ -714,26 +746,20 @@ $( We will use the following descriptive terms very loosely:  A "theorem"
     syl6mpi.2 $e |- th $.
     syl6mpi.3 $e |- ( ch -> ( th -> ta ) ) $.
     $( ~ e20 without virtual deductions.  (Contributed by Alan Sare,
-       8-Jul-2011.)  (The proof was shortened by Wolf Lammen, 4-Aug-2012.) $)
+       8-Jul-2011.)  (The proof was shortened by Wolf Lammen, 13-Sep-2012.) $)
     syl6mpi $p |- ( ph -> ( ps -> ta ) ) $=
-      ( wi syl6 mpii ) ABDEGABCDEIFHJK $.
-      $( [4-Aug-2012] $) $( [8-Jul-2011] $)
+      ( mpi syl6 ) ABCEFCDEGHIJ $.
+      $( [13-Sep-2012] $) $( [8-Jul-2011] $)
 
-    $( Obsolete proof of ~ syl6mpi. $)
+    $( Obsolete proof of ~ syl6mpi . $)
     syl6mpiOLD $p |- ( ph -> ( ps -> ta ) ) $=
       ( a1i12 wi syl6 mpdd ) ABDEABDGIABCDEJFHKL $.
       $( [8-Jul-2011] $)
   $}
 
   ${
-    imim12d.1 $e |- ( ph -> ( ps -> ch ) ) $.
-    imim12d.2 $e |- ( ph -> ( th -> ta ) ) $.
-    $( Deduction combining antecedents and consequents.  (The proof was
-       shortened by O'Cat, 30-Oct-2011.) $)
-    imim12d $p |- ( ph -> ( ( ch -> th ) -> ( ps -> ta ) ) ) $=
-      ( wi imim2d syl5d ) ACDHCEBADECGIFJ $.
-      $( [3-Nov-2011] $) $( [7-Aug-1994] $)
-
+    imim12dOLD.1 $e |- ( ph -> ( ps -> ch ) ) $.
+    imim12dOLD.2 $e |- ( ph -> ( th -> ta ) ) $.
     $( Deduction combining antecedents and consequents. $)
     imim12dOLD $p |- ( ph -> ( ( ch -> th ) -> ( ps -> ta ) ) ) $=
       ( wi imim1d imim2d syld ) ACDHBDHBEHABCDFIADEBGJK $.
