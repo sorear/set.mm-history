@@ -23,7 +23,7 @@ $)
        ` R ` is an ideal if it contains ` 0 ` , is closed under addition, and
        is closed under multiplication on either side by any element of
        ` R ` . $)
-    df-idl $a |- Idl = { <. r , s >. | ( r e. Ring /\ s =
+    df-idl $a |- Idl = { <. r , s >. | ( r e. RingOps /\ s =
                 { i e. ~P ran ( 1st ` r ) | ( ( Id ` ( 1st ` r ) ) e. i /\
                       A. x e. i ( A. y e. i ( x ( 1st ` r ) y ) e. i /\
                     A. z e. ran ( 1st ` r ) ( ( z ( 2nd ` r ) x ) e. i /\
@@ -37,7 +37,7 @@ $)
        either ` A C_ I ` or ` B C_ I ` .  The more familiar definition using
        elements rather than ideals is equivalent provided ` R ` is commutative;
        see ~ ispridl2 and ~ ispridlc . $)
-    df-pridl $a |- PrIdl = { <. r , s >. | ( r e. Ring /\ s =
+    df-pridl $a |- PrIdl = { <. r , s >. | ( r e. RingOps /\ s =
         { i e. ( Idl ` r ) | ( i =/= ran ( 1st ` r ) /\ A. a e. ( Idl ` r )
           A. b e. ( Idl ` r ) ( A. x e. a A. y e. b ( x ( 2nd ` r ) y ) e. i ->
                                       ( a C_ i \/ b C_ i ) ) ) } ) } $.
@@ -48,7 +48,7 @@ $)
     $( Define the class of maximal ideals of a ring ` R ` .  A proper ideal is
        called maximal if it is maximal with respect to inclusion among proper
        ideals. $)
-    df-maxidl $a |- MaxIdl = { <. r , s >. | ( r e. Ring /\ s =
+    df-maxidl $a |- MaxIdl = { <. r , s >. | ( r e. RingOps /\ s =
             { i e. ( Idl ` r ) | ( i =/= ran ( 1st ` r ) /\ A. j e. ( Idl ` r )
                       ( i C_ j -> ( j = i \/ j = ran ( 1st ` r ) ) ) ) } ) } $.
   $}
@@ -61,7 +61,7 @@ $)
     idlval.3 $e |- X = ran G $.
     idlval.4 $e |- Z = ( Id ` G ) $.
     $( The class of ideals of a ring. $)
-    idlval $p |- ( R e. Ring -> ( Idl ` R ) = { i e. ~P X | ( Z e. i /\
+    idlval $p |- ( R e. RingOps -> ( Idl ` R ) = { i e. ~P X | ( Z e. i /\
                                 A. x e. i ( A. y e. i ( x G y ) e. i /\
                       A. z e. X ( ( z H x ) e. i /\ ( x H z ) e. i ) ) ) } ) $=
       ( vr vs cv c1st cfv cgi wcel co wral c2nd wa crn cpw crab cring cidl
@@ -77,7 +77,7 @@ $)
       $( [10-Jun-2010] $)
 
     $( The predicate "is an ideal of the ring ` R ` ." $)
-    isidl $p |- ( R e. Ring -> ( I e. ( Idl ` R ) <-> ( I C_ X /\ Z e. I /\
+    isidl $p |- ( R e. RingOps -> ( I e. ( Idl ` R ) <-> ( I C_ X /\ Z e. I /\
                                 A. x e. I ( A. y e. I ( x G y ) e. I /\
                       A. z e. X ( ( z H x ) e. I /\ ( x H z ) e. I ) ) ) ) ) $=
       ( vi cring wcel cidl cfv cv co wral wa cpw crab wss w3a idlval eleq2d
@@ -111,14 +111,14 @@ $)
     idlss.1 $e |- G = ( 1st ` R ) $.
     idlss.2 $e |- X = ran G $.
     $( An ideal of ` R ` is a subset of ` R ` . $)
-    idlss $p |- ( ( R e. Ring /\ I e. ( Idl ` R ) ) -> I C_ X ) $=
+    idlss $p |- ( ( R e. RingOps /\ I e. ( Idl ` R ) ) -> I C_ X ) $=
       ( vx vy vz cring wcel cidl cfv wa wss cgi cv co wral c2nd w3a eqid isidl
       biimpa simp1d ) AJKZCALMKZNCDOZBPMZCKZGQZHQBRCKHCSIQZUKATMZRCKUKULUMRCKNI
       DSNGCSZUFUGUHUJUNUAGHIABUMCDUIEUMUBFUIUBUCUDUE $.
       $( [10-Jun-2010] $)
 
     $( An element of an ideal is an element of the ring. $)
-    idlcl $p |- ( ( ( R e. Ring /\ I e. ( Idl ` R ) )
+    idlcl $p |- ( ( ( R e. RingOps /\ I e. ( Idl ` R ) )
                                       /\ A e. I ) -> A e. X ) $=
       ( wss wcel cring cidl cfv wa ssel2 idlss sylan ) DEHADIAEIBJIDBKLIMDEANBC
       DEFGOP $.
@@ -130,7 +130,7 @@ $)
     idl0cl.1 $e |- G = ( 1st ` R ) $.
     idl0cl.2 $e |- Z = ( Id ` G ) $.
     $( An ideal contains ` 0 ` . $)
-    idl0cl $p |- ( ( R e. Ring /\ I e. ( Idl ` R ) ) -> Z e. I ) $=
+    idl0cl $p |- ( ( R e. RingOps /\ I e. ( Idl ` R ) ) -> Z e. I ) $=
       ( vx vy vz cring wcel cidl cfv wa crn wss cv co wral c2nd w3a eqid isidl
       biimpa simp2d ) AJKZCALMKZNCBOZPZDCKZGQZHQBRCKHCSIQZUKATMZRCKUKULUMRCKNIU
       HSNGCSZUFUGUIUJUNUAGHIABUMCUHDEUMUBUHUBFUCUDUE $.
@@ -141,7 +141,7 @@ $)
     $d R x y z $.  $d I x y z $.  $d G x y z $.  $d A x y $.  $d B y $.
     idladdcl.1 $e |- G = ( 1st ` R ) $.
     $( An ideal is closed under addition. $)
-    idladdcl $p |- ( ( ( R e. Ring /\ I e. ( Idl ` R ) )
+    idladdcl $p |- ( ( ( R e. RingOps /\ I e. ( Idl ` R ) )
                               /\ ( A e. I /\ B e. I ) ) -> ( A G B ) e. I ) $=
       ( vx vy vz cring wcel cidl cfv wa cv co wral c2nd crn wss cgi w3a eqid
       isidl biimpa simp3d simpl ralimi syl wceq opreq1 eleq1d opreq2 rcla42v
@@ -159,7 +159,7 @@ $)
     idllmulcl.2 $e |- H = ( 2nd ` R ) $.
     idllmulcl.3 $e |- X = ran G $.
     $( An ideal is closed under multiplication on the left. $)
-    idllmulcl $p |- ( ( ( R e. Ring /\ I e. ( Idl ` R ) )
+    idllmulcl $p |- ( ( ( R e. RingOps /\ I e. ( Idl ` R ) )
                               /\ ( A e. I /\ B e. X ) ) -> ( B H A ) e. I ) $=
       ( vz vx vy cring wcel cidl cfv wa cv co wral wss cgi w3a eqid isidl
       biimpa simp3d simpl ralimi adantl syl wceq opreq2 eleq1d opreq1 rcla42v
@@ -170,7 +170,7 @@ $)
       $( [10-Jun-2010] $)
 
     $( An ideal is closed under multiplication on the right. $)
-    idlrmulcl $p |- ( ( ( R e. Ring /\ I e. ( Idl ` R ) )
+    idlrmulcl $p |- ( ( ( R e. RingOps /\ I e. ( Idl ` R ) )
                               /\ ( A e. I /\ B e. X ) ) -> ( A H B ) e. I ) $=
       ( vx vz vy cring wcel cidl cfv wa cv co wral wss cgi w3a eqid isidl
       biimpa simp3d simpr ralimi adantl syl wceq opreq1 eleq1d opreq2 rcla42v
@@ -185,7 +185,7 @@ $)
     idlnegcl.1 $e |- G = ( 1st ` R ) $.
     idlnegcl.2 $e |- N = ( inv ` G ) $.
     $( An ideal is closed under negation. $)
-    idlnegcl $p |- ( ( ( R e. Ring /\ I e. ( Idl ` R ) )
+    idlnegcl $p |- ( ( ( R e. RingOps /\ I e. ( Idl ` R ) )
                                           /\ A e. I ) -> ( N ` A ) e. I ) $=
       ( cring wcel cidl cfv wa c2nd cgi co crn wss wceq eqid idlss ringnegmn1l
       ssel2 sylan2 anassrs syldanl c1st rneqi ring1cl ringnegcl mpdan ad2antrr
@@ -200,7 +200,7 @@ $)
     idlsubcl.1 $e |- G = ( 1st ` R ) $.
     idlsubcl.2 $e |- D = ( /g ` G ) $.
     $( An ideal is closed under subtraction. $)
-    idlsubcl $p |- ( ( ( R e. Ring /\ I e. ( Idl ` R ) )
+    idlsubcl $p |- ( ( ( R e. RingOps /\ I e. ( Idl ` R ) )
                               /\ ( A e. I /\ B e. I ) ) -> ( A D B ) e. I ) $=
       ( cring wcel cidl cfv wa co cgn crn wceq eqid idlcl anim12da ringsub
       3expb adantlr syldan simprl idlnegcl adantrl jca idladdcl eqeltrd ) DIJZF
@@ -215,9 +215,9 @@ $)
     rngidl.1 $e |- G = ( 1st ` R ) $.
     rngidl.2 $e |- X = ran G $.
     $( A ring ` R ` is an ` R ` ideal. $)
-    rngidl $p |- ( R e. Ring -> X e. ( Idl ` R ) ) $=
+    rngidl $p |- ( R e. RingOps -> X e. ( Idl ` R ) ) $=
       ( vx vy vz cring wcel cidl cfv wss cgi cv co wral c2nd wa w3a ssid a1i
-      eqid ring0cl ringgcl 3expa r19.21aiva ringcl 3com23 jca 3jca isidl
+      eqid ring0cl ringgcl 3expa r19.21aiva ringocl 3com23 jca 3jca isidl
       mpbird ) AIJZCAKLJCCMZBNLZCJZFOZGOZBPCJZGCQZHOZURARLZPCJZURVBVCPCJZSZHCQZ
       SZFCQZTUNUOUQVIUOUNCUAUBABCUPDEUPUCZUDUNVHFCUNURCJZSZVAVGVLUTGCUNVKUSCJUT
       URUSABCDEUEUFUGVLVFHCUNVKVBCJZVFUNVKVMTVDVEUNVMVKVDVBURABVCCDVCUCZEUHUIUR
@@ -230,19 +230,19 @@ $)
     0idl.1 $e |- G = ( 1st ` R ) $.
     0idl.2 $e |- Z = ( Id ` G ) $.
     $( The set containing only ` 0 ` is an ideal. $)
-    0idl $p |- ( R e. Ring -> { Z } e. ( Idl ` R ) ) $=
+    0idl $p |- ( R e. RingOps -> { Z } e. ( Idl ` R ) ) $=
       ( vx vy vz cring wcel csn cidl cfv crn wss cv co wral c2nd wa w3a eqid
       ring0cl snssd cgi cvv fvex eqeltri snid a1i wceq opreq1 eleq1d ralbidv
       opreq2 anbi12d ring0rid mpdan oprex elsnc sylibr syl5cbir elsn syl5ib
-      r19.21aiv ringrz ringlz jca r19.21aiva 3jca isidl mpbird ) AIJZCKZALMJVNB
-      NZOZCVNJZFPZGPZBQZVNJZGVNRZHPZVRASMZQZVNJZVRWCWDQZVNJZTZHVORZTZFVNRZUAVMV
-      PVQWLVMCVOABVOCDVOUBZEUCZUDVQVMCCBUEMUFEBUEUGUHUIUJVMWKFVNVMVRCUKZWKVRVNJ
-      WOWKCVSBQZVNJZGVNRZWCCWDQZVNJZCWCWDQZVNJZTZHVORZTVMWOWBWRWJXDWOWAWQGVNWOV
-      TWPVNVRCVSBULUMUNWOWIXCHVOWOWFWTWHXBWOWEWSVNVRCWCWDUOUMWOWGXAVNVRCWCWDULU
-      MUPUNUPVMWRXDVMWQGVNVMVSCUKZWQVSVNJXEWQCCBQZVNJZVMXEWPXFVNVSCCBUOUMVMXFCU
-      KZXGVMCVOJXHWNCABVOCDWMEUQURXFCCCBUSUTVAVBGCVCVDVEVMXCHVOVMWCVOJTZWTXBXIW
-      SCUKWTWCABWDVOCEWMDWDUBZVFWSCWCCWDUSUTVAXIXACUKXBWCABWDVOCEWMDXJVGXACCWCW
-      DUSUTVAVHVIVHVBFCVCVDVEVJFGHABWDVNVOCDXJWMEVKVL $.
+      r19.21aiv ringorz ringolz jca r19.21aiva 3jca isidl mpbird ) AIJZCKZALMJV
+      NBNZOZCVNJZFPZGPZBQZVNJZGVNRZHPZVRASMZQZVNJZVRWCWDQZVNJZTZHVORZTZFVNRZUAV
+      MVPVQWLVMCVOABVOCDVOUBZEUCZUDVQVMCCBUEMUFEBUEUGUHUIUJVMWKFVNVMVRCUKZWKVRV
+      NJWOWKCVSBQZVNJZGVNRZWCCWDQZVNJZCWCWDQZVNJZTZHVORZTVMWOWBWRWJXDWOWAWQGVNW
+      OVTWPVNVRCVSBULUMUNWOWIXCHVOWOWFWTWHXBWOWEWSVNVRCWCWDUOUMWOWGXAVNVRCWCWDU
+      LUMUPUNUPVMWRXDVMWQGVNVMVSCUKZWQVSVNJXEWQCCBQZVNJZVMXEWPXFVNVSCCBUOUMVMXF
+      CUKZXGVMCVOJXHWNCABVOCDWMEUQURXFCCCBUSUTVAVBGCVCVDVEVMXCHVOVMWCVOJTZWTXBX
+      IWSCUKWTWCABWDVOCEWMDWDUBZVFWSCWCCWDUSUTVAXIXACUKXBWCABWDVOCEWMDXJVGXACCW
+      CWDUSUTVAVHVIVHVBFCVCVDVEVJFGHABWDVNVOCDXJWMEVKVL $.
       $( [10-Jun-2010] $)
   $}
 
@@ -253,9 +253,10 @@ $)
     1idl.3 $e |- X = ran G $.
     1idl.4 $e |- U = ( Id ` H ) $.
     $( Two ways of expressing the unit ideal. $)
-    1idl $p |- ( ( R e. Ring /\ I e. ( Idl ` R ) ) -> ( U e. I <-> I = X ) ) $=
+    1idl $p |- ( ( R e. RingOps /\ I e. ( Idl ` R ) )
+           -> ( U e. I <-> I = X ) ) $=
       ( vx cring wcel cidl cfv wa wceq wss idlss adantr cv co crn c1st rneqi
-      eqtri ringlidm ad2ant2rl idlrmulcl eqeltrrd expr ssrdv eqssd ex eleq2
+      eqtri ringolidm ad2ant2rl idlrmulcl eqeltrrd expr ssrdv eqssd ex eleq2
       ring1cl syl5cbir impbid ) ALMZEANOMZPZBEMZEFQZVAVBVCVAVBPZEFVAEFRVBACEFGI
       STVDKFEVAVBKUAZFMZVEEMVAVBVFPPBVEDUBZVEEUSVFVGVEQUTVBVEABDFHFCUCAUDOZUCIC
       VHGUEUFZJUGUHBVEACDEFGHIUIUJUKULUMUNVCVBBFMZVAEFBUOUSVJUTABDFVIHJUPTUQUR
@@ -270,7 +271,7 @@ $)
     0ring.4 $e |- Z = ( Id ` G ) $.
     0ring.5 $e |- U = ( Id ` H ) $.
     $( In a ring, ` 0 = 1 ` iff the ring contains only ` 0 ` . $)
-    0ring $p |- ( R e. Ring -> ( Z = U <-> X = { Z } ) ) $=
+    0ring $p |- ( R e. RingOps -> ( Z = U <-> X = { Z } ) ) $=
       ( cring wcel wceq csn cidl cfv wb 0idl 1idl mpdan cgi cvv fvex eqeltri
       snid eleq1 mpbii syl5bi eqcom syl6ib eleq2 elsni eqcomd syl6bi crn c1st
       rneqi eqtri ring1cl syl5com impbid ) ALMZFBNZEFOZNZVCVDVEENZVFVCBVEMZVGVD
@@ -289,7 +290,7 @@ $)
     divrngidl.4 $e |- Z = ( Id ` G ) $.
     $( The only ideals in a division ring are the zero ideal and the unit
        ideal. $)
-    divrngidl $p |- ( R e. DivRing -> ( Idl ` R ) = { { Z } , X } ) $=
+    divrngidl $p |- ( R e. DivRingOps -> ( Idl ` R ) = { { Z } , X } ) $=
       ( vy vx vi vz cdrng wcel cring cgi cfv wne cv co wceq csn cdif wrex wral
       wa cidl cpr eqid isdivrng2 wo wi idl0cl adantr wex opreq2 eqeq1d rexbidv
       rcla4va wss ssel2 ssdif sylan idlss idllmulcl eleq1 imbi1d 1idl biimpd
@@ -314,7 +315,7 @@ $)
   ${
     $d R i x y z $.  $d C i x y z $.
     $( The intersection of a nonempty collection of ideals is an ideal. $)
-    intidl $p |- ( ( R e. Ring /\ C =/= (/) /\ C C_ ( Idl ` R ) )
+    intidl $p |- ( ( R e. RingOps /\ C =/= (/) /\ C C_ ( Idl ` R ) )
                                                   -> |^| C e. ( Idl ` R ) ) $=
       ( vx vy vz vi cring wcel c0 wne cidl cfv wss w3a cint c1st crn cgi cv co
       wral c2nd wa cuni intssuni 3ad2ant2 eqid idlss ssel2 sylan2 anassrs
@@ -341,7 +342,7 @@ $)
   ${
     $d I i $.  $d J i $.
     $( The intersection of two ideals is an ideal. $)
-    inidl $p |- ( ( R e. Ring /\ I e. ( Idl ` R ) /\ J e. ( Idl ` R ) )
+    inidl $p |- ( ( R e. RingOps /\ I e. ( Idl ` R ) /\ J e. ( Idl ` R ) )
                                           -> ( I i^i J ) e. ( Idl ` R ) ) $=
       ( vi cring wcel cidl cfv w3a cpr cint cin wceq intprg 3adant1 c0 wne wss
       wa intidl 3expb cv preq1 neeq1d visset prnz vtoclg adantr prssg ibi jca
@@ -354,7 +355,7 @@ $)
   ${
     $d R i k x y z $.  $d C i j k x y z $.
     $( The union of a nonempty chain of ideals is an ideal. $)
-    unichnidl $p |- ( ( R e. Ring /\ ( C =/= (/) /\ C C_ ( Idl ` R ) /\
+    unichnidl $p |- ( ( R e. RingOps /\ ( C =/= (/) /\ C C_ ( Idl ` R ) /\
                               A. i e. C A. j e. C ( i C_ j \/ j C_ i ) ) )
                                           -> U. C e. ( Idl ` R ) ) $=
       ( vx vy vz vk cring wcel c0 wne cidl cfv wss cv wo wral w3a wa cuni c1st
@@ -397,44 +398,44 @@ $)
     keridl.1 $e |- G = ( 1st ` S ) $.
     keridl.2 $e |- Z = ( Id ` G ) $.
     $( The kernel of a ring homomorphism is an ideal. $)
-    keridl $p |- ( ( R e. Ring /\ S e. Ring /\ F e. ( R RngHom S ) )
+    keridl $p |- ( ( R e. RingOps /\ S e. RingOps /\ F e. ( R RngHom S ) )
                                       -> ( `' F " { Z } ) e. ( Idl ` R ) ) $=
       ( vx vy vz cring wcel crnghom co w3a ccnv csn cima cidl cfv c1st crn wss
       cgi cv wral c2nd wa wf eqid rnghomf cdm cnvimass fdm sseq2d mpbii syl
       wfn wb ffn elpreima 3syl ring0cl 3ad2ant1 wceq rnghom0 fvex elsnc sylibr
-      mpbir2and rnghomadd adantr opreq12 adantl cgr ringgrp grpidcl grplid
+      mpbir2and rnghomadd adantr opreq12 adantl cgr ringogrpo grpoidcl grpolid
       mpdan 3ad2ant2 ad2antrr 3eqtrd ex anbi12i 3imtr4g imdistanda wi ringgcl
       3expib anim1d syld an4 syl5ib anbi12d 3imtr4d imp anassrs r19.21aiva
-      ringcl 3expb 3ad2antl1 anass1rs adantlrr rnghommul opreq2 ad2antlr
-      rnghomcl ringrz 3ad2antl2 syldan adantlr opreq1 ringlz jca anbi2i sylbid
-      3jca isidl mpbird ) AKLZBKLZCABMNLZOZCPEQZRZASTLZYEAUATZUBZUCZYGUDTZYELZH
-      UEZIUEZYGNZYELZIYEUFZJUEZYLAUGTZNZYELZYLYQYRNZYELZUHZJYHUFZUHZHYEUFZOZYCY
-      IYKUUFYCYHDUBZCUIZYIABCYGDYHUUHYGUJZYHUJZFUUHUJZUKZUUIYECULZUCYICYDUMUUIU
-      UNYHYEYHUUHCUNUOUPUQYCYKYJYHLZYJCTZYDLZYCUUICYHURZYKUUOUUQUHUSUUMYHUUHCUT
-      ZYHYJYDCVAVBXTYAUUOYBAYGYHYJUUJUUKYJUJZVCVDYCUUPEVEUUQABCYGDEYJUUJUUTFGVF
-      UUPEYJCVGVHVIVJYCUUEHYEYCYLYELZUHZYPUUDUVBYOIYEYCUVAYMYELZYOYCUVAUVCUHZYO
-      YCYLYHLZYLCTZYDLZUHZYMYHLZYMCTZYDLZUHZUHZYNYHLZYNCTZYDLZUHZUVDYOYCUVEUVIU
-      HZUVGUVKUHZUHZUVQUVMYCUVTUVRUVPUHUVQYCUVRUVSUVPYCUVRUHZUVFEVEZUVJEVEZUHZU
-      VOEVEZUVSUVPUWAUWDUWEUWAUWDUHUVOUVFUVJDNZEEDNZEUWAUVOUWFVEUWDYLYMABCYGDYH
-      UUJUUKFVKVLUWDUWFUWGVEUWAUVFEUVJEDVMVNYCUWGEVEZUVRUWDYAXTUWHYBYADVOLZUWHB
-      DFVPUWIEUUHLUWHEDUUHUULGVQEEDUUHUULGVRVSUQVTWAWBWCUVGUWBUVKUWCUVFEYLCVGVH
-      ZUVJEYMCVGVHWDUVOEYNCVGVHWEWFYCUVRUVNUVPXTYAUVRUVNWGYBXTUVEUVIUVNYLYMAYGY
-      HUUJUUKWHWIVDWJWKUVEUVGUVIUVKWLWMYCUVAUVHUVCUVLYCUUIUURUVAUVHUSUUMUUSYHYL
-      YDCVAVBZYCUUIUURUVCUVLUSUUMUUSYHYMYDCVAVBWNYCUUIUURYOUVQUSUUMUUSYHYNYDCVA
-      VBWOWPWQWRYCUVAUUDYCUVAUVHUUDUWKYCUVEUWBUHZUUDUVHYCUWLUUDYCUWLUHZUUCJYHUW
-      MYQYHLZUHZYTUUBUWOYTYSYHLZYSCTZYDLZYCYTUWPUWRUHUSZUWLUWNYCUUIUURUWSUUMUUS
-      YHYSYDCVAVBWAYCUVEUWNUWPUWBYCUWNUVEUWPXTYAUWNUVEUHUWPYBXTUWNUVEUWPYQYLAYG
-      YRYHUUJYRUJZUUKWSWTXAXBXCUWOUWQEVEUWRUWOUWQYQCTZUVFBUGTZNZUXAEUXBNZEYCUVE
-      UWNUWQUXCVEZUWBYCUWNUVEUXEYQYLABCYGYRUXBYHUUJUUKUWTUXBUJZXDXBXCUWLUXCUXDV
-      EZYCUWNUWBUXGUVEUVFEUXAUXBXEVNXFYCUWNUXDEVEZUWLYCUWNUXAUUHLZUXHYQABCYGDYH
-      UUHUUJUUKFUULXGZYAXTUXIUXHYBUXABDUXBUUHEGUULFUXFXHXIXJXKWBUWQEYSCVGVHVIVJ
-      UWOUUBUUAYHLZUUACTZYDLZYCUUBUXKUXMUHUSZUWLUWNYCUUIUURUXNUUMUUSYHUUAYDCVAV
-      BWAYCUVEUWNUXKUWBYCUVEUWNUXKXTYAUVEUWNUHUXKYBXTUVEUWNUXKYLYQAYGYRYHUUJUWT
-      UUKWSWTXAWQXCUWOUXLEVEUXMUWOUXLUVFUXAUXBNZEUXAUXBNZEYCUVEUWNUXLUXOVEZUWBY
-      CUVEUWNUXQYLYQABCYGYRUXBYHUUJUUKUWTUXFXDWQXCUWLUXOUXPVEZYCUWNUWBUXRUVEUVF
-      EUXAUXBXLVNXFYCUWNUXPEVEZUWLYCUWNUXIUXSUXJYAXTUXIUXSYBUXABDUXBUUHEGUULFUX
-      FXMXIXJXKWBUXLEUUACVGVHVIVJXNWRWCUVGUWBUVEUWJXOWMXPWPXNWRXQXTYAYFUUGUSYBH
-      IJAYGYRYEYHYJUUJUWTUUKUUTXRVDXS $.
+      ringocl 3expb 3ad2antl1 anass1rs adantlrr rnghommul opreq2 ad2antlr
+      rnghomcl ringorz 3ad2antl2 syldan adantlr opreq1 ringolz jca anbi2i
+      sylbid 3jca isidl mpbird ) AKLZBKLZCABMNLZOZCPEQZRZASTLZYEAUATZUBZUCZYGUD
+      TZYELZHUEZIUEZYGNZYELZIYEUFZJUEZYLAUGTZNZYELZYLYQYRNZYELZUHZJYHUFZUHZHYEU
+      FZOZYCYIYKUUFYCYHDUBZCUIZYIABCYGDYHUUHYGUJZYHUJZFUUHUJZUKZUUIYECULZUCYICY
+      DUMUUIUUNYHYEYHUUHCUNUOUPUQYCYKYJYHLZYJCTZYDLZYCUUICYHURZYKUUOUUQUHUSUUMY
+      HUUHCUTZYHYJYDCVAVBXTYAUUOYBAYGYHYJUUJUUKYJUJZVCVDYCUUPEVEUUQABCYGDEYJUUJ
+      UUTFGVFUUPEYJCVGVHVIVJYCUUEHYEYCYLYELZUHZYPUUDUVBYOIYEYCUVAYMYELZYOYCUVAU
+      VCUHZYOYCYLYHLZYLCTZYDLZUHZYMYHLZYMCTZYDLZUHZUHZYNYHLZYNCTZYDLZUHZUVDYOYC
+      UVEUVIUHZUVGUVKUHZUHZUVQUVMYCUVTUVRUVPUHUVQYCUVRUVSUVPYCUVRUHZUVFEVEZUVJE
+      VEZUHZUVOEVEZUVSUVPUWAUWDUWEUWAUWDUHUVOUVFUVJDNZEEDNZEUWAUVOUWFVEUWDYLYMA
+      BCYGDYHUUJUUKFVKVLUWDUWFUWGVEUWAUVFEUVJEDVMVNYCUWGEVEZUVRUWDYAXTUWHYBYADV
+      OLZUWHBDFVPUWIEUUHLUWHEDUUHUULGVQEEDUUHUULGVRVSUQVTWAWBWCUVGUWBUVKUWCUVFE
+      YLCVGVHZUVJEYMCVGVHWDUVOEYNCVGVHWEWFYCUVRUVNUVPXTYAUVRUVNWGYBXTUVEUVIUVNY
+      LYMAYGYHUUJUUKWHWIVDWJWKUVEUVGUVIUVKWLWMYCUVAUVHUVCUVLYCUUIUURUVAUVHUSUUM
+      UUSYHYLYDCVAVBZYCUUIUURUVCUVLUSUUMUUSYHYMYDCVAVBWNYCUUIUURYOUVQUSUUMUUSYH
+      YNYDCVAVBWOWPWQWRYCUVAUUDYCUVAUVHUUDUWKYCUVEUWBUHZUUDUVHYCUWLUUDYCUWLUHZU
+      UCJYHUWMYQYHLZUHZYTUUBUWOYTYSYHLZYSCTZYDLZYCYTUWPUWRUHUSZUWLUWNYCUUIUURUW
+      SUUMUUSYHYSYDCVAVBWAYCUVEUWNUWPUWBYCUWNUVEUWPXTYAUWNUVEUHUWPYBXTUWNUVEUWP
+      YQYLAYGYRYHUUJYRUJZUUKWSWTXAXBXCUWOUWQEVEUWRUWOUWQYQCTZUVFBUGTZNZUXAEUXBN
+      ZEYCUVEUWNUWQUXCVEZUWBYCUWNUVEUXEYQYLABCYGYRUXBYHUUJUUKUWTUXBUJZXDXBXCUWL
+      UXCUXDVEZYCUWNUWBUXGUVEUVFEUXAUXBXEVNXFYCUWNUXDEVEZUWLYCUWNUXAUUHLZUXHYQA
+      BCYGDYHUUHUUJUUKFUULXGZYAXTUXIUXHYBUXABDUXBUUHEGUULFUXFXHXIXJXKWBUWQEYSCV
+      GVHVIVJUWOUUBUUAYHLZUUACTZYDLZYCUUBUXKUXMUHUSZUWLUWNYCUUIUURUXNUUMUUSYHUU
+      AYDCVAVBWAYCUVEUWNUXKUWBYCUVEUWNUXKXTYAUVEUWNUHUXKYBXTUVEUWNUXKYLYQAYGYRY
+      HUUJUWTUUKWSWTXAWQXCUWOUXLEVEUXMUWOUXLUVFUXAUXBNZEUXAUXBNZEYCUVEUWNUXLUXO
+      VEZUWBYCUVEUWNUXQYLYQABCYGYRUXBYHUUJUUKUWTUXFXDWQXCUWLUXOUXPVEZYCUWNUWBUX
+      RUVEUVFEUXAUXBXLVNXFYCUWNUXPEVEZUWLYCUWNUXIUXSUXJYAXTUXIUXSYBUXABDUXBUUHE
+      GUULFUXFXMXIXJXKWBUXLEUUACVGVHVIVJXNWRWCUVGUWBUVEUWJXOWMXPWPXNWRXQXTYAYFU
+      UGUSYBHIJAYGYRYEYHYJUUJUWTUUKUUTXRVDXS $.
       $( [3-Jan-2011] $)
   $}
 
@@ -444,7 +445,7 @@ $)
     pridlval.2 $e |- H = ( 2nd ` R ) $.
     pridlval.3 $e |- X = ran G $.
     $( The class of prime ideals of a ring ` R ` . $)
-    pridlval $p |- ( R e. Ring -> ( PrIdl ` R ) = { i e. ( Idl ` R ) |
+    pridlval $p |- ( R e. RingOps -> ( PrIdl ` R ) = { i e. ( Idl ` R ) |
                 ( i =/= X /\ A. a e. ( Idl ` R ) A. b e. ( Idl ` R ) (
           A. x e. a A. y e. b ( x H y ) e. i -> ( a C_ i \/ b C_ i ) ) ) } ) $=
       ( vr vs cv c1st cfv crn wne c2nd co wcel wral wss wo wi cidl wa crab
@@ -459,7 +460,7 @@ $)
 
     $d P i x y a b $.
     $( The predicate "is a prime ideal". $)
-    ispridl $p |- ( R e. Ring -> ( P e. ( PrIdl ` R ) <-> ( P e. ( Idl ` R )
+    ispridl $p |- ( R e. RingOps -> ( P e. ( PrIdl ` R ) <-> ( P e. ( Idl ` R )
                 /\ P =/= X /\ A. a e. ( Idl ` R ) A. b e. ( Idl ` R )
         ( A. x e. a A. y e. b ( x H y ) e. P -> ( a C_ P \/ b C_ P ) ) ) ) ) $=
       ( vi cring wcel cpridl cfv cv wne co wral wss wo wi cidl wa crab w3a
@@ -475,7 +476,7 @@ $)
   ${
     $d R x y a b $.  $d P x y a b $.
     $( A prime ideal is an ideal. $)
-    pridlidl $p |- ( ( R e. Ring /\ P e. ( PrIdl ` R ) )
+    pridlidl $p |- ( ( R e. RingOps /\ P e. ( PrIdl ` R ) )
                                             -> P e. ( Idl ` R ) ) $=
       ( vx vy vb va cring wcel cpridl cfv cidl c1st crn wne cv c2nd co wral
       wss wo wi wa w3a eqid ispridl 3anass syl6bb simprbda ) BGHZABIJHZABKJZHZA
@@ -489,7 +490,7 @@ $)
     pridlnr.1 $e |- G = ( 1st ` R ) $.
     prdilnr.2 $e |- X = ran G $.
     $( A prime ideal is a proper ideal. $)
-    pridlnr $p |- ( ( R e. Ring /\ P e. ( PrIdl ` R ) ) -> P =/= X ) $=
+    pridlnr $p |- ( ( R e. RingOps /\ P e. ( PrIdl ` R ) ) -> P =/= X ) $=
       ( vx vy vb va cring wcel cpridl cfv wne cidl cv c2nd co wral wss wo wi
       wa w3a eqid ispridl 3ancoma 3anass bitri syl6bb simprbda ) BKLZABMNLZADOZ
       ABPNZLZGQHQBRNZSALHIQZTGJQZTUTAUAUSAUAUBUCIUPTJUPTZUDZUMUNUQUOVAUEZUOVBUD
@@ -502,7 +503,7 @@ $)
     $d H a b $.
     pridl.1 $e |- H = ( 2nd ` R ) $.
     $( The main property of a prime ideal. $)
-    pridl $p |- ( ( ( R e. Ring /\ P e. ( PrIdl ` R ) ) /\
+    pridl $p |- ( ( ( R e. RingOps /\ P e. ( PrIdl ` R ) ) /\
                         ( A e. ( Idl ` R ) /\ B e. ( Idl ` R ) /\
             A. x e. A A. y e. B ( x H y ) e. P ) ) -> ( A C_ P \/ B C_ P ) ) $=
       ( vb va cring wcel cpridl cfv wa cidl cv co wral wss wo wi wceq raleq
@@ -524,7 +525,7 @@ $)
     $( A condition that shows an ideal is prime.  For commutative rings, this
        is often taken to be the definition.  See ~ ispridlc for the equivalence
        in the commutative case. $)
-    ispridl2 $p |- ( ( R e. Ring /\ ( P e. ( Idl ` R ) /\ P =/= X /\
+    ispridl2 $p |- ( ( R e. RingOps /\ ( P e. ( Idl ` R ) /\ P =/= X /\
           A. a e. X A. b e. X ( ( a H b ) e. P -> ( a e. P \/ b e. P ) ) ) )
                               -> P e. ( PrIdl ` R ) ) $=
       ( vs vr cring wcel cidl cfv wne cv co wo wi wral w3a cpridl wss wa idlss
@@ -547,7 +548,7 @@ $)
     maxidlval.1 $e |- G = ( 1st ` R ) $.
     maxidlval.2 $e |- X = ran G $.
     $( The set of maximal ideals of a ring. $)
-    maxidlval $p |- ( R e. Ring -> ( MaxIdl ` R ) =
+    maxidlval $p |- ( R e. RingOps -> ( MaxIdl ` R ) =
                               { i e. ( Idl ` R ) | ( i =/= X /\
                 A. j e. ( Idl ` R ) ( i C_ j -> ( j = i \/ j = X ) ) ) } ) $=
       ( vr vs cv c1st cfv crn wne wss wceq wo wi cidl wral wa crab cring
@@ -564,7 +565,7 @@ $)
     ismaxidl.1 $e |- G = ( 1st ` R ) $.
     ismaxidl.2 $e |- X = ran G $.
     $( The predicate "is a maximal ideal". $)
-    ismaxidl $p |- ( R e. Ring -> ( M e. ( MaxIdl ` R ) <->
+    ismaxidl $p |- ( R e. RingOps -> ( M e. ( MaxIdl ` R ) <->
                               ( M e. ( Idl ` R ) /\ M =/= X /\
                 A. j e. ( Idl ` R ) ( M C_ j -> ( j = M \/ j = X ) ) ) ) ) $=
       ( vi cring wcel cmaxidl cfv cv wne wss wceq wo wi cidl wral wa crab w3a
@@ -579,7 +580,7 @@ $)
   ${
     $d R j $.  $d M j $.
     $( A maximal ideal is an ideal. $)
-    maxidlidl $p |- ( ( R e. Ring /\ M e. ( MaxIdl ` R ) )
+    maxidlidl $p |- ( ( R e. RingOps /\ M e. ( MaxIdl ` R ) )
                                                 -> M e. ( Idl ` R ) ) $=
       ( vj cring wcel cmaxidl cfv cidl c1st crn wne cv wss wceq wo wi wral wa
       w3a eqid ismaxidl 3anass syl6bb simprbda ) ADEZBAFGEZBAHGZEZBAIGZJZKZBCLZ
@@ -590,7 +591,7 @@ $)
     maxidlnr.1 $e |- G = ( 1st ` R ) $.
     maxidlnr.2 $e |- X = ran G $.
     $( A maximal ideal is proper. $)
-    maxidlnr $p |- ( ( R e. Ring /\ M e. ( MaxIdl ` R ) ) -> M =/= X ) $=
+    maxidlnr $p |- ( ( R e. RingOps /\ M e. ( MaxIdl ` R ) ) -> M =/= X ) $=
       ( vj cring wcel cmaxidl cfv wa cidl wne cv wss wceq wo wi wral w3a
       ismaxidl biimpa simp2d ) AHIZCAJKIZLCAMKZIZCDNZCGOZPUJCQUJDQRSGUGTZUEUFUH
       UIUKUAAGBCDEFUBUCUD $.
@@ -598,7 +599,7 @@ $)
 
     $d I j $.  $d X j $.
     $( A maximal ideal is a maximal proper ideal. $)
-    maxidlmax $p |- ( ( ( R e. Ring /\ M e. ( MaxIdl ` R ) ) /\
+    maxidlmax $p |- ( ( ( R e. RingOps /\ M e. ( MaxIdl ` R ) ) /\
                 ( I e. ( Idl ` R ) /\ M C_ I ) ) -> ( I = M \/ I = X ) ) $=
       ( vj cring wcel cmaxidl cfv wa cidl wss wceq wo wi cv wral sseq2 eqeq1
       orbi12d imbi12d rcla4va wne w3a ismaxidl biimpa simp3d sylan2 ancoms
@@ -612,7 +613,7 @@ $)
     maxidln1.1 $e |- H = ( 2nd ` R ) $.
     maxidln1.2 $e |- U = ( Id ` H ) $.
     $( One is not contained in any maximal ideal. $)
-    maxidln1 $p |- ( ( R e. Ring /\ M e. ( MaxIdl ` R ) ) -> -. U e. M ) $=
+    maxidln1 $p |- ( ( R e. RingOps /\ M e. ( MaxIdl ` R ) ) -> -. U e. M ) $=
       ( cring wcel cmaxidl cfv wa wn c1st crn wne eqid maxidlnr cidl wb
       maxidlidl 1idl necon3bbid syldan mpbird ) AGHZDAIJHZKBDHZLZDAMJZNZOZAUIDU
       JUIPZUJPZQUEUFDARJHZUHUKSADTUEUNKUGDUJABUICDUJULEUMFUAUBUCUD $.
@@ -625,7 +626,7 @@ $)
     maxidln0.3 $e |- Z = ( Id ` G ) $.
     maxidln0.4 $e |- U = ( Id ` H ) $.
     $( A ring with a maximal ideal is not the zero ring. $)
-    maxidln0 $p |- ( ( R e. Ring /\ M e. ( MaxIdl ` R ) ) -> U =/= Z ) $=
+    maxidln0 $p |- ( ( R e. RingOps /\ M e. ( MaxIdl ` R ) ) -> U =/= Z ) $=
       ( cring wcel cmaxidl cfv wa wceq wn wne cidl maxidlidl idl0cl syldan
       maxidln1 nelneq syl11anc df-ne sylibr necomd ) AKLZEAMNLZOZFBUKFBPQZFBRUK
       FELZBELQULUIUJEASNLUMAETACEFGIUAUBABDEHJUCFBEUDUEFBUFUGUH $.

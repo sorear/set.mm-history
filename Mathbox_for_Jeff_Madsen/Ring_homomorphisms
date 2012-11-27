@@ -21,8 +21,8 @@ $)
     $d r s t f x y $.
     $( Define the function which gives the set of ring homomorphisms between
        two given rings. $)
-    df-rnghom $a |- RngHom = { <. <. r , s >. , t >. | ( ( r e. Ring /\
-            s e. Ring ) /\ t = { f | ( f : ran ( 1st ` r ) --> ran ( 1st ` s )
+    df-rnghom $a |- RngHom = { <. <. r , s >. , t >. | ( ( r e. RingOps /\
+         s e. RingOps ) /\ t = { f | ( f : ran ( 1st ` r ) --> ran ( 1st ` s )
                   /\ ( f ` ( Id ` ( 2nd ` r ) ) ) = ( Id ` ( 2nd ` s ) )
                     /\ A. x e. ran ( 1st ` r ) A. y e. ran ( 1st ` r )
             ( ( f ` ( x ( 1st ` r ) y ) ) = ( ( f ` x ) ( 1st ` s ) ( f ` y ) )
@@ -43,7 +43,7 @@ $)
     rnghomval.7 $e |- Y = ran J $.
     rnghomval.8 $e |- V = ( Id ` K ) $.
     $( The set of ring homomorphisms. $)
-    rnghomval $p |- ( ( R e. Ring /\ S e. Ring ) -> ( R RngHom S ) =
+    rnghomval $p |- ( ( R e. RingOps /\ S e. RingOps ) -> ( R RngHom S ) =
             { f | ( f : X --> Y /\ ( f ` U ) = V /\ A. x e. X A. y e. X
               ( ( f ` ( x G y ) ) = ( ( f ` x ) J ( f ` y ) ) /\
             ( f ` ( x H y ) ) = ( ( f ` x ) K ( f ` y ) ) ) ) } ) $=
@@ -69,7 +69,8 @@ $)
     $d F x y f $.  $d G f $.  $d H f $.  $d J f $.  $d K f $.  $d U f $.
     $d V f $.
     $( The predicate "is a ring homomorphism from ` R ` to ` S ` ." $)
-    isrnghom $p |- ( ( R e. Ring /\ S e. Ring ) -> ( F e. ( R RngHom S ) <->
+    isrnghom $p |- ( ( R e. RingOps /\ S e. RingOps )
+       -> ( F e. ( R RngHom S ) <->
                 ( F : X --> Y /\ ( F ` U ) = V /\ A. x e. X A. y e. X
               ( ( F ` ( x G y ) ) = ( ( F ` x ) J ( F ` y ) ) /\
             ( F ` ( x H y ) ) = ( ( F ` x ) K ( F ` y ) ) ) ) ) ) $=
@@ -93,7 +94,7 @@ $)
     rnghomf.3 $e |- J = ( 1st ` S ) $.
     rnghomf.4 $e |- Y = ran J $.
     $( A ring homomorphism is a function. $)
-    rnghomf $p |- ( ( R e. Ring /\ S e. Ring /\ F e. ( R RngHom S ) )
+    rnghomf $p |- ( ( R e. RingOps /\ S e. RingOps /\ F e. ( R RngHom S ) )
                                                           -> F : X --> Y ) $=
       ( vx vy cring wcel crnghom co wf wa c2nd cfv cgi wceq cv wral w3a eqid
       isrnghom biimpa simp1d 3impa ) ANOZBNOZCABPQOZFGCRZULUMSZUNSUOATUAZUBUAZC
@@ -102,7 +103,7 @@ $)
       $( [19-Jun-2010] $)
 
     $( Closure law for a ring homomorphism. $)
-    rnghomcl $p |- ( ( ( R e. Ring /\ S e. Ring /\ F e. ( R RngHom S ) )
+    rnghomcl $p |- ( ( ( R e. RingOps /\ S e. RingOps /\ F e. ( R RngHom S ) )
                                           /\ A e. X ) -> ( F ` A ) e. Y ) $=
       ( wf wcel cfv cring crnghom co w3a ffvelrn rnghomf sylan ) GHDMAGNADOHNBP
       NCPNDBCQRNSGHADTBCDEFGHIJKLUAUB $.
@@ -116,7 +117,7 @@ $)
     rnghom1.3 $e |- K = ( 2nd ` S ) $.
     rnghom1.4 $e |- V = ( Id ` K ) $.
     $( A ring homomorphism preserves ` 1 ` . $)
-    rnghom1 $p |- ( ( R e. Ring /\ S e. Ring /\ F e. ( R RngHom S ) )
+    rnghom1 $p |- ( ( R e. RingOps /\ S e. RingOps /\ F e. ( R RngHom S ) )
                                                   -> ( F ` U ) = V ) $=
       ( vx vy cring wcel crnghom co cfv wceq wa c1st crn wf cv wral w3a eqid
       isrnghom biimpa simp2d 3impa ) ANOZBNOZDABPQOZCDRGSZULUMTZUNTAUARZUBZBUAR
@@ -132,8 +133,8 @@ $)
     rnghomadd.2 $e |- X = ran G $.
     rnghomadd.3 $e |- J = ( 1st ` S ) $.
     $( Ring homomorphisms preserve addition. $)
-    rnghomadd $p |- ( ( ( R e. Ring /\ S e. Ring /\ F e. ( R RngHom S ) ) /\
-                                ( A e. X /\ B e. X ) ) ->
+    rnghomadd $p |- ( ( ( R e. RingOps /\ S e. RingOps /\ F e. ( R RngHom S ) )
+         /\ ( A e. X /\ B e. X ) ) ->
                       ( F ` ( A G B ) ) = ( ( F ` A ) J ( F ` B ) ) ) $=
       ( vx vy cv co cfv wceq wral wcel wa cring crnghom w3a opreq1 fveq2d
       fveq2 opreq1d eqeq12d opreq2 opreq2d rcla42v impcom c2nd crn wf cgi eqid
@@ -155,8 +156,8 @@ $)
     rnghommul.3 $e |- H = ( 2nd ` R ) $.
     rnghommul.4 $e |- K = ( 2nd ` S ) $.
     $( Ring homomorphisms preserve multiplication. $)
-    rnghommul $p |- ( ( ( R e. Ring /\ S e. Ring /\ F e. ( R RngHom S ) ) /\
-                                ( A e. X /\ B e. X ) ) ->
+    rnghommul $p |- ( ( ( R e. RingOps /\ S e. RingOps /\ F e. ( R RngHom S ) )
+        /\ ( A e. X /\ B e. X ) ) ->
                       ( F ` ( A H B ) ) = ( ( F ` A ) K ( F ` B ) ) ) $=
       ( vx vy cv co cfv wceq wral wcel wa cring crnghom w3a opreq1 fveq2d
       fveq2 opreq1d eqeq12d opreq2 opreq2d rcla42v impcom c1st crn wf cgi eqid
@@ -175,10 +176,10 @@ $)
     rnggrphom.1 $e |- G = ( 1st ` R ) $.
     rnggrphom.2 $e |- J = ( 1st ` S ) $.
     $( A ring homomorphism is a group homomorphism. $)
-    rnggrphom $p |- ( ( R e. Ring /\ S e. Ring /\ F e. ( R RngHom S ) )
+    rnggrphom $p |- ( ( R e. RingOps /\ S e. RingOps /\ F e. ( R RngHom S ) )
                                                   -> F e. ( G GrpHom J ) ) $=
       ( vx vy cring wcel crnghom co w3a cghom crn wf cv cfv wceq wral wa wb
-      cgr eqid elghom ringgrp syl2an 3adant3 rnghomf rnghomadd eqcomd
+      cgr eqid elghom ringogrpo syl2an 3adant3 rnghomf rnghomadd eqcomd
       r19.21aivva mpbir2and ) AJKZBJKZCABLMKZNZCDEOMKZDPZEPZCQZHRZCSIRZCSEMZVCV
       DDMCSZTZIUTUAHUTUAZUOUPUSVBVHUBUCZUQDUDKEUDKVIUOUPHICDEVAUTUTUEZVAUEZUFAD
       FUGBEGUGUHUIABCDEUTVAFVJGVKUJURVGHIUTUTURVCUTKVDUTKUBUBVFVEVCVDABCDEUTFVJ
@@ -192,11 +193,11 @@ $)
     rnghom0.3 $e |- J = ( 1st ` S ) $.
     rnghom0.4 $e |- W = ( Id ` J ) $.
     $( A ring homomorphism preserves ` 0 ` . $)
-    rnghom0 $p |- ( ( R e. Ring /\ S e. Ring /\ F e. ( R RngHom S ) )
+    rnghom0 $p |- ( ( R e. RingOps /\ S e. RingOps /\ F e. ( R RngHom S ) )
                                                       -> ( F ` Z ) = W ) $=
-      ( cring wcel crnghom co w3a cgr cghom cfv wceq ringgrp 3ad2ant1 3ad2ant2
-      rnggrphom ghomid syl111anc ) ALMZBLMZCABNOMZPDQMZEQMZCDEROMGCSFTUGUHUJUIA
-      DHUAUBUHUGUKUIBEJUAUCABCDEHJUDFGCDEIKUEUF $.
+      ( cring wcel crnghom co w3a cgr cghom cfv wceq ringogrpo 3ad2ant1
+      3ad2ant2 rnggrphom ghomid syl111anc ) ALMZBLMZCABNOMZPDQMZEQMZCDEROMGCSFT
+      UGUHUJUIADHUAUBUHUGUKUIBEJUAUCABCDEHJUDFGCDEIKUEUF $.
       $( [2-Jan-2011] $)
   $}
 
@@ -209,10 +210,10 @@ $)
     rnghomsub.4 $e |- J = ( 1st ` S ) $.
     rnghomsub.5 $e |- K = ( /g ` J ) $.
     $( Ring homomorphisms preserve subtraction. $)
-    rnghomsub $p |- ( ( ( R e. Ring /\ S e. Ring /\ F e. ( R RngHom S ) ) /\
-                                ( A e. X /\ B e. X ) ) ->
+    rnghomsub $p |- ( ( ( R e. RingOps /\ S e. RingOps /\ F e. ( R RngHom S ) )
+           /\ ( A e. X /\ B e. X ) ) ->
                       ( F ` ( A H B ) ) = ( ( F ` A ) K ( F ` B ) ) ) $=
-      ( cgr wcel cghom co w3a wa cfv wceq cring crnghom ghomdiv ringgrp
+      ( cgr wcel cghom co w3a wa cfv wceq cring crnghom ghomdiv ringogrpo
       3ad2ant1 3ad2ant2 rnggrphom 3jca sylan ) FPQZHPQZEFHRSQZTAJQBJQUAABGSEUBA
       EUBBEUBISUCCUDQZDUDQZECDUESQZTZABIGEFHJLMOUFUSUMUNUOUPUQUMURCFKUGUHUQUPUN
       URDHNUGUICDEFHKNUJUKUL $.
@@ -222,7 +223,7 @@ $)
   ${
     $d R x y $.  $d S x y $.  $d T x y $.  $d F x y $.  $d G x y $.
     $( The composition of two ring homomorphisms is a ring homomorphism. $)
-    rnghomco $p |- ( ( ( R e. Ring /\ S e. Ring /\ T e. Ring ) /\
+    rnghomco $p |- ( ( ( R e. RingOps /\ S e. RingOps /\ T e. RingOps ) /\
                           ( F e. ( R RngHom S ) /\ G e. ( S RngHom T ) ) )
                                       -> ( G o. F ) e. ( R RngHom T ) ) $=
       ( vx vy cring wcel w3a crnghom co wa ccom c1st cfv crn wf c2nd cgi wceq
@@ -230,32 +231,32 @@ $)
       syl11anc wfun ffun syl ring1cl 3ad2ant1 adantr fvco3 syl111anc rnghom1
       fveq2d 3eqtrd wi rnghomadd ex imp adantlrr rnghomcl anim12da adantlrl
       syldan eqtrd ringgcl 3expb 3ad2antl1 adantlr jca sylan opreq12 3eqtr4d
-      rnghommul ringcl r19.21aivva 3jca wb isrnghom 3adant2 mpbird ) AHIZBHIZCH
-      IZJZDABKLIZEBCKLIZMZMZEDNZACKLIZAOPZQZCOPZQZWRRZASPZTPZWRPZCSPZTPZUAZFUBZ
-      GUBZWTLZWRPZXKWRPZXLWRPZXBLZUAZXKXLXELZWRPZXOXPXHLZUAZMZGXAUCFXAUCZJZWQXD
-      XJYDWQBOPZQZXCERZXAYGDRZXDWMWOYHWNWKWLWOYHWJWKWLWOYHBCEYFXBYGXCYFUDZYGUDZ
-      XBUDZXCUDZUEUFUGUHZWMWNYIWOWJWKWNYIWLWJWKWNYIABDWTYFXAYGWTUDZXAUDZYJYKUEU
-      FUIUJZXAYGXCEDUKULWQXGXFDPZEPZBSPZTPZEPZXIWQEUMZYIXFXAIZXGYSUAWQYHUUCYNYG
-      XCEUNUOZYQWMUUDWPWJWKUUDWLAXFXEXAYPXEUDZXFUDZUPUQURXAYGXFEDUSUTWQYRUUAEWM
-      WNYRUUAUAZWOWJWKWNUUHWLWJWKWNUUHABXFDXEYTUUAUUFUUGYTUDZUUAUDZVAUFUIUJVBWM
-      WOUUBXIUAZWNWKWLWOUUKWJWKWLWOUUKBCUUAEYTXHXIUUIUUJXHUDZXIUDZVAUFUGUHVCWQY
-      CFGXAXAWQXKXAIZXLXAIZMZMZXRYBUUQXMDPZEPZXKDPZEPZXLDPZEPZXBLZXNXQUUQUUSUUT
-      UVBYFLZEPZUVDUUQUURUVEEWMWNUUPUURUVEUAZWOWMWNMZUUPUVGWJWKWNUUPUVGVDZWLWJW
-      KWNUVIWJWKWNJZUUPUVGXKXLABDWTYFXAYOYPYJVEVFUFUIVGVHVBWQUUPUUTYGIZUVBYGIZM
-      ZUVFUVDUAZWMWNUUPUVMWOUVHUUPUVMWJWKWNUUPUVMVDZWLWJWKWNUVOUVJUUPUVMUVJUUNU
-      UOUVKUVLXKABDWTYFXAYGYOYPYJYKVIXLABDWTYFXAYGYOYPYJYKVIVJVFUFUIVGVHZWMWOUV
-      MUVNWNWMWOMZUVMUVNWKWLWOUVMUVNVDZWJWKWLWOUVRWKWLWOJZUVMUVNUUTUVBBCEYFXBYG
-      YJYKYLVEVFUFUGVGVKVLVMWQUUPXMXAIZXNUUSUAZWMUUPUVTWPWJWKUUPUVTWLWJUUNUUOUV
-      TXKXLAWTXAYOYPVNVOVPVQUUCYIMZUVTUWAWQUUCYIUVTUWAXAYGXMEDUSUFWQUUCYIUUEYQV
-      RZVSVLUUQXOUVAUAZXPUVCUAZMZXQUVDUAWQUUNUUOUWDUWEUWBUUNUWDWQUUCYIUUNUWDXAY
-      GXKEDUSUFUWCVSUWBUUOUWEWQUUCYIUUOUWEXAYGXLEDUSUFUWCVSVJZXOUVAXPUVCXBVTUOW
-      AUUQXSDPZEPZUVAUVCXHLZXTYAUUQUWIUUTUVBYTLZEPZUWJUUQUWHUWKEWMWNUUPUWHUWKUA
-      ZWOUVHUUPUWMWJWKWNUUPUWMVDZWLWJWKWNUWNUVJUUPUWMXKXLABDWTXEYTXAYOYPUUFUUIW
-      BVFUFUIVGVHVBWQUUPUVMUWLUWJUAZUVPWMWOUVMUWOWNUVQUVMUWOWKWLWOUVMUWOVDZWJWK
-      WLWOUWPUVSUVMUWOUUTUVBBCEYFYTXHYGYJYKUUIUULWBVFUFUGVGVKVLVMWQUUPXSXAIZXTU
-      WIUAZWMUUPUWQWPWJWKUUPUWQWLWJUUNUUOUWQXKXLAWTXEXAYOUUFYPWCVOVPVQUWBUWQUWR
-      WQUUCYIUWQUWRXAYGXSEDUSUFUWCVSVLUUQUWFYAUWJUAUWGXOUVAXPUVCXHVTUOWAVRWDWEW
-      MWSYEWFZWPWJWLUWSWKFGACXFWRWTXEXBXHXIXAXCYOUUFYPUUGYLUULYMUUMWGWHURWI $.
+      rnghommul ringocl r19.21aivva 3jca wb isrnghom 3adant2 mpbird ) AHIZBHIZC
+      HIZJZDABKLIZEBCKLIZMZMZEDNZACKLIZAOPZQZCOPZQZWRRZASPZTPZWRPZCSPZTPZUAZFUB
+      ZGUBZWTLZWRPZXKWRPZXLWRPZXBLZUAZXKXLXELZWRPZXOXPXHLZUAZMZGXAUCFXAUCZJZWQX
+      DXJYDWQBOPZQZXCERZXAYGDRZXDWMWOYHWNWKWLWOYHWJWKWLWOYHBCEYFXBYGXCYFUDZYGUD
+      ZXBUDZXCUDZUEUFUGUHZWMWNYIWOWJWKWNYIWLWJWKWNYIABDWTYFXAYGWTUDZXAUDZYJYKUE
+      UFUIUJZXAYGXCEDUKULWQXGXFDPZEPZBSPZTPZEPZXIWQEUMZYIXFXAIZXGYSUAWQYHUUCYNY
+      GXCEUNUOZYQWMUUDWPWJWKUUDWLAXFXEXAYPXEUDZXFUDZUPUQURXAYGXFEDUSUTWQYRUUAEW
+      MWNYRUUAUAZWOWJWKWNUUHWLWJWKWNUUHABXFDXEYTUUAUUFUUGYTUDZUUAUDZVAUFUIUJVBW
+      MWOUUBXIUAZWNWKWLWOUUKWJWKWLWOUUKBCUUAEYTXHXIUUIUUJXHUDZXIUDZVAUFUGUHVCWQ
+      YCFGXAXAWQXKXAIZXLXAIZMZMZXRYBUUQXMDPZEPZXKDPZEPZXLDPZEPZXBLZXNXQUUQUUSUU
+      TUVBYFLZEPZUVDUUQUURUVEEWMWNUUPUURUVEUAZWOWMWNMZUUPUVGWJWKWNUUPUVGVDZWLWJ
+      WKWNUVIWJWKWNJZUUPUVGXKXLABDWTYFXAYOYPYJVEVFUFUIVGVHVBWQUUPUUTYGIZUVBYGIZ
+      MZUVFUVDUAZWMWNUUPUVMWOUVHUUPUVMWJWKWNUUPUVMVDZWLWJWKWNUVOUVJUUPUVMUVJUUN
+      UUOUVKUVLXKABDWTYFXAYGYOYPYJYKVIXLABDWTYFXAYGYOYPYJYKVIVJVFUFUIVGVHZWMWOU
+      VMUVNWNWMWOMZUVMUVNWKWLWOUVMUVNVDZWJWKWLWOUVRWKWLWOJZUVMUVNUUTUVBBCEYFXBY
+      GYJYKYLVEVFUFUGVGVKVLVMWQUUPXMXAIZXNUUSUAZWMUUPUVTWPWJWKUUPUVTWLWJUUNUUOU
+      VTXKXLAWTXAYOYPVNVOVPVQUUCYIMZUVTUWAWQUUCYIUVTUWAXAYGXMEDUSUFWQUUCYIUUEYQ
+      VRZVSVLUUQXOUVAUAZXPUVCUAZMZXQUVDUAWQUUNUUOUWDUWEUWBUUNUWDWQUUCYIUUNUWDXA
+      YGXKEDUSUFUWCVSUWBUUOUWEWQUUCYIUUOUWEXAYGXLEDUSUFUWCVSVJZXOUVAXPUVCXBVTUO
+      WAUUQXSDPZEPZUVAUVCXHLZXTYAUUQUWIUUTUVBYTLZEPZUWJUUQUWHUWKEWMWNUUPUWHUWKU
+      AZWOUVHUUPUWMWJWKWNUUPUWMVDZWLWJWKWNUWNUVJUUPUWMXKXLABDWTXEYTXAYOYPUUFUUI
+      WBVFUFUIVGVHVBWQUUPUVMUWLUWJUAZUVPWMWOUVMUWOWNUVQUVMUWOWKWLWOUVMUWOVDZWJW
+      KWLWOUWPUVSUVMUWOUUTUVBBCEYFYTXHYGYJYKUUIUULWBVFUFUGVGVKVLVMWQUUPXSXAIZXT
+      UWIUAZWMUUPUWQWPWJWKUUPUWQWLWJUUNUUOUWQXKXLAWTXEXAYOUUFYPWCVOVPVQUWBUWQUW
+      RWQUUCYIUWQUWRXAYGXSEDUSUFUWCVSVLUUQUWFYAUWJUAUWGXOUVAXPUVCXHVTUOWAVRWDWE
+      WMWSYEWFZWPWJWLUWSWKFGACXFWRWTXEXBXHXIXAXCYOUUFYPUUGYLUULYMUUMWGWHURWI $.
       $( [16-Jun-2011] $)
   $}
 
@@ -267,10 +268,10 @@ $)
     rngkerinj.5 $e |- Y = ran J $.
     rngkerinj.6 $e |- Z = ( Id ` J ) $.
     $( A ring homomorphism is injective if and only if its kernel is zero. $)
-    rngkerinj $p |- ( ( R e. Ring /\ S e. Ring /\ F e. ( R RngHom S ) ) ->
-                        ( F : X -1-1-> Y <-> ( `' F " { Z } ) = { W } ) ) $=
+    rngkerinj $p |- ( ( R e. RingOps /\ S e. RingOps /\ F e. ( R RngHom S ) )
+        -> ( F : X -1-1-> Y <-> ( `' F " { Z } ) = { W } ) ) $=
       ( cring wcel crnghom co w3a c1st cfv cgr cghom wf1 ccnv csn cima wceq wb
-      eqid ringgrp 3ad2ant1 3ad2ant2 rnggrphom crn rneqi eqtri cgi fveq2i
+      eqid ringogrpo 3ad2ant1 3ad2ant2 rnggrphom crn rneqi eqtri cgi fveq2i
       grpkerinj syl111anc ) APQZBPQZCABRSQZTAUAUBZUCQZBUAUBZUCQZCVFVHUDSQGHCUEC
       UFIUGUHFUGUIUJVCVDVGVEAVFVFUKZULUMVDVCVIVEBVHVHUKZULUNABCVFVHVJVKUOICVFVH
       FGHGDUPVFUPKDVFJUQURFDUSUBVFUSUBLDVFUSJUTURHEUPVHUPNEVHMUQURIEUSUBVHUSUBO
@@ -283,7 +284,7 @@ $)
     $( Define the function which gives the set of ring isomorphisms between two
        given rings. $)
     df-rngiso $a |- RngIso = { <. <. r , s >. , t >. |
-              ( ( r e. Ring /\ s e. Ring ) /\ t = { f e. ( r RngHom s ) |
+              ( ( r e. RingOps /\ s e. RingOps ) /\ t = { f e. ( r RngHom s ) |
                   f : ran ( 1st ` r ) -1-1-onto-> ran ( 1st ` s ) } ) } $.
   $}
 
@@ -294,7 +295,7 @@ $)
     rngisoval.3 $e |- J = ( 1st ` S ) $.
     rngisoval.4 $e |- Y = ran J $.
     $( The set of ring isomorphisms. $)
-    rngisoval $p |- ( ( R e. Ring /\ S e. Ring ) -> ( R RngIso S ) =
+    rngisoval $p |- ( ( R e. RingOps /\ S e. RingOps ) -> ( R RngIso S ) =
                           { f e. ( R RngHom S ) | f : X -1-1-onto-> Y } ) $=
       ( vr vs vt cring cv c1st cfv crn wf1o crnghom co crab crngiso oprex
       rabex wceq opreq1 wb fveq2 syl6eqr rneqd f1oeq2 syl rabeqbidv opreq2
@@ -307,15 +308,15 @@ $)
 
     $d X f $.  $d Y f $.  $d F f $.
     $( The predicate "is a ring isomorphism between ` R ` and ` S ` ." $)
-    isrngiso $p |- ( ( R e. Ring /\ S e. Ring ) -> ( F e. ( R RngIso S ) <->
-                        ( F e. ( R RngHom S ) /\ F : X -1-1-onto-> Y ) ) ) $=
+    isrngiso $p |- ( ( R e. RingOps /\ S e. RingOps ) -> ( F e. ( R RngIso S )
+      <-> ( F e. ( R RngHom S ) /\ F : X -1-1-onto-> Y ) ) ) $=
       ( vf cring wcel wa crngiso co cv wf1o crnghom crab rngisoval eleq2d
       f1oeq1 elrab syl6bb ) AMNBMNOZCABPQZNCFGLRZSZLABTQZUAZNCUKNFGCSZOUGUHULCA
       BLDEFGHIJKUBUCUJUMLCUKFGUICUDUEUF $.
       $( [16-Jun-2011] $)
 
     $( A ring isomorphism is a bijection. $)
-    rngiso1o $p |- ( ( R e. Ring /\ S e. Ring /\ F e. ( R RngIso S ) )
+    rngiso1o $p |- ( ( R e. RingOps /\ S e. RingOps /\ F e. ( R RngIso S ) )
                                           -> F : X -1-1-onto-> Y ) $=
       ( cring wcel crngiso co wf1o wa crnghom isrngiso simplbda 3impa ) ALMZBLM
       ZCABNOMZFGCPZUBUCQUDCABROMUEABCDEFGHIJKSTUA $.
@@ -323,7 +324,7 @@ $)
   $}
 
   $( A ring isomorphism is a ring homomorphism. $)
-  rngisohom $p |- ( ( R e. Ring /\ S e. Ring /\ F e. ( R RngIso S ) )
+  rngisohom $p |- ( ( R e. RingOps /\ S e. RingOps /\ F e. ( R RngIso S ) )
                                           -> F e. ( R RngHom S ) ) $=
     ( cring wcel crngiso co crnghom wa c1st cfv crn wf1o eqid isrngiso
     simprbda 3impa ) ADEZBDEZCABFGEZCABHGEZRSITUAAJKZLZBJKZLZCMABCUBUDUCUEUBNUC
@@ -333,14 +334,14 @@ $)
   ${
     $d R x y $.  $d S x y $.  $d F x y $.
     $( The inverse of a ring isomorphism is a ring isomorphism. $)
-    rngisocnv $p |- ( ( R e. Ring /\ S e. Ring /\ F e. ( R RngIso S ) )
+    rngisocnv $p |- ( ( R e. RingOps /\ S e. RingOps /\ F e. ( R RngIso S ) )
                                           -> `' F e. ( S RngIso R ) ) $=
       ( vx vy cring wcel crngiso co ccnv wa crnghom c1st cfv crn wf1o wf c2nd
       cgi wceq cv wral w3a f1ocnv f1of syl ad2antll eqid rnghom1 3expa adantrr
       wi f1ocnvfv ring1cl sylan2 ancoms ad2ant2rl mpd f1ocnvfv2 anim12da
       opreq12 adantll rnghomadd f1ocnvdm exp32 impr imp ringgcl 3expb sylan
       an1rs adantlll adantlrl 3eqtr4rd wb wf1 f1of1 ad2antlr anassrs adantllr
-      f1fveq syl12anc mpbid rnghommul ringcl jca r19.21aivva 3jca isrnghom
+      f1fveq syl12anc mpbid rnghommul ringocl jca r19.21aivva 3jca isrnghom
       adantr mpbird ex isrngiso 3imtr4d 3impia ) AFGZBFGZCABHIGZCJZBAHIGZWPWQKZ
       CABLIGZAMNZOZBMNZOZCPZKZWSBALIGZXFXDWSPZKZWRWTXAXHXKXAXHKZXIXJXLXIXFXDWSQ
       ZBRNZSNZWSNARNZSNZTZDUAZEUAZXEIZWSNZXSWSNZXTWSNZXCIZTZXSXTXNIZWSNZYCYDXPI
@@ -371,7 +372,7 @@ $)
 
   ${
     $( The composition of two ring isomorphisms is a ring isomorphism. $)
-    rngisoco $p |- ( ( ( R e. Ring /\ S e. Ring /\ T e. Ring ) /\
+    rngisoco $p |- ( ( ( R e. RingOps /\ S e. RingOps /\ T e. RingOps ) /\
                       ( F e. ( R RngIso S ) /\ G e. ( S RngIso T ) ) )
                                     -> ( G o. F ) e. ( R RngIso T ) ) $=
       ( cring wcel w3a crngiso co wa ccom crnghom c1st cfv crn wf1o wb eqid
@@ -388,7 +389,7 @@ $)
   ${
     $d r s f $.
     $( Define the ring isomorphism relation. $)
-    df-risc $a |- ~=r = { <. r , s >. | ( ( r e. Ring /\ s e. Ring )
+    df-risc $a |- ~=r = { <. r , s >. | ( ( r e. RingOps /\ s e. RingOps )
                                   /\ E. f f e. ( r RngIso s ) ) } $.
   $}
 
@@ -396,7 +397,7 @@ $)
     $d R r s f $.  $d S r s f $.
     $( The ring isomorphism relation. $)
     isriscg $p |- ( ( R e. A /\ S e. B ) -> ( R ~=r S <->
-            ( ( R e. Ring /\ S e. Ring ) /\ E. f f e. ( R RngIso S ) ) ) ) $=
+        ( ( R e. RingOps /\ S e. RingOps ) /\ E. f f e. ( R RngIso S ) ) ) ) $=
       ( vr vs cv cring wcel wa crngiso co wex crisc wceq eleq1 anbi1d opreq1
       eleq2d exbidv anbi12d anbi2d opreq2 df-risc brabg ) FHZIJZGHZIJZKZEHZUGUI
       LMZJZENZKCIJZUJKZULCUILMZJZENZKUPDIJZKZULCDLMZJZENZKFGCDABOUGCPZUKUQUOUTV
@@ -410,7 +411,7 @@ $)
     isrisc.1 $e |- R e. _V $.
     isrisc.2 $e |- S e. _V $.
     $( The ring isomorphism relation. $)
-    isrisc $p |- ( R ~=r S <-> ( ( R e. Ring /\ S e. Ring )
+    isrisc $p |- ( R ~=r S <-> ( ( R e. RingOps /\ S e. RingOps )
                               /\ E. f f e. ( R RngIso S ) ) ) $=
       ( cvv wcel crisc wbr cring wa cv crngiso co wex wb isriscg mp2an ) AFGBFG
       ABHIAJGBJGKCLABMNGCOKPDEFFABCQR $.
@@ -420,7 +421,7 @@ $)
   ${
     $d R f $.  $d S f $.
     $( The ring isomorphism relation. $)
-    risc $p |- ( ( R e. Ring /\ S e. Ring ) ->
+    risc $p |- ( ( R e. RingOps /\ S e. RingOps ) ->
                       ( R ~=r S <-> E. f f e. ( R RngIso S ) ) ) $=
       ( cring wcel wa crisc wbr cv crngiso co wex isriscg bianabs ) ADEBDEFABGH
       CIABJKECLDDABCMN $.
@@ -430,7 +431,7 @@ $)
   ${
     $d R f $.  $d S f $.  $d F f $.
     $( Determine that two rings are isomorphic. $)
-    risci $p |- ( ( R e. Ring /\ S e. Ring /\
+    risci $p |- ( ( R e. RingOps /\ S e. RingOps /\
                                 F e. ( R RngIso S ) ) -> R ~=r S ) $=
       ( vf cring wcel crngiso co crisc wbr wa cv wex risc eleq1 cla4egv
       pm2.43i syl5bir 3impia ) AEFZBEFZCABGHZFZABIJZTUAKUDDLZUBFZDMZUCABDNUCUGU

@@ -37,7 +37,7 @@ $)
     $( Def. 8.5.6 p. 216 $)
     $( Define class of all star rings.  A star ring is a ring with an
        involution operation. $)
-    df-starrng $a |- Ring* = { f e. Ring |
+    df-starrng $a |- Ring* = { f e. RingOps |
        E. k E. p E. t E. i ( ( k = ( Base ` f ) /\ p = ( +g ` f ) )
           /\ ( t = ( .r ` f ) /\ i = ( *v ` f ) ) /\
          A. q e. k A. r e. k ( ( i ` q ) e. k
@@ -54,7 +54,7 @@ $)
     issrng.t $e |- T = ( .r ` R ) $.
     issrng.i $e |- I = ( *v ` R ) $.
     $( The predicate "is a star ring." $)
-    issrng $p |- ( R e. Ring* <-> ( R e. Ring
+    issrng $p |- ( R e. Ring* <-> ( R e. RingOps
         /\ A. q e. K A. r e. K ( ( I ` q ) e. K
               /\ ( ( I ` ( q P r ) ) = ( ( I ` q ) P ( I ` r ) )
               /\ ( I ` ( q T r ) ) = ( ( I ` r ) T ( I ` q ) )
@@ -89,10 +89,10 @@ $)
 
   $( Define the class notation with class of all *-division rings, which are
      division rings that are also *-rings. $)
-  df-sdivrng $a |- DivRing* = ( DivRing i^i Ring* ) $.
+  df-sdivrng $a |- DivRing* = ( DivRingOps i^i Ring* ) $.
 
   $( The predicate "is a *-division ring." $)
-  issdrng $p |- ( R e. DivRing* <-> ( R e. DivRing /\ R e. Ring* ) ) $=
+  issdrng $p |- ( R e. DivRing* <-> ( R e. DivRingOps /\ R e. Ring* ) ) $=
     ( csd wcel cdrng csr cin wa df-sdivrng eleq2i elin bitri ) ABCADEFZCADCAECG
     BLAHIADEJK $.
     $( [22-Sep-2011] $)
@@ -129,17 +129,18 @@ $)
   ${
     $d a f k p q r s t v w x $.
     $( Def. 8.5.11, p. 218. $)
+    $( Define the class of all left vector spaces. $)
     df-lvec $a |- LVec = { f e. DivRing* |
       E. k E. p E. t E. v E. a E. s
          ( ( k = ( Base ` f ) /\ p = ( +g ` f ) /\ t = ( .r ` f ) )
           /\ ( v = ( vbase ` f ) /\ a = ( vadd ` f ) /\ s = ( vsca ` f ) )
-          /\ ( { <. ( Base ` ndx ) , v >. , <. ( +g ` ndx ) , a >. } e. Abel
+          /\ ( { <. ( Base ` ndx ) , v >. , <. ( +g ` ndx ) , a >. } e. AbelOp
              /\ A. q e. k A. r e. k A. x e. v A. w e. v
                ( ( ( r s w ) e. v
                  /\ ( r s ( w a x ) ) = ( ( r s w ) a ( r s x ) )
                  /\ ( ( q p r ) s w ) = ( ( q s w ) a ( r s w ) )
                ) /\ ( ( q s ( r s w ) ) = ( ( q t r ) s w )
-                 /\ ( ( 1rNEW ` f ) s w ) = w ) ) ) ) } $.
+                 /\ ( ( 1r ` f ) s w ) = w ) ) ) ) } $.
   $}
 
   ${
@@ -153,10 +154,10 @@ $)
     islvec.v $e |- V = ( vbase ` W ) $.
     islvec.a $e |- A = ( vadd ` W ) $.
     islvec.s $e |- S = ( vsca ` W ) $.
-    islvec.u $e |- U = ( 1rNEW ` W ) $.
+    islvec.u $e |- U = ( 1r ` W ) $.
     islvec.g $e |- G = { <. ( Base ` ndx ) , V >. , <. ( +g ` ndx ) , A >. } $.
     $( The predicate "is a left vector space" (over a *-division ring) $)
-    islvec $p |- ( W e. LVec <-> ( W e. DivRing* /\ G e. Abel
+    islvec $p |- ( W e. LVec <-> ( W e. DivRing* /\ G e. AbelOp
         /\ A. q e. K A. r e. K A. x e. V A. w e. V
                ( ( ( r S w ) e. V
                  /\ ( r S ( w A x ) ) = ( ( r S w ) A ( r S x ) )
@@ -204,14 +205,14 @@ $)
       $( [21-Sep-2011] $)
   $}
 
-  $c 0vNEW $.
+  $c 0v $.
 
   $( Extend class notation with zero vector. $)
-  czv $a class 0vNEW $.
+  czv $a class 0v $.
 
   $( Def. 8.5.13, p. 219. $)
   $( Define zero vector. $)
-  df-zv $a |- 0vNEW = ( v e. _V |-> ( 0g `
+  df-zv $a |- 0v = ( v e. _V |-> ( 0g `
            { <. 1 , ( vbase ` v ) >. , <. 2 , ( vadd ` v ) >. } ) ) $.
 
   $c ip $.
@@ -242,7 +243,7 @@ $)
             ( x h y ) e. k
               /\ ( ( ( ( q s x ) a y ) h z )
                   = ( ( q t ( x h z ) ) p ( y h z ) )
-        /\ ( ( x h x ) = ( 0g ` f ) -> x = ( 0vNEW ` f ) )
+        /\ ( ( x h x ) = ( 0g ` f ) -> x = ( 0v ` f ) )
               /\ ( i ` ( x h y ) ) = ( y h x ) ) ) ) } $.
   $}
 
@@ -262,7 +263,7 @@ $)
     isphil.s $e |- S = ( vsca ` W ) $.
     isphil.h $e |- H = ( ip ` W ) $.
     isphil.n $e |- N = ( 0g ` W ) $.
-    isphil.z $e |- Z = ( 0vNEW ` W ) $.
+    isphil.z $e |- Z = ( 0v ` W ) $.
     $( The predicate "is a pre-Hilbert space" (over a *-division ring) $)
     isphil $p |- ( W e. PreHil <-> ( W e. LVec
           /\ A. q e. K A. x e. V A. y e. V A. z e. V (
@@ -342,7 +343,7 @@ $)
     $( Def. 8.5.27, p. 227. $)
     $( Define orthocomplement of a subspace. $)
     df-ocv $a |- ocv = ( h e. _V |-> ( s e. ~P ( vbase ` h ) |->
-   { x e. ( vbase ` h ) | A. y e. s ( x ( ip ` h ) y ) = ( 0vNEW ` h ) } ) ) $.
+   { x e. ( vbase ` h ) | A. y e. s ( x ( ip ` h ) y ) = ( 0v ` h ) } ) ) $.
 
     $( Def. 8.5.28, p. 226. $)
     $( Define set of closed subspaces. $)
@@ -392,7 +393,7 @@ $)
     $d h s x y H $.  $d h I $.  $d h s x V $.  $d h Z $.
     ocvfval.v $e |- V = ( vbase ` H ) $.
     ocvfval.i $e |- I = ( ip ` H ) $.
-    ocvfval.z $e |- Z = ( 0vNEW ` H ) $.
+    ocvfval.z $e |- Z = ( 0v ` H ) $.
     ocvfval.o $e |- O = ( ocv ` H ) $.
     $( The orthocomplement operation. $)
     ocvfval $p |- ( H e. A -> O = ( s e. ~P V |->
