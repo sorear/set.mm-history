@@ -4,9 +4,7 @@ $(
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 $)
 
-  $c (x) Bigcup SSet Trans Limits (++) Fix $.
-  $( Declare the syntax for symmetric difference. $)
-  csymdif $a class ( A (++) B ) $.
+  $c (x) Bigcup SSet Trans Limits Fix Funs Singletons $.
   $( Declare the syntax for tail cross product. $)
   ctxp $a class ( A (x) B ) $.
   $( Declare the subset relationship class. $)
@@ -19,9 +17,10 @@ $)
   climits $a class Limits $.
   $( Declare the syntax for the fixpoints of a class. $)
   cfix $a class Fix A $.
-
-  $( Define the symmetric difference of two classes. $)
-  df-symdif $a |- ( A (++) B ) = ( ( A \ B ) u. ( B \ A ) ) $.
+  $( Declare the syntax for the class of all function. $)
+  cfuns $a class Funs $.
+  $( Declare the syntax for the class of all singletons. $)
+  csingles $a class Singletons $.
 
   $( Define the tail cross of two classes.  Membership in this class is defined
      by ~ txpss3v and ~ brtxp . $)
@@ -45,70 +44,18 @@ $)
   $( Define the class of all limit ordinals. $)
   df-limits $a |- Limits = ( ( On i^i Fix Bigcup ) \ { (/) } ) $.
 
-  $( Symmetric difference commutes. $)
-  symdifcom $p |- ( A (++) B ) = ( B (++) A ) $=
-    ( cdif cun csymdif uncom df-symdif 3eqtr4i ) ABCZBACZDJIDABEBAEIJFABGBAGH
-    $.
-    $( [12-May-2012] $) $( [24-Apr-2012] $)
+  $( Define the class of all functions.  See ~ elfuns for membership. $)
+  df-funs $a |- Funs =
+    ( ~P ( _V X. _V ) \
+      Fix ( _E o. ( ( 1st (x) ( ( _V \ _I ) o. 2nd ) ) o. `' _E ) ) ) $.
 
-  $( Equality theorem for symmetric difference. $)
-  symdifeq1 $p |- ( A = B -> ( A (++) C ) = ( B (++) C ) ) $=
-    ( wceq cdif cun csymdif difeq1 difeq2 uneq12d df-symdif 3eqtr4g ) ABDZACEZC
-    AEZFBCEZCBEZFACGBCGMNPOQABCHABCIJACKBCKL $.
-    $( [12-May-2012] $) $( [24-Apr-2012] $)
-
-  $( Equality theorem for symmetric difference. $)
-  symdifeq2 $p |- ( A = B -> ( C (++) A ) = ( C (++) B ) ) $=
-    ( wceq csymdif symdifeq1 symdifcom 3eqtr4g ) ABDACEBCECAECBEABCFCAGCBGH $.
-    $( [12-May-2012] $) $( [24-Apr-2012] $)
-
-  $( Membership in a symmetric difference. $)
-  elsymdif $p |- ( A e. ( B (++) C ) <-> -. ( A e. B <-> A e. C ) ) $=
-    ( cdif cun wcel wn wa wo csymdif wb elun eldif orbi12i bitri df-symdif
-    eleq2i xor 3bitr4i ) ABCDZCBDZEZFZABFZACFZGHZUEUDGHZIZABCJZFUDUEKGUCATFZAUA
-    FZIUHATUALUJUFUKUGABCMACBMNOUIUBABCPQUDUERS $.
-    $( [11-Apr-2012] $) $( [31-Mar-2012] $)
-
-  $( Symmetric difference with the empty class. $)
-  symdif0 $p |- ( A (++) (/) ) = A $=
-    ( c0 csymdif cdif cun df-symdif dif0 0dif uneq12i un0 3eqtri ) ABCABDZBADZE
-    ABEAABFLAMBAGAHIAJK $.
-    $( [12-May-2012] $) $( [24-Apr-2012] $)
-
-  $( Symmetric difference with the universal class. $)
-  symdifV $p |- ( A (++) _V ) = ( _V \ A ) $=
-    ( cvv csymdif cdif cun c0 df-symdif wss wceq ssv ssdif0 mpbi uneq1i uncom
-    un0 eqtri 3eqtri ) ABCABDZBADZEFSEZSABGRFSABHRFIAJABKLMTSFESFSNSOPQ $.
-    $( [12-May-2012] $) $( [24-Apr-2012] $)
-
-  $( Symmetric difference yields the empty class with the same argument
-     twice. $)
-  symdifid $p |- ( A (++) A ) = (/) $=
-    ( csymdif cdif cun c0 df-symdif difid uneq12i un0 3eqtri ) AABAACZKDEEDEAAF
-    KEKEAGZLHEIJ $.
-    $( [12-May-2012] $) $( [25-Apr-2012] $)
-
-  ${
-    $d A x $.  $d B x $.  $d C x $.
-    $( Symmetric difference associates. $)
-    symdifass $p |- ( A (++) ( B (++) C ) ) = ( ( A (++) B ) (++) C ) $=
-      ( vx csymdif cv wcel wb wn biass notbii xor3 notbi bitr4i con1bii
-      3bitr3ri elsymdif bibi2i bibi1i 3bitr4i eqriv ) DABCEZEZABEZCEZDFZAGZUFUB
-      GZHZIUFUDGZUFCGZHZIUFUCGUFUEGUIULUGUFBGZUKHZIZHZUGUMHZIZUKHZUIULUQUKHZIUG
-      UNHZIUSUPUTVAUGUMUKJKUSUTUSIURUKIHUTURUKLUQUKMNOUGUNLPUHUOUGUFBCQRUJURUKU
-      FABQSTKUFAUBQUFUDCQTUA $.
-      $( [12-May-2012] $) $( [24-Apr-2012] $)
-  $}
+  $( Define the class of all singletons.  See ~ elsingles for membership. $)
+  df-singles $a |- Singletons =
+    dom ( _V \ ran ( ( _E (x) _V ) (++) ( _V (x) _I ) ) ) $.
 
   $( The binary relationship over ` _V ` always holds. $)
   brv $p |- A _V B $=
     ( cvv wbr cop wcel opex df-br mpbir ) ABCDABECFABGABCHI $.
-    $( [11-Apr-2012] $)
-
-  $( The binary relationship of a symmetric difference. $)
-  brsymdif $p |- ( A ( R (++) S ) B <-> -. ( A R B <-> A S B ) ) $=
-    ( cop csymdif wcel wb wn wbr elsymdif df-br bibi12i notbii 3bitr4i ) ABEZCD
-    FZGPCGZPDGZHZIABQJABCJZABDJZHZIPCDKABQLUCTUARUBSABCLABDLMNO $.
     $( [11-Apr-2012] $)
 
   ${
@@ -383,8 +330,9 @@ $)
   ${
     $d x y $.
     $( A quantifier-free definition of ` om ` that does not depend on
-       ~ ax-inf . $)
-    dfom5 $p |- om = ( On i^i |^| Limits ) $=
+       ~ ax-inf .  (Note: label was changed from ~ dfom5 to ~ dfom5b to prevent
+       naming conflict.  NM 12-Feb-2013) $)
+    dfom5b $p |- om = ( On i^i |^| Limits ) $=
       ( vx vy cv word cab wlim wel wi wal cin wa con0 climits cint com inab
       df-on wcel df-int visset ellimits imbi1i albii abbii eqtri ineq12i df-om
       3eqtr4ri ) ACDZAEZBCZFZABGZHZBIZAEZJUIUOKAELMNZJOUIUOAPLUJUQUPAQUQUKMRZUM
@@ -392,4 +340,117 @@ $)
       $( [11-Apr-2012] $)
   $}
 
+  ${
+    $d F x y z w t a b c d $.
+    elfuns.1 $e |- F e. _V $.
+    $( Membership in the class of all functions. $)
+    elfuns $p |- ( F e. Funs <-> Fun F ) $=
+      ( vt vw vx vy vz va vb vc vd wrel cv c1st cvv cid cdif c2nd ccom ctxp
+      wbr wn wral wa cop wcel weq wi wal cfuns wfun wceq breq2 notbid breq1
+      opex visset brtxp cfv op1st wfn wb wfo fo1st fofn ax-mp fnbrfvb mp2an
+      mpbi mpbiran syl6bb rcla42v wex brco fo2nd fofun op2nd funbreq brdif brv
+      ideq notbii bitri anbi12i exbii exanali 3bitri con2bii equid equequ2
+      equequ1 imbi12d a4v mpi eqcomd sylbir syl6com 19.21aiv 19.21aivv ee4anv
+      opeq1 eleq1d anbi2d w3a opeq12 3adant3 3adant2 anbi12d eqeq12 3adant1
+      cla43gv mp3an com12 syl6bi eqtr ex syl8 com3l imbi2i imnan bitr2i
+      syl6ibr eleq1 bi2anan9 breq12 ancoms imbi2d mpbiri 19.23aivv a1i elrel
+      syl2and pm2.43d com23 r19.21advv impbid2 pm5.32i cxp cpw cep ccnv cfix
+      eldif wrex elfix coep coepr dfrex2 rexbii rexnal anbi2i bitr4i df-funs
+      eleq2i wss df-rel elpw anbi1i 3bitr4i dffun4 ) ALZCMZDMZNOPQZRSZTZUAZUBZC
+      AUCZDAUCZUDZUVAEMZFMZUEZAUFZUVLGMZUEZAUFZUDZFGUGZUHZGUIZFUIEUIZUDAUJUFZAU
+      KUVAUVJUWCUVAUVJUWCUVJUWBEFUVJUWAGUVSUVJUVQUVMUVEUAZUBZUVTUVHUWFUVBUVNUVF
+      UAZUBDCUVNUVQAAUVCUVNULUVGUWGUVCUVNUVBUVFUMUNUVBUVQULZUWGUWEUWHUWGUVQUVNU
+      VFUAZUWEUVBUVQUVNUVFUOUWIUVQUVLNUAZUWENUVEUVQUVLUVMUVLUVPUPZEUQZFUQZURUVQ
+      NUSUVLULZUWJUVLUVPUWLUTNOVAZUVQOUFZUWNUWJVBOONVCZUWOVDOONVEVFZUWKOUVQUVLN
+      UWLVGVHVIVJVKUNVLUWFGDUGZDFUGZUHZDUIZUVTUWEUXBUWEUVQUVCRUAZUVCUVMUVDUAZUD
+      ZDVMUWSUWTUBZUDZDVMUXBUBDUVQUVMUVDRUWKUWMVNUXEUXGDUXCUWSUXDUXFRUKZUVQUVPR
+      UAZUXCUWSVBOORVCZUXHVOOORVPVFZUVQRUSUVPULZUXIUVLUVPUWLGUQZVQROVAZUWPUXLUX
+      IVBUXJUXNVOOORVEVFZUWKOUVQUVPRUXMVGVHVIUVQUVPUVCRUWKUXMDUQZVRVHUXDUVCUVMP
+      UAZUBZUXFUXDUVCUVMOUAUXRUVCUVMOPVSUVCUVMVTVJUXQUWTUVCUVMUWMWAWBWCWDWEUWSU
+      WTDWFWGWHUXBUVPUVMUXBGGUGZGFUGZGWIUXAUXSUXTUHDGDGUGUWSUXSUWTUXTDGGWJDGFWK
+      WLWMWNWOWPWQWRWSUVAUWCUVHDCAAUVAUVCAUFZUVBAUFZUDZUWCUVHUVAUYCUWCUVHUHZUVA
+      UVCHMZIMZUEZULZIVMHVMZUVBJMZKMZUEZULZKVMJVMZUYCUYDUHZUYAUYBUYIUYNUDZUYOUH
+      UVAUYPUYHUYMUDZKVMJVMZIVMHVMUYOUYHUYMHIJKWTUYRUYOHIUYQUYOJKUYQUYOUYGAUFZU
+      YLAUFZUDZUWCJHUGZKDUGZDIUGZUBZUDZDVMZUDZUBZUHZUHVUAUWCVUBVUCVUDUHZDUIZUHZ
+      VUIVUBVUAUWCVULVUBVUAUWCIKUGZVULVUBVUAUYSUYEUYKUEZAUFZUDZUWCVUNUHVUBUYTVU
+      PUYSVUBUYLVUOAUYJUYEUYKXAXBXCUWCVUQVUNUYEOUFUYFOUFUYKOUFUWCVUQVUNUHZUHHUQ
+      ZIUQZKUQZUWAVUREFGUYEUYFUYKOOOEHUGZFIUGZGKUGZXDZUVSVUQUVTVUNVVEUVOUYSUVRV
+      UPVVBVVCUVOUYSVBVVDVVBVVCUDUVNUYGAUVLUVMUYEUYFXEXBXFVVBVVDUVRVUPVBVVCVVBV
+      VDUDUVQVUOAUVLUVPUYEUYKXEXBXGXHVVCVVDUVTVUNVBVVBUVMUYFUVPUYKXIXJWLXKXLXMX
+      NVUNVUKDVUNVUCVUDVUNVUCUDUYFUVCUYFUYKUVCXOWOXPWRXQXRVUMVUBVUGUBZUHVUIVULV
+      VFVUBVUGVULVUCVUDDWFWHXSVUBVUGXTYAYBUYQUYCVUAUYDVUJUYHUYAUYSUYMUYBUYTUVCU
+      YGAYCUVBUYLAYCYDUYQUVHVUIUWCUYMUYHUVHVUIVBUYMUYHUDZUVGVUHVVGUVGUYLUYGUVFU
+      AZVUHUVBUYLUVCUYGUVFYEVVHUYLUYENUAZUYLUYFUVEUAZUDVUHNUVEUYLUYEUYFUYJUYKUP
+      ZVUSVUTURVVIVUBVVJVUGNUKZUYLUYJNUAZVVIVUBVBUWQVVLVDOONVPVFUYLNUSUYJULZVVM
+      UYJUYKJUQZUTUWOUYLOUFZVVNVVMVBUWRVVKOUYLUYJNVVOVGVHVIUYLUYJUYENVVKVVOVUSV
+      RVHVVJUYLUVCRUAZUVCUYFUVDUAZUDZDVMVUGDUYLUYFUVDRVVKVUTVNVVSVUFDVVQVUCVVRV
+      UEUXHUYLUYKRUAZVVQVUCVBUXKUYLRUSUYKULZVVTUYJUYKVVOVVAVQUXNVVPVWAVVTVBUXOV
+      VKOUYLUYKRVVAVGVHVIUYLUYKUVCRVVKVVAUXPVRVHVVRUVCUYFPUAZUBZVUEVVRUVCUYFOUA
+      VWCUVCUYFOPVSUVCUYFVTVJVWBVUDUVCUYFVUTWAWBWCWDWEWCWDWCVKUNYFYGWLYHYIYIWPY
+      JUVAUYAUYIHIUVCAYKXPUVAUYBUYNJKUVBAYKXPYLYMYNYOYPYQAOOYRZYSZYTUVFYTUUASZS
+      ZUUBZQZUFZAVWEUFZUVJUDZUWDUVKVWJVWKAVWHUFZUBZUDVWLAVWEVWHUUCUVJVWNVWKVWMU
+      VJVWMAAVWGUAAUVCVWFUAZDAUUDZUVJUBZAVWGBUUEDAAVWFBBUUFVWPUVIUBZDAUUDVWQVWO
+      VWRDAVWOUVGCAUUDVWRCAUVCUVFBUXPUUGUVGCAUUHWCUUIUVIDAUUJWCWGWHUUKUULUJVWIA
+      UUMUUNUVAVWKUVJUVAAVWDUUOVWKAUUPAVWDBUUQUULUURUUSEFGAUUTUUS $.
+      $( [18-Feb-2013] $)
+  $}
+
+  ${
+    $d A x y z $.
+    $( Membership in the class of all singletons. $)
+    elsingles $p |- ( A e. Singletons <-> E. x A = { x } ) $=
+       ( vy vz csingles wcel cvv cv csn wceq wex elisset snex eleq1 mpbiri
+       19.23aiv eqeq1 exbidv cep ctxp cid csymdif crn cdif cdm wbr df-singles
+       eleq2i visset eldm wel wb wal cop wn brtxp brv mpbiran2 mpbiran bibi12i
+       brsymdif con2bii epel weq ideq elsn bitr4i 3bitr3ri albii dfcleq brdif
+       df-br opex elrn df-ex 3bitri 3bitr4ri exbii vtoclbg pm5.21nii ) BEFZBGFZ
+       BAHZIZJZAKZBELWEWBAWEWBWDGFWCMBWDGNOPCHZEFZWGWDJZAKZWAWFCBGWGBENWGBJWIWE
+       AWGBWDQRWHWGGSGTZGUATZUBZUCZUDZUEZFWGWCWOUFZAKWJEWPWGUGUHAWGWOCUIZUJWQWI
+       ADCUKZDHZWDFZULZDUMWTWGWCUNZWMUFZUOZDUMZWIWQXBXEDWTXCWKUFZWTXCWLUFZULZWT
+       WGSUFZWTWCUAUFZULXEXBXGXJXHXKXGXJWTWCGUFSGWTWGWCDUIZWRAUIZUPWTWCUQURXHWT
+       WGGUFXKGUAWTWGWCXLWRXMUPWTWGUQUSUTXDXIWTXCWKWLVAVBXJWSXKXADCVCXKDAVDXAWT
+       WCXMVEDWCVFVGUTVHVIDWGWDVJWQWGWCWNUFZUOZXFWQWGWCGUFXOWGWCGWNVKWGWCUQUSXN
+       XFXNXCWNFXDDKXFUOWGWCWNVLDXCWMWGWCVMVNXDDVOVPVBVGVQVRVPVSVT $.
+       $( [19-Feb-2013] $)
+  $}
+
+  ${
+    $d A x $.
+    snelsingles.1 $e |- A e. _V $.
+    $( A singleton is a member of the class of all singletons. $)
+    snelsingles $p |- { A } e. Singletons $=
+       ( vx csn csingles wcel cv wceq wex cvv isset eqcom exbii bitri mpbi
+       sneq eximi ax-mp elsingles mpbir ) ADZEFUACGZDHZCIZAUBHZCIZUDAJFZUFBUGUB
+       AHZCIUFCAKUHUECUBALMNOUEUCCAUBPQRCUAST $.
+       $( [19-Feb-2013] $)
+  $}
+
+  ${
+    $d x y z $.  $d ph y z $.
+    $( A definiton of iota using minimal quantifiers. $)
+    dfiota3 $p |- ( iota x ph ) = U. U. ( { { x | ph } } i^i Singletons ) $=
+       ( vy vz cio cab cv csn wceq cuni csingles cin df-iota wcel wb abeq1
+       wrex snex snid visset eleq2 rcla4ev mp2an sneq ineq1d wss snelsingles
+       snss mpbi df-ss syl6eq rexeqdv mpbiri wa wi elin elsn anbi1i bitri wex
+       elsingles equcoms syl6bb eqeq1 imbi12d 19.23aiv sylbi eleq1 imbi1d imp
+       r19.23aiv impbii eluni2 bitr4i mpgbir unieqi eqtri ) ABEABFZCGZHZIZCFZJV
+       RHZKLZJZJABCMWBWEWBWEIWAVSWENZOCWACWEPWAVSDGZNZDWDQZWFWAWIWAWIWHDVTHZQZV
+       TWJNVSVTNZWKVTVSRZSVSCTZSWHWLDVTWJWGVTVSUAUBUCWAWHDWDWJWAWDWJKLZWJWAWCWJ
+       KVRVTUDUEWJKUFZWOWJIVTKNWPVSWNUGVTKWMUHUIWJKUJUIUKULUMWHWADWDWGWDNZWGVRI
+       ZWGKNZUNZWHWAUOZWQWGWCNZWSUNWTWGWCKUPXBWRWSDVRUQURUSWRWSXAWRWSXAUOVRKNZV
+       SVRNZWAUOZUOXCVRWGHZIZDUTXEDVRVAXGXEDXGXEVSWGIZXFVTIZUOXIDCWGVSUDVBXGXDX
+       HWAXIXGXDVSXFNXHVRXFVSUACWGUQVCVRXFVTVDVEUMVFVGWRWSXCXAXEWGVRKVHWRWHXDWA
+       WGVRVSUAVIVEUMVJVGVKVLDVSWDVMVNVOVPVQ $.
+       $( [19-Feb-2013] $)
+  $}
+
+  ${
+    $d F x $.  $d A x $.
+    $( Another quantifier free definition of function value. $)
+    dffv4 $p |- ( F ` A ) = U. U. ( { ( F " { A } ) } i^i Singletons ) $=
+      ( vx cfv cv csn cima wcel cio cab csingles cin cuni dffv3 dfiota3 abid2
+      sneqi ineq1i unieqi 3eqtri ) ABDCEBAFGZHZCIUBCJZFZKLZMZMUAFZKLZMZMCABNUBC
+      OUFUIUEUHUDUGKUCUACUAPQRSST $.
+      $( [19-Feb-2013] $)
+  $}
 
