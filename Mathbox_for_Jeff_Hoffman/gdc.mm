@@ -51,11 +51,11 @@ $)
   nndivlub $p |- ( ( A e. NN /\ B e. NN )
         -> ( ( A / B ) e. NN -> B <_ A ) ) $=
     ( cn wcel wa cr cc0 clt wbr cdiv co cle wi nnre nngt0 jca anim12i ancoms
-    c1 wb lediv2 3anidm23 cc wne recn adantr 0re ltne mp3an1 divid breq1d
-    syl11anc adantl bitrd nnge1 syl5bir syl ) ACDZBCDZEBFDZGBHIZEZAFDZGAHIZEZEZ
-    ABJKZCDZBALIZMUSURVFUSVBURVEUSUTVABNBOPURVCVDANAOPQRVFVISVGLIZVHVFVIAAJKZVG
-    LIZVJVBVEVIVLTBAAUAUBVEVLVJTZVBVEAUCDZAGUDZVMVCVNVDAUEUFGFDVCVDVOUGGAUHUIVN
-    VOEVKSVGLAUJUKULUMUNVGUOUPUQ $.
+    c1 nnge1 wb lediv2 3anidm23 cc wne recn adantr 0re ltne mp3an1 divid
+    breq1d syl11anc adantl bitrd syl5ibr syl ) ACDZBCDZEBFDZGBHIZEZAFDZGAHIZEZE
+    ZABJKZCDZBALIZMUSURVFUSVBURVEUSUTVABNBOPURVCVDANAOPQRVHVIVFSVGLIZVGTVFVIAAJ
+    KZVGLIZVJVBVEVIVLUABAAUBUCVEVLVJUAZVBVEAUDDZAGUEZVMVCVNVDAUFUGGFDVCVDVOUHGA
+    UIUJVNVOEVKSVGLAUKULUMUNUOUPUQ $.
     $( [17-Jun-2008] $)
 
   $c gcdOLD $. $( The greatest common divisor $)
