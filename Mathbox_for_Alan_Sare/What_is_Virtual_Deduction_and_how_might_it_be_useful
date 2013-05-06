@@ -1,0 +1,324 @@
+$(
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+               What is Virtual Deduction and how might it be useful?
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+$)
+
+  $c ->. $. $(  Symbol for virtual inference. [5-May-2013] $)
+  $c seqt $. $( seqent symbol (read:  "the following symbol
+               sequence is a sequent") [5-May-2013] $)
+
+
+  ${
+    $( Natural Deduction is a well known proof method orignally proposed by
+       Gentzen in 1935 and comprehensively summarized by Prawitz in his 1965
+       monograph "Natural deduction: a proof-theoretic study".  Gentzen wished
+       to construct "a formalism that comes as close as possible to natural
+       reasoning".  Natural deduction is a response to dissatisfaction with
+       axiomatic proofs such as Hilbert-style axiomatic proofs, which the
+       proofs of Metamath are.  In 1926, in Poland, Lukasiewicz advocated a
+       more natural treatment of logic.  Jaskowski made the earliest attempts
+       at defining a more natural deduction.  Natural deduction in its modern
+       form was independently proposed by Gentzen.
+
+       <HTML> <TABLE> </TABLE> </HTML>
+
+       Sequent calculus, the chief alternative to Natural Deduction, was
+       created by Gentzen. The following is an except from Stephen Cole
+       Kleene's seminal 1952 book "Introduction to Metamathematics", which
+       contains the first formulation of sequent calculus in the modern style.
+       Kleene states on page 440:
+
+       . . . the proof of (Gentzen's Hauptsatz) breaks down into a list of
+       cases,
+       each of which is simple to handle. . . . Gentzen's normal form for
+       proofs in the predicate calculus requires a different classification of
+       the deductive steps than is given by the postulates of the formal system
+       of predicate calculus of Chapter IV (Section 19). The implication symbol
+       ` -> ` (the Metamath symbol for implication has been substituted here
+       for
+       the symbol used by Kleene) has to be separated in its role of mediating
+       inferences from its role as a component symbol of the formula being
+       proved. In the former role it will be replaced by a new formal symbol
+       ` ->. ` (read "gives" or "entails"), to which properties will be
+       assigned similar to those of the informal symbol ` |- ` in our former
+       derived rules.
+
+       Gentzen's classification of the deductive operations is made explicit
+       by setting up a new formal system of the predicate calculus. The formal
+       system of propositional and predicate calculus studied previously
+       (Chapters IV ff.) we call now a "Hilbert-type system", and denote by
+       H. Precisely, H denotes any one or a particular one of several
+       systems, according to whether we are considering propositional calculus
+       or predicate calculus, in the classical or the intuitionistic version
+       (Section 23), and according to the sense in which we are using "term"
+       and "formula" (Sections 117,25,31,37,72-76). The same respective
+       choices will apply to the "Gentzen-type system G1" which we introduce
+       now and the G2, G3 and G3a later.
+
+       The transformation or deductive rules of G1 will apply to objects which
+       are not formulas of the system H, but are built from them by an
+       additional formation rule, so we use a new term "sequent" for these
+       objects. (Gentzen says "Sequenz", which we translate as "sequent",
+       because we have already used "sequence" for any succession of objects,
+       where the German is "Folge".) A sequent is a formal expression of the
+       form ` ph , ` . . . ` , ps ->. ch , ` . . . ` , th ` where ` ph , ` . .
+       . ` , ps `
+       and ` ch , ` . . . ` , th ` are seqences of ` 0 <_ m ` formulas
+       (substituting Metamath notation for Kleene's notation). The part
+       ` ph , ` . . . ` , ps ` is the antecedent, and ` ch , ` . . . ` , th `
+       the
+       succedent of the sequent ` ph , ` . . . ` , ps ->. ch , ` . . . ` , th `
+       .
+
+       When ` 1 <_ m ` , the sequent ` ph , ` . . . ` , ps ->. ch , ` . . . `
+       th ` has
+       the same interpretation for G1 as the formula
+       ` ( ( ph /\ ` . . . ` /\ ps ) -> ( ch \/ ` . . . ` \/ th ) ) ` for H.
+       The
+       interpretation extends to the case with ` m = 0 ` by regarding
+       ` ( ph /\ ` . . . ` /\ ps ) ` for ` m = 0 ` (the "empty conjunction") as
+       true and ` ( ch \/ ` . . . ` \/ th ) ` for ` m = 0 ` (the "empty
+       disjunction") as false.
+
+       . . . As in Chapter V, we use Greek capitals . . . to stand for finite
+       sequences of zero or more formulas, but now also as antecedent
+       (succedent), or parts of antecedent (succedent), with separating formal
+       commas included. . . . (End of Kleene excerpt)
+
+       On pages 442 and 443 Kleene states the postulates of the system G1 and
+       the intutionistic system G1. From these postulates, Kleene deduces
+       COROLLARY 2 of THEOREM 46 on page 446:
+
+       if ` |- ( ( ph /\ ` . . . ` /\ ps ) -> ( ch \/ ` . . . ` \/ th ) ) ` in
+       H,
+
+       then ` |- ph , ` . . . ` , ps ->. ch , ` . . . ` , th ` in G1.
+
+       He also deduces the COROLLARY of THEOREM 47 on pages 446-448:
+
+       If ` |- ph , ` . . . ` , ps ->. ch , ` . . . ` , th ` in G1,
+
+       then ` |- ( ( ph /\ ` . . . ` /\ ps ) -> ( ch \/ ` . . . ` \/ th ) ) `
+       in H.
+
+       In chapter V entitled "Formal Deduction" Kleene states, on page 86:
+
+       Section 20. Formal deduction.  Formal proofs of even quite elementary
+       theorems tend to be long. As a price for having analyzed logical
+       deduction into simple steps, more of those steps have to be used.
+
+       The purpose of formalizing a theory is to get an explicit definition of
+       what constitutes proof in the theory.  Having achieved this, there is no
+       need always to appeal directly to the definition. The labor required to
+       establish the formal provability of formulas can be greatly lessened by
+       using metamathematical theorems concerning the existence of formal
+       proofs.  If the demonstarations of those theorems do have the finitary
+       character which metamathematics is supposed to have, the demonstrations
+       will indicate, at least implicitly, methods for obtaining the formal
+       proofs. The use of the metamathematical thoerms then amounts to
+       abbreviation, often of very great extent, in the presentation of formal
+       proofs.
+
+       The simpler of such metamathematical theorems we shall call derived
+       rules, since theye express principles which can be said to be derived
+       from the postulated rules by showing that the use of them as additional
+       methods of inference does not increase the class of provable formulas.
+       We shall seek by means of derived rules to bring the methods for
+       establishing the facts of formal provability as close as possible to the
+       informal methods of the theory which is being formalized.
+
+       In setting up the formal system, proof was given the simplest possible
+       structure, consisting of a single sequence of formulas. Some of our
+       derived rules, called "direct rules", will serve to abbreviate for us
+       whole segments of such a sequence; we can then, so to speak, use these
+       segments as prefabricated units in building proofs.
+
+       But also, in mathematical practice, proofs are common which have a more
+       complicated structure, employing "subsidiary deduction", i.e. deduction
+       under assumptions for the sake of the argument, which assumptions are
+       subsequently discharged.  For example, subsidiary deduction is used in a
+       proof by reductio ad absurdum, and less obtrusively when we place the
+       hypothesis of a theorem on a par with proved propositions to deduce the
+       conclusion. Other derived rules, called "subsidiary deduction rules",
+       will give us this kind of procedure.
+
+       We now introduce, by a metamathematical definition, the notion of
+       "formal deducibility under assumptions". Given a list ` ph , ` . . . `
+       ps `
+       of ` 0 ` or more (occurences of) formulas, a finite sequence of one
+       or more (occurences of) formulas is called a (formal) deduction from the
+       assumption formulas ` ph , ` . . . ` ps ` , if each formula of the
+       sequence
+       is either one of the formulas ` ph , ` . . . ` ps ` , or an axiom, or an
+       immediate consequence of preceding formulas of a sequence. A deduction
+       is said to be deducible from the assumption formulas (in symbols,
+       ` ph , ` . . . ` , ps |- ch ` ), and is called the conclusion
+       (or endformula) of the deduction. (The symbol ` |- ` may be read
+       "yields".) (End of Kleene excerpt)
+
+       Gentzen's normal form is a certain direct fashion for proofs and
+       deductions. His sequent calculus, formulated in the modern style by
+       Kleene, is the intuitionisitc system G1.  In this system, the new formal
+       symbol ` ->. ` has properties similar to the informal symbol ` |- ` of
+       Kleene's above language of formal deducibility under assumptions.
+
+       Kleene states on page 440:
+
+       . . . This leads us to inquire whether there may not be a theorem about
+       the predicate calculus asserting that, if a formula is provable (or
+       deducible from other formulas), it is provable (or deducible) in a
+       certain direct fashion; in other words, a theorem giving a normal form
+       for proofs and deductions, the proofs and deduction in normal form being
+       in some sense direct. (End of Kleene excerpt)
+
+       There is such a theorem, which is proven by Kleene.
+
+       Formal proofs of theorems in Metamath tend to be long. Formal proofs of
+       even quite elementary theorems tend to be long. As a price for having
+       analyzed logical deduction into simple steps, more of those steps have
+       to
+       be used. The proofs of Metamath are fully detailed formal proofs. We
+       wish
+       to have a means of proving Metamath theorems and deductions in a
+       more direct fashion. Natural Deduction is a system for proving theorems
+       and deductions in a more direct fashion. However, Natural Deduction is
+       not compatible for use with Metamath, which uses a Hilbert-type system.
+       Instead, the intuitionistic system G1 may be used for proving Metamath
+       deductions and theorems in a more direct fashion.
+
+       The system G1 utilizes the notation of Greek capitals to stand for
+       finite sequences of zero or more formulas. This notation is unnecessary
+       for the purposes of using the system G1 for more directly proving
+       Metamath deductions and theorems. Nor, is it necessary to add the
+       postulates of the system G1 directly to the postulates of the
+       Hilbert-type system of Metamath. Instead, we add as postulates three
+       instances of Kleene's COROLLARY 2 of THEOREM 46 and three instances of
+       Kleene's COROLLARY of THEOREM 47. The three instance of COROLLARY 2 of
+       THEOREM 46 are:
+
+       <HTML> <TABLE>
+       <TR> <TD> ~ dfvd1ir <TD> if ` |- ( ph -> ps ) ` then ` |- ph ->. ps `
+       <TR> <TD> ~ dfvd2anir <TD> if ` |- ( ( ph /\ ps ) -> ch ) ` then
+       ` |- ph , ps ->. ch `
+       <TR> <TD> ~ dfvd3anir <TD> if ` |- ( ( ph /\ ps /\ ch ) -> th ) ` then
+       `|- ph , ps , ch ->. th `
+       </TABLE> </HTML>
+
+       The three instance of the COROLLARY of THEOREM 47 are:
+
+       <HTML> <TABLE>
+       <TR> <TD> ~ in1 <TD> if ` |- ph ->. ps ` then ` |- ( ph -> ps ) `
+       <TR> <TD> ~ dfvd2ani <TD> if ` |- ph , ps ->. ch ` then
+       ` |- ( ( ph /\ ps ) -> ch ) `
+       <TR> <TD> ~ dfvd3ani <TD> if ` |- ph , ps , ch ->. th ` then
+       ` |- ( ( ph /\ ps /\ ch ) -> th ) `
+       </TABLE> </HTML>
+
+       The postulates of our theory are the postulates of the system H of
+       Metamath, which we refer to as system H, plus the above six postulates.
+       We shall call our system Virtual Deduction, or system VD. We call it
+       this because Kleene has assigned properties of his ` ->. ` to be similar
+       to the symbol ` |- ` of chapter V. Athough a provable sequent in the
+       VD does not have an antecedent consisting of assumptions, and its
+       succedent is not a conclusion (or endformula) deducible from the
+       antecedent, the properties of a provable sequent are
+       similar to those of a provable deduction. In that sense, a provable
+       system VD sequent is a provable "virtual deduction".  Virtual Deduction
+       is an intuitionistic system. The antecedent of a virtual deduction
+       sequent is a sequence of "virtual hypotheses" and the succedent is a
+       "virtual conclusion". We do not know if a system(s) similar or identical
+       to Virtual Deduction have been previously formulated.
+
+       Every step in the proof of a theorem in VD is either a sequent deducible
+       from the postulates of VD (which include the postuates of H) or a
+       formula deducible from the postulates of VD. Each hypothesis of a
+       deduction in VD is either a sequent or a formula. In contrast, every
+       step of a proof of a theorem in H is a formula deducible from the
+       postulates of H and every step of a proof of a theorem in G1 is a
+       sequent deducible from the postulates of G1. VD is not a subsystem
+       of G1.
+
+       Virtual Deduction reduces the labor required to construct formal proofs
+       by using a more direct means of proving theorem or deductions. This
+       more direct means is more amenable to automation in proof search and,
+       therefore, certain types of steps may be automatically found and the
+       names of all reference theorems may be automatically found.  The tools
+       program called completeusersproof.cmd allows a User to omit certain
+       types of steps in the working proof, called a User's Proof, and finds
+       all labels.  This tool is possible only due to Mel O'Cat's mmj2 and
+       Norm Megill's Metamath Proof Assistant, which are invoked by
+       completeusersproof.cmd.
+
+       The labor involved inputting the sequence of labels of a proof via the
+       Metamath Proof Assistant is less than that of typing a User's Proof onto
+       a mmj2 Proof Worksheet and it therefore may be easier for some Users to
+       input "conventional" Metamath proofs (proofs in H) directly in this
+       manner. In order to do this it is, of course, necessary to find or know
+       the labels and to find or know the semantic variations of the theorems
+       and deductions used in the proof. In contrast, in order to input a
+       sequent calculus User's Proof, little knowledge of which semantic
+       variations of theorems and deductions contained in set.mm and no
+       knowledge of their Metamath names is required.
+
+       ~ onfrALTVD is an example of the Virtual Deduction proof of a theorem.
+       The "User's Proof" contained in the theorem's description is
+       the more direct proof. The User's Proof is missing some of the steps
+       required for a complete axiomatic proof verifiable by the Metamath
+       program. The tools program completeusersproof.cmd automatically
+       completes the User's proof. The completed and verified Virtual Deduction
+       proof may then be automatically translated into a conventional Metamath
+       proof by a translation program which translates the sequents of the
+       Virtual Deduction proof into formulas. The User proved ~ onfrALT , a
+       system H proof, by the more direct means of constructing a User's Proof
+       which was automatically completed to obtain a proof in VD, ~ onfrALTVD .
+       The Virtual Deduction proof was then automatically translated to obtain
+       a proof in H.  That proof was shortened using Metamath's minimize
+       command to obtain the final shorter proof in H, ~ onfrALT . While proofs
+       in VD are generally longer than the minimized proof in H, the VD working
+       proof (the User's Proof) is generally similar in length to the minimized
+       proof in H.
+
+       Metamath is intended as an archive of verified proofs of theorems and
+       deductions in H. Proving in VD is a means towards the end of obtaining
+       proofs in H. Obtaining proofs in VD is not considered to be an end in
+       itself. System H may be considered preferred to system VD becase the
+       information contained in a proof in H is the same as the information
+       contained its corresponding proof in VD while the proof in H is shorter,
+       its language is simpler, and system H has fewer postulates than system
+       VD. Furthermore, one of the goals of Metamath is to mirror the widely
+       accepted system H found in books. Nonetheless, proving in VD is
+       justified on the ground that, for some people, proofs in H may be more
+       directly obtained. Excluding the cost of the clerical work of the
+       physical inputting of a proof, it may be argued that, for many or most
+       User's, more mental energy is expended to construct a fully detailed
+       proof in H than to construct the corresponding proof in VD. Less mental
+       energy is expended searching for labels when proving in VD because no
+       label searching is required. Less mental energy is expended in searching
+       for the semantic variations in set.mm of theorems or deductions used in
+       a proof because these are usually automatically found by
+       completeusersproof.cmd.
+
+       mmj2 finds labels for proofs in H if the semantic variation of a proof
+       step or deduction used to advance the proof one step from previous
+       steps unifies with a reference theorem or deduction in set.mm. This
+       makes mmj2 an extremely valuable tool. To the extent that mmj2 finds
+       labels for proofs in H, the mental energy of label searching when
+       proving in H. mmj2 has other benefits as well, most of accrue to
+       completeusersproof.cmd.
+
+       A User must compare the greater clerical cost of
+       inputting to the savings in mental energy of proving to determine if
+       proving in VD then translating into H is more efficient than proving in
+       H. It appears that it would usually be more efficient for a User with
+       little familiarity with Metamath to prove in VD then translate into H.
+       Another factor to be considered is a User's expertise in proving by
+       intuitionistic strategies compared to his(her) expertise in proving by
+       Hilbert-style axiomatic proof strategies. Although some view
+       intuitionistic strategies to be more natural for humans, with practice,
+       one may become more proficient proving in a Hilbert-style axiomatic
+       system than in an intuitionistic system. $)
+    vd1 $a seqt ph ->. ps $.
+      $( [6-May-2013] $)
+  $}
+

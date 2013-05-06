@@ -36,14 +36,14 @@ $)
      definitions, but it strictly satisfies these requirements.
 
      The justification for our definition is that if we mechanically replace
-     the first wff above (the definiendum i.e. the thing being defined) with
-     the second (the definiens i.e. the defining expression) in the definition,
-     the definition becomes a substitution instance of previously proved
-     theorem ~ bijust .  It is impossible to use ~ df-bi to prove any statement
-     expressed in the original language that can't be proved from the original
-     axioms.  For if it were, we could replace it with instances of ~ bijust
-     throughout the proof, thus obtaining a proof from the original axioms
-     (contradiction).
+     ` ( ph <-> ps ) ` (the definiendum i.e. the thing being defined) with
+     ` -. ( ( ph -> ps ) -> -. ( ps -> ph ) ) ` (the definiens i.e. the
+     defining expression) in the definition, the definition becomes a
+     substitution instance of previously proved theorem ~ bijust .  It is
+     impossible to use ~ df-bi to prove any statement expressed in the original
+     language that can't be proved from the original axioms, because if we
+     simply replace each use of ~ df-bi in the proof with the corresponding
+     ~ bijust instance, we will end up with a proof from the original axioms.
 
      Note that from Metamath's point of view, a definition is just another
      axiom - i.e. an assertion we claim to be true - but from our high level
@@ -481,6 +481,66 @@ $)
   $}
 
   ${
+    mpbi.min $e |- ph $.
+    mpbi.maj $e |- ( ph <-> ps ) $.
+    $( An inference from a biconditional, related to modus ponens. $)
+    mpbi $p |- ps $=
+      ( biimpi ax-mp ) ABCABDEF $.
+      $( [5-Aug-1993] $)
+  $}
+
+  ${
+    mpbir.min $e |- ps $.
+    mpbir.maj $e |- ( ph <-> ps ) $.
+    $( An inference from a biconditional, related to modus ponens. $)
+    mpbir $p |- ph $=
+      ( biimpri ax-mp ) BACABDEF $.
+      $( [5-Aug-1993] $)
+  $}
+
+  $( Distribution of implication over biconditional.  Theorem *5.74 of
+     [WhiteheadRussell] p. 126.  (The proof was shortened by Wolf Lammen,
+     11-Apr-2013.) $)
+  pm5.74 $p |- ( ( ph -> ( ps <-> ch ) ) <->
+               ( ( ph -> ps ) <-> ( ph -> ch ) ) ) $=
+    ( wb wi bi1 imim3i bi2 impbid pm2.86d bi3 syl6 mpdd impbii ) ABCDZEZABEZACE
+    ZDZPQROBCABCFGOCBABCHGISACBEZOSACBQRHJSABCETOESABCQRFJBCKLMN $.
+    $( [11-Apr-2013] $) $( [1-Aug-1994] $)
+
+  ${
+    pm5.74i.1 $e |- ( ph -> ( ps <-> ch ) ) $.
+    $( Distribution of implication over biconditional (inference rule). $)
+    pm5.74i $p |- ( ( ph -> ps ) <-> ( ph -> ch ) ) $=
+      ( wb wi pm5.74 mpbi ) ABCEFABFACFEDABCGH $.
+      $( [1-Aug-1994] $)
+  $}
+
+  ${
+    pm5.74ri.1 $e |- ( ( ph -> ps ) <-> ( ph -> ch ) ) $.
+    $( Distribution of implication over biconditional (reverse inference
+       rule). $)
+    pm5.74ri $p |- ( ph -> ( ps <-> ch ) ) $=
+      ( wb wi pm5.74 mpbir ) ABCEFABFACFEDABCGH $.
+      $( [1-Aug-1994] $)
+  $}
+
+  ${
+    pm5.74d.1 $e |- ( ph -> ( ps -> ( ch <-> th ) ) ) $.
+    $( Distribution of implication over biconditional (deduction rule). $)
+    pm5.74d $p |- ( ph -> ( ( ps -> ch ) <-> ( ps -> th ) ) ) $=
+      ( wb wi pm5.74 sylib ) ABCDFGBCGBDGFEBCDHI $.
+      $( [21-Mar-1996] $)
+  $}
+
+  ${
+    pm5.74rd.1 $e |- ( ph -> ( ( ps -> ch ) <-> ( ps -> th ) ) ) $.
+    $( Distribution of implication over biconditional (deduction rule). $)
+    pm5.74rd $p |- ( ph -> ( ps -> ( ch <-> th ) ) ) $=
+      ( wi wb pm5.74 sylibr ) ABCFBDFGBCDGFEBCDHI $.
+      $( [19-Mar-1997] $)
+  $}
+
+  ${
     bitri.1 $e |- ( ph <-> ps ) $.
     bitri.2 $e |- ( ps <-> ch ) $.
     $( An inference from transitive law for logical equivalence.  (The proof
@@ -519,6 +579,47 @@ $)
     $( An inference from transitive law for logical equivalence. $)
     bitr4i $p |- ( ph <-> ch ) $=
       ( bicomi bitri ) ABCDCBEFG $.
+      $( [5-Aug-1993] $)
+  $}
+
+  ${
+    bitrd.1 $e |- ( ph -> ( ps <-> ch ) ) $.
+    bitrd.2 $e |- ( ph -> ( ch <-> th ) ) $.
+    $( Deduction form of ~ bitri .  (The proof was shortened by Wolf Lammen,
+       14-Apr-2013.) $)
+    bitrd $p |- ( ph -> ( ps <-> th ) ) $=
+      ( wi pm5.74i bitri pm5.74ri ) ABDABGACGADGABCEHACDFHIJ $.
+      $( [14-Apr-2013] $) $( [5-Aug-1993] $)
+    $( Obsolete proof of ~ bitrd . $)
+    bitrdOLD $p |- ( ph -> ( ps <-> th ) ) $=
+      ( biimpd sylibd biimprd sylibrd impbid ) ABDABCDABCEGFHADCBACDFIEJK $.
+      $( [5-Aug-1993] $)
+  $}
+
+  ${
+    bitr2d.1 $e |- ( ph -> ( ps <-> ch ) ) $.
+    bitr2d.2 $e |- ( ph -> ( ch <-> th ) ) $.
+    $( Deduction form of ~ bitr2i . $)
+    bitr2d $p |- ( ph -> ( th <-> ps ) ) $=
+      ( bitrd bicomd ) ABDABCDEFGH $.
+      $( [9-Jun-2004] $)
+  $}
+
+  ${
+    bitr3d.1 $e |- ( ph -> ( ps <-> ch ) ) $.
+    bitr3d.2 $e |- ( ph -> ( ps <-> th ) ) $.
+    $( Deduction form of ~ bitr3i . $)
+    bitr3d $p |- ( ph -> ( ch <-> th ) ) $=
+      ( bicomd bitrd ) ACBDABCEGFH $.
+      $( [5-Aug-1993] $)
+  $}
+
+  ${
+    bitr4d.1 $e |- ( ph -> ( ps <-> ch ) ) $.
+    bitr4d.2 $e |- ( ph -> ( th <-> ch ) ) $.
+    $( Deduction form of ~ bitr4i . $)
+    bitr4d $p |- ( ph -> ( ps <-> th ) ) $=
+      ( bicomd bitrd ) ABCDEADCFGH $.
       $( [5-Aug-1993] $)
   $}
 
@@ -582,32 +683,6 @@ $)
     3bitr4ri $p |- ( th <-> ch ) $=
       ( bitr4i bitr2i ) CADFABDEGHI $.
       $( [2-Sep-1995] $)
-  $}
-
-  ${
-    mpbi.min $e |- ph $.
-    mpbi.maj $e |- ( ph <-> ps ) $.
-    $( An inference from a biconditional, related to modus ponens. $)
-    mpbi $p |- ps $=
-      ( biimpi ax-mp ) ABCABDEF $.
-      $( [5-Aug-1993] $)
-  $}
-
-  ${
-    mpbir.min $e |- ps $.
-    mpbir.maj $e |- ( ph <-> ps ) $.
-    $( An inference from a biconditional, related to modus ponens. $)
-    mpbir $p |- ph $=
-      ( biimpri ax-mp ) BACABDEF $.
-      $( [5-Aug-1993] $)
-  $}
-
-  ${
-    pm5.74i.1 $e |- ( ph -> ( ps <-> ch ) ) $.
-    $( Distribution of implication over biconditional (inference rule). $)
-    pm5.74i $p |- ( ( ph -> ps ) <-> ( ph -> ch ) ) $=
-      ( wi biimpd a2i biimprd impbii ) ABEACEABCABCDFGACBABCDHGI $.
-      $( [6-Feb-2013] $) $( [1-Aug-1994] $)
   $}
 
   $( The next three rules are useful for building up wff's around a
