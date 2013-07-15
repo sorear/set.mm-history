@@ -1,0 +1,185 @@
+$(
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+                          Godel-sets of formulas
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+$)
+  $( Introduce new constant symbols. $)
+  $c =w $. $( Godel-set of equality $)
+  $c e.w $. $( Godel-set of membership $)
+  $c /\w $. $( Godel-set of conjunction $)
+  $c -.w $. $( Godel-set of negation $)
+  $c A.w $. $( Godel-set of universal quantification $)
+  $c ->w $. $( Godel-set of implication $)
+  $c <->w $. $( Godel-set of equivalence $)
+  $c \/w $. $( Godel-set of disjunction $)
+  $c E.w $. $( Godel-set of existential quantification $)
+  $c Fmla $. $( Formula predicate $)
+  $c Sat $. $( Satisfaction predicate $)
+  $c SatE $. $( Satisfaction predicate $)
+  $c |= $. $( Proves relation $)
+
+  $( The formula set predicate. $)
+  cfm $a class Fmla $.
+
+  $( The satisfaction function. $)
+  csat $a class Sat $.
+
+  $( The ` e. ` -satisfaction function. $)
+  csate $a class SatE $.
+
+  $( The Godel-set of equality.  (Note that this is not a wff.) $)
+  cgoeq $a class M =w N $.
+
+  $( The Godel-set of membership.  (Note that this is not a wff.) $)
+  cgoel $a class M e.w N $.
+
+  $( The Godel-set of conjunction.  (Note that this is not a wff.) $)
+  cgoan $a class ( U /\w V ) $.
+
+  $( The Godel-set of negation.  (Note that this is not a wff.) $)
+  cgonot $a class -.w U $.
+
+  $( The Godel-set of universal quantification.  (Note that this is not a
+     wff.) $)
+  cgoal $a class A.w N U $.
+
+  $( The "proves" relation. $)
+  cprv $a class |= $.
+
+  $( Define the Godel-set of equality.  Here the arguments ` M ` and
+     ` N e. om ` correspond to v_M and v_N , so ` (/) =w 1o ` actually means
+     v_0 ` = ` v_1 , not ` 0 = 1 ` .  Note that this is a _class_ expression,
+     not a wff. $)
+  df-goeq $a |- M =w N = <. (/) , <. M , N >. >. $.
+
+  $( Define the Godel-set of membership.  Here the arguments ` M ` and
+     ` N e. om ` correspond to v_M and v_N , so ` (/) e.w 1o ` actually means
+     v_0 ` e. ` v_1 , not ` 0 e. 1 ` .  Note that this is a _class_ expression,
+     not a wff. $)
+  df-goel $a |- M e.w N = <. 1o , <. M , N >. >. $.
+
+  $( Define the Godel-set of conjunction.  Here the arguments ` U ` and ` V `
+     are also Godel-sets corresponding to smaller formulae.  Note that this is
+     a _class_ expression, not a wff. $)
+  df-goan $a |- ( U /\w V ) = <. 2o , <. U , V >. >. $.
+
+  $( Define the Godel-set of negation.  Here the argument ` U ` is also a
+     Godel-set corresponding to smaller formulae.  Note that this is a _class_
+     expression, not a wff. $)
+  df-gonot $a |- -.w U = <. 3o , U >. $.
+
+  $( Define the Godel-set of universal quantification.  Here ` N e. om `
+     corresponds to v_N , and ` U ` represents another formula, and this
+     expression is ` [ A. x ph ] = A.w N U ` where ` x ` is the ` N ` -th
+     variable, ` U = [ ph ] ` is the code for ` ph ` .  Note that this is a
+     _class_ expression, not a wff. $)
+  df-goal $a |- A.w N U = <. 4o , <. N , U >. >. $.
+
+  ${
+    $d a e i j m u v x y z $.
+    df-sat.eq $e |- ( ph <->
+      ( x = i =w j /\ y = { a e. ( m ^m om ) | ( a ` i ) = ( a ` j ) } ) ) $.
+    df-sat.el $e |- ( ps <->
+      ( x = i e.w j /\ y = { a e. ( m ^m om ) | ( a ` i ) e ( a ` j ) } ) ) $.
+    df-sat.an $e |- ( ch <-> E. v e. f
+      ( x = ( ( 1st ` u ) /\w ( 1st ` v ) ) /\
+        y = ( ( 2nd ` u ) i^i ( 2nd ` v ) ) ) ) $.
+    df-sat.not $e |- ( th <->
+      ( x = -.w ( 1st ` u ) /\ y = ( ( m ^m om ) \ ( 2nd ` u ) ) ) ) $.
+    df-sat.al $e |- ( ta <-> E. i e. om
+      ( x = A.w i ( 1st ` u ) /\
+        y = { a e. ( m ^m om ) | A. z e. m ( j e. om |->
+          if ( j = i , z , ( a ` i ) ) ) e. ( 2nd ` u ) } ) ) $.
+    $( Define the satisfaction predicate. This recursive construction builds up
+       a function over wff codes and simultaneously defines the set of
+       assignments to all variables from ` M ` that makes the coded wff true in
+       the model ` M ` , where ` e. ` is interpreted as the binary relation ` E
+       `
+       on ` M ` .
+
+       The interpretation of the statement ` S e. ( ( ( M Sat E ) `` n ) `` U )
+       ` is that for the model ` <. M , E >. ` , ` S : om --> M ` is an
+       valuation of the variables (v_0 ` = ( S `` (/) ) ` , v_1 ` = ( S `` 1o
+       ) ` , etc.) and ` U ` is a code for a wff using ` = , e. , \/ , -. , A.
+       ` that is true under the assignment ` S ` . The function is defined by
+       finite recursion; ` ( ( M Sat E ) `` n ) ` only operates on wffs of
+       depth at most ` n e. om ` , and ` ( ( M Sat E ) `` om ) = U_ n e. om ( (
+       M Sat E ) `` n ) ` operates on all wffs.
+
+       The coding scheme for the wffs is defined so that <HTML><ul>
+       <li>v<sub>i</sub> ` = ` v<sub>j</sub> is coded as
+       ` <. (/) , <. i , j >. >. ` ,</li>
+       <li>v<sub>i</sub> ` e. ` v<sub>j</sub> is coded as
+       ` <. 1o , <. i , j >. >. ` ,</li>
+       <li> ` ( ph /\ ps ) ` is coded as ` <. 2o , <. ph , ps >. >. ` ,</li>
+       <li> ` -. ph ` is coded as ` <. 3o , ph >. ` , and</li>
+       <li> ` A. ` v<sub>i</sub> ` ph ` is coded as
+       ` <. 4o , <. i , ph >. >. ` .</li></ul></HTML>
+
+       The pieces of the definition for these five types of wff have been split
+       up into hypotheses for readability.
+       $)
+    df-sat $a |- Sat = ( m e. _V , e e. _V |->
+       ( rec ( ( f e. _V |-> ( f u.
+           { <. x , y >. | E. u e. f ( ch \/ th \/ ta ) } ) ) ,
+           { <. x , y >. | E. i e. om E. j e. om ( ph \/ ps ) } )
+         |` suc om ) ) $.
+  $}
+
+  ${
+    $( A simplified version of the satisfaction predicate, using the standard
+       membership relation and eliminating the extra variable ` n ` . $)
+    df-sate $a |- SatE = ( m e. _V , u e. _V |->
+       ( ( ( m Sat ( _E i^i ( m X. m ) ) ) ` om ) ` u ) ) $.
+  $}
+
+  $( Define the predicate which defines the set of valid Godel formulas.  The
+     parameter ` n ` defines the maximum height of the formulas: the set
+     ` ( Fmla `` (/) ) ` is all formulas of the form ` x = y ` or ` x e. y `
+     (which in our coding scheme is the set
+     ` ( { (/) , 1o } X. ( om X. om ) ) ` ; see ~ df-sat for the full coding
+     scheme), and each extra level adds to the complexity of the formulas in
+     ` ( Fmla `` n ) ` . ` ( Fmla `` om ) = U_ n e. om ( Fmla `` n ) ` is the
+     set of all valid formulas. $)
+  df-fm $a |- Fmla = ( n e. suc om |-> dom ( ( (/) Sat (/) ) ` n ) ) $.
+
+  $( The Godel-set of implication.  (Note that this is not a wff.) $)
+  cgoim $a class ( U ->w V ) $.
+
+  $( The Godel-set of disjunction.  (Note that this is not a wff.) $)
+  cgoor $a class ( U \/w V ) $.
+
+  $( The Godel-set of equivalence.  (Note that this is not a wff.) $)
+  cgobi $a class ( U <->w V ) $.
+
+  $( The Godel-set of existential quantification.  (Note that this is not a
+     wff.) $)
+  cgoex $a class E.w N U $.
+
+  $( Define the Godel-set of implication.  Here the arguments ` U ` and ` V `
+     are also Godel-sets corresponding to smaller formulae.  Note that this is
+     a _class_ expression, not a wff. $)
+  df-goim $a |- ( U ->w V ) = -.w ( U /\w -.w V ) $.
+
+  $( Define the Godel-set of disjunction.  Here the arguments ` U ` and ` V `
+     are also Godel-sets corresponding to smaller formulae.  Note that this is
+     a _class_ expression, not a wff. $)
+  df-goor $a |- ( U \/w V ) = ( -.w U ->w V ) $.
+
+  $( Define the Godel-set of equivalence.  Here the arguments ` U ` and ` V `
+     are also Godel-sets corresponding to smaller formulae.  Note that this is
+     a _class_ expression, not a wff. $)
+  df-gobi $a |- ( U <->w V ) = ( ( U ->w V ) /\w ( V ->w U ) ) $.
+
+  $( Define the Godel-set of existential quantification.  Here ` N e. om `
+     corresponds to v_N , and ` U ` represents another formula, and this
+     expression is ` [ E. x ph ] = E.w N U ` where ` x ` is the ` N ` -th
+     variable, ` U = [ ph ] ` is the code for ` ph ` .  Note that this is a
+     _class_ expression, not a wff. $)
+  df-goex $a |- E.w M U = -.w A.w M -.w U $.
+
+  $( Define the "proves" relation on a set.  A wff is true in a model ` M ` if
+     for every valuation ` s e. ( M ^m om ) ` , the interpretation of the wff
+     using the membership relation on ` M ` is true. $)
+  df-prv $a |- |= = { <. m , u >. | ( m SatE u ) = ( m ^m om ) } $.
+

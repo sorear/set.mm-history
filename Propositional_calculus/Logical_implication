@@ -14,6 +14,27 @@ $( We will use the following descriptive terms very loosely:  A "closed form"
    conclusion share the same antecedent. $)
 
   ${
+    mp2.1 $e |- ph $.
+    mp2.2 $e |- ps $.
+    mp2.3 $e |- ( ph -> ( ps -> ch ) ) $.
+    $( A double modus ponens inference. $)
+    mp2 $p |- ch $=
+      ( wi ax-mp ) BCEABCGDFHH $.
+      $( [5-Apr-1994] $)
+  $}
+
+  ${
+    mp2b.1 $e |- ph $.
+    mp2b.2 $e |- ( ph -> ps ) $.
+    mp2b.3 $e |- ( ps -> ch ) $.
+    $( A double modus ponens inference.  (Contributed by Mario Carneiro,
+       24-Jan-2013.) $)
+    mp2b $p |- ch $=
+      ( ax-mp ) BCABDEGFG $.
+      $( [24-Jan-2013] $)
+  $}
+
+  ${
     $( Premise for ~ a1i . $)
     a1i.1 $e |- ph $.
     $( Inference derived from axiom ~ ax-1 .  See ~ a1d for an explanation of
@@ -43,19 +64,19 @@ $( We will use the following descriptive terms very loosely:  A "closed form"
   $}
 
   ${
+    imim2i.1 $e |- ( ph -> ps ) $.
+    $( Inference adding common antecedents in an implication. $)
+    imim2i $p |- ( ( ch -> ph ) -> ( ch -> ps ) ) $=
+      ( wi a1i a2i ) CABABECDFG $.
+      $( [5-Aug-1993] $)
+  $}
+
+  ${
     mpd.1 $e |- ( ph -> ps ) $.
     mpd.2 $e |- ( ph -> ( ps -> ch ) ) $.
     $( A modus ponens deduction. $)
     mpd $p |- ( ph -> ch ) $=
       ( wi a2i ax-mp ) ABFACFDABCEGH $.
-      $( [5-Aug-1993] $)
-  $}
-
-  ${
-    imim2i.1 $e |- ( ph -> ps ) $.
-    $( Inference adding common antecedents in an implication. $)
-    imim2i $p |- ( ( ch -> ph ) -> ( ch -> ps ) ) $=
-      ( wi a1i a2i ) CABABECDFG $.
       $( [5-Aug-1993] $)
   $}
 
@@ -84,6 +105,36 @@ $( We will use the following descriptive terms very loosely:  A "closed form"
     sylOLD $p |- ( ph -> ch ) $=
       ( wi imim2i ax-mp ) ABFACFDBCAEGH $.
       $( [22-Oct-2011] $) $( [5-Aug-1993] $)
+  $}
+
+  ${
+    mpi.1 $e |- ps $.
+    mpi.2 $e |- ( ph -> ( ps -> ch ) ) $.
+    $( A nested modus ponens inference.  (The proof was shortened by Stefan
+       Allan, 20-Mar-2006.) $)
+    mpi $p |- ( ph -> ch ) $=
+      ( a1i mpd ) ABCBADFEG $.
+      $( [20-Mar-2006] $) $( [5-Aug-1993] $)
+  $}
+
+  ${
+    mp2d.1 $e |- ( ph -> ps ) $.
+    mp2d.2 $e |- ( ph -> ch ) $.
+    mp2d.3 $e |- ( ph -> ( ps -> ( ch -> th ) ) ) $.
+    $( A double modus ponens deduction. $)
+    mp2d $p |- ( ph -> th ) $=
+      ( wi mpd ) ACDFABCDHEGII $.
+      $( [23-May-2013] $)
+  $}
+
+  ${
+    3syl.1 $e |- ( ph -> ps ) $.
+    3syl.2 $e |- ( ps -> ch ) $.
+    3syl.3 $e |- ( ch -> th ) $.
+    $( Inference chaining two syllogisms. $)
+    3syl $p |- ( ph -> th ) $=
+      ( syl ) ACDABCEFHGH $.
+      $( [5-Aug-1993] $)
   $}
 
   $( Principle of identity.  Theorem *2.08 of [WhiteheadRussell] p. 101.  For
@@ -145,33 +196,6 @@ $( We will use the following descriptive terms very loosely:  A "closed form"
   $}
 
   ${
-    mpdd.1 $e |- ( ph -> ( ps -> ch ) ) $.
-    mpdd.2 $e |- ( ph -> ( ps -> ( ch -> th ) ) ) $.
-    $( A nested modus ponens deduction. $)
-    mpdd $p |- ( ph -> ( ps -> th ) ) $=
-      ( wi a2d mpd ) ABCGBDGEABCDFHI $.
-      $( [12-Dec-2004] $)
-  $}
-
-  ${
-    mpid.1 $e |- ( ph -> ch ) $.
-    mpid.2 $e |- ( ph -> ( ps -> ( ch -> th ) ) ) $.
-    $( A nested modus ponens deduction. $)
-    mpid $p |- ( ph -> ( ps -> th ) ) $=
-      ( a1d mpdd ) ABCDACBEGFH $.
-      $( [14-Dec-2004] $)
-  $}
-
-  ${
-    pm2.43a.1 $e |- ( ps -> ( ph -> ( ps -> ch ) ) ) $.
-    $( Inference absorbing redundant antecedent.  (The proof was shortened by
-       O'Cat, 28-Nov-2008.) $)
-    pm2.43a $p |- ( ps -> ( ph -> ch ) ) $=
-      ( id mpid ) BABCBEDF $.
-      $( [29-Nov-2008] $) $( [7-Nov-1995] $)
-  $}
-
-  ${
     sylcom.1 $e |- ( ph -> ( ps -> ch ) ) $.
     sylcom.2 $e |- ( ps -> ( ch -> th ) ) $.
     $( Syllogism inference with commutation of antecedents.  (The proof was
@@ -194,7 +218,7 @@ $( We will use the following descriptive terms very loosely:  A "closed form"
   ${
     syl5com.2OLD $e |- ( ph -> ( ps -> ch ) ) $.
     syl5com.1OLD $e |- ( th -> ps ) $.
-    $( Syllogism inference with commuted antecedents. $)
+    $( Obsolete proof of ~ syl5com . $)
     syl5comOLD $p |- ( th -> ( ph -> ch ) ) $=
       ( a1d sylcom ) DABCDBAFGEH $.
       $( [24-May-2005] $)
@@ -209,32 +233,120 @@ $( We will use the following descriptive terms very loosely:  A "closed form"
       ( id syl5com ) BBACBEDF $.
       $( [4-Aug-2012] $) $( [5-Aug-1993] $)
 
-    $( Inference that swaps (commutes) antecedents in an implication. $)
+    $( Obsolete proof of ~ com12 . $)
     com12OLD $p |- ( ps -> ( ph -> ch ) ) $=
       ( wi ax-1 a2i syl ) BABEACEBAFABCDGH $.
       $( [5-Aug-1993] $)
   $}
 
   ${
-    imim2d.1 $e |- ( ph -> ( ps -> ch ) ) $.
-    $( Deduction adding nested antecedents. $)
-    imim2d $p |- ( ph -> ( ( th -> ps ) -> ( th -> ch ) ) ) $=
-      ( wi a1d a2d ) ADBCABCFDEGH $.
+    syl5.1 $e |- ( ph -> ps ) $.
+    syl5.2 $e |- ( ch -> ( ps -> th ) ) $.
+    $( A syllogism rule of inference.  The second premise is used to replace
+       the second antecedent of the first premise.  (The proof was shortened by
+       Wolf Lammen, 25-May-2013.) $)
+    syl5 $p |- ( ch -> ( ph -> th ) ) $=
+      ( syl5com com12 ) ACDABCDEFGH $.
+      $( [25-May-2013] $) $( [5-Aug-1993] $)
+  $}
+
+  ${
+    syl6.1 $e |- ( ph -> ( ps -> ch ) ) $.
+    syl6.2 $e |- ( ch -> th ) $.
+    $( A syllogism rule of inference.  The second premise is used to replace
+       the consequent of the first premise.  (The proof was shortened by Wolf
+       Lammen, 30-Jul-2012.) $)
+    syl6 $p |- ( ph -> ( ps -> th ) ) $=
+      ( wi a1i sylcom ) ABCDECDGBFHI $.
+      $( [31-Jul-2012] $) $( [5-Aug-1993] $)
+
+    $( Obsolete proof of ~ syl6 . $)
+    syl6OLD $p |- ( ph -> ( ps -> th ) ) $=
+      ( wi imim2i syl ) ABCGBDGECDBFHI $.
       $( [5-Aug-1993] $)
   $}
 
-  $( A closed form of syllogism (see ~ syl ).  Theorem *2.05 of
-     [WhiteheadRussell] p. 100.  (The proof was shortened by Wolf Lammen,
-     6-Sep-2012.) $)
-  imim2 $p |- ( ( ph -> ps ) -> ( ( ch -> ph ) -> ( ch -> ps ) ) ) $=
-    ( wi id imim2d ) ABDZABCGEF $.
-    $( [6-Sep-2012] $) $( [5-Aug-1993] $)
+  ${
+    syl6com.1 $e |- ( ph -> ( ps -> ch ) ) $.
+    syl6com.2 $e |- ( ch -> th ) $.
+    $( Syllogism inference with commuted antecedents. $)
+    syl6com $p |- ( ps -> ( ph -> th ) ) $=
+      ( syl6 com12 ) ABDABCDEFGH $.
+      $( [25-May-2005] $)
+  $}
 
-  $( A closed form of syllogism (see ~ syl ).  Theorem *2.05 of
-     [WhiteheadRussell] p. 100. $)
-  imim2OLD $p |- ( ( ph -> ps ) -> ( ( ch -> ph ) -> ( ch -> ps ) ) ) $=
-    ( wi ax-1 a2d ) ABDZCABGCEF $.
+  ${
+    mpcom.1 $e |- ( ps -> ph ) $.
+    mpcom.2 $e |- ( ph -> ( ps -> ch ) ) $.
+    $( Modus ponens inference with commutation of antecedents. $)
+    mpcom $p |- ( ps -> ch ) $=
+      ( com12 mpd ) BACDABCEFG $.
+      $( [17-Mar-1996] $)
+  $}
+
+  ${
+    syli.1 $e |- ( ps -> ( ph -> ch ) ) $.
+    syli.2 $e |- ( ch -> ( ph -> th ) ) $.
+    $( Syllogism inference with common nested antecedent. $)
+    syli $p |- ( ps -> ( ph -> th ) ) $=
+      ( com12 sylcom ) BACDECADFGH $.
+      $( [4-Nov-2004] $)
+  $}
+
+  ${
+    syl2im.1 $e |- ( ph -> ps ) $.
+    syl2im.2 $e |- ( ch -> th ) $.
+    syl2im.3 $e |- ( ps -> ( th -> ta ) ) $.
+    $( Replace two antecedents.  Implication-only version of ~ syl2an .
+       (Contributed by Wolf Lammen, 14-May-2013.) $)
+    syl2im $p |- ( ph -> ( ch -> ta ) ) $=
+      ( wi syl5 syl ) ABCEIFCDBEGHJK $.
+      $( [14-May-2013] $)
+  $}
+
+  $( This theorem, called "Assertion," can be thought of as closed form of
+     modus ponens ~ ax-mp .  Theorem *2.27 of [WhiteheadRussell] p. 104. $)
+  pm2.27 $p |- ( ph -> ( ( ph -> ps ) -> ps ) ) $=
+    ( wi id com12 ) ABCZABFDE $.
     $( [5-Aug-1993] $)
+
+  ${
+    mpdd.1 $e |- ( ph -> ( ps -> ch ) ) $.
+    mpdd.2 $e |- ( ph -> ( ps -> ( ch -> th ) ) ) $.
+    $( A nested modus ponens deduction. $)
+    mpdd $p |- ( ph -> ( ps -> th ) ) $=
+      ( wi a2d mpd ) ABCGBDGEABCDFHI $.
+      $( [12-Dec-2004] $)
+  $}
+
+  ${
+    mpid.1 $e |- ( ph -> ch ) $.
+    mpid.2 $e |- ( ph -> ( ps -> ( ch -> th ) ) ) $.
+    $( A nested modus ponens deduction. $)
+    mpid $p |- ( ph -> ( ps -> th ) ) $=
+      ( a1d mpdd ) ABCDACBEGFH $.
+      $( [14-Dec-2004] $)
+  $}
+
+  ${
+    mpdi.1 $e |- ( ps -> ch ) $.
+    mpdi.2 $e |- ( ph -> ( ps -> ( ch -> th ) ) ) $.
+    $( A nested modus ponens deduction.  (The proof was shortened by O'Cat,
+       15-Jan-2008.) $)
+    mpdi $p |- ( ph -> ( ps -> th ) ) $=
+      ( wi a1i mpdd ) ABCDBCGAEHFI $.
+      $( [15-Jan-2008] $) $( [16-Apr-2005] $)
+  $}
+
+  ${
+    mpii.1 $e |- ch $.
+    mpii.2 $e |- ( ph -> ( ps -> ( ch -> th ) ) ) $.
+    $( A doubly nested modus ponens inference.  (The proof was shortened by
+       Wolf Lammen, 31-Jul-2012.) $)
+    mpii $p |- ( ph -> ( ps -> th ) ) $=
+      ( a1i mpdi ) ABCDCBEGFH $.
+      $( [31-Jul-2012] $) $( [31-Dec-1993] $)
+  $}
 
   ${
     syld.1 $e |- ( ph -> ( ps -> ch ) ) $.
@@ -252,34 +364,108 @@ $( We will use the following descriptive terms very loosely:  A "closed form"
     syld $p |- ( ph -> ( ps -> th ) ) $=
       ( wi a1d mpdd ) ABCDEACDGBFHI $.
       $( [3-Aug-2012] $) $( [5-Aug-1993] $)
+  $}
 
-    $( Syllogism deduction.  (The proof was shortened by O'Cat,
-       19-Feb-2008.). $)
+  ${
+    a1dd.1 $e |- ( ph -> ( ps -> ch ) ) $.
+    $( Deduction introducing a nested embedded antecedent.  (The proof was
+       shortened by O'Cat, 15-Jan-2008.) $)
+    a1dd $p |- ( ph -> ( ps -> ( th -> ch ) ) ) $=
+      ( wi ax-1 syl6 ) ABCDCFECDGH $.
+      $( [15-Jan-2008] $) $( [17-Dec-2004] $)
+  $}
+
+  ${
+    pm2.43i.1 $e |- ( ph -> ( ph -> ps ) ) $.
+    $( Inference absorbing redundant antecedent.  (The proof was shortened by
+       O'Cat, 28-Nov-2008.) $)
+    pm2.43i $p |- ( ph -> ps ) $=
+      ( id mpd ) AABADCE $.
+      $( [29-Nov-2008] $) $( [5-Aug-1993] $)
+  $}
+
+  ${
+    pm2.43d.1 $e |- ( ph -> ( ps -> ( ps -> ch ) ) ) $.
+    $( Deduction absorbing redundant antecedent.  (The proof was shortened by
+       O'Cat, 28-Nov-2008.) $)
+    pm2.43d $p |- ( ph -> ( ps -> ch ) ) $=
+      ( id mpdi ) ABBCBEDF $.
+      $( [29-Nov-2008] $) $( [18-Aug-1993] $)
+  $}
+
+  ${
+    pm2.43a.1 $e |- ( ps -> ( ph -> ( ps -> ch ) ) ) $.
+    $( Inference absorbing redundant antecedent.  (The proof was shortened by
+       O'Cat, 28-Nov-2008.) $)
+    pm2.43a $p |- ( ps -> ( ph -> ch ) ) $=
+      ( id mpid ) BABCBEDF $.
+      $( [29-Nov-2008] $) $( [7-Nov-1995] $)
+  $}
+
+  ${
+    pm2.43b.1 $e |- ( ps -> ( ph -> ( ps -> ch ) ) ) $.
+    $( Inference absorbing redundant antecedent. $)
+    pm2.43b $p |- ( ph -> ( ps -> ch ) ) $=
+      ( pm2.43a com12 ) BACABCDEF $.
+      $( [31-Oct-1995] $)
+  $}
+
+  $( Absorption of redundant antecedent.  Also called the "Contraction" or
+     "Hilbert" axiom.  Theorem *2.43 of [WhiteheadRussell] p. 106.  (The proof
+     was shortened by O'Cat, 15-Aug-2004.) $)
+  pm2.43 $p |- ( ( ph -> ( ph -> ps ) ) -> ( ph -> ps ) ) $=
+    ( wi pm2.27 a2i ) AABCBABDE $.
+    $( [15-Aug-2004] $) $( [5-Aug-1993] $)
+
+  ${
+    imim2d.1 $e |- ( ph -> ( ps -> ch ) ) $.
+    $( Deduction adding nested antecedents. $)
+    imim2d $p |- ( ph -> ( ( th -> ps ) -> ( th -> ch ) ) ) $=
+      ( wi a1d a2d ) ADBCABCFDEGH $.
+      $( [5-Aug-1993] $)
+  $}
+
+  $( A closed form of syllogism (see ~ syl ).  Theorem *2.05 of
+     [WhiteheadRussell] p. 100.  (The proof was shortened by Wolf Lammen,
+     6-Sep-2012.) $)
+  imim2 $p |- ( ( ph -> ps ) -> ( ( ch -> ph ) -> ( ch -> ps ) ) ) $=
+    ( wi id imim2d ) ABDZABCGEF $.
+    $( [6-Sep-2012] $) $( [5-Aug-1993] $)
+
+  $( Obsolete proof of ~ imim2 . $)
+  imim2OLD $p |- ( ( ph -> ps ) -> ( ( ch -> ph ) -> ( ch -> ps ) ) ) $=
+    ( wi ax-1 a2d ) ABDZCABGCEF $.
+    $( [5-Aug-1993] $)
+
+  ${
+    syldOLD.1 $e |- ( ph -> ( ps -> ch ) ) $.
+    syldOLD.2 $e |- ( ph -> ( ch -> th ) ) $.
+    $( Obsolete proof of ~ syld . $)
     syldOLD $p |- ( ph -> ( ps -> th ) ) $=
       ( wi imim2d mpd ) ABCGBDGEACDBFHI $.
       $( [19-Feb-2008] $) $( [5-Aug-1993] $)
   $}
 
   ${
-    syl5.1 $e |- ( ph -> ps ) $.
-    syl5.2 $e |- ( ch -> ( ps -> th ) ) $.
-    $( A syllogism rule of inference.  The second premise is used to replace
-       the second antecedent of the first premise.  (The proof was shortened by
-       Wolf Lammen, 25-May-2013.) $)
-    syl5 $p |- ( ch -> ( ph -> th ) ) $=
-      ( syl5com com12 ) ACDABCDEFGH $.
-      $( [25-May-2013] $) $( [5-Aug-1993] $)
+    3syld.1 $e |- ( ph -> ( ps -> ch ) ) $.
+    3syld.2 $e |- ( ph -> ( ch -> th ) ) $.
+    3syld.3 $e |- ( ph -> ( th -> ta ) ) $.
+    $( Triple syllogism deduction.  (Contributed by Jeff Hankins,
+       4-Aug-2009.) $)
+    3syld $p |- ( ph -> ( ps -> ta ) ) $=
+      ( syld ) ABDEABCDFGIHI $.
+      $( [24-Sep-2010] $) $( [4-Aug-2009] $)
   $}
 
   ${
-    syl2im.1 $e |- ( ph -> ps ) $.
-    syl2im.2 $e |- ( ch -> th ) $.
-    syl2im.3 $e |- ( ps -> ( th -> ta ) ) $.
-    $( Replace two antecedents.  Implication-only version of ~ syl2an .
-       (Contributed by Wolf Lammen, 14-May-2013.) $)
-    syl2im $p |- ( ph -> ( ch -> ta ) ) $=
-      ( wi syl5 syl ) ABCEIFCDBEGHJK $.
-      $( [14-May-2013] $)
+    sylsyld.1 $e |- ( ph -> ps ) $.
+    sylsyld.2 $e |- ( ph -> ( ch -> th ) ) $.
+    sylsyld.3 $e |- ( ps -> ( th -> ta ) ) $.
+    $( Virtual deduction rule ~ e12 without virtual deduction symbols.
+       (Contributed by Alan Sare, 20-Apr-2011.) $)
+    sylsyld $p |- ( ph -> ( ch -> ta ) ) $=
+      ( wi syl syld ) ACDEGABDEIFHJK $.
+      $( [20-Apr-2011] $)
   $}
 
   ${
@@ -311,39 +497,13 @@ $( We will use the following descriptive terms very loosely:  A "closed form"
   $}
 
   ${
-    3syl.1 $e |- ( ph -> ps ) $.
-    3syl.2 $e |- ( ps -> ch ) $.
-    3syl.3 $e |- ( ch -> th ) $.
-    $( Inference chaining two syllogisms. $)
-    3syl $p |- ( ph -> th ) $=
-      ( syl ) ACDABCEFHGH $.
-      $( [5-Aug-1993] $)
-  $}
-
-  ${
-    syl6.1 $e |- ( ph -> ( ps -> ch ) ) $.
-    syl6.2 $e |- ( ch -> th ) $.
-    $( A syllogism rule of inference.  The second premise is used to replace
-       the consequent of the first premise.  (The proof was shortened by Wolf
-       Lammen, 30-Jul-2012.) $)
-    syl6 $p |- ( ph -> ( ps -> th ) ) $=
-      ( wi a1i sylcom ) ABCDECDGBFHI $.
-      $( [31-Jul-2012] $) $( [5-Aug-1993] $)
-
-    $( Obsolete proof of ~ syl6 . $)
-    syl6OLD $p |- ( ph -> ( ps -> th ) ) $=
-      ( wi imim2i syl ) ABCGBDGECDBFHI $.
-      $( [5-Aug-1993] $)
-  $}
-
-  ${
     sylc.1 $e |- ( ph -> ps ) $.
     sylc.2 $e |- ( ph -> ch ) $.
     sylc.3 $e |- ( ps -> ( ch -> th ) ) $.
     $( A syllogism inference combined with contraction. $)
     sylc $p |- ( ph -> th ) $=
-      ( wi syl mpd ) ACDFABCDHEGIJ $.
-      $( [21-Mar-2012] $) $( [4-May-1994] $)
+      ( syl2im pm2.43i ) ADABACDEFGHI $.
+      $( [13-Jul-2013] $) $( [4-May-1994] $)
   $}
 
   ${
@@ -355,6 +515,45 @@ $( We will use the following descriptive terms very loosely:  A "closed form"
     sylcOLD $p |- ( th -> ch ) $=
       ( wi syl mpd ) DBCGDABCHFEIJ $.
       $( [4-May-1994] $)
+  $}
+
+  ${
+    syl3c.1 $e |- ( ph -> ps ) $.
+    syl3c.2 $e |- ( ph -> ch ) $.
+    syl3c.3 $e |- ( ph -> th ) $.
+    syl3c.4 $e |- ( ps -> ( ch -> ( th -> ta ) ) ) $.
+    $( A syllogism inference combined with contraction. ~ e111 without virtual
+       deductions.  (Contributed by Alan Sare, 7-Jul-2011.) $)
+    syl3c $p |- ( ph -> ta ) $=
+      ( wi sylc mpd ) ADEHABCDEJFGIKL $.
+      $( [7-Jul-2011] $)
+  $}
+
+  ${
+    syl6mpi.1 $e |- ( ph -> ( ps -> ch ) ) $.
+    syl6mpi.2 $e |- th $.
+    syl6mpi.3 $e |- ( ch -> ( th -> ta ) ) $.
+    $( ~ e20 without virtual deductions.  (Contributed by Alan Sare,
+       8-Jul-2011.)  (The proof was shortened by Wolf Lammen, 13-Sep-2012.) $)
+    syl6mpi $p |- ( ph -> ( ps -> ta ) ) $=
+      ( mpi syl6 ) ABCEFCDEGHIJ $.
+      $( [13-Sep-2012] $) $( [8-Jul-2011] $)
+
+    $( Obsolete proof of ~ syl6mpi . $)
+    syl6mpiOLD $p |- ( ph -> ( ps -> ta ) ) $=
+      ( a1i12 wi syl6 mpdd ) ABDEABDGIABCDEJFHKL $.
+      $( [8-Jul-2011] $)
+  $}
+
+  ${
+    mpsyl.1 $e |- ph $.
+    mpsyl.2 $e |- ( ps -> ch ) $.
+    mpsyl.3 $e |- ( ph -> ( ch -> th ) ) $.
+    $( Modus ponens combined with a syllogism inference.  (Contributed by Alan
+       Sare, 20-Apr-2011.) $)
+    mpsyl $p |- ( ps -> th ) $=
+      ( a1i sylc ) BACDABEHFGI $.
+      $( [20-Apr-2011] $)
   $}
 
   ${
@@ -396,8 +595,7 @@ $( We will use the following descriptive terms very loosely:  A "closed form"
   ${
     syl5d.1OLD $e |- ( ph -> ( ps -> ( ch -> th ) ) ) $.
     syl5d.2OLD $e |- ( ph -> ( ta -> ch ) ) $.
-    $( A nested syllogism deduction.  (The proof was shortened by Josh
-       Purinton, 29-Dec-2000 and shortened further by O'Cat, 2-Feb-2006.) $)
+    $( Obsolete proof of ~ syl5d . $)
     syl5dOLD $p |- ( ph -> ( ps -> ( ta -> th ) ) ) $=
       ( wi a1d syldd ) ABECDAECHBGIFJ $.
       $( [3-Feb-2006] $) $( [5-Aug-1993] $)
@@ -460,28 +658,6 @@ $( We will use the following descriptive terms very loosely:  A "closed form"
   $}
 
   ${
-    3syld.1 $e |- ( ph -> ( ps -> ch ) ) $.
-    3syld.2 $e |- ( ph -> ( ch -> th ) ) $.
-    3syld.3 $e |- ( ph -> ( th -> ta ) ) $.
-    $( Triple syllogism deduction.  (Contributed by Jeff Hankins,
-       4-Aug-2009.) $)
-    3syld $p |- ( ph -> ( ps -> ta ) ) $=
-      ( syld ) ABDEABCDFGIHI $.
-      $( [24-Sep-2010] $) $( [4-Aug-2009] $)
-  $}
-
-  ${
-    sylsyld.1 $e |- ( ph -> ps ) $.
-    sylsyld.2 $e |- ( ph -> ( ch -> th ) ) $.
-    sylsyld.3 $e |- ( ps -> ( th -> ta ) ) $.
-    $( Virtual deduction rule ~ e12 without virtual deduction symbols.
-       (Contributed by Alan Sare, 20-Apr-2011.) $)
-    sylsyld $p |- ( ph -> ( ch -> ta ) ) $=
-      ( wi syl syld ) ACDEGABDEIFHJK $.
-      $( [20-Apr-2011] $)
-  $}
-
-  ${
     imim12d.1 $e |- ( ph -> ( ps -> ch ) ) $.
     imim12d.2 $e |- ( ph -> ( th -> ta ) ) $.
     $( Deduction combining antecedents and consequents.  (The proof was
@@ -514,8 +690,7 @@ $( We will use the following descriptive terms very loosely:  A "closed form"
 
   ${
     imim1i.1OLD $e |- ( ph -> ps ) $.
-    $( Inference adding common consequents in an implication, thereby
-       interchanging the original antecedent and consequent. $)
+    $( Obsolete proof of ~ imim1i . $)
     imim1iOLD $p |- ( ( ps -> ch ) -> ( ph -> ch ) ) $=
       ( wi imim1 ax-mp ) ABEBCEACEEDABCFG $.
       $( [5-Aug-1993] $)
@@ -523,7 +698,7 @@ $( We will use the following descriptive terms very loosely:  A "closed form"
 
   ${
     imim1dOLD.1 $e |- ( ph -> ( ps -> ch ) ) $.
-    $( Deduction adding nested consequents. $)
+    $( Obsolete proof of ~ imim1d . $)
     imim1dOLD $p |- ( ph -> ( ( ch -> th ) -> ( ps -> th ) ) ) $=
       ( wi imim1 syl ) ABCFCDFBDFFEBCDGH $.
       $( [3-Apr-1994] $)
@@ -567,12 +742,6 @@ $( We will use the following descriptive terms very loosely:  A "closed form"
       $( [5-Aug-1993] $)
   $}
 
-  $( This theorem, called "Assertion," can be thought of as closed form of
-     modus ponens ~ ax-mp .  Theorem *2.27 of [WhiteheadRussell] p. 104. $)
-  pm2.27 $p |- ( ph -> ( ( ph -> ps ) -> ps ) ) $=
-    ( wi id com12 ) ABCZABFDE $.
-    $( [5-Aug-1993] $)
-
   ${
     com3.1 $e |- ( ph -> ( ps -> ( ch -> th ) ) ) $.
     $( Commutation of antecedents.  Swap 2nd and 3rd.  (The proof was shortened
@@ -605,29 +774,29 @@ $( We will use the following descriptive terms very loosely:  A "closed form"
     ( wi id com23 ) ABCDDZABCGEF $.
     $( [12-Sep-2012] $) $( [5-Aug-1993] $)
 
-  $( Swap antecedents.  Theorem *2.04 of [WhiteheadRussell] p. 100. $)
+  $( Obsolete proof of ~ pm2.04 . $)
   pm2.04OLD $p |- ( ( ph -> ( ps -> ch ) ) -> ( ps -> ( ph -> ch ) ) ) $=
     ( wi ax-1 ax-2 syl5 ) BABDABCDDACDBAEABCFG $.
     $( [5-Aug-1993] $)
 
   ${
     com3.1OLD $e |- ( ph -> ( ps -> ( ch -> th ) ) ) $.
-    $( Commutation of antecedents.  Swap 2nd and 3rd. $)
+    $( Obsolete proof of ~ com23 . $)
     com23OLD $p |- ( ph -> ( ch -> ( ps -> th ) ) ) $=
       ( wi pm2.04 syl ) ABCDFFCBDFFEBCDGH $.
       $( [5-Aug-1993] $)
 
-    $( Commutation of antecedents.  Swap 1st and 3rd. $)
+    $( Obsolete proof of ~ com13 . $)
     com13OLD $p |- ( ch -> ( ps -> ( ph -> th ) ) ) $=
       ( wi com12 com23 ) BCADFBACDABCDFEGHG $.
       $( [25-Apr-1994] $)
 
-    $( Commutation of antecedents.  Rotate left. $)
+    $( Obsolete proof of ~ com3l . $)
     com3lOLD $p |- ( ps -> ( ch -> ( ph -> th ) ) ) $=
       ( com23 com13 ) ACBDABCDEFG $.
       $( [25-Apr-1994] $)
 
-    $( Commutation of antecedents.  Rotate right. $)
+    $( Obsolete proof of ~ com3r . $)
     com3rOLD $p |- ( ch -> ( ph -> ( ps -> th ) ) ) $=
       ( com3l ) BCADABCDEFF $.
       $( [25-Apr-1994] $)
@@ -668,18 +837,17 @@ $( We will use the following descriptive terms very loosely:  A "closed form"
       ( wi com4l com3r ) BCDAEGABCDEFHI $.
       $( [28-Jul-2012] $) $( [25-Apr-1994] $)
 
-    $( Commutation of antecedents.  Swap 2nd and 4th. $)
+    $( Obsolete proof of ~ com24 . $)
     com24OLD $p |- ( ph -> ( th -> ( ch -> ( ps -> ta ) ) ) ) $=
       ( wi com34 com23 ) ADBCEABDCEGABCDEFHIH $.
       $( [25-Apr-1994] $)
 
-    $( Commutation of antecedents.  Swap 1st and 4th. $)
+    $( Obsolete proof of ~ com14 . $)
     com14OLD $p |- ( th -> ( ps -> ( ch -> ( ph -> ta ) ) ) ) $=
       ( wi com34 com13 ) DBACEABDCEGABCDEFHIH $.
       $( [25-Apr-1994] $)
 
-    $( Commutation of antecedents.  Rotate left.  (The proof was shortened by
-       O'Cat, 15-Aug-2004.) $)
+    $( Obsolete proof of ~ com4l . $)
     com4lOLD $p |- ( ps -> ( ch -> ( th -> ( ph -> ta ) ) ) ) $=
       ( wi com14 com3l ) DBCAEGABCDEFHI $.
       $( [15-Aug-2004] $) $( [25-Apr-1994] $)
@@ -718,14 +886,12 @@ $( We will use the following descriptive terms very loosely:  A "closed form"
       ( wi com5l com4r ) BCDEAFHABCDEFGIJ $.
       $( [29-Jul-2012] $) $( [28-Jun-2009] $)
 
-    $( Commutation of antecedents.  Swap 1st and 5th.  (Contributed by Jeff
-       Hankins, 28-Jun-2009.) $)
+    $( Obsolete proof of ~ com15 . $)
     com15OLD $p |- ( ta -> ( ps -> ( ch -> ( th -> ( ph -> et ) ) ) ) ) $=
       ( wi com14 com45 ) DBCEAFHDBCAEFABCDEFHGIJI $.
       $( [18-Apr-2010] $) $( [28-Jun-2009] $)
 
-    $( Commutation of antecedents.  Rotate left.  (Contributed by Jeff Hankins,
-       28-Jun-2009.) $)
+    $( Obsolete proof of ~ com5l . $)
     com5lOLD $p |- ( ps -> ( ch -> ( th -> ( ta -> ( ph -> et ) ) ) ) ) $=
       ( com45 com35 com25 com15 ) ACDEBFABDECFABCEDFABCDEFGHIJK $.
       $( [18-Apr-2010] $) $( [28-Jun-2009] $)
@@ -750,186 +916,21 @@ $( We will use the following descriptive terms very loosely:  A "closed form"
   $}
 
   ${
-    a1dd.1 $e |- ( ph -> ( ps -> ch ) ) $.
-    $( Deduction introducing a nested embedded antecedent.  (The proof was
-       shortened by O'Cat, 15-Jan-2008.) $)
-    a1dd $p |- ( ph -> ( ps -> ( th -> ch ) ) ) $=
-      ( wi ax-1 syl6 ) ABCDCFECDGH $.
-      $( [15-Jan-2008] $) $( [17-Dec-2004] $)
-  $}
-
-  ${
-    mp2.1 $e |- ph $.
-    mp2.2 $e |- ps $.
-    mp2.3 $e |- ( ph -> ( ps -> ch ) ) $.
-    $( A double modus ponens inference. $)
-    mp2 $p |- ch $=
-      ( wi ax-mp ) BCEABCGDFHH $.
-      $( [5-Apr-1994] $)
-  $}
-
-  ${
-    mp2d.1 $e |- ( ph -> ps ) $.
-    mp2d.2 $e |- ( ph -> ch ) $.
-    mp2d.3 $e |- ( ph -> ( ps -> ( ch -> th ) ) ) $.
-    $( A double modus ponens deduction. $)
-    mp2d $p |- ( ph -> th ) $=
-      ( wi mpd ) ACDFABCDHEGII $.
-      $( [23-May-2013] $)
-  $}
-
-  ${
-    mp2b.1 $e |- ph $.
-    mp2b.2 $e |- ( ph -> ps ) $.
-    mp2b.3 $e |- ( ps -> ch ) $.
-    $( A double modus ponens inference.  (Contributed by Mario Carneiro,
-       24-Jan-2013.) $)
-    mp2b $p |- ch $=
-      ( ax-mp ) BCABDEGFG $.
-      $( [24-Jan-2013] $)
-  $}
-
-  ${
-    mpi.1 $e |- ps $.
-    mpi.2 $e |- ( ph -> ( ps -> ch ) ) $.
-    $( A nested modus ponens inference.  (The proof was shortened by Stefan
-       Allan, 20-Mar-2006.) $)
-    mpi $p |- ( ph -> ch ) $=
-      ( a1i mpd ) ABCBADFEG $.
-      $( [20-Mar-2006] $) $( [5-Aug-1993] $)
-  $}
-
-  ${
-    mpdi.1 $e |- ( ps -> ch ) $.
-    mpdi.2 $e |- ( ph -> ( ps -> ( ch -> th ) ) ) $.
-    $( A nested modus ponens deduction.  (The proof was shortened by O'Cat,
-       15-Jan-2008.) $)
-    mpdi $p |- ( ph -> ( ps -> th ) ) $=
-      ( wi a1i mpdd ) ABCDBCGAEHFI $.
-      $( [15-Jan-2008] $) $( [16-Apr-2005] $)
-  $}
-
-  ${
-    mpii.1 $e |- ch $.
-    mpii.2 $e |- ( ph -> ( ps -> ( ch -> th ) ) ) $.
-    $( A doubly nested modus ponens inference.  (The proof was shortened by
-       Wolf Lammen, 31-Jul-2012.) $)
-    mpii $p |- ( ph -> ( ps -> th ) ) $=
-      ( a1i mpdi ) ABCDCBEGFH $.
-      $( [31-Jul-2012] $) $( [31-Dec-1993] $)
-
-    $( A doubly nested modus ponens inference. $)
+    mpiiOLD.1 $e |- ch $.
+    mpiiOLD.2 $e |- ( ph -> ( ps -> ( ch -> th ) ) ) $.
+    $( Obsolete proof of ~ mpii . $)
     mpiiOLD $p |- ( ph -> ( ps -> th ) ) $=
       ( wi com23 mpi ) ACBDGEABCDFHI $.
       $( [31-Dec-1993] $)
   $}
 
   ${
-    mpcom.1 $e |- ( ps -> ph ) $.
-    mpcom.2 $e |- ( ph -> ( ps -> ch ) ) $.
-    $( Modus ponens inference with commutation of antecedents. $)
-    mpcom $p |- ( ps -> ch ) $=
-      ( com12 mpd ) BACDABCEFG $.
-      $( [17-Mar-1996] $)
-  $}
-
-  ${
-    syl6com.1 $e |- ( ph -> ( ps -> ch ) ) $.
-    syl6com.2 $e |- ( ch -> th ) $.
-    $( Syllogism inference with commuted antecedents. $)
-    syl6com $p |- ( ps -> ( ph -> th ) ) $=
-      ( syl6 com12 ) ABDABCDEFGH $.
-      $( [25-May-2005] $)
-  $}
-
-  ${
-    syli.1 $e |- ( ps -> ( ph -> ch ) ) $.
-    syli.2 $e |- ( ch -> ( ph -> th ) ) $.
-    $( Syllogism inference with common nested antecedent. $)
-    syli $p |- ( ps -> ( ph -> th ) ) $=
-      ( com12 sylcom ) BACDECADFGH $.
-      $( [4-Nov-2004] $)
-  $}
-
-  ${
-    syl6mpi.1 $e |- ( ph -> ( ps -> ch ) ) $.
-    syl6mpi.2 $e |- th $.
-    syl6mpi.3 $e |- ( ch -> ( th -> ta ) ) $.
-    $( ~ e20 without virtual deductions.  (Contributed by Alan Sare,
-       8-Jul-2011.)  (The proof was shortened by Wolf Lammen, 13-Sep-2012.) $)
-    syl6mpi $p |- ( ph -> ( ps -> ta ) ) $=
-      ( mpi syl6 ) ABCEFCDEGHIJ $.
-      $( [13-Sep-2012] $) $( [8-Jul-2011] $)
-
-    $( Obsolete proof of ~ syl6mpi . $)
-    syl6mpiOLD $p |- ( ph -> ( ps -> ta ) ) $=
-      ( a1i12 wi syl6 mpdd ) ABDEABDGIABCDEJFHKL $.
-      $( [8-Jul-2011] $)
-  $}
-
-  ${
     imim12dOLD.1 $e |- ( ph -> ( ps -> ch ) ) $.
     imim12dOLD.2 $e |- ( ph -> ( th -> ta ) ) $.
-    $( Deduction combining antecedents and consequents. $)
+    $( Obsolete proof of ~ imim12d . $)
     imim12dOLD $p |- ( ph -> ( ( ch -> th ) -> ( ps -> ta ) ) ) $=
       ( wi imim1d imim2d syld ) ACDHBDHBEHABCDFIADEBGJK $.
       $( [7-Aug-1994] $)
-  $}
-
-  $( Absorption of redundant antecedent.  Also called the "Contraction" or
-     "Hilbert" axiom.  Theorem *2.43 of [WhiteheadRussell] p. 106.  (The proof
-     was shortened by O'Cat, 15-Aug-2004.) $)
-  pm2.43 $p |- ( ( ph -> ( ph -> ps ) ) -> ( ph -> ps ) ) $=
-    ( wi pm2.27 a2i ) AABCBABDE $.
-    $( [15-Aug-2004] $) $( [5-Aug-1993] $)
-
-  ${
-    pm2.43i.1 $e |- ( ph -> ( ph -> ps ) ) $.
-    $( Inference absorbing redundant antecedent.  (The proof was shortened by
-       O'Cat, 28-Nov-2008.) $)
-    pm2.43i $p |- ( ph -> ps ) $=
-      ( id mpd ) AABADCE $.
-      $( [29-Nov-2008] $) $( [5-Aug-1993] $)
-  $}
-
-  ${
-    pm2.43d.1 $e |- ( ph -> ( ps -> ( ps -> ch ) ) ) $.
-    $( Deduction absorbing redundant antecedent.  (The proof was shortened by
-       O'Cat, 28-Nov-2008.) $)
-    pm2.43d $p |- ( ph -> ( ps -> ch ) ) $=
-      ( id mpdi ) ABBCBEDF $.
-      $( [29-Nov-2008] $) $( [18-Aug-1993] $)
-  $}
-
-  ${
-    pm2.43b.1 $e |- ( ps -> ( ph -> ( ps -> ch ) ) ) $.
-    $( Inference absorbing redundant antecedent. $)
-    pm2.43b $p |- ( ph -> ( ps -> ch ) ) $=
-      ( pm2.43a com12 ) BACABCDEF $.
-      $( [31-Oct-1995] $)
-  $}
-
-  ${
-    syl3c.1 $e |- ( ph -> ps ) $.
-    syl3c.2 $e |- ( ph -> ch ) $.
-    syl3c.3 $e |- ( ph -> th ) $.
-    syl3c.4 $e |- ( ps -> ( ch -> ( th -> ta ) ) ) $.
-    $( A syllogism inference combined with contraction. ~ e111 without virtual
-       deductions.  (Contributed by Alan Sare, 7-Jul-2011.) $)
-    syl3c $p |- ( ph -> ta ) $=
-      ( wi sylc mpd ) ADEHABCDEJFGIKL $.
-      $( [7-Jul-2011] $)
-  $}
-
-  ${
-    mpsyl.1 $e |- ph $.
-    mpsyl.2 $e |- ( ps -> ch ) $.
-    mpsyl.3 $e |- ( ph -> ( ch -> th ) ) $.
-    $( Modus ponens combined with a syllogism inference.  (Contributed by Alan
-       Sare, 20-Apr-2011.) $)
-    mpsyl $p |- ( ps -> th ) $=
-      ( a1i sylc ) BACDABEHFGI $.
-      $( [20-Apr-2011] $)
   $}
 
   ${
