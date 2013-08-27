@@ -1,0 +1,747 @@
+$(
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+        Operations
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+$)
+
+  $( Extend the definition of a class to include operations. $)
+  co $a class ( A F B ) $.
+
+  $( Extend class notation to include abstraction classes of nested
+     ordered pairs. $)
+  copab2 $a class { <. <. x , y >. , z >. | ph } $.
+
+  $( Define the result of an operation.  Here, ` F ` is an operation on two
+     values (such as ` + ` for real numbers).   This is defined for proper
+     classes ` A ` and ` B ` even though not meaningful in that case.  However,
+     the definition can be meaningful when ` F ` is a proper class. $)
+  df-opr $a |- ( A F B ) = ( F ` <. A , B >. ) $.
+
+  ${
+    $d x y z w $.  $d w ph $.
+    $( Define abstraction class of nested ordered pairs (for use in defining
+       operations).  A special case of Definition 4.16, p. 14, of Takeuti and
+       Zaring. $)
+    df-oprab $a |- { <. <. x , y >. , z >. | ph } =
+                  { w | E. x E. y E. z ( w = <. <. x , y >. , z >. /\ ph ) } $.
+  $}
+
+  $( Equality theorem for operators. $)
+  opreq $p |- ( F = G -> ( A F B ) = ( A G B ) ) $=
+      ( wceq cop cfv co fveq1 df-opr 3eqtr4g ) CDEABFZCGLDGABCHABDHLCDIABCJABDJ
+      K $.
+      $([28-Feb-95]$)
+
+  $( Equality theorem for operators. $)
+  opreq1 $p |- ( A = B -> ( A F C ) = ( B F C ) ) $=
+      ( wceq cop cfv co opeq1 fveq2 syl df-opr 3eqtr4g ) ABEZACFZDGZBCFZDGZACDH
+      BCDHNOQEPREABCIOQDJKACDLBCDLM $.
+      $([28-Feb-95]$)
+
+  $( Equality theorem for operators. $)
+  opreq2 $p |- ( A = B -> ( C F A ) = ( C F B ) ) $=
+      ( wceq cop cfv co opeq2 fveq2 syl df-opr 3eqtr4g ) ABEZCAFZDGZCBFZDGZCADH
+      CBDHNOQEPREABCIOQDJKCADLCBDLM $.
+      $([28-Feb-95]$)
+
+  $( Equality theorem for operators. $)
+  opreq12 $p |- ( ( A = B /\ C = D ) -> ( A F C ) = ( B F D ) ) $=
+      ( wceq co opreq1 opreq2 sylan9eq ) ABFCDFACEGBCEGBDEGABCEHCDBEIJ $.
+      $([16-Jul-95]$)
+
+  ${
+    opreq1i.1 $e |- A = B $.
+    $( Equality inference for operators. $)
+    opreq1i   $p |- ( A F C ) = ( B F C ) $=
+      ( wceq co opreq1 ax-mp ) ABFACDGBCDGFABCDHEI $.
+      $([28-Feb-95]$)
+
+    $( Equality inference for operators. $)
+    opreq2i   $p |- ( C F A ) = ( C F B ) $=
+      ( wceq co opreq2 ax-mp ) ABFCADGCBDGFABCDHEI $.
+      $([28-Feb-95]$)
+
+    ${
+      opreq12i.2 $e |- C = D $.
+      $( Equality inference for operators. $)
+      opreq12i   $p |- ( A F C ) = ( B F D ) $=
+      ( co opreq1i opreq2i eqtr ) ACEHBCEHBDEHABCEFICDBEGJK $.
+      $([28-Feb-95]$)
+    $}
+  $}
+
+  ${
+    opreq1d.1 $e |- ( ph -> A = B ) $.
+    $( Equality inference for operators. $)
+    opreq1d   $p |- ( ph -> ( A F C ) = ( B F C ) ) $=
+      ( wceq co opreq1 syl ) ABCGBDEHCDEHGFBCDEIJ $.
+      $([13-Mar-95]$)
+
+    $( Equality inference for operators. $)
+    opreq2d   $p |- ( ph -> ( C F A ) = ( C F B ) ) $=
+      ( wceq co opreq2 syl ) ABCGDBEHDCEHGFBCDEIJ $.
+      $([13-Mar-95]$)
+
+    ${
+      opreq12d.2 $e |- ( ph -> C = D ) $.
+      $( Equality inference for operators. $)
+      opreq12d   $p |- ( ph -> ( A F C ) = ( B F D ) ) $=
+      ( co opreq1d opreq2d eqtrd ) ABDFICDFICEFIABCDFGJADECFHKL $.
+      $([13-Mar-95]$)
+    $}
+
+    ${
+      opreqan12i.2 $e |- ( ps -> C = D ) $.
+      $( Equality inference for operators. $)
+      opreqan12d   $p |- ( ( ph /\ ps ) -> ( A F C ) = ( B F D ) ) $=
+      ( wceq co opreq12 syl2an ) CDJEFJCEGKDFGKJABCDEFGLHIM $.
+      $([10-Aug-95]$)
+
+      $( Equality inference for operators. $)
+      opreqan12rd   $p |- ( ( ps /\ ph ) -> ( A F C ) = ( B F D ) ) $=
+      ( co wceq opreqan12d ancoms ) ABCEGJDFGJKABCDEFGHILM $.
+      $([10-Aug-95]$)
+    $}
+
+  $}
+
+  $( The result of an operation is a set. $)
+  oprex $p |- ( A F B ) e. V $=
+      ( co cop cfv cvv df-opr fvex eqeltr ) ABCDABEZCFGABCHKCIJ $.
+      $([13-Mar-95]$)
+
+  ${
+    $d x y z w v $.  $d w ph v $.  $( ` v ` is dummy. $)
+    $( Abstraction class for operators in terms of abstraction class of
+       ordered pairs. $)
+    dfoprab2 $p |- { <. <. x , y >. , z >. | ph } =
+                   { <. w , z >. | E. x E. y ( w = <. x , y >. /\ ph ) } $=
+      ( vv cv cop wceq wa wex cab copab2 copab 19.11 exrot4 19.42v opeq1
+      cleq2d pm5.32ri biran anass an1r 3bitr3 biex opex isseti biantru 3bitr4
+      bi3ex bitr 19.42vv bi2ex biab df-oprab df-opab 3eqtr4 ) FGZBGZCGZHZDGZHZI
+      ZAJZDKCKBKZFLUREGZVBHZIZVGVAIZAJZCKBKZJZDKEKZFLABCDMVLEDNVFVNFVIVKJZCKBKZ
+      EKDKZVPDKEKVFVNVPDEOVQVOEKZDKCKBKVFVODEBCPVRVEBCDVEVJJZEKVEVJEKZJVRVEVEVJ
+      EQVOVSEVIVJJZAJVDVJJZAJVOVSWAWBAVJVIVDVJVHVCURVGVAVBRSTUAVIVJAUBVDVJAUCUD
+      UEVTVEEVAUSUTUFUGUHUIUJUKVPVMEDVIVKBCULUMUDUNABCDFUOVLEDFUPUQ $.
+      $([12-Mar-95]$)
+  $}
+
+  ${
+    $d x y z v $.  $d x w $.  $d ph v $.  $( ` v ` is dummy. $)
+    $( The abstraction variables in an operator abstraction are not free. $)
+    hboprab1 $p |- ( w e. { <. <. x , y >. , z >. | ph } ->
+                   A. x w e. { <. <. x , y >. , z >. | ph } ) $=
+      ( vv cv cop wceq wa wex cab wcel wal copab2 hbe1 hbab df-oprab cleq4i
+      bial 3imtr4 ) EGZFGBGCGHDGHIAJDKCKZBKZFLZMZUFBNUBABCDOZMZUHBNUDBFEUCBPQUG
+      UEUBABCDFRSZUHUFBUITUA $.
+      $([25-Apr-95]$)
+  $}
+
+  ${
+    $d x y z v $.  $d y w $.  $d ph v $.  $( ` v ` is dummy. $)
+    $( The abstraction variables in an operator abstraction are not free. $)
+    hboprab2 $p |- ( w e. { <. <. x , y >. , z >. | ph } ->
+                   A. y w e. { <. <. x , y >. , z >. | ph } ) $=
+      ( vv cv cop wceq wa wex cab wcel wal copab2 hbe1 hbex hbab df-oprab
+      cleq4i bial 3imtr4 ) EGZFGBGCGHDGHIAJDKZCKZBKZFLZMZUHCNUCABCDOZMZUJCNUFCF
+      EUECBUDCPQRUIUGUCABCDFSTZUJUHCUKUAUB $.
+      $([25-Apr-95]$)
+  $}
+
+  ${
+    $d x y z w $.  $d w ph $.  $d w ps $.  $( ` w ` is dummy. $)
+    bioprab.1 $e |- ( ph <-> ps ) $.
+    $( Equivalent wff's yield equal abstraction classes. $)
+    bioprab   $p |- { <. <. x , y >. , z >. | ph } =
+                    { <. <. x , y >. , z >. | ps } $=
+      ( vw cv cop wceq wa wex copab copab2 bilan bi2ex biopab dfoprab2 3eqtr4
+      ) GHCHDHIJZAKZDLCLZGEMTBKZDLCLZGEMACDENBCDENUBUDGEUAUCCDABTFOPQACDEGRBCDE
+      GRS $.
+      $([28-May-95]$)
+  $}
+
+  ${
+    $d x y z w $.  $d w ph $.  $( ` w ` is dummy. $)
+    $( The domain of an operator abstraction. $)
+    dmoprab $p |- dom { <. <. x , y >. , z >. | ph } =
+                  { <. x , y >. | E. z ph } $=
+      ( vw copab2 cdm cv cop wceq wa wex copab cab dmeq dfoprab2 ax-mp dmopab
+      exrot3 19.42v bi2ex bitr biab df-opab eqtr4 3eqtr ) ABCDFZGZEHBHCHIJZAKZC
+      LBLZEDMZGZUKDLZENZADLZBCMZUGULJUHUMJUGULOABCDEPQUKEDRUOUIUPKZCLBLZENUQUNU
+      SEUNUJDLZCLBLUSUJDBCSUTURBCUIADTUAUBUCUPBCEUDUEUF $.
+      $([17-Mar-95]$)
+  $}
+
+  ${
+    $d x y z A $.  $d x y z B $.
+    $( The domain of an operator abstraction. $)
+    dmoprabss $p |- dom { <. <. x , y >. , z >. |
+           ( ( x e. A /\ y e. B ) /\ ph ) } (_ ( A X. B ) $=
+      ( cv wcel wa copab2 cdm wex copab cxp dmoprab 19.42v biopab opabssxp
+      eqsstr ) BGEHCGFHIZAIZBCDJKUADLZBCMZEFNZUABCDOUCTADLZIZBCMUDUBUFBCTADPQUE
+      BCEFRSS $.
+      $([24-Aug-95]$)
+  $}
+
+  ${
+    $d x y z $.
+    $( The domain of an operator abstraction class is a relation. $)
+    reldmoprab $p |- Rel dom { <. <. x , y >. , z >. | ph } $=
+      ( copab2 cdm wrel wex copab wceq wb releq dmoprab ax-mp relopab mpbir )
+      ABCDEFZGZADHZBCIZGZQTJRUAKQTLABCDMNSBCOP $.
+      $([17-Mar-95]$)
+  $}
+
+  ${
+    $d x y z w A $.  $d x y z w B $.  $d x y z w C $.
+    $d x y z w R $.  $d w D $.
+    $d w ph $.  $d x ps $.  $d x y ch $.  $d x y z w th $.  $( ` w ` is dummy. $)
+    eloprabg.1 $e |- C e. V $.
+    eloprabg.2 $e |- ( x = A -> ( ph <-> ps ) ) $.
+    eloprabg.3 $e |- ( y = B -> ( ps <-> ch ) ) $.
+    eloprabg.4 $e |- ( z = C -> ( ch <-> th ) ) $.
+    $( The law of concretion for operator abstraction.  Compare ~elopab . $)
+    eloprabg   $p |- ( ( A e. D /\ B e. R ) ->
+       ( <. <. A , B >. , C >. e. { <. <. x , y >. , z >. | ph } <-> th ) ) $=
+      ( vw wcel wa cop copab2 wb wi opex cv wceq wex cleq3 cab abid df-oprab
+      cleq4i bitr4 syl5bb adantl w3a cleq1 cleqcom syl6bb cvv visset otthg
+      mpan2 sylan9rbb birand 3sylan9b pm5.32i bi3exdv elex im3an mp3an3
+      eeeanv sylibr biantrurd 19.41vvv syl6rbbr exp43 pm2.43d imp31 bitr3d
+      exp comm vtoclei ) HKRZILRZSZHITZJTZAEFGUAZRZDUBZUCQWHWGJUDWFQUEZWHUFZWKW
+      FWMWKWFWMSWLEUEZFUEZTGUEZTZUFZASZGUGFUGEUGZWJDWMWTWJUBWFWMWLWIRZWJWTWLWHW
+      IUHWTWLWTQUIZRXAWTQUJWIXBWLAEFGQUKULUMUNUOWDWEWMWTDUBZWDWEWMXCUCWDWEWEWMX
+      CWEWMSZWTWNHUFZWOIUFZWPJUFZUPZDSZGUGFUGEUGZWFDXDWSXIEFGXDWSXHASXIXDWRXHAW
+      MWRWQWHUFZWEXHWMWRWHWQUFXKWLWHWQUQWHWQURUSWEJUTRZXKXHUBWNWOHIWPJLUTEVAFVA
+      GVAVBMVCVDVEXHADXEABXFCXGDNOPVFVGUSVHWFDXHGUGFUGEUGZDSXJWFXMDWFXEEUGZXFFU
+      GZXGGUGZUPZXMWDWEXLXQWDXNWEXOXLXPEHKVIFILVIGJUTVIVJMVKXEXFXGEFGVLVMVNXHDE
+      FGVOVPVDVQVRVSVTWAWBWC $.
+      $([3-May-95]$)
+  $}
+
+  ${
+    $d ph w $.  $d ps w $.  $d x y z w $.  $( ` w ` is dummy. $)
+    ssoprab2i.1 $e |- ( ph -> ps ) $.
+    $( Inference of operator abstraction subclass from implication. $)
+    ssoprab2i $p |- { <. <. x , y >. , z >. | ph } (_
+                    { <. <. x , y >. , z >. | ps } $=
+      ( vw cv cop wceq wa wex copab copab2 imlan 19.22i ssopab2i dfoprab2
+      3sstr4 ) GHCHDHIJZAKZDLZCLZGEMTBKZDLZCLZGEMACDENBCDENUCUFGEUBUECUAUDDABTF
+      OPPQACDEGRBCDEGRS $.
+      $([11-Nov-95]$)
+  $}
+
+  ${
+    $d x y z w $.  $d w ph $.  $( ` w ` is dummy. $)
+    funoprab.1 $e |- E* z ph $.
+    $( "At most one" is sufficient condition for an operator abstraction to be
+       a function. $)
+    funoprab   $p |- Fun { <. <. x , y >. , z >. | ph } $=
+      ( vw copab2 wfun cv cop wceq wa wex copab wb funeq dfoprab2 ax-mp wmo
+      funopab mosubop mpgbir mpbir ) ABCDGZHZFIZBICIJKALCMBMZFDNZHZUDUHKUEUIOUD
+      UHPABCDFQRUIUGDSFUGFDTADBCUFEUAUBUC $.
+      $([17-Mar-95]$)
+  $}
+
+  ${
+    $d x y z $.  $d z ph $.
+    fnoprab.1 $e |- ( ph -> E! z ps ) $.
+    $( Functionality and domain of an operator abstraction. $)
+    fnoprab   $p |- { <. <. x , y >. , z >. | ( ph /\ ps ) } Fn
+                    { <. x , y >. | ph } $=
+      ( wa copab2 copab wfn wfun cdm wceq df-fn wmo wi moanv weu eumo syl
+      mpbir funoprab wex dmoprab pm3.26 19.23aiv euex ancli 19.42v sylibr
+      impbi biopab eqtr pm3.2i ) ABGZCDEHZACDIZJUPKZUPLZUQMZGUPUQNURUTUOCDEUOEO
+      ABEOZPABEQABERZVAFBESTUAUBUSUOEUCZCDIUQUOCDEUDVCACDVCAUOAEABUEUFAABEUCZGV
+      CAVDAVBVDFBEUGTUHABEUIUJUKULUMUNUA $.
+      $([15-May-95]$)
+  $}
+
+  ${
+    $d x y z A $.  $d x y z B $.  $d z C $.
+    fnoprab2.1 $e |- C e. V $.
+    fnoprab2.2 $e |- F = { <. <. x , y >. , z >. | ( ( x e. A /\ y e. B )
+             /\ z = C ) } $.
+    $( Functionality and domain of an operator abstraction. $)
+    fnoprab2   $p |- F Fn ( A X. B ) $=
+      ( cxp wfn cv wcel wa wceq copab2 copab wb fneq1 ax-mp fneq2 df-xp bitr
+      weu eueq1 a1i fnoprab mpbir ) GDEJZKZALDMBLEMNZCLFOZNABCPZUKABQZKZUJUMUIK
+      ZUOGUMOUJUPRUIGUMSITUIUNOUPUORUIUNUMUAABDEUBTUCUKULABCULCUDUKCFHUEUFUGUH
+      $.
+      $([26-Aug-95]$)
+  $}
+
+  ${
+    $d x y z A $.  $d x y z B $.  $d z C $.
+    oprabex.1 $e |- A e. V $.
+    oprabex.2 $e |- B e. V $.
+    oprabex.3 $e |- F = { <. <. x , y >. , z >. | ( ( x e. A /\ y e. B )
+             /\ z = C ) } $.
+    $( Existence of an operator abstraction. $)
+    oprabex   $p |- F e. V $=
+      ( cv wcel wa wceq copab2 cvv cdm wfun funex cxp xpex dmoprabss ssexi
+      moeq moani funoprab mp2 eqeltr ) GAKDLBKELMZCKFNZMZABCOZPJULQZPLULRULPLPU
+      LSUMDETDEHIUAUJABCDEUBUCUKABCUJUICCFUDUEUFUGUH $.
+      $([11-Nov-95]$)
+  $}
+
+  ${
+    $d x y z A $.  $d x y z B $.  $d x y z C $.  $d x y z R $.  $d x y z S $.
+    $d x ps $.  $d x y ch $.  $d x y z th $.
+    oprabval.1 $e |- C e. V $.
+    oprabval.2 $e |- ( x = A -> ( ph <-> ps ) ) $.
+    oprabval.3 $e |- ( y = B -> ( ps <-> ch ) ) $.
+    oprabval.4 $e |- ( z = C -> ( ch <-> th ) ) $.
+    oprabval.5 $e |- ( ( x e. R /\ y e. S ) -> E! z ph ) $.
+    oprabval.6 $e |- F =
+                  { <. <. x , y >. , z >. | ( ( x e. R /\ y e. S ) /\ ph ) } $.
+    $( The value of an operator abstraction. $)
+    oprabval   $p |- ( ( A e. R /\ B e. S ) -> ( ( A F B ) = C <-> th ) ) $=
+      ( wcel wa co wceq cop cv copab2 cfv copab wb cleq3 birand biland
+      elopabg biimprd pm2.43i wfn fnfvop fnoprab mpan syl bi2and eloprabg
+      bitrd df-opr fveq1 ax-mp eqtr cleq1i syl5bb ibar bitr4d ) HKTZILTZUAZHI
+      MUBZJUCZVNDUAZDVNHIUDZEUEZKTZFUEZLTZUAZAUAZEFGUFZUGZJUCZVQVPVNWGVRJUDWETZ
+      VQVNVRWCEFUHZTZWGWHUIZVNWJVNWJVNWCVLWBUAZVNEFHIKLVSHUCZVTVLWBVSHKUJUKZWAI
+      UCZWBVMVLWAILUJULZUMUNUOWEWIUPWJWKWIVRJWENUQWCAEFGRURUSUTWDWLBUAVNCUAVQEF
+      GHIJKLNWMWCWLABWNOVAWOWLVNBCWPPVAGUEJUCCDVNQULVBVCVOWFJVOVRMUGZWFHIMVDMWE
+      UCWQWFUCVRMWEVESVFVGVHVIVNDVJVK $.
+      $([16-May-95]$)
+  $}
+
+  ${
+    $d x y z A $.  $d x y z B $.  $d x y z C $.  $d x y z R $.  $d x y z S $.
+    $d x ps $.  $d x y ch $.  $d x y z th $.
+    oprabvali.1 $e |- C e. V $.
+    oprabvali.2 $e |- ( x = A -> ( ph <-> ps ) ) $.
+    oprabvali.3 $e |- ( y = B -> ( ps <-> ch ) ) $.
+    oprabvali.4 $e |- ( z = C -> ( ch <-> th ) ) $.
+    oprabvali.5 $e |- ( ( x e. R /\ y e. S ) -> E* z ph ) $.
+    oprabvali.6 $e |- F =
+                  { <. <. x , y >. , z >. | ( ( x e. R /\ y e. S ) /\ ph ) } $.
+    $( The value of an operator abstraction (weak version). $)
+    oprabvali   $p |- ( ( A e. R /\ B e. S ) -> ( th -> ( A F B ) = C ) ) $=
+      ( wcel wa cop cv copab2 cfv wceq co wi cleq3 birand bi2and biland
+      eloprabg biimpar exp32 pm2.43i wfun funopfv wmo moanv mpbir funoprab
+      ax-mp syl6 df-opr fveq1 eqtr cleq1i syl6ibr ) HKTZILTZUAZDHIUBZEUCZKTZFUC
+      ZLTZUAZAUAZEFGUDZUEZJUFZHIMUGZJUFVLDVMJUBVTTZWBVLDWDUHVLVLDWDVLWDVLDUAZVS
+      VJVQUAZBUAVLCUAWEEFGHIJKLNVNHUFZVRWFABWGVOVJVQVNHKUIUJOUKVPIUFZWFVLBCWHVQ
+      VKVJVPILUIULPUKGUCJUFCDVLQULUMUNUOUPVTUQWDWBUHVMJVTNURVSEFGVSGUSVRAGUSUHV
+      RAGUTRVAVBVCVDWCWAJWCVMMUEZWAHIMVEMVTUFWIWAUFVMMVTVFSVCVGVHVI $.
+      $([16-May-95]$)
+  $}
+
+  ${
+    $d x y z A $.  $d x y z B $.  $d x y z C $.  $d x y z D $.
+    $d x G $.  $d z R $.  $d x y z S $.
+    oprabval2.1 $e |- S e. V $.
+    oprabval2.2 $e |- ( x = A -> R = G ) $.
+    oprabval2.3 $e |- ( y = B -> G = S ) $.
+    oprabval2.4 $e |- F = { <. <. x , y >. , z >. | ( ( x e. C /\ y e. D )
+                      /\ z = R ) } $.
+    $( The value of an operator abstraction. Special case. $)
+    oprabval2   $p |- ( ( A e. C /\ B e. D ) -> ( A F B ) = S ) $=
+      ( wcel wa wceq co cv cleq2d cleq1 wmo moeq a1i oprabvali cleqid mpi ) DF
+      PEGPQIIRZDEJSIRCTZHRZUJKRUJIRUIABCDEIFGJLATZDRHKUJMUABTZERKIUJNUAUJIIUBUK
+      CUCULFPUMGPQCHUDUEOUFIUGUH $.
+      $([16-May-95]$)
+  $}
+
+  ${
+    $d x y z w v u f A $.  $d x y z w v u f B $.  $d x y z w v u f C $.
+    $d x y z w v u f D $.  $d x y z w v u f H $.  $d x y z R $.
+    $d x y z w v u f S $.
+    oprabval3.1 $e |- S e. V $.
+    oprabval3.2 $e |- ( ( ( w = A /\ v = B ) /\ ( u = C /\ f = D ) ) ->
+         R = S ) $.
+    oprabval3.3 $e |- F = { <. <. x , y >. , z >. | ( ( x e. ( H X. H ) /\
+                      y e. ( H X. H ) ) /\
+                      E. w E. v E. u E. f ( ( x = <. w , v >. /\
+                      y = <. u , f >. ) /\ z = R ) ) } $.
+    $( The value of an operator abstraction.  Special case. $)
+    oprabval3   $p |- ( ( ( A e. H /\ B e. H ) /\ ( C e. H /\ D e. H ) ) ->
+        ( <. A , B >. F <. C , D >. ) = S ) $=
+      ( cop cxp wcel wa cv wceq wex co cleq1 birand bi4exdv biland wmo anass
+      bi2ex 19.42vv bitr bimo moeq mosubop mpbir a1i oprabvali opelxpi im2an
+      cleq2d copsex4g cleqid mpbiri syl13 ) GHSZOOTZUAZIJSZVJUAZUBVIDUCZEUCZSZU
+      DZVLFUCZMUCZSZUDZUBZLKUDZUBZMUEFUEEUEDUEZVIVLNUFLUDGOUAHOUAUBZIOUAJOUAUBZ
+      UBZAUCZVPUDZBUCZVTUDZUBZCUCZKUDZUBZMUEFUEZEUEDUEZVQWLUBZWOUBZMUEFUEEUEDUE
+      WBWOUBZMUEFUEEUEDUEWEABCVIVLLVJVJNPWIVIUDZWPWTDEFMXBWMWSWOXBWJVQWLWIVIVPU
+      GUHUHUIWKVLUDZWTXADEFMXCWSWBWOXCWLWAVQWKVLVTUGUJUHUIWNLUDZXAWDDEFMXDWOWCW
+      BWNLKUGUJUIWRCUKZWIVJUAWKVJUAUBXEWJWLWOUBZMUEFUEZUBZEUEDUEZCUKWRXICWQXHDE
+      WQWJXFUBZMUEFUEXHWPXJFMWJWLWOULUMWJXFFMUNUOUMUPXGCDEWIWOCFMWKCKUQURURUSUT
+      RVAWFVKWGVMGHOOVBIJOOVBVCWHWELLUDZWCXKDEFMGHIJOOVNGUDVOHUDUBVRIUDVSJUDUBU
+      BKLLQVDVELVFVGVH $.
+      $([28-May-95]$)
+  $}
+
+  ${
+    $d x y z w F $.  $d x y z w A $.  $d x y z w B $.  $( ` w ` is dummy. $)
+    oprvalex.1 $e |- A e. V $.
+    oprvalex.2 $e |- B e. V $.
+    $( Existence of a class of operation values. $)
+    oprvalex   $p |- { z | E. x e. A E. y e. B z = ( x F y ) } e. V $=
+      ( vw cv cfv wceq cxp wrex cab co cvv cop fveq2 cleq1d cbvop df-opr
+      cleq2i cleqcom bitr4 bi2rex biab xpex fvrexex eqeltrr ) IJZFKZCJZLZIDEMZN
+      ZCOUMAJZBJZFPZLZBENADNZCOQUPVACUPUQURRZFKZUMLZBENADNVAUNVDIABDEUKVBLULVCU
+      MUKVBFSTUAUTVDABDEUTUMVCLVDUSVCUMUQURFUBUCVCUMUDUEUFUEUGICUOFDEGHUHUIUJ
+      $.
+      $([15-Nov-95]$)
+  $}
+
+  ${
+    $d x y S $.  $d x y F $.
+    oprssdm.1 $e |- -. (/) e. S $.
+    oprssdm.2 $e |- ( ( x e. S /\ y e. S ) -> ( x F y ) e. S ) $.
+    $( Domain of closure of an operation. $)
+    oprssdm   $p |- ( S X. S ) (_ dom F $=
+      ( cxp cdm wss cv cop wcel wi wal wrel wb relss relxp ax-mp wa visset
+      opelxp wn cfv c0 wceq ndmfv co df-opr cleq1i cleq3 mtbiri nsyl sylbir
+      syl a3i sylbi ax-gen mpgbir ) CCGZDHZIZAJZBJZKZUTLZVEVALZMZBNZAUTOVBVIANP
+      ABUTVAQCCRSVHBVFVCCLVDCLTZVGVCVDCCBUAUBVGVJVGUCVEDUDZUEUFZVJUCZVEDUGVLVCV
+      DDUHZUEUFZVMVNVKUEVCVDDUIUJVOVNCLZVJVOVPUECLVNUECUKEULFUMUNUOUPUQURUS $.
+      $([24-Aug-95]$)
+  $}
+
+
+  ${
+    ndmopr.1 $e |- B e. V $.
+    ndmopr.2 $e |- dom F = ( S X. S ) $.
+    $( The value of an operation outside its domain. $)
+    ndmopr   $p |- ( -. ( A e. S /\ B e. S ) -> ( A F B ) = (/) ) $=
+      ( wcel wa wn cop cfv c0 co cdm wceq cxp cleq4i opelxp bitr bineg ndmfv
+      sylbir df-opr syl5eq ) ACGBCGHZIZABJZDKZLABDMUFUGDNZGZIUHLOUJUEUJUGCCPZGU
+      EUIUKUGFQABCCERSTUGDUAUBABDUCUD $.
+      $([24-Aug-95]$)
+
+    ${
+      ndmoprrcl.3 $e |- -. (/) e. S $.
+      $( Reverse closure law, when an operation's domain doesn't contain the
+         empty set. $)
+      ndmoprrcl   $p |- ( ( A F B ) e. S -> ( A e. S /\ B e. S ) ) $=
+      ( wcel wa co wn c0 ndmopr cleq3d mtbiri a3i ) ACHBCHIZABDJZCHZQKZSLCHTRL
+      CABCDEFMNGOP $.
+      $([3-Feb-96]$)
+    $}
+
+    ${
+      ndmopr.3 $e |- A e. V $.
+      $( Any operator is commutative outside its domain. $)
+      ndmoprcom $p |- ( -. ( A e. S /\ B e. S ) -> ( A F B ) = ( B F A ) ) $=
+      ( wcel wa wn co c0 ndmopr wceq ancom bineg sylbi eqtr4d ) ACHZBCHZIZJZAB
+      DKLBADKZABCDEFMUBTSIZJUCLNUAUDSTOPBACDGFMQR $.
+      $([24-Aug-95]$)
+    $}
+
+    ${
+      ndmopr.4 $e |- C e. V $.
+      ndmopr.5 $e |- -. (/) e. S $.
+      $( Any operator is associative outside its domain, if the domain
+         doesn't contain the empty set. $)
+      ndmoprass $p |- ( -. ( A e. S /\ B e. S /\ C e. S ) ->
+              ( ( A F B ) F C ) = ( A F ( B F C ) ) ) $=
+      ( wcel w3a wn co c0 wa wceq ndmoprrcl imran df-3an sylibr con3 ndmopr
+      syl imlan 3anass oprex eqtr4d ) ADJZBDJZCDJZKZLZABEMZCEMZNABCEMZEMZULUMD
+      JZUJOZLUNNPURUKURUHUIOZUJOUKUQUSUJABDEFGIQRUHUIUJSTUAUMCDEHGUBUCULUHUODJZ
+      OZLUPNPVAUKVAUHUIUJOZOUKUTVBUHBCDEHGIQUDUHUIUJUETUAAUODEBCEUFGUBUCUG $.
+      $([24-Aug-95]$)
+
+      ${
+        ndmopr.6 $e |- dom G = ( S X. S ) $.
+        $( Any operator is distributive outside its domain, if the domain
+           doesn't contain the empty set. $)
+        ndmoprdistr $p |- ( -. ( A e. S /\ B e. S /\ C e. S ) ->
+            ( A G ( B F C ) ) = ( ( A G B ) F ( A G C ) ) ) $=
+      ( wcel w3a wn co c0 wa wceq ndmoprrcl imlan 3anass sylibr con3 oprex
+      ndmopr syl im2an anandi bitr eqtr4d ) ADLZBDLZCDLZMZNZABCEOZFOZPABFOZACFO
+      ZEOZUOUKUPDLZQZNUQPRVBUNVBUKULUMQZQZUNVAVCUKBCDEIHJSTUKULUMUAZUBUCAUPDFBC
+      EUDKUEUFUOURDLZUSDLZQZNUTPRVHUNVHUKULQZUKUMQZQZUNVFVIVGVJABDFGKJSACDFIKJS
+      UGUNVDVKVEUKULUMUHUIUBUCURUSDEACFUDHUEUFUJ $.
+      $([24-Aug-95]$)
+      $}
+    $}
+
+    ${
+      ndmord.3 $e |- A e. V $.
+      ndmord.4 $e |- R (_ ( S X. S ) $.
+      ndmord.5 $e |- -. (/) e. S $.
+      ndmord.6 $e |- ( ( A e. S /\ B e. S /\ C e. S ) ->
+                     ( A R B <-> ( C F A ) R ( C F B ) ) ) $.
+        $( Elimination of redundant antecedents in ordering law. $)
+      ndmord $p |- ( C e. S -> ( A R B <-> ( C F A ) R ( C F B ) ) ) $=
+      ( wcel wa wbr co wb wi 3exp imp wn ndmbr oprex ndmoprrcl pm3.27d im2an
+      syl pm5.21ni a1d pm2.61i ) AEMZBEMZNZCEMZABDOZCAFPZCBFPZDOZQZRZUKULUTUKUL
+      UNUSLSTUMUAUSUNUOUMURABEEDGJUBURUPEMZUQEMZNUMUPUQEEDCBFUCJUBVAUKVBULVAUNU
+      KCAEFIHKUDUEVBUNULCBEFGHKUDUEUFUGUHUIUJ $.
+      $([7-Mar-96]$)
+    $}
+  $}
+
+  ${
+    ndmordi.3 $e |- A e. V $.
+    ndmordi.2 $e |- dom F = ( S X. S ) $.
+    ndmordi.4 $e |- R (_ ( S X. S ) $.
+    ndmordi.5 $e |- -. (/) e. S $.
+    ndmordi.6 $e |- ( C e. S -> ( A R B <-> ( C F A ) R ( C F B ) ) ) $.
+    $( Elimination of redundant antecedent in ordering law. $)
+    ndmordi $p |- ( ( C F A ) R ( C F B ) -> A R B ) $=
+      ( wcel co wbr biimprd oprex ndmbr pm3.26d ndmoprrcl syl mpcom ) CELZCAF
+      MZCBFMZDNZABDNZUBUFUEKOUEUCELZUBUEUGUDELUCUDEEDCBFPIQRUGUBAELCAEFGHJSRTUA
+      $.
+  $}
+
+  ${
+    $( General laws for commutative, associative, distributive operations. $)
+    $d x y z F $.  $d x y z S $.  $d x y z A $.  $d x y z B $.  $d x y z C $.
+    $d x y z D $.  $d x y z G $.  $d x y z R $.
+
+    ${
+      caoprcl.1 $e |- ( ( x e. S /\ y e. S ) -> ( x F y ) e. S ) $.
+      $( Convert operator closure law to class notation. $)
+      caoprcl $p |- ( ( A e. S /\ B e. S ) -> ( A F B ) e. S ) $=
+      ( cv co wcel wceq opreq1 cleq3d opreq2 vtocl2ga ) AHZBHZFIZEJCQFIZEJCDFI
+      ZEJABCDEEPCKRSEPCQFLMQDKSTEQDCFNMGO $.
+      $([4-Aug-95]$)
+    $}
+
+    ${
+      caoprcom.1 $e |- A e. V $.
+      caoprcom.2 $e |- B e. V $.
+      caoprcom.3 $e |- ( x F y ) = ( y F x ) $.
+      $( Convert operator commutative law to class notation. $)
+      caoprcom $p |- ( A F B ) = ( B F A ) $=
+      ( cv co wceq opreq1 opreq2 cleq12d sylan9bb vtoclb2v ) AIZBIZEJZRQEJZKZC
+      DEJZDCEJZKZABCDFGQCKZUACREJZRCEJZKRDKZUDUESUFTUGQCRELQCREMNUHUFUBUGUCRDCE
+      MRDCELNOHP $.
+      $([26-Aug-95]$)
+    $}
+
+    ${
+      caoprass.1 $e |- A e. V $.
+      caoprass.2 $e |- B e. V $.
+      caoprass.3 $e |- C e. V $.
+      caoprass.4 $e |- ( ( x F y ) F z ) = ( x F ( y F z ) ) $.
+      $( Convert operator associative law to class notation. $)
+      caoprass $p |- ( ( A F B ) F C ) = ( A F ( B F C ) ) $=
+      ( cv co wceq opreq1 opreq1d cleq12d opreq2 opreq2d 3sylan9b vtoclb3v
+      ) ALZBLZGMZCLZGMZUBUCUEGMZGMZNZDEGMZFGMZDEFGMZGMZNZABCDEFHIJUBDNZUIDUCGMZ
+      UEGMZDUGGMZNUCENZUJUEGMZDEUEGMZGMZNUEFNZUNUOUFUQUHURUOUDUPUEGUBDUCGOPUBDU
+      GGOQUSUQUTURVBUSUPUJUEGUCEDGRPUSUGVADGUCEUEGOSQVCUTUKVBUMUEFUJGRVCVAULDGU
+      EFEGRSQTKUA $.
+      $([26-Aug-95]$)
+    $}
+
+    ${
+      caoprcan.1 $e |- C e. V $.
+      caoprcan.2 $e |- ( ( x e. S /\ y e. S ) ->
+                   ( ( x F y ) = ( x F z ) -> y = z ) ) $.
+      $( Convert operator cancellation law to class notation. $)
+      caoprcan $p |- ( ( A e. S /\ B e. S ) ->
+                   ( ( A F B ) = ( A F C ) -> B = C ) ) $=
+      ( cv co wceq wi opreq1 cleq12d birimd opreq2 cleq1d cleq1 bi2imd
+      wcel wa weq cleq2d cleq2 bilimd vtoclbv vtocl2ga ) AKZBKZHLZUJFHLZMZUKF
+      MZNZDUKHLZDFHLZMZUONDEHLZURMZEFMZNABDEGGUJDMZUNUSUOVCULUQUMURUJDUKHOUJDFH
+      OPQUKEMZUSVAUOVBVDUQUTURUKEDHRSUKEFTUAUJGUBUKGUBUCZULUJCKZHLZMZBCUDZNZNVE
+      UPNCFIVFFMZVJUPVEVKVHUNVIUOVKVGUMULVFFUJHRUEVFFUKUFUAUGJUHUI $.
+      $([20-Aug-95]$)
+    $}
+
+    ${
+      caoprcanOBS.1 $e |- ( ( x e. S /\ y e. S /\ z e. S ) ->
+                   ( ( x F y ) = ( x F z ) -> y = z ) ) $.
+      $( Convert operator cancellation law to class notation. $)
+      caoprcanOBS $p |- ( ( A e. S /\ B e. S /\ C e. S ) ->
+                   ( ( A F B ) = ( A F C ) -> B = C ) ) $=
+      ( cv co wceq weq wi opreq1 cleq12d birimd opreq2 cleq1d cleq1 bi2imd
+      cleq2d cleq2 vtocl3ga ) AJZBJZHKZUECJZHKZLZBCMZNDUFHKZDUHHKZLZUKNDEHKZUM
+      LZEUHLZNUODFHKZLZEFLZNABCDEFGGGUEDLZUJUNUKVAUGULUIUMUEDUFHOUEDUHHOPQUFELZ
+      UNUPUKUQVBULUOUMUFEDHRSUFEUHTUAUHFLZUPUSUQUTVCUMURUOUHFDHRUBUHFEUCUAIUD
+      $.
+      $([20-Aug-95]$)
+    $}
+
+    ${
+      caoprord.1 $e |- A e. V $.
+      caoprord.2 $e |- B e. V $.
+      caoprord.3 $e |- ( z e. S -> ( x R y <-> ( z F x ) R ( z F y ) ) ) $.
+      $( Convert operator ordering law to class notation. $)
+      caoprord $p |- ( C e. S -> ( A R B <-> ( C F A ) R ( C F B ) ) ) $=
+      ( wbr cv co wb wceq opreq1 breq12d bilbid wcel wi wa breq1 opreq2
+      breq1d bi2bid breq2 breq2d sylan9bb bilimd vtoclb2v vtoclga ) DEGMZCN
+      ZDIOZUOEIOZGMZPZUNFDIOZFEIOZGMZPCFHUOFQZURVBUNVCUPUTUQVAGUOFDIRUOFEIRSTUO
+      HUAZANZBNZGMZUOVEIOZUOVFIOZGMZPZUBVDUSUBABDEJKVEDQZVFEQZUCVKUSVDVLVKDVFGM
+      ZUPVIGMZPVMUSVLVGVNVJVOVEDVFGUDVLVHUPVIGVEDUOIUEUFUGVMVNUNVOURVFEDGUHVMVI
+      UQUPGVFEUOIUEUIUGUJUKLULUM $.
+      $([19-Feb-96]$)
+
+      ${
+        $( (We don't bother to eliminate this redundant hypothesis.) $)
+        caoprord2.3   $e |- C e. V $.
+        caoprord2.com $e |- ( x F y ) = ( y F x ) $.
+        $( Operator ordering law with commuted arguments. $)
+        caoprord2 $p |- ( C e. S -> ( A R B <-> ( A F C ) R ( B F C ) ) ) $=
+      ( wcel wbr co caoprord caoprcom breq12i syl6bb ) FHODEGPFDIQZFEIQZGPDFIQZ
+      EFIQZGPABCDEFGHIJKLRUBUDUCUEGABFDIMJNSABFEIMKNSTUA $.
+      $([27-Feb-96]$)
+
+
+        ${
+          $( (We don't bother to eliminate redundant hypotheses.) $)
+          caoprord3.4 $e |- D e. V $.
+          $( Ordering law. $)
+          caoprord3 $p |- ( ( ( B e. S /\ C e. S ) /\
+                    ( A F B ) = ( C F D ) ) -> ( A R C <-> D R B ) ) $=
+      ( wcel wa co wceq wbr wb caoprord2 adantr breq1 sylan9bb caoprord adantl
+      bitr4d ) EIQZFIQZRZDEJSZFGJSZTZRDFHUAZUNFEJSZHUAZGEHUAZULUPUMUQHUAZUOURU
+      JUPUTUBUKABCDFEHIJKNMLOUCUDUMUNUQHUEUFULUSURUBZUOUKVAUJABCGEFHIJPLMUGUHUD
+      UI $.
+      $([29-Feb-96]$)
+        $}
+      $}
+
+    $}
+
+
+    ${
+      caoprdistr.1 $e |- A e. V $.
+      caoprdistr.2 $e |- B e. V $.
+      caoprdistr.3 $e |- C e. V $.
+      caoprdistr.4 $e |- ( x G ( y F z ) ) = ( ( x G y ) F ( x G z ) ) $.
+      $( Convert operator distributive law to class notation. $)
+      caoprdistr $p |- ( A G ( B F C ) ) = ( ( A G B ) F ( A G C ) ) $=
+      ( cv co wceq opreq1 opreq12d cleq12d opreq2d opreq2 opreq1d 3sylan9b
+      vtoclb3v ) AMZBMZCMZGNZHNZUDUEHNZUDUFHNZGNZOZDEFGNZHNZDEHNZDFHNZGNZOZABCD
+      EFIJKUDDOZULDUGHNZDUEHNZDUFHNZGNZOUEEOZDEUFGNZHNZUOVBGNZOUFFOZURUSUHUTUKV
+      CUDDUGHPUSUIVAUJVBGUDDUEHPUDDUFHPQRVDUTVFVCVGVDUGVEDHUEEUFGPSVDVAUOVBGUEE
+      DHTUARVHVFUNVGUQVHVEUMDHUFFEGTSVHVBUPUOGUFFDHTSRUBLUC $.
+      $([25-Aug-95]$)
+    $}
+
+    ${
+      caopr.1 $e |- A e. V $.
+      caopr.2 $e |- B e. V $.
+      caopr.3 $e |- C e. V $.
+      caopr.com $e |- ( x F y ) = ( y F x ) $.
+      caopr.ass $e |- ( ( x F y ) F z ) = ( x F ( y F z ) ) $.
+
+      $( Rearrange arguments in commutative, associative operation. $)
+      caopr32 $p |- ( ( A F B ) F C ) = ( ( A F C ) F B ) $=
+      ( co caoprcom opreq2i caoprass 3eqtr4 ) DEFGMZGMDFEGMZGMDEGMFGMDFGMEGMRSD
+      GABEFGIJKNOABCDEFGHIJLPABCDFEGHJILPQ $.
+      $([26-Aug-95]$)
+
+      $( Rearrange arguments in commutative, associative operation. $)
+      caopr12 $p |- ( A F ( B F C ) ) = ( B F ( A F C ) ) $=
+      ( co caoprcom opreq1i caoprass 3eqtr3 ) DEGMZFGMEDGMZFGMDEFGMGMEDFGMGMRSF
+      GABDEGHIKNOABCDEFGHIJLPABCEDFGIHJLPQ $.
+      $([26-Aug-95]$)
+
+      $( Rearrange arguments in commutative, associative operation. $)
+      caopr31 $p |- ( ( A F B ) F C ) = ( ( C F B ) F A ) $=
+      ( co caoprass caopr12 eqtr caopr32 eqtr3 3eqtr4 ) DFGMEGMZFDEGMZGMZUAFGMF
+      EGMZDGMZTDUCGMUBABCDFEGHJILNABCDFEGHJIKLOPABCDEFGHIJKLQFDGMEGMUDUBABCFDEG
+      JHIKLQABCFDEGJHILNRS $.
+      $([26-Aug-95]$)
+
+      $( Rearrange arguments in commutative, associative operation. $)
+      caopr13 $p |- ( A F ( B F C ) ) = ( C F ( B F A ) ) $=
+      ( co caopr31 caoprass 3eqtr3 ) DEGMFGMFEGMDGMDEFGMGMFEDGMGMABCDEFGHIJKLNA
+      BCDEFGHIJLOABCFEDGJIHLOP $.
+      $([26-Aug-95]$)
+
+      ${
+        caopr.4 $e |- D e. V $.
+
+        $( Rearrange arguments in commutative, associative operation. $)
+        caopr4 $p |- ( ( A F B ) F ( C F D ) ) = ( ( A F C ) F ( B F D ) ) $=
+      ( co caopr12 opreq2i oprex caoprass 3eqtr4 ) DEFGHOZHOZHODFEGHOZHOZHODEHO
+      UAHODFHOUCHOUBUDDHABCEFGHJKNLMPQABCDEUAHIJFGHRMSABCDFUCHIKEGHRMST $.
+      $([26-Aug-95]$)
+
+        $( Rearrange arguments in commutative, associative operation. $)
+        caopr411 $p |- ( ( A F B ) F ( C F D ) ) = ( ( C F B ) F ( A F D ) ) $=
+      ( co caopr31 opreq1i oprex caoprass 3eqtr3 ) DEHOZFHOZGHOFEHOZDHOZGHOUAFG
+      HOHOUCDGHOHOUBUDGHABCDEFHIJKLMPQABCUAFGHDEHRKNMSABCUCDGHFEHRINMST $.
+      $([26-Aug-95]$)
+
+        $( Rearrange arguments in commutative, associative operation. $)
+        caopr41r3 $p |- ( ( A F B ) F ( C F D ) ) = ( ( A F C ) F ( D F B ) ) $=
+      ( co caopr4 caoprcom opreq2i eqtr ) DEHOFGHOHODFHOZEGHOZHOTGEHOZHOABCDEFG
+      HIJKLMNPUAUBTHABEGHJNLQRS $.
+      $([26-Aug-95]$)
+      $}
+    $}
+
+    ${
+      caoprd.1 $e |- A e. V $.
+      caoprd.2 $e |- B e. V $.
+      caoprd.3 $e |- C e. V $.
+      caoprd.com $e |- ( x G y ) = ( y G x ) $.
+      caoprd.distr $e |- ( x G ( y F z ) ) = ( ( x G y ) F ( x G z ) ) $.
+      $( Reverse distributive law. $)
+      caoprdistrr $p |- ( ( A F B ) G C ) = ( ( A G C ) F ( B G C ) ) $=
+      ( co caoprdistr oprex caoprcom opreq12i 3eqtr3 ) FDEGNZHNFDHNZFEHNZGNTFHN
+      DFHNZEFHNZGNABCFDEGHKIJMOABFTHKDEGPLQUAUCUBUDGABFDHKILQABFEHKJLQRS $.
+      $([26-Aug-95]$)
+
+      ${
+        $d x y z H $.  $d x y z R $.
+        caoprdl.4 $e |- D e. V $.
+        caoprdl.5 $e |- H e. V $.
+        caoprdl.ass $e |- ( ( x G y ) G z ) = ( x G ( y G z ) ) $.
+        $( Lemma used by real number construction. $)
+        caoprdilem $p |- ( ( ( A G C ) F ( B G D ) ) G H ) =
+                         ( ( A G ( C G H ) ) F ( B G ( D G H ) ) ) $=
+      ( co oprex caoprdistrr caoprass opreq12i eqtr ) DFISZEGISZHSJISUEJISZUFJI
+      SZHSDFJISISZEGJISISZHSABCUEUFJHIDFITEGITQNOUAUGUIUHUJHABCDFJIKMQRUBABCEGJ
+      ILPQRUBUCUD $.
+      $([26-Aug-95]$)
+
+        ${
+          caoprdl2.6 $e |- R e. V $.
+          caoprdl2.com $e |- ( x F y ) = ( y F x ) $.
+          caoprdl2.ass $e |- ( ( x F y ) F z ) = ( x F ( y F z ) ) $.
+          $( Lemma used in real number construction. $)
+          caoprlem2 $p |- ( ( ( ( A G C ) F ( B G D ) ) G H ) F
+                            ( ( ( A G D ) F ( B G C ) ) G R ) ) =
+   ( ( A G ( ( C G H ) F ( D G R ) ) ) F ( B G ( ( C G R ) F ( D G H ) ) ) ) $=
+      ( co oprex caopr41r3 caoprdilem opreq12i caoprdistr 3eqtr4 ) DFKJUCZJUCZE
+      GKJUCZJUCZIUCZDGHJUCZJUCZEFHJUCZJUCZIUCZIUCUKUPIUCZURUMIUCZIUCDFJUCEGJUCI
+      UCKJUCZDGJUCEFJUCIUCHJUCZIUCDUJUOIUCJUCZEUQULIUCJUCZIUCABCUKUMUPURIDUJJUD
+      EULJUDDUOJUDUAUBEUQJUDUEVBUNVCUSIABCDEFGIJKLMNOPQRSUFABCDEGFIJHLMQOPNTSUF
+      UGVDUTVEVAIABCDUJUOIJLFKJUDGHJUDPUHABCEUQULIJMFHJUDGKJUDPUHUGUI $.
+      $([26-Aug-95]$)
+        $}
+      $}
+    $}
+
+    ${
+      $d x y z w v $.
+      $d w v S $.  $d w v A $.  $d w v B $.  $d w v F $.  $( ` v ` is dummy. $)
+      caoprmo.1 $e |- A e. V $.
+      $( Identity element. $)
+      caoprmo.2 $e |- B e. S $.
+      caoprmo.dom $e |- dom F = ( S X. S ) $.
+      caoprmo.3 $e |- -. (/) e. S $.
+      caoprmo.com $e |- ( x F y ) = ( y F x ) $.
+      caoprmo.ass $e |- ( ( x F y ) F z ) = ( x F ( y F z ) ) $.
+      caoprmo.id $e |- ( x e. S -> ( x F B ) = x ) $.
+      $( Uniqueness of inverse element in commutative, associative operation
+         with identity.  Remark in proof of Proposition 9-2.4 of Gleason,
+         p. 119. $)
+      caoprmo $p |- E* w ( A F w ) = B $=
+      ( vv cv co wceq wcel wa wi wmo wal immo weq cleq3 opreq2 cleq1d bi2and
+      mo4 opreq1 id cleq12d vtoclga sylan9req visset caoprass caopr12 eqtr
+      syl5eq adantarl adantalr elisseti caoprcom sylan9eq adantarr adantall
+      eqtr3d ax-gen mpgbir mpi mpbiri ndmoprrcl pm3.27d syl ancri mpg ) EDQZH
+      RZFSZVSGTZWAUAZUBZWADUCZDWDDUDWCDUCZWEWAWCDUEWFWCPQZGTZEWGHRZFSZUAZUAZDPU
+      FZUBZPUDDWCWKDPWMWBWHWAWJVSWGGUGWMVTWIFVSWGEHUHUIUJUKWNPWLVTWGHRZVSWGWBWK
+      WOVSSZWAWBWJWPWHWBWJUAVSWIHRZVSWOWJWBWQVSFHRZVSWIFVSHUHAQZFHRZWSSZWRVSSAV
+      SGADUFZWTWRWSVSWSVSFHULXBUMUNOUOUPWOEVSWGHRHRWQABCEVSWGHIDUQZPUQZNURABCEV
+      SWGHIXCXDMNUSUTVAVBVCWAWKWOWGSZWBWAWHXEWJWAWHWOFWGHRZWGVTFWGHULWHWGFHRZWG
+      XFXAXGWGSAWGGAPUFZWTXGWSWGWSWGFHULXHUMUNOUOABFWGHFGJVDXDMVEVAVFVGVHVIVJVK
+      VLWAWBWAVTGTZWBWAXIFGTVTFGUGJVMXIEGTWBEVSGHXCKLVNVOVPVQVR $.
+      $([4-Mar-96]$)
+    $}
+
+  $}
+
+

@@ -1,0 +1,942 @@
+$(
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+        Binary relations, ordering, and founded relations
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+$)
+
+$(
+We have not yet defined relations, but here but introduce a few related
+notions we will use to develop ordinals.  The class variable ` R ` is no
+different from other class variables, but it reminds us that normally it
+represents what we will later call a "relation."
+$)
+
+  $( Declare new constant symbols. $)
+  $c E $. $( Letter E (for epsilon relation) $)
+  $c I $.  $( Letter I (for identity relation) $)
+  $c Po $.  $( Partial ordering predicate symbol (read: 'partial ordering'). $)
+  $c Or $.  $( Strict ordering predicate symbol (read: 'orders'). $)
+  $c Fr $. $( Founded predicate symbol (read: 'founded'). $)
+  $c We $. $( Well-ordering predicate symbol (read: 'well orders') $)
+
+  $( Extend wff notation to include the general binary relation predicate.
+     Note that this is simply three class symbols in a row. $)
+  wbr $a wff A R B $.
+
+  $( Extend class notation to include abstraction classes of ordered pairs. $)
+  copab $a class { <. x , y >. | ph } $.
+
+  $( Extend class notation to include the epsilon relation. $)
+  cep $a class E $.
+
+  $( Extend the definition of a class to include identity relation. $)
+  cid $a class I $.
+
+  $( Extend wff notation to include the partial ordering predicate.  Read:
+     '` R ` is a partial order on ` A `.' $)
+  wpo $a wff R Po A $.
+
+  $( Extend wff notation to include the strict ordering predicate.  Read:
+     '` R ` orders ` A `.' $)
+  wor $a wff R Or A $.
+
+  $( Extend wff notation to include the founded predicate.  Read:  '` R ` is a
+     founded relation on ` A `.' $)
+  wfr $a wff R Fr A $.
+
+  $( Extend wff notation to include the well-ordering predicate.  Read:  '`R `
+     well-orders ` A `.' $)
+  wwe $a wff R We A $.
+
+  $( Define a notation for a general binary relation.  Definition 6.18, p. 29,
+      of Takeuti and Zaring, generalized to arbitrary classes.  This definition
+      is well-defined, although not very meaningful, when classes ` A ` and/or
+      ` B ` are proper. $)
+  df-br $a |- ( A R B <-> <. A , B >. e. R ) $.
+
+  $( Equality theorem for a binary relation. $)
+  breq $p |- ( R = S -> ( A R B <-> A S B ) ) $=
+      ( wceq cop wcel wbr cleq4 df-br 3bitr4g ) CDEABFZCGLDGABCHABDHCDLIABCJABD
+      JK $.
+      $([4-Jun-95]$)
+
+  $( Equality theorem for binary relation. $)
+  breq1 $p |- ( A = B -> ( A R C <-> B R C ) ) $=
+      ( wceq cop wcel wbr opeq1 cleq3d df-br 3bitr4g ) ABEZACFZDGBCFZDGACDHBCD
+      HMNODABCIJACDKBCDKL $.
+      $([31-Dec-93]$)
+
+  $( Equality theorem for binary relation. $)
+  breq2 $p |- ( A = B -> ( C R A <-> C R B ) ) $=
+      ( wceq cop wcel wbr opeq2 cleq3d df-br 3bitr4g ) ABEZCAFZDGCBFZDGCADHCBD
+      HMNODABCIJCADKCBDKL $.
+      $([31-Dec-93]$)
+
+  $( Equality theorem for binary relation. $)
+  breq12 $p |- ( ( A = B /\ C = D ) -> ( A R C <-> B R D ) ) $=
+      ( wceq wbr breq1 breq2 sylan9bb ) ABFACEGBCEGCDFBDEGABCEHCDBEIJ $.
+      $([8-Feb-96]$)
+
+  ${
+    breq1i.1 $e |- A = B $.
+    $( Equality inference for binary relation. $)
+    breq1i   $p |- ( A R C <-> B R C ) $=
+      ( wceq wbr wb breq1 ax-mp ) ABFACDGBCDGHABCDIEJ $.
+      $([8-Feb-96]$)
+
+    $( Equality inference for binary relation. $)
+    breq2i   $p |- ( C R A <-> C R B ) $=
+      ( wceq wbr wb breq2 ax-mp ) ABFCADGCBDGHABCDIEJ $.
+      $([8-Feb-96]$)
+
+    ${
+      breq12i.2 $e |- C = D $.
+      $( Equality inference for binary relation. $)
+      breq12i   $p |- ( A R C <-> B R D ) $=
+      ( wbr breq1i breq2i bitr ) ACEHBCEHBDEHABCEFICDBEGJK $.
+      $([8-Feb-96]$)
+    $}
+  $}
+
+  ${
+    breq1d.1 $e |- ( ph -> A = B ) $.
+    $( Equality inference for binary relation. $)
+    breq1d   $p |- ( ph -> ( A R C <-> B R C ) ) $=
+      ( wceq wbr wb breq1 syl ) ABCGBDEHCDEHIFBCDEJK $.
+      $([8-Feb-96]$)
+
+    $( Equality inference for binary relation. $)
+    breq2d   $p |- ( ph -> ( C R A <-> C R B ) ) $=
+      ( wceq wbr wb breq2 syl ) ABCGDBEHDCEHIFBCDEJK $.
+      $([8-Feb-96]$)
+
+    ${
+      breq12d.2 $e |- ( ph -> C = D ) $.
+      $( Equality inference for binary relation. $)
+      breq12d   $p |- ( ph -> ( A R C <-> B R D ) ) $=
+      ( wbr breq1d breq2d bitrd ) ABDFICDFICEFIABCDFGJADECFHKL $.
+      $([8-Feb-96]$)
+    $}
+
+    ${
+      breqan12i.2 $e |- ( ps -> C = D ) $.
+      $( Equality inference for binary relation. $)
+      breqan12d   $p |- ( ( ph /\ ps ) -> ( A R C <-> B R D ) ) $=
+      ( wceq wbr wb breq12 syl2an ) CDJEFJCEGKDFGKLABCDEFGMHIN $.
+      $([8-Feb-96]$)
+
+      $( Equality inference for binary relation. $)
+      breqan12rd   $p |- ( ( ps /\ ph ) -> ( A R C <-> B R D ) ) $=
+      ( wbr wb breqan12d ancoms ) ABCEGJDFGJKABCDEFGHILM $.
+      $([8-Feb-96]$)
+    $}
+  $}
+
+  ${
+    3brtr3g.1 $e |- ( ph -> A R B ) $.
+    3brtr3g.2 $e |- A = C $.
+    3brtr3g.3 $e |- B = D $.
+    $( Substitution of equality into both sides of a binary relation. $)
+    3brtr3g   $p |- ( ph -> C R D ) $=
+      ( wbr breq1i breq2i bitr sylib ) ABCFJZDEFJZGODCFJPBDCFHKCEDFILMN $.
+      $([16-Jan-97]$)
+  $}
+
+  ${
+    3brtr4g.1 $e |- ( ph -> A R B ) $.
+    3brtr4g.2 $e |- C = A $.
+    3brtr4g.3 $e |- D = B $.
+    $( Substitution of equality into both sides of a binary relation. $)
+    3brtr4g   $p |- ( ph -> C R D ) $=
+      ( wbr breq1i breq2i bitr sylibr ) ABCFJZDEFJZGPBEFJODBEFHKECBFILMN $.
+      $([16-Jan-97]$)
+  $}
+
+  ${
+    $d x z $.  $d y z $.  $d R z $.
+    $( Relationship between a binary relation and a class abstraction. $)
+    brab $p |- ( x R y <-> x e. { z | z R y } ) $=
+      ( cv wbr cab wcel visset breq1 abcl bicom ) AEZCEZBEZDFZCGHMODFZPQCMAINMO
+      DJKL $.
+      $([7-Apr-94]$)
+  $}
+
+  ${
+    $d x y z $.  $d z ph $.
+    $( Define abstraction classes of ordered pairs.  Definition 3.3 of
+       Monk1, p. 34. $)
+    df-opab $a |- { <. x , y >. | ph } =
+                  { z | E. x E. y ( z = <. x , y >. /\ ph ) } $.
+  $}
+
+  ${
+    $d x y z w v $.  $d ph z w v $.  $( ` z w v ` are dummy. $)
+    $( The law of concretion.  Special case of Theorem 9.5 of Quine, p. 61. $)
+    opabid $p |- ( ph <-> <. x , y >. e. { <. x , y >. | ph } ) $=
+      ( vz vw vv cv cop wceq wa wex cab wcel copab clelab df-opab cleq4i wsb
+      weq 19.41v anass biex cleqcom opex eqvinc visset opth 3bitr3 biran
+      3bitr3r bi2ex sbel2x 19.11 exdistr2 3bitr4 ax-17 hbsbv hban hbex opeq1
+      cleq2d sbequ12 bi2and biexdv cbvex opeq2 bitr bilan bitr4 3bitr4r ) BG
+      ZCGZHZDGZVMIZAJZCKZBKZDLZMVOVRJZDKZVMABCNZMAVRDVMOWBVSVMABCDPQAVOVNEGZFGZ
+      HZIZABERZCFRZJZFKZEKZJZDKZWAEBSFCSJZWHJZFKEKVOWIJZDKZFKZEKZAWMWOWQEFVOWFJ
+      ZWHJZDKWTDKZWHJWQWOWTWHDTXAWPDVOWFWHUAUBXBWNWHVMWEIWEVMIXBWNVMWEUCDVMWEVK
+      VLUDUEWCWDVKVLEUFFUFCUFUGUHUIUJUKAEFBCULWPFKZEKDKXCDKZEKWMWSXCDEUMVOWIDEF
+      UNXDWREWPDFUMUBUHUOVTWLDVRWKVOVRVNWCVLHZIZWGJZCKZEKWKVQXHBEVQEUPXGBCXFWGB
+      XFBUPABEUQURUSBESZVPXGCXIVOXFAWGXIVMXEVNVKWCVLUTVAABEVBVCVDVEXHWJEXGWICFX
+      GFUPWFWHCWFCUPWGCFUQURCFSZXFWFWGWHXJXEWEVNVLWDWCVFVAWGCFVBVCVEUBVGVHUBVIV
+      J $.
+      $([14-Apr-95]$)
+  $}
+
+  ${
+    $d x y w $.  $d x z $.  $d w ph $.  $( ` w ` is dummy. $)
+    $( The abstraction variables in an abstraction class of pairs are not
+       free. $)
+    hbopab1 $p |- ( z e. { <. x , y >. | ph } ->
+                 A. x z e. { <. x , y >. | ph } ) $=
+      ( vw cv cop wceq wa wex cab wcel wal copab hbe1 hbab df-opab cleq4i
+      bial 3imtr4 ) DFZEFBFCFGHAICJZBJZEKZLZUEBMUAABCNZLZUGBMUCBEDUBBOPUFUDUAAB
+      CEQRZUGUEBUHST $.
+      $([16-May-95]$)
+  $}
+
+  ${
+    $d x y w $.  $d y z $.  $d w ph $.  $( ` w ` is dummy. $)
+    $( The abstraction variables in an abstraction class of pairs are not
+       free. $)
+    hbopab2 $p |- ( z e. { <. x , y >. | ph } ->
+                 A. y z e. { <. x , y >. | ph } ) $=
+      ( vw cv cop wceq wa wex cab wcel wal copab hbe1 hbex hbab df-opab
+      cleq4i bial 3imtr4 ) DFZEFBFCFGHAIZCJZBJZEKZLZUGCMUBABCNZLZUICMUECEDUDCBU
+      CCOPQUHUFUBABCERSZUIUGCUJTUA $.
+      $([16-May-95]$)
+  $}
+
+  ${
+    $d x y z R $.  $( ` z ` is dummy. $)
+    $( The collection of ordered pairs in a class is a subclass of it. $)
+    opabss $p |- { <. x , y >. | x R y } (_ R $=
+      ( vz cv cop wceq wbr wa wex cab wcel copab cleq3 biimpar df-br sylan5b
+      19.23aiaiv ssab2i df-opab abid2 3sstr4 ) DEZAEZBEZFZGZUDUECHZIZBJAJZDKUCC
+      LZDKUHABMCUJUKDUIUKABUGUFCLZUKUHUGUKULUCUFCNOUDUECPQRSUHABDTDCUAUB $.
+      $([27-Dec-96]$)
+  $}
+
+  ${
+    $d x y z w $.  $d z w v ph $.  $d x y v ps $.  $( ` v ` is dummy. $)
+    cbvopabv.1 $e |- ( ( x = z /\ y = w ) -> ( ph <-> ps ) ) $.
+    $( Rule used to change bound variables with implicit substitution. $)
+    cbvopabv   $p |- { <. x , y >. | ph } = { <. z , w >. | ps } $=
+      ( vv cv cop wceq wa wex cab copab weq visset opth biimpr cleq2d bi2and
+      cbvex2v biab df-opab 3eqtr4 ) HIZCIZDIZJZKZALZDMCMZHNUFEIZFIZJZKZBLZFMEMZ
+      HNACDOBEFOULURHUKUQCDEFCEPDFPLZUJUPABUSUIUOUFUIUOKUSUGUHUMUNCQDQFQRSTGUAU
+      BUCACDHUDBEFHUDUE $.
+      $([15-Oct-96]$)
+  $}
+
+  ${
+    $d x y z ph $.  $d z ps $.  $d z ch $.  $( ` z ` is dummy. $)
+    biopabdv.1 $e |- ( ph -> ( ps <-> ch ) ) $.
+    $( Equivalent wff's yield equal abstraction classes (deduction rule). $)
+    biopabdv   $p |- ( ph -> { <. x , y >. | ps } = { <. x , y >. | ch } ) $=
+      ( vz cv cop wceq wa wex cab copab biland bi2exdv biabdv df-opab
+      3eqtr4g ) AGHDHEHIJZBKZELDLZGMTCKZELDLZGMBDENCDENAUBUDGAUAUCDEABCTFOPQBDE
+      GRCDEGRS $.
+      $([15-May-95]$)
+  $}
+
+  ${
+    $d x y z $.  $d z ph $.  $d z ps $.  $( ` z ` is dummy. $)
+    biopab.1 $e |- ( ph <-> ps ) $.
+    $( Equivalent wff's yield equal abstraction classes. $)
+    biopab   $p |- { <. x , y >. | ph } = { <. x , y >. | ps } $=
+      ( vz weq wi copab wceq wb a1i biopabdv eqcom ax-mp ) FFGZPHZACDIBCDIJQAB
+      CDABKQELMFFNO $.
+      $([15-May-95]$)
+  $}
+
+  ${
+    $d x y z A $.  $d x y z B $.  $d x y ch $.  $d z ph $.  $( ` z ` is dummy. $)
+    elopabg.1 $e |- ( x = A -> ( ph <-> ps ) ) $.
+    elopabg.2 $e |- ( y = B -> ( ps <-> ch ) ) $.
+    $( The law of concretion.  Theorem 9.5 of Quine, p. 61. $)
+    elopabg   $p |- ( ( A e. C /\ B e. D ) ->
+                    ( <. A , B >. e. { <. x , y >. | ph } <-> ch ) ) $=
+      ( vz wcel wa cv wceq wex cop copab wb elex im2an eeanv sylibr ax-17
+      hbopab1 hbel hbbi hbopab2 opeq12 cleq3d opabid syl5bb sylan9bb bitr3d
+      19.23ai syl ) FHMZGIMZNZDOZFPZEOZGPZNZEQZDQZFGRZADESZMZCTZUTVBDQZVDEQZNVG
+      URVLUSVMDFHUAEGIUAUBVBVDDEUCUDVFVKDVJCDDLLVHVILOVHMZDUEADELUFUGCDUEUHVEVK
+      EVJCEELLVHVIVNEUEADELUIUGCEUEUHVEAVJCVEVAVCRZVIMVJAVEVOVHVIVAVCFGUJUKADEU
+      LUMVBABVDCJKUNUOUPUPUQ $.
+      $([28-May-95]$)
+  $}
+
+  ${
+    $d x y A $.  $d x y B $.  $d x y ch $.
+    elopab.1 $e |- A e. V $.
+    elopab.2 $e |- B e. V $.
+    elopab.3 $e |- ( x = A -> ( ph <-> ps ) ) $.
+    elopab.4 $e |- ( y = B -> ( ps <-> ch ) ) $.
+    $( The law of concretion.  Theorem 9.5 of Quine, p. 61. $)
+    elopab   $p |- ( <. A , B >. e. { <. x , y >. | ph } <-> ch ) $=
+      ( cvv wcel cop copab wb elopabg mp2an ) FLMGLMFGNADEOMCPABCDEFGLLJKQHIR
+      $.
+      $([16-May-95]$)
+  $}
+
+  ${
+    $d ph z $.  $d ps z $.  $d x y z $.  $( ` z ` is dummy. $)
+    $( Equivalence of abstraction subclass and implication. $)
+    ssopab2 $p |- ( { <. x , y >. | ph } (_ { <. x , y >. | ps } <->
+               A. x A. y ( ph -> ps ) ) $=
+      ( vz copab wss wi wal hbopab1 hbss hbopab2 cv cop wceq wex wa cab
+      copsexg bi2imd ssab2 ax-4 sylbi syl5bir df-opab sseq1i sseq2i bitr
+      syl5ib 19.23aiv opex isseti ax-mp 19.21ai hba1 imland 19.22d a4s
+      19.21aiv sylibr impbi ) ACDFZBCDFZGZABHZDIZCIZVDVFCCEVBVCACDEJBCDEJKVDVED
+      DEVBVCACDELBCDELKEMZCMZDMZNZOZEPVDVEHZVLVMEVLVLAQZDPZCPZERZVLBQZDPZCPZERZ
+      GZVEVDVLVEVPVTHZWBVLAVPBVTACDVHSBCDVHSTWBWCEIZWCVPVTEUAZWCEUBUCUDVDVQVCGW
+      BVBVQVCACDEUEUFVCWAVQBCDEUEUGUHZUIUJEVKVIVJUKULUMUNUNVGWBVDVGWDWBVGWCEVGV
+      OVSCVFCUOVFVOVSHCVFVNVRDVEDUOVFABVLVEDUBUPUQURUQUSWEUTWFUTVA $.
+      $([27-Dec-96]$)
+  $}
+
+  ${
+    $d ph z $.  $d ps z $.  $d x y z $.  $( ` z ` is dummy. $)
+    ssopab2i.1 $e |- ( ph -> ps ) $.
+    $( Inference of abstraction subclass from implication. $)
+    ssopab2i $p |- { <. x , y >. | ph } (_ { <. x , y >. | ps } $=
+      ( copab wss wi wal ssopab2 ax-gen mpgbir ) ACDFBCDFGABHZDICABCDJMDEKL $.
+      $([5-Apr-95]$)
+  $}
+
+  ${
+    $d x y $.
+    $( Define the epsilon relation.  Similar to Definition 6.22, p. 30, of
+       Takeuti and Zaring. $)
+    df-eprel $a |- E = { <. x , y >. | x e. y } $.
+  $}
+
+  ${
+    $d x y A $.  $d x y B $.  $( ` x y ` are dummy. $)
+    epelc.1 $e |- A e. V $.
+    epelc.2 $e |- B e. V $.
+    $( The epsilon relation and the membership relation are the same. $)
+    epelc $p |- ( A E B <-> A e. B ) $=
+      ( vx vy cep wbr cop wcel wel copab df-br df-eprel cleq4i cv cleq3 cleq4
+      elopab 3bitr ) ABGHABIZGJUAEFKZEFLZJABJZABGMGUCUAEFNOUBAFPZJUDEFABCDEPAUE
+      QUEBARST $.
+      $([13-Aug-95]$)
+  $}
+
+  ${
+    $( The epsilon relation and the membership relation are the same. $)
+    epel $p |- ( x E y <-> x e. y ) $=
+      ( cv visset epelc ) ACBCADBDE $.
+      $([13-Aug-95]$)
+  $}
+
+  ${
+    $d x y $.
+    $( Define the identity relation.  Definition 9.15, p. 64, of Quine. $)
+    df-id $a |- I = { <. x , y >. | x = y } $.
+  $}
+
+  ${
+    $d x y A $.  $d x y B $.  $( ` x y ` are dummy. $)
+    ideq.1 $e |- A e. V $.
+    ideq.2 $e |- B e. V $.
+    $( For sets, the identity relation is the same as equality. $)
+    ideq   $p |- ( A I B <-> A = B ) $=
+      ( vx vy cid wbr cop wcel weq copab wceq df-br df-id cleq4i cv cleq1
+      cleq2 elopab 3bitr ) ABGHABIZGJUBEFKZEFLZJABMZABGNGUDUBEFOPUCAFQZMUEEFABC
+      DEQAUFRUFBASTUA $.
+      $([13-Aug-95]$)
+  $}
+
+  ${
+    $d x y z R $.  $d x y z A $.
+    $( Define a partial order relation.  Definition ? of Enderton, p. ?. $)
+    df-po $a |- ( R Po A <-> A. x e. A A. y e. A A. z e. A
+                ( -. x R x /\ ( ( x R y /\ y R z ) -> x R z ) ) ) $.
+  $}
+
+  ${
+    $d x y z R $.  $d x y z A $.  $d x y z B $.  $( ` x y z ` are dummy. $)
+    $( Subset theorem for the partial ordering predicate. $)
+    poss $p |- ( A (_ B -> ( R Po B -> R Po A ) ) $=
+      ( vx vy vz wss cv wbr wn wa wi wral wpo wcel w3a wal ssel im2and df-3an
+      3imtr4g syl4d 19.21aiiv r3al df-po ) ABGZDHZUGCIJUGEHZCIUHFHZCIKUGUICILKZ
+      FBMEBMDBMZUJFAMEAMDAMZBCNACNUFUGBOZUHBOZUIBOZPZUJLZFQZEQZDQUGAOZUHAOZUIAO
+      ZPZUJLZFQZEQZDQUKULUFUSVFDUFURVEEUFUQVDFUFVCUPUJUFUTVAKZVBKUMUNKZUOKVCUPU
+      FVGVHVBUOUFUTUMVAUNABUGRABUHRSABUIRSUTVAVBTUMUNUOTUAUBUCUCUCUJDEFBBBUDUJD
+      EFAAAUDUADEFBCUEDEFACUEUA $.
+      $([27-Mar-97]$)
+  $}
+
+  ${
+    $d x y z R $.  $d x y z S $.  $d x y z A $.  $( ` x y z ` are dummy. $)
+    $( Equality theorem for partial ordering predicate. $)
+    poeq1 $p |- ( R = S -> ( R Po A <-> S Po A ) ) $=
+      ( vx vy vz wceq cv wbr wn wa wi wral wpo breq binegd bi2and bi2imd
+      biraldv df-po 3bitr4g ) BCGZDHZUCBIZJZUCEHZBIZUFFHZBIZKZUCUHBIZLZKZFAMZEA
+      MZDAMUCUCCIZJZUCUFCIZUFUHCIZKZUCUHCIZLZKZFAMZEAMZDAMABNACNUBUOVEDAUBUNVDE
+      AUBUMVCFAUBUEUQULVBUBUDUPUCUCBCOPUBUJUTUKVAUBUGURUIUSUCUFBCOUFUHBCOQUCUHB
+      CORQSSSDEFABTDEFACTUA $.
+      $([27-Mar-97]$)
+  $}
+
+  $( Equality theorem for partial ordering predicate. $)
+  poeq2 $p |- ( A = B -> ( R Po A <-> R Po B ) ) $=
+      ( wceq wpo wss wa wi wb poss im2an eqss bi 3imtr4 bicomd ) ABDZBCEZACEZAB
+      FZBAFZGQRHZRQHZGPQRISUATUBABCJBACJKABLQRMNO $.
+      $([27-Mar-97]$)
+
+  ${
+    $d x y z R $. $d x y z A $.
+    $d x y z B $.  $d x y z C $.  $d x y z D $.  $( ` x y z ` are dummy. $)
+    $( Properties of partial order relation in class notation. $)
+    pocl $p |- ( R Po A -> ( ( B e. A /\ C e. A /\ D e. A ) ->
+               ( -. B R B /\ ( ( B R C /\ C R D ) -> B R D ) ) ) ) $=
+      ( vx vy vz wcel w3a wpo wbr wn wa wi cv wceq id breq12d binegd breq1
+      birand bi2imd bi2and bilimd breq2 birimd biland wal wral df-po r3al bitr
+      biimp 19.21bbi 19.21bi comm vtocl3ga ) BAICAIDAIJAEKZBBELZMZBCELZCDELZNZB
+      DELZOZNZUSFPZVHELZMZVHGPZELZVKHPZELZNZVHVMELZOZNZOUSVABVKELZVNNZBVMELZOZN
+      ZOUSVAVBCVMELZNZWAOZNZOUSVGOFGHBCDAAAVHBQZVRWCUSWHVJVAVQWBWHVIUTWHVHBVHBE
+      WHRZWISTWHVOVTVPWAWHVLVSVNVHBVKEUAUBVHBVMEUAUCUDUEVKCQZWCWGUSWJWBWFVAWJVT
+      WEWAWJVSVBVNWDVKCBEUFVKCVMEUAUDUGUHUEVMDQZWGVGUSWKWFVFVAWKWEVDWAVEWKWDVCV
+      BVMDCEUFUHVMDBEUFUCUHUEUSVHAIVKAIVMAIJZVRUSWLVROZHUSWMHUIZFGUSWNGUIFUIZUS
+      VRHAUJGAUJFAUJWOFGHAEUKVRFGHAAAULUMUNUOUPUQURUQ $.
+      $([27-Mar-97]$)
+  $}
+
+  $( A partial order relation is nonreflexive. $)
+  ponr $p |- ( ( R Po A /\ B e. A ) -> -. B R B ) $=
+      ( wpo wcel w3a wbr wn wa wi pocl imp pm3.26d anabs biran df-3an 3bitr4
+      sylan5b ) ACDZBAEZTTFZBBCGZHZTSUAIUCUBUBIUBJZSUAUCUDIABBBCKLMTTIZUETITUAT
+      UETTNZOUFTTTPQR $.
+      $([27-Mar-97]$)
+
+  $( A partial order relation is a transitive relation. $)
+  potr $p |- ( ( R Po A /\ ( B e. A /\ C e. A /\ D e. A ) ) ->
+             ( ( B R C /\ C R D ) -> B R D ) ) $=
+      ( wpo wcel w3a wa wbr wn wi pocl imp pm3.27d ) AEFZBAGCAGDAGHZIBBEJKZBCEJ
+      CDEJIBDEJLZPQRSIABCDEMNO $.
+      $([27-Mar-97]$)
+
+  $( A partial order relation has no 2-cycle loops. $)
+  po2nr $p |- ( ( R Po A /\ ( B e. A /\ C e. A ) ) ->
+              -. ( B R C /\ C R B ) ) $=
+      ( wpo wcel wa wbr wi w3a potr df-3an sylan5br exp44 com34 pm2.43d imp32
+      wn ponr adantarr mtod ) ADEZBAFZCAFZGZGBCDHCBDHGZBBDHZUBUCUDUFUGIZUBUCUDU
+      HIUBUCUDUCUHUBUCUDUCUHUBUCUDUCJUHUEUCGABCBDKUCUDUCLMNOPQUBUCUGRUDABDSTUA
+      $.
+      $([27-Mar-97]$)
+
+  $( A partial order relation has no 3-cycle loops. $)
+  po3nr $p |- ( ( R Po A /\ ( B e. A /\ C e. A /\ D e. A ) ) ->
+             -. ( B R C /\ C R D /\ D R B ) ) $=
+      ( wpo wcel w3a wa wbr potr imrand df-3an syl5ib wn po2nr 3simpb sylan5
+      mtod ) AEFZBAGZCAGZDAGZHZIZBCEJZCDEJZDBEJZHZBDEJZUHIZUEUFUGIZUHIUKUIUEULU
+      JUHABCDEKLUFUGUHMNTUAUCIUKOUDABDEPUAUBUCQRS $.
+      $([27-Mar-97]$)
+
+  ${
+    $d x y z R $. $( ` x y z ` are dummy. $)
+    $( Any relation is a partial ordering of the empty set. $)
+    po0 $p |- R Po (/) $=
+      ( vx vy vz c0 wpo cv wbr wn wa wi wral df-po wcel noel pm2.21i rgen
+      mpbir ) EAFBGZSAHISCGZAHTDGZAHJSUAAHKJDELCELZBELBCDEAMUBBESENUBSOPQR $.
+      $([28-Mar-97]$)
+  $}
+
+  ${
+    $d x y R $.  $d x y A $.
+    $( Define a strict or linear order relation. $)
+    df-so $a |- ( R Or A <-> ( R Po A /\ A. x e. A A. y e. A
+                ( x R y \/ x = y \/ y R x ) ) ) $.
+  $}
+
+  ${
+    $d x y R $.  $d x y A $.  $( ` x y ` are dummy. $)
+    $( A strict order is a partial order. $)
+    sopo $p |- ( R Or A -> R Po A ) $=
+      ( vx vy wor wpo cv wbr weq w3o wral wa df-so pm3.26 sylbi ) ABEABFZCGZ
+      DGZBHCDIRQBHJDAKCAKZLPCDABMPSNO $.
+      $([28-Mar-97]$)
+  $}
+
+  ${
+    $d x y R $.  $d x y A $.  $d x y B $.  $( ` x y ` are dummy. $)
+    $( Subset theorem for the strict ordering predicate. $)
+    soss $p |- ( A (_ B -> ( R Or B -> R Or A ) ) $=
+      ( vx vy wss wpo cv wbr weq w3o wral wa wor poss wcel wi wal ssel im2and
+      syl4d 19.21aiiv r2al 3imtr4g df-so ) ABFZBCGZDHZEHZCIDEJUIUHCIKZEBLDBL
+      ZMACGZUJEALDALZMBCNACNUFUGULUKUMABCOUFUHBPZUIBPZMZUJQZERZDRUHAPZUIAPZMZUJ
+      QZERZDRUKUMUFURVCDUFUQVBEUFVAUPUJUFUSUNUTUOABUHSABUISTUAUBUBUJDEBBUCUJDEA
+      AUCUDTDEBCUEDEACUEUD $.
+      $([16-Mar-97]$)
+  $}
+
+  ${
+    $d x y R $.  $d x y S $.  $d x y A $.  $( ` x y ` are dummy. $)
+    $( Equality theorem for the strict ordering predicate. $)
+    soeq1 $p |- ( R = S -> ( R Or A <-> S Or A ) ) $=
+      ( vx vy wceq wpo cv wbr weq w3o wral wa wor poeq1 breq pm4.2i bi3ord
+      biraldv bi2and df-so 3bitr4g ) BCFZABGZDHZEHZBIZDEJZUFUEBIZKZEALZDALZM
+      ACGZUEUFCIZUHUFUECIZKZEALZDALZMABNACNUCUDUMULURABCOUCUKUQDAUCUJUPEAUCUGUN
+      UHUHUIUOUEUFBCPUCUHQUFUEBCPRSSTDEABUADEACUAUB $.
+      $([16-Mar-97]$)
+  $}
+
+  $( Equality theorem for the strict ordering predicate. $)
+  soeq2 $p |- ( A = B -> ( R Or A <-> R Or B ) ) $=
+      ( wceq wor wss wa wi wb soss im2an eqss bi 3imtr4 bicomd ) ABDZBCEZACEZAB
+      FZBAFZGQRHZRQHZGPQRISUATUBABCJBACJKABLQRMNO $.
+      $([16-Mar-97]$)
+
+  $( A strict order relation is nonreflexive. $)
+  sonr $p |- ( ( R Or A /\ B e. A ) -> -. B R B ) $=
+      ( wpo wcel wbr wn wor ponr sopo sylan ) ACDBAEBBCFGACHABCIACJK $.
+      $([24-Nov-95]$)
+
+  $( A strict order relation is a transitive relation. $)
+  sotr $p |- ( ( R Or A /\ ( B e. A /\ C e. A /\ D e. A ) ) ->
+             ( ( B R C /\ C R D ) -> B R D ) ) $=
+      ( wpo wcel w3a wbr wa wi wor potr sopo sylan ) AEFBAGCAGDAGHBCEICDEIJBDEI
+      KAELABCDEMAENO $.
+      $([21-Jan-96]$)
+
+  ${
+    $d x y A $.  $d x y B $.  $d x y C $.  $d x y R $.
+      $( ` x y ` are dummy. $)
+    $( A strict order relation is linear (satisfies trichotomy). $)
+    solin $p |- ( ( R Or A /\ ( B e. A /\ C e. A ) ) ->
+              ( B R C \/ B = C \/ C R B ) ) $=
+      ( vx vy wor wcel wa wbr wceq w3o cv weq wi breq1 cleq1 breq2 bi3ord
+      bilimd cleq2 wpo wral df-so pm3.27 ra42 syl sylbi comm vtocl2ga imp )
+      ADGZBAHCAHIZBCDJZBCKZCBDJZLZUMULUQULEMZFMZDJZEFNZUSURDJZLZOULBUSDJZBUSKZU
+      SBDJZLZOULUQOEFBCAAURBKZVCVGULVHUTVDVAVEVBVFURBUSDPURBUSQURBUSDRSTUSCKZVG
+      UQULVIVDUNVEUOVFUPUSCBDRUSCBUAUSCBDPSTULURAHUSAHIZVCULADUBZVCFAUCEAUCZIZV
+      JVCOZEFADUDVMVLVNVKVLUEVCEFAAUFUGUHUIUJUIUK $.
+      $([21-Jan-96]$)
+  $}
+
+  $( A strict order relation has no 2-cycle loops. $)
+  so2nr $p |- ( ( R Or A /\ ( B e. A /\ C e. A ) ) ->
+              -. ( B R C /\ C R B ) ) $=
+      ( wpo wcel wa wbr wn wor po2nr sopo sylan ) ADEBAFCAFGBCDHCBDHGIADJABCDKA
+      DLM $.
+      $([21-Jan-96]$)
+
+  $( A strict order relation has no 3-cycle loops. $)
+  so3nr $p |- ( ( R Or A /\ ( B e. A /\ C e. A /\ D e. A ) ) ->
+             -. ( B R C /\ C R D /\ D R B ) ) $=
+      ( wpo wcel w3a wbr wn wor po3nr sopo sylan ) AEFBAGCAGDAGHBCEICDEIDBEIHJA
+      EKABCDELAEMN $.
+      $([21-Jan-96]$)
+
+  $( A strict order relation satisfies strict trichotomy. $)
+  sotric $p |- ( ( R Or A /\ ( B e. A /\ C e. A ) ) ->
+              ( B R C <-> -. ( B = C \/ C R B ) ) ) $=
+      ( wor wcel wa wceq wbr wo wn wi breq2 binegd sonr syl5bi comm adantarr
+      so2nr imnan sylibr pm2.03d jaod w3o solin 3orass df-or bitr sylib impbid
+      bicon2d ) ADEZBAFZCAFZGGZBCHZCBDIZJZBCDIZUOURUSKZUOUPUTUQULUMUPUTLUNUPULU
+      MGZUTUPBBDIZKUTVAUPVBUSBCBDMNABDOPQRUOUSUQUOUSUQGKUSUQKLABCDSUSUQTUAUBUCU
+      OUSUPUQUDZUTURLZABCDUEVCUSURJVDUSUPUQUFUSURUGUHUIUJUK $.
+      $([19-Feb-96]$)
+
+  $( Trichotomy law for strict order relation. $)
+  sotrieq $p |- ( ( R Or A /\ ( B e. A /\ C e. A ) ) ->
+              ( B = C <-> -. ( B R C \/ C R B ) ) ) $=
+      ( wor wcel wa wceq wbr wn wo wi anandi breq2 binegd sonr syl5bi syl5bir
+      im2and comm sylbi sotric bicon2d biimpar ord pm2.15d exp imp3a
+      impbid ioran syl6bbr ) ADEZBAFZCAFZGGZBCHZBCDIZJZCBDIZJZGZUQUSKJUOUPVAUO
+      ULUMGZULUNGZGZUPVALULUMUNMUPVDVAUPVBURVCUTUPBBDIZJURVBUPVEUQBCBDNOABDPQUP
+      UTCCDIZJVCUPUSVFBCCDNOACDPRSTUAUOURUTUPUOURUTUPLUOURGZUPUSVGUPUSUOUPUSKZU
+      RUOUQVHABCDUBUCUDUEUFUGUHUIUQUSUJUK $.
+      $([9-Apr-96]$)
+
+  ${
+    $d x y z R $.  $d x y z A $.
+    ntlso.1 $e |- ( x e. A -> -. x R x ) $.
+    ntlso.2 $e |- ( ( x e. A /\ y e. A /\ z e. A ) ->
+                  ( ( x R y /\ y R z ) -> x R z ) ) $.
+    ntlso.3 $e |- ( ( x e. A /\ y e. A ) -> ( x R y \/ x = y \/ y R x ) ) $.
+    $( A non-reflexive, transitive, linear relation is a strict ordering. $)
+    ntlso   $p |- R Or A $=
+      ( wor wpo cv wbr weq w3o wral wa df-so wn wi df-po wcel w3a adantr
+      3adant3 jca rgen3 mpbir rgen2 pm3.2i ) DEIDEJZAKZBKZELZABMULUKELNZBDOADOZ
+      PABDEQUJUOUJUKUKELRZUMULCKZELPUKUQELSZPZCDOBDOADOABCDETUSABCDUKDUAZULDUAZ
+      UQDUAZUBUPURUTVAUPVBUTUPVAFUCUDGUEUFUGUNABDHUHUIUG $.
+      $([21-Jan-96]$)
+  $}
+
+  ${
+    $d x y z R $.  $d x y z A $.
+    so.1 $e |- ( ( x e. A /\ y e. A /\ z e. A ) ->
+                  ( ( x R y <-> -. ( x = y \/ y R x ) ) /\
+                 ( ( x R y /\ y R z ) -> x R z ) ) ) $.
+    $( Deduce strict ordering from its properties. $)
+    so   $p |- R Or A $=
+      ( cv wcel wbr wn wa weq wo wb wi cleq3 biland cleq2 breq1 bi2ord breq2
+      binegd bi2bid bi2imd w3a anabs bilan 3anass bitr4 pm4.2i bi3and birimd
+      pm3.26d chv sylbi bicon2d orc eqid ax-mp mpbii anabss pm3.27d w3o
+      biimprd 3orass df-or bitr sylibr ntlso ) ABCDEAGZDHZVJVJEIZJZVKVKKZAALZVL
+      MZVMVKBGZDHZKZABLZVQVJEIZMZVJVQEIZJZNZOVNVPVMNZOBABALZVSVNWEWFWGVRVKVKVQV
+      JDPQWGWBVPWDVMWGVTVOWAVLVQVJVJRVQVJVJESTWGWCVLVQVJVJEUAUBUCUDVSWCWBVSVKVR
+      VRUEZWCWBJNZVSVKVRVRKZKWHVRWJVKVRUFUGVKVRVRUHUIVKVRCGZDHZUEZWIOWHWIOCBCBL
+      ZWMWHWIWNVKVKVRVRWLVRWNVKUJWNVRUJWKVQDPUKULWMWIWCVQWKEIKVJWKEIOZFUMUNUOUP
+      ZUNVOVPVOVLUQAURUSUTVAWMWIWOFVBVSWDWBOZWCVTWAVCZVSWBWDWPVDWRWCWBMWQWCVTWA
+      VEWCWBVFVGVHVI $.
+      $([29-Jan-96]$)
+  $}
+
+  ${
+    $d x y R $. $( ` x y ` are dummy. $)
+    $( Any relation is a strict ordering of the empty set. $)
+    so0 $p |- R Or (/) $=
+      ( vx vy c0 wor cv wbr weq w3o wral wpo df-so po0 mpbiran wcel noel
+      pm2.21i rgen mpbir ) DAEZBFZCFZAGBCHUBUAAGICDJZBDJZTDAKUDBCDALAMNUCBDUADO
+      UCUAPQRS $.
+      $([16-Mar-97]$)
+  $}
+
+  ${
+    $d x y z R $.  $d x y z A $.
+    $( Define a founded relation. $)
+    df-fr $a |- ( R Fr A <-> A. x ( ( x (_ A /\ -. x = (/) ) ->
+                E. y e. x A. z e. x -. z R y ) ) $.
+  $}
+
+  ${
+    $d x y z R $.  $d x y z A $.  $d x y z B $.  $( ` z ` is dummy. $)
+    fri.1 $e |- B e. V $.
+    $( Property of founded relation (one direction of definition). $)
+    fri   $p |- ( ( R Fr A /\ ( B (_ A /\ -. B = (/) ) ) ->
+                E. x e. B A. y e. B -. y R x ) $=
+      ( vz wfr wss c0 wceq wn wa cv wbr wral wrex wi wal df-fr sseq1 cleq1
+      binegd bi2and raleq rexeqd bi2imd cla4v sylbi imp ) CEHZDCIZDJKZLZMZBNANE
+      OLZBDPZADQZUKGNZCIZUSJKZLZMZUPBUSPZAUSQZRZGSUOURRZGABCETVFVGGDFUSDKZVCUOV
+      EURVHUTULVBUNUSDCUAVHVAUMUSDJUBUCUDVDUQAUSDUPBUSDUEUFUGUHUIUJ $.
+      $([18-Mar-97]$)
+  $}
+
+  ${
+    $d x y z w R $.  $d x y z w A $.  $( ` w ` is dummy. $)
+    $( Alternate definition of founded relation.  Similar
+       to Definition 6.21, p. 30, of Takeuti and Zaring. $)
+    dffr2 $p |- ( R Fr A <-> A. x ( ( x (_ A /\ -. x = (/) ) ->
+                E. y ( y e. x /\ ( x i^i { z | z R y } ) = (/) ) ) ) $=
+      ( vw wfr cv wss c0 wceq wn wa wbr wral wrex wi wal wel cab cin wex df-fr
+      wcel visset breq1 abcl bineg bilim bial disj df-ral 3bitr4 bilan biex
+      df-rex bitr4 ) DEGAHZDIURJKLMZFHZBHZENZLZFUROZBURPZQZARUSBASZURCHZVAENZCT
+      ZUAJKZMZBUBZQZARABFDEUCVNVFAVMVEUSVMVGVDMZBUBVEVLVOBVKVDVGFASZUTVJUDZLZQZ
+      FRVPVCQZFRVKVDVSVTFVRVCVPVQVBVIVBCUTFUEVHUTVAEUFUGUHUIUJFURVJUKVCFURULUMU
+      NUOVDBURUPUQUIUJUQ $.
+      $([2-Mar-97]$)
+  $}
+
+  ${
+    $d x y z R $.  $d x y z A $.  $d x y z B $.  $( ` z ` is dummy. $)
+    frc.1 $e |- B e. V $.
+    $( Property of founded relation (one direction of definition using class
+       variables). $)
+    frc   $p |- ( R Fr A -> ( ( B (_ A /\ -. B = (/) ) ->
+                E. x ( x e. B /\ ( B i^i { y | y R x } ) = (/) ) ) ) $=
+      ( vz wfr cv wss c0 wceq wn wa wel wbr cab cin wex wi wal wcel dffr2
+      sseq1 cleq1 binegd bi2and cleq4 ineq1 cleq1d biexdv bi2imd cla4v
+      sylbi ) CEHGIZCJZUOKLZMZNZAGOZUOBIAIZEPBQZRZKLZNZASZTZGUADCJZDKLZMZNZVADU
+      BZDVBRZKLZNZASZTZGABCEUCVGVQGDFUODLZUSVKVFVPVRUPVHURVJUODCUDVRUQVIUODKUEU
+      FUGVRVEVOAVRUTVLVDVNUODVAUHVRVCVMKUODVBUIUJUGUKULUMUN $.
+      $([27-Dec-93]$)
+  $}
+
+  ${
+    $d x y z R $.  $d x y z A $.  $d x y z B $.  $( ` x y z ` are dummy. $)
+    $( Subset theorem for the founded predicate.  Exercise 1, p. 31 of
+       Takeuti and Zaring. $)
+    frss $p |- ( A (_ B -> ( R Fr B -> R Fr A ) ) $=
+      ( vx vy vz wss cv c0 wceq wn wa wel wbr cab cin wex wi wal wfr sstr comm
+      imrand syl4d 19.21aiiv dffr2 3imtr4g ) ABGZDHZBGZUIIJKZLZEDMUIFHEHCNFOP
+      IJLEQZRZDSUIAGZUKLZUMRZDSBCTACTUHUNUQDUHUPULUMUHUOUJUKUOUHUJUIABUAUBUCUDU
+      EDEFBCUFDEFACUFUG $.
+      $([3-Apr-94]$)
+  $}
+
+  ${
+    $d x y z R $.  $d x y z S $.  $d x y z A $.  $( ` x y z ` are dummy. $)
+    $( Equality theorem for the founded predicate. $)
+    freq1 $p |- ( R = S -> ( R Fr A <-> S Fr A ) ) $=
+      ( vx vz vy wceq cv wss c0 wn wa wbr wral wrex wi wal wfr breq binegd
+      biraldv birexdv bilimd bialdv df-fr 3bitr4g ) BCGZDHZAIUHJGKLZEHZFHZBMZKZ
+      EUHNZFUHOZPZDQUIUJUKCMZKZEUHNZFUHOZPZDQABRACRUGUPVADUGUOUTUIUGUNUSFUHUGUM
+      UREUHUGULUQUJUKBCSTUAUBUCUDDFEABUEDFEACUEUF $.
+      $([9-Mar-97]$)
+  $}
+
+  $( Equality theorem for the founded predicate. $)
+  freq2 $p |- ( A = B -> ( R Fr A <-> R Fr B ) ) $=
+      ( wceq wfr wss wa wi wb frss im2an eqss bi 3imtr4 bicomd ) ABDZBCEZACEZAB
+      FZBAFZGQRHZRQHZGPQRISUATUBABCJBACJKABLQRMNO $.
+      $([3-Apr-94]$)
+
+  ${
+    $d x y z R $.  $d y z A $.  $( ` y z ` are dummy. $)
+    $( A founded relation is irreflexive.  Special case of Proposition 6.23,
+       p. 30, of Takeuti and Zaring. $)
+    frnr $p |- ( ( R Fr A /\ x e. A ) -> -. x R x ) $=
+      ( vy vz wfr cv wcel wbr wn csn cab cin c0 wceq wa wex wss wi snex frc
+      exp3a visset snss syl5ib snnz mpii weq elsn breq2 biabdv ineq2d
+      cleq1d breq1 abcl biimpr snid jctil elin sylibr noel2 syl con2 syl6bi
+      sylbi imp 19.23aiv syl6 ) BCFZAGZBHZVJVJCIZJZVIVKDGZVJKZHZVOEGZVNCIZELZMZ
+      NOZPZDQZVMVIVKVONOJZWCVIVOBRZWDWCSVKVIWEWDWCDEBVOCVJTUAUBVJBAUCZUDUEVJWFU
+      FUGWBVMDVPWAVMVPDAUHZWAVMSDVJUIWGWAVOVQVJCIZELZMZNOZVMWGVTWJNWGVSWIVOWGVR
+      WHEVNVJVQCUJUKULUMVLWKVLVJWJHZWKJVLVJVOHZVJWIHZPWLVLWNWMWNVLWHVLEVJWFVQVJ
+      VJCUNUOUPVJWFUQURVJVOWIUSUTWJVJVAVBVCVDVEVFVGVHVF $.
+      $([2-Jan-94]$)
+  $}
+
+  ${
+    $d z w R $.  $d z w x $.  $d z w y $.
+    $d z w A $.  $( ` z w ` are dummy. $)
+    $( A founded relation has no 2-cycle loops.  Special case of
+       Proposition 6.23, p. 30, of Takeuti and Zaring. $)
+    fr2nr $p |- ( ( R Fr A /\ ( x e. A /\ y e. A ) ) ->
+                -. ( x R y /\ y R x ) ) $=
+      ( vw vz wfr cv wcel wa wbr wn cpr wss c0 wceq cab cin wex zfpair frc wi
+      df-an weq wo breq2 biabdv ineq2d cleq1d binegd brab inelcm visset pri2
+      mpan sylbi syl5bir comm pri1 im2an jaob sylibr pri syl5ib con3 19.23aiv
+      syl6 prnz mpan2i prss ancom imp ) CDGZAHZCIZBHZCIZJZVNVPDKZVPVNDKZJZLZVMV
+      QVOJZWBVRVMVPVNMZCNZWBWCVMWEWDOPLZWBVMWEWFJEHZWDIZWDFHZWGDKZFQZRZOPZJZESW
+      BEFCWDDBATUAWNWBEWNWHWMLZUBZLWBWHWMUCWAWPWAEBUDZEAUDZUEZWOWHWAWQWOUBZWRWO
+      UBZJWSWOUBVSWTVTXAWQVSWOWQWOWDWIVPDKZFQZRZOPZLZVSWQWMXEWQWLXDOWQWKXCWDWQW
+      JXBFWGVPWIDUFUGUHUIUJVSVNXCIZXFABFDUKVNWDIXGXFVNWDXCULVPVNAUMZUNUOUPUQURW
+      RVTWOWRWOWDWIVNDKZFQZRZOPZLZVTWRWMXLWRWLXKOWRWKXJWDWRWJXIFWGVNWIDUFUGUHUI
+      UJVTVPXJIZXMBAFDUKVPWDIXNXMVPWDXJULVPVNBUMZUSUOUPUQURUTWQWOWRVAVBWGVPVNEU
+      MVCVDVEUPVFVGVPVNXOVHVIVPVNCXOXHVJVDVOVQVKVDVL $.
+      $([30-May-94]$)
+  $}
+
+  ${
+    $d w v x $.  $d w v y $.  $d w v z $.  $d w v R $.
+    $d w v A $.  $( ` w v ` are dummy. $)
+    $( A founded relation has no 3-cycle loops.  Special case of
+       Proposition 6.23, p. 30, of Takeuti and Zaring. $)
+    fr3nr $p |- ( ( R Fr A /\ ( x e. A /\ y e. A /\ z e. A ) ) ->
+                -. ( x R y /\ y R z /\ z R x ) ) $=
+      ( vv vw wfr cv wcel w3a wbr wn ctp wss c0 wceq wa cab cin wex tpex frc
+      wi df-an weq w3o breq2 biabdv ineq2d cleq1d binegd brab inelcm
+      visset tpi3 mpan sylbi syl5bir comm tpi1 tpi2 im3an 3jao syl tpi syl5ib
+      con3 19.23aiv syl6 tpnz mpan2i tpss 3anrot imp ) DEHZAIZDJZBIZDJZCIZDJZKZ
+      VQVSELZVSWAELZWAVQELZKZMZVPVTWBVRKZWHWCVPVSWAVQNZDOZWHWIVPWKWJPQMZWHVPWKW
+      LRFIZWJJZWJGIZWMELZGSZTZPQZRZFUAWHFGDWJEVSWAVQUBUCWTWHFWTWNWSMZUDZMWHWNWS
+      UEWGXBWGFBUFZFCUFZFAUFZUGZXAWNWGXCXAUDZXDXAUDZXEXAUDZKXFXAUDWDXGWEXHWFXIX
+      CWDXAXCXAWJWOVSELZGSZTZPQZMZWDXCWSXMXCWRXLPXCWQXKWJXCWPXJGWMVSWOEUHUIUJUK
+      ULWDVQXKJZXNABGEUMVQWJJXOXNVQWJXKUNVSWAVQAUOZUPUQURUSUTXDWEXAXDXAWJWOWAEL
+      ZGSZTZPQZMZWEXDWSXTXDWRXSPXDWQXRWJXDWPXQGWMWAWOEUHUIUJUKULWEVSXRJZYABCGEU
+      MVSWJJYBYAVSWJXRUNVSWAVQBUOZVAUQURUSUTXEWFXAXEXAWJWOVQELZGSZTZPQZMZWFXEWS
+      YGXEWRYFPXEWQYEWJXEWPYDGWMVQWOEUHUIUJUKULWFWAYEJZYHCAGEUMWAWJJYIYHWAWJYEU
+      NVSWAVQCUOZVBUQURUSUTVCXCXAXDXEVDVEWMVSWAVQFUOVFVGVHURVIVJVSWAVQYCVKVLVSW
+      AVQDYCYJXPVMVGVRVTWBVNVGVO $.
+      $([10-Apr-94]$)
+  $}
+
+  ${
+    $d x y z R $.  $( ` x y z ` are dummy. $)
+    $( Any relation is founded on the empty set. $)
+    fr0 $p |- R Fr (/) $=
+      ( vx vy vz c0 wfr cv wss wceq wn wa wel wbr cab cin wex wi dffr2 iman
+      ss0 mpbi pm2.21i mpgbir ) EAFBGZEHZUDEIZJKZCBLUDDGCGAMDNOEIKCPZQBBCDEARUG
+      UHUEUFQUGJUEUFSUDTUAUBUC $.
+      $([17-Sep-93]$)
+  $}
+
+  ${
+    $d x A $.  $( ` x ` is dummy. $)
+    $( A class founded by epsilon is not a member of itself. $)
+    epnec $p |- ( E Fr A  -> -. A e. A ) $=
+      ( vx cep wfr wcel wn cv wel wi wceq freq2 cleq3 cleq4 bitrd binegd
+      bi2imd wbr frnr exp epel bineg syl6ib pm2.01d vtoclg comm ) ACDZAAEZUGU
+      FUGFZBGZCDZBBHZFZIUFUHIBAAUIAJZUJUFULUHUIACKUMUKUGUMUKAUIEUGUIAUILUIAAMNO
+      PUJUKUJUKUIUICQZFZULUJUKUOBUICRSUNUKBBTUAUBUCUDUEUC $.
+      $([18-Apr-94]$)
+  $}
+
+  $( A set founded by epsilon contains no 2-cycle loops. $)
+  epne2 $p |- ( ( E Fr A /\ ( x e. A /\ y e. A ) ) ->
+                -. ( x e. y /\ y e. x ) ) $=
+      ( cep wfr cv wcel wa wbr wn wel fr2nr epel bi2an bineg sylib ) CDEAFZCGBF
+      ZCGHHQRDIZRQDIZHZJABKZBAKZHZJABCDLUAUDSUBTUCABMBAMNOP $.
+      $([19-Apr-94]$)
+
+  $( A set founded by epsilon contains no 3-cycle loops. $)
+  epne3 $p |- ( ( E Fr A /\ ( x e. A /\ y e. A /\ z e. A ) ) ->
+                -. ( x e. y /\ y e. z /\ z e. x ) ) $=
+      ( cep wfr cv wcel w3a wa wbr wn wel fr3nr epel bi3an bineg sylib ) DEFAGZ
+      DHBGZDHCGZDHIJSTEKZTUAEKZUASEKZIZLABMZBCMZCAMZIZLABCDENUEUIUBUFUCUGUDUHAB
+      OBCOCAOPQR $.
+      $([19-Apr-94]$)
+
+  $( Similar to Theorem 7.2, p. 37, of Takeuti and Zaring, except that the
+     Axiom of Regularity is not required due to antecedent ` E Fr A `. $)
+  tz7.2 $p |- (  ( ( Tr A /\ E Fr A ) /\ B e. A ) ->
+             ( B (_ A /\ -. B = A ) ) $=
+      ( wtr cep wfr wa wcel wss wceq wn wi trss cleq3 binegd epnec syl5bir
+      comm pm2.03d im2an jcab sylibr imp ) ACZADEZFZBAGZBAHZBAIZJZFZUEUFUGKZUFU
+      IKZFUFUJKUCUKUDULABLUDUHUFUHUDUFJZUHUMAAGZJUDUHUFUNBAAMNAOPQRSUFUGUITUAUB
+      $.
+      $([4-May-94]$)
+
+  ${
+    $d x y z A $.  $( ` z ` is dummy. $)
+    $( A simpler way of saying that the epsilon relation is founded. $)
+    dfepfr $p |- ( E Fr A <-> A. x ( ( x (_ A /\ -. x = (/) ) ->
+                  E. y ( y e. x /\ ( x i^i y ) = (/) ) ) ) $=
+      ( vz cep wfr cv wss c0 wceq wn wa wel wbr cab cin wex wi wal dffr2 epel
+      biab abid2 eqtr4 ineq2i cleq1i bilan biex bilim bial bitr ) CEFAGZCHULIJK
+      LZBAMZULDGBGZENZDOZPZIJZLZBQZRZASUMUNULUOPZIJZLZBQZRZASABDCETVBVGAVAVFUMU
+      TVEBUSVDUNURVCIUQUOULUQDBMZDOUOUPVHDDBUAUBDUOUCUDUEUFUGUHUIUJUK $.
+      $([16-May-94]$)
+  $}
+
+  ${
+    $d x y A $.  $d x y B $.  $( ` y ` is dummy. $)
+    epfrc.1 $e |- B e. V $.
+    $( A subset of an epsilon-founded class has a minimal element. $)
+    epfrc $p |- ( ( E Fr A /\ ( B (_ A /\ -. B = (/) ) ) ->
+                  E. x ( x e. B /\ ( B i^i x ) = (/) ) ) $=
+      ( vy cep wfr wss c0 wceq wn wa cv wcel wbr cab cin wex frc imp wel abid2
+      epel biab eqtr4 ineq2i cleq1i bilan biex sylibr ) BFGZCBHCIJKLZLAMZCNZCEM
+      UMFOZEPZQZIJZLZARZUNCUMQZIJZLZARUKULUTAEBCFDSTVCUSAVBURUNVAUQIUMUPCUMEAUA
+      ZEPUPEUMUBUOVDEEAUCUDUEUFUGUHUIUJ $.
+      $([27-Apr-94]$)
+  $}
+
+  $( Define a well-ordering. $)
+  df-we $a |- ( R We A <-> ( R Fr A /\ R Or A ) ) $.
+
+  ${
+    $d x y z R $.  $d x y z A $.  $( ` z ` is dummy. $)
+    $( Alternate definition of well-ordering.  Definition 6.24(2), p. 30, of
+       Takeuti and Zaring. $)
+    dfwe2 $p |- ( R We A <-> ( R Fr A /\ A. x e. A A. y e. A
+                ( x R y \/ x = y \/ y R x ) ) ) $=
+      ( vz wwe wfr wor wa cv wbr weq w3o wral df-we wcel wi wal solin exp
+      19.21aivv r2al sylibr imlan wpo wn w3a frnr adantarr 3simpa sylan5 a1d
+      wo fr2nr breq2 biimprd imland comm imp nsyl imnan fr3nr df-3an bineg
+      sylib jcad ioran syl6ibr syl4d 3orass orcom df-or 3bitr syl5ib a2d
+      19.21aiiv r3al 3imtr4g ralabs cleq2 breq1 bi3ord rcbvalv biral bitr
+      df-po ancrd df-so imdistani impbi ) CDFCDGZCDHZIZWKAJZBJZDKZABLZWOWNDK
+      ZMZBCNZACNZIZCDOWMXBWLXAWKWLWNCPZWOCPZIZWSQZBRARXAWLXFABWLXEWSCWNWODSTUAW
+      SABCCUBUCUDWKXAWLWKXACDUEZXAIWLWKXAXGWKXAWNWNDKUFZWPWOEJZDKZIZWNXIDKZQZIZ
+      ECNBCNACNZXGWKXLAELZXIWNDKZMZECNZBCNZACNZXOXAWKXCXDXICPZUGZXRQZERZBRZARYC
+      XNQZERZBRZARYAXOWKYFYIAWKYEYHBWKYDYGEWKYCXRXNWKYCXRXNQWKYCIZXRXHXMYJXHXRW
+      KXEXHYCWKXCXHXDACDUHUIXCXDYBUJZUKULYJXPXQUMZUFZXLQZXMXRYJXKYMXLYJXKXPUFZX
+      QUFZIYMYJXKYOYPYJXKXPIZUFXKYOQYJWPWRIZYQWKXEYRUFYCABCDUNYKUKXKXPYRXPXKYRX
+      PXJWRWPXPWRXJWNXIWODUOUPUQURUSUTXKXPVAUCYJXKXQIZUFZXKYPQYJWPXJXQUGZUFYTAB
+      ECDVBUVAYSWPXJXQVCVDVEXKXQVAUCVFXPXQVGVHVIXRXLYLUMYLXLUMYNXLXPXQVJXLYLVKY
+      LXLVLVMVNVFTVOVPVPVPXRABECCCVQXNABECCCVQVRWTXTACWTWTBCNXTWSBCVSWTXSBCWSXR
+      BECBELWPXLWQXPWRXQWOXIWNDUOWOXIWNVTWOXIWNDWAWBWCWDWEWDVNABECDWFVHWGABCDWH
+      VHWIWJWE $.
+      $([16-Mar-97]$)
+  $}
+
+  $( Subset theorem for the well-ordering predicate.  Exercise 4, p. 31
+     of Takeuti and Zaring. $)
+  wess $p |- ( A (_ B -> ( R We B -> R We A ) ) $=
+      ( wss wfr wor wa wwe frss soss im2and df-we 3imtr4g ) ABDZBCEZBCFZGACEZAC
+      FZGBCHACHNOQPRABCIABCJKBCLACLM $.
+      $([19-Apr-94]$)
+
+  $( Equality theorem for the well-ordering predicate. $)
+  weeq1 $p |- ( R = S -> ( R We A <-> S We A ) ) $=
+      ( wceq wfr wor wa wwe freq1 soeq1 bi2and df-we 3bitr4g ) BCDZABEZABFZGACE
+      ZACFZGABHACHNOQPRABCIABCJKABLACLM $.
+      $([9-Mar-97]$)
+
+  $( Equality theorem for the well-ordering predicate. $)
+  weeq2 $p |- ( A = B -> ( R We A <-> R We B ) ) $=
+      ( wceq wfr wor wa wwe freq2 soeq2 bi2and df-we 3bitr4g ) ABDZACEZACFZGBCE
+      ZBCFZGACHBCHNOQPRABCIABCJKACLBCLM $.
+      $([3-Apr-94]$)
+
+  $( A well-ordering is founded. $)
+  wefr $p |- ( R We A -> R Fr A ) $=
+      ( wwe wfr wor wa df-we pm3.26 sylbi ) ABCABDZABEZFJABGJKHI $.
+      $([22-Apr-94]$)
+
+  $( A well-ordering is a strict ordering. $)
+  weso $p |- ( R We A -> R Or A ) $=
+      ( wwe wfr wor wa df-we pm3.27 sylbi ) ABCABDZABEZFKABGJKHI $.
+      $([16-Mar-97]$)
+
+  $( The elements of an epsilon well-ordering are comparable. $)
+  wecmpep $p |- ( ( E We A /\ ( x e. A /\ y e. A ) ) ->
+                 ( x e. y \/ x = y \/ y e. x ) ) $=
+      ( cep wor cv wcel wa wel weq w3o wwe wbr solin epel pm4.2 bi3or sylib
+      weso sylan ) CDEZAFZCGBFZCGHZABIZABJZBAIZKZCDLUAUDHUBUCDMZUFUCUBDMZKUHCUB
+      UCDNUIUEUFUFUJUGABOUFPBAOQRCDST $.
+      $([17-May-94]$)
+
+  $( An epsilon well-ordering is a transitive relation. $)
+  wetrep $p |- ( ( E We A /\ ( x e. A /\ y e. A /\ z e. A ) ) ->
+             ( ( x e. y /\ y e. z ) -> x e. z ) ) $=
+      ( cep wwe cv wcel w3a wa wbr wel wor wi sotr weso sylan epel bi2an
+      3imtr3g ) DEFZAGZDHBGZDHCGZDHIZJUBUCEKZUCUDEKZJZUBUDEKZABLZBCLZJACLDEMUEU
+      HUINUADUBUCUDEODEPQUFUJUGUKABRBCRSACRT $.
+      $([22-Apr-94]$)
+
+  ${
+    $d x y z R $.  $d x y z A $.  $d x y z B $.  $( 'y' and 'z' are dummy. $)
+    $( A non-empty (possibly proper) subclass of a class well-ordered by ` E `
+       has a minimal element.  Special case of Proposition 6.26 of Takeuti and
+       Zaring, p. 31. $)
+    wefrc $p |- ( ( E We A /\ ( B (_ A /\ -. B = (/) ) ) ->
+               E. x ( x e. B /\ ( B i^i x ) = (/) ) ) $=
+      ( vy vz cep wwe wss c0 wceq wn cv wcel cin wa wex wi wess weq cleq3
+      ineq2 cleq1d bi2and biimprd a4w exp adantl wel wfr visset zfauscl2
+      epfrc wefr sylan exp32 inss1 mpi elin biran biex syl6ib adantr pm3.26
+      a1i wal w3a wetrep exp3a df-3an 3anrot bitr3 sylan5b exp44 imp com34
+      imp3a syl5ib imp4a com23 19.21adv df-ss syl6ibr sseqin1 incom ineq2i
+      inass 3eqtr4 cleq2i bitr biimp syl6 jcad 19.22dv syld pm2.61d
+      19.23adv nnull comm imp32 ) BFGZCBHZCIJKZALZCMZCXCNZIJZOZAPZXAWTXBXHQZXA
+      WTCFGZXICBFRXJDLZCMZDPXHXBXJXLXHDXJXLXHXJXLOZCXKNZIJZXHXLXOXHQXJXLXOXHXLX
+      OOZXGADADSZXGXPXQXDXLXFXOXCXKCTXQXEXNIXCXKCUAUBUCUDUEUFUGXMXOKZXDADUHZOZX
+      NXCNZIJZOZAPZXHXJXRYDQXLXJXRXCXNMZYBOZAPZYDXJXNCHZXRYGQXJYHXRYGCFUIYHXROY
+      GXJACXNXKCDUJUKULCFUMUNUOCXKUPUQYFYCAYEXTYBXCCXKURUSUTVAVBXMYCXGAXMYCXDXF
+      YCXDQXMXTXDYBXDXSVCVBVDXMXTYBXFXMXTXEXKHZYBXFQXMXTELZXEMZEDUHZQZEVEYIXMXT
+      YMEXMYKXTYLXMYKXDXSYLXMYJCMZEAUHZOXDXSYLQZQZYKXMYNYOYQXMYNXDYOYPXJXLYNXDY
+      OYPQZQQXJXLYNXDYRXJYNXDXLVFZYRXLYNOXDOZXJYSOYOXSYLEADCVGVHYTXLYNXDVFYSXLY
+      NXDVIXLYNXDVJVKVLVMVNVOVPYJCXCURVQVRVSVTEXEXKWAWBYIXFYBYIXEYAIYIXEYAJZYIX
+      EXEXKNZJUVAXEXKWCUVBYAXECXCXKNZNCXKXCNZNUVBYAUVCUVDCXCXKWDWECXCXKWFCXKXCW
+      FWGWHWIWJUBUDWKVPWLWMWNWOUFWPDCWQVQWKWRWS $.
+      $([28-Apr-94]$)
+  $}
+
+  $( Any relation is a well-ordering of the empty set. $)
+  we0 $p |- R We (/) $=
+      ( c0 wwe wfr wor wa df-we fr0 so0 pm3.2i mpbir ) BACBADZBAEZFBAGLMAHAIJK
+      $.
+      $([16-Mar-97]$)
+
+  ${
+    $d x y z R $.  $d x y z A $.  $d x y z B $.  $( ` z ` is dummy. $)
+    wereu.1 $e |- B e. V $.
+    $( A subset of a well-ordered set has a unique minimal element. $)
+    wereu   $p |- ( ( R We A /\ ( B (_ A /\ -. B = (/) ) ) ->
+                E! x e. B A. y e. B -. y R x ) $=
+      ( vz wwe wss c0 wceq wn wa cv wbr wral wrex weq wi wreu wfr fri wefr
+      sylan wcel wal wo w3o wor solin weso df-3or or1r df-or 3bitr sylib ioran
+      syl5ibr wess imp ancoms visset breq1 binegd rcla4v im2anan9r syl5 exp4b
+      pm2.43d adantarr 19.21aivv r2al sylibr jca breq2 biraldv reu4 ) CEHZDCIZD
+      JKLZMZMZBNZANZEOZLZBDPZADQZWGWCGNZEOZLZBDPZMZAGRZSZGDPADPZMWGADTWBWHWPCEU
+      AWAWHVRABCDEFUBCEUCUDWBWDDUEZWIDUEZMZWOSZGUFAUFWPWBWTAGVRVSWTVTVRVSMZWSWO
+      XAWSWSWMWNXAWSMWDWIEOZLZWIWDEOZLZMZWNWSWMMDEHZWSXFWNSXAXGWSMZXBXDUGZLZWNX
+      FXHXBWNXDUHZXJWNSZDEUIWSXKXGDWDWIEUJDEUKUDXKXBWNUGXDUGXIWNUGXLXBWNXDULXBW
+      NXDUMXIWNUNUOUPXBXDUQURVSVRXGVSVRXGDCEUSUTVAUDWMWSXFWMWSXFWLWQXCWGWRXEWKX
+      CBWDDAVBBARWJXBWCWDWIEVCVDVEWFXEBWIDGVBBGRWEXDWCWIWDEVCVDVEVFUTVAVGVHVIVJ
+      VKWOAGDDVLVMVNWGWLAGDWNWFWKBDWNWEWJWDWIWCEVOVDVPVQVM $.
+      $([18-Mar-97]$)
+  $}
+
+

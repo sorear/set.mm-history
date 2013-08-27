@@ -1,0 +1,396 @@
+$(
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+        The axioms for a binary non-logical predicate
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+$)
+
+$(
+   Introduce a binary non-logical predicate symbol.  We will use it
+   for the membership predicate of set theory, but this is irrelevant at this
+   point:  these axioms apply to any arbitrary binary predicate symbol.  The
+   term 'non-logical' means that the predicate is presumed to have additional
+   properties beyond the realm of predicate calculus.  The term 'binary' means
+   that the predicate has two arguments.
+$)
+
+  $( Declare the membership predicate symbol. $)
+  $c e. $. $( Stylized epsilon (read:  'is an element of' or synonymously,
+              'is a member of') $)
+
+  $( Extend wff definition to include atomic formulas using the epsilon
+     predicate. $)
+  wel $a wff x e. y $.
+
+  $( Axiom of Equality.  One of the 3 non-logical predicate axioms of our
+     predicate calculus.  Axiom scheme C12' of Megill, p. 448. $)
+  ax-13 $a |- ( x = y -> ( x e. z -> y e. z ) ) $.
+
+  $( Axiom of Equality.  One of the 3 non-logical predicate axioms of our
+     predicate calculus.  Axiom scheme C13' of Megill, p. 448. $)
+  ax-14 $a |- ( x = y -> ( z e. x -> z e. y ) ) $.
+
+  $( Axiom of Quantifier Introduction.  One of the 3 non-logical predicate
+     axioms of our predicate calculus.  Axiom scheme C14' of Megill, p. 448.
+     It is redundant if we consider ~ax-17 below an axiom; see theorem
+     ~ax15 below. $)
+  ax-15 $a |- ( -. A. z z = x -> ( -. A. z z = y ->
+              ( x e. y -> A. z x e. y ) ) ) $.
+
+
+  $( This theorem could be used in place of axiom ~ax-9 .  It is slightly
+     stronger than that axiom.  Lemma L18 of Megill, p. 446. $)
+  ax9a $p |- -. A. x -. x = y $=
+      ( weq wn wal wi ax-9 ax-6 a3i mpg ) ABCZKDZAEDZAEZFMAMABGNKLAHIJ $.
+
+  $( This is axiom ~ax-9 , proved from theorem ~ax9a .  This shows
+     that ~ax-9 and ~ax9a are interchangeable as axioms. $)
+  ax9b $p |- ( A. x ( x = y -> A. x ph ) -> ph ) $=
+      ( weq wal wi wex 19.22 wn df-ex ax9a mpbir mpi a6e syl ) BCDZABEZFBEZQBGZ
+      ARPBGZSPQBHTPIBEIPBJBCKLMABNO $.
+
+  $( At least one individual exists. $)
+  a9e $p |- E. x x = y $=
+      ( weq wex wn wal df-ex ax9a mpbir ) ABCZADJEAFEJAGABHI $.
+
+  $( Identity law for equality. $)
+  eqid $p |- x = x $=
+      ( weq wal wn wi ax-12 pm2.43i 19.20i ax-9 syl ax-6 pm2.61i ) AABZACZDZACZ
+      MPMNEZACMOQAOQAAAFGHMAAIJMAKL $.
+
+  $( Commutative law for equality. $)
+  eqcom $p |- ( x = y -> y = x ) $=
+      ( weq ax-8 eqid mpi ) ABCAACBACABADAEF $.
+
+  $( Commutative law for equality. $)
+  eqcomb $p |- ( x = y <-> y = x ) $=
+      ( weq eqcom impbi ) ABCBACABDBADE $.
+      $([20-Aug-93]$)
+
+  ${
+    eqcoms.1 $e |- ( x = y -> ph ) $.
+    $( An inference commuting equality in antecedent.  Used to eliminate the
+       need for a syllogism. $)
+    eqcoms   $p |- ( y = x -> ph ) $=
+      ( weq eqcom syl ) CBEBCEACBFDG $.
+  $}
+
+  $( A transitive law for equality. $)
+  eqt  $p |- ( x = y -> ( y = z -> x = z ) ) $=
+      ( weq wi ax-8 eqcoms ) BCDACDEBABACFG $.
+      $([23-Aug-93]$)
+
+  $( A transitive law for equality.  Lemma L17 of Megill, p. 446. $)
+  eqt2 $p |- ( x = y -> ( z = x -> z = y ) ) $=
+      ( weq eqt comm ) CADABDCBDCABEF $.
+      $([23-Aug-93]$)
+
+  $( A transitive law for equality. $)
+  eqan $p |- ( ( x = z /\ y = z ) -> x = y ) $=
+      ( weq eqt eqcom syl5 imp ) ACDZBCDZABDZICBDKJACBEBCFGH $.
+      $([12-Aug-93]$)
+
+  $( An equivalence law for equality. $)
+  a8b $p |- ( x = y -> ( x = z <-> y = z ) ) $=
+      ( weq ax-8 eqt impbid ) ABDACDBCDABCEABCFG $.
+
+  $( An equivalence law for equality. $)
+  eqt2b $p |- ( x = y -> ( z = x <-> z = y ) ) $=
+      ( weq eqt2 wi eqcoms impbid ) ABDCADZCBDZABCEJIFBABACEGH $.
+
+  $( An identity law for the non-logical predicate. $)
+  a13b $p |- ( x = y -> ( x e. z <-> y e. z ) ) $=
+      ( weq wel ax-13 wi eqcoms impbid ) ABDACEZBCEZABCFKJGBABACFHI $.
+
+  $( An identity law for the non-logical predicate. $)
+  a14b $p |- ( x = y -> ( z e. x <-> z e. y ) ) $=
+      ( weq wel ax-14 wi eqcoms impbid ) ABDCAEZCBEZABCFKJGBABACFHI $.
+
+  $( Commutation law for identical variable specifiers.  The antecedent and
+     consequent are true when ` x ` and ` y ` are substituted with the same
+     variable. $)
+  eq4  $p |- ( A. x x = y -> A. y y = x ) $=
+      ( weq wal ax-10 pm2.43i eqcom 19.20i syl ) ABCZADZJBDZBACZBDKLJABEFJMBABG
+      HI $.
+
+  ${
+    eq4s.1 $e |- ( A. x x = y -> ph ) $.
+    $( A commutation rule for identical variable specifiers. $)
+    eq4s   $p |- ( A. y y = x -> ph ) $=
+      ( weq wal eq4 syl ) CBECFBCEBFACBGDH $.
+  $}
+
+  $( All variables are implicitly bound in an identical variable specifier. $)
+  eq5  $p |- ( A. x x = y -> A. z A. x x = y ) $=
+      ( weq wal wi wn ax-12 ax-4 syl7 ax-10 eq4s pm2.43i syl5 pm2.61ii a5i
+      ax-7 syl ) ABDZAEZSCEZAETCESUAACADCEZCBDCEZTUAFZUBGUCGSUATABCHSAIJUDACSAC
+      KLUDBCBCDBESBEZUATSBCKTUESABKMNLOPSACQR $.
+
+  ${
+    eq5s.1 $e |- ( A. z A. x x = y -> ph ) $.
+    $( Rule that applies ~eq5 to antecedent. $)
+    eq5s   $p |- ( A. x x = y -> ph ) $=
+      ( weq wal eq5 syl ) BCFBGZJDGABCDHEI $.
+  $}
+
+  $( All variables are implicitly bound in a distinct variable specifier.
+     Lemma L19 of Megill, p. 446. $)
+  eq6  $p |- ( -. A. x x = y -> A. z -. A. x x = y ) $=
+      ( weq wal eq5 hbne ) ABDAECABCFG $.
+
+  ${
+    eq6s.1 $e |- ( A. z -. A. x x = y -> ph ) $.
+    $( Rule that applies ~eq6 to antecedent. $)
+    eq6s   $p |- ( -. A. x x = y -> ph ) $=
+      ( weq wal wn eq6 syl ) BCFBGHZKDGABCDIEJ $.
+  $}
+
+  $( Lemma used in proofs of substitution properties. $)
+  eqs1 $p |- ( A. x ( x = y -> ph ) -> -. A. x ( x = y -> -. ph ) ) $=
+      ( weq wi wal wn ax-4 msca hbn1 syl6 a5i ax-9 syl ) BCDZAEZBFZOOAGEZBFZGZB
+      FZEZBFTPUBBQOTUAQOASPBHRBHIRBJKLTBCMN $.
+
+  $( Lemma used in proofs of substitution properties. $)
+  eqs2 $p |- ( -. A. x x = y ->
+          ( -. A. x ( x = y -> -. ph ) -> A. x ( x = y -> ph ) ) ) $=
+      ( weq wal wn wi eq6 ax-11 pm2.15 syl6 com23 19.21ai hbn1 19.21 sylib ) BC
+      DZBEFZQAFZGZBEZFZQAGZGZBEUBUCBEGRUDBBCBHRQUBARQSUAGUBAGSBCIAUAJKLMUBUCBTB
+      NOP $.
+      $([25-Apr-94]$)
+
+  $( Lemma used in proofs of substitution properties. $)
+  eqs3 $p |- ( E. x ( x = y /\ ph ) <-> -. A. x ( x = y -> -. ph ) ) $=
+      ( weq wn wi wal wa wex alnex bicon2 ) BCDZAEFBGLAHBILABJK $.
+
+  $( Lemma used in proofs of substitution properties. $)
+  eqs4 $p |- ( A. x ( x = y -> ph ) -> E. x ( x = y /\ ph ) ) $=
+      ( weq wi wal wn wa wex eqs1 eqs3 sylibr ) BCDZAEBFMAGEBFGMAHBIABCJABCKL
+      $.
+
+  $( Lemma used in proofs of substitution properties. $)
+  eqs5 $p |- ( -. A. x x = y ->
+             ( E. x ( x = y /\ ph ) -> A. x ( x = y -> ph ) ) ) $=
+      ( weq wal wn wi wa wex eqs2 eqs3 syl5ib ) BCDZBEFMAFGBEFMAGBEMAHBIABCJABC
+      KL $.
+
+  ${
+    eqsal.1 $e |- ( ps -> A. x ps ) $.
+    eqsal.2 $e |- ( x = y -> ( ph <-> ps ) ) $.
+    $( A useful equivalence related to substitution. $)
+    eqsal   $p |- ( A. x ( x = y -> ph ) <-> ps ) $=
+      ( weq wi wal 19.3r syl6bb pm5.74i bial ax-1 a5i syl ax-9 impbi bitr4 ) CD
+      GZAHZCITBCIZHZCIZBUAUCCTAUBTABUBFBCEJKLMBUDBUBUDEBUCCUBTNOPBCDQRS $.
+  $}
+
+  ${
+    eqsex.1 $e |- ( ps -> A. x ps ) $.
+    eqsex.2 $e |- ( x = y -> ( ph <-> ps ) ) $.
+    $( A useful equivalence related to substitution. $)
+    eqsex   $p |- ( E. x ( x = y /\ ph ) <-> ps ) $=
+      ( weq wn wi wex wal wa 19.14 df-an biex hbne binegd eqsal bicon2 3bitr4
+      ) CDGZAHZIZHZCJUCCKZHUAALZCJBUCCMUFUDCUAANOUEBUBBHCDBCEPUAABFQRST $.
+  $}
+
+
+  $( The following set of lemmas, ~del24 through ~del41 we call
+     'distinctor elimination lemmas.'  A 'distinctor' is an antecedent of the
+     form ` -. A. x x = y ` and provides a way to avoid the need for a $d
+     statement in many cases.  The 'distinctor elimination theorem' [Megill]
+     provides a constructive technique to eliminate distinctors when it is
+     possible to do so. $)
+  $( [Note:  these are inefficient to use; most should eventually
+     become obsolete - NDM.] $)
+  $( ???Replace with biconditional versions & eliminate trivial ones. $)
+
+  $( A distinctor elimination lemma.  Atomic case for elimination theorem. $)
+  del25   $p |- ( A. x x = y -> ( x = z -> y = z ) ) $=
+      ( weq wi ax-8 a4s ) ABDACDBCDEAABCFG $.
+
+  $( A distinctor elimination lemma.  Atomic case for elimination theorem. $)
+  del26   $p |- ( A. x x = y -> ( z = x -> z = y ) ) $=
+      ( weq wi eqt2 a4s ) ABDCADCBDEAABCFG $.
+
+  ${
+    del32.1 $e |- ( A. x x = y -> ( ph -> ps ) ) $.
+    $( A distinctor elimination lemma.  Formula-builder for negation
+       connective. $)
+    del32   $p |- ( A. x x = y -> ( -. ps -> -. ph ) ) $=
+      ( weq wal pm2.16d ) CDFCGABEH $.
+  $}
+
+  ${
+    del33.1 $e |- ( A. x x = y -> ( ph -> ps ) ) $.
+    del33.2 $e |- ( A. x x = y -> ( ch -> th ) ) $.
+    $( A distinctor elimination lemma.  Formula-builder for implication
+       connective. $)
+    del33   $p |- ( A. x x = y -> ( ( ps -> ch ) -> ( ph -> th ) ) ) $=
+      ( weq wal syl34d ) EFIEJABCDGHK $.
+  $}
+
+  ${
+    del34.1 $e |- ( A. x x = y -> ( ph -> ps ) ) $.
+    $( A distinctor elimination lemma.  Formula-builder for universal
+       quantifier. $)
+    del34   $p |- ( A. x x = y -> ( A. x ph -> A. y ps ) ) $=
+      ( weq wal wi 19.20ii eq5s ax-10 syld ) CDFCGZACGZBCGZBDGNOHCDCMABCEIJBCD
+      KL $.
+  $}
+
+  ${
+    del35.1 $e |- ( A. x x = y -> ( ph -> ps ) ) $.
+    $( A distinctor elimination lemma.  Formula-builder for universal
+       quantifier. $)
+    del35   $p |- ( A. x x = y -> ( A. y ph -> A. x ps ) ) $=
+      ( weq wal wi 19.20ii eq5s ax-10 eq4s syld ) CDFCGZADGZBDGZBCGZOPHCDDNABD
+      EIJPQHDCBDCKLM $.
+  $}
+
+  ${
+    del34b.1 $e |- ( A. x x = y -> ( ph <-> ps ) ) $.
+    $( A distinctor elimination lemma.  Formula-builder for universal
+       quantifier. $)
+    del34b   $p |- ( A. x x = y -> ( A. x ph <-> A. y ps ) ) $=
+      ( weq wal biimpd del34 biimprd del35 impbid ) CDFCGZACGBDGABCDMABEHIBA
+      CDMABEJKL $.
+      $([24-Nov-94]$)
+  $}
+
+  ${
+    del36.1 $e |- ( A. x x = y -> ( ph -> ps ) ) $.
+    $( A distinctor elimination lemma.  Formula-builder for universal
+       quantifier. $)
+    del36   $p |- ( A. x x = y -> ( A. z ph -> A. z ps ) ) $=
+      ( wal wi weq 19.20ii eq5s ) AEGBEGHCDECDICGABEFJK $.
+  $}
+
+  ${
+    del39.1 $e |- ( A. x x = y -> ( ph -> ps ) ) $.
+    del39.2 $e |- ( A. x x = y -> ( ch -> th ) ) $.
+    $( A distinctor elimination lemma.  Formula-builder for conjunction
+       connective. $)
+    del39   $p |- ( A. x x = y -> ( ( ph /\ ch ) -> ( ps /\ th ) ) ) $=
+      ( weq wal im2and ) EFIEJABCDGHK $.
+  $}
+
+  ${
+    del40.1 $e |- ( A. x x = y -> ( ph -> ps ) ) $.
+    $( A distinctor elimination lemma.  Formula-builder for existential
+       quantifier. $)
+    del40   $p |- ( A. x x = y -> ( E. x ph -> E. y ps ) ) $=
+      ( weq wal wn wex del32 del35 df-ex 3imtr4g ) CDFCGAHZCGZHBHZDGZHACIBDIQOC
+      DPNCDABCDEJKJACLBDLM $.
+  $}
+
+  ${
+    del41.1 $e |- ( A. x x = y -> ( ph -> ps ) ) $.
+    $( A distinctor elimination lemma.  Formula-builder for existental
+       quantifier. $)
+    del41   $p |- ( A. x x = y -> ( E. y ph -> E. x ps ) ) $=
+      ( weq wal wn wex del32 del34 df-ex 3imtr4g ) CDFCGAHZDGZHBHZCGZHADIBCIQOC
+      DPNCDABCDEJKJADLBCLM $.
+  $}
+
+  ${
+    del42.1 $e |- ( A. x x = y -> ( ph -> ps ) ) $.
+    $( A distinctor elimination lemma.  Formula-builder for existential
+       quantifier. $)
+    del42   $p |- ( A. x x = y -> ( E. z ph -> E. z ps ) ) $=
+      ( weq wal wn wex del32 del36 df-ex 3imtr4g ) CDGCHAIZEHZIBIZEHZIAEJBEJRPC
+      DQOCDEABCDFKLKAEMBEMN $.
+  $}
+
+  ${
+    a4a.1  $e |- ( ps -> A. x ps ) $.
+    a4a.2  $e |- ( x = y -> ( ph -> ps ) ) $.
+    $( Implicit substitution.  Compare Lemma 14 of Tarski, p. 70. $)
+    a4a    $p |- ( A. x ph -> ps ) $=
+      ( wal weq wi comm syl6 19.20i ax-9 syl ) ACGCDHZBCGZIZCGBAQCAOBPOABFJEKLB
+      CDMN $.
+  $}
+
+  ${
+    a4c.1  $e |- ( ph -> A. x ph ) $.
+    a4c.2  $e |- ( x = y -> ( ph -> ps ) ) $.
+    $( Implicit substitution.  Compare Lemma 14 of Tarski, p. 70. $)
+    a4c    $p |- ( ph -> E. x ps ) $=
+      ( wn wal wex hbne weq pm2.16d a4a con2 df-ex sylibr ) ABGZCHZGBCIRAQAGCD
+      ACEJCDKABFLMNBCOP $.
+      $([7-Aug-94]$)
+  $}
+
+  ${
+    a4c1.1  $e |- ( ch -> A. x ch ) $.
+    a4c1.2  $e |- ( ch -> ( ph -> A. x ph ) ) $.
+    a4c1.3  $e |- ( x = y -> ( ph -> ps ) ) $.
+    $( A more general version of ~a4c . $)
+    a4c1    $p |- ( ch -> ( ph -> E. x ps ) ) $=
+      ( wex wa wal adantr imp jca 19.26 sylibr weq adantld a4c exp ) CABDICAJZ
+      BDEUACDKZADKZJUADKUAUBUCCUBAFLCAUCGMNCADOPDEQABCHRST $.
+  $}
+
+  ${
+    cbv1.1 $e |- ( ph -> ( ps -> A. y ps ) ) $.
+    cbv1.2 $e |- ( ph -> ( ch -> A. x ch ) ) $.
+    cbv1.3 $e |- ( ph -> ( x = y -> ( ps -> ch ) ) ) $.
+    $( Rule used to change bound variables with implicit substitution. $)
+    cbv1   $p |- ( A. x A. y ph -> ( A. x ps -> A. y ch ) ) $=
+      ( wal wi a4s 19.20ii ax-7 syl6 weq com23 syl6d ax-9 a7s syld ) AEIZDIZB
+      DIZUCEIZCEIZUBUCBEIZDIUDUABUFDABUFJEFKLBDEMNAUDUEJEDADIZUCCEUGUCDEOZCDIZJ
+      ZDICABUJDABUHCUIAUHBCHPGQLCDERNLST $.
+  $}
+
+
+  ${
+    cbv2.1 $e |- ( ph -> ( ps -> A. y ps ) ) $.
+    cbv2.2 $e |- ( ph -> ( ch -> A. x ch ) ) $.
+    cbv2.3 $e |- ( ph -> ( x = y -> ( ps <-> ch ) ) ) $.
+    $( Rule used to change bound variables with implicit substitution. $)
+    cbv2   $p |- ( A. x A. y ph -> ( A. x ps <-> A. y ch ) ) $=
+      ( wal weq wb wi df-bi1 syl6 cbv1 df-bi2 eqcom syl5 a7s impbid ) AEIDIBDI
+      ZCEIZABCDEFGADEJZBCKZBCLHBCMNOAUBUALEDACBEDGFAUCCBLZEDJAUCUDUEHBCPNEDQROS
+      T $.
+  $}
+
+  ${
+    cbv3.1 $e |- ( ph -> A. y ph ) $.
+    cbv3.2 $e |- ( ps -> A. x ps ) $.
+    cbv3.3 $e |- ( x = y -> ( ph -> ps ) ) $.
+    $( Rule used to change bound variables with implicit substitution. $)
+    cbv3   $p |- ( A. x ph -> A. y ps ) $=
+      ( wi wal syl3 a1i weq cbv1 id ax-gen mpg ) AAHZDIACIBDIHCQABCDAADIAEJBBCI
+      HQFKCDLABHHQGKMQDANOP $.
+  $}
+
+
+  ${
+    cbv4.1 $e |- ( ph -> A. y ph ) $.
+    cbv4.2 $e |- ( ps -> A. x ps ) $.
+    cbv4.3 $e |- ( x = y -> ( ph <-> ps ) ) $.
+    $( Rule used to change bound variables with implicit substitution. $)
+    cbv4   $p |- ( A. x ph <-> A. y ps ) $=
+      ( wi wal wb syl3 a1i weq cbv2 id ax-gen mpg ) AAHZDIACIBDIJCRABCDAADIAEKB
+      BCIHRFLCDMABJHRGLNRDAOPQ $.
+  $}
+
+  ${
+    cbvex.1 $e |- ( ph -> A. y ph ) $.
+    cbvex.2 $e |- ( ps -> A. x ps ) $.
+    cbvex.3 $e |- ( x = y -> ( ph <-> ps ) ) $.
+    $( Rule used to change bound variables with implicit substitution. $)
+    cbvex   $p |- ( E. x ph <-> E. y ps ) $=
+      ( wn wal wex hbne weq binegd cbv4 bineg df-ex 3bitr4 ) AHZCIZHBHZDIZHACJ
+      BDJSUARTCDADEKBCFKCDLABGMNOACPBDPQ $.
+  $}
+
+
+  $( A version of ~eqvin.l1 (below) with no distinct variable requirements.
+     Notice that the proof is much longer. $)
+  eqvin.l1a $p |- ( x = y -> E. z ( x = z /\ z = y ) ) $=
+      ( weq wal wo wa wex wi del25 imrand del42 eqid jctl 19.22i a9e ax-mp
+      mpi del26 imland eqcom jctir jaoi a1d wn ioran eq6 hban ax-12 imp ax-8
+      anc2li eqcoms a4c1 sylbi pm2.61i ) CADZCEZCBDZCEZFZABDZACDZUSGZCHZIZVAVEV
+      BURVEUTURCCDZUSGZCHZVEVHVDCACURVGVCUSCACJKLUSCHVIUSVHCUSVGCMZNOCBPQRUTVCV
+      GGZCHZVEVKVDCBCUTVGUSVCCBCSTLUQCHVLUQVKCUQVCVGCAUAVJUBOCAPQRUCUDVAUEURUEZ
+      UTUEZGZVFURUTUFVBVDVOCAVMVNCCACUGCBCUGUHVMVNVBVBCEIABCUIUJVBVDIACVCVBUSAC
+      BUKULUMUNUOUP $.
+
+

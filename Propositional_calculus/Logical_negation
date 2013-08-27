@@ -1,0 +1,380 @@
+$(
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+        Logical negation
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+$)
+
+$( This section makes our first use of the third axiom of propositonal
+   calculus. $)
+
+  ${
+    a3i.1 $e |- ( -. ph -> -. ps ) $.
+    $( Inference rule derived from axiom ~ax-3 . $)
+    a3i   $p |- ( ps -> ph ) $=
+      ( wn wi ax-3 ax-mp ) ADBDEBAEABFCG $.
+  $}
+
+  ${
+    a3d.1 $e |- ( ph -> ( -. ps -> -. ch ) ) $.
+    $( Deduction derived from axiom ~ax-3 . $)
+    a3d   $p |- ( ph -> ( ch -> ps ) ) $=
+      ( wn wi ax-3 syl ) ABECEFCBFDBCGH $.
+      $([26-Mar-95]$)
+  $}
+
+  $( From a wff and its negation, anything is true.  Theorem *2.21 of Whitehead
+     and Russell. $)
+  pm2.21 $p |- ( -. ph -> ( ph -> ps ) ) $=
+      ( wn ax-1 a3d ) ACZBAFBCDE $.
+
+  ${
+    pm2.21i.1 $e |- -. ph $.
+    $( A contradiction implies anything.  Inference from ~pm2.21 . $)
+    pm2.21i   $p |- ( ph -> ps ) $=
+      ( wn wi pm2.21 ax-mp ) ADABEABFCG $.
+      $([16-Sep-93]$)
+  $}
+
+  ${
+    pm2.21d.1 $e |- ( ph -> -. ps ) $.
+    $( A contradiction implies anything.  Deduction from ~pm2.21 . $)
+    pm2.21d   $p |- ( ph -> ( ps -> ch ) ) $=
+      ( wn wi pm2.21 syl ) ABEBCFDBCGH $.
+      $([10-Feb-96]$)
+  $}
+
+  $( Proof by contradiction.  Theorem *2.18 of Whitehead and Russell. $)
+  pm2.18 $p |- ( ( -. ph -> ph ) -> ph ) $=
+      ( wn wi pm2.21 a2i a3d id mpi ) ABZACZAACZAJAKIAKBZALDEFAGH $.
+
+  $( Pierce's axiom.  This odd-looking theorem is the 'difference' between
+     an intuitionist system of propositional calculus and a classical system
+     and is not accepted by intuitionists. $)
+  pierce $p |- ( ( ( ph -> ps ) -> ph ) -> ph ) $=
+      ( wi wn pm2.21 syl4 pm2.18 syl ) ABCZACADZACAJIAABEFAGH $.
+
+  $( Double negation.  Theorem *2.14 of Whitehead and Russell. $)
+  nega $p |- ( -. -. ph -> ph ) $=
+      ( wn wi pm2.21 ax-3 pm2.18 3syl ) ABZBZHICHACAHIDAHEAFG $.
+
+  $( Converse of double negation.  Theorem *2.12 of Whitehead and Russell. $)
+  negb $p |- ( ph -> -. -. ph ) $=
+      ( wn nega a3i ) ABZBAECD $.
+
+  $( Reductio ad absurdum.  Theorem *2.01 of Whitehead and Russell. $)
+  pm2.01 $p |- ( ( ph -> -. ph ) -> -. ph ) $=
+      ( wn wi nega syl4 pm2.18 syl ) AABZCHBZHCHIAHADEHFG $.
+      $([18-Aug-93]$)
+
+  ${
+    pm2.01d.1 $e |- ( ph -> ( ps -> -. ps ) ) $.
+    $( Deduction based on reductio ad absurdum. $)
+    pm2.01d   $p |- ( ph -> -. ps ) $=
+      ( wn wi pm2.01 syl ) ABBDZEHCBFG $.
+      $([18-Aug-93]$)
+  $}
+
+  $( Contraposition.  Theorem *2.03 of Whitehead and Russell. $)
+  pm2.03 $p |- ( ( ph -> -. ps ) -> ( ps -> -. ph ) ) $=
+      ( wn wi nega syl4 a3d ) ABCZDACZBICAHAEFG $.
+
+  ${
+    pm2.03d.1 $e |- ( ph -> ( ps -> -. ch ) ) $.
+    $( A contraposition deduction. $)
+    pm2.03d   $p |- ( ph -> ( ch -> -. ps ) ) $=
+      ( wn wi pm2.03 syl ) ABCEFCBEFDBCGH $.
+      $([19-Aug-93]$)
+  $}
+
+  $( Contraposition.  Theorem *2.15 of Whitehead and Russell. $)
+  pm2.15 $p |- ( ( -. ph -> ps ) -> ( -. ps -> ph ) ) $=
+      ( wn wi negb syl3 a3d ) ACZBDABCZBICHBEFG $.
+
+  ${
+    pm2.15d.1 $e |- ( ph -> ( -. ps -> ch ) ) $.
+    $( A contraposition deduction. $)
+    pm2.15d   $p |- ( ph -> ( -. ch -> ps ) ) $=
+      ( wn wi pm2.15 syl ) ABECFCEBFDBCGH $.
+  $}
+
+  $( Contraposition.  Theorem *2.16 of Whitehead and Russell. $)
+  pm2.16 $p |- ( ( ph -> ps ) -> ( -. ps -> -. ph ) ) $=
+      ( wi wn negb syl3 pm2.03d ) ABCABDZBHDABEFG $.
+
+  ${
+    pm2.16d.1 $e |- ( ph -> ( ps -> ch ) ) $.
+    $( A contraposition deduction. $)
+    pm2.16d   $p |- ( ph -> ( -. ch -> -. ps ) ) $=
+      ( wi wn pm2.16 syl ) ABCECFBFEDBCGH $.
+  $}
+
+  ${
+    con1.a $e |- ( -. ph -> ps ) $.
+    $( A contraposition inference. $)
+    con1   $p |- ( -. ps -> ph ) $=
+      ( wn negb syl a3i ) ABDZADBHDCBEFG $.
+  $}
+
+  ${
+    con2.a $e |- ( ph -> -. ps ) $.
+    $( A contraposition inference. $)
+    con2   $p |- ( ps -> -. ph ) $=
+      ( wn nega syl a3i ) ADZBHDABDAECFG $.
+  $}
+
+  ${
+    con3.a $e |- ( ph -> ps ) $.
+    $( A contraposition inference. $)
+    con3   $p |- ( -. ps -> -. ph ) $=
+      ( wn nega syl con1 ) ADZBHDABAECFG $.
+  $}
+
+  ${
+    mto.1 $e |- ( ph -> ps ) $.
+    mto.2 $e |- -. ps $.
+    $( The rule of modus tollens. $)
+    mto   $p |- -. ph $=
+      ( wn con3 ax-mp ) BEAEABCFDG $.
+      $([19-Aug-93]$)
+  $}
+
+  ${
+    mtoi.1 $e |- ( ph -> ( ps -> ch ) ) $.
+    mtoi.2 $e |- -. ch $.
+    $( Modus tollens inference. $)
+    mtoi   $p |- ( ph -> -. ps ) $=
+      ( wn pm2.16d mpi ) ACFBFABCDGEH $.
+      $([5-Jul-94]$)
+  $}
+
+  ${
+    mtod.1 $e |- ( ph -> ( ps -> ch ) ) $.
+    mtod.2 $e |- ( ph -> -. ch ) $.
+    $( Modus tollens deduction. $)
+    mtod   $p |- ( ph -> -. ps ) $=
+      ( wn pm2.16d mpd ) ACFBFABCDGEH $.
+      $([3-Apr-94]$)
+  $}
+
+  ${
+    mt2.1 $e |- ( ph -> -. ps ) $.
+    mt2.2 $e |- ps $.
+    $( A rule similar to modus tollens. $)
+    mt2   $p |- -. ph $=
+      ( wn con2 ax-mp ) BAEABCFDG $.
+      $([19-Aug-93]$)
+  $}
+
+  ${
+    mt2i.1 $e |- ( ph -> ( ps -> -. ch ) ) $.
+    mt2i.2 $e |- ch $.
+    $( Modus tollens inference. $)
+    mt2i   $p |- ( ph -> -. ps ) $=
+      ( wn pm2.03d mpi ) ACBFABCDGEH $.
+      $([26-Mar-95]$)
+  $}
+
+  ${
+    mt2d.1 $e |- ( ph -> ( ps -> -. ch ) ) $.
+    mt2d.2 $e |- ( ph -> ch ) $.
+    $( Modus tollens deduction. $)
+    mt2d   $p |- ( ph -> -. ps ) $=
+      ( wn pm2.03d mpd ) ACBFABCDGEH $.
+      $([4-Jul-94]$)
+  $}
+
+  ${
+    mt3.1 $e |- ( -. ph -> ps ) $.
+    mt3.2 $e |- -. ps $.
+    $( A rule similar to modus tollens. $)
+    mt3   $p |- ph $=
+      ( wn con1 ax-mp ) BEAABCFDG $.
+      $([18-May-94]$)
+  $}
+
+  ${
+    mt3i.1 $e |- ( ph -> ( -. ps -> ch ) ) $.
+    mt3i.2 $e |- -. ch $.
+    $( Modus tollens inference. $)
+    mt3i   $p |- ( ph -> ps ) $=
+      ( wn pm2.15d mpi ) ACFBABCDGEH $.
+      $([26-Mar-95]$)
+  $}
+
+  ${
+    mt3d.1 $e |- ( ph -> ( -. ps -> ch ) ) $.
+    mt3d.2 $e |- ( ph -> -. ch ) $.
+    $( Modus tollens deduction. $)
+    mt3d   $p |- ( ph -> ps ) $=
+      ( wn pm2.15d mpd ) ACFBABCDGEH $.
+      $([26-Mar-95]$)
+  $}
+
+  ${
+    nsyl.1 $e |- ( ph -> -. ps ) $.
+    nsyl.2 $e |- ( ch -> ps ) $.
+    $( A negated syllogism inference. $)
+    nsyl   $p |- ( ph -> -. ch ) $=
+      ( wn con3 syl ) ABFCFDCBEGH $.
+      $([31-Dec-93]$)
+  $}
+
+  ${
+    nsyl2.1 $e |- ( ph -> -. ps ) $.
+    nsyl2.2 $e |- ( -. ch -> ps ) $.
+    $( A negated syllogism inference. $)
+    nsyl2   $p |- ( ph -> ch ) $=
+      ( wn con1 syl ) ABFCDCBEGH $.
+      $([26-Jun-94]$)
+  $}
+
+  ${
+    nsyl3.1 $e |- ( ph -> -. ps ) $.
+    nsyl3.2 $e |- ( ch -> ps ) $.
+    $( A negated syllogism inference. $)
+    nsyl3   $p |- ( ch -> -. ph ) $=
+      ( wn con2 syl ) CBAFEABDGH $.
+      $([1-Dec-95]$)
+  $}
+
+  ${
+    nsyl4.1 $e |- ( ph -> ps ) $.
+    nsyl4.2 $e |- ( -. ph -> ch ) $.
+    $( A negated syllogism inference. $)
+    nsyl4   $p |- ( -. ch -> ps ) $=
+      ( wn con1 syl ) CFABACEGDH $.
+      $([15-Feb-96]$)
+  $}
+
+  ${
+    nsyli.1 $e |- ( ph -> ( ps -> ch ) ) $.
+    nsyli.2 $e |- ( th -> -. ch ) $.
+    $( A negated syllogism inference. $)
+    nsyli   $p |- ( ph -> ( th -> -. ps ) ) $=
+      ( wn pm2.16d syl5 ) ACGBGDABCEHFI $.
+      $([3-May-94]$)
+  $}
+
+  $( Theorem *3.2 of Whitehead and Russell, expressed with primitive
+     connectives. $)
+  pm3.2im  $p |- ( ph -> ( ps -> -. ( ph -> -. ps ) ) ) $=
+      ( wn wi nega comm a3d ) AABCZDZCZBJCAHIEFG $.
+
+  $( Theorem 8, p. 60, of Margaris. $)
+  mth8   $p |- ( ph -> ( -. ps -> -. ( ph -> ps ) ) ) $=
+      ( wi wn nega comm pm2.15d ) AABCZDZBIDABHEFG $.
+
+  $( Theorem *2.61 of Whitehead and Russell.  Useful for eliminating an
+     antecedent. $)
+  pm2.61 $p |- ( ( ph -> ps ) -> ( ( -. ph -> ps ) -> ps ) ) $=
+      ( wi wn syl1 pm2.18 syl6 pm2.15 syl5 ) ABCZBDZACZBADBCJLKBCBABKEBFGABHI
+      $.
+
+  ${
+    pm2.61i.1 $e |- ( ph -> ps ) $.
+    pm2.61i.2 $e |- ( -. ph -> ps ) $.
+    $( Inference eliminating an antecedent. $)
+    pm2.61i   $p |- ps $=
+      ( wi wn pm2.61 mp2 ) ABEAFBEBABGCDH $.
+      $([5-Apr-94]$)
+  $}
+
+  ${
+    pm2.61d2.1 $e |- ( ph -> ( -. ps -> ch ) ) $.
+    pm2.61d2.2 $e |- ( ps -> ch ) $.
+    $( Inference eliminating an antecedent. $)
+    pm2.61d2   $p |- ( ph -> ch ) $=
+      ( wi a1d wn comm pm2.61i ) BACFBCAEGABHCDIJ $.
+      $([18-Aug-93]$)
+  $}
+
+  ${
+    pm2.61d.1 $e |- ( ph -> ( ps -> ch ) ) $.
+    pm2.61d.2 $e |- ( ph -> ( -. ps -> ch ) ) $.
+    $( Deduction eliminating an antecedent. $)
+    pm2.61d   $p |- ( ph -> ch ) $=
+      ( wi comm wn pm2.61i ) BACFABCDGABHCEGI $.
+      $([27-Apr-94]$)
+  $}
+
+  ${
+    pm2.61ii.1 $e |- ( -. ph -> ( -. ps -> ch ) ) $.
+    pm2.61ii.2 $e |- ( ph -> ch ) $.
+    pm2.61ii.3 $e |- ( ps -> ch ) $.
+    $( Inference eliminating two antecedents. $)
+    pm2.61ii   $p |- ch $=
+      ( wn wi a1d pm2.61i ) BCFABGZCHACKEIDJJ $.
+  $}
+
+  $( Theorem *2.65 of Whitehead and Russell.  Useful for eliminating a
+     consequent. $)
+  pm2.65 $p |- ( ( ph -> ps ) -> ( ( ph -> -. ps ) -> -. ph ) ) $=
+      ( wi wn pm2.61 pm2.16 syl5 comm pm2.03 ) ABCZBADZCZKABDZCLJKLMKCKJBKEABFG
+      HABIG $.
+
+  ${
+    pm2.65i.1 $e |- ( ph -> ps ) $.
+    pm2.65i.2 $e |- ( ph -> -. ps ) $.
+    $( Inference rule for proof by contradiction. $)
+    pm2.65i   $p |- -. ph $=
+      ( wn wi pm2.01 nsyl ax-mp ) AAEZFJAGABADCHI $.
+      $([18-May-94]$)
+  $}
+
+  ${
+    pm2.65d.1 $e |- ( ph -> ( ps -> ch ) ) $.
+    pm2.65d.2 $e |- ( ph -> ( ps -> -. ch ) ) $.
+    $( Deduction rule for proof by contradiction. $)
+    pm2.65d   $p |- ( ph -> -. ps ) $=
+      ( wi wn pm2.65 syl13 ) BCFBCGFBGABCHDEI $.
+      $([26-Jun-94]$)
+  $}
+
+  ${
+    ja.1 $e |- ( -. ph -> ch ) $.
+    ja.2 $e |- ( ps -> ch ) $.
+    $( Inference joining the antecedents of two premises. $)
+    ja   $p |- ( ( ph -> ps ) -> ch ) $=
+      ( wi wn syl3 pm2.61 syl mpi ) ABFZAGCFZCLACFMCFBCAEHACIJDK $.
+  $}
+
+  ${
+    jc.1 $e |- ( ph -> ps ) $.
+    jc.2 $e |- ( ph -> ch ) $.
+    $( Inference joining the consequents of two premises. $)
+    jc   $p |- ( ph -> -. ( ps -> -. ch ) ) $=
+      ( wn wi pm3.2im syl13 ) BCBCFGFABCHDEI $.
+  $}
+
+  $( Simplification.  Similar to Theorem *3.26 of Whitehead and Russell. $)
+  pm3.26im $p |- ( -. ( ph -> -. ps ) -> ph ) $=
+      ( wn wi pm2.21 con1 ) AABCZDAGEF $.
+
+  $( Simplification.  Similar to Theorem *3.27 of Whitehead and Russell. $)
+  pm3.27im $p |- ( -. ( ph -> -. ps ) -> ps ) $=
+      ( wn wi ax-1 con1 ) BABCZDGAEF $.
+
+  $( Importation theorem expressed with primitive connectives. $)
+  impt  $p |- ( ( ph -> ( ps -> ch ) ) -> ( -. ( ph -> -. ps ) -> ch ) ) $=
+      ( wi wn pm2.16 syl3 com23 pm2.15d ) ABCDZDZCABEZDKACEZLJMLDABCFGHI $.
+      $([25-Apr-94]$)
+
+  $( Exportation theorem expressed with primitive connectives. $)
+  expt  $p |- ( ( -. ( ph -> -. ps ) -> ch ) -> ( ph -> ( ps -> ch ) ) ) $=
+      ( wn wi pm3.2im syl4d comm ) AABDEDZCEBCEABICABFGH $.
+
+  ${
+    impi.1 $e |- ( ph -> ( ps -> ch ) ) $.
+    $( An importation inference. $)
+    impi   $p |- ( -. ( ph -> -. ps ) -> ch ) $=
+      ( wi wn impt ax-mp ) ABCEEABFEFCEABCGDH $.
+  $}
+
+  ${
+    expi.1 $e |- ( -. ( ph -> -. ps ) -> ch ) $.
+    $( An exportation inference. $)
+    expi   $p |- ( ph -> ( ps -> ch ) ) $=
+      ( wn wi expt ax-mp ) ABEFECFABCFFABCGDH $.
+  $}
+
+

@@ -1,0 +1,136 @@
+$(
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+        Decimal representation of numbers
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+$)
+
+  $( This section allows us to define decimal numbers of the form
+     dd...dd.dd...dd where the decimal point is optional.  Note that if
+     a decimal point is included, there must be at least one digit before
+     and after the decimal point, so 1. and .1 are undefined.  There are
+     no restrictions on leading or trailing 0's; thus 1 = 1.0 = 0001 =
+     001.00. $)
+
+  $c 2 $. $( The decimal digit 2 $)
+  $c 3 $. $( The decimal digit 3 $)
+  $c 4 $. $( The decimal digit 4 $)
+  $c 5 $. $( The decimal digit 5 $)
+  $c 6 $. $( The decimal digit 6 $)
+  $c 7 $. $( The decimal digit 7 $)
+  $c 8 $. $( The decimal digit 8 $)
+  $c 9 $. $( The decimal digit 9 $)
+  $c . $. $( Decimal point $)
+  $c digit $. $( Digit variable type $)
+  $c digit-string $. $( Digit-string variable type $)
+
+  ${
+    $v d $.
+    $v s $.
+    $v t $.
+
+    $( Let ` d ` be a digit. $)
+    dd $f digit d $.
+    $( Let ` s ` be a digit string. $)
+    dss $f digit-string s $.
+    $( Let ` t ` be a digit string. $)
+    dst $f digit-string t $.
+
+    $( Define the digit 0. $)
+    d0 $a digit 0 $.
+    $( Define the digit 1. $)
+    d1 $a digit 1 $.
+    $( Define the digit 2. $)
+    d2 $a digit 2 $.
+    $( Define the digit 3. $)
+    d3 $a digit 3 $.
+    $( Define the digit 4. $)
+    d4 $a digit 4 $.
+    $( Define the digit 5. $)
+    d5 $a digit 5 $.
+    $( Define the digit 6. $)
+    d6 $a digit 6 $.
+    $( Define the digit 7. $)
+    d7 $a digit 7 $.
+    $( Define the digit 8. $)
+    d8 $a digit 8 $.
+    $( Define the digit 9. $)
+    d9 $a digit 9 $.
+
+    $( A single digit is a digit string. $)
+    dsd $a digit-string d $.
+    $( A digit string followed by a digit is a digit string. $)
+    dssd $a digit-string s d $.
+
+    $( Extend class notation to include decimal non-negative integers. $)
+    cdec1 $a class s _10 $.
+    $( Extend class notation to include decimal numbers with decimal points. $)
+    cdec2 $a class s . t _10 $.
+
+    $( Note that the numbers 0 and 1 are primitive constants in the axiom
+       system. $)
+    $( Define the number 2. $)
+    df-2 $a |- 2 _10 = ( 1 _10 + 1 _10 ) $.
+    $( Define the number 3. $)
+    df-3 $a |- 3 _10 = ( 2 _10 + 1 _10 ) $.
+    $( Define the number 4. $)
+    df-4 $a |- 4 _10 = ( 3 _10 + 1 _10 ) $.
+    $( Define the number 5. $)
+    df-5 $a |- 5 _10 = ( 4 _10 + 1 _10 ) $.
+    $( Define the number 6. $)
+    df-6 $a |- 6 _10 = ( 5 _10 + 1 _10 ) $.
+    $( Define the number 7. $)
+    df-7 $a |- 7 _10 = ( 6 _10 + 1 _10 ) $.
+    $( Define the number 8. $)
+    df-8 $a |- 8 _10 = ( 7 _10 + 1 _10 ) $.
+    $( Define the number 9. $)
+    df-9 $a |- 9 _10 = ( 8 _10 + 1 _10 ) $.
+
+    $( Define decimal numbers with more than one digit.  To eliminate these
+       definitions, apply them repeatedly to a wff until only the primitive
+       numbers ` 0 _10 ` and ` 1 _10 ` remain. $)
+
+    $( Define the concatenation of a digit to a digit string.  Note that
+       we use 1 + 9 here because this definition is required to define 10. $)
+    df-dec1 $a |- s d _10 = ( ( ( 9 _10 + 1 _10 ) x. s _10 ) + d _10 ) $.
+    $( Define a number with a single digit after the decimal point. $)
+    df-dec2 $a |- s . d _10 = ( s d _10 / 1 0 _10 ) $.
+    $( Define a number with more digits after the decimal point. $)
+    df-dec3 $a |- s . d t _10 = ( s d . t _10 / 1 0 _10 ) $.
+
+    $( Metatheorems:  a decimal representation is a complex number.  (We can
+       recursively prove this for any individual decimal number, but these
+       closure metatheorems will make subsequent proofs shorter.) $)
+    $( A decimal without a decimal point is a complex number. $)
+    mt-deccl1 $a |- s _10 e. CC $.
+    $( A decimal with a decimal point is a complex number. $)
+    mt-deccl2 $a |- s . t _10 e. CC $.
+
+    $( Theorem defining the number 10. $)
+    10eq $p |- 1 0 _10 = ( 9 _10 + 1 _10 ) $=
+      ( d0 d1 dsd dssd cdec1 d9 cn1 caddc co cmulc cn0 df-dec1 mt-deccl1 1cn
+      addcl mulcl addid1 mulid1 3eqtr ) ABCZDEFCZEZGHIZGJIZKHIUDUCATLUDUCGUBGUA
+      MNOZNPQUCUERS $.
+      $([23-Nov-94]$)
+
+    $( Restatement of definition ~df-dec1 using the number 10. $)
+    dfdec1 $p |- s d _10 = ( ( 1 0 _10 x. s _10 ) + d _10 ) $=
+      ( dssd cdec1 d9 dsd cn1 caddc co cmulc d0 d1 df-dec1 10eq opreq1i eqtr4
+      ) ABCDEFDGHIZBDZJIZAFDZHIKLFCDZRJIZTHIABMUBSTHUAQRJNOOP $.
+      $([23-Nov-94]$)
+  $}
+
+  $( Two plus two equals 4 (base 10) $)
+  2p2e4 $p |- ( 2 _10 + 2 _10 ) = 4 _10 $=
+      ( d2 dsd cdec1 caddc co cn1 d4 df-2 opreq2i mt-deccl1 1cn d3 df-4 df-3
+      opreq1i eqtr addass2r eqtr4 ) ABZCZTDETFFDEZDEGBZCZTUATDHITFFUCSJKKUBJUCL
+      BCZFDETFDEZFDEMUDUEFDNOPQR $.
+      $([28-Jan-97]$)
+
+$(
+             (-1) * 0 = 0 (definition of zero)
+so    (-1) * (1+(-1)) = 0 (definition of negative numbers)
+so (-1)*1 + (-1)*(-1) = 0 (distributive property of multiplication)
+so     -1 + (-1)*(-1) = 0 (identity element of multiplication)
+so          (-1)*(-1) = 1 (adding one to both sides)
+$)
+

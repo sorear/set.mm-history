@@ -1,0 +1,250 @@
+$(
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+           "Deduction Theorem" for Set Theory
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+$)
+
+  $( These lemmas are used to convert hypotheses into antecedents,
+     when there is at least one class making the hypothesis true. $)
+
+$(
+The Deduction Theorem in set theory
+-----------------------------------
+
+In a Hilbert system of logic (which consists of a set of axioms, modus
+ponens, and the generalization rule), converting a deduction to a proof using
+the Deduction Theorem (taught in introductory logic books) involves an
+exponential increase of the number of steps as hypotheses are successively
+eliminated.  Here is a trick that is not as general as the Deduction Theorem
+but requires only a linear increase in the number of steps.
+
+The general problem:  We want to convert a deduction
+  P |- Q
+into a proof of the theorem
+  |- P -> Q
+i.e. we want to eliminate the hypothesis P.  Normally this is done using the
+Deduction (meta)Theorem, which looks at the microscopic steps of the
+deduction and usually doubles or triples the number of these microscopic
+steps for each hypothesis that is eliminated.  We will look at a special case
+of this problem, without appealing to the Deduction Theorem.
+
+We need two lemmas.  We assume ZF with class notation.  A and B are
+arbitrary (possibly proper) classes.  P, Q, R, S and T are wffs.
+
+Lemma 1.  Assume x does not occur in A, B, or P.  Then
+  A = { x | (x \in B -> P) -> (x \in A & P) } -> (P <-> R),
+  B = { x | (x \in B -> P) -> (x \in A & P) } -> (S <-> R), S |- R
+Proof:  Logic and Axiom of Extensionality.
+
+Lemma 2.  Assume x does not occur in A or P.  Then
+  A = { x | (x \in B -> P) -> (x \in A & P) } -> (Q <-> T), T |- P -> Q
+Proof:  Logic and Axiom of Extensionality.
+
+Here's a simple example that illustrates how it works.  Suppose we have
+a deduction
+  Ord A |- Tr A
+which means, "Assume A is an ordinal class. Then A is a transitive class."
+Note that A is a class variable that may be substituted with any class
+expression, so this is really a deduction scheme.
+
+We want to convert this to a proof of the theorem (scheme)
+  |- Ord A -> Tr A.
+
+The catch is that we must be able to prove "Ord A" for at least one object A
+(and this is what makes it weaker than the ordinary Deduction Theorem).
+However it is easy to prove |- Ord 0 (the empty set is ordinal).  (For a
+typical textbook "theorem", i.e. deduction, there is usually at least one
+object satisfying each hypothesis, otherwise the theorem would not be very
+useful.  We can always go back to the standard Deduction Theorem for those
+hypotheses where this is not the case.)  Continuing with the example:
+
+Equality axioms (and Extensionality) yield
+  |- A = { x | (x \in 0 -> Ord A) -> (x \in A & Ord A)} ->
+     (Ord A <-> Ord { x | (x \in 0 -> Ord A) -> (x \in A & Ord A)})  (1)
+  |- 0 = { x | (x \in 0 -> Ord A) -> (x \in A & Ord A)} ->
+     (Ord 0 <-> Ord { x | (x \in 0 -> Ord A) -> (x \in A & Ord A)})  (2)
+From (1), (2) and |- Ord 0, Lemma 1 yields
+  |- Ord { x | (x \in 0 -> Ord A) -> (x \in A & Ord A)}              (3)
+From (3) and substituting { x | (x \in 0 -> Ord A) -> (x \in A & Ord A) } for
+A in the original deduction,
+  |- Tr { x | (x \in 0 -> Ord A) -> (x \in A & Ord A)}               (4)
+Equality axioms (and Extensionality) yield
+  |- A = { x | (x \in 0 -> Ord A) -> (x \in A & Ord A)} ->
+     (Tr A <-> Tr { x | (x \in 0 -> Ord A) -> (x \in A & Ord A)})    (5)
+From (4) and (5), Lemma 2 yields
+  |- Ord A -> Tr A                                               (Q.E.D.)
+$)
+
+
+  ${
+    $d x A $.  $d x B $.
+    $( A lemma used in converting certain deductions involving classes into
+       theorems (useful when ` B ` contains the empty set). $)
+    clded1 $p |- ( A e. B -> A = { x | ( x e. A /\ A e. B ) } ) $=
+      ( wcel cv wa iba birabdv ) BCDZAEBDZIFABIJGH $.
+      $([1-Apr-94]$)
+  $}
+
+  ${
+    $d x A $.  $d x B $.
+    clded2.1 $e |- (/) e. B $.
+    $( A lemma used in converting certain deductions involving classes into
+       theorems (useful when ` B ` contains the empty set). $)
+    clded2 $p |- { x | ( x e. A /\ A e. B ) } e. B $=
+      ( wcel cv wa cab wi wb ibib clded1 cleq3d mpbir wn c0 weq eqid ninba
+      biabdv dfnul2 syl5eq mpbii pm2.61i ) BCEZAFBEZUEGZAHZCEZUEUIIUEUEUIJIUEU
+      IKUEBUHCABCLMNUEOZPCEUIUJPUHCUJAAQZOZAHUHPUJULUGAUKUEUFARSTAUAUBMDUCUD $.
+      $([1-Apr-94]$)
+  $}
+
+  ${
+    $d x A $.  $d x B $.
+    clded3.1 $e |- ( A = { x | ( x e. A /\ A e. B ) } -> ( ph <-> ps ) ) $.
+    clded3.2 $e |- ps $.
+    $( A lemma used in converting certain deductions involving classes into
+       theorems (useful when ` B ` contains the empty set). $)
+    clded3 $p |- ( A e. B -> ph ) $=
+      ( wcel cv wa cab wceq wb clded1 syl mpbiri ) DEHZABQDCIDHQJCKLABMCDENFOGP
+      $.
+      $([1-Apr-94]$)
+  $}
+
+  ${
+    $d x A $.  $d x B $.  $d x C $.
+    clded32.1 $e |- ( A = { x | ( x e. A /\ A e. C ) } -> ( ph <-> ps ) ) $.
+    clded32.2 $e |- ( B = { x | ( x e. B /\ B e. C ) } -> ( ps <-> ch ) ) $.
+    clded32.3 $e |- ch $.
+    $( A lemma used in converting certain deductions involving classes into
+       theorems (useful when ` C ` contains the empty set). $)
+    clded32 $p |- ( ( A e. C /\ B e. C ) -> ph ) $=
+      ( wcel wi cv wa cab wceq bilimd clded3 imp ) EGKZFGKZAUAALUABLDEGEDMEKTN
+      DOPABUAHQBCDFGIJRRS $.
+      $([5-Dec-95]$)
+  $}
+
+  ${
+    $d x A $.  $d x ph $.
+    $( A lemma used in converting certain deductions involving classes into
+       theorems (generalized version). $)
+    cldedgg1 $p |- ( ph ->
+                   A = { x | ( ( x e. B -> ph ) -> ( x e. A /\ ph ) ) } ) $=
+      ( cv wcel wi wa ibiia birabdv ) ABEZDFZAGKCFZAHGBCAMLIJ $.
+      $([11-Jan-95]$)
+  $}
+
+  ${
+    $d x A $.  $d x B $.  $d x ph $.
+    cldedgg2.1 $e |- ( A = { x | ( ( x e. B -> ph ) -> ( x e. A /\ ph ) ) } ->
+                     ( ph <-> ps ) ) $.
+    cldedgg2.2 $e |- ( B = { x | ( ( x e. B -> ph ) -> ( x e. A /\ ph ) ) } ->
+                     ( ch <-> ps ) ) $.
+    cldedgg2.3 $e |- ch $.
+    $( A lemma used in converting certain deductions involving classes into
+       theorems (generalized version). $)
+    cldedgg2 $p |- ps $=
+      ( wi wb ibib cv wcel wa cab wceq cldedgg1 syl mpbir wn nibiia birabdv
+      mpbii pm2.61i ) ABABJAABKZJABLAEDMZFNZAJUGENZAOJZDPZQUFADEFRGSTAUAZCBULFU
+      KQCBKULUJDFAUHUIUBUCHSIUDUE $.
+      $([11-Jan-95]$)
+  $}
+
+  ${
+    $d x A $.  $d x ph $.
+    cldedgg3.1 $e |- ( A = { x | ( ( x e. B -> ph ) ->
+                    ( x e. A /\ ph ) ) } -> ( ps <-> ch ) ) $.
+    cldedgg3.2 $e |- ch $.
+    $( A lemma used in converting certain deductions involving classes into
+       theorems (generalized version). $)
+    cldedgg3 $p |- ( ph -> ps ) $=
+      ( cv wcel wi wa cab wceq wb cldedgg1 syl mpbiri ) ABCAEDIZFJAKSEJALKDMNBC
+      OADEFPGQHR $.
+      $([11-Jan-95]$)
+  $}
+
+  ${
+    $d x A $.  $d x B $.  $d x th $.
+    cldedgg4.1 $e |- ( A = { x | ( ( x e. B -> th ) -> ( x e. A /\ th ) ) } ->
+                     ( ph <-> ch ) ) $.
+    cldedgg4.2 $e |- ( B = { x | ( ( x e. B -> th ) -> ( x e. A /\ th ) ) } ->
+                     ( ps <-> ch ) ) $.
+    cldedgg4.3 $e |- ph $.
+    cldedgg4.4 $e |- ps $.
+    $( A lemma used in converting certain deductions involving classes into
+       theorems (generalized version).  This lemma is used to make
+       substitutions into hyptotheses of the deduction that are not being
+       eliminated. $)
+    cldedgg4 $p |- ch $=
+      ( cv wcel wi wa cab wceq wb cldedgg1 syl mpbii wn nibiia birabdv
+      pm2.61i ) DCDACDFELZGMZDNUFFMZDONZEPZQACRDEFGSHTJUADUBZBCUKGUJQBCRUKUIEGD
+      UGUHUCUDITKUAUE $.
+      $([29-Jan-95]$)
+  $}
+
+  ${
+    $d x A $.  $d x B $.  $d x C $.
+    $( A lemma used in converting certain deductions involving classes into
+       theorems (generalized version). $)
+    cldedg1 $p |- ( A e. B ->
+              A = { x | ( ( x e. C -> A e. B ) -> ( x e. A /\ A e. B ) ) } ) $=
+      ( wcel cldedgg1 ) BCEABDF $.
+      $([2-Apr-94]$)
+  $}
+
+  ${
+    $d x A $.  $d x B $.  $d x C $.
+    cldedg2.1 $e |- C e. B $.
+    $( A lemma used in converting certain deductions involving classes into
+       theorems (generalized version). $)
+    cldedg2 $p |- { x | ( ( x e. C -> A e. B ) -> ( x e. A /\ A e. B ) ) }
+                  e. B $=
+      ( wcel cv wi wa cab wb ibib cldedg1 cleq3d mpbir wn nibiia birabdv
+      mpbii pm2.61i ) BCFZAGZDFZUAHUBBFZUAIHZAJZCFZUAUGHUAUAUGKHUAUGLUABUFCABCD
+      MNOUAPZDCFUGUHDUFCUHUEADUAUCUDQRNEST $.
+      $([2-Apr-94]$)
+  $}
+
+  ${
+    $d x A $.  $d x B $.  $d x C $.
+    cldedg3.1 $e |- ( A = { x | ( ( x e. C -> A e. B ) ->
+                    ( x e. A /\ A e. B ) ) } -> ( ph <-> ps ) ) $.
+    cldedg3.2 $e |- ps $.
+    $( A lemma used in converting certain deductions involving classes into
+       theorems (generalized version). $)
+    cldedg3 $p |- ( A e. B -> ph ) $=
+      ( wcel cldedgg3 ) DEIABCDFGHJ $.
+      $([2-Apr-94]$)
+  $}
+
+  ${
+    $d x A $.  $d x B $.  $d x C $.  $d x D $.
+    cldedg32.1 $e |- ( A = { x | ( ( x e. D -> A e. C ) ->
+                    ( x e. A /\ A e. C ) ) } -> ( ph <-> ps ) ) $.
+    cldedg32.2 $e |- ( B = { x | ( ( x e. D -> B e. C ) ->
+                    ( x e. B /\ B e. C ) ) } -> ( ps <-> ch ) ) $.
+    cldedg32.3 $e |- ch $.
+    $( A lemma used in converting certain deductions involving classes into
+       theorems (generalized version). $)
+    cldedg32 $p |- ( ( A e. C /\ B e. C ) -> ph ) $=
+      ( wcel wi cv wa cab wceq bilimd cldedg3 imp ) EGLZFGLZAUBAMUBBMDEGHEDNZH
+      LUAMUCELUAOMDPQABUBIRBCDFGHJKSST $.
+      $([22-Nov-94]$)
+  $}
+
+  ${
+    $d x A $.  $d x B $.  $d x C $.  $d x D $.  $d x R $.
+    cldedg33.1 $e |- ( A = { x | ( ( x e. D -> A e. R ) ->
+                    ( x e. A /\ A e. R ) ) } -> ( ph <-> ps ) ) $.
+    cldedg33.2 $e |- ( B = { x | ( ( x e. D -> B e. R ) ->
+                    ( x e. B /\ B e. R ) ) } -> ( ps <-> ch ) ) $.
+    cldedg33.3 $e |- ( C = { x | ( ( x e. D -> C e. R ) ->
+                    ( x e. C /\ C e. R ) ) } -> ( ch <-> th ) ) $.
+    cldedg33.4 $e |- th $.
+    $( A lemma used in converting certain deductions involving classes into
+       theorems (generalized version). $)
+    cldedg33 $p |- ( ( A e. R /\ B e. R /\ C e. R ) -> ph ) $=
+      ( wcel wa wi cv cab wceq bilimd cldedg32 cldedg3 exp3a 3imp ) FJOZGJOZHJ
+      OZAUFUGUHAUGUHPZAQUIBQEFJIFERZIOUFQUJFOUFPQESTABUIKUABCDEGHJILMNUBUCUDUE
+      $.
+      $([22-Nov-94]$)
+  $}
+

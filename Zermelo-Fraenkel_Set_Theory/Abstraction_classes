@@ -1,0 +1,713 @@
+$(
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+        Abstraction classes
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+$)
+
+$(
+A class is the collection of all sets for which a given property (wff) is
+true.  All sets are classes, but some classes are 'too large' to be sets (i.e.,
+the ZF axioms deny that they exist).  Classes that don't exist are called
+'proper classes.'  In principle, class notation is not necessary to develop set
+theory, but it makes the notation much more compact.  A drawback for the novice
+is that we will be manipulating symbols for objects that may or may not exist;
+but the precision and rigor of Metamath will prevent us from deriving nonsense.
+Classes can be eliminated by applying their definitions; see Quine or Ch. 4 of
+Takeuti and Zaring.  Note that a specific wff containing class variables may
+not be convertible to a specific wff without them but rather may correspond to
+a scheme of such wff's.
+$)
+
+  $( Declare new constants use in class definition. $)
+  $c { $. $( Left brace $)
+  $c } $. $( Right brace $)
+  $c class $. $( Class variable type $)
+
+  $( Declare variable symbols that will be used to represent classes.  Note
+     that later on ` R `, ` S `, ` F ` and ` G ` denote relations and
+     functions, but these letters serve as mnemonics only and in fact behave
+     no differently from the variables ` A ` through ` D `. $)
+  $v A $.
+  $v B $.
+  $v C $.
+  $v D $.
+  $v R $.
+  $v S $.
+
+  $( All sets are classes (but not vice-versa!). $)
+  cv $a class x $.
+
+  $( Introduce abstraction class notation ('the class of sets ` x ` such that
+     ` ph ` is true').  Some classes defined with this notation are not sets,
+     i.e. do not exist. $)
+  cab $a class { x | ph } $.
+
+  $( Let ` A ` be a class variable. $)
+  cA $f class A $.
+  $( Let ` B ` be a class variable. $)
+  cB $f class B $.
+  $( Let ` C ` be a class variable. $)
+  cC $f class C $.
+  $( Let ` D ` be a class variable. $)
+  cD $f class D $.
+  $( Let ` R ` be a class variable. $)
+  cR $f class R $.
+  $( Let ` S ` be a class variable. $)
+  cS $f class S $.
+
+  $( Extend wff definition to include class equality. $)
+  wceq $a wff A = B $.
+
+  $( Extend wff definition to include the membership connective between
+     classes. $)
+  wcel $a wff A e. B $.
+
+  $( Define the abstraction class.  ` x ` and ` y ` need not be distinct.
+     Definition 2.1 of Quine, p. 16. $)
+  df-clab $a |- ( x e. { y | ph } <-> ( ph y | x ) ) $.
+
+  $( Simplification of abstraction class notation when the free and abstraction
+     variables are identical. $)
+  abid $p |- ( ph <-> x e. { x | ph } ) $=
+      ( wsb cv cab wcel sbid df-clab bitr4 ) AABBCBDABEFABGABBHI $.
+
+  ${
+    $d x y $.
+    $( The abstraction variable in an abstraction class is not free. $)
+    hbab1 $p |- ( y e. { x | ph } -> A. x y e. { x | ph } ) $=
+      ( wsb wal cv cab wcel hbsbv df-clab bial 3imtr4 ) ABCDZMBECFABGHZNBEABCIA
+      CBJZNMBOKL $.
+  $}
+
+  ${
+    $d x z $.
+    hbab.1 $e |- ( ph -> A. x ph ) $.
+    $( A variable not free in a wff remains so in its abstraction class. $)
+    hbab   $p |- ( z e. { y | ph } -> A. x z e. { y | ph } ) $=
+      ( wsb wal cv cab wcel weq wi ax-16 hbsbc pm2.61i df-clab bial 3imtr4 ) AC
+      DFZSBGZDHACIJZUABGBDKBGSTLSBDMACDBENOADCPZUASBUBQR $.
+      $([1-Mar-95]$)
+  $}
+
+  ${
+    $d x A $.  $d x B $.  $d x y z $.
+    dm-cleq.1 $e |- ( A. x ( x e. y <-> x e. z ) -> y = z ) $.
+    $( Define the the equality connective between classes.  See Quine or
+       Chapter 4 of Takeuti and Zaring for its justification and methods for
+       eliminating it.  Note that its elimination will not necessarily result
+       in a single wff in the original language but possibly a "scheme" of
+       wffs.  This is an example of a somewhat "dangerous" definition, because
+       it extends the use of the existing equality symbol rather than
+       introducing a new symbol, allowing us to make statements in the original
+       language that may not be true.  For example, it permits us to deduce
+       ` y = z <-> A. x ( x e. y <-> x e. z ) ` which is not a theorem of
+       logic but rather presupposes the Axiom of Extensionality, which we
+       must therefore include as a hypothesis.  We could avoid the danger
+       by introducing another symbol, say ` == `, in place of ` = `; this would
+       also have the advantage of making elimination of the definition
+       straightforward, so that we could make ~dm-cleq become ~df-cleq and
+       eliminate Extensionality as a hypothesis.  We would then also have the
+       advantage of being able to identify exactly where Extensionality
+       truly comes into play.  Of course, one of our theorems would then be
+       ` x == x <-> x = x ` by invoking Extensionality.  However in keeping
+       with standard practice we retain the "dangerous" definition. $)
+    dm-cleq   $a |- ( A = B <-> A. x ( x e. A <-> x e. B ) ) $.
+  $}
+
+ ${
+    $d x A $.  $d x B $.  $d x y z $.  $( ` y z ` are dummy var. $)
+    $( The same as ~dm-cleq with the hypothesis removed. $)
+    dfcleq $p |- ( A = B <-> A. x ( x e. A <-> x e. B ) ) $=
+      ( vy vz ax-ext dm-cleq ) ADEBCADEFG $.
+      $([15-Sep-93]$)
+  $}
+
+  ${
+    $d x A $.  $d x B $.
+    $( Define the membership connective between classes.  Theorem 6.3 of
+       Quine, p. 41, which we adopt as a definition.  Note that it extends
+       the use of the existing membership symbol, but unlike ~dm-cleq it does
+       not strengthen the set of valid wffs of logic when the class variables
+       are replaced with set variables. $)
+    df-clel $a |- ( A e. B <-> E. x ( x = A /\ x e. B ) ) $.
+  $}
+
+  ${
+    $d x A $. $d x B $. $d x ph $.
+    cleqrd.1 $e |- ( ph -> ( x e. A <-> x e. B ) ) $.
+    $( Deduce equality of sets from equivalence of membership. $)
+    cleqrd   $p |- ( ph -> A = B ) $=
+      ( cv wcel wb wal wceq 19.21aiv dfcleq sylibr ) ABFZCGNDGHZBICDJAOBEKBCDLM
+      $.
+      $([17-Mar-96]$)
+  $}
+
+  ${
+    $d x A $. $d x B $.
+    cleqri.1 $e |- ( x e. A <-> x e. B ) $.
+    $( Infer equality of sets from equivalence of membership. $)
+    cleqri   $p |- A = B $=
+      ( wceq cv wcel wb dfcleq mpgbir ) BCEAFZBGKCGHAABCIDJ $.
+  $}
+
+  ${
+    $d x A $.  $( ` x ` is dummy. $)
+    $( Class identity law.  Theorem 6.4 of Quine, p. 41. $)
+    cleqid $p |- A = A $=
+      ( vx cv wcel pm4.2 cleqri ) BAABCADEF $.
+  $}
+
+  ${
+    $d x A $.  $d x B $.  $( ` x ` is dummy. $)
+    $( Commutative law for class equality.  Theorem 6.5 of Quine, p. 41. $)
+    cleqcom $p |- ( A = B <-> B = A ) $=
+      ( vx cv wcel wb wal wceq pm4.21 bial dfcleq 3bitr4 ) CDZAEZMBEZFZCGONFZCG
+      ABHBAHPQCNOIJCABKCBAKL $.
+  $}
+
+  ${
+    cleqcoms.1 $e |- ( A = B -> ph ) $.
+    $( Inference applying commutative law for class equality to an
+       antecedent. $)
+    cleqcoms   $p |- ( B = A -> ph ) $=
+      ( wceq cleqcom sylbi ) CBEBCEACBFDG $.
+  $}
+
+  ${
+    cleqcomi.1 $e |- A = B $.
+    $( Inference from commutative law for class equality. $)
+    cleqcomi   $p |- B = A $=
+      ( wceq cleqcom mpbi ) ABDBADABECF $.
+  $}
+
+  ${
+    cleqcomd.1 $e |- ( ph -> A = B ) $.
+    $( Deduction from commutative law for class equality. $)
+    cleqcomd   $p |- ( ph -> B = A ) $=
+      ( wceq cleqcom sylib ) ABCECBEDBCFG $.
+      $([15-Aug-94]$)
+  $}
+
+  ${
+    $d x A $.  $d x B $.  $d x C $.  $( ` x ` is dummy. $)
+    $( Equality implies equivalence of equalities. $)
+    cleq1 $p |- ( A = B -> ( A = C <-> B = C ) ) $=
+      ( vx wceq cv wcel wb wal dfcleq biimp 19.21bi birbid bialdv 3bitr4g )
+      ABEZDFZAGZQCGZHZDIQBGZSHZDIACEBCEPTUBDPRUASPRUAHZDPUCDIDABJKLMNDACJDBCJO
+      $.
+  $}
+
+  ${
+    cleq1i.1 $e |- A = B $.
+    $( Inference from equality to equivalence of equalities. $)
+    cleq1i   $p |- ( A = C <-> B = C ) $=
+      ( wceq wb cleq1 ax-mp ) ABEACEBCEFABCGDH $.
+  $}
+
+  ${
+    cleq1d.1 $e |- ( ph -> A = B ) $.
+    $( Deduction from equality to equivalence of equalities. $)
+    cleq1d   $p |- ( ph -> ( A = C <-> B = C ) ) $=
+      ( wceq wb cleq1 syl ) ABCFBDFCDFGEBCDHI $.
+      $([27-Dec-93]$)
+  $}
+
+  $( Equality implies equivalence of equalities. $)
+  cleq2 $p |- ( A = B -> ( C = A <-> C = B ) ) $=
+      ( wceq cleq1 cleqcom 3bitr4g ) ABDACDBCDCADCBDABCECAFCBFG $.
+
+  ${
+    cleq2i.1 $e |- A = B $.
+    $( Inference from equality to equivalence of equalities. $)
+    cleq2i   $p |- ( C = A <-> C = B ) $=
+      ( wceq wb cleq2 ax-mp ) ABECAECBEFABCGDH $.
+  $}
+
+  ${
+    cleq2d.1 $e |- ( ph -> A = B ) $.
+    $( Deduction from equality to equivalence of equalities. $)
+    cleq2d   $p |- ( ph -> ( C = A <-> C = B ) ) $=
+      ( wceq wb cleq2 syl ) ABCFDBFDCFGEBCDHI $.
+      $([27-Dec-93]$)
+  $}
+
+  $( Equality relationship among 4 classes. $)
+  cleq12 $p |- ( ( A = B /\ C = D ) -> ( A = C <-> B = D ) ) $=
+      ( wceq cleq1 cleq2 sylan9bb ) ABEACEBCECDEBDEABCFCDBGH $.
+      $([3-Aug-94]$)
+
+  ${
+    cleq12i.1 $e |- A = B $.
+    cleq12i.2 $e |- C = D $.
+    $( A useful inference for substituting definitions into an equality. $)
+    cleq12i   $p |- ( A = C <-> B = D ) $=
+      ( wceq cleq1i cleq2i bitr ) ACGBCGBDGABCEHCDBFIJ $.
+  $}
+
+  ${
+    cleq12d.1 $e |- ( ph -> A = B ) $.
+    cleq12d.2 $e |- ( ph -> C = D ) $.
+    $( A useful inference for substituting definitions into an equality. $)
+    cleq12d   $p |- ( ph -> ( A = C <-> B = D ) ) $=
+      ( wceq cleq1d cleq2d bitrd ) ABDHCDHCEHABCDFIADECGJK $.
+  $}
+
+  ${
+    cleqan12d.1 $e |- ( ph -> A = B ) $.
+    cleqan12d.2 $e |- ( ps -> C = D ) $.
+    $( A useful inference for substituting definitions into an equality. $)
+    cleqan12d   $p |- ( ( ph /\ ps ) -> ( A = C <-> B = D ) ) $=
+      ( wa wceq adantr adantl cleq12d ) ABICDEFACDJBGKBEFJAHLM $.
+      $([9-Aug-94]$)
+  $}
+
+  ${
+    cleqan12rd.1 $e |- ( ph -> A = B ) $.
+    cleqan12rd.2 $e |- ( ps -> C = D ) $.
+    $( A useful inference for substituting definitions into an equality. $)
+    cleqan12rd   $p |- ( ( ps /\ ph ) -> ( A = C <-> B = D ) ) $=
+      ( wceq wb cleqan12d ancoms ) ABCEIDFIJABCDEFGHKL $.
+      $([9-Aug-94]$)
+  $}
+
+  ${
+    eqtr.1 $e |- A = B $.
+    eqtr.2 $e |- B = C $.
+    $( A chained equality inference. $)
+    eqtr   $p |- A = C $=
+      ( wceq cleq2i mpbi ) ABFACFBCAEGDH $.
+  $}
+
+  ${
+    eqtr2.1 $e |- A = B $.
+    eqtr2.2 $e |- B = C $.
+    $( A chained equality inference. $)
+    eqtr2   $p |- C = A $=
+      ( eqtr cleqcomi ) ACABCDEFG $.
+      $([21-Feb-95]$)
+  $}
+
+  ${
+    eqtr3.1 $e |- A = B $.
+    eqtr3.2 $e |- A = C $.
+    $( A chained equality inference. $)
+    eqtr3   $p |- B = C $=
+      ( cleqcomi eqtr ) BACABDFEG $.
+      $([6-May-94]$)
+  $}
+
+  ${
+    eqtr4.1 $e |- A = B $.
+    eqtr4.2 $e |- C = B $.
+    $( A chained equality inference. $)
+    eqtr4   $p |- A = C $=
+      ( cleqcomi eqtr ) ABCDCBEFG $.
+  $}
+
+  ${
+    3eqtr.1 $e |- A = B $.
+    3eqtr.2 $e |- B = C $.
+    3eqtr.3 $e |- C = D $.
+    $( An inference from three chained equalities. $)
+    3eqtr   $p |- A = D $=
+      ( eqtr ) ABDEBCDFGHH $.
+      $([29-Aug-93]$)
+  $}
+
+  ${
+    3eqtr3.1 $e |- A = B $.
+    3eqtr3.2 $e |- A = C $.
+    3eqtr3.3 $e |- B = D $.
+    $( An inference from three chained equalities. $)
+    3eqtr3   $p |- C = D $=
+      ( eqtr eqtr3 ) ACDFABDEGHI $.
+      $([6-May-94]$)
+  $}
+
+  ${
+    3eqtr4.1 $e |- A = B $.
+    3eqtr4.2 $e |- C = A $.
+    3eqtr4.3 $e |- D = B $.
+    $( An inference from three chained equalities. $)
+    3eqtr4   $p |- C = D $=
+      ( eqtr4 eqtr ) CADFABDEGHI $.
+
+    $( An inference from three chained equalities. $)
+    3eqtr4r   $p |- D = C $=
+      ( eqtr4 eqtr2 ) CADFABDEGHI $.
+      $([2-Sep-95]$)
+  $}
+
+  ${
+    eqtrd.1 $e |- ( ph -> A = B ) $.
+    eqtrd.2 $e |- ( ph -> B = C ) $.
+    $( A chained equality deduction. $)
+    eqtrd   $p |- ( ph -> A = C ) $=
+      ( wceq cleq2d mpbid ) ABCGBDGACDBFHEI $.
+  $}
+
+  ${
+    eqtr3d.1 $e |- ( ph -> A = B ) $.
+    eqtr3d.2 $e |- ( ph -> A = C ) $.
+    $( A chained equality deduction. $)
+    eqtr3d   $p |- ( ph -> B = C ) $=
+      ( cleqcomd eqtrd ) ACBDABCEGFH $.
+      $([18-Jul-95]$)
+  $}
+
+  ${
+    eqtr4d.1 $e |- ( ph -> A = B ) $.
+    eqtr4d.2 $e |- ( ph -> C = B ) $.
+    $( A chained equality deduction. $)
+    eqtr4d   $p |- ( ph -> A = C ) $=
+      ( cleqcomd eqtrd ) ABCDEADCFGH $.
+      $([18-Jul-95]$)
+  $}
+
+  ${
+    3eqtrd.1 $e |- ( ph -> A = B ) $.
+    3eqtrd.2 $e |- ( ph -> B = C ) $.
+    3eqtrd.3 $e |- ( ph -> C = D ) $.
+    $( A deduction from three chained equalities. $)
+    3eqtrd   $p |- ( ph -> A = D ) $=
+      ( eqtrd ) ABCEFACDEGHII $.
+      $([29-Oct-95]$)
+  $}
+
+  ${
+    3eqtr3d.1 $e |- ( ph -> A = B ) $.
+    3eqtr3d.2 $e |- ( ph -> A = C ) $.
+    3eqtr3d.3 $e |- ( ph -> B = D ) $.
+    $( A deduction from three chained equalities. $)
+    3eqtr3d   $p |- ( ph -> C = D ) $=
+      ( eqtrd eqtr3d ) ABDEGABCEFHIJ $.
+      $([4-Aug-95]$)
+  $}
+
+  ${
+    3eqtr4d.1 $e |- ( ph -> A = B ) $.
+    3eqtr4d.2 $e |- ( ph -> C = A ) $.
+    3eqtr4d.3 $e |- ( ph -> D = B ) $.
+    $( A deduction from three chained equalities. $)
+    3eqtr4d   $p |- ( ph -> C = D ) $=
+      ( eqtr4d eqtrd ) ADBEGABCEFHIJ $.
+      $([4-Aug-95]$)
+
+    $( A deduction from three chained equalities. $)
+    3eqtr4rd   $p |- ( ph -> D = C ) $=
+      ( 3eqtr4d cleqcomd ) ADEABCDEFGHIJ $.
+      $([21-Sep-95]$)
+  $}
+
+  ${
+    syl5eq.1 $e |- ( ph -> A = B ) $.
+    syl5eq.2 $e |- C = A $.
+    $( A chained equality inference. $)
+    syl5eq   $p |- ( ph -> C = B ) $=
+      ( wceq a1i eqtrd ) ADBCDBGAFHEI $.
+  $}
+
+  ${
+    syl5eqr.1 $e |- ( ph -> A = B ) $.
+    syl5eqr.2 $e |- A = C $.
+    $( A chained equality inference. $)
+    syl5eqr   $p |- ( ph -> C = B ) $=
+      ( cleqcomi syl5eq ) ABCDEBDFGH $.
+  $}
+
+  ${
+    syl6eq.1 $e |- ( ph -> A = B ) $.
+    syl6eq.2 $e |- B = C $.
+    $( A chained equality inference. $)
+    syl6eq   $p |- ( ph -> A = C ) $=
+      ( wceq a1i eqtrd ) ABCDECDGAFHI $.
+  $}
+
+  ${
+    syl6eqr.1 $e |- ( ph -> A = B ) $.
+    syl6eqr.2 $e |- C = B $.
+    $( A chained equality inference. $)
+    syl6eqr   $p |- ( ph -> A = C ) $=
+      ( cleqcomi syl6eq ) ABCDEDCFGH $.
+  $}
+
+  ${
+    sylan9eq.1 $e |- ( ph -> A = B ) $.
+    sylan9eq.2 $e |- ( ps -> B = C ) $.
+    $( A chained equality inference. $)
+    sylan9eq   $p |- ( ( ph /\ ps ) -> A = C ) $=
+      ( wa wceq adantr adantl eqtrd ) ABHCDEACDIBFJBDEIAGKL $.
+      $([8-May-94]$)
+  $}
+
+  ${
+    sylan9req.1 $e |- ( ph -> A = B ) $.
+    sylan9req.2 $e |- ( ps -> B = C ) $.
+    $( A chained equality inference. $)
+    sylan9req   $p |- ( ( ps /\ ph ) -> A = C ) $=
+      ( wceq sylan9eq ancoms ) ABCEHABCDEFGIJ $.
+      $([8-May-94]$)
+  $}
+
+  ${
+    3eqtr3g.1 $e |- ( ph -> A = B ) $.
+    3eqtr3g.2 $e |- A = C $.
+    3eqtr3g.3 $e |- B = D $.
+    $( A chained equality inference, useful for converting from definitions. $)
+    3eqtr3g   $p |- ( ph -> C = D ) $=
+      ( syl5eqr syl6eq ) ADCEABCDFGIHJ $.
+      $([15-Nov-94]$)
+  $}
+
+  ${
+    3eqtr4g.1 $e |- ( ph -> A = B ) $.
+    3eqtr4g.2 $e |- C = A $.
+    3eqtr4g.3 $e |- D = B $.
+    $( A chained equality inference, useful for converting to definitions. $)
+    3eqtr4g   $p |- ( ph -> C = D ) $=
+      ( syl5eq syl6eqr ) ADCEABCDFGIHJ $.
+  $}
+
+  ${
+    $d x A $.  $d x B $.  $d x C $.  $( ` x ` is dummy. $)
+    $( Equality implies equivalence of membership. $)
+    cleq3 $p |- ( A = B -> ( A e. C <-> B e. C ) ) $=
+      ( vx wceq cv wcel wa wex cleq2 birand biexdv df-clel 3bitr4g ) ABEZDFZA
+      EZPCGZHZDIPBEZRHZDIACGBCGOSUADOQTRABPJKLDACMDBCMN $.
+  $}
+
+  ${
+    cleq3i.1 $e |- A = B $.
+    $( Inference from equality to equivalence of membership. $)
+    cleq3i   $p |- ( A e. C <-> B e. C ) $=
+      ( wceq wcel wb cleq3 ax-mp ) ABEACFBCFGABCHDI $.
+  $}
+
+  ${
+    cleq3d.1 $e |- ( ph -> A = B ) $.
+    $( Deduction from equality to equivalence of membership. $)
+    cleq3d   $p |- ( ph -> ( A e. C <-> B e. C ) ) $=
+      ( wceq wcel wb cleq3 syl ) ABCFBDGCDGHEBCDIJ $.
+  $}
+
+  $( A transitive-type law relating membership and equality. $)
+  cleq3a $p |- ( A e. B -> ( C = A -> C e. B ) ) $=
+      ( wceq wcel cleq3 biimprcd ) CADCBEABECABFG $.
+      $([9-Apr-94]$)
+
+  ${
+    $d x A $.  $d x B $.  $d x C $.  $( ` x ` is dummy. $)
+    $( Equality implies equivalence of membership. $)
+    cleq4 $p |- ( A = B -> ( C e. A <-> C e. B ) ) $=
+      ( vx wceq cv wcel wa wex wb wal dfcleq biimp 19.21bi biland biexdv
+      df-clel 3bitr4g ) ABEZDFZCEZTAGZHZDIUATBGZHZDICAGCBGSUCUEDSUBUDUASUBUDJZD
+      SUFDKDABLMNOPDCAQDCBQR $.
+  $}
+
+  ${
+    cleq4i.1 $e |- A = B $.
+    $( Inference from equality to equivalence of membership. $)
+    cleq4i   $p |- ( C e. A <-> C e. B ) $=
+      ( wceq wcel wb cleq4 ax-mp ) ABECAFCBFGABCHDI $.
+  $}
+
+  ${
+    cleq4d.1 $e |- ( ph -> A = B ) $.
+    $( Deduction from equality to equivalence of membership. $)
+    cleq4d   $p |- ( ph -> ( C e. A <-> C e. B ) ) $=
+      ( wceq wcel wb cleq4 syl ) ABCFDBGDCGHEBCDIJ $.
+      $([27-Dec-93]$)
+  $}
+
+  ${
+    eqeltr.1 $e |- A = B $.
+    eqeltr.2 $e |- B e. C $.
+    $( Substitution of equal classes into membership relation. $)
+    eqeltr   $p |- A e. C $=
+      ( wcel cleq3i mpbir ) ACFBCFABCDGEH $.
+  $}
+
+  ${
+    eqeltrr.1 $e |- A = B $.
+    eqeltrr.2 $e |- A e. C $.
+    $( Substitution of equal classes into membership relation. $)
+    eqeltrr   $p |- B e. C $=
+      ( cleqcomi eqeltr ) BACABDFEG $.
+  $}
+
+  ${
+    eleqtr.1 $e |- A e. B $.
+    eleqtr.2 $e |- B = C $.
+    $( Substitution of equal classes into membership relation. $)
+    eleqtr   $p |- A e. C $=
+      ( wcel cleq4i mpbi ) ABFACFBCAEGDH $.
+  $}
+
+  ${
+    eleqtrr.1 $e |- A e. B $.
+    eleqtrr.2 $e |- C = B $.
+    $( Substitution of equal classes into membership relation. $)
+    eleqtrr   $p |- A e. C $=
+      ( cleqcomi eleqtr ) ABCDCBEFG $.
+  $}
+
+  ${
+    cleq34i.1 $e |- A = B $.
+    cleq34i.2 $e |- C = D $.
+    $( Inference from equality to equivalence of membership. $)
+    cleq34i   $p |- ( A e. C <-> B e. D ) $=
+      ( wcel cleq4i cleq3i bitr ) ACGADGBDGCDAFHABDEIJ $.
+      $([31-May-94]$)
+  $}
+
+  ${
+    cleq34d.1 $e |- ( ph -> A = B ) $.
+    cleq34d.2 $e |- ( ph -> C = D ) $.
+    $( Deduction from equality to equivalence of membership. $)
+    cleq34d   $p |- ( ph -> ( A e. C <-> B e. D ) ) $=
+      ( wcel cleq4d cleq3d bitrd ) ABDHBEHCEHADEBGIABCEFJK $.
+      $([31-May-94]$)
+  $}
+
+  ${
+    $d y A $.  $d y B $.  $d x y $.
+    cleqf.1 $e |- ( y e. A -> A. x y e. A ) $.
+    cleqf.2 $e |- ( y e. B -> A. x y e. B ) $.
+    $( Establish equality between classes, requiring only that ` x ` not be
+       'free' in ` A ` and ` B ` (but not necessarily absent from them). $)
+    cleqf $p |- ( A = B <-> A. x ( x e. A <-> x e. B ) ) $=
+      ( wceq cv wcel wb wal dfcleq ax-17 hbbi weq cleq3 bi2bid cbv4 bitr4 ) CD
+      GBHZCIZTDIZJZBKAHZCIZUDDIZJZAKBCDLUGUCABUGBMUAUBAEFNABOUEUAUFUBUDTCPUDTDP
+      QRS $.
+  $}
+
+  $( A way of showing two classes are not equal. $)
+  clneq $p |- ( ( A e. C /\ -. B e. C ) -> -. A = B ) $=
+      ( wcel wn wceq cleq3 biimpcd pm2.16d imp ) ACDZBCDZEABFZEKMLMKLABCGHIJ $.
+      $([1-Apr-97]$)
+
+  ${
+    $d x A y $.  $d ph y $.  $( ` y ` is dummy. $)
+    $( Equality of a class variable and an abstraction class.  Theorem 5.1 of
+       Quine, p. 34. $)
+    cleqab $p |- ( A = { x | ph } <-> A. x ( x e. A <-> ph ) ) $=
+      ( vy cab wceq cv wcel wb wal ax-17 hbab1 cleqf abid bilbi bial bitr4 ) CAB
+      EZFBGZCHZSRHZIZBJTAIZBJBDCRDGCHBKABDLMUCUBBAUATABNOPQ $.
+  $}
+
+  ${
+    $d x A y $.  $d ph y $.  $( ` y ` is dummy. $)
+    $( Equality of a class variable and an abstraction class. $)
+    cleqrab $p |- ( { x | ph } = A <-> A. x ( ph <-> x e. A ) ) $=
+      ( cab wceq cv wcel wb wal cleqab cleqcom pm4.21 bial 3bitr4 ) CABDZEBFCGZ
+      AHZBIOCEAPHZBIABCJOCKRQBAPLMN $.
+      $([20-Aug-93]$)
+  $}
+
+  ${
+    cleqabi.1 $e |- A = { x | ph } $.
+    $( Equality of a class variable and an abstraction class (inference
+       rule). $)
+    cleqabi   $p |- ( x e. A <-> ph ) $=
+      ( cv wcel cab cleq4i abid bitr4 ) BEZCFKABGZFACLKDHABIJ $.
+      $([3-Apr-96]$)
+  $}
+
+  ${
+    cleqrabi.1 $e |- { x | ph } = A $.
+    $( Equality of a class variable and an abstraction class (inference
+       rule). $)
+    cleqrabi   $p |- ( ph <-> x e. A ) $=
+      ( cv cab wcel abid cleq4i bitr ) ABEZABFZGKCGABHLCKDIJ $.
+      $([31-Jul-94]$)
+  $}
+
+  ${
+    cleqabd.1 $e |- ( ph -> A = { x | ps } ) $.
+    $( Equality of a class variable and an abstraction class (deduction). $)
+    cleqabd   $p |- ( ph -> ( x e. A <-> ps ) ) $=
+      ( cv wcel cab cleq4d abid syl6bbr ) ACFZDGLBCHZGBADMLEIBCJK $.
+      $([16-Nov-95]$)
+  $}
+
+  ${
+    $d x A $.
+    cleqabri.1 $e |- ( x e. A <-> ph ) $.
+    $( Equality of a class variable and an abstraction class (inference
+       rule). $)
+    cleqabri   $p |- A = { x | ph } $=
+      ( cab wceq cv wcel wb cleqab mpgbir ) CABEFBGCHAIBABCJDK $.
+  $}
+
+  ${
+    $d ph y $.  $d ps y $.  $d x y $.  $( ` y ` is dummy. $)
+    $( Equality of two abstraction classes means their wff's are equivalent. $)
+    cleq2ab $p |- ( { x | ph } = { x | ps } <-> A. x ( ph <-> ps ) ) $=
+      ( vy cab wceq cv wcel wb wal hbab1 cleqf abid bi2bi bial bitr4 ) ACEZBCEZF
+      CGZQHZSRHZIZCJABIZCJCDQRACDKBCDKLUCUBCATBUAACMBCMNOP $.
+  $}
+
+  ${
+    $d x A $.
+    $( A simplification of class abstraction.  Theorem 5.2 of Quine, p. 35. $)
+    abid2 $p |- A = { x | x e. A } $=
+      ( cv wcel pm4.2 cleqabri ) ACBDZABGEF $.
+      $([26-Dec-93]$)
+  $}
+
+  ${
+    biab.1 $e |- ( ph <-> ps ) $.
+    $( Equivalent wff's yield equal abstraction classes (inference rule). $)
+    biab   $p |- { x | ph } = { x | ps } $=
+      ( cab wceq wb cleq2ab mpgbir ) ACEBCEFABGCABCHDI $.
+  $}
+
+  ${
+    $d x y $.  $d ph y $.  $d ps y $.  $d ch y $.  $( ` y ` is a dummy var. $)
+    biabd.1 $e |- ( ph -> A. x ph ) $.
+    biabd.2 $e |- ( ph -> ( ps <-> ch ) ) $.
+    $( Equivalent wff's yield equal abstraction classes (deduction rule). $)
+    biabd   $p |- ( ph -> { x | ps } = { x | ch } ) $=
+      ( wb wal cab wceq 19.21ai cleq2ab sylibr ) ABCGZDHBDICDIJANDEFKBCDLM $.
+  $}
+
+  ${
+    $d x ph $.
+    biabdv.1 $e |- ( ph -> ( ps <-> ch ) ) $.
+    $( Equivalent wff's yield equal abstraction classes (deduction rule). $)
+    biabdv   $p |- ( ph -> { x | ps } = { x | ch } ) $=
+      ( ax-17 biabd ) ABCDADFEG $.
+      $([10-Aug-93]$)
+  $}
+
+  ${
+    $d x y A $.  $d ph x y $.  $d ps y $.  $( ` y ` is a dummy var. $)
+    birabdv.1 $e |- ( ph -> ( x e. A <-> ps ) ) $.
+    $( Deduction from wff to abstraction class. $)
+    birabdv   $p |- ( ph -> A = { x | ps } ) $=
+      ( cv wcel wb wal cab wceq 19.21aiv cleqab sylibr ) ACFDGBHZCIDBCJKAOCELBC
+      DMN $.
+      $([9-Jul-94]$)
+  $}
+
+  ${
+    $d x y A $.  $d ph x y $.  $d ps y $.  $( ` y ` is a dummy var. $)
+    bilabdv.1 $e |- ( ph -> ( ps <-> x e. A ) ) $.
+    $( Deduction from wff to abstraction class. $)
+    bilabdv   $p |- ( ph -> { x | ps } = A ) $=
+      ( cv wcel wb wal cab wceq 19.21aiv cleqrab sylibr ) ABCFDGHZCIBCJDKAOCELB
+      CDMN $.
+      $([9-Jul-94]$)
+  $}
+
+  ${
+    $d x A y $.  $d ph y $.  $( ` y ` is dummy. $)
+    $( Membership of a class variable in an abstraction class. $)
+    clelab $p |- ( A e. { x | ph } <-> E. x ( x = A /\ ph ) ) $=
+      ( vy cv wceq cab wcel wa wex wsb df-clab bilan biex df-clel ax-17 hbsbv
+      hban weq cleq1 sbequ12 bi2and cbvex 3bitr4 ) DEZCFZUEABGZHZIZDJUFABDKZIZ
+      DJCUGHBEZCFZAIZBJUIUKDUHUJUFADBLMNDCUGOUNUKBDUNDPUFUJBUFBPABDQRBDSUMUFAUJ
+      ULUECTABDUAUBUCUD $.
+      $([23-Dec-93]$)
+  $}
+

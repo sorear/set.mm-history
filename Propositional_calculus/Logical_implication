@@ -1,0 +1,396 @@
+$(
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+        Logical implication
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+$)
+
+$( The results in this section make use of the first 2 axioms only.  In
+   an implication, the wff before the arrow is called the 'antecedent'
+   and the wff after the arrow is called the 'consequent.' $)
+
+$( We will use the following descriptive terms very loosely:  A 'theorem'
+   usually has no $e hypotheses.  An 'inference' has one or more $e hypotheses.
+   A 'deduction' is an inference in which the hypotheses and the result
+   share the same antecedent. $)
+
+  ${
+    $( Premise for ~a1i . $)
+    a1i.1 $e |- ph $.
+    $( Inference derived from axiom ~ax-1 . $)
+    a1i   $p |- ( ps -> ph ) $=
+      ( wi ax-1 ax-mp ) ABADABECF $.
+  $}
+
+  ${
+    $( Premise for ~a2i . $)
+    a2i.1 $e |- ( ph -> ( ps -> ch ) ) $.
+    $( Inference derived from axiom ~ax-2 . $)
+    a2i   $p |- ( ( ph -> ps ) -> ( ph -> ch ) ) $=
+      ( wi ax-2 ax-mp ) ABCEEABEACEEABCFDG $.
+  $}
+
+  $( Principle of identity.  Theorem *2.08 of Whitehead and Russell. $)
+  id $p |- ( ph -> ph ) $=
+      ( wi ax-1 a2i ax-mp ) AAABZBFAFAAFCDAACE $.
+
+  $( Principle of identity.  Theorem *2.08 of Whitehead and Russell.  This
+     version is proved directly from the axioms for demonstration purposes. $)
+  id1 $p |- ( ph -> ph ) $=
+      ( wi ax-2 ax-1 ax-mp ) AAABZBZFAFABBGFBAFACAFDEAADE $.
+
+  $( Principle of identity with antecedent. $)
+  idd $p |- ( ph -> ( ps -> ps ) ) $=
+      ( wi id a1i ) BBCABDE $.
+      $([26-Nov-95]$)
+
+  ${
+    $( First of 2 premises for ~syl . $)
+    syl.1  $e |- ( ph -> ps ) $.
+    $( First of 2 premises for ~syl . $)
+    syl.2  $e |- ( ps -> ch ) $.
+    $( Syllogism inference. $)
+    syl    $p |- ( ph -> ch ) $=
+      ( wi a1i a2i ax-mp ) ABFACFABCBCFAEGHDI $.
+  $}
+
+  ${
+    $( Premise for ~comm . $)
+    comm.1 $e |- ( ph -> ( ps -> ch ) ) $.
+    $( Inference that swaps (commutes) antecedents in an implication. $)
+    comm   $p |- ( ps -> ( ph -> ch ) ) $=
+      ( wi ax-1 a2i syl ) BABEACEBAFABCDGH $.
+  $}
+
+  ${
+    a1d.1 $e |- ( ph -> ps ) $.
+    $( Deduction introducing an embedded antecedent. $)
+    a1d   $p |- ( ph -> ( ch -> ps ) ) $=
+      ( wi a1i comm ) CABABECDFG $.
+  $}
+
+  ${
+    a2d.1 $e |- ( ph -> ( ps -> ( ch -> th ) ) ) $.
+    $( Deduction distributing an embedded antecedent. $)
+    a2d   $p |- ( ph -> ( ( ps -> ch ) -> ( ps -> th ) ) ) $=
+      ( wi ax-2 syl ) ABCDFFBCFBDFFEBCDGH $.
+      $([23-Jun-94]$)
+  $}
+
+  $( A closed form of syllogism.  Theorem *2.05 of Whitehead and Russell. $)
+  syl1 $p |- ( ( ph -> ps ) -> ( ( ch -> ph ) -> ( ch -> ps ) ) ) $=
+      ( wi ax-1 a2d ) ABDZCABGCEF $.
+
+  $( A closed form of syllogism.  Theorem *2.06 of Whitehead and Russell. $)
+  syl2 $p |- ( ( ph -> ps ) -> ( ( ps -> ch ) -> ( ph -> ch ) ) ) $=
+      ( wi syl1 comm ) BCDABDACDBCAEF $.
+
+  ${
+    $( Premise for ~syl3 . $)
+    syl3.1 $e |- ( ph -> ps ) $.
+    $( Inference adding common antecedents in an implication. $)
+    syl3   $p |- ( ( ch -> ph ) -> ( ch -> ps ) ) $=
+      ( wi a1i a2i ) CABABECDFG $.
+  $}
+
+  ${
+    syl4.1 $e |- ( ph -> ps ) $.
+    $( Inference adding common consequents in an implication, thereby
+       interchanging the original antecedent and consequent. $)
+    syl4   $p |- ( ( ps -> ch ) -> ( ph -> ch ) ) $=
+      ( wi syl2 ax-mp ) ABEBCEACEEABCFDG $.
+  $}
+
+  ${
+    syl34.1 $e |- ( ph -> ps ) $.
+    syl34.2 $e |- ( ch -> th ) $.
+    $( Inference joining two implications. $)
+    syl34   $p |- ( ( ps -> ch ) -> ( ph -> th ) ) $=
+      ( wi syl3 syl4 syl ) BCGBDGADGCDBFHABDEIJ $.
+  $}
+
+  ${
+    3syl.1 $e |- ( ph -> ps ) $.
+    3syl.2 $e |- ( ps -> ch ) $.
+    3syl.3 $e |- ( ch -> th ) $.
+    $( Inference chaining two syllogisms. $)
+    3syl   $p |- ( ph -> th ) $=
+      ( syl ) ACDABCEFHGH $.
+  $}
+
+  ${
+    syl5.1 $e |- ( ph -> ( ps -> ch ) ) $.
+    syl5.2 $e |- ( th -> ps ) $.
+    $( A syllogism rule of inference.  The second premise is used to replace
+       the second antecedent of the first premise. $)
+    syl5   $p |- ( ph -> ( th -> ch ) ) $=
+      ( wi syl4 syl ) ABCGDCGEDBCFHI $.
+  $}
+
+  ${
+    syl6.1 $e |- ( ph -> ( ps -> ch ) ) $.
+    syl6.2 $e |- ( ch -> th ) $.
+    $( A syllogism rule of inference.  The second premise is used to replace
+       the consequent of the first premise. $)
+    syl6   $p |- ( ph -> ( ps -> th ) ) $=
+      ( wi syl3 syl ) ABCGBDGECDBFHI $.
+  $}
+
+  ${
+    syl7.1 $e |- ( ph -> ( ps -> ( ch -> th ) ) ) $.
+    syl7.2 $e |- ( ta -> ch ) $.
+    $( A syllogism rule of inference.  The second premise is used to replace
+       the third antecedent of the first premise. $)
+    syl7   $p |- ( ph -> ( ps -> ( ta -> th ) ) ) $=
+      ( wi syl4 syl6 ) ABCDHEDHFECDGIJ $.
+  $}
+
+  ${
+    syl8.1 $e |- ( ph -> ( ps -> ( ch -> th ) ) ) $.
+    syl8.2 $e |- ( th -> ta ) $.
+    $( A syllogism rule of inference.  The second premise is used to replace
+       the consequent of the first premise. $)
+    syl8   $p |- ( ph -> ( ps -> ( ch -> ta ) ) ) $=
+      ( wi syl3 syl6 ) ABCDHCEHFDECGIJ $.
+      $([1-Aug-94]$)
+  $}
+
+  ${
+    syld.1 $e |- ( ph -> ( ps -> ch ) ) $.
+    syld.2 $e |- ( ph -> ( ch -> th ) ) $.
+    $( Syllogism deduction. $)
+    syld   $p |- ( ph -> ( ps -> th ) ) $=
+      ( wi syl1 syl a2i ax-mp ) ABCGZGABDGZGALMACDGLMGFCDBHIJEK $.
+  $}
+
+  ${
+    syl3d.1 $e |- ( ph -> ( ps -> ch ) ) $.
+    $( Deduction adding nested antecedents. $)
+    syl3d   $p |- ( ph -> ( ( th -> ps ) -> ( th -> ch ) ) ) $=
+      ( wi syl1 syl ) ABCFDBFDCFFEBCDGH $.
+  $}
+
+  ${
+    syl4d.1 $e |- ( ph -> ( ps -> ch ) ) $.
+    $( Deduction adding nested antecedents. $)
+    syl4d   $p |- ( ph -> ( ( ch -> th ) -> ( ps -> th ) ) ) $=
+      ( wi syl2 syl ) ABCFCDFBDFFEBCDGH $.
+      $([3-Apr-94]$)
+  $}
+
+  ${
+    syl34d.1 $e |- ( ph -> ( ps -> ch ) ) $.
+    syl34d.2 $e |- ( ph -> ( th -> ta ) ) $.
+    $( Deduction combining implicants. $)
+    syl34d   $p |- ( ph -> ( ( ch -> th ) -> ( ps -> ta ) ) ) $=
+      ( wi syl4d syl3d syld ) ACDHBDHBEHABCDFIADEBGJK $.
+      $([7-Aug-94]$)
+  $}
+
+  $( Swap antecedents.  Theorem *2.04 of Whitehead and Russell. $)
+  pm2.04 $p |- ( ( ph -> ( ps -> ch ) ) -> ( ps -> ( ph -> ch ) ) ) $=
+      ( wi ax-2 ax-1 syl5 ) ABCDDABDACDBABCEBAFG $.
+
+  ${
+    com3.1 $e |- ( ph -> ( ps -> ( ch -> th ) ) ) $.
+
+    $( Commutation of antecedents.  Swap 2nd and 3rd. $)
+    com23  $p |- ( ph -> ( ch -> ( ps -> th ) ) ) $=
+      ( wi pm2.04 syl ) ABCDFFCBDFFEBCDGH $.
+
+    $( Commutation of antecedents.  Swap 1st and 3rd. $)
+    com13  $p |- ( ch -> ( ps -> ( ph -> th ) ) ) $=
+      ( wi comm com23 ) BCADFBACDABCDFEGHG $.
+      $([25-Apr-94]$)
+
+    $( Commutation of antecedents.  Rotate left. $)
+    com3l  $p |- ( ps -> ( ch -> ( ph -> th ) ) ) $=
+      ( com23 com13 ) ACBDABCDEFG $.
+      $([25-Apr-94]$)
+
+    $( Commutation of antecedents.  Rotate right. $)
+    com3r  $p |- ( ch -> ( ph -> ( ps -> th ) ) ) $=
+      ( com3l ) BCADABCDEFF $.
+      $([25-Apr-94]$)
+
+  $}
+
+  ${
+    com4.1 $e |- ( ph -> ( ps -> ( ch -> ( th -> ta ) ) ) ) $.
+
+    $( Commutation of antecedents. Swap 3rd and 4th. $)
+    com34  $p |- ( ph -> ( ps -> ( th -> ( ch -> ta ) ) ) ) $=
+      ( wi pm2.04 syl6 ) ABCDEGGDCEGGFCDEHI $.
+      $([25-Apr-94]$)
+
+    $( Commutation of antecedents. Swap 2nd and 4th. $)
+    com24  $p |- ( ph -> ( th -> ( ch -> ( ps -> ta ) ) ) ) $=
+      ( wi com34 com23 ) ADBCEABDCEGABCDEFHIH $.
+      $([25-Apr-94]$)
+
+    $( Commutation of antecedents. Swap 1st and 4th. $)
+    com14  $p |- ( th -> ( ps -> ( ch -> ( ph -> ta ) ) ) ) $=
+      ( wi com34 com13 ) DBACEABDCEGABCDEFHIH $.
+      $([25-Apr-94]$)
+
+    $( Commutation of antecedents.  Rotate left. $)
+    com4l  $p |- ( ps -> ( ch -> ( th -> ( ph -> ta ) ) ) ) $=
+      ( com34 com24 com14 ) ACDBEABDCEABCDEFGHI $.
+      $([25-Apr-94]$)
+
+    $( Commutation of antecedents.  Rotate twice. $)
+    com4t  $p |- ( ch -> ( th -> ( ph -> ( ps -> ta ) ) ) ) $=
+      ( com4l ) BCDAEABCDEFGG $.
+      $([25-Apr-94]$)
+
+    $( Commutation of antecedents.  Rotate right. $)
+    com4r  $p |- ( th -> ( ph -> ( ps -> ( ch -> ta ) ) ) ) $=
+      ( com4t com4l ) CDABEABCDEFGH $.
+      $([25-Apr-94]$)
+
+  $}
+
+  ${
+    mp2.1 $e |- ( ph -> ( ps -> ch ) ) $.
+    mp2.2 $e |- ph $.
+    mp2.3 $e |- ps $.
+    $( A chained modus ponens inference. $)
+    mp2   $p |- ch $=
+      ( wi ax-mp ) BCABCGDEHFH $.
+      $([5-Apr-94]$)
+  $}
+
+  ${
+    mpi.1 $e |- ( ph -> ( ps -> ch ) ) $.
+    mpi.2 $e |- ps $.
+    $( A nested modus ponens inference. $)
+    mpi   $p |- ( ph -> ch ) $=
+      ( wi comm ax-mp ) BACFABCDGEH $.
+  $}
+
+  ${
+    mpii.1 $e |- ( ph -> ( ps -> ( ch -> th ) ) ) $.
+    mpii.2 $e |- ch $.
+    $( A doubly nested modus ponens inference. $)
+    mpii   $p |- ( ph -> ( ps -> th ) ) $=
+      ( wi com23 mpi ) ACBDGABCDEHFI $.
+      $([31-Dec-93]$)
+  $}
+
+  ${
+    mpd.1 $e |- ( ph -> ( ps -> ch ) ) $.
+    mpd.2 $e |- ( ph -> ps ) $.
+    $( A modus ponens deduction. $)
+    mpd   $p |- ( ph -> ch ) $=
+      ( wi a2i ax-mp ) ABFACFABCDGEH $.
+  $}
+
+  ${
+    mpcom.1 $e |- ( ph -> ( ps -> ch ) ) $.
+    mpcom.2 $e |- ( ps -> ph ) $.
+    $( Modus ponens inference with commutation of antecedents. $)
+    mpcom   $p |- ( ps -> ch ) $=
+      ( comm mpd ) BACABCDFEG $.
+      $([17-Mar-96]$)
+  $}
+
+  ${
+    syl5d.1 $e |- ( ph -> ( ps -> ( ch -> th ) ) ) $.
+    syl5d.2 $e |- ( ph -> ( ta -> ch ) ) $.
+    $( A nested syllogism deduction. $)
+    syl5d   $p |- ( ph -> ( ps -> ( ta -> th ) ) ) $=
+      ( wi com23 syld ) AEBDAECBDHGABCDFIJI $.
+  $}
+
+  ${
+    syl6d.1 $e |- ( ph -> ( ps -> ( ch -> th ) ) ) $.
+    syl6d.2 $e |- ( ph -> ( th -> ta ) ) $.
+    $( A nested syllogism deduction. $)
+    syl6d   $p |- ( ph -> ( ps -> ( ch -> ta ) ) ) $=
+      ( wi syl1 3syl mpd ) ABCDHZHZBCEHZHZADEHLNHMOHGDECILNBIJFK $.
+  $}
+
+  ${
+    syl9.1 $e |- ( ph -> ( ps -> ch ) ) $.
+    syl9.2 $e |- ( th -> ( ch -> ta ) ) $.
+    $( A nested syllogism inference with different antecedents. $)
+    syl9   $p |- ( ph -> ( th -> ( ps -> ta ) ) ) $=
+      ( wi comm syl6 com23 ) ABDEABCDEHFDCEGIJK $.
+  $}
+
+  ${
+    syl9r.1 $e |- ( ph -> ( ps -> ch ) ) $.
+    syl9r.2 $e |- ( th -> ( ch -> ta ) ) $.
+    $( A nested syllogism inference with different antecedents. $)
+    syl9r   $p |- ( th -> ( ph -> ( ps -> ta ) ) ) $=
+      ( wi syl9 comm ) ADBEHABCDEFGIJ $.
+  $}
+
+  $( Absorption of redundant antecedent.  Theorem *2.43 of Whitehead
+     and Russell. $)
+  pm2.43 $p |- ( ( ph -> ( ph -> ps ) ) -> ( ph -> ps ) ) $=
+      ( wi ax-2 idd mpd ) AABCZCZAACGAABDHAEF $.
+
+  ${
+    pm2.43i.1 $e |- ( ph -> ( ph -> ps ) ) $.
+    $( Inference absorbing redundant antecedent. $)
+    pm2.43i   $p |- ( ph -> ps ) $=
+      ( wi pm2.43 ax-mp ) AABDZDGABECF $.
+  $}
+
+  ${
+    pm2.43d.1 $e |- ( ph -> ( ps -> ( ps -> ch ) ) ) $.
+    $( Deduction absorbing redundant antecedent. $)
+    pm2.43d   $p |- ( ph -> ( ps -> ch ) ) $=
+      ( wi pm2.43 syl ) ABBCEZEHDBCFG $.
+      $([18-Aug-93]$)
+  $}
+
+  ${
+    pm2.43a.1 $e |- ( ps -> ( ph -> ( ps -> ch ) ) ) $.
+
+    $( Inference absorbing redundant antecedent. $)
+    pm2.43a   $p |- ( ps -> ( ph -> ch ) ) $=
+      ( wi com23 pm2.43i ) BACEBABCDFG $.
+      $([7-Nov-95]$)
+
+    $( Inference absorbing redundant antecedent. $)
+    pm2.43b   $p |- ( ph -> ( ps -> ch ) ) $=
+      ( com3l pm2.43d ) ABCBABCDEF $.
+      $([31-Oct-95]$)
+  $}
+
+  ${
+    syl13.1 $e |- ( ph -> ( ps -> ch ) ) $.
+    syl13.2 $e |- ( th -> ph ) $.
+    syl13.3 $e |- ( th -> ps ) $.
+    $( A syllogism inference. $)
+    syl13   $p |- ( th -> ch ) $=
+      ( wi syl mpd ) DBCDABCHFEIGJ $.
+      $([4-May-94]$)
+  $}
+
+  $( Converse of axiom ~ax-2 .  Theorem *2.86 of Whitehead and Russell. $)
+  pm2.86 $p |- ( ( ( ph -> ps ) -> ( ph -> ch ) ) ->
+               ( ph -> ( ps -> ch ) ) ) $=
+      ( wi ax-1 syl4 com23 ) ABDZACDZDBACBHIBAEFG $.
+      $([25-Apr-94]$)
+
+  ${
+    pm2.86i.1 $e |- ( ( ph -> ps ) -> ( ph -> ch ) ) $.
+    $( Inference based on ~pm2.86 . $)
+    pm2.86i   $p |- ( ph -> ( ps -> ch ) ) $=
+      ( wi pm2.86 ax-mp ) ABEACEEABCEEABCFDG $.
+  $}
+
+  ${
+    pm2.86d.1 $e |- ( ph -> ( ( ps -> ch ) -> ( ps -> th ) ) ) $.
+    $( Deduction based on ~pm2.86 . $)
+    pm2.86d   $p |- ( ph -> ( ps -> ( ch -> th ) ) ) $=
+      ( wi pm2.86 syl ) ABCFBDFFBCDFFEBCDGH $.
+      $([29-Jun-95]$)
+  $}
+
+  $( Theorem *2.27 of Whitehead and Russell. $)
+  pm2.27 $p |- ( ph -> ( ( ph -> ps ) -> ps ) ) $=
+      ( wi id comm ) ABCZABFDE $.
+
