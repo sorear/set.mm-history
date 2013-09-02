@@ -4,7 +4,6 @@ $(
 #*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#
 $)
 
-  $c Base $.
   $c +g $.
   $c Grp $.
   $c 0g $.
@@ -13,9 +12,6 @@ $)
   $c .r $.
   $c Ring $.
   $c 1r $.
-
-  $( Extend class notation with the class of all base set extractors. $)
-  cbs $a class Base $.
 
   $( Extend class notation with group operation. $)
   cplusg $a class +g $.
@@ -40,24 +36,6 @@ $)
 
   $( Extend class notation with ring unit. $)
   cur $a class 1r $.
-
-  $( Define the class of base set extractors for posets and related
-     structures. $)
-  df-base $a |- Base = ( p e. _V |-> ( p ` 1 ) ) $.
-
-  ${
-    $d p K $.
-    baseval.k $e |- K e. _V $.
-    $( Value of the base set extractor. $)
-    baseval $p |- ( Base ` K ) = ( K ` 1 ) $=
-      ( vp cbs c1 df-base strcval ) DCAEBCFG $.
-      $( [4-Sep-2011] $)
-  $}
-
-  $( Utility theorem: index-independent form of ~ df-base . $)
-  baseid $p |- Base = ( f e. _V |-> ( f ` ( Base ` ndx ) ) ) $=
-    ( cbs c1 df-base 1nn ndxid ) BACADEF $.
-    $( [20-Oct-2012] $)
 
   $( Define group operation. $)
   df-plusg $a |- +g = ( g e. _V |-> ( g ` 2 ) ) $.
@@ -86,12 +64,12 @@ $)
             E. m e. g ( m p a ) = e ) ) ) } $.
 
     $( Define group identity element. $)
-    df-0g $a |- 0g = ( g e. _V |-> ( iota e ( e e. ( Base ` g ) /\
-      A. x e. ( Base ` g ) ( e ( +g ` g ) x ) = x ) ) ) $.
+    df-0g $a |- 0g = ( g e. _V |-> ( iota_ e e. ( Base ` g )
+      A. x e. ( Base ` g ) ( e ( +g ` g ) x ) = x ) ) $.
 
     $( Define inverse of group element. $)
-    df-minusg $a |- -g = ( g e. _V |-> ( x e. ( Base ` g ) |-> ( iota w
-          ( w e. ( Base ` g ) /\ ( w ( +g ` g ) x ) = ( 0g ` g ) ) ) ) ) $.
+    df-minusg $a |- -g = ( g e. _V |-> ( x e. ( Base ` g )
+  |-> ( iota_ w e. ( Base ` g ) ( w ( +g ` g ) x ) = ( 0g ` g ) ) ) ) $.
 
     $( Define class of all Abelian groups. $)
     df-abl $a |- Abel = { g e. Grp | A. a e. ( Base ` g )
@@ -100,7 +78,7 @@ $)
     $( Define ring multiplication. $)
     df-mulr $a |- .r = ( r e. _V |-> ( r ` 3 ) ) $.
 
-    $( Define class of all rings (with unit). $)
+    $( Define class of all rings (with unity). $)
     df-ring $a |- Ring = { f e. Abel |
         E. r E. p E. t ( ( r = ( Base ` f ) /\ p = ( +g ` f )
            /\ t = ( .r ` f ) )
@@ -110,30 +88,18 @@ $)
             /\ ( ( x p y ) t z ) = ( ( x t z ) p ( y t z ) ) ) )
         /\ E. u e. r A. x e. r ( ( u t x ) = x /\ ( x t u ) = x ) ) } $.
 
-    $( Define ring unit. $)
-    df-ur $a |- 1r = ( r e. _V |-> ( iota u ( u e. ( Base ` r ) /\
+    $( Define ring unity. $)
+    df-ur $a |- 1r = ( r e. _V |-> ( iota_ u e. ( Base ` r )
       A. x e. ( Base ` r ) ( ( u ( .r ` r ) x ) = x
-           /\ ( x ( .r ` r ) u ) = x ) ) ) ) $.
+           /\ ( x ( .r ` r ) u ) = x ) ) ) $.
   $}
 
   $( Utility theorem for constructing a group structure without direct
      reference to component indices. $)
   grphyp $p |- ( Base ` ndx ) =/= ( +g ` ndx ) $=
-    ( vf cnx cbs cfv c2 cplusg c1 cn wcel wceq 1nn df-base ndxarg ax-mp 1ne2
-    eqnetri 2nn df-plusg neeqtrri ) BCDZEBFDZTGEGHITGJKCAGALMNOPEHIUAEJQFAEARMN
-    S $.
+    ( vf cnx cbs cfv c2 cplusg c1 basendx 1ne2 eqnetri cn wcel wceq 2nn
+    df-plusg ndxarg ax-mp neeqtrri ) BCDZEBFDZSGEHIJEKLTEMNFAEAOPQR $.
     $( [20-Oct-2012] $)
-
-  $( Utility theorem for constructing a ring (or generally, 3-element)
-     structure without direct reference to component indices.  This theorem
-     extends ~ grphyp to a third element. $)
-  ringhyp $p |- ( ( Base ` ndx ) =/= ( .r ` ndx )
-               /\ ( +g ` ndx ) =/= ( .r ` ndx ) ) $=
-    ( vf cnx cbs cfv cmulr wne cplusg c3 c1 cn wcel wceq 1nn df-base ndxarg
-    ax-mp 1ne3 eqnetri 3nn df-mulr neeqtrri c2 2nn df-plusg 2ne3 pm3.2i ) BCDZB
-    EDZFBGDZUHFUGHUHUGIHIJKUGILMCAIANOPQRHJKUHHLSEAHATOPZUAUIHUHUIUBHUBJKUIUBLU
-    CGAUBAUDOPUERUJUAUF $.
-    $( [8-Jun-2013] $)
 
   $( Utility theorem: index-independent form of ~ df-mulr . $)
   mulrid $p |- .r = ( f e. _V |-> ( f ` ( .r ` ndx ) ) ) $=
@@ -158,6 +124,29 @@ $)
   $}
 
   ${
+    $d b p B $.  $d p P $.  $d p G $.
+    grpbaseg.g $e |- G
+               = { <. ( Base ` ndx ) , B >. , <. ( +g ` ndx ) , P >. } $.
+    $( The base set of a constructed group. $)
+    grpbaseg $p |- ( ( B e. V /\ P e. W ) -> B = ( Base ` G ) ) $=
+      ( vb vp cv cnx cbs cfv cop cplusg cpr wceq id opeq2 preq1d fveq2d
+      eqeq12d preq2d syl6eqr eqeq2d visset eqid grpbase vtocl2g ) GIZJKLZUIMZJN
+      LZHIZMZOZKLZPAUJAMZUNOZKLZPACKLZPGHABDEUIAPZUIAUPUSVAQVAUOURKVAUKUQUNUIAU
+      JRSTUAUMBPZUSUTAVBURCKVBURUQULBMZOCVBUNVCUQUMBULRUBFUCTUDUIUMUOGUEHUEUOUF
+      UGUH $.
+      $( [2-Aug-2013] $)
+
+    $( The operation of a constructed group. $)
+    grpplusgg $p |- ( ( B e. V /\ P e. W ) -> P = ( +g ` G ) ) $=
+      ( vp vb cv cnx cbs cfv cop cplusg cpr wceq opeq2 preq1d fveq2d eqeq2d id
+      preq2d syl6eqr eqeq12d visset eqid grpplusg vtocl2g ) GIZJKLZHIZMZJNLZUIM
+      ZOZNLZPUIUJAMZUNOZNLZPBCNLZPHGABDEUKAPZUPUSUIVAUOURNVAULUQUNUKAUJQRSTUIBP
+      ZUIBUSUTVBUAVBURCNVBURUQUMBMZOCVBUNVCUQUIBUMQUBFUCSUDUKUIUOHUEGUEUOUFUGUH
+      $.
+      $( [2-Aug-2013] $)
+  $}
+
+  ${
     grpstrx.b $e |- B e. _V $.
     grpstrx.p $e |- P e. _V $.
     grpstrx.g $e |- G = { <. 1 , B >. , <. 2 , P >. } $.
@@ -173,33 +162,6 @@ $)
       ( vf cplusg c1 c2 cn 1nn elisseti 2nn 1ne2 df-plusg str2v2x ) HGCIJABDEIK
       LMJKNMOFGPQ $.
       $( [17-Oct-2012] $)
-  $}
-
-  ${
-    $d r B $.  $d r P $.  $d r T $.
-    ringbase.b $e |- B e. _V $.
-    ringbase.p $e |- P e. _V $.
-    ringbase.t $e |- T e. _V $.
-    ringbase.r $e |- R
-               = { <. ( Base ` ndx ) , B >. , <. ( +g ` ndx ) , P >. ,
-                   <. ( .r ` ndx ) , T >. } $.
-    $( The base set of a constructed ring. $)
-    ringbase $p |- B = ( Base ` R ) $=
-      ( vf cbs cplusg cmulr baseid plusgid mulrid grphyp ringhyp str3v1 ) JKLIC
-      ABDIMINIOHEFGPQR $.
-      $( [8-Jun-2013] $)
-
-    $( The additive operation of a constructed ring. $)
-    ringplusg $p |- P = ( +g ` R ) $=
-      ( vf cbs cplusg cmulr baseid plusgid mulrid grphyp ringhyp str3v2 ) JKLIC
-      ABDIMINIOHEFGPQR $.
-      $( [8-Jun-2013] $)
-
-    $( The muliplicative operation of a constructed ring. $)
-    ringmulr $p |- T = ( .r ` R ) $=
-      ( vf cbs cplusg cmulr baseid plusgid mulrid grphyp ringhyp str3v3 ) JKLIC
-      ABDIMINIOHEFGPQR $.
-      $( [8-Jun-2013] $)
   $}
 
   ${
@@ -458,7 +420,7 @@ $)
     isgrpd.i $e |- ( ( ph /\ x e. B ) -> ( Z P x ) = x ) $.
     isgrpd.n $e |- ( ( ph /\ x e. B ) -> N e. B ) $.
     isgrpd.j $e |- ( ( ph /\ x e. B ) -> ( N P x ) = Z ) $.
-    $( Properties that determine a group. ` N ` (negative) is normally
+    $( Deduce a group from its properties. ` N ` (negative) is normally
        dependent on ` x ` i.e. read it as ` N ( x ) ` . $)
     isgrpd $p |- ( ph -> G e. Grp ) $=
       ( ve vm cvv wcel cv cplusg cfv co cbs wceq wa wral wrex w3a cgrp wi
@@ -477,6 +439,28 @@ $)
       FKAWDVMAFWFWEWJKVKVNVOVHVPVPVPAYFXGSEWHJAYEXFBEWHJAYAXAYDXEAXTWTWDAFWFWSW
       DKVKVBAYCXDTEWHJAYBXCWSAFWFXBWDKVKVBVQVHVPVQVRVSWHWFSTGBCDWHVTWFVTWAWB $.
       $( [6-Jun-2013] $)
+  $}
+
+  ${
+    $d x y z B $.  $d x y z G $.  $d y z N $.  $d x O $.  $d x y z P $.
+    $d x y z ph $.
+    isgrprd.b $e |- ( ph -> B = ( Base ` G ) ) $.
+    isgrprd.p $e |- ( ph -> P = ( +g ` G ) ) $.
+    isgrprd.g $e |- ( ph -> G e. _V ) $.
+    isgrprd.c $e |- ( ( ph /\ x e. B /\ y e. B ) -> ( x P y ) e. B ) $.
+    isgrprd.a $e |- ( ( ph /\ ( x e. B /\ y e. B /\ z e. B ) ) ->
+                   ( ( x P y ) P z ) = ( x P ( y P z ) ) ) $.
+    isgrprd.z $e |- ( ph -> O e. B ) $.
+    isgrprd.i $e |- ( ( ph /\ x e. B ) -> ( x P O ) = x ) $.
+    isgrprd.n $e |- ( ( ph /\ x e. B ) -> N e. B ) $.
+    isgrprd.j $e |- ( ( ph /\ x e. B ) -> ( x P N ) = O ) $.
+    $( Deduce a group from its properties.  Same as ~ isgrpd except with right
+       identity and inverse. ` N ` (negative) is normally dependent on ` x `
+       i.e. read it as ` N ( x ) ` . $)
+    isgrprd $p |- ( ph -> G e. Grp ) $=
+      ( grplidd grplinvd isgrpd ) ABCDEFGHIJKLMNOABCDEFHIMOPNQRSQABCDEFHIMOPNQR
+      TUA $.
+      $( [10-Aug-2013] $)
   $}
 
   ${
@@ -563,69 +547,84 @@ $)
   $}
 
   ${
-    $d g x B $.  $d e g x G $.  $d g P $.
+    $d e g x B $.  $d e g x G $.  $d g P $.
     grpidval.b $e |- B = ( Base ` G ) $.
     grpidval.p $e |- P = ( +g ` G ) $.
-    grpidval.3 $e |- U = ( 0g ` G ) $.
+    grpidval.o $e |- O = ( 0g ` G ) $.
     $( The value of the identity element of a group. $)
-    grpidval $p |- ( G e. A -> U
-              = ( iota e ( e e. B /\ A. x e. B ( e P x ) = x ) ) ) $=
-      ( vg wcel cvv cv co wceq wral wa cio elisset c0g cfv cbs cplusg fveq2
-      syl6eqr eleq2d opreqd eqeq1d raleqbidv anbi12d iotabidv df-0g iotaex
-      fvmpt syl5eq syl ) GBLGMLZEFNZCLZUSANZDOZVAPZACQZRZFSZPGBTUREGUAUBVFJKGUS
-      KNZUCUBZLZUSVAVGUDUBZOZVAPZAVHQZRZFSVFMUAVGGPZVNVEFVOVIUTVMVDVOVHCUSVOVHG
-      UCUBCVGGUCUEHUFZUGVOVLVCAVHCVPVOVKVBVAVOVJDUSVAVOVJGUDUBDVGGUDUEIUFUHUIUJ
-      UKULAFKUMVEFUNUOUPUQ $.
-      $( [20-Aug-2011] $)
+    grpidval $p |- ( G e. V
+  -> O = ( iota_ e e. B A. x e. B ( e P x ) = x ) ) $=
+      ( vg wcel cvv cv co wceq wral crio elisset c0g cfv cplusg cbs fveq2
+      syl6eqr opreqd eqeq1d raleqbidv riotaeqbidv df-0g riotaex fvmpt syl5eq
+      syl ) EGLEMLZFDNZANZCOZUQPZABQZDBRZPEGSUOFETUAVAJKEUPUQKNZUBUAZOZUQPZAVBU
+      CUAZQZDVFRVAMTVBEPZVGUTDVFBVHVFEUCUABVBEUCUDHUEZVHVEUSAVFBVIVHVDURUQVHVCC
+      UPUQVHVCEUBUACVBEUBUDIUEUFUGUHUIADKUJUTDBUKULUMUN $.
+      $( [7-Aug-2013] $) $( [20-Aug-2011] $)
   $}
 
   ${
-    $d u x B $.  $d u x G $.
+    $d o x B $.  $d o x G $.
     grpidcl.b $e |- B = ( Base ` G ) $.
-    grpidcl.u $e |- U = ( 0g ` G ) $.
+    grpidcl.o $e |- O = ( 0g ` G ) $.
     $( The identity element of a group belongs to the group. $)
-    grpidcl $p |- ( G e. Grp -> U e. B ) $=
-      ( vu vx cgrp wcel cv cplusg cfv co wceq wral wreu eqid grpideu wa cio
-      grpidval adantr reiotacl adantl eqeltrd mpdan ) CHIZFJZGJZCKLZMUINGAOZFAP
-      ZBAIGFAUJCDUJQZRUGULSBUHAIUKSFTZAUGBUNNULGHAUJBFCDUMEUAUBULUNAIUGUKFAUCUD
-      UEUF $.
+    grpidcl $p |- ( G e. Grp -> O e. B ) $=
+      ( vo vx cgrp wcel cv cplusg cfv co wceq wral wreu eqid grpideu wa crio
+      grpidval adantr riotacl adantl eqeltrd mpdan ) BHIZFJGJZBKLZMUHNGAOZFAPZC
+      AIGFAUIBDUIQZRUGUKSCUJFATZAUGCUMNUKGAUIFBCHDULEUAUBUKUMAIUGUJFAUCUDUEUF
+      $.
       $( [27-Aug-2011] $)
   $}
 
   ${
-    $d x y A $.  $d u x y B $.  $d u x y G $.  $d u x y P $.  $d u x y U $.
+    $d x y X $.  $d u w x y B $.  $d u x y G $.  $d u w x y P $.
+    $d u w x y O $.
     grpidinv2.b $e |- B = ( Base ` G ) $.
     grpidinv2.p $e |- P = ( +g ` G ) $.
-    grpidinv2.u $e |- U = ( 0g ` G ) $.
-    $( A group's properties using the explicit identity element. $)
-    grpidinv2 $p |- ( ( G e. Grp /\ A e. B ) -> ( ( ( U P A ) = A /\
-         ( A P U ) = A ) /\ E. y e. B ( ( y P A ) = U /\ ( A P y ) = U ) ) ) $=
-      ( vx vu cgrp wcel cv co wceq wa wrex wral cio wreu grpidinv grpideu wss
-      wi ssid simpll ralimi a1i rgen reiotass2 mpanl12 syl11anc grpidval
-      eqtr4d wb grpidcl reuss2 opreq1 eqeq1d opreq2 anbi12d eqeq2 rexbidv
-      ralbidv reiota2 mpbird id eqeq12d rcla4cva sylan ) FLMZEJNZDOZVMPZVMEDOZV
-      MPZQZANZVMDOZEPZVMVSDOZEPZQZACRZQZJCSZBCMEBDOZBPZBEDOZBPZQZVSBDOZEPZBVSDO
-      ZEPZQZACRZQZVLWGKNZCMZWTVMDOZVMPZVMWTDOZVMPZQZVTWTPZWBWTPZQZACRZQZJCSZQKT
-      ZEPZVLXMXAXCJCSZQKTZEVLXLKCRZXOKCUAZXMXPPZJAKCDFGHUBZJKCDFGHUCZCCUDZXLXOU
-      EZKCSZXQXRQZXSCUFZYCKCYCXAXKXCJCXCXEXJUGUHUIUJZXLXOKCCUKULUMJLCDEKFGHIUNU
-      OVLECMXLKCUAZWGXNUPCEFGIUQVLXQXRYHXTYAYBYDYEYHYFYGXLXOKCCURULUMXLWGKCEWTE
-      PZXKWFJCYIXFVRXJWEYIXCVOXEVQYIXBVNVMWTEVMDUSUTYIXDVPVMWTEVMDVAUTVBYIXIWDA
-      CYIXGWAXHWCWTEVTVCWTEWBVCVBVDVBVEVFUMVGWFWSJBCVMBPZVRWLWEWRYJVOWIVQWKYJVN
-      WHVMBVMBEDVAYJVHZVIYJVPWJVMBVMBEDUSYKVIVBYJWDWQACYJWAWNWCWPYJVTWMEVMBVSDV
-      AUTYJWBWOEVMBVSDUSUTVBVDVBVJVK $.
+    grpidinv2.o $e |- O = ( 0g ` G ) $.
+    $( X group's properties using the explicit identity element. $)
+    grpidinv2 $p |- ( ( G e. Grp /\ X e. B ) -> ( ( ( O P X ) = X /\
+         ( X P O ) = X ) /\ E. y e. B ( ( y P X ) = O /\ ( X P y ) = O ) ) ) $=
+      ( vx vu vw cgrp wcel cv co wceq wa wrex wral crio wreu grpidinv grpideu
+      wss wi ssid simpll ralimi a1i rgen riotass2 mpanl12 syl11anc grpidval
+      eqtr4d wb grpidcl reuss2 ax-17 a17d opreq1 eqeq1d opreq2 anbi12d eqeq2
+      rexbidv ralbidv riota2f mpbird id eqeq12d rcla4cva sylan ) DMNZEJOZCPZVPQ
+      ZVPECPZVPQZRZAOZVPCPZEQZVPWBCPZEQZRZABSZRZJBTZFBNEFCPZFQZFECPZFQZRZWBFCPZ
+      EQZFWBCPZEQZRZABSZRZVOWJKOZVPCPZVPQZVPXCCPZVPQZRZWCXCQZWEXCQZRZABSZRZJBTZ
+      KBUAZEQZVOXOXEJBTZKBUAZEVOXNKBSZXQKBUBZXOXRQZJAKBCDGHUCZJKBCDGHUDZBBUEZXN
+      XQUFZKBTZXSXTRZYABUGZYEKBYEXCBNXMXEJBXEXGXLUHUIUJUKZXNXQKBBULUMUNJBCKDEMG
+      HIUOUPVOEBNZXNKBUBZWJXPUQBDEGIURVOXSXTYKYBYCYDYFYGYKYHYIXNXQKBBUSUMUNXNWJ
+      KLBELOENKUTYJWJKVAXCEQZXMWIJBYLXHWAXLWHYLXEVRXGVTYLXDVQVPXCEVPCVBVCYLXFVS
+      VPXCEVPCVDVCVEYLXKWGABYLXIWDXJWFXCEWCVFXCEWEVFVEVGVEVHVIUNVJWIXBJFBVPFQZW
+      AWOWHXAYMVRWLVTWNYMVQWKVPFVPFECVDYMVKZVLYMVSWMVPFVPFECVBYNVLVEYMWGWTABYMW
+      DWQWFWSYMWCWPEVPFWBCVDVCYMWEWREVPFWBCVBVCVEVGVEVMVN $.
       $( [18-Aug-2011] $)
 
     $( The identity element of a group is a left identity. $)
-    grplid $p |- ( ( G e. Grp /\ A e. B ) -> ( U P A ) = A ) $=
-      ( vy cgrp wcel wa co wceq cv wrex grpidinv2 simpll syl ) EJKABKLDACMANZAD
-      CMANZLIOZACMDNAUBCMDNLIBPZLTIABCDEFGHQTUAUCRS $.
+    grplid $p |- ( ( G e. Grp /\ X e. B ) -> ( O P X ) = X ) $=
+      ( vy cgrp wcel wa co wceq cv wrex grpidinv2 simpll syl ) CJKEAKLDEBMENZED
+      BMENZLIOZEBMDNEUBBMDNLIAPZLTIABCDEFGHQTUAUCRS $.
       $( [18-Aug-2011] $)
 
     $( The identity element of a group is a right identity. $)
-    grprid $p |- ( ( G e. Grp /\ A e. B ) -> ( A P U ) = A ) $=
-      ( vy cgrp wcel wa co wceq cv wrex grpidinv2 simplr syl ) EJKABKLDACMANZAD
-      CMANZLIOZACMDNAUBCMDNLIBPZLUAIABCDEFGHQTUAUCRS $.
+    grprid $p |- ( ( G e. Grp /\ X e. B ) -> ( X P O ) = X ) $=
+      ( vy cgrp wcel wa co wceq cv wrex grpidinv2 simplr syl ) CJKEAKLDEBMENZED
+      BMENZLIOZEBMDNEUBBMDNLIAPZLUAIABCDEFGHQTUAUCRS $.
       $( [18-Aug-2011] $)
+
+    $d e B $.  $d e G $.  $d e P $.  $d e x w Z $.
+    $( Properties showing that an element ` Z ` is the identity element of a
+       group.  See also ~ isgrpid2 . $)
+    isgrpid $p |- ( G e. Grp
+  -> ( ( Z e. B /\ A. x e. B ( Z P x ) = x ) <-> O = Z ) ) $=
+      ( ve vw cgrp wcel cv co wceq wral wa crio grpidval adantr wreu wb
+      grpideu anim2i ancoms ax-17 a17d opreq1 eqeq1d ralbidv riota2f syl
+      biimpd impr eqtrd ex grpidcl eleq1 syl5ibcom grplid r19.21aiva jcad
+      impbid ) DLMZFBMZFANZCOZVGPZABQZRZEFPZVEVKVLVEVKREJNZVGCOZVGPZABQZJBSZFVE
+      EVQPVKABCJDELGHITUAVEVFVJVQFPZVEVFRZVJVRVSVFVPJBUBZRZVJVRUCVFVEWAVEVTVFAJ
+      BCDGHUDUEUFVPVJJKBFKNFMJUGVFVJJUHVMFPZVOVIABWBVNVHVGVMFVGCUIUJUKULUMUNUOU
+      PUQVEVLVFVJVEEBMVLVFBDEGIUREFBUSUTVEEVGCOZVGPZABQVLVJVEWDABBCDEVGGHIVAVBV
+      LWDVIABVLWCVHVGEFVGCUIUJUKUTVCVD $.
+      $( [7-Aug-2013] $)
   $}
 
   ${
@@ -640,72 +639,82 @@ $)
       adantrr imp42 adantllr 3eqtr3d adantrrl opreq2 ad2antrl grprid ad2antrr
       ad2ant2r adantr exp45 r19.23adv mpd impbid1 exp43 3imp2 ) CJKZDAKZEAKZFAK
       ZDFBLZEFBLZMZDEMZNZVKVLVMVNVSVKVLOZVMVNOZOZVQVRWBFIPZBLZCQRZMZIASZVQVRTZV
-      KVNWGVLVMVKVNOWEFBLFMFWEBLFMOZWCFBLWEMZWFOZIASZOWGIFABWECGHWEUAZUBWLWGWIW
+      KVNWGVLVMVKVNOWEFBLFMFWEBLFMOZWCFBLWEMZWFOZIASZOWGIABCWEFGHWEUAZUBWLWGWIW
       KWFIAWJWFUCUDUEUFUGWBWFWHIAWBWCAKZWFVQVRWBWNWFVQOOZOZDWEBLZEWEBLZDEWPDWDB
       LZEWDBLZWQWRWBWNVQWSWTMWFWBWNVQOOVOWCBLZVPWCBLZWSWTVQXAXBMWBWNVOVPWCBUHUI
       WBWNXAWSMZVQVTVNWNXCVMVKVLVNWNXCVKVLVNWNXCABCDFWCGHUJUKULUMUNWBWNXBWTMZVQ
       VKWAWNXDVLVKVMVNWNXDVKVMVNWNXDABCEFWCGHUJUKUOUPUNUQURWOWSWQMZWBWFXEWNVQWD
-      WEDBUSUTUEWOWTWRMZWBWFXFWNVQWDWEEBUSUTUEUQVTWQDMWAWODABWECGHWMVAVBWBWREMZ
-      WOVKVMXGVLVNEABWECGHWMVAVCVDUQVEVFVGDEFBUHVHVIVJ $.
+      WEDBUSUTUEWOWTWRMZWBWFXFWNVQWDWEEBUSUTUEUQVTWQDMWAWOABCWEDGHWMVAVBWBWREMZ
+      WOVKVMXGVLVNABCWEEGHWMVAVCVDUQVEVFVGDEFBUHVHVIVJ $.
       $( [24-Aug-2011] $)
   $}
 
   ${
-    $d y z B $.  $d y z G $.  $d y z P $.  $d y z U $.  $d y z X $.
+    $d y z B $.  $d y z G $.  $d y z P $.  $d y z O $.  $d y z X $.
     grpinveu.b $e |- B = ( Base ` G ) $.
     grpinveu.p $e |- P = ( +g ` G ) $.
-    grpinveu.u $e |- U = ( 0g ` G ) $.
+    grpinveu.o $e |- O = ( 0g ` G ) $.
     $( The left inverse element of a group is unique.  Lemma 2.2.1(b) of
        [Herstein] p. 55. $)
     grpinveu $p |- ( ( G e. Grp /\ X e. B )
-           -> E! y e. B ( y P X ) = U ) $=
+           -> E! y e. B ( y P X ) = O ) $=
       ( vz cgrp wcel wa cv co wceq wi wral wrex wreu grpidinv2 simpl reximi
       adantl syl w3a eqtr3 grprcan syl5ib 3exp2 com24 imp41 an32s exp3a
-      r19.21adva ancld reximdva mpd opreq1 eqeq1d reu8 sylibr ) EKLZFBLZMZANZFC
-      OZDPZJNZFCOZDPZVFVIPZQZJBRZMZABSZVHABTVEVHABSZVPVEDFCOFPFDCOFPMZVHFVFCODP
-      ZMZABSZMVQAFBCDEGHIUAWAVQVRVTVHABVHVSUBUCUDUEVEVHVOABVEVFBLZMZVHVNWCVHVMJ
+      r19.21adva ancld reximdva mpd opreq1 eqeq1d reu8 sylibr ) DKLZFBLZMZANZFC
+      OZEPZJNZFCOZEPZVFVIPZQZJBRZMZABSZVHABTVEVHABSZVPVEEFCOFPFECOFPMZVHFVFCOEP
+      ZMZABSZMVQABCDEFGHIUAWAVQVRVTVHABVHVSUBUCUDUEVEVHVOABVEVFBLZMZVHVNWCVHVMJ
       BWCVIBLZMVHVKVLVEWDWBVHVKMZVLQZVCVDWDWBWFVCWBWDVDWFVCWBWDVDWFWEVGVJPVCWBW
-      DVDUFMVLVGVJDUGBCEVFVIFGHUHUIUJUKULUMUNUOUPUQURVHVKAJBVLVGVJDVFVIFCUSUTVA
+      DVDUFMVLVGVJEUGBCDVFVIFGHUHUIUJUKULUMUNUOUPUQURVHVKAJBVLVGVJEVFVIFCUSUTVA
       VB $.
       $( [24-Aug-2011] $)
 
     $( Two ways of saying that an element of a group is the identity
        element. $)
     grpid $p |- ( ( G e. Grp /\ X e. B ) ->
-                  ( X = U <-> ( X P X ) = X ) ) $=
+                  ( X = O <-> ( X P X ) = X ) ) $=
       ( cgrp wcel wa co wceq wb wi grpidcl grprcan 3exp2 mpid pm2.43d imp
-      grplid eqeq2d bitr3d ) DIJZEAJZKZEEBLZCEBLZMZECMZUHEMUEUFUJUKNZUEUFULUEUF
-      CAJZUFULOACDFHPUEUFUMUFULABDECEFGQRSTUAUGUIEUHEABCDFGHUBUCUD $.
+      grplid eqeq2d bitr3d ) CIJZEAJZKZEEBLZDEBLZMZEDMZUHEMUEUFUJUKNZUEUFULUEUF
+      DAJZUFULOACDFHPUEUFUMUFULABCEDEFGQRSTUAUGUIEUHABCDEFGHUBUCUD $.
       $( [24-Aug-2011] $)
+
+    $( Properties showing that an element ` Z ` is the identity element of a
+       group. $)
+    isgrpid2 $p |- ( G e. Grp
+  -> ( ( Z e. B /\ ( Z P Z ) = Z ) <-> O = Z ) ) $=
+      ( cgrp wcel co wceq wa simprr wb grpid adantrr mpbird eqcomd ex grpidcl
+      grplid mpdan jca eleq1 id opreq12d eqeq12d anbi12d syl5ibcom impbid ) CIJ
+      ZEAJZEEBKZELZMZDELZULUPUQULUPMZEDUREDLZUOULUMUONULUMUSUOOUOABCDEFGHPQRSTU
+      LDAJZDDBKZDLZMUQUPULUTVBACDFHUAZULUTVBVCABCDDFGHUBUCUDUQUTUMVBUODEAUEUQVA
+      UNDEUQDEDEBUQUFZVDUGVDUHUIUJUK $.
+      $( [7-Aug-2013] $)
   $}
 
   ${
-    $d f g n x y B $.  $d g x y G $.  $d f g n x y P $.  $d f g n x U $.
-    $d n x y X $.  $d y Y $.  $d y Z $.
-    grpinvfval.b $e |- B = ( Base ` G ) $.
-    grpinvfval.p $e |- P = ( +g ` G ) $.
-    grpinvfval.u $e |- U = ( 0g ` G ) $.
-    grpinvfval.n $e |- N = ( -g ` G ) $.
+    $d g x y B $.  $d g x y G $.  $d g O $.  $d g P $.
+    grpinvval.b $e |- B = ( Base ` G ) $.
+    grpinvval.p $e |- P = ( +g ` G ) $.
+    grpinvval.o $e |- O = ( 0g ` G ) $.
+    grpinvval.n $e |- N = ( -g ` G ) $.
     $( The inverse function of a group. $)
-    grpinvfval $p |- ( G e. A
-              -> N = ( x e. B |-> ( iota y ( y e. B /\ ( y P x ) = U ) ) ) ) $=
-      ( vg wcel cvv cv co wceq wa cio cmpt elisset cminusg cfv cbs cplusg c0g
-      fveq2 eqcomi syl6eq eleq2d syl6eqr opreqd eqeq12d anbi12d iotabidv
-      mpteq12dv df-minusg fvex eqeltri mptexg ax-mp fvmpt syl5eq syl ) GCNGONZH
-      ADBPZDNZVGAPZEQZFRZSZBTZUAZRGCUBVFHGUCUDVNLMGAMPZUEUDZVGVPNZVGVIVOUFUDZQZ
-      VOUGUDZRZSZBTZUAVNOUCVOGRZAVPWCDVMWDVPGUEUDZDVOGUEUHDWEIUIUJZWDWBVLBWDVQV
-      HWAVKWDVPDVGWFUKWDVSVJVTFWDVREVGVIWDVRGUFUDEVOGUFUHJULUMWDVTGUGUDFVOGUGUH
-      KULUNUOUPUQABMURDONVNONDWEOIGUEUSUTADVMOVAVBVCVDVE $.
-      $( [24-Aug-2011] $)
+    grpinvfval $p |- ( G e. V
+              -> N = ( x e. B |-> ( iota_ y e. B ( y P x ) = O ) ) ) $=
+      ( vg wcel cvv cv co wceq crio cmpt elisset cminusg cfv cbs cplusg c0g
+      fveq2 syl6eqr opreqd eqeq12d riotaeqbidv mpteq12dv df-minusg fvex
+      eqeltri mptexg ax-mp fvmpt syl5eq syl ) EHNEONZFACBPZAPZDQZGRZBCSZTZREHUA
+      VAFEUBUCVGLMEAMPZUDUCZVBVCVHUEUCZQZVHUFUCZRZBVISZTVGOUBVHERZAVIVNCVFVOVIE
+      UDUCZCVHEUDUGIUHZVOVMVEBVICVQVOVKVDVLGVOVJDVBVCVOVJEUEUCDVHEUEUGJUHUIVOVL
+      EUFUCGVHEUFUGKUHUJUKULABMUMCONVGONCVPOIEUDUNUOACVFOUPUQURUSUT $.
+      $( [7-Aug-2013] $) $( [24-Aug-2011] $)
 
+    $d x O $.  $d x P $.  $d x y X $.
     $( The inverse of a group element. $)
-    grpinvval $p |- ( ( G e. A /\ X e. B ) ->
-                    ( N ` X ) = ( iota y ( y e. B /\ ( y P X ) = U ) ) ) $=
-      ( vx wcel cfv cv co wceq wa cio cmpt grpinvfval fveq1d opreq2 eqeq1d
-      anbi2d iotabidv eqid iotaex fvmpt sylan9eq ) FBNZHCNHGOHMCAPZCNZUMMPZDQZE
-      RZSZATZUAZOUNUMHDQZERZSZATZULHGUTMABCDEFGIJKLUBUCMHUSVDCUTUOHRZURVCAVEUQV
-      BUNVEUPVAEUOHUMDUDUEUFUGUTUHVCAUIUJUK $.
-      $( [24-Aug-2011] $)
+    grpinvval $p |- ( ( G e. V /\ X e. B ) ->
+                    ( N ` X ) = ( iota_ y e. B ( y P X ) = O ) ) $=
+      ( vx wcel cfv cv co wceq crio cmpt grpinvfval fveq1d opreq2 eqeq1d
+      riotabidv eqid riotaex fvmpt sylan9eq ) DGNZHBNHEOHMBAPZMPZCQZFRZABSZTZOU
+      KHCQZFRZABSZUJHEUPMABCDEFGIJKLUAUBMHUOUSBUPULHRZUNURABUTUMUQFULHUKCUCUDUE
+      UPUFURABUGUHUI $.
+      $( [7-Aug-2013] $) $( [24-Aug-2011] $)
   $}
 
   ${
@@ -715,81 +724,105 @@ $)
     grpinvcl.n $e |- N = ( -g ` G ) $.
     $( X group element's inverse is a group element. $)
     grpinvcl $p |- ( ( G e. Grp /\ X e. B ) -> ( N ` X ) e. B ) $=
-      ( vy cgrp wcel wa cfv cv co c0g wceq cio eqid grpinvval wreu grpinveu
-      reiotacl syl eqeltrd ) CJKEAKLZEDMINZAKUGEBOCPMZQZLIRZAIJABUHCDEFGUHSZHTU
-      FUIIAUAUJAKIABUHCEFGUKUBUIIAUCUDUE $.
+      ( vy cgrp wcel wa cfv cv co c0g wceq crio eqid grpinvval wreu grpinveu
+      riotacl syl eqeltrd ) CJKEAKLZEDMINEBOCPMZQZIARZAIABCDUGJEFGUGSZHTUFUHIAU
+      AUIAKIABCUGEFGUJUBUHIAUCUDUE $.
       $( [24-Aug-2011] $)
   $}
 
   ${
-    $d y B $.  $d y G $.  $d y N $.  $d y P $.  $d y U $.  $d y X $.
+    $d w y B $.  $d y G $.  $d w y N $.  $d w y P $.  $d w y O $.  $d w y X $.
     grpinv.b $e |- B = ( Base ` G ) $.
     grpinv.p $e |- P = ( +g ` G ) $.
-    grpinv.u $e |- U = ( 0g ` G ) $.
+    grpinv.u $e |- O = ( 0g ` G ) $.
     grpinv.n $e |- N = ( -g ` G ) $.
     $( The properties of a group element's inverse. $)
     grpinv $p |- ( ( G e. Grp /\ X e. B ) ->
-                 ( ( ( N ` X ) P X ) = U /\ ( X P ( N ` X ) ) = U ) ) $=
-      ( vy cgrp wcel wa cfv co wceq cv cio wrex wreu grpidinv2 simprd grpinveu
-      wss wi wral ssid simpl a1i rgen reiotass2 mpanl12 syl11anc grpinvval
-      eqtr4d wb grpinvcl reuss2 opreq1 eqeq1d opreq2 anbi12d reiota2 mpbird )
-      DLMFAMNZFEOZFBPZCQZFVGBPZCQZNZKRZAMZVMFBPZCQZFVMBPZCQZNZNKSZVGQZVFVTVNVPN
-      KSZVGVFVSKATZVPKAUAZVTWBQZVFCFBPFQFCBPFQNWCKFABCDGHIUBUCZKABCDFGHIUDZAAUE
-      ZVSVPUFZKAUGZWCWDNZWEAUHZWIKAWIVNVPVRUIUJUKZVSVPKAAULUMUNKLABCDEFGHIJUOUP
-      VFVGAMVSKAUAZVLWAUQABDEFGHJURVFWCWDWNWFWGWHWJWKWNWLWMVSVPKAAUSUMUNVSVLKAV
-      GVMVGQZVPVIVRVKWOVOVHCVMVGFBUTVAWOVQVJCVMVGFBVBVAVCVDUNVE $.
+                 ( ( ( N ` X ) P X ) = O /\ ( X P ( N ` X ) ) = O ) ) $=
+      ( vy vw cgrp wcel wa cfv co wceq cv crio wrex wreu grpidinv2 simprd
+      grpinveu wss wi wral ssid simpl a1i rgen riotass2 mpanl12 syl11anc
+      grpinvval eqtr4d wb grpinvcl reuss2 ax-17 a17d opreq1 eqeq1d opreq2
+      anbi12d riota2f mpbird ) CMNFANOZFDPZFBQZERZFVJBQZERZOZKSZFBQZERZFVPBQZER
+      ZOZKATZVJRZVIWBVRKATZVJVIWAKAUAZVRKAUBZWBWDRZVIEFBQFRFEBQFROWEKABCEFGHIUC
+      UDZKABCEFGHIUEZAAUFZWAVRUGZKAUHZWEWFOZWGAUIZWKKAWKVPANVRVTUJUKULZWAVRKAAU
+      MUNUOKABCDEMFGHIJUPUQVIVJANZWAKAUBZVOWCURABCDFGHJUSVIWEWFWQWHWIWJWLWMWQWN
+      WOWAVRKAAUTUNUOWAVOKLAVJLSVJNKVAWPVOKVBVPVJRZVRVLVTVNWRVQVKEVPVJFBVCVDWRV
+      SVMEVPVJFBVEVDVFVGUOVH $.
       $( [24-Aug-2011] $)
 
     $( The left inverse of a group element. $)
-    grplinv $p |- ( ( G e. Grp /\ X e. B ) -> ( ( N ` X ) P X ) = U ) $=
-      ( cgrp wcel wa cfv co wceq grpinv simpld ) DKLFALMFENZFBOCPFSBOCPABCDEFGH
+    grplinv $p |- ( ( G e. Grp /\ X e. B ) -> ( ( N ` X ) P X ) = O ) $=
+      ( cgrp wcel wa cfv co wceq grpinv simpld ) CKLFALMFDNZFBOEPFSBOEPABCDEFGH
       IJQR $.
       $( [24-Aug-2011] $)
 
     $( The right inverse of a group element. $)
-    grprinv $p |- ( ( G e. Grp /\ X e. B ) -> ( X P ( N ` X ) ) = U ) $=
-      ( cgrp wcel wa cfv co wceq grpinv simprd ) DKLFALMFENZFBOCPFSBOCPABCDEFGH
+    grprinv $p |- ( ( G e. Grp /\ X e. B ) -> ( X P ( N ` X ) ) = O ) $=
+      ( cgrp wcel wa cfv co wceq grpinv simprd ) CKLFALMFDNZFBOEPFSBOEPABCDEFGH
       IJQR $.
       $( [24-Aug-2011] $)
 
     $( The inverse of a group element expressed in terms of the identity
        element. $)
     grpinvid1 $p |- ( ( G e. Grp /\ X e. B /\ Y e. B ) ->
-                    ( ( N ` X ) = Y <-> ( X P Y ) = U ) ) $=
+                    ( ( N ` X ) = Y <-> ( X P Y ) = O ) ) $=
       ( cgrp wcel w3a cfv wceq co wa opreq2 adantl grprinv 3adant3 adantr
       eqtr3d grplinv opreq1d grpinvcl adantrr simprl simprr 3jca grpass syldan
-      3impb grplid 3adant2 3eqtr3d grprid 3eqtr3rd impbida ) DLMZFAMZGAMZNZFEOZ
-      GPZFGBQZCPZVDVFRFVEBQZVGCVFVIVGPVDVEGFBSTVDVICPZVFVAVBVJVCABCDEFHIJKUAUBU
-      CUDVDVHRVEVGBQZVECBQZGVEVHVKVLPVDVGCVEBSTVDVKGPVHVDVEFBQZGBQZCGBQZVKGVAVB
-      VNVOPVCVAVBRVMCGBABCDEFHIJKUEUFUBVAVBVCVNVKPZVAVBVCRZVEAMZVBVCNVPVAVQRVRV
-      BVCVAVBVRVCABDEFHIKUGZUHVAVBVCUIVAVBVCUJUKABDVEFGHIULUMUNVAVCVOGPVBGABCDH
-      IJUOUPUQUCVDVLVEPZVHVAVBVTVCVAVBVRVTVSVEABCDHIJURUMUBUCUSUT $.
+      3impb grplid 3adant2 3eqtr3d grprid 3eqtr3rd impbida ) CLMZFAMZGAMZNZFDOZ
+      GPZFGBQZEPZVDVFRFVEBQZVGEVFVIVGPVDVEGFBSTVDVIEPZVFVAVBVJVCABCDEFHIJKUAUBU
+      CUDVDVHRVEVGBQZVEEBQZGVEVHVKVLPVDVGEVEBSTVDVKGPVHVDVEFBQZGBQZEGBQZVKGVAVB
+      VNVOPVCVAVBRVMEGBABCDEFHIJKUEUFUBVAVBVCVNVKPZVAVBVCRZVEAMZVBVCNVPVAVQRVRV
+      BVCVAVBVRVCABCDFHIKUGZUHVAVBVCUIVAVBVCUJUKABCVEFGHIULUMUNVAVCVOGPVBABCEGH
+      IJUOUPUQUCVDVLVEPZVHVAVBVTVCVAVBVRVTVSABCEVEHIJURUMUBUCUSUT $.
       $( [24-Aug-2011] $)
 
     $( The inverse of a group element expressed in terms of the identity
        element. $)
     grpinvid2 $p |- ( ( G e. Grp /\ X e. B /\ Y e. B ) ->
-                    ( ( N ` X ) = Y <-> ( Y P X ) = U ) ) $=
+                    ( ( N ` X ) = Y <-> ( Y P X ) = O ) ) $=
       ( cgrp wcel w3a cfv wceq co wa opreq1 adantl grplinv 3adant3 adantr
       eqtr3d grpinvcl grplid syldan eqcomd simprr simprl adantrr 3jca grpass
-      3impb grprinv opreq2d grprid 3adant2 3eqtrd 3eqtr2d impbida ) DLMZFAMZGAM
-      ZNZFEOZGPZGFBQZCPZVEVGRVFFBQZVHCVGVJVHPVEVFGFBSTVEVJCPZVGVBVCVKVDABCDEFHI
-      JKUAUBUCUDVEVIRVFCVFBQZVHVFBQZGVEVFVLPVIVEVLVFVBVCVLVFPZVDVBVCVFAMZVNABDE
-      FHIKUEZVFABCDHIJUFUGUBUHUCVIVMVLPVEVHCVFBSTVEVMGPVIVEVMGFVFBQZBQZGCBQZGVB
-      VCVDVMVRPZVBVCVDRZVDVCVONVTVBWARVDVCVOVBVCVDUIVBVCVDUJVBVCVOVDVPUKULABDGF
-      VFHIUMUGUNVBVCVRVSPVDVBVCRVQCGBABCDEFHIJKUOUPUBVBVDVSGPVCGABCDHIJUQURUSUC
+      3impb grprinv opreq2d grprid 3adant2 3eqtrd 3eqtr2d impbida ) CLMZFAMZGAM
+      ZNZFDOZGPZGFBQZEPZVEVGRVFFBQZVHEVGVJVHPVEVFGFBSTVEVJEPZVGVBVCVKVDABCDEFHI
+      JKUAUBUCUDVEVIRVFEVFBQZVHVFBQZGVEVFVLPVIVEVLVFVBVCVLVFPZVDVBVCVFAMZVNABCD
+      FHIKUEZABCEVFHIJUFUGUBUHUCVIVMVLPVEVHEVFBSTVEVMGPVIVEVMGFVFBQZBQZGEBQZGVB
+      VCVDVMVRPZVBVCVDRZVDVCVONVTVBWARVDVCVOVBVCVDUIVBVCVDUJVBVCVOVDVPUKULABCGF
+      VFHIUMUGUNVBVCVRVSPVDVBVCRVQEGBABCDEFHIJKUOUPUBVBVDVSGPVCABCEGHIJUQURUSUC
       UTVA $.
       $( [24-Aug-2011] $)
+
+    $d e w x B $.  $d e x G $.  $d e w x M $.  $d x N $.  $d e w x O $.
+    $d e w x P $.
+    $( Properties showing that a function ` M ` is the inverse function of a
+       group. $)
+    isgrpinv $p |- ( G e. Grp
+  -> ( ( M : B --> B /\ A. x e. B ( ( M ` x ) P x ) = O ) <-> N = M ) ) $=
+      ( ve vw cgrp wcel wf cv cfv co wceq wral wa crio simplll simplr
+      grpinvval syl11anc simpr wreu wb simpllr ffvelrn grpinveu ax-17 a17d
+      opreq1 eqeq1d riota2f mpbid eqtrd ex ralimdva impr wfn cmpt cvv eqid
+      fnmpt riotaex a1i mprg grpinvfval fneq1d adantr mpbiri ffn ad2antrl
+      eqfnfv2 mpbird grpinvcl eqeltrrd fmptd feq1d grplinv r19.21aiva jca feq1
+      fveq1 opreq1d ralbidv anbi12d syl5ibcom impbid ) DNOZBBEPZAQZERZWPCSZGTZA
+      BUAZUBZFETZWNXAXBWNXAUBZXBWPFRZWQTZABUAZWNWOWTXFWNWOUBZWSXEABXGWPBOZUBZWS
+      XEXIWSUBZXDLQZWPCSZGTZLBUCZWQXJWNXHXDXNTWNWOXHWSUDZXGXHWSUEZLBCDFGNWPHIJK
+      UFZUGXJWSXNWQTZXIWSUHXJWQBOZXMLBUIZWSXRUJXJWOXHXSWNWOXHWSUKXPBBWPEULUGXJW
+      NXHXTXOXPLBCDGWPHIJUMUGXMWSLMBWQMQWQOLUNXSWSLUOXKWQTXLWRGXKWQWPCUPUQURUGU
+      SUTVAVBVCXCFBVDZEBVDZXBXFUJXCYAABXNVEZBVDZXNVFOZYDABABXNYCVFYCVGZVHYEXHXM
+      LBVIVJVKWNYAYDUJXAWNBFYCALBCDFGNHIJKVLZVMVNVOWOYBWNWTBBEVPVQABFEVRUGVSVAW
+      NBBFPZXDWPCSZGTZABUAZUBXBXAWNYHYKWNYHBBYCPWNABXNBYCWNXHXNBOWNXHUBXDXNBXQB
+      CDFWPHIKVTWAVAYFWBWNBBFYCYGWCVSWNYJABBCDFGWPHIJKWDWEWFXBYHWOYKWTBBFEWGXBY
+      JWSABXBYIWRGXBXDWQWPCWPFEWHWIUQWJWKWLWM $.
+      $( [7-Aug-2013] $)
   $}
 
   ${
-    grpinvid.u $e |- U = ( 0g ` G ) $.
+    grpinvid.u $e |- O = ( 0g ` G ) $.
     grpinvid.n $e |- N = ( -g ` G ) $.
     $( The inverse of the identity element of a group. $)
-    grpinvid $p |- ( G e. Grp -> ( N ` U ) = U ) $=
+    grpinvid $p |- ( G e. Grp -> ( N ` O ) = O ) $=
       ( cgrp wcel cfv wceq cplusg co cbs eqid grpidcl grplid mpdan wb
-      grpinvid1 mpd3an23 mpbird ) BFGZACHAIZAABJHZKAIZUAABLHZGZUDUEABUEMZDNZAUE
-      UCABUGUCMZDOPUAUFUFUBUDQUHUHUEUCABCAAUGUIDERST $.
+      grpinvid1 mpd3an23 mpbird ) AFGZCBHCIZCCAJHZKCIZUACALHZGZUDUEACUEMZDNZUEU
+      CACCUGUCMZDOPUAUFUFUBUDQUHUHUEUCABCCCUGUIDERST $.
       $( [24-Aug-2011] $)
   $}
 
@@ -804,11 +837,11 @@ $)
       anassrs grplid adantr 3eqtr3d adantrr exp53 3imp2 impbid1 ) CIJZDAJZEAJZF
       AJZKLFDBMZFEBMZNZDENZUTVAVBVCVFVGOUTVAVBVCVFVGUTVALZVBVCLZLZVFLFCPQZQZVDB
       MZVLVEBMZDEVFVMVNNVJVDVEVLBRSVJVMDNZVFVHVCVOVBVHVCLZVLFBMZDBMZCTQZDBMZVMD
-      VPVQVSDBUTVCVQVSNZVAABVSCVKFGHVSUAZVKUAZUBZUCUDUTVAVCVRVMNZUTVAVCLZVLAJZV
+      VPVQVSDBUTVCVQVSNZVAABCVKVSFGHVSUAZVKUAZUBZUCUDUTVAVCVRVMNZUTVAVCLZVLAJZV
       CVAKWEUTWFLWGVCVAUTVCWGVAABCVKFGHWCUEZUFUTVAVCUGUTVAVCUHUIABCVLFDGHUJUKUL
-      VHVTDNVCDABVSCGHWBUMUNUOUFUNVJVNENZVFUTVIWIVAUTVILZVQEBMZVSEBMZVNEWJVQVSE
+      VHVTDNVCABCVSDGHWBUMUNUOUFUNVJVNENZVFUTVIWIVAUTVILZVQEBMZVSEBMZVNEWJVQVSE
       BUTVCWAVBWDUFUDUTVIWGVCVBKWKVNNWJWGVCVBUTVCWGVBWHUFUTVBVCUGUTVBVCUHUIABCV
-      LFEGHUJUKUTVBWLENVCEABVSCGHWBUMUPUOUCUNUOUQURDEFBRUS $.
+      LFEGHUJUKUTVBWLENVCABCVSEGHWBUMUPUOUCUNUOUQURDEFBRUS $.
       $( [25-Aug-2011] $)
   $}
 
@@ -828,11 +861,27 @@ $)
   $}
 
   ${
+    $d x y B $.  $d x y G $.  $d x y ph $.
+    isabld.g $e |- ( ph -> G e. Grp ) $.
+    isabld.b $e |- ( ph -> B = ( Base ` G ) ) $.
+    isabld.p $e |- ( ph -> P = ( +g ` G ) ) $.
+    isabld.c $e |- ( ( ph /\ x e. B /\ y e. B ) -> ( x P y ) = ( y P x ) ) $.
+    $( Properties that determine an Abelian group. $)
+    isabld $p |- ( ph -> G e. Abel ) $=
+      ( cgrp wcel cv cplusg cfv co wceq cbs wral wa cabel opreqd eqeq12d
+      raleqbidv anbi2d 3expib r19.21aivv mpbi2and eqid isabl sylibr ) AFKLZBMZC
+      MZFNOZPZUNUMUOPZQZCFROZSZBUSSZTZFUALAULUMUNEPZUNUMEPZQZCDSZBDSZVBAVGVAULA
+      VFUTBDUSHAVEURCDUSHAVCUPVDUQAEUOUMUNIUBAEUOUNUMIUBUCUDUDUEGAVEBCDDAUMDLUN
+      DLVEJUFUGUHBCUSUOFUSUIUOUIUJUK $.
+      $( [6-Aug-2013] $)
+  $}
+
+  ${
     $d x y B $.  $d x y G $.
     isabli.g $e |- G e. Grp $.
     isabli.b $e |- B = ( Base ` G ) $.
     isabli.p $e |- P = ( +g ` G ) $.
-    isabli.4 $e |- ( ( x e. B /\ y e. B ) -> ( x P y ) = ( y P x ) ) $.
+    isabli.c $e |- ( ( x e. B /\ y e. B ) -> ( x P y ) = ( y P x ) ) $.
     $( Properties that determine an Abelian group. $)
     isabli $p |- G e. Abel $=
       ( cabel wcel cgrp cv co wceq wral isabl rgen2a mpbir2an ) EJKELKAMZBMZDNU
@@ -909,24 +958,60 @@ $)
       $( [4-Sep-2011] $)
   $}
 
+  $( Utility theorem for constructing a ring (or generally, 3-element)
+     structure without direct reference to component indices.  This theorem
+     extends ~ grphyp to a third element. $)
+  ringhyp $p |- ( ( Base ` ndx ) =/= ( .r ` ndx )
+               /\ ( +g ` ndx ) =/= ( .r ` ndx ) ) $=
+    ( vf cnx cbs cfv cmulr wne cplusg c3 c1 cn wcel wceq 1nn df-base ndxarg
+    ax-mp 1ne3 eqnetri 3nn df-mulr neeqtrri c2 2nn df-plusg 2ne3 pm3.2i ) BCDZB
+    EDZFBGDZUHFUGHUHUGIHIJKUGILMCAIANOPQRHJKUHHLSEAHATOPZUAUIHUHUIUBHUBJKUIUBLU
+    CGAUBAUDOPUERUJUAUF $.
+    $( [8-Jun-2013] $)
+
   ${
-    $d r x B $.  $d r u x R $.  $d r T $.
+    $d r B $.  $d r P $.  $d r T $.
+    ringbase.b $e |- B e. _V $.
+    ringbase.p $e |- P e. _V $.
+    ringbase.t $e |- T e. _V $.
+    ringbase.r $e |- R
+               = { <. ( Base ` ndx ) , B >. , <. ( +g ` ndx ) , P >. ,
+                   <. ( .r ` ndx ) , T >. } $.
+    $( The base set of a constructed ring. $)
+    ringbase $p |- B = ( Base ` R ) $=
+      ( vf cbs cplusg cmulr baseid plusgid mulrid grphyp ringhyp str3v1 ) JKLIC
+      ABDIMINIOHEFGPQR $.
+      $( [8-Jun-2013] $)
+
+    $( The additive operation of a constructed ring. $)
+    ringplusg $p |- P = ( +g ` R ) $=
+      ( vf cbs cplusg cmulr baseid plusgid mulrid grphyp ringhyp str3v2 ) JKLIC
+      ABDIMINIOHEFGPQR $.
+      $( [8-Jun-2013] $)
+
+    $( The muliplicative operation of a constructed ring. $)
+    ringmulr $p |- T = ( .r ` R ) $=
+      ( vf cbs cplusg cmulr baseid plusgid mulrid grphyp ringhyp str3v3 ) JKLIC
+      ABDIMINIOHEFGPQR $.
+      $( [8-Jun-2013] $)
+  $}
+
+  ${
+    $d u r x B $.  $d u r x R $.  $d r T $.
     ringidval.b $e |- B = ( Base ` R ) $.
     ringidval.t $e |- T = ( .r ` R ) $.
     ringidval.u $e |- U = ( 1r ` R ) $.
-    $( The value of the identity element of a ring. $)
-    ringidval $p |- ( R e. A -> U = ( iota u ( u e. B /\ A. x e. B
-               ( ( u T x ) = x /\ ( x T u ) = x ) ) ) ) $=
-      ( vr wcel cvv cv co wceq wa wral cio elisset cur cfv cbs cmulr fveq2
-      syl6eqr eleq2d opreqd eqeq1d anbi12d raleqbidv iotabidv df-ur iotaex
-      fvmpt syl5eq syl ) ECLEMLZGBNZDLZUSANZFOZVAPZVAUSFOZVAPZQZADRZQZBSZPECTUR
-      GEUAUBVIJKEUSKNZUCUBZLZUSVAVJUDUBZOZVAPZVAUSVMOZVAPZQZAVKRZQZBSVIMUAVJEPZ
-      VTVHBWAVLUTVSVGWAVKDUSWAVKEUCUBDVJEUCUEHUFZUGWAVRVFAVKDWBWAVOVCVQVEWAVNVB
-      VAWAVMFUSVAWAVMEUDUBFVJEUDUEIUFZUHUIWAVPVDVAWAVMFVAUSWCUHUIUJUKUJULABKUMV
-      HBUNUOUPUQ $.
-      $( [27-Aug-2011] $)
+    $( The value of the unity element of a ring. $)
+    ringidval $p |- ( R e. V -> U = ( iota_ u e. B A. x e. B
+               ( ( u T x ) = x /\ ( x T u ) = x ) ) ) $=
+      ( vr wcel cvv cv co wceq wa wral crio elisset cur cfv cmulr cbs fveq2
+      syl6eqr opreqd eqeq1d anbi12d raleqbidv riotaeqbidv df-ur riotaex fvmpt
+      syl5eq syl ) DGLDMLZFBNZANZEOZUSPZUSUREOZUSPZQZACRZBCSZPDGTUQFDUAUBVFJKDU
+      RUSKNZUCUBZOZUSPZUSURVHOZUSPZQZAVGUDUBZRZBVNSVFMUAVGDPZVOVEBVNCVPVNDUDUBC
+      VGDUDUEHUFZVPVMVDAVNCVQVPVJVAVLVCVPVIUTUSVPVHEURUSVPVHDUCUBEVGDUCUEIUFZUG
+      UHVPVKVBUSVPVHEUSURVRUGUHUIUJUKABKULVEBCUMUNUOUP $.
+      $( [7-Aug-2013] $) $( [27-Aug-2011] $)
   $}
-
 
   ${
     $d b r p t u x y z B $.  $d b r p t u x y z P $.  $d b r p t R $.
@@ -1067,10 +1152,10 @@ $)
     ringidcl.u $e |- U = ( 1r ` R ) $.
     $( The unit element of a ring belongs to the base set of the ring. $)
     ringidcl $p |- ( R e. Ring -> U e. B ) $=
-      ( vu vx crg wcel cv cmulr cfv co wceq wa wral wreu eqid ringideu cio
-      ringidval adantr reiotacl adantl eqeltrd mpdan ) BHIZFJZGJZBKLZMUINUIUHUJ
-      MUINOGAPZFAQZCAIGFABUJDUJRZSUGULOCUHAIUKOFTZAUGCUNNULGFHABUJCDUMEUAUBULUN
-      AIUGUKFAUCUDUEUF $.
+      ( vu vx crg wcel cv cmulr cfv co wceq wa wral wreu eqid ringideu crio
+      ringidval adantr riotacl adantl eqeltrd mpdan ) BHIZFJZGJZBKLZMUINUIUHUJM
+      UINOGAPZFAQZCAIGFABUJDUJRZSUGULOCUKFATZAUGCUNNULGFABUJCHDUMEUAUBULUNAIUGU
+      KFAUCUDUEUF $.
       $( [27-Aug-2011] $)
   $}
 
@@ -1091,20 +1176,21 @@ $)
     $( [15-Sep-2011] $)
 
   ${
-    $d u x B $.  $d u x R $.  $d u x T $.  $d u x U $.  $d x X $.
+    $d u w x B $.  $d u w x I $.  $d u x R $.  $d u w x T $.  $d u w x U $.
+    $d x X $.
     ringidm.b $e |- B = ( Base ` R ) $.
     ringidm.t $e |- T = ( .r ` R ) $.
     ringidm.u $e |- U = ( 1r ` R ) $.
     $( Lemma for ~ ringlidm and ~ ringridm . $)
     ringidmlem $p |- ( ( R e. Ring /\ X e. B )
            -> ( ( U T X ) = X /\ ( X T U ) = X ) ) $=
-      ( vx vu crg wcel cv co wceq wa wral cio ringidval eqcomd wreu wb
-      ringidcl ringideu opreq1 eqeq1d opreq2 anbi12d ralbidv reiota2 syl11anc
-      mpbird id eqeq12d rcla4v mpan9 ) BKLZDIMZCNZUROZURDCNZUROZPZIAQZEALDECNZE
-      OZEDCNZEOZPZUQVDJMZALVJURCNZUROZURVJCNZUROZPZIAQZPJRZDOZUQDVQIJKABCDFGHST
-      UQDALVPJAUAVDVRUBABDFHUCIJABCFGUDVPVDJADVJDOZVOVCIAVSVLUTVNVBVSVKUSURVJDU
-      RCUEUFVSVMVAURVJDURCUGUFUHUIUJUKULVCVIIEAUREOZUTVFVBVHVTUSVEUREUREDCUGVTU
-      MZUNVTVAVGUREUREDCUEWAUNUHUOUP $.
+      ( vx vu vw crg wcel cv co wceq wa wral crio ringidval eqcomd wreu wb
+      ringidcl ringideu ax-17 a17d opreq1 eqeq1d opreq2 anbi12d ralbidv
+      riota2f syl11anc mpbird id eqeq12d rcla4v mpan9 ) BLMZDINZCOZVAPZVADCOZVA
+      PZQZIARZEAMDECOZEPZEDCOZEPZQZUTVGJNZVACOZVAPZVAVMCOZVAPZQZIARZJASZDPZUTDV
+      TIJABCDLFGHTUAUTDAMZVSJAUBVGWAUCABDFHUDIJABCFGUEVSVGJKADKNDMJUFWBVGJUGVMD
+      PZVRVFIAWCVOVCVQVEWCVNVBVAVMDVACUHUIWCVPVDVAVMDVACUJUIUKULUMUNUOVFVLIEAVA
+      EPZVCVIVEVKWDVBVHVAEVAEDCUJWDUPZUQWDVDVJVAEVAEDCUHWEUQUKURUS $.
       $( [15-Sep-2011] $)
 
     $( The unit element of a ring is a left multiplicative identity. $)
@@ -1118,6 +1204,63 @@ $)
       ( crg wcel wa co wceq ringidmlem simprd ) BIJEAJKDECLEMEDCLEMABCDEFGHNO
       $.
       $( [15-Sep-2011] $)
+
+    $( Properties showing that an element ` I ` is the unity element of a
+       ring. $)
+    isringid $p |- ( R e. Ring
+      -> ( ( I e. B /\ A. x e. B ( ( I T x ) = x /\ ( x T I ) = x ) )
+        <-> U = I ) ) $=
+      ( vu vw crg wcel cv co wceq wa wral crio ringidval adantr wreu wb
+      ringideu anim2i ancoms ax-17 a17d opreq1 eqeq1d opreq2 anbi12d ralbidv
+      riota2f syl biimpd impr eqtrd ex ringidcl ringidmlem r19.21aiva jca
+      eleq1 syl5ibcom impbid ) CLMZFBMZFANZDOZVIPZVIFDOZVIPZQZABRZQZEFPZVGVPVQV
+      GVPQEJNZVIDOZVIPZVIVRDOZVIPZQZABRZJBSZFVGEWEPVPAJBCDELGHITUAVGVHVOWEFPZVG
+      VHQZVOWFWGVHWDJBUBZQZVOWFUCVHVGWIVGWHVHAJBCDGHUDUEUFWDVOJKBFKNFMJUGVHVOJU
+      HVRFPZWCVNABWJVTVKWBVMWJVSVJVIVRFVIDUIUJWJWAVLVIVRFVIDUKUJULUMUNUOUPUQURU
+      SVGEBMZEVIDOZVIPZVIEDOZVIPZQZABRZQVQVPVGWKWQBCEGIUTVGWPABBCDEVIGHIVAVBVCV
+      QWKVHWQVOEFBVDVQWPVNABVQWMVKWOVMVQWLVJVIEFVIDUIUJVQWNVLVIEFVIDUKUJULUMULV
+      EVF $.
+      $( [7-Aug-2013] $)
+  $}
+
+  ${
+    $d u x y z B $.  $d u x y z R $.  $d u T $.  $d u x U $.  $d u x y z ph $.
+    isringd.b $e |- ( ph -> B = ( Base ` R ) ) $.
+    isringd.p $e |- ( ph -> P = ( +g ` R ) ) $.
+    isringd.t $e |- ( ph -> T = ( .r ` R ) ) $.
+    isringd.g $e |- ( ph -> R e. Abel ) $.
+    isringd.c $e |- ( ( ph /\ x e. B /\ y e. B ) -> ( x T y ) e. B ) $.
+    isringd.a $e |- ( ( ph /\ ( x e. B /\ y e. B /\ z e. B ) ) ->
+                   ( ( x T y ) T z ) = ( x T ( y T z ) ) ) $.
+    isringd.d $e |- ( ( ph /\ ( x e. B /\ y e. B /\ z e. B ) ) ->
+                   ( x T ( y P z ) ) = ( ( x T y ) P ( x T z ) ) ) $.
+    isringd.e $e |- ( ( ph /\ ( x e. B /\ y e. B /\ z e. B ) ) ->
+                   ( ( x P y ) T z ) = ( ( x T z ) P ( y T z ) ) ) $.
+    isringd.u $e |- ( ph -> U e. B ) $.
+    isringd.i $e |- ( ( ph /\ x e. B ) -> ( U T x ) = x ) $.
+    isringd.h $e |- ( ( ph /\ x e. B ) -> ( x T U ) = x ) $.
+    $( Properties that determine a ring. $)
+    isringd $p |- ( ph -> R e. Ring ) $=
+      ( vu cabel wcel cv cmulr cfv co cbs wceq cplusg w3a wa wral wrex crg wi
+      3adant3r3 3jca jca 3exp2 imp3a r19.21adv r19.21aivv r19.21aiva opreq1
+      eqeq1d opreq2 anbi12d ralbidv rcla4ev syl11anc opreqd eleq12d eqidd
+      opreq123d eqeq12d 3anbi123d raleqbidv rexeqbidv 3anbi23d mpbid eqid
+      isring sylibr ) AGUBUCZBUDZCUDZGUEUFZUGZGUHUFZUCZWIDUDZWHUGZWFWGWLWHUGZWH
+      UGZUIZWFWGWLGUJUFZUGZWHUGZWIWFWLWHUGZWQUGZUIZWFWGWQUGZWLWHUGZWTWNWQUGZUIZ
+      UKZULZDWJUMZCWJUMZBWJUMZUAUDZWFWHUGZWFUIZWFXLWHUGZWFUIZULZBWJUMZUAWJUNZUK
+      ZGUOUCAWEWFWGHUGZEUCZYAWLHUGZWFWGWLHUGZHUGZUIZWFWGWLFUGZHUGZYAWFWLHUGZFUG
+      ZUIZWFWGFUGZWLHUGZYIYDFUGZUIZUKZULZDEUMZCEUMZBEUMZXLWFHUGZWFUIZWFXLHUGZWF
+      UIZULZBEUMZUAEUNZUKXTAWEYTUUGMAYRBCEEAWFEUCZWGEUCZULYQDEAUUHUUIWLEUCZYQUP
+      AUUHUUIUUJYQAUUHUUIUUJUKULZYBYPAUUHUUIYBUUJNUQUUKYFYKYOOPQURUSUTVAVBVCAIE
+      UCIWFHUGZWFUIZWFIHUGZWFUIZULZBEUMZUUGRAUUPBEAUUHULUUMUUOSTUSVDUUFUUQUAIEX
+      LIUIZUUEUUPBEUURUUBUUMUUDUUOUURUUAUULWFXLIWFHVEVFUURUUCUUNWFXLIWFHVGVFVHV
+      IVJVKURAYTXKUUGXSWEAYSXJBEWJJAYRXICEWJJAYQXHDEWJJAYBWKYPXGAYAWIEWJAHWHWFW
+      GLVLZJVMAYFWPYKXBYOXFAYCWMYEWOAYAWIWLWLHWHLUUSAWLVNZVOAWFWFYDWNHWHLAWFVNZ
+      AHWHWGWLLVLZVOVPAYHWSYJXAAWFWFYGWRHWHLUVAAFWQWGWLKVLVOAYAWIYIWTFWQKUUSAHW
+      HWFWLLVLZVOVPAYMXDYNXEAYLXCWLWLHWHLAFWQWFWGKVLUUTVOAYIWTYDWNFWQKUVCUVBVOV
+      PVQVHVRVRVRAUUFXRUAEWJJAUUEXQBEWJJAUUBXNUUDXPAUUAXMWFAHWHXLWFLVLVFAUUCXOW
+      FAHWHWFXLLVLVFVHVRVSVTWABCDUAWJWQGWHWJWBWQWBWHWBWCWD $.
+      $( [2-Aug-2013] $)
   $}
 
   ${
@@ -1131,9 +1274,9 @@ $)
       syl adantr opreq1d w3a simpr 3jca ringdir syldan simpl ringcl syl111anc
       grprid eqcomd syl11anc 3eqtr3d wb grplcan syl13anc mpbid ) BIJZDAJZKZEDCL
       ZVDBMNZLZVDEVELZOZVDEOZVCEEVELZDCLZVDVFVGVCVJEDCVAVJEOZVBVABPJZVLBQZVMEAJ
-      ZVLAEBFHRZEAVEEBFVESZHTUAUBUCUDVAVBVOVOVBUEVKVFOVCVOVOVBVAVOVBVAVMVOVNVPU
+      ZVLABEFHRZAVEBEEFVESZHTUAUBUCUDVAVBVOVOVBUEVKVFOVCVOVOVBVAVOVBVAVMVOVNVPU
       BUCZVRVAVBUFZUGAVEBCEEDFVQGUHUIVCVMVDAJZVDVGOVAVMVBVNUCZVCVAVOVBVTVAVBUJV
-      RVSABCEDFGUKULZVMVTKVGVDVDAVEEBFVQHUMUNUOUPVCVMVTVOVTVHVIUQWAWBVRWBAVEBVD
+      RVSABCEDFGUKULZVMVTKVGVDAVEBEVDFVQHUMUNUOUPVCVMVTVOVTVHVIUQWAWBVRWBAVEBVD
       EVDFVQURUSUT $.
       $( [15-Sep-2011] $)
 
@@ -1143,10 +1286,10 @@ $)
       ( crg wcel wa co cplusg cfv wceq cgrp ringgrp grpidcl eqid grplid mpdan
       syl adantr opreq2d w3a simpr 3jca ringdi syldan ringcl mpd3an3 eqcomd
       syl11anc 3eqtr3d wb grprcan syl13anc mpbid ) BIJZDAJZKZDECLZVBBMNZLZEVBVC
-      LZOZVBEOZVADEEVCLZCLZVBVDVEVAVHEDCUSVHEOZUTUSBPJZVJBQZVKEAJZVJAEBFHRZEAVC
-      EBFVCSZHTUAUBUCUDUSUTUTVMVMUEVIVDOVAUTVMVMUSUTUFUSVMUTUSVKVMVLVNUBUCZVPUG
-      AVCBCDEEFVOGUHUIVAVKVBAJZVBVEOUSVKUTVLUCZUSUTVMVQVPABCDEFGUJUKZVKVQKVEVBV
-      BAVCEBFVOHTULUMUNVAVKVQVMVQVFVGUOVRVSVPVSAVCBVBEVBFVOUPUQUR $.
+      LZOZVBEOZVADEEVCLZCLZVBVDVEVAVHEDCUSVHEOZUTUSBPJZVJBQZVKEAJZVJABEFHRZAVCB
+      EEFVCSZHTUAUBUCUDUSUTUTVMVMUEVIVDOVAUTVMVMUSUTUFUSVMUTUSVKVMVLVNUBUCZVPUG
+      AVCBCDEEFVOGUHUIVAVKVBAJZVBVEOUSVKUTVLUCZUSUTVMVQVPABCDEFGUJUKZVKVQKVEVBA
+      VCBEVBFVOHTULUMUNVAVKVQVMVQVFVGUOVRVSVPVSAVCBVBEVBFVOUPUQUR $.
       $( [15-Sep-2011] $)
   $}
 
@@ -1175,6 +1318,106 @@ $)
       DQVNVLVBAVDVLVBBMNAVABMUGFUHUIVLVDVMAVLVDBONZPVMVLVCVRVABOUGUJEVRHUKUHULU
       MUNVLVGCSVLVGBTNCVABTUGGUHUNUOUPDVQUBIUQURJUSUT $.
       $( [18-Oct-2012] $)
+  $}
+
+  ${
+    $d x y z B $.  $d x y z T $.  $d x U $.  $d x y z Z $.  $d x y z ph $.
+    isdivrngdOLD.b $e |- ( ph -> B = ( Base ` R ) ) $.
+    isdivrngdOLD.t $e |- ( ph -> T = ( .r ` R ) ) $.
+    isdivrngdOLD.z $e |- ( ph -> Z = ( 0g ` R ) ) $.
+    isdivrngdOLD.u $e |- ( ph -> U = ( 1r ` R ) ) $.
+    isdivrngdOLD.r $e |- ( ph -> R e. Ring ) $.
+    isdivrngdOLD.n $e |- ( ( ph /\ ( x e. B /\ x =/= Z )
+            /\ ( y e. B /\ y =/= Z ) ) -> ( x T y ) =/= Z ) $.
+    isdivrngdOLD.o $e |- ( ph -> U =/= Z ) $.
+    isdivrngdOLD.i $e |- ( ( ph /\ ( x e. B /\ x =/= Z ) ) -> I e. B ) $.
+    isdivrngdOLD.j $e |- ( ( ph /\ ( x e. B /\ x =/= Z ) ) -> I =/= Z ) $.
+    isdivrngdOLD.k $e |- ( ( ph /\ ( x e. B /\ x =/= Z ) ) -> ( I T x ) = U )
+        $.
+    $( Properties that determine a division ring. ` I ` (reciprocal) is
+       normally dependent on ` x ` i.e. read it as ` I ( x ) ` ." $)
+    isdivrngdOLD $p |- ( ph -> R e. DivRing ) $=
+      ( vf vz crg wcel c1 cbs cfv c0g csn cdif cop c2 cmulr cpr cgrp wa
+      cdivring difeq1d sneqd difeq2d eqtrd opeq2d preq12d eleq1d anbi2d cnx
+      cplusg basendx opeq1i cn wceq 2nn df-plusg ndxarg ax-mp preq12i cvv fvex
+      syl6eqel difexg syl eqid grpbaseg syl11anc grpplusgg prex a1i cv wne co
+      eldifsn w3a ringcl syl3an1 3expib eleq2d anbi12d opreqd eleq12d 3imtr4d
+      3impib 3adant2r 3adant3r sylanbrc syl3an3b syl3an2b eldifi 3anim123i wi
+      ringass ex 3anbi123d eqidd opreq123d eqeq12d imp sylan2 cur ringidcl
+      mpbird ringlidm eqeq1d adantrr sylan2b isgrpd syl5eqelr mpbi2and
+      isdivrng sylibr ) AEUBUCZUDEUEUFZEUGUFZUHZUIZUJZUKEULUFZUJZUMZUNUCZUOZEUP
+      UCAYIUDDIUHZUIZUJZUKFUJZUMZUNUCZYSAUUEYRYIAUUDYQUNAUUBYNUUCYPAUUAYMUDAUUA
+      YJYTUIYMADYJYTJUQAYTYLYJAIYKLURUSUTVAAFYOUKKVAVBVCVDNAUUDVEUEUFZUUAUJZVEV
+      FUFZFUJZUMZUNUUGUUBUUIUUCUUFUDUUAVGVHUUHUKFUKVIUCUUHUKVJVKVFTUKTVLVMVNVHV
+      OABCUAUUAFUUJHGAUUAVPUCZFVPUCZUUAUUJUEUFVJADVPUCUUKADYJVPJEUEVQVRDYTVPVSV
+      TZAFYOVPKEULVQVRZUUAFUUJVPVPUUJWAZWBWCAUUKUULFUUJVFUFVJUUMUUNUUAFUUJVPVPU
+      UOWDWCUUJVPUCAUUGUUIWEWFBWGZUUAUCZAUUPDUCZUUPIWHZUOZCWGZUUAUCZUUPUVAFWIZU
+      UAUCZUUPDIWJZUVBAUUTUVADUCZUVAIWHZUOZUVDUVADIWJAUUTUVHWKUVCDUCZUVCIWHUVDA
+      UUTUVFUVIUVGAUURUVFUVIUUSAUURUVFUVIAUUPYJUCZUVAYJUCZUOUUPUVAYOWIZYJUCZUUR
+      UVFUOUVIAUVJUVKUVMAYIUVJUVKUVMNYJEYOUUPUVAYJWAZYOWAZWLWMWNAUURUVJUVFUVKAD
+      YJUUPJWOZADYJUVAJWOZWPAUVCUVLDYJAFYOUUPUVAKWQZJWRWSWTXAXBOUVCDIWJXCXDXEUU
+      QUVBUAWGZUUAUCZWKAUURUVFUVSDUCZWKZUVCUVSFWIZUUPUVAUVSFWIZFWIZVJZUUQUURUVB
+      UVFUVTUWAUUPDYTXFUVADYTXFUVSDYTXFXGAUWBUWFAUVJUVKUVSYJUCZWKZUVLUVSYOWIZUU
+      PUVAUVSYOWIZYOWIZVJZUWBUWFAYIUWHUWLXHNYIUWHUWLYJEYOUUPUVAUVSUVNUVOXIXJVTA
+      UURUVJUVFUVKUWAUWGUVPUVQADYJUVSJWOXKAUWCUWIUWEUWKAUVCUVLUVSUVSFYOKUVRAUVS
+      XLXMAUUPUUPUWDUWJFYOKAUUPXLZAFYOUVAUVSKWQXMXNWSXOXPAGDUCZGIWHGUUAUCAUWNEX
+      QUFZYJUCZAYIUWPNYJEUWOUVNUWOWAZXRVTAGUWODYJMJWRXSPGDIWJXCUUQAUUTGUUPFWIZU
+      UPVJZUVEAUURUWSUUSAUURUWSAUVJUWOUUPYOWIZUUPVJZUURUWSAYIUVJUXAXHNYIUVJUXAY
+      JEYOUWOUUPUVNUVOUWQXTXJVTUVPAUWRUWTUUPAGUWOUUPUUPFYOKMUWMXMYAWSXOYBYCUUQA
+      UUTHUUAUCZUVEAUUTUOHDUCHIWHUXBQRHDIWJXCYCUUQAUUTHUUPFWIGVJUVESYCYDYEYFYJE
+      YOYQYKUVNUVOYKWAYQWAYGYH $.
+      $( [2-Aug-1013] $)
+  $}
+
+  ${
+    $d x y z B $.  $d y z I $.  $d x y z T $.  $d x U $.  $d x y z Z $.
+    $d x y z ph $.
+    isdivrngd.b $e |- ( ph -> B = ( Base ` R ) ) $.
+    isdivrngd.t $e |- ( ph -> T = ( .r ` R ) ) $.
+    isdivrngd.z $e |- ( ph -> Z = ( 0g ` R ) ) $.
+    isdivrngd.u $e |- ( ph -> U = ( 1r ` R ) ) $.
+    isdivrngd.r $e |- ( ph -> R e. Ring ) $.
+    isdivrngd.n $e |- ( ( ph /\ ( x e. B /\ x =/= Z )
+            /\ ( y e. B /\ y =/= Z ) ) -> ( x T y ) =/= Z ) $.
+    isdivrngd.o $e |- ( ph -> U =/= Z ) $.
+    isdivrngd.i $e |- ( ( ph /\ ( x e. B /\ x =/= Z ) ) -> I e. B ) $.
+    isdivrngd.j $e |- ( ( ph /\ ( x e. B /\ x =/= Z ) ) -> I =/= Z ) $.
+    isdivrngd.k $e |- ( ( ph /\ ( x e. B /\ x =/= Z ) ) -> ( x T I ) = U ) $.
+    $( Properties that determine a division ring. ` I ` (reciprocal) is
+       normally dependent on ` x ` i.e. read it as ` I ( x ) ` ."  Note that we
+       are using the right reciprocal of ~ isgrprd rather than the left
+       reciprocal of ~ isgrpd . $)
+    isdivrngd $p |- ( ph -> R e. DivRing ) $=
+      ( vf vz crg wcel c1 cbs cfv c0g csn cdif cop c2 cmulr cpr cgrp wa
+      cdivring difeq1d sneqd difeq2d eqtrd opeq2d preq12d eleq1d anbi2d cnx
+      cplusg basendx opeq1i cn wceq 2nn df-plusg ndxarg ax-mp preq12i cvv fvex
+      syl6eqel difexg syl eqid grpbaseg syl11anc grpplusgg prex a1i cv wne co
+      eldifsn w3a ringcl syl3an1 3expib eleq2d anbi12d opreqd eleq12d 3imtr4d
+      3impib 3adant2r 3adant3r sylanbrc syl3an3b syl3an2b eldifi 3anim123i wi
+      ringass ex 3anbi123d eqidd opreq123d eqeq12d imp sylan2 cur ringidcl
+      mpbird ringridm eqeq1d adantrr sylan2b isgrprd syl5eqelr mpbi2and
+      isdivrng sylibr ) AEUBUCZUDEUEUFZEUGUFZUHZUIZUJZUKEULUFZUJZUMZUNUCZUOZEUP
+      UCAYIUDDIUHZUIZUJZUKFUJZUMZUNUCZYSAUUEYRYIAUUDYQUNAUUBYNUUCYPAUUAYMUDAUUA
+      YJYTUIYMADYJYTJUQAYTYLYJAIYKLURUSUTVAAFYOUKKVAVBVCVDNAUUDVEUEUFZUUAUJZVEV
+      FUFZFUJZUMZUNUUGUUBUUIUUCUUFUDUUAVGVHUUHUKFUKVIUCUUHUKVJVKVFTUKTVLVMVNVHV
+      OABCUAUUAFUUJHGAUUAVPUCZFVPUCZUUAUUJUEUFVJADVPUCUUKADYJVPJEUEVQVRDYTVPVSV
+      TZAFYOVPKEULVQVRZUUAFUUJVPVPUUJWAZWBWCAUUKUULFUUJVFUFVJUUMUUNUUAFUUJVPVPU
+      UOWDWCUUJVPUCAUUGUUIWEWFBWGZUUAUCZAUUPDUCZUUPIWHZUOZCWGZUUAUCZUUPUVAFWIZU
+      UAUCZUUPDIWJZUVBAUUTUVADUCZUVAIWHZUOZUVDUVADIWJAUUTUVHWKUVCDUCZUVCIWHUVDA
+      UUTUVFUVIUVGAUURUVFUVIUUSAUURUVFUVIAUUPYJUCZUVAYJUCZUOUUPUVAYOWIZYJUCZUUR
+      UVFUOUVIAUVJUVKUVMAYIUVJUVKUVMNYJEYOUUPUVAYJWAZYOWAZWLWMWNAUURUVJUVFUVKAD
+      YJUUPJWOZADYJUVAJWOZWPAUVCUVLDYJAFYOUUPUVAKWQZJWRWSWTXAXBOUVCDIWJXCXDXEUU
+      QUVBUAWGZUUAUCZWKAUURUVFUVSDUCZWKZUVCUVSFWIZUUPUVAUVSFWIZFWIZVJZUUQUURUVB
+      UVFUVTUWAUUPDYTXFUVADYTXFUVSDYTXFXGAUWBUWFAUVJUVKUVSYJUCZWKZUVLUVSYOWIZUU
+      PUVAUVSYOWIZYOWIZVJZUWBUWFAYIUWHUWLXHNYIUWHUWLYJEYOUUPUVAUVSUVNUVOXIXJVTA
+      UURUVJUVFUVKUWAUWGUVPUVQADYJUVSJWOXKAUWCUWIUWEUWKAUVCUVLUVSUVSFYOKUVRAUVS
+      XLXMAUUPUUPUWDUWJFYOKAUUPXLZAFYOUVAUVSKWQXMXNWSXOXPAGDUCZGIWHGUUAUCAUWNEX
+      QUFZYJUCZAYIUWPNYJEUWOUVNUWOWAZXRVTAGUWODYJMJWRXSPGDIWJXCUUQAUUTUUPGFWIZU
+      UPVJZUVEAUURUWSUUSAUURUWSAUVJUUPUWOYOWIZUUPVJZUURUWSAYIUVJUXAXHNYIUVJUXAY
+      JEYOUWOUUPUVNUVOUWQXTXJVTUVPAUWRUWTUUPAUUPUUPGUWOFYOKUWMMXMYAWSXOYBYCUUQA
+      UUTHUUAUCZUVEAUUTUOHDUCHIWHUXBQRHDIWJXCYCUUQAUUTUUPHFWIGVJUVESYCYDYEYFYJE
+      YOYQYKUVNUVOYKWAYQWAYGYH $.
+      $( [10-Aug-2013] $)
   $}
 
   $( A division ring is a ring. $)
@@ -1227,7 +1470,7 @@ $)
       cvv cbs fvex eqeltri difexg ax-mp cmulr grpbasex eqid grpidcl syl
       eldifsn wceq co divrngring divrngmgrp eldifi 3syl ringlidm syl11anc
       opreq1 sylan9req ringlz adantr eqtrd ex necon3d mpd ) BLMZENOZFPZDFPVMVNA
-      FQZRZMZVOVMESMZVRVMBTMZVSUAVSABCEFGHIKUBVTVSUCUDVQVNEVQCEAUEMVQUEMABUFOUE
+      FQZRZMZVOVMESMZVRVMBTMZVSUAVSABCEFGHIKUBVTVSUCUDVQEVNVQCEAUEMVQUEMABUFOUE
       GBUFUGUHAVPUEUIUJCBUKOUEHBUKUGUHKULVNUMUNZUOVRVNAMZVOUAVOVNAFUPWBVOUCUDUO
       VMDFVNFVMDFUQZVNFUQVMWCUAVNFVNCURZFVMWCVNDVNCURZWDVMVTWBWEVNUQBUSZVMVSVRW
       BABCEFGHIKUTWAVNAVPVAVBZABCDVNGHJVCVDDFVNCVEVFVMWDFUQZWCVMVTWBWHWFWGABCVN
@@ -1242,8 +1485,8 @@ $)
       ringlidm syl11anc grpplusgx grplid eqtr4d wb wn ringidcl wne divrngidlem
       df-ne sylib elsni nsyl eldif sylanbrc grprcan syl13anc mpbid ) BLMZDENOZC
       PZVPVPCPZQZDVPQZVOVQVPVRVOBRMZVPAMZVQVPQBSZVOVPAFTZUAZMZWBVOEUBMZWFABCEFG
-      HIKUCZWEVPEWECEAUDMWEUDMABUEOUDGBUEUFUGAWDUDUHUIZCBUJOUDHBUJUFUGZKUKZVPUL
-      ZUMUNZVPAWDUOUNABCDVPGHJUPUQVOWGWFVRVPQWHWMVPWECVPEWKWECEWIWJKURZWLUSUQUT
+      HIKUCZWEEVPWECEAUDMWEUDMABUEOUDGBUEUFUGAWDUDUHUIZCBUJOUDHBUJUFUGZKUKZVPUL
+      ZUMUNZVPAWDUOUNABCDVPGHJUPUQVOWGWFVRVPQWHWMWECEVPVPWKWECEWIWJKURZWLUSUQUT
       VOWGDWEMZWFWFVSVTVAWHVODAMZDWDMZVBWOVOWAWPWCABDGJVCUNVODFQZWQVODFVDWRVBAB
       CDEFGHIJKVEDFVFVGDFVHVIDAWDVJVKWMWMWECEDVPVPWKWNVLVMVN $.
       $( [7-Sep-2011] $)

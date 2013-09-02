@@ -4,33 +4,6 @@ $(
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 $)
 
-  ${
-    $d A x $.  $d x y $.
-    sbhypf.1 $e |- ( ps -> A. x ps ) $.
-    sbhypf.2 $e |- ( x = A -> ( ph <-> ps ) ) $.
-    $( Introduce an explicit substitution into an implicit substitution
-       hypothesis.  See also ~ csbhypf .  (Contributed by Raph Levien,
-       10-Apr-2004.) $)
-    sbhypf $p |- ( y = A -> ( [ y / x ] ph <-> ps ) ) $=
-      ( cv wceq wa wex wsbc wb visset eqeq1 ceqsexv hbs1 hbbi sbequ12 bicomd
-      sylan9bb 19.23ai sylbir ) DHZEIZCHZUDIZUFEIZJZCKACUDLZBMZUHUECUDDNUFUDEOP
-      UIUKCUJBCACDQFRUGUJAUHBUGAUJACDSTGUAUBUC $.
-      $( [5-Mar-2008] $) $( 2-Mar-2008] $)
-  $}
-
-  ${
-    $d x y z $.  $d y z ph $.  $d x z ps $.
-    sbralie.1 $e |- ( x = y -> ( ph <-> ps ) ) $.
-    $( Implicit to explicit substitution that swaps variables in a quantified
-       expression. $)
-    sbralie $p |- ( [ x / y ] A. x e. y ph <-> A. y e. x ps ) $=
-      ( vz cv wral wsbc ax-17 hbs1 sbequ12 cbvral sbbii raleq sbie bitri sbco2
-      ralbii 3bitri ) ACDGZHZDCGZIZACFGIZFUCHZUEFUAIZDUCHBDUCHUDUEFUAHZDUCIUFUB
-      UHDCAUECFUAAFJZACFKACFLMNUHUFDCUFDJUEFUAUCOPQUEUGFDUCUEDJUEFDKUEFDLMUGBDU
-      CUGACUAIBACDFUIRABCDBCJEPQST $.
-      $( [5-Sep-2004] $)
-  $}
-
   $( --- Start of old code before overloading prevention patch. $)
   $(
   @( Extend wff notation to include the proper substitution of a class for a
@@ -43,40 +16,46 @@ $)
   $)
   $( --- End of old code before overloading prevention patch. $)
 
-  $( Define the proper substitution of a class for a set.  This definition
-     applies to proper classes but is not meaningful in that case (and does not
-     produce the same results as Definition 6.6 of [Quine] p. 42).  This
-     definition is somewhat arbitrary in how it behaves with proper classes -
-     e.g., we could have used ~ sbc6 , which yields a different result for
-     proper classes.  In order to allow for a possible alternate but
-     conflicting definition in the future, we will not commit to any specific
-     proper class behavior.  Instead, we will use this definition _only_ to
-     prove ~ dfsbcq , which will in turn serve as the starting point for all
-     theorems based on the definition.  Note: this definition extends or
-     "overloads" ~ df-sb which (via ~ df-clab ) becomes a special case of it,
-     so a careful metalogical soundness justification, outside of Metamath, is
-     needed for complete rigor; alternately, we could treat this definition as
-     a new axiom.
+  $( Define the proper substitution of a class for a set.
+
+     When ` A ` is a proper class, our definition evaluates to false.  This is
+     somewhat arbitrary: we could have, instead, chosen the conclusion of
+     ~ sbc6 for our definition, which always evaluates to true for proper
+     classes.
+
+     Our definition also does not produce the same results as discussed in the
+     proof of Theorem 6.6 of [Quine] p. 42 (although Theorem 6.6 itself does
+     hold, as shown by ~ dfsbcq below).  For example, if ` A ` is a proper
+     class, Quine's substitution of ` A ` for ` y ` in ` 0 e. y ` evaluates to
+     ` 0 e. A ` rather than our falsehood.  (This can be seen by substituting
+     ` A ` , ` y ` , and ` 0 ` for for alpha, beta, and gamma in Subcase 1 of
+     Quine's discussion on p. 42.)  Unfortunately, Quine's definition requires
+     a recursive structural breakdown of ` ph ` , and it does not seem possible
+     to express it with a single closed formula.
+
+     In order to allow for a possible alternate but conflicting definition in
+     the future, we will not commit to any specific proper class behavior.
+     Instead, we will use this definition _only_ to prove theorem ~ dfsbcq ,
+     which holds for both our definition and Quine's, and from which we can
+     derive a weaker version of ~ df-sbc in the form of ~ sbc8g .
+
+     Note: this definition extends or "overloads" ~ df-sb which (via
+     ~ df-clab ) becomes a special case of it, so a careful metalogical
+     soundness justification, outside of Metamath, is needed for complete
+     rigor; alternately, we could treat this definition as a new axiom.
 
      The related definition ~ df-csb defines proper substitution into a class
      variable (as opposed to a wff variable). $)
   df-sbc $a |- ( [ A / x ] ph <-> A e. { x | ph } ) $.
 
-  $( This theorem, which is similar to Theorem 6.7 of [Quine] p. 42, provides
-     us with a weak definition of the proper substitution of a class for a set,
-     which we will use in place of ~ df-sbc above.  We will derive all our
-     results from starting from here instead of ~ df-sbc .  As a consequence,
-     we can derive ~ elabs , which is a weaker version of ~ df-sbc that leaves
-     substitution undefined when ` A ` is a proper class.  We thus leave
-     unspecified the "official" behavior for proper classes, which could be as
-     in the ~ sbc5 assertion (always false) or as in ~ sbc6 (always true), or
-     some more meaningful possibility in the future, that some clever person
-     may discover, that is closer to Quine's definition.  (Quine's definition
-     has neither behavior for proper classes, and by using ~ dfsbcq as the
-     definition, we leave it unspecified so as not to conflict.  Quine's
-     definition is based on the formula's structure rather than its logical
-     properties and apparently cannot be expressed directly in our formal
-     system.)
+  $( This theorem, which is similar to Theorem 6.7 of [Quine] p. 42 and holds
+     under both our definition and Quine's, provides us with a weak definition
+     of the proper substitution of a class for a set, which we will use in
+     place of ~ df-sbc above.  We will derive all our results from starting
+     from here instead of ~ df-sbc .  As a consequence, we can derive ~ sbc8g ,
+     which is a weaker version of ~ df-sbc that leaves substitution undefined
+     when ` A ` is a proper class.  We thus leave unspecified the "official"
+     behavior for proper classes.
 
      While in principle we could have made this theorem the official
      definition, we use ~ df-sbc because it is more obviously eliminable and
@@ -208,6 +187,24 @@ $)
   $}
 
   ${
+    $d x A $.
+    $( The disjunction of two equivalences for class substitution does not
+       require a class existence hypothesis.  This theorem tells us that there
+       are only 2 possibilities for defining ` [ A / x ] ph ` behavior at
+       proper classes (given a specific ` A ` ), which is interesting since
+       ~ dfsbcq (from which it is derived) does not say anything obvious about
+       that. $)
+    sbc2or $p |- ( ( [ A / x ] ph <-> E. x ( x = A /\ ph ) ) \/
+                  ( [ A / x ] ph <-> A. x ( x = A -> ph ) ) ) $=
+      ( cvv wcel wsbc cv wceq wa wex wb wi wal wo sbc5g orcd wn pm5.15 visset
+      eleq1 mpbii adantr con3i nexdv pm2.21d 19.21aiv 2thd bibi2d orbi2d
+      pm2.61i ) CDEZABCFZBGZCHZAIZBJZKZULUNALZBMZKZNZUKUQUTABCDOPUKQZUQULUPQZKZ
+      NVAULUPRVBVDUTUQVBVCUSULVBVCUSVBUOBUOUKUNUKAUNUMDEUKBSUMCDTUAZUBUCUDVBURB
+      VBUNAUNUKVEUCUEUFUGUHUIUAUJ $.
+      $( [11-Oct-2004] $)
+  $}
+
+  ${
     $d x y A $.
     $( An equivalence for class substitution.  (The proof was shortened by
        Andrew Salmon, 8-Jun-2011.) $)
@@ -278,24 +275,6 @@ $)
     cbvsbcv $p |- ( A e. V -> ( [ A / x ] ph <-> [ A / y ] ps ) ) $=
       ( ax-17 cbvsbc ) ABCDEFADHBCHGI $.
       $( [25-Aug-2011] $) $( [30-Sep-2008] $)
-  $}
-
-  ${
-    $d x A $.
-    $( The disjunction of two equivalences for class substitution does not
-       require a class existence hypothesis.  This theorem tells us that there
-       are only 2 possibilities for defining ` [ A / x ] ph ` behavior at
-       proper classes (given a specific ` A ` ), which is interesting since
-       ~ dfsbcq (from which it is derived) does not say anything obvious about
-       that. $)
-    sbc2or $p |- ( ( [ A / x ] ph <-> E. x ( x = A /\ ph ) ) \/
-                  ( [ A / x ] ph <-> A. x ( x = A -> ph ) ) ) $=
-      ( cvv wcel wsbc cv wceq wa wex wb wi wal wo sbc5g orcd wn pm5.15 visset
-      eleq1 mpbii adantr con3i nexdv pm2.21d 19.21aiv 2thd bibi2d orbi2d
-      pm2.61i ) CDEZABCFZBGZCHZAIZBJZKZULUNALZBMZKZNZUKUQUTABCDOPUKQZUQULUPQZKZ
-      NVAULUPRVBVDUTUQVBVCUSULVBVCUSVBUOBUOUKUNUKAUNUMDEUKBSUMCDTUAZUBUCUDVBURB
-      VBUNAUNUKVEUCUEUFUGUHUIUAUJ $.
-      $( [11-Oct-2004] $)
   $}
 
   ${
@@ -393,26 +372,6 @@ $)
     elabs $p |- ( A e. { x | ph } <-> [ A / x ] ph ) $=
       ( cab wcel cvv wsbc elabs2 mpbiran ) CABEFCGFABCHABCIDJ $.
       $( [7-Mar-2004] $)
-  $}
-
-  ${
-    $d z x A $.  $d y A $.  $d z y ph $.
-    $( Change bound variable by using a substitution.  (Unnecessary distinct
-       variable restrictions were removed by Andrew Salmon, 11-Jul-2011.) $)
-    cbvralsv $p |- ( A. x e. A ph <-> A. y e. A [ y / x ] ph ) $=
-      ( vz wral cv wsbc ax-17 hbs1 sbequ12 cbvral hbsb sbequ bitri ) ABDFABEGHZ
-      EDFABCGHZCDFAPBEDAEIZABEJABEKLPQECDABECACIMABCERMAECBNLO $.
-      $( [11-Jul-2011] $) $( [20-Nov-2005] $)
-  $}
-
-  ${
-    $d z x A $.  $d y z ph $.  $d y A $.
-    $( Change bound variable by using a substitution.  (Unnecessary distinct
-       variable restrictions were removed by Andrew Salmon, 11-Jul-2011.) $)
-    cbvrexsv $p |- ( E. x e. A ph <-> E. y e. A [ y / x ] ph ) $=
-      ( vz wrex cv wsbc ax-17 hbs1 sbequ12 cbvrex hbsb sbequ bitri ) ABDFABEGHZ
-      EDFABCGHZCDFAPBEDAEIZABEJABEKLPQECDABECACIMABCERMAECBNLO $.
-      $( [11-Jul-2011] $) $( [2-Mar-2008] $)
   $}
 
   ${

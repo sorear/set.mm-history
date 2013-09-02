@@ -61,7 +61,7 @@ $)
   $c gcdOLD $. $( The greatest common divisor $)
 
   $( Extend class notation to include the gdc function. $)
-  wgcdOLD $a class gcdOLD ( A , B ) $.
+  cgcdOLD $a class gcdOLD ( A , B ) $.
 
   ${
     $d x A $.  $d x B $.
@@ -78,7 +78,7 @@ $)
        subtraction. $)
     ee7.2aOLD $p |- ( ( A e. NN /\ B e. NN )
          -> ( A < B -> gcdOLD ( A , B ) = gcdOLD ( A , ( B - A ) ) ) ) $=
-      ( vx cn wcel wa clt wbr wgcdOLD cmin co wceq cv cdiv crab csup wb wi w3a
+      ( vx cn wcel wa clt wbr cgcdOLD cmin co wceq cv cdiv crab csup wb wi w3a
       nndivsub exp32 com23 3expia imp pm5.32d rabbidva supeq1d df-gcdOLD
       3eqtr4g ex ) ADEZBDEZFZABGHZABIZABAJKZIZLUMUNFZACMZNKDEZBUSNKDEZFZCDOZDGP
       UTUPUSNKDEZFZCDOZDGPUOUQURDVCVFGURVBVECDURUSDEZFUTVAVDURVGUTVAVDQZRZUMUNV
