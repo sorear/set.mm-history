@@ -4,15 +4,15 @@ $(
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 $)
   $( Introduce new constant symbols. $)
-  $c =w $. $( Godel-set of equality $)
-  $c e.w $. $( Godel-set of membership $)
-  $c /\w $. $( Godel-set of conjunction $)
-  $c -.w $. $( Godel-set of negation $)
-  $c A.w $. $( Godel-set of universal quantification $)
-  $c ->w $. $( Godel-set of implication $)
-  $c <->w $. $( Godel-set of equivalence $)
-  $c \/w $. $( Godel-set of disjunction $)
-  $c E.w $. $( Godel-set of existential quantification $)
+  $c =g $. $( Godel-set of equality $)
+  $c e.g $. $( Godel-set of membership $)
+  $c /\g $. $( Godel-set of conjunction $)
+  $c -.g $. $( Godel-set of negation $)
+  $c A.g $. $( Godel-set of universal quantification $)
+  $c ->g $. $( Godel-set of implication $)
+  $c <->g $. $( Godel-set of equivalence $)
+  $c \/g $. $( Godel-set of disjunction $)
+  $c E.g $. $( Godel-set of existential quantification $)
   $c Fmla $. $( Formula predicate $)
   $c Sat $. $( Satisfaction predicate $)
   $c SatE $. $( Satisfaction predicate $)
@@ -28,76 +28,75 @@ $)
   csate $a class SatE $.
 
   $( The Godel-set of equality. $)
-  cgoeq $a class =w $.
+  cgoq $a class =g $.
 
   $( The Godel-set of membership. $)
-  cgoel $a class e.w $.
+  cgoe $a class e.g $.
 
   $( The Godel-set of conjunction. $)
-  cgoan $a class /\w $.
+  cgoa $a class /\g $.
 
   $( The Godel-set of negation.  (Note that this is not a wff.) $)
-  cgonot $a class -.w U $.
+  cgon $a class -.g U $.
 
   $( The Godel-set of universal quantification.  (Note that this is not a
      wff.) $)
-  cgoal $a class A.w N U $.
+  cgol $a class A.g N U $.
 
   $( The "proves" relation. $)
   cprv $a class |= $.
 
-  $( Define the Godel-set of equality.  Here the arguments ` x = <. M , N >. `
-     correspond to v_M and v_N , so ` ( (/) =w 1o ) ` actually means v_0 ` = `
-     v_1 , not ` 0 = 1 ` .  The reason we use ` ( M =w N ) ` and not ` M =w N `
-     as the class expression is to maintain unambiguity: if ` M =w N ` was a
-     class expression, then ` M =w N =w P ` would be ambiguous. $)
-  df-goeq $a |- =w = ( x e. ( om X. om ) |-> <. (/) , x >. ) $.
+  $( Define the Godel-set of equality.  Here the arguments ` x = <. N , P >. `
+     correspond to v_N and v_P , so ` ( (/) =g 1o ) ` actually means v_0 ` = `
+     v_1 , not ` 0 = 1 ` .  The reason we use ` ( N =g P ) ` and not ` N =g P `
+     as the class expression is to maintain unambiguity: if ` N =g P ` was a
+     class expression, then ` M =g N =g P ` would be ambiguous. $)
+  df-goeq $a |- =g = ( x e. ( om X. om ) |-> <. (/) , x >. ) $.
 
   $( Define the Godel-set of membership.  Here the arguments
-     ` x = <. M , N >. ` correspond to v_M and v_N , so ` ( (/) e.w 1o ) `
+     ` x = <. N , P >. ` correspond to v_N and v_P , so ` ( (/) e.g 1o ) `
      actually means v_0 ` e. ` v_1 , not ` 0 e. 1 ` . $)
-  df-goel $a |- e.w = ( x e. ( om X. om ) |-> <. 1o , x >. ) $.
+  df-goel $a |- e.g = ( x e. ( om X. om ) |-> <. 1o , x >. ) $.
 
   $( Define the Godel-set of conjunction.  Here the arguments
      ` x = <. U , V >. ` are also Godel-sets corresponding to smaller
      formulae. $)
-  df-goan $a |- /\w = ( x e. ( _V X. _V ) |-> <. 2o , x >. ) $.
+  df-goan $a |- /\g = ( x e. ( _V X. _V ) |-> <. 2o , x >. ) $.
 
   $( Define the Godel-set of negation.  Here the argument ` U ` is also a
      Godel-set corresponding to smaller formulae.  Note that this is a _class_
      expression, not a wff. $)
-  df-gonot $a |- -.w U = <. 3o , U >. $.
+  df-gonot $a |- -.g U = <. 3o , U >. $.
 
   $( Define the Godel-set of universal quantification.  Here ` N e. om `
      corresponds to v_N , and ` U ` represents another formula, and this
-     expression is ` [ A. x ph ] = A.w N U ` where ` x ` is the ` N ` -th
+     expression is ` [ A. x ph ] = A.g N U ` where ` x ` is the ` N ` -th
      variable, ` U = [ ph ] ` is the code for ` ph ` .  Note that this is a
      _class_ expression, not a wff. $)
-  df-goal $a |- A.w N U = <. 4o , <. N , U >. >. $.
+  df-goal $a |- A.g N U = <. 4o , <. N , U >. >. $.
 
   ${
     $d a e i j m u v x y z $.
     df-sat.eq $e |- ( ph <->
-      ( x = ( i =w j ) /\
+      ( x = ( i =g j ) /\
         y = { a e. ( m ^m om ) | ( a ` i ) = ( a ` j ) } ) ) $.
     df-sat.el $e |- ( ps <->
-      ( x = ( i e.w j ) /\
+      ( x = ( i e.g j ) /\
         y = { a e. ( m ^m om ) | ( a ` i ) e ( a ` j ) } ) ) $.
     df-sat.an $e |- ( ch <-> E. v e. f
-      ( x = ( ( 1st ` u ) /\w ( 1st ` v ) ) /\
+      ( x = ( ( 1st ` u ) /\g ( 1st ` v ) ) /\
         y = ( ( 2nd ` u ) i^i ( 2nd ` v ) ) ) ) $.
     df-sat.not $e |- ( th <->
-      ( x = -.w ( 1st ` u ) /\ y = ( ( m ^m om ) \ ( 2nd ` u ) ) ) ) $.
+      ( x = -.g ( 1st ` u ) /\ y = ( ( m ^m om ) \ ( 2nd ` u ) ) ) ) $.
     df-sat.al $e |- ( ta <-> E. i e. om
-      ( x = A.w i ( 1st ` u ) /\
+      ( x = A.g i ( 1st ` u ) /\
         y = { a e. ( m ^m om ) | A. z e. m ( { <. i , z >. } u.
           ( a |` ( om \ { i } ) ) ) e. ( 2nd ` u ) } ) ) $.
     $( Define the satisfaction predicate. This recursive construction builds up
        a function over wff codes and simultaneously defines the set of
        assignments to all variables from ` M ` that makes the coded wff true in
        the model ` M ` , where ` e. ` is interpreted as the binary relation ` E
-       `
-       on ` M ` .
+       ` on ` M ` .
 
        The interpretation of the statement ` S e. ( ( ( M Sat E ) `` n ) `` U )
        ` is that for the model ` <. M , E >. ` , ` S : om --> M ` is an
@@ -146,40 +145,40 @@ $)
   df-fm $a |- Fmla = ( n e. suc om |-> dom ( ( (/) Sat (/) ) ` n ) ) $.
 
   $( The Godel-set of implication. $)
-  cgoim $a class ->w $.
+  cgoi $a class ->g $.
 
   $( The Godel-set of disjunction. $)
-  cgoor $a class \/w $.
+  cgoo $a class \/g $.
 
   $( The Godel-set of equivalence. $)
-  cgobi $a class <->w $.
+  cgob $a class <->g $.
 
   $( The Godel-set of existential quantification.  (Note that this is not a
      wff.) $)
-  cgoex $a class E.w N U $.
+  cgox $a class E.g N U $.
 
   $( Define the Godel-set of implication.  Here the arguments ` U ` and ` V `
      are also Godel-sets corresponding to smaller formulae.  Note that this is
      a _class_ expression, not a wff. $)
-  df-goim $a |- ->w = ( u e. _V , v e. _V |-> -.w ( u /\w -.w v ) ) $.
+  df-goim $a |- ->g = ( u e. _V , v e. _V |-> -.g ( u /\g -.g v ) ) $.
 
   $( Define the Godel-set of disjunction.  Here the arguments ` U ` and ` V `
      are also Godel-sets corresponding to smaller formulae.  Note that this is
      a _class_ expression, not a wff. $)
-  df-goor $a |- \/w = ( u e. _V , v e. _V |-> ( -.w u ->w v ) ) $.
+  df-goor $a |- \/g = ( u e. _V , v e. _V |-> ( -.g u ->g v ) ) $.
 
   $( Define the Godel-set of equivalence.  Here the arguments ` U ` and ` V `
      are also Godel-sets corresponding to smaller formulae.  Note that this is
      a _class_ expression, not a wff. $)
-  df-gobi $a |- <->w = ( u e. _V , v e. _V |->
-                         ( ( u ->w v ) /\w ( v ->w u ) ) ) $.
+  df-gobi $a |- <->g = ( u e. _V , v e. _V |->
+                         ( ( u ->g v ) /\g ( v ->g u ) ) ) $.
 
   $( Define the Godel-set of existential quantification.  Here ` N e. om `
      corresponds to v_N , and ` U ` represents another formula, and this
-     expression is ` [ E. x ph ] = E.w N U ` where ` x ` is the ` N ` -th
+     expression is ` [ E. x ph ] = E.g N U ` where ` x ` is the ` N ` -th
      variable, ` U = [ ph ] ` is the code for ` ph ` .  Note that this is a
      _class_ expression, not a wff. $)
-  df-goex $a |- E.w M U = -.w A.w M -.w U $.
+  df-goex $a |- E.g N U = -.g A.g N -.g U $.
 
   $( Define the "proves" relation on a set.  A wff is true in a model ` M ` if
      for every valuation ` s e. ( M ^m om ) ` , the interpretation of the wff
