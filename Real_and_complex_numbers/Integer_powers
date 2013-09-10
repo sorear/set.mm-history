@@ -11,94 +11,75 @@ $)
   cexp $a class ^ $.
 
   ${
-    $d x y z $.
+    $d x y $.
     $( Define exponentiation to nonnegative integer powers.  This definition is
        not meant to be used directly; instead, ~ exp0 and ~ expp1 provide a the
        standard recursive definition.  The up-arrow notation is used by Donald
        Knuth for iterated exponentiation (_Science_ 194, 1235-1242, 1976) and
-       is convenient for us since we don't have superscripts.  See ~ expnnval
-       for a description of how the recursive sequence builder is used.
-       10-Jun-2005:  The definition was extended to include zero exponents, so
-       that ` 0 ^ 0 = 1 ` per the convention of Definition 10-4.1 of [Gleason]
-       p. 134.  (Based on definition contributed by Raph Levien,
-       15-Oct-2004.) $)
-    df-exp $a |- ^ = { <. <. x , y >. , z >. | ( ( x e. CC /\ y e. NN0 ) /\
-          z = if ( y = 0 , 1 , ( ( x. seq1 ( NN X. { x } ) ) ` y ) ) ) } $.
+       is convenient for us since we don't have superscripts. 10-Jun-2005:  The
+       definition was extended to include zero exponents, so that ` 0 ^ 0 = 1 `
+       per the convention of Definition 10-4.1 of [Gleason] p. 134.  (Based on
+       definition contributed by Raph Levien, 15-Oct-2004.) $)
+    df-exp $a |- ^ = ( x e. CC , y e. NN0 |-> (
+      seq 0 ( x. , ( { <. 0 , 1 >. } u. ( NN X. { x } ) ) ) ` y ) ) $.
 
     $(
     Raph Levien's original definition from set.mm of 15-Oct-2004:
     df-exp $a |- ^ = { <. <. x , y >. , z >. | ( ( x e. CC /\ y e. NN0 ) /\
           z = ( ( rec ( { <. w , v >. | v = ( w x. x ) } , 1 ) o.
         `' ( rec ( { <. w , v >. | v = ( w + 1 ) } , 0 ) |` om ) ) ` y ) ) } $.
-
-    Old NN-based version from set.mm of 21-May-2005:
-    df-exp $a |- ^ = { <. <. x , y >. , z >. | ( ( x e. CC /\ y e. NN ) /\
-          z = ( ( x. seq1 ( NN X. { x } ) ) ` y ) ) }  $.
-    dfexp2 $p |- ^ = { <. <. x , y >. , z >. | ( ( x e. CC /\ y e. NN0 ) /\
-        z = ( ( x. seq1 ( { <. 0 , 1 >. } u. ( NN X. { x } ) ) ) ` y ) ) } $=
-          z = ( ( x. seq0 ( NN0 X. { if ( y = 0 , 1 , x ) } ) ) ` y ) ) } $=
     $)
   $}
 
   ${
-    $d x y z A $.  $d x y z N $.
-    $( Value of exponentiation to nonnegative integer powers. $)
+    $d x y A $.  $d y N $.
+    $( Value of exponentiation to nonnegative integer powers.  (Revised by
+       Mario Carneiro, 2-Jul-2013.) $)
     expval $p |- ( ( A e. CC /\ N e. NN0 ) -> ( A ^ N ) =
-                   if ( N = 0 , 1 , ( ( x. seq1 ( NN X. { A } ) ) ` N ) ) ) $=
-      ( vx vy vz cc cn0 cv cc0 wceq c1 cmul cn csn cxp cseq1 co cfv cif cexp
-      1nn0 elisseti fvex ifex sneq xpeq2 syl opreq2d fveq1d ifeq2d eqeq1 fveq2
-      ifbieq2d df-exp oprabval2 ) CDEABFGDHZIJZKUPLMCHZNZOZPQZRZSBIJZKBLMANZOZP
-      QZRZSTUQKUPVFRZSVCKVGKGUAUBBVFUCUDURAJZUQVBVHKVIUPVAVFVIUTVELPVIUSVDJUTVE
-      JURAUEUSVDMUFUGUHUIUJUPBJUQVCVHVGKUPBIUKUPBVFULUMCDEUNUO $.
-      $( [11-Jun-2005] $) $( [20-May-2004] $)
+      ( seq 0 ( x. , ( { <. 0 , 1 >. } u. ( NN X. { A } ) ) ) ` N ) ) $=
+      ( vx vy cc cn0 cv cmul cc0 c1 cop csn cn cxp cun cseq cfv cexp wceq sneq
+      xpeq2d uneq2d seqeq3d fveq1d fveq2 df-exp fvex ovmpt2 ) CDABEFDGZHIJKLZMC
+      GZLZNZOZIPZQBHUJMALZNZOZIPZQRUIUSQUKASZUIUOUSUTUNURHIUTUMUQUJUTULUPMUKATU
+      AUBUCUDUIBUSUECDUFBUSUGUH $.
+      $( [2-Jul-2013] $) $( [20-May-2004] $)
 
     $( Value of a complex number raised to the 0th power.  Note that under our
        definition, ` 0 ^ 0 = 1 ` , following the convention used by Gleason.
-       Part of Definition 10-4.1 of [Gleason] p. 134. $)
+       Part of Definition 10-4.1 of [Gleason] p. 134.  (Revised by Mario
+       Carneiro, 2-Jul-2013.) $)
     exp0 $p |- ( A e. CC -> ( A ^ 0 ) = 1 ) $=
-      ( cc wcel cc0 cexp co wceq c1 cmul cn csn cxp cseq1 cfv cif cn0 0nn0
-      expval mpan2 eqid iftrue ax-mp syl6eq ) ABCZADEFZDDGZHDIJAKLMFNZOZHUDDPCU
-      EUHGQADRSUFUHHGDTUFHUGUAUBUC $.
-      $( [11-Jun-2005] $) $( [20-May-2004] $)
+      ( cc wcel cc0 cexp co cmul c1 cop csn cn cxp cun cseq cfv cn0 wceq 0nn0
+      expval mpan2 cz 0z seq1NEW ax-mp elisseti ax-1cn cdif cres wn 0nnn difsn
+      reseq2i wrel cdm wss relxp dmxpss relssres mp2an eqtr2i uneq2i fvsnun1
+      eqtri syl6eq ) ABCZADEFZDGDHIJZKAJZLZMZDNOZHVEDPCVFVKQRADSTVKDVJOZHDUACVK
+      VLQUBGVJDUCUDDHKVIVJDUAUBUEHBUFUEVIVIKDJUGZUHZVGVNVIKUHZVIVMKVIDKCUIVMKQU
+      JDKUKUDULVIUMVIUNKUOVOVIQKVHUPKVHUQVIKURUSUTVAVBVCVD $.
+      $( [2-Jul-2013] $) $( [20-May-2004] $)
   $}
-
-  ${
-    $d x y z A $.  $d x y z B $.
-    $( Value of exponentiation to natural number powers. ` NN X. { A } ` is the
-       constant function with value ` A ` .  The ` seq1 ` operation produces
-       the sequence (i.e. function on ` NN ` ) with values ` A ` , ` A x. A ` ,
-       ` ( A x. A ) x. A ` ,... that we evaluate at index ` B ` . $)
-    expnnval $p |- ( ( A e. CC /\ B e. NN ) -> ( A ^ B ) =
-                   ( ( x. seq1 ( NN X. { A } ) ) ` B ) ) $=
-      ( cc wcel cn wa cexp co cc0 wceq c1 cmul csn cxp cseq1 cfv cif cn0 nnnn0
-      expval sylan2 wn wne nnne0 df-ne sylib iffalse syl adantl eqtrd ) ACDZBED
-      ZFABGHZBIJZKBLEAMNOHPZQZUOULUKBRDUMUPJBSABTUAULUPUOJZUKULUNUBZUQULBIUCURB
-      UDBIUEUFUNKUOUGUHUIUJ $.
-      $( [19-Oct-2004] $)
-  $}
-
-  $( Value of a complex number raised to the first power. $)
-  exp1 $p |- ( A e. CC -> ( A ^ 1 ) = A ) $=
-    ( cc wcel c1 cexp co cmul cn csn cxp cseq1 cfv wceq 1nn expnnval mpan2
-    mulex nnex snex xpex seq11 wf fconstg fvconst sylancl syl5eq eqtrd ) ABCZAD
-    EFZDGHAIZJZKFLZAUHDHCZUIULMNADOPUHULDUKLZAGUKQHUJRASTUAUHHUJUKUBUMUNAMHABUC
-    NHADUKUDUEUFUG $.
-    $( [20-Oct-2004] $)
 
   $( Value of a complex number raised to a nonnegative integer power plus one.
-     Part of Definition 10-4.1 of [Gleason] p. 134. $)
+     Part of Definition 10-4.1 of [Gleason] p. 134.  (Revised by Mario
+     Carneiro, 2-Jul-2013.) $)
   expp1 $p |- ( ( A e. CC /\ N e. NN0 ) -> ( A ^ ( N + 1 ) ) =
                ( ( A ^ N ) x. A ) ) $=
-    ( cc wcel cn0 c1 caddc co cexp cmul wceq cn cc0 wo elnn0 wa csn cxp cseq1
-    cfv mulex nnex snex xpex seq1p1 adantl wf fconstg peano2nn fvconst syl2an
-    opreq2d eqtrd expnnval sylan2 opreq1d 3eqtr4d ex mulid2 exp0 ax-1cn
-    addid2i opreq2i exp1 syl5eq 3eqtr4rd opreq1 opreq2 eqeq12d syl5ibrcom jaod
-    syl5bi imp ) ACDZBEDZABFGHZIHZABIHZAJHZKZVOBLDZBMKZNVNVTBOVNWAVTWBVNWAVTVNW
-    APZVPJLAQZRZSHZTZBWFTZAJHZVQVSWCWGWHVPWETZJHZWIWAWGWKKVNBJWEUALWDUBAUCUDUEU
-    FWCWJAWHJVNLWDWEUGVPLDZWJAKWALACUHBUIZLAVPWEUJUKULUMWAVNWLVQWGKWMAVPUNUOWCV
-    RWHAJABUNUPUQURVNVTWBAMFGHZIHZAMIHZAJHZKVNFAJHAWQWOAUSVNWPFAJAUTUPVNWOAFIHA
-    WNFAIFVAVBVCAVDVEVFWBVQWOVSWQWBVPWNAIBMFGVGULWBVRWPAJBMAIVHUPVIVJVKVLVM $.
-    $( [27-Jul-2006] $) $( [20-May-2005] $)
+    ( cc wcel cn0 wa c1 caddc co cmul cc0 cop csn cn cxp cun cseq cfv cexp
+    wceq cuz seqp1 nn0uz eleq2s adantl peano2nn0 expval sylan2 cdif nn0p1nn wn
+    0nnn difsn ax-mp syl6eleqr 0cn elisseti ax-1cn cres reseq2i wrel cdm wss
+    relxp dmxpss relssres mp2an eqtr2i uneq2i fvsnun2 syl fvconst2g eqtr2d
+    opreq12d 3eqtr4d ) ACDZBEDZFZBGHIZJKGLMZNAMZOZPZKQZRZBWDRZVSWCRZJIZAVSSIZAB
+    SIZAJIVQWEWHTZVPWKBKUAREJWCKBUBUCUDUEVQVPVSEDWIWETBUFAVSUGUHVRWJWFAWGJABUGV
+    RWGVSWBRZAVQWGWLTZVPVQVSNKMUIZDWMVQVSNWNBUJZKNDUKWNNTULKNUMUNZUOKGNVSWBWCKC
+    UPUQGCURUQWBWBWNUSZVTWQWBNUSZWBWNNWBWPUTWBVAWBVBNVCWRWBTNWAVDNWAVEWBNVFVGVH
+    VIVJVKUEVQVPVSNDWLATWONAVSCVLUHVMVNVO $.
+    $( [2-Jul-2013] $) $( [20-May-2005] $)
+
+  $( Value of a complex number raised to the first power.  (Revised by Mario
+     Carneiro, 2-Jul-2013.) $)
+  exp1 $p |- ( A e. CC -> ( A ^ 1 ) = A ) $=
+    ( cc wcel c1 cexp co cc0 caddc wceq ax-1cn addid2 ax-mp opreq2i cmul cn0
+    0nn0 expp1 mpan2 exp0 opreq1d mulid2 3eqtrd syl5eqr ) ABCZADEFAGDHFZEFZAUED
+    AEDBCUEDIJDKLMUDUFAGEFZANFZDANFAUDGOCUFUHIPAGQRUDUGDANASTAUAUBUC $.
+    $( [2-Jul-2013] $) $( [20-Oct-2004] $)
 
   ${
     $d x y z w A $.  $d z B $.  $d x y z w F $.
@@ -680,6 +661,17 @@ $)
         $( [17-Sep-1999] $)
     $}
   $}
+
+  $( Distribution of square over division.  (Contributed by Mario Carneiro,
+     9-Jul-2013.) $)
+  sqdiv $p |- ( ( A e. CC /\ B e. CC /\ B =/= 0 ) ->
+      ( ( A / B ) ^ 2 ) = ( ( A ^ 2 ) / ( B ^ 2 ) ) ) $=
+    ( cc wcel cc0 wne w3a cdiv co cmul c2 cexp wa wceq simp1 3simpc divmuldiv
+    syl22anc divcl sqval syl opreq12 syl2an 3adant3 3eqtr4d ) ACDZBCDZBEFZGZABH
+    IZUJJIZAAJIZBBJIZHIZUJKLIZAKLIZBKLIZHIZUIUFUFUGUHMZUSUKUNNUFUGUHOZUTUFUGUHP
+    ZVAAABBQRUIUJCDUOUKNABSUJTUAUFUGURUNNZUHUFUPULNUQUMNVBUGATBTUPULUQUMHUBUCUD
+    UE $.
+    $( [9-Jul-2013] $) $( [20-Aug-2001] $)
 
   $( A number is nonzero iff its square is nonzero. $)
   sqne0 $p |- ( A e. CC -> ( ( A ^ 2 ) =/= 0 <-> A =/= 0 ) ) $=

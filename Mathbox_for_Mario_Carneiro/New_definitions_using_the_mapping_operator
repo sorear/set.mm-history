@@ -1,0 +1,1082 @@
+$(
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+        New definitions using the mapping operator
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+$)
+
+  ${
+    $d x ph $.  $d x A $.  $d x B $.
+    $( Define the conditional operator.  Read ` if ( ph , A , B ) ` as "if
+       ` ph ` then ` A ` else ` B ` ."  See ~ iftrue and ~ iffalse for its
+       values.  In mathematical literature, this operator is rarely defined
+       formally but is implicit in informal definitions such as "let f(x)=0 if
+       x=0 and 1/x otherwise."  (In older versions of this database, this
+       operator was denoted "ded" and called the "deduction class.")
+
+       An important use for us is in conjunction with the weak deduction
+       theorem, which converts a hypothesis into an antecedent.  In that role,
+       ` A ` is a class variable in the hypothesis and ` B ` is a class
+       (usually a constant) that makes the hypothesis true when it is
+       substituted for ` A ` .  See ~ dedth for the main part of the weak
+       deduction theorem, ~ elimhyp to eliminate a hypothesis, and ~ keephyp to
+       keep a hypothesis.  See the Deduction Theorem link on the Metamath Proof
+       Explorer Home Page for a description of the weak deduction theorem. $)
+    df-ifNEW $a |- if ( ph , A , B ) =
+                 ( { x e. A | ph } u. { x e. B | -. ph } ) $.
+  $}
+
+  $( Define a function that extracts the first member, or abscissa, of an
+     ordered pair.  Theorem ~ op1st proves that it does this.  Equivalent to
+     Definition 5.13 (i) of [Monk1] p. 52 (compare ~ op1sta and ~ op1stb ).
+     The notation is the same as Monk's. $)
+  df-1stNEW $a |- 1st = ( x e. _V |-> U. dom { x } ) $.
+
+  $( Define a function that extracts the second member, or ordinate, of an
+     ordered pair.  Theorem ~ op2nd proves that it does this.  Equivalent to
+     Definition 5.13 (ii) of [Monk1] p. 52 (compare ~ op2nda and ~ op2ndb ).
+     The notation is the same as Monk's. $)
+  df-2ndNEW $a |- 2nd = ( x e. _V |-> U. ran { x } ) $.
+
+  ${
+    $d x z f g F $.  $d x y f g I $.
+    $( Define a recursive definition generator on ` On ` (the class of ordinal
+       numbers) with characteristic function ` F ` and initial value ` I ` .
+       This combines functions ` F ` in ~ tfr1 and ` G ` in ~ tz7.44-1 into one
+       definition.  This rather amazing operation allows us to define, with
+       compact direct definitions, functions that are usually defined in
+       textbooks only with indirect self-referencing recursive definitions.  A
+       recursive definition requires advanced metalogic to justify - in
+       particular, eliminating a recursive definition is very difficult and
+       often not even shown in textbooks.  On the other hand, the elimination
+       of a direct definition is a matter of simple mechanical substitution.
+       The price paid is the daunting complexity of our ` rec ` operation.  But
+       once we get past this hurdle, otherwise recursive definitions become
+       relatively simple, as in for example ~ oav , from which we prove the
+       recursive textbook definition as theorems ~ oa0 , ~ oasuc , and ~ oalim
+       (with the help of theorems ~ rdg0 , ~rdgsuc , and ~ rdglim2a ).  We can
+       also restrict the ` rec ` operation to define otherwise recursive
+       functions on the natural numbers ` om ` ; see ~ fr0g and ~ frsuc .  Our
+       ` rec ` operation apparently does not appear in published literature,
+       although closely related is Definition 25.2 of [Quine] p. 177, which he
+       uses to "turn...a recursion into a genuine or direct definition" (p.
+       174).  Note that the ` if ` operations (see ~ df-if ) select cases based
+       on whether the domain of ` g ` is zero, a successor, or a limit ordinal.
+
+       An important use of this definition is in the recursive sequence
+       generator ~ df-seq1 on the natural numbers (as a subset of the complex
+       numbers), allowing us to define, with direct definitions, recursive
+       infinite sequences such as the factorial function ~ df-fac and integer
+       powers ~ df-exp .
+
+       _Note:  We introduce ` rec ` with the philosophical goal of being able_
+       _to eliminate all definitions with direct mechanical substitution and_
+       _to verify easily the soundness of definitions.  Metamath itself has no_
+       _built-in technical limitation that prevents multiple-part recursive_
+       _definitions in the traditional textbook style_. $)
+    df-rdgNEW $a |- rec ( F , I ) = U. { f | E. x e. On ( f Fn x /\
+                A. y e. x ( f ` y ) = ( ( g e. _V |-> if ( g = (/) , I ,
+                if ( Lim dom g , U. ran g , ( F ` ( g ` U. dom g ) ) ) ) )
+                ` ( f |` y ) ) ) } $.
+  $}
+
+  ${
+    $d x y z $.
+    $( Define the ordinal addition operation. $)
+    df-oaddNEW $a |- +o = ( x e. On , y e. On |->
+                ( rec ( ( z e. _V |-> suc z ) , x ) ` y ) ) $.
+
+    $( Define the ordinal multiplication operation. $)
+    df-omulNEW $a |- .o = ( x e. On , y e. On |->
+                ( rec ( ( z e. _V |-> ( z +o x ) ) , (/) ) ` y ) ) $.
+
+    $( Define the ordinal exponentiation operation. $)
+    df-oexpNEW $a |- ^o = ( x e. On , y e. On |->
+                   if ( x = (/) , ( 1o \ y ) ,
+                 ( rec ( ( z e. _V |-> ( z .o x ) ) , 1o ) ` y ) ) ) $.
+  $}
+
+  ${
+    $d x y f $.
+    $( Define the mapping operation or set exponentiation.  The set of all
+       functions that map from ` B ` to ` A ` is written ` ( A ^m B ) ` (see
+       ~ mapval ).  Many authors write ` A ` followed by ` B ` as a superscript
+       for this operation and rely on context to avoid confusion other
+       exponentiation operations (e.g.  Definition 10.42 of [TakeutiZaring]
+       p. 95).  Other authors show ` B ` as a prefixed superscript, which is
+       read " ` A ` pre ` B ` " (e.g. definition of [Enderton] p. 52).
+       Definition 8.21 of [Eisenberg] p. 125 uses the notation Map( ` B ` ,
+       ` A ` ) for our ` ( A ^m B ) ` .  The up-arrow is used by Donald Knuth
+       for iterated exponentiation (_Science_ 194, 1235-1242, 1976).  We adopt
+       the first case of his notation (simple exponentiation) and subscript it
+       with _m_ to distinguish it from other kinds of exponentiation. $)
+    df-mapNEW $a |- ^m = ( x e. _V , y e. _V |-> { f | f : y --> x } ) $.
+
+    $( Define the partial mapping operation.  A partial function from ` B ` to
+       ` A ` is a function from a subset of ` B ` to ` A ` .  The set of all
+       partial functions from ` B ` to ` A ` is written ` ( A ^pm B ) ` (see
+       ~ pmvalg ).  A notation for this operation apparently does not appear in
+       the literature.  We use ` ^pm ` to distinguish it from the less general
+       set exponentiation operation ` ^m ` ( ~ df-map ) .  See ~ mapsspm for
+       its relationship to set exponentiation. $)
+    df-pmNEW $a |- ^pm = ( x e. _V , y e. _V |->
+                    { f e. ~P ( y X. x ) | Fun f } ) $.
+  $}
+
+  ${
+    $d x y z R $.  $d x y z A $.  $d x y z B $.
+    $( Define the supremum of class ` A ` .  It is meaningful when ` R ` is a
+       relation that strictly orders ` B ` and when the supremum exists.  For
+       example, ` R ` could be 'less than', ` B ` could be the set of real
+       numbers, and ` A ` could be the set of all positive reals whose square
+       is less than 2; in this case the supremum is defined as the square root
+       of 2 per ~ sqrval .  See ~ dfsup2 for alternate definition not requiring
+       dummy variables.
+
+       We will also use this notation for "infimum" by replacing ` R ` with
+       ` ``' R ` . $)
+    df-supNEW $a |- sup ( A , B , R ) = ( iota x ( x e. B /\
+            A. y e. A -. x R y /\ A. y e. B ( y R x -> E. z e. A y R z ) ) ) $.
+  $}
+
+  ${
+    $d x y z R $.  $d x y z A $.  $d x y z B $.
+    $( Define the supremum of class ` A ` .  It is meaningful when ` R ` is a
+       relation that strictly orders ` B ` and when the supremum exists.  For
+       example, ` R ` could be 'less than', ` B ` could be the set of real
+       numbers, and ` A ` could be the set of all positive reals whose square
+       is less than 2; in this case the supremum is defined as the square root
+       of 2 per ~ sqrval .  See ~ dfsup2 for alternate definition not requiring
+       dummy variables.
+
+       We will also use this notation for "infimum" by replacing ` R ` with
+       ` ``' R ` . $)
+    df-supNEW2 $a |- sup ( A , B , R ) = ( iota_ x e. B
+          ( A. y e. A -. x R y /\ A. y e. B ( y R x -> E. z e. A y R z ) ) ) $.
+  $}
+
+  ${
+    $d x y $.
+    $( Define the cumulative hierarchy of sets function, using Takeuti and
+       Zaring's notation ( ` R1 ` ).  Starting with the empty set, this
+       function builds up layers of sets where the next layer is the power set
+       of the previous layer (and the union of previous layers when the
+       argument is a limit ordinal).  Using the Axiom of Regularity, we can
+       show that any set whatsoever belongs to one of the layers of this
+       hierarchy (see ~ tz9.13 ).  Our definition expresses Definition 9.9 of
+       [TakeutiZaring] p. 76 in a closed form, from which we derive the
+       recursive definition as theorems ~ r10 , ~ r1suc , and ~ r1lim .
+       Theorem ~ r1val1 shows a recursive definition that works for all values,
+       and theorems ~ r1val2 and ~ r1val3 show the value expressed in terms of
+       rank.  Other notations for this function are _R_ with the argument as a
+       subscript (Equation 3.1 of [BellMachover] p. 477), ` _V ` with a a
+       subscript (Definition of [Enderton] p. 202), _M_ with a subscript
+       (Definition 15.19 of [Monk1] p. 113), the capital Greek letter psi
+       (Definition of [Mendelson] p. 281), and bold-face R (Definition 2.1 of
+       [Kunen] p. 95). $)
+    df-r1NEW $a |- R1 = rec ( ( x e. _V |-> ~P x ) , (/) ) $.
+
+    $( Define the rank function.  See ~ rankval , ~ rankval2 , ~ rankval3 , or
+       ~ rankval4 its value.  The rank is a kind of "inverse" of the cumulative
+       hierarchy of sets function ` R1 ` : given a set, it returns an ordinal
+       number telling us the smallest layer of the hierarchy to which the set
+       belongs.  Based on Definition 9.14 of [TakeutiZaring] p. 79.  Theorem
+       ~ rankid illustrates the "inverse" concept.  Another nice theorem
+       showing the relationship is ~ rankr1a . $)
+    df-rankNEW $a |- rank = ( x e. _V |->
+        |^| { y e. On | x e. ( R1 ` suc y ) } ) $.
+  $}
+
+  ${
+    $d x y $.
+    $( Define the cardinal number function.  The cardinal number of a set is
+       the least ordinal number equinumerous to it.  In other words, it is the
+       "size" of the set.  Definition of [Enderton] p. 197.  See ~ cardval for
+       its value, ~ cardval2 for a simpler version of its value.  The principle
+       theorem relating cardinality to equinumerosity is ~ carden .  Our
+       notation is from Enderton.  Other textbooks often use a double bar over
+       the set to express this function. $)
+    df-cardNEW $a |- card = ( x e. _V |-> |^| { y e. On | y ~~ x } ) $.
+
+    $( Define the aleph function.  Our definition expresses Definition 12 of
+       [Suppes] p. 229 in a closed form, from which we derive the recursive
+       definition as theorems ~ aleph0 , ~ alephsuc , and ~ alephlim .  The
+       aleph function provides a one-to-one, onto mapping from the ordinal
+       numbers to the infinite cardinal numbers.  Roughly, any aleph is the
+       smallest infinite cardinal number whose size is strictly greater than
+       any aleph before it. $)
+    df-alephNEW $a |- aleph = rec ( ( x e. _V |-> |^| { y e. On |
+                   x ~< y } ) , om ) $.
+
+    $d x y z v u $.
+    $( Define the cofinality function.  Definition B of Saharon Shelah,
+       _Cardinal Arithmetic_ (1994), p. xxx (Roman numeral 30).  See ~ cfval
+       for its value and a description. $)
+    df-cfNEW $a |- cf = ( x e. On |->
+      |^| { y | E. z ( y = ( card ` z ) /\
+                ( z C_ x /\ A. v e. x E. u e. z v C_ u ) ) } ) $.
+  $}
+
+  ${
+    $d x y z $.
+    $( Define cardinal number addition.  Definition of cardinal sum in
+       [Mendelson] p. 258.  See ~ cdavali for its value and a description. $)
+    df-cdaNEW $a |- +c = ( x e. _V , y e. _V |->
+                   ( ( x X. { (/) } ) u. ( y X. { 1o } ) ) ) $.
+  $}
+
+  ${
+    $d x y $.
+    $( Define pre-addition on positive fractions.  This is a "temporary" set
+       used in the construction of complex numbers ~ df-c , and is intended to
+       be used only by the construction.  This "pre-addition" operation works
+       works directly with ordered pairs of integers.  The actual positive
+       fraction addition ` +Q ` ( ~ df-plq ) works with the equivalence classes
+       of these ordered pairs determined by the equivalence relation ` ~Q `
+       ( ~ df-enq ).  (Analogous remarks apply to the other "pre-" operations
+       in the complex number construction that follows.)  From Proposition
+       9-2.3 of [Gleason] p. 117. $)
+    df-plpqNEW $a |- +pQ = ( x e. ( N. X. N. ) , y e. ( N. X. N. ) |->
+      <. ( ( ( 1st ` x ) .N ( 2nd ` y ) ) +N ( ( 1st ` y ) .N ( 2nd ` x ) ) ) ,
+           ( ( 2nd ` x ) .N ( 2nd ` y ) ) >. ) $.
+
+    $( Define pre-multiplication on positive fractions.  This is a "temporary"
+       set used in the construction of complex numbers ~ df-c , and is intended
+       to be used only by the construction.  From Proposition 9-2.4 of
+       [Gleason] p. 119. $)
+    df-mpqNEW $a |- .pQ = ( x e. ( N. X. N. ) , y e. ( N. X. N. ) |->
+         <. ( ( 1st ` x ) .N ( 1st ` y ) ) ,
+            ( ( 2nd ` x ) .N ( 2nd ` y ) ) >. ) $.
+  $}
+
+  ${
+    $d x y z w v u f $.
+    $( Define pre-addition on signed reals.  This is a "temporary" set used in
+       the construction of complex numbers ~ df-c , and is intended to be used
+       only by the construction.  From Proposition 9-4.1 of [Gleason]
+       p. 126. $)
+    df-plprNEW $a |- +pR = ( x e. ( P. X. P. ) , y e. ( P. X. P. ) |->
+         <. ( ( 1st ` x ) +P. ( 1st ` y ) ) ,
+            ( ( 2nd ` x ) +P. ( 2nd ` y ) ) >. ) $.
+
+    $( Define pre-multiplication on signed reals.  This is a "temporary" set
+       used in the construction of complex numbers ~ df-c , and is intended to
+       be used only by the construction.  From Proposition 9-4.1 of [Gleason]
+       p. 126. $)
+    df-mprNEW $a |- .pR = ( x e. ( P. X. P. ) , y e. ( P. X. P. ) |->
+       <. ( ( ( 1st ` x ) .P. ( 1st ` y ) ) +P.
+            ( ( 2nd ` x ) .P. ( 2nd ` y ) ) ) ,
+          ( ( ( 1st ` x ) .P. ( 2nd ` y ) ) +P.
+            ( ( 2nd ` x ) .P. ( 1st ` y ) ) ) >. ) $.
+
+    $( Define addition on signed reals.  This is a "temporary" set used in the
+       construction of complex numbers ~ df-c , and is intended to be used only
+       by the construction.  From Proposition 9-4.3 of [Gleason] p. 126. $)
+    df-plrNEW $a |- +R = ( x e. R. , y e. R. |->
+      ( iota z E. w E. v E. u E. f (
+         x = [ <. w , v >. ] ~R /\ y = [ <. u , f >. ] ~R /\
+               z = [ ( <. w , v >. +pR <. u , f >. ) ] ~R ) ) ) $.
+
+    $( Define multiplication on signed reals.  This is a "temporary" set used
+       in the construction of complex numbers ~ df-c , and is intended to be
+       used only by the construction.  From Proposition 9-4.3 of [Gleason]
+       p. 126. $)
+    df-mrNEW $a |- .R = ( x e. R. , y e. R. |->
+      ( iota z E. w E. v E. u E. f (
+         x = [ <. w , v >. ] ~R /\ y = [ <. u , f >. ] ~R /\
+               z = [ ( <. w , v >. .pR <. u , f >. ) ] ~R ) ) ) $.
+  $}
+
+  ${
+    $d x y $.
+    $( Define addition over complex numbers. $)
+    df-plusNEW $a |- + = ( x e. CC , y e. CC |->
+                  <. ( ( 1st ` x ) +R ( 1st ` y ) ) ,
+                     ( ( 2nd ` x ) +R ( 2nd ` y ) ) >. ) $.
+
+    $( Define multiplication over complex numbers. $)
+    df-mulNEW $a |- x. = ( x e. CC , y e. CC |->
+               <. ( ( ( 1st ` x ) .R ( 1st ` y ) ) +R
+           ( -1R .R ( ( 2nd ` x ) .R ( 2nd ` y ) ) ) ) ,
+                  ( ( ( 2nd ` x ) .R ( 1st ` y ) ) +R
+                    ( ( 1st ` x ) .R ( 2nd ` y ) ) ) >. ) $.
+  $}
+
+  ${
+    $d x y z $.
+    $( Define subtraction.  Theorem ~ subval shows it value (and describes how
+       this definition works), theorem ~ subaddi relates it to addition, and
+       theorems ~ subcli and ~ resubcli prove its closure laws. $)
+    df-subNEW $a |- - = ( x e. CC , y e. CC |->
+                   ( iota_ z e. CC ( y + z ) = x ) ) $.
+  $}
+
+  ${
+    $d x y z $.
+    $( Define division.  Theorem ~ divmuli relates it to multiplication, and
+       ~ divcli and ~ redivcli prove its closure laws. $)
+    df-divNEW $a |- / = ( x e. CC , y e. CC |->
+                   ( iota_ z e. CC ( y x. z ) = x ) ) $.
+  $}
+
+  ${
+    $d x y $.
+    $( Define the floor (greatest integer) function.  See ~ flval for its
+       value, ~ fllelt for its basic property, and ~ flcl for its closure.
+
+       The term "floor" was coined by Ken Iverson.  He also invented a
+       mathematical notation for floor, consisting of an L-shaped left bracket
+       and its reflection as a right bracket.  In APL, the left-bracket alone
+       is used, and we borrow this idea.  (Thanks to Paul Chapman for this
+       information.) $)
+    df-flNEW $a |- |_ = ( x e. RR |->
+                ( iota_ y e. ZZ ( y <_ x /\ x < ( y + 1 ) ) ) ) $.
+  $}
+
+  ${
+    $d x y z $.
+    $( Define the modulo (remainder) operation.  See ~ modval for its value. $)
+    df-modNEW $a |- mod = ( x e. RR , y e. RR+ |->
+          ( x - ( y x. ( |_ ` ( x / y ) ) ) ) ) $.
+  $}
+
+  ${
+    $d x y z w $.
+    $( Define the set of open intervals of extended reals. $)
+    df-iooNEW $a |- (,) = ( x e. RR* , y e. RR* |->
+                   { z e. RR* | ( x < z /\ z < y ) } ) $.
+
+    $( Define the set of open-below, closed-above intervals of extended
+       reals. $)
+    df-iocNEW $a |- (,] = ( x e. RR* , y e. RR* |->
+                   { z e. RR* | ( x < z /\ z <_ y ) } ) $.
+
+    $( Define the set of closed-below, open-above intervals of extended
+       reals. $)
+    df-icoNEW $a |- [,) = ( x e. RR* , y e. RR* |->
+                   { z e. RR* | ( x <_ z /\ z < y ) } ) $.
+
+    $( Define the set of closed intervals of extended reals. $)
+    df-iccNEW $a |- [,] = ( x e. RR* , y e. RR* |->
+                   { z e. RR* | ( x <_ z /\ z <_ y ) } ) $.
+  $}
+
+  ${
+    $d j k $.
+    $( Define a function whose value at ` j ` is the semi-infinite set of
+       contiguous integers starting at ` j ` , which we will also call the
+       upper integers starting at ` j ` .  Read " ` ZZ>= `` M ` " as "the set
+       of integers greater than or equal to ` M ` ."  See ~ uzval for its
+       value, ~ uzssz for its relationship to ` ZZ ` , ~ nnuz and ~ nn0uz for
+       its relationships to ` NN ` and ` NN0 ` , and ~ eluz1 and ~ eluz2 for
+       its membership relations. $)
+    df-uzNEW $a |- ZZ>= = ( j e. ZZ |-> { k e. ZZ | j <_ k } ) $.
+  $}
+
+  ${
+    $d m n k z $.
+    $( Define an operation that produces a finite set of sequential integers.
+       Read " ` M ... N ` " as "the set of integers from ` M ` to ` N `
+       inclusive."  See ~ fzval for its value and additional comments. $)
+    df-fzNEW $a |- ... = ( m e. ZZ , n e. ZZ |->
+                  { k e. ZZ | ( m <_ k /\ k <_ n ) } ) $.
+  $}
+
+  ${
+    $d x y z f g $.
+    $( Define a function shifter.  This operation offsets the value argument of
+       a function (ordinarily on a subset of ` CC ` ) and produces a new
+       function on ` CC ` .  See ~ shftval for its value. $)
+    df-shftNEW $a |- shift = ( f e. _V , x e. CC |->
+                  { <. y , z >. | ( y e. CC /\ ( y - x ) f z ) } ) $.
+  $}
+
+  ${
+    $d k x y z F $.
+    $( Define the superior limit of an infinite sequence of extended real
+       numbers.  Definition 12-4.1 of [Gleason] p. 175.  See ~ limsupval for
+       its value. $)
+    df-limsupNEW $a |- limsup = ( x e. _V |-> sup ( { z | E. k e. ZZ
+   z = sup ( ( ( x " ( ZZ>= ` k ) ) i^i RR* ) , RR* , < ) } , RR* , `' < ) ) $.
+  $}
+
+  ${
+    $d x y z w $.
+    $( Define a function whose value is the real part of a complex number.  See
+       ~ reval for its value, ~ recli for its closure, and ~ replim for its use
+       in decomposing a complex number. $)
+    df-reNEW $a |- Re = ( x e. CC |->
+                 ( iota_ y e. RR E. z e. RR x = ( y + ( _i x. z ) ) ) ) $.
+
+    $( Define a function whose value is the imaginary part of a complex
+       number.  See ~ imval for its value, ~ imcli for its closure, and
+       ~ replim for its use in decomposing a complex number. $)
+    df-imNEW $a |- Im = ( x e. CC |->
+                 ( iota_ z e. RR E. y e. RR x = ( y + ( _i x. z ) ) ) ) $.
+
+    $( Define the complex conjugate function.  See ~ cjcli for its closure and
+       ~ cjval for its value. $)
+    df-cjNEW $a |- * = ( x e. CC |->
+                      ( ( Re ` x ) - ( _i x. ( Im ` x ) ) ) ) $.
+  $}
+
+  ${
+    $d x y A $.
+    $( Define the function for the absolute value (modulus) of a complex
+       number.  See ~ abscli for its closure and ~ absval or ~ absval2i for its
+       value. $)
+    df-absNEW $a |- abs = ( x e. CC |-> ( sqr ` ( x x. ( * ` x ) ) ) ) $.
+  $}
+
+  ${
+    $d n k m $.
+    $( Define the binomial coefficient operation.  In the literature, this
+       function is often written as a column vector of the two arguments, or
+       with the arguments as subscripts before and after the letter "C".
+       ` ( N _C K ) ` is read " ` N ` choose ` K ` ."  Definition of binomial
+       coefficient in [Gleason] p. 295.  As suggested by Gleason, we define it
+       to be 0 when ` 0 <_ k <_ n ` does not hold. $)
+    df-bcNEW $a |- _C = ( n e. NN0 , k e. ZZ |-> if ( ( 0 <_ k /\ k <_ n ) ,
+                ( ( ! ` n ) / ( ( ! ` ( n - k ) ) x. ( ! ` k ) ) ) , 0 ) ) $.
+  $}
+
+  $( Define the ` # ` function, which gives the cardinality of a finite set as
+     a member of ` NN0 ` . $)
+  df-hashNEW $a |- # = ( rec ( ( x e. _V |-> ( x + 1 ) ) , 0 ) o. card ) $.
+
+  ${
+    $d a b d e f x y $.
+    $( Define the operation whose value is a class of continuous complex
+       functions. $)
+    df-cncfNEW $a |- -cn-> = ( a e. ~P CC , b e. ~P CC |->
+      { f e. ( b ^m a ) | A. x e. a A. e e. RR+ E. d e. RR+ A. y e. a
+  ( ( abs ` ( x - y ) ) < d -> ( abs ` ( ( f ` x ) - ( f ` y ) ) ) < e ) } ) $.
+  $}
+
+  ${
+    $d x k $.
+    $( Define the exponential function. $)
+    df-efNEW $a |- exp = ( x e. CC |->
+                  sum_ k e. NN0 ( ( x ^ k ) / ( ! ` k ) ) ) $.
+
+    $( Define the sine function. $)
+    df-sinNEW $a |- sin = ( x e. CC |->
+ ( ( ( exp ` ( _i x. x ) ) - ( exp ` ( -u _i x. x ) ) ) / ( 2 x. _i ) ) ) $.
+
+    $( Define the cosine function. $)
+    df-cosNEW $a |- cos = ( x e. CC |->
+        ( ( ( exp ` ( _i x. x ) ) + ( exp ` ( -u _i x. x ) ) ) / 2 ) ) $.
+
+    $( Define pi = 3.14159..., which is the smallest positive number whose sine
+       is zero.  Definition of pi in [Gleason] p. 311.  (We use the inverse of
+       of less-than, " ` ``' < ` ", to turn supremum into infimum; currently we
+       don't have infimum defined separately.) $)
+    df-piNEW $a |- pi = sup ( { x e. RR+ | ( sin ` x ) = 0 } , RR , `' < ) $.
+  $}
+
+  ${
+    $d n x y z $.
+    $( Define the ` gcd ` operator. $)
+    df-gcdNEW $a |- gcd = ( x e. ZZ , y e. ZZ |-> if ( ( x = 0 /\ y = 0 ) , 0 ,
+             sup ( { n e. ZZ | ( n || x /\ n || y ) } , RR , < ) ) ) $.
+  $}
+
+  ${
+    $d x y z $.
+    $( Define the (proper) class of all topologies.  See ~ istop2g for an
+       alternate way to express finite intersection and ~ istps5OLD for a
+       standard definition in terms of both members of a topological space. $)
+    df-topNEW $a |- Top = { x | ( A. y e. ~P x U. y e. x /\
+                           A. y e. x A. z e. x ( y i^i z ) e. x ) } $.
+
+    $( Define the class of all topological spaces, each of which is an ordered
+       pair the second of which is a topology on the first.  See ~ istps5OLD
+       for a standard way to express a topological space. $)
+    df-topspOLDNEW $a |- TopSpOLD = `' ( x e. Top |-> U. x ) $.
+
+    $( Define a function that converts a basis to its corresponding topology.
+       Equivalent to the definition of a topology generated by a basis in
+       [Munkres] p. 78 (see ~ tgval2 ).  See ~ tgval3 for an alternate
+       expression for the value. $)
+    df-topgenNEW $a |- topGen = ( x e. TopBases |->
+                                 { y | y C_ U. ( x i^i ~P y ) } ) $.
+  $}
+
+  ${
+    $d r s u v z $.
+    $( Define the binary topological product, which is homeomorphic to the
+       general topological product over a two element set, but is more
+       convenient to use.  (Contributed by Jeff Madsen, 2-Sep-2009.) $)
+    df-txNEW $a |- tX = ( r e. Top , s e. Top |->
+             ( topGen ` { x | E. y e. r E. z e. s x = ( y X. z ) } ) ) $.
+  $}
+
+  ${
+    $d x y j $.
+    $( Define a function on topologies whose value is the set of closed sets of
+       the topology. $)
+    df-cldNEW $a |- Clsd = ( j e. Top |->
+                            { x e. ~P U. j | ( U. j \ x ) e. j } ) $.
+
+    $( Define a function on topologies whose value is the interior function on
+       the subsets of the base set.  See ~ ntrval . $)
+    df-ntrNEW $a |- int = ( j e. Top |->
+                        ( x e. ~P U. j |-> U. ( j i^i ~P x ) ) ) $.
+
+    $( Define a function on topologies whose value is the closure function on
+       the subsets of the base set.  See ~ clsval . $)
+    df-clsNEW $a |- cls = ( j e. Top |-> ( x e. ~P U. j |->
+                        |^| { y e. ( Clsd ` j ) | x C_ y } ) ) $.
+  $}
+
+  ${
+    $d x y j g $.
+    $( Define a function on topologies whose value is a map from a subset to
+       its neighborhoods. $)
+    df-neiNEW $a |- nei = ( j e. Top |-> ( x e. ~P U. j |->
+                   { y e. ~P U. j | E. g e. j ( x C_ g /\ g C_ y ) } ) ) $.
+  $}
+
+  ${
+    $d x y j $.
+    $( Define a function on topologies whose value is the set of limit points
+       of the subsets of the base set.  See ~ lpval . $)
+    df-lpNEW $a |- limPt = ( j e. Top |-> ( x e. ~P U. j |->
+                  { y | y e. ( ( cls ` j ) ` ( x \ { y } ) ) } ) ) $.
+  $}
+
+  ${
+    $d j k f x y g $.
+    $( Define a function on two topologies whose value is the set of continuous
+       mappings from the first topology to the second.  Based on definition of
+       continuous function in [Munkres] p. 102.  See ~ iscn for the predicate
+       form. $)
+    df-cnNEW $a |- Cn = ( j e. Top , k e. Top |->
+                  { f e. ( U. k ^m U. j ) | A. y e. k ( `' f " y ) e. j } ) $.
+
+    $( Define a function on two topologies whose value is the set of continuous
+       mappings at a specified point in the first topology.  Based on Theorem
+       7.2(g) of [Munkres] p. 107. $)
+    df-cnpNEW $a |- CnP = ( j e. Top , k e. Top |-> ( x e. U. j |->
+                  { f e. ( U. k ^m U. j ) | A. y e. k ( ( f ` x ) e. y ->
+                    E. g e. j ( x e. g /\ ( f " g ) C_ y ) ) } ) ) $.
+  $}
+
+  ${
+    $d d x y r $.
+    $( Define the (proper) class of all metric spaces. $)
+    df-msNEW $a |- MetSp = `' ( d e. Met |-> dom dom d ) $.
+
+    $( Define the metric space ball function.  See ~ blval for its value. $)
+    df-blNEW $a |- ball = ( d e. Met |-> ( x e. dom dom d , r e. RR+ |->
+                { y e. dom dom d | ( x d y ) < r } ) ) $.
+
+    $( Define a function whose value is the family of open sets of a metric
+       space.  See ~ isopn for its main property. $)
+    df-opnNEW $a |- MetOpen = ( d e. Met |-> ( topGen ` ran ( ball ` d ) ) ) $.
+  $}
+
+  ${
+    $d d f x e j k m $.
+    $( Define a function on metric spaces whose value is the convergence
+       relation for the space.  Although ` f ` is typically a function from
+       upper integers to the metric space, it doesn't have to be.
+       Unfortunately, the expression after " ` w = ` " must exist to use
+       ~ fvopab4 , and we use the otherwise unnecessary conjunct
+       ` f C_ ( CC X. dom dom z ) ` to ensure that.  This could be changed to
+       the more liberal (but more complex)
+       ` f C_ ( CC X. ( dom dom z u. { (/) } ) ) ` if we want to allow for
+       functions with undefined values. $)
+    df-lmNEW $a |- ~~>m = ( d e. Met |-> { <. f , x >. |
+      ( f C_ ( CC X. dom dom d ) /\ x e. dom dom d /\ A. e e. RR+
+       E. j e. ZZ A. k e. ( ZZ>= ` j ) ( ( f ` k ) e. dom dom d /\
+           ( ( f ` k ) d x ) < e ) ) } ) $.
+
+    $( Define a function on metric spaces whose value is the set of Cauchy
+       sequences of the space. $)
+    df-cauNEW $a |- Cau = ( d e. Met |-> { f e. ~P ( CC X. dom dom d ) |
+         A. e e. RR+ E. j e. ZZ A. k e. ( ZZ>= ` j ) A. m e. ( ZZ>= ` j )
+            ( ( f ` k ) e. dom dom d /\ ( f ` m ) e. dom dom d /\
+             ( ( f ` k ) d ( f ` m ) ) < e ) } ) $.
+
+    $( Define the class of complete metrics. $)
+    df-cmetNEW $a |- CMet = { d e. Met | A. f e. ( Cau ` d )
+           E. x e. dom dom d f ( ~~>m ` d ) x } $.
+  $}
+
+  ${
+    $d g u x y $.
+    $( Define a function that maps a group operation to the group's identity
+       element. $)
+    df-gidNEW $a |- Id = ( g e. GrpOp |-> ( iota_ u e. ran g A. x e. ran g
+                       ( ( u g x ) = x /\ ( x g u ) = x ) ) ) $.
+
+    $( Define a function that maps a group operation to the group's inverse
+       function. $)
+    df-ginvNEW $a |- inv = ( g e. GrpOp |-> ( x e. ran g |->
+                 ( iota_ y e. ran g ( y g x ) = ( Id ` g ) ) ) ) $.
+
+    $( Define a function that maps a group operation to the group's division
+       (or subtraction) operation. $)
+    df-gdivNEW $a |- /g = ( g e. GrpOp |-> ( x e. ran g , y e. ran g |->
+                        ( x g ( ( inv ` g ) ` y ) ) ) ) $.
+
+    $( Define a function that maps a group operation to the group's power
+       operation. $)
+    df-gxNEW $a |- ^g = ( g e. GrpOp |-> ( x e. ran g , y e. ZZ |->
+                      if ( y = 0 , ( Id ` g ) ,
+                      if ( 0 < y , ( seq 1 ( g , ( NN X. { x } ) ) ` y ) ,
+       ( ( inv ` g ) ` ( seq 1 ( g , ( NN X. { x } ) ) ` -u y ) ) ) ) ) ) $.
+  $}
+
+  $( Define the set of subgroups of ` g ` . $)
+  df-subgNEW $a |- SubGrpOp = ( g e. GrpOp |-> ( GrpOp i^i ~P g ) ) $.
+
+  $( Define the base set of a normed complex vector space. $)
+  df-baNEW $a |- BaseSet = ( x e. _V |-> ran ( +v ` x ) ) $.
+
+  $( Define the induced metric on a normed complex vector space. $)
+  df-imsNEW $a |- IndMet = ( u e. NrmCVec |->
+                            ( ( norm ` u ) o. ( -v ` u ) ) ) $.
+
+  ${
+    $d k u x y $.
+    $( Define a function that maps a complex normed vector space to its inner
+       product operation in case its norm satisfies the parallelogram identity
+       (otherwise the operation is still defined, but not meaningful).  Based
+       on Exercise 4(a) of [ReedSimon] p. 63 and Theorem 6.44 of [Ponnusamy]
+       p. 361. $)
+    df-ipNEW $a |- .i = ( u e. NrmCVec |-> ( x e. dom n , y e. dom n |->
+    ( sum_ k e. ( 1 ... 4 ) ( ( _i ^ k ) x. ( ( ( norm ` u ) ` ( x ( +v ` u )
+        ( ( _i ^ k ) ( .s ` u ) y ) ) ) ^ 2 ) ) / 4 ) ) ) $.
+  $}
+
+  ${
+    $d u w $.
+    $( Define the class of all subspaces of complex normed vector spaces. $)
+    df-sspNEW $a |- SubSp = ( u e. NrmCVec |->
+     { w e. NrmCVec | ( ( +v ` w ) C_ ( +v ` u ) /\ ( .s ` w ) C_ ( .s ` u )
+         /\ ( norm ` w ) C_ ( norm ` u ) ) } ) $.
+  $}
+
+  ${
+    $d t u w x y z $.
+    $( Define the class of linear operators between two normed complex vector
+       spaces.  In the literature, an operator may be a partial function, i.e.
+       the domain of an operator is not necessarily the entire vector space.
+       However, since the domain of a linear operator is a vector subspace, we
+       define it with a complete function for convenience and will use subset
+       relations to specify the partial function case. $)
+    df-lnoNEW $a |- LnOp = ( u e. NrmCVec , w e. NrmCVec |->
+    { t e. ( ( BaseSet ` w ) ^m ( BaseSet ` u ) ) |
+       A. x e. ( BaseSet ` u ) A. y e. CC A. z e. ( BaseSet ` u )
+      ( t ` ( x ( +v ` u ) ( y ( .s ` u ) z ) ) ) =
+         ( ( t ` x ) ( +v ` w ) ( y ( .s ` w ) ( t ` z ) ) ) } ) $.
+
+    $( Define the norm of an operator between two normed complex vector
+       spaces.  This definition produces an operator norm function for each
+       pair of vector spaces ` <. u , w >. ` .  Based on definition of linear
+       operator norm in [AkhiezerGlazman] p. 39, although we define it for all
+       operators for convenience.  It isn't necessarily meaningful for
+       nonlinear operators, since it doesn't take into account operator values
+       at vectors with norm greater than 1.  See Equation 2 of [Kreyszig] p. 92
+       for a definition that does (although it ignores the value at the zero
+       vector).  However, operator norms are rarely if ever used for nonlinear
+       operators. $)
+    df-nmoNEW $a |- normOp = ( u e. NrmCVec , w e. NrmCVec |->
+                ( t e. ( ( BaseSet ` w ) ^m ( BaseSet ` u ) ) |->
+    sup ( { x | E. z e. ( BaseSet ` u ) ( ( ( norm ` u ) ` z ) <_ 1 /\
+        x = ( ( norm ` w ) ` ( t ` z ) ) ) } , RR* , < ) ) ) $.
+
+    $( Define the class of bounded linear operators between two normed complex
+       vector spaces. $)
+    df-bloNEW $a |- BLnOp = ( u e. NrmCVec , w e. NrmCVec |->
+    { t e. ( u LnOp w ) | ( ( u normOp w ) ` t ) < +oo } ) $.
+
+    $( Define the zero operator between two normed complex vector spaces. $)
+    df-0oNEW $a |- 0op = ( u e. NrmCVec , w e. NrmCVec |->
+                       ( ( BaseSet ` u ) X. { ( 0vec ` w ) } ) ) $.
+  $}
+
+  ${
+    $d s t u w x y $.
+    $( Define the adjoint of an operator (if it exists).  The domain of
+       ` U adj W ` is the set of all operators from ` U ` to ` W ` that have an
+       adjoint.  Definition 3.9-1 of [Kreyszig] p. 196, although we don't
+       require that ` U ` and ` W ` be Hilbert spaces nor that the operators be
+       linear.  Although we define it for any normed vector space for
+       convenience, the definition is meaningful only for inner product
+       spaces. $)
+    df-ajNEW $a |- adj = ( u e. NrmCVec , w e. NrmCVec |->
+        { <. t , s >. | ( t : ( BaseSet ` u ) --> ( BaseSet ` w ) /\
+                          s : ( BaseSet ` w ) --> ( BaseSet ` u ) /\
+        A. x e. ( BaseSet ` u ) A. y e. ( BaseSet ` w )
+          ( ( t ` x ) ( .i ` w ) y ) = ( x ( .i ` u ) ( s ` y ) ) ) } ) $.
+
+    $( Define the set of Hermitian (self-adjoint) operators on a normed complex
+       vector space (normally a Hilbert space).  Although we define it for any
+       normed vector space for convenience, the definition is meaningful only
+       for inner product spaces. $)
+    df-hmoNEW $a |- HmOp = ( u e. NrmCVec |->
+                { t e. dom ( u adj u ) | ( ( u adj u ) ` t ) = t } ) $.
+  $}
+
+  ${
+    $d r x $.
+    $( Define the class of all infima of a weak ordering relation. $)
+    df-nfwNEW $a |- infw = ( r e. _V , x e. _V |-> ( `' r supw x ) ) $.
+  $}
+
+  ${
+    $d f g h x y $.
+    $( Define the set of group homomorphisms from ` g ` to ` h ` .
+       (Contributed by Paul Chapman, 25-Feb-2008.) $)
+    df-ghomNEW $a |- GrpHom = ( g e. GrpOp , h e. GrpOp |->
+        { f e. ( ran g ^m ran h ) | A. x e. ran g A. y e. ran g
+                     ( ( f ` x ) h ( f ` y ) ) = ( f ` ( x g y ) ) } ) $.
+
+    $( Define the set of group isomorphisms from ` g ` to ` h ` .  (Contributed
+       by Paul Chapman, 25-Feb-2008.) $)
+    df-gisoNEW $a |- GrpIso = ( g e. GrpOp , h e. GrpOp |->
+        { f e. ( g GrpHom h ) | f : ran g -1-1-onto-> ran h } ) $.
+  $}
+
+  ${
+    $d x f g h $.
+    $( Define the symmetry group on set ` x ` .  We represent the group as the
+       set of 1-1-onto functions from ` x ` to itself under function
+       composition.  (Contributed by Paul Chapman, 25-Feb-2008.) $)
+    df-symgrpNEW $a |- SymGrp = ( x e. _V |-> { <. <. f , g >. , h >. |
+      ( f : x -1-1-onto-> x /\ g : x -1-1-onto-> x /\ h = ( f o. g ) ) } ) $.
+  $}
+
+  ${
+    $d r x y $.
+    $( Define the class of all totally ordered sets.  (Contributed by FL,
+       3-Nov-2009.) $)
+    df-tosetNEW $a |- TosetRel = { r e. PosetRel |
+                  A. x e. U. U. r A. y e. U. U. r ( x r y \/ y r x ) } $.
+  $}
+
+  ${
+    $d x y z $.
+    $( Function whose value is the class of all the finite intersections of the
+       elements of ` x ` .  (Contributed by FL, 2-Sep-2008.) $)
+    df-fiNEW $a |- fi = ( x e. _V |-> { z |
+                  E. y e. ( ~P x i^i Fin ) z = |^| y } ) $.
+  $}
+
+  ${
+    $d j k f x $.
+    $( Function returning all the homeomorphisms from topology ` j ` to
+       topology ` k ` . $)
+    df-homeoNEW $a |- Homeo = ( j e. Top , k e. Top |->
+            { f | ( f : U. j -1-1-onto-> U. k /\ A. x e. j ( f " x ) e. k /\
+                    A. x e. k ( `' f " x ) e. j ) } ) $.
+  $}
+
+  ${
+    $d x y z w $.
+    $( Function returning the subspace topology induced by the topology ` y `
+       and the set ` x ` . $)
+    df-subspNEW $a |- subSp = ( x e. _V , y e. Top |->
+                            { z | E. w e. y z = ( w i^i x ) } ) $.
+  $}
+
+  ${
+    $d x y $.
+    $( Define the filter generating function.  (Contributed by Jeff Hankins,
+       1-Sep-2009.) $)
+    df-fgNEW $a |- filGen = ( x e. fBas |->
+                          { y e. ~P U. x | ( x i^i ~P y ) =/= (/) } ) $.
+  $}
+
+  ${
+    $d f x y $.
+    $( The class of all filters.  Bourbaki TG I.36 def. 1 axioms FI, FIIa,
+       FIIb, FIII. Filters are used to define the concept of limit in the
+       general case.  It's a generalization of the idea of neighborhoods.
+       Suppose you are in ` RR ` .  With neighborhoods you can express the idea
+       of a variable that tends to a specific number but you can't express the
+       idea of a variable that tends to infinity.  Filters relax the "axioms"
+       of neighborhoods and then succeed in expressing the idea of something
+       that tends to infinity.  Filters were invented by Cartan in 1937 and
+       made famous by Bourbaki in his treatise.  A notion similar to the notion
+       of filter is the concept of net invented by Moore and Smith in 1922.
+       (Contributed by FL, 20-Jul-2007.) $)
+    df-filNEW $a |- Fil = { f | ( ( (/) e/ f /\ U. f e. f ) /\
+      A. x e. f A. y e. f ( x i^i y ) e. f /\
+      A. x e. ~P U. f ( ( f i^i ~P x ) =/= (/) -> x e. f ) ) } $.
+  $}
+
+  ${
+    $d a f x l $.
+    $( Define a function (indexed by a topology ` x ` ) whose value is the
+       limits of a filter ` a ` . $)
+    df-flim1NEW $a |- fLim1 = ( x e. Top |->
+                    ( a e. { f e. Fil | U. f = U. x } |->
+                     { l e. U. x | ( ( nei ` x ) ` { l } ) C_ a } ) ) $.
+  $}
+
+  ${
+    $d f t x y z $.
+    $( Define a function that takes a filter to a neighborhood filter of the
+       range.  (Contributed by Jeff Hankins, 5-Sep-2009.) $)
+    df-filmapNEW $a |- FilMap = ( x e. _V , y e. fBas |->
+                     ( f e. ( x ^m U. y ) |-> ( filGen `
+               ( { z | E. t e. y z = ( f " t ) } u. { x } ) ) ) ) $.
+  $}
+
+  ${
+    $d f x y $.
+    $( Define a function that gives the limits of a function ` f ` in the
+       filter sense.  (Contributed by Jeff Hankins, 5-Sep-2009.) $)
+    df-flimfNEW $a |- fLimf = ( x e. Top , y e. Fil |->
+                    ( f e. ( U. x ^m U. y ) |->
+               ( ( fLim1 ` x ) ` ( ( U. x FilMap y ) ` f ) ) ) ) $.
+  $}
+
+  ${
+    $d t x y $.
+    $( Define the tail function for directed sets. $)
+    df-tailNEW $a |- tail = ( x e. DirRel |->
+                   ( y e. U. U. x |-> { t | y x t } ) ) $.
+  $}
+
+  $( Define the function for the norm of a vector of Hilbert space.  See
+     ~ normval for its value and ~ normcl for its closure.  Theorems
+     ~ norm-i-i , ~ norm-ii-i , and ~ norm-iii-i show it has the expected
+     properties of a norm.  In the literature, the norm of ` A ` is usually
+     written "|| ` A ` ||", but we use function notation to take advantage of
+     our existing theorems about functions.  Definition of norm in [Beran]
+     p. 96. $)
+  df-hnormNEW $a |- normh = ( x e. dom dom .ih |-> ( sqr ` ( x .ih x ) ) ) $.
+
+  ${
+    $d x y $.
+    $( Define vector subtraction.  See ~ hvsubvali for its value and ~ hvsubcli
+       for its closure. $)
+    df-hvsubNEW $a |- -h = ( x e. ~H , y e. ~H |-> ( x +h ( -u 1 .h y ) ) ) $.
+  $}
+
+  ${
+    $d x y z $.
+    $( Define orthogonal complement of a subset (usually a subspace) of Hilbert
+       space.  The orthogonal complement is the set of all vectors orthogonal
+       to all vectors in the subset.  See ~ ocval and ~ chocvali for its
+       value.  Textbooks usually denote this unary operation with the symbol
+       ` _|_ ` as a small superscript, although Mittelstaedt uses the symbol as
+       a prefix operation.  Here we define a function (prefix operation)
+       ` _|_ ` rather than introducing a new syntactical form.  This lets us
+       take advantage of the theorems about functions that we already have
+       proved under set theory.  Definition of [Mittelstaedt] p. 9. $)
+    df-ocNEW $a |- _|_ = ( x e. ~P ~H |->
+                         { y e. ~H | A. z e. x ( y .ih z ) = 0 } ) $.
+  $}
+
+  ${
+    $d h x y z $.
+    $( Define the projection function on a Hilbert space, as a mapping from the
+       Hilbert lattice to a function on Hilbert space.  Every closed subspace
+       is associated with a unique projection function.  Remark in [Kalmbach]
+       p. 66, adopted as a definition. ` ( proj `` H ) `` A ` is the projection
+       of vector ` A ` onto closed subspace ` H ` .  Note that the range of
+       ` proj ` is the set of all projection operators, so ` T e. ran proj `
+       means that ` T ` is a projection operator. $)
+    df-pjNEW $a |- proj = ( h e. CH |-> ( x e. ~H |->
+           ( iota_ z e. h E. y e. ( _|_ ` h ) x = ( z +h y ) ) ) ) $.
+  $}
+
+  ${
+    $d x y z v u $.
+    $( Define subspace sum in ` SH ` .  See ~ shsumval , ~ shsumval2i , and
+       ~ shsumval3i for its value. $)
+    df-shsumNEW $a |- +H = ( x e. SH , y e. SH |->
+      { z e. ~H | E. v e. x E. u e. y z = ( v +h u ) } ) $.
+
+    $( Define the linear span of a subset of Hilbert space.  Definition of span
+       in [Schechter] p. 276.  See ~ spanval for its value. $)
+    df-spanNEW $a |- span = ( x e. ~P ~H |-> |^| { y e. SH | x C_ y } ) $.
+
+    $( Define Hilbert lattice join.  See ~ chjval for its value and ~ chjcl for
+       its closure law.  Note that we define it over all Hilbert space subsets
+       to allow proving more general theorems.  Even for general subsets the
+       join belongs to ` CH ` ; see ~ sshjcl .  For an alternate definition see
+       ~ dfchj2 . $)
+    df-chjNEW $a |- vH = ( x e. ~P ~H , y e. ~P ~H |->
+               ( _|_ ` ( _|_ ` ( x u. y ) ) ) ) $.
+  $}
+
+  $( Define the supremum of a set of Hilbert lattice elements.  See ~ chsupval2
+     for its value and ~ dfchsup2 for an alternate definition.  We actually
+     define the supremum for an arbitrary collection of Hilbert space subsets,
+     not just elements of the Hilbert lattice ` CH ` , to allow more general
+     theorems.  Even for general subsets the supremum still a Hilbert lattice
+     element; see ~ hsupcl . $)
+  df-chsupNEW $a |- \/H = ( x e. ~P ~P ~H |-> ( _|_ ` ( _|_ ` U. x ) ) ) $.
+
+  ${
+    $d f g x $.
+    $( Define the sum of two Hilbert space operators.  Definition of [Beran]
+       p. 111.
+
+       _Note on operators_.  Unlike some authors, we use the term "operator" to
+       mean any function from ` ~H ` to ` ~H ` .  This is the definition of
+       operator in [Hughes] p. 14, the definition of operator in
+       [AkhiezerGlazman] p. 30, and the definition of operator in [Goldberg]
+       p. 10.  For Reed and Simon, an operator is linear (definition of
+       operator in [ReedSimon] p. 2).  For Halmos, an operator is bounded and
+       linear (definition of operator in [Halmos] p. 35).  For Kalmbach and
+       Beran, an operator is continuous and linear (definition of operator in
+       [Kalmbach] p. 353; definition of operator in [Beran] p. 99).  Note that
+       "bounded and linear" and "continuous and linear" are equivalent by
+       ~ lncnbd . $)
+    df-hosumNEW $a |- +op = ( f e. ( ~H ^m ~H ) , g e. ( ~H ^m ~H ) |->
+          ( x e. ~H |-> ( ( f ` x ) +h ( g ` x ) ) ) ) $.
+
+    $( Define the scalar product with a Hilbert space operator.  Definition of
+       [Beran] p. 111. $)
+    df-homulNEW $a |- .op = ( f e. CC , g e. ( ~H ^m ~H ) |->
+          ( x e. ~H |-> ( f .h ( g ` x ) ) ) ) $.
+
+    $( Define the difference of two Hilbert space operators.  Definition of
+       [Beran] p. 111. $)
+    df-hodifNEW $a |- -op = ( f e. ( ~H ^m ~H ) , g e. ( ~H ^m ~H ) |->
+          ( x e. ~H |-> ( ( f ` x ) -h ( g ` x ) ) ) ) $.
+
+    $( Define the sum of two Hilbert space functionals.  Definition of [Beran]
+       p. 111.  Note that unlike some authors, we define a functional as any
+       function from ` ~H ` to ` CC ` , not just linear (or bounded linear)
+       ones. $)
+    df-hfsumNEW $a |- +fn = ( f e. ( CC ^m ~H ) , g e. ( CC ^m ~H ) |->
+          ( x e. ~H |-> ( ( f ` x ) + ( g ` x ) ) ) ) $.
+
+    $( Define the scalar product with a Hilbert space functional.  Definition
+       of [Beran] p. 111. $)
+    df-hfmulNEW $a |- .fn = ( f e. CC , g e. ( CC ^m ~H ) |->
+          ( x e. ~H |-> ( f x. ( g ` x ) ) ) ) $.
+  $}
+
+  ${
+    $d t u v w x y z $.
+    $( Define the norm of a Hilbert space operator. $)
+    df-nmopNEW $a |- normop = ( t e. ( ~H ^m ~H ) |-> sup (
+       { x | E. z e. ~H ( ( normh ` z ) <_ 1 /\ x = ( normh ` ( t ` z ) ) ) } ,
+              RR* , < ) ) $.
+
+    $( Define the set of continuous operators on Hilbert space.  For every
+       "epsilon" ( ` y ` ) there is an "delta" ( ` z ` ) such that... $)
+    df-cnopNEW $a |- ConOp = { t e. ( ~H ^m ~H ) | A. x e. ~H A. y e. RR+
+                E. z e. RR+ A. w e. ~H ( ( normh ` ( w -h x ) ) < z ->
+                ( normh ` ( ( t ` w ) -h ( t ` x ) ) ) < y ) } $.
+
+    $( Define the set of linear operators on Hilbert space.  (See ~ df-hosum
+       for definition of operator.) $)
+    df-lnopNEW $a |- LinOp = { t e. ( ~H ^m ~H ) |
+           A. x e. CC A. y e. ~H A. z e. ~H
+       ( t ` ( ( x .h y ) +h z ) ) = ( ( x .h ( t ` y ) ) +h ( t ` z ) ) } $.
+
+    $( Define the set of bounded linear Hilbert space operators.  (See
+       ~ df-hosum for definition of operator.) $)
+    df-bdopNEW $a |- BndLinOp = { t e. LinOp | ( normop ` t ) < +oo } $.
+
+    $( Define the set of Hermitian operators on Hilbert space.  Some books call
+       these "symmetric operators" and others call them "self-adjoint
+       operators," sometimes with slightly different technical meanings. $)
+    df-hmopNEW $a |- HrmOp = { t e. ( ~H ^m ~H ) | A. x e. ~H A. y e. ~H
+                   ( x .ih ( t ` y ) ) = ( ( t ` x ) .ih y ) } $.
+
+    $( Define the norm of a Hilbert space functional. $)
+    df-nmfnNEW $a |- normfn = ( t e. ( CC ^m ~H ) |-> sup (
+         { x | E. z e. ~H ( ( normh ` z ) <_ 1 /\ x = ( abs ` ( t ` z ) ) ) } ,
+              RR* , < ) ) $.
+
+    $( Define the null space of a Hilbert space functional. $)
+    df-nlfnNEW $a |- null = ( t e. ( CC ^m ~H ) |-> ( `' t " { 0 } ) ) $.
+
+    $( Define the set of continuous functionals on Hilbert space.  For every
+       "epsilon" ( ` y ` ) there is an "delta" ( ` z ` ) such that... $)
+    df-cnfnNEW $a |- ConFn = { t e. ( CC ^m ~H ) | A. x e. ~H A. y e. RR+
+      E. z e. RR+ A. w e. ~H ( ( normh ` ( w -h x ) ) < z ->
+      ( abs ` ( ( t ` w ) - ( t ` x ) ) ) < y ) } $.
+
+    $( Define the set of linear functionals on Hilbert space. $)
+    df-lnfnNEW $a |- LinFn = { t e. ( CC ^m ~H ) |
+           A. x e. CC A. y e. ~H A. z e. ~H
+       ( t ` ( ( x .h y ) +h z ) ) = ( ( x x. ( t ` y ) ) + ( t ` z ) ) } $.
+
+    $( Define the bra of a vector used by Dirac notation.  Based on definition
+       of bra in [Prugovecki] p. 186 (p. 180 in 1971 edition).  In Dirac
+       bra-ket notation, ` <. A | B >. ` is a complex number equal to the inner
+       product ` ( B .ih A ) ` .  But physicists like to talk about the
+       individual components ` <. A | ` and ` | B >. ` , called bra and ket
+       respectively.  In order for their properties to make sense formally, we
+       define the ket ` | B >. ` as the vector ` B ` itself, and the bra
+       ` <. A | ` as a functional from ` ~H ` to ` CC ` .  We represent the
+       Dirac notation ` <. A | B >. ` by ` ( ( bra `` A ) `` B ) ` ; see
+       ~ bravalval .  The reversal of the inner product arguments not only
+       makes the bra-ket behavior consistent with physics literature (see
+       comments under ~ ax-his3 ) but is also required in order for the
+       associative law ~ kbass2 to work.
+
+       Our definition of bra and the associated outer product ~ df-kb differs
+       from, but is equivalent to, a common approach in the literature that
+       makes use of mappings to a dual space.  Our approach eliminates the need
+       to have a parallel development of this dual space and instead keeps
+       everything in Hilbert space.
+
+       _For an extensive discussion about how our notation maps to the bra-ket
+       notation in physics textbooks, see
+       ~ http://us.metamath.org/mpegif/mmnotes.txt , under the 17-May-2006
+       entry_. $)
+    df-braNEW $a |- bra = ( x e. ~H |-> ( y e. ~H |-> ( y .ih x ) ) ) $.
+
+    $( Define a commuted bra and ket juxtaposition used by Dirac notation.  In
+       Dirac notation, ` | A >. ` ` <. B | ` is an operator known as the outer
+       product of ` A ` and ` B ` , which we represent by ` ( A ketbra B ) ` .
+       Based on Equation 8.1 of [Prugovecki] p. 376.  This definition, combined
+       with definition ~ df-bra , allows any legal juxtaposition of bras and
+       kets to make sense formally and also to obey the associative law when
+       mapped back to Dirac notation. $)
+    df-kbNEW $a |- ketbra = ( x e. ~H , y e. ~H |->
+                          ( z e. ~H |-> ( ( z .ih y ) .h x ) ) ) $.
+
+    $( Define the eigenvector function.  Theorem ~ eleigveccl shows that
+       ` eigvec `` T ` , the set of eigenvectors of Hilbert space operator
+       ` T ` , are Hilbert space vectors. $)
+    df-eigvecNEW $a |- eigvec = ( t e. ( ~H ^m ~H ) |->
+         { x e. ~H | ( x =/= 0h /\ E. z e. CC ( t ` x ) = ( z .h x ) ) } ) $.
+
+    $( Define the eigenvalue function.  The range of ` eigval `` T ` is the set
+       of eigenvalues of Hilbert space operator ` T ` .  Theorem ~ eigvalcl
+       shows that ` ( eigval `` T ) `` A ` , the eigenvalue associated with
+       eigenvector ` A ` , is a complex number. $)
+    df-eigvalNEW $a |- eigval = ( t e. ( ~H ^m ~H ) |->
+                     ( x e. ( eigvec ` t ) |->
+                   ( ( ( t ` x ) .ih x ) / ( ( normh ` x ) ^ 2 ) ) ) ) $.
+
+    $( Define the spectrum of an operator.  Definition of spectrum in [Halmos]
+       p. 50. $)
+    df-specNEW $a |- Lambda = ( t e. ( ~H ^m ~H ) |->
+        { x e. CC | -. ( t -op ( x .op ( _I |` ~H ) ) ) : ~H -1-1-> ~H } ) $.
+  $}
+
+  ${
+    $d f x y $.
+    $( Define the set of states on a Hilbert lattice.  Definition of [Kalmbach]
+       p. 266. $)
+    df-stNEW $a |- States = { f e. ( RR ^m CH ) | ( A. x e. CH
+        ( 0 <_ ( f ` x ) /\ ( f ` x ) <_ 1 ) /\ ( f ` ~H ) = 1 /\
+          A. x e. CH A. y e. CH ( x C_ ( _|_ ` y ) ->
+            ( f ` ( x vH y ) ) = ( ( f ` x ) + ( f ` y ) ) ) ) } $.
+
+    $( Define the set of complex Hilbert-space-valued states on a Hilbert
+       lattice.  Definition of CH-states in [Mayet3] p. 9. $)
+    df-hstNEW $a |- CHStates = { f e. ( ~H ^m CH ) |
+        ( ( normh ` ( f ` ~H ) ) = 1 /\ A. x e. CH A. y e. CH
+          ( x C_ ( _|_ ` y ) -> ( ( ( f ` x ) .ih ( f ` y ) ) = 0 /\
+              ( f ` ( x vH y ) ) = ( ( f ` x ) +h ( f ` y ) ) ) ) ) } $.
+  $}
+
+$( (End of Mario Carneiro's mathbox.) $)
+
+

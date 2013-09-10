@@ -4,261 +4,15 @@ $(
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 $)
 
-  $c seq $.  $( Symbol for recursive sequence builder starting at an arbitrary
-                index. $)
-  $c seq0 $.  $( Symbol for recursive sequence builder starting at index 0. $)
-
-  $( Extend class notation with arbitrarily-based recursive sequence
-     builder. $)
-  cseqz $a class seq $.
-  $( Extend class notation with 0-based recursive sequence builder. $)
-  cseq0 $a class seq0 $.
-
-  ${
-    $d g h k x $.
-    $( Define a recursive sequence builder operation that starts at an
-       arbitrary integer index.  See ~ seqz1 and ~ seqzp1 for its initial and
-       successor values.  Theorems ~ seq0seqz and ~ seq1seqz derive the 0-based
-       ` seq0 ` and the 1-based ` seq1 ` as special cases. $)
-    df-seqz $a |- seq = { <. <. x , g >. , h >. |
-        h = ( ( ( ( 2nd ` x ) seq1 ( g shift ( 1 - ( 1st ` x ) ) ) )
-           shift ( ( 1st ` x ) - 1 ) ) |` { k e. ZZ | ( 1st ` x ) <_ k } ) } $.
-  $}
-
-$(
-
-  @{
-    @d g h k x y z @.
-    @( Alternate version of ~ df-seqz . @)
-    dfseqz @p |- seq = { <. <. x , g >. , h >. | h = ( ( ( ( 2nd ` x ) seq0 (
-     g shift -u ( 1st ` x ) ) ) shift ( 1st ` x ) ) |` ( ZZ>= ` ( 1st ` x ) ) )
-      } @=
-      ( vy vz cseqz cv c2nd cfv c1st cneg cshi co cseq0 cuz cres wceq copab2
-      cvv cxp wral wfn wa wb oprex resexg ax-mp visset pm3.2i biantrur
-      oprabbii fnoprab2 df-seqz fneq1 mpbir wcel eqfnoprv mp2an eqid weq
-      fveq2 negeqd opreq2d opreq12d reseq1 syl fveq2d reseq2 eqtrd opreq1
-      opreq1d oprabval5 syl6reqr rgen2a mpbir2an )
-      FCGAGZHIZBGZVPJIZKZLMZNMZVSLM
-      ZVSOIZPZQZABCRZQZSSTZWIQZDGZEGZFMZWKWLWGMZQZESUADSUAZFWIUBZWGWIUBWHWJWPUC
-      UDWQ????SS??????LUE??SUFUG??????????UHZWRUIUJUKUL??????UMWIF?UNUGUOABCSSW
-      EWGWCSUPWESUPWBVSLUEWCWDSUFUGWFVPSUPZVRSUPZUCZWFUCABCXAWFWSWTAUHBUHUIUJUK
-      ULDESSSSFWGUQURWIUSWODESWKSUPWLSUPUCWNWKHIZWLWKJIZKZLMZNMZXCLMZXCOIZPZWMA
-      BCWKWLSSWEXIWGXBVRXDLMZNMZXCLMZXHPZXGSUPXISUPXFXCLUEXGXHSUFUGADUTZWEXLWDP
-      ZXMXNWCXLQWEXOQXNWBXKVSXCLXNVQXBWAXJNVPWKHVAXNVTXDVRLXNVSXCVPWKJVAZVBVCVD
-      XPVDWCXLWDVEVFXNWDXHQXOXMQXNVSXCOXPVGWDXHXLVHVFVIBEUTZXLXGQXMXIQXQXKXFXCL
-      XQXJXEXBNVRWLXDLVJVCVKXLXGXHVEVFWGUSVL?VMVNVO @.
-      @( [ ?] @) @( [27-Sep-2005] @)
-  @}
-$)
-
-$(
-  @{
-    @d g h k x @.
-    @( Alternate version of ~ df-seqz . @)
-    dfseqz @p |- seq = { <. <. x , g >. , h >. |
-        h = ( ( ( ( 2nd ` x ) seq1 ( g shift ( 1 - ( 1st ` x ) ) ) )
-           shift ( ( 1st ` x ) - 1 ) ) |` ( ZZ>= ` ( 1st ` x ) ) ) } @=
-      ( vk cseqz cv c2nd cfv c1 c1st cmin co cshi cseq1 cle wbr cz crab cres
-      wceq copab2 cuz df-seqz cvv wcel fvex uzvaltOLD ax-mp reseq2 eqeq2i
-      oprabbii
-      eqtr4i ) ECFZAFZGHBFIUNJHZKLMLNLUOIKLMLZUODFOPDQRZSZTZABCUAUMUPUO
-      UBHZSZTZABCUAABCDUCVBUSABCVAURUMUTUQTZVAURTUOUDUEVCUNJUFUDDUOUGUHUTUQUPUI
-      UHUJUKUL @.
-      @( [ ?] @) @( [2-Sep-2005] @)
-  @}
-$)
-
-  ${
-    $d f g h $.
-    $( Define a recursive sequence builder operation that starts at index 0.
-       This is a frequently-used variation of the ` seq1 ` operation (see
-       ~ df-seq1 ), which starts at index 1.  See ~ seq00 and ~ seq0p1 for its
-       initial and successor values.  See ~ dfseq0 for an alternate
-       definition. $)
-    df-seq0 $a |- seq0 = { <. <. f , g >. , h >. |
-                   h = ( ( ( f seq1 ( g shift 1 ) ) shift -u 1 ) |` NN0 ) } $.
-  $}
-
   ${
     $d f g h k x S $.  $d f g h k x F $.  $d k A $.  $d g h k x M $.  $d k N $.
-    seq0val.1 $e |- S e. _V $.
-    seq0val.2 $e |- F e. _V $.
-    $( Value of the 0-based recursive sequence builder operation. $)
-    seq0fval $p |- ( S seq0 F ) =
-                  ( ( ( S seq1 ( F shift 1 ) ) shift -u 1 ) |` NN0 ) $=
-      ( vf vg vh cvv wcel cseq0 co c1 cshi cseq1 cneg cn0 cres wceq cv oprex
-      resexg ax-mp opreq1 opreq1d reseq1 syl opreq2d df-seq0 oprabval5 mp2an )
-      AHIBHIABJKABLMKZNKZLOZMKZPQZRCDEFGABHHESZFSZLMKZNKZUMMKZPQZUOJAURNKZUMMKZ
-      PQZUNHIUOHIULUMMTUNPHUAUBUPARZUTVCRVAVDRVEUSVBUMMUPAURNUCUDUTVCPUEUFUQBRZ
-      VCUNRVDUORVFVBULUMMVFURUKANUQBLMUCUGUDVCUNPUEUFEFGUHUIUJ $.
-      $( [3-Aug-2005] $)
-
-    $( Value of the 0-based recursive sequence builder operation. $)
-    seq0valt $p |- ( N e. NN0 -> ( ( S seq0 F ) ` N ) =
-                  ( ( ( S seq1 ( F shift 1 ) ) shift -u 1 ) ` N ) ) $=
-      ( cn0 wcel cseq0 co cfv c1 cshi cseq1 cneg cres seq0fval fveq1i fvres
-      syl5eq ) CFGCABHIZJCABKLIMIKNLIZFOZJCUAJCTUBABDEPQCFUARS $.
-      $( [19-Aug-2005] $)
-
-    $( Value of the arbitrary-based recursive sequence builder operation. $)
-    seqzfval $p |- ( M e. A -> ( <. M , S >. seq F ) =
-                   ( ( ( S seq1 ( F shift ( 1 - M ) ) ) shift ( M - 1 ) )
-                   |` { k e. ZZ | M <_ k } ) ) $=
-      ( vx vg vh wcel cop cseqz co c2nd cfv c1 c1st cmin cshi cseq1 cv cle wbr
-      cz crab cres cvv wceq opex oprex resexg ax-mp fveq2 opreq2d opreq12d
-      opreq1d reseq1 syl breq1d rabbidv reseq2d eqtrd opreq1 df-seqz oprabval5
-      mp2an op2ndg mpan2 op1stg syl5eq ) EAKZEBLZDMNZVMOPZDQVMRPZSNZTNZUANZVPQS
-      NZTNZVPCUBZUCUDZCUEUFZUGZBDQESNZTNZUANZEQSNZTNZEWBUCUDZCUEUFZUGZVMUHKDUHK
-      VNWEUIEBUJGHIJVMDUHUHHUBZOPZIUBZQWNRPZSNZTNZUANZWQQSNZTNZWQWBUCUDZCUEUFZU
-      GZWEMVOWPVQTNZUANZVTTNZWDUGZWAUHKWEUHKVSVTTUKWAWDUHULUMWNVMUIZXEXHXDUGZXI
-      XJXBXHUIXEXKUIXJWTXGXAVTTXJWOVOWSXFUAWNVMOUNXJWRVQWPTXJWQVPQSWNVMRUNZUOUO
-      UPXJWQVPQSXLUQUPXBXHXDURUSXJXDWDXHXJXCWCCUEXJWQVPWBUCXLUTVAVBVCWPDUIZXHWA
-      UIXIWEUIXMXGVSVTTXMXFVRVOUAWPDVQTVDUOUQXHWAWDURUSHIJCVEVFVGVLWEWJWDUGZWMV
-      LWAWJUIWEXNUIVLVSWHVTWITVLVOBVRWGUAVLBUHKVOBUIFEBAUHVHVIVLVQWFDTVLVPEQSEB
-      AVJZUOUOUPVLVPEQSXOUQUPWAWJWDURUSVLWDWLWJVLWCWKCUEVLVPEWBUCXOUTVAVBVCVK
-      $.
-      $( [1-Sep-2005] $)
-
-    $( Value of the arbitrary-based recursive sequence builder operation. $)
-    seqzfval2 $p |- ( M e. ZZ -> ( <. M , S >. seq F ) =
-                   ( ( ( S seq1 ( F shift ( 1 - M ) ) ) shift ( M - 1 ) )
-                   |` ( ZZ>= ` M ) ) ) $=
-      ( vk cz wcel cop cseqz co c1 cmin cshi cseq1 cv cle wbr crab cres cuz
-      cfv seqzfval uzval reseq2d eqtr4d ) CGHZCAIBJKABLCMKNKOKCLMKNKZCFPQRFGSZT
-      UHCUAUBZTGAFBCDEUCUGUJUIUHFCUDUEUF $.
-      $( [5-Sep-2005] $)
-
-    $( Functionality and domain of a sequence generated by the arbitrary-based
-       recursive sequence builder. $)
-    seqzfn $p |- ( M e. ZZ ->
-                 ( <. M , S >. seq F ) Fn ( ZZ>= ` M ) ) $=
-      ( cz wcel cop cseqz co cuz cfv wfn c1 cmin cshi cseq1 cres cc wss cvv
-      oprex shftfn ax-mp uzssz zsscn sstri fnssres mp2an seqzfval2 fneq1d
-      mpbiri ) CFGZCAHBIJZCKLZMABNCOJPJZQJZCNOJZPJZUORZUOMZUSSMZUOSTVAURUAGVBCN
-      OUBURUAUQAUPQUBUCUDUOFSCUEUFUGSUOUSUHUIUMUOUNUTABCDEUJUKUL $.
-      $( [2-Sep-2005] $)
-
-    $( Value of the arbitrary-based recursive sequence builder operation. $)
-    seqzval $p |- ( ( M e. A /\ N e. ZZ /\ M <_ N ) ->
-                   ( ( <. M , S >. seq F ) ` N ) =
-              ( ( ( S seq1 ( F shift ( 1 - M ) ) ) shift ( M - 1 ) ) ` N ) ) $=
-      ( vk wcel cz cle wbr w3a cop cseqz co cfv c1 cmin cshi cseq1 cv crab
-      cres wceq seqzfval fveq1d 3ad2ant1 wa 3simpc breq2 elrab sylibr fvres
-      syl eqtrd ) DAIZEJIZDEKLZMZEDBNCOPZQZEBCRDSPTPUAPDRSPTPZDHUBZKLZHJUCZUDZQ
-      ZEVCQZUQURVBVHUEUSUQEVAVGABHCDFGUFUGUHUTEVFIZVHVIUEUTURUSUIVJUQURUSUJVEUS
-      HEJVDEDKUKULUMEVFVCUNUOUP $.
-      $( [1-Sep-2005] $)
-
-    $( The 1-based recursive sequence in terms of the arbitrary-based one. $)
-    seq1seqz $p |- ( S seq1 F ) = ( <. 1 , S >. seq F ) $=
-      ( vk cseq1 co c1 cmin cshi cv cle wbr cz crab cres cop cseqz cc0 cn wceq
-      cfv wral wcel fvres cc nncn oprex shftidt syl eqtr2d rgen wfn wb seq1fn
-      wss 0cn nnsscn shftres mp2an eqfnfv2 mpbir ax-1cn subidi opreq2i
-      opreq12i reseq1 ax-mp eqtr4i seq1shftid nnzrab reseq2i 3eqtr3i seqzfval
-      ) ABFGZABHHIGZJGZFGZVPJGZHEKZLMENOZPZHAQBRGZABSJGZFGZVSTPZVOWBWEWESJGZTPZ
-      WFWEWHUAZVTWEUBZVTWHUBZUAZETUCZWLETVTTUDZWKVTWGUBZWJVTTWGUEWNVTUFUDWOWJUA
-      VTUGVTWEAWDFUHZUIUJUKULWETUMWHTUMZWIWMUNAWDCBSJUHUOSUFUDTUFUPWQUQURSTUFWE
-      WPUSUTETWEWHVAUTVBVSWGUAWFWHUAVRWEVPSJVQWDAFVPSBJHVCVDZVEVEWRVFVSWGTVGVHV
-      IABCDVJTWAVSEVKVLVMHUFUDWCWBUAVCUFAEBHCDVNVHVI $.
-      $( [1-Sep-2005] $)
-
-    $( The 0-based recursive sequence in terms of the arbitrary-based one. $)
-    seq0seqz $p |- ( S seq0 F ) = ( <. 0 , S >. seq F ) $=
-      ( vk cseq0 co c1 cc0 cmin cshi cseq1 cv cle wbr cz crab cres cop cseqz
-      cneg cn0 seq0fval wceq ax-1cn subid1i eqcomi opreq2i df-neg opreq12i
-      reseq1 ax-mp nn0zrab reseq2i 3eqtri cc wcel 0cn seqzfval eqtr4i ) ABFGZAB
-      HIJGZKGZLGZIHJGZKGZIEMNOEPQZRZIASBTGZVAABHKGZLGZHUAZKGZUBRZVFUBRZVHABCDUC
-      VMVFUDVNVOUDVKVDVLVEKVJVCALHVBBKVBHHUEUFUGUHUHHUIUJVMVFUBUKULUBVGVFEUMUNU
-      OIUPUQVIVHUDURUPAEBICDUSULUT $.
-      $( [1-Sep-2005] $)
-
-    $( A relationship between the 1-based and 0-based recursive sequence
-       builders. $)
-    seq1seq02 $p |- ( N e. NN ->
-  ( ( S seq1 ( F shift 1 ) ) ` N ) = ( ( ( S seq0 F ) shift 1 ) ` N ) ) $=
-      ( cn wcel cseq0 co c1 cshi cfv cmin cseq1 cneg cc wceq ax-1cn nncn oprex
-      shftval sylancr cn0 nnm1nn0 seq0valt syl caddc subcl mpan2 shftval4 mpan
-      3syl pncan3 fveq2d eqtrd 3eqtrrd ) CFGZCABHIZJKILZCJMIZURLZUTABJKIZNIZJOK
-      ILZCVCLZUQJPGZCPGZUSVAQRCSZJCPURABHTUAUBUQUTUCGVAVDQCUDABUTDEUEUFUQVDJUTU
-      GIZVCLZVEUQVGUTPGZVDVJQZVHVGVFVKRCJUHUIVFVKVLRJUTVCAVBNTUJUKULUQVICVCUQVF
-      VGVICQRVHJCUMUBUNUOUP $.
-      $( [19-Aug-2005] $)
-
-    $( The 1-based recursive sequence builder operation in terms of the 0-based
-       one. $)
-    seq1seq01 $p |- ( N e. NN -> ( ( S seq1 F ) ` N ) =
-            ( ( ( S seq0 ( F shift -u 1 ) ) shift 1 ) ` N ) ) $=
-      ( cn wcel cseq1 co cfv c1 cneg cshi cseq0 cc0 caddc cc wceq ax-1cn
-      negcli 2shfti mp2an addcomi negidi eqtri opreq2i seq1shftid eqtr2i
-      fveq1i oprex seq1seq02 syl5eq ) CFGCABHIZJCABKLZMIZKMIZHIZJCAUONIKMIJCUMU
-      QUQABOMIZHIUMUPURAHUPBUNKPIZMIZURUNQGKQGUPUTRKSTZSUNKBEUAUBUSOBMUSKUNPIOU
-      NKVASUCKSUDUEUFUEUFABDEUGUHUIAUOCDBUNMUJUKUL $.
-      $( [4-Sep-2005] $)
-
-    $( The 1-based recursive sequence builder operation in terms of the 0-based
-       one. $)
-    seq1seq0 $p |- ( S seq1 F ) =
-            ( ( ( S seq0 ( F shift -u 1 ) ) shift 1 ) |` NN ) $=
-      ( vk cseq1 co c1 cneg cshi cseq0 cn cres wceq cv cfv wral wcel seq1seq01
-      fvres eqtr4d rgen wfn wb seq1fn cc wss ax-1cn nnsscn oprex shftres mp2an
-      eqfnfv2 mpbir ) ABFGZABHIJGZKGZHJGZLMZNZEOZUOPZVAUSPZNZELQZVDELVALRVBVAUR
-      PVCABVACDSVALURTUAUBUOLUCUSLUCZUTVEUDABCDUEHUFRLUFUGVFUHUIHLUFUQAUPKUJUKU
-      LELUOUSUMULUN $.
-      $( [4-Sep-2005] $)
-
-    $( Functionality and domain of the 0-based recursive sequence builder. $)
-    seq0fn $p |- ( S seq0 F ) Fn NN0 $=
-      ( cseq0 co cn0 wfn c1 cshi cseq1 cneg cres cc wss cvv wcel negex oprex
-      shftfn ax-mp nn0sscn fnssres mp2an seq0fval fneq1i mpbir ) ABEFZGHABIJFZK
-      FZILZJFZGMZGHZULNHZGNOUNUKPQUOIRUKPUJAUIKSTUAUBNGULUCUDGUHUMABCDUEUFUG $.
-      $( [3-Aug-2005] $)
-
-    $( Value of the arbitrary-based recursive sequence builder at its initial
-       value. $)
-    seqz1 $p |- ( M e. ZZ -> ( ( <. M , S >. seq F ) ` M ) = ( F ` M ) ) $=
-      ( vk cz wcel cop cseqz co cfv c1 cmin cshi cseq1 cv cle wbr crab cres
-      seqzfval fveq1d wceq wa cr zre leid syl ancli breq2 elrab sylibr fvres
-      cvv cc oprex zcn shftval sylancr ax-1cn nncan sylancl fveq2d seq11
-      syl6eq shftval3 3eqtrd ) CGHZCCAIBJKZLCABMCNKZOKZPKZCMNKZOKZCFQZRSZFGTZUA
-      ZLZCVOLZCBLZVICVJVSGAFBCDEUBUCVICVRHZVTWAUDVIVICCRSZUEWCVIWDVICUFHWDCUGCU
-      HUIUJVQWDFCGVPCCRUKULUMCVRVOUNUIVIWACVNNKZVMLZMVLLZWBVIVNUOHCUPHZWAWFUDCM
-      NUQCURZVNCUOVMAVLPUQUSUTVIWFMVMLWGVIWEMVMVIWHMUPHZWEMUDWIVACMVBVCVDAVLDBV
-      KOUQVEVFVIWJWHWGWBUDVAWIMCBEVGUTVHVH $.
-      $( [1-Sep-2005] $)
-
-    $( Value of the arbitrary-based recursive sequence builder at a successor
-       value. $)
-    seqzp1 $p |- ( N e. ( ZZ>= ` M ) ->
-                 ( ( <. M , S >. seq F ) ` ( N + 1 ) ) =
-                 ( ( ( <. M , S >. seq F ) ` N ) S ( F ` ( N + 1 ) ) ) ) $=
-      ( vk cuz cfv wcel c1 caddc co cop cseqz cmin cshi cseq1 cv cle wbr cz
-      crab cres wceq eluzel2 seqzfval fveq1d syl peano2uz uzval eleq2d ibi
-      fvres 3syl cc zcn eluzelz wa ax-1cn subcl mpan2 peano2cn oprex shftval
-      syl2an anim2i ancoms addsub mp3an2 fveq2d eqtrd syl11anc cn w3a eluz2
-      subsub mp3an3 3adant3 cn0 znn0sub2 nn0p1nn eqeltrd sylbi seq1p1 mpan
-      adantr sylan2 simpl subsub2 nppcan opreq2d 3eqtrd wb peano2zm 3eqtrrd
-      opreq1d ) DCHIZJZDKLMZCANBOMZIZWTABKCPMZQMZRMZCKPMZQMZCGSTUAGUBUCZUDZIZDX
-      AIZWTBIZAMZWSCUBJZXBXJUECDUFZXNWTXAXIUBAGBCEFUGZUHUIWSXJWTXGIZDXFPMZXEIZX
-      LAMZXMWSWTWRJZWTXHJZXJXQUECDUJYAYBYAWRXHWTYAXNWRXHUECWTUFGCUKZUIULUMWTXHX
-      GUNUOWSXQXRKLMZXEIZXSYDXDIZAMZXTWSCUPJZDUPJZXQYEUEWSXNYHXOCUQZUIZWSDUBJZY
-      ICDURDUQZUIZYHYIUSZXQWTXFPMZXEIZYEYHXFUPJZWTUPJXQYQUEYIYHKUPJZYRUTCKVAVBZ
-      DVCXFWTUPXEAXDRVDZVEVFYOYPYDXEYOYIYRUSZYPYDUEZYIYHUUBYHYRYIYTVGVHZYIYSYRU
-      UCUTDKXFVIVJUIVKVLVMWSXRVNJZYEYGUEWSXNYLCDTUAZVOZUUECDVPUUGXRDCPMZKLMZVNX
-      NYLXRUUIUEZUUFYLXNUUJYLYIYHUUJXNYMYJYIYHYSUUJUTDCKVQVRVFVHVSUUGUUHVTJUUIV
-      NJCDWAUUHWBUIWCWDXRAXDEBXCQVDWEUIWSYFXLXSAWSYHYIYFXLUEYKYNYOYFYDXCPMZBIZX
-      LYOXCUPJZYDUPJZYFUULUEYHUUMYIYSYHUUMUTKCVAWFWGYOXRUPJZUUNYIYHUUOYHYIYRUUO
-      YTDXFVAWHVHXRVCUIZXCYDUPBFVEVMYOUUKWTBYOUUKYDXFLMZWTYOUUNYHUUKUUQUEZUUPYH
-      YIWIUUNYSYHUURUTYDKCWJVJVMYOUUBUUQWTUEZUUDYIYRYSUUSUTDXFKWKVRUIVLVKVLVMWL
-      WMWSXSXKXLAWSXKDXIIZDXGIZXSWSXNXKUUTUEXOXNDXAXIXPUHUIWSDXHJZUUTUVAUEWSUVB
-      WSXNWSUVBWNXOXNWRXHDYCULUIUMDXHXGUNUIWSXFUBJZYIUVAXSUEWSXNUVCXOCWOUIYNXFD
-      UBXEUUAVEVMWPWQWMVL $.
-      $( [7-Sep-2005] $)
-
+    seq0fval.1 $e |- S e. _V $.
+    seq0fval.2 $e |- F e. _V $.
     $( Value of the recursive sequence builder in terms of its _previous_
        value. $)
     seqzm1 $p |- ( ( M e. ZZ /\ N e. ZZ /\ M < N ) ->
-                ( ( <. M , S >. seq F ) ` N ) =
-                ( ( ( <. M , S >. seq F ) ` ( N - 1 ) ) S ( F ` N ) ) ) $=
+                ( ( <. M , S >. seqz F ) ` N ) =
+                ( ( ( <. M , S >. seqz F ) ` ( N - 1 ) ) S ( F ` N ) ) ) $=
       ( cz wcel clt wbr w3a c1 cmin co caddc cop cseqz cfv cle wceq simp1
       peano2zm 3ad2ant2 zltlem1 biimp3a cuz eluz2 seqzp1 sylbir syl111anc cc
       zcn ax-1cn npcan sylancl fveq2d opreq2d 3eqtr3d ) CGHZDGHZCDIJZKZDLMNZLON
@@ -267,61 +21,12 @@ $)
       UTDUKHLUKHVDDTDULUMDLUNUOZUPUCUTUSVIVLTVAUTVHVKVGAUTVDDBVPUPUQUCUR $.
       $( [1-Sep-2005] $)
 
-    $( Value of the 0-based recursive sequence builder at 0. $)
-    seq00 $p |- ( ( S seq0 F ) ` 0 ) = ( F ` 0 ) $=
-      ( cc0 cseq0 co cfv c1 cshi cseq1 cneg cmin cn0 cres seq0fval fveq1i wcel
-      wceq 0nn0 fvres ax-mp eqtri cc ax-1cn negcli 0cn oprex shftval mp2an
-      df-neg negnegi eqtr3i fveq2i seq11 subidi 3eqtri ) EABFGZHZEABIJGZKGZILZJ
-      GZHZEVBMGZVAHZEBHZUSEVCNOZHZVDEURVHABCDPQENRVIVDSTENVCUAUBUCVBUDREUDRVDVF
-      SIUEUFUGVBEUDVAAUTKUHUIUJVFIVAHIUTHZVGVEIVAVBLVEIVBUKIUEULUMUNAUTCBIJUHUO
-      VJIIMGZBHZVGIUDRZVMVJVLSUEUEIIUDBDUIUJVKEBIUEUPUNUCUQUQ $.
-      $( [3-Aug-2005] $)
-
-    $( Value of the 0-based recursive sequence builder at a successor. $)
-    seq0p1 $p |- ( N e. NN0 -> ( ( S seq0 F ) ` ( N + 1 ) ) =
-                ( ( ( S seq0 F ) ` N ) S ( F ` ( N + 1 ) ) ) ) $=
-      ( cn0 wcel c1 caddc co cseq0 cfv cshi cseq1 cneg cres seq0fval fveq1i
-      cmin wceq peano2nn0 fvres syl cc nn0cn peano2cn ax-1cn negcli oprex
-      shftval mpan 3syl addsub mp3an23 fveq2d cn subneg sylancl nn0p1nn
-      eqeltrd seq1p1 subcl mpan2 pncan eqtrd opreq2d 3eqtrd sylancr syl5req
-      opreq1d syl5eq ) CFGZCHIJZABKJZLVMABHMJZNJZHOZMJZFPZLZCVNLZVMBLZAJZVMVNVS
-      ABDEQZRVLVTVMVRLZCVQSJZVPLZWBAJZWCVLVMFGVTWETCUAVMFVRUBUCVLWEVMVQSJZVPLZW
-      FHIJZVPLZWHVLCUDGZVMUDGZWEWJTZCUEZCUFVQUDGZWNWOHUGUHZVQVMUDVPAVONUIZUJUKU
-      LVLWIWKVPVLWMWIWKTZWPWMHUDGZWQWTUGWRCHVQUMUNUCUOVLWLWGWKVOLZAJZWHVLWFUPGW
-      LXCTVLWFVMUPVLWMXAWFVMTZWPUGCHUQZURCUSUTWFAVODBHMUIVAUCVLXBWBWGAVLXBWKHSJ
-      ZBLZWBVLWFUDGZWKUDGZXBXGTZVLWMWQXHWPWRCVQVBZURWFUFXAXIXJUGHWKUDBEUJUKULVL
-      XFVMBVLWMXFVMTWPWMXFWFVMWMXHXAXFWFTWMWQXHWRXKVCUGWFHVDURWMXAXDUGXEVCVEUCU
-      OVEVFVEVGVLWGWAWBAVLWACVSLZWGCVNVSWDRVLXLCVRLZWGCFVRUBVLWQWMXMWGTWRWPVQCU
-      DVPWSUJVHVEVIVJVGVK $.
-      $( [3-Aug-2005] $)
-
     $( Value of the 0-based recursive sequence builder at 1. $)
     seq01 $p |- ( ( S seq0 F ) ` 1 ) = ( ( F ` 0 ) S ( F ` 1 ) ) $=
       ( cc0 c1 caddc co cseq0 cfv cn0 wcel wceq 0nn0 seq0p1 ax-mp ax-1cn
       addid2i fveq2i seq00 opreq12i 3eqtr3i ) EFGHZABIHZJZEUDJZUCBJZAHZFUDJEBJZ
       FBJZAHEKLUEUHMNABECDOPUCFUDFQRZSUFUIUGUJAABCDTUCFBUKSUAUB $.
       $( [3-Aug-2005] $)
-
-    $( Value of the arbitrary-based recursive sequence builder operation. $)
-    seqzval2 $p |- ( ( M e. ZZ /\ N e. ZZ /\ M <_ N ) ->
-                   ( ( <. M , S >. seq F ) ` N ) =
-              ( ( ( S seq0 ( F shift -u M ) ) shift M ) ` N ) ) $=
-      ( cz wcel cle wbr w3a c1 cmin co cshi cseq1 cfv cneg cseq0 cop cseqz
-      wceq cvv cc oprex zcn shftval sylancr 3ad2ant2 caddc negcl ax-1cn 2shfti
-      sylancl addcom negsub mpan eqtrd opreq2d syl fveq1d 3ad2ant1 cn subsub
-      mp3an3 syl2an ancoms 3adant3 cn0 znn0sub2 nn0p1nn eqeltrd seq1seq02
-      eqtr3d wa subcl mpan2 sylan2 nnncan fveq2d 3eqtrd seqzval 3eqtr4d ) CGHZD
-      GHZCDIJZKZDABLCMNZONZPNZCLMNZONQZDCMNZABCRZONZSNZQZDCATBUANQDWPCONQZWGWLD
-      WKMNZWJQZWSWPLONQZWQWEWDWLWTUBZWFWEWKUCHDUDHZXBCLMUEDUFZWKDUCWJAWIPUEUGUH
-      UIWGWSAWOLONZPNZQZWTXAWDWEXGWTUBWFWDWSXFWJWDXEWIAPWDCUDHZXEWIUBCUFZXHXEBW
-      NLUJNZONZWIXHWNUDHZLUDHZXEXKUBCUKZULWNLBFUMUNXHXJWHBOXHXJLWNUJNZWHXHXLXMX
-      JXOUBXNULWNLUOUNXMXHXOWHUBULLCUPUQURUSURUTUSVAVBWGWSVCHXGXAUBWGWSWMLUJNZV
-      CWDWEWSXPUBZWFWEWDXQWEXCXHXQWDXDXIXCXHXMXQULDCLVDVEVFVGVHWGWMVIHXPVCHCDVJ
-      WMVKUTVLAWOWSEBWNOUEVMUTVNWDWEXAWQUBZWFWDXHXCXRWEXIXDXCXHXRXCXHVOZXAWSLMN
-      ZWPQZWQXSXMWSUDHZXAYAUBULXHXCWKUDHZYBXHXMYCULCLVPVQDWKVPVRLWSUDWPAWOSUEZU
-      GUHXSXTWMWPXCXHXMXTWMUBULDCLVSVEVTURVGVFVHWAGABCDEFWBWDWEWRWQUBZWFWEWDXCY
-      EXDCDGWPYDUGVRVHWC $.
-      $( [2-Aug-2006] $) $( [4-Sep-2005] $)
   $}
 
   ${
@@ -329,7 +34,7 @@ $)
     $( Value of the arbitrary-based recursive sequence builder at its initial
        value.  (Contributed by Jeff Madsen, 7-Jan-2011.) $)
     seqz1g $p |- ( ( S e. A /\ F e. B /\ M e. ZZ ) ->
-                              ( ( <. M , S >. seq F ) ` M ) = ( F ` M ) ) $=
+                              ( ( <. M , S >. seqz F ) ` M ) = ( F ` M ) ) $=
       ( vs vf wcel cz cop cseqz co cfv wceq cv wi opeq2 opreq1d fveq1d eqeq1d
       imbi2d opreq2 fveq1 eqeq12d visset seqz1 vtocl2g 3impia ) CAHDBHEIHZEECJZ
       DKLZMZEDMZNZUIEEFOZJZGOZKLZMZEUQMZNZPUIEUJUQKLZMZUTNZPUIUNPFGCDABUOCNZVAV
@@ -343,8 +48,8 @@ $)
     $( Value of the arbitrary-based recursive seqeunce builder at a successor.
        (Contributed by Jeff Madsen, 7-Jan-2011.) $)
     seqzp1g $p |- ( ( S e. A /\ F e. B /\ N e. ( ZZ>= ` M ) ) ->
-                        ( ( <. M , S >. seq F ) ` ( N + 1 ) ) =
-                ( ( ( <. M , S >. seq F ) ` N ) S ( F ` ( N + 1 ) ) ) ) $=
+                        ( ( <. M , S >. seqz F ) ` ( N + 1 ) ) =
+                ( ( ( <. M , S >. seqz F ) ` N ) S ( F ` ( N + 1 ) ) ) ) $=
       ( vs vf wcel cuz cfv c1 caddc co cop cseqz wceq cv wi opeq2 opreq1d
       fveq1d id eqidd opreq123d eqeq12d imbi2d opreq2 fveq1 opreq12d visset
       seqzp1 vtocl2g 3impia ) CAIDBIFEJKIZFLMNZECOZDPNZKZFURKZUPDKZCNZQZUOUPEGR
@@ -360,7 +65,7 @@ $)
     $( The 1-based recursive sequence in terms of the arbitrary-based one.
        (Contributed by Jeff Madsen, 7-Jan-2011.) $)
     seq1seqzg $p |- ( ( S e. A /\ F e. B ) ->
-                                ( S seq1 F ) = ( <. 1 , S >. seq F ) ) $=
+                                ( S seq1 F ) = ( <. 1 , S >. seqz F ) ) $=
       ( vs vf cv cseq1 co c1 cop cseqz wceq opreq1 opeq2 opreq1d eqeq12d
       opreq2 visset seq1seqz vtocl2g ) EGZFGZHIZJUBKZUCLIZMCUCHIZJCKZUCLIZMCDHI
       ZUHDLIZMEFCDABUBCMZUDUGUFUIUBCUCHNULUEUHUCLUBCJOPQUCDMUGUJUIUKUCDCHRUCDUH
@@ -375,28 +80,29 @@ $)
     seqzfveq.3 $e |- G e. _V $.
     $( Equality theorem for the recursive sequence builder. $)
     seqzfveq $p |- ( ( N e. ( ZZ>= ` M ) /\ A. k e. ( M ... N ) ( F ` k ) = ( G
-  ` k ) ) -> ( ( <. M , S >. seq F ) ` N ) = ( ( <. M , S >. seq G ) ` N ) ) $=
+  ` k ) ) -> ( ( <. M , S >. seqz F ) ` N ) = ( ( <. M , S >. seqz G ) ` N ) )
+        $=
       ( vj vm cuz cfv wcel cv wceq cfz co wral cop cseqz wi c1 caddc opreq2
       raleqdv fveq2 eqeq12d imbi12d cz wa elfz3 rcla4va sylan seqz1 adantr
-      3eqtr4d ex wss eluzel2 eluzelz fzssp1 syl11anc sseld imim1d ralimdv2 id
-      peano2uz eluzfz2 syl opreqan12rd seqzp1 ad2antrr exp31 a2d syld uzind4
-      imp ) FELMZNBOZCMZVTDMZPZBEFQRZSZFEATZCUARZMZFWFDUARZMZPZWCBEJOZQRZSZWLWG
-      MZWLWIMZPZUBWCBEEQRZSZEWGMZEWIMZPZUBWCBEKOZQRZSZXCWGMZXCWIMZPZUBZWCBEXCUC
-      UDRZQRZSZXJWGMZXJWIMZPZUBZWEWKUBJKEFWLEPZWNWSWQXBXQWCBWMWRWLEEQUEUFXQWOWT
-      WPXAWLEWGUGWLEWIUGUHUIWLXCPZWNXEWQXHXRWCBWMXDWLXCEQUEUFXRWOXFWPXGWLXCWGUG
-      WLXCWIUGUHUIWLXJPZWNXLWQXOXSWCBWMXKWLXJEQUEUFXSWOXMWPXNWLXJWGUGWLXJWIUGUH
-      UIWLFPZWNWEWQWKXTWCBWMWDWLFEQUEUFXTWOWHWPWJWLFWGUGWLFWIUGUHUIEUJNZWSXBYAW
-      SUKECMZEDMZWTXAYAEWRNWSYBYCPZEULWCYDBEWRVTEPWAYBWBYCVTECUGVTEDUGUHUMUNYAW
-      TYBPWSACEGHUOUPYAXAYCPWSADEGIUOUPUQURXCVSNZXIXLXHUBXPYEXLXEXHYEWCWCBXKXDY
-      EVTXDNVTXKNWCYEXDXKVTYEYAXCUJNXDXKUSEXCUTEXCVAEXCVBVCVDVEVFVEYEXLXHXOYEXL
-      XHXOYEXLUKZXHUKXFXJCMZARZXGXJDMZARZXMXNXHYFXFXGYGYIAXHVGYEXJXKNZXLYGYIPZY
-      EXJVSNYKEXCVHEXJVIVJWCYLBXJXKVTXJPWAYGWBYIVTXJCUGVTXJDUGUHUMUNVKYEXMYHPXL
-      XHACEXCGHVLVMYEXNYJPXLXHADEXCGIVLVMUQVNVOVPVQVR $.
-      $( [3-Nov-2005] $)
+      3eqtr4d ex fzssp1 sseld imim1d ralimdv2 id peano2uz eluzfz2 syl
+      opreqan12rd seqzp1 ad2antrr exp31 a2d syld uzind4 imp ) FELMZNBOZCMZVPDMZ
+      PZBEFQRZSZFEATZCUARZMZFWBDUARZMZPZVSBEJOZQRZSZWHWCMZWHWEMZPZUBVSBEEQRZSZE
+      WCMZEWEMZPZUBVSBEKOZQRZSZWSWCMZWSWEMZPZUBZVSBEWSUCUDRZQRZSZXFWCMZXFWEMZPZ
+      UBZWAWGUBJKEFWHEPZWJWOWMWRXMVSBWIWNWHEEQUEUFXMWKWPWLWQWHEWCUGWHEWEUGUHUIW
+      HWSPZWJXAWMXDXNVSBWIWTWHWSEQUEUFXNWKXBWLXCWHWSWCUGWHWSWEUGUHUIWHXFPZWJXHW
+      MXKXOVSBWIXGWHXFEQUEUFXOWKXIWLXJWHXFWCUGWHXFWEUGUHUIWHFPZWJWAWMWGXPVSBWIV
+      TWHFEQUEUFXPWKWDWLWFWHFWCUGWHFWEUGUHUIEUJNZWOWRXQWOUKECMZEDMZWPWQXQEWNNWO
+      XRXSPZEULVSXTBEWNVPEPVQXRVRXSVPECUGVPEDUGUHUMUNXQWPXRPWOACEGHUOUPXQWQXSPW
+      OADEGIUOUPUQURWSVONZXEXHXDUBXLYAXHXAXDYAVSVSBXGWTYAVPWTNVPXGNVSYAWTXGVPEW
+      SVOUSUTVAVBVAYAXHXDXKYAXHXDXKYAXHUKZXDUKXBXFCMZARZXCXFDMZARZXIXJXDYBXBXCY
+      CYEAXDVCYAXFXGNZXHYCYEPZYAXFVONYGEWSVDEXFVEVFVSYHBXFXGVPXFPVQYCVRYEVPXFCU
+      GVPXFDUGUHUMUNVGYAXIYDPXHXDACEWSGHVHVIYAXJYFPXHXDADEWSGIVHVIUQVJVKVLVMVN
+      $.
+      $( [2-Sep-2013] $) $( [3-Nov-2005] $)
 
     $( Equality theorem for the recursive sequence builder. $)
     seqzeq $p |- ( ( M e. ZZ /\ A. k e. ( ZZ>= ` M ) ( F ` k ) = ( G ` k ) ) ->
-                 ( <. M , S >. seq F ) = ( <. M , S >. seq G ) ) $=
+                 ( <. M , S >. seqz F ) = ( <. M , S >. seqz G ) ) $=
       ( vm cz wcel cv cfv wceq cuz wral wa cop cseqz co cfz elfzuz imim1i
       ralimi2 seqzfveq sylan2 expcom r19.21aiv adantl wfn wb seqzfn jca adantr
       eqfnfv2 syl mpbird ) EJKZBLZCMUSDMNZBEOMZPZQZEARZCSTZVDDSTZNZILZVEMVHVFMN
@@ -412,7 +118,7 @@ $)
     $( Equality theorem for the recursive sequence builder. $)
     seqzfveqg $p |- ( ( ( S e. A /\ F e. B /\ G e. C ) /\
         ( N e. ( ZZ>= ` M ) /\ A. k e. ( M ... N ) ( F ` k ) = ( G ` k ) ) ) ->
-      ( ( <. M , S >. seq F ) ` N ) = ( ( <. M , S >. seq G ) ` N ) ) $=
+      ( ( <. M , S >. seqz F ) ` N ) = ( ( <. M , S >. seqz G ) ` N ) ) $=
       ( vs vf vg wcel w3a cuz cfv cv wceq cfz co wral wa cop cseqz wi opeq2
       opreq1d fveq1d eqeq12d imbi2d fveq1 eqeq1d ralbidv anbi2d opreq2 imbi12d
       eqeq2d visset seqzfveq vtocl2g vtoclg 3impib imp ) DAMZFBMZGCMZNIHOPMZEQZ
@@ -435,7 +141,7 @@ $)
        builder. $)
     seqzrn2 $p |- ( ( ( M e. ZZ /\ ( F ` M ) e. C ) /\
        ( ( F |` ( ZZ>= ` ( M + 1 ) ) ) : ( ZZ>= ` ( M + 1 ) ) --> B /\
-               S : ( C X. B ) --> C ) ) -> ran ( <. M , S >. seq F ) C_ C ) $=
+               S : ( C X. B ) --> C ) ) -> ran ( <. M , S >. seqz F ) C_ C ) $=
       ( vn vj vm vy vv cz wcel cfv c1 caddc co cuz cres wf cxp wa cop cseqz
       crn wss wfn cv wral seqzfn wi wceq fveq2 eleq1d imbi2d simpl seqz1
       syl5ibr eluzp1p1 ffvelrn wb fvres adantl mpbid sylan2 ffnoprv simprbi
@@ -456,7 +162,7 @@ $)
     $( Range of the arbitrary-based recursive sequence builder (special case of
        ~ seqzrn2 ). $)
     seqzrn $p |- ( ( M e. ZZ /\ F : ( ZZ>= ` M ) --> C /\
-                 S : ( C X. C ) --> C ) -> ran ( <. M , S >. seq F ) C_ C ) $=
+                 S : ( C X. C ) --> C ) -> ran ( <. M , S >. seqz F ) C_ C ) $=
       ( cz wcel cuz cfv wf cxp cop cseqz co crn wss c1 caddc cres wa uzid
       ffvelrn sylan2 peano2uz syl uzss fssres jca expcom seqzrn2 exp43 imp4c
       syland 3impib ) DGHZDIJZACKZAALABKZDBMCNOPAQZUPURDCJAHZDRSOZIJZACVCTKZUAZ
@@ -467,7 +173,8 @@ $)
     $( Closure of the value of the arbitrary-based recursive sequence
        builder. $)
     seqzcl $p |- ( ( N e. ( ZZ>= ` M ) /\ F : ( ZZ>= ` M ) --> C /\
-              S : ( C X. C ) --> C ) -> ( ( <. M , S >. seq F ) ` N ) e. C ) $=
+              S : ( C X. C ) --> C ) -> ( ( <. M , S >. seqz F ) ` N ) e. C )
+        $=
       ( cuz cfv wcel wf cxp w3a cop cseqz co crn cz wss eluzel2 seqzrn syl3an1
       wfn seqzfn syl fnfvelrn mpancom 3ad2ant1 sseldd ) EDHIZJZUJACKZAALABKZMDB
       NCOPZQZAEUNIZUKDRJZULUMUOASDETZABCDFGUAUBUKULUPUOJZUMUNUJUCZUKUSUKUQUTURB
@@ -475,18 +182,19 @@ $)
       $( [7-Sep-2005] $)
 
     $( A restriction of its characteristic function that doesn't change the
-       value of the ` seq ` function. $)
-    seqzresval $p |- ( N e. ( ZZ>= ` M ) -> ( ( <. M , S >. seq
-              ( F |` ( M ... N ) ) ) ` N ) = ( ( <. M , S >. seq F ) ` N ) ) $=
+       value of the ` seqz ` function. $)
+    seqzresval $p |- ( N e. ( ZZ>= ` M ) -> ( ( <. M , S >. seqz
+              ( F |` ( M ... N ) ) ) ` N ) = ( ( <. M , S >. seqz F ) ` N ) )
+        $=
       ( vm cuz cfv wcel cv cfz co cres wceq wral cop cseqz fvres rgen cvv
       resexg ax-mp seqzfveq mpan2 ) DCHIJGKZBCDLMZNZIUFBIOZGUGPDCAQZUHRMIDUJBRM
       IOUIGUGUFUGBSTAGUHBCDEBUAJUHUAJFBUGUAUBUCFUDUE $.
       $( [2-Nov-2005] $)
 
-    $( The ` seq ` function is unchanged by restricting its characteristic
-       function to the ` seq ` function's domain. $)
-    seqzres $p |- ( M e. ZZ -> ( <. M , S >. seq ( F |` ( ZZ>= ` M ) ) ) =
-                     ( <. M , S >. seq F ) ) $=
+    $( The ` seqz ` function is unchanged by restricting its characteristic
+       function to the ` seqz ` function's domain. $)
+    seqzres $p |- ( M e. ZZ -> ( <. M , S >. seqz ( F |` ( ZZ>= ` M ) ) ) =
+                     ( <. M , S >. seqz F ) ) $=
       ( vn vm cz wcel cop cuz cfv cres cseqz co wfn wceq cvv resexg ax-mp
       seqzfn wa cv wral cfz elfzuz fvres syl rgen seqzfveq mpan2 eqfnfv2
       mpbiri syl11anc ) CHICAJZBCKLZMZNOZUPPZUOBNOZUPPZURUTQZAUQCDBRIUQRIEBUPRS
@@ -494,10 +202,10 @@ $)
       VGGVHVFVHIVFUPIVGVFCVDUFVFUPBUGUHUIAGUQBCVDDVCEUJUKUIFUPURUTULUMUN $.
       $( [7-Sep-2005] $)
 
-    $( The ` seq ` function is unchanged by substituting its characteristic
+    $( The ` seqz ` function is unchanged by substituting its characteristic
        function with a restricted class builder based on that function. $)
-    seqzres2 $p |- ( M e. ZZ -> ( <. M , S >. seq ( { <. k , y >. | y =
-                   ( F ` k ) } |` ZZ ) ) = ( <. M , S >. seq F ) ) $=
+    seqzres2 $p |- ( M e. ZZ -> ( <. M , S >. seqz ( { <. k , y >. | y =
+                   ( F ` k ) } |` ZZ ) ) = ( <. M , S >. seqz F ) ) $=
       ( vn vv cz wcel cop cv cfv wceq copab cres cseqz co wa resopab opreq2i
       cuz wfn zex opabex2 seqzfn wral cfz elfzelz fveq2 eqid fvex fvopab4 syl
       rgen seqzfveq mpan2 eqfnfv2 mpbiri syl11anc syl5eq ) EJKZEBLZAMCMZDNZOZCA
@@ -531,24 +239,23 @@ $)
     $( Closure of the value of the arbitrary-based recursive sequence builder.
        (Contributed by Paul Chapman, 26-Oct-2012.) $)
     seqzalcl $p |- ( ( N e. ( ZZ>= ` M ) /\ A. z e. ( M ... N )
-        ( F ` z ) e. A ) -> ( ( <. M , S >. seq F ) ` N ) e. A ) $=
+        ( F ` z ) e. A ) -> ( ( <. M , S >. seqz F ) ` N ) e. A ) $=
       ( vm vk cuz cfv wcel cv cfz co wral cop cseqz wi c1 caddc wceq opreq2
       raleqdv fveq2 eleq1d imbi12d cz elfz3 rcla4v syl seqz1 sylibrd wa seqzp1
       ad2antrr peano2uz eluzfz2 3syl imp rgen2 opreq1 rcla42v mpi ancoms sylan
-      eqeltrd exp31 wb eluzel2 eluzelz wss fzssp1 ssralv syl11anc imim21b
-      mpbird uzind4 ) HGNOZPCQZFOZDPZCGHRSZTZHGEUAFUBSZOZDPZWFCGLQZRSZTZWLWIOZD
-      PZUCWFCGGRSZTZGWIOZDPZUCWFCGMQZRSZTZXAWIOZDPZUCZWFCGXAUDUESZRSZTZXGWIOZDP
-      ZUCZWHWKUCLMGHWLGUFZWNWRWPWTXMWFCWMWQWLGGRUGUHXMWOWSDWLGWIUIUJUKWLXAUFZWN
-      XCWPXEXNWFCWMXBWLXAGRUGUHXNWOXDDWLXAWIUIUJUKWLXGUFZWNXIWPXKXOWFCWMXHWLXGG
-      RUGUHXOWOXJDWLXGWIUIUJUKWLHUFZWNWHWPWKXPWFCWMWGWLHGRUGUHXPWOWJDWLHWIUIUJU
-      KGULPZWRGFOZDPZWTXQGWQPWRXSUCGUMWFXSCGWQWDGUFWEXRDWDGFUIUJUNUOXQWSXRDEFGI
-      JUPUJUQXAWCPZXFXLUCZXIXEXKUCUCZXTXIXEXKXTXIURZXEURXJXDXGFOZESZDXTXJYEUFXI
-      XEEFGXAIJUSUTYCYDDPZXEYEDPZXTXIYFXTXGWCPXGXHPXIYFUCGXAVAGXGVBWFYFCXGXHWDX
-      GUFWEYDDWDXGFUIUJUNVCVDXEYFYGXEYFURAQZBQZESZDPZBDTADTYGYKABDDKVEYKYGXDYIE
-      SZDPABXDYDDDYHXDUFYJYLDYHXDYIEVFUJYIYDUFYLYEDYIYDXDEUGUJVGVHVIVJVKVLXTXIX
-      CUCZYAYBVMXTXQXAULPZYMGXAVNGXAVOXQYNURXBXHVPYMGXAVQWFCXBXHVRUOVSXCXIXEXKV
-      TUOWAWBVD $.
-      $( [26-Oct-2012] $)
+      eqeltrd exp31 wb wss fzssp1 ssralv imim21b mpbird uzind4 ) HGNOZPCQZFOZDP
+      ZCGHRSZTZHGEUAFUBSZOZDPZWCCGLQZRSZTZWIWFOZDPZUCWCCGGRSZTZGWFOZDPZUCWCCGMQ
+      ZRSZTZWRWFOZDPZUCZWCCGWRUDUESZRSZTZXDWFOZDPZUCZWEWHUCLMGHWIGUFZWKWOWMWQXJ
+      WCCWJWNWIGGRUGUHXJWLWPDWIGWFUIUJUKWIWRUFZWKWTWMXBXKWCCWJWSWIWRGRUGUHXKWLX
+      ADWIWRWFUIUJUKWIXDUFZWKXFWMXHXLWCCWJXEWIXDGRUGUHXLWLXGDWIXDWFUIUJUKWIHUFZ
+      WKWEWMWHXMWCCWJWDWIHGRUGUHXMWLWGDWIHWFUIUJUKGULPZWOGFOZDPZWQXNGWNPWOXPUCG
+      UMWCXPCGWNWAGUFWBXODWAGFUIUJUNUOXNWPXODEFGIJUPUJUQWRVTPZXCXIUCZXFXBXHUCUC
+      ZXQXFXBXHXQXFURZXBURXGXAXDFOZESZDXQXGYBUFXFXBEFGWRIJUSUTXTYADPZXBYBDPZXQX
+      FYCXQXDVTPXDXEPXFYCUCGWRVAGXDVBWCYCCXDXEWAXDUFWBYADWAXDFUIUJUNVCVDXBYCYDX
+      BYCURAQZBQZESZDPZBDTADTYDYHABDDKVEYHYDXAYFESZDPABXAYADDYEXAUFYGYIDYEXAYFE
+      VFUJYFYAUFYIYBDYFYAXAEUGUJVGVHVIVJVKVLXQXFWTUCZXRXSVMXQWSXEVNYJGWRVTVOWCC
+      WSXEVPUOWTXFXBXHVQUOVRVSVD $.
+      $( [2-Sep-2013] $) $( [26-Oct-2012] $)
 
     $( Closure of the value of the 1-based recursive sequence builder.
        (Contributed by Paul Chapman, 26-Oct-2012.) $)
@@ -563,21 +270,20 @@ $)
   ${
     $d F k $.  $d K k $.  $d M k $.  $d N k $.
     $( A restriction of its characteristic function that doesn't change the
-       value of the ` seq ` function.  (Contributed by Paul Chapman,
+       value of the ` seqz ` function.  (Contributed by Paul Chapman,
        17-Nov-2012.) $)
     seqzresval2g $p |- ( ( ( S e. A /\ F e. B ) /\
                            ( N e. ( ZZ>= ` M ) /\ K e. ( M ... N ) ) ) ->
-                         ( ( <. M , S >. seq ( F |` ( M ... N ) ) ) ` K ) =
-                         ( ( <. M , S >. seq F ) ` K ) ) $=
+                         ( ( <. M , S >. seqz ( F |` ( M ... N ) ) ) ` K ) =
+                         ( ( <. M , S >. seqz F ) ` K ) ) $=
       ( vk wcel wa cuz cfv cfz co cop cseqz cres cvv w3a cv wceq wral simpl
-      simpr resexg adantl 3jca elfzuzb biimpa simpld cz wss elfzuz3 eluzel2
-      adantr fzss2 syl11anc sseld fvres eqcomd syl6 r19.21aiv jca seqzfveqg
-      syl2an ) CAIZDBIZJZGFKLZIZEFGMNZIZJZJEFCOZDPNLZEVNDVKQZPNLZVHVFVGVPRIZSEV
-      IIZHTZDLZVTVPLZUAZHFEMNZUBZJVOVQUAVMVHVFVGVRVFVGUCVFVGUDVGVRVFDVKBUEUFUGV
-      MVSWEVMVSGEKLIZVJVLVSWFJVIEFGUHUIUJVMWCHWDVMVTWDIVTVKIZWCVMWDVKVTVMWFFUKI
-      ZWDVKULVIEFGUMVJWHVLFGUNUOEFGUPUQURWGWBWAVTVKDUSUTVAVBVCABRCHDVPFEVDVEUT
-      $.
-      $( [17-Nov-2012] $)
+      simpr resexg adantl 3jca elfzuzb biimpa simpld wss elfzuz3 fzss2 syl
+      sseld fvres eqcomd syl6 r19.21aiv jca seqzfveqg syl2an ) CAIZDBIZJZGFKLZI
+      ZEFGMNZIZJZJEFCOZDPNLZEVKDVHQZPNLZVEVCVDVMRIZSEVFIZHTZDLZVQVMLZUAZHFEMNZU
+      BZJVLVNUAVJVEVCVDVOVCVDUCVCVDUDVDVOVCDVHBUEUFUGVJVPWBVJVPGEKLIZVGVIVPWCJV
+      FEFGUHUIUJVJVTHWAVJVQWAIVQVHIZVTVJWAVHVQVJWCWAVHUKVFEFGULEFGUMUNUOWDVSVRV
+      QVHDUPUQURUSUTABRCHDVMFEVAVBUQ $.
+      $( [2-Sep-2013] $) $( [17-Nov-2012] $)
   $}
 
   $( A restriction of its characteristic function that doesn't change the value
@@ -597,28 +303,11 @@ $)
     serzcl1.1 $e |- F : ( ZZ>= ` M ) --> CC $.
     $( The partial sums in an infinite series of complex terms are complex. $)
     serzcl1i $p |- ( N e. ( ZZ>= ` M ) ->
-                 ( ( <. M , + >. seq F ) ` N ) e. CC ) $=
+                 ( ( <. M , + >. seqz F ) ` N ) e. CC ) $=
       ( cuz cfv wcel cc wf cxp caddc cop cseqz co ax-addopr addex cvv fvex fex
       mp2an seqzcl mp3an23 ) CBEFZGUCHAIZHHJHKICBKLAMNFHGDOHKABCPUDUCQGAQGDBERU
       CHQASTUAUB $.
       $( [8-Sep-2005] $)
-  $}
-
-  ${
-    $d f g h x y $.
-    $( Alternate version of ~ df-seq0 . $)
-    dfseq0 $p |- seq0 = { <. <. f , g >. , h >. |
-                     h = ( <. 0 , f >. seq g ) } $=
-      ( vx vy cseq0 cv cc0 cop cseqz co wceq copab2 cvv cxp wral wfn wa wb c1
-      cshi cseq1 cneg cn0 cres wcel oprex resexg ax-mp visset pm3.2i biantrur
-      oprabbii fnoprab2 df-seq0 fneq1i mpbir eqfnoprv mp2an eqid opeq2 opreq1d
-      opreq2 oprabval5 seq0seqz syl6reqr rgen2a mpbir2an ) FCGZHAGZIZBGZJKZLZAB
-      CMZLZNNOZVQLZDGZEGZFKZVSVTVOKZLZENPDNPZFVQQZVOVQQVPVRWDRSWEVIVJVLTUAKUBKZ
-      TUCZUAKZUDUEZLZABCMZVQQABCNNWIWKWHNUFWINUFWFWGUAUGWHUDNUHUIWJVJNUFZVLNUFZ
-      RZWJRABCWNWJWLWMAUJBUJUKZULUMUNVQFWKABCUOUPUQABCNNVMVOVKVLJUGVNWNVNRABCWN
-      VNWOULUMUNDENNNNFVOURUSVQUTWCDENVSNUFVTNUFRWBHVSIZVTJKZWAABCVSVTNNVMWQVOW
-      PVLJKWPVTJUGVJVSLVKWPVLJVJVSHVAVBVLVTWPJVCVOUTVDVSVTDUJEUJVEVFVGVH $.
-      $( [1-Sep-2005] $)
   $}
 
   ${
