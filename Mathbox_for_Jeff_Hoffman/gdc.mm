@@ -11,7 +11,7 @@ $)
     nnssi2.2 $e |- ( B e. NN -> ph ) $.
     nnssi2.3 $e |- ( ( A e. D /\ B e. D /\ ph ) -> ps ) $.
     $( Convert a theorem for real/complex numbers into one for natural
-       numbers. $)
+       numbers.  (Contributed by Jeff Hoffman, 17-Jun-2008.) $)
     nnssi2 $p |- ( ( A e. NN /\ B e. NN ) -> ps ) $=
       ( cn wcel wa w3a sseli 3anim123i 3anidm23 syl ) CIJZDIJZKCEJZDEJZALZBQRUA
       QSRTRAIECFMIEDFMGNOHP $.
@@ -23,14 +23,15 @@ $)
     nnssi3.2 $e |- ( C e. NN -> ph ) $.
     nnssi3.3 $e |- ( ( ( A e. D /\ B e. D /\ C e. D ) /\ ph ) -> ps ) $.
     $( Convert a theorem for real/complex numbers into one for natural
-       numbers. $)
+       numbers.  (Contributed by Jeff Hoffman, 17-Jun-2008.) $)
     nnssi3 $p |- ( ( A e. NN /\ B e. NN /\ C e. NN ) -> ps ) $=
       ( cn wcel w3a sseli 3anim123i 3ad2ant3 syl11anc ) CJKZDJKZEJKZLCFKZDFKZEF
       KZLABQTRUASUBJFCGMJFDGMJFEGMNSQARHOIP $.
       $( [17-Jun-2008] $)
   $}
 
-  $( Please add description here. $)
+  $( Please add description here.  (Contributed by Jeff Hoffman,
+     17-Jun-2008.) $)
   nndivsub $p |- ( ( ( A e. NN /\ B e. NN /\ C e. NN )
                        /\ ( ( A / C ) e. NN /\ A < B ) )
                     -> ( ( B / C ) e. NN <-> ( ( B - A ) / C ) e. NN ) ) $=
@@ -47,7 +48,8 @@ $)
     VOXEVPVQXDWTCVGXASVJBACVKVLVCVMVN $.
     $( [17-Jun-2008] $)
 
-  $( A factor of a natural number cannot exceed it. $)
+  $( A factor of a natural number cannot exceed it.  (Contributed by Jeff
+     Hoffman, 17-Jun-2008.) $)
   nndivlub $p |- ( ( A e. NN /\ B e. NN )
         -> ( ( A / B ) e. NN -> B <_ A ) ) $=
     ( cn wcel wa cr cc0 clt wbr cdiv co cle wi nnre nngt0 jca anim12i ancoms

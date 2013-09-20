@@ -76,7 +76,7 @@ $)
   ${
     impbox.1 $e |- ( ph -> ps ) $.
     $( If ` ph -> ps ` is unconditionally true and if ` ph ` is always true
-       then ` ps ` is always true. $)
+       then ` ps ` is always true.  (Contributed by FL, 22-Feb-2011.) $)
     impbox $p |- ( [.] ph -> [.] ps ) $=
       ( wi wbox ax-lmp ax-ltl1 ax-mp ) ABDZEAEBEDICFABGH $.
       $( [22-Feb-2011] $)
@@ -85,7 +85,8 @@ $)
   ${
     bibox.1 $e |- ( ph <-> ps ) $.
     $( If ` ph <-> ps ` is unconditionally true then ` ph ` is always true is
-       equivalent to ` ps ` is always true. $)
+       equivalent to ` ps ` is always true.  (Contributed by FL,
+       22-Feb-2011.) $)
     bibox $p |- ( [.] ph <-> [.] ps ) $=
       ( wbox biimpi impbox biimpri impbii ) ADBDABABCEFBAABCGFH $.
       $( [22-Feb-2011] $)
@@ -94,7 +95,8 @@ $)
   ${
     impxt.1 $e |- ( ph -> ps ) $.
     $( If ` ph -> ps ` holds unconditionally and if ` ph ` holds in the next
-       state then ` ps ` holds in the next state. $)
+       state then ` ps ` holds in the next state.  (Contributed by FL,
+       20-Mar-2011.) $)
     impxt $p |- ( () ph -> () ps ) $=
       ( wi wcirc ax-nmp ax-ltl3 ax-mp ) ABDZEAEBEDICFABGH $.
       $( [20-Mar-2011] $)
@@ -103,14 +105,15 @@ $)
   ${
     binxt.1 $e |- ( ph <-> ps ) $.
     $( If ` ph <-> ps ` holds unconditionally then ` ph ` holds in the next
-       state of the world iff ` ps ` holds in the next state. $)
+       state of the world iff ` ps ` holds in the next state.  (Contributed by
+       FL, 20-Mar-2011.) $)
     binxt $p |- ( () ph <-> () ps ) $=
       ( wcirc biimpi impxt biimpri impbii ) ADBDABABCEFBAABCGFH $.
       $( [20-Mar-2011] $)
   $}
   $( ` ( ph \/ ps ) ` holds in the next step iff ` ph ` holds in the next step
-     or ` ps ` holds in the next step.  (The proof was shortened by Andrew
-     Salmon, 9-Jul-2011.) $)
+     or ` ps ` holds in the next step.  (Contributed by FL, 20-Mar-2011.)  (The
+     proof was shortened by Andrew Salmon, 9-Jul-2011.) $)
   nxtor $p |- ( () ( ph \/ ps ) <-> ( () ph \/ () ps ) ) $=
     ( wo wcirc wn wi ax-ltl3 df-or binxt ax-ltl2 imbi1i 3imtr4i orrd orc impxt
     olc jaoi impbii ) ABCZDZADZBDZCTUAUBAEZBFZDUCDZUBFTUAEZUBFUCBGSUDABHIUFUEUB
@@ -118,16 +121,16 @@ $)
     $( [9-Jul-2011] $) $( [20-Mar-2011] $)
 
   $( ` ( ph /\ ps ) ` holds in the next step iff ` ph ` holds in the next step
-     and ` ps ` holds in the next step.  (The proof was shortened by Andrew
-     Salmon, 9-Jul-2011.) $)
+     and ` ps ` holds in the next step.  (Contributed by FL, 20-Mar-2011.)
+     (The proof was shortened by Andrew Salmon, 9-Jul-2011.) $)
   nxtand $p |- ( () ( ph /\ ps ) <-> ( () ph /\ () ps ) ) $=
     ( wa wcirc simpl impxt simpr jca wi pm3.2 ax-ltl3 syl imp impbii ) ABCZDZAD
     ZBDZCPQROAABEFOBABGFHQRPQBOIZDRPIASABJFBOKLMN $.
     $( [9-Jul-2011] $) $( [20-Mar-2011] $)
 
   $( ` ph ` holds now and will always hold in the future iff it is not true
-     that ` -. ph ` holds now or sometimes in the future.  (The proof was
-     shortened by Andrew Salmon, 9-Jul-2011.) $)
+     that ` -. ph ` holds now or sometimes in the future.  (Contributed by FL,
+     22-Feb-2011.)  (The proof was shortened by Andrew Salmon, 9-Jul-2011.) $)
   boxeq $p |- ( [.] ph <-> -. <> -. ph ) $=
     ( wn wdia wbox df-dia notnot bicomi bibox notbii bitri con2bii ) ABZCZADZML
     BZDZBNBLEPNOAAOAFGHIJK $.
@@ -136,19 +139,21 @@ $)
   ${
     bidia.1 $e |- ( ph <-> ps ) $.
     $( If ` ph <-> ps ` holds then ` ph ` eventually holds iff ` ps `
-       eventually holds. $)
+       eventually holds.  (Contributed by FL, 20-Mar-2011.) $)
     bidia $p |- ( <> ph <-> <> ps ) $=
       ( wn wbox wdia notbii bibox df-dia 3bitr4i ) ADZEZDBDZEZDAFBFLNKMABCGHGAI
       BIJ $.
       $( [20-Mar-2011] $)
   $}
 
-  $( It's false that ` ph ` eventually holds iff ` -. ph ` always holds. $)
+  $( It's false that ` ph ` eventually holds iff ` -. ph ` always holds.
+     (Contributed by FL, 20-Mar-2011.) $)
   notev $p |- ( -. <> ph <-> [.] -. ph ) $=
     ( wn wbox wdia df-dia bicomi con1bii ) ABCZADZIHBAEFG $.
     $( [20-Mar-2011] $)
 
-  $( It's false that ` ph ` always holds iff ` -. ph ` eventually holds. $)
+  $( It's false that ` ph ` always holds iff ` -. ph ` eventually holds.
+     (Contributed by FL, 20-Mar-2011.) $)
   notal $p |- ( -. [.] ph <-> <> -. ph ) $=
     ( wn wdia wbox boxeq bicomi con1bii ) ABCZADZIHBAEFG $.
     $( [20-Mar-2011] $)
@@ -162,20 +167,22 @@ $)
   $( If ` ph ` holds until ` ps ` then eventually ` ps ` holds. $)
   ax-ltl6 $a |- ( ( ph until ps ) -> <> ps ) $.
   $( If ` ps ` doesn't hold in the first step and ` ph ` holds until ` ps `
-     then ` ph ` holds.  (The proof was shortened by Andrew Salmon,
-     9-Jul-2011.) $)
+     then ` ph ` holds.  (Contributed by FL, 20-Mar-2011.)  (The proof was
+     shortened by Andrew Salmon, 9-Jul-2011.) $)
   nopsthph $p |- ( ( -. ps /\ ( ph until ps ) ) -> ph ) $=
     ( wunt wn wcirc wa wo wi ax-ltl5 simpl orim2i ord sylbi impcom ) ABCZBDZAOB
     AOEZFZGZPAHABISBARABAQJKLMN $.
     $( [9-Jul-2011] $) $( [20-Mar-2011] $)
 
   $( If ` ph ` doesn't hold in the current step and ` ph ` holds until ` ps `
-     then ` ps ` holds in the current step. $)
+     then ` ps ` holds in the current step.  (Contributed by FL,
+     20-Mar-2011.) $)
   phthps $p |- ( ( -. ph /\ ( ph until ps ) ) -> ps ) $=
     ( wunt wn nopsthph expcom con1d impcom ) ABCZADBIBABDIAABEFGH $.
     $( [20-Mar-2011] $)
 
-  $( Eventually ` ph ` expressed with the ` until ` operator. $)
+  $( Eventually ` ph ` expressed with the ` until ` operator.  (Contributed by
+     FL, 20-Mar-2011.) $)
   evpexun $p |- ( <> ph <-> ( T. until ph ) ) $=
     ( wdia wtru wunt wn wbox wcirc wa wo orc ax-ltl5 sylibr con3i impbox notev
     3imtr4i con4i wi trcrm biimpri olcd ax-lmp df-dia con34b bibox ax-ltl2
@@ -186,7 +193,7 @@ $)
     $( [20-Mar-2011] $)
 
   $( ` ph ` always holds iff ` ph ` holds in the first step and always holds in
-     the next step. $)
+     the next step.  (Contributed by FL, 20-Mar-2011.) $)
   albineal $p |- ( [.] ph <-> ( ph /\ () [.] ph ) ) $=
     ( wbox wn wdia wtru wunt wcirc wa wo boxeq evpexun ax-ltl5 bitri notbii
     ioran notnot bicomi trcrm ax-ltl2 bitr2i binxt 3bitri anbi12i ) ABZACZDZCZU
@@ -194,47 +201,53 @@ $)
     QURUICUHCZGUMUJUIUIRNUHSUSUDUDUGUSUOUFUHUPNTUAUBUCMUB $.
     $( [20-Mar-2011] $)
 
-  $( If ` ph ` always holds, it holds in the first step. $)
+  $( If ` ph ` always holds, it holds in the first step.  (Contributed by FL,
+     20-Mar-2011.) $)
   alneal1 $p |- ( [.] ph -> ph ) $=
     ( wbox wcirc albineal simplbi ) ABZAFCADE $.
     $( [20-Mar-2011] $)
 
-  $( If ` ph ` always holds, it always holds in the next step. $)
+  $( If ` ph ` always holds, it always holds in the next step.  (Contributed by
+     FL, 20-Mar-2011.) $)
   alneal2 $p |- ( [.] ph -> () [.] ph ) $=
     ( wbox wcirc albineal simprbi ) ABZAFCADE $.
     $( [20-Mar-2011] $)
 
-  $( If ` ph ` always holds, it holds in the next step. $)
+  $( If ` ph ` always holds, it holds in the next step.  (Contributed by FL,
+     20-Mar-2011.) $)
   alne $p |- ( [.] ph -> () ph ) $=
     ( wbox wcirc alneal2 alneal1 impxt syl ) ABZHCACADHAAEFG $.
     $( [20-Mar-2011] $)
 
-  $( It is always true that ` ph ` always holds iff ` ph ` always holds. $)
+  $( It is always true that ` ph ` always holds iff ` ph ` always holds.
+     (Contributed by FL, 20-Mar-2011.) $)
   alalifal $p |- ( [.] [.] ph <-> [.] ph ) $=
     ( wbox alneal1 wcirc wi alneal2 a1i impbox ax-ltl4 mpancom impbii ) ABZBZLL
     CLLDEZBLMANNAAFGHLIJK $.
     $( [20-Mar-2011] $)
 
   $( It is eventually true that ` ph ` eventually holds iff ` ph ` eventually
-     holds.  (The proof was shortened by Andrew Salmon, 9-Jul-2011.) $)
+     holds.  (Contributed by FL, 20-Mar-2011.)  (The proof was shortened by
+     Andrew Salmon, 9-Jul-2011.) $)
   evevifev $p |- ( <> <> ph <-> <> ph ) $=
     ( wdia wn wbox notev bibox alalifal bitri notbii df-dia 3bitr4i ) ABZCZDZCA
     CZDZCLBLNPNPDPMPAEFOGHILJAJK $.
     $( [9-Jul-2011] $) $( [20-Mar-2011] $)
 
   $( If ` ph ` is always true then it is always true that ` ph ` holds in the
-     next step. $)
+     next step.  (Contributed by FL, 20-Mar-2011.) $)
   althalne $p |- ( [.] ph -> [.] () ph ) $=
     ( wbox wcirc alalifal alne impbox sylbir ) ABZHBACZBADHIAEFG $.
     $( [20-Mar-2011] $)
 
-  $( ` T. ` is true in every step. $)
+  $( ` T. ` is true in every step.  (Contributed by FL, 20-Mar-2011.) $)
   trtrst $p |- [.] T. $=
     ( wph wtru wbox wn wo exmid ax-lmp altdftru bibox mpbir ) BCAADEZCKAFGBKAHI
     J $.
     $( [20-Mar-2011] $)
 
-  $( It's true that ` ph ` is true until true is true. $)
+  $( It's true that ` ph ` is true until true is true.  (Contributed by FL,
+     27-Feb-2011.) $)
   unttr $p |- ( ph until T. ) $=
     ( wtru wunt wcirc wa wo wbox trtrst alneal1 ax-mp orci ax-ltl5 mpbir ) ABCZ
     BANDEZFBOBGBHBIJKABLM $.
