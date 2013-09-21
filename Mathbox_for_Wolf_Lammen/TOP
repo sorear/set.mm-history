@@ -4,164 +4,82 @@ $(
 #*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#
 $)
 
+  $(
+     Many, if not most, of the theorems in the section "Logical implication"
+     are about handling chains of implications: ` ph -> ( ps -> ( ch -> ... `.
+     With respect to chains, an exhaustive set of rules clarify
+
+     - how to swap antecedents (com12, ...);
+
+     - how to drop antecedents (ax-mp, pm2.43, ...);
+
+     - how to add antecedents (a1i, ...)
+
+     - how to replace an antecedent (syl, ...);
+
+     - how to replace a consequent (ax-mp, syl, ...);
+
+     - what is, when an antecedent equals the consequent (ax-1, id, ...).
+
+     In all these cases, the operands of the chain have no inner structure, or
+     it is of no importance.  I will call such a chain "simple" here.
+
+     There is less support, when the operands are structured themselves.  Some
+     kinds of inner structure involving the ` .- ` operator are best handled by
+     the symmetric operators ` /\ ` and ` \/ `.  But a nested, simple chain
+     has no such convenient replacement.  I can focus on the antecedents here,
+     since a consequent representing a chain is in conjunction with its
+     antecedents just an extended simple chain again.
+
+     The following theorems show, how operations on nested chains appear
+     somehow twisted: The minor premises of the syllogisms look reverted, in
+     comparison to their normal counterparts, and while adding an antecedent to
+     a chain via ~ a1i is easy, in nested chains they can be easily dropped.
+  $)
+
   ${
-    wl-mt4.1 $e |- ph $.
-    wl-mt4.2 $e |- ( -. ps -> -. ph ) $.
-    $( The rule of modus tollens.  (Contributed by Wolf Lammen,
-       12-May-2013.) $)
-    wl-mt4 $p |- ps $=
-      ( mt4 ) ABCDE $.
-      $( [12-May-2013] $)
+    wl-jarri.1 $e |- ( ( ph -> ps ) -> ch ) $.
+    $( Dropping a nested antecedent.  This theorem is one of two reversions of
+       ~ ja .  Since ~ ja is reversible, one can conclude, that a nested (chain
+       of) implication(s) is just a packed notation of two or more theorems/
+       hypotheses with a common consequent.  (Contributed by Wolf Lammen,
+       20-Sep-2013.)
+
+       In ~ ax46 , this idea has been applied. $)
+    wl-jarri $p |- ( ps -> ch ) $=
+       ( wi ax-1 syl ) BABECBAFDG $.
+       $( [20-Sep-2013] $)
   $}
 
   ${
-    wl-mt4i.1 $e |- ch $.
-    wl-mt4i.2 $e |- ( ph -> ( -. ps -> -. ch ) ) $.
-    $( Modus tollens inference.  (Contributed by Wolf Lammen, 12-May-2013.) $)
-    wl-mt4i $p |- ( ph -> ps ) $=
-      ( mt4i ) ABCDEF $.
-      $( [12-May-2013] $)
+    wl-mps.1 $e |- ( ph -> ( ps -> ch ) ) $.
+    wl-mps.2 $e |- ( ( ph -> ch ) -> th ) $.
+    $( Replacing a nested consequent.  A sort of modus ponens in antecedent
+       position.  (Contributed by Wolf Lammen, 20-Sep-2013.) $)
+    wl-mps $p |- ( ( ph -> ps ) -> th ) $=
+      ( wi a2i syl ) ABGACGDABCEHFI $.
+      $( [20-Sep-2013] $)
   $}
 
   ${
-    wl-syl2im.1 $e |- ( ph -> ps ) $.
-    wl-syl2im.2 $e |- ( ch -> th ) $.
-    wl-syl2im.3 $e |- ( ps -> ( th -> ta ) ) $.
-    $( Replacing two antecedents.  Implication-only version of ~ syl2an .  See
-       comment in ~ wl-impbidd .  (Contributed by Wolf Lammen, 14-May-2013.) $)
-    wl-syl2im $p |- ( ph -> ( ch -> ta ) ) $=
-      ( syl2im ) ABCDEFGHI $.
-      $( [14-May-2013] $)
+    wl-syls1.1 $e |- ( ps -> ch ) $.
+    wl-syls1.2 $e |- ( ( ph -> ch ) -> th ) $.
+    $( Replacing a nested consequent.  A sort of syllogism in antecedent
+       position.  (Contributed by Wolf Lammen, 20-Sep-2013.) $)
+    wl-syls1 $p |- ( ( ph -> ps ) -> th ) $=
+      ( wi a1i wl-mps ) ABCDBCGAEHFI $.
+      $( [20-Sep-2013] $)
   $}
 
   ${
-    wl-impbidd.1 $e |- ( ph -> ( ps -> ( ch -> th ) ) ) $.
-    wl-impbidd.2 $e |- ( ph -> ( ps -> ( th -> ch ) ) ) $.
-    $( Deduce an equivalence from two implications.
-
-       Theorems involving a bi-conditional often appear with two antecedents.
-       Multiple antecedents, on the other hand, are the realm of the and-
-       connective, and set.mm provides a rich set of and-based syllogisms to
-       handle these.  This has led to an awkward situation: the theory of the
-       bi-conditional is only partially developed, up to the point, where the
-       and-connective can be efficiently introduced.  Then, after extensively
-       elaborating on and-based theorems, set.mm returns to the missing,
-       sometimes even basic, bi-conditional theorems, thus finishing the
-       theory.  At this point, the properties of the and-connective are fully
-       exploited in proofs, so their displacement seems to be fixed.  However,
-       a closer look reveals, that chiefly syllogisms enforce the introduction
-       of ` /\ ` .  So, if we are willing to restate a couple of syllogisms in
-       their implication-only form, we should be able to move those basic
-       theorems back into the equivalence section.
-
-       In an effort to get back to the layered structure implied by the section
-       titles, this theorem has been extracted from the proof of pm5.74, as a
-       basic operation to construct a bi-conditional in consequent position.
-       (Contributed by Wolf Lammen, 12-May-2013.) $)
-    wl-impbidd $p |- ( ph -> ( ps -> ( ch <-> th ) ) ) $=
-      ( impbidd ) ABCDEFG $.
-      $( [12-May-2013] $)
+    wl-syls2.1 $e |- ( ph -> ps ) $.
+    wl-syls2.2 $e |- ( ( ph -> ch ) -> th ) $.
+    $( Replacing a nested antecedent.  A sort of syllogism in antecedent
+       position.  (Contributed by Wolf Lammen, 20-Sep-2013.) $)
+    wl-syls2 $p |- ( ( ps -> ch ) -> th ) $=
+      ( wi imim1i syl ) BCGACGDABCEHFI $.
+      $( [20-Sep-2013] $)
   $}
-
-  ${
-    wl-impbid21d.1 $e |- ( ps -> ( ch -> th ) ) $.
-    wl-impbid21d.2 $e |- ( ph -> ( th -> ch ) ) $.
-    $( Deduce an equivalence from two implications.
-
-       This theorem has been crafted to yield a competitive short proof of
-       ~ wl-pm5.1im , so shortenings cannot throw it out of the equivalence
-       section (see comment in ~ wl-impbidd ).  (Contributed by Wolf Lammen,
-       12-May-2013.) $)
-    wl-impbid21d $p |- ( ph -> ( ps -> ( ch <-> th ) ) ) $=
-      ( impbid21d ) ABCDEFG $.
-      $( [12-May-2013] $)
-  $}
-
-  ${
-    wl-impbid.1 $e |- ( ph -> ( ps -> ch ) ) $.
-    wl-impbid.2 $e |- ( ph -> ( ch -> ps ) ) $.
-    $( Deduce an equivalence from two implications.  (Dependency on df-an
-       removed by Wolf Lammen, 3-Nov-2012.)  (Shortening based on
-       ~ wl-impbid21d ) (Contributed by Wolf Lammen, 5-Aug-1993.) $)
-    wl-impbid $p |- ( ph -> ( ps <-> ch ) ) $=
-      ( wb impbid21d pm2.43i ) ABCFAABCDEGH $.
-      $( [12-May-2013] $) $( [5-Aug-1993] $)
-  $}
-
-  ${
-    wl-bi3ant.1 $e |- ( ph -> ( ps -> ch ) ) $.
-    $( Constructing a bi-conditional in antecedent position.  (Contributed by
-       Wolf Lammen, 14-May-2013.) $)
-    wl-bi3ant $p |- ( ( ( th -> ta ) -> ph ) -> ( ( ( ta -> th ) -> ps ) ->
-                                                ( ( th <-> ta ) -> ch ) ) ) $=
-      ( bi3ant ) ABCDEFG $.
-      $( [14-May-2013] $)
-  $}
-
-  ${
-    wl-bija.1 $e |- ( ph -> ( ps -> ch ) ) $.
-    wl-bija.2 $e |- ( -. ph -> ( -. ps -> ch ) ) $.
-    $( Combining antecedents into a single bi-conditional.  This inference,
-       reminiscent of ~ ja , is reversable:  The hypotheses can be deduced from
-       the conclusion alone (see ~ wl-pm5.1im and ~ wl-pm5.21im ).
-       (Contributed by Wolf Lammen, 13-May-2013.) $)
-    wl-bija $p |- ( ( ph <-> ps ) -> ch ) $=
-      ( bija ) ABCDEF $.
-      $( [13-May-2013] $)
-  $}
-
-  $( Expressing symmetries of theorems in terms of bi-conditionals.
-     (Contributed by Wolf Lammen, 14-May-2013.) $)
-  wl-bisym1 $p |- ( ( ( ph -> ps ) -> ( ch -> th ) ) -> ( ( ( ps -> ph ) ->
-                      ( th -> ch ) ) -> ( ( ph <-> ps ) -> ( ch <-> th ) ) ) )
-      $=
-    ( bisym ) ABCDE $.
-    $( [14-May-2013] $)
-
-  $( Two propositions are equivalent if they are both true.  Closed form of
-     ~ 2th .  Equivalent to a ~ bi1 like version of the xor-connective.
-
-     This theorem stays true, no matter how you permutate its operands.  This
-     is evident from its sharper version
-     ` ( ph <-> ( ps <-> ( ph <-> ps ) ) ) ` .  (Contributed by Wolf Lammen,
-     12-May-2013.) $)
-  wl-pm5.1im $p |- ( ph -> ( ps -> ( ph <-> ps ) ) ) $=
-    ( pm5.1im ) ABC $.
-    $( [12-May-2013] $)
-
-  ${
-    wl-2thd.1 $e |- ( ph -> ps ) $.
-    wl-2thd.2 $e |- ( ph -> ch ) $.
-    $( Two truths are equivalent (deduction rule).  (Shortening based on
-       ~ wl-pm5.1im .)  (Contributed by Wolf Lammen, 3-Jun-2012.) $)
-    wl-2thd $p |- ( ph -> ( ps <-> ch ) ) $=
-      ( wb pm5.1im sylc ) ABCBCFDEBCGH $.
-      $( [29-Jan-2013] $) $( [3-Jun-2012] $)
-  $}
-
-  $( Theorem *5.501 of [WhiteheadRussell] p. 125.  (Shortening based on
-     ~ wl-pm5.1im .)  (Contributed by Wolf Lammen, 3-Jan-2005.) $)
-  wl-pm5.501 $p |- ( ph -> ( ps <-> ( ph <-> ps ) ) ) $=
-    ( wb wl-pm5.1im bi1 com12 impbid ) ABABCZABDHABABEFG $.
-    $( [13-May-2013] $) $( [3-Jan-2005] $)
-
-  $( Two propositions are equivalent if they are both false.  Closed form of
-     ~ 2false .  Equivalent to a ~ bi2 like version of the xor-connective.
-     (Contributed by Wolf Lammen, 13-May-2013.) $)
-  wl-pm5.21im $p |- ( -. ph -> ( -. ps -> ( ph <-> ps ) ) ) $=
-    ( pm5.21im ) ABC $.
-    $( [13-May-2013] $)
-
-  $( Distribution of implication over biconditional.  Theorem *5.74 of
-     [WhiteheadRussell] p. 126.  (Contributed by Wolf Lammen, 1-Aug-1994.)
-     (The proof was shortened by Wolf Lammen, 11-Apr-2013.)  (Shortening based
-     on ~ wl-impbidd .) $)
-  wl-pm5.74 $p |- ( ( ph -> ( ps <-> ch ) ) <->
-               ( ( ph -> ps ) <-> ( ph -> ch ) ) ) $=
-    ( wb wi bi1 imim3i bi2 impbid pm2.86d impbidd impbii ) ABCDZEZABEZACEZDZNOP
-    MBCABCFGMCBABCHGIQABCQABCOPFJQACBOPHJKL $.
-    $( [12-May-2013] $) $( [1-Aug-1994] $)
-
 
 $( (End of Wolf Lammen's mathbox.) $)
 
