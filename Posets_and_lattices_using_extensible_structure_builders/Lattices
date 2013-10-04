@@ -1,0 +1,916 @@
+$(
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+                   Lattices
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+$)
+
+  $( Extend class notation with the class of all lattices. $)
+  clat $a class Lat $.
+
+  ${
+    $d p s x y $.
+    $( Define the class of all lattices.  A lattice is a poset in which the
+       join and meet of any two elements always exists. $)
+    df-lat $a |- Lat = { p e. Poset | A. x e. ( Base ` p )
+       A. y e. ( Base ` p ) ( ( x ( join ` p ) y ) e. ( Base ` p )
+          /\ ( x ( meet ` p ) y ) e. ( Base ` p ) ) } $.
+  $}
+
+  ${
+    $d l x y B $.  $d l J $.  $d l x y K $.  $d l M $.
+    islat.b $e |- B = ( Base ` K ) $.
+    islat.j $e |- J = ( join ` K ) $.
+    islat.m $e |- M = ( meet ` K ) $.
+    $( The predicate "is a lattice." $)
+    islat $p |- ( K e. Lat <-> ( K e. Poset /\
+             A. x e. B A. y e. B ( ( x J y ) e. B /\ ( x M y ) e. B ) ) ) $=
+      ( vl cv cjn cfv co cbs wcel cmee wa wral cpo clat wceq fveq2 syl6eqr
+      raleqdv raleqbidv opreqd eleq12d anbi12d 2ralbidv bitrd df-lat elrab2 )
+      AKZBKZJKZLMZNZUPOMZPZUNUOUPQMZNZUSPZRZBUSSZAUSSZUNUODNZCPZUNUOFNZCPZRZBCS
+      ACSZJETUAUPEUBZVFVDBCSZACSVLVMVEVNAUSCVMUSEOMCUPEOUCGUDZVMVDBUSCVOUEUFVMV
+      DVKABCCVMUTVHVCVJVMURVGUSCVMUQDUNUOVMUQELMDUPELUCHUDUGVOUHVMVBVIUSCVMVAFU
+      NUOVMVAEQMFUPEQUCIUDUGVOUHUIUJUKABJULUM $.
+      $( [18-Oct-2012] $)
+  $}
+
+  ${
+    $d x y B $.  $d x y J $.  $d x y K $.  $d x y M $.  $d x y X $.  $d y Y $.
+    latlem.b $e |- B = ( Base ` K ) $.
+    latlem.j $e |- J = ( join ` K ) $.
+    latlem.m $e |- M = ( meet ` K ) $.
+    $( Lemma for lattice properties. $)
+    latlem $p |- ( ( K e. Lat /\ X e. B /\ Y e. B ) ->
+           ( ( X J Y ) e. B /\ ( X M Y ) e. B ) ) $=
+      ( vx vy clat wcel co wa cv wral cpo islat simprbi wceq opreq1 eleq1d
+      anbi12d opreq2 rcla42v syl5com 3impib ) CLMZEAMZFAMZEFBNZAMZEFDNZAMZOZUIJ
+      PZKPZBNZAMZUQURDNZAMZOZKAQJAQZUJUKOUPUICRMVDJKABCDGHISTVCUPEURBNZAMZEURDN
+      ZAMZOJKEFAAUQEUAZUTVFVBVHVIUSVEAUQEURBUBUCVIVAVGAUQEURDUBUCUDURFUAZVFUMVH
+      UOVJVEULAURFEBUEUCVJVGUNAURFEDUEUCUDUFUGUH $.
+      $( [14-Sep-2011] $)
+  $}
+
+  ${
+    $d x y K $.
+    $( A lattice is a poset. $)
+    latpos $p |- ( K e. Lat -> K e. Poset ) $=
+      ( vx vy clat wcel cpo cv cjn cfv co cbs cmee wa wral eqid islat simplbi
+      ) ADEAFEBGZCGZAHIZJAKIZERSALIZJUAEMCUANBUANBCUATAUBUAOTOUBOPQ $.
+      $( [17-Sep-2011] $)
+  $}
+
+  ${
+    latjcl.b $e |- B = ( Base ` K ) $.
+    latjcl.j $e |- J = ( join ` K ) $.
+    $( Closure of join operation in a lattice.  (Th. ~ chjcom analog.) $)
+    latjcl $p |- ( ( K e. Lat /\ X e. B /\ Y e. B ) -> ( X J Y ) e. B ) $=
+      ( clat wcel w3a co cmee cfv eqid latlem simpld ) CHIDAIEAIJDEBKAIDECLMZKA
+      IABCQDEFGQNOP $.
+      $( [14-Sep-2011] $)
+  $}
+
+  ${
+    latmcl.b $e |- B = ( Base ` K ) $.
+    latmcl.m $e |- M = ( meet ` K ) $.
+    $( Closure of meet operation in a lattice.  (Th. ~ incom analog.) $)
+    latmcl $p |- ( ( K e. Lat /\ X e. B /\ Y e. B ) -> ( X M Y ) e. B ) $=
+      ( clat wcel w3a cjn cfv co eqid latlem simprd ) BHIDAIEAIJDEBKLZMAIDECMAI
+      AQBCDEFQNGOP $.
+      $( [14-Sep-2011] $)
+  $}
+
+  ${
+    $d x y B $.  $d x y K $.
+    islati.1 $e |- K e. Poset $.
+    islati.b $e |- B = ( Base ` K ) $.
+    islati.j $e |- J = ( join ` K ) $.
+    islati.m $e |- M = ( meet ` K ) $.
+    islati.5 $e |- ( ( x e. B /\ y e. B ) -> ( x J y ) e. B ) $.
+    islati.6 $e |- ( ( x e. B /\ y e. B ) -> ( x M y ) e. B ) $.
+    $( Properties that determine a lattice. $)
+    islati $p |- K e. Lat $=
+      ( clat wcel cpo cv co wa wral islat jca rgen2a mpbir2an ) EMNEONAPZBPZDQC
+      NZUDUEFQCNZRZBCSACSABCDEFHIJTGUHABCUDCNUECNRUFUGKLUAUBUC $.
+      $( [12-Sep-2011] $)
+  $}
+
+  ${
+    latref.b $e |- B = ( Base ` K ) $.
+    latref.l $e |- L = ( le ` K ) $.
+    $( A lattice ordering is reflexive.  (Th. ~ ssid analog.) $)
+    latref $p |- ( ( K e. Lat /\ X e. B ) -> X L X ) $=
+      ( clat wcel cpo wbr latpos posref sylan ) BGHBIHDAHDDCJBKABCDEFLM $.
+      $( [8-Oct-2011] $)
+
+    $( A lattice ordering is asymetric.  (Th. ~ eqss analog.) $)
+    latasymb $p |- ( ( K e. Lat /\ X e. B /\ Y e. B )
+                -> ( ( X L Y /\ Y L X ) <-> X = Y ) ) $=
+      ( clat wcel cpo wbr wa wceq wb latpos posasymb syl3an1 ) BHIBJIDAIEAIDECK
+      EDCKLDEMNBOABCDEFGPQ $.
+      $( [22-Oct-2011] $)
+
+    $( A lattice ordering is asymetric.  (Th. ~ eqss analog.) $)
+    latasym $p |- ( ( K e. Lat /\ X e. B /\ Y e. B )
+                -> ( ( X L Y /\ Y L X ) -> X = Y ) ) $=
+      ( clat wcel w3a wbr wa wceq latasymb biimpd ) BHIDAIEAIJDECKEDCKLDEMABCDE
+      FGNO $.
+      $( [8-Oct-2011] $)
+
+    $( A lattice ordering is transitive.  (Th. ~ sstr analog.) $)
+    lattr $p |- ( ( K e. Lat /\ ( X e. B /\ Y e. B /\ Z e. B ) )
+                -> ( ( X L Y /\ Y L Z ) -> X L Z ) ) $=
+      ( clat wcel cpo w3a wbr wa wi latpos postr sylan ) BIJBKJDAJEAJFAJLDECMEF
+      CMNDFCMOBPABCDEFGHQR $.
+      $( [17-Nov-2011] $)
+  $}
+
+  ${
+    latasymd.b $e |- B = ( Base ` K ) $.
+    latasymd.l $e |- L = ( le ` K ) $.
+    latasymd.3 $e |- ( ph -> K e. Lat ) $.
+    latasymd.4 $e |- ( ph -> X e. B ) $.
+    latasymd.5 $e |- ( ph -> Y e. B ) $.
+    latasymd.6 $e |- ( ph -> X L Y ) $.
+    latasymd.7 $e |- ( ph -> Y L X ) $.
+    $( Deduce equality from lattice ordering.  (Th. ~ eqssd analog.) $)
+    latasymd $p |- ( ph -> X = Y ) $=
+      ( wbr wceq clat wcel wa wb latasymb syl111anc mpbi2and ) AEFDNZFEDNZEFOZA
+      CPQEBQFBQUCUDRUESIJKBCDEFGHTUALMUB $.
+      $( [18-Nov-2011] $)
+  $}
+
+  ${
+    lattrd.b $e |- B = ( Base ` K ) $.
+    lattrd.l $e |- L = ( le ` K ) $.
+    lattrd.1 $e |- ( ph -> K e. Lat ) $.
+    lattrd.2 $e |- ( ph -> X e. B ) $.
+    lattrd.3 $e |- ( ph -> Y e. B ) $.
+    lattrd.4 $e |- ( ph -> Z e. B ) $.
+    lattrd.5 $e |- ( ph -> X L Y ) $.
+    lattrd.6 $e |- ( ph -> Y L Z ) $.
+    $( A lattice ordering is transitive.  Deduction version of ~ lattr . $)
+    lattrd $p |- ( ph -> X L Z ) $=
+      ( wbr clat wcel wa wi lattr syl13anc mp2and ) AEFDPZFGDPZEGDPZNOACQREBRFB
+      RGBRUDUESUFTJKLMBCDEFGHIUAUBUC $.
+      $( [3-Sep-2012] $)
+  $}
+
+  ${
+    latjcom.b $e |- B = ( Base ` K ) $.
+    latjcom.j $e |- J = ( join ` K ) $.
+    $( The join of a lattice commutes.  (Th. ~ chjcom analog.) $)
+    latjcom $p |- ( ( K e. Lat /\ X e. B /\ Y e. B ) -> ( X J Y ) =
+              ( Y J X ) ) $=
+      ( clat wcel w3a co wa wceq latjcl 3com23 jca cpo latpos joincom syl3anl1
+      mpdan ) CHIZDAIZEAIZJZDEBKZAIZEDBKZAIZLZUFUHMZUEUGUIABCDEFGNUBUDUCUIABCED
+      FGNOPUBCQIUCUDUJUKCRABCDEFGSTUA $.
+      $( [16-Sep-2011] $)
+  $}
+
+  ${
+    latlej.b $e |- B = ( Base ` K ) $.
+    latlej.l $e |- L = ( le ` K ) $.
+    latlej.j $e |- J = ( join ` K ) $.
+    $( A join's first argument is less than or equal to the join.  (Th. ~ chub1
+       analog.) $)
+    latlej1 $p |- ( ( K e. Lat /\ X e. B /\ Y e. B )
+            -> X L ( X J Y ) ) $=
+      ( clat wcel w3a co wbr latjcl lejoin1 mpdan ) CJKEAKFAKLEFBMZAKERDNABCEFG
+      IOJABCDEFGHIPQ $.
+      $( [17-Sep-2011] $)
+
+    $( A join's second argument is less than or equal to the join.  (Th.
+       ~ chub2 analog.) $)
+    latlej2 $p |- ( ( K e. Lat /\ X e. B /\ Y e. B )
+            -> Y L ( X J Y ) ) $=
+      ( clat wcel w3a co wbr latjcl lejoin2 mpdan ) CJKEAKFAKLEFBMZAKFRDNABCEFG
+      IOJABCDEFGHIPQ $.
+      $( [17-Sep-2011] $)
+
+    $( A join is less than or equal to a third value iff each argument is less
+       than or equal to the third value.  (Th. ~ chlub analog.) $)
+    latjle12 $p |- ( ( K e. Lat /\ ( X e. B /\ Y e. B /\ Z e. B ) )
+                      -> ( ( X L Z /\ Y L Z ) <-> ( X J Y ) L Z ) ) $=
+      ( clat wcel w3a wa co wbr wb latjcl 3adant3r3 cpo latpos joinle syl3an1
+      3expa mpdan ) CKLZEALZFALZGALZMZNEFBOZALZEGDPFGDPNUKGDPQZUFUGUHULUIABCEFH
+      JRSUFUJULUMUFCTLUJULUMCUAABCDEFGHIJUBUCUDUE $.
+      $( [17-Sep-2011] $)
+
+    $( Less-than-or-equal-to in terms of join.  (Th. ~ chlejb1 analog.) $)
+    latleeqj1 $p |- ( ( K e. Lat /\ X e. B /\ Y e. B )
+            -> ( X L Y <-> ( X J Y ) = Y ) ) $=
+      ( clat wcel w3a wbr co wa wceq latref 3adant2 biantrud wb simp1 simp2
+      simp3 latjle12 syl13anc bitrd latlej2 cpo latpos 3ad2ant1 latjcl
+      posasymb syl111anc 3bitrd ) CJKZEAKZFAKZLZEFDMZEFBNZFDMZVAFUTDMZOZUTFPZUR
+      USUSFFDMZOZVAURVEUSUOUQVEUPACDFGHQRSURUOUPUQUQVFVATUOUPUQUAUOUPUQUBUOUPUQ
+      UCZVGABCDEFFGHIUDUEUFURVBVAABCDEFGHIUGSURCUHKZUTAKUQVCVDTUOUPVHUQCUIUJABC
+      EFGIUKVGACDUTFGHULUMUN $.
+      $( [21-Oct-2011] $)
+
+    $( Less-than-or-equal-to in terms of join.  (Th. ~ chlejb2 analog.) $)
+    latleeqj2 $p |- ( ( K e. Lat /\ X e. B /\ Y e. B )
+            -> ( X L Y <-> ( Y J X ) = Y ) ) $=
+      ( clat wcel w3a wbr co wceq latleeqj1 latjcom eqeq1d bitrd ) CJKEAKFAKLZE
+      FDMEFBNZFOFEBNZFOABCDEFGHIPTUAUBFABCEFGIQRS $.
+      $( [14-Nov-2011] $)
+
+    $( Add join to both sides of a lattice ordering.  (Th. ~ chlej1i
+       analog.) $)
+    latjlej1 $p |- ( ( K e. Lat /\ ( X e. B /\ Y e. B /\ Z e. B ) )
+       -> ( X L Y -> ( X J Z ) L ( Y J Z ) ) ) $=
+      ( clat wcel w3a wa wbr co latlej1 3adant3r1 wi simpl simpr1 simpr2
+      latjcl lattr syl13anc mpan2d latlej2 jctird wb simpr3 3jca latjle12
+      syldan sylibd ) CKLZEALZFALZGALZMZNZEFDOZEFGBPZDOZGVBDOZNZEGBPVBDOZUTVAVC
+      VDUTVAFVBDOZVCUOUQURVGUPABCDFGHIJQRUTUOUPUQVBALZVAVGNVCSUOUSTUOUPUQURUAZU
+      OUPUQURUBUOUQURVHUPABCFGHJUCRZACDEFVBHIUDUEUFUOUQURVDUPABCDFGHIJUGRUHUOUS
+      UPURVHMVEVFUIUTUPURVHVIUOUPUQURUJVJUKABCDEGVBHIJULUMUN $.
+      $( [8-Nov-2011] $)
+
+    $( Add join to both sides of a lattice ordering.  (Th. ~ chlej2i
+       analog.) $)
+    latjlej2 $p |- ( ( K e. Lat /\ ( X e. B /\ Y e. B /\ Z e. B ) )
+       -> ( X L Y -> ( Z J X ) L ( Z J Y ) ) ) $=
+      ( clat wcel w3a wa wbr co latjlej1 wceq latjcom 3adant3r2 3adant3r1
+      breq12d sylibd ) CKLZEALZFALZGALZMNZEFDOEGBPZFGBPZDOGEBPZGFBPZDOABCDEFGHI
+      JQUHUIUKUJULDUDUEUGUIUKRUFABCEGHJSTUDUFUGUJULRUEABCFGHJSUAUBUC $.
+      $( [8-Nov-2011] $)
+
+    $( Add join to both sides of a lattice ordering.  (Th. ~ chlej12i
+       analog.) $)
+    latjlej12 $p |- ( ( K e. Lat /\ ( X e. B /\ Y e. B )
+          /\ ( Z e. B /\ W e. B ) ) -> ( ( X L Y /\ Z L W )
+             -> ( X J Z ) L ( Y J W ) ) ) $=
+      ( clat wcel wa w3a wbr co wi simp1 simp2l simp2r simp3l latjlej1
+      syl13anc simp3r latjlej2 latjcl syl111anc lattr syl2and ) CLMZFAMZGAMZNZH
+      AMZEAMZNZOZFGDPZFHBQZGHBQZDPZHEDPZVAGEBQZDPZUTVDDPZURUKULUMUOUSVBRUKUNUQS
+      ZUKULUMUQTZUKULUMUQUAZUKUNUOUPUBZABCDFGHIJKUCUDURUKUOUPUMVCVERVGVJUKUNUOU
+      PUEZVIABCDHEGIJKUFUDURUKUTAMZVAAMZVDAMZVBVENVFRVGURUKULUOVLVGVHVJABCFHIKU
+      GUHURUKUMUOVMVGVIVJABCGHIKUGUHURUKUMUPVNVGVIVKABCGEIKUGUHACDUTVAVDIJUIUDU
+      J $.
+      $( [8-Nov-2011] $)
+
+    $( An idiom to express that a lattice element differs from two others. $)
+    latnlej $p |- ( ( K e. Lat /\ ( X e. B /\ Y e. B /\ Z e. B )
+         /\ -. X L ( Y J Z ) ) -> ( X =/= Y /\ X =/= Z ) ) $=
+      ( clat wcel w3a co wbr wn wne wa wceq latlej1 3adant3r1 breq1 syl5ibrcom
+      necon3bd latlej2 jcad 3impia ) CKLZEALZFALZGALZMZEFGBNZDOZPZEFQZEGQZRUHUL
+      RZUOUPUQURUNEFURUNEFSFUMDOZUHUJUKUSUIABCDFGHIJTUAEFUMDUBUCUDURUNEGURUNEGS
+      GUMDOZUHUJUKUTUIABCDFGHIJUEUAEGUMDUBUCUDUFUG $.
+      $( [28-May-2012] $)
+
+    $( An idiom to express that a lattice element differs from two others. $)
+    latnlej1l $p |- ( ( K e. Lat /\ ( X e. B /\ Y e. B /\ Z e. B )
+         /\ -. X L ( Y J Z ) ) -> X =/= Y ) $=
+      ( clat wcel w3a co wbr wn wne latnlej simpld ) CKLEALFALGALMEFGBNDOPMEFQE
+      GQABCDEFGHIJRS $.
+      $( [19-Jul-2012] $)
+
+    $( An idiom to express that a lattice element differs from two others. $)
+    latnlej1r $p |- ( ( K e. Lat /\ ( X e. B /\ Y e. B /\ Z e. B )
+         /\ -. X L ( Y J Z ) ) -> X =/= Z ) $=
+      ( clat wcel w3a co wbr wn wne latnlej simprd ) CKLEALFALGALMEFGBNDOPMEFQE
+      GQABCDEFGHIJRS $.
+      $( [19-Jul-2012] $)
+
+    $( An idiom to express that a lattice element differs from two others. $)
+    latnlej2 $p |- ( ( K e. Lat /\ ( X e. B /\ Y e. B /\ Z e. B )
+         /\ -. X L ( Y J Z ) ) -> ( -. X L Y /\ -. X L Z ) ) $=
+      ( clat wcel w3a co wbr wn wa latlej1 3adant3r1 wi simpl simpr1 simpr2
+      latjcl lattr syl13anc mpan2d con3d latlej2 simpr3 jcad 3impia ) CKLZEALZF
+      ALZGALZMZEFGBNZDOZPZEFDOZPZEGDOZPZQUMUQQZUTVBVDVEVAUSVEVAFURDOZUSUMUOUPVF
+      UNABCDFGHIJRSVEUMUNUOURALZVAVFQUSTUMUQUAZUMUNUOUPUBZUMUNUOUPUCUMUOUPVGUNA
+      BCFGHJUDSZACDEFURHIUEUFUGUHVEVCUSVEVCGURDOZUSUMUOUPVKUNABCDFGHIJUISVEUMUN
+      UPVGVCVKQUSTVHVIUMUNUOUPUJVJACDEGURHIUEUFUGUHUKUL $.
+      $( [10-Jul-2012] $)
+
+    $( An idiom to express that a lattice element differs from two others. $)
+    latnlej2l $p |- ( ( K e. Lat /\ ( X e. B /\ Y e. B /\ Z e. B )
+         /\ -. X L ( Y J Z ) ) -> -. X L Y ) $=
+      ( clat wcel w3a co wbr wn latnlej2 simpld ) CKLEALFALGALMEFGBNDOPMEFDOPEG
+      DOPABCDEFGHIJQR $.
+      $( [19-Jul-2012] $)
+
+    $( An idiom to express that a lattice element differs from two others. $)
+    latnlej2r $p |- ( ( K e. Lat /\ ( X e. B /\ Y e. B /\ Z e. B )
+         /\ -. X L ( Y J Z ) ) -> -. X L Z ) $=
+      ( clat wcel w3a co wbr wn latnlej2 simprd ) CKLEALFALGALMEFGBNDOPMEFDOPEG
+      DOPABCDEFGHIJQR $.
+      $( [19-Jul-2012] $)
+  $}
+
+  ${
+    latidm.b $e |- B = ( Base ` K ) $.
+    latidm.j $e |- J = ( join ` K ) $.
+    $( Lattice join is idempotent.  (Th. ~ chjidm analog.) $)
+    latjidm $p |- ( ( K e. Lat /\ X e. B ) -> ( X J X ) = X ) $=
+      ( clat wcel wa cple cfv co eqid simpl latjcl 3anidm23 simpr wbr wb
+      latjle12 syl13anc latref mpbi2and latlej1 latasymd ) CGHZDAHZIZACCJKZDDBL
+      ZDEUIMZUFUGNZUFUGUJAHABCDDEFOPUFUGQZUHDDUIRZUNUJDUIRZUHUFUGUGUGUNUNIUOSUL
+      UMUMUMABCUIDDDEUKFTUAACUIDEUKUBZUPUCUFUGDUJUIRABCUIDDEUKFUDPUE $.
+      $( [8-Oct-2011] $)
+  $}
+
+  ${
+    latmcom.b $e |- B = ( Base ` K ) $.
+    latmcom.m $e |- M = ( meet ` K ) $.
+    $( The join of a lattice commutes.  (Th. ~ incom analog.) $)
+    latmcom $p |- ( ( K e. Lat /\ X e. B /\ Y e. B ) -> ( X M Y ) =
+              ( Y M X ) ) $=
+      ( clat wcel w3a co wa wceq latmcl 3com23 jca cpo latpos meetcom syl3anl1
+      mpdan ) BHIZDAIZEAIZJZDECKZAIZEDCKZAIZLZUFUHMZUEUGUIABCDEFGNUBUDUCUIABCED
+      FGNOPUBBQIUCUDUJUKBRABCDEFGSTUA $.
+      $( [6-Nov-2011] $)
+  $}
+
+  ${
+    latmle.b $e |- B = ( Base ` K ) $.
+    latmle.l $e |- L = ( le ` K ) $.
+    latmle.m $e |- M = ( meet ` K ) $.
+    $( A meet is less than or equal to its first argument.  (Th. ~ inss1
+       analog.) $)
+    latmle1 $p |- ( ( K e. Lat /\ X e. B /\ Y e. B )
+            -> ( X M Y ) L X ) $=
+      ( clat wcel w3a co wbr latmcl lemeet1 mpdan ) BJKEAKFAKLEFDMZAKRECNABDEFG
+      IOJABCDEFGHIPQ $.
+      $( [21-Oct-2011] $)
+
+    $( A meet is less than or equal to its second argument.  (Th. ~ inss2
+       analog.) $)
+    latmle2 $p |- ( ( K e. Lat /\ X e. B /\ Y e. B )
+            -> ( X M Y ) L Y ) $=
+      ( clat wcel w3a co wbr latmcl lemeet2 mpdan ) BJKEAKFAKLEFDMZAKRFCNABDEFG
+      IOJABCDEFGHIPQ $.
+      $( [21-Oct-2011] $)
+
+    $( An element is less than or equal to a meet iff the element is less than
+       or equal to each argument of the meet.  (Th. ~ ssin analog.) $)
+    latlem12 $p |- ( ( K e. Lat /\ ( X e. B /\ Y e. B /\ Z e. B ) )
+                      -> ( ( X L Y /\ X L Z ) <-> X L ( Y M Z ) ) ) $=
+      ( wcel w3a clat wbr wa co wb 3anrot latmcl 3adant3r3 cpo latpos meetle
+      bicomd syl3an1 mpd3an3 sylan2b ) EAKZFAKZGAKZLBMKZUIUJUHLZEFCNEGCNOZEFGDP
+      ZCNZQZUHUIUJRUKULUNAKZUPUKUIUJUQUHABDFGHJSTUKBUAKZULUQUPBUBURULUQLUOUMABC
+      DFGEHIJUCUDUEUFUG $.
+      $( [21-Oct-2011] $)
+
+    $( Less-than-or-equal-to in terms of meet.  (Th. ~ df-ss analog.) $)
+    latleeqm1 $p |- ( ( K e. Lat /\ X e. B /\ Y e. B )
+            -> ( X L Y <-> ( X M Y ) = X ) ) $=
+      ( clat wcel w3a wbr co wa wceq latref 3adant3 biantrurd wb simp1 simp2
+      simp3 latlem12 syl13anc bitrd latmle1 cpo latpos 3ad2ant1 latmcl
+      posasymb syl111anc 3bitrd ) BJKZEAKZFAKZLZEFCMZEEFDNZCMZUTECMZVAOZUTEPZUR
+      USEECMZUSOZVAURVEUSUOUPVEUQABCEGHQRSURUOUPUPUQVFVATUOUPUQUAUOUPUQUBZVGUOU
+      PUQUCABCDEEFGHIUDUEUFURVBVAABCDEFGHIUGSURBUHKZUTAKUPVCVDTUOUPVHUQBUIUJABD
+      EFGIUKVGABCUTEGHULUMUN $.
+      $( [7-Nov-2011] $)
+
+    $( Less-than-or-equal-to in terms of meet.  (Th. ~ sseqin2 analog.) $)
+    latleeqm2 $p |- ( ( K e. Lat /\ X e. B /\ Y e. B )
+            -> ( X L Y <-> ( Y M X ) = X ) ) $=
+      ( clat wcel w3a wbr co wceq latleeqm1 latmcom eqeq1d bitrd ) BJKEAKFAKLZE
+      FCMEFDNZEOFEDNZEOABCDEFGHIPTUAUBEABDEFGIQRS $.
+      $( [7-Nov-2011] $)
+
+    $( Add meet to both sides of a lattice ordering.  (Th. ~ ssrin analog.) $)
+    latmlem1 $p |- ( ( K e. Lat /\ ( X e. B /\ Y e. B /\ Z e. B ) )
+       -> ( X L Y -> ( X M Z ) L ( Y M Z ) ) ) $=
+      ( clat wcel w3a wa wbr co latmle1 3adant3r2 wi simpl latmcl simpr1
+      simpr2 lattr syl13anc mpand latmle2 jctird wb simpr3 3jca latlem12
+      syldan sylibd ) BKLZEALZFALZGALZMZNZEFCOZEGDPZFCOZVBGCOZNZVBFGDPCOZUTVAVC
+      VDUTVBECOZVAVCUOUPURVGUQABCDEGHIJQRUTUOVBALZUPUQVGVANVCSUOUSTUOUPURVHUQAB
+      DEGHJUARZUOUPUQURUBUOUPUQURUCZABCVBEFHIUDUEUFUOUPURVDUQABCDEGHIJUGRUHUOUS
+      VHUQURMVEVFUIUTVHUQURVIVJUOUPUQURUJUKABCDVBFGHIJULUMUN $.
+      $( [10-Nov-2011] $)
+
+    $( Add meet to both sides of a lattice ordering.  (Th. ~ sslin analog.) $)
+    latmlem2 $p |- ( ( K e. Lat /\ ( X e. B /\ Y e. B /\ Z e. B ) )
+       -> ( X L Y -> ( Z M X ) L ( Z M Y ) ) ) $=
+      ( clat wcel w3a wa wbr co latmlem1 wceq latmcom 3adant3r2 3adant3r1
+      breq12d sylibd ) BKLZEALZFALZGALZMNZEFCOEGDPZFGDPZCOGEDPZGFDPZCOABCDEFGHI
+      JQUHUIUKUJULCUDUEUGUIUKRUFABDEGHJSTUDUFUGUJULRUEABDFGHJSUAUBUC $.
+      $( [10-Nov-2011] $)
+
+    $( Add join to both sides of a lattice ordering.  (Th. ~ ss2in analog.) $)
+    latmlem12 $p |- ( ( K e. Lat /\ ( X e. B /\ Y e. B )
+          /\ ( Z e. B /\ W e. B ) ) -> ( ( X L Y /\ Z L W )
+             -> ( X M Z ) L ( Y M W ) ) ) $=
+      ( clat wcel wa w3a wbr co wi simp1 simp2l simp2r simp3l latmlem1
+      syl13anc simp3r latmlem2 latmcl syl111anc lattr syl2and ) BLMZFAMZGAMZNZH
+      AMZEAMZNZOZFGCPZFHDQZGHDQZCPZHECPZVAGEDQZCPZUTVDCPZURUKULUMUOUSVBRUKUNUQS
+      ZUKULUMUQTZUKULUMUQUAZUKUNUOUPUBZABCDFGHIJKUCUDURUKUOUPUMVCVERVGVJUKUNUOU
+      PUEZVIABCDHEGIJKUFUDURUKUTAMZVAAMZVDAMZVBVENVFRVGURUKULUOVLVGVHVJABDFHIKU
+      GUHURUKUMUOVMVGVIVJABDGHIKUGUHURUKUMUPVNVGVIVKABDGEIKUGUHABCUTVAVDIJUIUDU
+      J $.
+      $( [10-Nov-2011] $)
+  $}
+
+  ${
+    latnlemlt.b $e |- B = ( Base ` K ) $.
+    latnlemlt.l $e |- L = ( le ` K ) $.
+    latnlemlt.s $e |- S = ( lt ` K ) $.
+    latnlemlt.m $e |- M = ( meet ` K ) $.
+    $( Negation of less-than-or-equal-to expressed in terms of meet and
+       less-than.  (Th. ~ nssinpss analog.) $)
+    latnlemlt $p |- ( ( K e. Lat /\ X e. B /\ Y e. B )
+            -> ( -. X L Y <-> ( X M Y ) S X ) ) $=
+      ( clat wcel w3a co wne wbr wa wn latmle1 biantrurd latleeqm1 necon3bbid
+      wb simp1 latmcl simp2 pltval syl111anc 3bitr4d ) CLMZFAMZGAMZNZFGEOZFPZUO
+      FDQZUPRZFGDQZSUOFBQZUNUQUPACDEFGHIKTUAUNUSUOFACDEFGHIKUBUCUNUKUOAMULUTURU
+      DUKULUMUEACEFGHKUFUKULUMUGLAABCDUOFIJUHUIUJ $.
+      $( [5-Feb-2012] $)
+  $}
+
+  ${
+    latnle.b $e |- B = ( Base ` K ) $.
+    latnle.l $e |- L = ( le ` K ) $.
+    latnle.s $e |- S = ( lt ` K ) $.
+    latnle.j $e |- J = ( join ` K ) $.
+    $( Equivalent expressions for "not less than" in a lattice.  (Th. ~ chnle
+       analog.) $)
+    latnle $p |- ( ( K e. Lat /\ X e. B /\ Y e. B )
+       -> ( -. Y L X <-> X S ( X J Y ) ) ) $=
+      ( clat wcel w3a co wne wbr wa wn latlej1 biantrurd wceq wb latleeqj1
+      3com23 eqcom syl6bb latjcom eqeq2d bitr4d necon3bbid latjcl pltval
+      syld3an3 3bitr4d ) DLMZFAMZGAMZNZFFGCOZPZFUTEQZVARZGFEQZSFUTBQZUSVBVAACDE
+      FGHIKTUAUSVDFUTUSVDFGFCOZUBZFUTUBUSVDVFFUBZVGUPURUQVDVHUCACDEGFHIKUDUEVFF
+      UFUGUSUTVFFACDFGHKUHUIUJUKUPUQURUTAMVEVCUCACDFGHKULLAABDEFUTIJUMUNUO $.
+      $( [16-Nov-2011] $)
+  $}
+
+  ${
+    latmidm.b $e |- B = ( Base ` K ) $.
+    latmidm.m $e |- M = ( meet ` K ) $.
+    $( Lattice join is idempotent.  (Th. ~ inidm analog.) $)
+    latmidm $p |- ( ( K e. Lat /\ X e. B ) -> ( X M X ) = X ) $=
+      ( clat wcel wa cple cfv co eqid simpl latmcl 3anidm23 simpr wbr latmle1
+      wb latlem12 syl13anc latref mpbi2and latasymd ) BGHZDAHZIZABBJKZDDCLZDEUI
+      MZUFUGNZUFUGUJAHABCDDEFOPUFUGQZUFUGUJDUIRABUICDDEUKFSPUHDDUIRZUNDUJUIRZUH
+      UFUGUGUGUNUNIUOTULUMUMUMABUICDDDEUKFUAUBABUIDEUKUCZUPUDUE $.
+      $( [8-Nov-2011] $)
+  $}
+
+  ${
+    latabs1.b $e |- B = ( Base ` K ) $.
+    latabs1.j $e |- J = ( join ` K ) $.
+    latabs1.m $e |- M = ( meet ` K ) $.
+    $( Lattice absorption law.  From definition of lattice in [Kalmbach]
+       p. 14.  (Th. ~ chabs1 analog.) $)
+    latabs1 $p |- ( ( K e. Lat /\ X e. B /\ Y e. B )
+              -> ( X J ( X M Y ) ) = X ) $=
+      ( clat wcel w3a co cple cfv wbr wceq eqid latmle1 wb latmcl latleeqj2
+      3com23 syld3an3 mpbid ) CJKZEAKZFAKZLEFDMZECNOZPZEUIBMEQZACUJDEFGUJRZISUF
+      UGUHUIAKZUKULTZACDEFGIUAUFUNUGUOABCUJUIEGUMHUBUCUDUE $.
+      $( [8-Nov-2011] $)
+
+    $( Lattice absorption law.  From definition of lattice in [Kalmbach]
+       p. 14.  (Th. ~ chabs2 analog.) $)
+    latabs2 $p |- ( ( K e. Lat /\ X e. B /\ Y e. B )
+              -> ( X M ( X J Y ) ) = X ) $=
+      ( clat wcel w3a co cple cfv wbr wceq eqid latlej1 wb latjcl latleeqm1
+      syld3an3 mpbid ) CJKZEAKZFAKZLEEFBMZCNOZPZEUHDMEQZABCUIEFGUIRZHSUEUFUGUHA
+      KUJUKTABCEFGHUAACUIDEUHGULIUBUCUD $.
+      $( [8-Nov-2011] $)
+  $}
+
+  ${
+    latledi.b $e |- B = ( Base ` K ) $.
+    latledi.l $e |- L = ( le ` K ) $.
+    latledi.j $e |- J = ( join ` K ) $.
+    latledi.m $e |- M = ( meet ` K ) $.
+    $( An ortholattice is distributive in one ordering direction.  (Th. ~ ledi
+       analog.) $)
+    latledi $p |- ( ( K e. Lat /\ ( X e. B /\ Y e. B /\ Z e. B ) ) ->
+                   ( ( X M Y ) J ( X M Z ) ) L ( X M ( Y J Z ) ) ) $=
+      ( clat wcel w3a wa co wbr wb simpl latmcl 3adant3r3 3adant3r2 latjcl
+      syl111anc simpr1 3adant3r1 latlem12 syl13anc 3jca latjle12 syldan
+      latmle1 mpbi2and latmle2 wi simpr2 simpr3 latjlej12 syl122anc mp2and ) CM
+      NZFANZGANZHANZOZPZFGEQZFHEQZBQZFDRZVJGHBQZDRZVJFVLEQDRZVGVBVJANZVCVLANZVK
+      VMPVNSVBVFTZVGVBVHANZVIANZVOVQVBVCVDVRVEACEFGILUAUBZVBVCVEVSVDACEFHILUAUC
+      ZABCVHVIIKUDUEVBVCVDVEUFZVBVDVEVPVCABCGHIKUDUGACDEVJFVLIJLUHUIVGVHFDRZVIF
+      DRZVKVBVFVRVSVCOWCWDPVKSVGVRVSVCVTWAWBUJABCDVHVIFIJKUKULVBVCVDWCVEACDEFGI
+      JLUMUBVBVCVEWDVDACDEFHIJLUMUCUNVGVHGDRZVIHDRZVMVBVCVDWEVEACDEFGIJLUOUBVBV
+      CVEWFVDACDEFHIJLUOUCVGVBVRVDVSVEWEWFPVMUPVQVTVBVCVDVEUQWAVBVCVDVEURABCDHV
+      HGVIIJKUSUTVAUN $.
+      $( [7-Nov-2011] $)
+
+    $( Ordering of a meet and join with a common variable. $)
+    latmlej11 $p |- ( ( K e. Lat /\ ( X e. B /\ Y e. B /\ Z e. B ) ) ->
+      ( X M Y ) L ( X J Z ) ) $=
+      ( clat wcel w3a wa co simpl latmcl 3adant3r3 simpr1 latjcl 3adant3r2 wbr
+      latmle1 latlej1 lattrd ) CMNZFANZGANZHANZOZPACDFGEQZFFHBQZIJUHULRUHUIUJUM
+      ANUKACEFGILSTUHUIUJUKUAUHUIUKUNANUJABCFHIKUBUCUHUIUJUMFDUDUKACDEFGIJLUETU
+      HUIUKFUNDUDUJABCDFHIJKUFUCUG $.
+      $( [4-Oct-2012] $)
+
+    $( Ordering of a meet and join with a common variable. $)
+    latmlej12 $p |- ( ( K e. Lat /\ ( X e. B /\ Y e. B /\ Z e. B ) ) ->
+      ( X M Y ) L ( Z J X ) ) $=
+      ( clat wcel w3a wa co latmlej11 wceq latjcom 3adant3r2 breqtrd ) CMNZFANZ
+      GANZHANZOPFGEQFHBQZHFBQZDABCDEFGHIJKLRUCUDUFUGUHSUEABCFHIKTUAUB $.
+      $( [4-Oct-2012] $)
+
+    $( Ordering of a meet and join with a common variable. $)
+    latmlej21 $p |- ( ( K e. Lat /\ ( X e. B /\ Y e. B /\ Z e. B ) ) ->
+      ( Y M X ) L ( X J Z ) ) $=
+      ( clat wcel w3a wa co wceq latmcom 3adant3r3 latmlej11 eqbrtrrd ) CMNZFAN
+      ZGANZHANZOPFGEQZGFEQZFHBQDUCUDUEUGUHRUFACEFGILSTABCDEFGHIJKLUAUB $.
+      $( [4-Oct-2012] $)
+
+    $( Ordering of a meet and join with a common variable. $)
+    latmlej22 $p |- ( ( K e. Lat /\ ( X e. B /\ Y e. B /\ Z e. B ) ) ->
+      ( Y M X ) L ( Z J X ) ) $=
+      ( clat wcel w3a wa co wceq latmcom 3adant3r3 latmlej12 eqbrtrrd ) CMNZFAN
+      ZGANZHANZOPFGEQZGFEQZHFBQDUCUDUEUGUHRUFACEFGILSTABCDEFGHIJKLUAUB $.
+      $( [4-Oct-2012] $)
+  $}
+
+  ${
+    lubsn.b $e |- B = ( Base ` K ) $.
+    lubsn.u $e |- U = ( lub ` K ) $.
+    $( The least upper bound of a singleton.  (Th. ~ chsupsn analog.) $)
+    lubsn $p |- ( ( K e. Lat /\ X e. B ) -> ( U ` { X } ) = X ) $=
+      ( clat wcel wa csn cfv cjn co cpr wceq eqid joinval 3anidm23 dfsn2
+      fveq2i syl6reqr latjidm eqtrd ) CGHZDAHZIZDJZBKZDDCLKZMZDUFUJDDNZBKZUHUDU
+      EUJULOGABUICDDEFUIPZQRUGUKBDSTUAAUICDEUMUBUC $.
+      $( [20-Oct-2011] $)
+  $}
+
+  ${
+    latjass.b $e |- B = ( Base ` K ) $.
+    latjass.j $e |- J = ( join ` K ) $.
+    $( Lattice join is associative.  Lemma 2.2 in [MegPav2002] p. 362.  (Th.
+       ~ chjass analog.) $)
+    latjass $p |- ( ( K e. Lat /\ ( X e. B /\ Y e. B /\ Z e. B ) ) ->
+             ( ( X J Y ) J Z ) = ( X J ( Y J Z ) ) ) $=
+      ( clat wcel w3a wa co cple cfv wbr wceq cpo wb latpos adantr simpl
+      latjcl 3adant3r3 simpr3 syl111anc simpr1 3adant3r1 eqid posasymb
+      latjle12 syl13anc simpr2 latlej1 latlej2 lattrd mpbi2and ) CIJZDAJZEAJZFA
+      JZKZLZDEBMZFBMZDEFBMZBMZCNOZPZVGVEVHPZVEVGQZVCCRJZVEAJZVGAJZVIVJLVKSURVLV
+      BCTUAVCURVDAJZVAVMURVBUBZURUSUTVOVAABCDEGHUCUDZURUSUTVAUEZABCVDFGHUCUFZVC
+      URUSVFAJZVNVPURUSUTVAUGZURUTVAVTUSABCEFGHUCUHZABCDVFGHUCUFZACVHVEVGGVHUIZ
+      UJUFVCVDVGVHPZFVGVHPZVIVCURVOVAVNWEWFLVISVPVQVRWCABCVHVDFVGGWDHUKULVCDVGV
+      HPZEVGVHPZWEVCURUSUTVNWGWHLWESVPWAURUSUTVAUMZWCABCVHDEVGGWDHUKULVCURUSVTW
+      GVPWAWBABCVHDVFGWDHUNUFVCACVHEVFVGGWDVPWIWBWCURUTVAEVFVHPUSABCVHEFGWDHUNU
+      HVCURUSVTVFVGVHPVPWAWBABCVHDVFGWDHUOUFZUPUQVCACVHFVFVGGWDVPVRWBWCURUTVAFV
+      FVHPUSABCVHEFGWDHUOUHWJUPUQVCDVEVHPZVFVEVHPZVJVCURUSVTVMWKWLLVJSVPWAWBVSA
+      BCVHDVFVEGWDHUKULVCACVHDVDVEGWDVPWAVQVSURUSUTDVDVHPVAABCVHDEGWDHUNUDVCURV
+      OVAVDVEVHPVPVQVRABCVHVDFGWDHUNUFZUPVCEVEVHPZFVEVHPZWLVCURUTVAVMWNWOLWLSVP
+      WIVRVSABCVHEFVEGWDHUKULVCACVHEVDVEGWDVPWIVQVSURUSUTEVDVHPVAABCVHDEGWDHUOU
+      DWMUPVCURVOVAWOVPVQVRABCVHVDFGWDHUOUFUQUQUQ $.
+      $( [17-Sep-2011] $)
+
+    $( Swap 1st and 2nd members of lattice join.  (Th. ~ chj12 analog.) $)
+    latj12 $p |- ( ( K e. Lat /\ ( X e. B /\ Y e. B /\ Z e. B ) ) ->
+             ( X J ( Y J Z ) ) = ( Y J ( X J Z ) ) ) $=
+      ( clat wcel w3a wa co wceq latjcom 3adant3r3 opreq1d latjass simpl
+      simpr2 simpr1 simpr3 syl13anc 3eqtr3d ) CIJZDAJZEAJZFAJZKZLZDEBMZFBMEDBMZ
+      FBMZDEFBMBMEDFBMBMZUJUKULFBUEUFUGUKULNUHABCDEGHOPQABCDEFGHRUJUEUGUFUHUMUN
+      NUEUISUEUFUGUHTUEUFUGUHUAUEUFUGUHUBABCEDFGHRUCUD $.
+      $( [4-Jun-2012] $)
+
+    $( Swap 2nd and 3rd members of lattice join.  Lemma 2.2 in [MegPav2002]
+       p. 362. $)
+    latj32 $p |- ( ( K e. Lat /\ ( X e. B /\ Y e. B /\ Z e. B ) ) ->
+             ( ( X J Y ) J Z ) = ( ( X J Z ) J Y ) ) $=
+      ( clat wcel w3a wa co wceq latjcom 3adant3r1 opreq2d latjass simpr1
+      simpr3 simpr2 3jca syldan 3eqtr4d ) CIJZDAJZEAJZFAJZKZLZDEFBMZBMDFEBMZBMZ
+      DEBMFBMDFBMEBMZUJUKULDBUEUGUHUKULNUFABCEFGHOPQABCDEFGHRUEUIUFUHUGKUNUMNUJ
+      UFUHUGUEUFUGUHSUEUFUGUHTUEUFUGUHUAUBABCDFEGHRUCUD $.
+      $( [2-Dec-2011] $)
+
+    $( Swap 1sd and 3rd members of lattice join. $)
+    latj13 $p |- ( ( K e. Lat /\ ( X e. B /\ Y e. B /\ Z e. B ) ) ->
+             ( X J ( Y J Z ) ) = ( Z J ( Y J X ) ) ) $=
+      ( clat wcel w3a wa co wceq simpl simpr2 simpr3 simpr1 latj32 syl13anc
+      latjcl 3adant3r1 latjcom syl111anc 3eqtr4d ) CIJZDAJZEAJZFAJZKZLZEFBMZDBM
+      ZEDBMZFBMZDULBMZFUNBMZUKUFUHUIUGUMUONUFUJOZUFUGUHUIPZUFUGUHUIQZUFUGUHUIRZ
+      ABCEFDGHSTUKUFUGULAJZUPUMNURVAUFUHUIVBUGABCEFGHUAUBABCDULGHUCUDUKUFUIUNAJ
+      ZUQUONURUTUKUFUHUGVCURUSVAABCEDGHUAUDABCFUNGHUCUDUE $.
+      $( [4-Jun-2012] $)
+
+    $( Swap 2nd and 3rd members of lattice join.  Lemma 2.2 in [MegPav2002]
+       p. 362. $)
+    latj31 $p |- ( ( K e. Lat /\ ( X e. B /\ Y e. B /\ Z e. B ) ) ->
+             ( ( X J Y ) J Z ) = ( ( Z J Y ) J X ) ) $=
+      ( clat wcel w3a wa co wceq simpl simpr3 simpr1 simpr2 latj12 syl13anc
+      latjcl 3adant3r3 latjcom syl111anc 3eqtr4d ) CIJZDAJZEAJZFAJZKZLZFDEBMZBM
+      ZDFEBMZBMZULFBMZUNDBMZUKUFUIUGUHUMUONUFUJOZUFUGUHUIPZUFUGUHUIQZUFUGUHUIRZ
+      ABCFDEGHSTUKUFULAJZUIUPUMNURUFUGUHVBUIABCDEGHUAUBUSABCULFGHUCUDUKUFUNAJZU
+      GUQUONURUKUFUIUHVCURUSVAABCFEGHUAUDUTABCUNDGHUCUDUE $.
+      $( [23-Jun-2012] $)
+
+    $( Rotate lattice join of 3 classes. $)
+    latjrot $p |- ( ( K e. Lat /\ ( X e. B /\ Y e. B /\ Z e. B ) ) ->
+             ( ( X J Y ) J Z ) = ( ( Z J X ) J Y ) ) $=
+      ( clat wcel w3a wa co latj31 wceq simpl simpr3 simpr2 simpr1 latj32
+      syl13anc eqtrd ) CIJZDAJZEAJZFAJZKZLZDEBMFBMFEBMDBMZFDBMEBMZABCDEFGHNUHUC
+      UFUEUDUIUJOUCUGPUCUDUEUFQUCUDUEUFRUCUDUEUFSABCFEDGHTUAUB $.
+      $( [23-Jul-2012] $)
+
+    $( Rearrangement of lattice join of 4 classes.  (Th. ~ chj4 analog.) $)
+    latj4 $p |- ( ( K e. Lat /\ ( X e. B /\ Y e. B )
+               /\ ( Z e. B /\ W e. B ) )
+        -> ( ( X J Y ) J ( Z J W ) ) = ( ( X J Z ) J ( Y J W ) ) ) $=
+      ( clat wcel wa w3a co wceq simp1 simp2r simp3l simp3r latj12 syl13anc
+      opreq2d simp2l latjcl syl111anc latjass 3eqtr4d ) CJKZEAKZFAKZLZGAKZDAKZL
+      ZMZEFGDBNZBNZBNZEGFDBNZBNZBNZEFBNUPBNZEGBNUSBNZUOUQUTEBUOUHUJULUMUQUTOUHU
+      KUNPZUHUIUJUNQZUHUKULUMRZUHUKULUMSZABCFGDHITUAUBUOUHUIUJUPAKZVBUROVDUHUIU
+      JUNUCZVEUOUHULUMVHVDVFVGABCGDHIUDUEABCEFUPHIUFUAUOUHUIULUSAKZVCVAOVDVIVFU
+      OUHUJUMVJVDVEVGABCFDHIUDUEABCEGUSHIUFUAUG $.
+      $( [14-Jun-2012] $)
+
+    $( Rotate lattice join of 4 classes. $)
+    latj4rot $p |- ( ( K e. Lat /\ ( X e. B /\ Y e. B )
+               /\ ( Z e. B /\ W e. B ) )
+        -> ( ( X J Y ) J ( Z J W ) ) = ( ( W J X ) J ( Y J Z ) ) ) $=
+      ( clat wcel wa w3a co wceq simp1 simp3l simp3r latjcom syl111anc opreq2d
+      jca latj4 syld3an3 simp2l opreq1d 3eqtrd ) CJKZEAKZFAKZLZGAKZDAKZLZMZEFBN
+      ZGDBNZBNUPDGBNZBNZEDBNZFGBNZBNZDEBNZVABNUOUQURUPBUOUHULUMUQUROUHUKUNPZUHU
+      KULUMQZUHUKULUMRZABCGDHISTUAUHUKUNUMULLUSVBOUOUMULVFVEUBABCGEFDHIUCUDUOUT
+      VCVABUOUHUIUMUTVCOVDUHUIUJUNUEVFABCEDHISTUFUG $.
+      $( [11-Jul-2012] $)
+
+    $( Lattice join distributes over itself. $)
+    latjjdi $p |- ( ( K e. Lat /\ ( X e. B /\ Y e. B /\ Z e. B ) ) ->
+             ( X J ( Y J Z ) ) = ( ( X J Y ) J ( X J Z ) ) ) $=
+      ( clat wcel w3a wa co wceq simpr1 latjidm syldan opreq1d simpl simpr2
+      simpr3 latj4 syl122anc eqtr3d ) CIJZDAJZEAJZFAJZKZLZDDBMZEFBMZBMZDULBMDEB
+      MDFBMBMZUJUKDULBUEUIUFUKDNUEUFUGUHOZABCDGHPQRUJUEUFUFUGUHUMUNNUEUISUOUOUE
+      UFUGUHTUEUFUGUHUAABCFDDEGHUBUCUD $.
+      $( [30-Jul-2012] $)
+
+    $( Lattice join distributes over itself. $)
+    latjjdir $p |- ( ( K e. Lat /\ ( X e. B /\ Y e. B /\ Z e. B ) ) ->
+             ( ( X J Y ) J Z ) = ( ( X J Z ) J ( Y J Z ) ) ) $=
+      ( clat wcel w3a wa co wceq latjidm 3ad2antr3 opreq2d simpl simpr1 simpr2
+      simpr3 latj4 syl122anc eqtr3d ) CIJZDAJZEAJZFAJZKZLZDEBMZFFBMZBMZUKFBMDFB
+      MEFBMBMZUJULFUKBUEUFUHULFNUGABCFGHOPQUJUEUFUGUHUHUMUNNUEUIRUEUFUGUHSUEUFU
+      GUHTUEUFUGUHUAZUOABCFDEFGHUBUCUD $.
+      $( [2-Aug-2012] $)
+  $}
+
+  ${
+    modle.b $e |- B = ( Base ` K ) $.
+    modle.l $e |- L = ( le ` K ) $.
+    modle.j $e |- J = ( join ` K ) $.
+    modle.m $e |- M = ( meet ` K ) $.
+    $( The weak direction of the modular law (e.g. ~ pmod1i , ~ atmod1i1 ) that
+       holds in any lattice. $)
+    mod1ile $p |- ( ( K e. Lat /\ ( X e. B /\ Y e. B /\ Z e. B ) ) ->
+        ( X L Z -> ( X J ( Y M Z ) ) L ( ( X J Y ) M Z ) ) ) $=
+      ( clat wcel w3a wa wbr co wb simpll simplr1 simplr2 simplr3 latmcl
+      syl111anc latjcl latjle12 syl13anc latlem12 latlej1 simpr mpbi2and
+      latmlej12 latmle2 ex ) CMNZFANZGANZHANZOZPZFHDQZFGHERZBRFGBRZHERZDQZVAVBP
+      ZFVEDQZVCVEDQZVFVGUPUQVCANZVEANZVHVIPVFSUPUTVBTZUQURUSUPVBUAZVGUPURUSVJVL
+      UQURUSUPVBUBZUQURUSUPVBUCZACEGHILUDUEZVGUPVDANZUSVKVLVGUPUQURVQVLVMVNABCF
+      GIKUFUEZVOACEVDHILUDUEABCDFVCVEIJKUGUHVGFVDDQZVBVHVGUPUQVQUSVSVBPVHSVLVMV
+      RVOACDEFVDHIJLUIUHVGUPUQURVSVLVMVNABCDFGIJKUJUEVAVBUKULVGVCVDDQZVCHDQZVIV
+      GUPVJVQUSVTWAPVISVLVPVRVOACDEVCVDHIJLUIUHVGUPURUSUQVTVLVNVOVMABCDEGHFIJKL
+      UMUHVGUPURUSWAVLVNVOACDEGHIJLUNUEULULUO $.
+      $( [11-May-2012] $)
+
+    $( The weak direction of the modular law (e.g. ~ pmod2i ) that holds in any
+       lattice. $)
+    mod2ile $p |- ( ( K e. Lat /\ ( X e. B /\ Y e. B /\ Z e. B ) ) ->
+        ( Z L X -> ( ( X M Y ) J Z ) L ( X M ( Y J Z ) ) ) ) $=
+      ( clat wcel w3a wa wbr co simpll simplr3 simplr2 simplr1 3jca jca simpr
+      mod1ile sylc wceq latmcom syl111anc opreq1d latmcl latjcom eqtrd opreq2d
+      latjcl 3brtr4d ex ) CMNZFANZGANZHANZOZPZHFDQZFGERZHBRZFGHBRZERZDQVDVEPZHG
+      FERZBRZHGBRZFERZVGVIDVJUSVBVAUTOZPVEVLVNDQVJUSVOUSVCVESZVJVBVAUTUTVAVBUSV
+      ETZUTVAVBUSVEUAZUTVAVBUSVEUBZUCUDVDVEUEABCDEHGFIJKLUFUGVJVGVKHBRZVLVJVFVK
+      HBVJUSUTVAVFVKUHVPVSVRACEFGILUIUJUKVJUSVKANZVBVTVLUHVPVJUSVAUTWAVPVRVSACE
+      GFILULUJVQABCVKHIKUMUJUNVJVIFVMERZVNVJVHVMFEVJUSVAVBVHVMUHVPVRVQABCGHIKUM
+      UJUOVJUSUTVMANZWBVNUHVPVSVJUSVBVAWCVPVQVRABCHGIKUPUJACEFVMILUIUJUNUQUR $.
+      $( [11-May-2012] $)
+  $}
+
+  $c CLat $.
+
+  $( Extend class notation with complete lattices. $)
+  ccla $a class CLat $.
+
+  ${
+    $d p s x y $.
+    $( Define the class of all complete lattices. $)
+    df-clat $a |- CLat = { p e. Poset | A. s ( s C_ ( Base ` p )
+      -> ( ( ( lub ` p ) ` s ) e. ( Base ` p ) /\
+           ( ( glb ` p ) ` s ) e. ( Base ` p ) ) ) } $.
+  $}
+
+  ${
+    $d l B $.  $d l G $.  $d l s K $.  $d l U $.
+    isclat.b $e |- B = ( Base ` K ) $.
+    isclat.u $e |- U = ( lub ` K ) $.
+    isclat.g $e |- G = ( glb ` K ) $.
+    $( The predicate "is an complete lattice." $)
+    isclat $p |- ( K e. CLat <-> ( K e. Poset /\
+             A. s ( s C_ B -> ( ( U ` s ) e. B /\ ( G ` s ) e. B ) ) ) ) $=
+      ( vl cv cbs cfv wss club wcel cglb wa wi wal cpo ccla wceq fveq2 syl6eqr
+      sseq2d fveq1d eleq12d anbi12d imbi12d albidv df-clat elrab2 ) EJZIJZKLZMZ
+      UMUNNLZLZUOOZUMUNPLZLZUOOZQZRZESUMAMZUMBLZAOZUMCLZAOZQZRZESIDTUAUNDUBZVDV
+      KEVLUPVEVCVJVLUOAUMVLUODKLAUNDKUCFUDZUEVLUSVGVBVIVLURVFUOAVLUMUQBVLUQDNLB
+      UNDNUCGUDUFVMUGVLVAVHUOAVLUMUTCVLUTDPLCUNDPUCHUDUFVMUGUHUIUJEIUKUL $.
+      $( [18-Oct-2012] $)
+  $}
+
+  ${
+    $d s B $.  $d s U $.  $d s G $.  $d s K $.  $d s S $.
+    clatlem.b $e |- B = ( Base ` K ) $.
+    clatlem.u $e |- U = ( lub ` K ) $.
+    clatlem.g $e |- G = ( glb ` K ) $.
+    $( Lemma for properties of a complete lattice. $)
+    clatlem $p |- ( ( K e. CLat /\ S C_ B ) ->
+           ( ( U ` S ) e. B /\ ( G ` S ) e. B ) ) $=
+      ( vs ccla wcel wss cfv wa cv wi wal cpo isclat simprbi cpw cbs cvv fvex
+      eqeltri elpw2 wceq sseq1 fveq2 eleq1d anbi12d imbi12d cla4gv sylbir
+      com23 pm2.43i syl5com imp ) EJKZBALZBCMZAKZBDMZAKZNZUSIOZALZVFCMZAKZVFDMZ
+      AKZNZPZIQZUTVEUSERKVNACDEIFGHSTUTVNVEPUTVNUTVEUTBAUAZKVNUTVEPZPBAAEUBMUCF
+      EUBUDUEUFVMVPIBVOVFBUGZVGUTVLVEVFBAUHVQVIVBVKVDVQVHVAAVFBCUIUJVQVJVCAVFBD
+      UIUJUKULUMUNUOUPUQUR $.
+      $( [14-Sep-2011] $)
+  $}
+
+  ${
+    clatlubcl.b $e |- B = ( Base ` K ) $.
+    clatlubcl.u $e |- U = ( lub ` K ) $.
+    $( LUB always exists in a complete lattice.  (Th. ~ chsupcl analog.) $)
+    clatlubcl $p |- ( ( K e. CLat /\ S C_ B ) -> ( U ` S ) e. B ) $=
+      ( ccla wcel wss wa cfv cglb eqid clatlem simpld ) DGHBAIJBCKAHBDLKZKAHABC
+      PDEFPMNO $.
+      $( [14-Sep-2011] $)
+  $}
+
+  ${
+    clatglbcl.b $e |- B = ( Base ` K ) $.
+    clatglbcl.g $e |- G = ( glb ` K ) $.
+    $( GLB always exists in a complete lattice.  (Th. ~ chintcl analog.) $)
+    clatglbcl $p |- ( ( K e. CLat /\ S C_ B ) -> ( G ` S ) e. B ) $=
+      ( ccla wcel wss wa club cfv eqid clatlem simprd ) DGHBAIJBDKLZLAHBCLAHABP
+      CDEPMFNO $.
+      $( [14-Sep-2011] $)
+  $}
+
+  ${
+    $d s K $.
+    isclati.1 $e |- K e. Poset $.
+    isclati.b $e |- B = ( Base ` K ) $.
+    isclati.u $e |- U = ( lub ` K ) $.
+    isclati.g $e |- G = ( glb ` K ) $.
+    isclati.5 $e |- ( s C_ B -> ( U ` s ) e. B ) $.
+    isclati.6 $e |- ( s C_ B -> ( G ` s ) e. B ) $.
+    $( Properties that determine a complete lattice. $)
+    isclati $p |- K e. CLat $=
+      ( ccla wcel cpo cv wss cfv wa wi wal isclat jca ax-gen mpbir2an ) DLMDNME
+      OZAPZUEBQAMZUECQAMZRSZETABCDEGHIUAFUIEUFUGUHJKUBUCUD $.
+      $( [12-Sep-2011] $)
+  $}
+
+  ${
+    $d s x y K $.
+    $( A complete lattice is a lattice. $)
+    clatl $p |- ( K e. CLat -> K e. Lat ) $=
+      ( vs vx vy cpo wcel cv cbs cfv wss club cglb wa wi wal cjn co cmee wral
+      ccla clat w3a cpr visset prss zfpair wceq sseq1 fveq2 eleq1d anbi12d
+      imbi12d cla4v imp sylan2b 3adant1 wb eqid joinval meetval 3expb 3adant2
+      mpbird 3exp r19.21advv imdistani isclat islat 3imtr4i ) AEFZBGZAHIZJZVKAK
+      IZIZVLFZVKALIZIZVLFZMZNZBOZMVJCGZDGZAPIZQZVLFZWCWDARIZQZVLFZMZDVLSCVLSZMA
+      TFAUAFVJWBWLVJWBWKCDVLVLVJWBWCVLFZWDVLFZMZWKVJWBWOUBWKWCWDUCZVNIZVLFZWPVQ
+      IZVLFZMZWBWOXAVJWOWBWPVLJZXAWCWDVLCUDDUDUEWBXBXAWAXBXANBWPCDUFVKWPUGZVMXB
+      VTXAVKWPVLUHXCVPWRVSWTXCVOWQVLVKWPVNUIUJXCVRWSVLVKWPVQUIUJUKULUMUNUOUPVJW
+      OWKXAUQZWBVJWMWNXDVJWMWNUBZWGWRWJWTXEWFWQVLEVLVNWEAWCWDVLURZVNURZWEURZUSU
+      JXEWIWSVLEVLVQAWHWCWDXFVQURZWHURZUTUJUKVAVBVCVDVEVFVLVNVQABXFXGXIVGCDVLWE
+      AWHXFXHXJVHVI $.
+      $( [18-Sep-2011] $)
+  $}
+
+  ${
+    $d z B $.  $d y z K $.  $d y z S $.  $d y z U $.
+    lublem.b $e |- B = ( Base ` K ) $.
+    lublem.l $e |- L = ( le ` K ) $.
+    lublem.u $e |- U = ( lub ` K ) $.
+    $( Lemma for least upper bound properties in a complete lattice. $)
+    lublem $p |- ( ( K e. CLat /\ S C_ B ) -> ( A. y e. S y L ( U ` S )
+                  /\ A. z e. B ( A. y e. S y L z -> ( U ` S ) L z ) ) ) $=
+      ( ccla wcel wss cfv cv wbr wral wi wa clatlubcl lubprop mpd3an3 ) FKLDCMD
+      ENZCLAOZUCGPADQUDBOZGPADQUCUEGPRBCQSCDEFHJTABKCDEFGHIJUAUB $.
+      $( [19-Oct-2011] $)
+
+    $d y z L $.  $d y z X $.
+    $( The LUB of a complete lattice subset is an upper bound. $)
+    lubub $p |- ( ( K e. CLat /\ S C_ B /\ X e. S ) -> X L ( U ` S ) ) $=
+      ( vy vz ccla wcel wss cfv wbr wa cv wral wi lublem simpld breq1 rcla4cva
+      sylan 3impa ) DLMZBANZFBMZFBCOZEPZUGUHQZJRZUJEPZJBSZUIUKULUOUMKRZEPJBSUJU
+      PEPTKASJKABCDEGHIUAUBUNUKJFBUMFUJEUCUDUEUF $.
+      $( [19-Oct-2011] $)
+
+    $( The LUB of a complete lattice subset is a least bound. $)
+    lubl $p |- ( ( K e. CLat /\ S C_ B /\ X e. B )
+          -> ( A. y e. S y L X -> ( U ` S ) L X ) ) $=
+      ( vz ccla wcel wss cv wbr wral cfv wi wa lublem simprd wceq breq2
+      ralbidv imbi12d rcla4cva sylan 3impa ) ELMZCBNZGBMZAOZGFPZACQZCDRZGFPZSZU
+      JUKTZUMKOZFPZACQZUPUTFPZSZKBQZULURUSUMUPFPACQVEAKBCDEFHIJUAUBVDURKGBUTGUC
+      ZVBUOVCUQVFVAUNACUTGUMFUDUEUTGUPFUDUFUGUHUI $.
+      $( [19-Oct-2011] $)
+
+    $d y B $.  $d y T $.
+    $( Subset law for least upper bounds.  (Th. ~ chsupss analog.) $)
+    lubss $p |- ( ( K e. CLat /\ T C_ B /\ S C_ T )
+          -> ( U ` S ) L ( U ` T ) ) $=
+      ( vy ccla wcel wss w3a cfv cv wbr wral simp1 sstr2 impcom 3adant1
+      clatlubcl 3adant3 3jca wa simpl1 simpl2 ssel2 adantll 3adantl1 lubub
+      syl111anc r19.21aiva lubl sylc ) EKLZCAMZBCMZNZUQBAMZCDOZALZNJPZVBFQZJBRB
+      DOVBFQUTUQVAVCUQURUSSURUSVAUQUSURVABCATUAUBUQURVCUSACDEGIUCUDUEUTVEJBUTVD
+      BLZUFUQURVDCLZVEUQURUSVFUGUQURUSVFUHURUSVFVGUQUSVFVGURBCVDUIUJUKACDEFVDGH
+      IULUMUNJABDEFVBGHIUOUP $.
+      $( [20-Oct-2011] $)
+
+    $( An element of a set is less than or equal to the least upper bound of
+       the set. $)
+    lubel $p |- ( ( K e. CLat /\ X e. S /\ S C_ B ) -> X L ( U ` S ) ) $=
+      ( ccla wcel wss w3a csn cfv wceq clat wa clatl ssel impcom lubsn syl2an
+      3impb wbr snssi lubss syl3an3 3com23 eqbrtrrd ) DJKZFBKZBALZMFNZCOZFBCOZE
+      UKULUMUOFPZUKDQKFAKZUQULUMRDSUMULURBAFTUAACDFGIUBUCUDUKUMULUOUPEUEZULUKUM
+      UNBLUSFBUFAUNBCDEGHIUGUHUIUJ $.
+      $( [21-Oct-2011] $)
+  $}
+
+  ${
+    $d x y z B $.  $d x y z J $.  $d x y z K $.  $d y z L $.  $d x y z S $.
+    $d x y z T $.  $d x y z U $.
+    lubun.b $e |- B = ( Base ` K ) $.
+    lubun.j $e |- J = ( join ` K ) $.
+    lubun.u $e |- U = ( lub ` K ) $.
+    $( The LUB of a union. $)
+    lubun $p |- ( ( K e. CLat /\ S C_ B /\ T C_ B )
+                      -> ( U ` ( S u. T ) ) = ( ( U ` S ) J ( U ` T ) ) ) $=
+      ( vy vx vz ccla wcel wss w3a cun cfv cv cple wbr wral wi wa crio co wceq
+      simp1 unss biimpi 3adant1 eqid lubval syl11anc clat clatl 3ad2ant1
+      clatlubcl 3adant3 3adant2 latjcl syl111anc wb simpl1 syl simpr adantr
+      latasymb simpl2 sseldd simpl3 lubel latlej1 lattrd r19.21aiva latlej2
+      ralunb sylanbrc breq2 ralbidv imbi12d rcla4v mpid imp ad2ant2rl lubl
+      anim12d latjle12 syl13anc sylibd syl5bi adantrr mpbi2and ex wo elun
+      jaodan sylan2b breq1 imbi2d anbi12d biimprcd impbid riota5 mpdan eqtrd )
+      FMNZBAOZCAOZPZBCQZDRZJSZKSZFTRZUAZJXKUBZXMLSZXOUAZJXKUBZXNXRXOUAZUCZLAUBZ
+      UDZKAUEZBDRZCDRZEUFZXJXGXKAOZXLYEUGXGXHXIUHXHXIYIXGXHXIUDYIBCAUIUJUKKJLMA
+      XKDFXOGXOULZIUMUNXJYHANZYEYHUGXJFUONZYFANZYGANZYKXGXHYLXIFUPZUQZXGXHYMXIA
+      BDFGIURZUSZXGXIYNXHACDFGIURZUTZAEFYFYGGHVAZVBZXJYDKAYHXJXNANZYDXNYHUGZVCY
+      KXJUUCUDZYDUUDUUEYDUUDUUEYDUDXNYHXOUAZYHXNXOUAZUUDUUEUUFUUGUDUUDVCZYDUUEY
+      LUUCYKUUHUUEXGYLXGXHXIUUCVDZYOVEZXJUUCVFZXJYKUUCUUBVGAFXOXNYHGYJVHVBVGXJY
+      CUUFUUCXQXJYCUUFXJYCXMYHXOUAZJXKUBZUUFXJUULJBUBUULJCUBUUMXJUULJBXJXMBNZUD
+      ZAFXOXMYFYHGYJUUOXGYLXGXHXIUUNVDZYOVEZUUOBAXMXGXHXIUUNVIZXJUUNVFZVJUUOXGX
+      HYMUUPUURYQUNZUUOYLYMYNYKUUQUUTUUOXGXIYNUUPXGXHXIUUNVKYSUNZUUAVBUUOXGUUNX
+      HXMYFXOUAUUPUUSUURABDFXOXMGYJIVLVBUUOYLYMYNYFYHXOUAUUQUUTUVAAEFXOYFYGGYJH
+      VMVBVNZVOXJUULJCXJXMCNZUDZAFXOXMYGYHGYJXJYLUVCYPVGZUVDCAXMXGXHXIUVCVKZXJU
+      VCVFZVJUVDXGXIYNXGXHXIUVCVDZUVFYSUNZXJYKUVCUUBVGUVDXGUVCXIXMYGXOUAUVHUVGU
+      VFACDFXOXMGYJIVLVBUVDYLYMYNYGYHXOUAUVEUVDXGXHYMUVHXGXHXIUVCVIYQUNUVIAEFXO
+      YFYGGYJHVPVBVNZVOUULJBCVQVRXJYKYCUUMUUFUCZUCUUBYBUVKLYHAXRYHUGZXTUUMYAUUF
+      UVLXSUULJXKXRYHXMXOVSVTXRYHXNXOVSWAWBVEWCWDWEUUEXQUUGYCUUEXQUUGXQXPJBUBZX
+      PJCUBZUDZUUEUUGXPJBCVQUUEUVOYFXNXOUAZYGXNXOUAZUDZUUGUUEUVMUVPUVNUVQUUEXGX
+      HUUCUVMUVPUCUUIXGXHXIUUCVIUUKJABDFXOXNGYJIWFVBUUEXGXIUUCUVNUVQUCUUIXGXHXI
+      UUCVKUUKJACDFXOXNGYJIWFVBWGUUEYLYMYNUUCUVRUUGVCUUJXJYMUUCYRVGXJYNUUCYTVGU
+      UKAEFXOYFYGXNGYJHWHWIWJWKWDWLWMWNXJUUDYDUCZUUCXJUUMXTYHXRXOUAZUCZLAUBZUVS
+      XJUULJXKXMXKNXJUUNUVCWOUULXMBCWPXJUUNUULUVCUVBUVJWQWRVOXJUWALAXJXRANZUDZX
+      TYFXRXOUAZYGXRXOUAZUDZUVTXTXSJBUBZXSJCUBZUDUWDUWGXSJBCVQUWDUWHUWEUWIUWFUW
+      DXGXHUWCUWHUWEUCXGXHXIUWCVDZXGXHXIUWCVIZXJUWCVFZJABDFXOXRGYJIWFVBUWDXGXIU
+      WCUWIUWFUCUWJXGXHXIUWCVKZUWLJACDFXOXRGYJIWFVBWGWKUWDYLYMYNUWCUWGUVTVCUWDX
+      GYLUWJYOVEUWDXGXHYMUWJUWKYQUNUWDXGXIYNUWJUWMYSUNUWLAEFXOYFYGXRGYJHWHWIWJV
+      OUUDYDUUMUWBUDUUDXQUUMYCUWBUUDXPUULJXKXNYHXMXOVSVTUUDYBUWALAUUDYAUVTXTXNY
+      HXRXOWSWTVTXAXBUNVGXCUTXDXEXF $.
+      $( [5-Mar-2012] $)
+  $}
+
+  ${
+    $d y z B $.  $d y z G $.  $d y z K $.  $d y z L $.  $d y z S $.
+    clatglb.b $e |- B = ( Base ` K ) $.
+    clatglb.l $e |- L = ( le ` K ) $.
+    clatglb.g $e |- G = ( glb ` K ) $.
+    $( Properties of greatest lower bound of a complete lattice. $)
+    clatglb $p |- ( ( K e. CLat /\ S C_ B ) -> ( A. y e. S ( G ` S ) L y
+               /\ A. z e. B ( A. y e. S z L y -> z L ( G ` S ) ) ) ) $=
+      ( ccla wcel wss cfv cv wbr wral wi wa clatglbcl glbprop mpd3an3 ) FKLDCMD
+      ENZCLUCAOZGPADQBOZUDGPADQUEUCGPRBCQSCDEFHJTABKCDEFGHIJUAUB $.
+      $( [5-Dec-2011] $)
+
+    $d y z X $.
+    $( A greatest lower bound is a least element. $)
+    clatglble $p |- ( ( K e. CLat /\ S C_ B /\ X e. S )
+          -> ( G ` S ) L X ) $=
+      ( ccla wcel wss cfv wbr wa wi clatglbcl glble exp32 mpd 3impia ) DJKZBALZ
+      FBKZBCMZFENZUBUCOZUEAKZUDUFPABCDGIQUGUHUDUFJABCDEFGHIRSTUA $.
+      $( [5-Dec-2011] $)
+
+    $( Two ways of expressing "less than or equal to the greatest lower
+       bound." $)
+    clatleglb $p |- ( ( K e. CLat /\ X e. B /\ S C_ B )
+     -> ( X L ( G ` S ) <-> A. y e. S X L y ) ) $=
+      ( vz ccla wcel wss w3a cfv wbr cv wral wa clatglble 3expa 3adantl2 clat
+      wi simpl1 clatl syl simpl2 clatglbcl 3adant2 adantr ssel 3ad2ant3 imp
+      lattr syl13anc mpan2d r19.21adva clatglb simprd wceq breq1 ralbidv
+      imbi12d rcla4cv ex com23 3imp impbid ) ELMZGBMZCBNZOZGCDPZFQZGARZFQZACSZV
+      NVPVRACVNVQCMZTZVPVOVQFQZVRVKVMVTWBVLVKVMVTWBBCDEFVQHIJUAUBUCWAEUDMZVLVOB
+      MZVQBMZVPWBTVRUEWAVKWCVKVLVMVTUFEUGUHVKVLVMVTUIVNWDVTVKVMWDVLBCDEHJUJUKUL
+      VNVTWEVMVKVTWEUEVLCBVQUMUNUOBEFGVOVQHIUPUQURUSVKVLVMVSVPUEZVKVMVLWFVKVMVL
+      WFUEZVKVMTZKRZVQFQZACSZWIVOFQZUEZKBSZWGWHWBACSWNAKBCDEFHIJUTVAWMWFKGBWIGV
+      BZWKVSWLVPWOWJVRACWIGVQFVCVDWIGVOFVCVEVFUHVGVHVIVJ $.
+      $( [5-Dec-2011] $)
+  $}
+
+

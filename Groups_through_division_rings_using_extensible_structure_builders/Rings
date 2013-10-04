@@ -1,0 +1,430 @@
+$(
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+                   Rings
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+$)
+
+  $c .r $.
+  $c Ring $.
+  $c 1r $.
+
+  $( Extend class notation with ring multiplication. $)
+  cmulr $a class .r $.
+
+  $( Extend class notation with class of all rings. $)
+  crg $a class Ring $.
+
+  $( Extend class notation with ring unit. $)
+  cur $a class 1r $.
+
+  $( Define ring multiplication. $)
+  df-mulr $a |- .r = ( r e. _V |-> ( r ` 3 ) ) $.
+
+  $( Utility theorem: index-independent form of ~ df-mulr . $)
+  mulrid $p |- .r = ( f e. _V |-> ( f ` ( .r ` ndx ) ) ) $=
+    ( cmulr c3 df-mulr 3nn ndxid ) BACADEF $.
+    $( [8-Jun-2013] $)
+
+  ${
+    $d f p r t u x y z $.
+    $( Define class of all rings (with unity). $)
+    df-ring $a |- Ring = { f e. Abel |
+        E. r E. p E. t ( ( r = ( Base ` f ) /\ p = ( +g ` f )
+           /\ t = ( .r ` f ) )
+       /\ A. x e. r A. y e. r A. z e. r
+           ( ( x t y ) e. r /\ ( ( ( x t y ) t z ) = ( x t ( y t z ) )
+            /\ ( x t ( y p z ) ) = ( ( x t y ) p ( x t z ) )
+            /\ ( ( x p y ) t z ) = ( ( x t z ) p ( y t z ) ) ) )
+        /\ E. u e. r A. x e. r ( ( u t x ) = x /\ ( x t u ) = x ) ) } $.
+
+    $( Define ring unity. $)
+    df-ur $a |- 1r = ( r e. _V |-> ( iota_ u e. ( Base ` r )
+      A. x e. ( Base ` r ) ( ( u ( .r ` r ) x ) = x
+           /\ ( x ( .r ` r ) u ) = x ) ) ) $.
+  $}
+
+  $( Utility theorem for constructing a ring (or generally, 3-element)
+     structure without direct reference to component indices.  This theorem
+     extends ~ grplem to a third element. $)
+  rnglem $p |- -. ( .r ` ndx ) e. { ( Base ` ndx ) , ( +g ` ndx ) } $=
+    ( vf cnx cmulr cfv cbs cplusg cpr wcel wceq wo wne wa wn c3 df-mulr 3nn
+    ndxargi c1 1re 3re 1lt3 ltneii basendx neeqtrri eqnetri c2 2re 2lt3
+    df-plusg 2nn pm3.2i neanior mpbi elpri mto ) BCDZBEDZBFDZGHUPUQIUPURIJZUPUQ
+    KZUPURKZLUSMUTVAUPNUQCANAOPQZNRUQRNSTUAUBUCUDUEUPNURVBNUFURUFNUGTUHUBFAUFAU
+    IUJQUDUEUKUPUQUPURULUMUPUQURUNUO $.
+    $( [30-Sep-2013] $)
+
+  $( Utility theorem for constructing a ring (or generally, 3-element)
+     structure without direct reference to component indices.  This theorem
+     extends ~ grphypOLD to a third element. $)
+  ringhypOLD $p |- ( ( Base ` ndx ) =/= ( .r ` ndx )
+               /\ ( +g ` ndx ) =/= ( .r ` ndx ) ) $=
+    ( vf cnx cbs cfv cmulr wne cplusg c3 c1 basendx 1re 3re 1lt3 ltneii necomi
+    eqnetri df-mulr 3nn ndxargi neeqtrri c2 df-plusg 2nn 2re 2lt3 pm3.2i ) BCDZ
+    BEDZFBGDZUHFUGHUHUGIHJHIIHKLMNOPEAHAQRSZTUIHUHUIUAHGAUAAUBUCSHUAUAHUDLUENOP
+    UJTUF $.
+    $( [8-Jun-2013] $)
+
+  ${
+    rngfn.r $e |- R
+               = { <. ( Base ` ndx ) , B >. , <. ( +g ` ndx ) , P >. ,
+                   <. ( .r ` ndx ) , T >. } $.
+    ${
+      rngfn.d $e |- D = { ( Base ` ndx ) , ( +g ` ndx ) , ( .r ` ndx ) } $.
+      $( A constructed ring is a function. $)
+      rngfn $p |- R Fn D $=
+        ( cnx cbs cfv cplusg cpr cop cmulr fvex eqid grpfn ctp csn cun df-tp
+        eqtri rnglem fnunop ) HIJZHKJZLZBUEAMZUFCMZLZDHNJZEHNOAUGCUJUJPUGPQDUHU
+        IUKEMZRUJULSTFUHUIULUAUBBUEUFUKRUGUKSTGUEUFUKUAUBUCUD $.
+        $( [28-Sep-2013] $)
+    $}
+
+    $( The base set of a constructed ring. $)
+    rngbase $p |- ( B e. V -> B = ( Base ` R ) ) $=
+      ( vf cbs cnx cfv cop cplusg cmulr ctp cvv tpex eqeltri wfn wfun eqid
+      rngfn fnfun ax-mp baseid opex tpid1 eleqtrri strfv ) ACGHECIHJZAKZILJZBKZ
+      IMJZDKZNZOFUJULUNPQCUIUKUMNZRCSAUPBCDFUPTUAUPCUBUCGUDUJUOCUJULUNUIAUEUFFU
+      GUH $.
+      $( [2-Oct-2013] $)
+
+    $( The additive operation of a constructed ring. $)
+    rngplusg $p |- ( P e. V -> P = ( +g ` R ) ) $=
+      ( vf cplusg cnx cbs cfv cop cmulr ctp cvv tpex eqeltri wfn wfun eqid
+      rngfn fnfun ax-mp plusgid opex tpid2 eleqtrri strfv ) BCGHECIJKZALZIHKZBL
+      ZIMKZDLZNZOFUJULUNPQCUIUKUMNZRCSAUPBCDFUPTUAUPCUBUCGUDULUOCUJULUNUKBUEUFF
+      UGUH $.
+      $( [2-Oct-2013] $)
+
+    $( The muliplicative operation of a constructed ring. $)
+    rngmulr $p |- ( T e. V -> T = ( .r ` R ) ) $=
+      ( vf cmulr cnx cbs cfv cop cplusg ctp cvv tpex eqeltri wfn wfun eqid
+      rngfn fnfun ax-mp mulrid opex tpid3 eleqtrri strfv ) DCGHECIJKZALZIMKZBLZ
+      IHKZDLZNZOFUJULUNPQCUIUKUMNZRCSAUPBCDFUPTUAUPCUBUCGUDUNUOCUJULUNUMDUEUFFU
+      GUH $.
+      $( [2-Oct-2013] $)
+  $}
+
+  ${
+    $d r B $.  $d r P $.  $d r T $.
+    ringbaseOLD.b $e |- B e. _V $.
+    ringbaseOLD.p $e |- P e. _V $.
+    ringbaseOLD.t $e |- T e. _V $.
+    ringbaseOLD.r $e |- R
+               = { <. ( Base ` ndx ) , B >. , <. ( +g ` ndx ) , P >. ,
+                   <. ( .r ` ndx ) , T >. } $.
+    $( The base set of a constructed ring. $)
+    ringbaseOLD $p |- B = ( Base ` R ) $=
+      ( vf cbs cplusg cmulr baseid plusgid mulrid grphypOLD ringhypOLD
+      str3v1OLD ) JKLICABDIMINIOHEFGPQR $.
+      $( [8-Jun-2013] $)
+
+    $( The additive operation of a constructed ring. $)
+    ringplusgOLD $p |- P = ( +g ` R ) $=
+      ( vf cbs cplusg cmulr baseid plusgid mulrid grphypOLD ringhypOLD
+      str3v2OLD ) JKLICABDIMINIOHEFGPQR $.
+      $( [8-Jun-2013] $)
+
+    $( The muliplicative operation of a constructed ring. $)
+    ringmulrOLD $p |- T = ( .r ` R ) $=
+      ( vf cbs cplusg cmulr baseid plusgid mulrid grphypOLD ringhypOLD
+      str3v3OLD ) JKLICABDIMINIOHEFGPQR $.
+      $( [8-Jun-2013] $)
+  $}
+
+  ${
+    $d u r x B $.  $d u r x R $.  $d r T $.
+    ringidval.b $e |- B = ( Base ` R ) $.
+    ringidval.t $e |- T = ( .r ` R ) $.
+    ringidval.u $e |- U = ( 1r ` R ) $.
+    $( The value of the unity element of a ring. $)
+    ringidval $p |- ( R e. V -> U = ( iota_ u e. B A. x e. B
+               ( ( u T x ) = x /\ ( x T u ) = x ) ) ) $=
+      ( vr wcel cvv cv co wceq wa wral crio elisset cur cfv cmulr cbs fveq2
+      syl6eqr opreqd eqeq1d anbi12d raleqbidv riotaeqbidv df-ur riotaex fvmpt
+      syl5eq syl ) DGLDMLZFBNZANZEOZUSPZUSUREOZUSPZQZACRZBCSZPDGTUQFDUAUBVFJKDU
+      RUSKNZUCUBZOZUSPZUSURVHOZUSPZQZAVGUDUBZRZBVNSVFMUAVGDPZVOVEBVNCVPVNDUDUBC
+      VGDUDUEHUFZVPVMVDAVNCVQVPVJVAVLVCVPVIUTUSVPVHEURUSVPVHDUCUBEVGDUCUEIUFZUG
+      UHVPVKVBUSVPVHEUSURVRUGUHUIUJUKABKULVEBCUMUNUOUP $.
+      $( [7-Aug-2013] $) $( [27-Aug-2011] $)
+  $}
+
+  ${
+    $d b r p t u x y z B $.  $d b r p t u x y z P $.  $d b r p t R $.
+    $d b p r t u x y z T $.
+    isring.b $e |- B = ( Base ` R ) $.
+    isring.p $e |- P = ( +g ` R ) $.
+    isring.t $e |- T = ( .r ` R ) $.
+    $( The predicate "is a (unital) ring."  Definition of ring with unit in
+       [Schechter] p. 187. $)
+    isring $p |- ( R e. Ring <-> ( R e. Abel
+             /\ A. x e. B A. y e. B A. z e. B ( ( x T y ) e. B
+               /\ ( ( ( x T y ) T z ) = ( x T ( y T z ) )
+            /\ ( x T ( y P z ) ) = ( ( x T y ) P ( x T z ) )
+            /\ ( ( x P y ) T z ) = ( ( x T z ) P ( y T z ) ) ) )
+           /\ E. u e. B A. x e. B ( ( u T x ) = x /\ ( x T u ) = x ) ) ) $=
+      ( vb vr vp vt crg wcel cv cbs cfv wceq cplusg cmulr w3a co wa wral wrex
+      wex cabel crab df-ring eleq2i fveq2 syl6eqr eqeq2d 3anbi123d 3anbi1d
+      3anass syl6bb 3exbidv elrab cvv fvex eqeltri eleq2 anbi1d raleqbi1dv
+      raleq rexeqbi1dv anbi12d opreq opreq2d eqeq12d opreq1d 3anbi23d anbi2d
+      ralbidv 2ralbidv eleq1d eqtrd opreq12d eqeq1d rexralbidv ceqsex3v anbi2i
+      bitr4i 3bitri ) GPQGLRZMRZSTZUAZNRZWJUBTZUAZORZWJUCTZUAZUDZARZBRZWPUEZWIQ
+      ZXBCRZWPUEZWTXAXDWPUEZWPUEZUAZWTXAXDWMUEZWPUEZXBWTXDWPUEZWMUEZUAZWTXAWMUE
+      ZXDWPUEZXKXFWMUEZUAZUDZUFZCWIUGZBWIUGZAWIUGZDRZWTWPUEZWTUAZWTYCWPUEZWTUAZ
+      UFZAWIUGZDWIUHZUDZOUINUILUIZMUJUKZQGUJQZWIEUAZWMFUAZWPHUAZUDZYBYJUFZUFZOU
+      INUILUIZUFZYNWTXAHUEZEQZUUCXDHUEZWTXAXDHUEZHUEZUAZWTXAXDFUEZHUEZUUCWTXDHU
+      EZFUEZUAZWTXAFUEZXDHUEZUUKUUFFUEZUAZUDZUFZCEUGZBEUGAEUGZYCWTHUEZWTUAZWTYC
+      HUEZWTUAZUFZAEUGDEUHZUDZPYMGABCDOMLNULUMYLUUAMGUJWJGUAZYKYTLNOUVIYKYRYBYJ
+      UDYTUVIWSYRYBYJUVIWLYOWOYPWRYQUVIWKEWIUVIWKGSTZEWJGSUNIUOUPUVIWNFWMUVIWNG
+      UBTZFWJGUBUNJUOUPUVIWQHWPUVIWQGUCTZHWJGUCUNKUOUPUQURYRYBYJUSUTVAVBUUBYNUV
+      AUVGUFZUFUVHUUAUVMYNYSXBEQZXRUFZCEUGZBEUGZAEUGZYHAEUGZDEUHZUFUVNXHWTUUIWP
+      UEZXBXKFUEZUAZUUNXDWPUEZXKXFFUEZUAZUDZUFZCEUGZBEUGAEUGZUVTUFUVMLNOEFHEUVJ
+      VCIGSVDVEFUVKVCJGUBVDVEHUVLVCKGUCVDVEYOYBUVRYJUVTYAUVQAWIEXTUVPBWIEXSUVOC
+      WIEYOXCUVNXRWIEXBVFVGVHVHVHYIUVSDWIEYHAWIEVIVJVKYPUVRUWJUVTYPUVPUWIABEEYP
+      UVOUWHCEYPXRUWGUVNYPXMUWCXQUWFXHYPXJUWAXLUWBYPXIUUIWTWPXAXDWMFVLVMXBXKWMF
+      VLVNYPXOUWDXPUWEYPXNUUNXDWPWTXAWMFVLVOXKXFWMFVLVNVPVQVRVSVGYQUWJUVAUVTUVG
+      YQUWIUUTABEEYQUWHUUSCEYQUVNUUDUWGUURYQXBUUCEWTXAWPHVLZVTYQXHUUHUWCUUMUWFU
+      UQYQXEUUEXGUUGYQXEXBXDHUEUUEXBXDWPHVLYQXBUUCXDHUWKVOWAYQXGWTXFHUEUUGWTXFW
+      PHVLYQXFUUFWTHXAXDWPHVLZVMWAVNYQUWAUUJUWBUULWTUUIWPHVLYQXBUUCXKUUKFUWKWTX
+      DWPHVLZWBVNYQUWDUUOUWEUUPUUNXDWPHVLYQXKUUKXFUUFFUWMUWLWBVNUQVKVRVSYQYHUVF
+      DAEEYQYEUVCYGUVEYQYDUVBWTYCWTWPHVLWCYQYFUVDWTWTYCWPHVLWCVKWDVKWEWFYNUVAUV
+      GUSWGWH $.
+      $( [18-Oct-2012] $)
+  $}
+
+  ${
+    $d b p r t u x y z B $.  $d b p r t u x y z P $.  $d b n p r t R $.
+    $d b p r t u x y z T $.  $d n u x y z $.
+    ringi.b $e |- B = ( Base ` R ) $.
+    ringi.p $e |- P = ( +g ` R ) $.
+    ringi.t $e |- T = ( .r ` R ) $.
+    $d x y z X $.  $d y z Y $.  $d z Z $.
+    $( Properties of a unital ring. $)
+    ringi $p |- ( ( R e. Ring /\ ( X e. B /\ Y e. B /\ Z e. B ) )
+           -> ( ( X T Y ) e. B
+                /\ ( ( ( X T Y ) T Z ) = ( X T ( Y T Z ) )
+              /\ ( X T ( Y P Z ) ) = ( ( X T Y ) P ( X T Z ) )
+                /\ ( ( X P Y ) T Z ) = ( ( X T Z ) P ( Y T Z ) ) ) ) ) $=
+      ( vx vy vz vu crg wcel cv co wceq w3a wa wral cabel wrex isring simp2bi
+      opreq1 eleq1d opreq1d eqeq12d opreq12d 3anbi123d anbi12d opreq2 opreq2d
+      anbi2d rcla43v mpan9 ) COPZKQZLQZDRZAPZVBMQZDRZUTVAVDDRZDRZSZUTVAVDBRZDRZ
+      VBUTVDDRZBRZSZUTVABRZVDDRZVKVFBRZSZTZUAZMAUBLAUBKAUBZEAPFAPGAPTEFDRZAPZWA
+      GDRZEFGDRZDRZSZEFGBRZDRZWAEGDRZBRZSZEFBRZGDRZWIWDBRZSZTZUAZUSCUCPVTNQZUTD
+      RUTSUTWRDRUTSUAKAUBNAUDKLMNABCDHIJUEUFVSWQEVADRZAPZWSVDDRZEVFDRZSZEVIDRZW
+      SEVDDRZBRZSZEVABRZVDDRZXEVFBRZSZTZUAWBWAVDDRZEFVDDRZDRZSZEFVDBRZDRZWAXEBR
+      ZSZWLVDDRZXEXNBRZSZTZUAKLMEFGAAAUTESZVCWTVRXLYEVBWSAUTEVADUGZUHYEVHXCVMXG
+      VQXKYEVEXAVGXBYEVBWSVDDYFUIUTEVFDUGUJYEVJXDVLXFUTEVIDUGYEVBWSVKXEBYFUTEVD
+      DUGZUKUJYEVOXIVPXJYEVNXHVDDUTEVABUGUIYEVKXEVFBYGUIUJULUMVAFSZWTWBXLYDYHWS
+      WAAVAFEDUNZUHYHXCXPXGXTXKYCYHXAXMXBXOYHWSWAVDDYIUIYHVFXNEDVAFVDDUGZUOUJYH
+      XDXRXFXSYHVIXQEDVAFVDBUGUOYHWSWAXEBYIUIUJYHXIYAXJYBYHXHWLVDDVAFEBUNUIYHVF
+      XNXEBYJUOUJULUMVDGSZYDWPWBYKXPWFXTWKYCWOYKXMWCXOWEVDGWADUNYKXNWDEDVDGFDUN
+      ZUOUJYKXRWHXSWJYKXQWGEDVDGFBUNUOYKXEWIWABVDGEDUNZUOUJYKYAWMYBWNVDGWLDUNYK
+      XEWIXNWDBYMYLUKUJULUPUQUR $.
+      $( [26-Aug-2011] $)
+  $}
+
+  ${
+    ringcl.b $e |- B = ( Base ` R ) $.
+    ringcl.t $e |- T = ( .r ` R ) $.
+    $( Closure of the multiplication operation of a ring. $)
+    ringcl $p |- ( ( R e. Ring /\ X e. B /\ Y e. B )
+          -> ( X T Y ) e. B ) $=
+      ( crg wcel co wa w3a 3anass anidm anbi2i bitri wceq cplusg cfv eqid
+      ringi simpld sylan2br 3impb ) BHIZDAIZEAIZDECJZAIZUFUGKZUEUFUGUGLZUIUKUFU
+      GUGKZKUJUFUGUGMULUGUFUGNOPUEUKKUIUHECJDEECJZCJQDEEBRSZJCJUHUHUNJQDEUNJECJ
+      UHUMUNJQLAUNBCDEEFUNTGUAUBUCUD $.
+      $( [26-Aug-2011] $)
+
+    $( Associative law for the multiplication operation of a ring. $)
+    ringass $p |- ( ( R e. Ring /\ ( X e. B /\ Y e. B /\ Z e. B ) ) ->
+                      ( ( X T Y ) T Z ) = ( X T ( Y T Z ) ) ) $=
+      ( crg wcel w3a wa co wceq cplusg cfv eqid ringi simpr1 syl ) BIJDAJEAJFAJ
+      KLDECMZAJZUAFCMDEFCMZCMNZDEFBOPZMCMUADFCMZUEMNZDEUEMFCMUFUCUEMNZKLUDAUEBC
+      DEFGUEQHRUBUDUGUHST $.
+      $( [27-Aug-2011] $)
+
+    $d r u w x y z B $.  $d r u x y z R $.  $d r u w x y z T $.
+    $( The unit element of a ring is unique. $)
+    ringideu $p |- ( R e. Ring ->
+                 E! u e. B A. x e. B ( ( u T x ) = x /\ ( x T u ) = x ) ) $=
+      ( vw vy vz crg wcel cv co wceq wa wral wrex wi wreu cabel cplusg cfv w3a
+      eqid isring simp3bi simpl ralimi opreq2 id eqeq12d rcla4v syl5 simpr
+      opreq1 im2anan9 eqtr2 ancoms syl6 rgen2a jctir eqeq1d anbi12d ralbidv
+      reu4 sylibr ) DKLZBMZAMZENZVJOZVJVIENZVJOZPZACQZBCRZVPHMZVJENZVJOZVJVRENZ
+      VJOZPZACQZPZVIVROZSZHCQBCQZPVPBCTVHVQWHVHDUALVJIMZENZCLWJJMZENVJWIWKENZEN
+      OVJWIWKDUBUCZNENWJVJWKENZWMNOVJWIWMNWKENWNWLWMNOUDPJCQICQACQVQAIJBCWMDEFW
+      MUEGUFUGWGBHCVRCLZVICLZWGWOWPPWEVIVRENZVROZWQVIOZPWFWOVPWRWPWDWSVPVLACQWO
+      WRVOVLACVLVNUHUIVLWRAVRCVJVROZVKWQVJVRVJVRVIEUJWTUKULUMUNWDWBACQWPWSWCWBA
+      CVTWBUOUIWBWSAVICVJVIOZWAWQVJVIVJVIVREUPXAUKULUMUNUQWSWRWFWQVIVRURUSUTUSV
+      AVBVPWDBHCWFVOWCACWFVLVTVNWBWFVKVSVJVIVRVJEUPVCWFVMWAVJVIVRVJEUJVCVDVEVFV
+      G $.
+      $( [27-Aug-2011] $)
+  $}
+
+  ${
+    ringdi.b $e |- B = ( Base ` R ) $.
+    ringdi.p $e |- P = ( +g ` R ) $.
+    ringdi.t $e |- T = ( .r ` R ) $.
+    $( Distributive law for the multiplication operation of a ring.
+       (Contributed by Steve Rodriguez, 9-Sep-2007.) $)
+    ringdi $p |- ( ( R e. Ring /\ ( X e. B /\ Y e. B /\ Z e. B ) ) ->
+                     ( X T ( Y P Z ) ) = ( ( X T Y ) P ( X T Z ) ) ) $=
+      ( crg wcel w3a wa co wceq ringi simpr2 syl ) CKLEALFALGALMNEFDOZALZTGDOEF
+      GDOZDOPZEFGBODOTEGDOZBOPZEFBOGDOUDUBBOPZMNUEABCDEFGHIJQUAUCUEUFRS $.
+      $( [27-Aug-2011] $)
+
+    $( Distributive law for the multiplication operation of a ring.
+       (Contributed by Steve Rodriguez, 9-Sep-2007.) $)
+    ringdir $p |- ( ( R e. Ring /\ ( X e. B /\ Y e. B /\ Z e. B ) ) ->
+                      ( ( X P Y ) T Z ) = ( ( X T Z ) P ( Y T Z ) ) ) $=
+      ( crg wcel w3a wa co wceq ringi simpr3 syl ) CKLEALFALGALMNEFDOZALZTGDOEF
+      GDOZDOPZEFGBODOTEGDOZBOPZEFBOGDOUDUBBOPZMNUFABCDEFGHIJQUAUCUEUFRS $.
+      $( [27-Aug-2011] $)
+  $}
+
+  ${
+    $d u x B $.  $d u x R $.
+    ringidcl.b $e |- B = ( Base ` R ) $.
+    ringidcl.u $e |- U = ( 1r ` R ) $.
+    $( The unit element of a ring belongs to the base set of the ring. $)
+    ringidcl $p |- ( R e. Ring -> U e. B ) $=
+      ( vu vx crg wcel cv cmulr cfv co wceq wa wral wreu eqid ringideu crio
+      ringidval adantr riotacl adantl eqeltrd mpdan ) BHIZFJZGJZBKLZMUINUIUHUJM
+      UINOGAPZFAQZCAIGFABUJDUJRZSUGULOCUKFATZAUGCUNNULGFABUJCHDUMEUAUBULUNAIUGU
+      KFAUCUDUEUF $.
+      $( [27-Aug-2011] $)
+  $}
+
+  ${
+    $d r u x y z R $.
+    $( A ring is an Abelian group. $)
+    ringabl $p |- ( R e. Ring -> R e. Abel ) $=
+      ( vx vy vz vu crg wcel cabel cv cmulr cfv co cbs wceq cplusg w3a wa wral
+      wrex eqid isring biimpi simp1d ) AFGZAHGZBIZCIZAJKZLZAMKZGUIDIZUHLUFUGUKU
+      HLZUHLNUFUGUKAOKZLUHLUIUFUKUHLZUMLNUFUGUMLUKUHLUNULUMLNPQDUJRCUJRBUJRZEIZ
+      UFUHLUFNUFUPUHLUFNQBUJREUJSZUDUEUOUQPBCDEUJUMAUHUJTUMTUHTUAUBUC $.
+      $( [26-Aug-2011] $)
+  $}
+
+  $( A ring is a group. $)
+  ringgrp $p |- ( R e. Ring -> R e. Grp ) $=
+    ( crg wcel cabel cgrp ringabl ablgrp syl ) ABCADCAECAFAGH $.
+    $( [15-Sep-2011] $)
+
+  ${
+    $d u w x B $.  $d u w x I $.  $d u x R $.  $d u w x T $.  $d u w x U $.
+    $d x X $.
+    ringidm.b $e |- B = ( Base ` R ) $.
+    ringidm.t $e |- T = ( .r ` R ) $.
+    ringidm.u $e |- U = ( 1r ` R ) $.
+    $( Lemma for ~ ringlidm and ~ ringridm . $)
+    ringidmlem $p |- ( ( R e. Ring /\ X e. B )
+           -> ( ( U T X ) = X /\ ( X T U ) = X ) ) $=
+      ( vx vu vw crg wcel cv co wceq wa wral crio ringidval eqcomd wreu wb
+      ringidcl ringideu ax-17 a17d opreq1 eqeq1d opreq2 anbi12d ralbidv
+      riota2f syl11anc mpbird id eqeq12d rcla4v mpan9 ) BLMZDINZCOZVAPZVADCOZVA
+      PZQZIARZEAMDECOZEPZEDCOZEPZQZUTVGJNZVACOZVAPZVAVMCOZVAPZQZIARZJASZDPZUTDV
+      TIJABCDLFGHTUAUTDAMZVSJAUBVGWAUCABDFHUDIJABCFGUEVSVGJKADKNDMJUFWBVGJUGVMD
+      PZVRVFIAWCVOVCVQVEWCVNVBVAVMDVACUHUIWCVPVDVAVMDVACUJUIUKULUMUNUOVFVLIEAVA
+      EPZVCVIVEVKWDVBVHVAEVAEDCUJWDUPZUQWDVDVJVAEVAEDCUHWEUQUKURUS $.
+      $( [15-Sep-2011] $)
+
+    $( The unit element of a ring is a left multiplicative identity. $)
+    ringlidm $p |- ( ( R e. Ring /\ X e. B ) -> ( U T X ) = X ) $=
+      ( crg wcel wa co wceq ringidmlem simpld ) BIJEAJKDECLEMEDCLEMABCDEFGHNO
+      $.
+      $( [15-Sep-2011] $)
+
+    $( The unit element of a ring is a right multiplicative identity. $)
+    ringridm $p |- ( ( R e. Ring /\ X e. B ) -> ( X T U ) = X ) $=
+      ( crg wcel wa co wceq ringidmlem simprd ) BIJEAJKDECLEMEDCLEMABCDEFGHNO
+      $.
+      $( [15-Sep-2011] $)
+
+    $( Properties showing that an element ` I ` is the unity element of a
+       ring. $)
+    isringid $p |- ( R e. Ring
+      -> ( ( I e. B /\ A. x e. B ( ( I T x ) = x /\ ( x T I ) = x ) )
+        <-> U = I ) ) $=
+      ( vu vw crg wcel cv co wceq wa wral crio ringidval adantr wreu wb
+      ringideu anim2i ancoms ax-17 a17d opreq1 eqeq1d opreq2 anbi12d ralbidv
+      riota2f syl biimpd impr eqtrd ex ringidcl ringidmlem r19.21aiva jca
+      eleq1 syl5ibcom impbid ) CLMZFBMZFANZDOZVIPZVIFDOZVIPZQZABRZQZEFPZVGVPVQV
+      GVPQEJNZVIDOZVIPZVIVRDOZVIPZQZABRZJBSZFVGEWEPVPAJBCDELGHITUAVGVHVOWEFPZVG
+      VHQZVOWFWGVHWDJBUBZQZVOWFUCVHVGWIVGWHVHAJBCDGHUDUEUFWDVOJKBFKNFMJUGVHVOJU
+      HVRFPZWCVNABWJVTVKWBVMWJVSVJVIVRFVIDUIUJWJWAVLVIVRFVIDUKUJULUMUNUOUPUQURU
+      SVGEBMZEVIDOZVIPZVIEDOZVIPZQZABRZQVQVPVGWKWQBCEGIUTVGWPABBCDEVIGHIVAVBVCV
+      QWKVHWQVOEFBVDVQWPVNABVQWMVKWOVMVQWLVJVIEFVIDUIUJVQWNVLVIEFVIDUKUJULUMULV
+      EVF $.
+      $( [7-Aug-2013] $)
+  $}
+
+  ${
+    $d u x y z B $.  $d u x y z R $.  $d u T $.  $d u x U $.  $d u x y z ph $.
+    isringd.b $e |- ( ph -> B = ( Base ` R ) ) $.
+    isringd.p $e |- ( ph -> P = ( +g ` R ) ) $.
+    isringd.t $e |- ( ph -> T = ( .r ` R ) ) $.
+    isringd.g $e |- ( ph -> R e. Abel ) $.
+    isringd.c $e |- ( ( ph /\ x e. B /\ y e. B ) -> ( x T y ) e. B ) $.
+    isringd.a $e |- ( ( ph /\ ( x e. B /\ y e. B /\ z e. B ) ) ->
+                   ( ( x T y ) T z ) = ( x T ( y T z ) ) ) $.
+    isringd.d $e |- ( ( ph /\ ( x e. B /\ y e. B /\ z e. B ) ) ->
+                   ( x T ( y P z ) ) = ( ( x T y ) P ( x T z ) ) ) $.
+    isringd.e $e |- ( ( ph /\ ( x e. B /\ y e. B /\ z e. B ) ) ->
+                   ( ( x P y ) T z ) = ( ( x T z ) P ( y T z ) ) ) $.
+    isringd.u $e |- ( ph -> U e. B ) $.
+    isringd.i $e |- ( ( ph /\ x e. B ) -> ( U T x ) = x ) $.
+    isringd.h $e |- ( ( ph /\ x e. B ) -> ( x T U ) = x ) $.
+    $( Properties that determine a ring. $)
+    isringd $p |- ( ph -> R e. Ring ) $=
+      ( vu cabel wcel cv cmulr cfv co cbs wceq cplusg w3a wa wral wrex crg wi
+      3adant3r3 3jca jca 3exp2 imp3a r19.21adv r19.21aivv r19.21aiva opreq1
+      eqeq1d opreq2 anbi12d ralbidv rcla4ev syl11anc opreqd eleq12d eqidd
+      opreq123d eqeq12d 3anbi123d raleqbidv rexeqbidv 3anbi23d mpbid eqid
+      isring sylibr ) AGUBUCZBUDZCUDZGUEUFZUGZGUHUFZUCZWIDUDZWHUGZWFWGWLWHUGZWH
+      UGZUIZWFWGWLGUJUFZUGZWHUGZWIWFWLWHUGZWQUGZUIZWFWGWQUGZWLWHUGZWTWNWQUGZUIZ
+      UKZULZDWJUMZCWJUMZBWJUMZUAUDZWFWHUGZWFUIZWFXLWHUGZWFUIZULZBWJUMZUAWJUNZUK
+      ZGUOUCAWEWFWGHUGZEUCZYAWLHUGZWFWGWLHUGZHUGZUIZWFWGWLFUGZHUGZYAWFWLHUGZFUG
+      ZUIZWFWGFUGZWLHUGZYIYDFUGZUIZUKZULZDEUMZCEUMZBEUMZXLWFHUGZWFUIZWFXLHUGZWF
+      UIZULZBEUMZUAEUNZUKXTAWEYTUUGMAYRBCEEAWFEUCZWGEUCZULYQDEAUUHUUIWLEUCZYQUP
+      AUUHUUIUUJYQAUUHUUIUUJUKULZYBYPAUUHUUIYBUUJNUQUUKYFYKYOOPQURUSUTVAVBVCAIE
+      UCIWFHUGZWFUIZWFIHUGZWFUIZULZBEUMZUUGRAUUPBEAUUHULUUMUUOSTUSVDUUFUUQUAIEX
+      LIUIZUUEUUPBEUURUUBUUMUUDUUOUURUUAUULWFXLIWFHVEVFUURUUCUUNWFXLIWFHVGVFVHV
+      IVJVKURAYTXKUUGXSWEAYSXJBEWJJAYRXICEWJJAYQXHDEWJJAYBWKYPXGAYAWIEWJAHWHWFW
+      GLVLZJVMAYFWPYKXBYOXFAYCWMYEWOAYAWIWLWLHWHLUUSAWLVNZVOAWFWFYDWNHWHLAWFVNZ
+      AHWHWGWLLVLZVOVPAYHWSYJXAAWFWFYGWRHWHLUVAAFWQWGWLKVLVOAYAWIYIWTFWQKUUSAHW
+      HWFWLLVLZVOVPAYMXDYNXEAYLXCWLWLHWHLAFWQWFWGKVLUUTVOAYIWTYDWNFWQKUVCUVBVOV
+      PVQVHVRVRVRAUUFXRUAEWJJAUUEXQBEWJJAUUBXNUUDXPAUUAXMWFAHWHXLWFLVLVFAUUCXOW
+      FAHWHWFXLLVLVFVHVRVSVTWABCDUAWJWQGWHWJWBWQWBWHWBWCWD $.
+      $( [2-Aug-2013] $)
+  $}
+
+  ${
+    ringz.b $e |- B = ( Base ` R ) $.
+    ringz.t $e |- T = ( .r ` R ) $.
+    ringz.z $e |- Z = ( 0g ` R ) $.
+    $( The zero of a unital ring is a left absorbing element.  (Contributed by
+       FL, 31-Aug-2009.) $)
+    ringlz $p |- ( ( R e. Ring /\ X e. B ) -> ( Z T X ) = Z ) $=
+      ( crg wcel wa co cplusg cfv wceq cgrp ringgrp grpidcl eqid grplid mpdan
+      syl adantr opreq1d w3a simpr 3jca ringdir syldan simpl ringcl syl111anc
+      grprid eqcomd syl11anc 3eqtr3d wb grplcan syl13anc mpbid ) BIJZDAJZKZEDCL
+      ZVDBMNZLZVDEVELZOZVDEOZVCEEVELZDCLZVDVFVGVCVJEDCVAVJEOZVBVABPJZVLBQZVMEAJ
+      ZVLABEFHRZAVEBEEFVESZHTUAUBUCUDVAVBVOVOVBUEVKVFOVCVOVOVBVAVOVBVAVMVOVNVPU
+      BUCZVRVAVBUFZUGAVEBCEEDFVQGUHUIVCVMVDAJZVDVGOVAVMVBVNUCZVCVAVOVBVTVAVBUJV
+      RVSABCEDFGUKULZVMVTKVGVDAVEBEVDFVQHUMUNUOUPVCVMVTVOVTVHVIUQWAWBVRWBAVEBVD
+      EVDFVQURUSUT $.
+      $( [15-Sep-2011] $)
+
+    $( The zero of a unital ring is a right absorbing element.  (Contributed by
+       FL, 31-Aug-2009.) $)
+    ringrz $p |- ( ( R e. Ring /\ X e. B ) -> ( X T Z ) = Z ) $=
+      ( crg wcel wa co cplusg cfv wceq cgrp ringgrp grpidcl eqid grplid mpdan
+      syl adantr opreq2d w3a simpr 3jca ringdi syldan ringcl mpd3an3 eqcomd
+      syl11anc 3eqtr3d wb grprcan syl13anc mpbid ) BIJZDAJZKZDECLZVBBMNZLZEVBVC
+      LZOZVBEOZVADEEVCLZCLZVBVDVEVAVHEDCUSVHEOZUTUSBPJZVJBQZVKEAJZVJABEFHRZAVCB
+      EEFVCSZHTUAUBUCUDUSUTUTVMVMUEVIVDOVAUTVMVMUSUTUFUSVMUTUSVKVMVLVNUBUCZVPUG
+      AVCBCDEEFVOGUHUIVAVKVBAJZVBVEOUSVKUTVLUCZUSUTVMVQVPABCDEFGUJUKZVKVQKVEVBA
+      VCBEVBFVOHTULUMUNVAVKVQVMVQVFVGUOVRVSVPVSAVCBVBEVBFVOUPUQUR $.
+      $( [15-Sep-2011] $)
+  $}
+
