@@ -5,9 +5,9 @@ $(
 $)
 
   $(
-     Many, if not most, of the theorems in the section "Logical implication"
-     are about handling chains of implications: ` ph -> ( ps -> ( ch -> ... `.
-     With respect to chains, an exhaustive set of rules clarify
+     Most of the theorems in the section "Logical implication" are about
+     handling chains of implications: ` ph -> ( ps -> ( ch -> ... `.  With
+     respect to chains, an rich set of rules clarify
 
      - how to swap antecedents (com12, ...);
 
@@ -22,17 +22,17 @@ $)
      - what is, when an antecedent equals the consequent (ax-1, id, ...).
 
      In all these cases, the operands of the chain have no inner structure, or
-     it is of no importance.  I will call such a chain "simple" here.
+     it is of no importance.  These chains are called "simple" here.
 
      There is less support, when the operands are structured themselves.  Some
      kinds of inner structure involving the ` .- ` operator are best handled by
      the symmetric operators ` /\ ` and ` \/ `.  But a nested, simple chain
-     has no such convenient replacement.  I can focus on the antecedents here,
-     since a consequent representing a chain is in conjunction with its
-     antecedents just an extended simple chain again.
+     has no such convenient replacement.  I can focus on antecedents here,
+     since a consequent representing a chain is, in conjunction with its
+     antecedents, just an extended simple chain again.
 
      The following theorems show, how operations on nested chains appear
-     somehow twisted: The minor premises of the syllogisms look reverted, in
+     somehow mirrored: The minor premises of the syllogisms look reverted, in
      comparison to their normal counterparts, and while adding an antecedent to
      a chain via ~ a1i is easy, in nested chains they can be easily dropped.
   $)
@@ -45,10 +45,24 @@ $)
        hypotheses with a common consequent.  (Contributed by Wolf Lammen,
        20-Sep-2013.)
 
-       In ~ ax46 , this idea has been applied. $)
+       ~ ax46 is an instance of this idea. $)
     wl-jarri $p |- ( ps -> ch ) $=
       ( wi ax-1 syl ) BABECBAFDG $.
       $( [20-Sep-2013] $)
+  $}
+
+  ${
+    wl-jarli.1 $e |- ( ( ph -> ps ) -> ch ) $.
+    $( Dropping a nested consequent.  This theorem is one of two reversions of
+       ~ ja .  Since ~ ja is reversible, one can conclude, that a nested (chain
+       of) implication(s) is just a packed notation of two or more theorems/
+       hypotheses with a common consequent.  (Contributed by Wolf Lammen,
+       4-Oct-2013.)
+
+       ~ ax46 is an instance of this idea. $)
+    wl-jarli $p |- ( -. ph -> ch ) $=
+      ( wn wi pm2.21 syl ) AEABFCABGDH $.
+      $( [4-Oct-2013] $)
   $}
 
   ${
@@ -80,6 +94,171 @@ $)
       ( wi imim1i syl ) BCGACGDABCEHFI $.
       $( [20-Sep-2013] $)
   $}
+
+  ${
+    wl-adnestant.1 $e |- ph $.
+    wl-adnestant.2 $e |- ( ps -> ch ) $.
+    $( A true wff can always be added as a nested antecedent to an antecedent.
+       Note: this theorem is intuitionistically valid (see ~ wl-adnestantALT )
+       (Contributed by Wolf Lammen, 4-Oct-2013.) $)
+    wl-adnestant $p |- ( ( ph -> ps ) -> ch ) $=
+      ( pm2.24i ja ) ABCACDFEG $.
+      $( [4-Oct-2013] $)
+
+    $( Proof of ~ wl-adnestant not based on ~ ax-3 .  (Contributed by Wolf
+       Lammen, 4-Oct-2013.) $)
+    wl-adnestantALT $p |- ( ( ph -> ps ) -> ch ) $=
+      ( wi imim2i mpi ) ABFACDBCAEGH $.
+      $( [4-Oct-2013] $)
+  $}
+
+  ${
+    wl-adnestantd.1 $e |- ( ph -> ps ) $.
+    wl-adnestantd.2 $e |- ( ph -> ( ch -> th ) ) $.
+    $( Deduction version of ~ wl-adnestant .  Generalization of ~ a2i ,
+       ~ imim12i , ~ imim1i and ~ imim2i , which can be proved by specializing
+       its hypotheses, and some trivial rearrangements.  This theorem clarifies
+       in a more general way, under what conditions a wff may be introduced as
+       a nested antecedent to an antecedent.  Note: this theorem is
+       intuitionistically valid (see ~ wl-adnestantdALT ) (Contributed by Wolf
+       Lammen, 4-Oct-2013.) $)
+    wl-adnestantd $p |- ( ph -> ( ( ps -> ch ) -> th ) ) $=
+      ( pm2.24d jad ) ABCDABDEGFH $.
+      $( [4-Oct-2013] $)
+
+    $( Proof of ~ wl-adnestantd not based on ~ ax-3 .  (Contributed by Wolf
+       Lammen, 4-Oct-2013.) $)
+    wl-adnestantdALT $p |- ( ph -> ( ( ps -> ch ) -> th ) ) $=
+      ( wi imim2d mpid ) ABCGBDEACDBFHI $.
+      $( [4-Oct-2013] $)
+  $}
+
+  $( The following set of theorems are about shortening the proofs of pm5.74
+     and pm5.32, which appear overly complex.  Both theorems share a similar
+     structure, and it is indeed possible to reduce their complexity by
+     factoring out a common underlying proof idea, given in lemma wl-pm5.74lem.
+
+     The number of bytes used in compressed proofs shrinks in total, compared
+     to the current version.  But this comes at a price, as two theorems are
+     introduced.  One, wl-bitri1 is missing anyway, IMHO, but whether the lemma
+     has applications anywhere else, remains to be seen.
+
+     We start with a couple of proofs, that currently depend on pm5.74, and
+     have to be independent of it now.  The number in square brackets shows
+     how much the proof becomes longer (+), or shorter (-), measured in bytes.
+     Newly introduced theorems count in full length. $)
+
+  $( Closed form of ~ bitri .  (Contributed by Wolf Lammen, 5-Oct-2013.)  Place
+     before ~ bitri .  [ +33] $)
+  wl-bitr1 $p |- ( ( ph <-> ps ) -> ( ( ps <-> ch ) -> ( ph <-> ch ) ) ) $=
+    ( wb wi bi1 imim1d syl5 bi2 imim2d impbidd ) ABDZBCDZACMBCELACEBCFLABCABFGH
+    MCBELCAEBCILBACABIJHK $.
+    $( [5-Oct-2013] $)
+
+  ${
+    wl-bitri.1 $e |- ( ph <-> ps ) $.
+    wl-bitri.2 $e |- ( ps <-> ch ) $.
+    $( An inference from transitive law for logical equivalence.  (The proof
+       was shortened by Wolf Lammen, 13-Oct-2012.)  [ -5] $)
+    wl-bitri $p |- ( ph <-> ch ) $=
+      ( wb wl-bitr1 mp2 ) ABFBCFACFDEABCGH $.
+      $( [5-Oct-2013] $) $( [5-Aug-1993] $)
+  $}
+
+  ${
+    wl-bitrd.1 $e |- ( ph -> ( ps <-> ch ) ) $.
+    wl-bitrd.2 $e |- ( ph -> ( ch <-> th ) ) $.
+    $( Deduction form of ~ bitri .  (The proof was shortened by Wolf Lammen,
+       14-Apr-2013.)  [ -7] $)
+    wl-bitrd $p |- ( ph -> ( ps <-> th ) ) $=
+      ( wb wl-bitr1 sylc ) ABCGCDGBDGEFBCDHI $.
+      $( [5-Oct-2013] $) $( [5-Aug-1993] $)
+  $}
+
+  $( Theorem *4.86 of [WhiteheadRussell] p. 122.  Place this (and the following
+     theorems) after bitr1.  [ +22] $)
+  wl-bibi1 $p |- ( ( ph <-> ps ) -> ( ( ph <-> ch ) <-> ( ps <-> ch ) ) ) $=
+    ( wb wi bicom1 wl-bitr1 syl impbid ) ABDZACDZBCDZJBADKLEABFBACGHABCGI $.
+    $( [5-Oct-2013] $) $( [3-Jan-2005] $)
+
+  ${
+    wl-bibi1i.a $e |- ( ph <-> ps ) $.
+    $( Inference adding a biconditional to the right in an equivalence.  Move
+       after bibi1.  [ -8] $)
+    wl-bibi1i $p |- ( ( ph <-> ch ) <-> ( ps <-> ch ) ) $=
+      ( wb wl-bibi1 ax-mp ) ABEACEBCEEDABCFG $.
+      $( [5-Oct-2013] $) $( [5-Aug-1993] $)
+  $}
+
+  ${
+    wl-bibi1d.1 $e |- ( ph -> ( ps <-> ch ) ) $.
+    $( Deduction adding a biconditional to the right in an equivalence.  Move
+       after bibi1i.  [ -9] $)
+    wl-bibi1d $p |- ( ph -> ( ( ps <-> th ) <-> ( ch <-> th ) ) ) $=
+      ( wb wl-bibi1 syl ) ABCFBDFCDFFEBCDGH $.
+      $( [5-Oct-2013] $) $( [5-Aug-1993] $)
+  $}
+
+  ${
+    wl-bibi2d.1 $e |- ( ph -> ( ps <-> ch ) ) $.
+    $( Deduction adding a biconditional to the left in an equivalence.  (The
+       proof was shortened by Wolf Lammen, 19-May-2013.)  Move after bibi1d.
+       [ -25] $)
+    wl-bibi2d $p |- ( ph -> ( ( th <-> ps ) <-> ( th <-> ch ) ) ) $=
+      ( wb wl-bibi1d bicom 3bitr3g ) ABDFCDFDBFDCFABCDEGBDHCDHI $.
+      $( [5-Oct-2013] $) $( [5-Aug-1993] $)
+  $}
+
+  ${
+    wl-pm5.74lem.1 $e |- ( ph -> ( ps <-> ch ) ) $.
+    wl-pm5.74lem.2 $e |- ( -. ph -> ch ) $.
+    $( Moving a common antecedent on one side of an equivalence.  Place before
+       ~ pm5.74 .  [ +25] $)
+    wl-pm5.74lem $p |- ( ( ph -> ps ) <-> ch ) $=
+      ( wi biimpcd pm2.61d1 ja biimprcd impbii ) ABFCABCEBACABCDGEHIABCDJK $.
+      $( [5-Oct-2013] $)
+  $}
+
+  $( Distribution of implication over biconditional.  Theorem *5.74 of
+     [ WhiteheadRussell] p. 126.  (The proof was shortened by Wolf Lammen,
+     11-Apr-2013.)  Replace and move ~ biimt .. ~ albi before it.  [ -22] $)
+  wl-pm5.74 $p |- ( ( ph -> ( ps <-> ch ) ) <->
+               ( ( ph -> ps ) <-> ( ph -> ch ) ) ) $=
+    ( wb wi biimt bibi12d wn pm2.21 2thd wl-pm5.74lem ) ABCDABEZACEZDABLCMABFAC
+    FGAHLMABIACIJK $.
+    $( [5-Oct-2013] $) $( [1-Aug-1994] $)
+
+  $( Distribution of implication over biconditional.  Theorem *5.32 of
+     [ WhiteheadRussell] p. 125.  (The proof was shortened by Wolf Lammen,
+     5-Oct-2013.)  Replace.  [ -43] $)
+  wl-pm5.32 $p |- ( ( ph -> ( ps <-> ch ) ) <->
+               ( ( ph /\ ps ) <-> ( ph /\ ch ) ) ) $=
+    ( wb wa ibar bibi12d simpl pm5.21ni wl-pm5.74lem ) ABCDABEZACEZDABKCLABFACF
+    GKALABHACHIJ $.
+    $( [5-Oct-2013] $) $( [1-Aug-1994] $)
+
+  $( Theorem *4.22 of [WhiteheadRussell] p. 117.  Replace.  [ -4] $)
+  wl-bitr $p |- ( ( ( ph <-> ps ) /\ ( ps <-> ch ) ) -> ( ph <-> ch ) ) $=
+    ( wb wl-bitr1 imp ) ABDBCDACDABCEF $.
+    $( [5-Oct-2013] $) $( [3-Jan-2005] $)
+
+  $( proofs that benefit from above wl-* theorems. $)
+
+  ${
+    wl-pm2.86i.1 $e |- ( ( ph -> ps ) -> ( ph -> ch ) ) $.
+    $( Inference based on ~ pm2.86 .  (The proof was shortened by Wolf Lammen,
+       3-Apr-2013.) $)
+    wl-pm2.86i $p |- ( ph -> ( ps -> ch ) ) $=
+      ( wi wl-jarri com12 ) BACABACEDFG $.
+      $( [20-Sep-2013] $) $( [5-Aug-1993] $)
+  $}
+
+  $( Lemma for an alternate version of weak deduction theorem.  (The proof was
+     shortened by Andrew Salmon, 7-May-2011.)  (The proof was shortened by Wolf
+     Lammen, 4-Dec-2012.) $)
+  wl-dedlem0a $p |- ( ph -> ( ps <-> ( ( ch -> ph ) -> ( ps /\ ph ) ) ) ) $=
+    ( wa wi iba wb biimt wl-jarri bitrd ) ABBADZCAEZKEZABFCAKMGLKHIJ $.
+    $( [4-Dec-2012] $) $( [2-Apr-1994] $)
 
 $( (End of Wolf Lammen's mathbox.) $)
 
