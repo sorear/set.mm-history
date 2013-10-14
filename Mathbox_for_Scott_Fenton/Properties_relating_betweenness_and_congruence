@@ -1,0 +1,804 @@
+$(
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+        Properties relating betweenness and congruence
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+$)
+
+  $c InnerFiveSeg Cgr3 Colinear FiveSeg $.
+
+  $( Declare the syntax for the inner five segment predicate. $)
+  cifs $a class InnerFiveSeg $.
+
+  $( Declare the syntax for the three place congruence predicate. $)
+  ccgr3 $a class Cgr3 $.
+
+  $( Declare the syntax for the colinearity predicate. $)
+  ccolin $a class Colinear $.
+
+  $( Declare the syntax for the five segment predicate. $)
+  cfs $a class FiveSeg $.
+
+  ${
+    $d a b c d x y z w p q n $.
+    $( The inner five segment configuration is an abbreviation for another
+       congruence condition.  See ~ brifs and ~ ifscgr for how it is used.
+       Definition 4.1 of [Schwabhauser], p. 34. $)
+    df-ifs $a |- InnerFiveSeg =
+        { <. p , q >. |
+           E. n e. NN E. a e. ( EE ` n ) E. b e. ( EE ` n ) E. c e. ( EE ` n )
+           E. d e. ( EE ` n ) E. x e. ( EE ` n ) E. y e. ( EE ` n )
+           E. z e. ( EE ` n ) E. w e. ( EE ` n ) (
+           p = <. <. a , b >. , <. c , d >. >. /\
+           q = <. <. x , y >. , <. z , w >. >. /\
+           ( ( b Btwn <. a , c >. /\ y Btwn <. x , z >. ) /\
+             ( <. a , c >. Cgr <. x , z >. /\
+               <. b , c >. Cgr <. y , z >. ) /\
+             ( <. a , d >. Cgr <. x , w >. /\
+               <. c , d >. Cgr <. z , w >. ) ) ) } $.
+  $}
+
+  ${
+    $d a b c d e f n p q $.
+    $( The three place congruence predicate.  This is an abbreviation for
+       saying that all three pair in a triple are congruent with each other.
+       Three place form of Definition 4.4 of [Schwabhauser], p. 35. $)
+    df-cgr3 $a |- Cgr3 = { <. p , q >. |
+       E. x e. NN E. a e. ( EE ` n ) E. b e. ( EE ` n ) E. c e. ( EE ` n )
+       E. d e. ( EE ` n ) E. e e. ( EE ` n ) E. f e. ( EE ` n )
+       ( p = <. a , <. b , c >. >. /\
+       q = <. d , <. e , f >. >. /\
+       ( <. a , b >. Cgr <. d , e >. /\ <. a , c >. Cgr <. d , f >. /\
+         <. b , c >. Cgr <. e , f >. ) ) } $.
+  $}
+
+  ${
+    $d a b c n $.
+    $( The colinearity predicate states that the three points in its arguments
+       sit on one line.  Definition 4.10 of [Schwabhauser], p. 36. $)
+    df-colinear $a |- Colinear = `' { <. <. b , c >. , a >. |
+       E. n e. NN ( ( a e. ( EE ` n ) /\ b e. ( EE ` n ) /\ c e. ( EE ` n ) )
+         /\
+         ( a Btwn <. b , c >. \/ b Btwn <. c , a >. \/
+           c Btwn <. a , b >. ) ) } $.
+  $}
+
+  ${
+    $d a b c d x y z w p q n $.
+    $( The general five segment configuration is a generalization of the outer
+       and inner five segment configurations.  See ~ brfs and ~ fscgr for its
+       use.  Definition 4.15 of [Schwabhauser], p. 37. $)
+    df-fs $a |- FiveSeg =
+        { <. p , q >. |
+           E. n e. NN E. a e. ( EE ` n ) E. b e. ( EE ` n ) E. c e. ( EE ` n )
+           E. d e. ( EE ` n ) E. x e. ( EE ` n ) E. y e. ( EE ` n )
+           E. z e. ( EE ` n ) E. w e. ( EE ` n ) (
+           p = <. <. a , b >. , <. c , d >. >. /\
+           q = <. <. x , y >. , <. z , w >. >. /\
+           ( a Colinear <. b , c >. /\
+             <. a , <. b , c >. >. Cgr3 <. x , <. y , z >. >. /\
+             ( <. a , d >. Cgr <. x , w >. /\
+               <. b , d >. Cgr <. y , w >. ) ) ) } $.
+  $}
+
+  ${
+    $d N a b c d e f g h p q n $.  $d A a b c d e f g h p q n $.
+    $d B a b c d e f g h p q n $.  $d C a b c d e f g h p q n $.
+    $d D a b c d e f g h p q n $.  $d E a b c d e f g h p q n $.
+    $d F a b c d e f g h p q n $.  $d G a b c d e f g h p q n $.
+    $d H a b c d e f g h p q n $.
+    $( Binary relationship form of the inner five segment predicate.
+       (Contributed by Scott Fenton, 26-Sep-2013.) $)
+    brifs $p |- ( ( ( N e. NN /\ A e. ( EE ` N ) /\ B e. ( EE ` N ) ) /\
+        ( C e. ( EE ` N ) /\ D e. ( EE ` N ) /\ E e. ( EE ` N ) ) /\
+        ( F e. ( EE ` N ) /\ G e. ( EE ` N ) /\ H e. ( EE ` N ) ) ) ->
+    ( <. <. A , B >. , <. C , D >. >. InnerFiveSeg
+      <. <. E , F >. , <. G , H >. >. <-> ( ( B Btwn <. A , C >. /\
+                     F Btwn <. E , G >. ) /\
+        ( <. A , C >. Cgr <. E , G >. /\
+          <. B , C >. Cgr <. F , G >. ) /\
+        ( <. A , D >. Cgr <. E , H >. /\
+          <. C , D >. Cgr <. G , H >. ) ) ) ) $=
+      ( vb va vc vf ve vg vd vh vn vq vp cv cop cbtwn wbr wa ccgr w3a cee cfv
+      cifs cn wceq opeq1 breq2d anbi1d breq1d 3anbi123d breq1 anbi2d 3anbi12d
+      opeq2 anbi12d 3anbi3d fveq2 df-ifs br8 ) JUAZKUAZLUAZUBZUCUDZMUAZNUAZOUAZ
+      UBZUCUDZUEZVJVOUFUDZVGVIUBZVLVNUBZUFUDZUEZVHPUAZUBZVMQUAZUBZUFUDZVIWCUBZV
+      NWEUBZUFUDZUEZUGVGAVIUBZUCUDZVPUEZWLVOUFUDZWAUEZAWCUBZWFUFUDZWJUEZUGBWLUC
+      UDZVPUEZWOBVIUBZVTUFUDZUEZWSUGBACUBZUCUDZVPUEZXEVOUFUDZBCUBZVTUFUDZUEZWRC
+      WCUBZWIUFUDZUEZUGXGXKADUBZWFUFUDZCDUBZWIUFUDZUEZUGXFVLEVNUBZUCUDZUEZXEXTU
+      FUDZXJUEZXOEWEUBZUFUDZXRUEZUGXFFXTUCUDZUEZYCXIFVNUBZUFUDZUEZYGUGXFFEGUBZU
+      CUDZUEZXEYMUFUDZXIFGUBZUFUDZUEZYFXQGWEUBZUFUDZUEZUGYOYSXOEHUBZUFUDZXQGHUB
+      ZUFUDZUEZUGRABCDRUAZUHUIIUHUIUJUKNMOQEFGHISTKJLPVHAULZVQWNWBWPWKWSUUIVKWM
+      VPUUIVJWLVGUCVHAVIUMZUNUOUUIVRWOWAUUIVJWLVOUFUUJUPUOUUIWGWRWJUUIWDWQWFUFV
+      HAWCUMUPUOUQVGBULZWNXAWPXDWSUUKWMWTVPVGBWLUCURUOUUKWAXCWOUUKVSXBVTUFVGBVI
+      UMUPUSUTVICULZXAXGXDXKWSXNUULWTXFVPUULWLXEBUCVICAVAZUNUOUULWOXHXCXJUULWLX
+      EVOUFUUMUPUULXBXIVTUFVICBVAUPVBUULWJXMWRUULWHXLWIUFVICWCUMUPUSUQWCDULZXNX
+      SXGXKUUNWRXPXMXRUUNWQXOWFUFWCDAVAUPUUNXLXQWIUFWCDCVAUPVBVCVMEULZXGYBXKYDX
+      SYGUUOVPYAXFUUOVOXTVLUCVMEVNUMZUNUSUUOXHYCXJUUOVOXTXEUFUUPUNUOUUOXPYFXRUU
+      OWFYEXOUFVMEWEUMUNUOUQVLFULZYBYIYDYLYGUUQYAYHXFVLFXTUCURUSUUQXJYKYCUUQVTY
+      JXIUFVLFVNUMUNUSUTVNGULZYIYOYLYSYGUUBUURYHYNXFUURXTYMFUCVNGEVAZUNUSUURYCY
+      PYKYRUURXTYMXEUFUUSUNUURYJYQXIUFVNGFVAUNVBUURXRUUAYFUURWIYTXQUFVNGWEUMUNU
+      SUQWEHULZUUBUUGYOYSUUTYFUUDUUAUUFUUTYEUUCXOUFWEHEVAUNUUTYTUUEXQUFWEHGVAUN
+      VBVCUUHIUHVDNMOQRSTKJLPVEVF $.
+      $( [14-Oct-2013] $) $( [26-Sep-2013] $)
+  $}
+
+  ${
+    $d A e f $.  $d B e f $.  $d C e f $.  $d D e f $.  $d E e f $.
+    $d F e f $.  $d G e f $.  $d H e f $.  $d N e f $.
+    $( Inner five segment congruence.  Take two triangles, ` A D C ` and
+       ` E H G ` , with ` B ` between ` A ` and ` C ` and ` F ` between ` E `
+       and ` G ` .  If the other components of the triangles are congruent,
+       then so are ` B D ` and ` F H ` .  Theorem 4.2 of [Schwabhauser],
+       p. 34.  (Contributed by Scott Fenton, 27-Sep-2013.) $)
+    ifscgr $p |- ( ( ( N e. NN /\ A e. ( EE ` N ) /\ B e. ( EE ` N ) ) /\
+        ( C e. ( EE ` N ) /\ D e. ( EE ` N ) /\ E e. ( EE ` N ) ) /\
+        ( F e. ( EE ` N ) /\ G e. ( EE ` N ) /\ H e. ( EE ` N ) ) ) ->
+    ( <. <. A , B >. , <. C , D >. >. InnerFiveSeg
+      <. <. E , F >. , <. G , H >. >. -> <. B , D >. Cgr <. F , H >. ) ) $=
+      ( ve vf cn wcel cee cfv w3a cop cifs wbr cbtwn wa ccgr brifs wi wceq
+      simp1l simp11 simp13 simp21 axbtwnid syl111anc syl5 simp2r simp3r jca
+      opeq2 breq1d opeq1 anbi12d biimprd mpan9 simp31 simp32 cgrid2 syl13anc
+      breq2d syl6 imp3a exp3a mpdd anbi1d 3anbi12d imbi1d syl5ibr wne cv wrex
+      simp12 btwndiff simpl11 simpl23 simpl32 simpl21 simpr axsegcon syl122anc
+      anass cofs simplrl adantl simplll simpr2l simpllr wb ad2antrr simplrr
+      cgrcom mpbid simprr3 3jca ex simpl12 simprl simpl22 simprr simpl33 brofs
+      syl333anc sylibrd 5segofs syland simpr1l adantr simpr1r jca32 simpl13
+      btwnexch3 simpl31 anim12d imp btwncom ad2antrl cgrcomlr bitrd simpr2r
+      simpr3r necomd a1i jcad syld adantrd syl5bir anassrs r19.23adva mpd
+      com3r pm2.61ine sylbid ) ILMZAINOZMZBYTMZPZCYTMZDYTMZEYTMZPZFYTMZGYTMZHYT
+      MZPZPZABQCDQZQEFQGHQZQRSBACQZTSZFEGQZTSZUAZUUOUUQUBSZBCQZFGQZUBSZUAZADQEH
+      QUBSZUUMUUNUBSZUAZPZBDQZFHQZUBSZABCDEFGHIUCUULUVHUVKUDZUDACUULUVLACUEZBCC
+      QZTSZUURUAZUVNUUQUBSZUVCUAZUVGPZUVKUDUULUVSBCUEZUVKUVSUVOUULUVTUVOUURUVRU
+      VGUFUULYSUUBUUDUVOUVTUDYSUUAUUBUUGUUKUGZYSUUAUUBUUGUUKUHZUUCUUDUUEUUFUUKU
+      IZBCIUJUKULUULUVSUVTUVKUVSUVTUABBQZUVBUBSZUVIUUNUBSZUAZUULUVKUVSUVCUVFUAZ
+      UVTUWGUVSUVCUVFUVPUVQUVCUVGUMUVPUVRUVEUVFUNUOUVTUWGUWHUVTUWEUVCUWFUVFUVTU
+      WDUVAUVBUBBCBUPUQUVTUVIUUMUUNUBBCDURUQUSUTVAUULUWEUWFUVKUULUWEFGUEZUWFUVK
+      UDUULYSUUBUUHUUIUWEUWIUDUWAUWBUUCUUGUUHUUIUUJVBUUCUUGUUHUUIUUJVCZBFGIVDVE
+      UWIUVKUWFUWIUVJUUNUVIUBFGHURVFUTVGVHULVIVJUVMUVHUVSUVKUVMUUSUVPUVDUVRUVGU
+      VMUUPUVOUURUVMUUOUVNBTACCURZVFVKUVMUUTUVQUVCUVMUUOUVNUUQUBUWKUQVKVLVMVNUU
+      LUVHACVOZUVKUULUVHUWLUVKUULCAJVPZQTSZCUWMVOZUAZJYTVQZUVHUWLUAZUVKUDZUULYS
+      UUAUUDUWQUWAYSUUAUUBUUGUUKVRUWCACIJVSUKUULUWPUWSJYTUULUWMYTMZUAZUWPUWRUVK
+      UXAGEKVPZQTSZGUXBQZCUWMQZUBSZUAZKYTVQZUWPUWRUAZUVKUDZUXAYSUUFUUIUUDUWTUXH
+      YSUUAUUBUUGUUKUWTVTUUDUUEUUFUUCUUKUWTWAUUHUUIUUJUUCUUGUWTWBUUDUUEUUFUUCUU
+      KUWTWCUULUWTWDKEGCUWMIWEWFUXAUXGUXJKYTUULUWTUXBYTMZUXGUXJUDUULUWTUXKUAZUA
+      ZUXGUXIUVKUXGUXIUAUXGUWPUAZUWRUAZUXMUVKUXGUWPUWRWGUXOUXNUVHUAZUWLUAZUXMUV
+      KUXNUVHUWLWGUXMUXQUWMDQZUXBHQZUBSZUVKUXMUXPUUOUXRQUUQUXSQWHSZUWLUXTUXMUXP
+      UWNUXCUAZUUTUXEUXDUBSZUAZUVGPZUYAUXMUXPUYEUXMUXPUAZUYBUYDUVGUYFUWNUXCUXPU
+      WNUXMUXGUWNUWOUVHWIZWJUXPUXCUXMUXCUXFUWPUVHWKZWJUOUYFUUTUYCUXPUUTUXMUUTUV
+      CUUSUVGUXNWLWJUYFUXFUYCUXPUXFUXMUXCUXFUWPUVHWMZWJUYFYSUUIUXKUUDUWTUXFUYCW
+      NZUULYSUXLUXPUWAWOUULUUIUXLUXPUWJWOUULUWTUXKUXPWPUULUUDUXLUXPUWCWOUULUWTU
+      XKUXPWIGUXBCUWMIWQZWFWRUOUUSUVDUVGUXNUXMWSWTXAUXMYSUUAUUDUWTUUEUUFUUIUXKU
+      UJUYAUYEWNYSUUAUUBUUGUUKUXLVTZYSUUAUUBUUGUUKUXLXBZUUDUUEUUFUUCUUKUXLWCZUU
+      LUWTUXKXCZUUDUUEUUFUUCUUKUXLXDZUUDUUEUUFUUCUUKUXLWAZUUHUUIUUJUUCUUGUXLWBZ
+      UULUWTUXKXEZUUHUUIUUJUUCUUGUXLXFZACUWMDEGUXBHIXGXHXIUXMYSUUAUUDUWTUUEUUFU
+      UIUXKUUJUYAUWLUAUXTUDUYLUYMUYNUYOUYPUYQUYRUYSUYTACUWMDEGUXBHIXJXHXKUXMUXP
+      UXTUVKUDUWLUXMUXPUXTUVKUXMUXPUXTUAZUWMCQZUVIQUXBGQZUVJQWHSZUWMCVOZUAZUVKU
+      XMVUAVUDVUEUXMVUACUWMBQTSZGUXBFQTSZUAZVUBVUCUBSZCBQGFQUBSZUAZUXTUVFUAZPZV
+      UDUXMVUAVUNUXMVUAUAZVUIVULVUMVUOCBUWMQTSZGFUXBQTSZUAZVUIUXMVUAVURVUAUUPUW
+      NUAZUURUXCUAZUAUXMVURVUAVUSUURUXCVUAUUPUWNUXPUUPUXTUUPUURUVDUVGUXNXLXMUXP
+      UWNUXTUYGXMUOUXPUURUXTUUPUURUVDUVGUXNXNXMUXPUXCUXTUYHXMXOUXMVUSVUPVUTVUQU
+      XMYSUUAUUBUUDUWTVUSVUPUDUYLUYMYSUUAUUBUUGUUKUXLXPZUYNUYOABCUWMIXQWFUXMYSU
+      UFUUHUUIUXKVUTVUQUDUYLUYQUUHUUIUUJUUCUUGUXLXRZUYRUYSEFGUXBIXQWFXSULXTUXMV
+      URVUIWNVUAUXMVUPVUGVUQVUHUXMYSUUDUUBUWTVUPVUGWNUYLUYNVVAUYOCBUWMIYAVEUXMY
+      SUUIUUHUXKVUQVUHWNUYLUYRVVBUYSGFUXBIYAVEUSXMWRVUOVUJVUKVUOUXFVUJUXPUXFUXM
+      UXTUYIYBUXMUXFVUJWNVUAUXMUXFUYCVUJUXMYSUUIUXKUUDUWTUYJUYLUYRUYSUYNUYOUYKW
+      FUXMYSUUDUWTUUIUXKUYCVUJWNUYLUYNUYOUYRUYSCUWMGUXBIYCWFYDXMWRVUOUVCVUKUXPU
+      VCUXMUXTUUTUVCUUSUVGUXNYEYBUXMUVCVUKWNZVUAUXMYSUUBUUDUUHUUIVVCUYLVVAUYNVV
+      BUYRBCFGIYCWFXMWRUOVUOUXTUVFUXMUXPUXTXEUXPUVFUXMUXTUVEUVFUUSUVDUXNYFYBUOW
+      TXAUXMYSUWTUUDUUBUUEUXKUUIUUHUUJVUDVUNWNUYLUYOUYNVVAUYPUYSUYRVVBUYTUWMCBD
+      UXBGFHIXGXHXIVUAVUEUDUXMVUACUWMUXPUWOUXTUXGUWNUWOUVHWPXMYGYHYIUXMYSUWTUUD
+      UUBUUEUXKUUIUUHUUJVUFUVKUDUYLUYOUYNVVAUYPUYSUYRVVBUYTUWMCBDUXBGFHIXJXHYJV
+      IYKVJYLYLVIYMYNYOVIYNYOVIYPYQYR $.
+      $( [14-Oct-2013] $) $( [27-Sep-2013] $)
+  $}
+
+  $( Removing identical parts from the end of a line segment preserves
+     congruence.  Theorem 4.3 of [Schwabhauser], p. 35.  (Contributed by Scott
+     Fenton, 4-Oct-2013.) $)
+  cgrsub $p |- ( ( N e. NN /\
+         ( A e. ( EE ` N ) /\ B e. ( EE ` N ) /\ C e. ( EE ` N ) ) /\
+         ( D e. ( EE ` N ) /\ E e. ( EE ` N ) /\ F e. ( EE ` N ) ) ) ->
+         ( ( ( B Btwn <. A , C >. /\ E Btwn <. D , F >. ) /\
+             ( <. A , C >. Cgr <. D , F >. /\ <. B , C >. Cgr <. E , F >. ) )
+           -> <. A , B >. Cgr <. D , E >. ) ) $=
+    ( cn wcel cee cfv w3a cop cbtwn wbr wa ccgr simprl simprr simpl1 simpl21
+    simpl31 cgrtriv syl111anc simprrl wb simpl23 simpl33 cgrcomlr syl122anc
+    mpbid jca 3jca wi simpl22 simpl32 cifs brifs ifscgr sylbird syl333anc mpd
+    ex ) GHIZAGJKZIZBVEIZCVEIZLZDVEIZEVEIZFVEIZLZLZBACMZNOEDFMZNOPZVOVPQOZBCMEF
+    MQOZPZPZABMZDEMZQOZVNWAPZBAMEDMQOZWDWEVQVTAAMDDMQOZCAMZFDMZQOZPZLZWFWEVQVTW
+    KVNVQVTRVNVQVTSWEWGWJWEVDVFVJWGVDVIVMWATZVFVGVHVDVMWAUAZVJVKVLVDVIWAUBZADGU
+    CUDWEVRWJVNVQVRVSUEWEVDVFVHVJVLVRWJUFWMWNVFVGVHVDVMWAUGZWOVJVKVLVDVIWAUHZAC
+    DFGUIUJUKULUMWEVDVFVGVHVFVJVKVLVJWLWFUNWMWNVFVGVHVDVMWAUOZWPWNWOVJVKVLVDVIW
+    AUPZWQWOVDVFVGLVHVFVJLVKVLVJLLWLWBWHMWCWIMUQOWFABCADEFDGURABCADEFDGUSUTVAVB
+    WEVDVGVFVKVJWFWDUFWMWRWNWSWOBAEDGUIUJUKVC $.
+    $( [14-Oct-2013] $) $( [4-Oct-2013] $)
+
+  ${
+    $d A a b c d e f n p q $.  $d B a b c d e f n p q $.
+    $d C a b c d e f n p q $.  $d D a b c d e f n p q $.
+    $d E a b c d e f n p q $.  $d F a b c d e f n p q $.
+    $d N a b c d e f n p q $.
+    $( Binary relationship form of the three-place congruence predicate.
+       (Contributed by Scott Fenton, 4-Oct-2013.) $)
+    brcgr3 $p |- ( ( N e. NN /\
+       ( A e. ( EE ` N ) /\ B e. ( EE ` N ) /\ C e. ( EE ` N ) ) /\
+       ( D e. ( EE ` N ) /\ E e. ( EE ` N ) /\ F e. ( EE ` N ) ) ) ->
+       ( <. A , <. B , C >. >. Cgr3 <. D , <. E , F >. >. <->
+         ( <. A , B >. Cgr <. D , E >. /\ <. A , C >. Cgr <. D , F >. /\
+           <. B , C >. Cgr <. E , F >. ) ) ) $=
+      ( va vb vd ve vc vf vn vq vp cv cop ccgr wbr w3a cee cfv ccgr3 cn wceq
+      opeq1 breq1d 3anbi12d opeq2 3anbi13d 3anbi23d breq2d fveq2 df-cgr3 br6 )
+      HQZIQZRZJQZKQZRZSTZUQLQZRZUTMQZRZSTZURVDRZVAVFRZSTZUAAURRZVBSTZAVDRZVGSTZ
+      VKUAABRZVBSTZVOBVDRZVJSTZUAVQACRZVGSTZBCRZVJSTZUAVPDVARZSTZVTDVFRZSTZWCUA
+      VPDERZSTZWGWBEVFRZSTZUAWIVTDFRZSTZWBEFRZSTZUANABCDNQZUBUCGUBUCUDUEKMEFGOP
+      HILJUQAUFZVCVMVHVOVKWQUSVLVBSUQAURUGUHWQVEVNVGSUQAVDUGUHUIURBUFZVMVQVKVSV
+      OWRVLVPVBSURBAUJUHWRVIVRVJSURBVDUGUHUKVDCUFZVOWAVSWCVQWSVNVTVGSVDCAUJUHWS
+      VRWBVJSVDCBUJUHULUTDUFZVQWEWAWGWCWTVBWDVPSUTDVAUGUMWTVGWFVTSUTDVFUGUMUIVA
+      EUFZWEWIWCWKWGXAWDWHVPSVAEDUJUMXAVJWJWBSVAEVFUGUMUKVFFUFZWGWMWKWOWIXBWFWL
+      VTSVFFDUJUMXBWJWNWBSVFFEUJUMULWPGUBUNNKMNOPHILJUOUP $.
+      $( [14-Oct-2013] $) $( [4-Oct-2013] $)
+  $}
+
+
+  $( Permutation law for three-place congruence.  (Contributed by Scott Fenton,
+     5-Oct-2013.) $)
+  cgr3permute3 $p |- ( ( N e. NN /\
+       ( A e. ( EE ` N ) /\ B e. ( EE ` N ) /\ C e. ( EE ` N ) ) /\
+       ( D e. ( EE ` N ) /\ E e. ( EE ` N ) /\ F e. ( EE ` N ) ) ) ->
+       ( <. A , <. B , C >. >. Cgr3 <. D , <. E , F >. >. <->
+         <. B , <. C , A >. >. Cgr3 <. E , <. F , D >. >. ) ) $=
+    ( cn wcel cee cfv w3a cop ccgr wbr ccgr3 wa wb id 3simpa cgrcomlr syl3an
+    3simpb 3anbi12d 3anrot syl6bbr brcgr3 biid syl3anb 3bitr4d ) GHIZAGJKZIZBUL
+    IZCULIZLZDULIZEULIZFULIZLZLZABMDEMNOZACMDFMNOZBCMZEFMZNOZLZVFBAMEDMNOZCAMZF
+    DMZNOZLZAVDMDVEMPOBVIMEVJMPOZVAVGVHVKVFLVLVAVBVHVCVKVFUKUKUPUMUNQUTUQURQVBV
+    HRUKSZUMUNUOTUQURUSTABDEGUAUBUKUKUPUMUOQUTUQUSQVCVKRVNUMUNUOUCUQURUSUCACDFG
+    UAUBUDVFVHVKUEUFABCDEFGUGUKUKUPUNUOUMLUTURUSUQLVMVLRUKUHUMUNUOUEUQURUSUEBCA
+    EFDGUGUIUJ $.
+    $( [14-Oct-2013] $) $( [5-Oct-2013] $)
+
+
+  $( Permutation law for three-place congruence.  (Contributed by Scott Fenton,
+     5-Oct-2013.) $)
+  cgr3permute1 $p |- ( ( N e. NN /\
+       ( A e. ( EE ` N ) /\ B e. ( EE ` N ) /\ C e. ( EE ` N ) ) /\
+       ( D e. ( EE ` N ) /\ E e. ( EE ` N ) /\ F e. ( EE ` N ) ) ) ->
+       ( <. A , <. B , C >. >. Cgr3 <. D , <. E , F >. >. <->
+         <. A , <. C , B >. >. Cgr3 <. D , <. F , E >. >. ) ) $=
+    ( cn wcel cee cfv w3a cop ccgr wbr ccgr3 wa wb id 3simpc cgrcomlr syl3an
+    3anbi3d 3ancoma syl6bb brcgr3 biid 3ancomb syl3anb 3bitr4d ) GHIZAGJKZIZBUL
+    IZCULIZLZDULIZEULIZFULIZLZLZABMDEMNOZACMDFMNOZBCMZEFMZNOZLZVCVBCBMZFEMZNOZL
+    ZAVDMDVEMPOAVHMDVIMPOZVAVGVBVCVJLVKVAVFVJVBVCUKUKUPUNUOQUTURUSQVFVJRUKSUMUN
+    UOTUQURUSTBCEFGUAUBUCVBVCVJUDUEABCDEFGUFUKUKUPUMUOUNLUTUQUSURLVLVKRUKUGUMUN
+    UOUHUQURUSUHACBDFEGUFUIUJ $.
+    $( [14-Oct-2013] $) $( [5-Oct-2013] $)
+
+
+  $( Permutation law for three-place congruence.  (Contributed by Scott Fenton,
+     5-Oct-2013.) $)
+  cgr3permute2 $p |- ( ( N e. NN /\
+       ( A e. ( EE ` N ) /\ B e. ( EE ` N ) /\ C e. ( EE ` N ) ) /\
+       ( D e. ( EE ` N ) /\ E e. ( EE ` N ) /\ F e. ( EE ` N ) ) ) ->
+       ( <. A , <. B , C >. >. Cgr3 <. D , <. E , F >. >. <->
+         <. B , <. A , C >. >. Cgr3 <. E , <. D , F >. >. ) ) $=
+    ( cn wcel cee cfv w3a cop ccgr3 wbr cgr3permute3 wb biid 3anrot
+    cgr3permute1 syl3anb bitrd ) GHIZAGJKZIZBUDIZCUDIZLZDUDIZEUDIZFUDIZLZLABCMM
+    DEFMMNOBCAMMEFDMMNOZBACMMEDFMMNOZABCDEFGPUCUCUHUFUGUELULUJUKUILUMUNQUCRUEUF
+    UGSUIUJUKSBCAEFDGTUAUB $.
+    $( [14-Oct-2013] $) $( [5-Oct-2013] $)
+
+  $( Permutation law for three-place congruence.  (Contributed by Scott Fenton,
+     5-Oct-2013.) $)
+  cgr3permute4 $p |- ( ( N e. NN /\
+       ( A e. ( EE ` N ) /\ B e. ( EE ` N ) /\ C e. ( EE ` N ) ) /\
+       ( D e. ( EE ` N ) /\ E e. ( EE ` N ) /\ F e. ( EE ` N ) ) ) ->
+       ( <. A , <. B , C >. >. Cgr3 <. D , <. E , F >. >. <->
+         <. C , <. A , B >. >. Cgr3 <. F , <. D , E >. >. ) ) $=
+    ( cn wcel cee cfv w3a cop ccgr3 wbr cgr3permute3 wb biid 3anrot syl3anb
+    bitrd ) GHIZAGJKZIZBUCIZCUCIZLZDUCIZEUCIZFUCIZLZLABCMMDEFMMNOBCAMMEFDMMNOZC
+    ABMMFDEMMNOZABCDEFGPUBUBUGUEUFUDLUKUIUJUHLULUMQUBRUDUEUFSUHUIUJSBCAEFDGPTUA
+    $.
+    $( [14-Oct-2013] $) $( [5-Oct-2013] $)
+
+  $( Permutation law for three-place congruence.  (Contributed by Scott Fenton,
+     5-Oct-2013.) $)
+  cgr3permute5 $p |- ( ( N e. NN /\
+       ( A e. ( EE ` N ) /\ B e. ( EE ` N ) /\ C e. ( EE ` N ) ) /\
+       ( D e. ( EE ` N ) /\ E e. ( EE ` N ) /\ F e. ( EE ` N ) ) ) ->
+       ( <. A , <. B , C >. >. Cgr3 <. D , <. E , F >. >. <->
+         <. C , <. B , A >. >. Cgr3 <. F , <. E , D >. >. ) ) $=
+    ( cn wcel cee cfv w3a cop ccgr3 wbr cgr3permute3 wb biid 3anrot
+    cgr3permute2 syl3anb bitrd ) GHIZAGJKZIZBUDIZCUDIZLZDUDIZEUDIZFUDIZLZLABCMM
+    DEFMMNOBCAMMEFDMMNOZCBAMMFEDMMNOZABCDEFGPUCUCUHUFUGUELULUJUKUILUMUNQUCRUEUF
+    UGSUIUJUKSBCAEFDGTUAUB $.
+    $( [14-Oct-2013] $) $( [5-Oct-2013] $)
+
+  $( Transitivity law for three-place congruence.  (Contributed by Scott
+     Fenton, 5-Oct-2013.) $)
+  cgr3tr4 $p |- ( ( N e. NN /\
+    ( ( A e. ( EE ` N ) /\ B e. ( EE ` N ) /\ C e. ( EE ` N ) ) /\
+      ( D e. ( EE ` N ) /\ E e. ( EE ` N ) /\ F e. ( EE ` N ) ) /\
+      ( G e. ( EE ` N ) /\ H e. ( EE ` N ) /\ I e. ( EE ` N ) ) ) ) ->
+    ( ( <. A , <. B , C >. >. Cgr3 <. D , <. E , F >. >. /\
+        <. A , <. B , C >. >. Cgr3 <. G , <. H , I >. >. ) ->
+      <. D , <. E , F >. >. Cgr3 <. G , <. H , I >. >. ) ) $=
+    ( cn wcel cee cfv w3a wa cop ccgr wbr ccgr3 3an6 wi simpl simpr11 simpr12
+    simpr21 simpr22 simpr31 simpr32 axcgrtr syl133anc simpr13 simpr23 simpr33
+    3anim123d syl5bir wb brcgr3 3adant3r3 3adant3r2 anbi12d 3adant3r1 3imtr4d
+    ) JKLZAJMNZLZBVELZCVELZOZDVELZEVELZFVELZOZGVELZHVELZIVELZOZOZPZABQZDEQZRSZA
+    CQZDFQZRSZBCQZEFQZRSZOZVTGHQZRSZWCGIQZRSZWFHIQZRSZOZPZWAWJRSZWDWLRSZWGWNRSZ
+    OZAWFQZDWGQZTSZXBGWNQZTSZPXCXETSZWQWBWKPZWEWMPZWHWOPZOVSXAWBWKWEWMWHWOUAVSX
+    HWRXIWSXJWTVSVDVFVGVJVKVNVOXHWRUBVDVRUCZVFVGVHVMVQVDUDZVFVGVHVMVQVDUEZVJVKV
+    LVIVQVDUFZVJVKVLVIVQVDUGZVNVOVPVIVMVDUHZVNVOVPVIVMVDUIZABDEGHJUJUKVSVDVFVHV
+    JVLVNVPXIWSUBXKXLVFVGVHVMVQVDULZXNVJVKVLVIVQVDUMZXPVNVOVPVIVMVDUNZACDFGIJUJ
+    UKVSVDVGVHVKVLVOVPXJWTUBXKXMXRXOXSXQXTBCEFHIJUJUKUOUPVSXDWIXFWPVDVIVMXDWIUQ
+    VQABCDEFJURUSVDVIVQXFWPUQVMABCGHIJURUTVAVDVMVQXGXAUQVIDEFGHIJURVBVC $.
+    $( [14-Oct-2013] $) $( [5-Oct-2013] $)
+
+  $( Commutativity law for three-place congruence.  (Contributed by Scott
+     Fenton, 5-Oct-2013.) $)
+  cgr3com $p |- ( ( N e. NN /\
+       ( A e. ( EE ` N ) /\ B e. ( EE ` N ) /\ C e. ( EE ` N ) ) /\
+       ( D e. ( EE ` N ) /\ E e. ( EE ` N ) /\ F e. ( EE ` N ) ) ) ->
+       ( <. A , <. B , C >. >. Cgr3 <. D , <. E , F >. >. <->
+         <. D , <. E , F >. >. Cgr3 <. A , <. B , C >. >. ) ) $=
+    ( cn wcel cee cfv w3a cop ccgr wbr ccgr3 wa wb id 3simpa cgrcom syl3an
+    3simpb 3simpc 3anbi123d brcgr3 3com23 3bitr4d ) GHIZAGJKZIZBUJIZCUJIZLZDUJI
+    ZEUJIZFUJIZLZLZABMZDEMZNOZACMZDFMZNOZBCMZEFMZNOZLVAUTNOZVDVCNOZVGVFNOZLZAVF
+    MZDVGMZPOVNVMPOZUSVBVIVEVJVHVKUIUIUNUKULQURUOUPQVBVIRUISZUKULUMTUOUPUQTABDE
+    GUAUBUIUIUNUKUMQURUOUQQVEVJRVPUKULUMUCUOUPUQUCACDFGUAUBUIUIUNULUMQURUPUQQVH
+    VKRVPUKULUMUDUOUPUQUDBCEFGUAUBUEABCDEFGUFUIURUNVOVLRDEFABCGUFUGUH $.
+    $( [14-Oct-2013] $) $( [5-Oct-2013] $)
+
+  $( Identity law for three-place congruence.  (Contributed by Scott Fenton,
+     6-Oct-2013.) $)
+  cgr3rflx $p |- ( ( N e. NN /\
+    ( A e. ( EE ` N ) /\ B e. ( EE ` N ) /\ C e. ( EE ` N ) ) ) ->
+    <. A , <. B , C >. >. Cgr3 <. A , <. B , C >. >. ) $=
+    ( cn wcel cee cfv w3a wa cop ccgr3 wbr ccgr cgrrflx 3adant3r3 3adant3r2
+    3adant3r1 3jca wb brcgr3 3anidm23 mpbird ) DEFZADGHZFZBUEFZCUEFZIZJZABCKZKZ
+    ULLMZABKZUNNMZACKZUPNMZUKUKNMZIZUJUOUQURUDUFUGUOUHABDOPUDUFUHUQUGACDOQUDUGU
+    HURUFBCDORSUDUIUMUSTABCABCDUAUBUC $.
+    $( [14-Oct-2013] $) $( [6-Oct-2013] $)
+
+  ${
+    $d A e f g $.  $d B e f g $.  $d C e f g $.  $d D e f g $.  $d F e f g $.
+    $d N e f g $.
+    $( A line segment can be divided at the same place as a congruent line
+       segment is divided.  Theorem 4.5 of [Schwabhauser], p. 35.  (Contributed
+       by Scott Fenton, 4-Oct-2013.) $)
+    cgrxfr $p |- ( ( N e. NN /\
+            ( A e. ( EE ` N ) /\ B e. ( EE ` N ) /\ C e. ( EE ` N ) ) /\
+            ( D e. ( EE ` N ) /\ F e. ( EE ` N ) ) ) ->
+            ( ( B Btwn <. A , C >. /\ <. A , C >. Cgr <. D , F >. ) ->
+              E. e e. ( EE ` N ) ( e Btwn <. D , F >. /\
+               <. A , <. B , C >. >. Cgr3 <. D , <. e , F >. >. ) ) ) $=
+      ( vg vf cn wcel cee cfv w3a wa cop cbtwn wbr ccgr cv ccgr3 wrex wne
+      simpl1 simpl3r simpl3l btwndiff syl111anc wi simpr simpl21 simpl22
+      axsegcon syl122anc adantr anass simprl simprr simpl23 df-3an anbi2i
+      bitr4i wceq simplrr ad2antrl necomd simpr1 simpr2 simpr3 simprrl
+      btwnexchand btwnexch3and simplll simprrr cgrextendand jca simplrl wb
+      btwncom syl13anc mpbid simpllr cgrcomand 3jca ex segconeq syl133anc syld
+      imp opeq2 breq2d breq1d anbi12d biimpa simpl btwnexch3 syl2ani adantl
+      brcgr3 mpbird expr syl5 exp3acom23 impr mpd sylanb an32s r19.23adva
+      reximdva ) GJKZAGLMZKZBXKKZCXKKZNZDXKKZFXKKZOZNZBACPZQRZXTDFPZSRZOZETZYBQ
+      RZABCPZPDYEFPZPUARZOZEXKUBZXSYDOZDFHTZPQRZDYMUCZOZHXKUBZYKYLXJXQXPYQXJXOX
+      RYDUDXPXQXJXOYDUEXPXQXJXOYDUFFDGHUGUHYLYPYKHXKXSYMXKKZYDYPYKUIXSYROZYDYPY
+      KYSYDYPOZOZDYMYEPQRZDYEPZABPZSRZOZEXKUBZYKYSUUGYTYSXJYRXPXLXMUUGXJXOXRYRU
+      DXSYRUJXPXQXJXOYRUFXLXMXNXJXRYRUKXLXMXNXJXRYRULEYMDABGUMUNUOUUAUUFYJEXKYS
+      YEXKKZYTUUFYJUIZYSUUHOXSYRUUHOZOZYTUUIXSYRUUHUPUUKYTUUFYJUUKYTUUFOZOZYEYM
+      ITZPZQRZYEUUNPZYGSRZOZIXKUBZYJUUKUUTUULUUKXJYRUUHXMXNUUTXJXOXRUUJUDXSYRUU
+      HUQXSYRUUHURXLXMXNXJXRUUJULXLXMXNXJXRUUJUSIYMYEBCGUMUNUOUUMUUSYJIXKUUKUUN
+      XKKZUULUUSYJUIZUUKUVAOZXSYRUUHUVANZOZUULUVBUVCXSUUJUVAOZOUVEXSUUJUVAUPUVD
+      UVFXSYRUUHUVAUTVAVBUVEUULUUSYJUVEUULUUSOZOZUUNFVCZYJUVEUVGUVIUVEUVGYMDUCZ
+      DUUOQRZDUUNPXTSRZOZDYMFPZQRZYBXTSRZOZNZUVIUVEUVGUVRUVHUVJUVMUVQUVHDYMUULY
+      OUVEUUSYDYNYOUUFVDVEVFUVHUVKUVLUVEUVGYMDYEUUNGXJXOXRUVDUDZXSYRUUHUVAVGZXP
+      XQXJXOUVDUFZXSYRUUHUVAVHZXSYRUUHUVAVIZUULUUBUVEUUSYTUUBUUEUQZVEZUVEUULUUP
+      UURVJZVKUVEUVGDYEUUNABCGUVSUWAUWBUWCXLXMXNXJXRUVDUKZXLXMXNXJXRUVDULZXLXMX
+      NXJXRUVDUSZUVEUVGYMDYEUUNGUVSUVTUWAUWBUWCUWEUWFVLUULYAUVEUUSYAYCYPUUFVMVE
+      UULUUEUVEUUSYTUUBUUEURVEUVEUULUUPUURVNVOVPUVHUVOUVPUVHYNUVOUULYNUVEUUSYDY
+      NYOUUFVQVEUVEYNUVOVRZUVGUVEXJXPXQYRUWJUVSUWAXPXQXJXOUVDUEZUVTDFYMGVSVTUOW
+      AUVEUVGACDFGUVSUWGUWIUWAUWKUULYCUVEUUSYAYCYPUUFWBZVEWCVPWDWEUVEXJXPXLXNYR
+      UVAXQUVRUVIUIUVSUWAUWGUWIUVTUWCUWKDACYMGUUNFWFWGWHWIUVEUULUUSUVIYJUIUVEUU
+      LOZUVIUUSYJUVIUUSOYEUVNQRZYHYGSRZOZUWMYJUVIUUSUWPUVIUUPUWNUURUWOUVIUUOUVN
+      YEQUUNFYMWJWKUVIUUQYHYGSUUNFYEWJWLWMWNUVEUULUWPYJUVEUULUWPOZOZYFYIUVEUWQY
+      FUULUVEUUBUWNYFUWPUWDUWNUWOWOUVEXJYRXPUUHXQUUBUWNOYFUIUVSUVTUWAUWBUWKYMDY
+      EFGWPUNWQWIUWRYIUUDUUCSRZYCYGYHSRZNZUWRUWSYCUWTUVEUWQDYEABGUVSUWAUWBUWGUW
+      HUWQUUEUVEYTUUBUUEUWPVDWRWCUULYCUVEUWPUWLVEUVEUWQYEFBCGUVSUWBUWKUWHUWIUVE
+      UULUWNUWOVNWCWDUVEYIUXAVRZUWQUVEXJXLXMXNXPUUHXQUXBUVSUWGUWHUWIUWAUWBUWKAB
+      CDYEFGWSWGUOWTVPXAXBXCXDXEXAXFXGXHXEXAXFXGXIXEXAXGXHXEWE $.
+      $( [14-Oct-2013] $) $( [4-Oct-2013] $)
+  $}
+
+  ${
+    $d N e $.  $d A e $.  $d B e $.  $d C e $.  $d D e $.  $d E e $.  $d F e $.
+    $( A condition for extending betweenness to a new set of points based on
+       congruence with another set of points.  Theorem 4.6 of [Schwabhauser],
+       p. 36.  (Contributed by Scott Fenton, 4-Oct-2013.) $)
+    btwnxfr $p |- ( ( N e. NN /\
+       ( A e. ( EE ` N ) /\ B e. ( EE ` N ) /\ C e. ( EE ` N ) ) /\
+       ( D e. ( EE ` N ) /\ E e. ( EE ` N ) /\ F e. ( EE ` N ) ) ) ->
+       ( ( B Btwn <. A , C >. /\
+           <. A , <. B , C >. >. Cgr3 <. D , <. E , F >. >. ) ->
+         E Btwn <. D , F >. ) ) $=
+      ( ve cn wcel cee cfv w3a cop cbtwn wbr ccgr3 wa cv wrex ccgr brcgr3
+      simp2 syl6bi wi simp1 simp21 simp22 simp23 simp31 simp33 cgrxfr
+      syl132anc sylan2d imp wceq simprrl jca simpl1 simpl31 simpl33 cgrrflx
+      syl111anc simpr adantr simpl2 simpl3 3jca cgr3tr4 syl13anc wb cgr3com
+      syl113anc simpl32 syl133anc simpr1 simpr3 cgrcomlr syl122anc mpbid ex
+      sylbid syld syl2ani cifs brifs ifscgr sylbird syl333anc cgrid2 eqbrtrrd
+      expr an32s r19.23adva mpd ) GIJZAGKLZJZBWQJZCWQJZMZDWQJZEWQJZFWQJZMZMZBAC
+      NZOPZABCNZNZDEFNZNZQPZRZEDFNZOPZXFXNRZHSZXOOPZXJDXRFNZNZQPZRZHWQTZXPXFXNY
+      DXFXMXGXOUAPZXHYDXFXMABNDENZUAPZYEXIXKUAPZMYEABCDEFGUBYGYEYHUCUDXFWPWRWSW
+      TXBXDXHYERYDUEWPXAXEUFWPWRWSWTXEUGWPWRWSWTXEUHWPWRWSWTXEUIWPXAXBXCXDUJWPX
+      AXBXCXDUKABCDHFGULUMUNUOXQYCXPHWQXFXRWQJZXNYCXPUEXFYIRZXNYCXPYJXNYCRZRZXR
+      EXOOYJYKXREUPZYJYKXRXRNXRENUAPZYMYJYKXSXSRZXOXOUAPZXTXTUAPZRZDXRNZYFUAPZF
+      XRNZFENZUAPZRZMZYNYJYKUUEYLYOYRUUDYLXSXSYJXNXSYBUQZUUFURYJYRYKYJYPYQYJWPX
+      BXDYPWPXAXEYIUSZXBXCXDWPXAYIUTZXBXCXDWPXAYIVAZDFGVBVCYJWPYIXDYQUUGXFYIVDZ
+      UUIXRFGVBVCURVEYJYKUUDXNYJXMYBUUDYCXHXMVDXSYBVDYJXMYBRZXLYAQPZUUDYJWPXAXE
+      XBYIXDMUUKUULUEUUGWPXAXEYIVFWPXAXEYIVGZYJXBYIXDUUHUUJUUIVHABCDEFDXRFGVIVJ
+      YJUULYAXLQPZUUDYJWPXEXBYIXDUULUUNVKUUGUUMUUHUUJUUIDEFDXRFGVLVMYJUUNYTYPXT
+      XKUAPZMZUUDYJWPXBYIXDXBXCXDUUNUUPVKUUGUUHUUJUUIUUHXBXCXDWPXAYIVNZUUIDXRFD
+      EFGUBVOYJUUPUUDYJUUPRZYTUUCYJYTYPUUOVPUURUUOUUCYJYTYPUUOVQYJUUOUUCVKZUUPY
+      JWPYIXDXCXDUUSUUGUUJUUIUUQUUIXRFEFGVRVSVEVTURWAWBWBWCWDUOVHWAYJWPXBYIXDYI
+      XBYIXDXCUUEYNUEUUGUUHUUJUUIUUJUUHUUJUUIUUQWPXBYIMXDYIXBMYIXDXCMMUUEYSUUAN
+      YSUUBNWEPYNDXRFXRDXRFEGWFDXRFXRDXRFEGWGWHWIWCYJWPYIYIXCYNYMUEUUGUUJUUJUUQ
+      XRXREGWJVJWCUOUUFWKWLWMWNWOWA $.
+      $( [14-Oct-2013] $) $( [4-Oct-2013] $)
+  $}
+
+  ${
+    $d A a b c n $.  $d B a b c n $.  $d C a b c n $.  $d N a b c n $.
+    $( The binary relationship form of the colinearity predicate.  (Contributed
+       by Scott Fenton, 5-Oct-2013.) $)
+    brcolinear $p |- ( ( N e. NN /\
+       ( A e. ( EE ` N ) /\ B e. ( EE ` N ) /\ C e. ( EE ` N ) ) ) ->
+       ( A Colinear <. B , C >. <->
+         ( A Btwn <. B , C >. \/ B Btwn <. C , A >. \/
+           C Btwn <. A , B >. ) ) ) $=
+      ( va vn vb vc cop ccolin wbr cv cee cfv wcel w3a cbtwn w3o wa cn wrex
+      copab2 ccnv df-colinear breqi cvv wb simpr1 opex brcnvg sylancl df-br
+      wceq eleq1 3anbi2d opeq1 breq2d breq1 opeq2 3orbi123d anbi12d rexbidv
+      3anbi3d 3anbi1d eloprabg 3comr adantl simprr r19.23aiva fveq2 eleq2d
+      3anbi123d anbi1d rcla4ev expr impbid2 bitrd syl5bb ) ABCIZJKAVSELZFLZMNZO
+      ZGLZWBOZHLZWBOZPZVTWDWFIZQKZWDWFVTIZQKZWFVTWDIZQKZRZSZFTUAZGHEUBZUCZKZDTO
+      ZADMNZOZBXBOZCXBOZPZSZAVSQKZBCAIZQKZCABIZQKZRZAVSJWSFEGHUDUEXGWTVSAWRKZXM
+      XGXCVSUFOWTXNUGXAXCXDXEUHBCUIAVSXBUFWRUJUKXNVSAIWROZXGXMVSAWRULXGXOAWBOZB
+      WBOZCWBOZPZXMSZFTUAZXMXFXOYAUGZXAXDXEXCYBWQWCXQWGPZVTBWFIZQKZBWKQKZWFVTBI
+      ZQKZRZSZFTUAWCXQXRPZVTVSQKZBCVTIZQKZCYGQKZRZSZFTUAYAGHEBCAXBXBXBWDBUMZWPY
+      JFTYRWHYCWOYIYRWEXQWCWGWDBWBUNUOYRWJYEWLYFWNYHYRWIYDVTQWDBWFUPUQWDBWKQURY
+      RWMYGWFQWDBVTUSUQUTVAVBWFCUMZYJYQFTYSYCYKYIYPYSWGXRWCXQWFCWBUNVCYSYEYLYFY
+      NYHYOYSYDVSVTQWFCBUSUQYSWKYMBQWFCVTUPUQWFCYGQURUTVAVBVTAUMZYQXTFTYTYKXSYP
+      XMYTWCXPXQXRVTAWBUNVDYTYLXHYNXJYOXLVTAVSQURYTYMXIBQVTACUSUQYTYGXKCQVTABUP
+      UQUTVAVBVEVFVGXGYAXMXTXMFTWATOXSXMVHVIXAXFXMYAXTXFXMSFDTWADUMZXSXFXMUUAXP
+      XCXQXDXRXEUUAWBXBAWADMVJZVKUUAWBXBBUUBVKUUAWBXBCUUBVKVLVMVNVOVPVQVRVQVR
+      $.
+      $( [14-Oct-2013] $) $( [5-Oct-2013] $)
+  $}
+
+  $( Permutation law for colinearity.  Part of theorem 4.11 of [Schwabhauser],
+     p. 36.  (Contributed by Scott Fenton, 5-Oct-2013.) $)
+  colinearperm1 $p |- ( ( N e. NN /\
+      ( A e. ( EE ` N ) /\ B e. ( EE ` N ) /\ C e. ( EE ` N ) ) ) ->
+      ( A Colinear <. B , C >. <-> A Colinear <. C , B >. ) ) $=
+    ( cn wcel cee cfv w3a wa cop cbtwn wbr w3o ccolin btwncom wb 3anrot
+    sylan2b sylan2br 3orbi123d 3orcomb syl6bb brcolinear 3ancomb 3bitr4d ) DEFZ
+    ADGHZFZBUHFZCUHFZIZJZABCKZLMZBCAKLMZCABKLMZNZACBKZLMZCBAKLMZBACKLMZNZAUNOMA
+    USOMZUMURUTVBVANVCUMUOUTUPVBUQVAABCDPULUGUJUKUIIUPVBQUIUJUKRBCADPSULUGUKUIU
+    JIUQVAQUKUIUJRCABDPTUAUTVBVAUBUCABCDUDULUGUIUKUJIVDVCQUIUJUKUEACBDUDSUF $.
+    $( [14-Oct-2013] $) $( [5-Oct-2013] $)
+
+  $( Permutation law for colinearity.  Part of theorem 4.11 of [Schwabhauser],
+     p. 36.  (Contributed by Scott Fenton, 5-Oct-2013.) $)
+  colinearperm3 $p |- ( ( N e. NN /\
+      ( A e. ( EE ` N ) /\ B e. ( EE ` N ) /\ C e. ( EE ` N ) ) ) ->
+      ( A Colinear <. B , C >. <-> B Colinear <. C , A >. ) ) $=
+    ( cn wcel cee cfv w3a wa cop cbtwn wbr w3o ccolin wb 3orrot a1i brcolinear
+    3anrot sylan2b 3bitr4d ) DEFZADGHZFZBUDFZCUDFZIZJZABCKZLMZBCAKZLMZCABKLMZNZ
+    UMUNUKNZAUJOMBULOMZUOUPPUIUKUMUNQRABCDSUHUCUFUGUEIUQUPPUEUFUGTBCADSUAUB $.
+    $( [14-Oct-2013] $) $( [5-Oct-2013] $)
+
+  $( Permutation law for colinearity.  Part of theorem 4.11 of [Schwabhauser],
+     p. 36.  (Contributed by Scott Fenton, 5-Oct-2013.) $)
+  colinearperm2 $p |- ( ( N e. NN /\
+      ( A e. ( EE ` N ) /\ B e. ( EE ` N ) /\ C e. ( EE ` N ) ) ) ->
+      ( A Colinear <. B , C >. <-> B Colinear <. A , C >. ) ) $=
+    ( cn wcel cee cfv w3a wa cop ccolin wbr colinearperm3 wb 3anrot
+    colinearperm1 sylan2b bitrd ) DEFZADGHZFZBUAFZCUAFZIZJABCKLMBCAKLMZBACKLMZA
+    BCDNUETUCUDUBIUFUGOUBUCUDPBCADQRS $.
+    $( [14-Oct-2013] $) $( [5-Oct-2013] $)
+
+  $( Permutation law for colinearity.  Part of theorem 4.11 of [Schwabhauser],
+     p. 36.  (Contributed by Scott Fenton, 5-Oct-2013.) $)
+  colinearperm4 $p |- ( ( N e. NN /\
+      ( A e. ( EE ` N ) /\ B e. ( EE ` N ) /\ C e. ( EE ` N ) ) ) ->
+      ( A Colinear <. B , C >. <-> C Colinear <. A , B >. ) ) $=
+    ( cn wcel cee cfv w3a wa cop ccolin wbr colinearperm3 wb 3anrot sylan2b
+    bitrd ) DEFZADGHZFZBTFZCTFZIZJABCKLMBCAKLMZCABKLMZABCDNUDSUBUCUAIUEUFOUAUBU
+    CPBCADNQR $.
+    $( [14-Oct-2013] $) $( [5-Oct-2013] $)
+
+  $( Permutation law for colinearity.  Part of theorem 4.11 of [Schwabhauser],
+     p. 36.  (Contributed by Scott Fenton, 5-Oct-2013.) $)
+  colinearperm5 $p |- ( ( N e. NN /\
+      ( A e. ( EE ` N ) /\ B e. ( EE ` N ) /\ C e. ( EE ` N ) ) ) ->
+      ( A Colinear <. B , C >. <-> C Colinear <. B , A >. ) ) $=
+    ( cn wcel cee cfv w3a wa cop ccolin wbr colinearperm4 wb 3anrot
+    colinearperm1 sylan2br bitrd ) DEFZADGHZFZBUAFZCUAFZIZJABCKLMCABKLMZCBAKLMZ
+    ABCDNUETUDUBUCIUFUGOUDUBUCPCABDQRS $.
+    $( [14-Oct-2013] $) $( [5-Oct-2013] $)
+
+  $( Trivial case of colinearity.  Theorem 4.12 of [Schwabhauser], p. 37.
+     (Contributed by Scott Fenton, 5-Oct-2013.) $)
+  colineartriv1 $p |- ( ( N e. NN /\ A e. ( EE ` N ) /\ B e. ( EE ` N ) ) ->
+    A Colinear <. A , B >. ) $=
+    ( cn wcel cee cfv w3a cop ccolin wbr cbtwn w3o btwntriv1 3mix1d wb simp1
+    simp2 simp3 brcolinear syl13anc mpbird ) CDEZACFGZEZBUDEZHZAABIZJKZAUHLKZAB
+    AILKZBAAILKZMZUGUJUKULABCNOUGUCUEUEUFUIUMPUCUEUFQUCUEUFRZUNUCUEUFSAABCTUAUB
+    $.
+    $( [14-Oct-2013] $) $( [5-Oct-2013] $)
+
+  $( Betweenness implies colinearity.  (Contributed by Scott Fenton,
+     7-Oct-2013.) $)
+  btwncolinear1 $p |- ( ( N e. NN /\
+    ( A e. ( EE ` N ) /\ B e. ( EE ` N ) /\ C e. ( EE ` N ) ) ) ->
+    ( C Btwn <. A , B >. -> A Colinear <. B , C >. ) ) $=
+    ( cop cbtwn wbr ccolin cn wcel cee cfv w3a wa w3o 3mix3 brcolinear syl5ibr
+    ) CABEFGZABCEZHGDIJADKLZJBUAJCUAJMNATFGZBCAEFGZSOSUBUCPABCDQR $.
+    $( [14-Oct-2013] $) $( [7-Oct-2013] $)
+
+  $( Transfer law for colinearity.  Theorem 4.13 of [Schwabhauser], p. 37.
+     (Contributed by Scott Fenton, 5-Oct-2013.) $)
+  colinearxfr $p |- ( ( N e. NN /\
+       ( A e. ( EE ` N ) /\ B e. ( EE ` N ) /\ C e. ( EE ` N ) ) /\
+       ( D e. ( EE ` N ) /\ E e. ( EE ` N ) /\ F e. ( EE ` N ) ) ) ->
+       ( ( B Colinear <. A , C >. /\
+           <. A , <. B , C >. >. Cgr3 <. D , <. E , F >. >. ) ->
+         E Colinear <. D , F >. ) ) $=
+    ( cn wcel cee cfv w3a cop ccolin wbr ccgr3 wi wa cbtwn w3o btwnxfr
+    exp3acom23 imp cgr3permute4 biid 3anrot syl3anbr sylbid cgr3permute3
+    syl3anb 3orim123d wb simp1 simp22 simp21 simp23 brcolinear syl13anc adantr
+    simp32 simp31 simp33 3imtr4d ex com23 imp3a ) GHIZAGJKZIZBVHIZCVHIZLZDVHIZE
+    VHIZFVHIZLZLZBACMZNOZABCMMDEFMMPOZEDFMZNOZVQVTVSWBVQVTVSWBQVQVTRZBVRSOZACBM
+    SOZCBAMSOZTZEWASOZDFEMSOZFEDMSOZTZVSWBWCWDWHWEWIWFWJVQVTWDWHQVQWDVTWHABCDEF
+    GUAUBUCVQVTWEWIQZVQVTCABMMFDEMMPOZWLABCDEFGUDVQWEWMWIVGVGVLVKVIVJLVPVOVMVNL
+    WEWMRWIQVGUEZVKVIVJUFVOVMVNUFCABFDEGUAUGUBUHUCVQVTWFWJQZVQVTBCAMMEFDMMPOZWO
+    ABCDEFGUIVQWFWPWJVGVGVLVJVKVILVPVNVOVMLWFWPRWJQWNVIVJVKUFVMVNVOUFBCAEFDGUAU
+    JUBUHUCUKVQVSWGULZVTVQVGVJVIVKWQVGVLVPUMZVGVIVJVKVPUNVGVIVJVKVPUOVGVIVJVKVP
+    UPBACGUQURUSVQWBWKULZVTVQVGVNVMVOWSWRVGVLVMVNVOUTVGVLVMVNVOVAVGVLVMVNVOVBED
+    FGUQURUSVCVDVEVF $.
+    $( [14-Oct-2013] $) $( [5-Oct-2013] $)
+
+  ${
+    $d N f $.  $d A f $.  $d B f $.  $d C f $.  $d D f $.  $d E f $.
+    $( Extend a line with a missing point.  Theorem 4.14 of [Schwabhauser],
+       p. 37.  (Contributed by Scott Fenton, 6-Oct-2013.) $)
+    lineext $p |- ( ( N e. NN /\
+       ( A e. ( EE ` N ) /\ B e. ( EE ` N ) /\ C e. ( EE ` N ) ) /\
+       ( D e. ( EE ` N ) /\ E e. ( EE ` N ) ) ) ->
+       ( ( A Colinear <. B , C >. /\ <. A , B >. Cgr <. D , E >. ) ->
+         E. f e. ( EE ` N )
+            <. A , <. B , C >. >. Cgr3 <. D , <. E , f >. >. ) ) $=
+      ( cn wcel cee cfv w3a wa cop ccolin wbr ccgr cbtwn w3o cv ccgr3 wrex wb
+      brcolinear 3adant3 anbi1d wi simp1 simp3r simp3l jca simp21 simp23 3jca
+      adantr axsegcon syl simprlr simprrr an4 simpl1 simpl21 simpl22 simpl3l
+      simpl3r cgrcomlr syl122anc anbi2d simpl23 simpr cgrextend syl133anc
+      sylbid syl5bi imp expr cgrcom simpl2 brcgr3 syl113anc 3imtr4d an32s
+      reximdva mpd exp32 3ancoma btwncom sylan2b simp3 simp22 syl112anc simpll
+      simplr ex adantl sylcom syl5bb expdimp sylbird cgrxfr syl131anc
+      cgr3permute1 biimprd adantld syld exp3a 3jaod imp3a ) GHIZAGJKZIZBXJIZCXJ
+      IZLZDXJIZFXJIZMZLZABCNZOPZABNZDFNZQPZMAXSRPZBCANRPZCYARPZSZYCMAXSNDFETZNZ
+      NUAPZEXJUBZXRXTYGYCXIXNXTYGUCXQABCGUDUEUFXRYGYCYKXRYDYCYKUGZYEYFXRYDYCYKX
+      RYDYCMZMZDYIRPZDYHNZACNZQPZMZEXJUBZYKYNXIXPXOMZXKXMMZLZYTXRUUCYMXRXIUUAUU
+      BXIXNXQUHZXRXPXOXIXNXOXPUIXIXNXOXPUJUKXRXKXMXIXKXLXMXQULZXIXKXLXMXQUMZUKU
+      NUOEFDACGUPUQYNYSYJEXJXRYHXJIZYMYSYJUGXRUUGMZYMMYOYQYPQPZMZYCUUIXSYIQPZLZ
+      YSYJUUHYMUUJUULUUHYMUUJMZMYCUUIUUKUUHYDYCUUJURUUHYMYOUUIUSUUHUUMUUKUUMYDY
+      OMZYCUUIMZMZUUHUUKYDYCYOUUIUTUUHUUPUUNBANFDNQPZUUIMZMZUUKUUHUUOUURUUNUUHY
+      CUUQUUIUUHXIXKXLXOXPYCUUQUCXIXNXQUUGVAZXKXLXMXIXQUUGVBZXKXLXMXIXQUUGVCZXO
+      XPXIXNUUGVDZXOXPXIXNUUGVEZABDFGVFVGUFVHUUHXIXLXKXMXPXOUUGUUSUUKUGUUTUVBUV
+      AXKXLXMXIXQUUGVIZUVDUVCXRUUGVJZBACFDYHGVKVLVMVNVOUNVPUUHYSUUJUCYMUUHYRUUI
+      YOUUHXIXOUUGXKXMYRUUIUCUUTUVCUVFUVAUVEDYHACGVQVGVHUOUUHYJUULUCZYMUUHXIXNX
+      OXPUUGUVGUUTXIXNXQUUGVRZUVCUVDUVFABCDFYHGVSVTZUOWAWBWCWDWEXRYEBYQRPZYLXIX
+      NUVJYEUCZXQXNXIXLXKXMLUVKXKXLXMWFBACGWGWHUEXRUVJYCYKXRUVJYCMZMZFYPRPZYIXS
+      QPZMZEXJUBZYKXRUVQUVLXRXIXQXLXMUVQUUDXIXNXQWIZXIXKXLXMXQWJZUUFEDFBCGUPWKU
+      OUVMUVPYJEXJXRUUGUVLUVPYJUGUUHUVLUVPYJUUHUVJUVNMZYCUUKMZMZUULUVLUVPMZYJUU
+      HUWBUUIUULUUHXIXNXOXPUUGUWBUUIUGUUTUVHUVCUVDUVFABCDFYHGVKVTUWAUUIUULUGUVT
+      UWAUUIUULUWAUUIMYCUUIUUKYCUUKUUIWLUWAUUIVJYCUUKUUIWMUNWNWOWPUWCUVTYCUVOMZ
+      MUUHUWBUVJYCUVNUVOUTUUHUWDUWAUVTUUHUVOUUKYCUUHXIXPUUGXLXMUVOUUKUCUUTUVDUV
+      FUVBUVEFYHBCGVQVGVHVHWQUVIWAWRWBWCWDWEWSXRYFYCYKXRYFYCMZYHYBRPZACBNNDYHFN
+      NUAPZMZEXJUBZYKXRXIXKXMXLXQUWEUWIUGUUDUUEUUFUVSUVRACBDEFGWTXAXRUWHYJEXJUU
+      HUWGYJUWFUUHYJUWGUUHXIXNXOXPUUGYJUWGUCUUTUVHUVCUVDUVFABCDFYHGXBVTXCXDWCXE
+      XFXGXHVM $.
+      $( [14-Oct-2013] $) $( [6-Oct-2013] $)
+  $}
+
+  $( Change some conditions for outer five segment predicate.  (Contributed by
+     Scott Fenton, 6-Oct-2013.) $)
+  brofs2 $p |- ( ( ( N e. NN /\ A e. ( EE ` N ) /\ B e. ( EE ` N ) ) /\
+        ( C e. ( EE ` N ) /\ D e. ( EE ` N ) /\ E e. ( EE ` N ) ) /\
+        ( F e. ( EE ` N ) /\ G e. ( EE ` N ) /\ H e. ( EE ` N ) ) ) ->
+    ( <. <. A , B >. , <. C , D >. >. OuterFiveSeg
+      <. <. E , F >. , <. G , H >. >. <->
+      ( B Btwn <. A , C >. /\
+        <. A , <. B , C >. >. Cgr3 <. E , <. F , G >. >. /\
+        ( <. A , D >. Cgr <. E , H >. /\
+          <. B , D >. Cgr <. F , H >. ) ) ) ) $=
+    ( cn wcel cee cfv w3a cop cofs wbr cbtwn wa ccgr ccgr3 brofs simpr1l
+    simpr2l simpr1 simpr2 jca ex wi simp11 simp12 simp13 simp21 simp23 simp31
+    simp32 cgrextend syl133anc syld imp simpr2r 3jca wb brcgr3 sylibrd simpr3
+    3simpa btwnxfr syl5 3simpb syl6bi 3ad2antr2 impbida bitrd ) IJKZAILMZKZBVPK
+    ZNZCVPKZDVPKZEVPKZNZFVPKZGVPKZHVPKZNZNZABOZCDOOEFOZGHOOPQBACOZRQZFEGOZRQZSZ
+    WIWJTQZBCOZFGOZTQZSZADOEHOTQBDOFHOTQSZNZWLAWQOEWROUAQZXANZABCDEFGHIUBWHXBXD
+    WHXBSZWLXCXAWLWNWTXAWHUCWHXBXCWHXBWPWKWMTQZWSNZXCWHXBXGXEWPXFWSWPWSWOXAWHUD
+    WHXBXFWHXBWOWTSZXFWHXBXHXEWOWTWHWOWTXAUEWHWOWTXAUFUGUHWHVOVQVRVTWBWDWEXHXFU
+    IVOVQVRWCWGUJZVOVQVRWCWGUKZVOVQVRWCWGULZVSVTWAWBWGUMZVSVTWAWBWGUNZVSWCWDWEW
+    FUOZVSWCWDWEWFUPZABCEFGIUQURUSUTWPWSWOXAWHVAVBUHWHVOVQVRVTWBWDWEXCXGVCXIXJX
+    KXLXMXNXOABCEFGIVDURZVEUTWHWOWTXAVFVBWHXDSZWOWTXAXQWLWNWHWLXCXAUEWHXDWNXDWL
+    XCSZWHWNWLXCXAVGWHVOVQVRVTWBWDWEXRWNUIXIXJXKXLXMXNXOABCEFGIVHURVIUTUGWHWLXC
+    WTXAWHXCWTWHXCXGWTXPWPXFWSVJVKUTVLWHWLXCXAVFVBVMVN $.
+    $( [14-Oct-2013] $) $( [6-Oct-2013] $)
+
+  $( Change some conditions for inner five segment predicate.  (Contributed by
+     Scott Fenton, 6-Oct-2013.) $)
+  brifs2 $p |- ( ( ( N e. NN /\ A e. ( EE ` N ) /\ B e. ( EE ` N ) ) /\
+        ( C e. ( EE ` N ) /\ D e. ( EE ` N ) /\ E e. ( EE ` N ) ) /\
+        ( F e. ( EE ` N ) /\ G e. ( EE ` N ) /\ H e. ( EE ` N ) ) ) ->
+    ( <. <. A , B >. , <. C , D >. >. InnerFiveSeg
+      <. <. E , F >. , <. G , H >. >. <->
+      ( B Btwn <. A , C >. /\
+        <. A , <. B , C >. >. Cgr3 <. E , <. F , G >. >. /\
+        ( <. A , D >. Cgr <. E , H >. /\
+          <. C , D >. Cgr <. G , H >. ) ) ) ) $=
+    ( cn wcel cee cfv w3a cop cifs wbr cbtwn wa ccgr ccgr3 brifs simpr1l
+    3simpa wi simp11 simp12 simp13 simp21 simp23 simp31 simp32 cgrsub
+    syl133anc syl5 imp simpr2l simpr2r 3jca ex wb brcgr3 sylibrd simpr3 simpr1
+    btwnxfr jca 3simpc syl6bi 3ad2antr2 impbida bitrd ) IJKZAILMZKZBVNKZNZCVNKZ
+    DVNKZEVNKZNZFVNKZGVNKZHVNKZNZNZABOZCDOZOEFOZGHOZOPQBACOZRQZFEGOZRQZSZWKWMTQ
+    ZBCOZFGOZTQZSZADOEHOTQWHWJTQSZNZWLAWQOEWROUAQZXANZABCDEFGHIUBWFXBXDWFXBSZWL
+    XCXAWLWNWTXAWFUCWFXBXCWFXBWGWITQZWPWSNZXCWFXBXGXEXFWPWSWFXBXFXBWOWTSZWFXFWO
+    WTXAUDWFVMVOVPVRVTWBWCXHXFUEVMVOVPWAWEUFZVMVOVPWAWEUGZVMVOVPWAWEUHZVQVRVSVT
+    WEUIZVQVRVSVTWEUJZVQWAWBWCWDUKZVQWAWBWCWDULZABCEFGIUMUNUOUPWPWSWOXAWFUQWPWS
+    WOXAWFURUSUTWFVMVOVPVRVTWBWCXCXGVAXIXJXKXLXMXNXOABCEFGIVBUNZVCUPWFWOWTXAVDU
+    SWFXDSZWOWTXAXQWLWNWFWLXCXAVEWFXDWNXDWLXCSZWFWNWLXCXAUDWFVMVOVPVRVTWBWCXRWN
+    UEXIXJXKXLXMXNXOABCEFGIVFUNUOUPVGWFWLXCWTXAWFXCWTWFXCXGWTXPXFWPWSVHVIUPVJWF
+    WLXCXAVDUSVKVL $.
+    $( [14-Oct-2013] $) $( [6-Oct-2013] $)
+
+  ${
+    $d N a b c d e f g h p q n $.  $d A a b c d e f g h p q n $.
+    $d B a b c d e f g h p q n $.  $d C a b c d e f g h p q n $.
+    $d D a b c d e f g h p q n $.  $d E a b c d e f g h p q n $.
+    $d F a b c d e f g h p q n $.  $d G a b c d e f g h p q n $.
+    $d H a b c d e f g h p q n $.
+    $( Binary relationship form of the general five segment predicate.
+       (Contributed by Scott Fenton, 5-Oct-2013.) $)
+    brfs $p |- ( ( ( N e. NN /\ A e. ( EE ` N ) /\ B e. ( EE ` N ) ) /\
+        ( C e. ( EE ` N ) /\ D e. ( EE ` N ) /\ E e. ( EE ` N ) ) /\
+        ( F e. ( EE ` N ) /\ G e. ( EE ` N ) /\ H e. ( EE ` N ) ) ) ->
+    ( <. <. A , B >. , <. C , D >. >. FiveSeg <. <. E , F >. , <. G , H >. >.
+      <->
+      ( A Colinear <. B , C >. /\
+        <. A , <. B , C >. >. Cgr3 <. E , <. F , G >. >. /\
+        ( <. A , D >. Cgr <. E , H >. /\ <. B , D >. Cgr <. F , H >. ) ) ) ) $=
+      ( va vb vc ve vf vg vd vh vn vq vp cv cop ccolin wbr ccgr3 ccgr wa w3a
+      cee cfv cfs cn wceq breq1 opeq1 breq1d anbi1d 3anbi123d breq2d opeq2d
+      anbi2d opeq2 3anbi12d anbi12d 3anbi3d 3anbi23d 3anbi2d fveq2 df-fs br8 )
+      JUAZKUAZLUAZUBZUCUDZVKVNUBZMUAZNUAZOUAZUBZUBZUEUDZVKPUAZUBZVQQUAZUBZUFUDZ
+      VLWCUBZVRWEUBZUFUDZUGZUHAVNUCUDZAVNUBZWAUEUDZAWCUBZWFUFUDZWJUGZUHABVMUBZU
+      CUDZAWRUBZWAUEUDZWPBWCUBZWIUFUDZUGZUHABCUBZUCUDZAXEUBZWAUEUDZXDUHXFXHADUB
+      ZWFUFUDZBDUBZWIUFUDZUGZUHXFXGEVTUBZUEUDZXIEWEUBZUFUDZXLUGZUHXFXGEFVSUBZUB
+      ZUEUDZXQXKFWEUBZUFUDZUGZUHXFXGEFGUBZUBZUEUDZYDUHXFYGXIEHUBZUFUDZXKFHUBZUF
+      UDZUGZUHRABCDRUAZUIUJIUIUJUKULMNOQEFGHISTJKLPVKAUMZVOWLWBWNWKWQVKAVNUCUNY
+      NVPWMWAUEVKAVNUOUPYNWGWPWJYNWDWOWFUFVKAWCUOUPUQURVLBUMZWLWSWNXAWQXDYOVNWR
+      AUCVLBVMUOZUSYOWMWTWAUEYOVNWRAYPUTUPYOWJXCWPYOWHXBWIUFVLBWCUOUPVAURVMCUMZ
+      WSXFXAXHXDYQWRXEAUCVMCBVBZUSYQWTXGWAUEYQWRXEAYRUTUPVCWCDUMZXDXMXFXHYSWPXJ
+      XCXLYSWOXIWFUFWCDAVBUPYSXBXKWIUFWCDBVBUPVDVEVQEUMZXHXOXMXRXFYTWAXNXGUEVQE
+      VTUOUSYTXJXQXLYTWFXPXIUFVQEWEUOUSUQVFVRFUMZXOYAXRYDXFUUAXNXTXGUEUUAVTXSEV
+      RFVSUOUTUSUUAXLYCXQUUAWIYBXKUFVRFWEUOUSVAVFVSGUMZYAYGXFYDUUBXTYFXGUEUUBXS
+      YEEVSGFVBUTUSVGWEHUMZYDYLXFYGUUCXQYIYCYKUUCXPYHXIUFWEHEVBUSUUCYBYJXKUFWEH
+      FVBUSVDVEYMIUIVHMNOQRSTJKLPVIVJ $.
+      $( [14-Oct-2013] $) $( [5-Oct-2013] $)
+  $}
+
+  $( Congruence law for the general five segment configuration.  Theorem 4.16
+     of [Schwabhauser], p. 37.  (Contributed by Scott Fenton, 5-Oct-3013). $)
+  fscgr $p |- ( ( ( N e. NN /\ A e. ( EE ` N ) /\ B e. ( EE ` N ) ) /\
+      ( C e. ( EE ` N ) /\ D e. ( EE ` N ) /\ E e. ( EE ` N ) ) /\
+      ( F e. ( EE ` N ) /\ G e. ( EE ` N ) /\ H e. ( EE ` N ) ) ) ->
+   ( ( <. <. A , B >. , <. C , D >. >. FiveSeg <. <. E , F >. , <. G , H >. >.
+       /\ A =/= B ) -> <. C , D >. Cgr <. G , H >. ) ) $=
+    ( cn wcel cee cfv w3a cop cfs wbr wne wa ccolin ccgr3 ccgr brfs anbi1d wi
+    cbtwn w3o wb simp11 simp12 simp13 simp21 brcolinear syl13anc cofs simp23
+    simp31 simp32 cgr3permute2 syl133anc ancom a1i 3anbi23d simp22 simp33
+    brofs2 syl333anc bitr4d necom anbi12d 5segofs sylbid exp3a 3expd btwncom
+    3anbi1d cifs cgr3permute1 3anbi2d brifs2 ifscgr a1dd 3jaod 3impd imp3a ) IJ
+    KZAILMZKZBWGKZNZCWGKZDWGKZEWGKZNZFWGKZGWGKZHWGKZNZNZABOZCDOZOZEFOGHOZOZPQZA
+    BRZSABCOZTQZAXGOEFGOOUAQZADOEHOUBQZBDOZFHOZUBQZSZNZXFSXAXCUBQZWSXEXOXFABCDE
+    FGHIUCUDWSXOXFXPWSXHXIXNXFXPUEZWSXHAXGUFQZBCAOUFQZCWTUFQZUGZXIXNXQUEUEZWSWF
+    WHWIWKXHYAUHWFWHWIWNWRUIZWFWHWIWNWRUJZWFWHWIWNWRUKZWJWKWLWMWRULZABCIUMUNWSX
+    RYBXSXTWSXRXIXNXQWSXRXIXNNZXFXPWSYGXFSBAOXAOFEOXCOUOQZBARZSZXPWSYGYHXFYIWSY
+    GXRBACOZOFEGOZOUAQZXMXJSZNZYHWSXIYMXNYNXRWSWFWHWIWKWMWOWPXIYMUHYCYDYEYFWJWK
+    WLWMWRUPZWJWNWOWPWQUQZWJWNWOWPWQURZABCEFGIUSUTXNYNUHWSXJXMVAVBVCWSWFWIWHWKW
+    LWOWMWPWQYHYOUHYCYEYDYFWJWKWLWMWRVDZYQYPYRWJWNWOWPWQVEZBACDFEGHIVFVGVHXFYIU
+    HWSABVIVBVJWSWFWIWHWKWLWOWMWPWQYJXPUEYCYEYDYFYSYQYPYRYTBACDFEGHIVKVGVLVMVNW
+    SXSXIXNXQWSXSXIXNNZXFXPWSUUAXFSXBXDUOQZXFSXPWSUUAUUBXFWSUUABYKUFQZXIXNNUUBW
+    SXSUUCXIXNWSWFWIWKWHXSUUCUHYCYEYFYDBCAIVOUNVPABCDEFGHIVFVHUDABCDEFGHIVKVLVM
+    VNWSXTXIXNXQWSXTXIXNNZXPXFWSUUDYKXKOYLXLOVQQZXPWSUUDXTACBOOEGFOOUAQZXNNZUUE
+    WSXIUUFXTXNWSWFWHWIWKWMWOWPXIUUFUHYCYDYEYFYPYQYRABCEFGIVRUTVSWSWFWHWKWIWLWM
+    WPWOWQUUEUUGUHYCYDYFYEYSYPYRYQYTACBDEGFHIVTVGVHWSWFWHWKWIWLWMWPWOWQUUEXPUEY
+    CYDYFYEYSYPYRYQYTACBDEGFHIWAVGVLWBVNWCVLWDWEVL $.
+    $( [14-Oct-2013] $) $( [5-Oct-2013] $)
+
+  $( Congruence rule for lines.  Theorem 4.17 of [Schwabhauser], p. 37.
+     (Contributed by Scott Fenton, 6-Oct-2013.) $)
+  linecgr $p |- ( ( N e. NN /\
+    ( A e. ( EE ` N ) /\ B e. ( EE ` N ) /\ C e. ( EE ` N ) ) /\
+    ( P e. ( EE ` N ) /\ Q e. ( EE ` N ) ) ) ->
+    ( ( ( A =/= B /\ A Colinear <. B , C >. ) /\
+        ( <. A , P >. Cgr <. A , Q >. /\ <. B , P >. Cgr <. B , Q >. ) ) ->
+      <. C , P >. Cgr <. C , Q >. ) ) $=
+    ( cn wcel cee cfv w3a wa wne cop ccolin wbr ccgr ccgr3 simprlr cgr3rflx
+    3adant3 adantr simprr 3jca simprll jca ex wi simp1 simp21 simp22 simp23
+    simp3l simp3r cfs brfs anbi1d fscgr sylbird syl333anc syld ) FGHZAFIJZHZBVC
+    HZCVCHZKZDVCHZEVCHZLZKZABMZABCNZOPZLZADNAENQPBDNBENQPLZLZVNAVMNZVRRPZVPKZVL
+    LZCDNZCENZQPZVKVQWAVKVQLZVTVLWEVNVSVPVKVLVNVPSVKVSVQVBVGVSVJABCFTUAUBVKVOVP
+    UCUDVKVLVNVPUEUFUGVKVBVDVEVFVHVDVEVFVIWAWDUHVBVGVJUIVBVDVEVFVJUJZVBVDVEVFVJ
+    UKZVBVDVEVFVJULZVBVGVHVIUMWFWGWHVBVGVHVIUNVBVDVEKVFVHVDKVEVFVIKKZWAABNZWBNW
+    JWCNUOPZVLLWDWIWKVTVLABCDABCEFUPUQABCDABCEFURUSUTVA $.
+    $( [14-Oct-2013] $) $( [6-Oct-2013] $)
+
+  ${
+    linecgrand.1 $e |- ( ph -> N e. NN ) $.
+    linecgrand.2 $e |- ( ph -> A e. ( EE ` N ) ) $.
+    linecgrand.3 $e |- ( ph -> B e. ( EE ` N ) ) $.
+    linecgrand.4 $e |- ( ph -> C e. ( EE ` N ) ) $.
+    linecgrand.5 $e |- ( ph -> P e. ( EE ` N ) ) $.
+    linecgrand.6 $e |- ( ph -> Q e. ( EE ` N ) ) $.
+    linecgrand.7 $e |- ( ( ph /\ ps ) -> A =/= B ) $.
+    linecgrand.8 $e |- ( ( ph /\ ps ) -> A Colinear <. B , C >. ) $.
+    linecgrand.9 $e |- ( ( ph /\ ps ) -> <. A , P >. Cgr <. A , Q >. ) $.
+    linecgrand.10 $e |- ( ( ph /\ ps ) -> <. B , P >. Cgr <. B , Q >. ) $.
+    $( Deduction form of ~ linecgr .  (Contributed by Scott Fenton,
+       14-Oct-2013.) $)
+    linecgrand $p |- ( ( ph /\ ps ) -> <. C , P >. Cgr <. C , Q >. ) $=
+      ( wa wne cop ccolin wbr ccgr jca wi cn wcel cee cfv linecgr syl132anc
+      adantr mp2and ) ABSZCDTZCDEUAUBUCZSZCFUACGUAUDUCZDFUADGUAUDUCZSZEFUAEGUAU
+      DUCZUOUPUQOPUEUOUSUTQRUEAURVASVBUFZBAHUGUHCHUIUJZUHDVDUHEVDUHFVDUHGVDUHVC
+      IJKLMNCDEFGHUKULUMUN $.
+      $( [14-Oct-2013] $) $( [14-Oct-2013] $)
+  $}
+
+  $( Identity law for points on lines.  Theorem 4.18 of [Schwabhauser], p. 38.
+     (Contributed by Scott Fenton, 7-Oct-2013.) $)
+  lineid $p |- ( ( N e. NN /\ ( A e. ( EE ` N ) /\ B e. ( EE ` N ) ) /\
+    ( C e. ( EE ` N ) /\ D e. ( EE ` N ) ) ) ->
+    ( ( ( A =/= B /\ A Colinear <. B , C >. ) /\
+        ( <. A , C >. Cgr <. A , D >. /\ <. B , C >. Cgr <. B , D >. ) ) ->
+      C = D ) ) $=
+    ( cn wcel cee cfv wa w3a wne cop ccolin wbr ccgr wceq wi simp2l simp2r
+    simp3l 3jca linecgr syld3an2 simp1 simp3r cgrid2 syl13anc syld ) EFGZAEHIZG
+    ZBUKGZJZCUKGZDUKGZJZKZABLABCMZNOJACMADMPOUSBDMPOJJZCCMCDMPOZCDQZUJULUMUOKUN
+    UQUTVARURULUMUOUJULUMUQSUJULUMUQTUJUNUOUPUAZUBABCCDEUCUDURUJUOUOUPVAVBRUJUN
+    UQUEVCVCUJUNUOUPUFCCDEUGUHUI $.
+    $( [14-Oct-2013] $) $( [7-Oct-2013] $)
+
+  $( Law for finding a point inside a segment.  Theorem 4.19 of [Schwabhauser],
+     p. 38.  (Contributed by Scott Fenton, 7-Oct-2013.) $)
+  idinside $p |- ( ( N e. NN /\ ( A e. ( EE ` N ) /\ B e. ( EE ` N ) ) /\
+   ( C e. ( EE ` N ) /\ D e. ( EE ` N ) ) ) ->
+   ( ( C Btwn <. A , B >. /\ <. A , C >. Cgr <. A , D >. /\
+       <. B , C >. Cgr <. B , D >. ) -> C = D ) ) $=
+    ( cn wcel cee cfv wa w3a cop cbtwn wbr ccgr wceq wi simp1 simp3l simp3r
+    cgrid2 syl13anc simp2l axbtwnid syl111anc opeq1 breq12d imbi1d biimpcd
+    ax-1 syl8 sylsyld 3impd opeq2 breq2d 3anbi1d syl5ib wne ccolin simpr1
+    simpr2l simpr2r simpr3l btwncolinear1 idd 3anim123d anim2i 3simpc adantl
+    jca lineid syl5 exp3a impcom syld ex pm2.61ine ) EFGZAEHIZGZBVSGZJZCVSGZDVS
+    GZJZKZCABLZMNZACLZADLZONZBCLZBDLONZKZCDPZQZQABWFCAALZMNZWKWMKZWOQABPZWPWFWR
+    WKWMWOWFCCLZCDLZONZWOQZWRCAPZWKWMWOQZQWFVRWCWCWDXDVRWBWERZVRWBWCWDSZXHVRWBW
+    CWDTCCDEUAUBWFVRWCVTWRXEQXGXHVRVTWAWEUCCAEUDUEXDXEWKWOXFXEXDWKWOQXEXCWKWOXE
+    XAWIXBWJOCACUFCADUFUGUHUIWOWMUJUKULUMWTWSWNWOWTWRWHWKWMWTWQWGCMABAUNUOUPUHU
+    QABURZWFWPXIWFJZWNAWLUSNZWKWMKZWOXJWHXKWKWKWMWMXJVRVTWAWCWHXKQXIVRWBWEUTVTW
+    AVRWEXIVAVTWAVRWEXIVBWCWDVRWBXIVCABCEVDUBXJWKVEXJWMVEVFWFXIXLWOQWFXIXLWOXIX
+    LJZXIXKJZWKWMJZJWFWOXMXNXOXLXKXIXKWKWMRVGXLXOXIXKWKWMVHVIVJABCDEVKVLVMVNVOV
+    PVQ $.
+    $( [14-Oct-2013] $) $( [7-Oct-2013] $)
+
