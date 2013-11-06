@@ -105,9 +105,11 @@ $)
   $c vbase $.
   $c vadd $.
   $c vsca $.
+  $c LMod $.
   $c LVec $.
 
-  $( Extend class notation with set of vectors in a left vector space. $)
+  $( Extend class notation with set of vectors in a left module or a vector
+     space. $)
   cvbase $a class vbase $.
 
   $( Extend class notation with vector addition. $)
@@ -115,6 +117,9 @@ $)
 
   $( Extend class notation with scalar product. $)
   cvsca $a class vsca $.
+
+  $( Extend class notation with class of all left vector spaces. $)
+  clmod $a class LMod $.
 
   $( Extend class notation with class of all left vector spaces. $)
   clvec $a class LVec $.
@@ -146,7 +151,7 @@ $)
     ( cvsca c7 df-vsca 7nn ndxid ) BCAADEF $.
     $( [2-Oct-1013] $)
 
-  $( Utility lemma for constructing a left vector space. $)
+  $( Utility lemma for constructing a left module or left vector space. $)
   lveclem1 $p |- -. ( vbase ` ndx )
         e. { ( Base ` ndx ) , ( +g ` ndx ) , ( .r ` ndx ) } $=
     ( vs cnx cvbase cfv cbs cplusg cmulr ctp wcel wceq w3o wne w3a wn c5
@@ -157,7 +162,7 @@ $)
     VFULOUMUAUNUCGULAAUOUPRUEUFUQVCVDVCVEVCVFURUSVCVDVEVFBCUTVAVB $.
     $( [30-Sep-1013] $)
 
-  $( Utility lemma for constructing a left vector space. $)
+  $( Utility lemma for constructing a left module or left vector space. $)
   lveclem2 $p |- -. ( vadd ` ndx ) e. ( { ( Base ` ndx ) , ( +g ` ndx ) ,
          ( .r ` ndx ) } u. { ( vbase ` ndx ) } ) $=
     ( vs cnx cvadd cfv cbs cplusg cmulr ctp cvbase csn cun wcel wceq w3o wo
@@ -171,7 +176,7 @@ $)
     WHVRWBWDVKWMWFWNWGVRVSVTWABCVLZVMVRWCWOVNVOVPVQ $.
     $( [30-Sep-1013] $)
 
-  $( Utility lemma for constructing a left vector space. $)
+  $( Utility lemma for constructing a left module or left vector space. $)
   lveclem3 $p |- -. ( vsca ` ndx ) e. ( { ( Base ` ndx ) , ( +g ` ndx ) ,
          ( .r ` ndx ) } u. { ( vbase ` ndx ) , ( vadd ` ndx ) } ) $=
     ( vs cnx cvsca cfv cbs cplusg cmulr ctp cvbase cvadd cpr cun wcel wceq w3o
@@ -195,9 +200,10 @@ $)
     ${
       lvecfn.d $e |- D = ( { ( Base ` ndx ) , ( +g ` ndx ) , ( .r ` ndx ) }
                   u. { ( vbase ` ndx ) , ( vadd ` ndx ) , ( vsca ` ndx ) } ) $.
-      $( A constructed left vector space is a function on ` D ` .  Starting
-         from ~ rngfn (which has 3 members), we chain ~ fnunsn 3 times, each
-         time adding an ordered pair to the function, to get all 6 members. $)
+      $( A constructed left module or left vector space is a function on
+         ` D ` .  Starting from ~ rngfn (which has 3 members), we chain
+         ~ fnunsn 3 times, each time adding an ordered pair to the function, to
+         get all 6 members. $)
       lvecfn $p |- W Fn D $=
         ( cnx cbs cfv cplusg cmulr ctp cvbase cvadd cpr cun cop cvsca fvex csn
         eqid rngfn lveclem1 fnunsn df-pr uneq2i unass eqtr4i lveclem2 df-tp
@@ -268,11 +274,93 @@ $)
   ${
     $d a f k p q r s t v w x $.
     $( Def. 8.5.11, p. 218. $)
+    $( Define the class of all left modules, which are generalizations of left
+       vector spaces.  A left module is a ring together with an Abelian group
+       and a left scalar product connecting them. $)
+    df-lmod $a |- LMod = { f e. Ring |
+      E. k E. p E. t E. v E. a E. s
+         ( ( k = ( Base ` f ) /\ p = ( +g ` f ) /\ t = ( .r ` f ) )
+          /\ ( v = ( vbase ` f ) /\ a = ( vadd ` f ) /\ s = ( vsca ` f ) )
+          /\ ( { <. ( Base ` ndx ) , v >. , <. ( +g ` ndx ) , a >. } e. Abel
+             /\ A. q e. k A. r e. k A. x e. v A. w e. v
+               ( ( ( r s w ) e. v
+                 /\ ( r s ( w a x ) ) = ( ( r s w ) a ( r s x ) )
+                 /\ ( ( q p r ) s w ) = ( ( q s w ) a ( r s w ) )
+               ) /\ ( ( q s ( r s w ) ) = ( ( q t r ) s w )
+                 /\ ( ( 1r ` f ) s w ) = w ) ) ) ) } $.
+  $}
+
+  ${
+    $d a f k p q r s t v w x A $.  $d a s G $.  $d a f k p q r s t v K $.
+    $d a f k p q r s t v w x P $.  $d a f k p q r s t v w x S $.
+    $d a f k p q r s t v w x T $.  $d a f k p s t v U $.
+    $d a f k p q r s t v w x V $.  $d a f k p q r s t v w x W $.
+    islmod.k $e |- K = ( Base ` W ) $.
+    islmod.p $e |- P = ( +g ` W ) $.
+    islmod.t $e |- T = ( .r ` W ) $.
+    islmod.v $e |- V = ( vbase ` W ) $.
+    islmod.a $e |- A = ( vadd ` W ) $.
+    islmod.s $e |- S = ( vsca ` W ) $.
+    islmod.u $e |- U = ( 1r ` W ) $.
+    islmod.g $e |- G = { <. ( Base ` ndx ) , V >. , <. ( +g ` ndx ) , A >. } $.
+    $( The predicate "is a left module". $)
+    islmod $p |- ( W e. LMod <-> ( W e. Ring /\ G e. Abel
+        /\ A. q e. K A. r e. K A. x e. V A. w e. V
+               ( ( ( r S w ) e. V
+                 /\ ( r S ( w A x ) ) = ( ( r S w ) A ( r S x ) )
+                 /\ ( ( q P r ) S w ) = ( ( q S w ) A ( r S w ) )
+               ) /\ ( ( q S ( r S w ) ) = ( ( q T r ) S w )
+                 /\ ( U S w ) = w ) ) ) ) $=
+      ( vk vp vt vv va vs vf crg wcel cv wceq w3a cnx cbs cfv cop cplusg
+      cpr cabel co wa wral wex clmod cvv fvex eqeltri cmulr cvbase cvadd cvsca
+      raleq raleqbi1dv anbi2d opreq opreq1d eqeq1d 3anbi3d anbi1d 2ralbidv
+      eqeq2d opeq2 preq1d eleq1d eleq2 3anbi1d anbi12d preq2d syl6eqr opreq2d
+      eqeq12d 3anbi23d opreq12d 3anbi123d id eqidd opreq123d ceqsex6v anbi2i
+      cur fveq2 3exbidv df-lmod elrab2 3anass 3bitr4i ) KUIUJZUBUKZIULZUCUKZDUL
+      ZUDUKZFULZUMZUEUKZJULZUFUKZCULZUGUKZEULZUMZUNUOUPZXPUQZUNURUPZXRUQZUSZUTU
+      JZLUKZBUKZXTVAZXPUJZYIYJAUKZXRVAZXTVAZYKYIYMXTVAZXRVAZULZMUKZYIXKVAZYJXTV
+      AZYSYJXTVAZYKXRVAZULZUMZYSYKXTVAZYSYIXMVAZYJXTVAZULZGYJXTVAZYJULZVBZVBZBX
+      PVCAXPVCZLXIVCZMXIVCZVBZUMZUGVDUFVDUEVDZUDVDUCVDUBVDZVBXHHUTUJZYIYJEVAZJU
+      JZYIYJYMCVAZEVAZUVBYIYMEVAZCVAZULZYSYIDVAZYJEVAZYSYJEVAZUVBCVAZULZUMZYSUV
+      BEVAZYSYIFVAZYJEVAZULZGYJEVAZYJULZVBZVBZBJVCAJVCZLIVCMIVCZVBZVBKVEUJXHUVA
+      UWDUMUUTUWEXHUUQYHUUNLIVCZMIVCZVBYHYLYRUVIYJXTVAZUUCULZUMZUULVBZBXPVCAXPV
+      CZLIVCMIVCZVBYHUWJUUFUVPYJXTVAZULZUUKVBZVBZBXPVCZAXPVCZLIVCMIVCZVBYCJUQZY
+      FUSZUTUJZYKJUJZYRUWIUMZUWPVBZBJVCZAJVCZLIVCMIVCZVBUVAUXDYIUVDXTVAZYKYPCVA
+      ZULZUWHUUBYKCVAZULZUMZUWPVBZBJVCAJVCZLIVCMIVCZVBUWEUBUCUDUEUFUGIDFJCEIKUO
+      UPZVFNKUOVGVHDKURUPZVFOKURVGVHFKVIUPZVFPKVIVGVHJKVJUPZVFQKVJVGVHCKVKUPZVF
+      RKVKVGVHEKVLUPZVFSKVLVGVHXJUUPUWGYHUUOUWFMXIIUUNLXIIVMVNVOXLUWGUWMYHXLUUN
+      UWLMLIIXLUUMUWKABXPXPXLUUEUWJUULXLUUDUWIYLYRXLUUAUWHUUCXLYTUVIYJXTYSYIXKD
+      VPVQVRVSVTWAWAVOXNUWMUWTYHXNUWLUWSMLIIXNUWKUWQABXPXPXNUULUWPUWJXNUUIUWOUU
+      KXNUUHUWNUUFXNUUGUVPYJXTYSYIXMFVPVQWBVTVOWAWAVOXQYHUXCUWTUXIXQYGUXBUTXQYD
+      UXAYFXPJYCWCWDWEXQUWSUXHMLIIUWRUXGAXPJUWQUXFBXPJXQUWJUXEUWPXQYLUXDYRUWIXP
+      JYKWFWGVTVNVNWAWHXSUXCUVAUXIUXRXSUXBHUTXSUXBUXAYECUQZUSHXSYFUYEUXAXRCYEWC
+      WIUAWJWEXSUXHUXQMLIIXSUXFUXPABJJXSUXEUXOUWPXSYRUXLUWIUXNUXDXSYOUXJYQUXKXS
+      YNUVDYIXTYJYMXRCVPWKYKYPXRCVPWLXSUUCUXMUWHUUBYKXRCVPWBWMVTWAWAWHYAUXRUWDU
+      VAYAUXQUWCMLIIYAUXPUWBABJJYAUXOUVNUWPUWAYAUXDUVCUXLUVHUXNUVMYAYKUVBJYIYJX
+      TEVPZWEYAUXJUVEUXKUVGYIUVDXTEVPYAYKUVBYPUVFCUYFYIYMXTEVPWNWLYAUWHUVJUXMUV
+      LUVIYJXTEVPYAUUBUVKYKUVBCYSYJXTEVPUYFWNWLWOYAUWOUVRUUKUVTYAUUFUVOUWNUVQYA
+      YSYSYKUVBXTEYAWPYAYSWQUYFWRUVPYJXTEVPWLYAUUJUVSYJGYJXTEVPVRWHWHWAWAVOWSWT
+      XIUHUKZUOUPZULZXKUYGURUPZULZXMUYGVIUPZULZUMZXPUYGVJUPZULZXRUYGVKUPZULZXTU
+      YGVLUPZULZUMZYHUUEUUIUYGXAUPZYJXTVAZYJULZVBZVBZBXPVCAXPVCZLXIVCMXIVCZVBZU
+      MZUGVDUFVDUEVDZUDVDUCVDUBVDUUTUHKUIVEUYGKULZVUKUUSUBUCUDVULVUJUURUEUFUGVU
+      LUYNXOVUAYBVUIUUQVULUYIXJUYKXLUYMXNVULUYHIXIVULUYHUXSIUYGKUOXBNWJWBVULUYJ
+      DXKVULUYJUXTDUYGKURXBOWJWBVULUYLFXMVULUYLUYAFUYGKVIXBPWJWBWOVULUYPXQUYRXS
+      UYTYAVULUYOJXPVULUYOUYBJUYGKVJXBQWJWBVULUYQCXRVULUYQUYCCUYGKVKXBRWJWBVULU
+      YSEXTVULUYSUYDEUYGKVLXBSWJWBWOVULVUHUUPYHVULVUGUUNMLXIXIVULVUFUUMABXPXPVU
+      LVUEUULUUEVULVUDUUKUUIVULVUCUUJYJVULVUBGYJXTVULVUBKXAUPGUYGKXAXBTWJVQVRVO
+      VOWAWAVOWOXCXCABUEUDUHUBUGLMUCUFXDXEXHUVAUWDXFXG $.
+      $( [4-Nov-2013] $)
+  $}
+
+  ${
+    $d a f k p q r s t v w x $.
+    $( Def. 8.5.11, p. 218. $)
     $( Define the class of all left vector spaces.  A left vector space is a
        division ring together with an Abelian group and a left scalar product
        connecting them.  Some authors call this a "left module over a division
        ring", reserving "vector space" for those where the division ring is
-       commutative i.e. a field. $)
+       commutative i.e. a field.  TODO:  Make this a specialization of
+       ~ df-lmod . $)
     df-lvec $a |- LVec = { f e. DivRing |
       E. k E. p E. t E. v E. a E. s
          ( ( k = ( Base ` f ) /\ p = ( +g ` f ) /\ t = ( .r ` f ) )
