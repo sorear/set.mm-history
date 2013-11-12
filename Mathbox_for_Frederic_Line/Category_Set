@@ -4,21 +4,46 @@ $(
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 $)
 
+  $( Class variables used as operators, relations, etc. I use the singular
+     form because it was Cantor's use (who invented the .e sign). "A e. B"
+     in Cantor's mind meant "A is a B" . Thus "A e. Morphism" means "A is
+     a Morphism". $)
 
-  $c MorphismsSetCat $.
+  $v .Morphism $.
+  $v .Object $.
+  $v .graph $.
+  $v .dom $.
+  $v .cod $.
+  $v .id $.
+
+  $( Let variable ` .Morphism ` be a class. $)
+  cmorp $f class .Morphism $.
+  $( Let variable ` .Object ` be a class. $)
+  cobj $f class .Object $.
+  $( Let variable ` .graph ` be a class. $)
+  cgra $f class .graph $.
+  $( Let variable ` .dom ` be a class. $)
+  cdomc $f class .dom $.
+  $( Let variable ` .cod ` be a class. $)
+  ccod $f class .cod $.
+  $( Let variable ` .id ` be a class. $)
+  cidc $f class .id $.
+
+  $c MorphismSetCat $.
   $( Extend class notation to include the morphisms of the category Set. $)
-  ccmrcase $a class MorphismsSetCat $.
+  ccmrcase $a class MorphismSetCat $.
 
   ${
     $d x a b c $.
-    $( The morphisms of the category Set.  Experimental. $)
-    df-morcatset $a |- MorphismsSetCat = ( x e. Univ |->
+    $( The morphisms of the category Set.  ( ` a ` is redundant and could be
+       retrieved from ` c ` .)  Experimental. $)
+    df-morcatset $a |- MorphismSetCat = ( x e. Univ |->
      { <. <. a , b >. , c >. | ( a e. x /\ b e. x /\ c e. ( b ^m a ) ) } ) $.
   $}
 
   ${
     $d U a b c $.
-    $( Lemma for ~ prismorcset . $)
+    $( Lemma for ~ prismorcset .  (Contributed by FL, 15-Sep-2013.) $)
     prismorcsetlem $p |- ( U e. Univ -> {
                <.
                <. a
@@ -45,13 +70,27 @@ $)
   $}
 
   ${
+    $d U a b c $.
+    $( Lemma for ~ prismorcset .  First use of the property of a universe
+       through ~ grumap .  (Contributed by FL, 6-Nov-2013.)  NEW $)
+    prismorcsetlemb $p |- ( U e. Univ ->
+      { c | E. a e. U E. b e. U c e. ( b ^m a ) } e. _V ) $=
+      ( cgru wcel cvv cv cmap co cab wral wrex elisset wa abid2 wi grumap 3exp
+      com13 imp impcom syl syl5eqel r19.21aivva ab2rexex2g syl111anc ) AEFZAGFZ
+      UIDHCHZBHZIJZFZDKZGFZCALBALUMCAMBAMDKGFAENZUPUHUOBCAAUHUKAFZUJAFZOZOZUNUL
+      GDULPUTULAFZULGFUSUHVAUQURUHVAQUHURUQVAUHURUQVAUJUKARSTUAUBULANUCUDUEUMBC
+      DAAUFUG $.
+      $( [6-Nov-2013] $)
+  $}
+
+  ${
     $d A a b c $.  $d B a b c $.  $d C a b c $.  $d D a b c $.  $d E a b c $.
     $d F a b c $.  $d U a b c x $.
     $( The predicate "is a morphism of the category Set".  (Contributed by FL,
        15-Sep-2013.) $)
     prismorcset $p |- ( ( ( A e. D /\ B e. E /\ C e. F ) /\
        U e. Univ )
-       -> ( <. <. A , B >. , C >. e. ( MorphismsSetCat ` U ) <->
+       -> ( <. <. A , B >. , C >. e. ( MorphismSetCat ` U ) <->
          ( A e. U /\ B e. U /\ C e. ( B ^m A ) ) ) ) $=
       ( va vb vc vx wcel w3a cgru wa cop ccmrcase cfv cv cmap co copab2 cvv
       wceq simpr cxp wrex cab wss cdm crn wrel reloprab relssdmrn ax-mp a1i
@@ -79,6 +118,73 @@ $)
   $}
 
   ${
+    $d x U a b c $.
+    $( The morphisms of the category Set.  (Contributed by FL, 6-Nov-2013.)
+       NEW $)
+    morcatset1 $p |- ( U e. Univ -> ( MorphismSetCat ` U ) =
+     { <. <. a , b >. , c >. | ( a e. U /\ b e. U /\ c e. ( b ^m a ) ) } ) $=
+      ( vx cgru wcel cv cmap co w3a copab2 cvv ccmrcase cfv wceq
+      prismorcsetlem wel eleq2 3anbi12d oprabbidv df-morcatset fvmptg mpdan )
+      AFGBHZAGZCHZAGZDHUGUEIJGZKZBCDLZMGANOUKPABCDQEABERZCERZUIKZBCDLUKFMNEHZAP
+      ZUNUJBCDUPULUFUMUHUIUOAUESUOAUGSTUAEBCDUBUCUD $.
+      $( [6-Nov-2013] $)
+  $}
+
+  ${
+    $d x z $.  $d y z w $.  $d z A $.  $d z w B $.  $d z w C $.
+    $( Define double indexed union.  (Contributed by FL, 6-Nov-2013.)  NEW $)
+    dfiunv2 $p |- U_ x e. A U_ y e. B C =
+      { z | E. x e. A E. y e. B z e. C } $=
+      ( vw ciun cv wcel wrex cab wceq df-iun a1i iuneq2i visset weq wb eleq1
+      adantr rexbidva elab rexbii abbii 3eqtri ) ADBEFHZHADGIZFJZBEKZGLZHCIZUKJ
+      ZADKZCLULFJZBEKZADKZCLADUGUKUGUKMAIDJBGEFNOPACDUKNUNUQCUMUPADUJUPGULCQGCR
+      ZUIUOBEURUIUOSBIEJUHULFTUAUBUCUDUEUF $.
+      $( [6-Nov-2013] $)
+  $}
+
+  ${
+    $d x y z u A $.  $d x y z u B $.  $d x y z u C $.
+    $( Define the cross product of two classes.  Compare ~ df-xp .
+       (Contributed by FL, 6-Nov-2013.)  NEW $)
+    dfxp3 $p |- ( ( A X. B ) X. C ) =
+      { <. <. x , y >. , z >. | ( x e. A /\ y e. B /\ z e. C ) } $=
+      ( vu cv cxp wcel wa copab cop wceq w3a wex copab2 19.41vv simpl simpr1
+      simpr2 jca32 simpr3 jca simpll simplrl simplrr simpr 3jca impbii 2exbii
+      elxp anbi1i 3bitr4ri opabbii df-xp dfoprab2 3eqtr4i ) GHZDEIZJZCHFJZKZGCL
+      USAHZBHZMNZVDDJZVEEJZVBOZKZBPAPZGCLUTFIVIABCQVCVKGCVFVGVHKZKZVBKZBPAPVMBP
+      APZVBKVKVCVMVBABRVJVNABVJVNVJVMVBVJVFVGVHVFVISVFVGVHVBTVFVGVHVBUAUBVFVGVH
+      VBUCUDVNVFVIVFVLVBUEVNVGVHVBVFVGVHVBUFVFVGVHVBUGVMVBUHUIUDUJUKVAVOVBABUSD
+      EULUMUNUOGCUTFUPVIABCGUQUR $.
+      $( [6-Nov-2013] $)
+  $}
+
+  ${
+    $d U a b c $.
+    prismorcsetlemc.1 $e |- F = {
+               <.
+               <. a
+               , b
+               >.
+               , c
+               >.
+               | ( a e. U /\ b e. U /\ c e. ( b ^m a ) ) } $.
+    $( Lemma for ~ morexcmp .  (Contributed by FL, 6-Nov-2013.)  NEW $)
+    prismorcsetlemc $p |- ( U e. Univ
+      -> F C_ ( ( U X. U ) X. U_ a e. U U_ b e. U ( b ^m a ) ) ) $=
+      ( cgru wcel cv cmap co w3a copab2 cxp ciun wrel cdm crn wss wi reloprab
+      relssdmrn wa wrex cab wceq rnoprab2 dmoprabss dfiunv2 eqcomi df-3an
+      bicomi oprabbii rneqi eqtr dmeqi sseq1i biimpi eqimss xpss12 sstr a1d ex
+      syl5com syl2im eqcoms mpsyl mpan2 mp2 mp2b syl5eqss ) AGHZBCIZAHZDIZAHZEI
+      VOVMJKZHZLZCDEMZAANZCADAVQOOZNZFVTPVTVTQZVTRZNZSZVLVTWCSZTZVSCDEUAVTUBVNV
+      PUCVRUCZCDEMZRZVRDAUDCAUDEUEZUFZWKQZWASZWGWITZVRCDEAAUGVRCDEAAUHWNWMWBUFZ
+      WPWQTZWBWMCDEAAVQUIUJWLWEUFWNWRUCWLWBUFZWSWKVTWJVSCDEVSWJVNVPVRUKULUMZUNW
+      LWMWBUOWTWSTWEWLWEWLUFZWTWSXBWTUCWEWBUFZWPWDWASZWQWEWLWBUOWPXDWOWDWAWKVTX
+      AUPUQURXCWEWBSZXDWQWEWBUSXDXEWQXDXEUCWFWCSZWGWIWDWAWEWBUTWGXFWIWGXFUCWHVL
+      VTWFWCVAVBVCVDVCVDVEVCVFVGVHVIVJVK $.
+      $( [6-Nov-2013] $)
+  $}
+
+  ${
     $d M m $.  $d U a b c m $.  $d U a b c u $.
     prismorcset2.1 $e |- A = ( ( 1st o. 1st ) ` M ) $.
     prismorcset2.2 $e |- B = ( ( 2nd o. 1st ) ` M ) $.
@@ -86,7 +192,7 @@ $)
     $( The predicate "is a morphism of the category Set".  (Contributed by FL,
        15-Sep-2013.) $)
     prismorcset2 $p |-
-     ( ( U e. Univ /\ M e. ( MorphismsSetCat ` U ) )
+     ( ( U e. Univ /\ M e. ( MorphismSetCat ` U ) )
       -> ( A e. U /\ B e. U /\ C e. ( B ^m A ) ) ) $=
       ( vm va vb vc vu c1st ccom cfv wceq cgru wcel ccmrcase wa cmap co w3a wi
       c2nd cv eleq1 fveq2 eleq1d opreq12d eleq12d 3anbi123d imbi2d imbi12d
@@ -125,7 +231,7 @@ $)
     $d x a $.
     $( The domain of a morphism in the category Set.  Experimental. $)
     df-domcatset $a |- domSetCat = ( x e. Univ |->
-      ( a e. ( MorphismsSetCat ` x ) |-> ( ( 1st o. 1st ) ` a ) ) ) $.
+      ( a e. ( MorphismSetCat ` x ) |-> ( ( 1st o. 1st ) ` a ) ) ) $.
   $}
 
   $c graphSetCat $.
@@ -138,6 +244,962 @@ $)
     $( The underlying function of a morphism in the category Set.
        Experimental. $)
     df-graphcatset $a |- graphSetCat = ( x e. Univ |->
-      ( a e. ( MorphismsSetCat ` x ) |-> ( 2nd ` a ) ) ) $.
+      ( a e. ( MorphismSetCat ` x ) |-> ( 2nd ` a ) ) ) $.
+  $}
+
+  ${
+    $d x U a $.  $d A a $.
+    $( The graph of a morhism in the category Set.  (Contributed by FL,
+       6-Nov-2013.)  NEW $)
+    isgraphmrph $p |- ( ( U e. Univ /\ A e. ( MorphismSetCat ` U ) )
+     -> ( ( graphSetCat ` U ) ` A ) = ( 2nd ` A ) ) $=
+      ( va vx cgru wcel ccmrcase cfv wa cgraphcase cv c2nd cmpt cvv wceq fvex
+      a1i mptexg syl fveq2 eqidd mpteq12dv df-graphcatset fvmptg syldan fveq1d
+      simpr eqid sylancl eqtrd ) BEFZABGHZFZIZABJHZHACULCKZLHZMZHZALHZUNAUOURUK
+      UMURNFZUOUROUNULNFZVAVBUNBGPQCULUQNRSDBCDKZGHZUQMURENJVCBOZCVDUQULUQVCBGT
+      VEUQUAUBDCUCUDUEUFUNUMUTNFUSUTOUKUMUGALPCAUQUTULNURUPALTURUHUDUIUJ $.
+      $( [6-Nov-2013] $)
+  $}
+
+  ${
+    isgraphmrph2.1 $e |- .graph = ( graphSetCat ` U ) $.
+    isgraphmrph2.2 $e |- .Morphism = ( MorphismSetCat ` U ) $.
+    $( The graph of a morphism in the category Set.  (Contributed by FL,
+       6-Nov-2013.)  NEW $)
+    isgraphmrph2 $p |- ( ( U e. Univ /\ A e. .Morphism )
+     -> ( .graph ` A ) = ( 2nd ` A ) ) $=
+      ( cgraphcase cfv wceq cgru wcel wa c2nd wi ccmrcase eleq2 anbi2d
+      isgraphmrph syl6bi ax-mp fveq1 eqeq1d syl5ibr ) DBGHZIZBJKZACKZLZADHZAMHZ
+      IZNEUHUKUEAUDHZUJIZCBOHZIZUHUMNFUOUHUFAUNKZLUMUOUGUPUFCUNAPQABRSTUEUIULUJ
+      ADUDUAUBUCT $.
+      $( [6-Nov-2013] $)
+  $}
+
+
+  ${
+    $d U a u v w x $.  $d ph u v w $.
+    $( The domain of a morphism in the category Set.  (Contributed by FL,
+       6-Nov-2013.)  NEW $)
+    domcatfun $p |- ( U e. Univ ->
+      ( domSetCat ` U ) : ( MorphismSetCat ` U ) --> U ) $=
+      ( va vx vu vv vw wph cgru wcel ccmrcase cfv cdomcase wf cv c1st ccom
+      cmpt wa wel cmap co w3a copab2 wceq df-morcatset a1i fveq1d eleq2d
+      biimpa wi cvv cdm crn cxp wss wrel reloprab relssdmrn ax-mp id wb df-3an
+      oprabbidv dmeqi dmoprabss syl5eqss xpexg anidms ssexg syl11anc eleq2
+      3anbi12d rneqd eleq1d rneqi wrex cab rnoprab2 visset abid2 oprex eqeltri
+      ab2rexex2 vtoclg sylancr eqid fvmptg mpdan biimpd adantr c2nd eleq1
+      opreq2 3anbi13d opreq1 3anbi23d 3anbi3d eloprabi wfun wfo fo1st fofun
+      fof fdm syl5eleqr mp2b fvco mp3an eqcomi eleq1i biimpi 3ad2ant1 a1d syl
+      syl6 pm2.43a mpd ex fmptd fvex mptexg fveq2 eqidd mpteq12dv df-domcatset
+      mpan2 feq1d mpbird ) AHIZAJKZAALKZMYJABYJBNZOOPKZQZMYIBYJYMAYNYIYLYJIZYMA
+      IZYIYORZYLACHDCSZECSZFNZENZDNZTUAZIZUBZDEFUCZQZKZIZYPYIYOUUIYIYJUUHYLYIAJ
+      UUGJUUGUDYICDEFUEUFUGUHUIUUIYQYPYQUUIYLUUBAIZUUAAIZUUDUBZDEFUCZIZYQYPUJZY
+      IUUIUUNUJYOYIUUIUUNYIUUHUUMYLYIUUMUKIZUUHUUMUDYIUUMUUMULZUUMUMZUNZUOZUUSU
+      KIZUUPUUMUPUUTUULDEFUQUUMURUSYIUUQUKIZUURUKIZUVAYIUUQAAUNZUOUVDUKIZUVBYIU
+      UQUUJUUKRUUDRZDEFUCZULZUVDUUMUVGGGUJZUUMUVGUDGUTZUVIUULUVFDEFUULUVFVAUVIU
+      UJUUKUUDVBUFVCUSVDUVHUVDUOYIUUDDEFAAVEUFVFYIUVEAAHHVGVHUUQUVDUKVIVJUUFUMZ
+      UKIUVCCAHCNZAUDZUVKUURUKUVMUUFUUMUVMUUEUULDEFUVMYRUUJYSUUKUUDUVLAUUBVKUVL
+      AUUAVKVLVCZVMVNUVKYRYSRUUDRZDEFUCZUMZUKUUFUVPUVIUUFUVPUDUVJUVIUUEUVODEFUU
+      EUVOVAUVIYRYSUUDVBUFVCUSVOUVQUUDEUVLVPDUVLVPFVQUKUUDDEFUVLUVLVRUUDDEFUVLU
+      VLCVSZUVRUUDFVQUUCUKFUUCVTUUAUUBTWAWBWCWBWBWDUUQUURUKUKVGVJUUMUUSUKVIWECA
+      UUFUUMHUKUUGUVNUUGWFWGWHUHWIWJUUNYLOKZOKZAIZUVSWKKZAIZYLWKKZUWBUVTTUAZIZU
+      BZUUOUULUWAUUKYTUUAUVTTUAZIZUBUWAUWCYTUWEIZUBUWGDEFYLUUBUVTUDZUUJUWAUUDUW
+      IUUKUUBUVTAWLUWKUUCUWHYTUUBUVTUUATWMUHWNUUAUWBUDZUUKUWCUWIUWJUWAUUAUWBAWL
+      UWLUWHUWEYTUUAUWBUVTTWOUHWPYTUWDUDUWJUWFUWAUWCYTUWDUWEWLWQWRUWGYPYQUWAUWC
+      YPUWFUWAYPUVTYMAYMUVTOWSZUWMYLOULZIZYMUVTUDUKUKOWTZUWMXAUKUKOXBUSZUWQUWPU
+      KUKOMZUWOXAUKUKOXCUWRYLUKUWNBVSUKUKOXDXEXFYLOOXGXHXIXJXKXLXMXNXOXPXQXRYNW
+      FXSYIYJAYKYNYIYNUKIZYKYNUDYJUKIUWSAJXTBYJYMUKYAUSCABUVLJKZYMQYNHUKLUVMBUW
+      TYMYJYMUVLAJYBUVMYMYCYDCBYEWGYFYGYH $.
+      $( [6-Nov-2013] $)
+  $}
+
+  ${
+    $( The domain of the function ` domSetCat ` in the category Set.
+       (Contributed by FL, 6-Nov-2013.)  NEW $)
+    domdomcatfun $p |- ( U e. Univ ->
+       dom ( domSetCat ` U ) = ( MorphismSetCat ` U ) ) $=
+      ( cgru wcel ccmrcase cfv cdomcase wf cdm wceq domcatfun fdm syl ) ABCADEZ
+      AAFEZGNHMIAJMANKL $.
+      $( [6-Nov-2013] $)
+  $}
+
+  ${
+    domdomcatfun1.1 $e |- .dom = ( domSetCat ` U ) $.
+    domdomcatfun1.2 $e |- .Morphism = ( MorphismSetCat ` U ) $.
+    $( The domain of the function ` domSetCat ` in the category Set.
+       (Contributed by FL, 6-Nov-2013.)  NEW $)
+    domdomcatfun1 $p |- ( U e. Univ ->
+       dom .dom = .Morphism ) $=
+      ( cgru wcel cdomcase cfv cdm ccmrcase domdomcatfun dmeqi 3eqtr4g ) AFGAHI
+      ZJAKICJBALCODMEN $.
+      $( [6-Nov-2013] $)
+  $}
+
+  $( The domain of a morphism in the category Set is a member of the underlying
+     universe.  (Contributed by FL, 6-Nov-2013.)  NEW $)
+  domcatsetval $p |- ( ( U e. Univ /\ A e. ( MorphismSetCat ` U ) ) ->
+      ( ( domSetCat ` U ) ` A ) e. U ) $=
+    ( cgru wcel ccmrcase cfv cdomcase wf domcatfun ffvelrn sylan ) BCDBEFZBBGFZ
+    HALDAMFBDBILBAMJK $.
+    $( [6-Nov-2013] $)
+
+  ${
+    domcatsetval2.1 $e |- .Morphism = ( MorphismSetCat ` U ) $.
+    domcatsetval2.2 $e |- .dom = ( domSetCat ` U ) $.
+    $( The domain of a morphism in the category Set is a member of the
+       underlying universe.  (Contributed by FL, 6-Nov-2013.)  NEW $)
+    domcatsetval2 $p |- ( ( U e. Univ /\ F e. .Morphism ) ->
+      ( .dom ` F ) e. U ) $=
+      ( ccmrcase cfv wceq cgru wcel wa wi eleq2 anbi2d cdomcase domcatsetval
+      fveq1 eleq1d syl5ibr ax-mp syl6bi ) CAGHZIZAJKZBCKZLZBDHZAKZMEUDUGUEBUCKZ
+      LZUIUDUFUJUECUCBNODAPHZIZUKUIMFUKUIUMBULHZAKBAQUMUHUNABDULRSTUAUBUA $.
+      $( [6-Nov-2013] $)
+  $}
+
+  ${
+    $d A a $.  $d U a u $.
+    $( The domain of a morphism in the category Set.  (Contributed by FL,
+       6-Nov-2013.)  NEW $)
+    domcatval $p |- ( ( U e. Univ /\ A e. ( MorphismSetCat ` U ) )
+      -> ( ( domSetCat ` U ) ` A ) = ( ( 1st o. 1st ) ` A ) ) $=
+      ( va vu cgru wcel ccmrcase cfv wa cdomcase cv c1st ccom cmpt cvv wceq
+      simpl fvex mptexg ax-mp fveq2 eqidd mpteq12dv df-domcatset fvmptg
+      sylancl fveq1d simpr eqid eqtrd ) BEFZABGHZFZIZABJHZHACULCKZLLMZHZNZHZAUQ
+      HZUNAUOUSUNUKUSOFZUOUSPUKUMQULOFVBBGRCULUROSTDBCDKZGHZURNUSEOJVCBPZCVDURU
+      LURVCBGUAVEURUBUCDCUDUEUFUGUNUMVAOFUTVAPUKUMUHAUQRCAURVAULOUSUPAUQUAUSUIU
+      EUFUJ $.
+      $( [6-Nov-2013] $)
+  $}
+
+  ${
+    domcatval2.1 $e |- .Morphism = ( MorphismSetCat ` U ) $.
+    domcatval2.2 $e |- .dom = ( domSetCat ` U ) $.
+    $( The domain of a morphism in the category Set.  (Contributed by FL,
+       6-Nov-2013.)  NEW $)
+    domcatval2 $p |- ( ( U e. Univ /\ A e. .Morphism )
+      -> ( .dom ` A ) = ( ( 1st o. 1st ) ` A ) ) $=
+      ( ccmrcase cfv wceq cgru wcel wa c1st ccom wi eleq2 anbi2d cdomcase
+      domcatval fveq1 eqeq1d syl5ibr ax-mp syl6bi ) CBGHZIZBJKZACKZLZADHZAMMNHZ
+      IZOEUFUIUGAUEKZLZULUFUHUMUGCUEAPQDBRHZIZUNULOFUNULUPAUOHZUKIABSUPUJUQUKAD
+      UOTUAUBUCUDUC $.
+      $( [6-Nov-2013] $)
+  $}
+
+  $c codSetCat $.
+  $( Extend class notation to include the codomain of a morphism in the
+     category Set. $)
+  ccodcase $a class codSetCat $.
+
+  ${
+    $d x a $.
+    $( The codomain of a morphism in the category Set.  Experimental.  NEW $)
+    df-codcatset $a |- codSetCat = ( x e. Univ |->
+      ( a e. ( MorphismSetCat ` x ) |-> ( ( 2nd o. 1st ) ` a ) ) ) $.
+  $}
+
+  ${
+    $d U a u v w x $.  $d ph u v w $.
+    $( The codomain of a morphism in the category Set.  (Contributed by FL,
+       6-Nov-2013.)  NEW $)
+    codcatfun $p |- ( U e. Univ ->
+      ( codSetCat ` U ) : ( MorphismSetCat ` U ) --> U ) $=
+      ( va vx vu vv vw wph cgru wcel ccmrcase cfv ccodcase wf cv c2nd c1st
+      ccom cmpt wel cmap co w3a copab2 wa wceq df-morcatset a1i fveq1d eleq2d
+      biimpa wi cvv cdm crn cxp wss wrel reloprab relssdmrn ax-mp id wb df-3an
+      oprabbidv dmeqi dmoprabss syl5eqss xpexg anidms ssexg syl11anc eleq2
+      3anbi12d rneqd eleq1d rneqi wrex cab rnoprab2 visset abid2 oprex eqeltri
+      ab2rexex2 vtoclg sylancr eqid fvmptg mpdan biimpd adantr eleq1 opreq2
+      3anbi13d opreq1 3anbi23d 3anbi3d eloprabi wfun wfo fo2nd fofun fo1st fof
+      fdm syl5eleqr mp2b fvco mp3an eqcomi eleq1i biimpi 3ad2ant2 syl5com syl6
+      pm2.43b mpcom ex fmptd fvex mptexg fveq2 eqidd mpteq12dv df-codcatset
+      mpan2 feq1d mpbird ) AHIZAJKZAALKZMYJABYJBNZOPQKZRZMYIBYJYMAYNYIYLYJIZYMA
+      IZYLACHDCSZECSZFNZENZDNZTUAZIZUBZDEFUCZRZKZIZYIYOUDZYPYIYOUUHYIYJUUGYLYIA
+      JUUFJUUFUEYICDEFUFUGUHUIUJUUHUUIYPUUIUUHYLUUAAIZYTAIZUUCUBZDEFUCZIZUUIYPU
+      KYIUUHUUNUKYOYIUUHUUNYIUUGUUMYLYIUUMULIZUUGUUMUEYIUUMUUMUMZUUMUNZUOZUPZUU
+      RULIZUUOUUMUQUUSUULDEFURUUMUSUTYIUUPULIZUUQULIZUUTYIUUPAAUOZUPUVCULIZUVAY
+      IUUPUUJUUKUDUUCUDZDEFUCZUMZUVCUUMUVFGGUKZUUMUVFUEGVAZUVHUULUVEDEFUULUVEVB
+      UVHUUJUUKUUCVCUGVDUTVEUVGUVCUPYIUUCDEFAAVFUGVGYIUVDAAHHVHVIUUPUVCULVJVKUU
+      EUNZULIUVBCAHCNZAUEZUVJUUQULUVLUUEUUMUVLUUDUULDEFUVLYQUUJYRUUKUUCUVKAUUAV
+      LUVKAYTVLVMVDZVNVOUVJYQYRUDUUCUDZDEFUCZUNZULUUEUVOUVHUUEUVOUEUVIUVHUUDUVN
+      DEFUUDUVNVBUVHYQYRUUCVCUGVDUTVPUVPUUCEUVKVQDUVKVQFVRULUUCDEFUVKUVKVSUUCDE
+      FUVKUVKCVTZUVQUUCFVRUUBULFUUBWAYTUUATWBWCWDWCWCWEUUPUUQULULVHVKUUMUURULVJ
+      WFCAUUEUUMHULUUFUVMUUFWGWHWIUIWJWKUUNYLPKZPKZAIZUVROKZAIZYLOKZUWAUVSTUAZI
+      ZUBZUUIYPUULUVTUUKYSYTUVSTUAZIZUBUVTUWBYSUWDIZUBUWFDEFYLUUAUVSUEZUUJUVTUU
+      CUWHUUKUUAUVSAWLUWJUUBUWGYSUUAUVSYTTWMUIWNYTUWAUEZUUKUWBUWHUWIUVTYTUWAAWL
+      UWKUWGUWDYSYTUWAUVSTWOUIWPYSUWCUEUWIUWEUVTUWBYSUWCUWDWLWQWRUWFYPUKUUIUWBU
+      VTYPUWEUWBYPUWAYMAYMUWAOWSZPWSZYLPUMZIZYMUWAUEULULOWTUWLXAULULOXBUTULULPW
+      TZUWMXCULULPXBUTUWPULULPMZUWOXCULULPXDUWQYLULUWNBVTULULPXEXFXGYLOPXHXIXJX
+      KXLXMUGXNXOXPXQXRYNWGXSYIYJAYKYNYIYNULIZYKYNUEYJULIUWRAJXTBYJYMULYAUTCABU
+      VKJKZYMRYNHULLUVLBUWSYMYJYMUVKAJYBUVLYMYCYDCBYEWHYFYGYH $.
+      $( [6-Nov-2013] $)
+  $}
+
+  $( The codomain of a morphism in the category Set is a member of the
+     underlying universe.  (Contributed by FL, 6-Nov-2013.)  NEW $)
+  codcatsetval $p |- ( ( U e. Univ /\ A e. ( MorphismSetCat ` U ) ) ->
+      ( ( codSetCat ` U ) ` A ) e. U ) $=
+    ( cgru wcel ccmrcase cfv ccodcase wf codcatfun ffvelrn sylan ) BCDBEFZBBGFZ
+    HALDAMFBDBILBAMJK $.
+    $( [6-Nov-2013] $)
+
+  ${
+    $d A a $.  $d U a u $.
+    $( The codomain of a morphism in the category Set.  (Contributed by FL,
+       6-Nov-2013.)  NEW $)
+    codcatval $p |- ( ( U e. Univ /\ A e. ( MorphismSetCat ` U ) )
+      -> ( ( codSetCat ` U ) ` A ) = ( ( 2nd o. 1st ) ` A ) ) $=
+      ( va vu cgru wcel ccmrcase cfv wa ccodcase cv c2nd c1st ccom cmpt cvv
+      wceq simpl fvex mptexg ax-mp fveq2 eqidd mpteq12dv df-codcatset fvmptg
+      sylancl fveq1d simpr eqid eqtrd ) BEFZABGHZFZIZABJHZHACUMCKZLMNZHZOZHZAUR
+      HZUOAUPUTUOULUTPFZUPUTQULUNRUMPFVCBGSCUMUSPTUADBCDKZGHZUSOUTEPJVDBQZCVEUS
+      UMUSVDBGUBVFUSUCUDDCUEUFUGUHUOUNVBPFVAVBQULUNUIAURSCAUSVBUMPUTUQAURUBUTUJ
+      UFUGUK $.
+      $( [6-Nov-2013] $)
+  $}
+
+  ${
+    codcatval2.1 $e |- .Morphism = ( MorphismSetCat ` U ) $.
+    codcatval2.2 $e |- .cod = ( codSetCat ` U ) $.
+    $( The codomain of a morphism in the category Set.  (Contributed by FL,
+       6-Nov-2013.)  NEW $)
+    codcatval2 $p |- ( ( U e. Univ /\ A e. .Morphism )
+      -> ( .cod ` A ) = ( ( 2nd o. 1st ) ` A ) ) $=
+      ( ccodcase cfv wceq cgru wcel wa c2nd c1st ccom wi ccmrcase eleq2 anbi2d
+      codcatval syl6bi ax-mp fveq1 eqeq1d syl5ibr ) DBGHZIZBJKZACKZLZADHZAMNOHZ
+      IZPFUJUMUGAUFHZULIZCBQHZIZUJUOPEUQUJUHAUPKZLUOUQUIURUHCUPARSABTUAUBUGUKUN
+      ULADUFUCUDUEUB $.
+      $( [6-Nov-2013] $)
+  $}
+
+  ${
+    prismorcset3.1 $e |- .dom = ( domSetCat ` U ) $.
+    prismorcset3.2 $e |- .cod = ( codSetCat ` U ) $.
+    prismorcset3.3 $e |- .graph = ( graphSetCat ` U ) $.
+    prismorcset3.4 $e |- .Morphism = ( MorphismSetCat ` U ) $.
+    $( The predicate "is a morphism of the category Set".  (Contributed by FL,
+       6-Nov-2013.) $)
+    prismorcset3 $p |- ( ( U e. Univ /\ M e. .Morphism )
+      -> ( .graph ` M ) e. ( ( .cod ` M ) ^m ( .dom ` M ) ) ) $=
+      ( ccmrcase cfv wceq cgru wcel wa cmap co wi eleq2 anbi2d cdomcase
+      ccodcase cgraphcase c2nd c1st ccom eqid prismorcset2 simp3d isgraphmrph
+      codcatval domcatval opreq12d eleq12d mpbird fveq1 eleq1d syl5ibr ax-mp
+      opreq1d eleq2d opreq2d syl6bi ) CAKLZMZANOZBCOZPZBDLZBFLZBELZQRZOZSJVFVIV
+      GBVEOZPZVNVFVHVOVGCVEBTUAEAUBLZMZVPVNSGVPVNVRVJVKBVQLZQRZOZFAUCLZMZVPWASH
+      VPWAWCVJBWBLZVSQRZOZDAUDLZMZVPWFSIVPWFWHBWGLZWEOZVPWJBUELZBUEUFUGLZBUFUFU
+      GLZQRZOZVPWMAOWLAOWOWMWLWKABWMUHWLUHWKUHUIUJVPWIWKWEWNBAUKVPWDWLVSWMQBAUL
+      BAUMUNUOUPWHVJWIWEBDWGUQURUSUTWCVTWEVJWCVKWDVSQBFWBUQVAVBUSUTVRVMVTVJVRVL
+      VSVKQBEVQUQVCVBUSUTVDUT $.
+      $( [6-Nov-2013] $)
+  $}
+
+  $c IdSetCat $.
+  $( Extend class notation to include the identity morphism of an object in the
+     category Set. $)
+  cidcase $a class IdSetCat $.
+
+  ${
+    $d x a $.
+    $( The identity morphims in the category Set.  Experimental.  NEW $)
+    df-idcatset $a |- IdSetCat = ( x e. Univ |-> ( a e. x |->
+       <. <. a , a >. , ( _I |` a ) >. ) ) $.
+  $}
+
+  ${
+    $d U a x $.
+    $( The identity morphims in the category Set.  (Contributed by FL,
+       6-Nov-2013.)  NEW $)
+    idcatfun $p |- ( U e. Univ ->
+    ( IdSetCat ` U ) : U --> ( MorphismSetCat ` U ) ) $=
+      ( va vx cgru wcel ccmrcase cfv cidcase wf cv cop cid cres cmpt wa cvv
+      simpr wfun funi visset resfunexg mp2an a1i simpl w3a cmap co simpl1 wf1o
+      f1oi f1of wb elmapg bicomd biimpi mp2b 3jca prismorcset mpbird syl31anc
+      ex eqid fmptd wceq mptexg id eqidd mpteq12dv df-idcatset fvmptg mpdan
+      feq1d ) ADEZAAFGZAHGZIAVNBABJZVPKLVPMZKZNZIVMBAVRVNVSVMVPAEZVRVNEZVMVTOZV
+      TVTVQPEZVMWAVMVTQZWDWCWBLRVPPEZWCSBTZLVPPUAUBUCVMVTUDVTVTWCUEVMOZWAVTVTVQ
+      VPVPUFUGEZUEWGVTVTWHVTVTWCVMUHZWIWHWGVPVPVQUIVPVPVQIZWHVPUJVPVPVQUKWJWHWE
+      WEWJWHULWFWFWEWEOWHWJVPVPVQPPUMUNUBUOUPUCUQVPVPVQAAAPURUSUTVAVSVBVCVMAVNV
+      OVSVMVSPEVOVSVDBAVRDVECABCJZVRNVSDPHWKAVDZBWKVRAVRWLVFWLVRVGVHCBVIVJVKVLU
+      S $.
+      $( [6-Nov-2013] $)
+  $}
+
+  ${
+    obcatset.1 $e |- .Object = dom ( IdSetCat ` U ) $.
+    $( The objects of the category Set is the Universe.  (Contributed by FL,
+       6-Nov-2013.)  NEW $)
+    obcatset $p |- ( U e. Univ -> .Object = U ) $=
+      ( cgru wcel cidcase cfv cdm ccmrcase wf wceq idcatfun fdm syl syl5eq ) AD
+      EZBAFGZHZACPAAIGZQJRAKALASQMNO $.
+      $( [6-Nov-2013] $)
+  $}
+
+
+  $( An identity morphism is a morphism.  (Contributed by FL, 6-Nov-2013.)
+     NEW $)
+  idcatval $p |- ( ( U e. Univ /\ A e. U ) ->
+      ( ( IdSetCat ` U ) ` A ) e. ( MorphismSetCat ` U ) ) $=
+    ( cgru wcel ccmrcase cfv cidcase wf idcatfun ffvelrn sylan ) BCDBBEFZBGFZHA
+    BDAMFLDBIBLAMJK $.
+    $( [6-Nov-2013] $)
+
+  ${
+    idcatval2.1 $e |- .id = ( IdSetCat ` U ) $.
+    idcatval2.2 $e |- .Morphism = ( MorphismSetCat ` U ) $.
+    $( An identity morphism is a morphism.  (Contributed by FL, 6-Nov-2013.)
+       NEW $)
+    idcatval2 $p |- ( ( U e. Univ /\ A e. U ) ->
+      ( .id ` A ) e. .Morphism ) $=
+      ( cgru wcel wa cfv ccmrcase cidcase wceq wi idcatval fveq1 eleq1d
+      syl5ibr ax-mp syl6eleqr ) BGHABHIZADJZBKJZCDBLJZMZUAUBUCHZNEUAUFUEAUDJZUC
+      HABOUEUBUGUCADUDPQRSFT $.
+      $( [6-Nov-2013] $)
+  $}
+
+  $( The underlying universe of an identity morphism.  (Contributed by FL,
+     6-Nov-2013.)  NEW $)
+  domidcat $p |- ( U e. Univ -> dom ( IdSetCat ` U ) = U ) $=
+    ( cgru wcel ccmrcase cfv cidcase wf cdm wceq idcatfun fdm syl ) ABCAADEZAFE
+    ZGNHAIAJAMNKL $.
+    $( [6-Nov-2013] $)
+
+  ${
+    $d A a $.  $d U a u $.
+    $( A identity morphism.  (Contributed by FL, 6-Nov-2013.)  NEW $)
+    idmor $p |- ( ( U e. Univ /\ A e. U )
+     -> ( ( IdSetCat ` U ) ` A ) = <. <. A , A >. , ( _I |` A ) >. ) $=
+      ( va vu cgru wcel wa cidcase cfv cv cop cid cres cmpt cvv wceq mptexg
+      adantr id eqidd mpteq12dv df-idcatset fvmptg syldan fveq1d simpr opex
+      opeq12 anidms reseq2 opeq12d eqid sylancl eqtrd ) BEFZABFZGZABHIZIACBCJZU
+      SKZLUSMZKZNZIZAAKZLAMZKZUQAURVCUOUPVCOFZURVCPUOVHUPCBVBEQRDBCDJZVBNVCEOHV
+      IBPZCVIVBBVBVJSVJVBTUADCUBUCUDUEUQUPVGOFVDVGPUOUPUFVEVFUGCAVBVGBOVCUSAPZU
+      TVEVAVFVKUTVEPUSUSAAUHUIUSALUJUKVCULUCUMUN $.
+      $( [6-Nov-2013] $)
+  $}
+
+  $( A identity morphism is a morphism.  (Contributed by FL, 6-Nov-2013.)
+     NEW $)
+  idmorimor $p |- ( ( U e. Univ /\ A e. U )
+     -> <. <. A , A >. , ( _I |` A ) >. e. ( MorphismSetCat ` U ) ) $=
+    ( cgru wcel wa cidcase cfv cop cid cres ccmrcase idmor idcatval eqeltrrd )
+    BCDABDEABFGGAAHIAJHBKGABLABMN $.
+    $( [6-Nov-2013] $)
+
+  $( Domain of an identity morphism.  (Contributed by FL, 6-Nov-2013.)  NEW $)
+  domidmor $p |- ( ( U e. Univ /\ A e. U ) ->
+      ( ( domSetCat ` U ) ` ( ( IdSetCat ` U ) ` A ) ) = A ) $=
+    ( cgru wcel wa cidcase cfv cdomcase cop cid cres c1st ccom idmor fveq2d
+    ccmrcase wceq idmorimor domcatval syldan wfun cdm cvv wfo wf fo1st fof
+    ffun mp2b a1i fdm syl opex eleq2 mpbiri fvco syl111anc op1st op1stg adantl
+    3eqtrd ) BCDZABDZEZABFGGZBHGZGAAIZJAKZIZVFGZVILLMGZAVDVEVIVFABNOVBVCVIBPGDV
+    JVKQABRVIBSTVDVKVILGZLGZVGLGZAVDLUAZVOVILUBZDZVKVMQVOVDUCUCLUDZUCUCLUEZVOUF
+    UCUCLUGZUCUCLUHUIUJZWAVQVDVRVPUCQZVQUFVRVSWBVTUCUCLUKULWBVQVIUCDVGVHUMVPUCV
+    IUNUOUIUJVILLUPUQVDVLVGLVLVGQVDVGVHAAUMURUJOVCVNAQVBAABUSUTVAVA $.
+    $( [6-Nov-2013] $)
+
+  ${
+    domidmor2.1 $e |- .dom = ( domSetCat ` U ) $.
+    domidmor2.2 $e |- .id = ( IdSetCat ` U ) $.
+    $( Domain of an identity morphism.  (Contributed by FL, 6-Nov-2013.)
+       NEW $)
+    domidmor2 $p |- ( ( U e. Univ /\ A e. U ) ->
+      ( .dom ` ( .id ` A ) ) = A ) $=
+      ( cdomcase cfv wceq cgru wcel wa wi cidcase domidmor fveq1 fveq2d eqeq1d
+      syl5ibr ax-mp ) CBGHZIZBJKABKLZADHZCHZAIZMEUCUFUBUDUAHZAIZDBNHZIZUCUHMFUC
+      UHUJAUIHZUAHZAIABOUJUGULAUJUDUKUAADUIPQRSTUBUEUGAUDCUAPRST $.
+      $( [6-Nov-2013] $)
+  $}
+
+  $( Domain of an identity morphism.  (Contributed by FL, 6-Nov-2013.)  NEW $)
+  codidmor $p |- ( ( U e. Univ /\ A e. U ) ->
+      ( ( codSetCat ` U ) ` ( ( IdSetCat ` U ) ` A ) ) = A ) $=
+    ( cgru wcel wa cidcase cfv ccodcase cop cid cres c2nd c1st ccom idmor
+    fveq2d ccmrcase wceq idmorimor codcatval syldan wfun cdm cvv wfo fo2nd
+    fofun ax-mp a1i fo1st wf fof fdm syl opex eleq2 mpbiri mp2b fvco syl111anc
+    op1stg op2ndg anidms adantl 3eqtrd ) BCDZABDZEZABFGGZBHGZGAAIZJAKZIZVJGZVML
+    MNGZAVHVIVMVJABOPVFVGVMBQGDVNVORABSVMBTUAVHVOVMMGZLGZVKLGZAVHLUBZMUBZVMMUCZ
+    DZVOVQRVSVHUDUDLUEVSUFUDUDLUGUHUIVTVHUDUDMUEZVTUJUDUDMUGUHUIWBVHWCWAUDRZWBU
+    JWCUDUDMUKWDUDUDMULUDUDMUMUNWDWBVMUDDVKVLUOWAUDVMUPUQURUIVMLMUSUTVHVPVKLVHV
+    KUDDZVPVKRWEVHAAUOUIVKVLUDVAUNPVGVRARZVFVGWFAABBVBVCVDVEVE $.
+    $( [6-Nov-2013] $)
+
+  ${
+    codidmor2.1 $e |- .cod = ( codSetCat ` U ) $.
+    codidmor2.2 $e |- .id = ( IdSetCat ` U ) $.
+    $( Domain of an identity morphism.  (Contributed by FL, 6-Nov-2013.)
+       NEW $)
+    codidmor2 $p |- ( ( U e. Univ /\ A e. U ) ->
+      ( .cod ` ( .id ` A ) ) = A ) $=
+      ( ccodcase cfv wceq cgru wcel wa wi cidcase codidmor fveq1 fveq2d eqeq1d
+      syl5ibr ax-mp ) CBGHZIZBJKABKLZADHZCHZAIZMEUCUFUBUDUAHZAIZDBNHZIZUCUHMFUC
+      UHUJAUIHZUAHZAIABOUJUGULAUJUDUKUAADUIPQRSTUBUEUGAUDCUAPRST $.
+      $( [6-Nov-2013] $)
+  $}
+
+  $( Graph of an identity morphism.  (Contributed by FL, 6-Nov-2013.)  NEW $)
+  grphidmor $p |- ( ( U e. Univ /\ A e. U ) ->
+    ( ( graphSetCat ` U ) ` ( ( IdSetCat ` U ) ` A ) ) = ( _I |` A ) ) $=
+    ( cgru wcel wa cidcase cfv cgraphcase cop cid cres c2nd idmor fveq2d
+    ccmrcase wceq idmorimor isgraphmrph syldan cvv opex wfun funi elisset
+    adantl resfunexg sylancr op2ndg 3eqtrd ) BCDZABDZEZABFGGZBHGZGAAIZJAKZIZUNG
+    ZUQLGZUPULUMUQUNABMNUJUKUQBOGDURUSPABQUQBRSULUOTDUPTDZUSUPPAAUAULJUBATDZUTU
+    CUKVAUJABUDUEJATUFUGUOUPTTUHUGUI $.
+    $( [6-Nov-2013] $)
+
+  ${
+    grphidmor2.1 $e |- .graph = 2nd $.
+    grphidmor2.2 $e |- .id = ( IdSetCat ` U ) $.
+    $( Graph of an identity morphism.  (Contributed by FL, 6-Nov-2013.)  NEW $)
+    grphidmor2 $p |- ( ( U e. Univ /\ A e. U ) ->
+      ( .graph ` ( .id ` A ) ) = ( _I |` A ) ) $=
+      ( cidcase cfv wceq cgru wcel wa cid cres wi c2nd cop idmor fveq2 cvv
+      resiexg adantl opex jctil op2ndg eqtr expcom 3syl syl5com mpcom fveq1
+      eqeq1d syl5ibr ax-mp fveq2d ) DBGHZIZBJKZABKZLZADHZCHZMANZIZOFUTVDUQAUPHZ
+      CHZVCIZCPIZUTVGOEUTVGVHVEPHZVCIZVEAAQZVCQZIZUTVJABRVMVIVLPHZIZUTVJVEVLPSU
+      TVKTKZVCTKZLVNVCIZVOVJOUTVQVPUSVQURABUAUBAAUCUDVKVCTTUEVOVRVJVIVNVCUFUGUH
+      UIUJVHVFVIVCVECPUKULUMUNUQVBVFVCUQVAVECADUPUKUOULUMUN $.
+      $( [6-Nov-2013] $)
+  $}
+
+  ${
+    grphidmor3.1 $e |- .graph = ( graphSetCat ` U ) $.
+    grphidmor3.2 $e |- .id = ( IdSetCat ` U ) $.
+    $( Graph of an identity morphism.  (Contributed by FL, 6-Nov-2013.)  NEW $)
+    grphidmor3 $p |- ( ( U e. Univ /\ A e. U ) ->
+      ( .graph ` ( .id ` A ) ) = ( _I |` A ) ) $=
+      ( cgru wcel wa cfv c2nd cid cres ccmrcase wceq eqid idcatval2
+      isgraphmrph2 syldan grphidmor2 eqtrd ) BGHZABHZIADJZCJZUDKJZLAMUBUCUDBNJZ
+      HUEUFOABUGDFUGPZQUDBUGCEUHRSABKDKPFTUA $.
+      $( [6-Nov-2013] $)
+  $}
+
+  $c roSetCat $.
+  $( Extend class notation to include the morphisms composition in the category
+     Set. $)
+  crocase $a class roSetCat $.
+
+  ${
+    $d x a b c $.
+    $( Composition of two morphisms in the category Set.  Experimental.  NEW $)
+    df-rocatset $a |- roSetCat = ( x e. Univ |-> { <. <. a , b >. , c >. |
+     ( a e. ( MorphismSetCat ` x ) /\ b e. ( MorphismSetCat ` x ) /\
+     ( ( ( 1st o. 1st ) ` a ) = ( ( 2nd o. 1st ) ` b ) /\
+     c = <. <. ( ( 1st o. 1st ) ` b ) , ( ( 2nd o. 1st ) ` a ) >. ,
+             ( ( 2nd ` a ) o. ( 2nd ` b ) ) >. ) ) } ) $.
+  $}
+
+  ${
+    $d u U a b c $.
+    $( Definition of the composition of two morphisms in the category Set .
+       (Contributed by FL, 6-Nov-2013.)  NEW $)
+    isrocatset $p |- ( U e. Univ ->
+     ( roSetCat ` U ) = { <. <. a , b >. , c >. |
+     ( a e. ( MorphismSetCat ` U ) /\ b e. ( MorphismSetCat ` U ) /\
+     ( ( ( 1st o. 1st ) ` a ) = ( ( 2nd o. 1st ) ` b ) /\
+     c = <. <. ( ( 1st o. 1st ) ` b ) , ( ( 2nd o. 1st ) ` a ) >. ,
+             ( ( 2nd ` a ) o. ( 2nd ` b ) ) >. ) ) } ) $=
+      ( vu cgru wcel cv ccmrcase cfv c1st ccom c2nd wceq cop wa w3a copab2 cvv
+      crocase fvex a1i wmo moeq moan syl df-3an oprabbii oprabexd fveq2 eleq2d
+      3anbi12d oprabbidv df-rocatset fvmptg mpdan ) AFGZBHZAIJZGZCHZUSGZURKKLZJ
+      VAMKLZJNZDHVAVCJURVDJOURMJVAMJLOZNZPZQZBCDRZSGATJVJNUQVHBCDUSUSVJUSSGUQAI
+      UAUBZVKUQUTVBPZPZVGDUCZVHDUCVNVMDVFUDUBVGVEDUEUFVJVLVHPZBCDRNUQVIVOBCDUTV
+      BVHUGUHUBUIEAUREHZIJZGZVAVQGZVHQZBCDRVJFSTVPANZVTVIBCDWAVRUTVSVBVHWAVQUSU
+      RVPAIUJZUKWAVQUSVAWBUKULUMEBCDUNUOUP $.
+      $( [6-Nov-2013] $)
+  $}
+
+  ${
+    cmp2morp.1 $e |- O = ( roSetCat ` U ) $.
+    ${
+      $d u U a b c $.  $d A a b c $.  $d B a b c $.
+      $( Composite of two morphisms.  (Contributed by FL, 6-Nov-2013.)  NEW $)
+      cmp2morp $p |- ( ( U e. Univ /\ ( A e. ( MorphismSetCat ` U )
+                 /\ B e. ( MorphismSetCat ` U ) ) /\
+                    ( ( domSetCat ` U ) ` A ) = ( ( codSetCat ` U ) ` B ) ) ->
+          ( A O B ) = <. <. ( ( 1st o. 1st ) ` B ) ,
+                            ( ( 2nd o. 1st ) ` A ) >. ,
+             ( ( 2nd ` A ) o. ( 2nd ` B ) ) >. ) $=
+        ( va vb vc vu cgru wcel ccmrcase cfv wa cdomcase ccodcase wceq w3a co
+        crocase cv c1st ccom c2nd cop copab2 opreqi a1i cvv simp1 fvex wmo
+        moeq moani df-3an oprabbii oprabex fveq2 eleq2d 3anbi12d oprabbidv
+        df-rocatset fvmptg sylancl opreqd simp2 domcatval adantrr codcatval
+        adantrl eqeq12d biimp3a eqidd jca opex eqeq1d opeq2d coeq1d opeq12d
+        eqeq2d anbi12d opeq1d coeq2d eqeq1 anbi2d oprabvali sylc 3eqtrd ) CJKZA
+        CLMZKZBWJKZNZACOMMZBCPMMZQZRZABDSZABCTMZSZABFUAZWJKZGUAZWJKZXAUBUBUCZMZ
+        XCUDUBUCZMZQZHUAZXCXEMZXAXGMZUEZXAUDMZXCUDMZUCZUEZQZNZRZFGHUFZSZBXEMZAX
+        GMZUEZAUDMZBUDMZUCZUEZWRWTQWQDWSABEUGUHWQWSYAABWQWIYAUIKWSYAQWIWMWPUJXS
+        FGHWJWJYACLUKZYJXSHULXBXDNZXRXIHHXQUMUNUHZXTYKXSNFGHXBXDXSUOUPZUQICXAIU
+        AZLMZKZXCYOKZXSRZFGHUFYAJUITYNCQZYRXTFGHYSYPXBYQXDXSYSYOWJXAYNCLURZUSYS
+        YOWJXCYTUSUTVAIFGHVBVCVDVEWQWMAXEMZBXGMZQZYIYIQZNZYBYIQWIWMWPVFWQUUCUUD
+        WIWMWPUUCWIWMNWNUUAWOUUBWIWKWNUUAQWLACVGVHWIWLWOUUBQWKBCVIVJVKVLWQYIVMV
+        NXSUUAXHQZXJXKYDUEZYFXOUCZUEZQZNUUCXJYIQZNUUEFGHABYIWJWJYAYEYHVOXAAQZXI
+        UUFXRUUJUULXFUUAXHXAAXEURVPUULXQUUIXJUULXMUUGXPUUHUULXLYDXKXAAXGURVQUUL
+        XNYFXOXAAUDURVRVSVTWAXCBQZUUFUUCUUJUUKUUMXHUUBUUAXCBXGURVTUUMUUIYIXJUUM
+        UUGYEUUHYHUUMXKYCYDXCBXEURWBUUMXOYGYFXCBUDURWCVSVTWAUUKUUKUUDUUCXJYIYIW
+        DWEYLYMWFWGWH $.
+        $( [6-Nov-2013] $)
+    $}
+
+    $( The composite of two morphisms in the category Set is a morphism.
+       (Contributed by FL, 6-Nov-2013.)  NEW $)
+    rocatval $p |- ( ( U e. Univ /\ ( A e. ( MorphismSetCat ` U ) /\
+        B e. ( MorphismSetCat ` U ) ) /\
+        ( ( domSetCat ` U ) ` A ) = ( ( codSetCat ` U ) ` B ) ) ->
+        ( A O B ) e. ( MorphismSetCat ` U ) ) $=
+      ( cgru wcel ccmrcase cfv wa cdomcase ccodcase wceq w3a co c1st ccom c2nd
+      cop cmp2morp cmap simp1 simp2r domcatval syl11anc domcatsetval eqeltrrd
+      simp2l codcatval codcatsetval wf eqid prismorcset2 simp3d adantrr
+      adantrl eqeq12d biimp3a eqcomd opreq2d eleqtrrd fvex elmap sylib fco
+      sylibr 3jca cvv wb a1i coex prismorcset syl31anc mpbird eqeltrd ) CFGZACH
+      IZGZBVQGZJZACKIZIZBCLIZIZMZNZABDOBPPQZIZARPQZIZSARIZBRIZQZSZVQABCDETWFWNV
+      QGZWHCGZWJCGZWMWJWHUAOGZNZWFWPWQWRWFBWAIZWHCWFVPVSWTWHMVPVTWEUBZVPVRVSWEU
+      CZBCUDUEWFVPVSWTCGXAXBBCUFUEUGWFAWCIZWJCWFVPVRXCWJMXAVPVRVSWEUHZACUIUEWFV
+      PVRXCCGXAXDACUJUEUGWFWHWJWMUKZWRWFBWIIZWJWKUKZWHXFWLUKZXEWFWKWJXFUAOZGXGW
+      FWKWJAWGIZUAOZXIWFXJCGZWQWKXKGZWFVPVRXLWQXMNXAXDXJWJWKCAXJULWJULWKULUMUEU
+      NWFXFXJWJUAWFXJXFVPVTWEXJXFMVPVTJWBXJWDXFVPVRWBXJMVSACUDUOVPVSWDXFMVRBCUI
+      UPUQURUSUTVAWJXFWKAWIVBZBWIVBZVCVDWFWLXFWHUAOGZXHWFWPXFCGZXPWFVPVSWPXQXPN
+      XAXBWHXFWLCBWHULXFULWLULUMUEUNXFWHWLXOBWGVBZVCVDWHXFWJWKWLVEUEWJWHWMXNXRV
+      CVFVGWFWHVHGZWJVHGZWMVHGZVPWOWSVIXSWFXRVJXTWFXNVJYAWFWKWLARVBBRVBVKVJXAWH
+      WJWMVHCVHVHVLVMVNVO $.
+      $( [6-Nov-2013] $)
+
+    ${
+      rocatval2.1 $e |- .Morphism = ( MorphismSetCat ` U ) $.
+      rocatval2.2 $e |- .dom = ( domSetCat ` U ) $.
+      rocatval2.3 $e |- .cod = ( codSetCat ` U ) $.
+      $( The composite of two morphisms in the category Set is a morphism.
+         (Contributed by FL, 7-Nov-2013.)  NEW $)
+      rocatval2 $p |- ( ( U e. Univ /\ ( A e. .Morphism /\
+        B e. .Morphism ) /\
+        ( .dom ` A ) = ( .cod ` B ) ) ->
+        ( A O B ) e. .Morphism ) $=
+        ( ccmrcase cfv wceq cgru wcel wa w3a co wi cdomcase fveq1 eqeq1d
+        3anbi3d ccodcase eqeq2d rocatval syl6bi ax-mp eleq2 anbi12d 3anbi2d
+        imbi12d mpbiri ) ECLMZNZCOPZAEPZBEPZQZAFMZBGMZNZRZABDSZEPZTZIUPVGUQAUOP
+        ZBUOPZQZVCRZVEUOPZTZFCUAMZNZVMJVOVKUQVJAVNMZVBNZRZVLVOVCVQUQVJVOVAVPVBA
+        FVNUBUCUDGCUEMZNZVRVLTKVTVRUQVJVPBVSMZNZRVLVTVQWBUQVJVTVBWAVPBGVSUBUFUD
+        ABCDHUGUHUIUHUIUPVDVKVFVLUPUTVJUQVCUPURVHUSVIEUOAUJEUOBUJUKULEUOVEUJUMU
+        NUI $.
+        $( [7-Nov-2013] $)
+    $}
+  $}
+
+  ${
+    $d u U a b c $.  $d A a b c $.  $d B a b c $.
+    cmp2morpcats.1 $e |- O = ( roSetCat ` U ) $.
+    cmp2morpcats.2 $e |- .Morphism = ( MorphismSetCat ` U ) $.
+    cmp2morpcats.3 $e |- .dom = ( domSetCat ` U ) $.
+    cmp2morpcats.4 $e |- .cod = ( codSetCat ` U ) $.
+    $( Composite of two morphisms.  (Contributed by FL, 7-Nov-2013.)  NEW $)
+    cmp2morpcats $p |- ( ( U e. Univ /\ ( A e. .Morphism
+                 /\ B e. .Morphism ) /\
+                    ( .dom ` A ) = ( .cod ` B ) ) ->
+          ( A O B ) = <. <. ( .dom ` B ) ,
+                            ( .cod ` A ) >. ,
+             ( ( 2nd ` A ) o. ( 2nd ` B ) ) >. ) $=
+      ( cgru wcel wa cfv wceq w3a co c1st ccom c2nd cop ccmrcase cdomcase
+      ccodcase simp1 eleq2i biimpi adantr 3ad2ant2 adantl fveq1i eqeq12i
+      3ad2ant3 cmp2morp syl121anc wi ad2antll domcatval syldan eqcomd fveq1
+      eqeq2d syl5ibr ax-mp 3adant3 anim2i codcatval syl eqeq1d opeq12d opeq1d
+      eqtrd ) CLMZAEMZBEMZNZAFOZBGOZPZQZABDRZBSSTOZAUASTOZUBZAUAOBUAOTZUBZBFOZA
+      GOZUBZWFUBWAVNACUCOZMZBWKMZACUDOZOZBCUEOZOZPZWBWGPVNVQVTUFVQVNWLVTVOWLVPV
+      OWLEWKAIUGUHUIZUJVQVNWMVTVPWMVOVPWMEWKBIUGUHZUKUJVTVNWRVQVTWRVRWOVSWQAFWN
+      JULBGWPKULUMUHUNABCDHUOUPWAWEWJWFWAWCWHWDWIVNVQWCWHPZVTFWNPZVNVQNZXAUQJXC
+      XAXBWCBWNOZPXCXDWCVNVQWMXDWCPVPWMVNVOWTURBCUSUTVAXBWHXDWCBFWNVBVCVDVEVFWA
+      WIWDGWPPZWAWIWDPZUQKWAXFXEAWPOZWDPZWAVNWLNZXHVNVQXIVTVQWLVNWSVGVFACVHVIXE
+      WIXGWDAGWPVBVJVDVEVAVKVLVM $.
+      $( [7-Nov-2013] $)
+  $}
+
+  ${
+    cmp2morpcatt.1 $e |- O = ( roSetCat ` U ) $.
+    cmp2morpcatt.2 $e |- .Morphism = ( MorphismSetCat ` U ) $.
+    cmp2morpcatt.3 $e |- .dom = ( domSetCat ` U ) $.
+    cmp2morpcatt.4 $e |- .cod = ( codSetCat ` U ) $.
+    ${
+      cmp2morpcatt.5 $e |- .graph = ( graphSetCat ` U ) $.
+      $( Composite of two morphisms.  (Contributed by FL, 7-Nov-2013.)  NEW $)
+      cmp2morpcatt $p |- ( ( U e. Univ /\ ( A e. .Morphism
+                 /\ B e. .Morphism ) /\
+                    ( .dom ` A ) = ( .cod ` B ) ) ->
+          ( A O B ) = <. <. ( .dom ` B ) ,
+                            ( .cod ` A ) >. ,
+             ( ( .graph ` A ) o. ( .graph ` B ) ) >. ) $=
+        ( cfv c2nd wceq wa cgru wcel w3a co cop ccom isgraphmrph2 adantrr
+        adantrl jca 3adant3 cmp2morpcats simpl simpr coeq12d opeq2d eqeq2d
+        syl5ibr mpcom ) AFNZAONZPZBFNZBONZPZQZCRSZAESZBESZQZAGNBHNPZTZABDUAZBGN
+        AHNUBZUQUTUCZUBZPZVDVGVCVHVDVGQUSVBVDVEUSVFACEFMJUDUEVDVFVBVEBCEFMJUDUF
+        UGUHVIVNVCVJVKURVAUCZUBZPABCDEGHIJKLUIVCVMVPVJVCVLVOVKVCUQURUTVAUSVBUJU
+        SVBUKULUMUNUOUP $.
+        $( [7-Nov-2013] $)
+
+      $( Graph of the composite of two morphisms.  (Contributed by FL,
+         7-Nov-2013.)  NEW $)
+      cmp2morpgrp $p |- ( ( U e. Univ /\ ( A e. .Morphism
+                 /\ B e. .Morphism ) /\
+                    ( .dom ` A ) = ( .cod ` B ) ) ->
+        ( .graph ` ( A O B ) ) = ( ( .graph ` A ) o. ( .graph ` B ) ) ) $=
+        ( cgru wcel wa cfv wceq w3a co cop cgraphcase ccom c2nd eqid
+        cmp2morpcatt fveq2d simp1 rocatval2 eqeltrrd isgraphmrph2 syl11anc
+        opex fvex coex op2nd fveq1i eqcomi coeq12i eqtri a1i 3eqtrd ) CNOZAEOBE
+        OPZAGQBHQRZSZABDTZFQBGQZAHQZUAZACUBQZQZBVKQZUCZUAZFQZVOUDQZAFQZBFQZUCZV
+        FVGVOFABCDEVKGHIJKLVKUEUFZUGVFVCVOEOVPVQRVCVDVEUHVFVGVOEWAABCDEGHIJKLUI
+        UJVOCEFMJUKULVQVTRVFVQVNVTVJVNVHVIUMVLVMAVKUNBVKUNUOUPVLVRVMVSVRVLAFVKM
+        UQURVSVMBFVKMUQURUSUTVAVB $.
+        $( [7-Nov-2013] $)
+    $}
+
+    $( Domain of the composite of two morphisms.  (Contributed by FL,
+       7-Nov-2013.)  NEW $)
+    cmp2morpdom $p |- ( ( U e. Univ /\ ( A e. .Morphism
+                 /\ B e. .Morphism ) /\ ( .dom ` A ) = ( .cod ` B ) ) ->
+          ( .dom ` ( A O B ) ) = ( .dom ` B ) ) $=
+      ( cgru wcel wa cfv wceq w3a co cdomcase c1st ccom a1i fveq1d ccmrcase
+      simp1 eleq2i biimpi anim12i eqid rocatval2 syl3an2 domcatval syl11anc
+      cop c2nd cmp2morpcats fveq2 wfun cdm cvv wfo fo1st fofun ax-mp wf fof
+      fdm opex eleq2 mpbiri 3syl fvco mp3an op1st fveq2i fvex 3eqtri syl6eq
+      syl 3eqtrd ) CLMZAEMZBEMZNZAFOBGOPZQZABDRZFOWGCSOZOZWGTTUAZOZBFOZWFWGFWHF
+      WHPWFJUBUCWFWAWGCUDOZMZWIWKPWAWDWEUEWDWAAWMMZBWMMZNWEWNWBWOWCWPWBWOEWMAIU
+      FUGWCWPEWMBIUFUGUHABCDWMFGHWMUIJKUJUKWGCULUMWFWGWLAGOZUNZAUOOBUOOUAZUNZPZ
+      WKWLPABCDEFGHIJKUPXAWKWTWJOZWLWGWTWJUQXBWTTOZTOZWRTOWLTURZXEWTTUSZMZXBXDP
+      UTUTTVAZXEVBUTUTTVCVDZXIXHXGVBXHUTUTTVEXFUTPZXGUTUTTVFUTUTTVGXJXGWTUTMWRW
+      SVHXFUTWTVIVJVKVDWTTTVLVMXCWRTWRWSWLWQVHVNVOWLWQBFVPVNVQVRVSVT $.
+      $( [7-Nov-2013] $)
+
+    $( Codomain of the composite of two morphisms.  (Contributed by FL,
+       7-Nov-2013.)  NEW $)
+    cmp2morpcod $p |- ( ( U e. Univ /\ ( A e. .Morphism
+                 /\ B e. .Morphism ) /\ ( .dom ` A ) = ( .cod ` B ) ) ->
+          ( .cod ` ( A O B ) ) = ( .cod ` A ) ) $=
+      ( cgru wcel wa cfv wceq w3a co c2nd c1st ccom simp1 rocatval2 codcatval2
+      syl11anc cop cmp2morpcats fveq2 wfun cdm cvv wfo fo2nd fofun ax-mp fo1st
+      opex wf fof fdmi eleqtrri fvco mp3an op1st fveq2i fvex op2nd 3eqtri
+      syl6eq syl eqtrd ) CLMZAEMBEMNZAFOBGOPZQZABDRZGOZVPSTUAZOZAGOZVOVLVPEMVQV
+      SPVLVMVNUBABCDEFGHIJKUCVPCEGIKUDUEVOVPBFOZVTUFZASOBSOUAZUFZPZVSVTPABCDEFG
+      HIJKUGWEVSWDVROZVTVPWDVRUHWFWDTOZSOZWBSOVTSUIZTUIZWDTUJZMWFWHPUKUKSULWIUM
+      UKUKSUNUOUKUKTULZWJUPUKUKTUNUOWDUKWKWBWCUQUKUKTWLUKUKTURUPUKUKTUSUOUTVAWD
+      STVBVCWGWBSWBWCWAVTUQVDVEWAVTBFVFAGVFVGVHVIVJVK $.
+      $( [7-Nov-2013] $)
+
+    $( Associativity of composition in category Set.  (Contributed by FL,
+       7-Nov-2013.)  NEW $)
+    cmpmorass $p |- ( ( U e. Univ /\ ( A e. .Morphism /\ B e. .Morphism
+      /\ C e. .Morphism ) /\ ( ( .dom ` C ) = ( .cod ` B ) /\
+         ( .dom ` B ) = ( .cod ` A ) ) ) ->
+         ( C O ( B O A ) ) = ( ( C O B ) O A ) ) $=
+      ( cgru wcel w3a cfv wceq wa co cop cgraphcase ccom simp1 simp23 simp22
+      simp21 simp3r rocatval2 syl121anc simp3l cmp2morpcod eqtr4d eqid
+      cmp2morpcatt cmp2morpdom opeq1d cmp2morpgrp coeq2d opeq12d eqcomd opeq2d
+      coeq1d coass eqcomi a1i eqtrd 3eqtr4d 3eqtrd ) DMNZAFNZBFNZCFNZOZCGPZBHPZ
+      QZBGPZAHPZQZRZOZCBAESZESZWBGPZCHPZTZCDUAPZPZWBWGPZUBZTZAGPZWETZWHBWGPZAWG
+      PZUBZUBZTZCBESZAESZWAVIVLWBFNZVNWBHPZQWCWKQVIVMVTUCZVIVJVKVLVTUDZWAVIVKVJ
+      VSXAXCVIVJVKVLVTUEZVIVJVKVLVTUFZVIVMVPVSUGZBADEFGHIJKLUHUIWAVNVOXBVIVMVPV
+      SUJZWAVIVKVJVSXBVOQXCXEXFXGBADEFGHIJKLUKUIULCWBDEFWGGHIJKLWGUMZUNUIWAWFWM
+      WJWQWAWDWLWEWAVIVKVJVSWDWLQXCXEXFXGBADEFGHIJKLUOUIUPWAWIWPWHWAVIVKVJVSWIW
+      PQXCXEXFXGBADEFWGGHIJKLXIUQUIURUSWAWMWHWNUBZWOUBZTWLWSHPZTZWSWGPZWOUBZTZW
+      RWTWAWMXMXKXOWAWEXLWLWAVIVLVKVPWEXLQXCXDXEXHVIVLVKRVPOXLWECBDEFGHIJKLUKUT
+      UIVAWAXJXNWOWAXNXJWAVIVLVKVPXNXJQXCXDXEXHCBDEFWGGHIJKLXIUQUIUTVBUSWAWQXKW
+      MWQXKQWAXKWQWHWNWOVCVDVEVAWAVIWSFNZVJWSGPZVRQWTXPQXCWAVIVLVKVPXQXCXDXEXHC
+      BDEFGHIJKLUHUIXFWAXRVQVRWAVIVLVKVPXRVQQXCXDXEXHCBDEFGHIJKLUOUIXGVFWSADEFW
+      GGHIJKLXIUNUIVGVH $.
+      $( [7-Nov-2013] $)
+  $}
+
+  ${
+    $d U a b c $.
+    morexcmp.1 $e |- .Morphism = ( MorphismSetCat ` U ) $.
+    morexcmp.2 $e |- .dom = ( domSetCat ` U ) $.
+    morexcmp.3 $e |- .cod = ( codSetCat ` U ) $.
+    morexcmp.4 $e |- .graph = 2nd $.
+    $( A morphism expressed thanks to its components.  (Contributed by FL,
+       8-Nov-2013.)  NEW $)
+    morexcmp $p |- ( ( U e. Univ /\ F e. .Morphism ) ->
+       F = <. <. ( .dom ` F ) , ( .cod ` F ) >. , ( .graph ` F ) >. ) $=
+      ( va vb vc cgru wcel wa cfv cop wceq wi ccmrcase cv cmap co w3a copab2
+      morcatset1 eleq2i biimpi eleq2 cxp ciun wss eqid prismorcsetlemc ssel
+      c1st c2nd elxp6 wfun cdm ccom fvco cvv wfo fo1st fofun ax-mp a1i elisset
+      wf fof fdm wb eqcoms biimpd 3syl mpsyl adantl 3jca pm2.27 opeq1 eqeq2d
+      fo2nd opeq2 cdomcase domcatval sylan2b fveq1 eqeq1d syl5ibr eqcomd
+      ccodcase codcatval eqcomi fveq1i fvex pm3.2i otthg syl mpbird syl9
+      syl6bi com23 syl6 mpcom com4l com5l imp 3adant3 mpdi 3exp1 adantr sylbi
+      impcom anabsi5 com12 syl2im pm2.43i ) ANOZBCOZPZBBEQZBFQZRBDQZRZSZXTYAYBY
+      GTZXTAUAQZKUBZAOLUBZAOMUBYKYJUCUDZOUEKLMUFZSZYABYIOZYHAKLMUGYAYOCYIBGUHZU
+      IYNYOBYMOZYHYIYMBUJYBYQYGXTYAYQYGTZXTYMAAUKZKALAYLULULZUKZUMZYBYRTAYMKLMY
+      MUNUOUUBYQYBYGUUBYQBUUAOZYHYMUUABUPUUCBBUQQZBURQZRZSZUUDYSOZUUEYTOZPZPYHB
+      YSYTUSUUJUUGYHUUHUUIUUGYHTZUUHUUDUUDUQQZUUDURQZRZSZUULAOUUMAOPZPUUIUUKTZU
+      UDAAUSUUOUUQUUPUQUTZUURBUQVAZOZUEZBUQUQVBZQZUULSZTZUUOUUQTBUQUQVCUVEUUOUU
+      IUUGYHUVEUUOUUIUEZUUGPYBUVAYGYBUURUURUUTUURYBVDVDUQVEZUURVFVDVDUQVGVHVIZU
+      VHYAUUTXTUVGYABVDOZUUTVFBCVJUVGVDVDUQVKUUSVDSZUVIUUTTVDVDUQVLVDVDUQVMUVJU
+      VIUUTUVIUUTVNVDUUSVDUUSBUJVOVPVQVRVSZVTUVFUUGYBUVAYGTTZUVEUUOUUGUVLTZUUIU
+      VEUUOUVMUVAUVEUUOUUGYBYGUVAUVEUVDUUOUUKTZUVAUVDWAUVNUULUVCUULUVCSZUUOUUDU
+      VCUUMRZSZUUKUVOUUNUVPUUDUULUVCUUMWBWCURUTZUURUUTUEZBURUQVBZQZUUMSZTZUVQUU
+      KTBURUQVCYBUWCUVQUUGYGUVSYBUWCUVQUUGYGTZTZTYBUVRUURUUTUVRYBVDVDURVEUVRWDV
+      DVDURVGVHVIUVHUVKVTUVSUWCYBUWEUVSUWCUWBYBUWETUVSUWBWAUWBUVQYBUWDUVQYBUWDT
+      ZTUUMUWAUUMUWASZUVQUUDUVCUWARZSZUWFUWGUVPUWHUUDUUMUWAUVCWEWCUWIUUGBUWHUUE
+      RZSZYBYGUWIUUGUWKUWIUUFUWJBUUDUWHUUEWBWCVPYBUWKYGYBUWJYFBYBUWJYFSZUVCYCSZ
+      UWAYDSZUUEYESZUEZYBUWMUWNUWOYBYCUVCEAWFQZSZYBYCUVCSZTHYBUWSUWRBUWQQZUVCSZ
+      YAXTYOUXAYPBAWGWHUWRYCUWTUVCBEUWQWIWJWKVHWLYBYDUWAFAWMQZSZYBYDUWASZTIYBUX
+      DUXCBUXBQZUWASZYAXTYOUXFYPBAWNWHUXCYDUXEUWABFUXBWIWJWKVHWLUWOYBBURDDURJWO
+      WPVIVTYBYDVDOZYEVDOZPZUWLUWPVNUXIYBUXGUXHBFWQBDWQWRVIUVCUWAYCYDUUEYEVDVDB
+      UVBWQBUVTWQBURWQWSWTXAWCVPXBXCVOXDXEXDXFXGVHXCVOXEXHXIXJXIXKXLVHXMXNXIXOX
+      NXEXDWTXPXQXCXRXIXS $.
+      $( [8-Nov-2013] $)
+  $}
+
+  ${
+    morexcmp2.1 $e |- .Morphism = ( MorphismSetCat ` U ) $.
+    morexcmp2.2 $e |- .dom = ( domSetCat ` U ) $.
+    morexcmp2.3 $e |- .cod = ( codSetCat ` U ) $.
+    morexcmp2.4 $e |- .graph = ( graphSetCat ` U ) $.
+    $( A morphism expressed thanks to its components.  (Contributed by FL,
+       8-Nov-2013.)  NEW $)
+    morexcmp2 $p |- ( ( U e. Univ /\ F e. .Morphism ) ->
+       F = <. <. ( .dom ` F ) , ( .cod ` F ) >. , ( .graph ` F ) >. ) $=
+      ( cgru wcel wa cfv cop c2nd eqid morexcmp isgraphmrph2 eqcomd opeq2d
+      eqtrd ) AKLBCLMZBBENBFNOZBPNZOUDBDNZOABCPEFGHIPQRUCUEUFUDUCUFUEBACDJGSTUA
+      UB $.
+      $( [8-Nov-2013] $)
+  $}
+
+
+  ${
+    cmpidmor2.1 $e |- O = ( roSetCat ` U ) $.
+    cmpidmor2.2 $e |- .Morphism = ( MorphismSetCat ` U ) $.
+    cmpidmor2.4 $e |- .cod = ( codSetCat ` U ) $.
+    cmpidmor2.5 $e |- .id = ( IdSetCat ` U ) $.
+    $( Composition with an identity.  (Contributed by FL, 8-Nov-2013.)  NEW $)
+    cmpidmor2 $p |- ( ( U e. Univ /\ F e. .Morphism )
+        -> ( ( .id ` ( .cod ` F ) ) O F ) = F ) $=
+      ( cgru wcel wa cdomcase cfv cop c2nd ccom co ccodcase wceq wi cidcase
+      ccmrcase eleq2 anbi2d codcatsetval fveq1 eleq1d syl5ibr ax-mp syl6bi
+      codidmor syldan fveq2d eqeq1d opeq2d cid cres eleq2i sylan2b idmor
+      coeq1d opex cvv fvex resiexg op2nd a1i wf cmap cgraphcase isgraphmrph
+      eqid prismorcset3 eqeltrrd wb pm3.2i elmapg syl mpbid fcoi2 3eqtrd fveq2
+      coeq1 3syl opeq12d w3a simpl idcatval syl6eleqr simpr jca c1st idmorimor
+      domcatval wfun cdm wfo fo1st fofun fof fdm mpbiri fvco syl111anc op1st
+      3jca anbi1d 3anbi23d cmp2morpcats morexcmp 3eqtr4d ) AKLZBDLZMZBANOZOZBEO
+      ZFOZEOZPZXTQOZBQOZRZPZXRXSPZYDPXTBCSZBXPYBYGYEYDXPYAXSXREATOZUAZXPYAXSUAZ
+      UBIXPYKYJXTYIOZXSUAZFAUCOZUAZXPYMUBJXPYMYOXSYNOZYIOZXSUAZXNXOXSALZYRDAUDO
+      ZUAZXPYSUBZHUUAXPXNBYTLZMZYSUUAXOUUCXNDYTBUEUFYJUUDYSUBIUUDYSYJBYIOZALZBA
+      UGZYJXSUUEABEYIUHUIZUJUKULUKZXSAUMUNYOYLYQXSYOXTYPYIXSFYNUHZUOUPUJUKYJYAY
+      LXSXTEYIUHUPUJUKUQYOXPYEYDUAZUBJXPUUKYOYPQOZYDRZYDUAXPUUMXSXSPZURXSUSZPZQ
+      OZYDRUUOYDRZYDXPUULUUQYDXPYPUUPQXNXOYSYPUUPUAZYJUUBIXPYSYJUUFXOXNUUCUUFDY
+      TBHUTZUUGVAUUHUJUKZXSAVBZUNUOVCXPUUQUUOYDUUQUUOUAXPUUNUUOXSXSVDZXSVELZUUO
+      VELBEVFZXSVEVGUKVHVIVCXPXRXSYDVJZUURYDUAXPYDXSXRVKSZLZUVFXPBAVLOZOZYDUVGX
+      OXNUUCUVJYDUAUUTBAVMVAABDUVIXQEXQVNZIUVIVNHVOVPXPUVDXRVELZMZUVHUVFVQUVMXP
+      UVDUVLUVEBXQVFVRVIXSXRYDVEVEVSVTWAXRXSYDWBVTWCYOYEUUMYDYOXTYPUAYCUULUAYEU
+      UMUAUUJXTYPQWDYCUULYDWEWFUPUJUKWGXPXNXTDLZXOMZXTXQOZXSUAZWHZYHYFUAYOXPUVR
+      UBJXPUVRYOXNYPDLZXOMZYPXQOZXSUAZWHXPXNUVTUWBXNXOWIXPUVSXOXNXOYSUVSUVAXNYS
+      MYPYTDXSAWJHWKUNXNXOWLWMXPUWAUUPXQOZUUPWNWNROZXSXPYPUUPXQXNXOYSUUSUUIUVBU
+      NUOXNXOUUPYTLZUWCUWDUAXNXOYSUWEUUIXSAWOUNUUPAWPUNXPUWDUUPWNOZWNOZUUNWNOZX
+      SXPWNWQZUWIUUPWNWRZLZUWDUWGUAUWIXPVEVEWNWSZUWIWTVEVEWNXAUKVIZUWMUWKXPUWLU
+      WKWTUWLVEVEWNVJUWJVEUAZUWKVEVEWNXBVEVEWNXCUWNUWKUUPVELUUNUUOVDUWJVEUUPUEX
+      DWFUKVIUUPWNWNXEXFXPUWFUUNWNUWFUUNUAXPUUNUUOUVCXGVIUOUWHXSUAXPXSXSUVEXGVI
+      WCWCXHYOUVOUVTUVQUWBXNYOUVNUVSXOYOXTYPDUUJUIXIYOUVPUWAXSYOXTYPXQUUJUOUPXJ
+      UJUKXTBACDXQEGHUVKIXKVTABDQXQEHUVKIQVNXLXM $.
+      $( [8-Nov-2013] $)
+  $}
+
+  ${
+    cmpidmor3.1 $e |- O = ( roSetCat ` U ) $.
+    cmpidmor3.2 $e |- .Morphism = ( MorphismSetCat ` U ) $.
+    cmpidmor3.4 $e |- .dom = ( domSetCat ` U ) $.
+    cmpidmor3.5 $e |- .id = ( IdSetCat ` U ) $.
+    $( Composition with an identity.  (Contributed by FL, 8-Nov-2013.)  NEW $)
+    cmpidmor3 $p |- ( ( U e. Univ /\ F e. .Morphism )
+        -> ( F O ( .id ` ( .dom ` F ) ) ) = F ) $=
+      ( cgru wcel wa cfv ccodcase cop cgraphcase ccom co wceq domcatsetval2
+      domidmor2 syldan opeq1d cid cres eqid grphidmor3 coeq2d wf cmap
+      prismorcset3 cvv wb fvex pm3.2i a1i elmapg syl mpbid fcoi1 eqtrd opeq12d
+      simpl simpr idcatval2 codidmor2 eqcomd cmp2morpcatt syl121anc morexcmp2
+      3eqtr4d ) AKLZBDLZMZBENZFNZENZBAONZNZPZBAQNZNZVQWBNZRZPZVPVTPZWCPBVQCSZBV
+      OWAWGWEWCVOVRVPVTVMVNVPALZVRVPTABDEHIUAZVPAEFIJUBUCUDVOWEWCUEVPUFZRZWCVOW
+      DWKWCVMVNWIWDWKTWJVPAWBFWBUGZJUHUCUIVOVPVTWCUJZWLWCTVOWCVTVPUKSLZWNABDWBE
+      VSIVSUGZWMHULVOVTUMLZVPUMLZMZWOWNUNWSVOWQWRBVSUOBEUOUPUQVTVPWCUMUMURUSUTV
+      PVTWCVAUSVBVCVOVMVNVQDLZVPVQVSNZTWHWFTVMVNVDVMVNVEVMVNWIWTWJVPADFJHVFUCVO
+      XAVPVMVNWIXAVPTWJVPAVSFWPJVGUCVHBVQACDWBEVSGHIWPWMVIVJABDWBEVSHIWPWMVKVL
+      $.
+      $( [8-Nov-2013] $)
+  $}
+
+  ${
+    $d u U a b c $.
+    $( Composition of morphisms is a function.  (Contributed by FL,
+       8-Nov-2013.)  NEW $)
+    cmpmorfun $p |- ( U e. Univ -> Fun ( roSetCat ` U ) ) $=
+      ( va vb vc vu cgru wcel crocase cfv wfun cv ccmrcase c1st ccom c2nd wceq
+      cop wa w3a copab2 wmo moeq moani simp1 simp2 simp3l 3jca simp3r jca
+      simpl1 simpl2 simpl3 simpr impbii mobii mpbir funoprab cvv fvex a1i
+      df-3an oprabbii oprabex fveq2 eleq2d 3anbi12d oprabbidv df-rocatset
+      fvmptg mpan2 funeqd mpbiri ) AFGZAHIZJBKZALIZGZCKZVPGZVOMMNZIVROMNZIPZDKV
+      RVTIVOWAIQVOOIVROINQZPZRZSZBCDTZJWFBCDWFDUAVQVSWBSZWDRZDUAWDWHDDWCUBZUCWF
+      WIDWFWIWFWHWDWFVQVSWBVQVSWEUDVQVSWEUEVQVSWBWDUFUGVQVSWBWDUHUIWIVQVSWEVQVS
+      WBWDUJVQVSWBWDUKWIWBWDVQVSWBWDULWHWDUMUIUGUNUOUPUQVMVNWGVMWGURGVNWGPWEBCD
+      VPVPWGALUSZWKWEDUAVQVSRZWDWBDWJUCUTWFWLWERBCDVQVSWEVAVBVCEAVOEKZLIZGZVRWN
+      GZWESZBCDTWGFURHWMAPZWQWFBCDWRWOVQWPVSWEWRWNVPVOWMALVDZVEWRWNVPVRWSVEVFVG
+      EBCDVHVIVJVKVL $.
+      $( [8-Nov-2013] $)
+  $}
+
+  ${
+    $d u U a b c $.
+    $( Composition of morphisms is a partial operation in the set of
+       morphisms.  (Contributed by FL, 8-Nov-2013.)  NEW $)
+    cmppar $p |- ( U e. Univ
+    -> dom ( roSetCat ` U )
+          C_ ( ( MorphismSetCat ` U )
+             X. ( MorphismSetCat ` U ) ) ) $=
+      ( va vb vc vu cgru wcel crocase cfv cdm cv ccmrcase c1st ccom c2nd wceq
+      cop wa w3a copab2 cxp cvv fvex wmo moeq moani a1i df-3an oprabbii
+      oprabex fveq2 eleq2d 3anbi12d oprabbidv df-rocatset fvmptg mpan2 dmeqd
+      wss dmoprabss eqsstrd ) AFGZAHIZJBKZALIZGZCKZVEGZVDMMNZIVGOMNZIPZDKVGVIIV
+      DVJIQVDOIVGOINQZPZRZSZBCDTZJZVEVEUAZVBVCVPVBVPUBGVCVPPVNBCDVEVEVPALUCZVSV
+      NDUDVFVHRZVMVKDDVLUEUFUGVOVTVNRZBCDVFVHVNUHUIZUJEAVDEKZLIZGZVGWDGZVNSZBCD
+      TVPFUBHWCAPZWGVOBCDWHWEVFWFVHVNWHWDVEVDWCALUKZULWHWDVEVGWIULUMUNEBCDUOUPU
+      QURVBVQWABCDTZJZVRVBVPWJVPWJPVBWBUGURWKVRUSVBVNBCDVEVEUTUGVAVA $.
+      $( [8-Nov-2013] $)
+  $}
+
+  ${
+    $d U a b c $.
+    $( Morphisms composition is defined every time the codomain of the second
+       operand matches the domain of the first one.  (Contributed by FL,
+       8-Nov-2013.)  NEW $)
+    cmppar2 $p |- ( U e. Univ
+    -> dom ( roSetCat ` U ) = { <. a , b >. |
+     ( a e. ( MorphismSetCat ` U ) /\ b e. ( MorphismSetCat ` U ) /\
+      ( ( 1st o. 1st ) ` a ) = ( ( 2nd o. 1st ) ` b ) ) } ) $=
+      ( vc cgru wcel crocase cfv cdm cv ccmrcase c1st ccom c2nd wceq cop wa
+      w3a copab2 wex copab isrocatset dmeqd dmoprab a1i df-3an exbii ax-17
+      19.42 cvv opex isset mpbi mpbiran2 3anbi3i bitr3i 3bitri opabbii 3eqtrd
+      ) AEFZAGHZIBJZAKHZFZCJZVCFZVBLLMZHVENLMZHOZDJVEVGHVBVHHPZVBNHVENHMZPZOZQZ
+      RZBCDSZIZVODTZBCUAZVDVFVIRZBCUAZUTVAVPABCDUBUCVQVSOUTVOBCDUDUEVSWAOUTVRVT
+      BCVRVDVFQZVNQZDTWBVNDTZQZVTVOWCDVDVFVNUFUGWBVNDWBDUHUIWEVDVFWDRVTVDVFWDUF
+      WDVIVDVFWDVIVMDTZVIVMDVIDUHUIVLUJFWFVJVKUKDVLULUMUNUOUPUQURUEUS $.
+      $( [8-Nov-2013] $)
+  $}
+
+  ${
+    $d A a b $.  $d B a b $.  $d U a b $.
+    $( Morphisms composition is defined every time the codomain of the second
+       operand matches the domain of the first one.  (Contributed by FL,
+       8-Nov-2013.)  NEW $)
+    cmppar3 $p |- ( ( U e. Univ /\ A e. ( MorphismSetCat ` U )
+                 /\ B e. ( MorphismSetCat ` U ) )
+      -> ( <. A , B >. e. dom ( roSetCat ` U ) <->
+       ( ( domSetCat ` U ) ` A ) = ( ( codSetCat ` U ) ` B ) ) ) $=
+      ( va vb cgru wcel ccmrcase cfv w3a cop crocase cdm cv c1st ccom c2nd
+      wceq copab cdomcase ccodcase cmppar2 3ad2ant1 eleq2d cvv wb elisset
+      3ad2ant2 3ad2ant3 eleq1 fveq2 eqeq1d 3anbi13d eqeq2d 3anbi23d opelopabg
+      syl11anc wa ibar 3adant1 df-3an syl6rbbr domcatval 3adant3 eqcomd
+      codcatval 3adant2 eqeq12d bitrd 3bitrd ) CFGZACHIZGZBVLGZJZABKZCLIMZGVPDN
+      ZVLGZENZVLGZVROOPZIZVTQOPZIZRZJZDESZGZVMVNAWBIZBWDIZRZJZACTIIZBCUAIIZRZVO
+      VQWHVPVKVMVQWHRVNCDEUBUCUDVOAUEGZBUEGZWIWMUFVMVKWQVNAVLUGUHVNVKWRVMBVLUGU
+      IWGVMWAWJWERZJWMDEABUEUEVRARZVSVMWFWSWAVRAVLUJWTWCWJWEVRAWBUKULUMVTBRZWAV
+      NWSWLVMVTBVLUJXAWEWKWJVTBWDUKUNUOUPUQVOWMWLWPVOWLVMVNURZWLURZWMVMVNWLXCUF
+      VKXBWLUSUTVMVNWLVAVBVOWJWNWKWOVOWNWJVKVMWNWJRVNACVCVDVEVOWOWKVKVNWOWKRVMB
+      CVFVGVEVHVIVJ $.
+      $( [8-Nov-2013] $)
+  $}
+
+  ${
+    $d x U a b $.
+    $( The composite of two morphisms is a morphism.  (Contributed by FL,
+       8-Nov-2013.)  NEW $)
+    cmpmor $p |- ( U e. Univ
+    -> ran ( roSetCat ` U ) C_ ( MorphismSetCat ` U ) ) $=
+      ( va vb vx cgru wcel crocase cfv cv ccmrcase c1st ccom c2nd wceq w3a
+      copab wfn wral crn wss wfun cdm cmpmorfun cmppar2 df-fn sylanbrc cop wa
+      wex wi elopab cdomcase ccodcase domcatval 3adant3 codcatval 3adant2 eqtr
+      co df-opr eqid rocatval 3expa syl5eqelr exp42 3imp syl5com expcom eqcoms
+      com3l syl ex com24 sylc pm2.43i 3exp com4l fveq2 eleq1d imbi2d syl5ibr
+      imp 19.23aivv sylbi com12 r19.21aiv fnfvrnss syl11anc ) AEFZAGHZBIZAJHZFZ
+      CIZWLFZWKKKLHZWNMKLHZNZOZBCPZQZDIZWJHZWLFZDWTRWJSWLTWIWJUAWJUBWTNXAAUCABC
+      UDWJWTUEUFWIXDDWTXBWTFZWIXDXEXBWKWNUGZNZWSUHZCUIBUIWIXDUJZWSBCXBUKXHXIBCX
+      GWSXIWSXIXGWIXFWJHZWLFZUJZWMWOWRXLWIWMWOWRXKWIWMWOWRXKUJZWIWMWOOZXMXNWKAU
+      LHHZWPNZWNAUMHHZWQNZXNXMUJWIWMXPWOWKAUNUOWIWOXRWMWNAUPUQXPWRXNXRXKXPWRXNX
+      RXKUJUJZXPWRUHXOWQNZXSXOWPWQURXRXTXNXKXTXNXKUJZUJWQXQXTWQXQNZYAXTYBUHXOXQ
+      NZXNXKXOWQXQURWIWMWOYCXKUJWIWMWOYCXKWIWMWOUHZUHYCUHXJWKWNWJUSZWLWKWNWJUTW
+      IYDYCYEWLFWKWNAWJWJVAVBVCVDVEVFVGVHVIVJVKVLVMVNVOVPVQVFXGXDXKWIXGXCXJWLXB
+      XFWJVRVSVTWAWBWCWDWEWFDWTWLWJWGWH $.
+      $( [8-Nov-2013] $)
+  $}
+
+  $c SetCat $.
+  $( Extend class notation to include the category Set. $)
+  ccaset $a class SetCat $.
+
+  ${
+    $( Definition of the category Set.  (We should say "the categories Set"
+       since there is such a category per universe but for our purpose they are
+       equivalent obviously.)  Experimental.  NEW $)
+    df-catset $a |- SetCat = ( x e. Univ |->
+     <. <. ( domSetCat ` x ) , ( codSetCat ` x ) >. ,
+        <. ( IdSetCat ` x ) , ( roSetCat ` x ) >. >. ) $.
+  $}
+
+  ${
+    $d x U $.
+    $( The category Set.  NEW $)
+    iscatset $p |- ( U e. Univ -> ( SetCat ` U ) =
+      <. <. ( domSetCat ` U ) , ( codSetCat ` U ) >. ,
+         <. ( IdSetCat ` U ) , ( roSetCat ` U ) >. >. ) $=
+      ( vx cgru wcel cdomcase cfv ccodcase cop cidcase crocase cvv ccaset wceq
+      opex cv fveq2 opeq12d df-catset fvmptg mpan2 ) ACDAEFZAGFZHZAIFZAJFZHZHZK
+      DALFUGMUCUFNBABOZEFZUHGFZHZUHIFZUHJFZHZHUGCKLUHAMZUKUCUNUFUOUIUAUJUBUHAEP
+      UHAGPQUOULUDUMUEUHAIPUHAJPQQBRST $.
+      $( [8-Nov-2013] $)
+  $}
+
+  ${
+    $d f g U h a $.
+    $( The category set is a category.  (Contributed by FL, 6-Nov-2013.)
+       NEW $)
+    setiscat $p |- ( U e. Univ -> ( SetCat ` U ) e. Cat ) $=
+      ( vh vg vf va cgru wcel ccaset cfv cdomcase ccodcase cop cidcase crocase
+      ccat iscatset cded cv wceq wa co wi cdm wral cvv w3a wb fvex 3pm3.2i
+      pm3.2i a1i eqid iscat syl calg isded wf wfun cxp wss crn isalg ccmrcase
+      domcatfun domdomcatfun domidcat feq23d mpbird codcatfun idcatfun 3jca
+      cmpmorfun cmppar xpeq12 syl11anc sseqtr4d cmpmor mpbir2and eleq2d biimpd
+      imdistani domidmor codidmor jca r19.21aiva simpl simprr simprl eleq2
+      3anbi23d syl5ibr eqcoms anabsi5 cmppar3 r19.21aivva cmp2morpdom 3exp
+      ancomsd anbi12d imbi1d mpcom r19.21aivv cmp2morpcod com12 ancoms syl6bi
+      com23 simp1l adantrd imp adantr adantld 3adant3 simp3 cmpmorass
+      syl111anc r19.21aiv ex anc2li cmpidmor2 syl6 eleq1 anbi1d fveq2 opreq1d
+      eqeq1d imbi12d com3l cmpidmor3 opreq2d imbi2d eqeltrd ) AFGZAHIAJIZAKIZLA
+      MIZANIZLLZOAPYMYROGZYRQGZBRZYNICRZYOIZSUUBYNIDRZYOIZSZTZUUAUUBUUDYQUAZYQU
+      AUUAUUBYQUAUUDYQUASZUBZBYNUCZUDZCUUKUDDUUKUDZTZUUEERZSZUUOYPIZUUDYQUAZUUD
+      SZUBZDUUKUDEYPUCZUDZUUDYNIZUUOSZUUDUUQYQUAZUUDSZUBZDUUKUDEUVAUDZTZYMYNUEG
+      ZYOUEGZYPUEGZUFZYQUEGZTZYSUUNUVITUGUVOYMUVMUVNUVJUVKUVLAJUHAKUHAMUHUIANUH
+      UJUKZUEUEYOYNYQDCBUEUEYPUUKUVAEUUKULZUVAULZUMUNYMYTUUMYMYTYRUOGZUUQYNIUUO
+      SZUUQYOIUUOSZTZEUVAUDZUUBUUDLYQUCZGUUFUGZCUUKUDDUUKUDZUFZUUFUUHYNIUVCSZUB
+      ZCUUKUDDUUKUDZUUFUUHYOIUUCSZUBZCUUKUDDUUKUDZTZYMUVOYTUWGUWNTUGUVPUEUEYOYN
+      YQDCUEUEYPUUKUVAEUVQUVRUPUNYMUVSUWCUWFYMUVSUUKUVAYNUQZUUKUVAYOUQZUVAUUKYP
+      UQZUFZYQURZUWDUUKUUKUSZUTZYQVAZUUKUTZUFZYMUVOUVSUWRUXDTUGUVPUEUEYOYNYQUEU
+      EYPUUKUVAUVQUVRVBUNYMUWOUWPUWQYMUWOAVCIZAYNUQAVDYMUUKUVAUXEAYNAVEZAVFZVGV
+      HYMUWPUXEAYOUQAVIYMUUKUVAUXEAYOUXFUXGVGVHYMUWQAUXEYPUQAVJYMUVAUUKAUXEYPUX
+      GUXFVGVHVKYMUWSUXAUXCAVLYMUWDUXEUXEUSZUWTAVMYMUUKUXESZUXIUWTUXHSUXFUXFUUK
+      UXEUUKUXEVNVOVPYMUXBUXEUUKAVQUXFVPVKVRYMUWBEUVAYMUUOUVAGZTZUVTUWAUXKYMUUO
+      AGZTZUVTYMUXJUXLYMUXJUXLYMUVAAUUOUXGVSVTWAZUUOAWBUNUXKUXMUWAUXNUUOAWCUNWD
+      WEYMUWEDCUUKUUKYMUUDUUKGZUUBUUKGZTZTZYMUUBUXEGZUUDUXEGZUFZUWEYMUXQUYAYMUX
+      IUXRUYAUBZUXFUYBUXEUUKUXRUYAUXEUUKSZYMUXPUXOUFUXRYMUXPUXOYMUXQWFYMUXOUXPW
+      GYMUXOUXPWHVKUYCUXSUXPUXTUXOYMUXEUUKUUBWIUXEUUKUUDWIWJWKWLUNWMUUBUUDAWNUN
+      WOVKYMUWJUWMYMUWIDCUUKUUKUXIYMUXQUWIUBZUXFYMUYDUXIUXTUXSTZUWIUBYMUXSUXTUW
+      IYMUXSUXTTZUUFUWHUUBUUDAYQUXEYNYOYQULZUXEULZYNULZYOULZWPWQWRUXIUXQUYEUWIU
+      XIUXOUXTUXPUXSUUKUXEUUDWIUUKUXEUUBWIWSZWTWKXAXBYMUWLDCUUKUUKUXIYMUXQUWLUB
+      UXFUXIUXQYMUWLUXIUXQUYEYMUWLUBZUYKUXSUXTUYLYMUYFUWLYMUYFUUFUWKUUBUUDAYQUX
+      EYNYOUYGUYHUYIUYJXCWQXDXEXFXGXAXBWDVRYMUULDCUUKUUKYMUXQUULUXRUUJBUUKUXRUU
+      AUUKGZUUGUUIUXRUYMUUGUFYMUXTUXSUUAUXEGZUFZUUGUUIYMUXQUYMUUGXHUXRUYMUYOUUG
+      UXRUYMTUXTUXSUYNUXRUXTUYMYMUXQUXTYMUXOUXTUXPYMUXOUXTYMUUKUXEUUDUXFVSVTZXI
+      XJXKUXRUXSUYMYMUXQUXSYMUXPUXSUXOYMUXPUXSYMUUKUXEUUBUXFVSVTXLXJXKUXRUYMUYN
+      YMUYMUYNUBUXQYMUYMUYNYMUUKUXEUUAUXFVSVTXKXJVKXMUXRUYMUUGXNUUDUUBUUAAYQUXE
+      YNYOUYGUYHUYIUYJXOXPWQXQXRXBWDYMUVBUVHYMUUTEDUVAUUKUUPYMUXJUXOTZUUSYMUYQU
+      USUBZUBUUOUUEYMUYRUUOUUESZUUEUVAGZUXOTZUUEYPIZUUDYQUAZUUDSZUBYMVUAYMUXTTZ
+      VUDYMVUAUXTYMUXOUXTUYTUYPXLXSAUUDYQUXEYOYPUYGUYHUYJYPULZXTYAUYSUYQVUAUUSV
+      UDUYSUXJUYTUXOUUOUUEUVAYBYCUYSUURVUCUUDUYSUUQVUBUUDYQUUOUUEYPYDYEYFYGWKWL
+      YHXBYMUVGEDUVAUUKUVDYMUYQUVFYMUYQUVFUBZUBUUOUVCYMVUGUUOUVCSZUYQUUDUVCYPIZ
+      YQUAZUUDSZUBYMUYQVUKYMUYQTVUEVUKYMUYQUXTYMUXOUXTUXJUYPXLWAAUUDYQUXEYNYPUY
+      GUYHUYIVUFYIUNXRVUHUVFVUKUYQVUHUVEVUJUUDVUHUUQVUIUUDYQUUOUVCYPYDYJYFYKWKW
+      LYHXBWDVRYL $.
+      $( [6-Nov-2013] $)
   $}
 
