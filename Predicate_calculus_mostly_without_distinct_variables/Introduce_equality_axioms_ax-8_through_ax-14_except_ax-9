@@ -1,0 +1,144 @@
+$(
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+    Introduce equality axioms ax-8 through ax-14 except ax-9
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+$)
+
+  $( Axiom of Equality.  One of the equality and substitution axioms of
+     predicate calculus with equality.  This is similar to, but not quite, a
+     transitive law for equality (proved later as ~ equtr ).  Axiom scheme C8'
+     in [Megill] p. 448 (p. 16 of the preprint).  Also appears as Axiom C7 of
+     [Monk2] p. 105.
+
+     Axioms ~ ax-8 through ~ ax-16 are the axioms having to do with equality,
+     substitution, and logical properties of our binary predicate ` e. ` (which
+     later in set theory will mean "is a member of").  Note that all axioms
+     except ~ ax-16 and ~ ax-17 are still valid even when ` x ` , ` y ` , and
+     ` z ` are replaced with the same variable because they do not have any
+     distinct variable (Metamath's $d) restrictions.  Distinct variable
+     restrictions are required for ~ ax-16 and ~ ax-17 only. $)
+  ax-8 $a |- ( x = y -> ( x = z -> y = z ) ) $.
+
+  $( Axiom of Quantifier Substitution.  One of the equality and substitution
+     axioms of predicate calculus with equality.  Appears as Lemma L12 in
+     [Megill] p. 445 (p. 12 of the preprint).
+
+     The original version of this axiom was ~ ax-10o ("o" for "old") and was
+     replaced with this shorter ~ ax-10 in May 2008.  The old axiom is proved
+     from this one as theorem ~ ax10o .  Conversely, this axiom is proved from
+     ~ ax-10o as theorem ~ ax10 . $)
+  ax-10 $a |- ( A. x x = y -> A. y y = x ) $.
+
+  $( Axiom of Variable Substitution.  One of the 5 equality axioms of predicate
+     calculus.  The final consequent ` A. x ( x = y -> ph ) ` is a way of
+     expressing " ` y ` substituted for ` x ` in wff ` ph ` " (cf. ~ sb6 ).  It
+     is based on Lemma 16 of [Tarski] p. 70 and Axiom C8 of [Monk2] p. 105,
+     from which it can be proved by cases.
+
+     The original version of this axiom was ~ ax-11o ("o" for "old") and was
+     replaced with this shorter ~ ax-11 in Jan. 2007.  The old axiom is proved
+     from this one as theorem ~ ax11o .  Conversely, this axiom is proved from
+     ~ ax-11o as theorem ~ ax11 .
+
+     Juha Arpiainen proved the independence of this axiom (in the form of the
+     older axiom ~ ax-11o ) from the others on 19-Jan-2006.  See item 9a at
+     ~ http://us.metamath.org/award2003.html .
+
+     Interestingly, if the wff expression substituted for ` ph ` contains no
+     wff variables, the resulting statement _can_ be proved without invoking
+     this axiom.  This means that even though this axiom is _metalogically_
+     independent from the others, it is not _logically_ independent.
+     Specifically, we can prove any wff-variable-free instance of axiom
+     ~ ax-11o (from which the ~ ax-11 instance follows by theorem ~ ax11 .)
+     The proof is by induction on formula length, using ~ ax11eq and ~ ax11el
+     for the basis steps and ~ ax11indn , ~ ax11indi , and ~ ax11inda for the
+     induction steps.
+
+     See also ~ ax11v and ~ ax11v2 for other equivalents of this axiom that
+     (unlike this axiom) have distinct variable restrictions. $)
+  ax-11 $a |- ( x = y -> ( A. y ph -> A. x ( x = y -> ph ) ) ) $.
+
+  $( Axiom of Quantifier Introduction.  One of the equality and substitution
+     axioms of predicate calculus with equality.  Informally, it says that
+     whenever ` z ` is distinct from ` x ` and ` y ` , and ` x = y ` is true,
+     then ` x = y ` quantified with ` z ` is also true.  In other words, ` z `
+     is irrelevant to the truth of ` x = y ` .  Axiom scheme C9' in [Megill]
+     p. 448 (p. 16 of the preprint).  It apparently does not otherwise appear
+     in the literature but is easily proved from textbook predicate calculus by
+     cases.
+
+     An open problem is whether this axiom is redundant.  Note that the
+     analogous axiom for the membership connective, ~ ax-15 , has been shown to
+     be redundant.  It is also unknown whether this axiom can be replaced by a
+     shorter formula.  However, it can be derived from two slightly shorter
+     formulas, as shown by ~ a12study . $)
+  ax-12 $a |- ( -. A. z z = x -> ( -. A. z z = y ->
+              ( x = y -> A. z x = y ) ) ) $.
+
+  $( Axiom of Equality.  One of the equality and substitution axioms for a
+     non-logical predicate in our predicate calculus with equality.  It
+     substitutes equal variables into the left-hand side of the ` e. ` binary
+     predicate.  Axiom scheme C12' in [Megill] p. 448 (p. 16 of the preprint).
+     It is a special case of Axiom B8 (p. 75) of system S2 of [Tarski] p. 77.
+     "Non-logical" means that the predicate is not a primitive of predicate
+     calculus proper but instead is an extension to it.  "Binary" means that
+     the predicate has two arguments.  In a system of predicate calculus with
+     equality, like ours, equality is not usually considered to be a
+     non-logical predicate.  In systems of predicate calculus without equality,
+     it typically would be. $)
+  ax-13 $a |- ( x = y -> ( x e. z -> y e. z ) ) $.
+
+  $( Axiom of Equality.  One of the equality and substitution axioms for a
+     non-logical predicate in our predicate calculus with equality.  It
+     substitutes equal variables into the right-hand side of the ` e. ` binary
+     predicate.  Axiom scheme C13' in [Megill] p. 448 (p. 16 of the preprint).
+     It is a special case of Axiom B8 (p. 75) of system S2 of [Tarski]
+     p. 77. $)
+  ax-14 $a |- ( x = y -> ( z e. x -> z e. y ) ) $.
+
+  $( A more general version of ~ hbequid2 using ~ ax-5 , ~ ax-8 , ~ ax-12 , and
+     ~ ax-gen . $)
+  hbequid $p |- ( x = x -> A. y x = x ) $=
+    ( cv wceq wal wi ax-12 ax-8 pm2.43i ax-gen ax-5 ax-mp a1d pm2.61ii ) BCACZD
+    ZBEZQOODZRBEZFAABGQSRPRFZBEQSFTBPRBAAHIJPRBKLMZUAN $.
+    $( [13-Jan-2011] $)
+
+  $( Bound-variable hypothesis builder for ` x = x ` .  This theorem tells us
+     that ` x ` is effectively not free in ` x = x ` , even though it is
+     technically free according to the traditional definition of free
+     variable.  (The proof shows that this can be proved without ~ ax-9 , even
+     though the theorem ~ equid cannot be.  A shorter proof that uses ~ ax-9 is
+     obtainable from ~ equid and ~ hbth .)  See ~ hbequid for a more general
+     version. $)
+  hbequid2 $p |- ( x = x -> A. x x = x ) $=
+    ( weq wal wi ax-12 ax-1 pm2.61ii ) AABZACZIHIDAAAEIHFZJG $.
+    $( [3-Aug-2008] $) $( [27-Dec-2004] $)
+
+  $( Commutation law for identical variable specifiers.  The antecedent and
+     consequent are true when ` x ` and ` y ` are substituted with the same
+     variable.  Lemma L12 in [Megill] p. 445 (p. 12 of the preprint). $)
+  alequcom $p |- ( A. x x = y -> A. y y = x ) $=
+    ( ax-10 ) ABC $.
+    $( [5-Aug-1993] $)
+
+  ${
+    alequcoms.1 $e |- ( A. x x = y -> ph ) $.
+    $( A commutation rule for identical variable specifiers. $)
+    alequcoms $p |- ( A. y y = x -> ph ) $=
+      ( weq wal alequcom syl ) CBECFBCEBFACBGDH $.
+      $( [5-Aug-1993] $)
+  $}
+
+  ${
+    nalequcoms.1 $e |- ( -. A. x x = y -> ph ) $.
+    $( A commutation rule for distinct variable specifiers. $)
+    nalequcoms $p |- ( -. A. y y = x -> ph ) $=
+      ( weq wal alequcom nsyl4 con1i ) ACBECFZBCEBFJABCGDHI $.
+      $( [2-Jan-2002] $)
+  $}
+
+  $( Lemma used in proofs of substitution properties. $)
+  equs3 $p |- ( E. x ( x = y /\ ph ) <-> -. A. x ( x = y -> -. ph ) ) $=
+    ( weq wn wi wal wa wex alinexa con2bii ) BCDZAEFBGLAHBILABJK $.
+    $( [5-Aug-1993] $)
+

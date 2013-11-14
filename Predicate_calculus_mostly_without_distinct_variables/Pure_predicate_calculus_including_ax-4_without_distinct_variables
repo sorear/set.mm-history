@@ -1,21 +1,9 @@
 $(
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-    "Pure" predicate calculus ax-4, ax-5 or ax-5o, ax-6 or ax-6o, ax-gen
+    "Pure" predicate calculus including ax-4, without distinct variables
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 $)
 
-
-  $( Declare the existential quantifier symbol. $)
-  $c E. $.   $( Backwards E (read:  "there exists") $)
-
-  $( Extend wff definition to include the existential quantifier ("there
-     exists"). $)
-  wex $a wff E. x ph $.
-
-  $( Define existential quantification. ` E. x ph ` means "there exists at
-     least one set ` x ` such that ` ph ` is true."  Definition of [Margaris]
-     p. 49. $)
-  df-ex $a |- ( E. x ph <-> -. A. x -. ph ) $.
 
   ${
     a4i.1 $e |- A. x ph $.
@@ -23,14 +11,6 @@ $)
     a4i $p |- ph $=
       ( wal ax-4 ax-mp ) ABDACABEF $.
       $( [5-Aug-1993] $)
-  $}
-
-  ${
-    gen2.1 $e |- ph $.
-    $( Generalization applied twice. $)
-    gen2 $p |- A. x A. y ph $=
-      ( wal ax-gen ) ACEBACDFF $.
-      $( [30-Apr-1998] $)
   $}
 
   ${
@@ -49,146 +29,10 @@ $)
       $( [17-Aug-1994] $)
   $}
 
-  ${
-    mpg.1 $e |- ( A. x ph -> ps ) $.
-    mpg.2 $e |- ph $.
-    $( Modus ponens combined with generalization. $)
-    mpg $p |- ps $=
-      ( wal ax-gen ax-mp ) ACFBACEGDH $.
-      $( [24-May-1994] $)
-  $}
-
-  ${
-    mpgbi.1 $e |- ( A. x ph <-> ps ) $.
-    mpgbi.2 $e |- ph $.
-    $( Modus ponens on biconditional combined with generalization.  (The proof
-       was shortened by Stefan Allan, 28-Oct-2008.) $)
-    mpgbi $p |- ps $=
-      ( wal ax-gen mpbi ) ACFBACEGDH $.
-      $( [31-Oct-2008] $) $( [24-May-1994] $)
-  $}
-
-  ${
-    mpgbir.1 $e |- ( ph <-> A. x ps ) $.
-    mpgbir.2 $e |- ps $.
-    $( Modus ponens on biconditional combined with generalization.  (The proof
-       was shortened by Stefan Allan, 28-Oct-2008.) $)
-    mpgbir $p |- ph $=
-      ( wal ax-gen mpbir ) ABCFBCEGDH $.
-      $( [31-Oct-2008] $) $( [24-May-1994] $)
-  $}
-
   $( Abbreviated version of ~ ax-6o . $)
   a6e $p |- ( E. x A. x ph -> ph ) $=
     ( wal wex wn df-ex a6o sylbi ) ABCZBDIEBCEAIBFABGH $.
     $( [5-Aug-1993] $)
-
-  ${
-    a7s.1 $e |- ( A. x A. y ph -> ps ) $.
-    $( Swap quantifiers in an antecedent. $)
-    a7s $p |- ( A. y A. x ph -> ps ) $=
-      ( wal ax-7 syl ) ACFDFADFCFBADCGEH $.
-      $( [5-Aug-1993] $)
-  $}
-
-  ${
-    alimi.1 $e |- ( ph -> ps ) $.
-    $( Inference quantifying both antecedent and consequent. $)
-    alimi $p |- ( A. x ph -> A. x ps ) $=
-      ( wi wal ax-gen ax-5 ax-mp ) ABEZCFACFBCFEJCDGABCHI $.
-      $( [5-Aug-1993] $)
-
-    $( Inference doubly quantifying both antecedent and consequent. $)
-    2alimi $p |- ( A. x A. y ph -> A. x A. y ps ) $=
-      ( wal alimi ) ADFBDFCABDEGG $.
-      $( [3-Feb-2005] $)
-  $}
-
-  $( Theorem 19.20 of [Margaris] p. 90.  (The proof was shortened by O'Cat,
-     30-Mar-2008.) $)
-  alim $p |- ( A. x ( ph -> ps ) -> ( A. x ph -> A. x ps ) ) $=
-    ( ax-5 ) ABCD $.
-    $( [30-Mar-2008] $) $( [5-Aug-1993] $)
-
-  ${
-    al2imi.1 $e |- ( ph -> ( ps -> ch ) ) $.
-    $( Inference quantifying antecedent, nested antecedent, and consequent. $)
-    al2imi $p |- ( A. x ph -> ( A. x ps -> A. x ch ) ) $=
-      ( wal wi alimi alim syl ) ADFBCGZDFBDFCDFGAKDEHBCDIJ $.
-      $( [5-Aug-1993] $)
-  $}
-
-  ${
-    alanimi.1 $e |- ( ( ph /\ ps ) -> ch ) $.
-    $( Variant of ~ al2imi with conjunctive antecedent.  (Contributed by Andrew
-       Salmon, 8-Jun-2011.) $)
-    alanimi $p |- ( ( A. x ph /\ A. x ps ) -> A. x ch ) $=
-      ( wal ex al2imi imp ) ADFBDFCDFABCDABCEGHI $.
-      $( [8-Jun-2011] $)
-  $}
-
-  ${
-    alimd.1 $e |- ( ph -> A. x ph ) $.
-    alimd.2 $e |- ( ph -> ( ps -> ch ) ) $.
-    $( Deduction from Theorem 19.20 of [Margaris] p. 90. $)
-    alimd $p |- ( ph -> ( A. x ps -> A. x ch ) ) $=
-      ( wal wi al2imi syl ) AADGBDGCDGHEABCDFIJ $.
-      $( [4-Jan-2002] $)
-  $}
-
-  $( Theorem 19.15 of [Margaris] p. 90. $)
-  albi $p |- ( A. x ( ph <-> ps ) -> ( A. x ph <-> A. x ps ) ) $=
-    ( wb wal bi1 al2imi bi2 impbid ) ABDZCEACEBCEJABCABFGJBACABHGI $.
-    $( [5-Aug-1993] $)
-
-  ${
-    19.21ai.1 $e |- ( ph -> A. x ph ) $.
-    19.21ai.2 $e |- ( ph -> ps ) $.
-    $( Inference from Theorem 19.21 of [Margaris] p. 90. $)
-    19.21ai $p |- ( ph -> A. x ps ) $=
-      ( wal alimi syl ) AACFBCFDABCEGH $.
-      $( [5-Aug-1993] $)
-  $}
-
-  ${
-    albii.1 $e |- ( ph <-> ps ) $.
-    $( Inference adding universal quantifier to both sides of an
-       equivalence. $)
-    albii $p |- ( A. x ph <-> A. x ps ) $=
-      ( wb wal albi mpg ) ABEACFBCFECABCGDH $.
-      $( [7-Aug-1994] $)
-
-    $( Inference adding 2 universal quantifiers to both sides of an
-       equivalence. $)
-    2albii $p |- ( A. x A. y ph <-> A. x A. y ps ) $=
-      ( wal albii ) ADFBDFCABDEGG $.
-      $( [9-Mar-1997] $)
-  $}
-
-  ${
-    hbth.1 $e |- ph $.
-    $( No variable is (effectively) free in a theorem.
-
-       This and later "hypothesis-building" lemmas, with labels starting
-       "hb...", allow us to construct proofs of formulas of the form
-       ` |- ( ph -> A. x ph ) ` from smaller formulas of this form.  These are
-       useful for constructing hypotheses that state " ` x ` is (effectively)
-       not free in ` ph ` ." $)
-    hbth $p |- ( ph -> A. x ph ) $=
-      ( wal ax-gen a1i ) ABDAABCEF $.
-      $( [5-Aug-1993] $)
-  $}
-
-  ${
-    hbxfrbi.1 $e |- ( ph <-> ps ) $.
-    hbxfrbi.2 $e |- ( ps -> A. x ps ) $.
-    $( A utility lemma to transfer a bound-variable hypothesis builder into a
-       definition.  See ~ hbxfreq for equality version.  (Contributed by
-       Jonathan Ben-Naim, 3-Jun-2011.) $)
-    hbxfrbi $p |- ( ph -> A. x ph ) $=
-      ( wal albii 3imtr4i ) BBCFAACFEDABCDGH $.
-      $( [3-Jun-2011] $)
-  $}
 
   $( Closed theorem version of bound-variable hypothesis builder ~ hbn . $)
   hbnt $p |- ( A. x ( ph -> A. x ph ) -> ( -. ph -> A. x -. ph ) ) $=
@@ -216,11 +60,6 @@ $)
     $( If ` x ` is not free in ` ph ` , it is not free in ` -. ph ` . $)
     hbn $p |- ( -. ph -> A. x -. ph ) $=
       ( wal wi wn hbnt mpg ) AABDEAFZIBDEBABGCH $.
-      $( [5-Aug-1993] $)
-
-    $( If ` x ` is not free in ` ph ` , it is not free in ` A. y ph ` . $)
-    hbal $p |- ( A. y ph -> A. x A. y ph ) $=
-      ( wal alimi ax-7 syl ) ACEZABEZCEIBEAJCDFACBGH $.
       $( [5-Aug-1993] $)
 
     $( If ` x ` is not free in ` ph ` , it is not free in ` E. y ph ` . $)
@@ -399,28 +238,6 @@ $)
       $( [21-May-2007] $) $( [5-Aug-1993] $)
   $}
 
-  $( Theorem 19.5 of [Margaris] p. 89. $)
-  alcom $p |- ( A. x A. y ph <-> A. y A. x ph ) $=
-    ( wal ax-7 impbii ) ACDBDABDCDABCEACBEF $.
-    $( [5-Aug-1993] $)
-
-  $( Theorem 19.7 of [Margaris] p. 89. $)
-  alnex $p |- ( A. x -. ph <-> -. E. x ph ) $=
-    ( wex wn wal df-ex con2bii ) ABCADBEABFG $.
-    $( [5-Aug-1993] $)
-
-  $( Theorem 19.6 of [Margaris] p. 89. $)
-  alex $p |- ( A. x ph <-> -. E. x -. ph ) $=
-    ( wal wn wex notnot albii alnex bitri ) ABCADZDZBCJBEDAKBAFGJBHI $.
-    $( [5-Aug-1993] $)
-
-  $( Part of theorem *11.5 in [WhiteheadRussell] p. 164.  (Contributed by
-     Andrew Salmon, 24-May-2011.) $)
-  2nalexn $p |- ( -. A. x A. y ph <-> E. x E. y -. ph ) $=
-    ( wal wn wex alex albii notbii df-ex bitr4i ) ACDZBDZEAECFZEZBDZENBFMPLOBAC
-    GHINBJK $.
-    $( [24-May-2011] $)
-
   $( A closed version of one direction of ~ 19.9 . $)
   19.9t $p |- ( A. x ( ph -> A. x ph ) -> ( E. x ph -> ph ) ) $=
     ( wex wn wal wi df-ex hbnt con1d syl5bi ) ABCADBEZDAABEFBEZAABGLAKABHIJ $.
@@ -443,55 +260,6 @@ $)
       ( wal wi wex alimi 19.9t 3syl ) BBCFAACFGZCFACHAGDBLCEIACJK $.
       $( [5-Aug-1993] $)
   $}
-
-  $( Theorem 19.14 of [Margaris] p. 90. $)
-  exnal $p |- ( E. x -. ph <-> -. A. x ph ) $=
-    ( wal wn wex alex con2bii ) ABCADBEABFG $.
-    $( [5-Aug-1993] $)
-
-  $( Theorem *11.51 in [WhiteheadRussell] p. 164.  (Contributed by Andrew
-     Salmon, 24-May-2011.) $)
-  2exnexn $p |- ( E. x A. y ph <-> -. A. x E. y -. ph ) $=
-    ( wal wex wn df-ex exnal albii notbii bitr4i ) ACDZBELFZBDZFAFCEZBDZFLBGPNO
-    MBACHIJK $.
-    $( [24-May-2011] $)
-
-  $( Theorem 19.22 of [Margaris] p. 90. $)
-  exim $p |- ( A. x ( ph -> ps ) -> ( E. x ph -> E. x ps ) ) $=
-    ( wi wal wn wex con3 al2imi con3d df-ex 3imtr4g ) ABDZCEZAFZCEZFBFZCEZFACGB
-    CGNRPMQOCABHIJACKBCKL $.
-    $( [5-Aug-1993] $)
-
-  ${
-    eximi.1 $e |- ( ph -> ps ) $.
-    $( Inference adding existential quantifier to antecedent and consequent. $)
-    eximi $p |- ( E. x ph -> E. x ps ) $=
-      ( wi wex exim mpg ) ABEACFBCFECABCGDH $.
-      $( [5-Aug-1993] $)
-
-    $( Inference adding 2 existential quantifiers to antecedent and
-       consequent. $)
-    2eximi $p |- ( E. x E. y ph -> E. x E. y ps ) $=
-      ( wex eximi ) ADFBDFCABDEGG $.
-      $( [3-Feb-2005] $)
-  $}
-
-  $( A transformation of quantifiers and logical connectives. $)
-  alinexa $p |- ( A. x ( ph -> -. ps ) <-> -. E. x ( ph /\ ps ) ) $=
-    ( wn wi wal wa wex imnan albii alnex bitri ) ABDEZCFABGZDZCFNCHDMOCABIJNCKL
-    $.
-    $( [19-Aug-1993] $)
-
-  $( A transformation of quantifiers and logical connectives. $)
-  exanali $p |- ( E. x ( ph /\ -. ps ) <-> -. A. x ( ph -> ps ) ) $=
-    ( wi wal wn wa wex iman albii alnex bitri con2bii ) ABDZCEZABFGZCHZOPFZCEQF
-    NRCABIJPCKLM $.
-    $( [25-Mar-1996] $)
-
-  $( A relationship between two quantifiers and negation. $)
-  alexn $p |- ( A. x E. y -. ph <-> -. E. x A. y ph ) $=
-    ( wn wex wal exnal albii alnex bitri ) ADCEZBFACFZDZBFLBEDKMBACGHLBIJ $.
-    $( [18-Aug-1993] $)
 
   $( One direction of Theorem 19.11 of [Margaris] p. 89. $)
   excomim $p |- ( E. x E. y ph -> E. y E. x ph ) $=
@@ -526,44 +294,6 @@ $)
       ( wb wal albi 19.3 syl6bb ) ABECFACFBCFBABCGBCDHI $.
       $( [5-Aug-1993] $)
   $}
-
-  $( Theorem 19.18 of [Margaris] p. 90. $)
-  exbi $p |- ( A. x ( ph <-> ps ) -> ( E. x ph <-> E. x ps ) ) $=
-    ( wb wal wex wi bi1 alimi exim syl bi2 impbid ) ABDZCEZACFZBCFZOABGZCEPQGNR
-    CABHIABCJKOBAGZCEQPGNSCABLIBACJKM $.
-    $( [5-Aug-1993] $)
-
-  ${
-    exbii.1 $e |- ( ph <-> ps ) $.
-    $( Inference adding existential quantifier to both sides of an
-       equivalence. $)
-    exbii $p |- ( E. x ph <-> E. x ps ) $=
-      ( wb wex exbi mpg ) ABEACFBCFECABCGDH $.
-      $( [24-May-1994] $)
-  $}
-
-  ${
-    2exbii.1 $e |- ( ph <-> ps ) $.
-    $( Inference adding 2 existential quantifiers to both sides of an
-       equivalence. $)
-    2exbii $p |- ( E. x E. y ph <-> E. x E. y ps ) $=
-      ( wex exbii ) ADFBDFCABDEGG $.
-      $( [16-Mar-1995] $)
-  $}
-
-  ${
-    3exbii.1 $e |- ( ph <-> ps ) $.
-    $( Inference adding 3 existential quantifiers to both sides of an
-       equivalence. $)
-    3exbii $p |- ( E. x E. y E. z ph <-> E. x E. y E. z ps ) $=
-      ( wex exbii 2exbii ) AEGBEGCDABEFHI $.
-      $( [2-May-1995] $)
-  $}
-
-  $( Commutation of conjunction inside an existential quantifier. $)
-  exancom $p |- ( E. x ( ph /\ ps ) <-> E. x ( ps /\ ph ) ) $=
-    ( wa ancom exbii ) ABDBADCABEF $.
-    $( [18-Aug-1993] $)
 
   ${
     19.19.1 $e |- ( ph -> A. x ph ) $.
@@ -608,17 +338,6 @@ $)
   $}
 
   ${
-    19.21ad.1 $e |- ( ph -> A. x ph ) $.
-    19.21ad.2 $e |- ( ps -> A. x ps ) $.
-    19.21ad.3 $e |- ( ph -> ( ps -> ch ) ) $.
-    $( Deduction from Theorem 19.21 of [Margaris] p. 90.  (The proof was
-       shortened by Andrew Salmon, 13-May-2011.) $)
-    19.21ad $p |- ( ph -> ( ps -> A. x ch ) ) $=
-      ( wal alimd syl5 ) BBDHACDHFABCDEGIJ $.
-      $( [16-May-2011] $) $( [10-Feb-1997] $)
-  $}
-
-  ${
     19.21bi.1 $e |- ( ph -> A. x ps ) $.
     $( Inference from Theorem 19.21 of [Margaris] p. 90. $)
     19.21bi $p |- ( ph -> ps ) $=
@@ -632,15 +351,6 @@ $)
     19.21bbi $p |- ( ph -> ps ) $=
       ( wal 19.21bi ) ABDABDFCEGG $.
       $( [20-Apr-1994] $)
-  $}
-
-  ${
-    eximd.1 $e |- ( ph -> A. x ph ) $.
-    eximd.2 $e |- ( ph -> ( ps -> ch ) ) $.
-    $( Deduction from Theorem 19.22 of [Margaris] p. 90. $)
-    eximd $p |- ( ph -> ( E. x ps -> E. x ch ) ) $=
-      ( wi wal wex 19.21ai exim syl ) ABCGZDHBDICDIGAMDEFJBCDKL $.
-      $( [20-May-1996] $)
   $}
 
   ${
@@ -680,26 +390,6 @@ $)
       $( [28-Jan-1997] $)
   $}
 
-  $( Theorem 19.26 of [Margaris] p. 90.  Also Theorem *10.22 of
-     [WhiteheadRussell] p. 119. $)
-  19.26 $p |- ( A. x ( ph /\ ps ) <-> ( A. x ph /\ A. x ps ) ) $=
-    ( wa wal simpl alimi simpr jca pm3.2 al2imi imp impbii ) ABDZCEZACEZBCEZDOP
-    QNACABFGNBCABHGIPQOABNCABJKLM $.
-    $( [5-Aug-1993] $)
-
-  $( Theorem 19.26 of [Margaris] p. 90 with two quantifiers. $)
-  19.26-2 $p |- ( A. x A. y ( ph /\ ps ) <->
-                ( A. x A. y ph /\ A. x A. y ps ) ) $=
-    ( wa wal 19.26 albii bitri ) ABEDFZCFADFZBDFZEZCFKCFLCFEJMCABDGHKLCGI $.
-    $( [3-Feb-2005] $)
-
-  $( Theorem 19.26 of [Margaris] p. 90 with triple conjunction. $)
-  19.26-3an $p |- ( A. x ( ph /\ ps /\ ch )
-                   <-> ( A. x ph /\ A. x ps /\ A. x ch ) ) $=
-    ( wa wal w3a 19.26 anbi1i bitri df-3an albii 3bitr4i ) ABEZCEZDFZADFZBDFZEZ
-    CDFZEZABCGZDFQRTGPNDFZTEUANCDHUCSTABDHIJUBODABCKLQRTKM $.
-    $( [13-Sep-2011] $)
-
   ${
     19.27.1 $e |- ( ps -> A. x ps ) $.
     $( Theorem 19.27 of [Margaris] p. 90. $)
@@ -713,59 +403,6 @@ $)
     $( Theorem 19.28 of [Margaris] p. 90. $)
     19.28 $p |- ( A. x ( ph /\ ps ) <-> ( ph /\ A. x ps ) ) $=
       ( wa wal 19.26 19.3 anbi1i bitri ) ABECFACFZBCFZEALEABCGKALACDHIJ $.
-      $( [5-Aug-1993] $)
-  $}
-
-  $( Theorem 19.29 of [Margaris] p. 90.  (The proof was shortened by Andrew
-     Salmon, 13-May-2011.) $)
-  19.29 $p |- ( ( A. x ph /\ E. x ps ) -> E. x ( ph /\ ps ) ) $=
-    ( wal wex wa wi pm3.2 alimi exim syl imp ) ACDZBCEZABFZCEZMBOGZCDNPGAQCABHI
-    BOCJKL $.
-    $( [16-May-2011] $) $( [5-Aug-1993] $)
-
-  $( Variation of Theorem 19.29 of [Margaris] p. 90. $)
-  19.29r $p |- ( ( E. x ph /\ A. x ps ) -> E. x ( ph /\ ps ) ) $=
-    ( wal wex wa 19.29 ancom exancom 3imtr4i ) BCDZACEZFBAFCELKFABFCEBACGLKHABC
-    IJ $.
-    $( [18-Aug-1993] $)
-
-  $( Variation of Theorem 19.29 of [Margaris] p. 90 with double
-     quantification. $)
-  19.29r2 $p |- ( ( E. x E. y ph /\ A. x A. y ps ) ->
-             E. x E. y ( ph /\ ps ) ) $=
-    ( wex wal wa 19.29r eximi syl ) ADEZCEBDFZCFGKLGZCEABGDEZCEKLCHMNCABDHIJ $.
-    $( [3-Feb-2005] $)
-
-  $( Variation of Theorem 19.29 of [Margaris] p. 90 with mixed
-     quantification. $)
-  19.29x $p |- ( ( E. x A. y ph /\ A. x E. y ps ) ->
-             E. x E. y ( ph /\ ps ) ) $=
-    ( wal wex wa 19.29r 19.29 eximi syl ) ADEZCFBDFZCEGLMGZCFABGDFZCFLMCHNOCABD
-    IJK $.
-    $( [11-Feb-2005] $)
-
-  $( Theorem 19.35 of [Margaris] p. 90.  This theorem is useful for moving an
-     implication (in the form of the right-hand side) into the scope of a
-     single existential quantifier. $)
-  19.35 $p |- ( E. x ( ph -> ps ) <-> ( A. x ph -> E. x ps ) ) $=
-    ( wal wn wi wex wa 19.26 annim albii df-an 3bitr3i con2bii df-ex imbi2i
-    3bitr4ri ) ACDZBEZCDZEZFZABFZEZCDZERBCGZFUCCGUEUBASHZCDRTHUEUBEASCIUGUDCABJ
-    KRTLMNUFUARBCOPUCCOQ $.
-    $( [5-Aug-1993] $)
-
-  ${
-    19.35i.1 $e |- E. x ( ph -> ps ) $.
-    $( Inference from Theorem 19.35 of [Margaris] p. 90. $)
-    19.35i $p |- ( A. x ph -> E. x ps ) $=
-      ( wi wex wal 19.35 mpbi ) ABECFACGBCFEDABCHI $.
-      $( [5-Aug-1993] $)
-  $}
-
-  ${
-    19.35ri.1 $e |- ( A. x ph -> E. x ps ) $.
-    $( Inference from Theorem 19.35 of [Margaris] p. 90. $)
-    19.35ri $p |- E. x ( ph -> ps ) $=
-      ( wi wex wal 19.35 mpbir ) ABECFACGBCFEDABCHI $.
       $( [5-Aug-1993] $)
   $}
 
@@ -812,20 +449,6 @@ $)
     $.
     $( [5-Aug-1993] $)
 
-  $( Theorem 19.25 of [Margaris] p. 90. $)
-  19.25 $p |- ( A. y E. x ( ph -> ps ) ->
-              ( E. y A. x ph -> E. y E. x ps ) ) $=
-    ( wi wex wal 19.35 biimpi alimi exim syl ) ABECFZDGACGZBCFZEZDGNDFODFEMPDMP
-    ABCHIJNODKL $.
-    $( [5-Aug-1993] $)
-
-  $( Theorem 19.30 of [Margaris] p. 90.  (The proof was shortened by Andrew
-     Salmon, 25-May-2011.) $)
-  19.30 $p |- ( A. x ( ph \/ ps ) -> ( A. x ph \/ E. x ps ) ) $=
-    ( wn wi wal wex wo exnal exim syl5bir df-or albii 3imtr4i ) ADZBEZCFZACFZDZ
-    BCGZEABHZCFRTHSOCGQTACIOBCJKUAPCABLMRTLN $.
-    $( [25-May-2011] $) $( [5-Aug-1993] $)
-
   ${
     19.32.1 $e |- ( ph -> A. x ph ) $.
     $( Theorem 19.32 of [Margaris] p. 90. $)
@@ -844,13 +467,6 @@ $)
       $( [5-Aug-1993] $)
   $}
 
-  $( Theorem 19.43 of [Margaris] p. 90. $)
-  19.43 $p |- ( E. x ( ph \/ ps ) <-> ( E. x ph \/ E. x ps ) ) $=
-    ( wo wn wal wex wa ioran albii 19.26 alnex anbi12i 3bitri notbii df-ex
-    oran 3bitr4i ) ABDZEZCFZEACGZEZBCGZEZHZESCGUBUDDUAUFUAAEZBEZHZCFUGCFZUHCFZH
-    UFTUICABIJUGUHCKUJUCUKUEACLBCLMNOSCPUBUDQR $.
-    $( [5-Aug-1993] $)
-
   ${
     19.44.1 $e |- ( ps -> A. x ps ) $.
     $( Theorem 19.44 of [Margaris] p. 90. $)
@@ -867,40 +483,11 @@ $)
       $( [5-Aug-1993] $)
   $}
 
-  $( Theorem 19.33 of [Margaris] p. 90. $)
-  19.33 $p |- ( ( A. x ph \/ A. x ps ) -> A. x ( ph \/ ps ) ) $=
-    ( wal wo orc alimi olc jaoi ) ACDABEZCDBCDAJCABFGBJCBAHGI $.
-    $( [5-Aug-1993] $)
-
-  $( The antecedent provides a condition implying the converse of ~ 19.33 .
-     Compare Theorem 19.33 of [Margaris] p. 90.  (The proof was shortened by
-     Andrew Salmon, 25-May-2011.) $)
-  19.33b $p |- ( -. ( E. x ph /\ E. x ps ) ->
-               ( A. x ( ph \/ ps ) <-> ( A. x ph \/ A. x ps ) ) ) $=
-    ( wex wa wn wo wal wi ianor alnex wb biorf alimi albi syl olc syl6bir
-    sylbir 19.30 orc a1i pm2.21 jaod syl5 jaoi sylbi 19.33 impbid1 ) ACDZBCDZEF
-    ZABGZCHZACHZBCHZGZULUJFZUKFZGUNUQIZUJUKJURUTUSURAFZCHZUTACKVBUNUPUQVBBUMLZC
-    HUPUNLVAVCCABMNBUMCOPUPUOQRSUNUOUKGUSUQABCTUSUOUQUKUOUQIUSUOUPUAUBUKUQUCUDU
-    EUFUGABCUHUI $.
-    $( [25-May-2011] $) $( [27-Mar-2004] $)
-
   $( Theorem 19.34 of [Margaris] p. 90. $)
   19.34 $p |- ( ( A. x ph \/ E. x ps ) -> E. x ( ph \/ ps ) ) $=
     ( wal wex wo 19.2 orim1i 19.43 sylibr ) ACDZBCEZFACEZLFABFCEKMLACCGHABCIJ
     $.
     $( [5-Aug-1993] $)
-
-  $( Theorem 19.40 of [Margaris] p. 90. $)
-  19.40 $p |- ( E. x ( ph /\ ps ) -> ( E. x ph /\ E. x ps ) ) $=
-    ( wa wex simpl eximi simpr jca ) ABDZCEACEBCEJACABFGJBCABHGI $.
-    $( [5-Aug-1993] $)
-
-  $( Theorem *11.42 in [WhiteheadRussell] p. 163.  Theorem 19.40 of [Margaris]
-     p. 90 with 2 quantifiers.  (Contributed by Andrew Salmon, 24-May-2011.) $)
-  19.40-2 $p |- ( E. x E. y ( ph /\ ps ) ->
-        ( E. x E. y ph /\ E. x E. y ps ) ) $=
-    ( wa wex 19.40 eximi syl ) ABEDFZCFADFZBDFZEZCFKCFLCFEJMCABDGHKLCGI $.
-    $( [24-May-2011] $)
 
   ${
     19.41.1 $e |- ( ps -> A. x ps ) $.
@@ -920,18 +507,6 @@ $)
       $.
       $( [18-Aug-1993] $)
   $}
-
-  $( Theorem *11.21 in [WhiteheadRussell] p. 160.  (Contributed by Andrew
-     Salmon, 24-May-2011.) $)
-  alrot3 $p |- ( A. x A. y A. z ph <-> A. y A. z A. x ph ) $=
-    ( wal alcom albii bitri ) ADEZCEBEIBEZCEABEDEZCEIBCFJKCABDFGH $.
-    $( [24-May-2011] $)
-
-  $( Rotate 4 universal quantifiers twice. $)
-  alrot4 $p |- ( A. x A. y A. z A. w ph <-> A. z A. w A. x A. y ph ) $=
-    ( wal alcom albii bitri 3bitri ) AEFZDFCFZBFACFZEFZDFZBFNBFZDFMBFEFZDFLOBLK
-    CFZDFOKCDGRNDACEGHIHNBDGPQDMBEGHJ $.
-    $( [2-Feb-2005] $)
 
   $( Swap 1st and 3rd existential quantifiers. $)
   excom13 $p |- ( E. x E. y E. z ph <-> E. z E. y E. x ph ) $=
@@ -957,23 +532,6 @@ $)
   $}
 
   ${
-    nex.1 $e |- -. ph $.
-    $( Generalization rule for negated wff. $)
-    nex $p |- -. E. x ph $=
-      ( wn wex alnex mpgbi ) ADABEDBABFCG $.
-      $( [18-May-1994] $)
-  $}
-
-  ${
-    nexd.1 $e |- ( ph -> A. x ph ) $.
-    nexd.2 $e |- ( ph -> -. ps ) $.
-    $( Deduction for generalization rule for negated wff. $)
-    nexd $p |- ( ph -> -. E. x ps ) $=
-      ( wn wal wex 19.21ai alnex sylib ) ABFZCGBCHFALCDEIBCJK $.
-      $( [2-Jan-2002] $)
-  $}
-
-  ${
     hbim1.1 $e |- ( ph -> A. x ph ) $.
     hbim1.2 $e |- ( ph -> ( ps -> A. x ps ) ) $.
     $( A closed form of ~ hbim . $)
@@ -981,31 +539,6 @@ $)
       ( wi wal a2i 19.21 sylibr ) ABFZABCGZFKCGABLEHABCDIJ $.
       $( [5-Aug-1993] $)
   $}
-
-  ${
-    albid.1 $e |- ( ph -> A. x ph ) $.
-    albid.2 $e |- ( ph -> ( ps <-> ch ) ) $.
-    $( Formula-building rule for universal quantifier (deduction rule). $)
-    albid $p |- ( ph -> ( A. x ps <-> A. x ch ) ) $=
-      ( wb wal 19.21ai albi syl ) ABCGZDHBDHCDHGALDEFIBCDJK $.
-      $( [5-Aug-1993] $)
-  $}
-
-  ${
-    exbid.1 $e |- ( ph -> A. x ph ) $.
-    exbid.2 $e |- ( ph -> ( ps <-> ch ) ) $.
-    $( Formula-building rule for existential quantifier (deduction rule). $)
-    exbid $p |- ( ph -> ( E. x ps <-> E. x ch ) ) $=
-      ( wb wal wex 19.21ai exbi syl ) ABCGZDHBDICDIGAMDEFJBCDKL $.
-      $( [5-Aug-1993] $)
-  $}
-
-  $( Simplification of an existentially quantified conjunction.  (Contributed
-     by Rodolfo Medina, 25-Sep-2010.)  (The proof was shortened by Andrew
-     Salmon, 29-Jun-2011.) $)
-  exsimpl $p |- ( E. x ( ph /\ ps ) -> E. x ph ) $=
-    ( wa simpl eximi ) ABDACABEF $.
-    $( [29-Jun-2011] $) $( [25-Sep-2010] $)
 
   ${
     exan.1 $e |- ( E. x ph /\ ps ) $.
@@ -1016,20 +549,6 @@ $)
       ABCKL $.
       $( [25-May-2011] $) $( [18-Aug-1993] $)
   $}
-
-  $( Split a biconditional and distribute quantifier. $)
-  albiim $p |- ( A. x ( ph <-> ps ) <->
-             ( A. x ( ph -> ps ) /\ A. x ( ps -> ph ) ) ) $=
-    ( wb wal wi wa dfbi2 albii 19.26 bitri ) ABDZCEABFZBAFZGZCEMCENCEGLOCABHIMN
-    CJK $.
-    $( [18-Aug-1993] $)
-
-  $( Split a biconditional and distribute 2 quantifiers. $)
-  2albiim $p |- ( A. x A. y ( ph <-> ps ) <->
-             ( A. x A. y ( ph -> ps ) /\ A. x A. y ( ps -> ph ) ) ) $=
-    ( wb wal wi wa albiim albii 19.26 bitri ) ABEDFZCFABGDFZBAGDFZHZCFNCFOCFHMP
-    CABDIJNOCKL $.
-    $( [3-Feb-2005] $)
 
   ${
     hbnd.1 $e |- ( ph -> A. x ph ) $.
@@ -1052,26 +571,6 @@ $)
   $}
 
   ${
-    hband.1 $e |- ( ph -> ( ps -> A. x ps ) ) $.
-    hband.2 $e |- ( ph -> ( ch -> A. x ch ) ) $.
-    $( Deduction form of bound-variable hypothesis builder ~ hban . $)
-    hband $p |- ( ph -> ( ( ps /\ ch ) -> A. x ( ps /\ ch ) ) ) $=
-      ( wa wal anim12d 19.26 syl6ibr ) ABCGZBDHZCDHZGLDHABMCNEFIBCDJK $.
-      $( [2-Jan-2002] $)
-  $}
-
-  ${
-    hb3and.1 $e |- ( ph -> ( ps -> A. x ps ) ) $.
-    hb3and.2 $e |- ( ph -> ( ch -> A. x ch ) ) $.
-    hb3and.3 $e |- ( ph -> ( th -> A. x th ) ) $.
-    $( Deduction form of bound-variable hypothesis builder ~ hb3an . $)
-    hb3and $p |- ( ph -> ( ( ps /\ ch /\ th ) -> A. x ( ps /\ ch /\ th ) ) ) $=
-      ( w3a wal 3anim123d 19.26-3an syl6ibr ) ABCDIZBEJZCEJZDEJZINEJABOCPDQFGHK
-      BCDELM $.
-      $( [17-Feb-2013] $)
-  $}
-
-  ${
     hbbid.1 $e |- ( ph -> A. x ph ) $.
     hbbid.2 $e |- ( ph -> ( ps -> A. x ps ) ) $.
     hbbid.3 $e |- ( ph -> ( ch -> A. x ch ) ) $.
@@ -1080,15 +579,6 @@ $)
       ( wi wa wal wb hbimd anim12d dfbi2 albiim 3imtr4g ) ABCHZCBHZIQDJZRDJZIBC
       KZUADJAQSRTABCDEFGLACBDEGFLMBCNBCDOP $.
       $( [1-Jan-2002] $)
-  $}
-
-  ${
-    hbald.1 $e |- ( ph -> A. y ph ) $.
-    hbald.2 $e |- ( ph -> ( ps -> A. x ps ) ) $.
-    $( Deduction form of bound-variable hypothesis builder ~ hbal . $)
-    hbald $p |- ( ph -> ( A. y ps -> A. x A. y ps ) ) $=
-      ( wal alimd ax-7 syl6 ) ABDGZBCGZDGKCGABLDEFHBDCIJ $.
-      $( [2-Jan-2002] $)
   $}
 
   ${
@@ -1114,18 +604,6 @@ $)
     ( wal wi wex hba1 ax-4 impbid2 imbi2d albid 19.23 syl5bb bitr3d ) BBCDZEZCD
     ZAOEZCDZABEZCDACFZBEZQRTCPCGQOBAQOBBCHPCHIZJKSUAOEQUBAOCBCGLQOBUAUCJMN $.
     $( [7-Nov-2005] $)
-
-  $( Introduce a conjunct in the scope of an existential quantifier. $)
-  exintr $p |- ( A. x ( ph -> ps ) -> ( E. x ph -> E. x ( ph /\ ps ) ) ) $=
-    ( wi wal wa hba1 ancl a4s eximd ) ABDZCEAABFZCKCGKALDCABHIJ $.
-    $( [11-Aug-1993] $)
-
-  $( Add/remove a conjunct in the scope of an existential quantifier.
-     (Contributed by Raph Levien, 3-Jul-2006.) $)
-  exintrbi $p |- ( A. x ( ph -> ps ) -> ( E. x ph <-> E. x ( ph /\ ps ) ) ) $=
-    ( wi wal wa wb wex pm4.71 albii exbi sylbi ) ABDZCEAABFZGZCEACHNCHGMOCABIJA
-    NCKL $.
-    $( [3-Jul-2006] $)
 
   ${
     aaan.1 $e |- ( ph -> A. y ph ) $.

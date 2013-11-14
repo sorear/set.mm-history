@@ -1,0 +1,742 @@
+$(
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+  "Pure" (equality-free) predicate calculus axioms ax-5, ax-6, ax-7, ax-gen
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+$)
+
+  $( Declare new symbols needed for pure predicate calculus. $)
+  $c A. $. $( "inverted A" universal quantifier (read:  "for all") $)
+  $c set $. $( Individual variable type (read:  "the following is an
+             individual (set) variable" $)
+
+  $( Declare some names for individual variables. $)
+  $v x $.
+  $v y $.
+  $v z $.
+  $v w $.
+  $v v $.
+  $v u $.
+  $( Let ` x ` be an individual variable. $)
+  vx $f set x $.
+  $( Let ` y ` be an individual variable. $)
+  vy $f set y $.
+  $( Let ` z ` be an individual variable. $)
+  vz $f set z $.
+  $( Let ` w ` be an individual variable. $)
+  vw $f set w $.
+  $( Let ` v ` be an individual variable. $)
+  vv $f set v $.
+  $( Let ` u ` be an individual variable. $)
+  vu $f set u $.
+
+  $( Extend wff definition to include the universal quantifier ('for all').
+     ` A. x ph ` is read " ` ph ` (phi) is true for all ` x ` ."  Typically, in
+     its final application ` ph ` would be replaced with a wff containing a
+     (free) occurrence of the variable ` x ` , for example ` x = y ` .  In a
+     universe with a finite number of objects, "for all" is equivalent to a big
+     conjunction (AND) with one wff for each possible case of ` x ` .  When the
+     universe is infinite (as with set theory), such a propositional-calculus
+     equivalent is not possible because an infinitely long formula has no
+     meaning, but conceptually the idea is the same. $)
+  wal $a wff A. x ph $.
+
+  $( Declare the equality predicate symbol. $)
+  $c = $.  $( Equal sign (read:  'is equal to') $)
+
+  $( --- Start of patch to prevent connective overloading $)
+  $c class $.
+  $( This syntax construction states that a variable ` x ` , which has been
+     declared to be a set variable by $f statement vx, is also a class
+     expression.  This can be justified informally as follows.  We know that
+     the class builder ` { y | y e. x } ` is a class by ~ cab .  Since (when
+     ` y ` is distinct from ` x ` ) we have ` x = { y | y e. x } ` by
+     ~ cvjust , we can argue that that the syntax " ` class x ` " can be viewed
+     as an abbreviation for " ` class { y | y e. x } ` ".  See the discussion
+     under the definition of class in [Jech] p. 4 showing that "Every set can
+     be considered to be a class."
+
+     While it is tempting and perhaps occasionally useful to view ~ cv as a
+     "type conversion" from a set variable to a class variable, keep in mind
+     that ~ cv is intrinsically no different from any other class-building
+     syntax such as ~ cab , ~ cun , or ~ c0 .
+
+     (The description above applies to set theory, not predicate calculus.  The
+     purpose of introducing ` class x ` here, and not in set theory where it
+     belongs, is to allow us to express i.e.  "prove" the ~ weq of predicate
+     calculus from the ~ wceq of set theory, so that we don't "overload" the
+     ` = ` connective with two syntax definitions.  This is done to prevent
+     ambiguity that would complicate some Metamath parsers.) $)
+  cv $a class x $.
+
+  ${
+    $v A $.
+    $v B $.
+    wceq.cA $f class A $.
+    wceq.cB $f class B $.
+    $( Extend wff definition to include class equality.
+
+       (The purpose of introducing ` wff A = B ` here, and not in set theory
+       where it belongs, is to allow us to express i.e.  "prove" the ~ weq of
+       predicate calculus in terms of the ~ wceq of set theory, so that we
+       don't "overload" the ` = ` connective with two syntax definitions.  This
+       is done to prevent ambiguity that would complicate some Metamath
+       parsers.  For example, some parsers - although not the Metamath program
+       - stumble on the fact that the ` = ` in ` x = y ` could be the ` = ` of
+       either ~ weq or ~ wceq , although mathematically it makes no
+       difference.  The class variables ` A ` and ` B ` are introduced
+       temporarily for the purpose of this definition but otherwise not used in
+       predicate calculus.  See ~ df-cleq for more information on the set
+       theory usage of ~ wceq .) $)
+    wceq $a wff A = B $.
+  $}
+
+  $( Extend wff definition to include atomic formulas using the equality
+     predicate.
+
+     (Instead of introducing ~ weq as an axiomatic statement, as was done in an
+     older version of this database, we introduce it by "proving" a special
+     case of set theory's more general ~ wceq .  This lets us avoid overloading
+     the ` = ` connective, thus preventing ambiguity that would complicate
+     certain Metamath parsers.  However, logically ~ weq is considered to be a
+     primitive syntax, even though here it is artificially "derived" from
+     ~ wceq .  Note:  To see the proof steps of this syntax proof, type "show
+     proof weq /all" in the Metamath program.) $)
+  weq $p wff x = y $=
+    ( cv wceq ) ACBCD $.
+    $( [24-Jan-2006] $)
+  $( --- End of patch to prevent connective overloading $)
+
+  $( --- Start of old code before overloading prevention patch. $)
+  $(
+  @( Extend wff definition to include atomic formulas using the equality
+     predicate.
+
+     After we introduce ~ cv and ~ wceq in set theory, this syntax construction
+     becomes redundant, since it can be derived with the proof
+     "vx cv vy cv wceq". @)
+  weq @a wff x = y @.
+  $)
+  $( --- End of old code before overloading prevention patch. $)
+
+  $( Declare the membership predicate symbol. $)
+  $c e. $. $( Stylized epsilon $)
+
+  $( --- Start of patch to prevent connective overloading $)
+  ${
+    $v A $.
+    $v B $.
+    wcel.cA $f class A $.
+    wcel.cB $f class B $.
+    $( Extend wff definition to include the membership connective between
+       classes.
+
+       (The purpose of introducing ` wff A e. B ` here is to allow us to
+       express i.e.  "prove" the ~ wel of predicate calculus in terms of the
+       ~ wceq of set theory, so that we don't "overload" the ` e. ` connective
+       with two syntax definitions.  This is done to prevent ambiguity that
+       would complicate some Metamath parsers.  The class variables ` A ` and
+       ` B ` are introduced temporarily for the purpose of this definition but
+       otherwise not used in predicate calculus.  See ~ df-clab for more
+       information on the set theory usage of ~ wcel .) $)
+    wcel $a wff A e. B $.
+  $}
+
+  $( Extend wff definition to include atomic formulas with the epsilon
+     (membership) predicate.  This is read " ` x ` is an element of
+     ` y ` ," " ` x ` is a member of ` y ` ," " ` x ` belongs to ` y ` ,"
+     or " ` y ` contains ` x ` ."  Note:  The phrase " ` y ` includes
+     ` x ` " means " ` x ` is a subset of ` y ` ;" to use it also for
+     ` x e. y ` , as some authors occasionally do, is poor form and causes
+     confusion, according to George Boolos (1992 lecture at MIT).
+
+     This syntactical construction introduces a binary non-logical predicate
+     symbol ` e. ` (epsilon) into our predicate calculus.  We will eventually
+     use it for the membership predicate of set theory, but that is irrelevant
+     at this point: the predicate calculus axioms for ` e. ` apply to any
+     arbitrary binary predicate symbol.  "Non-logical" means that the predicate
+     is presumed to have additional properties beyond the realm of predicate
+     calculus, although these additional properties are not specified by
+     predicate calculus itself but rather by the axioms of a theory (in our
+     case set theory) added to predicate calculus.  "Binary" means that the
+     predicate has two arguments.
+
+     (Instead of introducing ~ wel as an axiomatic statement, as was done in an
+     older version of this database, we introduce it by "proving" a special
+     case of set theory's more general ~ wcel .  This lets us avoid overloading
+     the ` e. ` connective, thus preventing ambiguity that would complicate
+     certain Metamath parsers.  However, logically ~ wel is considered to be a
+     primitive syntax, even though here it is artificially "derived" from
+     ~ wcel .  Note:  To see the proof steps of this syntax proof, type "show
+     proof wel /all" in the Metamath program.) $)
+  wel $p wff x e. y $=
+    ( cv wcel ) ACBCD $.
+    $( [24-Jan-2006] $)
+  $( --- End of patch to prevent connective overloading $)
+
+  $( --- Start of old code before overloading prevention patch. $)
+  $(
+  @( Extend wff definition to include atomic formulas with the epsilon
+     (membership) predicate.  This is read " ` x ` is an element of ` y ` ,"
+     " ` x ` is a member of ` y ` ," " ` x ` belongs to ` y ` ," or " ` y `
+     contains ` x ` ."  Note:  The phrase " ` y ` includes ` x ` " means
+     " ` x ` is a subset of ` y ` "; to use it also for ` x e. y ` (as some
+     authors occasionally do) is poor form and causes confusion.
+
+     After we introduce ~ cv and ~ wcel in set theory, this syntax construction
+     becomes redundant, since it can be derived with the proof
+     "vx cv vy cv wcel". @)
+  wel @a wff x e. y @.
+  $)
+  $( --- End of old code before overloading prevention patch. $)
+
+  $( Axiom of Quantified Implication.  Axiom C4 of [Monk2] p. 105. $)
+  ax-5 $a |- ( A. x ( ph -> ps ) -> ( A. x ph -> A. x ps ) ) $.
+
+  $( Axiom of Quantified Negation.  Axiom C5-2 of [Monk2] p. 113. $)
+  ax-6 $a |- ( -. A. x ph -> A. x -. A. x ph ) $.
+
+  $( Axiom of Quantifier Commutation.  This axiom says universal quantifiers
+     can be swapped.  One of the 4 axioms of pure predicate calculus.  Axiom
+     scheme C6' in [Megill] p. 448 (p. 16 of the preprint).  Also appears as
+     Lemma 12 of [Monk2] p. 109 and Axiom C5-3 of [Monk2] p. 113.  An alternate
+     axiomatization could use ~ ax467 in place of ~ ax-4 , ~ ax-6o , and
+     ~ ax-7 . $)
+  ax-7 $a |- ( A. x A. y ph -> A. y A. x ph ) $.
+
+  ${
+    ax-g.1 $e |- ph $.
+    $( Rule of Generalization.  The postulated inference rule of pure predicate
+       calculus.  See e.g.  Rule 2 of [Hamilton] p. 74.  This rule says that if
+       something is unconditionally true, then it is true for all values of a
+       variable.  For example, if we have proved ` x = x ` , we can conclude
+       ` A. x x = x ` or even ` A. y x = x ` .  Theorem ~ a4i shows we can go
+       the other way also: in other words we can add or remove universal
+       quantifiers from the beginning of any theorem as required. $)
+    ax-gen $a |- A. x ph $.
+  $}
+
+  $( Declare the existential quantifier symbol. $)
+  $c E. $.   $( Backwards E (read:  "there exists") $)
+
+  $( Extend wff definition to include the existential quantifier ("there
+     exists"). $)
+  wex $a wff E. x ph $.
+
+  $( Define existential quantification. ` E. x ph ` means "there exists at
+     least one set ` x ` such that ` ph ` is true."  Definition of [Margaris]
+     p. 49. $)
+  df-ex $a |- ( E. x ph <-> -. A. x -. ph ) $.
+
+  ${
+    gen2.1 $e |- ph $.
+    $( Generalization applied twice. $)
+    gen2 $p |- A. x A. y ph $=
+      ( wal ax-gen ) ACEBACDFF $.
+      $( [30-Apr-1998] $)
+  $}
+
+  ${
+    mpg.1 $e |- ( A. x ph -> ps ) $.
+    mpg.2 $e |- ph $.
+    $( Modus ponens combined with generalization. $)
+    mpg $p |- ps $=
+      ( wal ax-gen ax-mp ) ACFBACEGDH $.
+      $( [24-May-1994] $)
+  $}
+
+  ${
+    mpgbi.1 $e |- ( A. x ph <-> ps ) $.
+    mpgbi.2 $e |- ph $.
+    $( Modus ponens on biconditional combined with generalization.  (The proof
+       was shortened by Stefan Allan, 28-Oct-2008.) $)
+    mpgbi $p |- ps $=
+      ( wal ax-gen mpbi ) ACFBACEGDH $.
+      $( [31-Oct-2008] $) $( [24-May-1994] $)
+  $}
+
+  ${
+    mpgbir.1 $e |- ( ph <-> A. x ps ) $.
+    mpgbir.2 $e |- ps $.
+    $( Modus ponens on biconditional combined with generalization.  (The proof
+       was shortened by Stefan Allan, 28-Oct-2008.) $)
+    mpgbir $p |- ph $=
+      ( wal ax-gen mpbir ) ABCFBCEGDH $.
+      $( [31-Oct-2008] $) $( [24-May-1994] $)
+  $}
+
+  ${
+    a7s.1 $e |- ( A. x A. y ph -> ps ) $.
+    $( Swap quantifiers in an antecedent. $)
+    a7s $p |- ( A. y A. x ph -> ps ) $=
+      ( wal ax-7 syl ) ACFDFADFCFBADCGEH $.
+      $( [5-Aug-1993] $)
+  $}
+
+  ${
+    alimi.1 $e |- ( ph -> ps ) $.
+    $( Inference quantifying both antecedent and consequent. $)
+    alimi $p |- ( A. x ph -> A. x ps ) $=
+      ( wi wal ax-gen ax-5 ax-mp ) ABEZCFACFBCFEJCDGABCHI $.
+      $( [5-Aug-1993] $)
+
+    $( Inference doubly quantifying both antecedent and consequent. $)
+    2alimi $p |- ( A. x A. y ph -> A. x A. y ps ) $=
+      ( wal alimi ) ADFBDFCABDEGG $.
+      $( [3-Feb-2005] $)
+  $}
+
+  $( Theorem 19.20 of [Margaris] p. 90.  (The proof was shortened by O'Cat,
+     30-Mar-2008.) $)
+  alim $p |- ( A. x ( ph -> ps ) -> ( A. x ph -> A. x ps ) ) $=
+    ( ax-5 ) ABCD $.
+    $( [30-Mar-2008] $) $( [5-Aug-1993] $)
+
+  ${
+    al2imi.1 $e |- ( ph -> ( ps -> ch ) ) $.
+    $( Inference quantifying antecedent, nested antecedent, and consequent. $)
+    al2imi $p |- ( A. x ph -> ( A. x ps -> A. x ch ) ) $=
+      ( wal wi alimi alim syl ) ADFBCGZDFBDFCDFGAKDEHBCDIJ $.
+      $( [5-Aug-1993] $)
+  $}
+
+  ${
+    alanimi.1 $e |- ( ( ph /\ ps ) -> ch ) $.
+    $( Variant of ~ al2imi with conjunctive antecedent.  (Contributed by Andrew
+       Salmon, 8-Jun-2011.) $)
+    alanimi $p |- ( ( A. x ph /\ A. x ps ) -> A. x ch ) $=
+      ( wal ex al2imi imp ) ADFBDFCDFABCDABCEGHI $.
+      $( [8-Jun-2011] $)
+  $}
+
+  ${
+    alimd.1 $e |- ( ph -> A. x ph ) $.
+    alimd.2 $e |- ( ph -> ( ps -> ch ) ) $.
+    $( Deduction from Theorem 19.20 of [Margaris] p. 90. $)
+    alimd $p |- ( ph -> ( A. x ps -> A. x ch ) ) $=
+      ( wal wi al2imi syl ) AADGBDGCDGHEABCDFIJ $.
+      $( [4-Jan-2002] $)
+  $}
+
+  $( Theorem 19.15 of [Margaris] p. 90. $)
+  albi $p |- ( A. x ( ph <-> ps ) -> ( A. x ph <-> A. x ps ) ) $=
+    ( wb wal bi1 al2imi bi2 impbid ) ABDZCEACEBCEJABCABFGJBACABHGI $.
+    $( [5-Aug-1993] $)
+
+  ${
+    19.21ai.1 $e |- ( ph -> A. x ph ) $.
+    19.21ai.2 $e |- ( ph -> ps ) $.
+    $( Inference from Theorem 19.21 of [Margaris] p. 90. $)
+    19.21ai $p |- ( ph -> A. x ps ) $=
+      ( wal alimi syl ) AACFBCFDABCEGH $.
+      $( [5-Aug-1993] $)
+  $}
+
+  ${
+    albii.1 $e |- ( ph <-> ps ) $.
+    $( Inference adding universal quantifier to both sides of an
+       equivalence. $)
+    albii $p |- ( A. x ph <-> A. x ps ) $=
+      ( wb wal albi mpg ) ABEACFBCFECABCGDH $.
+      $( [7-Aug-1994] $)
+
+    $( Inference adding 2 universal quantifiers to both sides of an
+       equivalence. $)
+    2albii $p |- ( A. x A. y ph <-> A. x A. y ps ) $=
+      ( wal albii ) ADFBDFCABDEGG $.
+      $( [9-Mar-1997] $)
+  $}
+
+  ${
+    hbth.1 $e |- ph $.
+    $( No variable is (effectively) free in a theorem.
+
+       This and later "hypothesis-building" lemmas, with labels starting
+       "hb...", allow us to construct proofs of formulas of the form
+       ` |- ( ph -> A. x ph ) ` from smaller formulas of this form.  These are
+       useful for constructing hypotheses that state " ` x ` is (effectively)
+       not free in ` ph ` ." $)
+    hbth $p |- ( ph -> A. x ph ) $=
+      ( wal ax-gen a1i ) ABDAABCEF $.
+      $( [5-Aug-1993] $)
+  $}
+
+  ${
+    hbxfrbi.1 $e |- ( ph <-> ps ) $.
+    hbxfrbi.2 $e |- ( ps -> A. x ps ) $.
+    $( A utility lemma to transfer a bound-variable hypothesis builder into a
+       definition.  See ~ hbxfreq for equality version.  (Contributed by
+       Jonathan Ben-Naim, 3-Jun-2011.) $)
+    hbxfrbi $p |- ( ph -> A. x ph ) $=
+      ( wal albii 3imtr4i ) BBCFAACFEDABCDGH $.
+      $( [3-Jun-2011] $)
+  $}
+
+  ${
+    hbal.1 $e |- ( ph -> A. x ph ) $.
+    $( If ` x ` is not free in ` ph ` , it is not free in ` A. y ph ` . $)
+    hbal $p |- ( A. y ph -> A. x A. y ph ) $=
+      ( wal alimi ax-7 syl ) ACEZABEZCEIBEAJCDFACBGH $.
+      $( [5-Aug-1993] $)
+  $}
+
+  $( Theorem 19.5 of [Margaris] p. 89. $)
+  alcom $p |- ( A. x A. y ph <-> A. y A. x ph ) $=
+    ( wal ax-7 impbii ) ACDBDABDCDABCEACBEF $.
+    $( [5-Aug-1993] $)
+
+  $( Theorem 19.7 of [Margaris] p. 89. $)
+  alnex $p |- ( A. x -. ph <-> -. E. x ph ) $=
+    ( wex wn wal df-ex con2bii ) ABCADBEABFG $.
+    $( [5-Aug-1993] $)
+
+  $( Theorem 19.6 of [Margaris] p. 89. $)
+  alex $p |- ( A. x ph <-> -. E. x -. ph ) $=
+    ( wal wn wex notnot albii alnex bitri ) ABCADZDZBCJBEDAKBAFGJBHI $.
+    $( [5-Aug-1993] $)
+
+  $( Part of theorem *11.5 in [WhiteheadRussell] p. 164.  (Contributed by
+     Andrew Salmon, 24-May-2011.) $)
+  2nalexn $p |- ( -. A. x A. y ph <-> E. x E. y -. ph ) $=
+    ( wal wn wex alex albii notbii df-ex bitr4i ) ACDZBDZEAECFZEZBDZENBFMPLOBAC
+    GHINBJK $.
+    $( [24-May-2011] $)
+
+  $( Theorem 19.14 of [Margaris] p. 90. $)
+  exnal $p |- ( E. x -. ph <-> -. A. x ph ) $=
+    ( wal wn wex alex con2bii ) ABCADBEABFG $.
+    $( [5-Aug-1993] $)
+
+  $( Theorem *11.51 in [WhiteheadRussell] p. 164.  (Contributed by Andrew
+     Salmon, 24-May-2011.) $)
+  2exnexn $p |- ( E. x A. y ph <-> -. A. x E. y -. ph ) $=
+    ( wal wex wn df-ex exnal albii notbii bitr4i ) ACDZBELFZBDZFAFCEZBDZFLBGPNO
+    MBACHIJK $.
+    $( [24-May-2011] $)
+
+  $( Theorem 19.22 of [Margaris] p. 90. $)
+  exim $p |- ( A. x ( ph -> ps ) -> ( E. x ph -> E. x ps ) ) $=
+    ( wi wal wn wex con3 al2imi con3d df-ex 3imtr4g ) ABDZCEZAFZCEZFBFZCEZFACGB
+    CGNRPMQOCABHIJACKBCKL $.
+    $( [5-Aug-1993] $)
+
+  ${
+    eximi.1 $e |- ( ph -> ps ) $.
+    $( Inference adding existential quantifier to antecedent and consequent. $)
+    eximi $p |- ( E. x ph -> E. x ps ) $=
+      ( wi wex exim mpg ) ABEACFBCFECABCGDH $.
+      $( [5-Aug-1993] $)
+
+    $( Inference adding 2 existential quantifiers to antecedent and
+       consequent. $)
+    2eximi $p |- ( E. x E. y ph -> E. x E. y ps ) $=
+      ( wex eximi ) ADFBDFCABDEGG $.
+      $( [3-Feb-2005] $)
+  $}
+
+  $( A transformation of quantifiers and logical connectives. $)
+  alinexa $p |- ( A. x ( ph -> -. ps ) <-> -. E. x ( ph /\ ps ) ) $=
+    ( wn wi wal wa wex imnan albii alnex bitri ) ABDEZCFABGZDZCFNCHDMOCABIJNCKL
+    $.
+    $( [19-Aug-1993] $)
+
+  $( A transformation of quantifiers and logical connectives. $)
+  exanali $p |- ( E. x ( ph /\ -. ps ) <-> -. A. x ( ph -> ps ) ) $=
+    ( wi wal wn wa wex iman albii alnex bitri con2bii ) ABDZCEZABFGZCHZOPFZCEQF
+    NRCABIJPCKLM $.
+    $( [25-Mar-1996] $)
+
+  $( A relationship between two quantifiers and negation. $)
+  alexn $p |- ( A. x E. y -. ph <-> -. E. x A. y ph ) $=
+    ( wn wex wal exnal albii alnex bitri ) ADCEZBFACFZDZBFLBEDKMBACGHLBIJ $.
+    $( [18-Aug-1993] $)
+
+  $( Theorem 19.18 of [Margaris] p. 90. $)
+  exbi $p |- ( A. x ( ph <-> ps ) -> ( E. x ph <-> E. x ps ) ) $=
+    ( wb wal wex wi bi1 alimi exim syl bi2 impbid ) ABDZCEZACFZBCFZOABGZCEPQGNR
+    CABHIABCJKOBAGZCEQPGNSCABLIBACJKM $.
+    $( [5-Aug-1993] $)
+
+  ${
+    exbii.1 $e |- ( ph <-> ps ) $.
+    $( Inference adding existential quantifier to both sides of an
+       equivalence. $)
+    exbii $p |- ( E. x ph <-> E. x ps ) $=
+      ( wb wex exbi mpg ) ABEACFBCFECABCGDH $.
+      $( [24-May-1994] $)
+  $}
+
+  ${
+    2exbii.1 $e |- ( ph <-> ps ) $.
+    $( Inference adding 2 existential quantifiers to both sides of an
+       equivalence. $)
+    2exbii $p |- ( E. x E. y ph <-> E. x E. y ps ) $=
+      ( wex exbii ) ADFBDFCABDEGG $.
+      $( [16-Mar-1995] $)
+  $}
+
+  ${
+    3exbii.1 $e |- ( ph <-> ps ) $.
+    $( Inference adding 3 existential quantifiers to both sides of an
+       equivalence. $)
+    3exbii $p |- ( E. x E. y E. z ph <-> E. x E. y E. z ps ) $=
+      ( wex exbii 2exbii ) AEGBEGCDABEFHI $.
+      $( [2-May-1995] $)
+  $}
+
+  $( Commutation of conjunction inside an existential quantifier. $)
+  exancom $p |- ( E. x ( ph /\ ps ) <-> E. x ( ps /\ ph ) ) $=
+    ( wa ancom exbii ) ABDBADCABEF $.
+    $( [18-Aug-1993] $)
+
+  ${
+    19.21ad.1 $e |- ( ph -> A. x ph ) $.
+    19.21ad.2 $e |- ( ps -> A. x ps ) $.
+    19.21ad.3 $e |- ( ph -> ( ps -> ch ) ) $.
+    $( Deduction from Theorem 19.21 of [Margaris] p. 90.  (The proof was
+       shortened by Andrew Salmon, 13-May-2011.) $)
+    19.21ad $p |- ( ph -> ( ps -> A. x ch ) ) $=
+      ( wal alimd syl5 ) BBDHACDHFABCDEGIJ $.
+      $( [16-May-2011] $) $( [10-Feb-1997] $)
+  $}
+
+  ${
+    eximd.1 $e |- ( ph -> A. x ph ) $.
+    eximd.2 $e |- ( ph -> ( ps -> ch ) ) $.
+    $( Deduction from Theorem 19.22 of [Margaris] p. 90. $)
+    eximd $p |- ( ph -> ( E. x ps -> E. x ch ) ) $=
+      ( wi wal wex 19.21ai exim syl ) ABCGZDHBDICDIGAMDEFJBCDKL $.
+      $( [20-May-1996] $)
+  $}
+
+  ${
+    nex.1 $e |- -. ph $.
+    $( Generalization rule for negated wff. $)
+    nex $p |- -. E. x ph $=
+      ( wn wex alnex mpgbi ) ADABEDBABFCG $.
+      $( [18-May-1994] $)
+  $}
+
+  ${
+    nexd.1 $e |- ( ph -> A. x ph ) $.
+    nexd.2 $e |- ( ph -> -. ps ) $.
+    $( Deduction for generalization rule for negated wff. $)
+    nexd $p |- ( ph -> -. E. x ps ) $=
+      ( wn wal wex 19.21ai alnex sylib ) ABFZCGBCHFALCDEIBCJK $.
+      $( [2-Jan-2002] $)
+  $}
+
+  ${
+    albid.1 $e |- ( ph -> A. x ph ) $.
+    albid.2 $e |- ( ph -> ( ps <-> ch ) ) $.
+    $( Formula-building rule for universal quantifier (deduction rule). $)
+    albid $p |- ( ph -> ( A. x ps <-> A. x ch ) ) $=
+      ( wb wal 19.21ai albi syl ) ABCGZDHBDHCDHGALDEFIBCDJK $.
+      $( [5-Aug-1993] $)
+  $}
+
+  ${
+    exbid.1 $e |- ( ph -> A. x ph ) $.
+    exbid.2 $e |- ( ph -> ( ps <-> ch ) ) $.
+    $( Formula-building rule for existential quantifier (deduction rule). $)
+    exbid $p |- ( ph -> ( E. x ps <-> E. x ch ) ) $=
+      ( wb wal wex 19.21ai exbi syl ) ABCGZDHBDICDIGAMDEFJBCDKL $.
+      $( [5-Aug-1993] $)
+  $}
+
+  $( Simplification of an existentially quantified conjunction.  (Contributed
+     by Rodolfo Medina, 25-Sep-2010.)  (The proof was shortened by Andrew
+     Salmon, 29-Jun-2011.) $)
+  exsimpl $p |- ( E. x ( ph /\ ps ) -> E. x ph ) $=
+    ( wa simpl eximi ) ABDACABEF $.
+    $( [29-Jun-2011] $) $( [25-Sep-2010] $)
+
+  $( Theorem 19.26 of [Margaris] p. 90.  Also Theorem *10.22 of
+     [WhiteheadRussell] p. 119. $)
+  19.26 $p |- ( A. x ( ph /\ ps ) <-> ( A. x ph /\ A. x ps ) ) $=
+    ( wa wal simpl alimi simpr jca pm3.2 al2imi imp impbii ) ABDZCEZACEZBCEZDOP
+    QNACABFGNBCABHGIPQOABNCABJKLM $.
+    $( [5-Aug-1993] $)
+
+  $( Theorem 19.26 of [Margaris] p. 90 with two quantifiers. $)
+  19.26-2 $p |- ( A. x A. y ( ph /\ ps ) <->
+                ( A. x A. y ph /\ A. x A. y ps ) ) $=
+    ( wa wal 19.26 albii bitri ) ABEDFZCFADFZBDFZEZCFKCFLCFEJMCABDGHKLCGI $.
+    $( [3-Feb-2005] $)
+
+  $( Theorem 19.26 of [Margaris] p. 90 with triple conjunction. $)
+  19.26-3an $p |- ( A. x ( ph /\ ps /\ ch )
+                   <-> ( A. x ph /\ A. x ps /\ A. x ch ) ) $=
+    ( wa wal w3a 19.26 anbi1i bitri df-3an albii 3bitr4i ) ABEZCEZDFZADFZBDFZEZ
+    CDFZEZABCGZDFQRTGPNDFZTEUANCDHUCSTABDHIJUBODABCKLQRTKM $.
+    $( [13-Sep-2011] $)
+
+  $( Theorem 19.29 of [Margaris] p. 90.  (The proof was shortened by Andrew
+     Salmon, 13-May-2011.) $)
+  19.29 $p |- ( ( A. x ph /\ E. x ps ) -> E. x ( ph /\ ps ) ) $=
+    ( wal wex wa wi pm3.2 alimi exim syl imp ) ACDZBCEZABFZCEZMBOGZCDNPGAQCABHI
+    BOCJKL $.
+    $( [16-May-2011] $) $( [5-Aug-1993] $)
+
+  $( Variation of Theorem 19.29 of [Margaris] p. 90. $)
+  19.29r $p |- ( ( E. x ph /\ A. x ps ) -> E. x ( ph /\ ps ) ) $=
+    ( wal wex wa 19.29 ancom exancom 3imtr4i ) BCDZACEZFBAFCELKFABFCEBACGLKHABC
+    IJ $.
+    $( [18-Aug-1993] $)
+
+  $( Variation of Theorem 19.29 of [Margaris] p. 90 with double
+     quantification. $)
+  19.29r2 $p |- ( ( E. x E. y ph /\ A. x A. y ps ) ->
+             E. x E. y ( ph /\ ps ) ) $=
+    ( wex wal wa 19.29r eximi syl ) ADEZCEBDFZCFGKLGZCEABGDEZCEKLCHMNCABDHIJ $.
+    $( [3-Feb-2005] $)
+
+  $( Variation of Theorem 19.29 of [Margaris] p. 90 with mixed
+     quantification. $)
+  19.29x $p |- ( ( E. x A. y ph /\ A. x E. y ps ) ->
+             E. x E. y ( ph /\ ps ) ) $=
+    ( wal wex wa 19.29r 19.29 eximi syl ) ADEZCFBDFZCEGLMGZCFABGDFZCFLMCHNOCABD
+    IJK $.
+    $( [11-Feb-2005] $)
+
+  $( Theorem 19.35 of [Margaris] p. 90.  This theorem is useful for moving an
+     implication (in the form of the right-hand side) into the scope of a
+     single existential quantifier. $)
+  19.35 $p |- ( E. x ( ph -> ps ) <-> ( A. x ph -> E. x ps ) ) $=
+    ( wal wn wi wex wa 19.26 annim albii df-an 3bitr3i con2bii df-ex imbi2i
+    3bitr4ri ) ACDZBEZCDZEZFZABFZEZCDZERBCGZFUCCGUEUBASHZCDRTHUEUBEASCIUGUDCABJ
+    KRTLMNUFUARBCOPUCCOQ $.
+    $( [5-Aug-1993] $)
+
+  ${
+    19.35i.1 $e |- E. x ( ph -> ps ) $.
+    $( Inference from Theorem 19.35 of [Margaris] p. 90. $)
+    19.35i $p |- ( A. x ph -> E. x ps ) $=
+      ( wi wex wal 19.35 mpbi ) ABECFACGBCFEDABCHI $.
+      $( [5-Aug-1993] $)
+  $}
+
+  ${
+    19.35ri.1 $e |- ( A. x ph -> E. x ps ) $.
+    $( Inference from Theorem 19.35 of [Margaris] p. 90. $)
+    19.35ri $p |- E. x ( ph -> ps ) $=
+      ( wi wex wal 19.35 mpbir ) ABECFACGBCFEDABCHI $.
+      $( [5-Aug-1993] $)
+  $}
+
+  $( Theorem 19.25 of [Margaris] p. 90. $)
+  19.25 $p |- ( A. y E. x ( ph -> ps ) ->
+              ( E. y A. x ph -> E. y E. x ps ) ) $=
+    ( wi wex wal 19.35 biimpi alimi exim syl ) ABECFZDGACGZBCFZEZDGNDFODFEMPDMP
+    ABCHIJNODKL $.
+    $( [5-Aug-1993] $)
+
+  $( Theorem 19.30 of [Margaris] p. 90.  (The proof was shortened by Andrew
+     Salmon, 25-May-2011.) $)
+  19.30 $p |- ( A. x ( ph \/ ps ) -> ( A. x ph \/ E. x ps ) ) $=
+    ( wn wi wal wex wo exnal exim syl5bir df-or albii 3imtr4i ) ADZBEZCFZACFZDZ
+    BCGZEABHZCFRTHSOCGQTACIOBCJKUAPCABLMRTLN $.
+    $( [25-May-2011] $) $( [5-Aug-1993] $)
+
+  $( Theorem 19.43 of [Margaris] p. 90. $)
+  19.43 $p |- ( E. x ( ph \/ ps ) <-> ( E. x ph \/ E. x ps ) ) $=
+    ( wo wn wal wex wa ioran albii 19.26 alnex anbi12i 3bitri notbii df-ex
+    oran 3bitr4i ) ABDZEZCFZEACGZEZBCGZEZHZESCGUBUDDUAUFUAAEZBEZHZCFUGCFZUHCFZH
+    UFTUICABIJUGUHCKUJUCUKUEACLBCLMNOSCPUBUDQR $.
+    $( [5-Aug-1993] $)
+
+  $( Theorem 19.33 of [Margaris] p. 90. $)
+  19.33 $p |- ( ( A. x ph \/ A. x ps ) -> A. x ( ph \/ ps ) ) $=
+    ( wal wo orc alimi olc jaoi ) ACDABEZCDBCDAJCABFGBJCBAHGI $.
+    $( [5-Aug-1993] $)
+
+  $( The antecedent provides a condition implying the converse of ~ 19.33 .
+     Compare Theorem 19.33 of [Margaris] p. 90.  (The proof was shortened by
+     Andrew Salmon, 25-May-2011.) $)
+  19.33b $p |- ( -. ( E. x ph /\ E. x ps ) ->
+               ( A. x ( ph \/ ps ) <-> ( A. x ph \/ A. x ps ) ) ) $=
+    ( wex wa wn wo wal wi ianor alnex wb biorf alimi albi syl olc syl6bir
+    sylbir 19.30 orc a1i pm2.21 jaod syl5 jaoi sylbi 19.33 impbid1 ) ACDZBCDZEF
+    ZABGZCHZACHZBCHZGZULUJFZUKFZGUNUQIZUJUKJURUTUSURAFZCHZUTACKVBUNUPUQVBBUMLZC
+    HUPUNLVAVCCABMNBUMCOPUPUOQRSUNUOUKGUSUQABCTUSUOUQUKUOUQIUSUOUPUAUBUKUQUCUDU
+    EUFUGABCUHUI $.
+    $( [25-May-2011] $) $( [27-Mar-2004] $)
+
+  $( Theorem 19.40 of [Margaris] p. 90. $)
+  19.40 $p |- ( E. x ( ph /\ ps ) -> ( E. x ph /\ E. x ps ) ) $=
+    ( wa wex simpl eximi simpr jca ) ABDZCEACEBCEJACABFGJBCABHGI $.
+    $( [5-Aug-1993] $)
+
+  $( Theorem *11.42 in [WhiteheadRussell] p. 163.  Theorem 19.40 of [Margaris]
+     p. 90 with 2 quantifiers.  (Contributed by Andrew Salmon, 24-May-2011.) $)
+  19.40-2 $p |- ( E. x E. y ( ph /\ ps ) ->
+        ( E. x E. y ph /\ E. x E. y ps ) ) $=
+    ( wa wex 19.40 eximi syl ) ABEDFZCFADFZBDFZEZCFKCFLCFEJMCABDGHKLCGI $.
+    $( [24-May-2011] $)
+
+  $( Theorem *11.21 in [WhiteheadRussell] p. 160.  (Contributed by Andrew
+     Salmon, 24-May-2011.) $)
+  alrot3 $p |- ( A. x A. y A. z ph <-> A. y A. z A. x ph ) $=
+    ( wal alcom albii bitri ) ADEZCEBEIBEZCEABEDEZCEIBCFJKCABDFGH $.
+    $( [24-May-2011] $)
+
+  $( Rotate 4 universal quantifiers twice. $)
+  alrot4 $p |- ( A. x A. y A. z A. w ph <-> A. z A. w A. x A. y ph ) $=
+    ( wal alcom albii bitri 3bitri ) AEFZDFCFZBFACFZEFZDFZBFNBFZDFMBFEFZDFLOBLK
+    CFZDFOKCDGRNDACEGHIHNBDGPQDMBEGHJ $.
+    $( [2-Feb-2005] $)
+
+  $( Split a biconditional and distribute quantifier. $)
+  albiim $p |- ( A. x ( ph <-> ps ) <->
+             ( A. x ( ph -> ps ) /\ A. x ( ps -> ph ) ) ) $=
+    ( wb wal wi wa dfbi2 albii 19.26 bitri ) ABDZCEABFZBAFZGZCEMCENCEGLOCABHIMN
+    CJK $.
+    $( [18-Aug-1993] $)
+
+  $( Split a biconditional and distribute 2 quantifiers. $)
+  2albiim $p |- ( A. x A. y ( ph <-> ps ) <->
+             ( A. x A. y ( ph -> ps ) /\ A. x A. y ( ps -> ph ) ) ) $=
+    ( wb wal wi wa albiim albii 19.26 bitri ) ABEDFZCFABGDFZBAGDFZHZCFNCFOCFHMP
+    CABDIJNOCKL $.
+    $( [3-Feb-2005] $)
+
+  ${
+    hband.1 $e |- ( ph -> ( ps -> A. x ps ) ) $.
+    hband.2 $e |- ( ph -> ( ch -> A. x ch ) ) $.
+    $( Deduction form of bound-variable hypothesis builder ~ hban . $)
+    hband $p |- ( ph -> ( ( ps /\ ch ) -> A. x ( ps /\ ch ) ) ) $=
+      ( wa wal anim12d 19.26 syl6ibr ) ABCGZBDHZCDHZGLDHABMCNEFIBCDJK $.
+      $( [2-Jan-2002] $)
+  $}
+
+  ${
+    hb3and.1 $e |- ( ph -> ( ps -> A. x ps ) ) $.
+    hb3and.2 $e |- ( ph -> ( ch -> A. x ch ) ) $.
+    hb3and.3 $e |- ( ph -> ( th -> A. x th ) ) $.
+    $( Deduction form of bound-variable hypothesis builder ~ hb3an . $)
+    hb3and $p |- ( ph -> ( ( ps /\ ch /\ th ) -> A. x ( ps /\ ch /\ th ) ) ) $=
+      ( w3a wal 3anim123d 19.26-3an syl6ibr ) ABCDIZBEJZCEJZDEJZINEJABOCPDQFGHK
+      BCDELM $.
+      $( [17-Feb-2013] $)
+  $}
+
+  ${
+    hbald.1 $e |- ( ph -> A. y ph ) $.
+    hbald.2 $e |- ( ph -> ( ps -> A. x ps ) ) $.
+    $( Deduction form of bound-variable hypothesis builder ~ hbal . $)
+    hbald $p |- ( ph -> ( A. y ps -> A. x A. y ps ) ) $=
+      ( wal alimd ax-7 syl6 ) ABDGZBCGZDGKCGABLDEFHBDCIJ $.
+      $( [2-Jan-2002] $)
+  $}
+
+  $( Add/remove a conjunct in the scope of an existential quantifier.
+     (Contributed by Raph Levien, 3-Jul-2006.) $)
+  exintrbi $p |- ( A. x ( ph -> ps ) -> ( E. x ph <-> E. x ( ph /\ ps ) ) ) $=
+    ( wi wal wa wb wex pm4.71 albii exbi sylbi ) ABDZCEAABFZGZCEACHNCHGMOCABIJA
+    NCKL $.
+    $( [3-Jul-2006] $)
+
+  $( Introduce a conjunct in the scope of an existential quantifier. $)
+  exintr $p |- ( A. x ( ph -> ps ) -> ( E. x ph -> E. x ( ph /\ ps ) ) ) $=
+    ( wi wal wex wa exintrbi biimpd ) ABDCEACFABGCFABCHI $.
+    $( [11-Aug-1993] $)
+
