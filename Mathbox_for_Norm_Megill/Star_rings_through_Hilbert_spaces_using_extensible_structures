@@ -19,21 +19,21 @@ $)
     $)
   $}
 
-  $c *v $.
-  $c Ring* $.
+  $c *r $.
+  $c *-Ring $.
 
   $( Extend class notation with involution. $)
-  cstv $a class *v $.
+  cstv $a class *r $.
 
   $( Extend class notation with class of all *-rings. $)
-  csr $a class Ring* $.
+  csr $a class *-Ring $.
 
   $( Def. 8.5.23, p. 225. $)
   $( Define involution (the star operation of a *-ring). $)
-  df-starv $a |- *v = ( v e. _V |-> ( v ` 4 ) ) $.
+  df-starv $a |- *r = ( v e. _V |-> ( v ` 4 ) ) $.
 
   $( Utility theorem: index-independent form of ~ df-starv . $)
-  starvid $p |- *v = ( f e. _V |-> ( f ` ( *v ` ndx ) ) ) $=
+  starvid $p |- *r = ( f e. _V |-> ( f ` ( *r ` ndx ) ) ) $=
     ( cstv c4 df-starv 4nn ndxid ) BCAADEF $.
     $( [6-Oct-1013] $)
 
@@ -41,10 +41,13 @@ $)
     $d f i k p q r t $.
     $( Def. 8.5.6 p. 216 $)
     $( Define class of all star rings.  A star ring is a ring with an
-       involution operation. $)
-    df-starrng $a |- Ring* = { f e. Ring |
+       involution (conjugation) function.  Involution (unlike say the ring
+       zero) is not unique and therefore must be added as a new component to
+       the ring.  For example, two possible involutions for complex numbers are
+       the identity function and complex conjugation. $)
+    df-starrng $a |- *-Ring = { f e. Ring |
        E. k E. p E. t E. i ( ( k = ( Base ` f ) /\ p = ( +g ` f ) )
-          /\ ( t = ( .r ` f ) /\ i = ( *v ` f ) ) /\
+          /\ ( t = ( .r ` f ) /\ i = ( *r ` f ) ) /\
          A. q e. k A. r e. k ( ( i ` q ) e. k
               /\ ( ( i ` ( q p r ) ) = ( ( i ` q ) p ( i ` r ) )
               /\ ( i ` ( q t r ) ) = ( ( i ` r ) t ( i ` q ) )
@@ -57,9 +60,9 @@ $)
     issrng.k $e |- K = ( Base ` R ) $.
     issrng.p $e |- P = ( +g ` R ) $.
     issrng.t $e |- T = ( .r ` R ) $.
-    issrng.i $e |- I = ( *v ` R ) $.
+    issrng.i $e |- I = ( *r ` R ) $.
     $( The predicate "is a star ring." $)
-    issrng $p |- ( R e. Ring* <-> ( R e. Ring
+    issrng $p |- ( R e. *-Ring <-> ( R e. Ring
         /\ A. q e. K A. r e. K ( ( I ` q ) e. K
               /\ ( ( I ` ( q P r ) ) = ( ( I ` q ) P ( I ` r ) )
               /\ ( I ` ( q T r ) ) = ( ( I ` r ) T ( I ` q ) )
@@ -87,20 +90,43 @@ $)
       $( [22-Sep-2011] $)
   $}
 
-  $c DivRing* $.
-
-  $( Extend class notation with class of all *-division rings. $)
-  csd $a class DivRing* $.
-
-  $( Define the class notation with class of all *-division rings, which are
-     division rings that are also *-rings. $)
-  df-sdivrng $a |- DivRing* = ( DivRing i^i Ring* ) $.
-
-  $( The predicate "is a *-division ring." $)
-  issdrng $p |- ( R e. DivRing* <-> ( R e. DivRing /\ R e. Ring* ) ) $=
-    ( csd wcel cdivring csr cin wa df-sdivrng eleq2i elin bitri ) ABCADEFZCADCA
-    ECGBLAHIADEJK $.
-    $( [22-Sep-2011] $)
+  ${
+    $d x y K $.  $d x y R $.  $d x y ph $.
+    $( Ring base $)
+    issrngd.k $e |- ( ph -> K = ( Base ` R ) ) $.
+    $( Ring plus $)
+    issrngd.p $e |- ( ph -> P = ( +g ` R ) ) $.
+    $( Ring times $)
+    issrngd.t $e |- ( ph -> T = ( .r ` R ) ) $.
+    $( Involution (e.g. complex conjugate) $)
+    issrngd.c $e |- ( ph -> C = ( *r ` R ) ) $.
+    issrngd.r $e |- ( ph -> R e. Ring ) $.
+    $( Closure $)
+    issrngd.cl $e |- ( ( ph /\ x e. K ) -> ( C ` x ) e. K ) $.
+    $( Distributive law over addition $)
+    issrngd.dp $e |- ( ( ph /\ x e. K /\ y e. K )
+           -> ( C ` ( x P y ) ) = ( ( C ` x ) P ( C ` y ) ) ) $.
+    $( Distributive law over multiplication $)
+    issrngd.dt $e |- ( ( ph /\ x e. K /\ y e. K )
+           -> ( C ` ( x T y ) ) = ( ( C ` y ) T ( C ` x ) ) ) $.
+    $( Idempotency $)
+    issrngd.id $e |- ( ( ph /\ x e. K ) -> ( C ` ( C ` x ) ) = x ) $.
+    $( Properties that determine a star ring. $)
+    issrngd $p |- ( ph -> R e. *-Ring ) $=
+      ( crg wcel cv cstv cfv cbs cplusg co wceq cmulr w3a wa wral csr simpl
+      simprl syl11anc simprr syl111anc jca syl 3jca r19.21aivva fveq1d eleq12d
+      opreqd fveq12d opreq123d eqeq12d eqeq1d 3anbi123d anbi12d raleqbidv
+      anbi2d mpbid eqid issrng sylibr ) AFRSZBTZFUAUBZUBZFUCUBZSZVQCTZFUDUBZUEZ
+      VRUBZVSWBVRUBZWCUEZUFZVQWBFUGUBZUEZVRUBZWFVSWIUEZUFZVSVRUBZVQUFZUHZUIZCVT
+      UJZBVTUJZUIZFUKSAVPVQDUBZHSZVQWBEUEZDUBZXAWBDUBZEUEZUFZVQWBGUEZDUBZXEXAGU
+      EZUFZXADUBZVQUFZUHZUIZCHUJZBHUJZUIWTAVPXQMAXOBCHHAVQHSZWBHSZUIZUIZXBXNYAA
+      XRXBAXTULZAXRXSUMZNUNYAXGXKXMYAAXRXSXGYBYCAXRXSUOZOUPYAAXRXSXKYBYCYDPUPYA
+      AXRUIXMYAAXRYBYCUQQURUSUQUTUQAXQWSVPAXPWRBHVTIAXOWQCHVTIAXBWAXNWPAXAVSHVT
+      AVQDVRLVAZIVBAXGWHXKWMXMWOAXDWEXFWGAXCWDDVRLAEWCVQWBJVCVDAXAVSXEWFEWCJYEA
+      WBDVRLVAZVEVFAXIWKXJWLAXHWJDVRLAGWIVQWBKVCVDAXEWFXAVSGWIKYFYEVEVFAXLWNVQA
+      XAVSDVRLYEVDVGVHVIVJVJVKVLWCFWIVRVTCBVTVMWCVMWIVMVRVMVNVO $.
+      $( [18-Nov-1013] $)
+  $}
 
   $c ip $.
   $c PreHil $.
@@ -121,7 +147,7 @@ $)
     $( [6-Oct-1013] $)
 
   $( Utility lemma for constructing a pre-Hilbert space. $)
-  phllem1 $p |- -. ( *v ` ndx ) e. ( { ( Base ` ndx ) , ( +g ` ndx ) ,
+  phllem1 $p |- -. ( *r ` ndx ) e. ( { ( Base ` ndx ) , ( +g ` ndx ) ,
    ( .r ` ndx ) } u. { ( vbase ` ndx ) , ( vadd ` ndx ) , ( vsca ` ndx ) } ) $=
     ( vs cnx cstv cfv cbs cplusg cmulr ctp cvbase cvadd cvsca cun wcel wceq
     w3o wo wne w3a wn c4 df-starv 4nn ndxarg c1 1re 4re 1lt4 ltneii basendx
@@ -140,7 +166,7 @@ $)
   $( Utility lemma for constructing a pre-Hilbert space. $)
   phllem2 $p |- -. ( ip ` ndx ) e. ( ( { ( Base ` ndx ) , ( +g ` ndx ) ,
    ( .r ` ndx ) } u. { ( vbase ` ndx ) , ( vadd ` ndx ) , ( vsca ` ndx ) } )
-        u. { ( *v ` ndx ) } ) $=
+        u. { ( *r ` ndx ) } ) $=
     ( vs cnx cipr cfv cbs cplusg cmulr ctp cvbase cvadd cvsca cun cstv csn
     wcel wceq w3o wo wne w3a wn c8 df-inprod 8nn ndxarg c1 1re 8re 1lt8 ltneii
     basendx neeqtrri eqnetri c2 2re 2lt8 df-plusg 2nn c3 3re 3lt8 df-mulr 3nn
@@ -162,11 +188,11 @@ $)
                    <. ( .r ` ndx ) , T >. }
                 u. { <. ( vbase ` ndx ) , V >. , <. ( vadd ` ndx ) , A >. ,
                    <. ( vsca ` ndx ) , S >. } )
-             u. { <. ( *v ` ndx ) , R >. , <. ( ip ` ndx ) , I >. } ) $.
+             u. { <. ( *r ` ndx ) , R >. , <. ( ip ` ndx ) , I >. } ) $.
     ${
       phlfn.d $e |- D = ( ( { ( Base ` ndx ) , ( +g ` ndx ) , ( .r ` ndx ) }
                   u. { ( vbase ` ndx ) , ( vadd ` ndx ) , ( vsca ` ndx ) } )
-               u. { ( *v ` ndx ) , ( ip ` ndx ) } ) $.
+               u. { ( *r ` ndx ) , ( ip ` ndx ) } ) $.
       $( A constructed pre-Hilbert space is a function.  Starting from ~ lmodfn
          (which has 6 members), we chain ~ fnunsn twice, each time adding an
          ordered pair to the function, to get all 8 members. $)
@@ -242,7 +268,7 @@ $)
       $( [6-Oct-1013] $)
 
     $( The involution operation of a constructed pre-Hilbert space. $)
-    phlstarv $p |- ( R e. X -> R = ( *v ` H ) ) $=
+    phlstarv $p |- ( R e. X -> R = ( *r ` H ) ) $=
       ( vs cstv cnx cbs cfv cop cplusg cmulr ctp cvbase cvadd cvsca cun cipr
       cpr cvv tpex unex prex eqeltri phlfun starvid ssun2 opex prid1 sselii
       eleqtrri strfv ) DGMJLGNOPBQZNRPCQZNSPFQZTZNUAPIQZNUBPAQZNUCPEQZTZUDZNMPZ
@@ -264,12 +290,11 @@ $)
   ${
     $d a f h i k p q r s t v w x y z $.
     $( Def. 8.5.24, p. 225. $)
-    $( Define class all generalized pre-Hilbert spaces (over *-division
-       ring). $)
-    df-prehil $a |- PreHil = { f e. LVec |
+    $( Define class all generalized pre-Hilbert (inner product) spaces. $)
+    df-prehil $a |- PreHil = { f e. ( LVec i^i *-Ring ) |
        E. k E. p E. t E. i E. v E. a E. s E. h (
         ( ( k = ( Base ` f ) /\ p = ( +g ` f ) )
-              /\ ( t = ( .r ` f ) /\ i = ( *v ` f ) ) )
+              /\ ( t = ( .r ` f ) /\ i = ( *r ` f ) ) )
         /\ ( ( v = ( vbase ` f ) /\ a = ( vadd ` f ) )
               /\ ( s = ( vsca ` f ) /\ h = ( ip ` f ) ) )
           /\ A. q e. k A. x e. v A. y e. v A. z e. v (
@@ -290,64 +315,126 @@ $)
     isphil.k $e |- K = ( Base ` W ) $.
     isphil.p $e |- P = ( +g ` W ) $.
     isphil.t $e |- T = ( .r ` W ) $.
-    isphil.i $e |- I = ( *v ` W ) $.
+    isphil.i $e |- I = ( *r ` W ) $.
     isphil.v $e |- V = ( vbase ` W ) $.
     isphil.a $e |- A = ( vadd ` W ) $.
     isphil.s $e |- S = ( vsca ` W ) $.
     isphil.h $e |- H = ( ip ` W ) $.
     isphil.n $e |- N = ( 0g ` W ) $.
     isphil.z $e |- Z = ( 0v ` W ) $.
-    $( The predicate "is a pre-Hilbert space" (over a *-division ring) $)
-    isphil $p |- ( W e. PreHil <-> ( W e. LVec
-          /\ A. q e. K A. x e. V A. y e. V A. z e. V (
-             ( x H y ) e. K
-              /\ ( ( ( ( q S x ) A y ) H z )
-                  = ( ( q T ( x H z ) ) P ( y H z ) )
-         /\ ( ( x H x ) = N -> x = Z )
-              /\ ( I ` ( x H y ) ) = ( y H x ) ) ) ) ) $=
-      ( vk vp vt vi vv va vs vh vf cprehil wcel clvec cv wceq wa co wi cfv w3a
-      wral wex cbs cplusg cmulr cstv cvbase cvadd cvsca cipr c0g czv fveq2
-      syl6eqr eqeq2d anbi12d imbi12d 3anbi2d anbi2d 2ralbidv 3anbi123d 4exbidv
-      df-prehil elrab2 cvv fvex eqeltri eleq2 anbi1d ralbidv raleqbi1dv opreq
-      3anbi1d opreq1d fveq1 eqeq1d 3anbi3d raleq eleq1d opreq2d opreq12d
-      eqeq12d imbi1d fveq2d ceqsex8v anbi2i bitri ) MUOUPMUQUPZUFURZJUSZUGURZEU
-      SZUTZUHURZGUSZUIURZIUSZUTZUTZUJURZLUSZUKURZDUSZUTZULURZFUSZUMURZHUSZUTZUT
-      ZAURZBURZYKVAZXMUPZOURZYOYIVAZYPYFVAZCURZYKVAZYSYOUUBYKVAZXRVAZYPUUBYKVAZ
-      XOVAZUSZYOYOYKVAZKUSZYONUSZVBZYQXTVCZYPYOYKVAZUSZVDZUTZCYDVEBYDVEZAYDVEZO
-      XMVEZVDZUMVFULVFUKVFUJVFZUIVFUHVFUGVFUFVFZUTXLYOYPHVAZJUPZYSYOFVAZYPDVAZU
-      UBHVAZYSYOUUBHVAZGVAZYPUUBHVAZEVAZUSZYOYOHVAZKUSZUUKVBZUVDIVCZYPYOHVAZUSZ
-      VDZUTZCLVEBLVEZALVEOJVEZUTXMUNURZVGVCZUSZXOUWDVHVCZUSZUTZXRUWDVIVCZUSZXTU
-      WDVJVCZUSZUTZUTZYDUWDVKVCZUSZYFUWDVLVCZUSZUTZYIUWDVMVCZUSZYKUWDVNVCZUSZUT
-      ZUTZYRUUHUUIUWDVOVCZUSZYOUWDVPVCZUSZVBZUUOVDZUTZCYDVEBYDVEZAYDVEOXMVEZVDZ
-      UMVFULVFUKVFUJVFZUIVFUHVFUGVFUFVFUVCUNMUQUOUWDMUSZUXQUVBUFUGUHUIUXRUXPUVA
-      UJUKULUMUXRUWOYCUXFYNUXOUUTUXRUWIXQUWNYBUXRUWFXNUWHXPUXRUWEJXMUXRUWEMVGVC
-      ZJUWDMVGVQPVRVSUXRUWGEXOUXRUWGMVHVCZEUWDMVHVQQVRVSVTUXRUWKXSUWMYAUXRUWJGX
-      RUXRUWJMVIVCZGUWDMVIVQRVRVSUXRUWLIXTUXRUWLMVJVCZIUWDMVJVQSVRVSVTVTUXRUWTY
-      HUXEYMUXRUWQYEUWSYGUXRUWPLYDUXRUWPMVKVCZLUWDMVKVQTVRVSUXRUWRDYFUXRUWRMVLV
-      CZDUWDMVLVQUAVRVSVTUXRUXBYJUXDYLUXRUXAFYIUXRUXAMVMVCZFUWDMVMVQUBVRVSUXRUX
-      CHYKUXRUXCMVNVCZHUWDMVNVQUCVRVSVTVTUXRUXNUUROAXMYDUXRUXMUUQBCYDYDUXRUXLUU
-      PYRUXRUXKUULUUHUUOUXRUXHUUJUXJUUKUXRUXGKUUIUXRUXGMVOVCKUWDMVOVQUDVRVSUXRU
-      XINYOUXRUXIMVPVCNUWDMVPVQUEVRVSWAWBWCWDWDWEWFWFABCUJUHUNUMUIUFULOUGUKWGWH
-      UVCUWCXLUUTYQJUPZUUPUTZCYDVEBYDVEZAYDVEZOJVEUYGUUCUUEUUFEVAZUSZUULUUOVDZU
-      TZCYDVEBYDVEZAYDVEOJVEUYGUUCYSUUDGVAZUUFEVAZUSZUULUUOVDZUTZCYDVEBYDVEZAYD
-      VEOJVEUYGUYRUULYQIVCZUUNUSZVDZUTZCYDVEZBYDVEZAYDVEZOJVEVUECLVEZBLVEZALVEZ
-      OJVEUYGYTYPDVAZUUBYKVAZUYQUSZUULVUCVDZUTZCLVEBLVEZALVEOJVEUYGUVGUUBYKVAZU
-      YQUSZUULVUCVDZUTZCLVEBLVEZALVEOJVEUWCUFUGUHUIUJUKULJEGILDFHUMJUXSWIPMVGWJ
-      WKEUXTWIQMVHWJWKGUYAWIRMVIWJWKIUYBWISMVJWJWKLUYCWITMVKWJWKDUYDWIUAMVLWJWK
-      FUYEWIUBMVMWJWKHUYFWIUCMVNWJWKUUSUYJOXMJXNUURUYIAYDXNUUQUYHBCYDYDXNYRUYGU
-      UPXMJYQWLWMWDWNWOXPUYIUYOOAJYDXPUYHUYNBCYDYDXPUUPUYMUYGXPUUHUYLUULUUOXPUU
-      GUYKUUCUUEUUFXOEWPVSWQWCWDWDXSUYOVUAOAJYDXSUYNUYTBCYDYDXSUYMUYSUYGXSUYLUY
-      RUULUUOXSUYKUYQUUCXSUUEUYPUUFEYSUUDXRGWPWRVSWQWCWDWDYAVUAVUGOAJYDYAUYTVUE
-      BCYDYDYAUYSVUDUYGYAUUOVUCUYRUULYAUUMVUBUUNYQXTIWSWTXAWCWDWDYEVUHVUKOJVUGV
-      UJAYDLVUFVUIBYDLVUECYDLXBWOWOWNYGVUJVUQOAJLYGVUEVUPBCLLYGVUDVUOUYGYGUYRVU
-      NUULVUCYGUUCVUMUYQYGUUAVULUUBYKYTYPYFDWPWRWTWQWCWDWDYJVUQVVBOAJLYJVUPVVAB
-      CLLYJVUOVUTUYGYJVUNVUSUULVUCYJVUMVURUYQYJVULUVGUUBYKYJYTUVFYPDYSYOYIFWPWR
-      WRWTWQWCWDWDYLVVBUWBOAJLYLVVAUWABCLLYLUYGUVEVUTUVTYLYQUVDJYOYPYKHWPZXCYLV
-      USUVMUULUVPVUCUVSYLVURUVHUYQUVLUVGUUBYKHWPYLUYPUVJUUFUVKEYLUUDUVIYSGYOUUB
-      YKHWPXDYPUUBYKHWPXEXFYLUUJUVOUUKYLUUIUVNKYOYOYKHWPWTXGYLVUBUVQUUNUVRYLYQU
-      VDIVVCXHYPYOYKHWPXFWEVTWDWDXIXJXK $.
+    $( The predicate "is a generalized pre-Hilbert (inner product) space". $)
+    isphil $p |- ( W e. PreHil <-> ( W e. LVec /\ W e. *-Ring
+       /\ A. q e. K A. x e. V A. y e. V A. z e. V ( ( x H y ) e. K
+           /\ ( ( ( ( q S x ) A y ) H z )
+                   = ( ( q T ( x H z ) ) P ( y H z ) )
+               /\ ( ( x H x ) = N -> x = Z )
+               /\ ( I ` ( x H y ) ) = ( y H x ) ) ) ) ) $=
+      ( vk vp vt vi vv va vs vh vf cprehil wcel clvec csr cv wceq wa co wi cfv 
+      w3a wral wex cin elin anbi1i cbs cplusg cmulr cstv cvbase cvadd cvsca 
+      cipr c0g czv fveq2 syl6eqr eqeq2d anbi12d imbi12d 3anbi2d anbi2d 
+      2ralbidv 3anbi123d 4exbidv df-prehil elrab2 df-3an 3bitr4i cvv fvex 
+      eqeltri eleq2 anbi1d ralbidv raleqbi1dv opreq 3anbi1d opreq1d fveq1 
+      eqeq1d 3anbi3d raleq eleq1d opreq2d opreq12d eqeq12d imbi1d fveq2d 
+      ceqsex8v 3anbi3i bitri ) MUOUPZMUQUPZMURUPZUFUSZJUTZUGUSZEUTZVAZUHUSZGUTZ
+      UIUSZIUTZVAZVAZUJUSZLUTZUKUSZDUTZVAZULUSZFUTZUMUSZHUTZVAZVAZAUSZBUSZYSVBZ
+      YAUPZOUSZUUCYQVBZUUDYNVBZCUSZYSVBZUUGUUCUUJYSVBZYFVBZUUDUUJYSVBZYCVBZUTZU
+      UCUUCYSVBZKUTZUUCNUTZVCZUUEYHVDZUUDUUCYSVBZUTZVEZVAZCYLVFBYLVFZAYLVFZOYAV
+      FZVEZUMVGULVGUKVGUJVGZUIVGUHVGUGVGUFVGZVEZXSXTUUCUUDHVBZJUPZUUGUUCFVBZUUD
+      DVBZUUJHVBZUUGUUCUUJHVBZGVBZUUDUUJHVBZEVBZUTZUUCUUCHVBZKUTZUUSVCZUVMIVDZU
+      UDUUCHVBZUTZVEZVAZCLVFBLVFZALVFOJVFZVEMUQURVHZUPZUVKVAXSXTVAZUVKVAXRUVLUW
+      NUWOUVKMUQURVIVJYAUNUSZVKVDZUTZYCUWPVLVDZUTZVAZYFUWPVMVDZUTZYHUWPVNVDZUTZ
+      VAZVAZYLUWPVOVDZUTZYNUWPVPVDZUTZVAZYQUWPVQVDZUTZYSUWPVRVDZUTZVAZVAZUUFUUP
+      UUQUWPVSVDZUTZUUCUWPVTVDZUTZVCZUVCVEZVAZCYLVFBYLVFZAYLVFOYAVFZVEZUMVGULVG
+      UKVGUJVGZUIVGUHVGUGVGUFVGUVKUNMUWMUOUWPMUTZUYIUVJUFUGUHUIUYJUYHUVIUJUKULU
+      MUYJUXGYKUXRUUBUYGUVHUYJUXAYEUXFYJUYJUWRYBUWTYDUYJUWQJYAUYJUWQMVKVDZJUWPM
+      VKWAPWBWCUYJUWSEYCUYJUWSMVLVDZEUWPMVLWAQWBWCWDUYJUXCYGUXEYIUYJUXBGYFUYJUX
+      BMVMVDZGUWPMVMWARWBWCUYJUXDIYHUYJUXDMVNVDZIUWPMVNWASWBWCWDWDUYJUXLYPUXQUU
+      AUYJUXIYMUXKYOUYJUXHLYLUYJUXHMVOVDZLUWPMVOWATWBWCUYJUXJDYNUYJUXJMVPVDZDUW
+      PMVPWAUAWBWCWDUYJUXNYRUXPYTUYJUXMFYQUYJUXMMVQVDZFUWPMVQWAUBWBWCUYJUXOHYSU
+      YJUXOMVRVDZHUWPMVRWAUCWBWCWDWDUYJUYFUVFOAYAYLUYJUYEUVEBCYLYLUYJUYDUVDUUFU
+      YJUYCUUTUUPUVCUYJUXTUURUYBUUSUYJUXSKUUQUYJUXSMVSVDKUWPMVSWAUDWBWCUYJUYANU
+      UCUYJUYAMVTVDNUWPMVTWAUEWBWCWEWFWGWHWHWIWJWJABCUJUHUNUMUIUFULOUGUKWKWLXSX
+      TUVKWMWNUVKUWLXSXTUVHUUEJUPZUVDVAZCYLVFBYLVFZAYLVFZOJVFUYSUUKUUMUUNEVBZUT
+      ZUUTUVCVEZVAZCYLVFBYLVFZAYLVFOJVFUYSUUKUUGUULGVBZUUNEVBZUTZUUTUVCVEZVAZCY
+      LVFBYLVFZAYLVFOJVFUYSVUJUUTUUEIVDZUVBUTZVEZVAZCYLVFZBYLVFZAYLVFZOJVFVUQCL
+      VFZBLVFZALVFZOJVFUYSUUHUUDDVBZUUJYSVBZVUIUTZUUTVUOVEZVAZCLVFBLVFZALVFOJVF
+      UYSUVPUUJYSVBZVUIUTZUUTVUOVEZVAZCLVFBLVFZALVFOJVFUWLUFUGUHUIUJUKULJEGILDF
+      HUMJUYKWOPMVKWPWQEUYLWOQMVLWPWQGUYMWORMVMWPWQIUYNWOSMVNWPWQLUYOWOTMVOWPWQ
+      DUYPWOUAMVPWPWQFUYQWOUBMVQWPWQHUYRWOUCMVRWPWQUVGVUBOYAJYBUVFVUAAYLYBUVEUY
+      TBCYLYLYBUUFUYSUVDYAJUUEWRWSWHWTXAYDVUAVUGOAJYLYDUYTVUFBCYLYLYDUVDVUEUYSY
+      DUUPVUDUUTUVCYDUUOVUCUUKUUMUUNYCEXBWCXCWGWHWHYGVUGVUMOAJYLYGVUFVULBCYLYLY
+      GVUEVUKUYSYGVUDVUJUUTUVCYGVUCVUIUUKYGUUMVUHUUNEUUGUULYFGXBXDWCXCWGWHWHYIV
+      UMVUSOAJYLYIVULVUQBCYLYLYIVUKVUPUYSYIUVCVUOVUJUUTYIUVAVUNUVBUUEYHIXEXFXGW
+      GWHWHYMVUTVVCOJVUSVVBAYLLVURVVABYLLVUQCYLLXHXAXAWTYOVVBVVIOAJLYOVUQVVHBCL
+      LYOVUPVVGUYSYOVUJVVFUUTVUOYOUUKVVEVUIYOUUIVVDUUJYSUUHUUDYNDXBXDXFXCWGWHWH
+      YRVVIVVNOAJLYRVVHVVMBCLLYRVVGVVLUYSYRVVFVVKUUTVUOYRVVEVVJVUIYRVVDUVPUUJYS
+      YRUUHUVOUUDDUUGUUCYQFXBXDXDXFXCWGWHWHYTVVNUWKOAJLYTVVMUWJBCLLYTUYSUVNVVLU
+      WIYTUUEUVMJUUCUUDYSHXBZXIYTVVKUWBUUTUWEVUOUWHYTVVJUVQVUIUWAUVPUUJYSHXBYTV
+      UHUVSUUNUVTEYTUULUVRUUGGUUCUUJYSHXBXJUUDUUJYSHXBXKXLYTUURUWDUUSYTUUQUWCKU
+      UCUUCYSHXBXFXMYTVUNUWFUVBUWGYTUUEUVMIVVOXNUUDUUCYSHXBXLWIWDWHWHXOXPXQ $.
       $( [22-Sep-2011] $)
   $}
+
+
+  ${
+    $d q x y z K $.  $d x y z V $.  $d q x y z W $.  $d q x y z ph $.
+    $( Division ring (skew field) base $)
+    isphild.k $e |- ( ph -> K = ( Base ` W ) ) $.
+    $( Division ring (skew field) plus $)
+    isphild.p $e |- ( ph -> P = ( +g ` W ) ) $.
+    $( Division ring (skew field) times $)
+    isphild.t $e |- ( ph -> T = ( .r ` W ) ) $.
+    $( Involution (e.g. complex conjugate) $)
+    isphild.c $e |- ( ph -> C = ( *r ` W ) ) $.
+    $( Set of vectors $)
+    isphild.v $e |- ( ph -> V = ( vbase ` W ) ) $.
+    $( Vector addition $)
+    isphild.a $e |- ( ph -> A = ( vadd ` W ) ) $.
+    $( Scalar product $)
+    isphild.s $e |- ( ph -> S = ( vsca ` W ) ) $.
+    $( Inner product (Hermitian form) $)
+    isphild.i $e |- ( ph -> I = ( ip ` W ) ) $.
+    $( Division ring zero $)
+    isphild.o $e |- ( ph -> O = ( 0g ` W ) ) $.
+    $( Zero vector $)
+    isphild.z $e |- ( ph -> Z = ( 0v ` W ) ) $.
+    isphild.l $e |- ( ph -> W e. LVec ) $.
+    isphild.r $e |- ( ph -> W e. *-Ring ) $.
+    $( Closure of inner product $)
+    isphild.cl $e |- ( ( ph /\ x e. V /\ y e. V ) -> ( x I y ) e. K ) $.
+    $( Distributive law for inner product $)
+    isphild.d $e |- ( ( ph /\ q e. K /\ ( x e. V /\ y e. V /\ z e. V ) )
+          -> ( ( ( q S x ) A y ) I z ) = ( ( q T ( x I z ) ) P ( y I z ) ) ) $.
+    $( Nonsingularity $)
+    isphild.ns $e |- ( ( ph /\ x e. V /\ ( x I x ) = O ) -> x = Z ) $.
+    $( Conjugation law $)
+    isphild.cj $e |- ( ( ph /\ x e. V /\ y e. V )
+            -> ( C ` ( x I y ) ) = ( y I x ) ) $.
+    $( Properties that determine a pre-Hilbert (inner product) space. $)
+    isphild $p |- ( ph -> W e. PreHil ) $=
+      ( clvec wcel csr cv cipr cfv co cbs cvsca cvadd cmulr cplusg wceq c0g 
+      czv wi cstv w3a wa cvbase wral cprehil simpll simplrr simprl syl111anc 
+      simplrl simprr syl113anc simplll adantr simpr ex 3jca jca r19.21aivva 
+      opreqd eleq12d eqidd opreq123d eqeq12d eqeq2d imbi12d fveq12d 3anbi123d 
+      anbi12d raleqbidv 3anbi3d mpbid eqid isphil sylibr ) ANUMUNZNUOUNZBUPZCUP
+      ZNUQURZUSZNUTURZUNZPUPZXGNVAURZUSZXHNVBURZUSZDUPZXIUSZXMXGXRXIUSZNVCURZUS
+      ZXHXRXIUSZNVDURZUSZVEZXGXGXIUSZNVFURZVEZXGNVGURZVEZVHZXJNVIURZURZXHXGXIUS
+      ZVEZVJZVKZDNVLURZVMZCYSVMZBYSVMZPXKVMZVJZNVNUNAXEXFXGXHJUSZKUNZXMXGHUSZXH
+      EUSZXRJUSZXMXGXRJUSZIUSZXHXRJUSZGUSZVEZXGXGJUSZLVEZXGOVEZVHZUUEFURZXHXGJU
+      SZVEZVJZVKZDMVMZCMVMZBMVMZPKVMZVJUUDAXEXFUVGUGUHAUVEPBKMAXMKUNZXGMUNZVKZV
+      KZUVCCDMMUVKXHMUNZXRMUNZVKZVKZUUFUVBUVOAUVIUVLUUFAUVJUVNVOZAUVHUVIUVNVPZU
+      VKUVLUVMVQZUIVRUVOUUNUURUVAUVOAUVHUVIUVLUVMUUNUVPAUVHUVIUVNVSUVQUVRUVKUVL
+      UVMVTUJWAUVOUUPUUQUVOUUPVKAUVIUUPUUQAUVJUVNUUPWBUVOUVIUUPUVQWCUVOUUPWDUKV
+      RWEUVOAUVIUVLUVAUVPUVQUVRULVRWFWGWHWHWFAUVGUUCXEXFAUVFUUBPKXKQAUVEUUABMYS
+      UAAUVDYTCMYSUAAUVCYRDMYSUAAUUFXLUVBYQAUUEXJKXKAJXIXGXHUDWIZQWJAUUNYFUURYL
+      UVAYPAUUIXSUUMYEAUUHXQXRXRJXIUDAUUGXOXHXHEXPUBAHXNXMXGUCWIAXHWKWLAXRWKWLA
+      UUKYBUULYCGYDRAXMXMUUJXTIYASAXMWKAJXIXGXRUDWIWLAJXIXHXRUDWIWLWMAUUPYIUUQY
+      KAUUOYGLYHAJXIXGXGUDWIUEWMAOYJXGUFWNWOAUUSYNUUTYOAUUEXJFYMTUVSWPAJXIXHXGU
+      DWIWMWQWRWSWSWSWSWTXABCDXPYDXNYAXIYMXKYHYSNYJPXKXBYDXBYAXBYMXBYSXBXPXBXNX
+      BXIXBYHXBYJXBXCXD $.
+      $( [18-Nov-1013] $)
+  $}
+
 
   $c +ss $.
   $c ocv $.
