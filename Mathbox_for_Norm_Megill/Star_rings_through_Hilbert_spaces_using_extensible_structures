@@ -20,22 +20,56 @@ $)
   $}
 
   $c *r $.
-  $c *-Ring $.
+  $c *Ring $.
 
   $( Extend class notation with involution. $)
   cstv $a class *r $.
 
   $( Extend class notation with class of all *-rings. $)
-  csr $a class *-Ring $.
+  csr $a class *Ring $.
 
   $( Def. 8.5.23, p. 225. $)
-  $( Define involution (the star operation of a *-ring). $)
+  $( Define the involution function of a *-ring. $)
   df-starv $a |- *r = ( v e. _V |-> ( v ` 4 ) ) $.
 
   $( Utility theorem: index-independent form of ~ df-starv . $)
   starvid $p |- *r = ( f e. _V |-> ( f ` ( *r ` ndx ) ) ) $=
     ( cstv c4 df-starv 4nn ndxid ) BCAADEF $.
     $( [6-Oct-1013] $)
+
+  $( Utility lemma for constructing a star ring. $)
+  srnglem $p |- -. ( *r ` ndx )
+        e. { ( Base ` ndx ) , ( +g ` ndx ) , ( .r ` ndx ) } $=
+    ( vs cnx cstv cfv cbs cplusg cmulr ctp wcel wceq w3o wne w3a wn c4
+    df-starv 4nn ndxarg c1 1re 4re 1lt4 ltneii basendx neeqtrri eqnetri c2 2re
+    2lt4 df-plusg 2nn c3 3re 3lt4 df-mulr 3nn 3pm3.2i ne3anior mpbi fvex eltp
+    mtbir ) BCDZBEDZBFDZBGDZHIVCVDJVCVEJVCVFJKZVCVDLZVCVELZVCVFLZMVGNVHVIVJVCOV
+    DCOAAPQRZOSVDSOTUAUBUCUDUEUFVCOVEVKOUGVEUGOUHUAUIUCFUGAAUJUKRUEUFVCOVFVKOUL
+    VFULOUMUAUNUCGULAAUOUPRUEUFUQVCVDVCVEVCVFURUSVCVDVEVFBCUTVAVB $.
+    $( [18-Nov-1013] $)
+
+  ${
+    srngfn.w $e |- W = ( { <. ( Base ` ndx ) , B >. , <. ( +g ` ndx ) , P >. ,
+         <. ( .r ` ndx ) , T >. } u. { <. ( *r ` ndx ) , C >. } ) $.
+    ${
+      srngfn.d $e |- D = ( { ( Base ` ndx ) , ( +g ` ndx ) , ( .r ` ndx ) }
+                  u. { ( *r ` ndx ) } ) $.
+      $( A constructed star ring is a function with domain ` D ` . $)
+      srngfn $p |- W Fn D $=
+        ( cnx cbs cfv cplusg cmulr ctp cop cstv fvex eqid rngfn srnglem fnunsn
+        ) IJKZILKZIMKZNZCUBAOUCDOUDEONZFIPKBIPQAUEDUFEUFRUERSGHTUA $.
+        $( [18-Nov-1013] $)
+    $}
+
+    $( The base set of a constructed left vector space. $)
+    srngbase $p |- ( B e. X -> B = ( Base ` W ) ) $=
+      ( vs cbs cnx cfv cop cplusg cmulr ctp cstv csn cun cvv tpex snexALT unex
+      eqeltri wfn wfun eqid srngfn fnfun ax-mp baseid wcel opex tpid1 ssun1
+      sseli eleqtrri strfv ) AEIFHEJIKZALZJMKZCLZJNKZDLZOZJPKZBLZQZRZSGVDVGUSVA
+      VCTVFUAUBUCEURUTVBOVEQRZUDEUEABVICDEGVIUFUGVIEUHUIHUJUSVHEUSVDUKUSVHUKUSV
+      AVCURAULUMVDVHUSVDVGUNUOUIGUPUQ $.
+      $( [18-Nov-1013] $)
+  $}
 
   ${
     $d f i k p q r t $.
@@ -44,8 +78,9 @@ $)
        involution (conjugation) function.  Involution (unlike say the ring
        zero) is not unique and therefore must be added as a new component to
        the ring.  For example, two possible involutions for complex numbers are
-       the identity function and complex conjugation. $)
-    df-starrng $a |- *-Ring = { f e. Ring |
+       the identity function and complex conjugation.  Definition of involution
+       in [Holland95] p. 204. $)
+    df-starrng $a |- *Ring = { f e. Ring |
        E. k E. p E. t E. i ( ( k = ( Base ` f ) /\ p = ( +g ` f ) )
           /\ ( t = ( .r ` f ) /\ i = ( *r ` f ) ) /\
          A. q e. k A. r e. k ( ( i ` q ) e. k
@@ -62,7 +97,7 @@ $)
     issrng.t $e |- T = ( .r ` R ) $.
     issrng.i $e |- I = ( *r ` R ) $.
     $( The predicate "is a star ring." $)
-    issrng $p |- ( R e. *-Ring <-> ( R e. Ring
+    issrng $p |- ( R e. *Ring <-> ( R e. Ring
         /\ A. q e. K A. r e. K ( ( I ` q ) e. K
               /\ ( ( I ` ( q P r ) ) = ( ( I ` q ) P ( I ` r ) )
               /\ ( I ` ( q T r ) ) = ( ( I ` r ) T ( I ` q ) )
@@ -112,7 +147,7 @@ $)
     $( Idempotency $)
     issrngd.id $e |- ( ( ph /\ x e. K ) -> ( C ` ( C ` x ) ) = x ) $.
     $( Properties that determine a star ring. $)
-    issrngd $p |- ( ph -> R e. *-Ring ) $=
+    issrngd $p |- ( ph -> R e. *Ring ) $=
       ( crg wcel cv cstv cfv cbs cplusg co wceq cmulr w3a wa wral csr simpl
       simprl syl11anc simprr syl111anc jca syl 3jca r19.21aivva fveq1d eleq12d
       opreqd fveq12d opreq123d eqeq12d eqeq1d 3anbi123d anbi12d raleqbidv
@@ -291,7 +326,7 @@ $)
     $d a f h i k p q r s t v w x y z $.
     $( Def. 8.5.24, p. 225. $)
     $( Define class all generalized pre-Hilbert (inner product) spaces. $)
-    df-prehil $a |- PreHil = { f e. ( LVec i^i *-Ring ) |
+    df-prehil $a |- PreHil = { f e. ( LVec i^i *Ring ) |
        E. k E. p E. t E. i E. v E. a E. s E. h (
         ( ( k = ( Base ` f ) /\ p = ( +g ` f ) )
               /\ ( t = ( .r ` f ) /\ i = ( *r ` f ) ) )
@@ -323,18 +358,18 @@ $)
     isphil.n $e |- N = ( 0g ` W ) $.
     isphil.z $e |- Z = ( 0v ` W ) $.
     $( The predicate "is a generalized pre-Hilbert (inner product) space". $)
-    isphil $p |- ( W e. PreHil <-> ( W e. LVec /\ W e. *-Ring
+    isphil $p |- ( W e. PreHil <-> ( W e. LVec /\ W e. *Ring
        /\ A. q e. K A. x e. V A. y e. V A. z e. V ( ( x H y ) e. K
            /\ ( ( ( ( q S x ) A y ) H z )
                    = ( ( q T ( x H z ) ) P ( y H z ) )
                /\ ( ( x H x ) = N -> x = Z )
                /\ ( I ` ( x H y ) ) = ( y H x ) ) ) ) ) $=
-      ( vk vp vt vi vv va vs vh vf cprehil wcel clvec csr cv wceq wa co wi cfv 
-      w3a wral wex cin elin anbi1i cbs cplusg cmulr cstv cvbase cvadd cvsca 
-      cipr c0g czv fveq2 syl6eqr eqeq2d anbi12d imbi12d 3anbi2d anbi2d 
-      2ralbidv 3anbi123d 4exbidv df-prehil elrab2 df-3an 3bitr4i cvv fvex 
-      eqeltri eleq2 anbi1d ralbidv raleqbi1dv opreq 3anbi1d opreq1d fveq1 
-      eqeq1d 3anbi3d raleq eleq1d opreq2d opreq12d eqeq12d imbi1d fveq2d 
+      ( vk vp vt vi vv va vs vh vf cprehil wcel clvec csr cv wceq wa co wi cfv
+      w3a wral wex cin elin anbi1i cbs cplusg cmulr cstv cvbase cvadd cvsca
+      cipr c0g czv fveq2 syl6eqr eqeq2d anbi12d imbi12d 3anbi2d anbi2d
+      2ralbidv 3anbi123d 4exbidv df-prehil elrab2 df-3an 3bitr4i cvv fvex
+      eqeltri eleq2 anbi1d ralbidv raleqbi1dv opreq 3anbi1d opreq1d fveq1
+      eqeq1d 3anbi3d raleq eleq1d opreq2d opreq12d eqeq12d imbi1d fveq2d
       ceqsex8v 3anbi3i bitri ) MUOUPZMUQUPZMURUPZUFUSZJUTZUGUSZEUTZVAZUHUSZGUTZ
       UIUSZIUTZVAZVAZUJUSZLUTZUKUSZDUTZVAZULUSZFUTZUMUSZHUTZVAZVAZAUSZBUSZYSVBZ
       YAUPZOUSZUUCYQVBZUUDYNVBZCUSZYSVBZUUGUUCUUJYSVBZYFVBZUUDUUJYSVBZYCVBZUTZU
@@ -399,7 +434,7 @@ $)
     $( Zero vector $)
     isphild.z $e |- ( ph -> Z = ( 0v ` W ) ) $.
     isphild.l $e |- ( ph -> W e. LVec ) $.
-    isphild.r $e |- ( ph -> W e. *-Ring ) $.
+    isphild.r $e |- ( ph -> W e. *Ring ) $.
     $( Closure of inner product $)
     isphild.cl $e |- ( ( ph /\ x e. V /\ y e. V ) -> ( x I y ) e. K ) $.
     $( Distributive law for inner product $)
@@ -412,10 +447,10 @@ $)
             -> ( C ` ( x I y ) ) = ( y I x ) ) $.
     $( Properties that determine a pre-Hilbert (inner product) space. $)
     isphild $p |- ( ph -> W e. PreHil ) $=
-      ( clvec wcel csr cv cipr cfv co cbs cvsca cvadd cmulr cplusg wceq c0g 
-      czv wi cstv w3a wa cvbase wral cprehil simpll simplrr simprl syl111anc 
-      simplrl simprr syl113anc simplll adantr simpr ex 3jca jca r19.21aivva 
-      opreqd eleq12d eqidd opreq123d eqeq12d eqeq2d imbi12d fveq12d 3anbi123d 
+      ( clvec wcel csr cv cipr cfv co cbs cvsca cvadd cmulr cplusg wceq c0g
+      czv wi cstv w3a wa cvbase wral cprehil simpll simplrr simprl syl111anc
+      simplrl simprr syl113anc simplll adantr simpr ex 3jca jca r19.21aivva
+      opreqd eleq12d eqidd opreq123d eqeq12d eqeq2d imbi12d fveq12d 3anbi123d
       anbi12d raleqbidv 3anbi3d mpbid eqid isphil sylibr ) ANUMUNZNUOUNZBUPZCUP
       ZNUQURZUSZNUTURZUNZPUPZXGNVAURZUSZXHNVBURZUSZDUPZXIUSZXMXGXRXIUSZNVCURZUS
       ZXHXRXIUSZNVDURZUSZVEZXGXGXIUSZNVFURZVEZXGNVGURZVEZVHZXJNVIURZURZXHXGXIUS
@@ -487,13 +522,13 @@ $)
     plusssfval $p |- ( H e. B -> S = ( x e. ~P V , y e. ~P V |-> { w e. V
             | E. t e. x E. u e. y w = ( t A u ) } ) ) $=
       ( vh wcel cvv cpw cv co wceq wrex crab cmpt2 elisset cplusss cfv cvbase
-      cvadd fveq2 syl6eqr pweq syl opreqd eqeq2d 2rexbidv rabeqbidv
-      mpt2eq123dv df-plusss fvex eqeltri pwex mpt2exg mp2an fvmpt syl5eq ) IGOI
-      POZHABJQZVGCRZERZDRZFSZTZDBRZUAEARZUAZCJUBZUCZTIGUDVFHIUEUFVQMNIABNRZUGUF
-      ZQZVTVHVIVJVRUHUFZSZTZDVMUAEVNUAZCVSUBZUCVQPUEVRITZABVTVTWEVGVGVPWFVSJTVT
-      VGTWFVSIUGUFZJVRIUGUIKUJZVSJUKULZWIWFWDVOCVSJWHWFWCVLEDVNVMWFWBVKVHWFWAFV
-      IVJWFWAIUHUFFVRIUHUILUJUMUNUOUPUQABCNDEURVGPOZWJVQPOJJWGPKIUGUSUTVAZWKABV
-      GVGVPPPVBVCVDVEUL $.
+      cvadd fveq2 syl6eqr pweqd opreqd eqeq2d 2rexbidv rabeqbidv mpt2eq123dv
+      df-plusss fvex eqeltri pwex mpt2exg mp2an fvmpt syl5eq syl ) IGOIPOZHABJQ
+      ZVGCRZERZDRZFSZTZDBRZUAEARZUAZCJUBZUCZTIGUDVFHIUEUFVQMNIABNRZUGUFZQZVTVHV
+      IVJVRUHUFZSZTZDVMUAEVNUAZCVSUBZUCVQPUEVRITZABVTVTWEVGVGVPWFVSJWFVSIUGUFZJ
+      VRIUGUIKUJZUKZWIWFWDVOCVSJWHWFWCVLEDVNVMWFWBVKVHWFWAFVIVJWFWAIUHUFFVRIUHU
+      ILUJULUMUNUOUPABCNDEUQVGPOZWJVQPOJJWGPKIUGURUSUTZWKABVGVGVPPPVAVBVCVDVE
+      $.
       $( [7-Oct-2011] $)
 
     $d x y A $.  $d t w x y X $.  $d t u w x y Y $.
@@ -519,12 +554,12 @@ $)
     ocvfval $p |- ( H e. A -> O = ( s e. ~P V |->
                           { x e. V | A. y e. s ( x I y ) = Z } ) ) $=
       ( vh wcel cvv cpw cv co wceq wral crab cmpt elisset cocv cfv cvbase cipr
-      czv fveq2 syl6eqr pweq syl opreqd eqeq12d ralbidv rabeqbidv mpteq12dv
-      df-ocv fvex eqeltri pwex mptexg ax-mp fvmpt syl5eq ) DCODPOZFIGQZARZBRZES
-      ZHTZBIRZUAZAGUBZUCZTDCUDVGFDUEUFVPMNDINRZUGUFZQZVIVJVQUHUFZSZVQUIUFZTZBVM
-      UAZAVRUBZUCVPPUEVQDTZIVSWEVHVOWFVRGTVSVHTWFVRDUGUFZGVQDUGUJJUKZVRGULUMWFW
-      DVNAVRGWHWFWCVLBVMWFWAVKWBHWFVTEVIVJWFVTDUHUFEVQDUHUJKUKUNWFWBDUIUFHVQDUI
-      UJLUKUOUPUQURABNIUSVHPOVPPOGGWGPJDUGUTVAVBIVHVOPVCVDVEVFUM $.
+      czv fveq2 syl6eqr pweqd opreqd eqeq12d ralbidv rabeqbidv mpteq12dv
+      df-ocv fvex eqeltri pwex mptexg ax-mp fvmpt syl5eq syl ) DCODPOZFIGQZARZB
+      RZESZHTZBIRZUAZAGUBZUCZTDCUDVGFDUEUFVPMNDINRZUGUFZQZVIVJVQUHUFZSZVQUIUFZT
+      ZBVMUAZAVRUBZUCVPPUEVQDTZIVSWEVHVOWFVRGWFVRDUGUFZGVQDUGUJJUKZULWFWDVNAVRG
+      WHWFWCVLBVMWFWAVKWBHWFVTEVIVJWFVTDUHUFEVQDUHUJKUKUMWFWBDUIUFHVQDUIUJLUKUN
+      UOUPUQABNIURVHPOVPPOGGWGPJDUGUSUTVAIVHVOPVBVCVDVEVF $.
       $( [7-Oct-2011] $)
 
     $d s I $.  $d s x y S $.  $d s Z $.
