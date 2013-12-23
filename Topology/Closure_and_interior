@@ -21,58 +21,54 @@ $)
     $d v w x y z $.
     $( Define a function on topologies whose value is the set of closed sets of
        the topology. $)
-    df-cld $a |- Clsd = { <. z , w >. | ( z e. Top /\ w = { x |
-                  ( x C_ U. z /\ ( U. z \ x ) e. z ) } ) } $.
+    df-cld $a |- Clsd =
+                 ( j e. Top |-> { x e. ~P U. j | ( U. j \ x ) e. j } ) $.
 
     $( Define a function on topologies whose value is the interior function on
        the subsets of the base set.  See ~ ntrval . $)
-    df-ntr $a |- int = { <. z , w >. | ( z e. Top /\ w = { <. x , y >. |
-                 ( x C_ U. z /\ y = U. { v e. z | v C_ x } ) } ) } $.
+    df-ntr $a |- int = ( j e. Top |->
+                        ( x e. ~P U. j |-> U. ( j i^i ~P x ) ) ) $.
 
     $( Define a function on topologies whose value is the closure function on
        the subsets of the base set.  See ~ clsval . $)
-    df-cls $a |- cls = { <. z , w >. | ( z e. Top /\ w = { <. x , y >. |
-               ( x C_ U. z /\ y = |^| { v e. ( Clsd ` z ) | x C_ v } ) } ) } $.
+    df-cls $a |- cls = ( j e. Top |-> ( x e. ~P U. j |->
+                        |^| { y e. ( Clsd ` j ) | x C_ y } ) ) $.
   $}
 
   ${
-    $d v w x y z J $.  $d w x y z X $.
+    $d x y j J $.  $d x j X $.
     cldval.1 $e |- X = U. J $.
     $( The set of closed sets of a topology.  (Note that the set of open sets
        is just the topology itself, so we don't have a separate definition.) $)
     cldval $p |- ( J e. Top ->
-               ( Clsd ` J ) = { x | ( x C_ X /\ ( X \ x ) e. J ) } ) $=
-      ( vz vw ctop wcel cv wss cdif wa cab cvv ccld cfv wceq cuni uniexg
-      syl5eqel abssexg syl unieq syl6eqr sseq2d difeq1d id eleq12d anbi12d
-      abbidv df-cld fvopab4g mpdan ) BGHZAIZCJZCUOKZBHZLZAMZNHZBOPUTQUNCNHVAUNC
-      BRZNDBGSTURACNUAUBEFBUOEIZRZJZVDUOKZVCHZLZAMUTGNOVCBQZVHUSAVIVEUPVGURVIVD
-      CUOVIVDVBCVCBUCDUDZUEVIVFUQVCBVIVDCUOVJUFVIUGUHUIUJAEFUKULUM $.
-      $( [2-Oct-2006] $)
+               ( Clsd ` J ) = { x e. ~P X | ( X \ x ) e. J } ) $=
+      ( vj ctop wcel cv cdif cpw crab cvv ccld cfv wceq topopn pwexg rabexg
+      3syl cuni unieq syl6eqr pweq syl wb difeq1d eleq12 mpancom rabeqbidv
+      df-cld fvmptg mpdan ) BFGZCAHZIZBGZACJZKZLGZBMNUROUMCBGUQLGUSBCDPCBQUPAUQ
+      LRSEBEHZTZUNIZUTGZAVAJZKURFLMUTBOZVCUPAVDUQVEVACOVDUQOVEVABTCUTBUADUBZVAC
+      UCUDVBUOOVEVCUPUEVEVACUNVFUFVBUOUTBUGUHUIAEUJUKUL $.
+      $( [11-Nov-2013] $) $( [2-Oct-2006] $)
 
     $( The interior function on the subsets of a topology's base set. $)
-    ntrfval $p |- ( J e. Top -> ( int ` J ) = { <. x , y >. | ( x C_ X /\
-                     y = U. { v e. J | v C_ x } ) } ) $=
-      ( vz vw ctop wcel cv wss crab cuni wceq wa copab cvv cnt cfv cpw visset
-      elpw anbi1i opabbii uniexg syl5eqel pwexg opabex2g 3syl syl5eqelr unieq
-      syl6eqr sseq2d rabeq unieqd eqeq2d anbi12d opabbidv df-ntr fvopab4g
-      mpdan ) DIJZAKZELZBKZCKVDLZCDMZNZOZPZABQZRJDSTVLOVCVLVDEUAZJZVJPZABQZRVOV
-      KABVNVEVJVDEAUBUCUDUEVCERJVMRJVPRJVCEDNZRFDIUFUGERUHABVMVIRUIUJUKGHDVDGKZ
-      NZLZVFVGCVRMZNZOZPZABQVLIRSVRDOZWDVKABWEVTVEWCVJWEVSEVDWEVSVQEVRDULFUMUNW
-      EWBVIVFWEWAVHVGCVRDUOUPUQURUSABGHCUTVAVB $.
-      $( [10-Sep-2006] $)
+    ntrfval $p |- ( J e. Top -> ( int ` J ) = ( x e. ~P X |->
+                     U. ( J i^i ~P x ) ) ) $=
+      ( vj ctop wcel cpw cv cin cuni cmpt cvv cnt cfv wceq topopn pwexg mptexg
+      3syl unieq syl6eqr pweq syl ineq1 unieqd mpteq12dv df-ntr fvmptg mpdan )
+      BFGZACHZBAIHZJZKZLZMGZBNOUPPUKCBGULMGUQBCDQCBRAULUOMSTEBAEIZKZHZURUMJZKZL
+      UPFMNURBPZAUTVBULUOVCUSCPUTULPVCUSBKCURBUADUBUSCUCUDVCVAUNURBUMUEUFUGAEUH
+      UIUJ $.
+      $( [11-Nov-2013] $) $( [10-Sep-2006] $)
 
     $( The closure function on the subsets of a topology's base set. $)
-    clsfval $p |- ( J e. Top -> ( cls ` J ) = { <. x , y >. | ( x C_ X /\
-                     y = |^| { v e. ( Clsd ` J ) | x C_ v } ) } ) $=
-      ( vz vw ctop wcel cv wss ccld cfv crab cint wceq wa copab cvv ccl cpw
-      visset elpw anbi1i opabbii cuni uniexg syl5eqel pwexg opabex2g 3syl
-      syl5eqelr unieq syl6eqr sseq2d fveq2 rabeq syl inteqd eqeq2d anbi12d
-      opabbidv df-cls fvopab4g mpdan ) DIJZAKZELZBKZVHCKLZCDMNZOZPZQZRZABSZTJDU
-      ANVQQVGVQVHEUBZJZVORZABSZTVTVPABVSVIVOVHEAUCUDUEUFVGETJVRTJWATJVGEDUGZTFD
-      IUHUIETUJABVRVNTUKULUMGHDVHGKZUGZLZVJVKCWCMNZOZPZQZRZABSVQITUAWCDQZWJVPAB
-      WKWEVIWIVOWKWDEVHWKWDWBEWCDUNFUOUPWKWHVNVJWKWGVMWKWFVLQWGVMQWCDMUQVKCWFVL
-      URUSUTVAVBVCABGHCVDVEVF $.
-      $( [3-Oct-2006] $)
+    clsfval $p |- ( J e. Top -> ( cls ` J ) = ( x e. ~P X |->
+                     |^| { y e. ( Clsd ` J ) | x C_ y } ) ) $=
+      ( vj ctop wcel cpw cv wss ccld cfv crab cint cmpt cvv ccl wceq topopn
+      pwexg mptexg 3syl cuni unieq syl6eqr pweq syl fveq2 rabeq inteqd
+      mpteq12dv df-cls fvmptg mpdan ) CGHZADIZAJBJKZBCLMZNZOZPZQHZCRMVBSUPDCHUQ
+      QHVCCDETDCUAAUQVAQUBUCFCAFJZUDZIZURBVDLMZNZOZPVBGQRVDCSZAVFVIUQVAVJVEDSVF
+      UQSVJVECUDDVDCUEEUFVEDUGUHVJVHUTVJVGUSSVHUTSVDCLUIURBVGUSUJUHUKULABFUMUNU
+      O $.
+      $( [11-Nov-2013] $) $( [3-Oct-2006] $)
   $}
 
   ${
@@ -81,12 +77,11 @@ $)
     $( The predicate " ` S ` is a closed set." $)
     iscld $p |- ( J e. Top -> ( S e. ( Clsd ` J ) <->
                  ( S C_ X /\ ( X \ S ) e. J ) ) ) $=
-      ( vx ctop wcel ccld cfv cv wss cdif wa cab cldval eleq2d cvv elisset
-      adantl cuni uniexg syl5eqel ssexg ancoms sylan adantrr wceq sseq1 difeq2
-      eleq1d anbi12d elabg pm5.21nd bitrd ) BFGZABHIZGAEJZCKZCUQLZBGZMZENZGZACK
-      ZCALZBGZMZUOUPVBAEBCDOPUOVCVGAQGZVCVHUOAVBRSUOVDVHVFUOCQGZVDVHUOCBTQDBFUA
-      UBVDVIVHACQUCUDUEUFVAVGEAQUQAUGZURVDUTVFUQACUHVJUSVEBUQACUIUJUKULUMUN $.
-      $( [2-Oct-2006] $)
+      ( vx ctop wcel ccld cfv cpw cdif wa wss cv crab cldval eleq2d wceq
+      difeq2 eleq1d elrab syl6bb wb topopn elpw2g syl anbi1d bitrd ) BFGZABHIZG
+      ZACJZGZCAKZBGZLZACMZUOLUIUKACENZKZBGZEULOZGUPUIUJVAAEBCDPQUTUOEAULURARUSU
+      NBURACSTUAUBUIUMUQUOUICBGUMUQUCBCDUDACBUEUFUGUH $.
+      $( [11-Nov-2013] $) $( [2-Oct-2006] $)
 
     $( A subset of the underlying set of a topology is closed iff its
        complement is open. $)
@@ -132,31 +127,28 @@ $)
        the open sets it includes.  Definition of interior of [Munkres]
        p. 94. $)
     ntrval $p |- ( ( J e. Top /\ S C_ X ) -> ( ( int ` J ) ` S ) =
-                 U. { x e. J | x C_ S } ) $=
-      ( vy vz ctop wcel wss wa cnt cfv cv cpw crab cuni wceq copab ntrfval
-      adantr visset elpw anbi1i opabbii syl6eqr fveq1d cvv wi uniexg syl5eqel
-      elpw2g biimprd syl imp rabexg sseq2 rabbidv unieqd eqid fvopab4g
-      syl11anc eqtrd ) CHIZBDJZKZBCLMZMBFNZDOZIZGNANZVHJZACPZQZRZKZFGSZMZVKBJZA
-      CPZQZVFBVGVQVFVGVHDJZVOKZFGSZVQVDVGWDRVEFGACDETUAVPWCFGVJWBVOVHDFUBUCUDUE
-      UFUGVFBVIIZWAUHIZVRWARVDVEWEVDDUHIZVEWEUIVDDCQUHECHUJUKWGWEVEBDUHULUMUNUO
-      VDWFVEVDVTUHIWFVSACHUPVTUHUJUNUAFGBVNWAVIUHVQVHBRZVMVTWHVLVSACVHBVKUQURUS
-      VQUTVAVBVC $.
-      $( [10-Sep-2006] $)
+                 U. ( J i^i ~P S ) ) $=
+      ( vx ctop wcel wss wa cnt cfv cpw cv cin cuni cmpt wceq ntrfval fveq1d
+      adantr cvv wb topopn elpw2g syl biimpar inex1g uniexg pweq ineq2d unieqd
+      eqid fvmptg syl11anc eqtrd ) BFGZACHZIZABJKZKZAECLZBEMZLZNZOZPZKZBALZNZOZ
+      UPUTVGQUQUPAUSVFEBCDRSTURAVAGZVJUAGZVGVJQUPVKUQUPCBGVKUQUBBCDUCACBUDUEUFU
+      RVIUAGZVLUPVMUQBVHFUGTVIUAUHUEEAVEVJVAUAVFVBAQZVDVIVNVCVHBVBAUIUJUKVFULUM
+      UNUO $.
+      $( [11-Nov-2013] $) $( [10-Sep-2006] $)
 
     $( The closure of a subset of a topology's base set is the intersection of
        all the closed sets that include it.  Definition of closure of [Munkres]
        p. 94. $)
     clsval $p |- ( ( J e. Top /\ S C_ X ) -> ( ( cls ` J ) ` S ) =
                  |^| { x e. ( Clsd ` J ) | S C_ x } ) $=
-      ( vy vz ctop wcel wss wa ccl cfv cv cpw ccld crab cint wceq copab
-      clsfval adantr visset elpw anbi1i opabbii syl6eqr fveq1d cvv cuni uniexg
-      syl5eqel elpw2g biimpar sylan wrex topcld sseq2 rcla4ev intexrab sylib
-      sseq1 rabbidv inteqd eqid fvopab4g syl11anc eqtrd ) CHIZBDJZKZBCLMZMBFNZD
-      OZIZGNVMANZJZACPMZQZRZSZKZFGTZMZBVPJZAVRQZRZVKBVLWCVKVLVMDJZWAKZFGTZWCVIV
-      LWJSVJFGACDEUAUBWBWIFGVOWHWAVMDFUCUDUEUFUGUHVKBVNIZWGUIIZWDWGSVIDUIIZVJWK
-      VIDCUJUIECHUKULWMWKVJBDUIUMUNUOVKWEAVRUPZWLVIDVRIVJWNCDEUQWEVJADVRVPDBURU
-      SUOWEAVRUTVAFGBVTWGVNUIWCVMBSZVSWFWOVQWEAVRVMBVPVBVCVDWCVEVFVGVH $.
-      $( [10-Sep-2006] $)
+      ( vy ctop wcel wss wa ccl cfv cpw cv ccld crab cint cmpt wceq clsfval
+      fveq1d adantr cvv wb topopn elpw2g syl biimpar wrex topcld sseq2 rcla4ev
+      sylan intexrab sylib sseq1 rabbidv inteqd eqid fvmptg syl11anc eqtrd ) CG
+      HZBDIZJZBCKLZLZBFDMZFNZANZIZACOLZPZQZRZLZBVJIZAVLPZQZVCVGVPSVDVCBVFVOFACD
+      ETUAUBVEBVHHZVSUCHZVPVSSVCVTVDVCDCHVTVDUDCDEUEBDCUFUGUHVEVQAVLUIZWAVCDVLH
+      VDWBCDEUJVQVDADVLVJDBUKULUMVQAVLUNUOFBVNVSVHUCVOVIBSZVMVRWCVKVQAVLVIBVJUP
+      UQURVOUSUTVAVB $.
+      $( [11-Nov-2013] $) $( [10-Sep-2006] $)
   $}
 
   $( The empty set is closed.  Part of Theorem 6.1(1) of [Munkres] p. 93. $)
@@ -265,34 +257,35 @@ $)
 
     $( The interior of a subset of a topology's underlying set is open. $)
     ntropn $p |- ( ( J e. Top /\ S C_ X ) -> ( ( int ` J ) ` S ) e. J ) $=
-      ( vx ctop wcel wss wa cnt cfv cv crab cuni ntrval ssrab2 uniopn mpan2
-      adantr eqeltrd ) BFGZACHZIABJKKELAHZEBMZNZBEABCDOUAUEBGZUBUAUDBHUFUCEBPUD
-      BQRST $.
-      $( [11-Sep-2006] $)
+      ( ctop wcel wss wa cnt cfv cpw cin cuni ntrval inss1 uniopn mpan2 adantr
+      eqeltrd ) BEFZACGZHABIJJBAKZLZMZBABCDNTUDBFZUATUCBGUEBUBOUCBPQRS $.
+      $( [11-Nov-2013] $) $( [11-Sep-2006] $)
 
     $( Express closure in terms of interior. $)
     clsval2 $p |- ( ( J e. Top /\ S C_ X ) -> ( ( cls ` J ) ` S ) =
                  ( X \ ( ( int ` J ) ` ( X \ S ) ) ) ) $=
-      ( vy vz vx ctop wcel wss wa cv cdif crab cuni ccld cfv cint cnt ccl wn
-      wi wral cldopn wceq sseq1 eleq2 notbid imbi12d rcla4v syl adantrl sscon
-      a1i neldif ex imim12d ad2antrl syld exp32 com34 imp3a r19.21adv adantr
-      topcld sseq2 com23 imp opncld adantlr eltopss ssconb biimpd sylan an32s
-      eldifn r19.21adva jcad impbid eldif wrex ralnex imnan ancom notbii bitri
-      ralbii elunirab 3bitr4ri anbi2i visset elintrab 3bitr4g eqrdv difss
-      ntrval sylan2 difeq2d clsval 3eqtr4rd ) BHIZACJZKZCELZCAMZJZEBNOZMZAFLZJZ
-      FBPQZNRZCXEBSQQZMABTQQXCGXHXLXCGLZCIZXFXNXDIZUAZUBZEBUCZKZXJXNXIIZUBZFXKU
-      CZXNXHIZXNXLIXCXTYCXAXTYCUBXBXAXTYBFXKXAXOXSXIXKIZYBUBXAXOYEXSYBXAXOYEXSY
-      BUBXAXOYEKKXSCXIMZXEJZXNYFIZUAZUBZYBXAYEXSYJUBZXOXAYEKYFBIYKXIBCDUDXRYJEY
-      FBXDYFUEZXFYGXQYIXDYFXEUFYLXPYHXDYFXNUGUHUIUJUKULXOYJYBUBXAYEXOXJYGYIYAXJ
-      YGUBXOAXICUMUNXOYIYAXNCXIUOUPUQURUSUTVAVBVCVDXCYCXOXSXAXBYCXOUBXAYCXBXOXA
-      CXKIYCXBXOUBZUBBCDVEYBYMFCXKXICUEXJXBYAXOXICAVFXICXNUGUIUJUKVGVHXCYCXREBX
-      CXDBIZKZYCACXDMZJZXNYPIZUBZXRXAYNYCYSUBZXBXAYNKZYPXKIYTXDBCDVIYBYSFYPXKXI
-      YPUEXJYQYAYRXIYPAVFXIYPXNUGUIUJUKVJYOXFYQYRXQXAYNXBXFYQUBZUUAXDCJZXBUUBXD
-      BCDVKUUCXBKXFYQXDACVLVMVNVOYRXQUBYOXNCXDVPUNUQUSVQVRVSYDXOXNXGIZUAZKXTXNC
-      XGVTUUEXSXOXPXFKZUAZEBUCUUFEBWAZUAXSUUEUUFEBWBXRUUGEBXRXFXPKZUAUUGXFXPWCU
-      UIUUFXFXPWDWEWFWGUUDUUHXFEXNBWHWEWIWJWFXJFXNXKGWKWLWMWNXCXMXGCXBXAXECJZXM
-      XGUEUUJXBCAWOUNEXEBCDWPWQWRFABCDWSWT $.
-      $( [10-Sep-2006] $)
+      ( vz vx ctop wcel wss wa cdif cpw cin cuni cv ccld cfv crab cint cnt ccl
+      ciin ciun c0 wne wceq 0opn adantr 0elpw a1i elin sylanbrc ne0i iindif2
+      3syl wrex cab df-rab cldopn ad2ant2r sscon ad2antll wb cvv topopn difexg
+      elpwg ad2antrr mpbird cldss dfss4 sylib eqcomd difeq2 eqeq2d rcla4ev
+      syl11anc ex simpl simplbi opncld syl2an simprbi adantl elpwi syl difss
+      syl6ss simplr ssconb mpbid jca eleq1 sseq2 anbi12d syl5ibrcom r19.23adva
+      impbid abbidv syl5eq inteqd wral a1d r19.21aiv dfiin2g eqtr4d uniiun
+      difeq2i 3eqtr4rd ntrval sylan2 difeq2d clsval ) BGHZACIZJZCBCAKZLZMZNZKZA
+      EOZIZEBPQZRZSZCXQBTQQZKABUAQQXPFXSCFOZKZUBZCFXSYHUCZKZYFYAXPUDXSHZXSUDUEY
+      JYLUFXPUDBHZUDXRHZYMXNYNXOBUGUHYOXPXQUIUJUDBXRUKULXSUDUMFXSCYHUNUOXPYFYBY
+      IUFZFXSUPZEUQZSZYJXPYEYRXPYEYBYDHZYCJZEUQYRYCEYDURXPUUAYQEXPUUAYQXPUUAYQX
+      PUUAJZCYBKZXSHZYBCUUCKZUFZYQUUBUUCBHZUUCXRHZUUDXNYTUUGXOYCYBBCDUSUTUUBUUH
+      UUCXQIZYCUUIXPYTAYBCVAVBXNUUHUUIVCZXOUUAXNCBHZUUCVDHUUJBCDVEZCYBBVFUUCXQV
+      DVGUOVHVIUUCBXRUKULUUBUUEYBUUBYBCIZUUEYBUFXNYTUUMXOYCYBBCDVJUTYBCVKVLVMYP
+      UUFFUUCXSYHUUCUFYIUUEYBYHUUCCVNVOVPVQVRXPYPUUAFXSXPYHXSHZJZUUAYPYIYDHZAYI
+      IZJUUOUUPUUQXPXNYHBHZUUPUUNXNXOVSUUNUURYHXRHZYHBXRUKZVTYHBCDWAWBUUOYHXQIZ
+      UUQUUOUUSUVAUUNUUSXPUUNUURUUSUUTWCWDYHXQWEWFZUUOYHCIXOUVAUUQVCUUOYHXQCUVB
+      CAWGZWHXNXOUUNWIYHACWJVQWKWLYPYTUUPYCUUQYBYIYDWMYBYIAWNWOWPWQWRWSWTXAXNYJ
+      YSUFZXOXNUUKYIVDHZFXSXBUVDUULUUKUVEFXSUUKUVEUUNCYHBVFXCXDFEXSYIVDXEUOUHXF
+      YAYLUFXPXTYKCFXSXGXHUJXIXPYGXTCXOXNXQCIZYGXTUFUVFXOUVCUJXQBCDXJXKXLEABCDX
+      MXI $.
+      $( [11-Nov-2013] $) $( [10-Sep-2006] $)
 
     $( Interior expressed in terms of closure. $)
     ntrval2 $p |- ( ( J e. Top /\ S C_ X ) ->
@@ -332,11 +325,20 @@ $)
 
     $( A subset includes its interior. $)
     ntrss2 $p |- ( ( J e. Top /\ S C_ X ) -> ( ( int ` J ) ` S ) C_ S ) $=
-      ( vx vy ctop wcel wss wa cnt cfv cv crab cuni ntrval wrex elunirab ssel
-      impcom r19.23aivw sylbi ssriv a1i eqsstrd ) BGHACIJZABKLLEMZAIZEBNOZAEABC
-      DPUIAIUFFUIAFMZUIHUJUGHZUHJZEBQUJAHZUHEUJBRULUMEBUHUKUMUGAUJSTUAUBUCUDUE
-      $.
-      $( [3-Oct-2007] $)
+      ( ctop wcel wss wa cnt cfv cpw cin cuni ntrval inss2 uniss ax-mp unipw
+      sseqtri a1i eqsstrd ) BEFACGHZABIJJBAKZLZMZAABCDNUEAGUBUEUCMZAUDUCGUEUFGB
+      UCOUDUCPQARSTUA $.
+      $( [11-Nov-2013] $) $( [3-Oct-2007] $)
+
+    $( An open subset of a set is a subset of the set's interior.  (Contributed
+       by Jeff Hankins, 31-Aug-2009.) $)
+    ssntr $p |- ( ( ( J e. Top /\ S C_ X ) /\ ( O e. J /\ O C_ S ) ) -> O C_ (
+    ( int ` J ) ` S ) ) $=
+      ( ctop wcel wss wa cpw cin cuni cnt cfv elin elpwg pm5.32i bitr2i
+      elssuni sylbi adantl wceq ntrval adantr sseqtr4d ) BFGADHIZCBGZCAHZIZICBA
+      JZKZLZABMNNZUICULHZUFUICUKGZUNUOUGCUJGZIUICBUJOUGUPUHCABPQRCUKSTUAUFUMULU
+      BUIABDEUCUDUE $.
+      $( [11-Nov-2013] $) $( [31-Aug-2009] $)
 
     $( The closure of a subset of a topological space is included in the
        space. $)
@@ -388,10 +390,13 @@ $)
     $( A subset is open iff it equals its own interior. $)
     isopn3 $p |- ( ( J e. Top /\ S C_ X ) -> ( S e. J <->
                  ( ( int ` J ) ` S ) = S ) ) $=
-      ( vx ctop wcel wss wa cnt cfv wceq cv crab cuni ntrval unimax sylan9eq
-      ex ntropn eleq1 syl5ibcom impbid ) BFGACHIZABGZABJKKZALZUDUEUGUDUEUFEMAHE
-      BNOAEABCDPEABQRSUDUFBGUGUEABCDTUFABUAUBUC $.
-      $( [9-Oct-2006] $)
+      ( ctop wcel wss wa cnt cfv wceq cpw cin cuni ntrval inss2 uniss ax-mp
+      unipw sseqtri a1i id ssid elpw2g mpbiri elin sylanbrc elssuni syl eqssd
+      sylan9eq ex ntropn eleq1 syl5ibcom impbid ) BEFACGHZABFZABIJJZAKZUQURUTUQ
+      URUSBALZMZNZAABCDOURVCAVCAGURVCVANZAVBVAGVCVDGBVAPVBVAQRASTUAURAVBFZAVCGU
+      RURAVAFZVEURUBURVFAAGAUCAABUDUEABVAUFUGAVBUHUIUJUKULUQUSBFUTURABCDUMUSABU
+      NUOUP $.
+      $( [11-Nov-2013] $) $( [9-Oct-2006] $)
 
     $( The closure operation is idempotent. $)
     clsidm $p |- ( ( J e. Top /\ S C_ X ) ->
@@ -494,15 +499,16 @@ $)
     $( Two ways to say that a subset has an empty interior. $)
     ntreq0 $p |- ( ( J e. Top /\ S C_ X ) -> ( ( ( int ` J ) ` S ) = (/) <->
                A. x e. J ( x C_ S -> x = (/) ) ) ) $=
-      ( vy ctop wcel wss wa cnt cfv c0 wceq cv crab cuni wi wral ntrval eqeq1d
-      wn wal wb wrex elunirab notbii noel bibif ax-mp ralnex 3bitr4i albii
-      dfcleq ralcom4 wex neq0 imbi1i 19.23v imnan 3bitr2ri con34b bitr4i
-      ralbii bitri syl6bb ) CGHBDIJZBCKLLZMNAOZBIZACPQZMNZVJVIMNZRZACSZVGVHVKMA
-      BCDETUAVLFOZVIHZVJJZUBZFUCZACSZVOVPVKHZVPMHZUDZFUCVSACSZFUCVLWAWDWEFWBUBZ
-      VRACUEZUBWDWEWBWGVJAVPCUFUGWCUBWDWFUDVPUHWBWCUIUJVRACUKULUMFVKMUNVSAFCUOU
-      LVTVNACVTVMUBZVJUBZRZVNWJVQFUPZWIRVQWIRZFUCVTWHWKWIFVIUQURVQWIFUSWLVSFVQV
-      JUTUMVAVJVMVBVCVDVEVF $.
-      $( [3-Oct-2007] $)
+      ( vy ctop wcel wss wa cnt cfv c0 wceq cpw cin cuni cv wi wral ntrval
+      eqeq1d wex wrex wn neq0 con1bii ancom elin anbi1i anass 3bitri exbii
+      eluni df-rex 3bitr4i rexcom4 19.42v rexbii 3bitr2i notbii bitr3i
+      ralinexa visset elpw imbi12i ralbii syl6bb ) CGHBDIJZBCKLLZMNCBOZPZQZMNZA
+      RZBIZVOMNZSZACTZVIVJVMMBCDEUAUBVNVOVKHZFRZVOHZFUCZJZACUDZUEZVTWCUEZSZACTV
+      SVNWAVMHZFUCZUEWFVNWJFVMUFUGWJWEWJVTWBJZACUDZFUCWKFUCZACUDWEWIWLFWBVOVLHZ
+      JZAUCVOCHZWKJZAUCWIWLWOWQAWOWNWBJWPVTJZWBJWQWBWNUHWNWRWBVOCVKUIUJWPVTWBUK
+      ULUMAWAVLUNWKACUOUPUMWKAFCUQWMWDACVTWBFURUSUTVAVBVTWCACVCWHVRACVTVPWGVQVO
+      BAVDVEVQWCFVOUFUGVFVGUTVH $.
+      $( [11-Nov-2013] $) $( [3-Oct-2007] $)
   $}
 
   $( The closure of the empty set. $)

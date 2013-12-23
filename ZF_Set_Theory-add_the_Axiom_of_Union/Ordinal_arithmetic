@@ -50,25 +50,19 @@ $)
   df-4o $a |- 4o = suc 3o $.
 
   ${
-    $d x y z w v $.
+    $d x y z $.
     $( Define the ordinal addition operation. $)
-    df-oadd $a |- +o = { <. <. x , y >. , z >. | ( ( x e. On /\ y e. On ) /\
-                z = ( rec ( { <. w , v >. | v = suc w } , x ) ` y ) ) } $.
-  $}
+    df-oadd $a |- +o = ( x e. On , y e. On |->
+                ( rec ( ( z e. _V |-> suc z ) , x ) ` y ) ) $.
 
-  ${
-    $d x y z w v $.
     $( Define the ordinal multiplication operation. $)
-    df-omul $a |- .o = { <. <. x , y >. , z >. | ( ( x e. On /\ y e. On ) /\
-             z = ( rec ( { <. w , v >. | v = ( w +o x ) } , (/) ) ` y ) ) } $.
-  $}
+    df-omul $a |- .o = ( x e. On , y e. On |->
+                ( rec ( ( z e. _V |-> ( z +o x ) ) , (/) ) ` y ) ) $.
 
-  ${
-    $d x y z w v $.
     $( Define the ordinal exponentiation operation. $)
-    df-oexp $a |- ^o = { <. <. x , y >. , z >. | ( ( x e. On /\ y e. On ) /\
-                   z = if ( x = (/) , ( 1o \ y ) ,
-                 ( rec ( { <. w , v >. | v = ( w .o x ) } , 1o ) ` y ) ) ) } $.
+    df-oexp $a |- ^o = ( x e. On , y e. On |->
+                   if ( x = (/) , ( 1o \ y ) ,
+                 ( rec ( ( z e. _V |-> ( z .o x ) ) , 1o ) ` y ) ) ) $.
   $}
 
   $( Ordinal 1 is an ordinal number. $)
@@ -127,44 +121,38 @@ $)
     $( [5-Jan-2005] $)
 
   ${
-    $d x y z w v $.
+    $d x y z $.
     $( Functionality and domain of ordinal addition. $)
     fnoa $p |- +o Fn ( On X. On ) $=
-      ( vx vy vz vv vw con0 cv csuc wceq copab crdg cfv coa fvex df-oadd
-      fnoprab2 ) ABCFFBGZDGEGHIEDJAGKZLMQRNABCEDOP $.
-      $( [26-Aug-1995] $)
-  $}
+      ( vx vy vz con0 cv cvv csuc cmpt crdg cfv coa df-oadd fvex fnoprab2a ) AB
+      DDBEZCFCEGHAEIZJKABCLOPMN $.
+      $( [8-Sep-2013] $) $( [26-Aug-1995] $)
 
-  ${
-    $d x y z w v $.
     $( Functionality and domain of ordinal multiplication. $)
     fnom $p |- .o Fn ( On X. On ) $=
-      ( vx vy vz vv vw con0 cv coa co wceq copab c0 crdg cfv comu fvex df-omul
-      fnoprab2 ) ABCFFBGZDGEGAGHIJEDKLMZNOSTPABCEDQR $.
-      $( [26-Aug-1995] $)
+      ( vx vy vz con0 cv cvv coa co cmpt c0 crdg cfv comu df-omul fvex
+      fnoprab2a ) ABDDBEZCFCEAEGHIJKZLMABCNQROP $.
+      $( [8-Sep-2013] $) $( [26-Aug-1995] $)
   $}
 
   ${
-    $d x y z w v $.  $d z w v A $.  $d z w v B $.
+    $d x y z A $.  $d z B $.
     $( Value of ordinal addition. $)
     oav $p |- ( ( A e. On /\ B e. On ) ->
-             ( A +o B ) = ( rec ( { <. x , y >. | y = suc x } , A ) ` B ) ) $=
-      ( vw vv vz con0 cv csuc wceq copab crdg cfv coa fvex rdgeq2 fveq1d fveq2
-      df-oadd oprabval2 ) EFGCDHHFIZBIAIJKABLZEIZMZNDUCCMZNOUBUFNDUFPUDCKUBUEUF
-      UDCUCQRUBDUFSEFGABTUA $.
-      $( [3-May-1995] $)
-  $}
+             ( A +o B ) = ( rec ( ( x e. _V |-> suc x ) , A ) ` B ) ) $=
+      ( vy vz con0 cv cvv csuc cmpt crdg cfv coa wceq rdgeq2 fveq1d fveq2
+      df-oadd fvex ovmpt2 ) DEBCFFEGZAHAGIJZDGZKZLCUBBKZLMUAUELUCBNUAUDUEUCBUBO
+      PUACUEQDEARCUEST $.
+      $( [8-Sep-2013] $) $( [3-May-1995] $)
 
-  ${
-    $d x y z w v A $.  $d z w v B $.
     $( Value of ordinal multiplication. $)
     omv $p |- ( ( A e. On /\ B e. On ) ->
-     ( A .o B ) = ( rec ( { <. x , y >. | y = ( x +o A ) } , (/) ) ` B ) ) $=
-      ( vw vv vz con0 cv coa co wceq copab c0 crdg cfv comu fvex opreq2 eqeq2d
-      opabbidv rdgeq1 fveq1 3syl fveq2 df-omul oprabval2 ) EFGCDHHFIZBIZAIZEIZJ
-      KZLZABMZNOZPZDUIUJCJKZLZABMZNOZPQUHUTPZDUTRUKCLZUNUSLUOUTLUPVALVBUMURABVB
-      ULUQUIUKCUJJSTUANUNUSUBUHUOUTUCUDUHDUTUEEFGABUFUG $.
-      $( [17-Sep-1995] $)
+     ( A .o B ) = ( rec ( ( x e. _V |-> ( x +o A ) ) , (/) ) ` B ) ) $=
+      ( vy vz con0 cv cvv coa co cmpt c0 crdg cfv comu wceq wcel opreq2 adantr
+      mpteq2dva rdgeq1 syl fveq1d fveq2 df-omul fvex ovmpt2 ) DEBCFFEGZAHAGZDGZ
+      IJZKZLMZNCAHUIBIJZKZLMZNOUHUPNUJBPZUHUMUPUQULUOPUMUPPUQAHUKUNUQUKUNPUIHQU
+      JBUIIRSTLULUOUAUBUCUHCUPUDDEAUECUPUFUG $.
+      $( [8-Sep-2013] $) $( [17-Sep-1995] $)
   $}
 
   ${
@@ -178,50 +166,50 @@ $)
   $}
 
   ${
-    $d x y z w v A $.  $d z w v B $.
+    $d x y z A $.  $d z B $.
     $( Value of ordinal exponentiation. $)
     oev $p |- ( ( A e. On /\ B e. On ) -> ( A ^o B ) = if ( A = (/) ,
-      ( 1o \ B ) , ( rec ( { <. x , y >. | y = ( x .o A ) } , 1o ) ` B ) ) ) $=
-      ( vw vv vz con0 cv c0 wceq c1o cdif comu co copab crdg cfv cif coe wcel
-      cvv 1on difexg ax-mp fvex ifex eqeq1 opreq2 eqeq2d opabbidv rdgeq1 fveq1
-      3syl ifbieq2d difeq2 ifeq1d fveq2 ifeq2d eqtrd df-oexp oprabval2 ) EFGCDH
-      HEIZJKZLFIZMZVEBIZAIZVCNOZKZABPZLQZRZSCJKZLDMZDVGVHCNOZKZABPZLQZRZSZTVNVF
-      VEVSRZSZVNVOVTLHUAVOUBUAUCLDHUDUEDVSUFUGVCCKZVDVNVMWBVFVCCJUHWDVKVRKVLVSK
-      VMWBKWDVJVQABWDVIVPVGVCCVHNUIUJUKLVKVRULVEVLVSUMUNUOVEDKZWCVNVOWBSWAWEVNV
-      FVOWBVEDLUPUQWEVNWBVTVOVEDVSURUSUTEFGABVAVB $.
-      $( [30-Dec-2004] $)
+      ( 1o \ B ) , ( rec ( ( x e. _V |-> ( x .o A ) ) , 1o ) ` B ) ) ) $=
+      ( vy vz con0 cv c0 wceq c1o cdif cvv comu co cmpt crdg cfv cif coe eqeq1
+      eqidd wcel opreq2 adantr mpteq2dva rdgeq1 syl fveq1d ifbieq12d biidd
+      difeq2 fveq2 df-oexp 1on elisseti difss ssexi fvex ifex ovmpt2 ) DEBCFFDG
+      ZHIZJEGZKZVCALAGZVAMNZOZJPZQZRBHIZJCKZCALVEBMNZOZJPZQZRSVJVDVCVNQZRVABIZV
+      BVJVDVIVDVPVABHTVQVDUAVQVCVHVNVQVGVMIVHVNIVQALVFVLVQVFVLIVELUBVABVEMUCUDU
+      EJVGVMUFUGUHUIVCCIZVJVJVDVPVKVOVRVJUJVCCJUKVCCVNULUIDEAUMVJVKVOVKJJFUNUOJ
+      CUPUQCVNURUSUT $.
+      $( [8-Sep-2013] $) $( [30-Dec-2004] $)
 
     $( Value of ordinal exponentiation at a nonzero mantissa. $)
     oevn0 $p |- ( ( ( A e. On /\ B e. On ) /\ (/) e. A ) -> ( A ^o B ) =
-                ( rec ( { <. x , y >. | y = ( x .o A ) } , 1o ) ` B ) ) $=
-      ( con0 wcel wa c0 coe co cv comu wceq copab c1o crdg cfv wn wb wne
+                ( rec ( ( x e. _V |-> ( x .o A ) ) , 1o ) ` B ) ) $=
+      ( con0 wcel wa c0 coe co cvv cv comu cmpt c1o crdg cfv wceq wn wb wne
       on0eln0 df-ne syl6bb adantr cdif cif oev iffalse sylan9eq ex sylbid imp
-      ) CEFZDEFZGZHCFZCDIJZDBKAKCLJMABNOPQZMZUOUPCHMZRZUSUMUPVASUNUMUPCHTVACUAC
-      HUBUCUDUOVAUSUOVAUQUTODUEZURUFURABCDUGUTVBURUHUIUJUKUL $.
-      $( [31-Dec-2004] $)
+      ) BDEZCDEZFZGBEZBCHIZCAJAKBLIMNOPZQZUOUPBGQZRZUSUMUPVASUNUMUPBGTVABUABGUB
+      UCUDUOVAUSUOVAUQUTNCUEZURUFURABCUGUTVBURUHUIUJUKUL $.
+      $( [8-Sep-2013] $) $( [31-Dec-2004] $)
   $}
 
   ${
     $d x y A $.
     $( Addition with zero.  Proposition 8.3 of [TakeutiZaring] p. 57. $)
     oa0 $p |- ( A e. On -> ( A +o (/) ) = A ) $=
-      ( vy vx con0 wcel c0 coa co cv csuc wceq copab crdg cfv 0elon oav mpan2
-      rdg0g eqtrd ) ADEZAFGHZFBICIJKCBLZAMNZATFDEUAUCKOCBAFPQADUBRS $.
-      $( [3-May-1995] $)
+      ( vx con0 wcel c0 coa co cvv cv csuc cmpt crdg cfv wceq 0elon oav mpan2
+      rdg0g eqtrd ) ACDZAEFGZEBHBIJKZALMZATECDUAUCNOBAEPQACUBRS $.
+      $( [8-Sep-2013] $) $( [3-May-1995] $)
 
     $( Ordinal multiplication with zero.  Definition 8.15 of [TakeutiZaring]
        p. 62. $)
     om0 $p |- ( A e. On -> ( A .o (/) ) = (/) ) $=
-      ( vy vx con0 wcel c0 comu co cv coa wceq copab crdg cfv 0elon omv mpan2
-      0ex rdg0 syl6eq ) ADEZAFGHZFBICIAJHKCBLZFMNZFUAFDEUBUDKOCBAFPQFUCRST $.
-      $( [17-Sep-1995] $)
+      ( vx con0 wcel c0 comu co cvv cv coa cmpt crdg cfv wceq 0elon omv mpan2
+      0ex rdg0 syl6eq ) ACDZAEFGZEBHBIAJGKZELMZEUAECDUBUDNOBAEPQEUCRST $.
+      $( [8-Sep-2013] $) $( [17-Sep-1995] $)
 
     $( Ordinal exponentiation with zero mantissa. $)
     oe0m $p |- ( A e. On -> ( (/) ^o A ) = ( 1o \ A ) ) $=
-      ( vy vx con0 wcel c0 coe co wceq c1o cdif cv comu copab crdg cfv cif
-      0elon oev mpan eqid iftrue ax-mp syl6eq ) ADEZFAGHZFFIZJAKZABLCLFMHICBNJO
-      PZQZUHFDEUEUFUJIRCBFASTUGUJUHIFUAUGUHUIUBUCUD $.
-      $( [31-Dec-2004] $)
+      ( vx con0 wcel c0 coe co wceq c1o cdif cvv cv comu cmpt crdg cfv cif
+      0elon oev mpan eqid iftrue ax-mp syl6eq ) ACDZEAFGZEEHZIAJZABKBLEMGNIOPZQ
+      ZUHECDUEUFUJHRBEASTUGUJUHHEUAUGUHUIUBUCUD $.
+      $( [8-Sep-2013] $) $( [31-Dec-2004] $)
   $}
 
   $( Ordinal multiplication with zero.  Definition 8.15 of [TakeutiZaring]
@@ -250,46 +238,46 @@ $)
     $( [5-Jan-2005] $)
 
   ${
-    $d x y A $.
+    $d x A $.
     $( Ordinal exponentiation with zero exponent.  Definition 8.30 of
        [TakeutiZaring] p. 67. $)
     oe0 $p |- ( A e. On -> ( A ^o (/) ) = 1o ) $=
-      ( vy vx con0 wcel c0 coe co c1o wceq opreq1 oe0m0 syl6eq adantl wa cv
-      comu copab crdg cfv 0elon oevn0 mpanl2 1on elisseti rdg0 adantll oe0lem
-      anidms ) ADEZAFGHZIJZUJULAAFJZULUJUMUKFFGHIAFFGKLMNUJFAEZULUJUJUNOUKFBPCP
-      AQHJCBRZISTZIUJFDEUNUKUPJUACBAFUBUCIUOIDUDUEUFMUGUHUI $.
-      $( [31-Dec-2004] $)
+      ( vx con0 wcel c0 coe co c1o wceq opreq1 oe0m0 syl6eq adantl wa cvv cv
+      comu cmpt crdg cfv 0elon oevn0 mpanl2 1on elisseti rdg0 adantll oe0lem
+      anidms ) ACDZAEFGZHIZUJULAAEIZULUJUMUKEEFGHAEEFJKLMUJEADZULUJUJUNNUKEBOBP
+      AQGRZHSTZHUJECDUNUKUPIUABAEUBUCHUOHCUDUEUFLUGUHUI $.
+      $( [8-Sep-2013] $) $( [31-Dec-2004] $)
 
     $( Alternate value of ordinal exponentiation.  Compare ~ oev . $)
-    oev2 $p |- ( ( A e. On /\ B e. On ) -> ( A ^o B ) = ( ( rec ( {
-               <. x , y >. | y = ( x .o A ) } , 1o ) ` B )
+    oev2 $p |- ( ( A e. On /\ B e. On ) -> ( A ^o B ) = ( ( rec (
+          ( x e. _V |-> ( x .o A ) ) , 1o ) ` B )
                   i^i ( ( _V \ |^| A ) u. |^| B ) ) ) $=
-      ( con0 wcel coe co cv comu wceq copab c1o crdg cfv cvv cint cdif cun cin
+      ( con0 wcel coe co cvv cv comu cmpt c1o crdg cfv cint cdif cun cin wceq
       c0 wa oe0m0 opreq12 fveq2 1on elisseti rdg0 syl6eq inteq int0 ineq12d
       inv1 a1i sylan9eqr 3eqtr4a opreq1 oe0m1 biimpa an32s int0el ineq2d in0
       adantl eqtr4d oe0lem difeq2d difid uneq2d uncom un0 3eqtr3g oevn0 dif0
-      unv syl6req eqtrd ) DEFZCDGHZDBIAICJHKABLZMNZOZPCQZRZDQZSZTZKCVRCUAKZUBZV
-      SWBWETZWGWHVSWJKDWHDUAKZUBUAUAGHMVSWJUCCUADUAGUDWKWHWJMPTZMWKWBMWEPWKWBUA
-      WAOMDUAWAUEMVTMEUFUGUHUIWKWEUAQZPDUAUJUKUIULWLMKWHMUMUNUOUPWIUADFZUBVSUAW
-      JVRWNWHVSUAKWHVRWNUBVSUADGHZUACUADGUQVRWNWOUAKDURUSUOUTWNWJUAKWIWNWJWBUAT
-      UAWNWEUAWBDVAVBWBVCUIVDVEVFWIWFWEWBWHWFWEKVRWHWEWDSZWEUASWFWEWHWDUAWEWHWD
-      PPRUAWHWCPPWHWCWMPCUAUJUKUIVGPVHUIVIWEWDVJZWEVKVLVDVBVECEFVRUBZUACFZUBZVS
-      WBWGABCDVMWTWGWBPTWBWTWFPWBWSWFPKWRWSWPWEPSWFPWSWDPWEWSWDPUARPWSWCUAPCVAV
-      GPVNUIVIWQWEVOVLVDVBWBUMVPVQVF $.
-      $( [21-Jul-2006] $) $( [2-Jan-2004] $)
+      unv syl6req eqtrd ) CDEZBCFGZCAHAIBJGKZLMZNZHBOZPZCOZQZRZSBVQBTSZUAZVRWAW
+      DRZWFWGVRWISCWGCTSZUATTFGLVRWIUBBTCTFUCWJWGWILHRZLWJWALWDHWJWATVTNLCTVTUD
+      LVSLDUEUFUGUHWJWDTOZHCTUIUJUHUKWKLSWGLULUMUNUOWHTCEZUAVRTWIVQWMWGVRTSWGVQ
+      WMUAVRTCFGZTBTCFUPVQWMWNTSCUQURUNUSWMWITSWHWMWIWATRTWMWDTWACUTVAWAVBUHVCV
+      DVEWHWEWDWAWGWEWDSVQWGWDWCQZWDTQWEWDWGWCTWDWGWCHHPTWGWBHHWGWBWLHBTUIUJUHV
+      FHVGUHVHWDWCVIZWDVJVKVCVAVDBDEVQUAZTBEZUAZVRWAWFABCVLWSWFWAHRWAWSWEHWAWRW
+      EHSWQWRWOWDHQWEHWRWCHWDWRWCHTPHWRWBTHBUTVFHVMUHVHWPWDVNVKVCVAWAULVOVPVE
+      $.
+      $( [8-Sep-2013] $) $( [2-Jan-2004] $)
   $}
 
   ${
-    $d x y A $.  $d x y B $.
+    $d x A $.  $d x B $.
     $( Addition with successor.  Definition 8.1 of [TakeutiZaring] p. 56. $)
     oasuc $p |- ( ( A e. On /\ B e. On ) ->
                 ( A +o suc B ) = suc ( A +o B ) ) $=
-      ( vy vx con0 wcel wa csuc cv wceq copab crdg cfv coa co rdgsuc adantl
-      suceloni oav sylan2 oprex sucex suceq fvopab fveq2d syl5eqr 3eqtr4d ) AEF
-      ZBEFZGZBHZCIDIZHZJDCKZALZMZBUOMZUNMZAUKNOZABNOZHZUIUPURJUHABUNPQUIUHUKEFU
-      SUPJBRDCAUKSTUJVAUTUNMURDCUTUMVAABNUAZUTVBUBULUTUCUDUJUTUQUNDCABSUEUFUG
-      $.
-      $( [3-May-1995] $)
+      ( vx con0 wcel wa csuc cvv cv cmpt crdg cfv coa co wceq rdgsuc adantl
+      suceloni oav sylan2 oprex suceq eqid sucex fvmpt ax-mp fveq2d syl5eqr
+      3eqtr4d ) ADEZBDEZFZBGZCHCIZGZJZAKZLZBUQLZUPLZAUMMNZABMNZGZUKURUTOUJABUPP
+      QUKUJUMDEVAUROBRCAUMSTULVCVBUPLZUTVBHEVDVCOABMUAZCVBUOVCHUPUNVBUBUPUCVBVE
+      UDUEUFULVBUSUPCABSUGUHUI $.
+      $( [8-Sep-2013] $) $( [3-May-1995] $)
   $}
 
   $( Addition with 1 is same as successor.  Proposition 4.34(a) of [Mendelson]
@@ -302,33 +290,34 @@ $)
     $( [29-Oct-1995] $)
 
   ${
-    $d x y A $.  $d x y B $.
+    $d x A $.  $d x B $.
     $( Multiplication with successor.  Definition 8.15 of [TakeutiZaring]
        p. 62. $)
     omsuc $p |- ( ( A e. On /\ B e. On ) ->
                 ( A .o suc B ) = ( ( A .o B ) +o A ) ) $=
-      ( vy vx con0 wcel wa csuc cv coa co wceq copab c0 crdg cfv comu rdgsuc
-      adantl suceloni omv sylan2 oprex opreq1 fvopab fveq2d syl5eqr 3eqtr4d )
-      AEFZBEFZGZBHZCIDIZAJKZLDCMZNOZPZBUPPZUOPZAULQKZABQKZAJKZUJUQUSLUINBUORSUJ
-      UIULEFUTUQLBTDCAULUAUBUKVBVAUOPUSDCVAUNVBABQUCVAAJUCUMVAAJUDUEUKVAURUODCA
-      BUAUFUGUH $.
-      $( [17-Sep-1995] $)
+      ( vx con0 wcel wa csuc cvv cv coa co cmpt c0 crdg cfv comu wceq rdgsuc
+      adantl suceloni omv sylan2 oprex opreq1 eqid fvmpt ax-mp fveq2d syl5eqr
+      3eqtr4d ) ADEZBDEZFZBGZCHCIZAJKZLZMNZOZBUROZUQOZAUNPKZABPKZAJKZULUSVAQUKM
+      BUQRSULUKUNDEVBUSQBTCAUNUAUBUMVDVCUQOZVAVCHEVEVDQABPUCCVCUPVDHUQUOVCAJUDU
+      QUEVCAJUCUFUGUMVCUTUQCABUAUHUIUJ $.
+      $( [8-Sep-2013] $) $( [17-Sep-1995] $)
 
     $( Ordinal exponentiation with a successor exponent.  Definition 8.30 of
        [TakeutiZaring] p. 67. $)
     oesuc $p |- ( ( A e. On /\ B e. On ) ->
                 ( A ^o suc B ) = ( ( A ^o B ) .o A ) ) $=
-      ( vy vx con0 wcel csuc coe co comu wceq c0 wa opreq1 suceloni word eloni
+      ( vx con0 wcel csuc coe co comu wceq c0 wa opreq1 suceloni word eloni
       0elsuc syl oe0m1 biimpa syl11anc sylan9eqr id opreq12d opreq2 c1o oe0m0
-      1on eqeltri syl6eqel adantl 0elon adantll oe0lem anidms om0 eqtr4d cv
-      copab crdg cfv rdgsuc ad2antlr oevn0 sylanl2 oprex fvopab fveq2d syl5eqr
-      3eqtr4d ) BEFZABGZHIZABHIZAJIZKAVLALKZMVNLVPVQVLVNLVMHIZLALVMHNVLVMEFZLVM
-      FZVRLKZBOZVLBPVTBQBRSVSVTWAVMTUAUBUCVQVLVPLBHIZLJIZLVQVOWCALJALBHNVQUDUEV
-      LWCEFZWDLKVLWEVLWEBBLKZWEVLWFWCLLHIZEBLLHUFWGUGEUHUIUJUKULVLLBFZWEVLVLWHM
-      WCLEVLWHWCLKBTUAUMUKUNUOUPWCUQSUCURAEFZVLMLAFZMZVMCUSDUSZAJIZKDCUTZUGVAZV
-      BZBWOVBZWNVBZVNVPVLWPWRKWIWJUGBWNVCVDVLWIVSWJVNWPKWBDCAVMVEVFWKVPVOWNVBWR
-      DCVOWMVPABHVGVOAJVGWLVOAJNVHWKVOWQWNDCABVEVIVJVKUO $.
-      $( [21-Jul-2006] $) $( [31-Dec-2004] $)
+      1on eqeltri syl6eqel adantl 0elon adantll oe0lem anidms om0 eqtr4d cvv
+      cv cmpt crdg cfv rdgsuc ad2antlr oevn0 sylanl2 oprex eqid fvmpt ax-mp
+      fveq2d syl5eqr 3eqtr4d ) BDEZABFZGHZABGHZAIHZJAVNAKJZLVPKVRVSVNVPKVOGHZKA
+      KVOGMVNVODEZKVOEZVTKJZBNZVNBOWBBPBQRWAWBWCVOSTUAUBVSVNVRKBGHZKIHZKVSVQWEA
+      KIAKBGMVSUCUDVNWEDEZWFKJVNWGVNWGBBKJZWGVNWHWEKKGHZDBKKGUEWIUFDUGUHUIUJUKV
+      NKBEZWGVNVNWJLWEKDVNWJWEKJBSTULUJUMUNUOWEUPRUBUQADEZVNLKAEZLZVOCURCUSZAIH
+      ZUTZUFVAZVBZBWQVBZWPVBZVPVRVNWRWTJWKWLUFBWPVCVDVNWKWAWLVPWRJWDCAVOVEVFWMV
+      RVQWPVBZWTVQUREXAVRJABGVGCVQWOVRURWPWNVQAIMWPVHVQAIVGVIVJWMVQWSWPCABVEVKV
+      LVMUN $.
+      $( [8-Sep-2013] $) $( [31-Dec-2004] $)
   $}
 
   ${
@@ -337,38 +326,37 @@ $)
        [TakeutiZaring] p. 56. $)
     oalim $p |- ( ( A e. On /\ ( B e. C /\ Lim B ) ) ->
                 ( A +o B ) = U_ x e. B ( A +o x ) ) $=
-      ( vz vy wcel wlim wa con0 coa co cv ciun wceq limelon simpr jca csuc
-      copab crdg cfv rdglim2a adantl wb oav onelon sylan2 anassrs iuneq2dv
-      eqeq12d adantrr mpbird ) CDGZCHZIZBJGZCJGZUOIZBCKLZACBAMZKLZNZOZUPURUOCDP
-      UNUOQRUQUSIVDCEMFMSOFETZBUAZUBZACVAVFUBZNZOZUSVJUQABCJVEUCUDUQURVDVJUEUOU
-      QURIZUTVGVCVIFEBCUFVKACVBVHUQURVACGZVBVHOZURVLIUQVAJGVMCVAUGFEBVAUFUHUIUJ
-      UKULUMUH $.
-      $( [3-Aug-2004] $)
+      ( vy wcel wlim wa con0 coa co cv ciun wceq limelon simpr jca cvv csuc
+      cmpt crdg cfv rdglim2a adantl wb oav onelon sylan2 anassrs iuneq2dv
+      eqeq12d adantrr mpbird ) CDFZCGZHZBIFZCIFZUOHZBCJKZACBALZJKZMZNZUPURUOCDO
+      UNUOPQUQUSHVDCERELSTZBUAZUBZACVAVFUBZMZNZUSVJUQABCIVEUCUDUQURVDVJUEUOUQUR
+      HZUTVGVCVIEBCUFVKACVBVHUQURVACFZVBVHNZURVLHUQVAIFVMCVAUGEBVAUFUHUIUJUKULU
+      MUH $.
+      $( [8-Sep-2013] $) $( [3-Aug-2004] $)
 
     $( Ordinal multiplication with a limit ordinal.  Definition 8.15 of
        [TakeutiZaring] p. 62. $)
     omlim $p |- ( ( A e. On /\ ( B e. C /\ Lim B ) ) ->
                 ( A .o B ) = U_ x e. B ( A .o x ) ) $=
-      ( vz vy wcel wlim wa con0 comu co cv ciun wceq limelon simpr jca coa
-      copab c0 crdg cfv rdglim2a adantl wb omv onelon sylan2 anassrs iuneq2dv
-      eqeq12d adantrr mpbird ) CDGZCHZIZBJGZCJGZUPIZBCKLZACBAMZKLZNZOZUQUSUPCDP
-      UOUPQRURUTIVECEMFMBSLOFETZUAUBZUCZACVBVGUCZNZOZUTVKURAUACJVFUDUEURUSVEVKU
-      FUPURUSIZVAVHVDVJFEBCUGVLACVCVIURUSVBCGZVCVIOZUSVMIURVBJGVNCVBUHFEBVBUGUI
-      UJUKULUMUNUI $.
-      $( [3-Aug-2004] $)
+      ( vy wcel wlim wa con0 comu co cv ciun wceq limelon simpr jca cvv coa
+      cmpt c0 crdg cfv rdglim2a adantl wb omv onelon sylan2 anassrs iuneq2dv
+      eqeq12d adantrr mpbird ) CDFZCGZHZBIFZCIFZUPHZBCJKZACBALZJKZMZNZUQUSUPCDO
+      UOUPPQURUTHVECERELBSKTZUAUBZUCZACVBVGUCZMZNZUTVKURAUACIVFUDUEURUSVEVKUFUP
+      URUSHZVAVHVDVJEBCUGVLACVCVIURUSVBCFZVCVINZUSVMHURVBIFVNCVBUHEBVBUGUIUJUKU
+      LUMUNUI $.
+      $( [8-Sep-2013] $) $( [3-Aug-2004] $)
 
     $( Ordinal exponentiation with a limit exponent and nonzero mantissa.
        Definition 8.30 of [TakeutiZaring] p. 67. $)
     oelim $p |- ( ( ( A e. On /\ ( B e. C /\ Lim B ) ) /\ (/) e. A ) ->
                 ( A ^o B ) = U_ x e. B ( A ^o x ) ) $=
-      ( vz vy wcel wlim wa con0 c0 coe co cv ciun wceq limelon simpr jca comu
-      copab c1o crdg cfv rdglim2a ad2antlr wb oevn0 onelon sylanl2 exp42 com34
-      imp41 iuneq2dv eqeq12d adantlrr mpbird ) CDGZCHZIZBJGZCJGZUSIZKBGZBCLMZAC
-      BANZLMZOZPZUTVBUSCDQURUSRSVAVCIVDIVICENFNBTMPFEUAZUBUCZUDZACVFVKUDZOZPZVC
-      VOVAVDAUBCJVJUEUFVAVBVDVIVOUGUSVAVBIVDIZVEVLVHVNFEBCUHVPACVGVMVAVBVDVFCGZ
-      VGVMPZVAVBVQVDVRVAVBVQVDVRVBVQIVAVFJGVDVRCVFUIFEBVFUHUJUKULUMUNUOUPUQUJ
-      $.
-      $( [1-Jan-2005] $)
+      ( vy wcel wlim wa con0 c0 coe co cv ciun wceq limelon simpr jca cvv comu
+      cmpt c1o crdg cfv rdglim2a ad2antlr wb oevn0 onelon sylanl2 exp42 com34
+      imp41 iuneq2dv eqeq12d adantlrr mpbird ) CDFZCGZHZBIFZCIFZUSHZJBFZBCKLZAC
+      BAMZKLZNZOZUTVBUSCDPURUSQRVAVCHVDHVICESEMBTLUAZUBUCZUDZACVFVKUDZNZOZVCVOV
+      AVDAUBCIVJUEUFVAVBVDVIVOUGUSVAVBHVDHZVEVLVHVNEBCUHVPACVGVMVAVBVDVFCFZVGVM
+      OZVAVBVQVDVRVAVBVQVDVRVBVQHVAVFIFVDVRCVFUIEBVFUHUJUKULUMUNUOUPUQUJ $.
+      $( [8-Sep-2013] $) $( [1-Jan-2005] $)
   $}
 
   ${

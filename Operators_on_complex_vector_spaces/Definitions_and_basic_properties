@@ -26,18 +26,18 @@ $)
   c0o $a class 0op $.
 
   ${
-    $d n o t u w x y z $.
+    $d t u w x y z $.
     $( Define the class of linear operators between two normed complex vector
        spaces.  In the literature, an operator may be a partial function, i.e.
        the domain of an operator is not necessarily the entire vector space.
        However, since the domain of a linear operator is a vector subspace, we
        define it with a complete function for convenience and will use subset
        relations to specify the partial function case. $)
-    df-lno $a |- LnOp = { <. <. u , w >. , o >. | ( ( u e. NrmCVec /\
-      w e. NrmCVec ) /\ o = { t | ( t : ( BaseSet ` u ) --> ( BaseSet ` w ) /\
-       A. x e. ( BaseSet ` u ) A. y e. CC A. z e. ( BaseSet ` u )
-      ( t ` ( x ( +v ` u ) ( y ( .s ` u ) z ) ) ) =
-         ( ( t ` x ) ( +v ` w ) ( y ( .s ` w ) ( t ` z ) ) ) ) } ) } $.
+    df-lno $a |- LnOp = ( u e. NrmCVec , w e. NrmCVec |->
+    { t e. ( ( BaseSet ` w ) ^m ( BaseSet ` u ) ) |
+       A. x e. CC A. y e. ( BaseSet ` u ) A. z e. ( BaseSet ` u )
+      ( t ` ( ( x ( .s ` u ) y ) ( +v ` u ) z ) ) =
+         ( ( x ( .s ` w ) ( t ` y ) ) ( +v ` w ) ( t ` z ) ) } ) $.
 
     $( Define the norm of an operator between two normed complex vector
        spaces.  This definition produces an operator norm function for each
@@ -49,23 +49,19 @@ $)
        for a definition that does (although it ignores the value at the zero
        vector).  However, operator norms are rarely if ever used for nonlinear
        operators. $)
-    df-nmo $a |- normOp = { <. <. u , w >. , n >. | ( ( u e. NrmCVec /\
-      w e. NrmCVec ) /\ n = { <. t , y >. | ( t : ( BaseSet ` u ) -->
-  ( BaseSet ` w ) /\ y = sup ( { x | E. z e. ( BaseSet ` u ) ( (
-  ( norm ` u ) ` z ) <_ 1 /\ x = ( ( norm ` w ) ` ( t ` z ) ) ) } , RR* ,
-   < ) ) } ) } $.
+    df-nmo $a |- normOp = ( u e. NrmCVec , w e. NrmCVec |->
+                ( t e. ( ( BaseSet ` w ) ^m ( BaseSet ` u ) ) |->
+        sup ( { x | E. z e. ( BaseSet ` u ) ( ( ( norm ` u ) ` z ) <_ 1 /\
+            x = ( ( norm ` w ) ` ( t ` z ) ) ) } , RR* , < ) ) ) $.
 
     $( Define the class of bounded linear operators between two normed complex
        vector spaces. $)
-    df-blo $a |- BLnOp = { <. <. u , w >. , o >. | ( ( u e. NrmCVec /\
-      w e. NrmCVec ) /\ o = { t e. ( u LnOp w ) | ( ( u normOp w ) ` t )
-        < +oo } ) } $.
+    df-blo $a |- BLnOp = ( u e. NrmCVec , w e. NrmCVec |->
+      { t e. ( u LnOp w ) | ( ( u normOp w ) ` t ) < +oo } ) $.
 
     $( Define the zero operator between two normed complex vector spaces. $)
-    df-0o $a |- 0op = { <. <. u , w >. , o >. | ( ( u e. NrmCVec /\
-      w e. NrmCVec ) /\ o = ( ( BaseSet ` u ) X. { ( 0vec ` w ) } ) ) } $.
-
-
+    df-0o $a |- 0op = ( u e. NrmCVec , w e. NrmCVec |->
+                        ( ( BaseSet ` u ) X. { ( 0vec ` w ) } ) ) $.
   $}
 
   $c adj $.
@@ -85,18 +81,18 @@ $)
        linear.  Although we define it for any normed vector space for
        convenience, the definition is meaningful only for inner product
        spaces. $)
-    df-aj $a |- adj = { <. <. u , w >. , a >. | ( ( u e. NrmCVec /\
-  w e. NrmCVec ) /\ a = { <. t , s >. | ( t : ( BaseSet ` u ) --> ( BaseSet ` w
-  ) /\ s : ( BaseSet ` w ) --> ( BaseSet ` u ) /\ A. x e. ( BaseSet ` u ) A. y
-  e. ( BaseSet ` w ) ( ( t ` x ) ( .i ` w ) y ) = ( x ( .i ` u ) ( s ` y ) ) )
-  } ) } $.
+    df-aj $a |- adj = ( u e. NrmCVec , w e. NrmCVec |->
+        { <. t , s >. | ( t : ( BaseSet ` u ) --> ( BaseSet ` w ) /\
+                          s : ( BaseSet ` w ) --> ( BaseSet ` u ) /\
+        A. x e. ( BaseSet ` u ) A. y e. ( BaseSet ` w )
+          ( ( t ` x ) ( .i ` w ) y ) = ( x ( .i ` u ) ( s ` y ) ) ) } ) $.
 
     $( Define the set of Hermitian (self-adjoint) operators on a normed complex
        vector space (normally a Hilbert space).  Although we define it for any
        normed vector space for convenience, the definition is meaningful only
        for inner product spaces. $)
-    df-hmo $a |- HmOp = { <. u , o >. | ( u e. NrmCVec /\ o = { t e.
-        dom ( u adj u ) | ( ( u adj u ) ` t ) = t } ) } $.
+    df-hmo $a |- HmOp = ( u e. NrmCVec |->
+                { t e. dom ( u adj u ) | ( ( u adj u ) ` t ) = t } ) $.
 
 $(
     @( Alternate definition of the set of Hermitian (self-adjoint) operators on
@@ -111,10 +107,9 @@ $)
   $}
 
   ${
-    $d u v w A $.  $d v w B $.  $d w C $.  $d o t u v w G $.  $d o t u v w H $.
-    $d o t u v w R $.  $d o t u v w S $.  $d t u v w x y z T $.
-    $d o t u v w x y z U $.  $d o t u v w x y z W $.  $d o t u v w x y z X $.
-    $d o t w Y $.
+    $d t u w x y z U $.  $d t u w x y z W $.  $d t u w y z X $.  $d t w Y $.
+    $d t u w G $.  $d t u w R $.  $d t u w H $.  $d t u w S $.
+    $d t u w x y z T $.
     lnoval.1 $e |- X = ( BaseSet ` U ) $.
     lnoval.2 $e |- Y = ( BaseSet ` W ) $.
     lnoval.3 $e |- G = ( +v ` U ) $.
@@ -124,52 +119,51 @@ $)
     lnoval.7 $e |- L = ( U LnOp W ) $.
     $( The set of linear operators between two normed complex vector spaces. $)
     lnoval $p |- ( ( U e. NrmCVec /\ W e. NrmCVec ) -> L =
-      { t | ( t : X --> Y /\ A. x e. X A. y e. CC A. z e. X
-      ( t ` ( x G ( y R z ) ) ) = ( ( t ` x ) H ( y S ( t ` z ) ) ) ) } ) $=
-      ( vu vw vo cnv wcel wa clno co cv wf cfv wceq wral cc cab cba cns cpv
-      cvv fvex eqeltri eqid fabex fveq2 syl6eqr feq2d opreqd opreq2d eqtrd
-      fveq2d eqeq1d raleqbidv ralbidv anbi12d abbidv wb feq3 syl eqeq2d
-      2ralbidv df-lno oprabval2 syl5eq ) GUDUEKUDUEUFJGKUGUHLMDUIZUJZAUIZBUIZCU
-      IZEUHZHUHZWDUKZWFWDUKZWGWHWDUKZFUHZIUHZULZCLUMZBUNUMALUMZUFZDUOZTUAUBUCGK
-      UDUDUAUIZUPUKZUBUIZUPUKZWDUJZWFWGWHXAUQUKZUHZXAURUKZUHZWDUKZWLWGWMXCUQUKZ
-      UHZXCURUKZUHZULZCXBUMZBUNUMZAXBUMZUFZDUOWTUGLXDWDUJZWKXNULZCLUMZBUNUMZALU
-      MZUFZDUOWRDLMWTLGUPUKZUSNGUPUTVAMKUPUKZUSOKUPUTVAWTVBVCXAGULZXSYEDYHXEXTX
-      RYDYHXBLXDWDYHXBYFLXAGUPVDNVEZVFYHXQYCAXBLYIYHXPYBBUNYHXOYACXBLYIYHXJWKXN
-      YHXIWJWDYHXIWFWIXHUHWJYHXGWIWFXHYHXFEWGWHYHXFGUQUKEXAGUQVDRVEVGVHYHXHHWFW
-      IYHXHGURUKHXAGURVDPVEVGVIVJVKVLVMVLVNVOXCKULZYEWSDYJXTWEYDWRYJXDMULXTWEVP
-      YJXDYGMXCKUPVDOVEXDMLWDVQVRYJYBWQABLUNYJYAWPCLYJXNWOWKYJXNWLWNXMUHWOYJXLW
-      NWLXMYJXKFWGWMYJXKKUQUKFXCKUQVDSVEVGVHYJXMIWLWNYJXMKURUKIXCKURVDQVEVGVIVS
-      VMVTVNVOABCUBUADUCWAWBWC $.
-      $( [6-Nov-2007] $)
+      { t e. ( Y ^m X ) | A. x e. CC A. y e. X A. z e. X
+        ( t ` ( ( x R y ) G z ) ) = ( ( x S ( t ` y ) ) H ( t ` z ) ) } ) $=
+      ( vu vw cnv wcel wa clno co cv cfv wceq wral cc cmap crab cns cpv cba
+      fveq2 syl6eqr opreq2d opreqd eqidd opreq123d fveq2d eqeq1d raleqbidv
+      ralbidv rabeqbidv opreq1d eqeq2d 2ralbidv df-lno oprex rabex ovmpt2
+      syl5eq ) GUCUDKUCUDUEJGKUFUGAUHZBUHZEUGZCUHZHUGZDUHZUIZVQVRWBUIZFUGZVTWBU
+      IZIUGZUJZCLUKBLUKZAULUKZDMLUMUGZUNZTUAUBGKUCUCVQVRUAUHZUOUIZUGZVTWMUPUIZU
+      GZWBUIZVQWDUBUHZUOUIZUGZWFWSUPUIZUGZUJZCWMUQUIZUKZBXEUKZAULUKZDWSUQUIZXEU
+      MUGZUNWLUFWCXCUJZCLUKZBLUKZAULUKZDXILUMUGZUNWMGUJZXHXNDXJXOXPXELXIUMXPXEG
+      UQUILWMGUQURNUSZUTXPXGXMAULXPXFXLBXELXQXPXDXKCXELXQXPWRWCXCXPWQWAWBXPWOVS
+      VTVTWPHXPWPGUPUIHWMGUPURPUSXPWNEVQVRXPWNGUOUIEWMGUOURRUSVAXPVTVBVCVDVEVFV
+      FVGVHWSKUJZXNWJDXOWKXRXIMLUMXRXIKUQUIMWSKUQUROUSVIXRXMWIAULXRXKWHBCLLXRXC
+      WGWCXRXAWEWFWFXBIXRXBKUPUIIWSKUPURQUSXRWTFVQWDXRWTKUOUIFWSKUOURSUSVAXRWFV
+      BVCVJVKVGVHABCUBUADVLWJDWKMLUMVMVNVOVP $.
+      $( [16-Nov-2013] $) $( [6-Nov-2007] $)
 
     $( The predicate "is a linear operator." $)
     islno $p |- ( ( U e. NrmCVec /\ W e. NrmCVec ) -> ( T e. L <->
-      ( T : X --> Y /\ A. x e. X A. y e. CC A. z e. X
-      ( T ` ( x G ( y R z ) ) ) = ( ( T ` x ) H ( y S ( T ` z ) ) ) ) ) ) $=
-      ( vt cnv wcel wa cv wf co cfv wceq wral cc cab lnoval eleq2d cvv cba
-      fvex eqeltri fex mpan2 adantr feq1 fveq1 opreq2d opreq12d eqeq12d
-      ralbidv 2ralbidv anbi12d elab3 syl6bb ) GUBUCKUBUCUDZFJUCFLMUAUEZUFZAUEZB
-      UEZCUEZDUGHUGZVMUHZVOVMUHZVPVQVMUHZEUGZIUGZUIZCLUJZBUKUJALUJZUDZUAULZUCLM
-      FUFZVRFUHZVOFUHZVPVQFUHZEUGZIUGZUIZCLUJZBUKUJALUJZUDZVLJWHFABCUADEGHIJKLM
-      NOPQRSTUMUNWGWRUAFWIFUOUCZWQWILUOUCWSLGUPUHUONGUPUQURLMUOFUSUTVAVMFUIZVNW
-      IWFWQLMVMFVBWTWEWPABLUKWTWDWOCLWTVSWJWCWNVRVMFVCWTVTWKWBWMIVOVMFVCWTWAWLV
-      PEVQVMFVCVDVEVFVGVHVIVJVK $.
-      $( [4-Dec-2007] $)
+      ( T : X --> Y /\ A. x e. CC A. y e. X A. z e. X
+      ( T ` ( ( x R y ) G z ) ) = ( ( x S ( T ` y ) ) H ( T ` z ) ) ) ) ) $=
+      ( vw cnv wcel wa cv co cfv wceq wral cc cmap crab wf lnoval eleq2d fveq1
+      opreq2d opreq12d eqeq12d 2ralbidv ralbidv elrab cba cvv fvex eqeltri
+      elmap anbi1i bitri syl6bb ) GUBUCKUBUCUDZFJUCFAUEZBUEZDUFCUEZHUFZUAUEZUGZ
+      VLVMVPUGZEUFZVNVPUGZIUFZUHZCLUIBLUIZAUJUIZUAMLUKUFZULZUCZLMFUMZVOFUGZVLVM
+      FUGZEUFZVNFUGZIUFZUHZCLUIBLUIZAUJUIZUDZVKJWFFABCUADEGHIJKLMNOPQRSTUNUOWGF
+      WEUCZWPUDWQWDWPUAFWEVPFUHZWCWOAUJWSWBWNBCLLWSVQWIWAWMVOVPFUPWSVSWKVTWLIWS
+      VRWJVLEVMVPFUPUQVNVPFUPURUSUTVAVBWRWHWPMLFMKVCUGVDOKVCVEVFLGVCUGVDNGVCVEV
+      FVGVHVIVJ $.
+      $( [16-Nov-2013] $) $( [4-Dec-2007] $)
 
+    $d t u w A $.  $d t w B $.  $d t C $.
     $( Basic linearity property of a linear operator. $)
     lnolin $p |- ( ( ( U e. NrmCVec /\ W e. NrmCVec /\ T e. L ) /\
-       ( A e. X /\ B e. CC /\ C e. X ) ) ->
-      ( T ` ( A G ( B R C ) ) ) = ( ( T ` A ) H ( B S ( T ` C ) ) ) ) $=
-      ( vu vv vw wcel cc w3a cnv co cfv wceq cv wral wa wf islno simplbda
-      3impa opreq1 fveq2d fveq2 opreq1d eqeq12d opreq2d opreq2 rcla43v syl5
-      impcom ) ALUDBUEUDCLUDUFZGUGUDZKUGUDZFJUDZUFZABCDUHZHUHZFUIZAFUIZBCFUIZEU
-      HZIUHZUJZVLUAUKZUBUKZUCUKZDUHZHUHZFUIZWAFUIZWBWCFUIZEUHZIUHZUJZUCLULUBUEU
-      LUALULZVHVTVIVJVKWLVIVJUMVKLMFUNWLUAUBUCDEFGHIJKLMNOPQRSTUOUPUQWKVTAWDHUH
-      ZFUIZVPWIIUHZUJABWCDUHZHUHZFUIZVPBWHEUHZIUHZUJUAUBUCABCLUELWAAUJZWFWNWJWO
-      XAWEWMFWAAWDHURUSXAWGVPWIIWAAFUTVAVBWBBUJZWNWRWOWTXBWMWQFXBWDWPAHWBBWCDUR
-      VCUSXBWIWSVPIWBBWHEURVCVBWCCUJZWRVOWTVSXCWQVNFXCWPVMAHWCCBDVDVCUSXCWSVRVP
-      IXCWHVQBEWCCFUTVCVCVBVEVFVG $.
-      $( [4-Dec-2007] $)
+       ( A e. CC /\ B e. X /\ C e. X ) ) ->
+      ( T ` ( ( A R B ) G C ) ) = ( ( A S ( T ` B ) ) H ( T ` C ) ) ) $=
+      ( vu vw vt cnv wcel w3a cc co cfv wceq cv wral wf wa islno biimpa 3impa
+      simprd opreq1 opreq1d fveq2d eqeq12d opreq2 fveq2 opreq2d rcla43v
+      syl5com imp ) GUDUEZKUDUEZFJUEZUFZAUGUEBLUECLUEUFZABDUHZCHUHZFUIZABFUIZEU
+      HZCFUIZIUHZUJZVLUAUKZUBUKZDUHZUCUKZHUHZFUIZWBWCFUIZEUHZWEFUIZIUHZUJZUCLUL
+      UBLULUAUGULZVMWAVLLMFUMZWMVIVJVKWNWMUNZVIVJUNVKWOUAUBUCDEFGHIJKLMNOPQRSTU
+      OUPUQURWLWAAWCDUHZWEHUHZFUIZAWHEUHZWJIUHZUJVNWEHUHZFUIZVRWJIUHZUJUAUBUCAB
+      CUGLLWBAUJZWGWRWKWTXDWFWQFXDWDWPWEHWBAWCDUSUTVAXDWIWSWJIWBAWHEUSUTVBWCBUJ
+      ZWRXBWTXCXEWQXAFXEWPVNWEHWCBADVCUTVAXEWSVRWJIXEWHVQAEWCBFVDVEUTVBWECUJZXB
+      VPXCVTXFXAVOFWECVNHVCVAXFWJVSVRIWECFVDVEVBVFVGVH $.
+      $( [16-Nov-2013] $) $( [4-Dec-2007] $)
   $}
 
   ${
@@ -180,9 +174,10 @@ $)
     $( A linear operator is a mapping. $)
     lnof $p |- ( ( U e. NrmCVec /\ W e. NrmCVec /\ T e. L ) -> T : X --> Y ) $=
       ( vx vy vz cnv wcel wf wa cv cns cfv co cpv wceq wral cc eqid islno
-      simprbda 3impa ) BMNZDMNZACNZEFAOZUIUJPUKULJQZKQZLQZBRSZTBUASZTASUMASUNUO
-      ASDRSZTDUASZTUBLEUCKUDUCJEUCJKLUPURABUQUSCDEFGHUQUEUSUEUPUEURUEIUFUGUH $.
-      $( [4-Dec-2007] $)
+      biimpa simpld 3impa ) BMNZDMNZACNZEFAOZUJUKPZULPUMJQZKQZBRSZTLQZBUASZTASU
+      OUPASDRSZTURASDUASZTUBLEUCKEUCJUDUCZUNULUMVBPJKLUQUTABUSVACDEFGHUSUEVAUEU
+      QUEUTUEIUFUGUHUI $.
+      $( [18-Nov-2013] $) $( [4-Dec-2007] $)
   $}
 
   ${
@@ -194,15 +189,14 @@ $)
     $( The value of a linear operator at zero is zero. $)
     lno0 $p |- ( ( U e. NrmCVec /\ W e. NrmCVec /\ T e. L )
          -> ( T ` Q ) = Z ) $=
-      ( cnv wcel w3a c1 cneg cns cfv co cpv cc wceq nvzcl ax-1cn negcli a1i
-      3jca 3ad2ant1 eqid lnolin mpdan nvsz mpan2 opreq2d nv0rid eqtrd fveq2d
-      simp2 wf lnof ffvelrn syl11anc nvrinv 3eqtr3d ) CNOZENOZBDOZPZAQRZACSTZUA
-      ZCUBTZUAZBTZABTZVKVQESTZUAEUBTZUAZVQHVJAFOZVKUCOZWAPZVPVTUDVGVHWCVIVGWAWB
-      WACFAIKUEZWBVGQUFUGZUHWDUIUJAVKAVLVRBCVNVSDEFGIJVNUKZVSUKZVLUKZVRUKZMULUM
-      VGVHVPVQUDVIVGVOABVGVOAAVNUAZAVGVMAAVNVGWBVMAUDWEVKVLCAWHKUNUOUPVGWAWJAUD
-      WDACVNFAIWFKUQUMURUSUJVJVHVQGOZVTHUDVGVHVIUTVJFGBVAWAWKBCDEFGIJMVBVGVHWAV
-      IWDUJFGABVCVDVQVREVSGHJWGWILVEVDVF $.
-      $( [4-Dec-2007] $)
+      ( cnv wcel w3a c1 cneg cns cfv co cpv cc wceq ax-1cn negcli a1i nvzcl
+      3ad2ant1 3jca eqid lnolin mpdan nvlinv fveq2d simp2 wf lnof ffvelrn
+      syl11anc 3eqtr3d ) CNOZENOZBDOZPZQRZACSTZUAACUBTZUAZBTZVFABTZESTZUAVKEUBT
+      ZUAZVKHVEVFUCOZAFOZVPPVJVNUDVEVOVPVPVOVEQUEUFUGVBVCVPVDCFAIKUHZUIZVRUJVFA
+      AVGVLBCVHVMDEFGIJVHUKZVMUKZVGUKZVLUKZMULUMVBVCVJVKUDVDVBVIABVBVPVIAUDVQAV
+      GCVHFAIVSWAKUNUMUOUIVEVCVKGOZVNHUDVBVCVDUPVEFGBUQVPWCBCDEFGIJMURVRFGABUSU
+      TVKVLEVMGHJVTWBLUNUTVA $.
+      $( [18-Nov-2013] $) $( [4-Dec-2007] $)
   $}
 
   ${
@@ -218,23 +212,23 @@ $)
     $( The composition of two linear operators is linear. $)
     lnocoi $p |- ( T o. S ) e. N $=
       ( vx vy vz ccom wcel cba cfv wf cv cns co cpv wceq wral cc cnv wa wb
-      eqid islno mp2an lnof mp3an fco w3a nvscl mp3an1 nvgcl sylan2 3impb wfun
-      ffun ax-mp fvco3 mp3an12 syl 3pm3.2i lnolin mpan fveq2d ffvelrni id
-      syl3an 3eqtrd opreq2d adantl opreqan12d eqtr4d rgen3 mpbir2an ) BATZFUAZC
-      UBUCZHUBUCZWGUDZQUEZRUEZSUEZCUFUCZUGZCUHUCZUGZWGUCZWLWGUCZWMWNWGUCZHUFUCZ
-      UGZHUHUCZUGZUIZSWIUJRUKUJQWIUJZCULUAZHULUAZWHWKXGUMUNLNQRSWOXBWGCWQXDFHWI
-      WJWIUOZWJUOZWQUOZXDUOZWOUOZXBUOZKUPUQGUBUCZWJBUDZWIXPAUDZWKGULUAZXIBEUAZX
-      QMNPBGEHXPWJXPUOZXKJURUSZXHXSADUAZXRLMOACDGWIXPXJYAIURUSZWIXPWJBAUTUQXFQR
-      SWIUKWIWLWIUAZWMUKUAZWNWIUAZVAZWSWLAUCZBUCZWMWNAUCZBUCZXBUGZXDUGZXEYHWSWR
-      AUCZBUCZYIWMYKGUFUCZUGGUHUCZUGZBUCZYNYHWRWIUAZWSYPUIZYEYFYGUUAYFYGUMZYEWP
-      WIUAZUUAXHYFYGUUDLWMWNWOCWIXJXNVBVCXHYEUUDUUALWLWPCWQWIXJXLVDVCVEVFBVGZXR
-      UUAUUBXQUUEYBXPWJBVHVIZYDWIXPWRBAVJVKVLYHYOYSBXHXSYCVAYHYOYSUIXHXSYCLMOVM
-      WLWMWNWOYQACWQYRDGWIXPXJYAXLYRUOZXNYQUOZIVNVOVPYEYIXPUAZYFYFYGYKXPUAZYTYN
-      UIZWIXPWLAYDVQYFVRWIXPWNAYDVQXSXIXTVAUUIYFUUJVAUUKXSXIXTMNPVMYIWMYKYQXBBG
-      YRXDEHXPWJYAXKUUGXMUUHXOJVNVOVSVTYEYFYGXEYNUIYEUUCWTYJXCYMXDUUEXRYEWTYJUI
-      UUFYDWIXPWLBAVJVKYGXCYMUIYFYGXAYLWMXBUUEXRYGXAYLUIUUFYDWIXPWNBAVJVKWAWBWC
-      VFWDWEWF $.
-      $( [12-Jan-2008] $)
+      eqid islno mp2an lnof mp3an fco w3a 3pm3.2i lnolin mpan fveq2d id
+      ffvelrni syl3an eqtrd nvscl mp3an1 nvgcl sylan 3impa wfun ffun ax-mp
+      fvco3 mp3an12 syl 3ad2ant2 opreq2d 3ad2ant3 opreq12d 3eqtr4d rgen3
+      mpbir2an ) BATZFUAZCUBUCZHUBUCZWHUDZQUEZRUEZCUFUCZUGZSUEZCUHUCZUGZWHUCZWM
+      WNWHUCZHUFUCZUGZWQWHUCZHUHUCZUGZUIZSWJUJRWJUJQUKUJZCULUAZHULUAZWIWLXHUMUN
+      LNQRSWOXBWHCWRXEFHWJWKWJUOZWKUOZWRUOZXEUOZWOUOZXBUOZKUPUQGUBUCZWKBUDZWJXQ
+      AUDZWLGULUAZXJBEUAZXRMNPBGEHXQWKXQUOZXLJURUSZXIXTADUAZXSLMOACDGWJXQXKYBIU
+      RUSZWJXQWKBAUTUQXGQRSUKWJWJWMUKUAZWNWJUAZWQWJUAZVAZWSAUCZBUCZWMWNAUCZBUCZ
+      XBUGZWQAUCZBUCZXEUGZWTXFYIYKWMYLGUFUCZUGYOGUHUCZUGZBUCZYQYIYJYTBXIXTYDVAY
+      IYJYTUIXIXTYDLMOVBWMWNWQWOYRACWRYSDGWJXQXKYBXMYSUOZXOYRUOZIVCVDVEYFYFYGYL
+      XQUAZYHYOXQUAZUUAYQUIZYFVFWJXQWNAYEVGWJXQWQAYEVGXTXJYAVAYFUUDUUEVAUUFXTXJ
+      YAMNPVBWMYLYOYRXBBGYSXEEHXQWKYBXLUUBXNUUCXPJVCVDVHVIYIWSWJUAZWTYKUIZYFYGY
+      HUUGYFYGUMWPWJUAZYHUUGXIYFYGUUILWMWNWOCWJXKXOVJVKXIUUIYHUUGLWPWQCWRWJXKXM
+      VLVKVMVNBVOZXSUUGUUHXRUUJYCXQWKBVPVQZYEWJXQWSBAVRVSVTYIXCYNXDYPXEYIXAYMWM
+      XBYGYFXAYMUIZYHUUJXSYGUULUUKYEWJXQWNBAVRVSWAWBYHYFXDYPUIZYGUUJXSYHUUMUUKY
+      EWJXQWQBAVRVSWCWDWEWFWG $.
+      $( [19-Nov-2013] $) $( [12-Jan-2008] $)
   $}
 
   ${
@@ -245,14 +239,14 @@ $)
     $( Addition property of a linear operator. $)
     lnoadd $p |- ( ( ( U e. NrmCVec /\ W e. NrmCVec /\ T e. L ) /\
   ( A e. X /\ B e. X ) ) -> ( T ` ( A G B ) ) = ( ( T ` A ) H ( T ` B ) ) ) $=
-      ( cnv wcel w3a wa c1 cns cfv co cc wceq ax-1cn cba eqid lnolin mp3anr2
-      nvsid adantrl 3ad2antl1 opreq2d fveq2d wf lnof ffvelrn sylan 3ad2antl2
-      syldan 3eqtr3d ) DNOZHNOZCGOZPZAIOZBIOZQZQZARBDSTZUAZEUAZCTZACTZRBCTZHSTZ
-      UAZFUAZABEUAZCTVMVNFUAVDVERUBOVFVLVQUCUDARBVIVOCDEFGHIHUETZJVSUFZKLVIUFZV
-      OUFZMUGUHVHVKVRCVHVJBAEVAVBVGVJBUCZVCVAVFWCVEBVIDIJWAUIUJUKULUMVHVPVNVMFV
-      DVFVPVNUCZVEVDVFVNVSOZWDVDIVSCUNVFWECDGHIVSJVTMUOIVSBCUPUQVBVAWEWDVCVNVOH
-      VSVTWBUIURUSUJULUT $.
-      $( [2-Aug-2008] $) $( [7-Dec-2007] $)
+      ( cnv wcel w3a wa c1 cns cfv co cc wceq ax-1cn cba eqid lnolin mp3anr1
+      simp1 simpl nvsid syl2an opreq1d fveq2d simpl2 wf lnof ffvelrn syl11anc
+      3eqtr3d ) DNOZHNOZCGOZPZAIOZBIOZQZQZRADSTZUAZBEUAZCTZRACTZHSTZUAZBCTZFUAZ
+      ABEUAZCTVMVPFUAVDRUBOVEVFVLVQUCUDRABVIVNCDEFGHIHUETZJVSUFZKLVIUFZVNUFZMUG
+      UHVHVKVRCVHVJABEVDVAVEVJAUCVGVAVBVCUIVEVFUJZAVIDIJWAUKULUMUNVHVOVMVPFVHVB
+      VMVSOZVOVMUCVAVBVCVGUOVDIVSCUPVEWDVGCDGHIVSJVTMUQWCIVSACURULVMVNHVSVTWBUK
+      USUMUT $.
+      $( [19-Nov-2013] $) $( [7-Dec-2007] $)
   $}
 
   ${
@@ -263,15 +257,15 @@ $)
     $( Subtraction property of a linear operator. $)
     lnosub $p |- ( ( ( U e. NrmCVec /\ W e. NrmCVec /\ T e. L ) /\
   ( A e. X /\ B e. X ) ) -> ( T ` ( A M B ) ) = ( ( T ` A ) N ( T ` B ) ) ) $=
-      ( cnv wcel w3a wa c1 cneg cns cfv co cpv cc wceq ax-1cn negcli cba eqid
-      lnolin mp3anr2 nvmval 3expb fveq2d 3ad2antl1 wf lnof ffvelrn anim12i
-      anandis sylan 3ad2antl2 syldan 3eqtr4d ) DNOZHNOZCEOZPZAIOZBIOZQZQARSZBDT
-      UAZUBDUCUAZUBZCUAZACUAZVLBCUAZHTUAZUBHUCUAZUBZABFUBZCUAZVQVRGUBZVHVIVLUDO
-      VJVPWAUERUFUGAVLBVMVSCDVNVTEHIHUHUAZJWEUIZVNUIZVTUIZVMUIZVSUIZMUJUKVEVFVK
-      WCVPUEVGVEVKQWBVOCVEVIVJWBVOUEABVMDVNFIJWGWIKULUMUNUOVHVKVQWEOZVRWEOZQZWD
-      WAUEZVHIWECUPZVKWMCDEHIWEJWFMUQWOVIVJWMWOVIQWKWOVJQWLIWEACURIWEBCURUSUTVA
-      VFVEWMWNVGVFWKWLWNVQVRVSHVTGWEWFWHWJLULUMVBVCVD $.
-      $( [7-Dec-2007] $)
+      ( cnv wcel w3a wa c1 cneg cns cfv co cpv wceq cc ax-1cn negcli cba eqid
+      lnolin mp3anr1 ancom2s nvmval2 3expb 3ad2antl1 fveq2d simpl2 wf lnof
+      simpl ffvelrn syl2an simpr syl111anc 3eqtr4d ) DNOZHNOZCEOZPZAIOZBIOZQZQZ
+      RSZBDTUAZUBADUCUAZUBZCUAZVNBCUAZHTUAZUBACUAZHUCUAZUBZABFUBZCUAWAVSGUBZVIV
+      KVJVRWCUDZVIVNUEOVKVJWFRUFUGVNBAVOVTCDVPWBEHIHUHUAZJWGUIZVPUIZWBUIZVOUIZV
+      TUIZMUJUKULVMWDVQCVFVGVLWDVQUDZVHVFVJVKWMABVODVPFIJWIWKKUMUNUOUPVMVGWAWGO
+      ZVSWGOZWEWCUDVFVGVHVLUQVIIWGCURZVJWNVLCDEHIWGJWHMUSZVJVKUTIWGACVAVBVIWPVK
+      WOVLWQVJVKVCIWGBCVAVBWAVSVTHWBGWGWHWJWLLUMVDVE $.
+      $( [19-Nov-2013] $) $( [7-Dec-2007] $)
   $}
 
   ${
@@ -282,17 +276,17 @@ $)
     $( Scalar multiplication property of a linear operator. $)
     lnomul $p |- ( ( ( U e. NrmCVec /\ W e. NrmCVec /\ T e. L ) /\
        ( A e. CC /\ B e. X ) ) -> ( T ` ( A R B ) ) = ( A S ( T ` B ) ) ) $=
-      ( cnv wcel w3a cc wa cn0v cfv co cpv wceq eqid nvzcl adantr simprl
-      simprr 3jca 3ad2antl1 cba lnolin syldan nvscl 3expb nv0lid fveq2d lno0
-      opreq1d simp2 wf lnof ffvelrn sylan adantrl syl111anc syl11anc eqtrd
-      3eqtr3d ) FNOZHNOZEGOZPZAQOZBIOZRZRZFSTZABCUAZFUBTZUAZETZVRETZABETZDUAZHU
-      BTZUAZVSETZWEVMVPVRIOZVNVOPZWBWGUCVJVKVPWJVLVJVPRZWIVNVOVJWIVPFIVRJVRUDZU
-      EUFVJVNVOUGVJVNVOUHUIUJVRABCDEFVTWFGHIHUKTZJWMUDZVTUDZWFUDZKLMULUMVJVKVPW
-      BWHUCVLWKWAVSEVJVPVSIOZWAVSUCVJVNVOWQABCFIJKUNUOVSFVTIVRJWOWLUPUMUQUJVQWG
-      HSTZWEWFUAZWEVQWCWRWEWFVMWCWRUCVPVREFGHIWMWRJWNWLWRUDZMURUFUSVQVKWEWMOZWS
-      WEUCVMVKVPVJVKVLUTUFZVQVKVNWDWMOZXAXBVMVNVOUGVMVOXCVNVMIWMEVAVOXCEFGHIWMJ
-      WNMVBIWMBEVCVDVEAWDDHWMWNLUNVFWEHWFWMWRWNWPWTUPVGVHVI $.
-      $( [5-Dec-2007] $)
+      ( cnv wcel w3a cc wa co cn0v cfv cpv wceq simpl simprl simprr simpl1
+      eqid nvzcl syl cba lnolin syl13anc nvscl syl111anc nv0rid syl11anc
+      fveq2d lno0 opreq2d adantr simpl2 wf lnof ffvelrn eqtrd 3eqtr3d ) FNOZHNO
+      ZEGOZPZAQOZBIOZRZRZABCSZFTUAZFUBUAZSZEUAZABEUAZDSZVQEUAZHUBUAZSZVPEUAWBVO
+      VKVLVMVQIOZVTWEUCVKVNUDVKVLVMUEZVKVLVMUFZVOVHWFVHVIVJVNUGZFIVQJVQUHZUIUJA
+      BVQCDEFVRWDGHIHUKUAZJWKUHZVRUHZWDUHZKLMULUMVOVSVPEVOVHVPIOZVSVPUCWIVOVHVL
+      VMWOWIWGWHABCFIJKUNUOVPFVRIVQJWMWJUPUQURVOWEWBHTUAZWDSZWBVKWEWQUCVNVKWCWP
+      WBWDVQEFGHIWKWPJWLWJWPUHZMUSUTVAVOVIWBWKOZWQWBUCVHVIVJVNVBZVOVIVLWAWKOZWS
+      WTWGVOIWKEVCZVMXAVKXBVNEFGHIWKJWLMVDVAWHIWKBEVEUQAWADHWKWLLUNUOWBHWDWKWPW
+      LWNWRUPUQVFVG $.
+      $( [19-Nov-2013] $) $( [5-Dec-2007] $)
   $}
 
   ${
@@ -369,8 +363,8 @@ $)
   $}
 
   ${
-    $d n t u w y L $.  $d n t w y M $.  $d t x y z T $.  $d n t u w x y z U $.
-    $d n t u w x y z W $.  $d n t u w x y z X $.  $d n t w x y Y $.
+    $d t u w L $.  $d t w M $.  $d t x y z T $.  $d t u w x z U $.
+    $d t w x z W $.  $d t u w z X $.  $d t w x Y $.
     nmofval.1 $e |- X = ( BaseSet ` U ) $.
     nmofval.2 $e |- Y = ( BaseSet ` W ) $.
     nmofval.3 $e |- L = ( norm ` U ) $.
@@ -378,37 +372,34 @@ $)
     nmofval.6 $e |- N = ( U normOp W ) $.
     $( The operator norm function. $)
     nmofval $p |- ( ( U e. NrmCVec /\ W e. NrmCVec ) -> N =
-   { <. t , y >. | ( t : X --> Y /\ y = sup ( { x | E. z e. X
-       ( ( L ` z ) <_ 1 /\ x = ( M ` ( t ` z ) ) ) } , RR* , < ) ) } ) $=
-      ( vu vw vn cnv wcel wa cnmo co cv wf cfv c1 cle wbr wceq wrex cab cxr
-      clt csup copab cba cnm cmap cvv fvex eqeltri elmap anbi1i opabbii oprex
-      opabex2 eqeltrri fveq2 syl6eqr feq2d fveq1d breq1d anbi1d rexeqbidv
-      abbidv supeq1d eqeq2d anbi12d opabbidv wb feq3 syl anbi2d rexbidv df-nmo
-      oprabval2 syl5eq ) ETUAITUAUBHEIUCUDJKDUEZUFZBUEZCUEZFUGZUHUIUJZAUEZWMWJU
-      GZGUGZUKZUBZCJULZAUMZUNUOUPZUKZUBZDBUQZPQRSEITTQUEZURUGZRUEZURUGZWJUFZWLW
-      MXGUSUGZUGZUHUIUJZWPWQXIUSUGZUGZUKZUBZCXHULZAUMZUNUOUPZUKZUBZDBUQXFUCJXJW
-      JUFZWLWOXQUBZCJULZAUMZUNUOUPZUKZUBZDBUQWJKJUTUDZUAZXDUBZDBUQXFVAYMXEDBYLW
-      KXDKJWJKIURUGZVAMIURVBVCJEURUGZVALEURVBVCVDVEVFDBYKXCKJUTVGVHVIXGEUKZYCYJ
-      DBYPXKYDYBYIYPXHJXJWJYPXHYOJXGEURVJLVKZVLYPYAYHWLYPUNXTYGUOYPXSYFAYPXRYEC
-      XHJYQYPXNWOXQYPXMWNUHUIYPWMXLFYPXLEUSUGFXGEUSVJNVKVMVNVOVPVQVRVSVTWAXIIUK
-      ZYJXEDBYRYDWKYIXDYRXJKUKYDWKWBYRXJYNKXIIURVJMVKXJKJWJWCWDYRYHXCWLYRUNYGXB
-      UOYRYFXAAYRYEWTCJYRXQWSWOYRXPWRWPYRWQXOGYRXOIUSUGGXIIUSVJOVKVMVSWEWFVQVRV
-      SVTWAABCRQDSWGWHWI $.
-      $( [6-Nov-2007] $)
+       ( t e. ( Y ^m X ) |-> sup ( { x | E. z e. X
+         ( ( L ` z ) <_ 1 /\ x = ( M ` ( t ` z ) ) ) } , RR* , < ) ) ) $=
+      ( vu vw cnv wcel wa cnmo co cmap cv cfv c1 cle wbr wceq wrex cab cxr clt
+      csup cmpt cba cnm fveq2 syl6eqr opreq2d fveq1d breq1d anbi1d rexeqbidv
+      abbidv supeq1d mpteq12dv opreq1d eqeq2d anbi2d rexbidv df-nmo cvv oprex
+      mptexg ax-mp ovmpt2 syl5eq ) DRSHRSTGDHUAUBCJIUCUBZBUDZEUEZUFUGUHZAUDZVTC
+      UDUEZFUEZUIZTZBIUJZAUKZULUMUNZUOZOPQDHRRCQUDZUPUEZPUDZUPUEZUCUBZVTWNUQUEZ
+      UEZUFUGUHZWCWDWLUQUEZUEZUIZTZBWOUJZAUKZULUMUNZUOWKUACWMIUCUBZWBXBTZBIUJZA
+      UKZULUMUNZUOWNDUIZCWPXFXGXKXLWOIWMUCXLWODUPUEIWNDUPURKUSZUTXLULXEXJUMXLXD
+      XIAXLXCXHBWOIXMXLWSWBXBXLWRWAUFUGXLVTWQEXLWQDUQUEEWNDUQURMUSVAVBVCVDVEVFV
+      GWLHUIZCXGXKVSWJXNWMJIUCXNWMHUPUEJWLHUPURLUSVHXNULXJWIUMXNXIWHAXNXHWGBIXN
+      XBWFWBXNXAWEWCXNWDWTFXNWTHUQUEFWLHUQURNUSVAVIVJVKVEVFVGABQPCVLVSVMSWKVMSJ
+      IUCVNCVSWJVMVOVPVQVR $.
+      $( [16-Nov-2013] $) $( [6-Nov-2007] $)
 
     $( The operator norm function. $)
     nmoval $p |- ( ( U e. NrmCVec /\ W e. NrmCVec /\ T : X --> Y ) ->
-  ( N ` T ) = sup ( { x | E. z e. X
-       ( ( L ` z ) <_ 1 /\ x = ( M ` ( T ` z ) ) ) } , RR* , < ) ) $=
-      ( vt vy cnv wcel wf w3a cfv cv c1 cle wbr wceq wa wrex cab cxr clt csup
-      copab nmofval fveq1d 3adant3 xrltso supex cba cvv fvex eqeltri fveq1
-      fveq2d eqeq2d anbi2d rexbidv abbidv supeq1d eqid fvopabf4 3ad2ant3 eqtrd
-      ) DRSZHRSZIJCTZUACGUBZCIJPUCZTQUCBUCZEUBUDUEUFZAUCZVTVSUBZFUBZUGZUHZBIUIZ
-      AUJZUKULUMZUGUHPQUNZUBZWAWBVTCUBZFUBZUGZUHZBIUIZAUJZUKULUMZVOVPVRWKUGVQVO
-      VPUHCGWJAQBPDEFGHIJKLMNOUOUPUQVQVOWKWRUGVPPQCWIWRIJWJUKWQULURUSIDUTUBVAKD
-      UTVBVCJHUTUBVALHUTVBVCVSCUGZUKWHWQULWSWGWPAWSWFWOBIWSWEWNWAWSWDWMWBWSWCWL
-      FVTVSCVDVEVFVGVHVIVJWJVKVLVMVN $.
-      $( [27-Nov-2007] $)
+      ( N ` T ) = sup ( { x | E. z e. X
+        ( ( L ` z ) <_ 1 /\ x = ( M ` ( T ` z ) ) ) } , RR* , < ) ) $=
+      ( vt cnv wcel wf cfv cv c1 cle wbr wceq wa wrex cab cxr clt csup cmap co
+      cba cvv fvex eqeltri elmap cmpt nmofval fveq1d fveq1 fveq2d eqeq2d
+      anbi2d rexbidv abbidv supeq1d eqid xrltso supex fvmpt sylan9eq sylan2br
+      3impa ) DQRZHQRZIJCSZCGTZBUAZETUBUCUDZAUAZVTCTZFTZUEZUFZBIUGZAUHZUIUJUKZU
+      EZVRVPVQUFZCJIULUMZRZWJJICJHUNTUOLHUNUPUQIDUNTUOKDUNUPUQURWKWMVSCPWLWAWBV
+      TPUAZTZFTZUEZUFZBIUGZAUHZUIUJUKZUSZTWIWKCGXBABPDEFGHIJKLMNOUTVAPCXAWIWLXB
+      WNCUEZUIWTWHUJXCWSWGAXCWRWFBIXCWQWEWAXCWPWDWBXCWOWCFVTWNCVBVCVDVEVFVGVHXB
+      VIUIWHUJVJVKVLVMVNVO $.
+      $( [16-Nov-2013] $) $( [27-Nov-2007] $)
   $}
 
   ${
@@ -682,17 +673,15 @@ $)
     bloval.5 $e |- B = ( U BLnOp W ) $.
     $( The class of bounded linear operators between two normed complex vector
        spaces. $)
-    bloval $p |- ( ( U e. NrmCVec /\ W e. NrmCVec ) -> B =
-          { t e. L | ( N ` t ) < +oo } ) $=
-      ( vu vw vo cnv wcel wa cblo co cv cfv cpnf clt wbr crab cnmo clno cvv
-      oprex eqeltri rabex wceq opreq1 fveq1d breq1d rabbidv rabeq syl eqtrd
-      opreq2 syl6eqr df-blo oprabval2 syl5eq ) CMNFMNOBCFPQARZESZTUAUBZADUCZIJK
-      LCFMMVCJRZKRZUDQZSZTUAUBZAVGVHUEQZUCZVFPVCCVHUDQZSZTUAUBZACVHUEQZUCZVEADD
-      CFUEQZUFHCFUEUGUHUIVGCUJZVMVPAVLUCZVRVTVKVPAVLVTVJVOTUAVTVCVIVNVGCVHUDUKU
-      LUMUNVTVLVQUJWAVRUJVGCVHUEUKVPAVLVQUOUPUQVHFUJZVRVPADUCZVFWBVQDUJVRWCUJWB
-      VQVSDVHFCUEURHUSVPAVQDUOUPWBVPVEADWBVOVDTUAWBVCVNEWBVNCFUDQEVHFCUDURGUSUL
-      UMUNUQKJALUTVAVB $.
-      $( [6-Nov-2007] $)
+    bloval $p |- ( ( U e. NrmCVec /\ W e. NrmCVec ) ->
+                   B = { t e. L | ( N ` t ) < +oo } ) $=
+      ( vu vw cnv wcel wa cblo co cv cfv cpnf clt wbr crab cnmo clno wceq
+      opreq1 fveq1d breq1d rabeqbidv opreq2 syl6eqr df-blo cvv oprex eqeltri
+      rabex ovmpt2 syl5eq ) CLMFLMNBCFOPAQZERZSTUAZADUBZIJKCFLLUSJQZKQZUCPZRZST
+      UAZAVCVDUDPZUBVBOUSCVDUCPZRZSTUAZACVDUDPZUBVCCUEZVGVKAVHVLVCCVDUDUFVMVFVJ
+      STVMUSVEVIVCCVDUCUFUGUHUIVDFUEZVKVAAVLDVNVLCFUDPZDVDFCUDUJHUKVNVJUTSTVNUS
+      VIEVNVICFUCPEVDFCUCUJGUKUGUHUIKJAULVAADDVOUMHCFUDUNUOUPUQUR $.
+      $( [16-Nov-2013] $) $( [6-Nov-2007] $)
 
     $( The predicate "is a bounded linear operator." $)
     isblo $p |- ( ( U e. NrmCVec /\ W e. NrmCVec ) -> ( T e. B <->
@@ -750,18 +739,17 @@ $)
   $}
 
   ${
-    $d o u w U $.  $d o u w W $.  $d o u w X $.  $d o w Z $.
+    $d u w U $.  $d w W $.  $d u w X $.  $d w Z $.
     0oval.1 $e |- X = ( BaseSet ` U ) $.
     0oval.6 $e |- Z = ( 0vec ` W ) $.
     0oval.0 $e |- O = ( U 0op W ) $.
     $( The zero operator between two normed complex vector spaces. $)
     0ofval $p |- ( ( U e. NrmCVec /\ W e. NrmCVec ) -> O = ( X X. { Z } ) ) $=
-      ( vu vw vo cnv wcel wa c0o co csn cxp cv cba cfv cn0v cvv fvex eqeltri
-      snex xpex wceq fveq2 syl6eqr xpeq1 syl sneqd xpeq2 df-0o oprabval2
-      syl5eq ) ALMCLMNBACOPDEQZRZHIJKACLLISZTUAZJSZUBUAZQZRZUSODVDRZDURDATUAZUC
-      FATUDUEEUFUGUTAUHZVADUHVEVFUHVHVAVGDUTATUIFUJVADVDUKULVBCUHZVDURUHVFUSUHV
-      IVCEVIVCCUBUAEVBCUBUIGUJUMVDURDUNULJIKUOUPUQ $.
-      $( [28-Nov-2007] $)
+      ( vu vw cnv wcel wa c0o co csn cxp cv cba cfv cn0v wceq fveq2 syl6eqr
+      xpeq1d sneqd xpeq2d df-0o cvv fvex eqeltri snex xpex ovmpt2 syl5eq ) AKLC
+      KLMBACNODEPZQZHIJACKKIRZSTZJRZUATZPZQUQNDVBQURAUBZUSDVBVCUSASTZDURASUCFUD
+      UEUTCUBZVBUPDVEVAEVEVACUATEUTCUAUCGUDUFUGJIUHDUPDVDUIFASUJUKEULUMUNUO $.
+      $( [16-Nov-2013] $) $( [28-Nov-2007] $)
 
     $( Value of the zero operator. $)
     0oval $p |- ( ( U e. NrmCVec /\ W e. NrmCVec /\ A e. X ) ->
@@ -792,20 +780,19 @@ $)
     0lno.7 $e |- L = ( U LnOp W ) $.
     $( The zero operator is linear. $)
     0lno $p |- ( ( U e. NrmCVec /\ W e. NrmCVec ) -> Z e. L ) $=
-      ( vx vy vz cnv wcel wa cba cfv wf cv cns co cpv wceq wral cc eqid islno
-      0oo cn0v nvzcl nv0rid mpdan adantl ad2antrr 0oval 3expa adantr adantrl
-      opreq2d nvsz ad2ant2lr eqtrd adantlr opreq12d nvscl 3expb nvgcl syldan
-      anasss anassrs 3eqtr4rd ex r19.21aivv r19.21aiva mpbir2and ) AJKZCJKZLZDB
-      KAMNZCMNZDOGPZHPZIPZAQNZRZASNZRZDNZVRDNZVSVTDNZCQNZRZCSNZRZTZIVPUAHUBUAZG
-      VPUAGHIWAWHDAWCWJBCVPVQVPUCZVQUCZWCUCZWJUCZWAUCZWHUCZFUDACVPVQDWNWOEUEVOW
-      MGVPVOVRVPKZLZWLHIUBVPXAVSUBKZVTVPKZLZWLXAXDLZCUFNZXFWJRZXFWKWEVOXGXFTZWT
-      XDVNXHVMVNXFVQKXHCVQXFWOXFUCZUGXFCWJVQXFWOWQXIUHUIUJUKXEWFXFWIXFWJXAWFXFT
-      ZXDVMVNWTXJVRADCVPXFWNXIEULUMUNVOXDWIXFTWTVOXDLZWIVSXFWHRZXFXKWGXFVSWHVOX
-      CWGXFTZXBVMVNXCXMVTADCVPXFWNXIEULUMUOUPVNXBXLXFTVMXCVSWHCXFWSXIUQURUSUTVA
-      VOWTXDWEXFTZVOWTXDLZWDVPKZXNVMXOXPVNVMWTXDXPVMWTLXDWBVPKZXPVMXDXQWTVMXBXC
-      XQVSVTWAAVPWNWRVBVCUTVMWTXQXPVRWBAWCVPWNWPVDUMVEVFUTVMVNXPXNWDADCVPXFWNXI
-      EULUMVEVGVHVIVJVKVL $.
-      $( [28-Nov-2007] $)
+      ( vx vy vz cnv wcel wa cba cfv wf cv cns co cpv wceq wral cc eqid 0oo
+      cn0v simpllr simplr nvsz syl11anc opreq1d nvzcl syl nv0rid eqtr2d
+      simplll simprl nvscl syl111anc simprr nvgcl 0oval opreq2d opreq12d
+      3eqtr4d r19.21aivva r19.21aiva jca islno mpbird ) AJKZCJKZLZDBKAMNZCMNZDO
+      ZGPZHPZAQNZRZIPZASNZRZDNZVPVQDNZCQNZRZVTDNZCSNZRZTZIVMUAHVMUAZGUBUAZLVLVO
+      WLACVMVNDVMUCZVNUCZEUDVLWKGUBVLVPUBKZLZWJHIVMVMWPVQVMKZVTVMKZLZLZCUENZVPX
+      AWERZXAWHRZWCWIWTXCXAXAWHRZXAWTXBXAXAWHWTVKWOXBXATVJVKWOWSUFZVLWOWSUGZVPW
+      ECXAWEUCZXAUCZUHUIUJWTVKXAVNKZXDXATXEWTVKXIXECVNXAWNXHUKULXACWHVNXAWNWHUC
+      ZXHUMUIUNWTVJVKWBVMKZWCXATVJVKWOWSUOZXEWTVJVSVMKZWRXKXLWTVJWOWQXMXLXFWPWQ
+      WRUPZVPVQVRAVMWMVRUCZUQURWPWQWRUSZVSVTAWAVMWMWAUCZUTURWBADCVMXAWMXHEVAURW
+      TWFXBWGXAWHWTWDXAVPWEWTVJVKWQWDXATXLXEXNVQADCVMXAWMXHEVAURVBWTVJVKWRWGXAT
+      XLXEXPVTADCVMXAWMXHEVAURVCVDVEVFVGGHIVRWEDAWAWHBCVMVNWMWNXQXJXOXGFVHVI $.
+      $( [19-Nov-2013] $) $( [28-Nov-2007] $)
   $}
 
   ${
@@ -1279,8 +1266,8 @@ $)
   $}
 
   ${
-    $d a u w P $.  $d a w Q $.  $d a s t u w x y U $.  $d a s t u w x y W $.
-    $d a s t u w x X $.  $d a s t w y Y $.
+    $d s t u w x y U $.  $d s t w x y W $.  $d s t u w x X $.  $d s t w y Y $.
+    $d u w P $.  $d w Q $.
     ajfval.1 $e |- X = ( BaseSet ` U ) $.
     ajfval.2 $e |- Y = ( BaseSet ` W ) $.
     ajfval.3 $e |- P = ( .i ` U ) $.
@@ -1290,21 +1277,21 @@ $)
     ajfval $p |- ( ( U e. NrmCVec /\ W e. NrmCVec ) -> A =
      { <. t , s >. | ( t : X --> Y /\ s : Y --> X /\ A. x e. X A. y e. Y
     ( ( t ` x ) Q y ) = ( x P ( s ` y ) ) ) } ) $=
-      ( vu vw va cnv wcel wa caj co cv wf cfv wceq wral w3a copab cba cip cmap
-      cxp cvv df-xp fvex eqeltri elmap anbi12i opabbii eqtr2i oprex xpex
-      3simpa ssopab2i ssexi fveq2 syl6eqr feq2d wb feq3 syl opreqd eqeq2d
-      ralbidv raleqbidv 3anbi123d opabbidv eqeq1d df-aj oprabval2 syl5eq ) GTUA
-      HTUAUBDGHUCUDIJCUEZUFZJIKUEZUFZAUEZWEUGZBUEZFUDZWIWKWGUGZEUDZUHZBJUIZAIUI
-      ZUJZCKUKZPQRSGHTTQUEZULUGZRUEZULUGZWEUFZXCXAWGUFZWJWKXBUMUGZUDZWIWMWTUMUG
-      ZUDZUHZBXCUIZAXAUIZUJZCKUKWSUCIXCWEUFZXCIWGUFZXGWNUHZBXCUIZAIUIZUJZCKUKWS
-      WFWHUBZCKUKZYAJIUNUDZIJUNUDZUOZUPYDWEYBUAZWGYCUAZUBZCKUKYACKYBYCUQYGXTCKY
-      EWFYFWHJIWEJHULUGZUPMHULURUSZIGULUGZUPLGULURUSZUTIJWGYKYIUTVAVBVCYBYCJIUN
-      VDIJUNVDVEUSWRXTCKWFWHWQVFVGVHWTGUHZXMXSCKYLXDXNXEXOXLXRYLXAIXCWEYLXAYJIW
-      TGULVILVJZVKYLXAIUHXEXOVLYMXAIXCWGVMVNYLXKXQAXAIYMYLXJXPBXCYLXIWNXGYLXHEW
-      IWMYLXHGUMUGEWTGUMVINVJVOVPVQVRVSVTXBHUHZXSWRCKYNXNWFXOWHXRWQYNXCJUHXNWFV
-      LYNXCYHJXBHULVIMVJZXCJIWEVMVNYNXCJIWGYOVKYNXQWPAIYNXPWOBXCJYOYNXGWLWNYNXF
-      FWJWKYNXFHUMUGFXBHUMVIOVJVOWAVRVQVSVTABRQCKSWBWCWD $.
-      $( [25-Jan-2008] $)
+      ( vu vw cnv wcel wa caj co cv wf cfv wceq wral w3a copab cba cip fveq2
+      syl6eqr feq2d eqidd feq23d opreqd eqeq2d ralbidv raleqbidv 3anbi123d
+      opabbidv eqeq1d df-aj cmap cxp oprex xpex cvv fvex eqeltri elmap anbi12i
+      biimpri 3adant3 ssopab2i df-xp sseqtr4i ssexi ovmpt2 syl5eq ) GSTHSTUADGH
+      UBUCIJCUDZUEZJIKUDZUEZAUDZWCUFZBUDZFUCZWGWIWEUFZEUCZUGZBJUHZAIUHZUIZCKUJZ
+      PQRGHSSQUDZUKUFZRUDZUKUFZWCUEZXAWSWEUEZWHWIWTULUFZUCZWGWKWRULUFZUCZUGZBXA
+      UHZAWSUHZUIZCKUJWQUBIXAWCUEZXAIWEUEZXEWLUGZBXAUHZAIUHZUIZCKUJWRGUGZXKXQCK
+      XRXBXLXCXMXJXPXRWSIXAWCXRWSGUKUFZIWRGUKUMLUNZUOXRXAWSXAIWEXRXAUPXTUQXRXIX
+      OAWSIXTXRXHXNBXAXRXGWLXEXRXFEWGWKXRXFGULUFEWRGULUMNUNURUSUTVAVBVCWTHUGZXQ
+      WPCKYAXLWDXMWFXPWOYAIXAIJWCYAIUPYAXAHUKUFZJWTHUKUMMUNZUQYAXAJIWEYCUOYAXOW
+      NAIYAXNWMBXAJYCYAXEWJWLYAXDFWHWIYAXDHULUFFWTHULUMOUNURVDVAUTVBVCABRQCKVEW
+      QJIVFUCZIJVFUCZVGZYDYEJIVFVHIJVFVHVIWQWCYDTZWEYETZUAZCKUJYFWPYICKWDWFYIWO
+      YIWDWFUAYGWDYHWFJIWCJYBVJMHUKVKVLZIXSVJLGUKVKVLZVMIJWEYKYJVMVNVOVPVQCKYDY
+      EVRVSVTWAWB $.
+      $( [16-Nov-2013] $) $( [25-Jan-2008] $)
   $}
 
   ${
@@ -1314,13 +1301,12 @@ $)
     $( The set of Hermitian (self-adjoint) operators on a normed complex vector
        space. $)
     hmoval $p |- ( U e. NrmCVec -> H = { t e. dom A | ( A ` t ) = t } ) $=
-      ( vu vo cnv wcel chmo cfv cv wceq cdm crab caj co opreq12 anidms syl6eqr
-      dmeqd rabeq syl fveq1d eqeq1d rabbidv eqtrd df-hmo cvv oprex eqeltri
-      dmex rabex fvopab4 syl5eq ) CIJDCKLAMZBLZUQNZABOZPZEGHCUQGMZVBQRZLZUQNZAV
-      COZPZVAIKVBCNZVGVEAUTPZVAVHVFUTNVGVINVHVCBVHVCCCQRZBVHVCVJNVBCVBCQSTFUAZU
-      BVEAVFUTUCUDVHVEUSAUTVHVDURUQVHUQVCBVKUEUFUGUHGAHUIUSAUTBBVJUJFCCQUKULUMU
-      NUOUP $.
-      $( [26-Jan-2008] $)
+      ( vu cnv wcel chmo cfv cv wceq cdm crab caj co opreq12 anidms syl6eqr
+      dmeqd fveq1d eqeq1d rabeqbidv df-hmo cvv oprex eqeltri dmex rabex fvmpt
+      syl5eq ) CHIDCJKALZBKZUMMZABNZOZEGCUMGLZURPQZKZUMMZAUSNZOUQHJURCMZVAUOAVB
+      UPVCUSBVCUSCCPQZBVCUSVDMURCURCPRSFTZUAVCUTUNUMVCUMUSBVEUBUCUDGAUEUOAUPBBV
+      DUFFCCPUGUHUIUJUKUL $.
+      $( [16-Nov-2013] $) $( [26-Jan-2008] $)
 
     $( The predicate "is a hermitian operator." $)
     ishmo $p |- ( U e. NrmCVec ->

@@ -4,842 +4,57 @@ $(
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 $)
 
-  ${
-    $d x ph $.  $d x A $.  $d x B $.
-    $( Define the conditional operator.  Read ` if ( ph , A , B ) ` as "if
-       ` ph ` then ` A ` else ` B ` ."  See ~ iftrue and ~ iffalse for its
-       values.  In mathematical literature, this operator is rarely defined
-       formally but is implicit in informal definitions such as "let f(x)=0 if
-       x=0 and 1/x otherwise."  (In older versions of this database, this
-       operator was denoted "ded" and called the "deduction class.")
+$( ==== still needs work =================================================== $)
 
-       An important use for us is in conjunction with the weak deduction
-       theorem, which converts a hypothesis into an antecedent.  In that role,
-       ` A ` is a class variable in the hypothesis and ` B ` is a class
-       (usually a constant) that makes the hypothesis true when it is
-       substituted for ` A ` .  See ~ dedth for the main part of the weak
-       deduction theorem, ~ elimhyp to eliminate a hypothesis, and ~ keephyp to
-       keep a hypothesis.  See the Deduction Theorem link on the Metamath Proof
-       Explorer Home Page for a description of the weak deduction theorem. $)
-    df-ifNEW $a |- if ( ph , A , B ) =
-                 ( { x e. A | ph } u. { x e. B | -. ph } ) $.
-  $}
+  $(
+  @c ~~>t @.  @( Limit arrow. @)
 
-  $( Define a function that extracts the first member, or abscissa, of an
-     ordered pair.  Theorem ~ op1st proves that it does this.  Equivalent to
-     Definition 5.13 (i) of [Monk1] p. 52 (compare ~ op1sta and ~ op1stb ).
-     The notation is the same as Monk's. $)
-  df-1stNEW $a |- 1st = ( x e. _V |-> U. dom { x } ) $.
+  @( Extend class notation with a function on topological spaces whose value is
+     the convergence relation for limit sequences in the space. @)
+  clm @a class ~~>t @.
 
-  $( Define a function that extracts the second member, or ordinate, of an
-     ordered pair.  Theorem ~ op2nd proves that it does this.  Equivalent to
-     Definition 5.13 (ii) of [Monk1] p. 52 (compare ~ op2nda and ~ op2ndb ).
-     The notation is the same as Monk's. $)
-  df-2ndNEW $a |- 2nd = ( x e. _V |-> U. ran { x } ) $.
-
-  ${
-    $d x z f g F $.  $d x y f g I $.
-    $( Define a recursive definition generator on ` On ` (the class of ordinal
-       numbers) with characteristic function ` F ` and initial value ` I ` .
-       This combines functions ` F ` in ~ tfr1 and ` G ` in ~ tz7.44-1 into one
-       definition.  This rather amazing operation allows us to define, with
-       compact direct definitions, functions that are usually defined in
-       textbooks only with indirect self-referencing recursive definitions.  A
-       recursive definition requires advanced metalogic to justify - in
-       particular, eliminating a recursive definition is very difficult and
-       often not even shown in textbooks.  On the other hand, the elimination
-       of a direct definition is a matter of simple mechanical substitution.
-       The price paid is the daunting complexity of our ` rec ` operation.  But
-       once we get past this hurdle, otherwise recursive definitions become
-       relatively simple, as in for example ~ oav , from which we prove the
-       recursive textbook definition as theorems ~ oa0 , ~ oasuc , and ~ oalim
-       (with the help of theorems ~ rdg0 , ~rdgsuc , and ~ rdglim2a ).  We can
-       also restrict the ` rec ` operation to define otherwise recursive
-       functions on the natural numbers ` om ` ; see ~ fr0g and ~ frsuc .  Our
-       ` rec ` operation apparently does not appear in published literature,
-       although closely related is Definition 25.2 of [Quine] p. 177, which he
-       uses to "turn...a recursion into a genuine or direct definition" (p.
-       174).  Note that the ` if ` operations (see ~ df-if ) select cases based
-       on whether the domain of ` g ` is zero, a successor, or a limit ordinal.
-
-       An important use of this definition is in the recursive sequence
-       generator ~ df-seq1 on the natural numbers (as a subset of the complex
-       numbers), allowing us to define, with direct definitions, recursive
-       infinite sequences such as the factorial function ~ df-fac and integer
-       powers ~ df-exp .
-
-       _Note:  We introduce ` rec ` with the philosophical goal of being able_
-       _to eliminate all definitions with direct mechanical substitution and_
-       _to verify easily the soundness of definitions.  Metamath itself has no_
-       _built-in technical limitation that prevents multiple-part recursive_
-       _definitions in the traditional textbook style_. $)
-    df-rdgNEW $a |- rec ( F , I ) = U. { f | E. x e. On ( f Fn x /\
-                A. y e. x ( f ` y ) = ( ( g e. _V |-> if ( g = (/) , I ,
-                if ( Lim dom g , U. ran g , ( F ` ( g ` U. dom g ) ) ) ) )
-                ` ( f |` y ) ) ) } $.
-  $}
-
-  ${
-    $d x y z $.
-    $( Define the ordinal addition operation. $)
-    df-oaddNEW $a |- +o = ( x e. On , y e. On |->
-                ( rec ( ( z e. _V |-> suc z ) , x ) ` y ) ) $.
-
-    $( Define the ordinal multiplication operation. $)
-    df-omulNEW $a |- .o = ( x e. On , y e. On |->
-                ( rec ( ( z e. _V |-> ( z +o x ) ) , (/) ) ` y ) ) $.
-
-    $( Define the ordinal exponentiation operation. $)
-    df-oexpNEW $a |- ^o = ( x e. On , y e. On |->
-                   if ( x = (/) , ( 1o \ y ) ,
-                 ( rec ( ( z e. _V |-> ( z .o x ) ) , 1o ) ` y ) ) ) $.
-  $}
-
-  ${
-    $d x y f $.
-    $( Define the mapping operation or set exponentiation.  The set of all
-       functions that map from ` B ` to ` A ` is written ` ( A ^m B ) ` (see
-       ~ mapval ).  Many authors write ` A ` followed by ` B ` as a superscript
-       for this operation and rely on context to avoid confusion other
-       exponentiation operations (e.g.  Definition 10.42 of [TakeutiZaring]
-       p. 95).  Other authors show ` B ` as a prefixed superscript, which is
-       read " ` A ` pre ` B ` " (e.g. definition of [Enderton] p. 52).
-       Definition 8.21 of [Eisenberg] p. 125 uses the notation Map( ` B ` ,
-       ` A ` ) for our ` ( A ^m B ) ` .  The up-arrow is used by Donald Knuth
-       for iterated exponentiation (_Science_ 194, 1235-1242, 1976).  We adopt
-       the first case of his notation (simple exponentiation) and subscript it
-       with _m_ to distinguish it from other kinds of exponentiation. $)
-    df-mapNEW $a |- ^m = ( x e. _V , y e. _V |-> { f | f : y --> x } ) $.
-
-    $( Define the partial mapping operation.  A partial function from ` B ` to
-       ` A ` is a function from a subset of ` B ` to ` A ` .  The set of all
-       partial functions from ` B ` to ` A ` is written ` ( A ^pm B ) ` (see
-       ~ pmvalg ).  A notation for this operation apparently does not appear in
-       the literature.  We use ` ^pm ` to distinguish it from the less general
-       set exponentiation operation ` ^m ` ( ~ df-map ) .  See ~ mapsspm for
-       its relationship to set exponentiation. $)
-    df-pmNEW $a |- ^pm = ( x e. _V , y e. _V |->
-                    { f e. ~P ( y X. x ) | Fun f } ) $.
-  $}
-
-  ${
-    $d x y z R $.  $d x y z A $.  $d x y z B $.
-    $( Define the supremum of class ` A ` .  It is meaningful when ` R ` is a
-       relation that strictly orders ` B ` and when the supremum exists.  For
-       example, ` R ` could be 'less than', ` B ` could be the set of real
-       numbers, and ` A ` could be the set of all positive reals whose square
-       is less than 2; in this case the supremum is defined as the square root
-       of 2 per ~ sqrval .  See ~ dfsup2 for alternate definition not requiring
-       dummy variables.
-
-       We will also use this notation for "infimum" by replacing ` R ` with
-       ` ``' R ` . $)
-    df-supNEW $a |- sup ( A , B , R ) = ( iota x ( x e. B /\
-            A. y e. A -. x R y /\ A. y e. B ( y R x -> E. z e. A y R z ) ) ) $.
-  $}
-
-  ${
-    $d x y z R $.  $d x y z A $.  $d x y z B $.
-    $( Define the supremum of class ` A ` .  It is meaningful when ` R ` is a
-       relation that strictly orders ` B ` and when the supremum exists.  For
-       example, ` R ` could be 'less than', ` B ` could be the set of real
-       numbers, and ` A ` could be the set of all positive reals whose square
-       is less than 2; in this case the supremum is defined as the square root
-       of 2 per ~ sqrval .  See ~ dfsup2 for alternate definition not requiring
-       dummy variables.
-
-       We will also use this notation for "infimum" by replacing ` R ` with
-       ` ``' R ` . $)
-    df-supNEW2 $a |- sup ( A , B , R ) = ( iota_ x e. B
-          ( A. y e. A -. x R y /\ A. y e. B ( y R x -> E. z e. A y R z ) ) ) $.
-  $}
-
-  ${
-    $d x y $.
-    $( Define the cumulative hierarchy of sets function, using Takeuti and
-       Zaring's notation ( ` R1 ` ).  Starting with the empty set, this
-       function builds up layers of sets where the next layer is the power set
-       of the previous layer (and the union of previous layers when the
-       argument is a limit ordinal).  Using the Axiom of Regularity, we can
-       show that any set whatsoever belongs to one of the layers of this
-       hierarchy (see ~ tz9.13 ).  Our definition expresses Definition 9.9 of
-       [TakeutiZaring] p. 76 in a closed form, from which we derive the
-       recursive definition as theorems ~ r10 , ~ r1suc , and ~ r1lim .
-       Theorem ~ r1val1 shows a recursive definition that works for all values,
-       and theorems ~ r1val2 and ~ r1val3 show the value expressed in terms of
-       rank.  Other notations for this function are _R_ with the argument as a
-       subscript (Equation 3.1 of [BellMachover] p. 477), ` _V ` with a a
-       subscript (Definition of [Enderton] p. 202), _M_ with a subscript
-       (Definition 15.19 of [Monk1] p. 113), the capital Greek letter psi
-       (Definition of [Mendelson] p. 281), and bold-face R (Definition 2.1 of
-       [Kunen] p. 95). $)
-    df-r1NEW $a |- R1 = rec ( ( x e. _V |-> ~P x ) , (/) ) $.
-
-    $( Define the rank function.  See ~ rankval , ~ rankval2 , ~ rankval3 , or
-       ~ rankval4 its value.  The rank is a kind of "inverse" of the cumulative
-       hierarchy of sets function ` R1 ` : given a set, it returns an ordinal
-       number telling us the smallest layer of the hierarchy to which the set
-       belongs.  Based on Definition 9.14 of [TakeutiZaring] p. 79.  Theorem
-       ~ rankid illustrates the "inverse" concept.  Another nice theorem
-       showing the relationship is ~ rankr1a . $)
-    df-rankNEW $a |- rank = ( x e. _V |->
-        |^| { y e. On | x e. ( R1 ` suc y ) } ) $.
-  $}
-
-  ${
-    $d x y $.
-    $( Define the cardinal number function.  The cardinal number of a set is
-       the least ordinal number equinumerous to it.  In other words, it is the
-       "size" of the set.  Definition of [Enderton] p. 197.  See ~ cardval for
-       its value, ~ cardval2 for a simpler version of its value.  The principle
-       theorem relating cardinality to equinumerosity is ~ carden .  Our
-       notation is from Enderton.  Other textbooks often use a double bar over
-       the set to express this function. $)
-    df-cardNEW $a |- card = ( x e. _V |-> |^| { y e. On | y ~~ x } ) $.
-
-    $( Define the aleph function.  Our definition expresses Definition 12 of
-       [Suppes] p. 229 in a closed form, from which we derive the recursive
-       definition as theorems ~ aleph0 , ~ alephsuc , and ~ alephlim .  The
-       aleph function provides a one-to-one, onto mapping from the ordinal
-       numbers to the infinite cardinal numbers.  Roughly, any aleph is the
-       smallest infinite cardinal number whose size is strictly greater than
-       any aleph before it. $)
-    df-alephNEW $a |- aleph = rec ( ( x e. _V |-> |^| { y e. On |
-                   x ~< y } ) , om ) $.
-
-    $d x y z v u $.
-    $( Define the cofinality function.  Definition B of Saharon Shelah,
-       _Cardinal Arithmetic_ (1994), p. xxx (Roman numeral 30).  See ~ cfval
-       for its value and a description. $)
-    df-cfNEW $a |- cf = ( x e. On |->
-      |^| { y | E. z ( y = ( card ` z ) /\
-                ( z C_ x /\ A. v e. x E. u e. z v C_ u ) ) } ) $.
-  $}
-
-  ${
-    $d x y z $.
-    $( Define cardinal number addition.  Definition of cardinal sum in
-       [Mendelson] p. 258.  See ~ cdavali for its value and a description. $)
-    df-cdaNEW $a |- +c = ( x e. _V , y e. _V |->
-                   ( ( x X. { (/) } ) u. ( y X. { 1o } ) ) ) $.
-  $}
-
-  ${
-    $d x y $.
-    $( Define pre-addition on positive fractions.  This is a "temporary" set
-       used in the construction of complex numbers ~ df-c , and is intended to
-       be used only by the construction.  This "pre-addition" operation works
-       directly with ordered pairs of integers.  The actual positive fraction
-       addition ` +Q ` ( ~ df-plq ) works with the equivalence classes of these
-       ordered pairs determined by the equivalence relation ` ~Q `
-       ( ~ df-enq ).  (Analogous remarks apply to the other "pre-" operations
-       in the complex number construction that follows.)  From Proposition
-       9-2.3 of [Gleason] p. 117. $)
-    df-plpqNEW $a |- +pQ = ( x e. ( N. X. N. ) , y e. ( N. X. N. ) |->
-      <. ( ( ( 1st ` x ) .N ( 2nd ` y ) ) +N ( ( 1st ` y ) .N ( 2nd ` x ) ) ) ,
-           ( ( 2nd ` x ) .N ( 2nd ` y ) ) >. ) $.
-
-    $( Define pre-multiplication on positive fractions.  This is a "temporary"
-       set used in the construction of complex numbers ~ df-c , and is intended
-       to be used only by the construction.  From Proposition 9-2.4 of
-       [Gleason] p. 119. $)
-    df-mpqNEW $a |- .pQ = ( x e. ( N. X. N. ) , y e. ( N. X. N. ) |->
-         <. ( ( 1st ` x ) .N ( 1st ` y ) ) ,
-            ( ( 2nd ` x ) .N ( 2nd ` y ) ) >. ) $.
-  $}
-
-  ${
-    $d x y z w v u f $.
-    $( Define pre-addition on signed reals.  This is a "temporary" set used in
-       the construction of complex numbers ~ df-c , and is intended to be used
-       only by the construction.  From Proposition 9-4.1 of [Gleason]
-       p. 126. $)
-    df-plprNEW $a |- +pR = ( x e. ( P. X. P. ) , y e. ( P. X. P. ) |->
-         <. ( ( 1st ` x ) +P. ( 1st ` y ) ) ,
-            ( ( 2nd ` x ) +P. ( 2nd ` y ) ) >. ) $.
-
-    $( Define pre-multiplication on signed reals.  This is a "temporary" set
-       used in the construction of complex numbers ~ df-c , and is intended to
-       be used only by the construction.  From Proposition 9-4.1 of [Gleason]
-       p. 126. $)
-    df-mprNEW $a |- .pR = ( x e. ( P. X. P. ) , y e. ( P. X. P. ) |->
-       <. ( ( ( 1st ` x ) .P. ( 1st ` y ) ) +P.
-            ( ( 2nd ` x ) .P. ( 2nd ` y ) ) ) ,
-          ( ( ( 1st ` x ) .P. ( 2nd ` y ) ) +P.
-            ( ( 2nd ` x ) .P. ( 1st ` y ) ) ) >. ) $.
-
-    $( Define addition on signed reals.  This is a "temporary" set used in the
-       construction of complex numbers ~ df-c , and is intended to be used only
-       by the construction.  From Proposition 9-4.3 of [Gleason] p. 126. $)
-    df-plrNEW $a |- +R = ( x e. R. , y e. R. |->
-      ( iota z E. w E. v E. u E. f (
-         x = [ <. w , v >. ] ~R /\ y = [ <. u , f >. ] ~R /\
-               z = [ ( <. w , v >. +pR <. u , f >. ) ] ~R ) ) ) $.
-
-    $( Define multiplication on signed reals.  This is a "temporary" set used
-       in the construction of complex numbers ~ df-c , and is intended to be
-       used only by the construction.  From Proposition 9-4.3 of [Gleason]
-       p. 126. $)
-    df-mrNEW $a |- .R = ( x e. R. , y e. R. |->
-      ( iota z E. w E. v E. u E. f (
-         x = [ <. w , v >. ] ~R /\ y = [ <. u , f >. ] ~R /\
-               z = [ ( <. w , v >. .pR <. u , f >. ) ] ~R ) ) ) $.
-  $}
-
-  ${
-    $d x y $.
-    $( Define addition over complex numbers. $)
-    df-plusNEW $a |- + = ( x e. CC , y e. CC |->
-                  <. ( ( 1st ` x ) +R ( 1st ` y ) ) ,
-                     ( ( 2nd ` x ) +R ( 2nd ` y ) ) >. ) $.
-
-    $( Define multiplication over complex numbers. $)
-    df-mulNEW $a |- x. = ( x e. CC , y e. CC |->
-               <. ( ( ( 1st ` x ) .R ( 1st ` y ) ) +R
-           ( -1R .R ( ( 2nd ` x ) .R ( 2nd ` y ) ) ) ) ,
-                  ( ( ( 2nd ` x ) .R ( 1st ` y ) ) +R
-                    ( ( 1st ` x ) .R ( 2nd ` y ) ) ) >. ) $.
-  $}
-
-  ${
-    $d x y z $.
-    $( Define subtraction.  Theorem ~ subval shows it value (and describes how
-       this definition works), theorem ~ subaddi relates it to addition, and
-       theorems ~ subcli and ~ resubcli prove its closure laws. $)
-    df-subNEW $a |- - = ( x e. CC , y e. CC |->
-                   ( iota_ z e. CC ( y + z ) = x ) ) $.
-  $}
-
-  ${
-    $d x y z $.
-    $( Define division.  Theorem ~ divmuli relates it to multiplication, and
-       ~ divcli and ~ redivcli prove its closure laws. $)
-    df-divNEW $a |- / = ( x e. CC , y e. CC |->
-                   ( iota_ z e. CC ( y x. z ) = x ) ) $.
-  $}
-
-  ${
-    $d x y $.
-    $( Define the floor (greatest integer) function.  See ~ flval for its
-       value, ~ fllelt for its basic property, and ~ flcl for its closure.
-
-       The term "floor" was coined by Ken Iverson.  He also invented a
-       mathematical notation for floor, consisting of an L-shaped left bracket
-       and its reflection as a right bracket.  In APL, the left-bracket alone
-       is used, and we borrow this idea.  (Thanks to Paul Chapman for this
-       information.) $)
-    df-flNEW $a |- |_ = ( x e. RR |->
-                ( iota_ y e. ZZ ( y <_ x /\ x < ( y + 1 ) ) ) ) $.
-  $}
-
-  ${
-    $d x y z $.
-    $( Define the modulo (remainder) operation.  See ~ modval for its value. $)
-    df-modNEW $a |- mod = ( x e. RR , y e. RR+ |->
-          ( x - ( y x. ( |_ ` ( x / y ) ) ) ) ) $.
-  $}
-
-  ${
-    $d x y z w $.
-    $( Define the set of open intervals of extended reals. $)
-    df-iooNEW $a |- (,) = ( x e. RR* , y e. RR* |->
-                   { z e. RR* | ( x < z /\ z < y ) } ) $.
-
-    $( Define the set of open-below, closed-above intervals of extended
-       reals. $)
-    df-iocNEW $a |- (,] = ( x e. RR* , y e. RR* |->
-                   { z e. RR* | ( x < z /\ z <_ y ) } ) $.
-
-    $( Define the set of closed-below, open-above intervals of extended
-       reals. $)
-    df-icoNEW $a |- [,) = ( x e. RR* , y e. RR* |->
-                   { z e. RR* | ( x <_ z /\ z < y ) } ) $.
-
-    $( Define the set of closed intervals of extended reals. $)
-    df-iccNEW $a |- [,] = ( x e. RR* , y e. RR* |->
-                   { z e. RR* | ( x <_ z /\ z <_ y ) } ) $.
-  $}
-
-  ${
-    $d j k $.
-    $( Define a function whose value at ` j ` is the semi-infinite set of
-       contiguous integers starting at ` j ` , which we will also call the
-       upper integers starting at ` j ` .  Read " ` ZZ>= `` M ` " as "the set
-       of integers greater than or equal to ` M ` ."  See ~ uzval for its
-       value, ~ uzssz for its relationship to ` ZZ ` , ~ nnuz and ~ nn0uz for
-       its relationships to ` NN ` and ` NN0 ` , and ~ eluz1 and ~ eluz2 for
-       its membership relations. $)
-    df-uzNEW $a |- ZZ>= = ( j e. ZZ |-> { k e. ZZ | j <_ k } ) $.
-  $}
-
-  ${
-    $d m n k z $.
-    $( Define an operation that produces a finite set of sequential integers.
-       Read " ` M ... N ` " as "the set of integers from ` M ` to ` N `
-       inclusive."  See ~ fzval for its value and additional comments. $)
-    df-fzNEW $a |- ... = ( m e. ZZ , n e. ZZ |->
-                  { k e. ZZ | ( m <_ k /\ k <_ n ) } ) $.
-  $}
-
-  ${
-    $d x y z f g $.
-    $( Define a function shifter.  This operation offsets the value argument of
-       a function (ordinarily on a subset of ` CC ` ) and produces a new
-       function on ` CC ` .  See ~ shftval for its value. $)
-    df-shftNEW $a |- shift = ( f e. _V , x e. CC |->
-                  { <. y , z >. | ( y e. CC /\ ( y - x ) f z ) } ) $.
-  $}
-
-  ${
-    $d k x y z F $.
-    $( Define the superior limit of an infinite sequence of extended real
-       numbers.  Definition 12-4.1 of [Gleason] p. 175.  See ~ limsupval for
-       its value. $)
-    df-limsupNEW $a |- limsup = ( x e. _V |-> sup ( { z | E. k e. ZZ
-   z = sup ( ( ( x " ( ZZ>= ` k ) ) i^i RR* ) , RR* , < ) } , RR* , `' < ) ) $.
-  $}
-
-  ${
-    $d x y z w $.
-    $( Define a function whose value is the real part of a complex number.  See
-       ~ reval for its value, ~ recli for its closure, and ~ replim for its use
-       in decomposing a complex number. $)
-    df-reNEW $a |- Re = ( x e. CC |->
-                 ( iota_ y e. RR E. z e. RR x = ( y + ( _i x. z ) ) ) ) $.
-
-    $( Define a function whose value is the imaginary part of a complex
-       number.  See ~ imval for its value, ~ imcli for its closure, and
-       ~ replim for its use in decomposing a complex number. $)
-    df-imNEW $a |- Im = ( x e. CC |->
-                 ( iota_ z e. RR E. y e. RR x = ( y + ( _i x. z ) ) ) ) $.
-
-    $( Define the complex conjugate function.  See ~ cjcli for its closure and
-       ~ cjval for its value. $)
-    df-cjNEW $a |- * = ( x e. CC |->
-                      ( ( Re ` x ) - ( _i x. ( Im ` x ) ) ) ) $.
-  $}
-
-  ${
-    $d x y A $.
-    $( Define the function for the absolute value (modulus) of a complex
-       number.  See ~ abscli for its closure and ~ absval or ~ absval2i for its
-       value. $)
-    df-absNEW $a |- abs = ( x e. CC |-> ( sqr ` ( x x. ( * ` x ) ) ) ) $.
-  $}
-
-  ${
-    $d n k m $.
-    $( Define the binomial coefficient operation.  In the literature, this
-       function is often written as a column vector of the two arguments, or
-       with the arguments as subscripts before and after the letter "C".
-       ` ( N _C K ) ` is read " ` N ` choose ` K ` ."  Definition of binomial
-       coefficient in [Gleason] p. 295.  As suggested by Gleason, we define it
-       to be 0 when ` 0 <_ k <_ n ` does not hold. $)
-    df-bcNEW $a |- _C = ( n e. NN0 , k e. ZZ |-> if ( ( 0 <_ k /\ k <_ n ) ,
-                ( ( ! ` n ) / ( ( ! ` ( n - k ) ) x. ( ! ` k ) ) ) , 0 ) ) $.
-  $}
-
-  $( Define the size function, which gives the cardinality of a finite set as a
-     member of ` NN0 ` . $)
-  df-hashNEW $a |- # = ( rec ( ( x e. _V |-> ( x + 1 ) ) , 0 ) o. card ) $.
-
-  ${
-    $d a b d e f x y $.
-    $( Define the operation whose value is a class of continuous complex
-       functions. $)
-    df-cncfNEW $a |- -cn-> = ( a e. ~P CC , b e. ~P CC |->
-      { f e. ( b ^m a ) | A. x e. a A. e e. RR+ E. d e. RR+ A. y e. a
-  ( ( abs ` ( x - y ) ) < d -> ( abs ` ( ( f ` x ) - ( f ` y ) ) ) < e ) } ) $.
-  $}
-
-  ${
-    $d x k $.
-    $( Define the exponential function. $)
-    df-efNEW $a |- exp = ( x e. CC |->
-                  sum_ k e. NN0 ( ( x ^ k ) / ( ! ` k ) ) ) $.
-
-    $( Define the sine function. $)
-    df-sinNEW $a |- sin = ( x e. CC |->
- ( ( ( exp ` ( _i x. x ) ) - ( exp ` ( -u _i x. x ) ) ) / ( 2 x. _i ) ) ) $.
-
-    $( Define the cosine function. $)
-    df-cosNEW $a |- cos = ( x e. CC |->
-        ( ( ( exp ` ( _i x. x ) ) + ( exp ` ( -u _i x. x ) ) ) / 2 ) ) $.
-
-    $( Define pi = 3.14159..., which is the smallest positive number whose sine
-       is zero.  Definition of pi in [Gleason] p. 311.  (We use the inverse of
-       of less-than, " ` ``' < ` ", to turn supremum into infimum; currently we
-       don't have infimum defined separately.) $)
-    df-piNEW $a |- pi = sup ( { x e. RR+ | ( sin ` x ) = 0 } , RR , `' < ) $.
-  $}
-
-  ${
-    $d n x y z $.
-    $( Define the ` gcd ` operator. $)
-    df-gcdNEW $a |- gcd = ( x e. ZZ , y e. ZZ |-> if ( ( x = 0 /\ y = 0 ) , 0 ,
-             sup ( { n e. ZZ | ( n || x /\ n || y ) } , RR , < ) ) ) $.
-  $}
-
-  ${
-    $d x y z $.
-    $( Define the (proper) class of all topologies.  See ~ istop2g for an
-       alternate way to express finite intersection and ~ istps5OLD for a
-       standard definition in terms of both members of a topological space. $)
-    df-topNEW $a |- Top = { x | ( A. y e. ~P x U. y e. x /\
-                           A. y e. x A. z e. x ( y i^i z ) e. x ) } $.
-
-    $( Define the class of all topological spaces, each of which is an ordered
-       pair the second of which is a topology on the first.  See ~ istps5OLD
-       for a standard way to express a topological space. $)
-    df-topspOLDNEW $a |- TopSpOLD = `' ( x e. Top |-> U. x ) $.
-
-    $( Define a function that converts a basis to its corresponding topology.
-       Equivalent to the definition of a topology generated by a basis in
-       [Munkres] p. 78 (see ~ tgval2 ).  See ~ tgval3 for an alternate
-       expression for the value. $)
-    df-topgenNEW $a |- topGen = ( x e. TopBases |->
-                                 { y | y C_ U. ( x i^i ~P y ) } ) $.
-  $}
-
-  ${
-    $d r s u v z $.
-    $( Define the binary topological product, which is homeomorphic to the
-       general topological product over a two element set, but is more
-       convenient to use.  (Contributed by Jeff Madsen, 2-Sep-2009.) $)
-    df-txNEW $a |- tX = ( r e. Top , s e. Top |->
-             ( topGen ` { x | E. y e. r E. z e. s x = ( y X. z ) } ) ) $.
-  $}
-
-  ${
-    $d x y j $.
-    $( Define a function on topologies whose value is the set of closed sets of
-       the topology. $)
-    df-cldNEW $a |- Clsd = ( j e. Top |->
-                            { x e. ~P U. j | ( U. j \ x ) e. j } ) $.
-
-    $( Define a function on topologies whose value is the interior function on
-       the subsets of the base set.  See ~ ntrval . $)
-    df-ntrNEW $a |- int = ( j e. Top |->
-                        ( x e. ~P U. j |-> U. ( j i^i ~P x ) ) ) $.
-
-    $( Define a function on topologies whose value is the closure function on
-       the subsets of the base set.  See ~ clsval . $)
-    df-clsNEW $a |- cls = ( j e. Top |-> ( x e. ~P U. j |->
-                        |^| { y e. ( Clsd ` j ) | x C_ y } ) ) $.
-  $}
-
-  ${
-    $d x y j g $.
-    $( Define a function on topologies whose value is a map from a subset to
-       its neighborhoods. $)
-    df-neiNEW $a |- nei = ( j e. Top |-> ( x e. ~P U. j |->
-                   { y e. ~P U. j | E. g e. j ( x C_ g /\ g C_ y ) } ) ) $.
-  $}
-
-  ${
-    $d x y j $.
-    $( Define a function on topologies whose value is the set of limit points
-       of the subsets of the base set.  See ~ lpval . $)
-    df-lpNEW $a |- limPt = ( j e. Top |-> ( x e. ~P U. j |->
-                  { y | y e. ( ( cls ` j ) ` ( x \ { y } ) ) } ) ) $.
-  $}
-
-  ${
-    $d j k f x y g $.
-    $( Define a function on two topologies whose value is the set of continuous
-       mappings from the first topology to the second.  Based on definition of
-       continuous function in [Munkres] p. 102.  See ~ iscn for the predicate
-       form. $)
-    df-cnNEW $a |- Cn = ( j e. Top , k e. Top |->
-                  { f e. ( U. k ^m U. j ) | A. y e. k ( `' f " y ) e. j } ) $.
-
-    $( Define a function on two topologies whose value is the set of continuous
-       mappings at a specified point in the first topology.  Based on Theorem
-       7.2(g) of [Munkres] p. 107. $)
-    df-cnpNEW $a |- CnP = ( j e. Top , k e. Top |-> ( x e. U. j |->
-                  { f e. ( U. k ^m U. j ) | A. y e. k ( ( f ` x ) e. y ->
-                    E. g e. j ( x e. g /\ ( f " g ) C_ y ) ) } ) ) $.
-  $}
-
-  ${
-    $d d x y r $.
-    $( Define the (proper) class of all metric spaces. $)
-    df-msNEW $a |- MetSp = `' ( d e. Met |-> dom dom d ) $.
-
-    $( Define the metric space ball function.  See ~ blval for its value. $)
-    df-blNEW $a |- ball = ( d e. Met |-> ( x e. dom dom d , r e. RR+ |->
-                { y e. dom dom d | ( x d y ) < r } ) ) $.
-
-    $( Define a function whose value is the family of open sets of a metric
-       space.  See ~ isopn for its main property. $)
-    df-opnNEW $a |- MetOpen = ( d e. Met |-> ( topGen ` ran ( ball ` d ) ) ) $.
-  $}
-
-  ${
-    $d d f x e j k m $.
-    $( Define a function on metric spaces whose value is the convergence
+  @{
+    @d d f x e j k m @.
+    @( Define a function on topologies whose value is the convergence
        relation for the space.  Although ` f ` is typically a function from
-       upper integers to the metric space, it doesn't have to be.
-       Unfortunately, the expression after " ` w = ` " must exist to use
-       ~ fvopab4 , and we use the otherwise unnecessary conjunct
-       ` f C_ ( CC X. dom dom z ) ` to ensure that.  This could be changed to
-       the more liberal (but more complex)
-       ` f C_ ( CC X. ( dom dom z u. { (/) } ) ) ` if we want to allow for
-       functions with undefined values. $)
-    df-lmNEW $a |- ~~>m = ( d e. Met |-> { <. f , x >. |
-      ( f C_ ( CC X. dom dom d ) /\ x e. dom dom d /\ A. e e. RR+
-       E. j e. ZZ A. k e. ( ZZ>= ` j ) ( ( f ` k ) e. dom dom d /\
-           ( ( f ` k ) d x ) < e ) ) } ) $.
+       upper integers to the topological space, it doesn't have to be.
+       Unfortunately, the value of the function must exist to use
+       ~ fvmpt , and we use the otherwise unnecessary conjunct
+       ` dom f C_ CC ` to ensure that. @)
+    df-lmNEW @a |- ~~>t = ( j e. Top |-> { <. f , x >. |
+      ( f e. ( U. j ^pm CC ) /\ x e. U. j /\ A. u e. j ( x e. u ->
+        E. n e. ZZ ( f |` ( ZZ>= ` n ) ) : ( ZZ>= ` n ) --> u ) ) } ) @.
 
-    $( Define a function on metric spaces whose value is the set of Cauchy
-       sequences of the space. $)
-    df-cauNEW $a |- Cau = ( d e. Met |-> { f e. ~P ( CC X. dom dom d ) |
-         A. e e. RR+ E. j e. ZZ A. k e. ( ZZ>= ` j ) A. m e. ( ZZ>= ` j )
-            ( ( f ` k ) e. dom dom d /\ ( f ` m ) e. dom dom d /\
-             ( ( f ` k ) d ( f ` m ) ) < e ) } ) $.
+    @( Define a function on metric spaces whose value is the set of Cauchy
+       sequences of the space. @)
+    df-cauNEW @a |- Cau = ( d e. Met |-> { f e. ( dom dom d ^pm CC ) |
+       A. x e. RR+ E. k e. ZZ ( f |` ( ZZ>= ` k ) ) :
+          ( ZZ>= ` k ) --> ( ( f ` k ) ( ball ` d ) x ) } ) @.
 
-    $( Define the class of complete metrics. $)
-    df-cmetNEW $a |- CMet = { d e. Met | A. f e. ( Cau ` d )
-           E. x e. dom dom d f ( ~~>m ` d ) x } $.
+    @( Define the class of complete metrics. @)
+    df-cmetNEW @a |- CMet = { d e. Met | A. f e. ( Cau ` d )
+           E. x e. dom dom d f ( ~~>t ` ( MetOpen ` d ) ) x } @.
+  @}
+  $)
+
+  ${
+    $d x y h $.
+    $( Define the set of subspaces of a Hilbert space.  See ~ sh for its
+       membership relation.  Basically, a subspace is a subset of a Hilbert
+       space that acts like a vector space.  From Definition of [Beran]
+       p. 95. $)
+    df-shNEW $a |- SH = { h e. ~P ~H | ( 0h e. h /\
+                ( +h " ( h X. h ) ) C_ h /\ ( .h " ( CC X. h ) ) C_ h ) } $.
   $}
 
   ${
-    $d g u x y $.
-    $( Define a function that maps a group operation to the group's identity
-       element. $)
-    df-gidNEW $a |- Id = ( g e. GrpOp |-> ( iota_ u e. ran g A. x e. ran g
-                       ( ( u g x ) = x /\ ( x g u ) = x ) ) ) $.
-
-    $( Define a function that maps a group operation to the group's inverse
-       function. $)
-    df-ginvNEW $a |- inv = ( g e. GrpOp |-> ( x e. ran g |->
-                 ( iota_ y e. ran g ( y g x ) = ( Id ` g ) ) ) ) $.
-
-    $( Define a function that maps a group operation to the group's division
-       (or subtraction) operation. $)
-    df-gdivNEW $a |- /g = ( g e. GrpOp |-> ( x e. ran g , y e. ran g |->
-                        ( x g ( ( inv ` g ) ` y ) ) ) ) $.
-
-    $( Define a function that maps a group operation to the group's power
-       operation. $)
-    df-gxNEW $a |- ^g = ( g e. GrpOp |-> ( x e. ran g , y e. ZZ |->
-                      if ( y = 0 , ( Id ` g ) ,
-                      if ( 0 < y , ( seq 1 ( g , ( NN X. { x } ) ) ` y ) ,
-       ( ( inv ` g ) ` ( seq 1 ( g , ( NN X. { x } ) ) ` -u y ) ) ) ) ) ) $.
-  $}
-
-  $( Define the set of subgroups of ` g ` . $)
-  df-subgNEW $a |- SubGrpOp = ( g e. GrpOp |-> ( GrpOp i^i ~P g ) ) $.
-
-  $( Define the base set of a normed complex vector space. $)
-  df-baNEW $a |- BaseSet = ( x e. _V |-> ran ( +v ` x ) ) $.
-
-  $( Define the induced metric on a normed complex vector space. $)
-  df-imsNEW $a |- IndMet = ( u e. NrmCVec |->
-                            ( ( norm ` u ) o. ( -v ` u ) ) ) $.
-
-  ${
-    $d k u x y $.
-    $( Define a function that maps a complex normed vector space to its inner
-       product operation in case its norm satisfies the parallelogram identity
-       (otherwise the operation is still defined, but not meaningful).  Based
-       on Exercise 4(a) of [ReedSimon] p. 63 and Theorem 6.44 of [Ponnusamy]
-       p. 361. $)
-    df-ipNEW $a |- .i = ( u e. NrmCVec |-> ( x e. dom n , y e. dom n |->
-    ( sum_ k e. ( 1 ... 4 ) ( ( _i ^ k ) x. ( ( ( norm ` u ) ` ( x ( +v ` u )
-        ( ( _i ^ k ) ( .s ` u ) y ) ) ) ^ 2 ) ) / 4 ) ) ) $.
-  $}
-
-  ${
-    $d u w $.
-    $( Define the class of all subspaces of complex normed vector spaces. $)
-    df-sspNEW $a |- SubSp = ( u e. NrmCVec |->
-     { w e. NrmCVec | ( ( +v ` w ) C_ ( +v ` u ) /\ ( .s ` w ) C_ ( .s ` u )
-         /\ ( norm ` w ) C_ ( norm ` u ) ) } ) $.
-  $}
-
-  ${
-    $d t u w x y z $.
-    $( Define the class of linear operators between two normed complex vector
-       spaces.  In the literature, an operator may be a partial function, i.e.
-       the domain of an operator is not necessarily the entire vector space.
-       However, since the domain of a linear operator is a vector subspace, we
-       define it with a complete function for convenience and will use subset
-       relations to specify the partial function case. $)
-    df-lnoNEW $a |- LnOp = ( u e. NrmCVec , w e. NrmCVec |->
-    { t e. ( ( BaseSet ` w ) ^m ( BaseSet ` u ) ) |
-       A. x e. ( BaseSet ` u ) A. y e. CC A. z e. ( BaseSet ` u )
-      ( t ` ( x ( +v ` u ) ( y ( .s ` u ) z ) ) ) =
-         ( ( t ` x ) ( +v ` w ) ( y ( .s ` w ) ( t ` z ) ) ) } ) $.
-
-    $( Define the norm of an operator between two normed complex vector
-       spaces.  This definition produces an operator norm function for each
-       pair of vector spaces ` <. u , w >. ` .  Based on definition of linear
-       operator norm in [AkhiezerGlazman] p. 39, although we define it for all
-       operators for convenience.  It isn't necessarily meaningful for
-       nonlinear operators, since it doesn't take into account operator values
-       at vectors with norm greater than 1.  See Equation 2 of [Kreyszig] p. 92
-       for a definition that does (although it ignores the value at the zero
-       vector).  However, operator norms are rarely if ever used for nonlinear
-       operators. $)
-    df-nmoNEW $a |- normOp = ( u e. NrmCVec , w e. NrmCVec |->
-                ( t e. ( ( BaseSet ` w ) ^m ( BaseSet ` u ) ) |->
-    sup ( { x | E. z e. ( BaseSet ` u ) ( ( ( norm ` u ) ` z ) <_ 1 /\
-        x = ( ( norm ` w ) ` ( t ` z ) ) ) } , RR* , < ) ) ) $.
-
-    $( Define the class of bounded linear operators between two normed complex
-       vector spaces. $)
-    df-bloNEW $a |- BLnOp = ( u e. NrmCVec , w e. NrmCVec |->
-    { t e. ( u LnOp w ) | ( ( u normOp w ) ` t ) < +oo } ) $.
-
-    $( Define the zero operator between two normed complex vector spaces. $)
-    df-0oNEW $a |- 0op = ( u e. NrmCVec , w e. NrmCVec |->
-                       ( ( BaseSet ` u ) X. { ( 0vec ` w ) } ) ) $.
-  $}
-
-  ${
-    $d s t u w x y $.
-    $( Define the adjoint of an operator (if it exists).  The domain of
-       ` U adj W ` is the set of all operators from ` U ` to ` W ` that have an
-       adjoint.  Definition 3.9-1 of [Kreyszig] p. 196, although we don't
-       require that ` U ` and ` W ` be Hilbert spaces nor that the operators be
-       linear.  Although we define it for any normed vector space for
-       convenience, the definition is meaningful only for inner product
-       spaces. $)
-    df-ajNEW $a |- adj = ( u e. NrmCVec , w e. NrmCVec |->
-        { <. t , s >. | ( t : ( BaseSet ` u ) --> ( BaseSet ` w ) /\
-                          s : ( BaseSet ` w ) --> ( BaseSet ` u ) /\
-        A. x e. ( BaseSet ` u ) A. y e. ( BaseSet ` w )
-          ( ( t ` x ) ( .i ` w ) y ) = ( x ( .i ` u ) ( s ` y ) ) ) } ) $.
-
-    $( Define the set of Hermitian (self-adjoint) operators on a normed complex
-       vector space (normally a Hilbert space).  Although we define it for any
-       normed vector space for convenience, the definition is meaningful only
-       for inner product spaces. $)
-    df-hmoNEW $a |- HmOp = ( u e. NrmCVec |->
-                { t e. dom ( u adj u ) | ( ( u adj u ) ` t ) = t } ) $.
-  $}
-
-  ${
-    $d r x $.
-    $( Define the class of all infima of a weak ordering relation. $)
-    df-nfwNEW $a |- infw = ( r e. _V , x e. _V |-> ( `' r supw x ) ) $.
-  $}
-
-  ${
-    $d f g h x y $.
-    $( Define the set of group homomorphisms from ` g ` to ` h ` .
-       (Contributed by Paul Chapman, 25-Feb-2008.) $)
-    df-ghomNEW $a |- GrpHom = ( g e. GrpOp , h e. GrpOp |->
-        { f e. ( ran g ^m ran h ) | A. x e. ran g A. y e. ran g
-                     ( ( f ` x ) h ( f ` y ) ) = ( f ` ( x g y ) ) } ) $.
-
-    $( Define the set of group isomorphisms from ` g ` to ` h ` .  (Contributed
-       by Paul Chapman, 25-Feb-2008.) $)
-    df-gisoNEW $a |- GrpIso = ( g e. GrpOp , h e. GrpOp |->
-        { f e. ( g GrpHom h ) | f : ran g -1-1-onto-> ran h } ) $.
-  $}
-
-  ${
-    $d x f g h $.
-    $( Define the symmetry group on set ` x ` .  We represent the group as the
-       set of 1-1-onto functions from ` x ` to itself under function
-       composition.  (Contributed by Paul Chapman, 25-Feb-2008.) $)
-    df-symgrpNEW $a |- SymGrp = ( x e. _V |-> { <. <. f , g >. , h >. |
-      ( f : x -1-1-onto-> x /\ g : x -1-1-onto-> x /\ h = ( f o. g ) ) } ) $.
-  $}
-
-  ${
-    $d r x y $.
-    $( Define the class of all totally ordered sets.  (Contributed by FL,
-       3-Nov-2009.) $)
-    df-tosetNEW $a |- TosetRel = { r e. PosetRel |
-                  A. x e. U. U. r A. y e. U. U. r ( x r y \/ y r x ) } $.
-  $}
-
-  ${
-    $d x y z $.
-    $( Function whose value is the class of all the finite intersections of the
-       elements of ` x ` .  (Contributed by FL, 2-Sep-2008.) $)
-    df-fiNEW $a |- fi = ( x e. _V |-> { z |
-                  E. y e. ( ~P x i^i Fin ) z = |^| y } ) $.
-  $}
-
-  ${
-    $d j k f x $.
-    $( Function returning all the homeomorphisms from topology ` j ` to
-       topology ` k ` . $)
-    df-homeoNEW $a |- Homeo = ( j e. Top , k e. Top |->
-            { f | ( f : U. j -1-1-onto-> U. k /\ A. x e. j ( f " x ) e. k /\
-                    A. x e. k ( `' f " x ) e. j ) } ) $.
-  $}
-
-  ${
-    $d x y z w $.
-    $( Function returning the subspace topology induced by the topology ` y `
-       and the set ` x ` . $)
-    df-subspNEW $a |- subSp = ( x e. _V , y e. Top |->
-                            { z | E. w e. y z = ( w i^i x ) } ) $.
-  $}
-
-  ${
-    $d x y $.
-    $( Define the filter generating function.  (Contributed by Jeff Hankins,
-       1-Sep-2009.) $)
-    df-fgNEW $a |- filGen = ( x e. fBas |->
-                          { y e. ~P U. x | ( x i^i ~P y ) =/= (/) } ) $.
-  $}
-
-  ${
-    $d f x y $.
-    $( The class of all filters.  Bourbaki TG I.36 def. 1 axioms FI, FIIa,
-       FIIb, FIII. Filters are used to define the concept of limit in the
-       general case.  It's a generalization of the idea of neighborhoods.
-       Suppose you are in ` RR ` .  With neighborhoods you can express the idea
-       of a variable that tends to a specific number but you can't express the
-       idea of a variable that tends to infinity.  Filters relax the "axioms"
-       of neighborhoods and then succeed in expressing the idea of something
-       that tends to infinity.  Filters were invented by Cartan in 1937 and
-       made famous by Bourbaki in his treatise.  A notion similar to the notion
-       of filter is the concept of net invented by Moore and Smith in 1922.
-       (Contributed by FL, 20-Jul-2007.) $)
-    df-filNEW $a |- Fil = { f | ( ( (/) e/ f /\ U. f e. f ) /\
-      A. x e. f A. y e. f ( x i^i y ) e. f /\
-      A. x e. ~P U. f ( ( f i^i ~P x ) =/= (/) -> x e. f ) ) } $.
-  $}
-
-  ${
-    $d a f x l $.
-    $( Define a function (indexed by a topology ` x ` ) whose value is the
-       limits of a filter ` a ` . $)
-    df-flim1NEW $a |- fLim1 = ( x e. Top |->
-                    ( a e. { f e. Fil | U. f = U. x } |->
-                     { l e. U. x | ( ( nei ` x ) ` { l } ) C_ a } ) ) $.
-  $}
-
-  ${
-    $d f t x y z $.
-    $( Define a function that takes a filter to a neighborhood filter of the
-       range.  (Contributed by Jeff Hankins, 5-Sep-2009.) $)
-    df-filmapNEW $a |- FilMap = ( x e. _V , y e. fBas |->
-                     ( f e. ( x ^m U. y ) |-> ( filGen `
-               ( { z | E. t e. y z = ( f " t ) } u. { x } ) ) ) ) $.
-  $}
-
-  ${
-    $d f x y $.
-    $( Define a function that gives the limits of a function ` f ` in the
-       filter sense.  (Contributed by Jeff Hankins, 5-Sep-2009.) $)
-    df-flimfNEW $a |- fLimf = ( x e. Top , y e. Fil |->
-                    ( f e. ( U. x ^m U. y ) |->
-               ( ( fLim1 ` x ) ` ( ( U. x FilMap y ) ` f ) ) ) ) $.
-  $}
-
-  ${
-    $d t x y $.
-    $( Define the tail function for directed sets. $)
-    df-tailNEW $a |- tail = ( x e. DirRel |->
-                   ( y e. U. U. x |-> { t | y x t } ) ) $.
+    $d x f h $.
+    $( Define the set of closed subspaces of a Hilbert space.  A closed
+       subspace is one in which the limit of every convergent sequence in the
+       subspace belongs to the subspace.  For its membership relation, see
+       ~ closedsub .  From Definition of [Beran] p. 107.  Alternate definitions
+       are given by ~ chcmhi and ~ dfch2 . $)
+    df-chNEW $a |- CH = { h e. SH | ( ~~>v " ( h ^m NN ) ) C_ h } $.
   $}
 
   $( Define the function for the norm of a vector of Hilbert space.  See
@@ -915,152 +130,6 @@ $)
   df-chsupNEW $a |- \/H = ( x e. ~P ~P ~H |-> ( _|_ ` ( _|_ ` U. x ) ) ) $.
 
   ${
-    $d f g x $.
-    $( Define the sum of two Hilbert space operators.  Definition of [Beran]
-       p. 111.
-
-       _Note on operators_.  Unlike some authors, we use the term "operator" to
-       mean any function from ` ~H ` to ` ~H ` .  This is the definition of
-       operator in [Hughes] p. 14, the definition of operator in
-       [AkhiezerGlazman] p. 30, and the definition of operator in [Goldberg]
-       p. 10.  For Reed and Simon, an operator is linear (definition of
-       operator in [ReedSimon] p. 2).  For Halmos, an operator is bounded and
-       linear (definition of operator in [Halmos] p. 35).  For Kalmbach and
-       Beran, an operator is continuous and linear (definition of operator in
-       [Kalmbach] p. 353; definition of operator in [Beran] p. 99).  Note that
-       "bounded and linear" and "continuous and linear" are equivalent by
-       ~ lncnbd . $)
-    df-hosumNEW $a |- +op = ( f e. ( ~H ^m ~H ) , g e. ( ~H ^m ~H ) |->
-          ( x e. ~H |-> ( ( f ` x ) +h ( g ` x ) ) ) ) $.
-
-    $( Define the scalar product with a Hilbert space operator.  Definition of
-       [Beran] p. 111. $)
-    df-homulNEW $a |- .op = ( f e. CC , g e. ( ~H ^m ~H ) |->
-          ( x e. ~H |-> ( f .h ( g ` x ) ) ) ) $.
-
-    $( Define the difference of two Hilbert space operators.  Definition of
-       [Beran] p. 111. $)
-    df-hodifNEW $a |- -op = ( f e. ( ~H ^m ~H ) , g e. ( ~H ^m ~H ) |->
-          ( x e. ~H |-> ( ( f ` x ) -h ( g ` x ) ) ) ) $.
-
-    $( Define the sum of two Hilbert space functionals.  Definition of [Beran]
-       p. 111.  Note that unlike some authors, we define a functional as any
-       function from ` ~H ` to ` CC ` , not just linear (or bounded linear)
-       ones. $)
-    df-hfsumNEW $a |- +fn = ( f e. ( CC ^m ~H ) , g e. ( CC ^m ~H ) |->
-          ( x e. ~H |-> ( ( f ` x ) + ( g ` x ) ) ) ) $.
-
-    $( Define the scalar product with a Hilbert space functional.  Definition
-       of [Beran] p. 111. $)
-    df-hfmulNEW $a |- .fn = ( f e. CC , g e. ( CC ^m ~H ) |->
-          ( x e. ~H |-> ( f x. ( g ` x ) ) ) ) $.
-  $}
-
-  ${
-    $d t u v w x y z $.
-    $( Define the norm of a Hilbert space operator. $)
-    df-nmopNEW $a |- normop = ( t e. ( ~H ^m ~H ) |-> sup (
-       { x | E. z e. ~H ( ( normh ` z ) <_ 1 /\ x = ( normh ` ( t ` z ) ) ) } ,
-              RR* , < ) ) $.
-
-    $( Define the set of continuous operators on Hilbert space.  For every
-       "epsilon" ( ` y ` ) there is an "delta" ( ` z ` ) such that... $)
-    df-cnopNEW $a |- ConOp = { t e. ( ~H ^m ~H ) | A. x e. ~H A. y e. RR+
-                E. z e. RR+ A. w e. ~H ( ( normh ` ( w -h x ) ) < z ->
-                ( normh ` ( ( t ` w ) -h ( t ` x ) ) ) < y ) } $.
-
-    $( Define the set of linear operators on Hilbert space.  (See ~ df-hosum
-       for definition of operator.) $)
-    df-lnopNEW $a |- LinOp = { t e. ( ~H ^m ~H ) |
-           A. x e. CC A. y e. ~H A. z e. ~H
-       ( t ` ( ( x .h y ) +h z ) ) = ( ( x .h ( t ` y ) ) +h ( t ` z ) ) } $.
-
-    $( Define the set of bounded linear Hilbert space operators.  (See
-       ~ df-hosum for definition of operator.) $)
-    df-bdopNEW $a |- BndLinOp = { t e. LinOp | ( normop ` t ) < +oo } $.
-
-    $( Define the set of Hermitian operators on Hilbert space.  Some books call
-       these "symmetric operators" and others call them "self-adjoint
-       operators," sometimes with slightly different technical meanings. $)
-    df-hmopNEW $a |- HrmOp = { t e. ( ~H ^m ~H ) | A. x e. ~H A. y e. ~H
-                   ( x .ih ( t ` y ) ) = ( ( t ` x ) .ih y ) } $.
-
-    $( Define the norm of a Hilbert space functional. $)
-    df-nmfnNEW $a |- normfn = ( t e. ( CC ^m ~H ) |-> sup (
-         { x | E. z e. ~H ( ( normh ` z ) <_ 1 /\ x = ( abs ` ( t ` z ) ) ) } ,
-              RR* , < ) ) $.
-
-    $( Define the null space of a Hilbert space functional. $)
-    df-nlfnNEW $a |- null = ( t e. ( CC ^m ~H ) |-> ( `' t " { 0 } ) ) $.
-
-    $( Define the set of continuous functionals on Hilbert space.  For every
-       "epsilon" ( ` y ` ) there is an "delta" ( ` z ` ) such that... $)
-    df-cnfnNEW $a |- ConFn = { t e. ( CC ^m ~H ) | A. x e. ~H A. y e. RR+
-      E. z e. RR+ A. w e. ~H ( ( normh ` ( w -h x ) ) < z ->
-      ( abs ` ( ( t ` w ) - ( t ` x ) ) ) < y ) } $.
-
-    $( Define the set of linear functionals on Hilbert space. $)
-    df-lnfnNEW $a |- LinFn = { t e. ( CC ^m ~H ) |
-           A. x e. CC A. y e. ~H A. z e. ~H
-       ( t ` ( ( x .h y ) +h z ) ) = ( ( x x. ( t ` y ) ) + ( t ` z ) ) } $.
-
-    $( Define the bra of a vector used by Dirac notation.  Based on definition
-       of bra in [Prugovecki] p. 186 (p. 180 in 1971 edition).  In Dirac
-       bra-ket notation, ` <. A | B >. ` is a complex number equal to the inner
-       product ` ( B .ih A ) ` .  But physicists like to talk about the
-       individual components ` <. A | ` and ` | B >. ` , called bra and ket
-       respectively.  In order for their properties to make sense formally, we
-       define the ket ` | B >. ` as the vector ` B ` itself, and the bra
-       ` <. A | ` as a functional from ` ~H ` to ` CC ` .  We represent the
-       Dirac notation ` <. A | B >. ` by ` ( ( bra `` A ) `` B ) ` ; see
-       ~ bravalval .  The reversal of the inner product arguments not only
-       makes the bra-ket behavior consistent with physics literature (see
-       comments under ~ ax-his3 ) but is also required in order for the
-       associative law ~ kbass2 to work.
-
-       Our definition of bra and the associated outer product ~ df-kb differs
-       from, but is equivalent to, a common approach in the literature that
-       makes use of mappings to a dual space.  Our approach eliminates the need
-       to have a parallel development of this dual space and instead keeps
-       everything in Hilbert space.
-
-       _For an extensive discussion about how our notation maps to the bra-ket
-       notation in physics textbooks, see
-       ~ http://us.metamath.org/mpegif/mmnotes.txt , under the 17-May-2006
-       entry_. $)
-    df-braNEW $a |- bra = ( x e. ~H |-> ( y e. ~H |-> ( y .ih x ) ) ) $.
-
-    $( Define a commuted bra and ket juxtaposition used by Dirac notation.  In
-       Dirac notation, ` | A >. ` ` <. B | ` is an operator known as the outer
-       product of ` A ` and ` B ` , which we represent by ` ( A ketbra B ) ` .
-       Based on Equation 8.1 of [Prugovecki] p. 376.  This definition, combined
-       with definition ~ df-bra , allows any legal juxtaposition of bras and
-       kets to make sense formally and also to obey the associative law when
-       mapped back to Dirac notation. $)
-    df-kbNEW $a |- ketbra = ( x e. ~H , y e. ~H |->
-                          ( z e. ~H |-> ( ( z .ih y ) .h x ) ) ) $.
-
-    $( Define the eigenvector function.  Theorem ~ eleigveccl shows that
-       ` eigvec `` T ` , the set of eigenvectors of Hilbert space operator
-       ` T ` , are Hilbert space vectors. $)
-    df-eigvecNEW $a |- eigvec = ( t e. ( ~H ^m ~H ) |->
-         { x e. ~H | ( x =/= 0h /\ E. z e. CC ( t ` x ) = ( z .h x ) ) } ) $.
-
-    $( Define the eigenvalue function.  The range of ` eigval `` T ` is the set
-       of eigenvalues of Hilbert space operator ` T ` .  Theorem ~ eigvalcl
-       shows that ` ( eigval `` T ) `` A ` , the eigenvalue associated with
-       eigenvector ` A ` , is a complex number. $)
-    df-eigvalNEW $a |- eigval = ( t e. ( ~H ^m ~H ) |->
-                     ( x e. ( eigvec ` t ) |->
-                   ( ( ( t ` x ) .ih x ) / ( ( normh ` x ) ^ 2 ) ) ) ) $.
-
-    $( Define the spectrum of an operator.  Definition of spectrum in [Halmos]
-       p. 50. $)
-    df-specNEW $a |- Lambda = ( t e. ( ~H ^m ~H ) |->
-        { x e. CC | -. ( t -op ( x .op ( _I |` ~H ) ) ) : ~H -1-1-> ~H } ) $.
-  $}
-
-  ${
     $d f x y $.
     $( Define the set of states on a Hilbert lattice.  Definition of [Kalmbach]
        p. 266. $)
@@ -1077,6 +146,967 @@ $)
               ( f ` ( x vH y ) ) = ( ( f ` x ) +h ( f ` y ) ) ) ) ) } $.
   $}
 
-$( (End of Mario Carneiro's mathbox.) $)
+$( ==== df-plpq, etc. & df-plpr, etc. (incomplete) ========================= $)
 
+  ${
+    $d x y z A $.  $d x y z B $.  $d x y z C $.  $d x y D $.  $d x y z F $.
+    $d x y z S $.  $d u v w z R $.  $d u v w x y z $.
+    ecopoprNEW.1 $e |- R = { <. x , y >. |
+      ( ( x e. ( S X. S ) /\ y e. ( S X. S ) ) /\
+        ( ( 1st ` x ) F ( 2nd ` y ) ) = ( ( 1st ` y ) F ( 2nd ` x ) ) ) } $.
+    $( This is the first of several theorems about equivalence relations of the
+       kind used in construction of fractions and signed reals, involving
+       operations on equivalent classes of ordered pairs.  This theorem
+       expresses the relation ` R ` (specified by the hypothesis) in terms of
+       its operation ` F ` . $)
+    ecopopreq2 $p |- ( ( A e. ( S X. S ) /\ B e. ( S X. S ) ) ->
+        ( A R B <-> ( ( 1st ` A ) F ( 2nd ` B ) ) =
+                    ( ( 1st ` B ) F ( 2nd ` A ) ) ) ) $=
+      ( cxp wcel wa wbr c1st cfv c2nd co wceq cv eleq1 anbi1d fveq2 opreq1d
+      opreq2d eqeq12d anbi12d anbi2d brabg ibar bitr4d ) CFFIZJZDUJJZKZCDELUMCM
+      NZDONZGPZDMNZCONZGPZQZKZUTARZUJJZBRZUJJZKZVBMNZVDONZGPZVDMNZVBONZGPZQZKUK
+      VEKZUNVHGPZVJURGPZQZKVAABCDUJUJEVBCQZVFVNVMVQVRVCUKVEVBCUJSTVRVIVOVLVPVRV
+      GUNVHGVBCMUAUBVRVKURVJGVBCOUAUCUDUEVDDQZVNUMVQUTVSVEULUKVDDUJSUFVSVOUPVPU
+      SVSVHUOUNGVDDOUAUCVSVJUQURGVDDMUAUBUDUEHUGUMUTUHUI $.
+      $( [15-Sep-2013] $)
+
+    $( This theorem expresses the relation ` R ` (specified by the hypothesis)
+       in terms of its operation ` F ` . $)
+    ecopopreqNEW $p |- ( ( ( A e. S /\ B e. S ) /\
+                   ( C e. S /\ D e. S ) ) ->
+        ( <. A , B >. R <. C , D >. <-> ( A F D ) = ( C F B ) ) ) $=
+      ( wcel wa cop wbr c1st cfv c2nd co wceq cxp wb opelxpi ecopopreq2 syl2an
+      op1stg adantr op2ndg opreq12 ancoms eqeq12d bitrd ) CHKZDHKZLZEHKZFHKZLZL
+      ZCDMZEFMZGNZUSOPZUTQPZIRZUTOPZUSQPZIRZSZCFIRZEDIRZSUNUSHHTZKUTVKKVAVHUAUQ
+      CDHHUBEFHHUBABUSUTGHIJUCUDURVDVIVGVJUNVBCSZVCFSVDVISUQULVLUMCDHUEUFEFHHUG
+      VBCVCFIUHUDUNVFDSZVEESZVGVJSZUQCDHHUGUOVNUPEFHUEUFVNVMVOVEEVFDIUHUIUDUJUK
+      $.
+      $( [15-Sep-2013] $) $( [16-Aug-1995] $)
+
+    $( Assuming the operation ` F ` is commutative, compute the domain the
+       relation ` R ` specified by the first hypothesis. $)
+    ecopoprdmNEW $p |- dom R = ( S X. S ) $=
+      ( vz cdm cxp wss cv wcel wa c1st cfv c2nd co wceq copab opabssxp eqsstri
+      dmss ax-mp dmxpid sseqtri wbr eqid ecopopreq2 mpbiri anidms visset
+      breldm syl ssriv eqssi ) CHZDDIZUPUQUQIZHZUQCURJUPUSJCAKZUQLBKZUQLMUTNOVA
+      POEQVANOUTPOEQRZMABSURFVBABUQUQTUACURUBUCUQUDUEGUQUPGKZUQLZVCVCCUFZVCUPLV
+      DVEVDVDMVEVCNOVCPOEQZVFRVFUGABVCVCCDEFUHUIUJVCVCCGUKULUMUNUO $.
+      $( [16-Sep-2013] $) $( [27-Aug-1995] $)
+
+    ${
+      ecopoprNEW.2 $e |- B e. _V $.
+      $( Assuming the operation ` F ` is commutative, show that the relation
+         ` R ` , specified by the first hypothesis, is symmetric. $)
+      ecopoprsymNEW $p |- ( A R B -> B R A ) $=
+        ( wbr cxp wcel wa wb cv c1st cfv c2nd co wceq copab opabssxp eqsstri
+        brel ecopopreq2 ancoms eqcom syl6bb bitr4d syl ibi ) CDEJZDCEJZULCFFKZL
+        ZDUNLZMZULUMNCDUNUNEIEAOZUNLBOZUNLMURPQUSRQGSUSPQURRQGSTZMABUAUNUNKHUTA
+        BUNUNUBUCUDUQULCPQDRQGSZDPQCRQGSZTZUMABCDEFGHUEUQUMVBVATZVCUPUOUMVDNABD
+        CEFGHUEUFVBVAUGUHUIUJUK $.
+        $( [16-Sep-2013] $) $( [27-Aug-1995] $)
+    $}
+
+    ${
+      $( Assume the operation is closed. $)
+      ecopoprNEW.cl $e |- ( ( x e. S /\ y e. S ) -> ( x F y ) e. S ) $.
+      $( Assume the operation is commutative. $)
+      ecopoprNEW.com $e |- ( x F y ) = ( y F x ) $.
+      $( Assume the operation is associative. $)
+      ecopoprNEW.ass $e |- ( ( x F y ) F z ) = ( x F ( y F z ) ) $.
+      $( Assume the operation has the cancellation property. $)
+      ecopoprNEW.can $e |- ( ( x e. S /\ y e. S ) ->
+                 ( ( x F y ) = ( x F z ) -> y = z ) ) $.
+      ${
+        ecopoprNEW.3 $e |- B e. _V $.
+        ecopoprNEW.4 $e |- C e. _V $.
+        $( Assuming that operation ` F ` is closed (second hypothesis),
+           commutative (third hypothesis), associative (fourth hypothesis), and
+           has the cancellation property (fifth hypothesis), show that the
+           relation ` R ` , specified by the first hypothesis, is
+           transitive. $)
+        ecopoprtrnNEW $p |- ( ( A R B /\ B R C ) -> A R C ) $=
+          ( cxp wcel wa wbr cv c1st cfv c2nd co wceq copab opabssxp eqsstri
+          brel simpld anim12i wi w3a wb ecopopreq2 3adant3 3adant1 anbi12d
+          opreq12 syl6bi fvex caopr411 oprex caoprcom eqtri eqeq12i syl6ib
+          xp1st xp2nd caoprcl syl11anc 3ad2ant2 syl2an 3adant2 caoprcan syld
+          sylibrd 3expb mpcom ) DHHQZRZEWARZFWARZSZSDEGTZEFGTZSZDFGTZWFWBWGWEWF
+          WBWCDEWAWAGOGAUAZWARBUAZWARSWJUBUCWKUDUCIUEWKUBUCWJUDUCIUEUFZSABUGWAW
+          AQJWLABWAWAUHUIZUJUKEFWAWAGPWMUJULWBWCWDWHWIUMWBWCWDUNZWHDUBUCZFUDUCZ
+          IUEZFUBUCZDUDUCZIUEZUFZWIWNWHEUBUCZEUDUCZIUEZWQIUEZXDWTIUEZUFZXAWNWHW
+          OXCIUEZXBWPIUEZIUEZXBWSIUEZWRXCIUEZIUEZUFZXGWNWHXHXKUFZXIXLUFZSXNWNWF
+          XOWGXPWBWCWFXOUOWDABDEGHIJUPUQWCWDWGXPUOWBABEFGHIJUPURUSXHXKXIXLIUTVA
+          XJXEXMXFABCWOXCXBWPIDUBVBEUDVBZEUBVBZLMFUDVBVCXMWTXDIUEXFABCXBWSWRXCI
+          XRDUDVBFUBVBLMXQVCABWTXDIWRWSIVDZXBXCIVDLVEVFVGVHWNXDHRZWQHRZXGXAUMWC
+          WBXTWDWCXBHRXCHRXTEHHVIEHHVJABXBXCHIKVKVLVMWBWDYAWCWBWOHRWPHRYAWDDHHV
+          IFHHVJABWOWPHIKVKVNVOABCXDWQWTHIXSNVPVLVQWBWDWIXAUOWCABDFGHIJUPVOVRVS
+          VT $.
+          $( [16-Sep-2013] $) $( [11-Feb-1996] $)
+      $}
+
+      $( Assuming that operation ` F ` is closed (second hypothesis),
+         commutative (third hypothesis), associative (fourth hypothesis), and
+         has the cancellation property (fifth hypothesis), show that the
+         relation ` R ` , specified by the first hypothesis, is an equivalence
+         relation. $)
+      ecopoprerNEW $p |- Er R $=
+        ( vu vv vw cv visset ecopoprsymNEW ecopoprtrnNEW ster ) LMNDABLOZMOZDEF
+        GMPZQABCTUANODEFGHIJKUBNPRS $.
+        $( [16-Sep-2013] $) $( [16-Feb-1996] $)
+    $}
+  $}
+
+  ${
+    $d a b c d x y z A $.  $d a b c d x y z B $.  $d a b d y z C $.
+    $d x y M $.  $d a b d y z D $.  $d a b c d x y z G $.
+    $d a b c d x y z R $.  $d x y Q $.  $d a b c d x y z S $.  $d x y F $.
+    $d x K $.  $d y H $.
+    oprecNEW.1 $e |- H e. _V $.
+    oprecNEW.4 $e |- R e. _V $.
+    oprecNEW.5 $e |- Er R $.
+    $( Equivalence relation. $)
+    oprecNEW.7 $e |- R = { <. x , y >. |
+      ( ( x e. ( S X. S ) /\ y e. ( S X. S ) ) /\
+        ( ( 1st ` x ) M ( 2nd ` y ) ) = ( ( 1st ` y ) M ( 2nd ` x ) ) ) } $.
+    $( Pre-operation. $)
+    oprecNEW.10 $e |- G = ( x e. ( S X. S ) , y e. ( S X. S ) |-> J ) $.
+    $( Substitutions for pre-operation. $)
+    oprecNEW.12 $e |- ( x = <. A , B >. -> J = K ) $.
+    oprecNEW.13 $e |- ( y = <. C , D >. -> K = H ) $.
+    $( Main operation. $)
+    oprecNEW.14 $e |- F = ( x e. Q , y e. Q |->
+      ( iota z E. a E. b ( x = [ a ] R /\ y = [ b ] R /\
+               z = [ ( a G b ) ] R ) ) ) $.
+    $( Quotient class for main operation. $)
+    oprecNEW.15 $e |- Q = ( ( S X. S ) /. R ) $.
+    $( Lemma to establish compatibility of pre-operation. $)
+    oprecNEW.16 $e |- ( ( ( c e. ( S X. S ) /\ a e. ( S X. S ) ) /\
+                       ( d e. ( S X. S ) /\ b e. ( S X. S ) ) ) ->
+                ( ( c R a /\ d R b ) -> ( c G d ) R ( a G b ) ) ) $.
+    $( Express an operation on equivalence classes of ordered pairs in terms of
+       equivalence class of operations on ordered pairs.  See set.mm for
+       additional comments describing the hypotheses.  (Unnecessary distinct
+       variable restrictions were removed by David Abernethy, 4-Jun-2013.) $)
+    oprecNEW $p |- ( ( ( A e. S /\ B e. S ) /\ ( C e. S /\ D e. S ) ) ->
+                ( [ <. A , B >. ] R F [ <. C , D >. ] R ) =
+                   [ H ] R ) $=
+      ( wcel wa cop cec co cv wceq w3a wex cio ecopqsi eqeq1 3anbi1d 2exbidv
+      iotabidv 3anbi2d iotaex ovmpt2 syl2an cvv ecexg ax-mp wb df-3an wbr cxp
+      opelxpi anim12i adantr opex visset ecopoprdmNEW ereldm syl5ibcom
+      im2anan9 imp cdm syl6eleqr erthdm syl bi2anan9 biimpa wi breq1 anbi1d
+      opreq1 breq1d imbi12d imbi2d anbi2d opreq2 an4s ex vtocl2ga 3imp
+      syl111anc oprex erthi eqeq2d biimpar expl syl5bi 19.23advv eqid eceq2
+      adantl opreq12 3anbi123d cla42ev mp3an 3anbi3d mpbiri a1i impbid iota5
+      mpan2 eqtrd ) DJUKEJUKULZFJUKGJUKULZULZDEUMZIUNZFGUMZIUNZKUOZYLQUPZIUNZUQ
+      ZYNRUPZIUNZUQZCUPZYPYSLUOZIUNZUQZURZRUSQUSZCUTZMIUNZYHYLHUKYNHUKYOUUHUQYI
+      JDEIHUBUIVAJFGIHUBUIVAABYLYNHHAUPZYQUQZBUPZYTUQZUUEURZRUSQUSZCUTUUHKYRUUM
+      UUEURZRUSQUSZCUTUUJYLUQZUUOUUQCUURUUNUUPQRUURUUKYRUUMUUEUUJYLYQVBVCVDVEUU
+      LYNUQZUUQUUGCUUSUUPUUFQRUUSUUMUUAYRUUEUULYNYTVBVFVDVEUHUUGCVGVHVIYJUUHYKY
+      MLUOZIUNZUUIYJUVAVJUKZUUHUVAUQIVJUKUVBUBUUTVJIVKVLYJUUGCUVAVJYJUUGUUBUVAU
+      QZVMUVBYJUUGUVCYJUUFUVCQRUUFYRUUAULZUUEULYJUVCYRUUAUUEVNYJUVDUUEUVCYJUVDU
+      LZUVCUUEUVEUVAUUDUUBUVEUUTUUCIVOZUVAUUDUQZUVEYKJJVPZUKZYMUVHUKZULZYPUVHUK
+      ZYSUVHUKZULZYKYPIVOZYMYSIVOZULZUVFYJUVKUVDYHUVIYIUVJDEJJVQZFGJJVQZVRVSYJU
+      VDUVNYHYRUVLYIUUAUVMYHUVIYRUVLUVRYKYPUVHIDEVTZQWAZUCABIJPUDWBZWCWDYIUVJUU
+      AUVMUVSYMYSUVHIFGVTZRWAZUCUWBWCWDWEWFYJUVDUVQYHYRUVOYIUUAUVPYHYKIWGZUKYRU
+      VOVMYHYKUVHUWEUVRUWBWHYKYPIUWAUCWIWJYIYMUWEUKUUAUVPVMYIYMUVHUWEUVSUWBWHYM
+      YSIUWDUCWIWJWKWLUVKUVNUVQUVFUVNSUPZYPIVOZTUPZYSIVOZULZUWFUWHLUOZUUCIVOZWM
+      ZWMUVNUVOUWIULZYKUWHLUOZUUCIVOZWMZWMUVNUVQUVFWMZWMSTYKYMUVHUVHUWFYKUQZUWM
+      UWQUVNUWSUWJUWNUWLUWPUWSUWGUVOUWIUWFYKYPIWNWOUWSUWKUWOUUCIUWFYKUWHLWPWQWR
+      WSUWHYMUQZUWQUWRUVNUWTUWNUVQUWPUVFUWTUWIUVPUVOUWHYMYSIWNWTUWTUWOUUTUUCIUW
+      HYMYKLXAWQWRWSUWFUVHUKZUWHUVHUKZULUVNUWMUXAUVLUXBUVMUWMUJXBXCXDXEXFUUTUUC
+      IYKYMLXGYPYSLXGUCXHWJXIXJXKXLXMUVCUUGWMYJUVCUUGYRUUAUVGURZRUSQUSZYLYLUQZY
+      NYNUQZUVAUVAUQZUXDYLXNYNXNUVAXNUXCUXEUXFUXGURQRYKYMUVTUWCYPYKUQZYSYMUQZUL
+      ZYRUXEUUAUXFUVGUXGUXJYQYLYLUXHYQYLUQUXIYPYKIXOVSXIUXJYTYNYNUXIYTYNUQUXHYS
+      YMIXOXPXIUXJUUDUVAUVAUXJUUCUUTUQUUDUVAUQYPYKYSYMLXQUUCUUTIXOWJXIXRXSXTUVC
+      UUFUXCQRUVCUUEUVGYRUUAUUBUVAUUDVBYAVDYBYCYDVSYEYFYJUUTMUQZUVAUUIUQYHUVIUV
+      JUXKYIUVRUVSABYKYMUVHUVHNMLOUFUGUEUAVHVIUUTMIXOWJYGYG $.
+      $( [17-Sep-2013] $) $( [6-Aug-1995] $)
+  $}
+
+  ${
+    $d x y $.
+    $( Define pre-addition on positive fractions.  This is a "temporary" set
+       used in the construction of complex numbers ~ df-c , and is intended to
+       be used only by the construction.  This "pre-addition" operation works
+       works directly with ordered pairs of integers.  The actual positive
+       fraction addition ` +Q ` ( ~ df-plq ) works with the equivalence classes
+       of these ordered pairs determined by the equivalence relation ` ~Q `
+       ( ~ df-enq ).  (Analogous remarks apply to the other "pre-" operations
+       in the complex number construction that follows.)  From Proposition
+       9-2.3 of [Gleason] p. 117. $)
+    df-plpqNEW $a |- +pQ = ( x e. ( N. X. N. ) , y e. ( N. X. N. ) |->
+      <. ( ( ( 1st ` x ) .N ( 2nd ` y ) ) +N ( ( 1st ` y ) .N ( 2nd ` x ) ) ) ,
+           ( ( 2nd ` x ) .N ( 2nd ` y ) ) >. ) $.
+
+    $( Define pre-multiplication on positive fractions.  This is a "temporary"
+       set used in the construction of complex numbers ~ df-c , and is intended
+       to be used only by the construction.  From Proposition 9-2.4 of
+       [Gleason] p. 119. $)
+    df-mpqNEW $a |- .pQ = ( x e. ( N. X. N. ) , y e. ( N. X. N. ) |->
+         <. ( ( 1st ` x ) .N ( 1st ` y ) ) ,
+            ( ( 2nd ` x ) .N ( 2nd ` y ) ) >. ) $.
+
+    $( Define equivalence relation for positive fractions.  This is a
+       "temporary" set used in the construction of complex numbers ~ df-c , and
+       is intended to be used only by the construction.  From Proposition 9-2.1
+       of [Gleason] p. 117. $)
+    df-enqNEW $a |- ~Q = ( ( ( N. X. N. ) X. ( N. X. N. ) )
+                     \ ( <pQ u. `' <pQ ) ) $.
+  $}
+
+  ${
+    $d A x y $.  $d B x y $.  $d C x y $.  $d D x y $.
+    $( Equivalence relation for positive fractions in terms of positive
+       integers.  (Contributed by Mario Carneiro, 8-May-2013.) $)
+    ordpipq2 $p |- ( ( A e. ( N. X. N. ) /\ B e. ( N. X. N. ) ) ->
+          ( A <pQ B <-> ( ( 1st ` A ) .N ( 2nd ` B ) ) <N
+                        ( ( 1st ` B ) .N ( 2nd ` A ) ) ) ) $=
+      ( vx vy cnpi cxp wcel wa cltpq wbr c1st cfv c2nd cmi co clti cv wceq
+      eleq1 anbi1d fveq2 opreq1d opreq2d breq12d anbi12d anbi2d df-ltpq brabg
+      ibar bitr4d ) AEEFZGZBUKGZHZABIJUNAKLZBMLZNOZBKLZAMLZNOZPJZHZVACQZUKGZDQZ
+      UKGZHZVCKLZVEMLZNOZVEKLZVCMLZNOZPJZHULVFHZUOVINOZVKUSNOZPJZHVBCDABUKUKIVC
+      ARZVGVOVNVRVSVDULVFVCAUKSTVSVJVPVMVQPVSVHUOVINVCAKUAUBVSVLUSVKNVCAMUAUCUD
+      UEVEBRZVOUNVRVAVTVFUMULVEBUKSUFVTVPUQVQUTPVTVIUPUONVEBMUAUCVTVKURUSNVEBKU
+      AUBUDUECDUGUHUNVAUIUJ $.
+      $( [15-Sep-2013] $) $( [27-Aug-1995] $)
+
+    ordpipqNEW.1 $e |- A e. _V $.
+    ordpipqNEW.2 $e |- B e. _V $.
+    ordpipqNEW.3 $e |- C e. _V $.
+    ordpipqNEW.4 $e |- D e. _V $.
+    $( Ordering of positive fractions in terms of positive integers.
+       (Contributed by Mario Carneiro, 8-May-2013.) $)
+    ordpipqNEW $p |- ( <. A , B >. <pQ <. C , D >. <->
+                          ( A .N D ) <N ( C .N B ) ) $=
+      ( vx vy cop cltpq wbr cnpi cxp wcel wa cmi co clti opex cv c1st cfv c2nd
+      copab df-ltpq opabssxp eqsstri brel oprex ltrelpi dmmulpi 0npi ndmoprrcl
+      simpld simprd opelxpi syl2an ancoms jca syl ordpipq2 op1st op2nd
+      opreq12i breq12i syl6bb pm5.21nii ) ABKZCDKZLMZVJNNOZPZVKVMPZQZADRSZCBRSZ
+      TMZVJVKVMVMLCDUALIUBZVMPJUBZVMPQVTUCUDWAUEUDRSWAUCUDVTUEUDRSTMZQIJUFVMVMO
+      IJUGWBIJVMVMUHUIUJVSVQNPZVRNPZQZVPVQVRNNTCBRUKULUJWEVNVOWCANPZBNPZVNWDWCW
+      FDNPZADNRHUMUNUOZUPWDCNPZWGCBNRFUMUNUOZUQABNNURUSWCWHWJVOWDWCWFWHWIUQWDWJ
+      WGWKUPWJWHVOCDNNURUTUSVAVBVPVLVJUCUDZVKUEUDZRSZVKUCUDZVJUEUDZRSZTMVSVJVKV
+      CWNVQWQVRTWLAWMDRABEVDCDGHVEVFWOCWPBRCDGVDABEFVEVFVGVHVI $.
+      $( [15-Sep-2013] $) $( [8-May-2013] $)
+  $}
+
+  ${
+    $d x y z $.
+    $( Equivalence relation for positive fractions in terms of positive
+       integers.  This was the original definition, before the shorter ~ df-enq
+       was discovered.  (Contributed by Mario Carneiro, 8-May-2013.) $)
+    dfenq2 $p |- ~Q = { <. x , y >. |
+      ( ( x e. ( N. X. N. ) /\ y e. ( N. X. N. ) ) /\
+        ( ( 1st ` x ) .N ( 2nd ` y ) ) = ( ( 1st ` y ) .N ( 2nd ` x ) ) ) } $=
+      ( vz cnpi cxp cltpq ccnv cun cdif cv cop wceq wcel wa c1st cfv c2nd cmi
+      co wex cab ceq copab wn eldif elxp anbi1i 19.41vv clti wbr wo eleq1
+      df-br brun bitr3i syl6bb ordpipq2 wb visset brcnv syl5bb ancoms orbi12d
+      sylan9bb notbid wor ltsopi xp1st xp2nd mulclpi syl2an syl2anc jca
+      sotrieq sylancr adantl bitr4d pm5.32i anass bitri 2exbii 3bitri abbi2i
+      df-enqNEW df-opab 3eqtr4i ) DDEZWGEZFFGZHZIZCJZAJZBJZKZLZWMWGMZWNWGMZNZWM
+      OPZWNQPZRSZWNOPZWMQPZRSZLZNZNZBTATZCUAUBXGABUCXICWKWLWKMWLWHMZWLWJMZUDZNW
+      PWSNZBTATZXLNZXIWLWHWJUEXJXNXLABWLWGWGUFUGXOXMXLNZBTATXIXMXLABUHXPXHABXPX
+      MXFNXHXMXLXFXMXLXBXEUIUJZXEXBUIUJZUKZUDZXFXMXKXSWPXKWMWNFUJZWMWNWIUJZUKZW
+      SXSWPXKWOWJMZYCWLWOWJULYDWMWNWJUJYCWMWNWJUMWMWNFWIUNUOUPWSYAXQYBXRWMWNUQW
+      RWQYBXRURYBWNWMFUJWRWQNXRWMWNFAUSBUSUTWNWMUQVAVBVCVDVEWSXFXTURZWPWSDUIVFX
+      BDMZXEDMZNYEVGWSYFYGWQWTDMXADMYFWRWMDDVHWNDDVIWTXAVJVKWRXCDMXDDMYGWQWNDDV
+      HWMDDVIXCXDVJVLVMDXBXEUIVNVOVPVQVRWPWSXFVSVTWAUOWBWCWDXGABCWEWF $.
+      $( [17-Sep-2013] $) $( [27-Aug-1995] $)
+  $}
+
+  ${
+    $d x y z w v u $.
+    $( The equivalence relation for positive fractions exists. $)
+    enqexNEW $p |- ~Q e. _V $=
+      ( ceq cnpi cxp cltpq ccnv cun cdif cvv df-enqNEW wcel niex xpex difexg
+      ax-mp eqeltri ) ABBCZPCZDDEFZGZHIQHJSHJPPBBKKLZTLQRHMNO $.
+      $( [17-Sep-2013] $) $( [3-Sep-1995] $)
+  $}
+
+  ${
+    $d a x y A $.  $d a b c x y z $.
+    $( There is a unique element of ` Q. ` equivalent to each element of
+       ` N. X. N. ` .  (Contributed by Mario Carneiro, 28-Apr-2013.) $)
+    nqereuNEW $p |- ( A e. ( N. X. N. ) -> E! x e. Q. x ~Q A ) $=
+      ( vy va vz vb vc cnpi cxp wcel cv ceq wbr cnq wrex wa wceq wi wral wreu
+      c2nd cfv con0 csuc xp2nd pion suceloni 3syl fvex sucid eleq2 rcla4ev
+      sylancl imbi1d ralbidv clti wn rexnal pm4.63 wb ltpiord syl2anc anbi2d
+      syl5bb rexbidva syl5bbr w3a rcla4cva fveq2 eleq1d breq2 rexbidv imbi12d
+      rcla4cv syl 3imp visset enqer ersym ertr expcom reximdv syl5com 3expia
+      com23 imp3a r19.23adva ex com3r syl6bi com13 cmi dfenq2 ecopoprdmNEW
+      erref2 df-nq rabeq2i biimpri breq1 sylsyld com12 a1dd pm2.61d2 r19.21aiv
+      cbvralv sylib a1i tfis2 rcla4v syl5 r19.23adv mpd anbi12d 2ralbidv
+      sylan2 c1st cop co mulcompi elpqn breq2d notbid elrab2 simprbi breq1d
+      rcla4va syl2an ancoms imp wo wor ltsopi sotric mpan notnot syl6bbr
+      adantr mpbid ord mt3d opreq2d syl5eq ecopopreq2 biimpa eqtrd syl6eq
+      ad2antrr xp1st mulcanpi syl11anc opeq12d wrel relxp 1st2nd sylancr
+      ad2antlr 3eqtr4d rgen2a vtoclg reu4 sylanbrc ) BHHIZJZAKZBLMZANOZUVECKZBL
+      MZPZUVDUVGQZRZCNSANSZUVEANTUVCBUAUBZUVGJZCUCOZUVFUVCUVMUDZUCJZUVMUVPJZUVO
+      UVCUVMHJUVMUCJUVQBHHUEUVMUFUVMUGUHUVMBUAUIUJUVNUVRCUVPUCUVGUVPUVMUKULUMUV
+      CUVNUVFCUCUVGUCJZDKZUAUBZUVGJZUVDUVTLMZANOZRZDUVBSZUVCUVNUVFRZUWFUWAEKZJZ
+      UWDRZDUVBSZCEUVGUWHQZUWEUWJDUVBUWLUWBUWIUWDUVGUWHUWAUKUNUOUWKEUVGSZUWFRUV
+      SUWMFKZUAUBZUVGJZUVDUWNLMZANOZRZFUVBSUWFUWMUWSFUVBUWMUWNGKZLMZUWTUAUBZUWO
+      UPMZUQRZGUVBSZUWNUVBJZUWSRUXFUXEUQZUWMUWSUXFUXGUXAUXBUWOJZPZGUVBOZUWMUWSR
+      UXGUXDUQZGUVBOUXFUXJUXDGUVBURUXFUXKUXIGUVBUXKUXAUXCPUXFUWTUVBJZPZUXIUXAUX
+      CUSUXMUXCUXHUXAUXLUXBHJUWOHJUXCUXHUTUXFUWTHHUEUWNHHUEUXBUWOVAVBVCVDVEVFUW
+      MUWPUXJUWRUWMUWPUXJUWRRUWMUWPPZUXIUWRGUVBUXNUXLPZUXAUXHUWRUXOUXHUXAUWRUXN
+      UXLUXHUXAUWRRUXNUXLUXHVGUVDUWTLMZANOZUXAUWRUXNUXLUXHUXQUXNUWAUWOJZUWDRZDU
+      VBSZUXLUXHUXQRZRUWKUXTEUWOUVGUWHUWOQZUWJUXSDUVBUYBUWIUXRUWDUWHUWOUWAUKUNU
+      OVHUXSUYADUWTUVBUVTUWTQZUXRUXHUWDUXQUYCUWAUXBUWOUVTUWTUAVIVJUYCUWCUXPANUV
+      TUWTUVDLVKVLVMVNVOVPUXAUXPUWQANUXAUWTUWNLMZUXPUWQRUWNUWTLFVQZGVQZVRVSUXPU
+      YDUWQUVDUWTUWNLAVQZUYFUYEVRVTWAVOWBWCWDWEWFWGWHWIWJWKUXEUXFUWRUWPUXFUXEUW
+      RUXFUWNUWNLMZUXEUWNNJZUWRUWNUVBLVRACLHWLACWMWNWOUXFUXEUYIUYIUXFUXEPUXEFNU
+      VBFGWPWQWRWHUYIUYHUWRUWQUYHAUWNNUVDUWNUWNLWSULWAWTXAXBXCXDUWSUWEFDUVBUWNU
+      VTQZUWPUWBUWRUWDUYJUWOUWAUVGUWNUVTUAVIVJUYJUWQUWCANUWNUVTUVDLVKVLVMXEXFXG
+      XHUWEUWGDBUVBUVTBQZUWBUVNUWDUVFUYKUWAUVMUVGUVTBUAVIVJUYKUWCUVEANUVTBUVDLV
+      KZVLVMXIXJXKXLUWCUVGUVTLMZPZUVJRZCNSANSUVLDBUVBUYKUYOUVKACNNUYKUYNUVIUVJU
+      YKUWCUVEUYMUVHUYLUVTBUVGLVKXMUNXNUYOACNUYNUVDUVGLMZUVDNJZUVGNJZPZUVJUYMUW
+      CUVTUVGLMUYPUVGUVTLCVQZDVQZVRVSUVDUVTUVGLUYGVUAUYTVRVTXOUYSUYPUVJUYSUYPPZ
+      UVDXPUBZUVDUAUBZXQZUVGXPUBZUVGUAUBZXQZUVDUVGVUBVUCVUFVUDVUGVUBVUDVUCWLXRZ
+      VUDVUFWLXRZQZVUCVUFQZVUBVUIVUFVUDWLXRZVUJVUBVUIVUCVUGWLXRZVUMVUBVUIVUCVUD
+      WLXRVUNVUDVUCUVDUAUIZUVDXPUIXSVUBVUDVUGVUCWLVUBVUDVUGQZVUGVUDUPMZUYSUYPVU
+      QUQZUYRUYQUYPVURRZUYRUVGUVBJZUVDUWHLMZUWHUAUBZVUDUPMZUQZRZEUVBSZVUSUYQUVG
+      XTZUYQUVDUVBJZVVFUVGUWHLMZVVBVUGUPMZUQZRZEUVBSZVVFCUVDUVBNUVGUVDQZVVLVVEE
+      UVBVVNVVIVVAVVKVVDUVGUVDUWHLWSVVNVVJVVCVVNVUGVUDVVBUPUVGUVDUAVIYAYBVMUOCE
+      WPZYCYDVVEVUSEUVGUVBUWHUVGQZVVAUYPVVDVURUWHUVGUVDLVKVVPVVCVUQVVPVVBVUGVUD
+      UPUWHUVGUAVIYEYBVMYFYGYHYIVUBVUPVUQVUBVUDVUGUPMZUQZVUPVUQYJZUYSUYPVVRUYPU
+      VGUVDLMZUYSVVRUVDUVGLUYGUYTVRVSUYQVVHVVMVVTVVRRZUYRUVDXTZUYRVUTVVMVVMCNUV
+      BVVOWQYDVVLVWAEUVDUVBUWHUVDQZVVIVVTVVKVVRUWHUVDUVGLVKVWCVVJVVQVWCVVBVUDVU
+      GUPUWHUVDUAVIYEYBVMYFYGXJYIUYSVVRVVSUTZUYPUYQVUDHJZVUGHJZVWDUYRUYQVVHVWEV
+      WBUVDHHUEZVOUYRVUTVWFVVGUVGHHUEVOVWEVWFPZVVRVVSUQZUQVVSVWHVVQVWIHUPYKVWHV
+      VQVWIUTYLHVUDVUGUPYMYNYBVVSYOYPYGYQYRYSYTZUUAUUBUYSUYPVUNVUMQZUYQVVHVUTUY
+      PVWKUTUYRVWBVVGDFUVDUVGLHWLDFWMUUCYGUUDUUEVUFVUDUVGXPUIZVUOXSUUFVUBVVHVUK
+      VULUTZUYQVVHUYRUYPVWBUUGZVVHVWEVUCHJVWMVWGUVDHHUUHVUDVUCVUFVWLUUIUUJVOYRV
+      WJUUKVUBUVBUULZVVHUVDVUEQHHUUMZVWNUVDUVBUUNUUOVUBVWOVUTUVGVUHQVWPUYRVUTUY
+      QUYPVVGUUPUVGUVBUUNUUOUUQWHXJUURUUSUVEUVHACNUVDUVGBLWSUUTUVA $.
+      $( [17-Sep-2013] $) $( [28-Apr-2013] $)
+  $}
+
+  ${
+    $d A x y $.
+    $( Corrolary of ~ nqereu : the function ` /Q ` acts as the identity on
+       members of ` Q. ` .  (Contributed by Mario Carneiro, 6-May-2013.) $)
+    nqeridNEW $p |- ( A e. Q. -> ( /Q ` A ) = A ) $=
+      ( vx vy cv cerq cfv wceq cnq fveq2 id eqeq12d wfun wcel wbr cnpi cxp wf
+      nqerf ffun ax-mp ceq cin elpqn enqer cmi dfenq2 ecopoprdmNEW erref2 syl
+      wb brinxp mpancom mpbid df-erq breqi sylibr visset funbrfv mpsyl vtoclga
+      ) BDZEFZVAGZAEFZAGBAHVAAGZVBVDVAAVAAEIVEJKELZVAHMZVAVAENZVCOOPZHEQVFRVIHE
+      STVGVAVAUAVIHPUBZNZVHVGVAVAUANZVKVGVAVIMZVLVAUCZVAVIUAUDBCUAOUEBCUFUGUHUI
+      VMVGVLVKUJVNVAVAVIHUAUKULUMVAVAEVJUNUOUPVAVAEBUQURUSUT $.
+      $( [17-Sep-2013] $) $( [6-May-2013] $)
+  $}
+
+  ${
+    $d A x y $.  $d B x $.
+    $( Corrolary of ~ nqereu : if two fractions are both reduced and
+       equivalent, then they are equal.  (Contributed by Mario Carneiro,
+       6-May-2013.) $)
+    enqeqNEW $p |- ( ( A e. Q. /\ B e. Q. /\ A ~Q B ) -> A = B ) $=
+      ( vx vy cnq wcel ceq wbr w3a wa cv wmo wceq 3simpa cnpi cxp wreu elpqn
+      3ad2ant2 nqereu wrex reu5 simprbi 3syl 3simpb simp2 enqer cmi dfenq2
+      ecopoprdmNEW erref2 syl jca eleq1 breq1 anbi12d moi syl112anc ) AEFZBEFZA
+      BGHZIZUSUTJCKZEFZVCBGHZJZCLZUSVAJZUTBBGHZJZABMUSUTVANVBBOOPZFZVECEQZVGUTU
+      SVLVABRZSCBTVMVECEUAVGVECEUBUCUDUSUTVAUEVBUTVIUSUTVAUFUTUSVIVAUTVLVIVNBVK
+      GUGCDGOUHCDUIUJUKULSUMVFVHVJCABEEVCAMVDUSVEVAVCAEUNVCABGUOUPVCBMVDUTVEVIV
+      CBEUNVCBBGUOUPUQUR $.
+      $( [17-Sep-2013] $) $( [28-Apr-2013] $)
+  $}
+
+  $( The function ` /Q ` acts as a substitute for equivalence classes, and it
+     satisfies the fundamental requirement for equivalence representatives: the
+     representatives are equal iff the members are equivalent.  (Contributed by
+     Mario Carneiro, 6-May-2013.) $)
+  nqereqNEW $p |- ( ( A e. ( N. X. N. ) /\ B e. ( N. X. N. ) ) ->
+      ( A ~Q B <-> ( /Q ` A ) = ( /Q ` B ) ) ) $=
+    ( cnpi cxp wcel wa ceq wbr cerq cfv wceq w3a cnq nqercl 3ad2ant1 3ad2ant2
+    nqerrel fvex enqer wss wrel cltpq ccnv cun cdif df-enqNEW difss eqsstri
+    relxp relss mp2 errsym syl simp3 errtr syl11anc enqeq syl111anc 3expia
+    breq1 biimparc sylan syl2an expr impbid ) ACCDZEZBVFEZFABGHZAIJZBIJZKZVGVHV
+    IVLVGVHVILZVJMEZVKMEZVJVKGHZVLVGVHVNVIANOVHVGVOVIBNPVMVJAGHZAVKGHZVPVGVHVQV
+    IVGAVJGHZVQAQZAVJGAIRSGVFVFDZTWAUAGUAGWAUBUBUCUDZUEWAUFWAWBUGUHVFVFUIGWAUJU
+    KZULUMOVMVIBVKGHZVRVGVHVIUNVHVGWDVIBQZPABVKGSWCUOUPVJAVKGSWCUOUPVJVKUQURUSV
+    GVHVLVIVGVSVJBGHZVIVHVLFVTVHVKBGHZVLWFVHWDWGWEBVKGBIRSWCULUMVLWFWGVJVKBGUTV
+    AVBAVJBGSWCUOVCVDVE $.
+    $( [17-Sep-2013] $) $( [6-May-2013] $)
+
+  ${
+    $d A x y z $.  $d B x y z $.  $d C y z $.  $d D y z $.
+    $( Addition of positive fractions in terms of positive integers.
+       (Contributed by Mario Carneiro, 6-May-2013.) $)
+    addpipq2NEW $p |- ( ( A e. ( N. X. N. ) /\ B e. ( N. X. N. ) ) ->
+      ( A +pQ B ) = <. ( ( ( 1st ` A ) .N ( 2nd ` B ) ) +N
+                         ( ( 1st ` B ) .N ( 2nd ` A ) ) ) ,
+                         ( ( 2nd ` A ) .N ( 2nd ` B ) ) >. ) $=
+      ( vx vy cnpi cxp cv c1st cfv c2nd cmi co cpli cop cplpq wceq fveq2
+      opreq1d opreq2d opreq12d opeq12d df-plpqNEW opex ovmpt2 ) CDABEEFZUECGZHI
+      ZDGZJIZKLZUHHIZUFJIZKLZMLZULUIKLZNAHIZBJIZKLZBHIZAJIZKLZMLZUTUQKLZNOUPUIK
+      LZUKUTKLZMLZUTUIKLZNUFAPZUNVFUOVGVHUJVDUMVEMVHUGUPUIKUFAHQRVHULUTUKKUFAJQ
+      ZSTVHULUTUIKVIRUAUHBPZVFVBVGVCVJVDURVEVAMVJUIUQUPKUHBJQZSVJUKUSUTKUHBHQRT
+      VJUIUQUTKVKSUACDUBVBVCUCUD $.
+      $( [17-Sep-2013] $) $( [8-May-2013] $)
+
+    $( Addition of positive fractions in terms of positive integers.
+       (Contributed by Mario Carneiro, 8-May-2013.) $)
+    addpqnqNEW $p |- ( ( A e. Q. /\ B e. Q. ) ->
+        ( A +Q B ) = ( /Q ` ( A +pQ B ) ) ) $=
+      ( vx vy cnq wcel wa cop cplq cfv cplpq cerq co ccom cxp cres wceq df-plq
+      fveq1i a1i opelxpi fvres syl cnpi wfn cv c1st c2nd cmi cpli df-plpqNEW
+      opex fnoprab2a elpqn syl2an wfun wf nqerf ffun ax-mp fvco2 mp3an1
+      sylancr 3eqtrd df-opr fveq2i 3eqtr4g ) AEFZBEFZGZABHZIJZVKKJZLJZABIMABKMZ
+      LJVJVLVKLKNZEEOZPZJZVKVPJZVNVLVSQVJVKIVRRSTVJVKVQFVSVTQABEEUAVKVQVPUBUCVJ
+      KUDUDOZWAOZUEZVKWBFZVTVNQZCDWAWACUFZUGJDUFZUHJZUIMWGUGJWFUHJZUIMUJMZWIWHU
+      IMZHKCDUKWJWKULUMVHAWAFBWAFWDVIAUNBUNABWAWAUAUOLUPZWCWDWEWAELUQWLURWAELUS
+      UTWBVKLKVAVBVCVDABIVEVOVMLABKVEVFVG $.
+      $( [17-Sep-2013] $) $( [28-Aug-1995] $)
+
+    $( Multiplication of positive fractions in terms of positive integers.
+       (Contributed by Mario Carneiro, 8-May-2013.) $)
+    mulpipq2NEW $p |- ( ( A e. ( N. X. N. ) /\ B e. ( N. X. N. ) ) ->
+      ( A .pQ B ) = <. ( ( 1st ` A ) .N ( 1st ` B ) ) ,
+                       ( ( 2nd ` A ) .N ( 2nd ` B ) ) >. ) $=
+      ( vx vy cnpi cxp cv c1st cfv cmi co c2nd cop cmpq wceq fveq2 opreq1d
+      opeq12d opreq2d df-mpqNEW opex ovmpt2 ) CDABEEFZUCCGZHIZDGZHIZJKZUDLIZUFL
+      IZJKZMAHIZBHIZJKZALIZBLIZJKZMNULUGJKZUOUJJKZMUDAOZUHURUKUSUTUEULUGJUDAHPQ
+      UTUIUOUJJUDALPQRUFBOZURUNUSUQVAUGUMULJUFBHPSVAUJUPUOJUFBLPSRCDTUNUQUAUB
+      $.
+      $( [17-Sep-2013] $) $( [8-May-2013] $)
+
+    $( Multiplication of positive fractions in terms of positive integers.
+       (Contributed by Mario Carneiro, 8-May-2013.) $)
+    mulpqnqNEW $p |- ( ( A e. Q. /\ B e. Q. ) ->
+        ( A .Q B ) = ( /Q ` ( A .pQ B ) ) ) $=
+      ( vx vy cnq wcel wa cop cmq cfv cmpq cerq co ccom cxp cres wceq df-mq
+      fveq1i a1i opelxpi fvres syl cnpi wfn cv c1st cmi c2nd df-mpqNEW opex
+      fnoprab2a elpqn syl2an wfun wf nqerf ffun ax-mp fvco2 mp3an1 sylancr
+      3eqtrd df-opr fveq2i 3eqtr4g ) AEFZBEFZGZABHZIJZVJKJZLJZABIMABKMZLJVIVKVJ
+      LKNZEEOZPZJZVJVOJZVMVKVRQVIVJIVQRSTVIVJVPFVRVSQABEEUAVJVPVOUBUCVIKUDUDOZV
+      TOZUEZVJWAFZVSVMQZCDVTVTCUFZUGJDUFZUGJUHMZWEUIJWFUIJUHMZHKCDUJWGWHUKULVGA
+      VTFBVTFWCVHAUMBUMABVTVTUAUNLUOZWBWCWDVTELUPWIUQVTELURUSWAVJLKUTVAVBVCABIV
+      DVNVLLABKVDVEVF $.
+      $( [17-Sep-2013] $) $( [28-Aug-1995] $)
+  $}
+
+  ${
+    $d x y $.
+    $( Closure of addition on positive fractions.  (Contributed by Mario
+       Carneiro, 8-May-2013.) $)
+    addpqfNEW $p |- +pQ : ( ( N. X. N. ) X. ( N. X. N. ) ) --> ( N. X. N. ) $=
+      ( vx vy cv c1st cfv c2nd cmi co cpli cop cnpi cxp wcel wral cplpq wf wa
+      xp1st xp2nd mulclpi syl2an adantl adantr syl11anc addclpi opelxpi rgen2a
+      df-plpqNEW foprab2a mpbi ) ACZDEZBCZFEZGHZUMDEZUKFEZGHZIHZUQUNGHZJZKKLZMZ
+      BVBNAVBNVBVBLVBOPVCABVBUKVBMZUMVBMZQZUSKMZUTKMZVCVFUOKMZURKMZVGVDULKMUNKM
+      ZVIVEUKKKRUMKKSZULUNTUAVFUPKMZUQKMZVJVEVMVDUMKKRUBVDVNVEUKKKSZUCUPUQTUDUO
+      URUEUDVDVNVKVHVEVOVLUQUNTUAUSUTKKUFUDUGABVBVBVAVBOABUHUIUJ $.
+      $( [17-Sep-2013] $) $( [29-Aug-1995] $)
+
+    $( Closure of multiplication on positive fractions.  (Contributed by Mario
+       Carneiro, 8-May-2013.) $)
+    mulpqfNEW $p |- .pQ : ( ( N. X. N. ) X. ( N. X. N. ) ) --> ( N. X. N. ) $=
+      ( vx vy cv c1st cfv cmi co c2nd cop cnpi cxp wcel wral cmpq wf wa xp1st
+      mulclpi syl2an xp2nd opelxpi syl11anc rgen2a df-mpqNEW foprab2a mpbi ) AC
+      ZDEZBCZDEZFGZUGHEZUIHEZFGZIZJJKZLZBUPMAUPMUPUPKUPNOUQABUPUGUPLZUIUPLZPUKJ
+      LZUNJLZUQURUHJLUJJLUTUSUGJJQUIJJQUHUJRSURULJLUMJLVAUSUGJJTUIJJTULUMRSUKUN
+      JJUAUBUCABUPUPUOUPNABUDUEUF $.
+      $( [17-Sep-2013] $) $( [29-Aug-1995] $)
+  $}
+
+  ${
+    $d A x y z $.  $d B x y z $.  $d C x y z $.
+    $( Lemma for ~ adderpq . $)
+    adderpqlemNEW $p |- ( ( A e. ( N. X. N. ) /\ B e. ( N. X. N. ) /\
+        C e. ( N. X. N. ) ) ->
+      ( A ~Q B <-> ( A +pQ C ) ~Q ( B +pQ C ) ) ) $=
+      ( vx vy vz cnpi cxp wcel w3a c1st cfv c2nd cmi co cpli cop ceq wbr wceq
+      cplpq wb xp1st 3ad2ant1 xp2nd 3ad2ant3 mulclpi syl11anc addclpi 3ad2ant2
+      dfenq2 ecopopreqNEW syl22anc addpipq2 3adant2 3adant1 breq12d ecopopreq2
+      3adant3 oprex mulcanpi mulcompi fvex cv visset mulasspi caopr4 eqtri
+      opreq12i addcompi distrpi caoprdistrr 3eqtr4i 3eqtrri opreq1i 3eqtri
+      3eqtr4ri eqeq12i addcanpi syl5rbbr 3bitr2d 3bitr4rd ) AGGHZIZBWCIZCWCIZJZ
+      AKLZCMLZNOZCKLZAMLZNOZPOZWLWINOZQZBKLZWINOZWKBMLZNOZPOZWSWINOZQZRSZWNXBNO
+      ZXAWONOZTZACUAOZBCUAOZRSABRSZWGWNGIZWOGIZXAGIZXBGIZXDXGUBWGWJGIZWMGIZXKWG
+      WHGIZWIGIZXOWDWEXQWFAGGUCUDZWFWDXRWECGGUEUFZWHWIUGUHWGWKGIZWLGIZXPWFWDYAW
+      ECGGUCUFZWDWEYBWFAGGUEUDZWKWLUGUHWJWMUIUHWGYBXRXLYDXTWLWIUGUHZWGWRGIZWTGI
+      ZXMWGWQGIZXRYFWEWDYHWFBGGUCUJXTWQWIUGUHWGYAWSGIZYGYCWEWDYIWFBGGUEUJZWKWSU
+      GUHZWRWTUIUHWGYIXRXNYJXTWSWIUGUHDEWNWOXAXBRGNDEUKZULUMWGXHWPXIXCRWDWFXHWP
+      TWEACUNUOWEWFXIXCTWDBCUNUPUQWGXJWHWSNOZWQWLNOZTZWIWINOZYMNOZYPYNNOZTZXGWD
+      WEXJYOUBWFDEABRGNYLURUSWGYPGIZYMGIZYSYOUBWGXRXRYTXTXTWIWIUGUHZWGXQYIUUAXS
+      YJWHWSUGUHZYPYMYNWQWLNUTZVAUHXGWOWTNOZYQPOZUUEYRPOZTZWGYSUUFXEUUGXFYQUUEP
+      OWJXBNOZWMXBNOZPOUUFXEYQUUIUUEUUJPYQYMYPNOUUIYPYMWIWINUTWHWSNUTVBDEFWHWSW
+      IWINAKVCBMVCZCMVCZDVDZEVDZDVEEVEZVBZUUMUUNFVDZUUOFVEZVFZUULVGVHUUEWLWKNOZ
+      WIWSNOZNOUUJDEFWLWIWKWSNAMVCZUULCKVCZUUPUUSUUKVGUUTWMUVAXBNWLWKUVBUVCVBWI
+      WSUULUUKVBVIVHVIUUEYQWOWTNUTZYPYMNUTVJDEFWJWMXBPNWHWINUTWKWLNUTWSWINUTUUP
+      UUMUUNUUQUUOUURVKVLVMWOXANOWOWRNOZUUEPOZXFUUGWOWRWTWQWINUTWKWSNUTVKXAWOWR
+      WTPUTWLWINUTVBUUGYRUUEPOUVFUUEYRUVDYPYNNUTZVJYRUVEUUEPYRWIWIYNNOZNOZWOWQN
+      OZWINOZUVEWIWIYNUULUUDVFUVIUVHWINOUVKWIUVHUULWIYNNUTVBUVHUVJWINUVJWLWIWQN
+      OZNOUVLWLNOUVHWLWIWQUULBKVCZVFWLUVLUVBWIWQNUTVBWIWQWLUVMUVBVFVNVOVHWOWQWI
+      UVMUULVFVPVOVHVQVRWGUUEGIZYQGIZUUHYSUBWGXLYGUVNYEYKWOWTUGUHWGYTUUAUVOUUBU
+      UCYPYMUGUHUUEYQYRUVGVSUHVTWAWB $.
+      $( [17-Sep-2013] $) $( [8-May-2013] $)
+
+    $( Lemma for ~ mulerpq . $)
+    mulerpqlemNEW $p |- ( ( A e. ( N. X. N. ) /\ B e. ( N. X. N. ) /\
+        C e. ( N. X. N. ) ) ->
+      ( A ~Q B <-> ( A .pQ C ) ~Q ( B .pQ C ) ) ) $=
+      ( vx vy vz cnpi cxp wcel w3a c1st cfv cmi co c2nd cop ceq wbr wceq cmpq
+      wb xp1st 3ad2ant1 3ad2ant3 mulclpi syl11anc xp2nd 3ad2ant2 dfenq2
+      ecopopreqNEW syl22anc mulpipq2 3adant2 3adant1 breq12d ecopopreq2
+      3adant3 oprex mulcanpi mulcompi fvex cv visset mulasspi caopr4 eqtri
+      eqeq12i a1i 3bitr2d 3bitr4rd ) AGGHZIZBVKIZCVKIZJZAKLZCKLZMNZAOLZCOLZMNZP
+      ZBKLZVQMNZBOLZVTMNZPZQRZVRWFMNZWDWAMNZSZACTNZBCTNZQRABQRZVOVRGIZWAGIZWDGI
+      ZWFGIZWHWKUAVOVPGIZVQGIZWOVLVMWSVNAGGUBUCZVNVLWTVMCGGUBUDZVPVQUEUFVOVSGIZ
+      VTGIZWPVLVMXCVNAGGUGUCVNVLXDVMCGGUGUDZVSVTUEUFVOWCGIZWTWQVMVLXFVNBGGUBUHX
+      BWCVQUEUFVOWEGIZXDWRVMVLXGVNBGGUGUHZXEWEVTUEUFDEVRWAWDWFQGMDEUIZUJUKVOWLW
+      BWMWGQVLVNWLWBSVMACULUMVMVNWMWGSVLBCULUNUOVOWNVPWEMNZWCVSMNZSZVQVTMNZXJMN
+      ZXMXKMNZSZWKVLVMWNXLUAVNDEABQGMXIUPUQVOXMGIZXJGIZXPXLUAVOWTXDXQXBXEVQVTUE
+      UFVOWSXGXRXAXHVPWEUEUFXMXJXKWCVSMURZUSUFXPWKUAVOXNWIXOWJXNXJXMMNWIXMXJVQV
+      TMURZVPWEMURUTDEFVPWEVQVTMAKVABOVACKVAZDVBZEVBZDVCEVCZUTZYBYCFVBYDFVCVDZC
+      OVAZVEVFXOXKXMMNWJXMXKXTXSUTDEFWCVSVQVTMBKVAAOVAYAYEYFYGVEVFVGVHVIVJ $.
+      $( [17-Sep-2013] $) $( [8-May-2013] $)
+  $}
+
+  ${
+    $d a b c x y $.  $d a b c A $.  $d b c B $.  $d c C $.
+    $( Lemma for distributive law: cancellation of common factor.  (Contributed
+       by Mario Carneiro, 8-May-2013.) $)
+    mulcanenqNEW $p |- ( ( A e. N. /\ B e. N. /\ C e. N. ) ->
+      <. ( A .N B ) , ( A .N C ) >. ~Q <. B , C >. ) $=
+      ( va vb vc vx vy cv cmi co cop ceq wbr cnpi wceq opreq1 opeq12d breq1d
+      opreq2 opeq1d opeq1 breq12d opeq2d opeq2 wcel w3a visset mulcompi
+      opreq1i mulasspi eqtri wa wb mulclpi 3adant3 3adant2 3simpc dfenq2
+      ecopopreqNEW syl21anc mpbiri vtocl3ga ) DIZEIZJKZVDFIZJKZLZVEVGLZMNZAVEJK
+      ZAVGJKZLZVJMNABJKZVMLZBVGLZMNVOACJKZLZBCLZMNDEFABCOOOVDAPZVIVNVJMWAVFVLVH
+      VMVDAVEJQVDAVGJQRSVEBPZVNVPVJVQMWBVLVOVMVEBAJTUAVEBVGUBUCVGCPZVPVSVQVTMWC
+      VMVRVOVGCAJTUDVGCBUEUCVDOUFZVEOUFZVGOUFZUGZVKVFVGJKZVEVHJKZPZWHVEVDJKZVGJ
+      KWIVFWKVGJVDVEDUHZEUHUIUJVEVDVGWLFUHUKULWGVFOUFZVHOUFZWEWFUMVKWJUNWDWEWMW
+      FVDVEUOUPWDWFWNWEVDVGUOUQWDWEWFURGHVFVHVEVGMOJGHUSUTVAVBVC $.
+      $( [17-Sep-2013] $) $( [2-Sep-1995] $)
+  $}
+
+  ${
+    $d r s t x y z $.
+    $( 'Less than' is a strict ordering on positive fractions.  (Contributed by
+       Mario Carneiro, 4-May-2013.) $)
+    ltsonqNEW $p |- <Q Or Q. $=
+      ( vx vy vz vr vs vt cnq cltq cv wcel w3a wbr wceq wo wn wb wa wi c1st
+      cfv c2nd cmi co clti cnpi cxp elpqn adantr xp1st syl adantl xp2nd
+      mulclpi syl11anc wor ltsopi sotric mpan ordpinq fveq2 eqcomd opreq12d
+      ceq dfenq2 ecopopreq2 syl2an enqeq 3expia sylbird impbid2 ancoms orbi12d
+      notbid 3bitr4d 3adant3 3ad2ant3 oprex ltmpi 3syl bitrd 3adant1 3ad2ant1
+      anbi12d fvex visset mulcompi mulasspi caopr13 breq12i ltrelpi sotri
+      syl5eqbrr sylan2b syl6bi 3adant2 3ad2ant2 sylibrd jca so ) ABCGHAIZGJZBIZ
+      GJZCIZGJZKZWTXBHLZWTXBMZXBWTHLZNZOZPZXGXBXDHLZQZWTXDHLZRXAXCXLXEXAXCQZWTS
+      TZXBUATZUBUCZXBSTZWTUATZUBUCZUDLZXSYBMZYBXSUDLZNZOZXGXKXPXSUEJZYBUEJZYCYG
+      PZXPXQUEJZXRUEJZYHXPWTUEUEUFZJZYKXAYNXCWTUGZUHZWTUEUEUIUJXPXBYMJZYLXCYQXA
+      XBUGZUKZXBUEUEULZUJXQXRUMUNXPXTUEJZYAUEJZYIXPYQUUAYSXBUEUEUIUJXPYNUUBYPWT
+      UEUEULZUJXTYAUMUNUEUDUOYHYIQYJUPUEXSYBUDUQURUNWTXBUSZXPXJYFXPXHYDXIYEXPXH
+      YDXHXQXTXRYAUBWTXBSUTXHYAXRWTXBUAUTVAVBXPYDWTXBVCLZXHXAYNYQUUEYDPXCYOYRDE
+      WTXBVCUEUBDEVDVEVFXAXCUUEXHWTXBVGVHVIVJXCXAXIYEPXBWTUSVKVLVMVNVOXFXNXRXQX
+      DUATZUBUCZUBUCZXRXDSTZYAUBUCZUBUCZUDLZXOXFXNUUFXSUBUCZUUFYBUBUCZUDLZYAXTU
+      UFUBUCZUBUCZYAUUIXRUBUCZUBUCZUDLZQUULXFXGUUOXMUUTXFXGYCUUOXAXCXGYCPXEUUDV
+      OXFXDYMJZUUFUEJYCUUOPXEXAUVAXCXDUGVPXDUEUEULXSYBUUFXQXRUBVQXTYAUBVQVRVSVT
+      XFXMUUPUURUDLZUUTXCXEXMUVBPXAXBXDUSWAXFYNUUBUVBUUTPXAXCYNXEYOWBUUCUUPUURY
+      AXTUUFUBVQUUIXRUBVQVRVSVTWCUUTUUOUUNUUKUDLZUULUUQUUNUUSUUKUDDEFYAXTUUFUBW
+      TUAWDZXBSWDXDUAWDZDIZEIZDWEEWEZWFZUVFUVGFIUVHFWEWGZWHDEFYAUUIXRUBUVDXDSWD
+      XBUAWDZUVIUVJWHWIUUOUVCQUUHUUMUUKUDDEFUUFXQXRUBUVEWTSWDUVKUVIUVJWHUUMUUNU
+      UKUDUEUPWJWKWLWMWNXFXOUUGUUJUDLZUULXAXEXOUVLPXCWTXDUSWOXFYQYLUVLUULPXCXAY
+      QXEYRWPYTUUGUUJXRXQUUFUBVQUUIYAUBVQVRVSVTWQWRWS $.
+      $( [18-Sep-2013] $) $( [19-Feb-1996] $)
+  $}
+
+  ${
+    $d x y z w v u f $.
+    $( Define pre-addition on signed reals.  This is a "temporary" set used in
+       the construction of complex numbers ~ df-c , and is intended to be used
+       only by the construction.  From Proposition 9-4.1 of [Gleason]
+       p. 126. $)
+    df-plprNEW $a |- +pR = ( x e. ( P. X. P. ) , y e. ( P. X. P. ) |->
+         <. ( ( 1st ` x ) +P. ( 1st ` y ) ) ,
+            ( ( 2nd ` x ) +P. ( 2nd ` y ) ) >. ) $.
+
+    $( Define pre-multiplication on signed reals.  This is a "temporary" set
+       used in the construction of complex numbers ~ df-c , and is intended to
+       be used only by the construction.  From Proposition 9-4.1 of [Gleason]
+       p. 126. $)
+    df-mprNEW $a |- .pR = ( x e. ( P. X. P. ) , y e. ( P. X. P. ) |->
+       <. ( ( ( 1st ` x ) .P. ( 1st ` y ) ) +P.
+            ( ( 2nd ` x ) .P. ( 2nd ` y ) ) ) ,
+          ( ( ( 1st ` x ) .P. ( 2nd ` y ) ) +P.
+            ( ( 2nd ` x ) .P. ( 1st ` y ) ) ) >. ) $.
+
+    $( Define equivalence relation for signed reals.  This is a "temporary" set
+       used in the construction of complex numbers ~ df-c , and is intended to
+       be used only by the construction.  From Proposition 9-4.1 of [Gleason]
+       p. 126. $)
+    df-enrNEW $a |- ~R = { <. x , y >. |
+     ( ( x e. ( P. X. P. ) /\ y e. ( P. X. P. ) ) /\
+       ( ( 1st ` x ) +P. ( 2nd ` y ) ) = ( ( 1st ` y ) +P. ( 2nd ` x ) ) ) } $.
+
+    $( Define addition on signed reals.  This is a "temporary" set used in the
+       construction of complex numbers ~ df-c , and is intended to be used only
+       by the construction.  From Proposition 9-4.3 of [Gleason] p. 126. $)
+    df-plrNEW $a |- +R = ( x e. R. , y e. R. |->
+      ( iota z E. w E. v ( x = [ w ] ~R /\ y = [ v ] ~R /\
+               z = [ ( w +pR v ) ] ~R ) ) ) $.
+
+    $( Define multiplication on signed reals.  This is a "temporary" set used
+       in the construction of complex numbers ~ df-c , and is intended to be
+       used only by the construction.  From Proposition 9-4.3 of [Gleason]
+       p. 126. $)
+    df-mrNEW $a |- .R = ( x e. R. , y e. R. |->
+      ( iota z E. w E. v ( x = [ w ] ~R /\ y = [ v ] ~R /\
+               z = [ ( w .pR v ) ] ~R ) ) ) $.
+
+    $( Define ordering relation on signed reals.  This is a "temporary" set
+       used in the construction of complex numbers ~ df-c , and is intended to
+       be used only by the construction.  From Proposition 9-4.4 of [Gleason]
+       p. 127. $)
+    df-ltrNEW $a |- <R = { <. x , y >. | ( ( x e. R. /\ y e. R. ) /\
+       E. z E. w ( x = [ z ] ~R /\ y = [ w ] ~R /\
+    ( ( 1st ` z ) +P. ( 2nd ` w ) ) <P ( ( 1st ` w ) +P. ( 2nd ` z ) ) ) ) } $.
+  $}
+
+  ${
+    $d x y z $.
+    $( The equivalence relation for signed reals is an equivalence relation.
+       Proposition 9-4.1 of [Gleason] p. 126. $)
+    enrerNEW $p |- Er ~R $=
+      ( vx vy vz cer cnp cpp df-enrNEW cv addclpr visset addcompr addasspr
+      addcanpr ecopoprerNEW ) ABCDEFABGAHZBHZIOPAJBJZKOPCHZQCJZLOPRQSMN $.
+      $( [17-Sep-2013] $) $( [3-Sep-1995] $)
+  $}
+
+  ${
+    $d x y $.
+    $( The equivalence relation for signed reals exists. $)
+    enrexNEW $p |- ~R e. _V $=
+      ( vx vy cer cnp cxp npex xpex cv wcel wa c1st cfv c2nd cpp co wceq copab
+      df-enrNEW opabssxp eqsstri ssexi ) CDDEZUBEZUBUBDDFFGZUDGCAHZUBIBHZUBIJUE
+      KLUFMLNOUFKLUEMLNOPZJABQUCABRUGABUBUBSTUA $.
+      $( [17-Sep-2013] $) $( [25-Jul-1995] $)
+  $}
+
+  ${
+    $d x y z A $.  $d x y z B $.  $d x y z C $.  $d x y z D $.
+    $( Lemma showing compatibility of addition. $)
+    addcmpblnrNEW $p |- ( ( ( A e. ( P. X. P. ) /\ B e. ( P. X. P. ) ) /\
+                         ( C e. ( P. X. P. ) /\ D e. ( P. X. P. ) ) ) ->
+                ( ( A ~R B /\ C ~R D ) -> ( A +pR C ) ~R ( B +pR D ) ) ) $=
+      ( vx vy vz cnp cxp wcel wa cer wbr cplpr co c1st cfv c2nd cpp wceq
+      df-enrNEW ecopopreq2 bi2anan9 opreq12 fvex cv visset addcompr addasspr
+      caopr4 3eqtr4g wb cop fveq2 opreq1d opeq12d opreq2d df-plprNEW opex
+      ovmpt2 fveq2d oprex op1st syl6eq op2nd syl2an syl2anc eqeq12d an4s
+      syl5ibr sylbid xp1st addclpr xp2nd opelxpi syl11anc eqeltrd sylibrd ) AHH
+      IZJZBVSJZKZCVSJZDVSJZKZKZABLMZCDLMZKZACNOZPQZBDNOZRQZSOZWLPQZWJRQZSOZTZWJ
+      WLLMZWFWIAPQZBRQZSOZBPQZARQZSOZTZCPQZDRQZSOZDPQZCRQZSOZTZKZWRWBWGXFWEWHXM
+      EFABLHSEFUAZUBEFCDLHSXOUBUCXNWRWFWTXGSOZXAXHSOZSOZXCXJSOZXDXKSOZSOZTZXNXB
+      XISOXEXLSOXRYAXBXEXIXLSUDEFGWTXGXAXHSAPUECPUEBRUEEUFZFUFZEUGFUGZUHZYCYDGU
+      FYEGUGUIZDRUEUJEFGXCXJXDXKSBPUEDPUEARUEYFYGCRUEUJUKVTWCWAWDWRYBULVTWCKZWA
+      WDKZKWNXRWQYAYHWKXPTWMXQTWNXRTYIYHWKXPXTUMZPQXPYHWJYJPEFACVSVSYCPQZYDPQZS
+      OZYCRQZYDRQZSOZUMZYJNWTYLSOZXDYOSOZUMYCATZYMYRYPYSYTYKWTYLSYCAPUNUOYTYNXD
+      YOSYCARUNUOUPYDCTZYRXPYSXTUUAYLXGWTSYDCPUNUQUUAYOXKXDSYDCRUNUQUPEFURZXPXT
+      USUTZVAXPXTWTXGSVBZVCVDYIWMXSXQUMZRQXQYIWLUUEREFBDVSVSYQUUENXCYLSOZXAYOSO
+      ZUMYCBTZYMUUFYPUUGUUHYKXCYLSYCBPUNUOUUHYNXAYOSYCBRUNUOUPYDDTZUUFXSUUGXQUU
+      IYLXJXCSYDDPUNUQUUIYOXHXASYDDRUNUQUPUUBXSXQUSUTZVAXSXQXCXJSVBZXAXHSVBVEVD
+      WKXPWMXQSUDVFYIWOXSTWPXTTWQYATYHYIWOUUEPQXSYIWLUUEPUUJVAXSXQUUKVCVDYHWPYJ
+      RQXTYHWJYJRUUCVAXPXTUUDXDXKSVBVEVDWOXSWPXTSUDVGVHVIVJVKVTWCWAWDWSWRULZYHW
+      JVSJWLVSJUULYIYHWJYJVSUUCYHXPHJZXTHJZYJVSJVTWTHJXGHJUUMWCAHHVLCHHVLWTXGVM
+      VFVTXDHJXKHJUUNWCAHHVNCHHVNXDXKVMVFXPXTHHVOVPVQYIWLUUEVSUUJYIXSHJZXQHJZUU
+      EVSJWAXCHJXJHJUUOWDBHHVLDHHVLXCXJVMVFWAXAHJXHHJUUPWDBHHVNDHHVNXAXHVMVFXSX
+      QHHVOVPVQEFWJWLLHSXOUBVFVIVR $.
+      $( [18-Sep-2013] $) $( [3-Sep-1995] $)
+
+    ${
+      $d x y z E $.  $d x y z F $.  $d x y z G $.  $d x y z H $.
+      cmpblnrNEW.1 $e |- A e. _V $.
+      cmpblnrNEW.2 $e |- B e. _V $.
+      cmpblnrNEW.3 $e |- C e. _V $.
+      cmpblnrNEW.4 $e |- D e. _V $.
+      cmpblnrNEW.5 $e |- E e. _V $.
+      cmpblnrNEW.6 $e |- F e. _V $.
+      cmpblnrNEW.7 $e |- G e. _V $.
+      cmpblnrNEW.8 $e |- H e. _V $.
+      $( Lemma used in lemma showing compatibility of multiplication. $)
+      mulcmpblnrlemNEW $p |- ( ( ( A +P. D ) = ( C +P. B ) /\
+                              ( E +P. H ) = ( G +P. F ) ) ->
+          ( ( D .P. E ) +P. ( ( ( A .P. E ) +P. ( B .P. F ) ) +P.
+                              ( ( C .P. H ) +P. ( D .P. G ) ) ) ) =
+          ( ( D .P. E ) +P. ( ( ( C .P. G ) +P. ( D .P. H ) ) +P.
+                              ( ( A .P. F ) +P. ( B .P. E ) ) ) ) ) $=
+        ( vx vy vz cpp co wceq wa cmp oprex addasspr opreq2i eqtr4i opreq1 cv
+        visset mulcompr distrpr caoprdistrr 3eqtr3g opreq1d addcompr opreq1i
+        eqtr3i caopr32 3eqtr4g opreq2 syl6eq sylan9eq opreq2d sylan9eqr
+        3eqtr4a caopr4 caopr411 eqtri 3eqtri ) ADTUAZCBTUAZUBZEHTUAZGFTUAZUBZUC
+        ZDEUDUAZAEUDUAZCHUDUAZTUAZTUAZBFUDUAZDGUDUAZTUAZTUAZCGUDUAZBEUDUAZTUAZA
+        FUDUAZDHUDUAZTUAZVSTUAZTUAZVSVTWDTUAWAWETUATUAZTUAZVSWHWLTUAZWKWITUAZTU
+        AZTUAZVRWJCFUDUAZTUAZWFTUAZWJXBWDTUAZWETUAZTUAZWGWOXDWJXBWFTUAZTUAXGWJX
+        BWFCFUDUEZWDWETUEZUFXFXHWJTXBWDWEBFUDUEZDGUDUEZUFUGUHVRWCXCWFTVNVQWCCEU
+        DUAZWATUAZWITUAZXCVNVTVSTUAZWATUAZXMWITUAZWATUAWCXOVNXPXRWATVNVLEUDUAVM
+        EUDUAXPXRVLVMEUDUIQRSADETUDILMQUJZRUJZQUKZRUKZULZXSXTSUJZYBSUKZUMZUNQRS
+        CBETUDKJMYCYFUNUOUPVSVTTUAZWATUAWCXQVSVTWAAEUDUEZCHUDUEZUFYGXPWATVSVTDE
+        UDUEZYHUQURUSQRSXMWAWITCEUDUEYIBEUDUEZXSXTYAYBUQZXSXTYDYBYEUFZUTVAVQXOW
+        HXBTUAZWITUAXCVQXNYNWITVQCVOUDUACVPUDUAXNYNVOVPCUDVBCEHMPUMCGFONUMUOUPQ
+        RSWHXBWITCGUDUEZXIYKYLYMUTVCVDUPVRWNXFWJTVQVNWNWKDFUDUAZTUAZWETUAZXFVQW
+        KWLVSTUAZTUAWKYPWETUAZTUAWNYRVQYSYTWKTVQDVOUDUAZDVPUDUAZYSYTVOVPDUDVBYS
+        VSWLTUAUUAWLVSDHUDUEZYJUQDEHMPUMUHYTWEYPTUAUUBYPWEDFUDUEZXLUQDGFONUMUHV
+        AVEWKWLVSUUCYJUFWKYPWEUUDXLUFVAVNYQXEWETVNVLFUDUAVMFUDUAYQXEVLVMFUDUIQR
+        SADFTUDILNYCYFUNQRSCBFTUDKJNYCYFUNUOUPVFVEVGWQVSWBWFTUAZTUAWGWPUUEVSTQR
+        SVTWDWAWETYHXKYIYLYMXLVHUGVSWBWFVTWATUEXJUFUHXAVSWJWMTUAZTUAUUFVSTUAWOW
+        TUUFVSTWTWSWRTUAUUFWRWSWHWLTUEWKWITUEUQQRSWKWIWHWLTAFUDUEYKYOYLYMUUCVIV
+        JUGVSUUFYJWJWMTUEUQWJWMVSWKWLTUEYJUFVKVA $.
+        $( [18-Sep-2013] $) $( [4-Sep-1995] $)
+    $}
+
+    $( Lemma showing compatibility of multiplication. $)
+    mulcmpblnrNEW $p |- ( ( ( A e. ( P. X. P. ) /\ B e. ( P. X. P. ) ) /\
+                         ( C e. ( P. X. P. ) /\ D e. ( P. X. P. ) ) ) ->
+                ( ( A ~R B /\ C ~R D ) -> ( A .pR C ) ~R ( B .pR D ) ) ) $=
+      ( vx vy cnp cxp wcel wa cer wbr cmpr co c1st cfv c2nd cpp wceq df-enrNEW
+      ecopopreq2 bi2anan9 cmp fvex mulcmpblnrlemNEW wi xp2nd adantl xp1st
+      adantr mulclpr syl2an addclpr syl11anc an4s oprex addcanpr syl5 wb cop
+      cv fveq2 opreq1d opreq12d opeq12d opreq2d df-mprNEW opex ovmpt2 fveq2d
+      op1st syl6eq op2nd opreq12 syl2anc eqeq12d sylibrd sylbid opelxpi
+      eqeltrd ) AGGHZIZBWAIZJZCWAIZDWAIZJZJZABKLZCDKLZJZACMNZOPZBDMNZQPZRNZWNOP
+      ZWLQPZRNZSZWLWNKLZWHWKAOPZBQPZRNBOPZAQPZRNSZCOPZDQPZRNDOPZCQPZRNSZJZWTWDW
+      IXFWGWJXKEFABKGREFTZUAEFCDKGRXMUAUBWHXLXBXGUCNZXEXJUCNZRNZXDXHUCNZXCXIUCN
+      ZRNZRNZXDXIUCNZXCXHUCNZRNZXBXJUCNZXEXGUCNZRNZRNZSZWTXLXCXGUCNZXTRNYIYGRNS
+      ZWHYHXBXEXDXCXGXJXIXHAOUDAQUDBOUDBQUDCOUDCQUDDOUDDQUDUEWHYIGIZXTGIZYJYHUF
+      WDXCGIZXGGIZYKWGWCYMWBBGGUGZUHWEYNWFCGGUIZUJXCXGUKULWBWEWCWFYLWBWEJZXPGIZ
+      XSGIZYLWCWFJZYQXNGIZXOGIZYRWBXBGIZYNUUAWEAGGUIZYPXBXGUKULWBXEGIZXJGIZUUBW
+      EAGGUGZCGGUGZXEXJUKULXNXOUMUNZYTXQGIZXRGIZYSWCXDGIZXHGIZUUJWFBGGUIZDGGUGZ
+      XDXHUKULWCYMXIGIZUUKWFYODGGUIZXCXIUKULXQXRUMUNZXPXSUMULUOYIXTYGXPXSRUPYCY
+      FRUPUQUNURWBWEWCWFWTYHUSYQYTJWPXTWSYGYQWMXPSWOXSSWPXTSYTYQWMXPYFUTZOPXPYQ
+      WLUUSOEFACWAWAEVAZOPZFVAZOPZUCNZUUTQPZUVBQPZUCNZRNZUVAUVFUCNZUVEUVCUCNZRN
+      ZUTZUUSMXBUVCUCNZXEUVFUCNZRNZXBUVFUCNZXEUVCUCNZRNZUTUUTASZUVHUVOUVKUVRUVS
+      UVDUVMUVGUVNRUVSUVAXBUVCUCUUTAOVBZVCUVSUVEXEUVFUCUUTAQVBZVCVDUVSUVIUVPUVJ
+      UVQRUVSUVAXBUVFUCUVTVCUVSUVEXEUVCUCUWAVCVDVEUVBCSZUVOXPUVRYFUWBUVMXNUVNXO
+      RUWBUVCXGXBUCUVBCOVBZVFUWBUVFXJXEUCUVBCQVBZVFVDUWBUVPYDUVQYERUWBUVFXJXBUC
+      UWDVFUWBUVCXGXEUCUWCVFVDVEEFVGZXPYFVHVIZVJXPYFXNXORUPZVKVLYTWOYCXSUTZQPXS
+      YTWNUWHQEFBDWAWAUVLUWHMXDUVCUCNZXCUVFUCNZRNZXDUVFUCNZXCUVCUCNZRNZUTUUTBSZ
+      UVHUWKUVKUWNUWOUVDUWIUVGUWJRUWOUVAXDUVCUCUUTBOVBZVCUWOUVEXCUVFUCUUTBQVBZV
+      CVDUWOUVIUWLUVJUWMRUWOUVAXDUVFUCUWPVCUWOUVEXCUVCUCUWQVCVDVEUVBDSZUWKYCUWN
+      XSUWRUWIYAUWJYBRUWRUVCXIXDUCUVBDOVBZVFUWRUVFXHXCUCUVBDQVBZVFVDUWRUWLXQUWM
+      XRRUWRUVFXHXDUCUWTVFUWRUVCXIXCUCUWSVFVDVEUWEYCXSVHVIZVJYCXSYAYBRUPZXQXRRU
+      PVMVLWMXPWOXSRVNULYTWQYCSWRYFSWSYGSYQYTWQUWHOPYCYTWNUWHOUXAVJYCXSUXBVKVLY
+      QWRUUSQPYFYQWLUUSQUWFVJXPYFUWGYDYERUPVMVLWQYCWRYFRVNVOVPUOVQVRWBWEWCWFXAW
+      TUSZYQWLWAIWNWAIUXCYTYQWLUUSWAUWFYQYRYFGIZUUSWAIUUIYQYDGIZYEGIZUXDWBUUCUU
+      FUXEWEUUDUUHXBXJUKULWBUUEYNUXFWEUUGYPXEXGUKULYDYEUMUNXPYFGGVSUNVTYTWNUWHW
+      AUXAYTYCGIZYSUWHWAIYTYAGIZYBGIZUXGWCUULUUPUXHWFUUNUUQXDXIUKULWCYMUUMUXIWF
+      YOUUOXCXHUKULYAYBUMUNUURYCXSGGVSUNVTEFWLWNKGRXMUAULUOVQ $.
+      $( [18-Sep-2013] $) $( [5-Sep-1995] $)
+  $}
+
+  ${
+    $d a b c d x y z A $.  $d a b c d x y z B $.  $d b c d y z C $.
+    $d b c d y z D $.
+    $( Addition of signed reals in terms of positive reals. $)
+    addsrprNEW $p |- ( ( ( A e. P. /\ B e. P. ) /\ ( C e. P. /\ D e. P. ) ) ->
+                ( [ <. A , B >. ] ~R +R [ <. C , D >. ] ~R ) =
+                   [ <. ( A +P. C ) , ( B +P. D ) >. ] ~R ) $=
+      ( vx vy vz vb vd va vc cnp wcel wa cop cer cec cplr co c1st cfv cpp c2nd
+      cnr cplpr cv opex enrex enrer df-enrNEW df-plprNEW wceq fveq2 opreq1d
+      opeq12d opreq2d df-plrNEW df-nr addcmpblnrNEW oprecNEW op1stg opreq12
+      syl2an ad2ant2r op2ndg eceq2 syl eqtrd ) ALMZBLMZNZCLMZDLMZNZNZABOZPQCDOZ
+      PQRSVPTUAZVQTUAZUBSZVPUCUAZVQUCUAZUBSZOZPQZACUBSZBDUBSZOZPQZEFGABCDUDPLRU
+      EWDEUFZTUAZFUFZTUAZUBSZWJUCUAZWLUCUAZUBSZOVRWMUBSZWAWPUBSZOUBHIJKVTWCUGUH
+      UIEFUJEFUKWJVPULZWNWRWQWSWTWKVRWMUBWJVPTUMUNWTWOWAWPUBWJVPUCUMUNUOWLVQULZ
+      WRVTWSWCXAWMVSVRUBWLVQTUMUPXAWPWBWAUBWLVQUCUMUPUOEFGHIUQURJUFHUFKUFIUFUSU
+      TVOWDWHULWEWIULVOVTWFWCWGVIVLVTWFULZVJVMVIVRAULVSCULXBVLABLVACDLVAVRAVSCU
+      BVBVCVDVKWABULWBDULWCWGULVNABLLVECDLLVEWABWBDUBVBVCUOWDWHPVFVGVH $.
+      $( [17-Sep-2013] $) $( [3-Sep-1995] $)
+
+    $( Multiplication of signed reals in terms of positive reals. $)
+    mulsrprNEW $p |- ( ( ( A e. P. /\ B e. P. ) /\ ( C e. P. /\ D e. P. ) ) ->
+                ( [ <. A , B >. ] ~R .R [ <. C , D >. ] ~R ) =
+                  [ <. ( ( A .P. C ) +P. ( B .P. D ) ) ,
+                       ( ( A .P. D ) +P. ( B .P. C ) ) >. ] ~R ) $=
+      ( vx vy vz vb vd va vc cnp wcel wa cop cer cec cmr co c1st cfv cmp c2nd
+      cpp cnr cmpr cv opex enrex enrer df-enrNEW df-mprNEW wceq fveq2 opreq1d
+      opreq12d opeq12d opreq2d df-mrNEW df-nr mulcmpblnrNEW oprecNEW op1stg
+      opreq12 syl2an ad2ant2r op2ndg adantr eceq2 syl eqtrd ) ALMZBLMZNZCLMZDLM
+      ZNZNZABOZPQCDOZPQRSVSTUAZVTTUAZUBSZVSUCUAZVTUCUAZUBSZUDSZWAWEUBSZWDWBUBSZ
+      UDSZOZPQZACUBSZBDUBSZUDSZADUBSZBCUBSZUDSZOZPQZEFGABCDUEPLRUFWKEUGZTUAZFUG
+      ZTUAZUBSZXAUCUAZXCUCUAZUBSZUDSZXBXGUBSZXFXDUBSZUDSZOWAXDUBSZWDXGUBSZUDSZW
+      AXGUBSZWDXDUBSZUDSZOUDHIJKWGWJUHUIUJEFUKEFULXAVSUMZXIXOXLXRXSXEXMXHXNUDXS
+      XBWAXDUBXAVSTUNZUOXSXFWDXGUBXAVSUCUNZUOUPXSXJXPXKXQUDXSXBWAXGUBXTUOXSXFWD
+      XDUBYAUOUPUQXCVTUMZXOWGXRWJYBXMWCXNWFUDYBXDWBWAUBXCVTTUNZURYBXGWEWDUBXCVT
+      UCUNZURUPYBXPWHXQWIUDYBXGWEWAUBYDURYBXDWBWDUBYCURUPUQEFGHIUSUTJUGHUGKUGIU
+      GVAVBVRWKWSUMWLWTUMVRWGWOWJWRVRWCWMWFWNUDVLVOWCWMUMZVMVPVLWAAUMZWBCUMZYEV
+      OABLVCZCDLVCZWAAWBCUBVDVEVFVNWDBUMZWEDUMZWFWNUMVQABLLVGZCDLLVGZWDBWEDUBVD
+      VEUPVRWHWPWIWQUDVNYFYKWHWPUMVQVLYFVMYHVHYMWAAWEDUBVDVEVNYJYGWIWQUMVQYLVOY
+      GVPYIVHWDBWBCUBVDVEUPUQWKWSPVIVJVK $.
+      $( [17-Sep-2013] $) $( [3-Sep-1995] $)
+  $}
+
+  $(
+  @{
+    @( Ordering of signed reals in terms of positive reals. @)
+    ltsrpr2 @p |- ( ( A e. ( P. X. P. ) /\ B e. ( P. X. P. ) ) ->
+     ( [ A ] ~R <R [ B ] ~R <->
+      ( ( 1st ` A ) +P. ( 2nd ` B ) ) <P ( ( 1st ` B ) +P. ( 2nd ` A ) ) ) ) @=
+      ? @.
+      @( [20-Feb-1996] @)
+  @}
+
+  @{
+    @d A x y z w v u f @.  @d B x y z w v u f @.  @d C x y z w v u f @.
+    @d D x y z w v u f @.
+    ltsrprNEW.1 @e |- A e. _V @.
+    ltsrprNEW.2 @e |- B e. _V @.
+    ltsrprNEW.3 @e |- C e. _V @.
+    ltsrprNEW.4 @e |- D e. _V @.
+    @( Ordering of signed reals in terms of positive reals. @)
+    ltsrprNEW @p |- ( [ <. A , B >. ] ~R <R [ <. C , D >. ] ~R <->
+                          ( A +P. D ) <P ( C +P. B ) ) @=
+      ( vz vu vw vv vx vy vf cltp cltr cer cpp cnp cnr enrex dmenr df-nr
+      ltrelsr ltrelpr 0npr dmplp cv co wbr enrer df-ltr wcel wa cop cec wceq
+      wb addclpr ad2ant2lr anim12i ancoms an4s enreceq eqcom syl6bb bi2anan9
+      opreq12 visset addcompr addasspr caopr4 3eqtr4g syl6bi oprex ltapr
+      caoprord3 ex sylsyld brecop brecop2 ) ABCDPQRSTUAUBFGHUCUDUEUFUGUHIUIZJUI
+      ZSUJZKUIZLUIZSUJZPUKZADSUJZBCSUJZPUKZMNIKLJABCDQRTUAUBULUCUDMNIKLJUMWCTUN
+      ZWFTUNZUOZATUNZBTUNZUOZUOZWGTUNZWDTUNZUOZCTUNZDTUNZUOZUOZUOZWKTUNZWHTUNZU
+      OZWCWFUPRUQABUPRUQURZWGWDUPRUQCDUPRUQURZUOZWEWKSUJZWHWJSUJZURZWIWLUSZWOXB
+      WRXEXJWRXEUOZWOXBUOZXJXRXHXSXIWQXCXHWPXDBCUTVAWNWTXIWMXAWFWGUTVAVBVCVDXGX
+      MWCBSUJZWFASUJZURZWDCSUJZWGDSUJZURZUOZXPWSXKYBXFXLYEWCWFABVEXFXLYDYCURYEW
+      GWDCDVEYDYCVFVGVHYFXTYCSUJYAYDSUJXNXOXTYAYCYDSVIMNOWCWDBCSIVJJVJFMUIZNUIZ
+      MVJZNVJZVKZYGYHOUIZYJOVJVLZGVMMNOWFWGADSKVJLVJEYKYMHVMVNVOXJXPXQMNOWEWKWH
+      WJPTSWCWDSVPBCSVPYGYHYLYIYJVQWFWGSVPYKADSVPVRVSVTWAWB @.
+      @( [20-Feb-1996] @)
+  @}
+  $)
+
+  ${
+    $d x y z w v $.
+    $( Domain of addition on signed reals. $)
+    dmaddsrNEW $p |- dom +R = ( R. X. R. ) $=
+      ( vx vy vw vv vz cplr cnr cxp wfn cdm wceq cv cer cec cplpr co w3a wex
+      cio df-plrNEW iotaex fnoprab2a fndm ax-mp ) FGGHZIFJUEKABGGALCLZMNKBLDLZM
+      NKELUFUGOPMNKQDRCRZESFABECDTUHEUAUBUEFUCUD $.
+      $( [17-Sep-2013] $) $( [25-Aug-1995] $)
+
+    $( Domain of multiplication on signed reals. $)
+    dmmulsrNEW $p |- dom .R = ( R. X. R. ) $=
+      ( vx vy vw vv vz cmr cnr cxp wfn cdm wceq cv cer cec cmpr co w3a wex cio
+      df-mrNEW iotaex fnoprab2a fndm ax-mp ) FGGHZIFJUEKABGGALCLZMNKBLDLZMNKELU
+      FUGOPMNKQDRCRZESFABECDTUHEUAUBUEFUCUD $.
+      $( [17-Sep-2013] $) $( [25-Aug-1995] $)
+  $}
+
+  ${
+    $d x y $.
+    $( The empty set is not a signed real. $)
+    0nsrNEW $p |- -. (/) e. R. $=
+      ( vx vy c0 cnr wcel cnp cxp cer cqs cpp df-enrNEW ecopoprdmNEW 0nelqs
+      df-nr eleq2i mtbir ) CDECFFGZHIZEQHABHFJABKLMDRCNOP $.
+      $( [18-Sep-2013] $) $( [25-Aug-1995] $)
+  $}
+
+  ${
+    $d x y A $.  $d x y z w v $.
+    $( 1 is an identity element for multiplication. $)
+    1idsrNEW $p |- ( A e. R. -> ( A .R 1R ) = A ) $=
+      ( vx vy vz vw cv cop cer cec c1r cmr co wceq cnp cnr df-nr opreq1 id
+      eqeq12d wcel wa c1p cpp df-1r opreq2i cmp 1pr addclpr mp2an mulsrpr
+      mpanr12 wbr elisseti distrpr 1idpr opreq1d syl5req opreq2d syl5eq
+      opreq12 syl2an oprex addasspr visset eqcomi 3eqtr3g wb mulclpr mpan2 jca
+      df-enrNEW ecopopreqNEW mpdan mpbird opex enrer erthi syl eqtr4d ecoptocl
+      ) BFZCFZGZHIZJKLZWDMAJKLZAMBCANNHOPWDAMZWEWFWDAWDAJKQWGRSWANTZWBNTZUAZWEW
+      DUBUBUCLZUBGHIZKLZWDJWLWDKUDUEWJWMWAWKUFLZWBUBUFLZUCLZWAUBUFLZWBWKUFLZUCL
+      ZGZHIZWDWJWKNTZUBNTZWMXAMXCXCXBUGUGUBUBUHUIZUGWAWBWKUBUJUKWJWCWTHULZWDXAM
+      WJXEWAWSUCLZWPWBUCLZMZWJWAWQUCLZWRUCLZWNWOWBUCLZUCLZXFXGWHXIWNMWRXKMXJXLM
+      WIWHWNWQWQUCLXIWAUBUBUBNUGUMZXMUNWHWQWAWQUCWAUOUPUQWIWRWOWOUCLXKWBUBUBXMX
+      MUNWIWOWBWOUCWBUOURUSXIWNWRXKUCUTVAWAWQWRWAUBUFVBWBWKUFVBVCXGXLWNWOWBWBUB
+      UFVBCVDVCVEVFWJWPNTZWSNTZUAXEXHVGWJXNXOWHWNNTZWONTZXNWIWHXBXPXDWAWKVHVIWI
+      XCXQUGWBUBVHVIWNWOUHVAWHWQNTZWRNTZXOWIWHXCXRUGWAUBVHVIWIXBXSXDWBWKVHVIWQW
+      RUHVAVJDEWAWBWPWSHNUCDEVKVLVMVNWCWTHWAWBVOWPWSVOVPVQVRVSUSVT $.
+      $( [18-Sep-2013] $) $( [2-May-1996] $)
+  $}
+
+  ${
+    $d x y z A $.  $d x y z w v a b $.
+    recexsrlemNEW.1 $e |- A e. _V $.
+    $( The reciprocal of a positive signed real exists.  Part of Proposition
+       9-4.3 of [Gleason] p. 126. $)
+    recexsrlemNEW $p |- ( 0R <R A -> E. x e. R. ( A .R x ) = 1R ) $=
+      ( vy vz vw vv va vb cnr wcel c0r cltr wbr cv cmr co c1r wceq wrex
+      ltrelsr brel simprd cop cer cec wi cnp df-nr breq2 opreq1 eqeq1d rexbidv
+      imbi12d cpp wa cltp visset gt0srpr ltexpri sylbi cmp c1p recexpr 1pr
+      addclpr mpan2 enrex ecopqsi sylancl ad2antlr jctir anim2i adantr mulsrpr
+      syl eqcomd mulcompr distrpr caoprdistrr opreq2 syl5eq sylan9eqr opreq1d
+      oprex elisseti addcompr addasspr caopr32 syl6eq opreq1i eqtri opreq2i
+      caopr12 3eqtr4g wb mulclpr sylan2 syl2an an32s anassrs jca mp2an pm3.2i
+      df-enrNEW ecopopreqNEW syl5ibr imp opex enrer erthi eqtrd df-1r syl6eqr
+      rcla4ev syl11anc exp43 r19.23adv syl5 ecoptocl mpcom ) BJKZLBMNZBAOZPQZRS
+      ZAJTZYCLJKYBLBJJMCUAUBUCLDOZEOZUDUEUFZMNZYJYDPQZRSZAJTZUGYCYGUGDEBUHUHUEJ
+      UIYJBSZYKYCYNYGYJBLMUJYOYMYFAJYOYLYERYJBYDPUKULUMUNYKYIFOZUOQZYHSZFUHTZYH
+      UHKZYIUHKZUPZYNYKYIYHUQNYSYHYIDURZEURZUSFYIYHUUCUTVAUUBYRYNFUHYPUHKYPGOZV
+      BQZVCSZGUHTUUBYRYNUGZGYPVDUUBUUGUUHGUHUUBUUEUHKZUUGYRYNUUBUUIUPZUUGYRUPZU
+      PZUUEVCUOQZVCUDUEUFZJKZYJUUNPQZRSZYNUUIUUOUUBUUKUUIUUMUHKZVCUHKZUUOUUIUUS
+      UURVEUUEVCVFVGZVEUHUUMVCUEJVHUIVIVJVKUULUUPVCVCUOQZVCUDZUEUFZRUULUUPYHUUM
+      VBQZYIVCVBQZUOQZYHVCVBQZYIUUMVBQZUOQZUDZUEUFZUVCUULUUBUURUUSUPZUPZUUPUVKS
+      UUJUVMUUKUUIUVLUUBUUIUURUUSUUTVEVLVMVNYHYIUUMVCVOVPUULUVJUVBUENZUVKUVCSUU
+      JUUKUVNUUKUVNUUJUVFVCUOQZUVAUVIUOQZSZUUKYHUUEVBQZUVGUVEUOQZUOQZVCUOQZYIUU
+      EVBQZUVSUOQZUVAUOQZUVOUVPUUKUWAUWCVCUOQZVCUOQUWDUUKUVTUWEVCUOUUKUVTUWBVCU
+      OQZUVSUOQUWEUUKUVRUWFUVSUOYRUUGUVRYQUUEVBQZUWFYRUWGUVRYQYHUUEVBUKVQUUGUWG
+      UWBUUFUOQUWFHIAYIYPUUEUOVBUUDFURGURZHOZIOZHURZIURZVRUWIUWJYDUWLAURZVSVTUU
+      FVCUWBUOWAWBWCWDHIAUWBVCUVSUOYIUUEVBWEZVCUHVEWFZUVGUVEUOWEUWIUWJUWKUWLWGZ
+      UWIUWJYDUWLUWMWHZWIWJWDUWCVCVCUWOUWOWHWJUVFUVTVCUOUVFUVRUVGUOQZUVEUOQUVTU
+      VDUWRUVEUOYHUUEVCUWHUWOVSWKUVRUVGUVEYHVCVBWEZYIVCVBWEZWHWLWKUVPUVIUVAUOQU
+      WDUVAUVIVCVCUOWEUVGUVHUOWEWGUVIUWCUVAUOUVIUVGUWBUVEUOQZUOQUWCUVHUXAUVGUOY
+      IUUEVCUWHUWOVSWMHIAUVGUWBUVEUOUWSUWNUWTUWPUWQWNWLWKWLWOUUJUVFUHKZUVIUHKZU
+      PUVAUHKZUUSUPUVNUVQWPUUJUXBUXCYTUUIUUAUXBYTUUIUPUVDUHKZUVEUHKZUXBUUAUUIYT
+      UURUXEUUTYHUUMWQWRUUAUUSUXFVEYIVCWQVGUVDUVEVFWSWTYTUUAUUIUXCYTUVGUHKZUVHU
+      HKZUXCUUAUUIUPYTUUSUXGVEYHVCWQVGUUIUUAUURUXHUUTYIUUMWQWRUVGUVHVFWSXAXBUXD
+      UUSUUSUUSUXDVEVEVCVCVFXCVEXDAFUVFUVIUVAVCUEUHUOAFXEXFVJXGXHUVJUVBUEUVFUVI
+      XIUVAVCXIXJXKVPXLXMXNYMUUQAUUNJYDUUNSYLUUPRYDUUNYJPWAULXOXPXQXRXSXRXSXTYA
+      $.
+      $( [17-Sep-2013] $) $( [15-May-1996] $)
+  $}
+
+  $(
+  @{
+    @d x y z w v A @.  @d x y z C @.
+    map2psrprNEW.1 @e |- A e. _V @.
+    map2psrprNEW.2 @e |- C e. R. @.
+    @( Equivalence for positive signed real.  (Contributed by Mario Carneiro,
+       15-Jun-2013.) @)
+    map2psrprNEW @p |- ( ( C +R -1R ) <R A <->
+            E. x e. P. ( C +R [ <. x , 1P >. ] ~R ) = A ) @=
+      ( vy vz vw vv cltr cplr cm1r wcel wceq c1p cnp cpp cnr wbr co r19.23aiva
+      ecopopreq sylan9eqr elisseti addcompr addasssr mappsrpr addasspr ecoptocl
+      reximdva addcomsr syl6bir ltrelsr sylbird mulclsr reximdv ltexpri biimpac
+      3bitr4i 3eqtr3i syl5bbr rexbidv imbi12d opreq2i addclsr opreq1i visset cv
+      df-m1r impbii syl5bb simprd df-enr breq2d ltsrpr breq1i syl5bi breq2i cer
+      eqeq1i mpanl2 ancoms syl5eq opreq2 oprex ax-mp breq2 0idsr bitri df-nr wi
+      eqeq2 sylbi mp2an pn0sr eqtri erthi mpcom ltasr enrer ltapr wrex cltp c0r
+      opex mpan brel syld syl5 1pr cec cop cmr m1r syl wb wa ex 0r ) CLKTZBJSZC
+      AVHZOXLZVSXKZKTZBNZAPXBZBRMZYAYGYAXTRMYHXTBRRJDUMXGVLYHYALCLXMTZBKTZJSZYG
+      YKXTCYJKTZJSZYHYACRMZYKYMXPELYJCLRXNUDYIBKWEWSWFYHYLBXTJYHYLBXDKTZBCYIKTZ
+      BKTXDBKTYLYOYPXDBKYNYPXDNECWOWFVFCYIBCLXMWEDUFXDBXDRXSUDDUKUTBWHWCZVNVKYH
+      YKYDYJNZAPXBZYGYHYJRMZYKYSWKZYIRMZYHYTYNLRMUUBEXNCLUOWNYIBVEXFLFVHZGVHZXL
+      ZVSXKZJSZYDUUFNZAPXBZWKUUAFGYJPPVSRWJUUFYJNZUUGYKUUIYSUUFYJLJWGUUJUUHYRAP
+      UUFYJYDWLVBVCUUGUUDYBQTZUUCOQTZNZAPXBZUUCPMUUDPMXQZUUIUUGUUDUULXCSZUUNUUG
+      OOOQTZXLVSXKZUUFJSZUUPLUURUUFJVIVPOUUDQTZUUQUUCQTZXCSUUTOUULQTZXCSZUUSUUP
+      UVAUVBUUTXCUVAOOUUCQTZQTUVBOOUUCOPXJUDZFVGZUHUVDUULOQOUUCUVEUVFUEVDWPVROU
+      UQUUCUUDUVEOOQWEUVFGVGZVOOPMZUUPUVCXPXJUUDUULOUVGUUCOQWEZXAWFUSWIAUUDUULU
+      VIUQWMUUOUUMUUHAPUUMYBUUDQTZUULNZUUOYBPMZXQUUHUUKUVJUULUUDYBUVGAVGZUEVTUV
+      LUUOUVKUUHWKUVLUUOXQUVKYCUUEVSSZUUHUVLUVHUUOUVNUVKXPXJHIYBOUUCUUDVSPQHIVM
+      UBWAYCUUEVSYBOXEUUCUUDXEWTWQULWBVQUJXIUIXOYHYRYFAPYHYRYFYRYHYEYLBYDYJCKWD
+      YQUCXRUPXHUNWRYFYAAPYFUVLYAUVLXTYEJSYFYAYBCUVMEUGYEBXTJWGVAURUAVJ @.
+      @( [18-Sep-2013] @) @( [17-May-1996] @)
+  @}
+  $)
+
+  ${
+    $d x y $.
+    $( Define addition over complex numbers. $)
+    df-plusNEW $a |- + = ( x e. CC , y e. CC |->
+                  <. ( ( 1st ` x ) +R ( 1st ` y ) ) ,
+                     ( ( 2nd ` x ) +R ( 2nd ` y ) ) >. ) $.
+
+    $( Define multiplication over complex numbers. $)
+    df-mulNEW $a |- x. = ( x e. CC , y e. CC |->
+               <. ( ( ( 1st ` x ) .R ( 1st ` y ) ) +R
+           ( -1R .R ( ( 2nd ` x ) .R ( 2nd ` y ) ) ) ) ,
+                  ( ( ( 2nd ` x ) .R ( 1st ` y ) ) +R
+                    ( ( 1st ` x ) .R ( 2nd ` y ) ) ) >. ) $.
+  $}
 

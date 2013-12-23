@@ -16,16 +16,13 @@ $)
     $d x y z $.
     $( Define the class of all filter bases.  (Contributed by Jeff Hankins,
        1-Sep-2009.) $)
-    df-fbas $a |- fBas = { x | ( x =/= (/) /\ (/) e/ x /\ A. y e. x A. z e. x (
-    x i^i ~P ( y i^i z ) ) =/= (/) ) } $.
-  $}
+    df-fbas $a |- fBas = { x | ( x =/= (/) /\ (/) e/ x /\
+      A. y e. x A. z e. x ( x i^i ~P ( y i^i z ) ) =/= (/) ) } $.
 
-  ${
-    $d x y z $.
     $( Define the filter generating function.  (Contributed by Jeff Hankins,
        1-Sep-2009.) $)
-    df-fg $a |- filGen = { <. x , y >. | ( x e. fBas /\ y = { z e. ~P U. x | (
-    x i^i ~P z ) =/= (/) } ) } $.
+    df-fg $a |- filGen = ( x e. fBas |->
+                          { y e. ~P U. x | ( x i^i ~P y ) =/= (/) } ) $.
   $}
 
   ${
@@ -35,8 +32,8 @@ $)
        necessary under our definition.  One advantage of this definition is
        that tails in a directed set form a filter base under our meaning.
        (Contributed by Jeff Hankins, 1-Sep-2009.) $)
-    isfbas $p |- ( F e. A -> ( F e. fBas <-> ( F =/= (/) /\ (/) e/ F /\ A. x e.
-    F A. y e. F ( F i^i ~P ( x i^i y ) ) =/= (/) ) ) ) $=
+    isfbas $p |- ( F e. A -> ( F e. fBas <-> ( F =/= (/) /\ (/) e/ F /\
+              A. x e. F A. y e. F ( F i^i ~P ( x i^i y ) ) =/= (/) ) ) ) $=
       ( vz cv c0 wne wnel cin cpw wral w3a cfbas wceq neeq1 neleq2 ineq1
       neeq1d raleqbi1dv 3anbi123d df-fbas elab2g ) EFZGHZGUDIZUDAFBFJKZJZGHZBUD
       LZAUDLZMDGHZGDIZDUGJZGHZBDLZADLZMEDNCUDDOZUEULUFUMUKUQUDDGPUDDGQUJUPAUDDU
@@ -55,6 +52,31 @@ $)
   $}
 
   ${
+    $d x y F $.
+    $( No filter base contains the empty set.  (Contributed by Jeff Hankins,
+       1-Sep-2009.) $)
+    0nelfb $p |- ( F e. fBas -> -. (/) e. F ) $=
+      ( vx vy cfbas wcel c0 wnel wn wne cv cin cpw wral w3a isfbas ibi simp2d
+      df-nel sylib ) ADEZFAGZFAEHTAFIZUAABJCJKLKFICAMBAMZTUBUAUCNBCDAOPQFARS $.
+      $( [26-Nov-2013] $) $( [1-Sep-2009] $)
+  $}
+
+  ${
+    $d F x $.
+    fbdmn0.1 $e |- X = U. F $.
+    $( The domain of a filter base is nonempty.  (Contributed by Mario
+       Carneiro, 28-Nov-2013.) $)
+    fbdmn0 $p |- ( F e. fBas -> X =/= (/) ) $=
+      ( vx cfbas wcel c0 wn wne 0nelfb wceq wa cv wi wex wal cuni wral eqeq1i
+      uni0c df-ral 3bitri biimpi fbasne0 n0 sylib 19.29 syl2an id imp simpr
+      eqeltrrd 19.23aiv syl expcom necon3bd mpd ) AEFZGAFZHBGIAJURUSBGBGKZURUSU
+      TURLDMZAFZVAGKZNZVBLZDOZUSUTVDDPZVBDOZVFURUTVGUTAQZGKVCDARVGBVIGCSDATVCDA
+      UAUBUCURAGIVHAUDDAUEUFVDVBDUGUHVEUSDVEVAGAVDVBVCVDUIUJVDVBUKULUMUNUOUPUQ
+      $.
+      $( [28-Nov-2013] $)
+  $}
+
+  ${
     $d x y z F $.
     $( The predicate " ` F ` is a filter base."  (Contributed by Jeff Hankins,
        1-Sep-2009.) $)
@@ -66,5 +88,130 @@ $)
       NURVBABEEUTUQFZCSUTEFZVATZCSURVBVDVFCVDVEUTUPFZTVFUTEUPUAVGVAVEUTUOCUBUCU
       DUEUFCUQUGVACEUHUIUJUKUL $.
       $( [1-Dec-2010] $) $( [1-Sep-2009] $)
+  $}
+
+  ${
+    $d x y z A $.  $d x y z B $.  $d x y z F $.
+    $( A filter base contains subsets of its pairwise intersections.
+       (Contributed by Jeff Hankins, 1-Sep-2009.) $)
+    fbasssin $p |- ( ( F e. fBas /\ A e. F /\ B e. F ) -> E. x e. F x C_ ( A
+    i^i B ) ) $=
+      ( vy vz cfbas wcel cv cin wss wrex wral wa c0 wne wnel w3a isfbas2 ibi
+      simp3d wceq ineq1 sseq2d rexbidv ineq2 rcla42v syl5com 3impib ) DGHZBDHZC
+      DHZAIZBCJZKZADLZUJUMEIZFIZJZKZADLZFDMEDMZUKULNUPUJDOPZODQZVBUJVCVDVBREFAG
+      DSTUAVAUPUMBURJZKZADLEFBCDDUQBUBZUTVFADVGUSVEUMUQBURUCUDUEURCUBZVFUOADVHV
+      EUNUMURCBUFUDUEUGUHUI $.
+      $( [1-Dec-2010] $) $( [1-Sep-2009] $)
+  $}
+
+  ${
+    $d t x A $.  $d t u v x y z F $.
+    $( A filter base contains subsets of its finite intersections.
+       (Contributed by Mario Carneiro, 26-Nov-2013.) $)
+    fbssfi $p |- ( ( F e. fBas /\ A e. ( fi ` F ) ) -> E. x e. F x C_ A ) $=
+      ( vt vz vu vv vy cfbas wcel cfi cfv wa cv wss wrex cuni cpw crab cin
+      wral cab cint dffi2 wi w3a inss1 a1i simp1r elpwi syl sstrd visset inex1
+      elpw sylibr simpl fbasssin syl3an ss2in ad2ant2l 3adant1 sstr expcom
+      reximdv mpd wceq sseq2 rexbidv elrab sylanbrc 3expa expr r19.23adva
+      adantr r19.21aiva sseq1 cbvrexv syl6bb ralrab ssrab pwuni ssid rcla4ev
+      mpan2 rgen mpbir2an jctil cvv wb uniexg pwexg rabexg eleq2 raleqbi1dv
+      anbi12d elabg 3syl mpbird intss1 eqsstrd sseld imp simprbi ) CIJZBCKLZJZM
+      BANZDNZOZACPZDCQZRZSZJZXHBOZACPZXEXGXOXEXFXNBXEXFCENZOZFNZGNZTZXRJZGXRUAZ
+      FXRUAZMZEUBZUCZXNFGECIUDXEXNYGJZYHXNOXEYICXNOZYBXNJZGXNUAZFXNUAZMZXEYMYJX
+      EHNZXTOZHCPZYLUEZFXMUAYMXEYRFXMXEXTXMJZMZYPYLHCYTYOCJZYPYLYTUUAYPMZMZXRYA
+      OZECPZYKUEZGXMUAYLUUCUUFGXMUUCUUFYAXMJUUCUUDYKECUUCXRCJZUUDYKYTUUBUUGUUDM
+      ZYKYTUUBUUHUFZYBXMJZXHYBOZACPZYKUUIYBXLOUUJUUIYBXTXLYBXTOUUIXTYAUGUHUUIYS
+      XTXLOXEYSUUBUUHUIXTXLUJUKULYBXLXTYAFUMUNUOUPUUIXHYOXRTZOZACPZUULYTXEUUBUU
+      AUUHUUGUUOXEYSUQUUAYPUQUUGUUDUQAYOXRCURUSUUIUUNUUKACUUIUUMYBOZUUNUUKUEUUB
+      UUHUUPYTYPUUDUUPUUAUUGYOXTXRYAUTVAVBUUNUUPUUKXHUUMYBVCVDUKVEVFXKUULDYBXMX
+      IYBVGXJUUKACXIYBXHVHVIVJVKVLVMVNVOVPXKUUEYKGDXMXIYAVGZXKXHYAOZACPUUEUUQXJ
+      UURACXIYAXHVHVIUURUUDAECXHXRYAVQVRVSVTUPVMVNVPXKYQYLFDXMXIXTVGZXKXHXTOZAC
+      PYQUUSXJUUTACXIXTXHVHVIUUTYPAHCXHYOXTVQVRVSVTUPYJCXMOXKDCUAXKDXMCWACWBXKD
+      CXICJXIXIOZXKXIWCXJUVAAXICXHXIXIVQWDWEWFWGWHXEXMWIJZXNWIJYIYNWJXEXLWIJUVB
+      CIWKXLWIWLUKXKDXMWIWMYFYNEXNWIXRXNVGXSYJYEYMXRXNCVHYDYLFXRXNYCYKGXRXNXRXN
+      YBWNWOWOWPWQWRWSXNYGWTUKXAXBXCXOBXMJXQXKXQDBXMXIBVGXJXPACXIBXHVHVIVJXDUK
+      $.
+      $( [26-Nov-2013] $)
+  $}
+
+  ${
+    $d f g k n t x y z A $.  $d f g k n t x y z F $.
+    $( A filter base contains subsets of its finite intersections.
+       (Contributed by Jeff Hankins, 1-Sep-2009.) $)
+    fbssint $p |- ( ( F e. fBas /\ A C_ F /\ A e. Fin ) ->
+    E. x e. F x C_ |^| A ) $=
+      ( cfbas wcel wss cfn w3a cv cint wrex c0 wceq wi cvv wex wne fbasne0 n0
+      sylib wa ssv jctr eximi df-rex sylibr syl inteq int0 syl6eq sseq2d
+      rexbidv syl5ibrcom 3ad2ant1 cfi cfv simpl1 simpl2 simpr simpl3 elfir
+      syl13anc simp1 fbssfi sylan syldan ex pm2.61dne ) CDEZBCFZBGEZHZAIZBJZFZA
+      CKZBLVIVJBLMZVPNVKVIVPVQVMOFZACKZVIVMCEZAPZVSVICLQWACRACSTWAVTVRUAZAPVSVT
+      WBAVTVRVMUBUCUDVRACUEUFUGVQVOVRACVQVNOVMVQVNLJOBLUHUIUJUKULUMUNVLBLQZVPVL
+      WCVNCUOUPEZVPVLWCUAVIVJWCVKWDVIVJVKWCUQVIVJVKWCURVLWCUSVIVJVKWCUTBCDVAVBV
+      LVIWDVPVIVJVKVCAVNCVDVEVFVGVH $.
+      $( [26-Nov-2013] $) $( [1-Sep-2009] $)
+  $}
+
+  ${
+    $d x A $.  $d x B $.  $d x F $.
+    $( A filter base does not contain complements of its elements.
+       (Contributed by Mario Carneiro, 26-Nov-2013.) $)
+    fbncp $p |- ( ( F e. fBas /\ A e. F ) -> -. ( B \ A ) e. F ) $=
+      ( vx cfbas wcel wa cdif c0 wn 0nelfb adantr w3a cv cin wss wrex fbasssin
+      wceq disjdif sseq2i ss0 sylbi eleq1 biimpac sylan2 r19.23aiva syl 3expia
+      mtod ) CEFZACFZGBAHZCFZICFZUKUOJULCKLUKULUNUOUKULUNMDNZAUMOZPZDCQUODAUMCR
+      URUODCURUPCFZUPISZUOURUPIPUTUQIUPABTUAUPUBUCUTUSUOUPICUDUEUFUGUHUIUJ $.
+      $( [26-Nov-2013] $) $( [1-Sep-2009] $)
+  $}
+
+  ${
+    $d w x y z G $.  $d w x y z F $.
+    $( A necessary and sufficient condition for the union of two filter bases
+       to also be a filter base.  (Contributed by Mario Carneiro,
+       28-Nov-2013.) $)
+    fbun $p |- ( ( F e. fBas /\ G e. fBas ) -> ( ( F u. G ) e. fBas <->
+        A. x e. F A. y e. G E. z e. ( F u. G ) z C_ ( x i^i y ) ) ) $=
+      ( vw cfbas wcel wa cun cv cin wss wrex wral elun1 elun2 anim12i fbasssin
+      3expb sylan2 r19.21aivva c0 wne wnel w3a ssun1 fbasne0 ssn0 sylancr
+      adantr a1d wn 0nelfb wo df-nel elun notbii ioran 3bitri biimpri syl2an
+      wi ssrexv mpsyl pm3.2 syl r19.26 ralun ralimi sylbir syl6 ralcom wceq
+      ineq1 sseq2d rexbidv cbvralv ralbii ineq2 ralbidv incom syl6eq bitri
+      biimpi ssun2 adantl expcom jcad 3jcad cvv wb unexg isfbas2 sylibrd
+      impbid2 ) DGHZEGHZIZDEJZGHZCKZAKZBKZLZMZCWTNZBEOZADOZXAXGABDEXCDHZXDEHZIX
+      AXCWTHZXDWTHZIXGXJXLXKXMXCDEPXDEDQRXAXLXMXGCXCXDWTSTUAUBWSXIWTUCUDZUCWTUE
+      ZXGBWTOZAWTOZUFZXAWSXIXNXOXQWSXNXIWQXNWRWQDWTMZDUCUDXNDEUGZDUHDWTUIUJUKUL
+      WSXOXIWQUCDHZUMZUCEHZUMZXOWRDUNEUNXOYBYDIZXOUCWTHZUMYAYCUOZUMYEUCWTUPYFYG
+      UCDEUQURYAYCUSUTVAVBULWSXIXPADOZXPAEOZIXQWSXIYHYIWSXIXGBDOZADOZXIIZYHWSYK
+      XIYLVCWQYKWRWQXGABDDWQXJXDDHZXGXSWQXJYMUFXFCDNXGXTCXCXDDSXFCDWTVDVETUBUKY
+      KXIVFVGYLYJXHIZADOYHYJXHADVHYNXPADXGBDEVIZVJVKVLWSXIYJAEOZXHAEOZIZYIXIWSY
+      RXIYPWSYQXIYPXIXGADOZBEOXBFKZXDLZMZCWTNZFDOZBEOZYPXGABDEVMYSUUDBEXGUUCAFD
+      XCYTVNZXFUUBCWTUUFXEUUAXBXCYTXDVOVPVQVRVSUUEXBYTXCLZMZCWTNZFDOZAEOYPUUDUU
+      JBAEXDXCVNZUUCUUIFDUUKUUBUUHCWTUUKUUAUUGXBXDXCYTVTVPVQWAVRUUJYJAEUUIXGFBD
+      YTXDVNZUUHXFCWTUULUUGXEXBUULUUGXDXCLXEYTXDXCVOXDXCWBWCVPVQVRVSWDUTWEWRYQW
+      QWRXGABEEWRXCEHZXKXGEWTMWRUUMXKUFXFCENXGEDWFCXCXDESXFCEWTVDVETUBWGRWHYRYN
+      AEOYIYJXHAEVHYNXPAEYOVJVKVLWIXPADEVIVLWJWSWTWKHXAXRWLDEGGWMABCWKWTWNVGWOW
+      P $.
+      $( [28-Nov-2013] $)
+  $}
+
+  ${
+    $d x y z F $.  $d x S $.
+    $( No filter base containing a finite element is free.  (Contributed by
+       Jeff Hankins, 5-Dec-2009.)  (Revised by Mario Carneiro, 13-Dec-2013.) $)
+    fbfinnfr $p |- ( ( F e. fBas /\ S e. F /\ S e. Fin ) -> |^| F =/= (/) ) $=
+      ( vx vy vz cfbas wcel cfn cint c0 wne wa cv wi wceq eleq1 anbi2d imbi1d
+      wpss wal wral wb ibar adantr bi2.04 syl6rbbr albidv df-ral syl6bbr wss
+      wn 0nelfb notbid syl5ibrcom necon2ad imp ssn0 ex syl5com a1dd wrex ssint
+      notbii rexnal bitr4i w3a cin fbasssin nssinpss sspsstr sylan2b expcom
+      reximdv 3expia r19.23adv syl5bi r19.29 id r19.23aivw syl syl6 pm2.61d
+      sylbid com12 a1i findcard3 3impia ) BFGZABGZAHGZBIZJKZWJWHWILZWLWHCMZBGZL
+      ZWLNZWHDMZBGZLZWLNZWMWLNCDAWNWROZWPWTWLXBWOWSWHWNWRBPQRWNAOZWPWMWLXCWOWIW
+      HWNABPQRWNWRSZWQNZCTZXANWRHGWTXFWLWTXFXDWLNZCBUAZWLWTXFWOXGNZCTXHWTXEXICW
+      TXIWPXGNXEWTWOWPXGWHWOWPUBWSWHWOUCUDRXDWPWLUEUFUGXGCBUHUIWTWRWKUJZXHWLNZW
+      TXJWLXHWTWRJKZXJWLWHWSXLWHWSWRJWHWSUKWRJOZJBGZUKBULXMWSXNWRJBPUMUNUOUPXJX
+      LWLWRWKUQURUSUTWTXJUKZXDCBVAZXKXOWREMZUJZUKZEBVAZWTXPXOXREBUAZUKXTXJYAEWR
+      BVBVCXREBVDVEWTXSXPEBWHWSXQBGZXSXPNWHWSYBVFWNWRXQVGZUJZCBVAXSXPCWRXQBVHXS
+      YDXDCBYDXSXDXSYDYCWRSXDWRXQVIWNYCWRVJVKVLVMUSVNVOVPXHXPWLXHXPLXGXDLZCBVAW
+      LXGXDCBVQYEWLCBXGXDWLXGVRUPVSVTVLWAWBWCWDWEWFWDWG $.
+      $( [13-Dec-2013] $) $( [5-Dec-2009] $)
   $}
 

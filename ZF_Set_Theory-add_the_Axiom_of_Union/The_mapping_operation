@@ -19,7 +19,7 @@ $)
   cpm $a class ^pm $.
 
   ${
-    $d x y z f $.
+    $d x y f $.
     $( Define the mapping operation or set exponentiation.  The set of all
        functions that map from ` B ` to ` A ` is written ` ( A ^m B ) ` (see
        ~ mapval ).  Many authors write ` A ` followed by ` B ` as a superscript
@@ -32,7 +32,7 @@ $)
        for iterated exponentiation (_Science_ 194, 1235-1242, 1976).  We adopt
        the first case of his notation (simple exponentiation) and subscript it
        with _m_ to distinguish it from other kinds of exponentiation. $)
-    df-map $a |- ^m = { <. <. x , y >. , z >. | z = { f | f : y --> x } } $.
+    df-map $a |- ^m = ( x e. _V , y e. _V |-> { f | f : y --> x } ) $.
 
     $( Define the partial mapping operation.  A partial function from ` B ` to
        ` A ` is a function from a subset of ` B ` to ` A ` .  The set of all
@@ -41,8 +41,8 @@ $)
        the literature.  We use ` ^pm ` to distinguish it from the less general
        set exponentiation operation ` ^m ` ( ~ df-map ) .  See ~ mapsspm for
        its relationship to set exponentiation. $)
-    df-pm $a |- ^pm = { <. <. x , y >. , z >. | z =
-                    { f | ( Fun f /\ f C_ ( y X. x ) ) } } $.
+    df-pm $a |- ^pm = ( x e. _V , y e. _V |->
+                    { f e. ~P ( y X. x ) | Fun f } ) $.
   $}
 
   $( Note:  an alternate way to express partial functions is as follows,
@@ -87,43 +87,45 @@ $)
   $}
 
   ${
-    $d f x y z $.
+    $d f x y $.
     $( Set exponentiation has a universal domain. $)
     fnmap $p |- ^m Fn ( _V X. _V ) $=
-      ( vx vy vz vf cvv cv wf cab cmap wcel visset mapex mp2an wceq copab2 wa
-      df-map pm3.2i biantrur oprabbii eqtri fnoprab2 ) ABCEEBFZAFZDFGDHZIUCEJZU
-      DEJZUEEJBKZAKZUCUDEEDLMICFUENZABCOUGUFPZUJPZABCOABCDQUJULABCUKUJUGUFUIUHR
-      STUAUB $.
-      $( [8-Dec-2003] $)
+      ( vx vy vf cvv cv wf cab cmap df-map wcel visset mapex mp2an fnoprab2a )
+      ABDDBEZAEZCEFCGZHABCIODJPDJQDJBKAKOPDDCLMN $.
+      $( [8-Sep-2013] $) $( [8-Dec-2003] $)
+
+    $( Partial function exponentiation has a universal domain. $)
+    fnpm $p |- ^pm Fn ( _V X. _V ) $=
+      ( vx vy vf cvv cv wfun cxp cpw crab cpm df-pm visset xpex pwex rabex
+      fnoprab2a ) ABDDCEFZCBEZAEZGZHZIJABCKQCUATRSBLALMNOP $.
+      $( [14-Nov-2013] $)
   $}
 
   ${
-    $d x y z f A $.  $d x y z f B $.
+    $d x y f A $.  $d y f B $.
     $( The value of set exponentiation. ` ( A ^m B ) ` is the set of all
        functions that map from ` B ` to ` A ` .  Definition 10.24 of [Kunen]
        p. 24. $)
     mapvalg $p |- ( ( A e. C /\ B e. D ) ->
                   ( A ^m B ) = { f | f : B --> A } ) $=
-      ( vx vy vz wcel wa cv wf cab cvv cmap co wceq mapex ancoms wi elisset
-      feq3 abbidv feq2 copab2 df-map visset pm3.2i biantrur oprabbii eqtri
-      oprabval2g 3expia syl2an mpd ) ACIZBDIZJBAEKZLZEMZNIZABOPUTQZUQUPVABADCER
-      SUPANIZBNIZVAVBTUQACUABDUAVCVDVAVBFGHABNNGKZFKZURLZEMZUTOVEAURLZEMNVFAQVG
-      VIEVFAVEURUBUCVEBQVIUSEVEBAURUDUCOHKVHQZFGHUEVFNIZVENIZJZVJJZFGHUEFGHEUFV
-      JVNFGHVMVJVKVLFUGGUGUHUIUJUKULUMUNUO $.
-      $( [8-Dec-2003] $)
+      ( vx vy wcel wa cv wf cab cvv cmap co wceq mapex ancoms wi elisset feq3
+      abbidv feq2 df-map ovmpt2g 3expia syl2an mpd ) ACHZBDHZIBAEJZKZELZMHZABNO
+      UMPZUJUIUNBADCEQRUIAMHZBMHZUNUOSUJACTBDTUPUQUNUOFGABMMGJZFJZUKKZELUMNURAU
+      KKZELMUSAPUTVAEUSAURUKUAUBURBPVAULEURBAUKUCUBFGEUDUEUFUGUH $.
+      $( [8-Sep-2013] $) $( [8-Dec-2003] $)
 
     $( The value of the partial mapping operation. ` ( A ^pm B ) ` is the set
        of all partial functions that map from ` B ` to ` A ` . $)
     pmvalg $p |- ( ( A e. C /\ B e. D ) ->
-                  ( A ^pm B ) = { f | ( Fun f /\ f C_ ( B X. A ) ) } ) $=
-      ( vx vy vz wcel wa cv wfun cxp wss cab cvv cpm co wceq pmex ancoms wi
-      elisset xpeq2 sseq2d anbi2d abbidv xpeq1 copab2 df-pm visset pm3.2i
-      biantrur oprabbii eqtri oprabval2g 3expia syl2an mpd ) ACIZBDIZJEKZLZVBBA
-      MZNZJZEOZPIZABQRVGSZVAUTVHBADCETUAUTAPIZBPIZVHVIUBVAACUCBDUCVJVKVHVIFGHAB
-      PPVCVBGKZFKZMZNZJZEOZVGQVCVBVLAMZNZJZEOPVMASZVPVTEWAVOVSVCWAVNVRVBVMAVLUD
-      UEUFUGVLBSZVTVFEWBVSVEVCWBVRVDVBVLBAUHUEUFUGQHKVQSZFGHUIVMPIZVLPIZJZWCJZF
-      GHUIFGHEUJWCWGFGHWFWCWDWEFUKGUKULUMUNUOUPUQURUS $.
-      $( [15-Nov-2007] $)
+                  ( A ^pm B ) = { f e. ~P ( B X. A ) | Fun f } ) $=
+      ( vx vy wcel wa cv wfun cxp cpw crab cvv cpm co wceq wss ssrab2 xpexg
+      ancoms pwexg syl ssexg sylancr wi elisset xpeq2 pweq rabeq 3syl xpeq1
+      df-pm ovmpt2g 3expia syl2an mpd ) ACHZBDHZIZEJKZEBALZMZNZOHZABPQVERZVAVEV
+      DSVDOHZVFVBEVDTVAVCOHZVHUTUSVIBADCUAUBVCOUCUDVEVDOUEUFUSAOHZBOHZVFVGUGUTA
+      CUHBDUHVJVKVFVGFGABOOVBEGJZFJZLZMZNZVEPVBEVLALZMZNZOVMARVNVQRVOVRRVPVSRVM
+      AVLUIVNVQUJVBEVOVRUKULVLBRVQVCRVRVDRVSVERVLBAUMVQVCUJVBEVRVDUKULFGEUNUOUP
+      UQUR $.
+      $( [8-Sep-2013] $) $( [15-Nov-2007] $)
   $}
 
   ${
@@ -148,6 +150,17 @@ $)
       adantl feq1 elab3g syl bitrd ) ADGZBEGZHZCABIJZGCBAFKZLZFMZGZBACLZUHUIULC
       ABDEFNOUHUNCPGZQZUMUNRUGUPUFUNUGUOBAECSTUAUKUNFCPBAUJCUBUCUDUE $.
       $( [17-Oct-2006] $)
+
+    $( The predicate "is a partial function." $)
+    elpmg $p |- ( ( A e. V /\ B e. W ) ->
+                  ( C e. ( A ^pm B ) <-> ( Fun C /\ C C_ ( B X. A ) ) ) ) $=
+      ( vg wcel wa cpm co cxp cpw wfun wss cv crab pmvalg eleq2d funeq elrab
+      syl6bb wb ancom a1i cvv wi elisset xpexg ancoms ssexg expcom syl elpwg
+      pm5.21ndd anbi2d 3bitrd ) ADGZBEGZHZCABIJZGZCBAKZLZGZCMZHZVEVDHZVECVBNZHU
+      SVACFOZMZFVCPZGVFUSUTVKCABDEFQRVJVEFCVCVICSTUAVFVGUBUSVDVEUCUDUSVDVHVEUSC
+      UEGZVDVHVDVLUFUSCVCUGUDUSVBUEGZVHVLUFURUQVMBAEDUHUIVHVMVLCVBUEUJUKULVLVDV
+      HUBUFUSCVBUEUMUDUNUOUP $.
+      $( [14-Nov-2013] $)
   $}
 
   ${
@@ -172,11 +185,9 @@ $)
 
     $( The predicate "is a partial function." $)
     elpm $p |- ( F e. ( A ^pm B ) <-> ( Fun F /\ F C_ ( B X. A ) ) ) $=
-      ( vg cpm co wcel cv wfun cxp wss wa cab cvv wceq pmvalg mp2an eleq2i
-      xpex ssex adantl funeq sseq1 anbi12d elab3 bitri ) CABGHZICFJZKZUJBALZMZN
-      ZFOZICKZCULMZNZUIUOCAPIBPIUIUOQDEABPPFRSTUNURFCUQCPIUPCULBAEDUAUBUCUJCQUK
-      UPUMUQUJCUDUJCULUEUFUGUH $.
-      $( [15-Nov-2007] $)
+      ( cvv wcel cpm co wfun cxp wss wa wb elpmg mp2an ) AFGBFGCABHIGCJCBAKLMND
+      EABCFFOP $.
+      $( [14-Nov-2013] $) $( [15-Nov-2007] $)
 
     $( The predicate "is a partial function." $)
     elpm2 $p |- ( F e. ( A ^pm B ) <-> ( F : dom F --> A /\ dom F C_ B ) ) $=

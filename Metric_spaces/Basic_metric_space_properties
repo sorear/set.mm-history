@@ -8,6 +8,7 @@ $)
   $c Met $.
   $c MetSp $.
   $c ball $.
+  $c dist $.
   $c MetOpen $.
 
   $( Extend class notation with the class of all metrics. $)
@@ -19,41 +20,45 @@ $)
   $( Extend class notation with the metric space ball function. $)
   cbl $a class ball $.
 
+  $( Extend class notation with the metric space distance function. $)
+  cds $a class dist $.
+
   $( Extend class notation with a function mapping each metric space to the
      family of its open sets. $)
   copn $a class MetOpen $.
 
   ${
-    $d x y z w v u $.
+    $d d x y z w $.
     $( Define the (proper) class of all metrics.  (A metric space is the
        metric's base set paired with the metric; see ~ df-ms .  However, we
-       will often also call the metric itself a "metric space.") Equivalent to
-       Definition 14-1.1 of [Gleason] p. 223.  See ~ ismsg for the property "is
-       a metric space."  The 4 properties in Gleason's definition are shown by
-       ~ met0 , ~ metgt0 , ~ metsym , and ~ mettri . $)
-    df-met $a |- Met = { x | E. y ( x : ( y X. y ) --> RR /\
-                 A. z e. y A. w e. y ( ( ( z x w ) = 0 <-> z = w ) /\
-                 A. v e. y ( z x w ) <_ ( ( v x z ) + ( v x w ) ) ) ) } $.
-
-    $( Define the (proper) class of all metric spaces. $)
-    df-ms $a |- MetSp = { <. x , y >. | ( y e. Met /\ x = dom dom y ) } $.
+       will often also call the metric itself a "metric space".)  Equivalent to
+       Definition 14-1.1 of [Gleason] p. 223.  The 4 properties in Gleason's
+       definition are shown by ~ met0 , ~ metgt0 , ~ metsym , and ~ mettri . $)
+    df-met $a |- Met = { d | E. x ( d : ( x X. x ) --> RR /\
+                 A. y e. x A. z e. x ( ( ( y d z ) = 0 <-> y = z ) /\
+                 A. w e. x ( y d z ) <_ ( ( w d y ) + ( w d z ) ) ) ) } $.
 
     $( Define the metric space ball function.  See ~ blval for its value. $)
-    df-bl $a |- ball = { <. x , y >. | ( x e. Met /\ y =
-  { <. <. z , w >. , v >. | ( ( z e. dom dom x /\ w e. RR ) /\ ( 0 < w /\ v =
-                { u e. dom dom x | ( z x u ) < w } ) ) } ) } $.
+    df-bl $a |- ball = ( d e. Met |-> ( x e. dom dom d , z e. RR+ |->
+                { y e. dom dom d | ( x d y ) < z } ) ) $.
 
     $( Define a function whose value is the family of open sets of a metric
        space.  See ~ isopn for its main property. $)
-    df-opn $a |- MetOpen = { <. x , y >. | ( x e. Met /\ y = { z | ( z C_
-            dom dom x /\ A. w e. z E. v e. ran ( ball ` x ) (
-            w e. v /\ v C_ z ) ) } ) } $.
+    df-opn $a |- MetOpen = ( d e. Met |-> { x e. ~P dom dom d |
+               A. y e. x E. z e. ran ( ball ` d ) ( y e. z /\ z C_ x ) } ) $.
 
-    $( The class of all metric spaces is a relation. $)
-    msrel $p |- Rel MetSp $=
-      ( vy vx cmt wrel cv cme wcel cdm wceq wa copab relopab df-ms releqi
-      mpbir ) CDAEZFGBEPHHIJZBAKZDQBALCRBAMNO $.
-      $( [28-Aug-2006] $)
+    $( Define the distance function component of a metric space (structure). $)
+    df-ds $a |- dist = ( f e. _V |-> ( f ` ( 10 + 2 ) ) ) $.
+
+    $( Define the (proper) class of all metric spaces. $)
+    df-ms $a |- MetSp = { f e. TopSp |
+                          ( TopOpen ` f ) = ( MetOpen ` ( dist ` f ) ) } $.
+
+    $( Utility theorem: index-independent form of ~ df-ds . $)
+    dsid $p |- dist = ( f e. _V |-> ( f ` ( dist ` ndx ) ) ) $=
+      ( cds c10 c2 caddc co df-ds cn wcel 10nn 2nn nnaddcl mp2an ndxid ) BCDEFZ
+      AAGCHIDHIOHIJKCDLMN $.
+      $( [23-Dec-2013] $)
   $}
 
   ${
@@ -63,82 +68,20 @@ $)
     ismet $p |- ( D e. A -> ( D e. Met <-> ( D : ( X X. X ) --> RR /\
                  A. x e. X A. y e. X ( ( ( x D y ) = 0 <-> x = y ) /\
                  A. z e. X ( x D y ) <_ ( ( z D x ) + ( z D y ) ) ) ) ) ) $=
-      ( vt vd wcel cme cv cdm wceq cxp cr wf co cc0 wb caddc cle wbr wral wa
-      wex feq1 opreq eqeq1d bibi1d opreq12d breq12d ralbidv anbi12d 2ralbidv
-      exbidv df-met elab2g fdm dmeq dmxpid syl6req syl adantr pm4.71ri exbii
-      syl6bb cvv dmexg eqeq2i xpeq1 xpeq2 eqtrd feq2d raleq anbi2d raleqbi1dv
-      sylbir ceqsexgv 3syl bitrd ) EDJZEKJZHLZEMZMZNZWDWDOZPEQZALZBLZERZSNZWJWK
-      NZTZWLCLZWJERZWPWKERZUARZUBUCZCWDUDZUEZBWDUDZAWDUDZUEZUEZHUFZFFOZPEQZWOWT
-      CFUDZUEZBFUDZAFUDZUEZWBWCXEHUFZXGWHPILZQZWJWKXPRZSNZWNTZXRWPWJXPRZWPWKXPR
-      ZUARZUBUCZCWDUDZUEZBWDUDAWDUDZUEZHUFXOIEKDXPENZYHXEHYIXQWIYGXDWHPXPEUGYIY
-      FXBABWDWDYIXTWOYEXAYIXSWMWNYIXRWLSWJWKXPEUHZUIUJYIYDWTCWDYIXRWLYCWSUBYJYI
-      YAWQYBWRUAWPWJXPEUHWPWKXPEUHUKULUMUNUOUNUPIHABCUQURXEXFHXEWGWIWGXDWIWEWHN
-      ZWGWHPEUSYKWFWHMWDWEWHUTWDVAVBVCVDVEVFVGWBWEVHJWFVHJXGXNTEDVIWEVHVIXEXNHW
-      FVHWGWDFNZXEXNTFWFWDGVJYLWIXIXDXMYLWHXHPEYLWHFWDOXHWDFWDVKWDFFVLVMVNXCXLA
-      WDFXBXKBWDFYLXAXJWOWTCWDFVOVPVQVQUNVRVSVTWA $.
-      $( [4-Sep-2007] $) $( [25-Aug-2006] $)
-  $}
-
-  ${
-    $d x y z w v u $.
-    $( Alternate definition for the class of all metric spaces (replaces old
-       version of ~ df-ms ). $)
-    dfms2 $p |- MetSp = { <. x , y >. | ( y : ( x X. x ) --> RR /\
-                 A. z e. x A. w e. x ( ( ( z y w ) = 0 <-> z = w ) /\
-                 A. v e. x ( z y w ) <_ ( ( v y z ) + ( v y w ) ) ) ) } $=
-      ( cmt cv cme wcel cdm wceq wa copab cxp cr wf co cc0 wb caddc cle wbr
-      wral df-ms xpeq1 xpeq2 eqtrd feq2d raleq anbi2d raleqbi1dv anbi12d
-      pm5.32ri fdm dmeq dmxpid eqeq2i biimpi eqcomd 3syl adantr pm4.71i cvv
-      visset eqid ismet ax-mp anbi1i 3bitr4ri opabbii eqtri ) FBGZHIZAGZVLJZJZK
-      ZLZABMVNVNNZOVLPZCGZDGZVLQZRKWAWBKSZWCEGZWAVLQWEWBVLQTQUAUBZEVNUCZLZDVNUC
-      ZCVNUCZLZABMABUDVRWKABWKVQLVPVPNZOVLPZWDWFEVPUCZLZDVPUCZCVPUCZLZVQLWKVRVQ
-      WKWRVQVTWMWJWQVQVSWLOVLVQVSVPVNNWLVNVPVNUEVNVPVPUFUGUHWIWPCVNVPWHWODVNVPV
-      QWGWNWDWFEVNVPUIUJUKUKULUMWKVQVTVQWJVTVOVSKVPVSJZKZVQVSOVLUNVOVSUOWTVPVNW
-      TVPVNKWSVNVPVNUPUQURUSUTVAVBVMWRVQVLVCIVMWRSBVDCDEVCVLVPVPVEVFVGVHVIVJVK
-      $.
-      $( [26-Aug-2007] $)
-  $}
-
-  ${
-    $d v w x y z X $.  $d v w x y z D $.
-    $( Express the predicate " ` <. X , D >. ` is a metric space" with
-       underlying set ` X ` and distance function ` D ` . $)
-    ismsg $p |- ( D e. A ->
-                 ( <. X , D >. e. MetSp <-> ( D : ( X X. X ) --> RR /\
-                 A. x e. X A. y e. X ( ( ( x D y ) = 0 <-> x = y ) /\
-                 A. z e. X ( x D y ) <_ ( ( z D x ) + ( z D y ) ) ) ) ) ) $=
-      ( vw vv wcel cop cmt cxp cr wf cv co cc0 wceq wb caddc cle wbr wral wa
-      cvv df-br msrel brrelexi sylbir anim1i ancoms dmfex wo xpexr oridm sylib
-      syl simpl jca adantrr copab dfms2 eleq2i xpeq1 xpeq2 eqtrd feq2d raleq
-      anbi2d raleqbi1dv anbi12d feq1 opreq eqeq1d bibi1d opreq12d breq12d
-      ralbidv 2ralbidv opelopabg syl5bb pm5.21nd ) EDIZFEJZKIZFFLZMENZAOZBOZEPZ
-      QRZWHWIRZSZWJCOZWHEPZWNWIEPZTPZUAUBZCFUCZUDZBFUCAFUCZUDZFUEIZWCUDZWEWCXDW
-      EXCWCWEFEKUBXCFEKUFFEKUGUHUIUJUKWCWGXDXAWCWGUDZXCWCXEWFUEIZXCWFMDEULXFXCX
-      CUMXCFFUEUNXCUOUPUQWCWGURUSUTWEWDGOZXGLZMHOZNZWHWIXIPZQRZWLSZXKWNWHXIPZWN
-      WIXIPZTPZUAUBZCXGUCZUDZBXGUCZAXGUCZUDZGHVAZIXDXBKYCWDGHABCVBVCYBWFMXINZXM
-      XQCFUCZUDZBFUCZAFUCZUDXBGHFEUEDXGFRZXJYDYAYHYIXHWFMXIYIXHFXGLWFXGFXGVDXGF
-      FVEVFVGXTYGAXGFXSYFBXGFYIXRYEXMXQCXGFVHVIVJVJVKXIERZYDWGYHXAWFMXIEVLYJYFW
-      TABFFYJXMWMYEWSYJXLWKWLYJXKWJQWHWIXIEVMZVNVOYJXQWRCFYJXKWJXPWQUAYKYJXNWOX
-      OWPTWNWHXIEVMWNWIXIEVMVPVQVRVKVSVKVTWAWB $.
-      $( [27-Aug-2006] $)
-  $}
-
-  ${
-    $d x y z D $.  $d x y z X $.
-    ismsi.0 $e |- D e. _V $.
-    ismsi.1 $e |- D : ( X X. X ) --> RR $.
-    ismsi.2 $e |- ( ( x e. X /\ y e. X ) -> ( ( x D y ) = 0 <-> x = y ) ) $.
-    ismsi.3 $e |- ( ( x e. X /\ y e. X /\ z e. X ) ->
-                  ( x D y ) <_ ( ( z D x ) + ( z D y ) ) ) $.
-    ismsi.4 $e |- M = <. X , D >. $.
-    $( Properties that determine a metric space. $)
-    ismsi $p |- M e. MetSp $=
-      ( cop cmt wcel cxp cr wf cv co cc0 wceq wb caddc cle wbr wral wa cvv
-      ismsg ax-mp 3expa r19.21aiva jca rgen2a mpbir2an eqeltri ) EFDLZMKUQMNZFF
-      OPDQZARZBRZDSZTUAUTVAUAUBZVBCRZUTDSVDVADSUCSUDUEZCFUFZUGZBFUFAFUFZDUHNURU
-      SVHUGUBGABCUHDFUIUJHVGABFUTFNZVAFNZUGZVCVFIVKVECFVIVJVDFNVEJUKULUMUNUOUP
-      $.
-      $( [17-Nov-2006] $)
+      ( vt vd wcel cme cv cxp cr wf co cc0 wceq wb caddc cle wbr wral wa wex
+      feq1 opreq eqeq1d bibi1d opreq12d breq12d ralbidv anbi12d 2ralbidv
+      exbidv df-met elab2g cdm dmxpid fdm dmeqd syl5req syl5eqr adantr xpeq12
+      anidms feq2d raleq anbi2d raleqbi1dv syl ibi 19.23aiv cvv wi dmexg
+      syl5eqel cla4egv impbid2 bitrd ) EDJZEKJHLZWBMZNEOZALZBLZEPZQRZWEWFRZSZWG
+      CLZWEEPZWKWFEPZTPZUAUBZCWBUCZUDZBWBUCZAWBUCZUDZHUEZFFMZNEOZWJWOCFUCZUDZBF
+      UCZAFUCZUDZWCNILZOZWEWFXIPZQRZWISZXKWKWEXIPZWKWFXIPZTPZUAUBZCWBUCZUDZBWBU
+      CAWBUCZUDZHUEXAIEKDXIERZYAWTHYBXJWDXTWSWCNXIEUFYBXSWQABWBWBYBXMWJXRWPYBXL
+      WHWIYBXKWGQWEWFXIEUGZUHUIYBXQWOCWBYBXKWGXPWNUAYCYBXNWLXOWMTWKWEXIEUGWKWFX
+      IEUGUJUKULUMUNUMUOHABCIUPUQWAXAXHWTXHHWTXHWTWBFRZWTXHSWDYDWSWDWBWCURZFWBU
+      SWDFEURZURZYEGWDYFWCWCNEUTVAVBVCVDYDWDXCWSXGYDWCXBNEYDWCXBRWBFWBFVEVFVGWR
+      XFAWBFWQXEBWBFYDWPXDWJWOCWBFVHVIVJVJUMZVKVLVMWAFVNJXHXAVOWAFYGVNGWAYFVNJY
+      GVNJEDVPYFVNVPVKVQWTXHHFVNYHVRVKVSVT $.
+      $( [11-Nov-2013] $) $( [25-Aug-2006] $)
   $}
 
   ${
@@ -157,42 +100,6 @@ $)
       NVBVBMDGUJUKEULUMUNUOGVKABEVDEKZVEEKZUDZVGVJHVQVICEVOVPVHEKVIIUPUQURUSUT
       $.
       $( [5-Sep-2007] $) $( [17-Nov-2006] $)
-  $}
-
-  ${
-    $d x y z A $.  $d y z B $.  $d z C $.  $d v w x y z D $.  $d v w M $.
-    $d v w x y z X $.  $d x y z R $.
-    msf.1 $e |- X = ( 1st ` M ) $.
-    msf.2 $e |- D = ( 2nd ` M ) $.
-    $( Lemma for ~ msf and others. $)
-    msflem $p |- ( M e. MetSp -> ( D : ( X X. X ) --> RR /\
-                  A. x e. X A. y e. X ( ( ( x D y ) = 0 <-> x = y ) /\
-                  A. z e. X ( x D y ) <_ ( ( z D x ) + ( z D y ) ) ) ) ) $=
-      ( vw vv cmt wcel cv cxp cr wf co cc0 wceq wb caddc cle wbr wral wa copab
-      dfms2 eleq2i c1st cfv eqeq2i xpeq1 xpeq2 eqtrd feq2d raleq anbi2d
-      raleqbi1dv anbi12d sylbir c2nd feq1 opreq eqeq1d bibi1d opreq12d breq12d
-      ralbidv 2ralbidv elopabi sylbi ) EKLEIMZVLNZOJMZPZAMZBMZVNQZRSZVPVQSZTZVR
-      CMZVPVNQZWBVQVNQZUAQZUBUCZCVLUDZUEZBVLUDZAVLUDZUEZIJUFZLFFNZODPZVPVQDQZRS
-      ZVTTZWOWBVPDQZWBVQDQZUAQZUBUCZCFUDZUEZBFUDAFUDZUEZKWLEIJABCUGUHWKWMOVNPZW
-      AWFCFUDZUEZBFUDZAFUDZUEZXEIJEVLEUIUJZSVLFSZWKXKTFXLVLGUKXMVOXFWJXJXMVMWMO
-      VNXMVMFVLNWMVLFVLULVLFFUMUNUOWIXIAVLFWHXHBVLFXMWGXGWAWFCVLFUPUQURURUSUTVN
-      EVAUJZSVNDSZXKXETDXNVNHUKXOXFWNXJXDWMOVNDVBXOXHXCABFFXOWAWQXGXBXOVSWPVTXO
-      VRWORVPVQVNDVCZVDVEXOWFXACFXOVRWOWEWTUBXPXOWCWRWDWSUAWBVPVNDVCWBVQVNDVCVF
-      VGVHUSVIUSUTVJVK $.
-      $( [30-Aug-2006] $)
-
-    $( Mapping of the distance function of a metric space. $)
-    msf $p |- ( M e. MetSp -> D : ( X X. X ) --> RR ) $=
-      ( vx vy vz cmt wcel cxp cr wf cv co cc0 wceq wb caddc cle wbr wral wa
-      msflem simpld ) BIJCCKLAMFNZGNZAOZPQUFUGQRUHHNZUFAOUIUGAOSOTUAHCUBUCGCUBF
-      CUBFGHABCDEUDUE $.
-      $( [30-Aug-2006] $)
-
-    $( Closure of the distance function of a metric space. $)
-    mscl $p |- ( ( M e. MetSp /\ A e. X /\ B e. X ) -> ( A D B ) e. RR ) $=
-      ( cmt wcel cxp cr wf co msf foprrn syl3an1 ) DHIEEJKCLAEIBEIABCMKICDEFGNA
-      BKEECOP $.
-      $( [30-Aug-2006] $)
   $}
 
   ${

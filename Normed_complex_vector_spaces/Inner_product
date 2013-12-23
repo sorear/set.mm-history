@@ -17,10 +17,10 @@ $)
        on Exercise 4(a) of [ReedSimon] p. 63 and Theorem 6.44 of [Ponnusamy]
        p. 361.  Vector addition is ` ( 1st `` w ) ` , the scalar product is
        ` ( 2nd `` w ) ` , and the norm is ` n ` . $)
-    df-ip $a |- .i = { <. <. w , n >. , p >. | ( <. w , n >. e. NrmCVec /\
-        p = { <. <. x , y >. , z >. | ( ( x e. dom n /\ y e. dom n ) /\
-        z = ( sum_ k e. ( 1 ... 4 ) ( ( _i ^ k ) x. ( ( n ` ( x ( 1st ` w )
-        ( ( _i ^ k ) ( 2nd ` w ) y ) ) ) ^ 2 ) ) / 4 ) ) } ) } $.
+    df-ip $a |- .i = ( u e. NrmCVec |->
+      ( x e. ( BaseSet ` u ) , y e. ( BaseSet ` u ) |->
+    ( sum_ k e. ( 1 ... 4 ) ( ( _i ^ k ) x. ( ( ( norm ` u ) ` ( x ( +v ` u )
+        ( ( _i ^ k ) ( .s ` u ) y ) ) ) ^ 2 ) ) / 4 ) ) ) $.
 
 $(
     df-ip $a |- .i = { <. x , y >. | ( x e. NrmCVec /\ E. g E. s E. n
@@ -57,8 +57,8 @@ $)
   $}
 
   ${
-    $d k n p w x y z G $.  $d k n p w x y z N $.  $d k n p w x y z S $.
-    $d k n p w x y z U $.  $d k x y z A $.  $d k x y z B $.  $d x y z X $.
+    $d k u x y G $.  $d k u x y N $.  $d k u x y S $.  $d k u x y U $.
+    $d k x y A $.  $d k y B $.  $d u x y X $.
     ipfval.1 $e |- X = ( BaseSet ` U ) $.
     ipfval.2 $e |- G = ( +v ` U ) $.
     ipfval.4 $e |- S = ( .s ` U ) $.
@@ -67,31 +67,19 @@ $)
     $( The inner product function on a normed complex vector space.  The
        definition is meaningful for vector spaces that are also inner product
        spaces, i.e. satisfy the parallelogram law. $)
-    ipfval $p |- ( U e. NrmCVec -> P = { <. <. x , y >. , z >. |
-        ( ( x e. X /\ y e. X ) /\
-       z = ( sum_ k e. ( 1 ... 4 ) ( ( _i ^ k ) x. ( ( N ` ( x G
-       ( ( _i ^ k ) S y ) ) ) ^ 2 ) ) / 4 ) ) } ) $=
-      ( vw vn vp cnv wcel c1st cfv c2nd cop cip co cv wa c1 c4 cfz ci cexp c2
-      cmul csu cdiv wceq copab2 wrel nvrel 1st2nd mpan fveq2d syl5eq df-opr
-      a1i cdm eleq1d ibi cvv fvex w3a cnm eqeltri dmex eqid oprabex2 visset
-      opth wb id nmfval syl6eqr dmeqd eleq2d anbi12d adantl fveq1d fveq2
-      vafval opreqd smfval opreq2d eqtrd sylan9eqr opreq1d sumeq2sdv eqeq2d
-      oprabbidv sylbi df-ip oprabval6g mpan2 mp3an12 syl cr wf nvf fdm anbi1d
-      3eqtr2d ) FSTZDFUAUBZFUCUBZUDZUEUBZXNXOUEUFZAUGZJTZBUGZJTZUHZCUGZUIUJUKUF
-      ZULGUGUMUFZXSYFYAEUFZHUFZIUBZUNUMUFZUOUFZGUPZUJUQUFZURZUHZABCUSZXMDFUEUBX
-      QOXMFXPUESUTXMFXPURVAFSVBVCZVDVEXRXQURXMXNXOUEVFVGXMXRXSIVHZTZYAYRTZUHZYN
-      UHZABCUSZYPXMXPSTZXRUUCURZXMUUDXMFXPSYQVIVJXNVKTZXOVKTZUUDUUEFUAVLFUCVLZU
-      UFUUGUUDVMUUCVKTUUEABCYRYRYMUUCIIFVNUBVKNFVNVLVOVPZUUIUUCVQVRPQRXNXOSXSQU
-      GZVHZTZYAUUKTZUHZYDYEYFXSYFYAPUGZUCUBZUFZUUOUAUBZUFZUUJUBZUNUMUFZUOUFZGUP
-      ZUJUQUFZURZUHZABCUSZUUCUEVKVKVKUUOUUJUDXPURUUOXNURZUUJXOURZUHZUVGUUCURUUO
-      UUJXNXOPVSQVSUUHVTUVJUVFUUBABCUVJUUNUUAUVEYNUVIUUNUUAWAUVHUVIUULYSUUMYTUV
-      IUUKYRXSUVIUUJIUVIUUJXOIUVIWBFINWCWDZWEZWFUVIUUKYRYAUVLWFWGWHUVJUVDYMYDUV
-      JUVCYLUJUQUVJYEUVBYKGUVJUVAYJYFUOUVJUUTYIUNUMUVIUVHUUTUUSIUBYIUVIUUSUUJIU
-      VKWIUVHUUSYHIUVHUUSXSUUQHUFYHUVHUURHXSUUQUVHUURXNUAUBHUUOXNUAWJFHLWKWDWLU
-      VHUUQYGXSHUVHUUPEYFYAUVHUUPXNUCUBEUUOXNUCWJEFMWMWDWLWNWOVDWPWQWNWRWQWSWGW
-      TXAABCPGQRXBXCXDXEXFXMUUBYOABCXMUUAYCYNXMYSXTYTYBXMYRJXSXMJXGIXHYRJURFIJK
-      NXIJXGIXJXFZWFXMYRJYAUVMWFWGXKWTWOXL $.
-      $( [10-Apr-2007] $)
+    ipfval $p |- ( U e. NrmCVec -> P = ( x e. X , y e. X |->
+      ( sum_ k e. ( 1 ... 4 ) ( ( _i ^ k ) x.
+        ( ( N ` ( x G ( ( _i ^ k ) S y ) ) ) ^ 2 ) ) / 4 ) ) ) $=
+      ( vu cnv wcel cip cfv c1 c4 cfz co ci cv cexp c2 cmul csu cdiv cmpt2 cba
+      cns cpv cnm wceq fveq2 syl6eqr eqidd opreqd opreq123d fveq12d opreq1d
+      opreq2d sumeq2sdv mpt2eq123dv df-ip cvv fvex eqeltri mpt2exg mp2an fvmpt
+      syl5eq ) EPQCERSABIITUAUBUCZUDFUEUFUCZAUEZVPBUEZDUCZGUCZHSZUGUFUCZUHUCZFU
+      IZUAUJUCZUKZNOEABOUEZULSZWHVOVPVQVPVRWGUMSZUCZWGUNSZUCZWGUOSZSZUGUFUCZUHU
+      CZFUIZUAUJUCZUKWFPRWGEUPZABWHWHWRIIWEWSWHEULSZIWGEULUQJURZXAWSWQWDUAUJWSV
+      OWPWCFWSWOWBVPUHWSWNWAUGUFWSWLVTWMHWSWMEUOSHWGEUOUQMURWSVQVQWJVSWKGWSWKEU
+      NSGWGEUNUQKURWSVQUSWSWIDVPVRWSWIEUMSDWGEUMUQLURUTVAVBVCVDVEVCVFABOFVGIVHQ
+      ZXBWFVHQIWTVHJEULVIVJZXCABIIWEVHVHVKVLVMVN $.
+      $( [16-Nov-2013] $) $( [10-Apr-2007] $)
 
     $( Value of the inner product.  The definition is meaningful for normed
        complex vector spaces that are also inner product spaces, i.e. satisfy
@@ -102,16 +90,15 @@ $)
     ipval $p |- ( ( U e. NrmCVec /\ A e. X /\ B e. X ) -> ( A P B ) =
                 ( sum_ k e. ( 1 ... 4 ) ( ( _i ^ k ) x. ( ( N ` ( A G
                     ( ( _i ^ k ) S B ) ) ) ^ 2 ) ) / 4 ) ) $=
-      ( vx vy vz cnv wcel w3a co cv wa c1 c4 cfz ci cexp cfv c2 cmul csu cdiv
-      wceq copab2 ipfval opreqd 3ad2ant1 oprex opreq1 fveq2d opreq1d opreq2d
-      sumeq2sdv opreq2 eqid oprabval2 3adant1 eqtrd ) ERSZAISZBISZTABCUAZABOUBZ
-      ISPUBZISUCQUBUDUEUFUAZUGFUBUHUAZVNVQVODUAZGUAZHUIZUJUHUAZUKUAZFULZUEUMUAZ
-      UNUCOPQUOZUAZVPVQAVQBDUAZGUAZHUIZUJUHUAZUKUAZFULZUEUMUAZVJVKVMWFUNVLVJCWE
-      ABOPQCDEFGHIJKLMNUPUQURVKVLWFWMUNVJOPQABIIWDWMWEVPVQAVRGUAZHUIZUJUHUAZUKU
-      AZFULZUEUMUAWLUEUMUSVNAUNZWCWRUEUMWSVPWBWQFWSWAWPVQUKWSVTWOUJUHWSVSWNHVNA
-      VRGUTVAVBVCVDVBVOBUNZWRWLUEUMWTVPWQWKFWTWPWJVQUKWTWOWIUJUHWTWNWHHWTVRWGAG
-      VOBVQDVEVCVAVBVCVDVBWEVFVGVHVI $.
-      $( [29-Sep-2007] $) $( [31-Jan-2007] $)
+      ( vx vy cnv wcel co c1 c4 cfz ci cv cexp cfv c2 cmul csu cdiv wceq wa
+      cmpt2 ipfval opreqd opreq1 fveq2d opreq1d opreq2d sumeq2sdv opreq2 eqid
+      oprex ovmpt2 sylan9eq 3impb ) EQRZAIRZBIRZABCSZTUAUBSZUCFUDUESZAVLBDSZGSZ
+      HUFZUGUESZUHSZFUIZUAUJSZUKVGVHVIULVJABOPIIVKVLOUDZVLPUDZDSZGSZHUFZUGUESZU
+      HSZFUIZUAUJSZUMZSVSVGCWIABOPCDEFGHIJKLMNUNUOOPABIIWHVSWIVKVLAWBGSZHUFZUGU
+      ESZUHSZFUIZUAUJSVTAUKZWGWNUAUJWOVKWFWMFWOWEWLVLUHWOWDWKUGUEWOWCWJHVTAWBGU
+      PUQURUSUTURWABUKZWNVRUAUJWPVKWMVQFWPWLVPVLUHWPWKVOUGUEWPWJVNHWPWBVMAGWABV
+      LDVAUSUQURUSUTURWIVBVRUAUJVCVDVEVF $.
+      $( [16-Nov-2013] $) $( [31-Jan-2007] $)
 
     $( Lemma for ~ ipval3 . $)
     ipval2lem2 $p |- ( ( ( U e. NrmCVec /\ A e. X /\ B e. X ) /\ C e. CC ) ->
@@ -344,14 +331,13 @@ $)
 
     $( Mapping for the inner product operation. $)
     ipf $p |- ( U e. NrmCVec -> P : ( X X. X ) --> CC ) $=
-      ( vx vy vz vk cnv wcel cxp cc wf cv wa c1 c4 cfz co ci cexp cns cfv cpv
-      cnm c2 cmul csu cdiv wceq copab2 wral w3a eqid ipval ipcl eqeltrrd
-      3expib r19.21aivv foprab2 sylib ipfval feq1d mpbird ) BJKZCCLZMANVGMFOZCK
-      ZGOZCKZPHOQRSTUAIOUBTZVHVLVJBUCUDZTBUEUDZTBUFUDZUDUGUBTUHTIUIRUJTZUKPFGHU
-      LZNZVFVPMKZGCUMFCUMVRVFVSFGCCVFVIVKVSVFVIVKUNVHVJATVPMVHVJAVMBIVNVOCDVNUO
-      ZVMUOZVOUOZEUPVHVJABCDEUQURUSUTFGHCCVPMVQVQUOVAVBVFVGMAVQFGHAVMBIVNVOCDVT
-      WAWBEVCVDVE $.
-      $( [28-Jan-2008] $)
+      ( vx vy vk cnv wcel cxp cc wf c1 c4 cfz co ci cv cexp cns cfv cpv cnm c2
+      cmul csu cdiv cmpt2 wral w3a eqid ipval ipcl eqeltrrd 3expib r19.21aivv
+      foprab2a sylib ipfval feq1d mpbird ) BIJZCCKZLAMVDLFGCCNOPQRHSTQZFSZVEGSZ
+      BUAUBZQBUCUBZQBUDUBZUBUETQUFQHUGOUHQZUIZMZVCVKLJZGCUJFCUJVMVCVNFGCCVCVFCJ
+      ZVGCJZVNVCVOVPUKVFVGAQVKLVFVGAVHBHVIVJCDVIULZVHULZVJULZEUMVFVGABCDEUNUOUP
+      UQFGCCVKLVLVLULURUSVCVDLAVLFGAVHBHVIVJCDVQVRVSEUTVAVB $.
+      $( [16-Nov-2013] $) $( [28-Jan-2008] $)
 
     $( The complex conjugate of an inner product reverses its arguments.
        Equation I1 of [Ponnusamy] p. 362. $)

@@ -5,83 +5,73 @@ $(
 $)
 
 
-  $c fLim1 $.
+  $c fLim $.
 
   $( Extend class notation with a function returning the limit of a filter. $)
-  cflim1 $a class fLim1 $.
+  cflim $a class fLim $.
 
   ${
-    $d x y a b l $.
+    $d x a f l $.
     $( Define a function (indexed by a topology ` x ` ) whose value is the
        limits of a filter ` a ` . $)
-    df-flim1 $a |- fLim1 = { <. x , y >. | ( x e. Top /\ y = { <. a , b >. |
-      ( a e. Fil /\ U. a = U. x /\
-        b = { l e. U. x | ( ( nei ` x ) ` { l } ) C_ a } ) } ) } $.
+    df-flim $a |- fLim = ( x e. Top |->
+                    ( a e. { f e. Fil | U. f = U. x } |->
+                     { l e. U. x | ( ( nei ` x ) ` { l } ) C_ a } ) ) $.
   $}
 
   ${
-    $d J a b l x y $.  $d X a b l x y $.
-    sfvlim.1 $e |- X = U. J $.
+    $d J a f l x $.  $d X a f l x $.
+    flimfval.1 $e |- X = U. J $.
     $( Functions whose values are the limits of the filters.  (Contributed by
-       FL, 1-Sep-2008.) $)
-    sfvlim $p |- ( J e. Top -> ( fLim1 ` J ) = { <. a , b >. |
-      ( a e. Fil /\ U. a = X /\
-        b = { l e. X | ( ( nei ` J ) ` { l } ) C_ a } ) } ) $=
-      ( vx vy ctop wcel cv cfil cuni wceq csn cnei cfv wss crab w3a copab cvv
-      cflim1 cpw cin wa wi wal simpll eqimss sspwuni visset elpw biimpri
-      sylbir syl ad2antlr elin sylanbrc ex 3adant3 impcom simp3 adantl jca
-      19.21aivv ssopab2b sylibr uniexg syl5eqel pwexg 3syl inex1g incom eleq1i
-      biimpi opabex2g ssexg syl11anc unieq syl6eqr eqeq2d rabeq fveq2 fveq1d
-      sseq1d rabbidv eqtrd 3anbi23d opabbidv df-flim1 fvopab4g mpdan ) AIJZCKZL
-      JZWOMZBNZDKZEKOZAPQZQZWORZEBSZNZTZCDUAZUBJZAUCQXGNWNXGWOLBUDZUDZUEZJZXEUF
-      ZCDUAZRZXNUBJZXHWNXFXMUGZDUHCUHXOWNXQCDWNXFXMWNXFUFXLXEXFWNXLWPWRWNXLUGXE
-      WPWRUFZWNXLXRWNUFWPWOXJJZXLWPWRWNUIWRXSWPWNWRWQBRZXSWQBUJXTWOXIRZXSWOBUKX
-      SYAWOXICULUMUNUOUPUQWOLXJURUSUTVAVBXFXEWNWPWRXEVCVDVEUTVFXFXMCDVGVHWNXKUB
-      JZXPWNXJUBJZXJLUEZUBJZYBWNBUBJXIUBJYCWNBAMZUBFAIVIVJBUBVKXIUBVKVLXJLUBVMY
-      EYBYDXKUBXJLVNVOVPVLCDXKXDUBVQUPXGXNUBVRVSGHAWPWQGKZMZNZWSWTYGPQZQZWORZEY
-      HSZNZTZCDUAXGIUBUCYGANZYOXFCDYPYIWRYNXEWPYPYHBWQYPYHYFBYGAVTFWAZWBYPYMXDW
-      SYPYMYLEBSZXDYPYHBNYMYRNYQYLEYHBWCUPYPYLXCEBYPYKXBWOYPWTYJXAYGAPWDWEWFWGW
-      HWBWIWJGHCDEWKWLWM $.
-      $( [1-Dec-2010] $) $( [17-Aug-2008] $)
+       FL, 1-Sep-2008.)  (Revised by Mario Carneiro, 29-Nov-2013.) $)
+    flimfval $p |- ( J e. Top -> ( fLim ` J ) =
+                   ( a e. { f e. Fil | U. f = X } |->
+                     { l e. X | ( ( nei ` J ) ` { l } ) C_ a } ) ) $=
+      ( vx ctop wcel cv cuni wceq cfil crab csn cnei cfv wss cmpt cvv cflim
+      cpw wi wral eqimss visset elpw sspwuni bitri sylibr a1i rgen rabss mpbir
+      uniexg syl5eqel pwexg 3syl ssexg sylancr mptexg syl unieq syl6eqr eqeq2d
+      rabbidv fveq2 fveq1d sseq1d rabeqbidv mpteq12dv df-flim fvmptg mpdan ) BH
+      IZDAJZKZCLZAMNZEJOZBPQZQZDJZRZECNZSZTIZBUAQWFLVOVSTIZWGVOVSCUBZUBZRZWJTIZ
+      WHWKVRVPWJIZUCZAMUDWNAMWNVPMIVRVQCRZWMVQCUEWMVPWIRWOVPWIAUFUGVPCUHUIUJUKU
+      LVRAMWJUMUNVOCTIWITIWLVOCBKZTFBHUOUPCTUQWITUQURVSWJTUSUTDVSWETVAVBGBDVQGJ
+      ZKZLZAMNZVTWQPQZQZWCRZEWRNZSWFHTUAWQBLZDWTXDVSWEXEWSVRAMXEWRCVQXEWRWPCWQB
+      VCFVDZVEVFXEXCWDEWRCXFXEXBWBWCXEVTXAWAWQBPVGVHVIVJVKGADEVLVMVN $.
+      $( [29-Nov-2013] $) $( [17-Aug-2008] $)
   $}
 
 
   ${
-    $d l x y F $.  $d l x y J $.  $d l x y X $.  $d x y Y $.
-    limfil.1 $e |- X = U. J $.
-    limfil.2 $e |- Y = U. F $.
+    $d a f l F $.  $d a f l J $.  $d a f l X $.  $d f Y $.
+    flimval.1 $e |- X = U. J $.
+    flimval.2 $e |- Y = U. F $.
     $( The set of limit points of a filter.  (Contributed by Jeff Hankins,
        4-Sep-2009.) $)
-    limfil $p |- ( ( J e. Top /\ F e. Fil /\ X = Y ) -> ( ( fLim1 ` J ) ` F ) =
+    flimval $p |- ( ( J e. Top /\ F e. Fil /\ X = Y ) -> ( ( fLim ` J ) ` F ) =
     { l e. X | ( ( nei ` J ) ` { l } ) C_ F } ) $=
-      ( vx vy ctop wcel cfil wceq w3a cflim1 cfv cv cuni csn cnei wss crab
-      copab sfvlim fveq1d 3ad2ant1 cvv wfun wa cop uniexg syl5eqel rabexg syl
-      simp3 ssopab2i funopabeq funss mp2 jctir simp2 eqcom biimpi 3ad2ant3
-      eqidd 3jca wb eleq1 unieq syl6eqr eqeq1d sseq2 rabbidv eqeq2d 3anbi123d
-      eqeq1 3anbi3d opelopabg sylan2 ancoms sylan 3adant3 mpbird funopfvg sylc
-      eqtrd ) BJKZALKZCDMZNZABOPZPZAHQZLKZWMRZCMZIQZEQSBTPPZWMUAZECUBZMZNZHIUCZ
-      PZWRAUAZECUBZWGWHWLXDMWIWGAWKXCBCHIEFUDUEUFWJXFUGKZXCUHZUIAXFUJXCKZXDXFMW
-      JXGXHWGWHXGWIWGCUGKZXGWGCBRUGFBJUKULZXEECUGUMZUNUFXCXAHIUCZUAXMUHXHXBXAHI
-      WNWPXAUOUPHIWTUQXCXMURUSUTWJXIWHDCMZXFXFMZNZWJWHXNXOWGWHWIVAWIWGXNWHWIXNC
-      DVBVCVDWJXFVEVFWGWHXIXPVGZWIWGXJWHXQXKWHXJXQXJWHXGXQXLXBWHXNWQXFMZNXPHIAX
-      FLUGWMAMZWNWHWPXNXAXRWMALVHXSWODCXSWOARDWMAVIGVJVKXSWTXFWQXSWSXEECWMAWRVL
-      VMVNVOXRXRXOWHXNWQXFXFVPVQVRVSVTWAWBWCAXFUGXCWDWEWF $.
-      $( [1-Dec-2010] $) $( [4-Sep-2009] $)
+      ( va vf ctop wcel cfil wceq cflim cfv cv csn cnei wss crab wa cuni cmpt
+      flimfval fveq1d adantr cvv eqcom unieq syl6eqr eqeq1d elrab biimpri
+      sylan2b uniexg syl5eqel rabexg syl sseq2 rabbidv eqid fvmptg syl2anc
+      eqtrd 3impb ) BJKZALKZCDMZABNOZOZEPQBROOZASZECTZMVFVGVHUAZUAVJAHIPZUBZCMZ
+      ILTZVKHPZSZECTZUCZOZVMVFVJWCMVNVFAVIWBIBCHEFUDUEUFVNAVRKZVMUGKZWCVMMVFVHV
+      GDCMZWDCDUHWDVGWFUAVQWFIALVOAMZVPDCWGVPAUBDVOAUIGUJUKULUMUNVFCUGKWEVFCBUB
+      UGFBJUOUPVLECUGUQURHAWAVMVRUGWBVSAMVTVLECVSAVKUSUTWBVAVBVCVDVE $.
+      $( [29-Nov-2013] $) $( [4-Sep-2009] $)
   $}
 
   ${
     $d l A $.  $d l F $.  $d l J $.  $d l X $.  $d l Y $.
-    isfillim.1 $e |- X = U. J $.
-    isfillim.2 $e |- Y = U. F $.
+    elflim.1 $e |- X = U. J $.
+    elflim.2 $e |- Y = U. F $.
     $( The predicate "is a limit point of a filter."  (Contributed by Jeff
        Hankins, 4-Sep-2009.) $)
-    isfillim $p |- ( ( J e. Top /\ F e. Fil /\ X = Y ) -> ( A e. ( ( fLim1 ` J
-    ) ` F ) <-> ( A e. X /\ ( ( nei ` J ) ` { A } ) C_ F ) ) ) $=
-      ( vl ctop wcel cfil wceq w3a cflim1 cfv cv csn cnei wss crab wa limfil
+    elflim $p |- ( ( J e. Top /\ F e. Fil /\ X = Y ) ->
+                   ( A e. ( ( fLim ` J ) ` F ) <->
+                     ( A e. X /\ ( ( nei ` J ) ` { A } ) C_ F ) ) ) $=
+      ( vl ctop wcel cfil wceq w3a cflim cfv cv csn cnei wss crab wa flimval
       eleq2d sneq fveq2d sseq1d elrab syl6bb ) CIJBKJDELMZABCNOOZJAHPZQZCROZOZB
       SZHDTZJADJAQZUMOZBSZUAUIUJUPABCDEHFGUBUCUOUSHADUKALZUNURBUTULUQUMUKAUDUEU
       FUGUH $.
-      $( [1-Dec-2010] $) $( [4-Sep-2009] $)
+      $( [29-Nov-2013] $) $( [4-Sep-2009] $)
   $}
 
   ${
@@ -91,10 +81,10 @@ $)
     $( A limit point of a filter is a limit point of a finer filter.
        (Contributed by Jeff Hankins, 5-Sep-2009.) $)
     limfilss $p |- ( ( ( ( J e. Top /\ F e. Fil /\ G e. Fil ) /\ X = Y /\ X = Z
-    ) /\ F C_ G /\ A e. ( ( fLim1 ` J ) ` F ) ) -> A e. ( ( fLim1 ` J ) ` G ) )
+    ) /\ F C_ G /\ A e. ( ( fLim ` J ) ` F ) ) -> A e. ( ( fLim ` J ) ` G ) )
         $=
-      ( ctop wcel cfil w3a wceq wss cflim1 cfv wa csn cnei wi sstr2 com12
-      anim2d adantl wb isfillim 3expa 3adantl3 3adant3 adantr 3adantl2 3adant2
+      ( ctop wcel cfil w3a wceq wss cflim cfv wa csn cnei wi sstr2 com12
+      anim2d adantl wb elflim 3expa 3adantl3 3adant3 adantr 3adantl2 3adant2
       3imtr4d 3impia ) DKLZBMLZCMLZNZEFOZEGOZNZBCPZABDQRZRLZACVERLZVCVDSAELZATD
       UARRZBPZSZVHVICPZSZVFVGVDVKVMUBVCVDVJVLVHVJVDVLVIBCUCUDUEUFVCVFVKUGZVDUTV
       AVNVBUQURVAVNUSUQURVAVNABDEFHIUHUIUJUKULVCVGVMUGZVDUTVBVOVAUQUSVBVOURUQUS
@@ -107,10 +97,10 @@ $)
     flimelbas.2 $e |- Y = U. F $.
     $( A limit point of a filter belongs to its base set.  (Contributed by Jeff
        Hankins, 4-Sep-2009.) $)
-    flimelbas $p |- ( ( ( J e. Top /\ F e. Fil /\ X = Y ) /\ A e. ( ( fLim1 ` J
+    flimelbas $p |- ( ( ( J e. Top /\ F e. Fil /\ X = Y ) /\ A e. ( ( fLim ` J
     ) ` F ) ) -> A e. X ) $=
-      ( ctop wcel cfil wceq w3a cflim1 cfv csn cnei wss isfillim simprbda ) CHI
-      BJIDEKLABCMNNIADIAOCPNNBQABCDEFGRS $.
+      ( ctop wcel cfil wceq w3a cflim cfv csn cnei wss elflim simprbda ) CHIBJI
+      DEKLABCMNNIADIAOCPNNBQABCDEFGRS $.
       $( [1-Dec-2010] $) $( [4-Sep-2009] $)
   $}
 
@@ -119,9 +109,9 @@ $)
     flimnei.2 $e |- Y = U. F $.
     $( A filter contains all of the neighborhoods of its limit points.
        (Contributed by Jeff Hankins, 4-Sep-2009.) $)
-    flimnei $p |- ( ( ( J e. Top /\ F e. Fil /\ X = Y ) /\ A e. ( ( fLim1 ` J )
+    flimnei $p |- ( ( ( J e. Top /\ F e. Fil /\ X = Y ) /\ A e. ( ( fLim ` J )
     ` F ) /\ N e. ( ( nei ` J ) ` { A } ) ) -> N e. F ) $=
-      ( ctop wcel cfil wceq w3a cflim1 cfv csn cnei wa wss isfillim simplbda
+      ( ctop wcel cfil wceq w3a cflim cfv csn cnei wa wss elflim simplbda
       sseld 3impia ) CIJBKJEFLMZABCNOOJZDAPCQOOZJDBJUDUERUFBDUDUEAEJUFBSABCEFGH
       TUAUBUC $.
       $( [1-Dec-2010] $) $( [4-Sep-2009] $)
@@ -134,147 +124,141 @@ $)
        example 2.  (Contributed by FL, 19-Sep-2007.) $)
     neifil $p |- ( ( J e. Top /\ S C_ X /\ S =/= (/) ) ->
       ( ( nei ` J ) ` S ) e. Fil ) $=
-      ( vx vy ctop wcel wss c0 wne w3a cnei cfv wn cuni wa cv wi wal cin wral
-      cfil 0nnei 3adant2 unnei tpnei biimpa eqeltrd 3adant3 jca wceq sseq2
-      ssnei2 exp43 adantr com14 syl6bi com23 3impd mpcom 19.21aivv innei
-      3expib 3ad2ant1 r19.21aivv 3jca cvv wb fvex eqid isfil ax-mp sylibr ) BGH
-      ZACIZAJKZLZJABMNZNZHOZVTPZVTHZQZERZVTHZFRZWBIZWEWGIZLZWGVTHZSZFTETZWEWGUA
-      VTHZFVTUBEVTUBZLZVTUCHZVRWDWMWOVRWAWCVOVQWAVPABUDUEVOVPWCVQVOVPQZWBCVTABC
-      DUFZVOVPCVTHABCDUGUHUIUJUKVRWLEFVOVPWLVQWBCULZWRWLWSWTWJWRWKWTWFWHWIWRWKS
-      ZWTWHWFWIXASZWTWHWGCIZWFXBSWBCWGUMWRWFWIXCWKVOWFWIXCWKSSSVPVOWFWIXCWKABWG
-      WECDUNUOUPUQURUSUTUSVAUJVBVRWNEFVTVTVOVPWFWKQWNSVQVOWFWKWNABWGWEVCVDVEVFV
-      GVTVHHWQWPVIAVSVJEFVHVTWBWBVKVLVMVN $.
-      $( [1-Dec-2010] $) $( [18-Sep-2007] $)
+      ( vy vx ctop wcel wss c0 wne w3a cnei cfv wn cuni wa cv wrex wi cpw wral
+      cin cfil 0nnei 3adant2 unnei tpnei biimpa eqeltrd 3adant3 jca elpwi
+      sseq2d sylan2 ssnei2 exp43 r19.23adv com23 imp adantlr syldan r19.21aiva
+      innei 3expib 3ad2ant1 r19.21aivv 3jca eqid isfil2 sylibr ) BGHZACIZAJKZLZ
+      JABMNNZHOZVPPZVPHZQZERZFRZIZEVPSZWBVPHZTZFVRUAZUBZWBWAUCVPHZEVPUBFVPUBZLV
+      PUDHVOVTWHWJVOVQVSVLVNVQVMABUEUFVLVMVSVNVLVMQZVRCVPABCDUGZVLVMCVPHABCDUHU
+      IUJUKULVLVMWHVNWKWFFWGWKWBWGHZWBCIZWFWMWKWBVRIZWNWBVRUMWKWOWNWKVRCWBWLUNU
+      IUOVLWNWFVMVLWNWFVLWDWNWEVLWCWNWETEVPVLWAVPHZWCWNWEABWBWACDUPUQURUSUTVAVB
+      VCUKVOWIFEVPVPVLVMWEWPQWITVNVLWEWPWIABWAWBVDVEVFVGVHFEVPVRVRVIVJVK $.
+      $( [28-Nov-2013] $) $( [18-Sep-2007] $)
   $}
 
   ${
     $d f u v w x y z J $.  $d f u v w x y z X $.
-    hausfillim.1 $e |- X = U. J $.
+    hausflim.1 $e |- X = U. J $.
     $( A condition for a topology to be Hausdorff in terms of filters.  A
        topology is Hausdorff iff every filter has at most one limit point.
        (Contributed by Jeff Hankins, 5-Sep-2009.) $)
-    hausfillim $p |- ( J e. Top -> ( J e. Haus
-        <-> A. f e. Fil ( X = U. f -> E* x x e. ( ( fLim1 ` J ) ` f ) ) ) ) $=
+    hausflim $p |- ( J e. Top -> ( J e. Haus
+        <-> A. f e. Fil ( X = U. f -> E* x x e. ( ( fLim ` J ) ` f ) ) ) ) $=
       ( vz vw vu vv vy ctop wcel cha cv wne cin c0 wceq csn cnei cfv wrex wi
-      wral cuni cflim1 wmo cfil hausnei2 wa wal w3a eqid flimelbas ex anim12d
+      wral cuni cflim wmo cfil hausnei2 wa wal w3a eqid flimelbas ex anim12d
       imp neeq1 sneq fveq2d rexeqdv imbi12d neeq2 rexbidv rcla42v syl wn
       filesn 3ad2ant2 adantr df-ne pm2.27 simp3 simpll2 flimnei 3expa adantrr
       adantlrr adantrl adantlrl filint syl111anc 3adant3 eqeltrrd 3exp com3l
       r19.23aivv syl6 com13 impr syl5bir mt3d expr syld com23 19.21adv 3expib
-      exp4a r19.21adv ralnex bicomi ralbii bitr3i wex cun cfi cfg cfbas wnel
-      cvv wb fvex unex a1i fsubbas wss ssun1 snssi tpnei 3ad2ant1 mpbid ne0i
-      ssn0 sylancr 2ralbii simpr sylan2br visset snnz neifil mp3an3 sylan2
-      filfbas jca fbunfip mpbird mpbir2and fgfil unnei uneq12d unidm syl6req
-      uniun fiuni syl5eqr ax-mp fgbas eqtrd adantl isfillim simpll ad2antrl
-      abfi2 sstri fbssfg imp3a sstrd exp520 com24 3impib impcom simplr ssun2
-      biimpi 3ad2ant3 ad2antlr eleq1 anbi1d eqeq1 notbid anbi12d anbi2d eqeq2
+      exp4a r19.21adv ralnex bicomi ralbii bitr3i wex cun cfi cfg cfbas cvv wb
+      fvex unex a1i fsubbas wss ssun1 snssi tpnei 3ad2ant1 mpbid ne0i ssn0
+      sylancr 2ralbii simpr sylan2br visset snnz neifil mp3an3 sylan2 filfbas
+      jca fbunfip mpbird mpbir2and fgfil unnei uneq12d unidm syl6req uniun
+      fiuni syl5eqr ax-mp fgbas eqtrd adantl elflim simpll ad2antrl ssfii
+      sstri fbssfg imp3a sstrd exp520 com24 3impib impcom simplr ssun2 biimpi
+      3ad2ant3 ad2antlr eleq1 anbi1d eqeq1 notbid anbi12d anbi2d eqeq2
       sylan9bb cla42ev syl21anc jcai unieq eqeq2d fveq2 eleq2d 2exbidv rcla4ev
       syldan expcom mpdd exanali exbii exnal bitri anbi2i annim rexbii rexnal
       syl6ib syl5bi con4d r19.21advv impbid mo4 imbi2i syl6bbr bitrd ) CKLZCMLF
-      NZGNZOZHNZINZPZQRZIUXFSZCTUAZUAZUBZHUXESZUXMUAZUBZUCZGDUDFDUDZDBNZUEZRZAN
-      ZUYACUFUAZUAZLZAUGZUCZBUHUDZFGIHCDEUIUXDUXTUYCUYGJNZUYFLZUJZUYDUYKRZUCZJU
-      KZAUKZUCZBUHUDZUYJUXDUXTUYSUXDUXTUYRBUHUXDUXTUYAUHLZUYCUYQUXDUYTUYCUJUXTU
-      YQUXDUYTUYCUXTUYQUCUXDUYTUYCULZUXTUYPAVUAUXTUYOJVUAUYMUXTUYNVUAUYMUXTUYNU
-      CVUAUYMUJZUXTUYDUYKOZUXKIUYKSZUXMUAZUBZHUYDSZUXMUAZUBZUCZUYNVUBUYDDLZUYKD
-      LZUJZUXTVUJUCVUAUYMVUMVUAUYGVUKUYLVULVUAUYGVUKUYDUYACDUYBEUYBUMZUNUOVUAUY
-      LVULUYKUYACDUYBEVUNUNUOUPUQUXSVUJUYDUXFOZUXOHVUHUBZUCFGUYDUYKDDUXEUYDRZUX
-      GVUOUXRVUPUXEUYDUXFURVUQUXOHUXQVUHVUQUXPVUGUXMUXEUYDUSUTVAVBUXFUYKRZVUOVU
-      CVUPVUIUXFUYKUYDVCVURUXOVUFHVUHVURUXKIUXNVUEVURUXLVUDUXMUXFUYKUSUTVAVDVBV
-      EVFVUAUYMVUJUYNVUAUYMVUJUJZUJZUYNQUYALZVUAVVAVGZVUSUYTUXDVVBUYCUYAVHVIVJU
-      YNVGZVUCVUTVVAUYDUYKVKVUAUYMVUJVUCVVAUCVUCVUJVUBVVAVUCVUJVUIVUBVVAUCZVUCV
-      UIVLUXKVVDHIVUHVUEVUBUXHVUHLZUXIVUELZUJZUXKVVAVUBVVGUXKVVAVUBVVGUXKULUXJQ
-      UYAVUBVVGUXKVMVUBVVGUXJUYALZUXKVUBVVGUJUYTUXHUYALZUXIUYALZVVHUXDUYTUYCUYM
-      VVGVNVUAUYGVVGVVIUYLVUAUYGUJVVEVVIVVFVUAUYGVVEVVIUYDUYACUXHDUYBEVUNVOVPVQ
-      VRVUAUYLVVGVVJUYGVUAUYLUJVVFVVJVVEVUAUYLVVFVVJUYKUYACUXIDUYBEVUNVOVPVSVTU
-      XHUXIUYAWAWBWCWDWEWFWGWHWIWJWKWLWMWNUOWOWPWPWQWOWRWSUXDUYSUXSFGDDUXDUXGUX
-      EDLZUXFDLZUJZUYSUXRUXDVVMUXGUYSUXRUCZUXDVVMUXGVVNUXDVVMUXGULZUXRUYSUXRVGZ
-      UXKVGZIUXNUDZHUXQUDZVVOUYSVGZVVPUXOVGZHUXQUDVVSUXOHUXQWTVWAVVRHUXQVVRVWAU
-      XKIUXNWTXAXBXCVVOVVSUYCUYMVVCUJZJXDZAXDZUJZBUHUBZVVTVVOVVSUXQUXNXEZXFUAZX
-      GUAZUHLZVWFVVOVVSVWJVVOVVSUJZVWHXHLZVWJVWKVWLVWGQOZQVWHXIZVWKVWGXJLZVWLVW
-      MVWNUJXKVWOVWKUXQUXNUXPUXMXLUXLUXMXLXMZXNVWGXJXOVFVWKUXQVWGXPUXQQOZVWMUXQ
-      UXNXQZVVOVWQVVSVVODUXQLZVWQVVOUXPDXPZVWSVVMUXDVWTUXGVVKVWTVVLUXEDXRZVJVIU
-      XDVVMVWTVWSXKUXGUXPCDEXSXTYAUXQDYBVFVJUXQVWGYCYDVWKVWNUXJQOZIUXNUDHUXQUDZ
-      VVSVVOVXCVXCVXBVVQHIUXQUXNUXJQVKYEVVOVXCYFYGVVOVWNVXCXKZVVSVVOUXQXHLZUXNX
-      HLZUJZVXDUXDVVMVXGUXGUXDVVMUJZVXEVXFVXHUXQUHLZVXEUXDVVKVXIVVLVVKUXDVWTVXI
-      VXAUXDVWTUXPQOVXIUXEFYHZYIUXPCDEYJYKYLVQUXQYMVFUXDVVLVXFVVKUXDVVLUJUXNUHL
-      ZVXFVVLUXDUXLDXPZVXKUXFDXRZUXDVXLUXLQOVXKUXFGYHZYIUXLCDEYJYKYLUXNYMVFVSYN
-      WCHIUXQUXNYOVFVJYPYQZVWHYRVFUOVVOVVSVWJVWFUCVWJVWKVWFVWJVWKDVWIUEZRZUYDVW
-      IUYEUAZLZUYKVXRLZUJZVVCUJZJXDAXDZUJZVWFVWJVWKUJZVXQVYCVWKVXQVWJVWKDUXQUEZ
-      UXNUEZXEZVXPVVODVYHRZVVSUXDVVMVYIUXGVXHVYHDDXEDVXHVYFDVYGDUXDVVKVYFDRZVVL
-      VVKUXDVWTVYJVXAUXPCDEYSYLVQUXDVVLVYGDRZVVKVVLUXDVXLVYKVXMUXLCDEYSYLVSYTDU
-      UAUUBWCVJVWKVWLVYHVXPRVXOVWHVYHVWOVYHVWHUEZRVWPVWOVYHVWGUEVYLUXQUXNUUCVWG
-      XJUUDUUEUUFUUGVFUUHUUIVYEVXQVYCVYEVXQUJUXEVXRLZUXFVXRLZUXEUXFRZVGZVYCVYEV
-      XQVYMVWKVWJVXQVYMUCZVVOVVSVWJVYQUCVVOVXQVWJVVSVYMVVOVWJVXQVVSVYMUCZUXDVVM
-      UXGVWJVXQVYRUCUCUXDVXQVWJVVMUXGUJZVYRUXDVWJVXQVYSVYRUCUXDVWJVXQVYSVVSVYMU
-      XDVWJVXQULZVYSVVSUJZUJZVYMVVKUXQVWIXPZVYTVYMVVKWUCUJXKWUAUXEVWICDVXPEVXPU
-      MZUUJVJVYSVVKVYTVVSVVKVVLUXGUUKUULWUBUXQVWHVWIUXQVWHXPWUBUXQVWGVWHVWRVWOV
-      WGVWHXPVWPVWGXJUUMUUFZUUNXNVYTWUAVWHVWIXPZUXDVWJWUAWUFUCVXQUXDVYSVVSWUFUX
-      DVVMUXGVVSWUFUCVVOVVSWUFVWKVWLWUFVXOVWHUUOVFUOWQUUPXTUQZUUQYQUURWOUUSUUTW
-      OUUSUQUVAUQVYEVXQVYNVWKVWJVXQVYNUCZVVOVVSVWJWUHUCVVOVXQVWJVVSVYNVVOVWJVXQ
-      VVSVYNUCZUXDVVMUXGVWJVXQWUIUCUCUXDVXQVWJVYSWUIUXDVWJVXQVYSWUIUCUXDVWJVXQV
-      YSVVSVYNWUBVYNVVLUXNVWIXPZVYTVYNVVLWUJUJXKWUAUXFVWICDVXPEWUDUUJVJVYSVVLVY
-      TVVSVVKVVLUXGUVBUULWUBUXNVWHVWIUXNVWHXPWUBUXNVWGVWHUXNUXQUVCWUEUUNXNWUGUU
-      QYQUURWOUUSUUTWOUUSUQUVAUQVWKVYPVWJVXQVVOVYPVVSUXGUXDVYPVVMUXGVYPUXEUXFVK
-      UVDUVEVJUVFVYBVYMVYNUJZVYPUJZAJUXEUXFVXJVXNUYDUXERZVYBVYMVXTUJZUXEUYKRZVG
-      ZUJUYKUXFRZWULWUMVYAWUNVVCWUPWUMVXSVYMVXTUYDUXEVXRUVGUVHWUMUYNWUOUYDUXEUY
-      KUVIUVJUVKWUQWUNWUKWUPVYPWUQVXTVYNVYMUYKUXFVXRUVGUVLWUQWUOVYOUYKUXFUXEUVM
-      UVJUVKUVNUVOUVPUOUVQVWEVYDBVWIUHUYAVWIRZUYCVXQVWDVYCWURUYBVXPDUYAVWIUVRUV
-      SWURVWBVYBAJWURUYMVYAVVCWURUYGVXSUYLVXTWURUYFVXRUYDUYAVWIUYEUVTZUWAWURUYF
-      VXRUYKWUSUWAUVKUVHUWBUVKUWCUWDUWEUOUWFVWFUYRVGZBUHUBVVTVWEWUTBUHVWEUYCUYQ
-      VGZUJWUTVWDWVAUYCVWDUYPVGZAXDWVAVWCWVBAUYMUYNJUWGUWHUYPAUWIUWJUWKUYCUYQUW
-      LUWJUWMUYRBUHUWNUWJUWOUWPUWQWEWOUUSUWRUWSUYIUYRBUHUYHUYQUYCUYGUYLAJUYDUYK
-      UYFUVGUWTUXAXBUXBUXC $.
-      $( [1-Dec-2010] $) $( [5-Sep-2009] $)
+      NZGNZOZHNZINZPZQRZIUXESZCTUAZUAZUBZHUXDSZUXLUAZUBZUCZGDUDFDUDZDBNZUEZRZAN
+      ZUXTCUFUAZUAZLZAUGZUCZBUHUDZFGIHCDEUIUXCUXSUYBUYFJNZUYELZUJZUYCUYJRZUCZJU
+      KZAUKZUCZBUHUDZUYIUXCUXSUYRUXCUXSUYQBUHUXCUXSUXTUHLZUYBUYPUXCUYSUYBUJUXSU
+      YPUXCUYSUYBUXSUYPUCUXCUYSUYBULZUXSUYOAUYTUXSUYNJUYTUYLUXSUYMUYTUYLUXSUYMU
+      CUYTUYLUJZUXSUYCUYJOZUXJIUYJSZUXLUAZUBZHUYCSZUXLUAZUBZUCZUYMVUAUYCDLZUYJD
+      LZUJZUXSVUIUCUYTUYLVULUYTUYFVUJUYKVUKUYTUYFVUJUYCUXTCDUYAEUYAUMZUNUOUYTUY
+      KVUKUYJUXTCDUYAEVUMUNUOUPUQUXRVUIUYCUXEOZUXNHVUGUBZUCFGUYCUYJDDUXDUYCRZUX
+      FVUNUXQVUOUXDUYCUXEURVUPUXNHUXPVUGVUPUXOVUFUXLUXDUYCUSUTVAVBUXEUYJRZVUNVU
+      BVUOVUHUXEUYJUYCVCVUQUXNVUEHVUGVUQUXJIUXMVUDVUQUXKVUCUXLUXEUYJUSUTVAVDVBV
+      EVFUYTUYLVUIUYMUYTUYLVUIUJZUJZUYMQUXTLZUYTVUTVGZVURUYSUXCVVAUYBUXTVHVIVJU
+      YMVGZVUBVUSVUTUYCUYJVKUYTUYLVUIVUBVUTUCVUBVUIVUAVUTVUBVUIVUHVUAVUTUCZVUBV
+      UHVLUXJVVCHIVUGVUDVUAUXGVUGLZUXHVUDLZUJZUXJVUTVUAVVFUXJVUTVUAVVFUXJULUXIQ
+      UXTVUAVVFUXJVMVUAVVFUXIUXTLZUXJVUAVVFUJUYSUXGUXTLZUXHUXTLZVVGUXCUYSUYBUYL
+      VVFVNUYTUYFVVFVVHUYKUYTUYFUJVVDVVHVVEUYTUYFVVDVVHUYCUXTCUXGDUYAEVUMVOVPVQ
+      VRUYTUYKVVFVVIUYFUYTUYKUJVVEVVIVVDUYTUYKVVEVVIUYJUXTCUXHDUYAEVUMVOVPVSVTU
+      XGUXHUXTWAWBWCWDWEWFWGWHWIWJWKWLWMWNUOWOWPWPWQWOWRWSUXCUYRUXRFGDDUXCUXFUX
+      DDLZUXEDLZUJZUYRUXQUXCVVLUXFUYRUXQUCZUXCVVLUXFVVMUXCVVLUXFULZUXQUYRUXQVGZ
+      UXJVGZIUXMUDZHUXPUDZVVNUYRVGZVVOUXNVGZHUXPUDVVRUXNHUXPWTVVTVVQHUXPVVQVVTU
+      XJIUXMWTXAXBXCVVNVVRUYBUYLVVBUJZJXDZAXDZUJZBUHUBZVVSVVNVVRUXPUXMXEZXFUAZX
+      GUAZUHLZVWEVVNVVRVWIVVNVVRUJZVWGXHLZVWIVWJVWKVWFQOZQVWGLVGZVWJVWFXILZVWKV
+      WLVWMUJXJVWNVWJUXPUXMUXOUXLXKUXKUXLXKXLZXMVWFXIXNVFVWJUXPVWFXOUXPQOZVWLUX
+      PUXMXPZVVNVWPVVRVVNDUXPLZVWPVVNUXODXOZVWRVVLUXCVWSUXFVVJVWSVVKUXDDXQZVJVI
+      UXCVVLVWSVWRXJUXFUXOCDEXRXSXTUXPDYAVFVJUXPVWFYBYCVWJVWMUXIQOZIUXMUDHUXPUD
+      ZVVRVVNVXBVXBVXAVVPHIUXPUXMUXIQVKYDVVNVXBYEYFVVNVWMVXBXJZVVRVVNUXPXHLZUXM
+      XHLZUJZVXCUXCVVLVXFUXFUXCVVLUJZVXDVXEVXGUXPUHLZVXDUXCVVJVXHVVKVVJUXCVWSVX
+      HVWTUXCVWSUXOQOVXHUXDFYGZYHUXOCDEYIYJYKVQUXPYLVFUXCVVKVXEVVJUXCVVKUJUXMUH
+      LZVXEVVKUXCUXKDXOZVXJUXEDXQZUXCVXKUXKQOVXJUXEGYGZYHUXKCDEYIYJYKUXMYLVFVSY
+      MWCHIUXPUXMYNVFVJYOYPZVWGYQVFUOVVNVVRVWIVWEUCVWIVWJVWEVWIVWJDVWHUEZRZUYCV
+      WHUYDUAZLZUYJVXQLZUJZVVBUJZJXDAXDZUJZVWEVWIVWJUJZVXPVYBVWJVXPVWIVWJDUXPUE
+      ZUXMUEZXEZVXOVVNDVYGRZVVRUXCVVLVYHUXFVXGVYGDDXEDVXGVYEDVYFDUXCVVJVYEDRZVV
+      KVVJUXCVWSVYIVWTUXOCDEYRYKVQUXCVVKVYFDRZVVJVVKUXCVXKVYJVXLUXKCDEYRYKVSYSD
+      YTUUAWCVJVWJVWKVYGVXORVXNVWGVYGVWNVYGVWGUEZRVWOVWNVYGVWFUEVYKUXPUXMUUBVWF
+      XIUUCUUDUUEUUFVFUUGUUHVYDVXPVYBVYDVXPUJUXDVXQLZUXEVXQLZUXDUXERZVGZVYBVYDV
+      XPVYLVWJVWIVXPVYLUCZVVNVVRVWIVYPUCVVNVXPVWIVVRVYLVVNVWIVXPVVRVYLUCZUXCVVL
+      UXFVWIVXPVYQUCUCUXCVXPVWIVVLUXFUJZVYQUXCVWIVXPVYRVYQUCUXCVWIVXPVYRVVRVYLU
+      XCVWIVXPULZVYRVVRUJZUJZVYLVVJUXPVWHXOZVYSVYLVVJWUBUJXJVYTUXDVWHCDVXOEVXOU
+      MZUUIVJVYRVVJVYSVVRVVJVVKUXFUUJUUKWUAUXPVWGVWHUXPVWGXOWUAUXPVWFVWGVWQVWNV
+      WFVWGXOVWOVWFXIUULUUEZUUMXMVYSVYTVWGVWHXOZUXCVWIVYTWUEUCVXPUXCVYRVVRWUEUX
+      CVVLUXFVVRWUEUCVVNVVRWUEVWJVWKWUEVXNVWGUUNVFUOWQUUOXSUQZUUPYPUUQWOUURUUSW
+      OUURUQUUTUQVYDVXPVYMVWJVWIVXPVYMUCZVVNVVRVWIWUGUCVVNVXPVWIVVRVYMVVNVWIVXP
+      VVRVYMUCZUXCVVLUXFVWIVXPWUHUCUCUXCVXPVWIVYRWUHUXCVWIVXPVYRWUHUCUXCVWIVXPV
+      YRVVRVYMWUAVYMVVKUXMVWHXOZVYSVYMVVKWUIUJXJVYTUXEVWHCDVXOEWUCUUIVJVYRVVKVY
+      SVVRVVJVVKUXFUVAUUKWUAUXMVWGVWHUXMVWGXOWUAUXMVWFVWGUXMUXPUVBWUDUUMXMWUFUU
+      PYPUUQWOUURUUSWOUURUQUUTUQVWJVYOVWIVXPVVNVYOVVRUXFUXCVYOVVLUXFVYOUXDUXEVK
+      UVCUVDVJUVEVYAVYLVYMUJZVYOUJZAJUXDUXEVXIVXMUYCUXDRZVYAVYLVXSUJZUXDUYJRZVG
+      ZUJUYJUXERZWUKWULVXTWUMVVBWUOWULVXRVYLVXSUYCUXDVXQUVFUVGWULUYMWUNUYCUXDUY
+      JUVHUVIUVJWUPWUMWUJWUOVYOWUPVXSVYMVYLUYJUXEVXQUVFUVKWUPWUNVYNUYJUXEUXDUVL
+      UVIUVJUVMUVNUVOUOUVPVWDVYCBVWHUHUXTVWHRZUYBVXPVWCVYBWUQUYAVXODUXTVWHUVQUV
+      RWUQVWAVYAAJWUQUYLVXTVVBWUQUYFVXRUYKVXSWUQUYEVXQUYCUXTVWHUYDUVSZUVTWUQUYE
+      VXQUYJWURUVTUVJUVGUWAUVJUWBUWCUWDUOUWEVWEUYQVGZBUHUBVVSVWDWUSBUHVWDUYBUYP
+      VGZUJWUSVWCWUTUYBVWCUYOVGZAXDWUTVWBWVAAUYLUYMJUWFUWGUYOAUWHUWIUWJUYBUYPUW
+      KUWIUWLUYQBUHUWMUWIUWNUWOUWPWEWOUURUWQUWRUYHUYQBUHUYGUYPUYBUYFUYKAJUYCUYJ
+      UYEUVFUWSUWTXBUXAUXB $.
+      $( [28-Nov-2013] $) $( [5-Sep-2009] $)
   $}
 
 
   $c FilMap $.
   $( Extend class definition to include the neighborhood filter mapping
      function. $)
-  cfilmap $a class FilMap $.
+  cfm $a class FilMap $.
 
   $c fLimf $.
   $( Extend class definition to include the function for filter-based function
      limits. $)
-  cflimf $a class fLimf $.
+  cflf $a class fLimf $.
 
   ${
-    $d f s t w x y z $.
+    $d f t x y z $.
     $( Define a function that takes a filter to a neighborhood filter of the
        range.  (Contributed by Jeff Hankins, 5-Sep-2009.) $)
-    df-filmap $a |- FilMap = { <. <. x , y >. , z >. | ( y e. fBas
-    /\ z = { <. f , s >. | ( f : U. y --> x /\ s = ( filGen ` ( { w | E. t e. y
-    w = ( f " t ) } u. { x } ) ) ) } ) } $.
+    df-fm $a |- FilMap = ( x e. _V , y e. fBas |->
+                     ( f e. ( x ^m U. y ) |-> ( filGen `
+                       ( { z | E. t e. y z = ( f " t ) } u. { x } ) ) ) ) $.
+
+    $( Define a function that gives the limits of a function ` f ` in the
+       filter sense.  (Contributed by Jeff Hankins, 5-Sep-2009.) $)
+    df-flf $a |- fLimf = ( x e. Top , y e. Fil |-> ( f e. ( U. x ^m U. y ) |->
+                     ( ( fLim ` x ) ` ( ( U. x FilMap y ) ` f ) ) ) ) $.
   $}
 
   ${
-    $d f s A $.  $d f s t w x y z B $.  $d f s x y z X $.  $d f s x y z Y $.
-    filmapf.1 $e |- Y = U. B $.
+    $d f x y F $.  $d f w x y B $.  $d f w x y z X $.  $d f w y Y $.
+    fmfval.1 $e |- Y = U. B $.
     $( Given a function from a filtered set to a topology, return the filter of
        supersets of images of filter elements.  (Contributed by Jeff Hankins,
-       5-Sep-2009.) $)
-    filmapf $p |- ( ( X e. A /\ B e. fBas ) -> ( X FilMap B ) = { <. f , s >.
-    | ( f : Y --> X /\ s = ( filGen ` ( { w | E. t e. B w = ( f " t ) } u. { X
-    } ) ) ) } ) $=
-      ( vx vy vz wcel cfbas cv wf cima wceq wrex cab csn cun cfg cfv wa copab
-      cvv cfilmap co cmap wb cuni uniexg syl5eqel elmapg sylan2 anbi1d
-      opabbidv oprex opabex2 syl6eqelr elisset feq3 sneq uneq2d fveq2d eqeq2d
-      anbi12d unieq syl6eqr feq2d rexeq abbidv uneq1d copab2 df-filmap visset
-      biantrur anass bitr4i oprabbii eqtri oprabval2g syl3an1 mpd3an3 ) FCMZDNM
-      ZGFEOZPZHOZAOWHBOQRZBDSZATZFUAZUBZUCUDZRZUEZEHUFZUGMZFDUHUIWSRZWFWGUEZWSW
-      HFGUJUIZMZWQUEZEHUFUGXBXEWREHXBXDWIWQWGWFGUGMXDWIUKWGGDULZUGIDNUMUNFGWHCU
-      GUOUPUQUREHXCWPFGUJUSUTVAWFFUGMWGWTXAFCVBJKLFDUGNKOZULZJOZWHPZWJWKBXGSZAT
-      ZXIUAZUBZUCUDZRZUEZEHUFZWSUHXHFWHPZWJXLWNUBZUCUDZRZUEZEHUFUGXIFRZXQYCEHYD
-      XJXSXPYBXIFXHWHVCYDXOYAWJYDXNXTUCYDXMWNXLXIFVDVEVFVGVHURXGDRZYCWREHYEXSWI
-      YBWQYEXHGFWHYEXHXFGXGDVIIVJVKYEYAWPWJYEXTWOUCYEXLWMWNYEXKWLAWKBXGDVLVMVNV
-      FVGVHURUHXGNMZLOXRRZUEZJKLVOXIUGMZYFUEYGUEZJKLVOJKLABEHVPYHYJJKLYHYIYHUEY
-      JYIYHJVQVRYIYFYGVSVTWAWBWCWDWE $.
-      $( [1-Dec-2010] $) $( [5-Sep-2009] $)
-  $}
+       5-Sep-2009.)  (Revised by Mario Carneiro, 15-Dec-2013.) $)
+    fmfval $p |- ( ( X e. V /\ B e. fBas ) -> ( X FilMap B ) =
+                       ( f e. ( X ^m Y ) |-> ( filGen `
+                         ( { x | E. y e. B x = ( f " y ) } u. { X } ) ) ) ) $=
+      ( vz vw wcel cvv cfbas cfm co cmap cv cima wceq wrex cab csn cun cfg cfv
+      cmpt elisset cuni opreq1 sneq uneq2d fveq2d mpteq12dv unieq syl6eqr
+      opreq2d rexeq abbidv uneq1d df-fm oprex mptexg ax-mp ovmpt2 sylan ) FEKFL
+      KCMKFCNODFGPOZAQDQBQRSZBCTZAUAZFUBZUCZUDUEZUFZSFEUGIJFCLMDIQZJQZUHZPOZVGB
+      VOTZAUAZVNUBZUCZUDUEZUFVMNDFVPPOZVSVJUCZUDUEZUFVNFSZDVQWBWCWEVNFVPPUIWFWA
+      WDUDWFVTVJVSVNFUJUKULUMVOCSZDWCWEVFVLWGVPGFPWGVPCUHGVOCUNHUOUPWGWDVKUDWGV
+      SVIVJWGVRVHAVGBVOCUQURUSULUMIJABDUTVFLKVMLKFGPVADVFVLLVBVCVDVE $.
+      $( [15-Dec-2013] $) $( [5-Sep-2009] $)
 
-  ${
-    $d f s A $.  $d f s t w B $.  $d f s t w F $.  $d f s X $.  $d f s Y $.
-    isfilmap.1 $e |- Y = U. B $.
     $( Introduce a function that takes a function from a filtered domain to a
        set and produces a filter which consists of supersets of images of
        filter elements.  The functions which are dealt with by this function
@@ -287,69 +271,67 @@ $)
        the notion of a filter generalizes many ideas associated with sequences,
        and this function is one way to make that relationship precise in
        Metamath.  (Contributed by Jeff Hankins, 5-Sep-2009.) $)
-    isfilmap $p |- ( ( X e. A /\ B e. fBas /\ F : Y --> X ) -> ( ( X FilMap B
-    ) ` F ) = ( filGen ` ( { w | E. t e. B w = ( F " t ) } u. { X } ) ) ) $=
-      ( vf vs wcel cfbas wf w3a cfilmap co cfv cv cima wceq wrex cab csn cun
-      cfg wa copab filmapf fveq1d 3adant3 wfun cop funopab4 simp3 eqid jctir
-      cmap cvv wb cuni uniexg syl5eqel elmapg sylan2 biimp3ar fvex feq1 imaeq1
-      eqeq2d rexbidv abbidv uneq1d fveq2d anbi12d eqeq1 anbi2d opelopabg
-      sylancl mpbird funopfv mpsyl eqtrd ) FCKZDLKZGFEMZNZEFDOPZQZEGFIRZMZJRZAR
-      ZWIBRZSZTZBDUAZAUBZFUCZUDZUEQZTZUFZIJUGZQZWLEWMSZTZBDUAZAUBZWRUDZUEQZWCWD
-      WHXDTWEWCWDUFEWGXCABCDIFGJHUHUIUJXCUKWFEXJULXCKZXDXJTWJIJWTUMWFXKWEXJXJTZ
-      UFZWFWEXLWCWDWEUNXJUOUPWFEFGUQPZKZXJURKXKXMUSWCWDXOWEWDWCGURKXOWEUSWDGDUT
-      URHDLVAVBFGECURVCVDVEXIUEVFZXBWEWKXJTZUFXMIJEXJXNURWIETZWJWEXAXQGFWIEVGXR
-      WTXJWKXRWSXIUEXRWQXHWRXRWPXGAXRWOXFBDXRWNXEWLWIEWMVHVIVJVKVLVMVIVNXQXQXLW
-      EWKXJXJVOVPVQVRVSEXJXCXPVTWAWB $.
-      $( [1-Dec-2010] $) $( [5-Sep-2009] $)
+    fmval $p |- ( ( X e. A /\ B e. fBas /\ F : Y --> X ) ->
+                      ( ( X FilMap B ) ` F ) = ( filGen `
+                        ( { x | E. y e. B x = ( F " y ) } u. { X } ) ) ) $=
+      ( vf wcel cfbas wf cfm co cfv cv cima wceq wrex cab csn cun cfg wa cmap
+      cvv wb cuni uniexg syl5eqel elmapg sylan2 biimpar cmpt fmfval fveq1d
+      imaeq1 eqeq2d rexbidv abbidv uneq1d fveq2d eqid fvex fvmpt sylan9eq
+      syldan 3impa ) FCJZDKJZGFELZEFDMNZOZAPZEBPZQZRZBDSZATZFUAZUBZUCOZRZVIVJUD
+      ZVKEFGUENZJZWCWDWFVKVJVIGUFJWFVKUGVJGDUHUFHDKUIUJFGECUFUKULUMWDWFVMEIWEVN
+      IPZVOQZRZBDSZATZVTUBZUCOZUNZOWBWDEVLWNABDICFGHUOUPIEWMWBWEWNWGERZWLWAUCWO
+      WKVSVTWOWJVRAWOWIVQBDWOWHVPVNWGEVOUQURUSUTVAVBWNVCWAUCVDVEVFVGVH $.
+      $( [15-Dec-2013] $) $( [5-Sep-2009] $)
   $}
 
   ${
     $d x y z A $.  $d x y z B $.  $d x y z C $.  $d x y z F $.  $d x y z X $.
     $d x y z Y $.  $d x y z Z $.
-    filmapss.1 $e |- Y = U. B $.
-    filmapss.2 $e |- Z = U. C $.
+    fmss.1 $e |- Y = U. B $.
+    fmss.2 $e |- Z = U. C $.
     $( A finer filter produces a finer image filter.  (Contributed by Jeff
        Hankins, 16-Nov-2009.) $)
-    filmapss $p |- ( ( ( X e. A /\ B e. fBas /\ C e. fBas ) /\ ( F : Y --> X /\
+    fmss $p |- ( ( ( X e. A /\ B e. fBas /\ C e. fBas ) /\ ( F : Y --> X /\
     Y = Z /\ B C_ C ) ) -> ( ( X FilMap B ) ` F ) C_ ( ( X FilMap C ) ` F ) )
         $=
       ( vx vy vz wcel cfbas w3a wf wceq wss wa cv cima wrex cab csn cun cfg
-      cfv cfilmap co cuni wfn simp2 ffn 3ad2ant1 eqid filrn syl2an wral visset
+      cfv cfm co cuni wfn simp2 ffn 3ad2ant1 eqid filrn syl2an wral visset
       eqeq1 rexbidv elab wi crn imassrn a1i frn sstrd sseq1 syl5ibrcom a1d
       r19.23adv syl5bi r19.21aiv unissb sylibr adantl extbas1 syl11anc simp3
       fneq2 biimpac sylan 3adant3 wal ssrexv 3ad2ant3 19.21aiv ss2ab unss1 syl
-      fgss syl111anc isfilmap 3expa 3ad2antr1 3adantl3 simp1 adantr feq2
-      3sstr4d ) EAMZBNMZCNMZOZFEDPZFGQZBCRZOZSZJTZDKTZUAZQZKBUBZJUCZEUDZUEZUFUG
-      ZXNKCUBZJUCZXQUEZUFUGZDEBUHUIUGZDECUHUIUGZXJXRNMZYBNMZXRYBRZXSYCRXJXPNMZX
-      PUJZERZYFXEXCDFUKZYIXIXBXCXDULXFXGYLXHFEDUMZUNKJBXPDFHXPUOUPUQXIYKXEXFXGY
-      KXHXFLTZERZLXPURYKXFYOLXPYNXPMYNXMQZKBUBZXFYOXOYQJYNLUSZXKYNQZXNYPKBXKYNX
-      MUTZVAVBXFYPYOKBXFYPYOVCZXLBMXFYOYPXMERXFXMDVDZEXMUUBRXFDXLVEVFFEDVGVHYNX
-      MEVIVJZVKVLVMVNLXPEVOVPUNVQEXPYJYJUOVRVSXJYANMZYAUJZERZYGXEXDDGUKZUUDXIXB
-      XCXDVTZXFXGUUGXHXFYLXGUUGYMXGYLUUGFGDWAWBWCWDKJCYADGIYAUOUPUQXIUUFXEXFXGU
-      UFXHXFYOLYAURUUFXFYOLYAYNYAMYPKCUBZXFYOXTUUIJYNYRYSXNYPKCYTVAVBXFYPYOKCXF
-      UUAXLCMUUCVKVLVMVNLYAEVOVPUNVQEYAUUEUUEUOVRVSXJXPYARZYHXJXOXTVCZJWEUUJXJU
-      UKJXIUUKXEXHXFUUKXGXNKBCWFWGVQWHXOXTJWIVPXPYAXQWJWKXRYBWLWMXBXCXIYDXSQZXD
-      XBXCSXGXFUULXHXBXCXFUULJKABDEFHWNWOWPWQXJXBXDGEDPZYEYCQXEXBXIXBXCXDWRWSXE
-      XDXIUUHWSXIUUMXEXFXGUUMXHXGXFUUMFGEDWTWBWDVQJKACDEGIWNWMXA $.
+      fgss syl111anc fmval 3expa 3ad2antr1 3adantl3 simp1 adantr feq2 3sstr4d
+      ) EAMZBNMZCNMZOZFEDPZFGQZBCRZOZSZJTZDKTZUAZQZKBUBZJUCZEUDZUEZUFUGZXNKCUBZ
+      JUCZXQUEZUFUGZDEBUHUIUGZDECUHUIUGZXJXRNMZYBNMZXRYBRZXSYCRXJXPNMZXPUJZERZY
+      FXEXCDFUKZYIXIXBXCXDULXFXGYLXHFEDUMZUNKJBXPDFHXPUOUPUQXIYKXEXFXGYKXHXFLTZ
+      ERZLXPURYKXFYOLXPYNXPMYNXMQZKBUBZXFYOXOYQJYNLUSZXKYNQZXNYPKBXKYNXMUTZVAVB
+      XFYPYOKBXFYPYOVCZXLBMXFYOYPXMERXFXMDVDZEXMUUBRXFDXLVEVFFEDVGVHYNXMEVIVJZV
+      KVLVMVNLXPEVOVPUNVQEXPYJYJUOVRVSXJYANMZYAUJZERZYGXEXDDGUKZUUDXIXBXCXDVTZX
+      FXGUUGXHXFYLXGUUGYMXGYLUUGFGDWAWBWCWDKJCYADGIYAUOUPUQXIUUFXEXFXGUUFXHXFYO
+      LYAURUUFXFYOLYAYNYAMYPKCUBZXFYOXTUUIJYNYRYSXNYPKCYTVAVBXFYPYOKCXFUUAXLCMU
+      UCVKVLVMVNLYAEVOVPUNVQEYAUUEUUEUOVRVSXJXPYARZYHXJXOXTVCZJWEUUJXJUUKJXIUUK
+      XEXHXFUUKXGXNKBCWFWGVQWHXOXTJWIVPXPYAXQWJWKXRYBWLWMXBXCXIYDXSQZXDXBXCSXGX
+      FUULXHXBXCXFUULJKABDEFHWNWOWPWQXJXBXDGEDPZYEYCQXEXBXIXBXCXDWRWSXEXDXIUUHW
+      SXIUUMXEXFXGUUMXHXGXFUUMFGEDWTWBWDVQJKACDEGIWNWMXA $.
       $( [16-Nov-2009] $)
   $}
 
   ${
     $d t w A $.  $d t w B $.  $d t w F $.  $d t w X $.  $d t w Y $.
-    fmf.1 $e |- Y = U. B $.
+    fmfil.1 $e |- Y = U. B $.
     $( A mapping filter is a filter.  (Contributed by Jeff Hankins,
        18-Sep-2009.) $)
-    fmf $p |- ( ( X e. A /\ B e. fBas /\ F : Y --> X ) -> ( ( X FilMap B ) ` F
+    fmfil $p |- ( ( X e. A /\ B e. fBas /\ F : Y --> X ) -> ( ( X FilMap B ) `
+        F
     ) e. Fil ) $=
-      ( vw vt wcel cfbas wf w3a cfilmap co cfv cv cima wceq wrex cab csn cun
-      cfg cfil isfilmap cuni wss wfn ffn eqid filrn sylan2 3adant1 ciun cvv
-      wral wfun ffun visset funimaex syl 3ad2ant3 a1d r19.21aiv dfiun2g crn
-      imassrn a1i frn sstrd iunss sylibr eqsstr3d extbas1 syl11anc fgfil
-      eqeltrd ) DAIZBJIZEDCKZLZCDBMNOGPCHPZQZRHBSGTZDUAUBZUCOZUDGHABCDEFUEWAWEJ
-      IZWFUDIWAWDJIZWDUFZDUGWGVSVTWHVRVTVSCEUHWHEDCUIHGBWDCEFWDUJUKULUMWAWIHBWC
-      UNZDWAWCUOIZHBUPWJWIRWAWKHBWAWKWBBIZVTVRWKVSVTCUQWKEDCURCWBHUSUTVAVBVCVDH
-      GBWCUOVEVAWAWCDUGZHBUPZWJDUGVTVRWNVSVTWMHBVTWMWLVTWCCVFZDWCWOUGVTCWBVGVHE
-      DCVIVJVCVDVBHBWCDVKVLVMDWDWIWIUJVNVOWEVPVAVQ $.
+      ( vw vt wcel cfbas wf w3a cfm co cfv cv cima wceq wrex cab csn cun cfg
+      cfil fmval cuni wss wfn ffn eqid filrn sylan2 3adant1 ciun cvv wral wfun
+      ffun visset funimaex syl 3ad2ant3 a1d r19.21aiv dfiun2g crn imassrn a1i
+      frn sstrd iunss sylibr eqsstr3d extbas1 syl11anc fgfil eqeltrd ) DAIZBJIZ
+      EDCKZLZCDBMNOGPCHPZQZRHBSGTZDUAUBZUCOZUDGHABCDEFUEWAWEJIZWFUDIWAWDJIZWDUF
+      ZDUGWGVSVTWHVRVTVSCEUHWHEDCUIHGBWDCEFWDUJUKULUMWAWIHBWCUNZDWAWCUOIZHBUPWJ
+      WIRWAWKHBWAWKWBBIZVTVRWKVSVTCUQWKEDCURCWBHUSUTVAVBVCVDHGBWCUOVEVAWAWCDUGZ
+      HBUPZWJDUGVTVRWNVSVTWMHBVTWMWLVTWCCVFZDWCWOUGVTCWBVGVHEDCVIVJVCVDVBHBWCDV
+      KVLVMDWDWIWIUJVNVOWEVPVAVQ $.
       $( [1-Dec-2010] $) $( [18-Sep-2009] $)
   $}
 
@@ -360,83 +342,82 @@ $)
        Jeff Hankins, 18-Sep-2009.) $)
     fmbas $p |- ( ( X e. A /\ B e. fBas /\ F : Y --> X ) -> U. ( ( X FilMap B )
     ` F ) = X ) $=
-      ( vw vt wcel cfbas wf w3a cfilmap co cfv cuni cv cima wceq wrex cab csn
-      cun cfg isfilmap unieqd wss wfn ffn eqid filrn sylan2 3adant1 ciun cvv
-      wral wfun ffun visset funimaex syl a1d r19.21aiv 3ad2ant3 dfiun2g crn
-      imassrn a1i frn sstrd iunss sylibr eqsstr3d extbas1 syl11anc fgbas simp1
-      extbas2 3eqtr2d ) DAIZBJIZEDCKZLZCDBMNOZPGQCHQZRZSHBTGUAZDUBUCZUDOZPZWHPZ
-      DWCWDWIGHABCDEFUEUFWCWHJIZWKWJSWCWGJIZWGPZDUGZWLWAWBWMVTWBWACEUHWMEDCUIHG
-      BWGCEFWGUJUKULUMWCWNHBWFUNZDWCWFUOIZHBUPZWPWNSWBVTWRWAWBWQHBWBWQWEBIZWBCU
-      QWQEDCURCWEHUSUTVAVBVCVDHGBWFUOVEVAWCWFDUGZHBUPZWPDUGWBVTXAWAWBWTHBWBWTWS
-      WBWFCVFZDWFXBUGWBCWEVGVHEDCVIVJVBVCVDHBWFDVKVLVMZDWGWNWNUJZVNVOWHWKWKUJVP
-      VAWCWOVTWKDSXCVTWAWBVQDAWGWNXDVRVOVS $.
+      ( vw vt wcel cfbas wf w3a cfm co cfv cuni cv cima wceq wrex cab csn cun
+      cfg fmval unieqd wss wfn ffn eqid filrn sylan2 3adant1 ciun cvv wral
+      wfun ffun visset funimaex syl a1d r19.21aiv 3ad2ant3 dfiun2g crn imassrn
+      a1i frn sstrd iunss sylibr eqsstr3d extbas1 syl11anc fgbas simp1 extbas2
+      3eqtr2d ) DAIZBJIZEDCKZLZCDBMNOZPGQCHQZRZSHBTGUAZDUBUCZUDOZPZWHPZDWCWDWIG
+      HABCDEFUEUFWCWHJIZWKWJSWCWGJIZWGPZDUGZWLWAWBWMVTWBWACEUHWMEDCUIHGBWGCEFWG
+      UJUKULUMWCWNHBWFUNZDWCWFUOIZHBUPZWPWNSWBVTWRWAWBWQHBWBWQWEBIZWBCUQWQEDCUR
+      CWEHUSUTVAVBVCVDHGBWFUOVEVAWCWFDUGZHBUPZWPDUGWBVTXAWAWBWTHBWBWTWSWBWFCVFZ
+      DWFXBUGWBCWEVGVHEDCVIVJVBVCVDHBWFDVKVLVMZDWGWNWNUJZVNVOWHWKWKUJVPVAWCWOVT
+      WKDSXCVTWAWBVQDAWGWNXDVRVOVS $.
       $( [1-Dec-2010] $) $( [18-Sep-2009] $)
   $}
 
   ${
     $d t w x y z A $.  $d t w x y z B $.  $d t w x y C $.  $d t w x y z F $.
     $d x y z L $.  $d t w x y z X $.  $d t w x y z Y $.
-    elfilmap.1 $e |- Y = U. B $.
+    elfm.1 $e |- Y = U. B $.
     $( An element of a mapping filter.  (Contributed by Jeff Hankins,
        8-Sep-2009.) $)
-    elfilmap $p |- ( ( X e. C /\ B e. fBas /\ F : Y --> X ) -> ( A e. ( ( X
+    elfm $p |- ( ( X e. C /\ B e. fBas /\ F : Y --> X ) -> ( A e. ( ( X
     FilMap B ) ` F ) <-> ( A C_ X /\ E. x e. B ( F " x ) C_ A ) ) ) $=
-      ( vw vt vy wcel cfbas wf w3a cfilmap co cfv cv cima wceq wrex cab csn
-      cun cfg cuni wss wa isfilmap eleq2d wb wfn ffn eqid filrn sylan2 3adant1
-      ciun cvv wral wfun ffun visset funimaex syl 3ad2ant3 a1d r19.21aiv
-      dfiun2g crn imassrn a1i frn sstrd iunss sylibr eqsstr3d extbas1 syl11anc
-      elfg simp1 extbas2 sseq2d wo wi elun eqeq1 rexbidv elab elsn orbi12i
-      bitri simp2 adantr sseq1 biimpa imaeq2 sseq1d rcla4ev 3exp1 r19.23adv
-      wex c0 wne fbasne0 n0 sylib sstr2 3ad2ant2 sylbid imp 19.23adv 3imp
-      syl3an2 jaod syl5bi ssun1 eqeq2d mpan2 ad2antrl elabg 3syl mpbird sseldd
-      simprr exp32 impbid anbi12d 3bitrd ) FDLZCMLZGFENZOZBEFCPQRZLBISZEJSZTZUA
-      ZJCUBZIUCZFUDZUEZUFRZLZBUUCUGZUHZKSZBUHZKUUCUBZUIZBFUHZEASZTZBUHZACUBZUIY
-      NYOUUDBIJDCEFGHUJUKYNUUCMLZUUEUUKULYNUUAMLZUUAUGZFUHZUUQYLYMUURYKYMYLEGUM
-      UURGFEUNJICUUAEGHUUAUOUPUQURYNUUSJCYRUSZFYNYRUTLZJCVAUVAUUSUAYNUVBJCYNUVB
-      YQCLZYMYKUVBYLYMEVBZUVBGFEVCZEYQJVDVEVFVGVHVIJICYRUTVJVFYNYRFUHZJCVAZUVAF
-      UHYMYKUVGYLYMUVFJCYMUVFUVCYMYREVKZFYRUVHUHYMEYQVLVMGFEVNVOZVHVIVGJCYRFVPV
-      QVRZFUUAUUSUUSUOZVSVTKBUUCUUFUUFUOWAVFYNUUGUULUUJUUPYNUUFFBYNUUTYKUUFFUAU
-      VJYKYLYMWBFDUUAUUSUVKWCVTWDYNUUJUUPYNUUIUUPKUUCUUHUUCLZUUHYRUAZJCUBZUUHFU
-      AZWEZYNUUIUUPWFZUVLUUHUUALZUUHUUBLZWEUVPUUHUUAUUBWGUVRUVNUVSUVOYTUVNIUUHK
-      VDYPUUHUAYSUVMJCYPUUHYRWHWIWJKFWKWLWMYNUVNUVQUVOYNUVMUVQJCYMYKUVCUVMUVQWF
-      WFYLYMUVCUVMUUIUUPYMUVCUVMOZUUIUIUVCYRBUHZUUPUVTUVCUUIYMUVCUVMWNWOUVTUUIU
-      WAUVMYMUUIUWAULUVCUUHYRBWPVGWQUUOUWAAYQCUUMYQUAUUNYRBUUMYQEWRWSWTZVTXAVGX
-      BYLYKUVCJXCZYMUVOUVQWFZYLCXDXEUWCCXFJCXGXHYKUWCYMUWDYKUVCYMUWDWFZJUVCUWEW
-      FYKUVCYMUVOUUIUUPUVCYMUVOOZUUIUIUVCUWAUUPUWFUVCUUIUVCYMUVOWBWOUWFUUIUWAUW
-      FUUIFBUHZUWAUVOUVCUUIUWGULYMUUHFBWPVGYMUVCUWGUWAWFZUVOYMUVFUWHUVIYRFBXIVF
-      XJXKXLUWBVTXAVMXMXNXOXPXQXBYNUUOUUJACYNUUMCLZUUOUUJYNUWIUUOUIZUIZUUNUUCLU
-      UOUUJUWKUUAUUCUUNUUAUUCUHUWKUUAUUBXRVMUWKUUNUUALZUUNYRUAZJCUBZUWIUWNYNUUO
-      UWIUUNUUNUAZUWNUUNUOUWMUWOJUUMCYQUUMUAYRUUNUUNYQUUMEWRXSWTXTYAYNUWLUWNULZ
-      UWJYMYKUWPYLYMUVDUUNUTLUWPUVEEUUMAVDVEYTUWNIUUNUTYPUUNUAYSUWMJCYPUUNYRWHW
-      IYBYCVGWOYDYEYNUWIUUOYFUUIUUOKUUNUUCUUHUUNBWPWTVTYGXBYHYIYJ $.
+      ( vw vt vy wcel cfbas wf w3a cfm co cfv cv cima wceq wrex cab csn cun
+      cfg cuni wss wa fmval eleq2d wb wfn ffn eqid filrn sylan2 3adant1 ciun
+      cvv wral wfun ffun visset funimaex syl 3ad2ant3 a1d r19.21aiv dfiun2g
+      crn imassrn a1i frn sstrd iunss sylibr eqsstr3d extbas1 syl11anc elfg
+      simp1 extbas2 sseq2d wo wi elun eqeq1 rexbidv elab elsn orbi12i bitri
+      simp2 adantr sseq1 biimpa imaeq2 sseq1d rcla4ev 3exp1 r19.23adv wex c0
+      wne fbasne0 n0 sylib sstr2 3ad2ant2 sylbid imp 19.23adv 3imp syl3an2
+      jaod syl5bi ssun1 eqeq2d mpan2 ad2antrl elabg 3syl mpbird sseldd simprr
+      exp32 impbid anbi12d 3bitrd ) FDLZCMLZGFENZOZBEFCPQRZLBISZEJSZTZUAZJCUBZI
+      UCZFUDZUEZUFRZLZBUUCUGZUHZKSZBUHZKUUCUBZUIZBFUHZEASZTZBUHZACUBZUIYNYOUUDB
+      IJDCEFGHUJUKYNUUCMLZUUEUUKULYNUUAMLZUUAUGZFUHZUUQYLYMUURYKYMYLEGUMUURGFEU
+      NJICUUAEGHUUAUOUPUQURYNUUSJCYRUSZFYNYRUTLZJCVAUVAUUSUAYNUVBJCYNUVBYQCLZYM
+      YKUVBYLYMEVBZUVBGFEVCZEYQJVDVEVFVGVHVIJICYRUTVJVFYNYRFUHZJCVAZUVAFUHYMYKU
+      VGYLYMUVFJCYMUVFUVCYMYREVKZFYRUVHUHYMEYQVLVMGFEVNVOZVHVIVGJCYRFVPVQVRZFUU
+      AUUSUUSUOZVSVTKBUUCUUFUUFUOWAVFYNUUGUULUUJUUPYNUUFFBYNUUTYKUUFFUAUVJYKYLY
+      MWBFDUUAUUSUVKWCVTWDYNUUJUUPYNUUIUUPKUUCUUHUUCLZUUHYRUAZJCUBZUUHFUAZWEZYN
+      UUIUUPWFZUVLUUHUUALZUUHUUBLZWEUVPUUHUUAUUBWGUVRUVNUVSUVOYTUVNIUUHKVDYPUUH
+      UAYSUVMJCYPUUHYRWHWIWJKFWKWLWMYNUVNUVQUVOYNUVMUVQJCYMYKUVCUVMUVQWFWFYLYMU
+      VCUVMUUIUUPYMUVCUVMOZUUIUIUVCYRBUHZUUPUVTUVCUUIYMUVCUVMWNWOUVTUUIUWAUVMYM
+      UUIUWAULUVCUUHYRBWPVGWQUUOUWAAYQCUUMYQUAUUNYRBUUMYQEWRWSWTZVTXAVGXBYLYKUV
+      CJXCZYMUVOUVQWFZYLCXDXEUWCCXFJCXGXHYKUWCYMUWDYKUVCYMUWDWFZJUVCUWEWFYKUVCY
+      MUVOUUIUUPUVCYMUVOOZUUIUIUVCUWAUUPUWFUVCUUIUVCYMUVOWBWOUWFUUIUWAUWFUUIFBU
+      HZUWAUVOUVCUUIUWGULYMUUHFBWPVGYMUVCUWGUWAWFZUVOYMUVFUWHUVIYRFBXIVFXJXKXLU
+      WBVTXAVMXMXNXOXPXQXBYNUUOUUJACYNUUMCLZUUOUUJYNUWIUUOUIZUIZUUNUUCLUUOUUJUW
+      KUUAUUCUUNUUAUUCUHUWKUUAUUBXRVMUWKUUNUUALZUUNYRUAZJCUBZUWIUWNYNUUOUWIUUNU
+      UNUAZUWNUUNUOUWMUWOJUUMCYQUUMUAYRUUNUUNYQUUMEWRXSWTXTYAYNUWLUWNULZUWJYMYK
+      UWPYLYMUVDUUNUTLUWPUVEEUUMAVDVEYTUWNIUUNUTYPUUNUAYSUWMJCYPUUNYRWHWIYBYCVG
+      WOYDYEYNUWIUUOYFUUIUUOKUUNUUCUUHUUNBWPWTVTYGXBYHYIYJ $.
       $( [1-Dec-2010] $) $( [8-Sep-2009] $)
 
-    elfilmap2.2 $e |- L = ( filGen ` B ) $.
+    elfm2.2 $e |- L = ( filGen ` B ) $.
     $( An element of a mapping filter.  (Contributed by Jeff Hankins,
        26-Sep-2009.) $)
-    elfilmap2 $p |- ( ( X e. C /\ B e. fBas /\ F : Y --> X ) -> ( A e. ( ( X
+    elfm2 $p |- ( ( X e. C /\ B e. fBas /\ F : Y --> X ) -> ( A e. ( ( X
     FilMap B ) ` F ) <-> ( A C_ X /\ E. x e. L ( F " x ) C_ A ) ) ) $=
-      ( vy wcel cfbas wf w3a cfilmap co cfv wss cv cima wrex wa elfilmap cfg
-      fbssfg syl6sseqr sseld imp adantrr 3ad2antl2 simprr wceq imaeq2 sseq1d
-      rcla4ev syl11anc exp32 r19.23adv wi wb eleq2i elfg syl5bb 3ad2ant2
-      imass2 sstr2 com12 ad2antll syl5 reximdv expr com23 expimpd sylbid
-      impbid anbi2d bitrd ) GDLZCMLZHGENZOZBEGCPQRLBGSZEKTZUAZBSZKCUBZUCWCEATZU
-      AZBSZAFUBZUCKBCDEGHIUDWBWGWKWCWBWGWKWBWFWKKCWBWDCLZWFWKWBWLWFUCZUCWDFLZWF
-      WKVTVSWMWNWAVTWLWNWFVTWLWNVTCFWDVTCCUERZFCUFJUGUHUIUJUKWBWLWFULWJWFAWDFWH
-      WDUMWIWEBWHWDEUNUOUPUQURUSWBWJWGAFWBWHFLZWHHSZWDWHSZKCUBZUCZWJWGUTZVTVSWP
-      WTVAWAWPWHWOLVTWTFWOWHJVBKWHCHIVCVDVEWBWQWSXAWBWQUCWJWSWGWBWQWJWSWGUTWBWQ
-      WJUCUCZWRWFKCWRWEWISZXBWFWDWHEVFWJXCWFUTWBWQXCWJWFWEWIBVGVHVIVJVKVLVMVNVO
-      USVPVQVR $.
+      ( vy wcel cfbas wf w3a cfm co cfv wss cv cima wrex wa elfm cfg fbssfg
+      syl6sseqr sseld imp adantrr 3ad2antl2 simprr wceq imaeq2 sseq1d rcla4ev
+      syl11anc exp32 r19.23adv wi wb eleq2i elfg syl5bb 3ad2ant2 imass2 sstr2
+      com12 ad2antll syl5 reximdv expr com23 expimpd sylbid impbid anbi2d
+      bitrd ) GDLZCMLZHGENZOZBEGCPQRLBGSZEKTZUAZBSZKCUBZUCWCEATZUAZBSZAFUBZUCKB
+      CDEGHIUDWBWGWKWCWBWGWKWBWFWKKCWBWDCLZWFWKWBWLWFUCZUCWDFLZWFWKVTVSWMWNWAVT
+      WLWNWFVTWLWNVTCFWDVTCCUERZFCUFJUGUHUIUJUKWBWLWFULWJWFAWDFWHWDUMWIWEBWHWDE
+      UNUOUPUQURUSWBWJWGAFWBWHFLZWHHSZWDWHSZKCUBZUCZWJWGUTZVTVSWPWTVAWAWPWHWOLV
+      TWTFWOWHJVBKWHCHIVCVDVEWBWQWSXAWBWQUCWJWSWGWBWQWJWSWGUTWBWQWJUCUCZWRWFKCW
+      RWEWISZXBWFWDWHEVFWJXCWFUTWBWQXCWJWFWEWIBVGVHVIVJVKVLVMVNVOUSVPVQVR $.
       $( [1-Dec-2010] $) $( [26-Sep-2009] $)
 
     $( An alternate formulation of elementhood in a mapping filter that
        requires ` F ` to be onto.  (Contributed by Jeff Hankins,
        1-Oct-2009.) $)
-    elfilmap3 $p |- ( ( B e. fBas /\ F : Y -onto-> X ) -> ( A e. ( ( X FilMap B
+    elfm3 $p |- ( ( B e. fBas /\ F : Y -onto-> X ) -> ( A e. ( ( X FilMap B
     ) ` F ) <-> E. x e. L A = ( F " x ) ) ) $=
-      ( vy vz cfbas wcel wfo cvv cfilmap co cfv cv cima wceq wrex wb wa foima
+      ( vy vz cfbas wcel wfo cvv cfm co cfv cv cima wceq wrex wb wa foima
       adantl wfun fofun cuni uniexg syl5eqel adantr funimaexg syl11anc
-      eqeltrrd w3a wss wf fof elfilmap2 syl3an3 ccnv cfil cfg fgfil 3ad2ant2
+      eqeltrrd w3a wss wf fof elfm2 syl3an3 ccnv cfil cfg fgfil 3ad2ant2
       ad2antrr simprl cdm cnvimass wfn fofn fndm syl syl5sseq fgbas unieqi
       syl6eqr sseqtrd 3adant1 3ad2ant3 eleq2i elfg syl5bb simprbda sseq2
       biimpar sylan 3ad2antl3 adantlr syldan funimass3 biimpd impr 3jca eqid
@@ -469,68 +450,46 @@ $)
        generated filter.  (Contributed by Jeff Hankins, 18-Nov-2009.) $)
     fbfgfmeq $p |- ( ( X e. C /\ B e. fBas /\ F : Y --> X ) -> ( ( X FilMap B )
     ` F ) = ( ( X FilMap L ) ` F ) ) $=
-      ( vx vs wcel cfbas wf w3a cfilmap co cfv cv wss cima wrex wa elfilmap2
-      cfg cuni wb simp1 cfil fgfil syl5eqel filfbas syl 3ad2ant2 fgbas feq2d
-      adantl biimp3a unieqi eqcomi elfilmap syl111anc bitr4d eqrdv ) EBKZALKZFE
-      CMZNZICEAOPQZCEDOPQZVGIRZVHKVJESCJRTVJSJDUAUBZVJVIKZJVJABCDEFGHUCVGVDDLKZ
-      AUDQZUEZECMZVLVKUFVDVEVFUGVEVDVMVFVEDUHKVMVEDVNUHHAUIUJDUKULUMVDVEVFVPVEV
-      FVPUFVDVEFVOECAFGUNUOUPUQJVJDBCEVODUEVODVNHURUSUTVAVBVC $.
+      ( vx vs wcel cfbas wf w3a cfm co cfv cv wss cima wrex wa elfm2 cfg cuni
+      wb simp1 cfil fgfil syl5eqel filfbas syl 3ad2ant2 fgbas feq2d adantl
+      biimp3a unieqi eqcomi elfm syl111anc bitr4d eqrdv ) EBKZALKZFECMZNZICEAOP
+      QZCEDOPQZVGIRZVHKVJESCJRTVJSJDUAUBZVJVIKZJVJABCDEFGHUCVGVDDLKZAUDQZUEZECM
+      ZVLVKUFVDVEVFUGVEVDVMVFVEDUHKVMVEDVNUHHAUIUJDUKULUMVDVEVFVPVEVFVPUFVDVEFV
+      OECAFGUNUOUPUQJVJDBCEVODUEVODVNHURUSUTVAVBVC $.
       $( [18-Nov-2009] $)
   $}
 
   ${
-    $d f s x y z $.
-    $( Define a function that gives the limits of a function ` f ` in the
-       filter sense.  (Contributed by Jeff Hankins, 5-Sep-2009.) $)
-    df-flimf $a |- fLimf = { <. <. x , y >. , z >. | ( x e. Top /\ y e. Fil /\
-    z = { <. f , s >. | ( f : U. y --> U. x /\ s = ( ( fLim1 ` x ) ` ( ( U. x
-    FilMap y ) ` f ) ) ) } ) } $.
-  $}
-
-  ${
-    $d f j l s z F $.  $d f j l s z J $.  $d f j l s z X $.  $d f j l s z Y $.
-    $d j l z f $.
-    flimff.1 $e |- X = U. J $.
-    flimff.2 $e |- Y = U. F $.
+    $d f x y J $.  $d f F $.  $d f x y X $.  $d f y Y $.  $d f y L $.
+    flffval.1 $e |- X = U. J $.
+    flffval.2 $e |- Y = U. L $.
     $( Given a topology and a filtered set, return the convergence function on
        the functions from the filtered set to the base set of the topological
-       space.  (Contributed by Jeff Hankins, 14-Oct-2009.) $)
-    flimff $p |- ( ( J e. Top /\ F e. Fil ) -> ( J fLimf F ) = { <. f , s >. |
-    ( f : Y --> X /\ s = ( ( fLim1 ` J ) ` ( ( X FilMap F ) ` f ) ) ) } ) $=
-      ( vj vl vz ctop wcel cfil cv wf cfilmap co cfv cflim1 wceq wa copab cvv
-      cflimf cmap wb cuni uniexg syl5eqel elmapg syl2an anbi1d opabbidv oprex
-      opabex2 syl6eqelr unieq syl6eqr feq3 syl fveq2 opreq1d fveq1d fveq12d
-      eqeq2d anbi12d feq2d opreq2 fveq2d w3a copab2 df-flimf df-3an oprabbii
-      eqtri oprabval2g mpd3an3 ) CLMZBNMZEDAOZPZFOZWADBQRZSZCTSZSZUAZUBZAFUCZUD
-      MCBUERWJUAVSVTUBZWJWADEUFRZMZWHUBZAFUCUDWKWNWIAFWKWMWBWHVSDUDMEUDMWMWBUGV
-      TVSDCUHZUDGCLUIUJVTEBUHZUDHBNUIUJDEWAUDUDUKULUMUNAFWLWGDEUFUOUPUQIJKCBLNJ
-      OZUHZIOZUHZWAPZWCWAWTWQQRZSZWSTSZSZUAZUBZAFUCZWJUEWRDWAPZWCWADWQQRZSZWFSZ
-      UAZUBZAFUCUDWSCUAZXGXNAFXOXAXIXFXMXOWTDUAXAXIUGXOWTWODWSCURGUSZWTDWRWAUTV
-      AXOXEXLWCXOXCXKXDWFWSCTVBXOWAXBXJXOWTDWQQXPVCVDVEVFVGUNWQBUAZXNWIAFXQXIWB
-      XMWHXQWREDWAXQWRWPEWQBURHUSVHXQXLWGWCXQXKWEWFXQWAXJWDWQBDQVIVDVJVFVGUNUEW
-      SLMZWQNMZKOXHUAZVKZIJKVLXRXSUBXTUBZIJKVLIJKAFVMYAYBIJKXRXSXTVNVOVPVQVR $.
-      $( [1-Dec-2010] $) $( [14-Oct-2009] $)
-  $}
+       space.  (Contributed by Jeff Hankins, 14-Oct-2009.)  (Revised by Mario
+       Carneiro, 15-Dec-2013.) $)
+    flffval $p |- ( ( J e. Top /\ L e. Fil ) -> ( J fLimf L ) =
+        ( f e. ( X ^m Y ) |-> ( ( fLim ` J ) ` ( ( X FilMap L ) ` f ) ) ) ) $=
+      ( vx vy ctop cfil cv cuni cmap co cfm cfv cflim cmpt cflf wceq unieq
+      syl6eqr opreq1d fveq2 fveq1d fveq12d mpteq12dv opreq2d opreq2 fveq2d
+      df-flf cvv wcel oprex mptexg ax-mp ovmpt2 ) HIBCJKAHLZMZILZMZNOZALZUTVAPO
+      ZQZUSRQZQZSADENOZVDDCPOZQZBRQZQZSZTADVBNOZVDDVAPOZQZVLQZSUSBUAZAVCVHVOVRV
+      SUTDVBNVSUTBMDUSBUBFUCZUDVSVFVQVGVLUSBRUEVSVDVEVPVSUTDVAPVTUDUFUGUHVACUAZ
+      AVOVRVIVMWAVBEDNWAVBCMEVACUBGUCUIWAVQVKVLWAVDVPVJVACDPUJUFUKUHHIAULVIUMUN
+      VNUMUNDENUOAVIVMUMUPUQUR $.
+      $( [15-Dec-2013] $) $( [14-Oct-2009] $)
 
-  ${
-    $d f s F $.  $d f s J $.  $d f s L $.  $d f s X $.  $d f s Y $.
-    sflimf.1 $e |- X = U. J $.
-    sflimf.2 $e |- Y = U. L $.
     $( Given a function from a filtered set to a topological space, define the
        set of limit points of the function.  (Contributed by Jeff Hankins,
        8-Nov-2009.) $)
-    sflimf $p |- ( ( J e. Top /\ L e. Fil /\ F : Y --> X ) -> ( ( J fLimf L ) `
-    F ) = ( ( fLim1 ` J ) ` ( ( X FilMap L ) ` F ) ) ) $=
-      ( vf vs ctop wcel cfil wf w3a cflimf co cfv cv cfilmap cflim1 wceq wa
-      copab flimff 3adant3 fveq1d wfun cop funopab4 simp3 eqid jctir cvv wb
-      cuni uniexg syl5eqel 3ad2ant2 fex syl11anc fvex a1i feq1 fveq2 fveq2d
-      eqeq2d anbi12d eqeq1 anbi2d opelopabg mpbird funopfv mpsyl eqtrd ) BJKZCL
-      KZEDAMZNZABCOPZQAEDHRZMZIRZVTDCSPZQZBTQZQZUAZUBZHIUCZQZAWCQZWEQZVRAVSWIVO
-      VPVSWIUAVQHCBDEIFGUDUEUFWIUGVRAWLUHWIKZWJWLUAWAHIWFUIVRWMVQWLWLUAZUBZVRVQ
-      WNVOVPVQUJZWLUKULVRAUMKZWLUMKZWMWOUNVRVQEUMKZWQWPVPVOWSVQVPECUOUMGCLUPUQU
-      REDUMAUSUTWRVRWKWEVAZVBWHVQWBWLUAZUBWOHIAWLUMUMVTAUAZWAVQWGXAEDVTAVCXBWFW
-      LWBXBWDWKWEVTAWCVDVEVFVGXAXAWNVQWBWLWLVHVIVJUTVKAWLWIWTVLVMVN $.
-      $( [1-Dec-2010] $) $( [8-Nov-2009] $)
+    flfval $p |- ( ( J e. Top /\ L e. Fil /\ F : Y --> X ) ->
+      ( ( J fLimf L ) ` F ) = ( ( fLim ` J ) ` ( ( X FilMap L ) ` F ) ) ) $=
+      ( vf ctop wcel cfil wf cflf co cfv cfm cflim wceq wa cmap wb topopn
+      filusb elmapg syl2an biimpar cv cmpt flffval fveq1d fveq2 fveq2d eqid
+      fvex fvmpt sylan9eq syldan 3impa ) BIJZCKJZEDALZABCMNZOZADCPNZOZBQOZOZRZU
+      SUTSZVAADETNZJZVHVIVKVAUSDBJECJVKVAUAUTBDFUBCEGUCDEABCUDUEUFVIVKVCAHVJHUG
+      ZVDOZVFOZUHZOVGVIAVBVOHBCDEFGUIUJHAVNVGVJVOVLARVMVEVFVLAVDUKULVOUMVEVFUNU
+      OUPUQUR $.
+      $( [15-Dec-2013] $) $( [8-Nov-2009] $)
   $}
 
   ${
@@ -542,17 +501,17 @@ $)
     flimfnei $p |- ( ( J e. Top /\ L e. Fil /\ F : Y --> X ) -> ( A e. ( ( J
     fLimf L ) ` F ) <-> ( A e. X /\ A. n e. ( ( nei ` J ) ` { A } ) E. s e. L (
     F " s ) C_ n ) ) ) $=
-      ( ctop wcel cfil wf w3a cflimf co cfv cfilmap cflim1 csn cnei wss wa cv
-      cima wrex wral sflimf eleq2d cuni wceq wb simp1 cvv cfbas uniexg
-      syl5eqel 3ad2ant1 filfbas 3ad2ant2 simp3 fmf syl111anc fmbas eqcomd eqid
-      isfillim dfss3 neii1 3ad2antl1 id elfilmap syl3an adantr ibar adantl
-      bitr4d syldan ralbidva syl5bb anbi2d 3bitrd ) DKLZEMLZGFCNZOZACDEPQRZLACF
-      ESQRZDTRRZLZAFLZAUAZDUBRRZWIUCZUDZWLCHUEUFBUEZUCHEUGZBWNUHZUDWGWHWJACDEFG
-      IJUIUJWGWDWIMLZFWIUKZULWKWPUMWDWEWFUNWGFUOLZEUPLZWFWTWDWEXBWFWDFDUKUOIDKU
-      QURZUSZWEWDXCWFEUTZVAZWDWEWFVBZUOECFGJVCVDWGXAFWGXBXCWFXAFULXEXGXHUOECFGJ
-      VEVDVFAWIDFXAIXAVGVHVDWGWOWSWLWOWQWILZBWNUHWGWSBWNWIVIWGXIWRBWNWGWQWNLZWQ
-      FUCZXIWRUMWDWEXJXKWFWMDWQFIVJVKWGXKUDXIXKWRUDZWRWGXIXLUMZXKWDXBWEXCWFWFXM
-      XDXFWFVLHWQEUOCFGJVMVNVOXKWRXLUMWGXKWRVPVQVRVSVTWAWBWC $.
+      ( ctop wcel cfil wf w3a cflf co cfv cfm cflim csn cnei wss wa cv cima
+      wrex wral flfval eleq2d cuni wceq wb simp1 cvv cfbas uniexg syl5eqel
+      3ad2ant1 filfbas 3ad2ant2 simp3 fmfil syl111anc fmbas eqcomd eqid elflim
+      dfss3 neii1 3ad2antl1 id elfm syl3an adantr ibar adantl bitr4d syldan
+      ralbidva syl5bb anbi2d 3bitrd ) DKLZEMLZGFCNZOZACDEPQRZLACFESQRZDTRRZLZAF
+      LZAUAZDUBRRZWIUCZUDZWLCHUEUFBUEZUCHEUGZBWNUHZUDWGWHWJACDEFGIJUIUJWGWDWIML
+      ZFWIUKZULWKWPUMWDWEWFUNWGFUOLZEUPLZWFWTWDWEXBWFWDFDUKUOIDKUQURZUSZWEWDXCW
+      FEUTZVAZWDWEWFVBZUOECFGJVCVDWGXAFWGXBXCWFXAFULXEXGXHUOECFGJVEVDVFAWIDFXAI
+      XAVGVHVDWGWOWSWLWOWQWILZBWNUHWGWSBWNWIVIWGXIWRBWNWGWQWNLZWQFUCZXIWRUMWDWE
+      XJXKWFWMDWQFIVJVKWGXKUDXIXKWRUDZWRWGXIXLUMZXKWDXBWEXCWFWFXMXDXFWFVLHWQEUO
+      CFGJVMVNVOXKWRXLUMWGXKWRVPVQVRVSVTWAWBWC $.
       $( [1-Dec-2010] $) $( [9-Nov-2009] $)
   $}
 
@@ -566,7 +525,7 @@ $)
     flimfneii $p |- ( ( ( J e. Top /\ L e. Fil /\ F : Y --> X ) /\ A e. ( ( J
     fLimf L ) ` F ) /\ N e. ( ( nei ` J ) ` { A } ) ) -> E. s e. L ( F " s ) C_
     N ) $=
-      ( vn ctop wcel cfil wf w3a cflimf co cfv csn cnei cv cima wss wrex wral
+      ( vn ctop wcel cfil wf w3a cflf co cfv csn cnei cv cima wss wrex wral
       flimfnei simplbda 3adant3 wi wceq sseq2 rexbidv rcla4v 3ad2ant3 mpd ) CLM
       DNMGFBOPZABCDQRSMZEATCUASSZMZPBHUBUCZKUBZUDZHDUEZKUSUFZVAEUDZHDUEZUQURVEU
       TUQURAFMVEAKBCDFGHIJUGUHUIUTUQVEVGUJURVDVGKEUSVBEUKVCVFHDVBEVAULUMUNUOUP
@@ -582,9 +541,9 @@ $)
        only considers open neighborhoods.  (Contributed by Jeff Hankins,
        4-Sep-2009.) $)
     flimopn $p |- ( ( ( J e. Top /\ F e. Fil /\ X = Y ) /\ A e. X ) -> ( A e. (
-    ( fLim1 ` J ) ` F ) <-> A. o e. J ( A e. o -> o e. F ) ) ) $=
-      ( vn vs ctop wcel cfil wceq w3a wa cflim1 cfv csn cnei wss cv wi wral wb
-      flimelbas ex pm4.71rd isfillim bitr3d pm5.32 sylibr imp opnneip 3expib
+    ( fLim ` J ) ` F ) <-> A. o e. J ( A e. o -> o e. F ) ) ) $=
+      ( vn vs ctop wcel cfil wceq w3a wa cflim cfv csn cnei wss cv wi wral wb
+      flimelbas ex pm4.71rd elflim bitr3d pm5.32 sylibr imp opnneip 3expib
       adantr ssel syl9 exp4a 3ad2antl1 r19.21adv wrex snssi isnei sylan2 eleq2
       eleq1 imbi12d rcla4v adantl snssg anbi1d ad2antlr pm2.27 sseq2 fillsb
       3expd com23 sylbid com24 3adant1 ad2antrr com13 syl6 com12 imp3a sylbird
@@ -611,10 +570,10 @@ $)
     $( A condition for a filter to converge to a point involving one of its
        bases.  (Contributed by Jeff Hankins, 4-Sep-2009.) $)
     fbaslim $p |- ( ( ( J e. Top /\ B e. fBas /\ X = Y ) /\ A e. X ) -> ( A e.
-    ( ( fLim1 ` J ) ` F ) <-> A. o e. J ( A e. o -> E. x e. B x C_ o ) ) ) $=
-      ( ctop wcel cfbas wceq w3a wa cflim1 cfv cv wi wral wss wrex cfil cuni
-      wb simp1 cfg fgfil syl5eqel 3ad2ant2 simp3 fgbas unieqi syl6eqr eqtrd
-      3jca eqid flimopn sylan eltopss ex 3ad2ant1 adantr sseq2 3ad2ant3 biimpa
+    ( ( fLim ` J ) ` F ) <-> A. o e. J ( A e. o -> E. x e. B x C_ o ) ) ) $=
+      ( ctop wcel cfbas wceq w3a wa cflim cfv cv wi wral wss wrex cfil cuni wb
+      simp1 cfg fgfil syl5eqel 3ad2ant2 simp3 fgbas unieqi syl6eqr eqtrd 3jca
+      eqid flimopn sylan eltopss ex 3ad2ant1 adantr sseq2 3ad2ant3 biimpa
       eleq2i elfg syl5bb ibar adantl bitr4d 3ad2antl2 syldan imbi2d syld
       pm5.74d ralbidv2 bitrd ) FLMZCNMZGHOZPZBGMZQZBEFRSSMZBDTZMZWIEMZUAZDFUBZW
       JATWIUCACUDZUAZDFUBWEWBEUEMZGEUFZOZPWFWHWMUGWEWBWPWRWBWCWDUHWCWBWPWDWCECU
@@ -635,19 +594,19 @@ $)
     isflimf $p |- ( ( J e. Top /\ L e. Fil /\ F : Y --> X ) -> ( A e. ( ( J
     fLimf L ) ` F ) <-> ( A e. X /\ A. o e. J ( A e. o -> E. s e. L ( F " s )
     C_ o ) ) ) ) $=
-      ( ctop wcel cfil wf w3a cflimf co cfv cfilmap cflim1 cv wi wral wa cima
-      wss wrex sflimf eleq2d simpl cuni wceq simp1 cvv cfbas uniexg syl5eqel
-      3ad2ant1 filfbas 3ad2ant2 simp3 fmf syl111anc fmbas eqcomd 3jca eqid
-      flimelbas sylan jca anim2i wb flimopn ibar adantl bitrd pm5.21nd
-      elfilmap adantr elssuni syl6sseqr biantrurd bitr4d imbi2d ralbidva
-      anbi2d 3bitrd ) DKLZEMLZGFCNZOZACDEPQRZLACFESQRZDTRRZLZAFLZABUAZLZWQWMLZU
-      BZBDUCZUDZWPWRCHUAUEWQUFHEUGZUBZBDUCZUDWKWLWNACDEFGIJUHUIWKWOXBWKWPUDZWKW
-      OUDWKWPWKWOUJWKWHWMMLZFWMUKZULZOZWOWPWKWHXGXIWHWIWJUMWKFUNLZEUOLZWJXGWHWI
-      XKWJWHFDUKZUNIDKUPUQURZWIWHXLWJEUSUTZWHWIWJVAZUNECFGJVBVCWKXKXLWJXIXNXOXP
-      XKXLWJOXHFUNECFGJVDVEVCVFZAWMDFXHIXHVGZVHVIVJXBWPWKWPXAUJVKXFWOXAXBWKXJWP
-      WOXAVLXQABWMDFXHIXRVMVIWPXAXBVLWKWPXAVNVOVPVQWKXAXEWPWKWTXDBDWKWQDLZUDZWS
-      XCWRXTWSWQFUFZXCUDZXCWKWSYBVLZXSWKXKXLWJYCXNXOXPHWQEUNCFGJVRVCVSXSXCYBVLW
-      KXSYAXCXSWQXMFWQDVTIWAWBVOWCWDWEWFWG $.
+      ( ctop wcel cfil wf w3a cflf co cfv cfm cflim cv wi wral wa cima wss
+      wrex flfval eleq2d simpl cuni wceq simp1 cvv cfbas uniexg syl5eqel
+      3ad2ant1 filfbas 3ad2ant2 simp3 fmfil syl111anc fmbas eqcomd 3jca eqid
+      flimelbas sylan jca anim2i wb flimopn ibar adantl bitrd pm5.21nd elfm
+      adantr elssuni syl6sseqr biantrurd bitr4d imbi2d ralbidva anbi2d 3bitrd
+      ) DKLZEMLZGFCNZOZACDEPQRZLACFESQRZDTRRZLZAFLZABUAZLZWQWMLZUBZBDUCZUDZWPWR
+      CHUAUEWQUFHEUGZUBZBDUCZUDWKWLWNACDEFGIJUHUIWKWOXBWKWPUDZWKWOUDWKWPWKWOUJW
+      KWHWMMLZFWMUKZULZOZWOWPWKWHXGXIWHWIWJUMWKFUNLZEUOLZWJXGWHWIXKWJWHFDUKZUNI
+      DKUPUQURZWIWHXLWJEUSUTZWHWIWJVAZUNECFGJVBVCWKXKXLWJXIXNXOXPXKXLWJOXHFUNEC
+      FGJVDVEVCVFZAWMDFXHIXHVGZVHVIVJXBWPWKWPXAUJVKXFWOXAXBWKXJWPWOXAVLXQABWMDF
+      XHIXRVMVIWPXAXBVLWKWPXAVNVOVPVQWKXAXEWPWKWTXDBDWKWQDLZUDZWSXCWRXTWSWQFUFZ
+      XCUDZXCWKWSYBVLZXSWKXKXLWJYCXNXOXPHWQEUNCFGJVRVCVSXSXCYBVLWKXSYAXCXSWQXMF
+      WQDVTIWAWBVOWCWDWEWFWG $.
       $( [1-Dec-2010] $) $( [8-Nov-2009] $)
   $}
 
@@ -660,7 +619,7 @@ $)
        by Jeff Hankins, 10-Nov-2009.) $)
     flimfelbas $p |- ( ( ( J e. Top /\ L e. Fil /\ F : Y --> X ) /\ A e. ( ( J
     fLimf L ) ` F ) ) -> A e. X ) $=
-      ( vo vs ctop wcel cfil wf w3a cflimf co cfv cv cima wss wrex wi wral
+      ( vo vs ctop wcel cfil wf w3a cflf co cfv cv cima wss wrex wi wral
       isflimf simprbda ) CKLDMLFEBNOABCDPQRLAELAISZLBJSTUGUAJDUBUCICUDAIBCDEFJG
       HUEUF $.
       $( [1-Dec-2010] $) $( [10-Nov-2009] $)
@@ -669,14 +628,14 @@ $)
 
   ${
     $d F f x $.  $d J f x $.  $d X f x $.
-    hausfillim2.1 $e |- X = U. J $.
+    hausflim2.1 $e |- X = U. J $.
     $( A condition for a topology to be Hausdorff in terms of filters.  A
        topology is Hausdorff iff every filter has at most one limit point.
        (Contributed by FL, 6-Dec-2010.) $)
-    hausfillim2 $p |- ( ( J e. Haus /\ F e. Fil /\ X = U. F ) -> E*
-    x x e. ( ( fLim1 ` J ) ` F ) ) $=
-      ( vf cha wcel cfil cuni wceq cv cflim1 cfv wmo ctop wi haustop wral
-      hausfillim unieq eqeq2d ax-17 fveq2 eleq2d mobid imbi12d rcla4cv syl6bi
+    hausflim2 $p |- ( ( J e. Haus /\ F e. Fil /\ X = U. F ) -> E*
+    x x e. ( ( fLim ` J ) ` F ) ) $=
+      ( vf cha wcel cfil cuni wceq cv cflim cfv wmo ctop wi haustop wral
+      hausflim unieq eqeq2d ax-17 fveq2 eleq2d mobid imbi12d rcla4cv syl6bi
       mpcom 3imp ) CGHZBIHZDBJZKZALZBCMNZNZHZAOZCPHZULUMUOUTQZQZCRVAULDFLZJZKZU
       PVDUQNZHZAOZQZFISVCAFCDETVJVBFBIVDBKZVFUOVIUTVKVEUNDVDBUAUBVKVHUSAVKAUCVK
       VGURUPVDBUQUDUEUFUGUHUIUJUK $.
@@ -693,9 +652,9 @@ $)
          one limit value.  (Contributed by FL, 6-Dec-2010.) $)
       holimf $p |- ( ( L e. Fil /\ J e. Haus /\ F : Y --> X )
        -> E* x x e. ( ( J fLimf L ) ` F ) ) $=
-        ( cfil wcel cha wf w3a cv cflimf co cfv wmo cfilmap cflim1 cuni wceq
-        simp2 cvv cfbas uniexg syl5eqel 3ad2ant2 filfbas 3ad2ant1 simp3 fmf
-        syl111anc fmbas eqcomd hausfillim2 ax-17 ctop haustop simp1 sflimf
+        ( cfil wcel cha wf w3a cv cflf co cfv wmo cfm cflim cuni wceq simp2
+        cvv cfbas uniexg syl5eqel 3ad2ant2 filfbas 3ad2ant1 simp3 fmfil
+        syl111anc fmbas eqcomd hausflim2 ax-17 ctop haustop simp1 flfval
         eleq2d mobid mpbird ) DIJZCKJZFEBLZMZANZBCDOPQZJZARVIBEDSPQZCTQQZJZARZV
         HVFVLIJZEVLUAZUBVOVEVFVGUCVHEUDJZDUEJZVGVPVFVEVRVGVFECUAUDHCKUFUGUHZVEV
         FVSVGDUIUJZVEVFVGUKZUDDBEFGULUMVHVQEVHVRVSVGVQEUBVTWAWBUDDBEFGUNUMUOAVL
@@ -711,9 +670,9 @@ $)
       holimf2 $p |- ( ( ( L e. Fil /\ J e. Haus /\ F : Y --> X ) /\
                    ( ( J fLimf L ) ` F ) =/= (/) )
        -> E! x x e. ( ( J fLimf L ) ` F ) ) $=
-        ( cfil wcel cha wf w3a cflimf co cfv c0 wne wa cv wmo weu holimf
-        adantr wb n0moeu adantl mpbid ) DIJCKJFEBLMZBCDNOPZQRZSATUJJZAUAZULAUBZ
-        UIUMUKABCDEFGHUCUDUKUMUNUEUIAUJUFUGUH $.
+        ( cfil wcel cha wf w3a cflf co cfv c0 wne wa cv wmo weu holimf adantr
+        wb n0moeu adantl mpbid ) DIJCKJFEBLMZBCDNOPZQRZSATUJJZAUAZULAUBZUIUMUKA
+        BCDEFGHUCUDUKUMUNUEUIAUJUFUGUH $.
         $( [14-Nov-2010] $)
     $}
   $}

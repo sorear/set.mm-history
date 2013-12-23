@@ -10,7 +10,7 @@ $)
   cfl $a class |_ $.
 
   ${
-    $d x y z $.
+    $d x y $.
     $( Define the floor (greatest integer) function.  See ~ flval for its
        value, ~ fllelt for its basic property, and ~ flcl for its closure.
 
@@ -19,29 +19,28 @@ $)
        and its reflection as a right bracket.  In APL, the left-bracket alone
        is used, and we borrow this idea.  (Thanks to Paul Chapman for this
        information.) $)
-    df-fl $a |- |_ = { <. x , y >. | ( x e. RR /\
-                y = U. { z e. ZZ | ( z <_ x /\ x < ( z + 1 ) ) } ) } $.
+    df-fl $a |- |_ = ( x e. RR |->
+                ( iota_ y e. ZZ ( y <_ x /\ x < ( y + 1 ) ) ) ) $.
   $}
 
   ${
-    $d x y z A $.
+    $d x y A $.
     $( Value of the floor (greatest integer) function.  The floor of ` A ` is
        the (unique) integer less than or equal to ` A ` whose successor is
        strictly greater than ` A ` . $)
     flval $p |- ( A e. RR ->
-              ( |_ ` A ) = U. { x e. ZZ | ( x <_ A /\ A < ( x + 1 ) ) } ) $=
-      ( vy vz cv cle wbr c1 caddc co clt wa cz crab cuni cr cfl wceq breq2
-      breq1 anbi12d rabbidv unieqd df-fl zex rabex uniex fvopab4 ) CDBAEZCEZFGZ
-      UJUIHIJZKGZLZAMNZOUIBFGZBULKGZLZAMNZOPQUJBRZUOUSUTUNURAMUTUKUPUMUQUJBUIFS
-      UJBULKTUAUBUCCDAUDUSURAMUEUFUGUH $.
-      $( [28-Sep-2007] $) $( [14-Nov-2004] $)
+              ( |_ ` A ) = ( iota_ x e. ZZ ( x <_ A /\ A < ( x + 1 ) ) ) ) $=
+      ( vy cv cle wbr c1 caddc co clt wa cz crio cr cfl wceq breq2 breq1
+      anbi12d riotabidv df-fl riotaex fvmpt ) CBADZCDZEFZUEUDGHIZJFZKZALMUDBEFZ
+      BUGJFZKZALMNOUEBPZUIULALUMUFUJUHUKUEBUDEQUEBUGJRSTCAUAULALUBUC $.
+      $( [2-Nov-2013] $) $( [14-Nov-2004] $)
 
     $( The floor (greatest integer) function is an integer (closure law). $)
     flcl $p |- ( A e. RR -> ( |_ ` A ) e. ZZ ) $=
-      ( vz cr wcel cfl cfv cv cle wbr c1 caddc co clt wa cz crab cuni flval
-      wreu rebtwnz reucl syl eqeltrd ) ACDZAEFBGZAHIAUEJKLMINZBOPQZOBARUDUFBOSU
-      GODBATUFBOUAUBUC $.
-      $( [15-Nov-2004] $)
+      ( vx cr wcel cfl cfv cv cle wbr c1 caddc co clt wa cz crio flval wreu
+      rebtwnz riotacl syl eqeltrd ) ACDZAEFBGZAHIAUDJKLMINZBOPZOBAQUCUEBORUFODB
+      ASUEBOTUAUB $.
+      $( [2-Nov-2013] $) $( [15-Nov-2004] $)
 
     $( The floor (greatest integer) function is real. $)
     reflcl $p |- ( A e. RR -> ( |_ ` A ) e. RR ) $=
@@ -51,13 +50,12 @@ $)
     $( A basic property of the floor (greatest integer) function. $)
     fllelt $p |- ( A e. RR ->
                   ( ( |_ ` A ) <_ A /\ A < ( ( |_ ` A ) + 1 ) ) ) $=
-      ( vy vx cr wcel cfl cfv cle wbr c1 caddc co clt wa cv cz crab cuni wreu
-      rebtwnz wceq breq1 opreq1 breq2d anbi12d reuuni3 syl flval breq1d
-      opreq1d mpbird ) ADEZAFGZAHIZAUMJKLZMIZNBOZAHIZAUQJKLZMIZNZBPQRZAHIZAVBJK
-      LZMIZNZULCOZAHIZAVGJKLZMIZNZCPSVFCATVKVAVFCBPVGUQUAZVHURVJUTVGUQAHUBVLVIU
-      SAMVGUQJKUCUDUEVGVBUAZVHVCVJVEVGVBAHUBVMVIVDAMVGVBJKUCUDUEUFUGULUNVCUPVEU
-      LUMVBAHBAUHZUIULUOVDAMULUMVBJKVNUJUDUEUK $.
-      $( [15-Nov-2004] $)
+      ( vx vy cr wcel cfl cfv cle wbr c1 caddc co clt wa cv cz crio wceq flval
+      eqcomd wreu wb flcl rebtwnz ax-17 a17d breq1 opreq1 breq2d anbi12d
+      riota2f syl11anc mpbird ) ADEZAFGZAHIZAUOJKLZMIZNZBOZAHIZAUTJKLZMIZNZBPQZ
+      UORZUNUOVEBASTUNUOPEZVDBPUAUSVFUBAUCBAUDVDUSBCPUOCOUOEBUEVGUSBUFUTUORZVAU
+      PVCURUTUOAHUGVHVBUQAMUTUOJKUHUIUJUKULUM $.
+      $( [2-Nov-2013] $) $( [15-Nov-2004] $)
   $}
 
   $( A basic property of the floor (greatest integer) function. $)
@@ -132,7 +130,7 @@ $)
     $( [31-Dec-2005] $)
 
   ${
-    $d x y z w A $.  $d x B $.
+    $d x y z w A $.  $d x y B $.
     $( An alternate way to define the floor (greatest integer) function. $)
     flval2 $p |- ( A e. RR -> ( |_ ` A ) =
             U. { x e. ZZ | ( x <_ A /\ A. y e. ZZ ( y <_ A -> y <_ x ) ) } ) $=
@@ -165,12 +163,12 @@ $)
     $( A condition equivalent to floor. $)
     flbi $p |- ( ( A e. RR /\ B e. ZZ ) ->
                 ( ( |_ ` A ) = B <-> ( B <_ A /\ A < ( B + 1 ) ) ) ) $=
-      ( vx cr wcel cz wa cfl cfv wceq cv cle wbr c1 caddc co clt crab cuni wb
-      flval eqeq1d adantr wreu rebtwnz breq1 opreq1 breq2d anbi12d reuuni2
-      sylan2 ancoms bitr4d ) ADEZBFEZGAHIZBJZCKZALMZAURNOPZQMZGZCFRSZBJZBALMZAB
-      NOPZQMZGZUNUQVDTUOUNUPVCBCAUAUBUCUOUNVHVDTZUNUOVBCFUDVICAUEVBVHCFBURBJZUS
-      VEVAVGURBALUFVJUTVFAQURBNOUGUHUIUJUKULUM $.
-      $( [11-Mar-2005] $)
+      ( vx vy cr wcel cz wa cfl cfv wceq cv cle wbr c1 caddc co clt crio wb
+      flval eqeq1d adantr wreu rebtwnz ax-17 a17d breq1 opreq1 breq2d anbi12d
+      riota2f sylan2 ancoms bitr4d ) AEFZBGFZHAIJZBKZCLZAMNZAUTOPQZRNZHZCGSZBKZ
+      BAMNZABOPQZRNZHZUPUSVFTUQUPURVEBCAUAUBUCUQUPVJVFTZUPUQVDCGUDVKCAUEVDVJCDG
+      BDLBFCUFUQVJCUGUTBKZVAVGVCVIUTBAMUHVLVBVHARUTBOPUIUJUKULUMUNUO $.
+      $( [2-Nov-2013] $) $( [11-Mar-2005] $)
   $}
 
   $( A condition equivalent to floor. $)
