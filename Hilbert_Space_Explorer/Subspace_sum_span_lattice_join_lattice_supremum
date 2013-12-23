@@ -5,59 +5,62 @@ $(
 $)
 
   ${
-    $d x y z w v u $.
-    $( Define subspace sum in ` SH ` .  See ~ shsumval , ~ shsumval2i , and
-       ~ shsumval3i for its value. $)
-    df-shsum $a |- +H = { <. <. x , y >. , z >. | ( ( x e. SH /\ y e. SH ) /\
-                 z = { w e. ~H | E. v e. x E. u e. y w = ( v +h u ) } ) } $.
+    $d x y $.
+    $( Define subspace sum in ` SH ` .  See ~ shsval , ~ shsval2i , and
+       ~ shsval3i for its value. $)
+    df-shs $a |- +H = ( x e. SH , y e. SH |-> ( +h " ( x X. y ) ) ) $.
 
     $( Define the linear span of a subset of Hilbert space.  Definition of span
        in [Schechter] p. 276.  See ~ spanval for its value. $)
-    df-span $a |- span = { <. x , y >. | ( x C_ ~H /\
-                   y = |^| { z e. SH | x C_ z } ) } $.
+    df-span $a |- span = ( x e. ~P ~H |-> |^| { y e. SH | x C_ y } ) $.
 
     $( Define Hilbert lattice join.  See ~ chjval for its value and ~ chjcl for
        its closure law.  Note that we define it over all Hilbert space subsets
        to allow proving more general theorems.  Even for general subsets the
        join belongs to ` CH ` ; see ~ sshjcl .  For an alternate definition see
        ~ dfchj2 . $)
-    df-chj $a |- vH = { <. <. x , y >. , z >. | ( ( x C_ ~H /\ y C_ ~H ) /\
-               z = ( _|_ ` ( _|_ ` ( x u. y ) ) ) ) } $.
-
-    $( Define the supremum of a set of Hilbert lattice elements.  See
-       ~ chsupval2 for its value and ~ dfchsup2 for an alternate definition.
-       We actually define the supremum for an arbitrary collection of Hilbert
-       space subsets, not just elements of the Hilbert lattice ` CH ` , to
-       allow more general theorems.  Even for general subsets the supremum
-       still a Hilbert lattice element; see ~ hsupcl . $)
-    df-chsup $a |- \/H = { <. x , y >. | ( x C_ ~P ~H /\
-                   y = ( _|_ ` ( _|_ ` U. x ) ) ) } $.
-
+    df-chj $a |- vH = ( x e. ~P ~H , y e. ~P ~H |->
+                        ( _|_ ` ( _|_ ` ( x u. y ) ) ) ) $.
   $}
 
-  ${
-    $d x y z w f g v u A $.  $d x y z w f g v u B $.  $d x y z C $.
-    $d x y D $.
-    $( Value of subspace sum of two Hilbert space subspaces.  Definition of
-       subspace sum in [Kalmbach] p. 65. $)
-    shsumval $p |- ( ( A e. SH /\ B e. SH ) -> ( A +H B ) =
-        { x e. ~H | E. y e. A E. z e. B x = ( y +h z ) } ) $=
-      ( vw vv vu csh cv cva co wceq wrex chil crab cph ax-hilex rabex rexeq
-      rabbidv rexbidv df-shsum oprabval2 ) FGHDEIIAJBJCJKLMZCGJZNZBFJZNZAOPUECE
-      NZBDNZAOPQUGBDNZAOPUKAORSUHDMUIULAOUGBUHDTUAUFEMZULUKAOUMUGUJBDUECUFETUBU
-      AFGHABCUCUD $.
-      $( [16-Oct-1999] $)
+  $( Define the supremum of a set of Hilbert lattice elements.  See ~ chsupval2
+     for its value and ~ dfchsup2 for an alternate definition.  We actually
+     define the supremum for an arbitrary collection of Hilbert space subsets,
+     not just elements of the Hilbert lattice ` CH ` , to allow more general
+     theorems.  Even for general subsets the supremum still a Hilbert lattice
+     element; see ~ hsupcl . $)
+  df-chsup $a |- \/H = ( x e. ~P ~P ~H |-> ( _|_ ` ( _|_ ` U. x ) ) ) $.
 
-    $( Membership in the subspace sum of two Hilbert subspaces. $)
+  ${
+    $d f x y z A $.  $d x y z B $.  $d x y z C $.  $d x y D $.
+    $( Value of subspace sum of two Hilbert space subspaces.  Definition of
+       subspace sum in [Kalmbach] p. 65.  (Revised by Mario Carneiro,
+       23-Dec-2013.) $)
+    shsval $p |- ( ( A e. SH /\ B e. SH ) -> ( A +H B ) =
+                     ( +h " ( A X. B ) ) ) $=
+      ( vx vy csh cva cv cxp cima cph wceq wa xpeq12 imaeq2d df-shs cabl wcel
+      cvv hilabl imaexg ax-mp ovmpt2a ) CDABEEFCGZDGZHZIFABHZIZJUCAKUDBKLUEUFFU
+      CAUDBMNCDOFPQUGRQSFUFPTUAUB $.
+      $( [23-Dec-2013] $) $( [16-Oct-1999] $)
+
+    $( The subspace sum is a subset of Hilbert space.  (Contributed by Mario
+       Carneiro, 23-Dec-2013.) $)
+    shsss $p |- ( ( A e. SH /\ B e. SH ) -> ( A +H B ) C_ ~H ) $=
+      ( csh wcel wa cph co cva cxp cima chil shsval wss crn imassrn wf
+      ax-hfvadd frn ax-mp sstri a1i eqsstrd ) ACDBCDEZABFGHABIZJZKABLUEKMUCUEHN
+      ZKHUDOKKIZKHPUFKMQUGKHRSTUAUB $.
+      $( [23-Dec-2013] $)
+
+    $( Membership in the subspace sum of two Hilbert subspaces.  (Revised by
+       Mario Carneiro, 23-Dec-2013.) $)
     shsel $p |- ( ( A e. SH /\ B e. SH ) -> ( C e. ( A +H B ) <->
                  E. x e. A E. y e. B C = ( x +h y ) ) ) $=
-      ( vz csh wcel wa cph co chil cv cva wceq wrex crab shsumval eleq2d eqeq1
-      2rexbidv elrab syl6bb wi shss sseld im2anan9 hvaddcl eleq1a syl syl6
-      r19.23advv pm4.71rd bitr4d ) CGHZDGHZIZECDJKZHZELHZEAMZBMZNKZOZBDPACPZIZV
-      EUQUSEFMZVCOZBDPACPZFLQZHVFUQURVJEFABCDRSVIVEFELVGEOVHVDABCDVGEVCTUAUBUCU
-      QVEUTUQVDUTABCDUQVACHZVBDHZIVALHZVBLHZIZVDUTUDZUOVKVMUPVLVNUOCLVACUEUFUPD
-      LVBDUEUFUGVOVCLHVPVAVBUHVCLEUIUJUKULUMUN $.
-      $( [14-Dec-2004] $)
+      ( csh wcel wa cph co cva cxp cima cv wceq wrex shsval eleq2d chil wfn
+      wss wb wf ax-hfvadd ffn ax-mp shss xpss12 syl2an oprelimab sylancr eqcom
+      2rexbii syl6bb bitrd ) CFGZDFGZHZECDIJZGEKCDLZMZGZEANBNKJZOZBDPACPZURUSVA
+      ECDQRURVBVCEOZBDPACPZVEURKSSLZTZUTVHUAZVBVGUBVHSKUCVIUDVHSKUEUFUPCSUADSUA
+      VJUQCUGDUGCSDSUHUIABVHCDEKUJUKVFVDABCDVCEULUMUNUO $.
+      $( [23-Dec-2013] $) $( [14-Dec-2004] $)
 
     $( Membership in the subspace sum of two Hilbert subspaces, using vector
        subtraction. $)
@@ -86,34 +89,34 @@ $)
         NBDOACOPFGABCDEQR $.
         $( [4-May-2000] $)
 
+      $d x y z w f g v u A $.  $d x y z w f g v u B $.
       $( Closure of subspace sum. $)
       shscli $p |- ( A +H B ) e. SH $=
         ( vx vy vz vw vv vu vf vg cph co csh wcel chil wss c0v wa cv cva wral
-        csm cc sh wceq wrex crab shsumval mp2an ssrab2 eqsstri sh0 ax-mp
-        ax-hv0cl hvaddid2i eqcomi rcla4eopr mp3an shseli mpbir pm3.2i wi
-        shaddcl mp3an1 ad2ant2r ad2ant2l opreq12 sheli anim12i hvadd4 syl2an
-        an4s eqtr4d syl111anc ancoms exp43 r19.23aivv com3l imp anbi12i
-        3imtr4i rgen2a shmulcl adantrr adantrl opreq2 adantl ad2antll id
-        ax-hvdistr1 syl3an 3expb adantrrr eqtrd exp42 impcom anbi2i rgen2
-        mpbir2an ) ABMNZOPXBQRZSXBPZTEUAZFUAZUBNZXBPZFXBUCEXBUCZXEXFUDNZXBPZFXB
-        UCEUEUCZTEFXBUFXCXDXBGUAZXGUGFBUHEAUHZGQUIZQAOPZBOPZXBXOUGCDGEFABUJUKXN
-        GQULUMXDSXGUGFBUHEAUHZSAPZSBPZSSSUBNZUGXRXPXSCAUNUOXQXTDBUNUOYASSUPUQUR
-        EFABSSSUBUSUTEFABSCDVAVBVCXIXLXHEFXBXEXMHUAZUBNZUGZHBUHGAUHZXFIUAZJUAZU
-        BNZUGZJBUHIAUHZTXGKUALUAUBNZUGLBUHKAUHZXEXBPZXFXBPZTXHYEYJYLYDYJYLVDGHA
-        BYJXMAPZYBBPZTZYDYLYIYQYDYLVDVDIJABYFAPZYGBPZTZYIYQYDYLYQYDTZYTYITZYLUU
-        AUUBTZXMYFUBNZAPZYBYGUBNZBPZXGUUDUUFUBNZUGYLYQYTUUEYDYIYOYRUUEYPYSXPYOY
-        RUUECXMYFAVEVFVGVGYQYTUUGYDYIYPYSUUGYOYRXQYPYSUUGDYBYGBVEVFVHVGUUCXGYCY
-        HUBNZUUHYDYIXGUUIUGYQYTXEYCXFYHUBVIVHYQYTUUHUUIUGZYDYIYOYRYPYSUUJYOYRTX
-        MQPZYFQPZTYBQPZYGQPZTUUJYPYSTYOUUKYRUULXMACVJYFACVJZVKYPUUMYSUUNYBBDVJY
-        GBDVJZVKXMYFYBYGVLVMVNVGVOKLABUUDUUFXGUBUSVPVQVRVSVTVSWAYMYEYNYJGHABXEC
-        DVAIJABXFCDVAZWBKLABXGCDVAWCWDXKEFUEXBXEUEPZYJTXJYKUGLBUHKAUHZUURYNTXKY
-        JUURUUSYIUURUUSVDZIJABYRYSYIUUTVDYRYSYIUURUUSUURYRYSYITZTZUUSUURUVBTZXE
-        YFUDNZAPZXEYGUDNZBPZXJUVDUVFUBNZUGUUSUURYRUVEUVAXPUURYRUVECXEYFAWEVFWFU
-        URUVAUVGYRUURYSUVGYIXQUURYSUVGDXEYGBWEVFWFWGUVCXJXEYHUDNZUVHUVAXJUVIUGZ
-        UURYRYIUVJYSXFYHXEUDWHWIWJUURYRYSUVIUVHUGZYIUURYRYSUVKUURUURYRUULYSUUNU
-        VKUURWKUUOUUPXEYFYGWLWMWNWOWPKLABUVDUVFXJUBUSVPVQWQWAVSWRYNYJUURUUQWSKL
-        ABXJCDVAWCWTVCXA $.
-        $( [15-Oct-1999] $)
+        csm cc issh2 shsss mp2an wceq wrex sh0 ax-mp ax-hv0cl hvaddid2i eqcomi
+        rcla4eopr mp3an shseli mpbir pm3.2i wi shaddcl mp3an1 ad2ant2r
+        ad2ant2l opreq12 sheli anim12i hvadd4 syl2an an4s eqtr4d syl111anc
+        ancoms exp43 r19.23aivv com3l imp anbi12i 3imtr4i rgen2a shmulcl
+        adantrr adantrl opreq2 adantl ad2antll id ax-hvdistr1 syl3an 3expb
+        adantrrr eqtrd exp42 impcom anbi2i rgen2 mpbir2an ) ABMNZOPWSQRZSWSPZTE
+        UAZFUAZUBNZWSPZFWSUCEWSUCZXBXCUDNZWSPZFWSUCEUEUCZTEFWSUFWTXAAOPZBOPZWTC
+        DABUGUHXASXDUIFBUJEAUJZSAPZSBPZSSSUBNZUIXLXJXMCAUKULXKXNDBUKULXOSSUMUNU
+        OEFABSSSUBUPUQEFABSCDURUSUTXFXIXEEFWSXBGUAZHUAZUBNZUIZHBUJGAUJZXCIUAZJU
+        AZUBNZUIZJBUJIAUJZTXDKUALUAUBNZUILBUJKAUJZXBWSPZXCWSPZTXEXTYEYGXSYEYGVA
+        GHABYEXPAPZXQBPZTZXSYGYDYLXSYGVAVAIJABYAAPZYBBPZTZYDYLXSYGYLXSTZYOYDTZY
+        GYPYQTZXPYAUBNZAPZXQYBUBNZBPZXDYSUUAUBNZUIYGYLYOYTXSYDYJYMYTYKYNXJYJYMY
+        TCXPYAAVBVCVDVDYLYOUUBXSYDYKYNUUBYJYMXKYKYNUUBDXQYBBVBVCVEVDYRXDXRYCUBN
+        ZUUCXSYDXDUUDUIYLYOXBXRXCYCUBVFVEYLYOUUCUUDUIZXSYDYJYMYKYNUUEYJYMTXPQPZ
+        YAQPZTXQQPZYBQPZTUUEYKYNTYJUUFYMUUGXPACVGYAACVGZVHYKUUHYNUUIXQBDVGYBBDV
+        GZVHXPYAXQYBVIVJVKVDVLKLABYSUUAXDUBUPVMVNVOVPVQVPVRYHXTYIYEGHABXBCDURIJ
+        ABXCCDURZVSKLABXDCDURVTWAXHEFUEWSXBUEPZYETXGYFUILBUJKAUJZUUMYITXHYEUUMU
+        UNYDUUMUUNVAZIJABYMYNYDUUOVAYMYNYDUUMUUNUUMYMYNYDTZTZUUNUUMUUQTZXBYAUDN
+        ZAPZXBYBUDNZBPZXGUUSUVAUBNZUIUUNUUMYMUUTUUPXJUUMYMUUTCXBYAAWBVCWCUUMUUP
+        UVBYMUUMYNUVBYDXKUUMYNUVBDXBYBBWBVCWCWDUURXGXBYCUDNZUVCUUPXGUVDUIZUUMYM
+        YDUVEYNXCYCXBUDWEWFWGUUMYMYNUVDUVCUIZYDUUMYMYNUVFUUMUUMYMUUGYNUUIUVFUUM
+        WHUUJUUKXBYAYBWIWJWKWLWMKLABUUSUVAXGUBUPVMVNWNVRVPWOYIYEUUMUULWPKLABXGC
+        DURVTWQUTWR $.
+        $( [23-Dec-2013] $) $( [15-Oct-1999] $)
     $}
 
     $( Closure of subspace sum. $)
@@ -208,8 +211,8 @@ $)
       shintcl.1 $e |- ( A C_ SH /\ A =/= (/) ) $.
       $( Closure of intersection of a non-empty subset of ` SH ` . $)
       shintcli $p |- |^| A e. SH $=
-        ( vx vy vz cint csh wcel chil wss c0v wa cv cva co wral csm cc sh c0
-        wne simpri wex n0 intss1 simpli sseli shss syl sstrd 19.23aiv sylbi
+        ( vx vy vz cint csh wcel chil wss c0v wa cv cva co wral csm cc issh2
+        c0 wne simpri wex n0 intss1 simpli sseli shss syl sstrd 19.23aiv sylbi
         ax-mp ax-hv0cl elisseti elint2 sh0 mprgbir pm3.2i elinti com12 shaddcl
         syl3an1 3expib syl2and r19.21aiv oprex sylibr rgen2a shmulcl sylan2d
         rgen2 mpbir2an ) AFZGHVNIJZKVNHZLCMZDMZNOZVNHZDVNPCVNPZVQVRQOZVNHZDVNPC
@@ -235,8 +238,8 @@ $)
       $( The intersection of a non-empty set of closed subspaces is a closed
          subspace. $)
       chintcli $p |- |^| A e. CH $=
-        ( vf vx vy cint cch wcel csh cn cv wf chli wbr wa wi wal closedsub wss
-        c0 wne simpli chsssh sstri simpri pm3.2i shintcli wral sseli visset
+        ( vf vx vy cint cch wcel csh cn cv wf chli wbr wa wi wal isch2 wss c0
+        wne simpli chsssh sstri simpri pm3.2i shintcli wral sseli visset
         chlimi 3exp com3r syl5 imp ralimdva fint elint2 3imtr4g impcom gen2
         mpbir2an ) AFZGHVCIHJVCCKZLZVDDKZMNZOVFVCHZPZDQCQDCVCRAAISATUAZAGIAGSZV
         JBUBZUCUDVKVJBUEZUFUGVICDVGVEVHVGJEKZVDLZEAUHVFVNHZEAUHVEVHVGVOVPEAVGVN
@@ -270,51 +273,34 @@ $)
       $.
       $( [8-Aug-2000] $)
 
-    $( Alternate definition of supremum of a subset of the Hilbert lattice.
-       Definition in Proposition 1 of [Kalmbach] p. 65.  We actually define it
-       on any collection of Hilbert space subsets, not just the Hilbert lattice
-       ` CH ` , to allow more general theorems. $)
-    dfchsup2 $p |- \/H = { <. x , y >. | ( x C_ ~P ~H /\
-                   y = |^| { z e. CH | U. x C_ z } ) } $=
-      ( chsup cv chil cpw wss cuni cort cfv wceq wa copab cch crab cint
-      df-chsup uniss unipw syl6sseq ococin syl eqeq2d pm5.32i opabbii eqtri )
-      DAEZFGZHZBEZUHIZJKJKZLZMZABNUJUKULCEHCOPQZLZMZABNABRUOURABUJUNUQUJUMUPUKU
-      JULFHUMUPLUJULUIIFUHUISFTUACULUBUCUDUEUFUG $.
-      $( [9-Dec-2003] $)
-
     $( Value of the linear span of a subset of Hilbert space.  The span is the
        intersection of all subspaces constraining the subset.  Definition of
        span in [Schechter] p. 276. $)
     spanval $p |- ( A C_ ~H -> ( span ` A ) = |^| { x e. SH | A C_ x } ) $=
-      ( vy vz chil wss cpw wcel cspn cfv cv csh crab cint wceq ax-hilex elpw2
-      cvv wrex helsh sseq2 rcla4ev mpan sylbi intexrab sylib sseq1 rabbidv
-      inteqd wa copab df-span anbi1i opabbii eqtr4i fvopab4g mpdan sylbir ) BEF
-      ZBEGZHZBIJBAKZFZALMZNZOZBEPQZVAVERHZVFVAVCALSZVHVAUSVIVGELHUSVITVCUSAELVB
-      EBUAUBUCUDVCALUEUFCDBCKZVBFZALMZNZVEUTRIVJBOZVLVDVNVKVCALVJBVBUGUHUIIVJEF
-      ZDKVMOZUJZCDUKVJUTHZVPUJZCDUKCDAULVSVQCDVRVOVPVJEPQUMUNUOUPUQUR $.
-      $( [2-Jun-2004] $)
-
-    $( Value of supremum of set of subsets of Hilbert space.  Definition of
-       supremum in Proposition 1 of [Kalmbach] p. 65. $)
-    hsupval2 $p |- ( A C_ ~P ~H ->
-                    ( \/H ` A ) = |^| { x e. CH | U. A C_ x } ) $=
-      ( vy vz chil cpw wss wcel cuni cv cch crab cint cvv chsup cfv wceq
-      ax-hilex pwex elpw2 biimpri c0 wne wa uniss unipw syl6sseq helch jctil
-      sseq2 elrab sylibr ne0i syl intex sylib unieq sseq1d rabbidv inteqd
-      copab dfchsup2 anbi1i opabbii eqtr4i fvopab4g syl11anc ) BEFZGZBVHFZHZBIZ
-      AJZGZAKLZMZNHZBOPVPQVKVIBVHERSZTUAVIVOUBUCZVQVIEVOHZVSVIEKHZVLEGZUDVTVIWB
-      WAVIVLVHIEBVHUEEUFUGUHUIVNWBAEKVMEVLUJUKULVOEUMUNVOUOUPCDBCJZIZVMGZAKLZMZ
-      VPVJNOWCBQZWFVOWHWEVNAKWHWDVLVMWCBUQURUSUTOWCVHGZDJWGQZUDZCDVAWCVJHZWJUDZ
-      CDVACDAVBWMWKCDWLWIWJWCVHVRTVCVDVEVFVG $.
-      $( [13-Aug-2002] $)
+      ( vy chil wss cpw wcel cv csh crab cint cvv cspn cfv wceq ax-hilex elpw2
+      biimpri wrex helsh sseq2 rcla4ev mpan intexrab sylib sseq1 rabbidv
+      inteqd df-span fvmptg syl11anc ) BDEZBDFZGZBAHZEZAIJZKZLGZBMNUROUNULBDPQR
+      ULUPAISZUSDIGULUTTUPULADIUODBUAUBUCUPAIUDUECBCHZUOEZAIJZKURUMLMVABOZVCUQV
+      DVBUPAIVABUOUFUGUHCAUIUJUK $.
+      $( [23-Dec-2013] $) $( [2-Jun-2004] $)
 
     $( Value of supremum of set of subsets of Hilbert space.  For an alternate
        version of the value, see ~ hsupval2 . $)
     hsupval $p |- ( A C_ ~P ~H -> ( \/H ` A ) = ( _|_ ` ( _|_ ` U. A ) ) ) $=
-      ( vx chil cpw wss chsup cfv cuni cv cch crab cint cort hsupval2 wceq
-      uniss unipw syl6sseq ococin syl eqtr4d ) ACDZEZAFGAHZBIEBJKLZUDMGMGZBANUC
-      UDCEUFUEOUCUDUBHCAUBPCQRBUDSTUA $.
-      $( [9-Dec-2003] $)
+      ( vx chil cpw wss wcel chsup cfv cuni cort wceq ax-hilex pwex elpw2 cv
+      unieq fveq2d df-chsup fvex fvmpt sylbir ) ACDZEAUBDZFAGHAIZJHZJHZKAUBCLMN
+      BABOZIZJHZJHUFUCGUGAKZUIUEJUJUHUDJUGAPQQBRUEJSTUA $.
+      $( [23-Dec-2013] $) $( [9-Dec-2003] $)
+
+    $( Alternate definition of supremum of a subset of the Hilbert lattice.
+       Definition of supremum in Proposition 1 of [Kalmbach] p. 65.  We
+       actually define it on any collection of Hilbert space subsets, not just
+       the Hilbert lattice ` CH ` , to allow more general theorems. $)
+    hsupval2 $p |- ( A C_ ~P ~H ->
+                    ( \/H ` A ) = |^| { x e. CH | U. A C_ x } ) $=
+      ( chil cpw wss chsup cfv cuni cort cv cch crab cint hsupval wceq sspwuni
+      ococin sylbi eqtrd ) BCDEZBFGBHZIGIGZUAAJEAKLMZBNTUACEUBUCOBCPAUAQRS $.
+      $( [23-Dec-2013] $) $( [13-Aug-2002] $)
 
     $( The value of the supremum of a set of closed subspaces of Hilbert
        space.  Definition of supremum in Proposition 1 of [Kalmbach] p. 65. $)
@@ -454,13 +440,11 @@ $)
     $( Value of join for subsets of Hilbert space. $)
     sshjval $p |- ( ( A C_ ~H /\ B C_ ~H ) -> ( A vH B ) =
         ( _|_ ` ( _|_ ` ( A u. B ) ) ) ) $=
-      ( vx vy vz chil wss cpw wcel chj co cun cort cfv wceq ax-hilex elpw2 cv
-      fvex uneq1 fveq2d uneq2 wa copab2 df-chj anbi12i anbi1i oprabbii eqtr4i
-      oprabval2 syl2anbr ) AFGAFHZIBULIABJKABLZMNZMNZOBFGAFPQBFPQCDEABULULCRZDR
-      ZLZMNZMNZUOJAUQLZMNZMNUNMSUPAOZUSVBMVCURVAMUPAUQTUAUAUQBOZVBUNMVDVAUMMUQB
-      AUBUAUAJUPFGZUQFGZUCZERUTOZUCZCDEUDUPULIZUQULIZUCZVHUCZCDEUDCDEUEVMVICDEV
-      LVGVHVJVEVKVFUPFPQUQFPQUFUGUHUIUJUK $.
-      $( [1-Nov-2000] $)
+      ( vx vy chil wss cpw wcel chj co cun cort cfv wceq ax-hilex elpw2 cv wa
+      uneq12 fveq2d df-chj fvex ovmpt2a syl2anbr ) AEFAEGZHBUEHABIJABKZLMZLMZNB
+      EFAEOPBEOPCDABUEUECQZDQZKZLMZLMUHIUIANUJBNRZULUGLUMUKUFLUIAUJBSTTCDUAUGLU
+      BUCUD $.
+      $( [23-Dec-2013] $) $( [1-Nov-2000] $)
 
     $( Value of join in ` SH ` . $)
     shjval $p |- ( ( A e. SH /\ B e. SH ) -> ( A vH B ) =
@@ -487,42 +471,28 @@ $)
     $}
 
 
-    $( Alternate definition of join in the set of closed subspaces of Hilbert
-       space ` CH ` . $)
-    dfchj2 $p |- vH = { <. <. x , y >. , z >. | ( ( x C_ ~H /\ y C_ ~H ) /\
-               z = |^| { w e. CH | ( x u. y ) C_ w } ) } $=
-      ( chj cv chil wss wa cun cort cfv wceq copab2 cch crab cint df-chj unss
-      ococin sylbi eqeq2d pm5.32i oprabbii eqtri ) EAFZGHBFZGHIZCFZUFUGJZKLKLZM
-      ZIZABCNUHUIUJDFHDOPQZMZIZABCNABCRUMUPABCUHULUOUHUKUNUIUHUJGHUKUNMUFUGGSDU
-      JTUAUBUCUDUE $.
-      $( [1-Nov-2000] $)
-
-    $( Alternate definition of join in the set of closed subspaces of Hilbert
-       space ` CH ` : the join is the supremum of its two arguments.  Based on
-       the definition of join in [Beran] p. 3.  For later convenience we prove
-       a general version that works for any subset of Hilbert space, not just
-       the elements of the lattice ` CH ` . $)
-    dfchj3 $p |- vH = { <. <. x , y >. , z >. | ( ( x C_ ~H /\ y C_ ~H ) /\
-               z = ( \/H ` { x , y } ) ) } $=
-      ( chj cv chil wss wa cun cort cfv wceq copab2 cpr chsup df-chj cuni cpw
-      visset prsspw hsupval sylbir unipr fveq2i syl6req eqeq2d pm5.32i
-      oprabbii eqtri ) DAEZFGBEZFGHZCEZUJUKIZJKZJKZLZHZABCMULUMUJUKNZOKZLZHZABC
-      MABCPURVBABCULUQVAULUPUTUMULUTUSQZJKZJKZUPULUSFRGUTVELUJUKFASZBSZTUSUAUBV
-      DUOJVCUNJUJUKVFVGUCUDUDUEUFUGUHUI $.
-      $( [2-Mar-2004] $)
+    $( Value of join in the set of closed subspaces of Hilbert space ` CH ` .
+       (Revised by Mario Carneiro, 23-Dec-2013.) $)
+    sshjval2 $p |- ( ( A C_ ~H /\ B C_ ~H ) -> ( A vH B ) =
+                     |^| { x e. CH | ( A u. B ) C_ x } ) $=
+      ( chil wss wa chj co cun cort cfv cv cch crab cint sshjval wceq unss
+      ococin sylbi eqtrd ) BDECDEFZBCGHBCIZJKJKZUCALEAMNOZBCPUBUCDEUDUEQBCDRAUC
+      STUA $.
+      $( [23-Dec-2013] $) $( [1-Nov-2000] $)
 
     $( Value of join for subsets of Hilbert space in terms of supremum: the
        join is the supremum of its two arguments.  Based on the definition of
-       join in [Beran] p. 3. $)
+       join in [Beran] p. 3.  For later convenience we prove a general version
+       that works for any subset of Hilbert space, not just the elements of the
+       lattice ` CH ` . $)
     sshjval3 $p |- ( ( A C_ ~H /\ B C_ ~H ) -> ( A vH B ) =
-                 ( \/H ` { A , B } ) ) $=
-      ( vx vy vz chil wss cpw wcel chj co cpr chsup cfv wceq ax-hilex elpw2 cv
-      fvex preq1 fveq2d preq2 wa copab2 dfchj3 anbi12i anbi1i oprabbii eqtr4i
-      oprabval2 syl2anbr ) AFGAFHZIBULIABJKABLZMNZOBFGAFPQBFPQCDEABULULCRZDRZLZ
-      MNZUNJAUPLZMNUMMSUOAOUQUSMUOAUPTUAUPBOUSUMMUPBAUBUAJUOFGZUPFGZUCZERUROZUC
-      ZCDEUDUOULIZUPULIZUCZVCUCZCDEUDCDEUEVHVDCDEVGVBVCVEUTVFVAUOFPQUPFPQUFUGUH
-      UIUJUK $.
-      $( [2-Mar-2004] $)
+                          ( \/H ` { A , B } ) ) $=
+      ( chil wss wa cpr cuni cort cfv cun chsup chj co cpw wcel wceq ax-hilex
+      elpw2 uniprg syl2anbr fveq2d prssg ibi hsupval syl sshjval 3eqtr4rd ) ACD
+      ZBCDZEZABFZGZHIZHIZABJZHIZHIUKKIZABLMUJUMUPHUJULUOHUHACNZOZBUROZULUOPUIAC
+      QRZBCQRZABURURSTUAUAUJUKURDZUQUNPUHUSUTVCUIVAVBUSUTEVCABURURURUBUCTUKUDUE
+      ABUFUG $.
+      $( [23-Dec-2013] $) $( [2-Mar-2004] $)
 
     $( Closure of join for subsets of Hilbert space. $)
     sshjcl $p |- ( ( A C_ ~H /\ B C_ ~H ) -> ( A vH B ) e. CH ) $=
@@ -776,7 +746,7 @@ $)
       $( [23-Nov-2004] $)
 
     $( An alternate way to express subspace sum. $)
-    shsumval2i $p |- ( A +H B ) = |^| { x e. SH | ( A u. B ) C_ x } $=
+    shsval2i $p |- ( A +H B ) = |^| { x e. SH | ( A u. B ) C_ x } $=
       ( cph co cun cv wss csh crab cint wa ssun1 ssintub sstri ssun2 pm3.2i c0
       wne wcel ssrab2 wrex shscli shunssi sseq2 rcla4ev mp2an rabn0 mpbir
       shintcl shslubi mpbi elrab mpbir2an intss1 ax-mp eqssi ) BCFGZBCHZAIZJZAK
@@ -786,10 +756,10 @@ $)
       $( [25-Nov-2004] $)
 
     $( An alternate way to express subspace sum. $)
-    shsumval3i $p |- ( A +H B ) = ( span ` ( A u. B ) ) $=
-      ( vx cph co cun cv wss csh crab cint cspn cfv shsumval2i chil wceq
-      shssii unssi spanval ax-mp eqtr4i ) ABFGABHZEIJEKLMZUDNOZEABCDPUDQJUFUERA
-      BQACSBDSTEUDUAUBUC $.
+    shsval3i $p |- ( A +H B ) = ( span ` ( A u. B ) ) $=
+      ( vx cph co cun cv wss csh crab cint cspn cfv shsval2i chil wceq shssii
+      unssi spanval ax-mp eqtr4i ) ABFGABHZEIJEKLMZUDNOZEABCDPUDQJUFUERABQACSBD
+      STEUDUAUBUC $.
       $( [25-Nov-2004] $)
   $}
 
