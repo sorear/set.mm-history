@@ -4,23 +4,14 @@ $(
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 $)
 
-  $c slope $.
+  $c Intvl $.
 
-  $( Extend class notation to include slope. $)
-  cslope $a class slope $.
+  $( Extend class notation to include intervals. $)
+  cintvl $a class Intvl $.
 
-  ${
-    $d n f a x $.
-    $( Taux d'accroissement. $)
-    $( Definition of the slope of the function ` f ` at the point ` a ` .
-       Meaningful if ` f ` is a function whose variable is in ` CC ` and whose
-       values are complex vectors and ` a ` an element of the domain of
-       ` f ` .  Experimental. $)
-    df-slope $a |- slope = ( n e. NN |-> (
-        f e. _V , a e. dom f |->
-          ( x e. ( dom f \ { a } ) |->
-         ( ( ( f ` x ) ( -cv ` n ) ( f ` a ) ) ( /cv ` n ) ( x - a ) ) ) ) ) $.
-  $}
+  $( The intervals of ` RR ` . $)
+  df-intvl $a |- Intvl =
+    ( ( ran (,) u. ( ran (,] u. ( ran [,) u. ran [,] ) ) ) i^i ~P RR ) $.
 
   $( Declare the derivative of a function. $)
   $c der $.
@@ -52,9 +43,70 @@ $)
        topological vector space whose scalars are in ` A ` .  The topologies
        would be changed accordingly.  The domain of ` f ` would be a
        neighborhood of ` p ` .  Experimental. $)
-    df-der $a |- der = ( n e. NN |-> ( p e. dom f , f e. _V |->
+    df-der $a |- der = ( n e. NN |-> (
+      f e. ( ( RR ^m ( 1 ... n ) ) ^m Intvl ) |-> ( p e. dom f |->
       ( ( ( ( topX ` ( x e. ( 1 ... n ) |-> ( topGen ` ran (,) ) ) )
       fLimfrs ( topGen ` ran (,) ) ) ` ( dom f \ { p } ) ) ` <. p ,
-        ( ( slope ` n ) ` <. f , p >. ) >. ) ) ) $.
+        ( x e. ( dom f \ { p } ) |-> ( ( ( f ` x ) ( -cv ` n ) ( f ` p ) )
+            ( /cv ` n ) ( x - p ) ) ) >. ) ) ) ) $.
   $}
+
+
+  ${
+
+    isder.1 $e |- J =
+      ( topX ` ( x e. ( 1 ... N ) |-> ( topGen ` ran (,) ) ) ) $.
+    isder.2 $e |- K = ( topGen ` ran (,) ) $.
+    isder.3 $e |- A = ( dom F \ { P } ) $.
+    isder.4 $e |- S = ( x e. A
+          |-> ( ( ( F ` x ) ( -cv ` N ) ( F ` P ) ) ( /cv ` N ) ( x - P ) ) )
+        $.
+
+    ${
+      $( Warning . A here is redundant. It is the domain of S. $)
+      $d x A $.  $d x f n N p $.  $d x P p $.  $d x f F p $.
+      $( The derivative of ` F ` at point ` P ` is the limit of the slope
+         ` F ( x ) - F ( P ) / x - P ` when ` x ` tends to ` P ` . $)
+      isder $p |-
+      ( ( N e. NN /\ P e. dom F /\ F e. ( ( RR ^m ( 1 ... N ) ) ^m Intvl ) )
+         -> ( ( ( der ` N ) ` F ) ` P ) =
+            ( ( ( J fLimfrs K ) ` A ) ` <. P , S >. ) ) $=
+        ( vn vf vp cv cfv cmcv co cmin cdivcv cmpt wceq cn wcel cdm cr c1 cfz
+        cmap cintvl w3a cder cop cflimfrs wi csn cdif cioo crn ctg ctopx
+        df-der fveq1i a1i cvv wa simp1 oprex mptexg syl jca opreq2 opreq2d
+        opreq1d eqid mpteq12dv fveq2d fveq1d fveq2 opreq123d opeq2d fveq12d
+        fvmptg simp3 dmexg 3ad2ant3 dmeq difeq1d fveq1 opreq12d simp2 fvex
+        sneq difeq2d id opeq12d 3eqtrd eqtrd opreq1 eqeq2d imbi2d mpbird ax-mp
+        opeq2 ) DABAPZEQZCEQZHRQZSZXFCTSZHUAQZSZUBZUCZHUDUEZCEUFZUEZEUGUHHUISZU
+        JSZUKUJSZUEZULZCEHUMQZQZQZCDUNZBFGUOSZQZQZUCZUPZLXOYLYCYFCXNUNZYIQZUCZU
+        PZYPXOBXQCUQZURZUCZYPKYSYPYCYFCAYRXMUBZUNZYRYHQZQZUCZUPZUUEYSGUSUTVAQZU
+        CZUUEJUUGUUEYCYFUUAYRFUUFUOSZQZQZUCZUPZUULUUGFAXSUUFUBZVBQZUCZUULIUUOUU
+        LYCYFUUAYRUUNUUFUOSZQZQZUCZUPZUUTUUOYCYFCEHMUDNUGUHMPZUISZUJSZUKUJSZONP
+        ZUFZOPZAUVFUVGUQZURZXFUVEQZUVGUVEQZUVARQZSZXFUVGTSZUVAUAQZSZUBZUNZUVIAU
+        VBUUFUBZVBQZUUFUOSZQZQZUBZUBZUBZQZQZQZUURYFUWIUCYCCYEUWHEYDUWGHUMUWFANM
+        OVCVDVDVDVEYCUWICENYAOUVFUVGAUVIUVJUVKXISZUVNXLSZUBZUNZUVIUUPQZQZUBZUBZ
+        QZQCOXQUVGAXQUVHURZXGUVGEQZXISZUVNXLSZUBZUNZUWSUUPQZQZUBZQZUURYCCUWHUWR
+        YCEUWGUWQYCXPUWQVFUEZVGUWGUWQUCYCXPUXIXPXRYBVHYCYAVFUEZUXIUXJYCXTUKUJVI
+        VENYAUWPVFVJVKVLMHUWEUWQUDVFUWFUVAHUCZNUVDUWDYAUWPUXKUVCXTUKUJUXKUVBXSU
+        GUJUVAHUHUIVMZVNVOUXKOUVFUWCUVFUWOUVFUVFUCUXKUVFVPVEUXKUVRUWMUWBUWNUXKU
+        VIUWAUUPUXKUVTUUNUUFUOUXKUVSUUMVBUXKAUVBUUFXSUUFUXLUUFUUFUCUXKUUFVPVEVQ
+        VRVOVSUXKUVQUWLUVGUXKAUVIUVPUVIUWKUVIUVIUCUXKUVIVPVEUXKUVMUWJUVNUVNUVOX
+        LUVAHUAVTUXKUVJUVJUVKUVKUVLXIUVAHRVTUVJUVJUCUXKUVJVPVEUVKUVKUCUXKUVKVPV
+        EWAUVNUVNUCUXKUVNVPVEWAVQWBWCVQVQUWFVPWDVKVSVSYCCUWRUXGYCYBUXGVFUEZVGUW
+        RUXGUCYCYBUXMXPXRYBWEYCXQVFUEZUXMYBXPUXNXREYAWFWGOXQUXFVFVJVKVLNEUWPUXG
+        YAVFUWQUVEEUCZOUVFUWOXQUXFUVEEWHZUXOUWMUXDUWNUXEUXOUVIUWSUUPUXOUVFXQUVH
+        UXPWIZVRUXOUWLUXCUVGUXOAUVIUWKUWSUXBUXQUXOUWJUXAUVNXLUXOUVJXGUVKUWTXIXF
+        UVEEWJUVGUVEEWJWKVOVQWBWCVQUWQVPWDVKVSYCXRUURVFUEZVGUXHUURUCYCXRUXRXPXR
+        YBWLUXRYCUUAUUQWMVEVLOCUXFUURXQVFUXGUVGCUCZUXDUUAUXEUUQUXSUWSYRUUPUXSUV
+        HYQXQUVGCWNWOZVRUXSUVGCUXCYTUXSWPUXSAUWSUXBYRXMUXTUXSUXAXJUVNXKXLUXSUWT
+        XHXGXIUVGCEVTVNUVGCXFTVMWKVQWQWCUXGVPWDVKWRWSVEUUOUUKUUSYCUUOUUJUURYFUU
+        OUUAUUIUUQUUOYRUUHUUPFUUNUUFUOWTVSVSXAXBXCXDVEUUGUUDUUKYCUUGUUCUUJYFUUG
+        UUAUUBUUIUUGYRYHUUHGUUFFUOVMVSVSXAXBXCXDVEYSYOUUDYCYSYNUUCYFYSYMUUAYIUU
+        BBYRYHVTYSXNYTCYSABXMYRXMYSWPXMXMUCYSXMVPVEVQWBWCXAXBXCXDVEXOYKYOYCXOYJ
+        YNYFXOYGYMYIDXNCXEVRXAXBXCXD $.
+        $( [24-Dec-2013] $)
+    $}
+
+  $}
+
 
