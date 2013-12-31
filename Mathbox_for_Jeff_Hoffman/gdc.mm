@@ -35,29 +35,29 @@ $)
   nndivsub $p |- ( ( ( A e. NN /\ B e. NN /\ C e. NN )
                        /\ ( ( A / C ) e. NN /\ A < B ) )
                     -> ( ( B / C ) e. NN <-> ( ( B - A ) / C ) e. NN ) ) $=
-    ( cn wcel w3a cdiv co clt wbr wa cmin wi cr cc0 wb nnre nngt0 jca ltdiv1
-    syl3an nnsub sylan9bb biimpd exp32 com34 imp32 caddc nnaddcl expcom cc
-    wceq wne nnsscn nnne0 divcl nnssi2 anim12i 3impdir npcan ancoms syl eleq1d
-    sylan9r adantrr impbid nncn 3ad2ant2 3ad2ant1 3ad2ant3 divsubdir syl111anc
-    adantr bitr4d ) ADEZBDEZCDEZFZACGHZDEZABIJZKZKZBCGHZDEZWDVSLHZDEZBALHCGHZDE
-    ZWCWEWGVRVTWAWEWGMVRVTWEWAWGVRVTWEWAWGMVRVTWEKZKWAWGVRWAVSWDIJZWJWGVOANEVPB
-    NEVQCNEZOCIJZKWAWKPAQBQVQWLWMCQCRSABCTUAVSWDUBUCUDUEUFUGVRVTWGWEMWAVTWGWFVS
-    UHHZDEZVRWEWGVTWOWFVSUIUJVRWOWEVRWNWDDVRVSUKEZWDUKEZKZWNWDULZVOVQVPWRVOVQKW
-    PVPVQKWQCOUMZWPACUKUNCUOZACUPUQWTWQBCUKUNXABCUPUQURUSWQWPWSWDVSUTVAVBVCUDVD
-    VEVFVRWIWGPWBVRWHWFDVRBUKEZAUKEZCUKEZWTKZWHWFULVPVOXBVQBVGVHVOVPXCVQAVGVIVQ
-    VOXEVPVQXDWTCVGXASVJBACVKVLVCVMVN $.
+    ( cn wcel cdiv co clt wbr wa cmin wi cr cc0 wb nnre jca biimpd cc nncn wceq
+    w3a nngt0 ltdiv1 syl3an nnsub sylan9bb exp32 com34 imp32 nnaddcl expcom wne
+    caddc nnsscn nnne0 divcl nnssi2 anim12i 3impdir npcan ancoms eleq1d sylan9r
+    adantrr impbid 3ad2ant2 3ad2ant1 3ad2ant3 divsubdir syl111anc adantr bitr4d
+    syl ) ADEZBDEZCDEZUBZACFGZDEZABHIZJZJZBCFGZDEZWDVSKGZDEZBAKGCFGZDEZWCWEWGVR
+    VTWAWEWGLVRVTWEWAWGVRVTWEWAWGLVRVTWEJZJWAWGVRWAVSWDHIZWJWGVOAMEVPBMEVQCMEZN
+    CHIZJWAWKOAPBPVQWLWMCPCUCQABCUDUEVSWDUFUGRUHUIUJVRVTWGWELWAVTWGWFVSUNGZDEZV
+    RWEWGVTWOWFVSUKULVRWOWEVRWNWDDVRVSSEZWDSEZJZWNWDUAZVOVQVPWRVOVQJWPVPVQJWQCN
+    UMZWPACSUOCUPZACUQURWTWQBCSUOXABCUQURUSUTWQWPWSWDVSVAVBVNVCRVDVEVFVRWIWGOWB
+    VRWHWFDVRBSEZASEZCSEZWTJZWHWFUAVPVOXBVQBTVGVOVPXCVQATVHVQVOXEVPVQXDWTCTXAQV
+    IBACVJVKVCVLVM $.
     $( [17-Jun-2008] $)
 
   $( A factor of a natural number cannot exceed it.  (Contributed by Jeff
      Hoffman, 17-Jun-2008.) $)
   nndivlub $p |- ( ( A e. NN /\ B e. NN )
         -> ( ( A / B ) e. NN -> B <_ A ) ) $=
-    ( cn wcel wa cr cc0 clt wbr cdiv co cle wi nnre nngt0 jca anim12i ancoms
-    c1 nnge1 wb lediv2 3anidm23 cc wne recn adantr 0re ltne mp3an1 divid
-    breq1d syl11anc adantl bitrd syl5ibr syl ) ACDZBCDZEBFDZGBHIZEZAFDZGAHIZEZE
-    ZABJKZCDZBALIZMUSURVFUSVBURVEUSUTVABNBOPURVCVDANAOPQRVHVIVFSVGLIZVGTVFVIAAJ
-    KZVGLIZVJVBVEVIVLUABAAUBUCVEVLVJUAZVBVEAUDDZAGUEZVMVCVNVDAUFUGGFDVCVDVOUHGA
-    UIUJVNVOEVKSVGLAUKULUMUNUOUPUQ $.
+    ( cn wcel wa cr cc0 clt wbr cdiv co cle wi nnre nngt0 jca anim12i ancoms c1
+    wb nnge1 lediv2 3anidm23 cc wne recn adantr 0re ltne mp3an1 breq1d syl11anc
+    divid adantl bitrd syl5ibr syl ) ACDZBCDZEBFDZGBHIZEZAFDZGAHIZEZEZABJKZCDZB
+    ALIZMUSURVFUSVBURVEUSUTVABNBOPURVCVDANAOPQRVHVIVFSVGLIZVGUAVFVIAAJKZVGLIZVJ
+    VBVEVIVLTBAAUBUCVEVLVJTZVBVEAUDDZAGUEZVMVCVNVDAUFUGGFDVCVDVOUHGAUIUJVNVOEVK
+    SVGLAUMUKULUNUOUPUQ $.
     $( [17-Jun-2008] $)
 
   $c gcdOLD $. $( The greatest common divisor $)
@@ -80,12 +80,12 @@ $)
        subtraction. $)
     ee7.2aOLD $p |- ( ( A e. NN /\ B e. NN )
          -> ( A < B -> gcdOLD ( A , B ) = gcdOLD ( A , ( B - A ) ) ) ) $=
-      ( vx cn wcel wa clt wbr cgcdOLD cmin co wceq cv cdiv crab csup wb wi w3a
-      nndivsub exp32 com23 3expia imp pm5.32d rabbidva supeq1d df-gcdOLD
-      3eqtr4g ex ) ADEZBDEZFZABGHZABIZABAJKZIZLUMUNFZACMZNKDEZBUSNKDEZFZCDOZDGP
-      UTUPUSNKDEZFZCDOZDGPUOUQURDVCVFGURVBVECDURUSDEZFUTVAVDURVGUTVAVDQZRZUMUNV
-      GVIRUMVGUNVIUKULVGUNVIRUKULVGSZUTUNVHVJUTUNVHABUSTUAUBUCUBUDUDUEUFUGCABUH
-      CAUPUHUIUJ $.
+      ( vx cn wcel wa clt wbr cgcdOLD cmin co wceq cv cdiv crab com23 df-gcdOLD
+      csup wi imp wb w3a nndivsub exp32 3expia pm5.32d rabbidva supeq1d 3eqtr4g
+      ex ) ADEZBDEZFZABGHZABIZABAJKZIZLUMUNFZACMZNKDEZBUSNKDEZFZCDOZDGRUTUPUSNK
+      DEZFZCDOZDGRUOUQURDVCVFGURVBVECDURUSDEZFUTVAVDURVGUTVAVDUAZSZUMUNVGVISUMV
+      GUNVIUKULVGUNVISUKULVGUBZUTUNVHVJUTUNVHABUSUCUDPUEPTTUFUGUHCABQCAUPQUIUJ
+      $.
       $( [17-Jun-2008] $)
   $}
 
