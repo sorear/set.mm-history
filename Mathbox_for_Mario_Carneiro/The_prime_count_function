@@ -1,0 +1,554 @@
+$(
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+                           The prime count function
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+$)
+
+  $c pCnt $.
+
+  $( Extend class notation with the prime count function. $)
+  cpc $a class pCnt $.
+
+  ${
+    $d p x n $.
+    $( Define the prime count function, which returns the largest exponent of a
+       given prime (or other natural number) that divides the number.  For
+       rational numbers, it returns negative values according to the power of a
+       prime in the denominator. $)
+    df-pc $a |- pCnt = ( p e. Prime , r e. ( QQ \ { 0 } ) |->
+      ( iota z E. x e. ZZ E. y e. NN ( r = ( x / y ) /\
+        z = ( sup ( { n e. NN0 | ( p ^ n ) || x } , RR , < ) -
+              sup ( { n e. NN0 | ( p ^ n ) || y } , RR , < ) ) ) ) ) $.
+  $}
+
+  ${
+    $d n x y N $.  $d n x y P $.  $d x y A $.  $d x S $.
+    pclem.1 $e |- A = { n e. NN0 | ( P ^ n ) || N } $.
+    $( - Lemma for the prime power pre-function's properties.  (Contributed by
+       Mario Carneiro, 23-Feb-2014.) $)
+    pclem $p |- ( ( P e. ( ZZ>= ` 2 ) /\ ( N e. ZZ /\ N =/= 0 ) ) ->
+          ( A C_ ZZ /\ A =/= (/) /\ E. x e. RR A. y e. A y <_ x ) ) $=
+      ( wcel cz cc0 wa wbr cr cn0 cexp co cdivides syl adantr cn c2 cuz cfv wne
+      wss c0 cv cle wral wrex crab ssrab2 eqsstri nn0ssz sstri a1i 0nn0 c1 wceq
+      cc eluzelz exp0 1dvds ad2antrl eqbrtrd opreq2 breq1d elrab2 sylanbrc ne0i
+      zcn nnssre clt abscl eluzelre eluz2b2 simprbi expnbnd syl111anc wi simprr
+      sylib simprd simplbi ad2antrr simpld nnexpcl syl11anc nnz simplrl simplrr
+      cabs dvdsleabs mpd zre nnnn0 reexpcl lelttr mpand expord syl31anc sylibrd
+      wb nn0re nnre ltle syld anassrs ralrimdva reximdva ssrexv mpsyl 3jca ) DU
+      AUBUCHZFIHZFJUDZKZKZCIUEZCUFUDZBUGZAUGZUHLZBCUIZAMUJZXSXRCNICDEUGZOPZFQLZ
+      ENUKNGYHENULUMUNUOUPXRJCHZXTXRJNHZDJOPZFQLZYIYJXRUQUPXRYKURFQXRDUTHZYKURU
+      SXNYMXQXNDIHYMUADVADVKRSDVBRXOURFQLXNXPFVCVDVEYHYLEJNCYFJUSYGYKFQYFJDOVFV
+      GGVHVICJVJRTMUEXRYDATUJZYEVLXRFWLUCZDYBOPZVMLZATUJZYNXRYOMHZDMHZURDVMLZYR
+      XOYSXNXPXOFUTHYSFVKFVNRVDZXNYTXQUADVOZSXNUUAXQXNDTHZUUADVPZVQSZYODAVRVSXR
+      YQYDATXRYBTHZKYQYCBCXRUUGYACHZYQYCVTXRUUGUUHKZKZYQYAYBVMLZYCUUJYQDYAOPZYP
+      VMLZUUKUUJUULYOUHLZYQUUMUUJUULFQLZUUNUUJYANHZUUOUUJUUHUUPUUOKXRUUGUUHWAYH
+      UUOEYANCYFYAUSYGUULFQYFYADOVFVGGVHWBZWCUUJUULIHZXOXPUUOUUNVTUUJUULTHZUURU
+      UJUUDUUPUUSXNUUDXQUUIXNUUDUUAUUEWDWEUUJUUPUUOUUQWFZDYAWGWHUULWIRZXNXOXPUU
+      IWJXNXOXPUUIWKUULFWMVSWNUUJUULMHZYSYPMHZUUNYQKUUMVTUUJUURUVBUVAUULWORXRYS
+      UUIUUBSUUJYTYBNHZUVCXNYTXQUUIUUCWEZUUGUVDXRUUHYBWPVDZDYBWQWHUULYOYPWRVSWS
+      UUJYTUUPUVDUUAUUKUUMXCUVEUUTUVFXRUUAUUIUUFSDYAYBWTXAXBUUJYAMHZYBMHZUUKYCV
+      TUUJUUPUVGUUTYAXDRUUGUVHXRUUHYBXEVDYAYBXFWHXGXHXIXJWNYDATMXKXLXM $.
+      $( [23-Feb-2014] $)
+
+    pclem.2 $e |- S = sup ( A , RR , < ) $.
+    $( Closure of the prime power pre-function.  (Contributed by Mario
+       Carneiro, 23-Feb-2014.) $)
+    pcprecl $p |- ( ( P e. ( ZZ>= ` 2 ) /\ ( N e. ZZ /\ N =/= 0 ) ) ->
+                    ( S e. NN0 /\ ( P ^ S ) || N ) ) $=
+      ( vy vx wcel cz wne wa cn0 cexp co cdivides wbr cr cv c2 cuz cfv cc0 csup
+      clt wss c0 cle wral wrex w3a suprzcl syl syl5eqel crab wceq opreq2 breq1d
+      pclem cbvrabv eqtri eleq2i elrab bitri sylib ) BUAUBUCJEKJEUDLMMZCAJZCNJB
+      COPZEQRZMZVGCASUFUEZAGVGAKUGAUHLHTITZUIRHAUJISUKULVLAJIHABDEFUTIHAUMUNUOV
+      HCBVMOPZEQRZINUPZJVKAVPCABDTZOPZEQRZDNUPVPFVSVODINVQVMUQVRVNEQVQVMBOURUSV
+      AVBVCVOVJICNVMCUQVNVIEQVMCBOURUSVDVEVF $.
+      $( [23-Feb-2014] $)
+
+    $( Non-divisibility property of the prime power pre-function.  (Contributed
+       by Mario Carneiro, 23-Feb-2014.) $)
+    pcprendvds $p |- ( ( P e. ( ZZ>= ` 2 ) /\ ( N e. ZZ /\ N =/= 0 ) ) ->
+                       -. ( P ^ ( S + 1 ) ) || N ) $=
+      ( vx vy wcel cz wa co cexp cdivides wbr cle cn0 cr cv c2 cuz cfv c1 caddc
+      cc0 wne wn pcprecl simpld nn0re clt ltp1 wb peano2re ltnle mpdan mpbid wi
+      3syl peano2nn0 crab wceq opreq2 breq1d cbvrabv eqtri elrab bitri simplbi2
+      eleq2i wss c0 wral wrex w3a pclem zssre sstr mpan2 csup syl6breqr syl3an1
+      suprub ex syl syld mtod ) BUAUBUCJEKJEUFUGLLZBCUDUEMZNMZEOPZWJCQPZWICRJZC
+      SJZWMUHZWIWNBCNMEOPABCDEFGUIUJZCUKWOCWJULPZWPCUMWOWJSJWRWPUNCUOCWJUPUQURU
+      TWIWLWJAJZWMWIWNWJRJZWLWSUSWQCVAWSWTWLWSWJBHTZNMZEOPZHRVBZJWTWLLAXDWJABDT
+      ZNMZEOPZDRVBXDFXGXCDHRXEXAVCXFXBEOXEXABNVDVEVFVGVKXCWLHWJRXAWJVCXBWKEOXAW
+      JBNVDVEVHVIVJUTWIAKVLZAVMUGZITXAQPIAVNHSVOZVPWSWMUSZHIABDEFVQXHASVLZXIXJX
+      KXHKSVLXLVRAKSVSVTXLXIXJVPZWSWMXMWSLWJASULWACQHIAWJWDGWBWEWCWFWGWH $.
+      $( [23-Feb-2014] $)
+
+    $( Non-divisibility property of the prime power pre-function.  (Contributed
+       by Mario Carneiro, 23-Feb-2014.) $)
+    pcprendvds2 $p |- ( ( P e. ( ZZ>= ` 2 ) /\ ( N e. ZZ /\ N =/= 0 ) ) ->
+                       -. P || ( N / ( P ^ S ) ) ) $=
+      ( wcel cz cc0 wne wa cexp co cdivides wbr c1 syl syl111anc cc c2 cuz cdiv
+      cfv caddc pcprendvds cmul wi cn clt eluz2b2 simplbi adantr nnz cn0 simprd
+      pcprecl simpld nnexpcl syl11anc nnne0 simprl divides2 mpbid dvdscmul wceq
+      wb nncn expp1 eqcomd zcn ad2antrl divcan2 breq12d sylibd mtod ) BUAUBUDHZ
+      EIHZEJKZLZLZBEBCMNZUCNZOPZBCQUENMNZEOPZABCDEFGUFWAWDWBBUGNZWBWCUGNZOPZWFW
+      ABIHZWCIHZWBIHZWDWIUHWABUIHZWJVQWMVTVQWMQBUJPBUKULUMZBUNRWAWBEOPZWKWACUOH
+      ZWOABCDEFGUQZUPWAWLWBJKZVRWOWKVGWAWBUIHZWLWAWMWPWSWNWAWPWOWQURZBCUSUTZWBU
+      NRZWAWSWRXAWBVARZVQVRVSVBWBEVCSVDXBWBBWCVESWAWGWEWHEOWAWEWGWABTHZWPWEWGVF
+      WAWMXDWNBVHRWTBCVIUTVJWAETHZWBTHZWRWHEVFVRXEVQVSEVKVLWAWSXFXAWBVHRXCEWBVM
+      SVNVOVP $.
+      $( [23-Feb-2014] $)
+
+    $( Value of the prime power pre-function at 1.  (Contributed by Mario
+       Carneiro, 23-Feb-2014.) $)
+    pcpre1 $p |- ( ( P e. ( ZZ>= ` 2 ) /\ N = 1 ) -> S = 0 ) $=
+      ( vy wcel c1 wceq wa cc0 cle wbr cr cz cexp cdivides syl cuz cfv clt csup
+      vx c2 wss c0 wne cv wral wrex w3a 1z eleq1 mpbiri ax-1ne0 neeq1 jca pclem
+      sylan2 wn co simpr opreq2 breq1d elrab2 sylib simprd simplr breqtrd cn wi
+      cn0 eluz2b2 simplbi ad2antrr simpld nnexpcl nnz 1nn dvdsle sylancl mpd cc
+      syl11anc nnre recnd exp0 breqtrrd wb 1re syl6eqel lenlt mpbid a1i simprbi
+      0nn0 expord syl31anc mtbird nn0re mpbird ralrimiva jctil zssre sstr mpan2
+      0re suprleub sylanl1 3adantl3 syl5eqbr pcprecl nn0le0eq0 ) BUFUAUBIZEJKZL
+      ZCMNOZCMKZXRCAPUCUDZMNGXRAQUGZAUHUIZHUJZUEUJNOHAUKUEPULZUMZMPIZYDMNOZHAUK
+      ZLZYAMNOZXQXPEQIZEMUIZLZYFXQYLYMXQYLJQIUNEJQUOUPXQYMJMUIUQEJMURUPUSZUEHAB
+      DEFUTVAXRYIYGXRYHHAXRYDAIZLZYHMYDUCOZVBZYQYRBMRVCZBYDRVCZUCOZYQUUAYTNOZUU
+      BVBZYQUUAJYTNYQUUAJSOZUUAJNOZYQUUAEJSYQYDVNIZUUAESOZYQYPUUGUUHLXRYPVDBDUJ
+      ZRVCZESOUUHDYDVNAUUIYDKUUJUUAESUUIYDBRVEVFFVGVHZVIXPXQYPVJVKYQUUAQIZJVLIU
+      UEUUFVMYQUUAVLIZUULYQBVLIZUUGUUMXPUUNXQYPXPUUNJBUCOZBVOZVPVQZYQUUGUUHUUKV
+      RZBYDVSWFZUUAVTTWAUUAJWBWCWDYQBWEIYTJKYQBYQUUNBPIZUUQBWGTZWHBWITZWJYQUUAP
+      IZYTPIUUCUUDWKYQUUMUVCUUSUUAWGTYQYTJPUVBWLWMUUAYTWNWFWOYQUUTMVNIZUUGUUOYR
+      UUBWKUVAUVDYQWRWPUURXPUUOXQYPXPUUNUUOUUPWQVQBMYDWSWTXAYQYDPIZYGYHYSWKYQUU
+      GUVEUURYDXBTXIYDMWNWCXCXDXIXEYBYCYJYKYEYBAPUGZYCYJYKYBQPUGUVFXFAQPXGXHHAM
+      XJXKXLWFXMXRCVNIZXSXTWKXQXPYNUVGYOXPYNLUVGBCRVCESOABCDEFGXNVRVACXOTWO $.
+      $( [23-Feb-2014] $)
+  $}
+
+  ${
+    $d n x y M $.  $d n x y N $.  $d n x y P $.  $d x S $.  $d x T $.
+    pcpremul.1 $e |- S = sup ( { n e. NN0 | ( P ^ n ) || M } , RR , < ) $.
+    pcpremul.2 $e |- T = sup ( { n e. NN0 | ( P ^ n ) || N } , RR , < ) $.
+    pcpremul.3 $e |- U = sup (
+                       { n e. NN0 | ( P ^ n ) || ( M x. N ) } , RR , < ) $.
+    $( Multiplicative property of the prime count pre-function.  Note that the
+       primality of ` P ` is essential for this property; ` ( 4 pCnt 2 ) = 0 `
+       but ` ( 4 pCnt ( 2 x. 2 ) ) = 1 =/= 2 x. ( 4 pCnt 2 ) = 0 ` .  Since
+       this is needed to show uniqueness for the real prime count function
+       (over ` QQ ` ), we don't bother to define it off the primes. $)
+    pcpremul $p |- ( ( P e. Prime /\ ( M e. ZZ /\ M =/= 0 ) /\
+                     ( N e. ZZ /\ N =/= 0 ) ) -> ( S + T ) = U ) $=
+      ( wcel cz wa co wbr cn0 cexp cdivides syl11anc syl vy vx cprime cc0 caddc
+      wne w3a wceq cle clt wn cr wb c2 cuz cfv prmuz2 3ad2ant1 simp2l simp2r cv
+      crab pcprecl syl12anc simpld simp3l simp3r nn0addcl nn0re zmulcl ad2ant2r
+      eqid cmul 3adant1 cc zcn anim1i mulne0 syl2an eqlelt csup wral wrex pclem
+      wss c0 cn prmnn nncn expadd syl111anc simprd nnexpcl nnz dvdsmulc eqbrtrd
+      wi mpd dvdscmul dvdstr mp2and opreq2 breq1d elrab sylanbrc syl6eleq zssre
+      cbvrabv sstr mpan2 suprub syl3anl1 syl6breqr cdiv pcprendvds2 ioran simp1
+      wo nnne0 divides2 mpbid euclemma mtbird nn0ltp1le peano2nn0 3expia mpan2d
+      c1 dvdsexp syld nn0z eluz ax-mulcl divcan2 opreq2d jca divmuldiv syl22anc
+      expp1 eqtr4d eqtr3d breq12d bicomd dvdscmulr syl112anc bitr3d sylbid mtod
+      3imtr3d mpbir2and ) AUCKZFLKZFUDUFZMZGLKZGUDUFZMZUGZBCUENZDUHZUUSDUIOZUUS
+      DUJOZUKZUURUUSULKZDULKZUUTUVAUVCMUMUURUUSPKZUVDUURBPKZCPKZUVFUURUVGABQNZF
+      ROZUURAUNUOUPKZUULUUMUVGUVJMUUKUUNUVKUUQAUQURZUUKUULUUMUUQUSZUUKUULUUMUUQ
+      UTZAEVAZQNZFROEPVBZABEFUVQVLZHVCVDZVEZUURUVHACQNZGROZUURUVKUUOUUPUVHUWBMU
+      VLUUKUUNUUOUUPVFZUUKUUNUUOUUPVGZUVPGROEPVBZACEGUWEVLZIVCVDZVEZBCVHSZUUSVI
+      TUURDPKZUVEUURUWJADQNZFGVMNZROZUURUVKUWLLKZUWLUDUFZUWJUWMMUVLUUNUUQUWNUUK
+      UULUUOUWNUUMUUPFGVJVKVNZUUNUUQUWOUUKUUNFVOKZUUMMGVOKZUUPMUWOUUQUULUWQUUMF
+      VPZVQUUOUWRUUPGVPZVQFGVRVSVNZUVPUWLROZEPVBZADEUWLUXCVLZJVCVDZVEZDVITUUSDV
+      TSUURUUSUXCULUJWAZDUIUURUXCLWEZUXCWFUFZUAVAUBVAZUIOUAUXCWBUBULWCZUGZUUSUX
+      CKZUUSUXGUIOZUURUVKUWNUWOUXLUVLUWPUXAUBUAUXCAEUWLUXDWDVDUURUUSAUXJQNZUWLR
+      OZUBPVBZUXCUURUVFAUUSQNZUWLROZUUSUXQKUWIUURUXRFUWAVMNZROZUXTUWLROZUXSUURU
+      XRUVIUWAVMNZUXTRUURAVOKZUVGUVHUXRUYCUHUURAWGKZUYDUUKUUNUYEUUQAWHURZAWITZU
+      VTUWHABCWJWKZUURUVJUYCUXTROZUURUVGUVJUVSWLZUURUVILKZUULUWALKZUVJUYIWQUURU
+      VIWGKZUYKUURUYEUVGUYMUYFUVTABWMSZUVIWNTZUVMUURUWAWGKZUYLUURUYEUVHUYPUYFUW
+      HACWMSZUWAWNTZUWAUVIFWOWKWRWPUURUWBUYBUURUVHUWBUWGWLZUURUYLUUOUULUWBUYBWQ
+      UYRUWCUVMFUWAGWSWKWRUURUXRLKZUXTLKZUWNUYAUYBMUXSWQUURUXRWGKZUYTUURUYEUVFV
+      UBUYFUWIAUUSWMSZUXRWNTZUURUULUYLVUAUVMUYRFUWAVJSUWPUXRUXTUWLWTWKXAUXPUXSU
+      BUUSPUXJUUSUHUXOUXRUWLRUXJUUSAQXBXCXDXEUXPUXBUBEPUXJUVOUHUXOUVPUWLRUXJUVO
+      AQXBXCXHXFUXHUXCULWEZUXIUXKUXMUXNUXHLULWEVUEXGUXCLULXIXJUBUAUXCUUSXKXLSJX
+      MUURUVBAFUVIXNNZGUWAXNNZVMNZROZUURVUIAVUFROZAVUGROZXRZUURVUJUKZVUKUKZVULU
+      KUURUVKUULUUMVUMUVLUVMUVNUVQABEFUVRHXOVDUURUVKUUOUUPVUNUVLUWCUWDUWEACEGUW
+      FIXOVDVUJVUKXPXEUURUUKVUFLKZVUGLKZVUIVULUMUUKUUNUUQXQUURUVJVUOUYJUURUYKUV
+      IUDUFZUULUVJVUOUMUYOUURUYMVUQUYNUVIXSTZUVMUVIFXTWKYAZUURUWBVUPUYSUURUYLUW
+      AUDUFZUUOUWBVUPUMUYRUURUYPVUTUYQUWAXSTZUWCUWAGXTWKYAZAVUFVUGYBWKYCUURUVBU
+      USYHUENZDUIOZVUIUURUVFUWJUVBVVDUMUWIUXFUUSDYDSUURDVVCUOUPKZAVVCQNZUWLROZV
+      VDVUIUURVVEVVFUWKROZVVGUURALKZVVCPKZVVEVVHWQUURUYEVVIUYFAWNTZUURUVFVVJUWI
+      UUSYETZVVIVVJVVEVVHAVVCDYIYFSUURVVHUWMVVGUURUWJUWMUXEWLUURVVFLKZUWKLKZUWN
+      VVHUWMMVVGWQUURVVFWGKZVVMUURUYEVVJVVOUYFVVLAVVCWMSVVFWNTUURUWKWGKZVVNUURU
+      YEUWJVVPUYFUXFADWMSUWKWNTUWPVVFUWKUWLWTWKYGYJUURVVCLKZDLKZVVEVVDUMUURVVJV
+      VQVVLVVCYKTUURUWJVVRUXFDYKTVVCDYLSUURUXRAVMNZUXRVUHVMNZROZVVGVUIUURVVGVWA
+      UURVVFVVSUWLVVTRUURUYDUVFVVFVVSUHUYGUWIAUUSYSSUURUXRUWLUXRXNNZVMNZUWLVVTU
+      URUWLVOKZUXRVOKZUXRUDUFZVWCUWLUHUURUWQUWRVWDUURUULUWQUVMUWSTZUURUUOUWRUWC
+      UWTTZFGYMSUURVUBVWEVUCUXRWITUURVUBVWFVUCUXRXSTZUWLUXRYNWKUURVWBVUHUXRVMUU
+      RVWBUWLUYCXNNZVUHUURUXRUYCUWLXNUYHYOUURUWQUWRUVIVOKZVUQMUWAVOKZVUTMVUHVWJ
+      UHVWGVWHUURVWKVUQUURUYMVWKUYNUVIWITVURYPUURVWLVUTUURUYPVWLUYQUWAWITVVAYPF
+      GUVIUWAYQYRYTYOUUAUUBUUCUURVVIVUHLKZUYTVWFVWAVUIUMVVKUURVUOVUPVWMVUSVVBVU
+      FVUGVJSVUDVWIUXRAVUHUUDUUEUUFUUIUUGUUHUUJ $.
+      $( [23-Feb-2014] $)
+  $}
+
+  ${
+    $d n p r s t w x y z N $.  $d n p s t r w x y z P $.  $d p r s t w z S $.
+    $d p r s t w z T $.  $d z ph $.
+    pcval.1 $e |- S = sup ( { n e. NN0 | ( P ^ n ) || x } , RR , < ) $.
+    pcval.2 $e |- T = sup ( { n e. NN0 | ( P ^ n ) || y } , RR , < ) $.
+    $( The value of the prime power function. $)
+    pcval $p |- ( ( P e. Prime /\ ( N e. QQ /\ N =/= 0 ) ) -> ( P pCnt N ) =
+       ( iota z E. x e. ZZ E. y e. NN ( N = ( x / y ) /\ z = ( S - T ) ) ) ) $=
+      ( wa co cv wceq wrex cdivides wbr cn0 cr clt vp vr cq wcel cc0 wne cprime
+      csn cdif cpc cdiv cmin cn cz cio eldifsn cexp crab wb eqeq1 opreq1 breq1d
+      rabbidv supeq1d syl6eqr opreq12d eqeq2d bi2anan9 ancoms 2rexbidv iotabidv
+      csup df-pc iotaex ovmpt2a sylan2br ) HUCUDHUEUFKDUGUDHUCUEUHUIZUDDHUJLHAM
+      ZBMZUKLZNZCMZEFULLZNZKZBUMOAUNOZCUOZNHUCUEUPUAUBDHUGVQUBMZVTNZWBUAMZGMZUQ
+      LZVRPQZGRURZSTVLZWLVSPQZGRURZSTVLZULLZNZKZBUMOAUNOZCUOWGUJWJDNZWHHNZKZXBW
+      FCXEXAWEABUNUMXDXCXAWEUSXDWIWAXCWTWDWHHVTUTXCWSWCWBXCWOEWRFULXCWODWKUQLZV
+      RPQZGRURZSTVLEXCSWNXHTXCWMXGGRXCWLXFVRPWJDWKUQVAZVBVCVDIVEXCWRXFVSPQZGRUR
+      ZSTVLFXCSWQXKTXCWPXJGRXCWLXFVSPXIVBVCVDJVEVFVGVHVIVJVKABCGUBUAVMWFCVNVOVP
+      $.
+      $( [23-Feb-2014] $)
+
+    ${
+      pceu.3 $e |- U = sup ( { n e. NN0 | ( P ^ n ) || s } , RR , < ) $.
+      pceu.4 $e |- V = sup ( { n e. NN0 | ( P ^ n ) || t } , RR , < ) $.
+      pceu.5 $e |- ( ph -> P e. Prime ) $.
+      pceu.6 $e |- ( ph -> N =/= 0 ) $.
+      pceu.7 $e |- ( ph -> ( x e. ZZ /\ y e. NN ) ) $.
+      pceu.8 $e |- ( ph -> N = ( x / y ) ) $.
+      pceu.9 $e |- ( ph -> ( s e. ZZ /\ t e. NN ) ) $.
+      pceu.10 $e |- ( ph -> N = ( s / t ) ) $.
+      $( Lemma for ~ pceu . $)
+      pceulem $p |- ( ph -> ( S - T ) = ( U - V ) ) $=
+        ( vz caddc co wceq cmin cv cexp cmul cdivides wbr cn0 crab cr csup wcel
+        clt cc cn cz simprd nncn syl simpld zcn mulcom syl11anc cdiv eqtr3d cc0
+        wne wa wb nnne0 jca divmuleq syl22anc mpbid eqtrd breq2d rabbidv opreq2
+        breq1d cbvrabv 3eqtr4g supeq1d cprime nnz div0 opreq1 eqeq1d syl5ibrcom
+        sylibrd necon3d mpd eqid pcpremul syl122anc 3eqtr4d c2 cuz cfv syl12anc
+        prmuz2 pcprecl nn0cn addsubeq4 ) AGHUDUEZFKUDUEZUFZFGUGUEHKUGUEUFZAEIUH
+        ZUIUEZCUHZLUHZUJUEZUKULZIUMUNZUOURUPZXNBUHZDUHZUJUEZUKULZIUMUNZUOURUPZX
+        IXJAUOXSYEURAEUCUHZUIUEZXQUKULZUCUMUNYHYCUKULZUCUMUNXSYEAYIYJUCUMAXQYCY
+        HUKAXQXPXOUJUEZYCAXOUSUQZXPUSUQZXQYKUFAXOUTUQZYLAYAVAUQZYNSVBZXOVCVDZAX
+        PVAUQZYMAYRYBUTUQZUAVEZXPVFVDZXOXPVGVHAXPYBVIUEZYAXOVIUEZUFZYKYCUFZAJUU
+        BUUCUBTVJAYMYAUSUQZYBUSUQZYBVKVLZVMYLXOVKVLZVMUUDUUEVNUUAAYOUUFAYOYNSVE
+        ZYAVFVDAUUGUUHAYSUUGAYRYSUAVBZYBVCVDZAYSUUHUUKYBVOVDZVPAYLUUIYQAYNUUIYP
+        XOVOVDZVPXPYAYBXOVQVRVSVTWAWBXRYIIUCUMXMYGUFZXNYHXQUKXMYGEUIWCZWDWEYDYJ
+        IUCUMUUOXNYHYCUKUUPWDWEWFWGAEWHUQZXOVAUQZUUIYRXPVKVLZXIXTUFQAYNUURYPXOW
+        IVDZUUNYTAJVKVLZUUSRAXPVKJVKAXPVKUFZUUBVKUFZJVKUFZAUVCUVBVKYBVIUEZVKUFZ
+        AUUGUUHUVFUULUUMYBWJVHUVBUUBUVEVKXPVKYBVIWKWLWMAJUUBVKUBWLWNWOWPZEGHXTI
+        XOXPNOXTWQWRWSAUUQYOYAVKVLZYBVAUQZUUHXJYFUFQUUJAUVAUVHRAYAVKJVKAYAVKUFZ
+        UUCVKUFZUVDAUVKUVJVKXOVIUEZVKUFZAYLUUIUVMYQUUNXOWJVHUVJUUCUVLVKYAVKXOVI
+        WKWLWMAJUUCVKTWLWNWOWPZAYSUVIUUKYBWIVDZUUMEFKYFIYAYBMPYFWQWRWSWTAGUSUQZ
+        HUSUQZFUSUQZKUSUQZXKXLVNAGUMUQZUVPAEXAXBXCUQZUURUUIUVTAUUQUWAQEXEVDZUUT
+        UUNUWAUURUUIVMVMUVTEGUIUEXOUKULXNXOUKULIUMUNZEGIXOUWCWQNXFVEXDGXGVDAHUM
+        UQZUVQAUWAYRUUSUWDUWBYTUVGUWAYRUUSVMVMUWDEHUIUEXPUKULXNXPUKULIUMUNZEHIX
+        PUWEWQOXFVEXDHXGVDAFUMUQZUVRAUWAYOUVHUWFUWBUUJUVNUWAYOUVHVMVMUWFEFUIUEY
+        AUKULXNYAUKULIUMUNZEFIYAUWGWQMXFVEXDFXGVDAKUMUQZUVSAUWAUVIUUHUWHUWBUVOU
+        UMUWAUVIUUHVMVMUWHEKUIUEYBUKULXNYBUKULIUMUNZEKIYBUWIWQPXFVEXDKXGVDGHFKX
+        HVRVS $.
+        $( [23-Feb-2014] $)
+    $}
+
+    $( Uniqueness for the prime power function.  (Contributed by Mario
+       Carneiro, 23-Feb-2014.) $)
+    pceu $p |- ( ( P e. Prime /\ ( N e. QQ /\ N =/= 0 ) ) ->
+             E! z E. x e. ZZ E. y e. NN ( N = ( x / y ) /\ z = ( S - T ) ) ) $=
+      ( wcel wa cv co wceq cmin cn wrex cz cdivides vs vt vw cprime cq cc0 cdiv
+      wne wex cexp wbr cn0 crab cr clt csup wi wal weu simprl sylib oprex biidd
+      elq ceqsexv exancom bitr3i rexbii rexcom4 w3a eqid simp11l simp11r simp12
+      bitri simp13l simp2 simp3l pceulem simp13r 3eqtr4d 3exp rexlimdvv adantrl
+      simp3r imp3a alrimivv eqeq1 anbi2d 2rexbidv opreq1 eqeq2d rabbidv supeq1d
+      syl5eq opreq1d anbi12d rexbidv opreq2 opreq2d cbvrexv syl6bb eu4 sylanbrc
+      breq2 ) DUDKZHUEKZHUFUHZLLZHAMZBMZUGNZOZCMZEFPNZOZLZBQRZASRZCUIZXSHUAMZUB
+      MZUGNZOZUCMZDGMUJNZYATUKZGULUMZUNUOUPZYFYBTUKZGULUMZUNUOUPZPNZOZLZUBQRZUA
+      SRZLXNYEOZUQZUCURCURXSCUSXIXMBQRZASRZXTXIXGUUAXFXGXHUTABHVDVAUUAXRCUIZASR
+      XTYTUUBASYTXQCUIZBQRUUBXMUUCBQXMXPXMLCUIUUCXMXMCXOEFPVBXPXMVCVEXPXMCVFVGV
+      HXQBCQVIVOVHXRACSVIVOVAXIYSCUCXIXSYQYRXIXQYQYRUQZABSQXFXHXJSKXKQKLZXQUUDU
+      QUQXGXFXHLZUUEXQUUDUUFUUEXQVJZYOYRUAUBSQUUGYASKYBQKLZYOYRUUGUUHYOVJZXOYMX
+      NYEUUIABUBDEFYIGHYLUAIJYIVKYLVKXFXHUUEXQUUHYOVLXFXHUUEXQUUHYOVMUUFUUEXQUU
+      HYOVNXMXPUUFUUEUUHYOVPUUGUUHYOVQUUGUUHYDYNVRVSXMXPUUFUUEUUHYOVTUUGUUHYDYN
+      WEWAWBWCWBWDWCWFWGXSYQCUCYRXSXMYEXOOZLZBQRZASRYQYRXQUUKABSQYRXPUUJXMXNYEX
+      OWHWIWJUULYPAUASXJYAOZUULHYAXKUGNZOZYEYIFPNZOZLZBQRYPUUMUUKUURBQUUMXMUUOU
+      UJUUQUUMXLUUNHXJYAXKUGWKWLUUMXOUUPYEUUMEYIFPUUMEYFXJTUKZGULUMZUNUOUPYIIUU
+      MUNUUTYHUOUUMUUSYGGULXJYAYFTXEWMWNWOWPWLWQWRUURYOBUBQXKYBOZUUOYDUUQYNUVAU
+      UNYCHXKYBYAUGWSWLUVAUUPYMYEUVAFYLYIPUVAFYFXKTUKZGULUMZUNUOUPYLJUVAUNUVCYK
+      UOUVAUVBYJGULXKYBYFTXEWMWNWOWTWLWQXAXBXAXBXCXD $.
+      $( [23-Feb-2014] $)
+  $}
+
+  ${
+    $d n x y z N $.  $d n x y z P $.  $d x y z S $.
+    pczpre.1 $e |- S = sup ( { n e. NN0 | ( P ^ n ) || N } , RR , < ) $.
+    $( Connect the prime count pre-function to the actual prime count function,
+       when restricted to the integers.  (Contributed by Mario Carneiro,
+       23-Feb-2014.) $)
+    pczpre $p |- ( ( P e. Prime /\ ( N e. ZZ /\ N =/= 0 ) ) ->
+                    ( P pCnt N ) = S ) $=
+      ( vx vy vz wcel cz wa co wceq cdivides cn0 cr clt cmin eqid c1 cprime cc0
+      wne cpc cv cdiv cexp wbr crab csup cn wrex cio cvv cq zq pcval sylanr1 wb
+      visset biantrur a1i iotabidv simprl cc zcn div1 3syl eqcomd c2 cuz prmuz2
+      cfv pcpre1 sylancl adantr opreq2d sylan simpld nn0cn subid1 eqtr2d opreq1
+      pcprecl syl eqeq2d breq2 rabbidv supeq1d syl6eqr opreq1d anbi12d rcla42ev
+      1nn opreq2 mp3an2 syl12anc wreu ltso supex eqeltri pceu reuv sylibr eqeq1
+      weu anbi2d 2rexbidv reiota2 sylancr mpbid 3eqtrd ) AUAIZDJIZDUBUCZKZKZADU
+      DLZDFUEZGUEZUFLZMZHUEZACUEUGLZXSNUHZCOUIZPQUJZYDXTNUHZCOUIZPQUJZRLZMZKZGU
+      KULFJULZHUMZYCUNIZYNKZHUMZBXNXMDUOIZXOXRYOMDUPZFGHAYGYJCDYGSZYJSZUQURXQYN
+      YQHYNYQUSXQYPYNHUTVAVBVCXQYBBYKMZKZGUKULFJULZYRBMZXQXNDDTUFLZMZBBYDTNUHZC
+      OUIZPQUJZRLZMZUUEXMXNXOVDZXQUUGDXQXNDVEIUUGDMUUNDVFDVGVHVIXQUULBUBRLZBXQU
+      UKUBBRXMUUKUBMZXPXMAVJVKVMIZTTMUUPAVLZTSUUJAUUKCTUUJSUUKSVNVOVPVQXQBVEIZU
+      UOBMXQBOIZUUSXQUUTABUGLDNUHZXMUUQXPUUTUVAKUURYDDNUHZCOUIZABCDUVCSEWDVRVSB
+      VTWEBWAWEWBXNTUKIUUHUUMKZUUEWNUUDUVDDDXTUFLZMZBBYJRLZMZKFGDTJUKXSDMZYBUVF
+      UUCUVHUVIYAUVEDXSDXTUFWCWFUVIYKUVGBUVIYGBYJRUVIYGUVCPQUJZBUVIPYFUVCQUVIYE
+      UVBCOXSDYDNWGWHWIEWJWKWFWLXTTMZUVFUUHUVHUUMUVKUVEUUGDXTTDUFWOWFUVKUVGUULB
+      UVKYJUUKBRUVKPYIUUJQUVKYHUUICOXTTYDNWGWHWIVQWFWLWMWPWQXQBUNIYNHUNWRZUUEUU
+      FUSBUVJUNEPUVCQWSWTXAXQYNHXFZUVLXNXMYSXOUVMYTFGHAYGYJCDUUAUUBXBURYNHXCXDY
+      NUUEHUNBYCBMZYMUUDFGJUKUVNYLUUCYBYCBYKXEXGXHXIXJXKXL $.
+      $( [23-Feb-2014] $)
+  $}
+
+  ${
+    $d x N $.  $d x P $.
+    $( Closure of the prime power function.  (Contributed by Mario Carneiro,
+       23-Feb-2014.) $)
+    pczcl $p |- ( ( P e. Prime /\ ( N e. ZZ /\ N =/= 0 ) ) ->
+                  ( P pCnt N ) e. NN0 ) $=
+      ( vx cprime wcel cz cc0 wne wa cpc co cexp cdivides wbr cn0 crab clt eqid
+      cv cr csup pczpre c2 cuz cfv prmuz2 pcprecl sylan simpld eqeltrd ) ADEZBF
+      EBGHIZIZABJKACSLKBMNCOPZTQUAZOAUOCBUORZUBUMUOOEZAUOLKBMNZUKAUCUDUEEULUQUR
+      IAUFUNAUOCBUNRUPUGUHUIUJ $.
+      $( [23-Feb-2014] $)
+  $}
+
+  $( Closure of the prime power function.  (Contributed by Mario Carneiro,
+     23-Feb-2014.) $)
+  pccl $p |- ( ( P e. Prime /\ N e. NN ) -> ( P pCnt N ) e. NN0 ) $=
+    ( cn wcel cprime cz cc0 wne wa cpc co cn0 nnz nnne0 jca pczcl sylan2 ) BCDZ
+    AEDBFDZBGHZIABJKLDRSTBMBNOABPQ $.
+    $( [23-Feb-2014] $)
+
+  ${
+    $d n A $.  $d n B $.  $d n P $.
+    $( Multiplication property of the prime power function.  (Contributed by
+       Mario Carneiro, 23-Feb-2014.) $)
+    pcmul $p |- ( ( P e. Prime /\ ( A e. ZZ /\ A =/= 0 ) /\
+                                  ( B e. ZZ /\ B =/= 0 ) ) ->
+                  ( P pCnt ( A x. B ) ) = ( ( P pCnt A ) + ( P pCnt B ) ) ) $=
+      ( vn wcel cz cc0 wne wa co cdivides wbr cn0 crab clt csup caddc cpc eqid
+      cr cprime w3a cv cexp cmul pcpremul wceq pczpre 3adant3 opreq12d ad2ant2r
+      3adant2 zmulcl cc zcn anim1i mulne0 syl2an jca sylan2 3impb 3eqtr4rd ) CU
+      AEZAFEZAGHZIZBFEZBGHZIZUBZCDUCUDJZAKLDMNTOPZVKBKLDMNTOPZQJVKABUEJZKLDMNTO
+      PZCARJZCBRJZQJCVNRJZCVLVMVODABVLSZVMSZVOSZUFVJVPVLVQVMQVCVFVPVLUGVICVLDAV
+      SUHUIVCVIVQVMUGVFCVMDBVTUHULUJVCVFVIVRVOUGZVFVIIZVCVNFEZVNGHZIWBWCWDWEVDV
+      GWDVEVHABUMUKVFAUNEZVEIBUNEZVHIWEVIVDWFVEAUOUPVGWGVHBUOUPABUQURUSCVODVNWA
+      UHUTVAVB $.
+      $( [23-Feb-2014] $)
+  $}
+
+  ${
+    $d n x y z A $.  $d n x y z B $.  $d n x y z P $.
+    $( Division property of the prime power function.  (Contributed by Mario
+       Carneiro, 23-Feb-2014.) $)
+    pcdiv $p |- ( ( P e. Prime /\ ( A e. ZZ /\ A =/= 0 ) /\ B e. NN ) ->
+                  ( P pCnt ( A / B ) ) = ( ( P pCnt A ) - ( P pCnt B ) ) ) $=
+      ( vx vy vz vn wcel cz wa cn cdiv co wceq cdivides cn0 cr clt cmin eqid cv
+      cprime cc0 wne w3a cpc cexp wbr crab csup wrex cio cvv simp1 simp2l simp3
+      cq znq syl11anc cc zcn syl simp2r nnne0 divne0 syl22anc pcval syl12anc wb
+      nncn visset biantrur a1i iotabidv pczpre 3adant3 nnz jca 3adant2 opreq12d
+      sylan2 jctil opreq1 eqeq2d rabbidv supeq1d opreq1d anbi12d opreq2 opreq2d
+      breq2 rcla42ev syl111anc wreu oprex weu pceu sylibr eqeq1 anbi2d 2rexbidv
+      reuv reiota2 sylancr mpbid 3eqtrd ) CUBHZAIHZAUCUDZJZBKHZUEZCABLMZUFMZXMD
+      UAZEUAZLMZNZFUAZCGUAUGMZXOOUHZGPUIZQRUJZXTXPOUHZGPUIZQRUJZSMZNZJZEKUKDIUK
+      ZFULZXSUMHZYJJZFULZCAUFMZCBUFMZSMZXLXGXMUQHZXMUCUDZXNYKNXGXJXKUNZXLXHXKYR
+      XGXHXIXKUOZXGXJXKUPZABURUSZXLAUTHZXIBUTHZBUCUDZYSXLXHUUDUUAAVAVBXGXHXIXKV
+      CXLXKUUEUUBBVJVBXLXKUUFUUBBVDZVBABVEVFZDEFCYCYFGXMYCTZYFTZVGVHXLYJYMFYJYM
+      VIXLYLYJFVKVLVMVNXLXRYQYGNZJZEKUKDIUKZYNYQNZXLXHXKXMXMNZYQXTAOUHZGPUIZQRU
+      JZXTBOUHZGPUIZQRUJZSMZNZJZUUMUUAUUBXLUVCUUOXLYOUURYPUVASXGXJYOUURNXKCUURG
+      AUURTVOVPXGXKYPUVANZXJXKXGBIHZUUFJUVEXKUVFUUFBVQUUGVRCUVAGBUVATVOWAVSVTXM
+      TWBUULUVDXMAXPLMZNZYQUURYFSMZNZJDEABIKXOANZXRUVHUUKUVJUVKXQUVGXMXOAXPLWCW
+      DUVKYGUVIYQUVKYCUURYFSUVKQYBUUQRUVKYAUUPGPXOAXTOWKWEWFWGWDWHXPBNZUVHUUOUV
+      JUVCUVLUVGXMXMXPBALWIWDUVLUVIUVBYQUVLYFUVAUURSUVLQYEUUTRUVLYDUUSGPXPBXTOW
+      KWEWFWJWDWHWLWMXLYQUMHYJFUMWNZUUMUUNVIYOYPSWOXLYJFWPZUVMXLXGYRYSUVNYTUUCU
+      UHDEFCYCYFGXMUUIUUJWQVHYJFXBWRYJUUMFUMYQXSYQNZYIUULDEIKUVOYHUUKXRXSYQYGWS
+      WTXAXCXDXEXF $.
+      $( [1-Mar-2014] $)
+  $}
+
+  $(
+  @{
+    @d n x y z N @.  @d n x y z P @.  @d n x y z B @.
+    @( Division property of the prime power function. @)
+    pcdiv2 @p |- ( ( P e. Prime /\ ( A e. QQ /\ A =/= 0 ) /\
+                                   ( B e. QQ /\ B =/= 0 ) ) ->
+                  ( P pCnt ( A / B ) ) = ( ( P pCnt A ) - ( P pCnt B ) ) ) @=
+      ? @.
+  @}
+  $)
+
+  ${
+    $d n x y P $.  $d n x y N $.
+    $( Value of the prime count function at 1.  (Contributed by Mario Carneiro,
+       23-Feb-2014.) $)
+    pc1 $p |- ( P e. Prime -> ( P pCnt 1 ) = 0 ) $=
+      ( vn cprime wcel c1 cpc co cv cexp cdivides wbr cn0 crab cr clt csup wceq
+      cc0 cz eqid wne 1z ax-1ne0 pczpre mpanr12 c2 cuz cfv prmuz2 sylancl eqtrd
+      pcpre1 ) ACDZAEFGZABHIGEJKBLMZNOPZRUMESDERUAUNUPQUBUCAUPBEUPTZUDUEUMAUFUG
+      UHDEEQUPRQAUIETUOAUPBEUOTUQULUJUK $.
+      $( [23-Feb-2014] $)
+
+    $( Closure of the general prime count function.  (Contributed by Mario
+       Carneiro, 23-Feb-2014.) $)
+    pcqcl $p |- ( ( P e. Prime /\ ( N e. QQ /\ N =/= 0 ) ) ->
+                 ( P pCnt N ) e. ZZ ) $=
+      ( vx vy wcel cc0 wne wa cv cdiv co wceq cn wrex cz wi syl11anc syl5ibrcom
+      cpc cn0 cprime cq simprl elq sylib nncn nnne0 div0 ad2antll opreq1 eqeq1d
+      necon3d an32 w3a cmin pcdiv pczcl nn0z syl 3adant3 nnz jca sylan2 3adant2
+      cc zsubcl eqeltrd 3expb sylan2b expr syld neeq1 opreq2 eleq1d imbi12d imp
+      com23 an32s ex adantrl rexlimdvv mpd ) AUAEZBUBEZBFGZHHZBCIZDIZJKZLZDMNCO
+      NZABSKZOEZWFWDWKWCWDWEUCCDBUDUEWFWJWMCDOMWCWEWGOEZWHMEZHZWJWMPZPWDWCWEHWP
+      WQWCWPWEWQWCWPHZWEWQWRWJWEWMWRWEWMPWJWIFGZAWISKZOEZPWRWSWGFGZXAWRWGFWIFWR
+      WIFLWGFLZFWHJKZFLZWOXEWCWNWOWHVEEWHFGZXEWHUFWHUGZWHUHQUIXCWIXDFWGFWHJUJUK
+      RULWCWPXBXAWPXBHWCWNXBHZWOHXAWNWOXBUMWCXHWOXAWCXHWOUNZWTAWGSKZAWHSKZUOKZO
+      WGWHAUPXIXJOEZXKOEZXLOEWCXHXMWOWCXHHXJTEXMAWGUQXJURUSUTWCWOXNXHWOWCWHOEZX
+      FHZXNWOXOXFWHVAXGVBWCXPHXKTEXNAWHUQXKURUSVCVDXJXKVFQVGVHVIVJVKWJWEWSWMXAB
+      WIFVLWJWLWTOBWIASVMVNVORVQVPVRVSVTWAWB $.
+      $( [23-Feb-2014] $)
+
+    $( Defining property of the prime count function.  (Contributed by Mario
+       Carneiro, 23-Feb-2014.) $)
+    pcdvds $p |- ( ( P e. Prime /\ N e. NN ) -> ( P ^ ( P pCnt N ) ) || N ) $=
+      ( vn cn wcel cprime cz cc0 wne wa cpc cexp cdivides wbr nnz nnne0 jca cn0
+      co eqid cv crab cr clt csup pczpre opreq2d c2 cuz cfv prmuz2 simprd sylan
+      pcprecl eqbrtrd sylan2 ) BDEZAFEZBGEZBHIZJZAABKSZLSZBMNUQUSUTBOBPQURVAJZV
+      CAACUALSBMNCRUBZUCUDUEZLSZBMVDVBVFALAVFCBVFTZUFUGURAUHUIUJEZVAVGBMNZAUKVI
+      VAJVFREVJVEAVFCBVETVHUNULUMUOUP $.
+      $( [23-Feb-2014] $)
+
+    $( Defining property of the prime count function.  (Contributed by Mario
+       Carneiro, 23-Feb-2014.) $)
+    pcndvds $p |- ( ( P e. Prime /\ N e. NN ) ->
+                    -. ( P ^ ( ( P pCnt N ) + 1 ) ) || N ) $=
+      ( vn cn wcel cprime cz cc0 wne wa cpc co caddc cexp cdivides wbr nnz eqid
+      c1 wn nnne0 jca cv cn0 crab cr clt csup c2 prmuz2 pcprendvds sylan pczpre
+      cuz cfv opreq1d opreq2d breq1d mtbird sylan2 ) BDEZAFEZBGEZBHIZJZAABKLZSM
+      LZNLZBOPZTVAVCVDBQBUAUBVBVEJZVIAACUCNLBOPCUDUEZUFUGUHZSMLZNLZBOPZVBAUIUNU
+      OEVEVOTAUJVKAVLCBVKRVLRZUKULVJVHVNBOVJVGVMANVJVFVLSMAVLCBVPUMUPUQURUSUT
+      $.
+      $( [23-Feb-2014] $)
+
+    $( The remainder after dividing out all factors of ` P ` is not divisible
+       by ` P ` .  (Contributed by Mario Carneiro, 23-Feb-2014.) $)
+    pcndvds2 $p |- ( ( P e. Prime /\ N e. NN ) ->
+                    -. P || ( N / ( P ^ ( P pCnt N ) ) ) ) $=
+      ( vn cn wcel cprime cz cc0 wne wa cpc co cexp cdivides wbr wn nnz opreq2d
+      cdiv eqid nnne0 jca cv cn0 crab cr clt csup c2 cuz cfv prmuz2 pcprendvds2
+      sylan pczpre breq2d mtbird sylan2 ) BDEZAFEZBGEZBHIZJZABAABKLZMLZSLZNOZPU
+      SVAVBBQBUAUBUTVCJZVGABAACUCMLBNOCUDUEZUFUGUHZMLZSLZNOZUTAUIUJUKEVCVMPAULV
+      IAVJCBVITVJTZUMUNVHVFVLANVHVEVKBSVHVDVJAMAVJCBVNUORRUPUQUR $.
+      $( [23-Feb-2014] $)
+  $}
+
+  $( ` P ^ A ` divides ` N ` if and only if ` A ` is at most the count of
+     ` P ` .  (Contributed by Mario Carneiro, 23-Feb-2014.) $)
+  pcdvdsb $p |- ( ( P e. Prime /\ N e. NN /\ A e. NN0 ) ->
+                  ( A <_ ( P pCnt N ) <-> ( P ^ A ) || N ) ) $=
+    ( wcel cn cn0 co wbr cexp cdivides cz wb nn0z 3adant3 syl syl11anc wi wa wn
+    nnz cprime w3a cpc cle cuz 3ad2ant3 pccl eluz prmnn 3ad2ant1 dvdsexp 3expia
+    simp3 sylbird pcdvds nnexpcl 3ad2ant2 dvdstr syl111anc mpan2d syld c1 caddc
+    cfv clt cr nn0re ltnle syl2an nn0ltp1le bitr3d sylan peano2nn0 pcndvds mtod
+    3impa imnan sylibr sylbid con4d impbid ) BUADZCEDZAFDZUBZABCUCGZUDHZBAIGZCJ
+    HZWEWGWHBWFIGZJHZWIWEWGWFAUEVDDZWKWEAKDZWFKDZWLWGLWDWBWMWCAMUFZWEWFFDZWNWBW
+    CWPWDBCUGZNZWFMOAWFUHPWEBKDZWDWLWKQWEBEDZWSWBWCWTWDBUIUJZBTOZWBWCWDUMZWSWDW
+    LWKBAWFUKULPUNWEWKWJCJHZWIWBWCXDWDBCUONWEWHKDZWJKDZCKDZWKXDRWIQWEWHEDZXEWEW
+    TWDXHXAXCBAUPPWHTOZWEWJEDZXFWEWTWPXJXAWRBWFUPPWJTOWCWBXGWDCTUQZWHWJCURUSUTV
+    AWEWGWIWEWGSZWFVBVCGZAUDHZWISZWBWCWDXLXNLZWBWCRWPWDXPWQWPWDRWFAVEHZXLXNWPWF
+    VFDAVFDXQXLLWDWFVGAVGWFAVHVIWFAVJVKVLVPWEXNBXMIGZWHJHZXOWEXNAXMUEVDDZXSWEXM
+    KDZWMXTXNLWEXMFDZYAWEWPYBWRWFVMOZXMMOWOXMAUHPWEWSYBXTXSQXBYCWSYBXTXSBXMAUKU
+    LPUNWEXSWIRZSXSXOQWEYDXRCJHZWBWCYESWDBCVNNWEXRKDZXEXGYDYEQWEXREDZYFWEWTYBYG
+    XAYCBXMUPPXRTOXIXKXRWHCURUSVOXSWIVQVRVAVSVTWA $.
+    $( [23-Feb-2014] $)
+
+  $( There are a positive number of powers of a prime ` P ` in ` N ` iff ` P `
+     divides ` N ` .  (Contributed by Mario Carneiro, 23-Feb-2014.) $)
+  pcelnn $p |- ( ( P e. Prime /\ N e. NN ) ->
+                  ( ( P pCnt N ) e. NN <-> P || N ) ) $=
+    ( cprime wcel cn wa c1 cpc co cle wbr cexp cdivides cn0 1nn0 pcdvdsb mp3an3
+    wb pccl elnnnn0c baibr syl wceq prmnn nncn exp1 3syl adantr breq1d 3bitr3d
+    cc ) ACDZBEDZFZGABHIZJKZAGLIZBMKZUOEDZABMKULUMGNDUPURROGABPQUNUONDZUPUSRABS
+    USUTUPUOTUAUBUNUQABMULUQAUCZUMULAEDAUKDVAAUDAUEAUFUGUHUIUJ $.
+    $( [23-Feb-2014] $)
+
+  $( There are zero powers of a prime ` P ` in ` N ` iff ` P ` does not divide
+     ` N ` .  (Contributed by Mario Carneiro, 23-Feb-2014.) $)
+  pceq0 $p |- ( ( P e. Prime /\ N e. NN ) ->
+                  ( ( P pCnt N ) = 0 <-> -. P || N ) ) $=
+    ( cprime wcel cn wa cdivides wbr cpc co cc0 wne pcelnn cn0 wb pccl nnne0 wn
+    wceq df-ne wo elnn00nn biimpi ord syl5bi impbid2 syl bitr3d necon2bbid ) AC
+    DBEDFZABGHZABIJZKUJULEDZUKULKLZABMUJULNDZUMUNOABPUOUMUNULQUNULKSZRUOUMULKTU
+    OUPUMUOUPUMUAULUBUCUDUEUFUGUHUI $.
+    $( [23-Feb-2014] $)
+
+  $(
+  @{
+    pcprod.1 @e |- ( ph -> P : NN -1-1-onto-> Prime ) @.
+    pcprod.2 @e |- ( ph -> N e. NN ) @.
+    pcprod.3 @e |- F = ( n e. NN |-> ( ( P ` n ) ^ ( ( P ` n ) pCnt N ) ) ) @.
+    pcprod.4 @e |- M = seq 1 ( x. , F ) @.
+    @( The product of the primes taken to their respective powers reconstructs
+       the original number. @)
+    pcprod @p |- ( ph -> M ~~> N ) @=
+      ? @.
+  @}
+  $)
+
+  ${
+    $d p A $.  $d p B $.
+    $( A characterization of divisibility in terms of prime count.
+       (Contributed by Mario Carneiro, 23-Feb-2014.) $)
+    pc2dvds $p |- ( ( A e. NN /\ B e. NN ) ->
+                 ( A || B <-> A. p e. Prime ( p pCnt A ) <_ ( p pCnt B ) ) ) $=
+      ( cn wcel wa cdivides wbr cpc co cprime syl11anc cz syl syl111anc wb wceq
+      nnz cc0 adantr cv cle wral cexp simprr simpll pcdvds simprl wi prmnn pccl
+      cn0 nnexpcl simplr dvdstr mp2and pcdvdsb mpbird anassrs ralrimiva ex cgcd
+      cdiv c1 c2 cuz cfv wo clt gcddvds syl2an simpld wne wn adantl simpl nnne0
+      necon3ai 3syl gcdn0cl syl21anc divides2 mpbid nnrp rpdivcl rpgt0 sylanbrc
+      crp elnnz elnn1uz2 sylib cmul opreq1 cc nncn divcan1 mulid2 syl5ib simprd
+      eqeq12d breq1 syl5ibrcom syld a1dd wrex exprmfct simprrl ad2antrl dvdsgcd
+      r19.29 caddc simprrr pcelnn nngt0 cr nnre ltaddpos2 opreq2d jca syl112anc
+      nn0re pcmul breqtrrd ltnle pm2.65i pm2.21i exp32 rexlimdv syl5 exp3acom23
+      eqtr3d jaod mpd impbid ) ADEZBDEZFZABGHZCUAZAIJZYSBIJUBHZCKUCZYQYRUUBYQYR
+      FUUACKYQYRYSKEZUUAYQYRUUCFZFZUUAYSYTUDJZBGHZUUEUUFAGHZYRUUGUUEUUCYOUUHYQY
+      RUUCUEZYOYPUUDUFZYSAUGZLYQYRUUCUHUUEUUFMEZAMEZBMEZUUHYRFUUGUIUUEUUFDEZUUL
+      UUEYSDEZYTULEZUUOUUEUUCUUPUUIYSUJZNUUEUUCYOUUQUUIUUJYSAUKZLZYSYTUMZLUUFRZ
+      NUUEYOUUMUUJARZNUUEYPUUNYOYPUUDUNZBRZNUUFABUOOUPUUEUUCYPUUQUUAUUGPZUUIUVD
+      UUTYTYSBUQZOURUSUTVAYQAABVBJZVCJZVDQZUVIVEVFVGEZVHZUUBYRUIZYQUVIDEZUVLYQU
+      VIMEZSUVIVIHZUVNYQUVHAGHZUVOYQUVQUVHBGHZYOUUMUUNUVQUVRFYPUVCUVEABVJZVKVLY
+      QUVHMEZUVHSVMZUUMUVQUVOPYQUVHDEZUVTYQUUMUUNASQZBSQZFZVNZUWBYOUUMYPUVCTZYP
+      UUNYOUVEVOZYQYOASVMUWFYOYPVPZAVQUWEASUWCUWDVPVRVSABVTWAZUVHRNZYQUWBUWAUWJ
+      UVHVQNZUWGUVHAWBOWCYQUVIWHEZUVPYQYOUWBUWMUWIUWJYOAWHEUVHWHEUWMUWBAWDUVHWD
+      AUVHWEVKLUVIWFNUVIWIWGZUVIWJWKYQUVJUVMUVKYQUVJYRUUBYQUVJAUVHQZYRUVJUVIUVH
+      WLJZVDUVHWLJZQYQUWOUVIVDUVHWLWMYQUWPAUWQUVHYQAWNEZUVHWNEZUWAUWPAQZYOUWRYP
+      AWOTYQUWBUWSUWJUVHWONZUWLAUVHWPOZYQUWSUWQUVHQUXAUVHWQNWTWRYQYRUWOUVRYOUUM
+      UUNUVRYPUVCUVEUUMUUNFUVQUVRUVSWSVKAUVHBGXAXBXCXDUVKYSUVIGHZCKXEZYQUVMUVIC
+      XFYQUUBUXDYRUUBUXDFUUAUXCFZCKXEYQYRUUAUXCCKXJYQUXEYRCKYQUUCUXEYRYQUUCUXEF
+      ZFZYRUXGYTYSUVHIJZUBHZUXGUXIUUFUVHGHZUXGUUHUUGUXJUXGUUCYOUUHYQUUCUXEUHZYO
+      YPUXFUFZUUKLUXGUUAUUGYQUUCUUAUXCXGUXGUUCYPUUQUVFUXKYOYPUXFUNUXGUUCYOUUQUX
+      KUXLUUSLZUVGOWCUXGUULUUMUUNUUHUUGFUXJUIUXGUUOUULUXGUUPUUQUUOUUCUUPYQUXEUU
+      RXHUXMUVALUVBNYQUUMUXFUWGTYQUUNUXFUWHTUUFABXIOUPUXGUUCUWBUUQUXIUXJPUXKYQU
+      WBUXFUWJTZUXMYTYSUVHUQOURUXGUXHYTVIHZUXIVNZUXGUXHYSUVIIJZUXHXKJZYTVIUXGSU
+      XQVIHZUXHUXRVIHZUXGUXQDEZUXSUXGUYAUXCYQUUCUUAUXCXLUXGUUCUVNUYAUXCPUXKYQUV
+      NUXFUWNTYSUVIXMLURZUXQXNNUXGUXQXOEZUXHXOEZUXSUXTPUXGUYAUYCUYBUXQXPNUXGUXH
+      ULEZUYDUXGUUCUWBUYEUXKUXNYSUVHUKLUXHYANZUXQUXHXQLWCUXGYSUWPIJZYTUXRUXGUWP
+      AYSIYQUWTUXFUXBTXRUXGUUCUVOUVISVMZFZUVTUWAUYGUXRQUXKYQUYIUXFYQUVNUYIUWNUV
+      NUVOUYHUVIRUVIVQXSNTYQUVTUXFUWKTYQUWAUXFUWLTUVIUVHYSYBXTYKYCUXGUYDYTXOEZU
+      XOUXPPUYFUXGUUQUYJUXMYTYANUXHYTYDLWCYEYFYGYHYIYJYIYLYMYN $.
+      $( [23-Feb-2014] $)
+
+    $( The prime count function, viewed as a function from ` NN ` to
+       ` ( NN ^m Prime ) ` , is one-to-one.  (Contributed by Mario Carneiro,
+       23-Feb-2014.) $)
+    pc11 $p |- ( ( A e. NN /\ B e. NN /\
+                 A. p e. Prime ( p pCnt A ) = ( p pCnt B ) ) -> A = B ) $=
+      ( cn wcel cpc co wceq cprime wral wa cle cdivides cr id syl2anc syl5ibcom
+      wbr ralimdva sylibrd cv cn0 simpl pccl nn0re leid breq2 pc2dvds cz wi nnz
+      3syl dvdsle sylan syld breq1 wb ancoms jcad nnre letri3 syl2an 3impia ) A
+      DEZBDEZCUAZAFGZVFBFGZHZCIJZABHZVDVEKZVJABLRZBALRZKZVKVLVJVMVNVLVJABMRZVMV
+      LVJVGVHLRZCIJVPVLVIVQCIVLVFIEZKZVGVGLRZVIVQVSVGUBEZVGNEVTVRVRVDWAVLVROVDV
+      EUCVFAUDPVGUEVGUFULZVGVHVGLUGQSABCUHTVDAUIEVEVPVMUJAUKABUMUNUOVLVJBAMRZVN
+      VLVJVHVGLRZCIJZWCVLVIWDCIVSVTVIWDWBVGVHVGLUPQSVEVDWCWEUQBACUHURTVEBUIEVDW
+      CVNUJVDBUKVDOBAUMPUOUSVDANEBNEVKVOUQVEAUTBUTABVAVBTVC $.
+      $( [23-Feb-2014] $)
+  $}
+
