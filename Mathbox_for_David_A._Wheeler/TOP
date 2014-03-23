@@ -6,13 +6,9 @@ $)
 
   $( Eventually this should be defined with sin and cos $)
 
-  $c tan $. $( Tangent function. $)
   $c sec $. $( Secant function. $)
   $c csc $. $( Cosecant function. $)
   $c cot $. $( Cotangent function. $)
-
-  $( Extend class notation to include the tangent function. $)
-  ctan $a class tan $.
 
   $( Extend class notation to include the secant function. $)
   csec $a class sec $.
@@ -23,37 +19,26 @@ $)
   $( Extend class notation to include the cotangent function. $)
   ccot $a class cot $.
 
-  $( Define the tangent function.  We define it this way for ~ cmpt , which
-     requires the form ` ( x e. A |-> B ) ` . $)
-  df-tan $a |- tan = ( x e. { y e. CC | ( cos ` y ) =/= 0 } |->
-                     ( ( sin ` x ) / ( cos ` x ) ) ) $.
+  ${
+    $d x y $.
+    $( Define the secant function.  We define it this way for ~ cmpt , which
+       requires the form ` ( x e. A |-> B ) ` . $)
+    df-sec $a |- sec = ( x e. { y e. CC | ( cos ` y ) =/= 0 } |->
+                       ( 1 / ( cos ` x ) ) ) $.
 
-  $( Define the secant function.  We define it this way for ~ cmpt , which
-     requires the form ` ( x e. A |-> B ) ` . $)
-  df-sec $a |- sec = ( x e. { y e. CC | ( cos ` y ) =/= 0 } |->
-                     ( 1 / ( cos ` x ) ) ) $.
+    $( Define the cosecant function.  We define it this way for ~ cmpt , which
+       requires the form ` ( x e. A |-> B ) ` . $)
+    df-csc $a |- csc = ( x e. { y e. CC | ( sin ` y ) =/= 0 } |->
+                       ( 1 / ( sin ` x ) ) ) $.
 
-  $( Define the cosecant function.  We define it this way for ~ cmpt , which
-     requires the form ` ( x e. A |-> B ) ` . $)
-  df-csc $a |- csc = ( x e. { y e. CC | ( sin ` y ) =/= 0 } |->
-                     ( 1 / ( sin ` x ) ) ) $.
-
-  $( Define the cotangent function.  We define it this way for ~ cmpt , which
-     requires the form ` ( x e. A |-> B ) ` . $)
-  df-cot $a |- cot = ( x e. { y e. CC | ( sin ` y ) =/= 0 } |->
-                     ( ( cos ` x ) / ( sin ` x ) ) ) $.
+    $( Define the cotangent function.  We define it this way for ~ cmpt , which
+       requires the form ` ( x e. A |-> B ) ` . $)
+    df-cot $a |- cot = ( x e. { y e. CC | ( sin ` y ) =/= 0 } |->
+                       ( ( cos ` x ) / ( sin ` x ) ) ) $.
+  $}
 
   ${
     $d x y A $.
-    $( Value of the tangent function. $)
-    tanval $p |- ( ( A e. CC /\ ( cos ` A ) =/= 0 ) ->
-                   ( tan ` A ) = ( ( sin ` A ) / ( cos ` A ) ) ) $=
-      ( vy vx cc wcel ccos cfv cc0 wne wa cv crab ctan csin cdiv co wceq neeq1d
-      fveq2 elrab opreq12d df-tan oprex fvmpt sylbir ) ADEAFGZHIZJABKZFGZHIZBDL
-      ZEAMGANGZUFOPZQUJUGBADUHAQUIUFHUHAFSRTCACKZNGZUNFGZOPUMUKMUNAQUOULUPUFOUN
-      ANSUNAFSUACBUBULUFOUCUDUE $.
-      $( [14-Mar-2014] $)
-
     $( Value of the secant function.  (Contributed by David A. Wheeler,
        14-Mar-2014.) $)
     secval $p |- ( ( A e. CC /\ ( cos ` A ) =/= 0 ) ->
@@ -85,14 +70,6 @@ $)
       $( [14-Mar-2014] $)
   $}
 
-  $( The closure of the tangent function with a complex argument.  (Contributed
-     by David A. Wheeler, 15-Mar-2014.) $)
-  tancl $p |- ( ( A e. CC /\ ( cos ` A ) =/= 0 ) -> ( tan ` A ) e. CC ) $=
-    ( cc wcel ccos cfv cc0 wa ctan csin cdiv co tanval sincl adantr coscl simpr
-    wne divcl syl111anc eqeltrd ) ABCZADEZFQZGZAHEAIEZUBJKZBALUDUEBCZUBBCZUCUFB
-    CUAUGUCAMNUAUHUCAONUAUCPUEUBRST $.
-    $( [15-Mar-2014] $)
-
   $( The closure of the secant function with a complex argument.  (Contributed
      by David A. Wheeler, 14-Mar-2014.) $)
   seccl $p |- ( ( A e. CC /\ ( cos ` A ) =/= 0 ) ->
@@ -112,21 +89,12 @@ $)
     $( [14-Mar-2014] $)
 
   $( The closure of the cotangent function with a complex argument.
-     (Contributed by David A. Wheeler, 16-Mar-2014.) $)
+     (Contributed by David A. Wheeler, 15-Mar-2014.) $)
   cotcl $p |- ( ( A e. CC /\ ( sin ` A ) =/= 0 ) -> ( cot ` A ) e. CC ) $=
     ( cc wcel csin cfv cc0 wa ccot ccos cdiv co cotval coscl adantr sincl simpr
     wne divcl syl111anc eqeltrd ) ABCZADEZFQZGZAHEAIEZUBJKZBALUDUEBCZUBBCZUCUFB
     CUAUGUCAMNUAUHUCAONUAUCPUEUBRST $.
-    $( [16-Mar-2014] $)
-
-  $( The closure of the tangent function with a real argument.  (Contributed by
-     David A. Wheeler, 15-Mar-2014.) $)
-  retancl $p |- ( ( A e. RR /\ ( cos ` A ) =/= 0 ) -> ( tan ` A ) e. RR ) $=
-    ( cr wcel ccos cfv cc0 wne wa ctan csin cdiv co cc wceq recn tanval recoscl
-    sylan resincl redivcl syl3an1 syl3an2 3anidm12 eqeltrd ) ABCZADEZFGZHAIEZAJ
-    EZUFKLZBUEAMCUGUHUJNAOAPRUEUGUJBCZUEUEUFBCZUGUKAQUEUIBCULUGUKASUIUFTUAUBUCU
-    D $.
-    $( [15-Mar-2014] $)
+    $( [23-Mar-2014] $)
 
   $( The closure of the secant function with a real argument.  (Contributed by
      David A. Wheeler, 15-Mar-2014.) $)
@@ -138,22 +106,22 @@ $)
     $( [15-Mar-2014] $)
 
   $( The closure of the cosecant function with a real argument.  (Contributed
-     by David A. Wheeler, 16-Mar-2014.) $)
+     by David A. Wheeler, 15-Mar-2014.) $)
   recsccl $p |- ( ( A e. RR /\ ( sin ` A ) =/= 0 ) -> ( csc ` A ) e. RR ) $=
     ( cr wcel csin cfv cc0 wa ccsc c1 cdiv co cc wceq recn cscval sylan resincl
     wne 1re a1i redivcl syl3an1 syl3an2 3anidm12 eqeltrd ) ABCZADEZFRZGAHEZIUGJ
     KZBUFALCUHUIUJMANAOPUFUHUJBCZUFUFUGBCZUHUKAQUFIBCZULUHUKUMUFSTIUGUAUBUCUDUE
     $.
-    $( [16-Mar-2014] $)
+    $( [23-Mar-2014] $)
 
   $( The closure of the cotangent function with a real argument.  (Contributed
-     by David A. Wheeler, 16-Mar-2014.) $)
+     by David A. Wheeler, 15-Mar-2014.) $)
   recotcl $p |- ( ( A e. RR /\ ( sin ` A ) =/= 0 ) -> ( cot ` A ) e. RR ) $=
     ( cr wcel csin cfv cc0 wne wa ccot ccos cdiv co cc wceq recn cotval resincl
     sylan recoscl redivcl syl3an1 syl3an2 3anidm12 eqeltrd ) ABCZADEZFGZHAIEZAJ
     EZUFKLZBUEAMCUGUHUJNAOAPRUEUGUJBCZUEUEUFBCZUGUKAQUEUIBCULUGUKASUIUFTUAUBUCU
     D $.
-    $( [16-Mar-2014] $)
+    $( [23-Mar-2014] $)
 
   $( The reciprocal of secant is cosine.  (Contributed by David A. Wheeler,
      14-Mar-2014.) $)
@@ -174,17 +142,30 @@ $)
     $( [14-Mar-2014] $)
 
 
-  $( The value of the tangent function at zero is zero.  (Contributed by David
-     A. Wheeler, 16-Mar-2014.) $)
-  tan0 $p |- ( tan ` 0 ) = 0 $=
-    ( cc0 ctan cfv csin ccos cdiv co cc wcel wne wceq c1 ax-1ne0 eqnetri tanval
-    0cn cos0 mp2an sin0 opreq1i ax-1cn eqeltri div0i 3eqtri ) ABCZADCZAECZFGZAU
-    GFGAAHIUGAJUEUHKPUGLAQMNZAORUFAUGFSTUGUGLHQUAUBUIUCUD $.
-    $( [16-Mar-2014] $)
+  $( The reciprocal of cotangent is tangent.  (Contributed by David A. Wheeler,
+     21-Mar-2014.) $)
+  reccot $p |- ( ( A e. CC /\ ( sin ` A ) =/= 0 /\ ( cos ` A ) =/= 0 ) ->
+                   ( tan ` A ) = ( 1 / ( cot ` A ) ) ) $=
+    ( cc wcel csin cfv cc0 wne ccos w3a c1 cdiv co ccot ctan sincl coscl recdiv
+    wceq wa sylanl1 sylanr1 3impdi 3com23 cotval 3adant3 opreq2d tanval 3adant2
+    3eqtr4rd ) ABCZADEZFGZAHEZFGZIZJUMUKKLZKLZUKUMKLZJAMEZKLANEZUJUNULUQURRZUJU
+    NULVAUJUJUNSUKBCZULVAAOUJUMBCUNVBULSVAAPUMUKQTUAUBUCUOUSUPJKUJULUSUPRUNAUDU
+    EUFUJUNUTURRULAUGUHUI $.
+    $( [21-Mar-2014] $)
 
+  $( The reciprocal of tangent is cotangent.  (Contributed by David A. Wheeler,
+     21-Mar-2014.) $)
+  rectan $p |- ( ( A e. CC /\ ( sin ` A ) =/= 0 /\ ( cos ` A ) =/= 0 ) ->
+                   ( cot ` A ) = ( 1 / ( tan ` A ) ) ) $=
+    ( cc wcel csin cfv cc0 wne ccos w3a c1 cdiv co ctan ccot coscl sincl recdiv
+    wceq wa sylanl1 sylanr1 3impdi tanval 3adant2 opreq2d 3adant3 3eqtr4rd
+    cotval ) ABCZADEZFGZAHEZFGZIZJUJULKLZKLZULUJKLZJAMEZKLANEZUIUKUMUPUQRZUIUIU
+    KSULBCZUMUTAOUIUJBCUKVAUMSUTAPUJULQTUAUBUNURUOJKUIUMURUORUKAUCUDUEUIUKUSUQR
+    UMAUHUFUG $.
+    $( [21-Mar-2014] $)
 
-  $( The value of the secant function at zero is zero.  (Contributed by David
-     A. Wheeler, 16-Mar-2014.) $)
+  $( The value of the secant function at zero is one.  (Contributed by David A.
+     Wheeler, 16-Mar-2014.) $)
   sec0 $p |- ( sec ` 0 ) = 1 $=
     ( cc0 csec cfv c1 ccos cdiv co cc wcel wne wceq cos0 ax-1ne0 eqnetri secval
     0cn mp2an opreq2i ax-1cn div1i 3eqtri ) ABCZDAECZFGZDDFGDAHIUCAJUBUDKPUCDAL
