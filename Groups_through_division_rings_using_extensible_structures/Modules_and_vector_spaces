@@ -508,14 +508,22 @@ $)
   $}
 
   $c 0v $.
+  $c vsub $.
 
-  $( Extend class notation with zero vector. $)
+  $( Extend class notation with the zero vector. $)
   czv $a class 0v $.
 
+  $( Extend class notation with vector subtraction. $)
+  cvs $a class vsub $.
+
   $( Def. 8.5.13, p. 219. $)
-  $( Define zero vector. $)
+  $( Define the zero vector. $)
   df-zv $a |- 0v = ( v e. _V |-> ( 0g ` { <. ( Base ` ndx ) , ( vbase ` v ) >.
          , <. ( +g ` ndx ) , ( vadd ` v ) >. } ) ) $.
+
+  $( Define vector subtraction. $)
+  df-vsub $a |- vsub = ( v e. _V |-> ( -g ` { <. ( Base ` ndx ) ,
+    ( vbase ` v ) >. , <. ( +g ` ndx ) , ( vadd ` v ) >. } ) ) $.
 
   ${
     $d w A $.  $d w V $.  $d w W $.
@@ -531,6 +539,23 @@ $)
       OZRZUFZNOVEMQVFDPZVKVDNVLVHVAVJVCVLVGCUTVLVGDSOCVFDSUGGUHUIVLVIAVBVLVIDTO
       AVFDTUGHUHUIUJUKKULVDNUMUNIBVDNJUOUPUQ $.
       $( [10-Jan-2014] $)
+  $}
+
+  ${
+    $d w A $.  $d w V $.  $d w W $.
+    lmodvsubfval.v $e |- V = ( vbase ` W ) $.
+    lmodvsubfval.a $e |- A = ( vadd ` W ) $.
+    lmodvsubfval.m $e |- M = ( vsub ` W ) $.
+    lmodvsubfval.u $e |- U =
+         { <. ( Base ` ndx ) , V >. , <. ( +g ` ndx ) , A >. } $.
+    $( Value of vector subtraction. $)
+    lmodvsubfval $p |- ( W e. X -> M = ( -g ` U ) ) $=
+      ( vw wcel cvv csg cfv wceq cvs cop cvbase cvadd elisset cnx cbs cplusg cv
+      cpr fveq2 syl6eqr opeq2d preq12d fveq2d df-vsub fvex fvmpt fveq2i 3eqtr4g
+      syl ) EFLEMLZCBNOZPEFUAUREQOUBUCOZDRZUBUDOZARZUFZNOZCUSKEUTKUEZSOZRZVBVFT
+      OZRZUFZNOVEMQVFEPZVKVDNVLVHVAVJVCVLVGDUTVLVGESODVFESUGGUHUIVLVIAVBVLVIETO
+      AVFETUGHUHUIUJUKKULVDNUMUNIBVDNJUOUPUQ $.
+      $( [31-Mar-2014] $)
   $}
 
   ${
@@ -611,6 +636,93 @@ $)
       TAVABVGCEFVASZVJGUDUEUPVEUSQUQUPVDEDAUPVHVDEQZVKAUTVGCEEVIVJGHUFUGZUHTUMU
       RVBUTEAUPCUIJUQVBUTQCUJBCVADUTFVLVIUKULUNUPVMUQVNTUO $.
       $( [12-Jan-2014] $)
+  $}
+
+  ${
+    lmodvsubcl.v $e |- V = ( vbase ` W ) $.
+    lmodvsubcl.m $e |- M = ( vsub ` W ) $.
+    $( Closure of vector subtraction. $)
+    lmodvsubcl $p |- ( ( W e. LMod /\ X e. V /\ Y e. V ) -> ( X M Y ) e. V ) $=
+      ( clmod wcel w3a co cnx cbs cfv cop wceq eqid 3ad2ant1 cvv cvbase cpr csg
+      cplusg cvadd lmodvsubfval opreqd cgrp cabel lmodabl ablgrp syl simp2 fvex
+      simp3 eqeltri grpbase ax-mp grpsubcl syl111anc eqeltrd ) CHIZDBIZEBIZJZDE
+      AKDELMNBOLUCNCUDNZOUAZUBNZKZBVDAVGDEVAVBAVGPVCVEVFABCHFVEQZGVFQZUERUFVDVF
+      UGIZVBVCVHBIVDVFUHIZVKVAVBVLVCVEVFBCFVIVJUIRVFUJUKVAVBVCULVAVBVCUNBVFVGDE
+      BSIBVFMNPBCTNSFCTUMUOBVEVFSVJUPUQVGQURUSUT $.
+      $( [31-Mar-2014] $)
+  $}
+
+  ${
+    lmodvaddsub4.v $e |- V = ( vbase ` W ) $.
+    lmodvaddsub4.p $e |- P = ( vadd ` W ) $.
+    lmodvaddsub4.m $e |- M = ( vsub ` W ) $.
+    $( Relationship between vector subtraction and addition. $)
+    lmodvsubadd $p |- ( ( W e. LMod /\ ( A e. V /\ B e. V /\ C e. V ) )
+          -> ( ( A M B ) = C <-> ( B P C ) = A ) ) $=
+      ( clmod wcel co wceq cnx cbs cfv cop cplusg cvv w3a cpr eqid lmodvsubfval
+      wa csg adantr opreqd eqeq1d cabel wb lmodabl cvbase eqeltri grpbase ax-mp
+      fvex cvadd grpplusg ablsubadd sylan bitrd ) GKLZAFLBFLCFLUAZUEZABEMZCNABO
+      PQFROSQDRUBZUFQZMZCNZBCDMANZVEVFVICVEEVHABVCEVHNVDDVGEFGKHIJVGUCZUDUGUHUI
+      VCVGUJLVDVJVKUKDVGFGHIVLULFDVGVHABCFTLFVGPQNFGUMQTHGUMUQUNFDVGTVLUOUPDTLD
+      VGSQNDGURQTIGURUQUNFDVGTVLUSUPVHUCUTVAVB $.
+      $( [31-Mar-2014] $)
+
+    $( Vector addition/subtraction law. $)
+    lmodvaddsub4 $p |- ( ( W e. LMod
+       /\ ( A e. V /\ B e. V ) /\ ( C e. V /\ D e. V ) )
+   -> ( ( A P B ) = ( C P D ) <-> ( A M C ) = ( D M B ) ) ) $=
+      ( clmod wcel wa co wceq cnx cbs cfv cvv w3a cop cplusg cpr csg cabel eqid
+      wb lmodabl cvbase eqeltri grpbase ax-mp cvadd grpplusg abladdsub4 syl3an1
+      fvex lmodvsubfval 3ad2ant1 opreqd eqeq12d bitr4d ) HLMZAGMBGMNZCGMDGMNZUA
+      ZABEOCDEOPZACQRSGUBQUCSEUBUDZUESZOZDBVJOZPZACFOZDBFOZPVDVIUFMVEVFVHVMUHEV
+      IGHIJVIUGZUIGEVIVJDABCGTMGVIRSPGHUJSTIHUJURUKGEVITVPULUMETMEVIUCSPEHUNSTJ
+      HUNURUKGEVITVPUOUMVJUGUPUQVGVNVKVOVLVGFVJACVDVEFVJPVFEVIFGHLIJKVPUSUTZVAV
+      GFVJDBVQVAVBVC $.
+      $( [31-Mar-2014] $)
+  $}
+
+  ${
+    lmodvsubval2.n $e |- N = ( invg ` W ) $.
+    lmodvsubval2.u $e |- U = ( 1r ` W ) $.
+    lmodvsubval2.v $e |- V = ( vbase ` W ) $.
+    lmodvsubval2.p $e |- P = ( vadd ` W ) $.
+    lmodvsubval2.s $e |- S = ( vsca ` W ) $.
+    lmodvsubval2.m $e |- M = ( vsub ` W ) $.
+    $( Value of vector subtraction in terms of addition. $)
+    lmodvsubval2 $p |- ( ( W e. LMod /\ A e. V /\ B e. V )
+          -> ( A M B ) = ( A P ( ( N ` U ) S B ) ) ) $=
+      ( wcel co cfv wceq eqid clmod w3a cbs cgrp cabel crg lmodrng 3ad2ant1 syl
+      rngabl ablgrp lmod1cl grpinvcl syl11anc lmodvscl syld3an2 lmodcom opreq2d
+      syld3an3 czv cplusg c0g grprinv opreq1d simp1 lmodvsdi2 syl121anc lmod0vs
+      simp3 3adant2 3eqtr3rd lmodvs1 eqtr2d simp2 lmodass 0vlid 3adant3 3eqtr3d
+      syl13anc eqtrd wb lmodvacl lmodvsubadd mpbird ) IUAPZAHPZBHPZUBZABFQAEGRZ
+      BDQZCQZSZBWKCQZASZWHWMBWJACQZCQZAWHWKWOBCWEWFWGWJHPZWKWOSWEWIIUCRZPZWFWGW
+      QWHIUDPZEWRPZWSWHIUEPZWTWHIUFPZXBWEWFXCWGIUGUHIUJUIIUKUIZWEWFXAWGEWRIWRTZ
+      KULUHZWRIGEXEJUMUNZWIDWRHIBXELNUOUPZCHIAWJLMUQUSURWHBWJCQZACQZIUTRZACQZWP
+      AWHXIXKACWHXKEBDQZWJCQZXIWHEWIIVARZQZBDQZIVBRZBDQZXNXKWHXPXRBDWHWTXAXPXRS
+      XDXFWRXOIGXREXEXOTZXRTZJVCUNVDWHWEXAWSWGXQXNSWEWFWGVEZXFXGWEWFWGVIZCXOEWI
+      DWRHIBXEXTLMNVFVGWEWGXSXKSWFDXRHIBXKYALNXKTZVHVJVKWHXMBWJCWEWGXMBSWFDEHIB
+      LNKVLVJVDVMVDWHWEWGWQWFXJWPSYBYCXHWEWFWGVNZCHIBWJALMVOVSWEWFXLASWGCHIAXKL
+      MYDVPVQVRVTWHWEWFWGWKHPZWLWNWAYBYEYCWEWFWGWQYFXHCHIAWJLMWBUSABWKCFHILMOWC
+      VSWD $.
+      $( [31-Mar-2014] $)
+  $}
+
+  ${
+    lmodvsubeq0.v $e |- V = ( vbase ` W ) $.
+    lmodvsubeq0.o $e |- O = ( 0v ` W ) $.
+    lmodvsubeq0.m $e |- M = ( vsub ` W ) $.
+    $( If the difference between two vectors is zero, they are equal. $)
+    lmodvsubeq0 $p |- ( ( W e. LMod /\ A e. V /\ B e. V )
+                  -> ( ( A M B ) = O <-> A = B ) ) $=
+      ( clmod wcel co wceq cnx cbs cfv cop wb eqid cvv w3a cplusg cvadd cpr csg
+      c0g lmodvsubfval opreqd 0vval eqeq12d 3ad2ant1 cgrp lmodabl ablgrp cvbase
+      cabel syl fvex eqeltri grpbase ax-mp grpsubeq0 syl3an1 bitrd ) FJKZAEKZBE
+      KZUAABCLZDMZABNOPEQNUBPFUCPZQUDZUEPZLZVKUFPZMZABMZVEVFVIVORVGVEVHVMDVNVEC
+      VLABVJVKCEFJGVJSZIVKSZUGUHVJVKEFJDGVQHVRUIUJUKVEVKULKZVFVGVOVPRVEVKUPKVSV
+      JVKEFGVQVRUMVKUNUQEVKVLVNABETKEVKOPMEFUOPTGFUOURUSEVJVKTVRUTVAVNSVLSVBVCV
+      D $.
+      $( [31-Mar-2014] $)
   $}
 
   $c LSubSp $.
@@ -749,6 +861,23 @@ $)
   $}
 
   ${
+    lssvsubcl.m $e |- M = ( vsub ` W ) $.
+    lssvsubcl.s $e |- S = ( LSubSp ` W ) $.
+    $( Closure of vector subtraction in a subspace. $)
+    lssvsubcl $p |- ( ( ( W e. LMod /\ U e. S ) /\ ( X e. U /\ Y e. U ) )
+       -> ( X M Y ) e. U ) $=
+      ( clmod wcel wa co cur cfv cminusg cvsca eqid lssel syl111anc ad2antrr
+      cvbase wceq simpll simplr simprl simprr lmodvsubval2 cbs cgrp crg lmodrng
+      cvadd rnggrp syl lmod1cl grpinvcl syl11anc lsscl syl23anc eqeltrd ) DIJZB
+      AJZKZEBJZFBJZKZKZEFCLZEDMNZDONZNZFDPNZLDULNZLZBVGVAEDUANZJZFVOJZVHVNUBVAV
+      BVFUCZVGVAVBVDVPVRVAVBVFUDZVCVDVEUEZABVODEIVOQZHRSVGVAVBVEVQVRVSVCVDVEUFZ
+      ABVODFIWAHRSEFVMVLVICVJVODVJQZVIQZWAVMQZVLQZGUGSVGVAVBVDVEVKDUHNZJZVNBJVR
+      VSVTWBVGDUIJZVIWGJZWHVGDUJJZWIVAWKVBVFDUKTDUMUNVAWJVBVFVIWGDWGQZWDUOTWGDV
+      JVIWLWCUPUQWGVMAVLBIDEFVKWLWEWFHURUSUT $.
+      $( [31-Mar-2014] $)
+  $}
+
+  ${
     $d x S $.  $d x U $.  $d x y z W $.  $d x y z Z $.
     lss0cl.z $e |- Z = ( 0v ` W ) $.
     lss0cl.s $e |- S = ( LSubSp ` W ) $.
@@ -761,11 +890,11 @@ $)
       mpd ) CHIZBAIZJZGKZBIZGLZDBIZVQBMUAVTABCHFUBGBUNUCVQVSWAGVOVPVSWAVOVPVSUD
       ZVRCUENZCUFNZNZVRCUGNZOZCUHNZOZDBWBWICUINZVRWFOZDWBWCWECUJNZOZVRWFOZWCVRW
       FOZWGWHOZWKWIWBVOWCCUKNZIZWEWQIZVRCULNZIZWNWPPVOVPVSUOZVOVPWRVSWCWQCWQQZW
-      CQZUMZRVOVPWSVSVOCUPIZWRWSCUQZXEWQWLCWDWCXCWLQZWDQZURSRZABWTCVRHWTQZFUSZW
-      HWLWCWEWFWQWTCVRXCXHXKWHQZWFQZUTVAVOVPWNWKPVSVOWMWJVRWFVOXFWRWMWJPXGXEWQW
-      LCWDWJWCXCXHWJQZXIVBSTRWBWOVRWGWHWBVOXAWOVRPXBXLWFWCWTCVRXKXNXDVDSTVCWBVO
-      XAWKDPXBXLWFWJWTCVRDXOXKXNEVESVFWBVOVPVSVSWSWIBIXBVOVPVSVGVOVPVSVHZXPXJWQ
-      WHAWFBHCVRVRWEXCXMXNFVIVJVKVLVMVN $.
+      CQZUMZRVOVPWSVSVOCUPIZWRWSCUQZXEWQCWDWCXCWDQZURSRZABWTCVRHWTQZFUSZWHWLWCW
+      EWFWQWTCVRXCWLQZXJWHQZWFQZUTVAVOVPWNWKPVSVOWMWJVRWFVOXFWRWMWJPXGXEWQWLCWD
+      WJWCXCXLWJQZXHVBSTRWBWOVRWGWHWBVOXAWOVRPXBXKWFWCWTCVRXJXNXDVDSTVCWBVOXAWK
+      DPXBXKWFWJWTCVRDXOXJXNEVESVFWBVOVPVSVSWSWIBIXBVOVPVSVGVOVPVSVHZXPXIWQWHAW
+      FBHCVRVRWEXCXMXNFVIVJVKVLVMVN $.
       $( [12-Jan-2014] $)
 
     $( The singleton of the zero vector is a subspace. $)
@@ -883,6 +1012,30 @@ $)
       GZHZBCIZJZBCKZAUJUKUNUOLUIBCAAMNULUIUMAOZUMPQZUNAGUIUJUKRULUJUKTZUPUIUJUK
       SUJUKURUPUAUIBCAAAUBNUCUJUIUQUKBCAUDUEUMADEUFUGUH $.
       $( [7-Mar-2014] $)
+  $}
+
+  ${
+    lssdisj.p $e |- P = ( vadd ` W ) $.
+    lssdisj.o $e |- O = ( 0v ` W ) $.
+    lssdisj.s $e |- S = ( LSubSp ` W ) $.
+    $( Vectors belonging to disjoint subspaces are uniquely determined by their
+       sum.  (By commuting the sums, we can also easily obtain the ` B = D `
+       case.) $)
+    lssdisj $p |- ( ( ( W e. LMod /\ T e. S /\ U e. S ) /\ ( A e. T /\ C e. T
+  /\ B e. U ) /\ ( D e. U /\ ( T i^i U ) = { O } /\ ( A P B ) = ( C P D ) ) )
+       -> A = C ) $=
+      ( clmod wcel w3a wceq co lssel syl111anc cin csn cvs simp11 simp12 simp21
+      cfv simp22 lssvsubcl syl22anc simp33 cvbase wb simp13 simp23 lmodvaddsub4
+      eqid simp31 syl122anc mpbid eqeltrd elin simp32 eleqtrd oprex elsnc sylib
+      sylanbrc lmodvsubeq0 ) JNOZGFOZHFOZPZAGOZCGOZBHOZPZDHOZGHUAZIUBZQZABERCDE
+      RQZPZPZACJUCUGZRZIQZACQZWDWFVTOWGWDWFVSVTWDWFGOZWFHOWFVSOWDVJVKVNVOWIVJVK
+      VLVQWCUDZVJVKVLVQWCUEZVMVNVOVPWCUFZVMVNVOVPWCUHZFGWEJACWEUQZMUIUJWDWFDBWE
+      RZHWDWBWFWOQZVMVQVRWAWBUKWDVJAJULUGZOZBWQOZCWQOZDWQOZWBWPUMWJWDVJVKVNWRWJ
+      WKWLFGWQJANWQUQZMSTZWDVJVLVPWSWJVJVKVLVQWCUNZVMVNVOVPWCUOZFHWQJBNXBMSTWDV
+      JVKVOWTWJWKWMFGWQJCNXBMSTZWDVJVLVRXAWJXDVMVQVRWAWBURZFHWQJDNXBMSTABCDEWEW
+      QJXBKWNUPUSUTWDVJVLVRVPWOHOWJXDXGXEFHWEJDBWNMUIUJVAWFGHVBVHVMVQVRWAWBVCVD
+      WFIACWEVEVFVGWDVJWRWTWGWHUMWJXCXFACWEIWQJXBLWNVITUT $.
+      $( [2-Apr-2014] $)
   $}
 
   $c LSpan $.
@@ -1362,6 +1515,36 @@ $)
       VHACUOEFGHROZTUNDUPLZEUPLZVPUNUIUKULVRWAWBJVPMVDVFVHVSACDEUPFGHPQUNDUOUPU
       NUIUJUKDUOLVDVEVFACBDFGHSOVTTUNUIVBULWBVDVGVHACUOEFGHSOUGUGUH $.
       $( [2-Mar-2014] $)
+
+    $d x y z A $.  $d x y z B $.  $d x y z C $.  $d y z P $.
+    $( The modular law holds for subspace sum.  Similar to part of Theorem 16.9
+       of [MaedaMaeda] p. 70.  TODO: fine-tune to shorten proof. $)
+    lsmmod $p |- ( ( W e. LMod /\ ( A e. S /\ B e. S /\ C e. S ) /\ A C_ C )
+        -> ( ( A P B ) i^i C ) = ( A P ( B i^i C ) ) ) $=
+      ( vx vy clmod wcel w3a wss co cv wa wb syl111anc adantr vz cin elin cvadd
+      wi cfv wceq wrex simpl1 simpl21 simpl22 eqid lsmelval simp2r simp3 eqcomd
+      cvbase simp1l1 simpl23 3ad2ant1 simp1r simp2l lmodvsubadd syl13anc mpbird
+      lssel simp1l3 sseldd lssvsubcl syl22anc eqeltrrd sylanbrc lssincl simpl2l
+      simpl3 simpr lsmelvali syl32anc eqeltrd mpdan 3exp rexlimdvv sylbid com23
+      cvs ex imp3a syl5bi ssrdv simp1 simp21 simp22 simp23 lsmlub lsmub1 lsmub2
+      lsmcl inss1 syl5ss mpbi2and inss2 a1i jca ssin sylib eqssd ) FKLZAELZBELZ
+      CELZMZACNZMZABDOZCUBZABCUBZDOZXMUAXOXQUAPZXOLXRXNLZXRCLZQXMXRXQLZXRXNCUCX
+      MXSXTYAXMXTXSYAXMXTXSYAUEXMXTQZXSXRIPZJPZFUDUFZOZUGZJBUHIAUHZYAYBXGXHXIXS
+      YHRXGXKXLXTUIXHXIXJXGXLXTUJZXHXIXJXGXLXTUKZIJYEDEABFXRYEULZGHUMSYBYGYAIJA
+      BYBYCALZYDBLZQZYGYAYBYNYGMZYDXPLZYAYOYMYDCLYPYBYLYMYGUNZYOXRYCFWEUFZOZYDC
+      YOYSYDUGZYFXRUGZYOXRYFYBYNYGUOUPYOXGXRFUQUFZLZYCUUBLZYDUUBLZYTUUARXGXKXLX
+      TYNYGURZYOXGXJXTUUCUUFYBYNXJYGXHXIXJXGXLXTUSUTZXMXTYNYGVAZECUUBFXRKUUBULZ
+      GVFSYOXGXHYLUUDUUFYBYNXHYGYIUTZYBYLYMYGVBZEAUUBFYCKUUIGVFSYOXGXIYMUUEUUFY
+      BYNXIYGYJUTZYQEBUUBFYDKUUIGVFSXRYCYDYEYRUUBFUUIYKYRULZVCVDVEYOXGXJXTYCCLY
+      SCLUUFUUGUUHYOACYCXGXKXLXTYNYGVGUUKVHECYRFXRYCUUMGVIVJVKYDBCUCVLYOYPQZXRY
+      FXQYBYNYGYPVOUUNXGXHXPELZYLYPYFXQLYOXGYPUUFTZYOXHYPUUJTUUNXGXIXJUUOUUPYOX
+      IYPUULTYOXJYPUUGTEBCFGVMZSYLYMYBYGYPVNYOYPVPYEDEAXPFYCYDYKGHVQVRVSVTWAWBW
+      CWFWDWGWHWIXMXQXNNZXQCNZQXQXONXMUURUUSXMAXNNZXPXNNZUURXMXGXHUUOXNELZUUTUV
+      AQUURRXGXKXLWJZXGXHXIXJXLWKZXMXGXIXJUUOUVCXGXHXIXJXLWLZXGXHXIXJXLWMZUUQSZ
+      XMXGXHXIUVBUVCUVDUVEDEABFGHWQSDEAXPXNFGHWNVDXMXGXHXIUUTUVCUVDUVEDEABFGHWO
+      SXMXPBXNBCWRXMXGXHXIBXNNUVCUVDUVEDEABFGHWPSWSWTXMXLXPCNZUUSXMXGXHUUOXJXLU
+      VHQUUSRUVCUVDUVGUVFDEAXPCFGHWNVDXGXKXLUOUVHXMBCXAXBWTXCXQXNCXDXEXF $.
+      $( [2-Apr-2014] $)
   $}
 
   ${
@@ -1628,5 +1811,4 @@ $)
       VLVFVIVGMEVTVBWBVMVKZVTVBVCAVRVSVNVIUCUDUEUFUGUHVOWCWEUIVPUJUKULUMUNVQ $.
       $( [6-Oct-2013] $)
   $}
-
 
