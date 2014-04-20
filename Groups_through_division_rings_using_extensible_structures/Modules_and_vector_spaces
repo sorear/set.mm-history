@@ -508,10 +508,14 @@ $)
   $}
 
   $c 0v $.
+  $c vneg $.
   $c vsub $.
 
   $( Extend class notation with the zero vector. $)
   czv $a class 0v $.
+
+  $( Extend class notation with vector subtraction. $)
+  cvn $a class vneg $.
 
   $( Extend class notation with vector subtraction. $)
   cvs $a class vsub $.
@@ -520,6 +524,10 @@ $)
   $( Define the zero vector. $)
   df-zv $a |- 0v = ( v e. _V |-> ( 0g ` { <. ( Base ` ndx ) , ( vbase ` v ) >.
          , <. ( +g ` ndx ) , ( vadd ` v ) >. } ) ) $.
+
+  $( Define the negative of a vector. $)
+  df-vneg $a |- vneg = ( v e. _V |-> ( invg ` { <. ( Base ` ndx ) ,
+    ( vbase ` v ) >. , <. ( +g ` ndx ) , ( vadd ` v ) >. } ) ) $.
 
   $( Define vector subtraction. $)
   df-vsub $a |- vsub = ( v e. _V |-> ( -g ` { <. ( Base ` ndx ) ,
@@ -539,6 +547,23 @@ $)
       OZRZUFZNOVEMQVFDPZVKVDNVLVHVAVJVCVLVGCUTVLVGDSOCVFDSUGGUHUIVLVIAVBVLVIDTO
       AVFDTUGHUHUIUJUKKULVDNUMUNIBVDNJUOUPUQ $.
       $( [10-Jan-2014] $)
+  $}
+
+  ${
+    $d w A $.  $d w V $.  $d w W $.
+    lmodvnegfval.v $e |- V = ( vbase ` W ) $.
+    lmodvnegfval.a $e |- A = ( vadd ` W ) $.
+    lmodvnegfval.n $e |- N = ( vneg ` W ) $.
+    lmodvnegfval.u $e |- U =
+         { <. ( Base ` ndx ) , V >. , <. ( +g ` ndx ) , A >. } $.
+    $( Value of vector subtraction. $)
+    lmodvnegfval $p |- ( W e. X -> N = ( invg ` U ) ) $=
+      ( vw wcel cvv cminusg cfv wceq cvn cop cvbase cvadd elisset cnx cplusg cv
+      cbs fveq2 syl6eqr opeq2d preq12d fveq2d df-vneg fvex fvmpt fveq2i 3eqtr4g
+      cpr syl ) EFLEMLZCBNOZPEFUAUREQOUBUEOZDRZUBUCOZARZUPZNOZCUSKEUTKUDZSOZRZV
+      BVFTOZRZUPZNOVEMQVFEPZVKVDNVLVHVAVJVCVLVGDUTVLVGESODVFESUFGUGUHVLVIAVBVLV
+      IETOAVFETUFHUGUHUIUJKUKVDNULUMIBVDNJUNUOUQ $.
+      $( [31-Mar-2014] $)
   $}
 
   ${
@@ -639,6 +664,62 @@ $)
   $}
 
   ${
+    lmodvnegcl.v $e |- V = ( vbase ` W ) $.
+    lmodvnegcl.n $e |- N = ( vneg ` W ) $.
+    $( Closure of vector negative. $)
+    lmodvnegcl $p |- ( ( W e. LMod /\ X e. V ) -> ( N ` X ) e. V ) $=
+      ( clmod wcel wa cfv cnx cbs cop cplusg cvadd wceq eqid adantr cvv cvbase
+      cpr cminusg lmodvnegfval fveq1d cgrp cabel lmodabl syl simpr fvex eqeltri
+      ablgrp grpbase ax-mp grpinvcl syl11anc eqeltrd ) CGHZDBHZIZDAJDKLJBMKNJCO
+      JZMUAZUBJZJZBUTDAVCURAVCPUSVAVBABCGEVAQZFVBQZUCRUDUTVBUEHZUSVDBHUTVBUFHZV
+      GURVHUSVAVBBCEVEVFUGRVBULUHURUSUIBVBVCDBSHBVBLJPBCTJSECTUJUKBVAVBSVFUMUNV
+      CQUOUPUQ $.
+      $( [18-Apr-2014] $)
+  $}
+
+  ${
+    lmodvnegid.v $e |- V = ( vbase ` W ) $.
+    lmodvnegid.p $e |- P = ( vadd ` W ) $.
+    lmodvnegid.n $e |- N = ( vneg ` W ) $.
+    lmodvnegid.z $e |- Z = ( 0v ` W ) $.
+    $( Addition of a vector with its negative. $)
+    lmodvnegid $p |- ( ( W e. LMod /\ X e. V ) -> ( X P ( N ` X ) ) = Z ) $=
+      ( clmod wcel cnx cbs cfv cop cplusg wceq eqid cvv wa cpr cminusg c0g cgrp
+      cabel lmodabl ablgrp syl cvbase fvex eqeltri grpbase ax-mp cvadd grpplusg
+      co grprinv sylan lmodvnegfval adantr fveq1d opreq2d 0vval 3eqtr4d ) DKLZE
+      CLZUAZEEMNOCPMQOAPUBZUCOZOZAUQZVIUDOZEEBOZAUQFVFVIUELZVGVLVMRVFVIUFLVOAVI
+      CDGHVISZUGVIUHUICAVIVJVMECTLCVINORCDUJOTGDUJUKULCAVITVPUMUNATLAVIQORADUOO
+      THDUOUKULCAVITVPUPUNVMSVJSURUSVHVNVKEAVHEBVJVFBVJRVGAVIBCDKGHIVPUTVAVBVCV
+      FFVMRVGAVICDKFGHJVPVDVAVE $.
+      $( [18-Apr-2014] $)
+  $}
+
+  ${
+    lmodvneg1.u $e |- U = ( 1r ` W ) $.
+    lmodvneg1.m $e |- M = ( invg ` W ) $.
+    lmodvneg1.v $e |- V = ( vbase ` W ) $.
+    lmodvneg1.s $e |- S = ( vsca ` W ) $.
+    lmodvneg1.n $e |- N = ( vneg ` W ) $.
+    $( Minus 1 times a vector is the negative of the vector.  Equation 2 of
+       [Kreyszig] p. 51. $)
+    lmodvneg1 $p |- ( ( W e. LMod /\ X e. V )
+         -> ( ( M ` U ) S X ) = ( N ` X ) ) $=
+      ( wcel cfv co wceq adantr syl eqid syl11anc clmod wa czv cvadd simpl cgrp
+      cbs crg lmodrng rnggrp rngidcl grpinvcl simpr lmodvscl lmodvnegcl lmodass
+      syl111anc syl13anc lmodvs1 opreq2d cplusg lmodgrp lmod1cl grplinv opreq1d
+      c0g lmodvsdi2 syl121anc lmod0vs 3eqtr3d eqtr3d lmodvnegid syldan 3eqtr3rd
+      0vlid 0vrid ) FUAMZGEMZUBZFUCNZGDNZFUDNZOZBCNZGAOZVTWBOZWAWEVSWEGWBOZWAWB
+      OZWEGWAWBOZWBOZWCWFVSVQWEEMZVRWAEMZWHWJPVQVRUEZVSVQWDFUGNZMZVRWKWMVSFUFMZ
+      BWNMZWOVSFUHMZWPVQWRVRFUIQZFUJRVSWRWQWSWNFBWNSZHUKRZWNFCBWTIULTZVQVRUMZWD
+      AWNEFGWTJKUNUQZXCDEFGJLUOZWBEFWEGWAJWBSZUPURVSWGVTWAWBVSWEBGAOZWBOZWGVTVS
+      XGGWEWBABEFGJKHUSUTVSWDBFVANZOZGAOZFVFNZGAOXHVTVSXJXLGAVQXJXLPZVRVQWPWQXM
+      FVBBWNFWTHVCWNXIFCXLBWTXISZXLSZIVDTQVEVSVQWOWQVRXKXHPWMXBXAXCWBXIWDBAWNEF
+      GWTXNJXFKVGVHAXLEFGVTXOJKVTSZVIVJVKVEVSWIVTWEWBWBDEFGVTJXFLXPVLUTVJVQVRWL
+      WCWAPXEWBEFWAVTJXFXPVOVMVQVRWKWFWEPXDWBEFWEVTJXFXPVPVMVN $.
+      $( [18-Apr-2014] $)
+  $}
+
+  ${
     lmodvsubcl.v $e |- V = ( vbase ` W ) $.
     lmodvsubcl.m $e |- M = ( vsub ` W ) $.
     $( Closure of vector subtraction. $)
@@ -650,6 +731,25 @@ $)
       UGIZVBVCVHBIVDVFUHIZVKVAVBVLVCVEVFBCFVIVJUIRVFUJUKVAVBVCULVAVBVCUNBVFVGDE
       BSIBVFMNPBCTNSFCTUMUOBVEVFSVJUPUQVGQURUSUT $.
       $( [31-Mar-2014] $)
+  $}
+
+  ${
+    lmodvsubneg.v $e |- V = ( vbase ` W ) $.
+    lmodvsubneg.a $e |- A = ( vadd ` W ) $.
+    lmodvsubneg.n $e |- N = ( vneg ` W ) $.
+    lmodvsubneg.m $e |- M = ( vsub ` W ) $.
+    $( Vector subtraction in terms of negative. $)
+    lmodvsubneg $p |- ( ( W e. LMod /\ X e. V /\ Y e. V )
+          -> ( X M Y ) = ( X A ( N ` Y ) ) ) $=
+      ( clmod wcel cnx cbs cfv co wceq eqid cvv w3a cop cplusg cpr cminusg cgrp
+      csg cabel lmodabl ablgrp cvbase fvex eqeltri grpbase ax-mp cvadd grpplusg
+      syl grpsubval syl3an1 lmodvsubfval 3ad2ant1 opreqd fveq1d opreq2d 3eqtr4d
+      lmodvnegfval ) ELMZFDMZGDMZUAZFGNOPDUBNUCPAUBUDZUGPZQZFGVLUEPZPZAQZFGBQFG
+      CPZAQVHVLUFMZVIVJVNVQRVHVLUHMVSAVLDEHIVLSZUIVLUJURDAVLVOVMUFFGDTMDVLOPRDE
+      UKPTHEUKULUMDAVLTVTUNUOATMAVLUCPRAEUPPTIEUPULUMDAVLTVTUQUOVOSVMSUSUTVKBVM
+      FGVHVIBVMRVJAVLBDELHIKVTVAVBVCVKVRVPFAVKGCVOVHVICVORVJAVLCDELHIJVTVGVBVDV
+      EVF $.
+      $( [18-Apr-2014] $)
   $}
 
   ${
@@ -690,6 +790,17 @@ $)
       VIARVBVGUHKVKCVGEFGHVJUIVGUJUOECVGVHABETKEVGNOREFUKOTGFUKULUMECVGTVJUNUPC
       TKCVGQORCFUQOTHFUQULUMECVGTVJURUPVHSUSUTVA $.
       $( [16-Apr-2014] $)
+
+    $( Vector analog of ~ npcan . $)
+    lmodvnpcan $p |- ( ( W e. LMod /\ A e. V /\ B e. V ) ->
+        ( ( A M B ) P B ) = A ) $=
+      ( clmod wcel co cnx cbs cfv cop cplusg wceq eqid cvv w3a cpr lmodvsubfval
+      csg 3ad2ant1 opreqd opreq1d cgrp cabel lmodabl ablgrp cvbase fvex eqeltri
+      syl grpbase ax-mp cvadd grpplusg grpnpcan syl3an1 eqtrd ) FJKZAEKZBEKZUAZ
+      ABDLZBCLABMNOEPMQOCPUBZUDOZLZBCLZAVFVGVJBCVFDVIABVCVDDVIRVECVHDEFJGHIVHSZ
+      UCUEUFUGVCVHUHKZVDVEVKARVCVHUIKVMCVHEFGHVLUJVHUKUOECVHVIABETKEVHNOREFULOT
+      GFULUMUNECVHTVLUPUQCTKCVHQORCFUROTHFURUMUNECVHTVLUSUQVISUTVAVB $.
+      $( [19-Apr-2014] $)
   $}
 
   ${
@@ -735,7 +846,8 @@ $)
       D $.
       $( [31-Mar-2014] $)
 
-    $( Subtraction of a vector from itself. $)
+    $( Subtraction of a vector from itself.  TODO: shorten with ~ lmodvnegid
+       and ~ lmodvsubneg ? $)
     lmodvsubid $p |- ( ( W e. LMod /\ A e. V ) -> ( A M A ) = O ) $=
       ( clmod wcel cnx cbs cfv cop co wceq eqid cvv cvbase adantr wa cplusg cpr
       cvadd csg c0g cgrp cabel lmodabl ablgrp syl fvex eqeltri grpbase grpsubid
@@ -1715,6 +1827,11 @@ $)
   lveclmod $p |- ( W e. LVec -> W e. LMod ) $=
     ( clvec wcel clmod cdr wa islvec2 simpl sylbi ) ABCADCZAECZFJAGJKHI $.
     $( [9-Dec-2013] $)
+
+  $( A left vector space is a division ring. $)
+  lvecdrng $p |- ( W e. LVec -> W e. DivRing ) $=
+    ( clvec wcel clmod cdr wa islvec2 simpr sylbi ) ABCADCZAECZFKAGJKHI $.
+    $( [17-Apr-2014] $)
 
   ${
     $d x w A r q $.  $d x w P r q $.  $d x w S r q $.  $d x w T r q $.
