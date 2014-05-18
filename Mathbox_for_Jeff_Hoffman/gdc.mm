@@ -25,8 +25,8 @@ $)
     $( Convert a theorem for real/complex numbers into one for natural
        numbers.  (Contributed by Jeff Hoffman, 17-Jun-2008.) $)
     nnssi3 $p |- ( ( A e. NN /\ B e. NN /\ C e. NN ) -> ps ) $=
-      ( cn wcel w3a sseli 3anim123i 3ad2ant3 syl11anc ) CJKZDJKZEJKZLCFKZDFKZEF
-      KZLABQTRUASUBJFCGMJFDGMJFEGMNSQARHOIP $.
+      ( cn wcel w3a sseli 3anim123i 3ad2ant3 syl2anc ) CJKZDJKZEJKZLCFKZDFKZEFK
+      ZLABQTRUASUBJFCGMJFDGMJFEGMNSQARHOIP $.
       $( [17-Jun-2008] $)
   $}
 
@@ -38,7 +38,7 @@ $)
     ( cn wcel cdiv co clt wbr wa cmin wi cr cc0 wb nnre jca biimpd cc nncn wceq
     w3a nngt0 ltdiv1 syl3an nnsub sylan9bb exp32 com34 imp32 nnaddcl expcom wne
     caddc nnsscn nnne0 divcl nnssi2 anim12i 3impdir npcan ancoms eleq1d sylan9r
-    adantrr impbid 3ad2ant2 3ad2ant1 3ad2ant3 divsubdir syl111anc adantr bitr4d
+    adantrr impbid 3ad2ant2 3ad2ant1 3ad2ant3 divsubdir syl3anc adantr bitr4d
     syl ) ADEZBDEZCDEZUBZACFGZDEZABHIZJZJZBCFGZDEZWDVSKGZDEZBAKGCFGZDEZWCWEWGVR
     VTWAWEWGLVRVTWEWAWGVRVTWEWAWGLVRVTWEJZJWAWGVRWAVSWDHIZWJWGVOAMEVPBMEVQCMEZN
     CHIZJWAWKOAPBPVQWLWMCPCUCQABCUDUEVSWDUFUGRUHUIUJVRVTWGWELWAVTWGWFVSUNGZDEZV
@@ -53,11 +53,11 @@ $)
   nndivlub $p |- ( ( A e. NN /\ B e. NN )
         -> ( ( A / B ) e. NN -> B <_ A ) ) $=
     ( cn wcel wa cr cc0 clt wbr cdiv co cle wi nnre nngt0 jca anim12i ancoms c1
-    wb nnge1 lediv2 3anidm23 cc wne recn adantr 0re ltne mp3an1 breq1d syl11anc
-    divid adantl bitrd syl5ibr syl ) ACDZBCDZEBFDZGBHIZEZAFDZGAHIZEZEZABJKZCDZB
-    ALIZMUSURVFUSVBURVEUSUTVABNBOPURVCVDANAOPQRVHVIVFSVGLIZVGUAVFVIAAJKZVGLIZVJ
-    VBVEVIVLTBAAUBUCVEVLVJTZVBVEAUDDZAGUEZVMVCVNVDAUFUGGFDVCVDVOUHGAUIUJVNVOEVK
-    SVGLAUMUKULUNUOUPUQ $.
+    wb nnge1 lediv2 3anidm23 cc wne recn adantr 0re mp3an1 divid breq1d syl2anc
+    ltne adantl bitrd syl5ibr syl ) ACDZBCDZEBFDZGBHIZEZAFDZGAHIZEZEZABJKZCDZBA
+    LIZMUSURVFUSVBURVEUSUTVABNBOPURVCVDANAOPQRVHVIVFSVGLIZVGUAVFVIAAJKZVGLIZVJV
+    BVEVIVLTBAAUBUCVEVLVJTZVBVEAUDDZAGUEZVMVCVNVDAUFUGGFDVCVDVOUHGAUMUIVNVOEVKS
+    VGLAUJUKULUNUOUPUQ $.
     $( [17-Jun-2008] $)
 
   $c gcdOLD $. $( The greatest common divisor $)
