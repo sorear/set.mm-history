@@ -5,11 +5,12 @@ $(
 $)
 
   $( Introduce new constant symbols. $)
-  $c =g $. $( Godel-set of equality $)
   $c e.g $. $( Godel-set of membership $)
+  $c |g $. $( Godel-set for Sheffer stroke $)
+  $c A.g $. $( Godel-set of universal quantification $)
+  $c =g $. $( Godel-set of equality $)
   $c /\g $. $( Godel-set of conjunction $)
   $c -.g $. $( Godel-set of negation $)
-  $c A.g $. $( Godel-set of universal quantification $)
   $c ->g $. $( Godel-set of implication $)
   $c <->g $. $( Godel-set of equivalence $)
   $c \/g $. $( Godel-set of disjunction $)
@@ -28,17 +29,11 @@ $)
   $( The ` e. ` -satisfaction function. $)
   csate $a class SatE $.
 
-  $( The Godel-set of equality. $)
-  cgoq $a class =g $.
-
   $( The Godel-set of membership. $)
   cgoe $a class e.g $.
 
-  $( The Godel-set of conjunction. $)
-  cgoa $a class /\g $.
-
-  $( The Godel-set of negation.  (Note that this is not a wff.) $)
-  cgon $a class -.g U $.
+  $( The Godel-set for the Sheffer stroke. $)
+  cgna $a class |g $.
 
   $( The Godel-set of universal quantification.  (Note that this is not a
      wff.) $)
@@ -47,52 +42,25 @@ $)
   $( The "proves" relation. $)
   cprv $a class |= $.
 
-  $( Define the Godel-set of equality.  Here the arguments ` x = <. N , P >. `
-     correspond to v_N and v_P , so ` ( (/) =g 1o ) ` actually means v_0 ` = `
-     v_1 , not ` 0 = 1 ` .  The reason we use ` ( N =g P ) ` and not ` N =g P `
-     as the class expression is to maintain unambiguity: if ` N =g P ` was a
-     class expression, then ` M =g N =g P ` would be ambiguous. $)
-  df-goeq $a |- =g = ( x e. ( om X. om ) |-> <. (/) , x >. ) $.
-
   $( Define the Godel-set of membership.  Here the arguments
      ` x = <. N , P >. ` correspond to v_N and v_P , so ` ( (/) e.g 1o ) `
      actually means v_0 ` e. ` v_1 , not ` 0 e. 1 ` . $)
-  df-goel $a |- e.g = ( x e. ( om X. om ) |-> <. 1o , x >. ) $.
+  df-goel $a |- e.g = ( x e. ( om X. om ) |-> <. (/) , x >. ) $.
 
-  $( Define the Godel-set of conjunction.  Here the arguments
+  $( Define the Godel-set for the Sheffer stroke NAND. Here the arguments
      ` x = <. U , V >. ` are also Godel-sets corresponding to smaller
      formulae. $)
-  df-goan $a |- /\g = ( x e. ( _V X. _V ) |-> <. 2o , x >. ) $.
-
-  $( Define the Godel-set of negation.  Here the argument ` U ` is also a
-     Godel-set corresponding to smaller formulae.  Note that this is a _class_
-     expression, not a wff. $)
-  df-gonot $a |- -.g U = <. 3o , U >. $.
+  df-gona $a |- |g = ( x e. ( _V X. _V ) |-> <. 1o , x >. ) $.
 
   $( Define the Godel-set of universal quantification.  Here ` N e. om `
      corresponds to v_N , and ` U ` represents another formula, and this
      expression is ` [ A. x ph ] = A.g N U ` where ` x ` is the ` N ` -th
      variable, ` U = [ ph ] ` is the code for ` ph ` .  Note that this is a
      _class_ expression, not a wff. $)
-  df-goal $a |- A.g N U = <. 4o , <. N , U >. >. $.
+  df-goal $a |- A.g N U = <. 2o , <. N , U >. >. $.
 
   ${
     $d a e f i j m u v x y z $.
-    df-sat.eq $e |- ( ph <->
-      ( x = ( i =g j ) /\
-        y = { a e. ( m ^m om ) | ( a ` i ) = ( a ` j ) } ) ) $.
-    df-sat.el $e |- ( ps <->
-      ( x = ( i e.g j ) /\
-        y = { a e. ( m ^m om ) | ( a ` i ) e ( a ` j ) } ) ) $.
-    df-sat.an $e |- ( ch <-> E. v e. f
-      ( x = ( ( 1st ` u ) /\g ( 1st ` v ) ) /\
-        y = ( ( 2nd ` u ) i^i ( 2nd ` v ) ) ) ) $.
-    df-sat.not $e |- ( th <->
-      ( x = -.g ( 1st ` u ) /\ y = ( ( m ^m om ) \ ( 2nd ` u ) ) ) ) $.
-    df-sat.al $e |- ( ta <-> E. i e. om
-      ( x = A.g i ( 1st ` u ) /\
-        y = { a e. ( m ^m om ) | A. z e. m ( { <. i , z >. } u.
-          ( a |` ( om \ { i } ) ) ) e. ( 2nd ` u ) } ) ) $.
     $( Define the satisfaction predicate. This recursive construction builds up
        a function over wff codes and simultaneously defines the set of
        assignments to all variables from ` M ` that makes the coded wff true in
@@ -109,22 +77,27 @@ $)
        M Sat E ) `` n ) ` operates on all wffs.
 
        The coding scheme for the wffs is defined so that <HTML><ul>
-       <li>v<sub>i</sub> ` = ` v<sub>j</sub> is coded as
-       ` <. (/) , <. i , j >. >. ` ,</li>
        <li>v<sub>i</sub> ` e. ` v<sub>j</sub> is coded as
-       ` <. 1o , <. i , j >. >. ` ,</li>
-       <li> ` ( ph /\ ps ) ` is coded as ` <. 2o , <. ph , ps >. >. ` ,</li>
-       <li> ` -. ph ` is coded as ` <. 3o , ph >. ` , and</li>
+       ` <. (/) , <. i , j >. >. ` ,</li>
+       <li> ` ( ph -/\ ps ) ` is coded as ` <. 1o , <. ph , ps >. >. ` ,
+       and</li>
        <li> ` A. ` v<sub>i</sub> ` ph ` is coded as
-       ` <. 4o , <. i , ph >. >. ` .</li></ul></HTML>
+       ` <. 2o , <. i , ph >. >. ` .</li></ul></HTML>
 
        The pieces of the definition for these five types of wff have been split
        up into hypotheses for readability.
        $)
     df-sat $a |- Sat = ( m e. _V , e e. _V |->
        ( rec ( ( f e. _V |-> ( f u.
-           { <. x , y >. | E. u e. f ( ch \/ th \/ ta ) } ) ) ,
-           { <. x , y >. | E. i e. om E. j e. om ( ph \/ ps ) } )
+           { <. x , y >. | E. u e. f ( E. v e. f
+      ( x = ( ( 1st ` u ) |g ( 1st ` v ) ) /\
+        y = ( ( m ^m om ) \ ( ( 2nd ` u ) i^i ( 2nd ` v ) ) ) ) \/ E. i e. om
+      ( x = A.g i ( 1st ` u ) /\
+        y = { a e. ( m ^m om ) | A. z e. m ( { <. i , z >. } u.
+          ( a |` ( om \ { i } ) ) ) e. ( 2nd ` u ) } ) ) } ) ) ,
+           { <. x , y >. | E. i e. om E. j e. om
+      ( x = ( i e.g j ) /\
+        y = { a e. ( m ^m om ) | ( a ` i ) e ( a ` j ) } ) } )
          |` suc om ) ) $.
   $}
 
@@ -146,6 +119,15 @@ $)
      set of all valid formulas. $)
   df-fmla $a |- Fmla = ( n e. suc om |-> dom ( ( (/) Sat (/) ) ` n ) ) $.
 
+  $( The Godel-set of equality. $)
+  cgoq $a class =g $.
+
+  $( The Godel-set of conjunction. $)
+  cgoa $a class /\g $.
+
+  $( The Godel-set of negation.  (Note that this is not a wff.) $)
+  cgon $a class -.g U $.
+
   $( The Godel-set of implication. $)
   cgoi $a class ->g $.
 
@@ -159,8 +141,18 @@ $)
      wff.) $)
   cgox $a class E.g N U $.
 
+  $( Define the Godel-set of negation.  Here the argument ` U ` is also a
+     Godel-set corresponding to smaller formulae.  Note that this is a _class_
+     expression, not a wff. $)
+  df-gonot $a |- -.g U = ( U |g U ) $.
+
+  $( Define the Godel-set of conjunction.  Here the arguments
+     ` x = <. U , V >. ` are also Godel-sets corresponding to smaller
+     formulae. $)
+  df-goan $a |- /\g = ( x e. ( _V X. _V ) |-> <. 2o , x >. ) $.
+
   ${
-    $d m u v $.
+    $d u v w $.
     $( Define the Godel-set of implication.  Here the arguments ` U ` and ` V `
        are also Godel-sets corresponding to smaller formulae.  Note that this
        is a _class_ expression, not a wff. $)
@@ -177,13 +169,26 @@ $)
     df-gobi $a |- <->g = ( u e. _V , v e. _V |->
                            ( ( u ->g v ) /\g ( v ->g u ) ) ) $.
 
-    $( Define the Godel-set of existential quantification.  Here ` N e. om `
-       corresponds to v_N , and ` U ` represents another formula, and this
-       expression is ` [ E. x ph ] = E.g N U ` where ` x ` is the ` N ` -th
-       variable, ` U = [ ph ] ` is the code for ` ph ` .  Note that this is a
-       _class_ expression, not a wff. $)
-    df-goex $a |- E.g N U = -.g A.g N -.g U $.
+    $( Define the Godel-set of equality.  Here the arguments
+       ` x = <. N , P >. ` correspond to v_N and v_P , so ` ( (/) =g 1o ) `
+       actually means v_0 ` = ` v_1 , not ` 0 = 1 ` .  Here we use the trick
+       mentioned in ~ ax-ext to introduce equality as a defined notion in terms
+       of ` e.g ` .  The expression ` suc ( u u. v ) = ` max ` ( u , v ) + 1 `
+       here is a convenient way of getting a dummy variable distinct from ` u `
+       and ` v ` . $)
+    df-goeq $a |- =g = ( u e. om , v e. om |-> [_ suc ( u u. v ) / w ]_
+                         A.g w ( ( w e.g u ) <->g ( w e.g v ) ) ) $.
+  $}
 
+  $( Define the Godel-set of existential quantification.  Here ` N e. om `
+     corresponds to v_N , and ` U ` represents another formula, and this
+     expression is ` [ E. x ph ] = E.g N U ` where ` x ` is the ` N ` -th
+     variable, ` U = [ ph ] ` is the code for ` ph ` .  Note that this is a
+     _class_ expression, not a wff. $)
+  df-goex $a |- E.g N U = -.g A.g N -.g U $.
+
+  ${
+    $d m u $.
     $( Define the "proves" relation on a set.  A wff is true in a model ` M `
        if for every valuation ` s e. ( M ^m om ) ` , the interpretation of the
        wff using the membership relation on ` M ` is true. $)
