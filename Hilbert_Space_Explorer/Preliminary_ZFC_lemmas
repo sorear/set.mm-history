@@ -43,9 +43,8 @@ $)
        sequence of vectors, i.e. a mapping from integers to vectors.
        Definition of converge in [Beran] p. 96. $)
     df-hlim $a |- ~~>v = { <. f , w >. | ( ( f : NN --> ~H /\ w e. ~H ) /\
-          A. x e. RR ( 0 < x ->
-             E. y e. NN A. z e. NN ( y <_ z ->
-                ( normh ` ( ( f ` z ) -h w ) ) < x ) ) ) } $.
+          A. x e. RR+ E. y e. NN A. z e. ( ZZ>= ` y )
+                ( normh ` ( ( f ` z ) -h w ) ) < x ) } $.
   $}
 
   ${
@@ -54,10 +53,9 @@ $)
        its membership relation.  Note that ` f : NN --> ~H ` is an infinite
        sequence of vectors, i.e. a mapping from integers to vectors.
        Definition of Cauchy sequence in [Beran] p. 96. $)
-    df-hcau $a |- Cauchy = { f | ( f : NN --> ~H /\
-          A. x e. RR ( 0 < x ->
-          E. y e. NN A. z e. NN A. w e. NN ( ( y <_ z /\ y <_ w ) ->
-             ( normh ` ( ( f ` z ) -h ( f ` w ) ) ) < x ) ) ) } $.
+    df-hcau $a |- Cauchy = { f e. ( ~H ^m NN ) |
+          A. x e. RR+ E. y e. NN A. z e. ( ZZ>= ` y )
+             ( normh ` ( ( f ` y ) -h ( f ` z ) ) ) < x } $.
   $}
 
   ${
@@ -116,55 +114,53 @@ $)
   $}
 
   ${
-    $d x y z U $.  $d f w x y z D $.
+    $d f j k x D $.
     h2hc.1 $e |- U = <. <. +h , .h >. , normh >. $.
     h2hc.2 $e |- U e. NrmCVec $.
-    h2hc.4 $e |- ~H = ( BaseSet ` U ) $.
-    h2hc.3 $e |- D = ( IndMet ` U ) $.
-    $( The Cauchy sequences of Hilbert space. $)
+    h2hc.3 $e |- ~H = ( BaseSet ` U ) $.
+    h2hc.4 $e |- D = ( IndMet ` U ) $.
+    $( The Cauchy sequences of Hilbert space.  (Revised by Mario Carneiro,
+       13-May-2014.) $)
     h2hcau $p |- Cauchy = ( ( Cau ` D ) i^i ( ~H ^m NN ) ) $=
-      ( vf vx vy vz vw cn chil cv clt wbr wa wral wss wcel wf cc0 cle cfv co wi
-      cmv cno wrex cr cab cc cxp w3a cz cin ccau cmap wb ffvelrn adantr adantlr
-      cca h2hmetdval breq1d ibar bitr3d df-3an syl6bbr syl2anc ralbidva rexbidv
-      imbi2d c1 nnuz cau5i syl6rbbr ralbidv fssxp nnsscn ssid xpss12 mp2an sstr
-      1z mpan2 syl biantrurd pm5.32i ancom bitri abbii inab eqtr4i df-hcau wceq
-      cme cnv imsmet ax-mp imsbai caufval hlex nnex mapval ineq12i 3eqtr4i ) LM
-      GNZUAZUBHNZOPZINZJNZUCPXLKNZUCPQZXMXHUDZXNXHUDZUGUEUHUDZXJOPZUFZKLRZJLRZI
-      LUIZUFZHUJRZQZGUKZXHULMUMZSZXKXOXPMTZXQMTZXPXQAUEZXJOPZUNZUFZKUORJUORIUOU
-      IZUFZHUJRZQZGUKZXIGUKZUPZUQAVCUDZMLURUEZUPYGYSXIQZGUKUUBYFUUEGYFXIYSQUUEX
-      IYEYSXIYRYEYSXIYQYDHUJXIYPYCXKXIYCYOKLRZJLRZILUIYPXIYBUUGILXIYAUUFJLXIXML
-      TZQZXTYOKLUUIXNLTZQZXSYNXOUUKYJYKXSYNUSUUIYJUUJLMXMXHUTVAXIUUJYKUUHLMXNXH
-      UTVBYJYKQZXSUULYMQZYNUULYMXSUUMUULYLXRXJOXPXQABCDEFVDVEUULYMVFVGYJYKYMVHV
-      IVJVMVKVKVLYNJKIVNLWEVOVPVQVMVRXIYIYRXIXHLMUMZSZYILMXHVSUUOUUNYHSZYILULSM
-      MSUUPVTMWALULMMWBWCXHUUNYHWDWFWGWHVGWIXIYSWJWKWLYSXIGWMWNHIJKGWOUUCYTUUDU
-      UAAWQTZUUCYTWPBWRTUUQDABFWSWTHAGIJKMABMEFDXAXBWTMLGBMEXCXDXEXFXG $.
-      $( [6-Jun-2008] $)
+      ( vj vf vk vx cv cfv co clt wral cn crp chil wcel wa cmv cno wbr cuz wrex
+      cmap crab cab ccau cca df-rab df-hcau elin ancom wf wb hlex nnex elmap c1
+      cin imsbai nnuz cme cnv imsmet ax-mp cz 1z eqidd id iscauf ffvelrn adantr
+      a1i wceq uztrn2 sylan2 anassrs h2hmetdval syl2anc breq1d ralbidva ralbidv
+      rexbidva bitrd sylbi pm5.32i 3bitri abbi2i 3eqtr4i ) GKZHKZLZIKZWMLZUAMUB
+      LZJKZNUCZIWLUDLZOZGPUEZJQOZHRPUFMZUGWMXDSZXCTZHUHUIAUJLZXDVAZXCHXDUKJGIHU
+      LXFHXHWMXHSWMXGSZXETXEXITXFWMXGXDUMXIXEUNXEXIXCXEPRWMUOZXIXCUPRPWMBREUQUR
+      USXJXIWNWPAMZWRNUCZIWTOZGPUEZJQOXCXJJWPWNAGIWMUTRPABREFDVBVCAVDSZXJBVESXO
+      DABFVFVGVOUTVHSXJVIVOXJWOPSZTWPVJXJWLPSZTZWNVJXJVKVLXJXNXBJQXJXMXAGPXRXLW
+      SIWTXRWOWTSZTZXKWQWRNXTWNRSZWPRSZXKWQVPXRYAXSPRWLWMVMVNXJXQXSYBXQXSTXJXPY
+      BUTWOWLPVCVQPRWOWMVMVRVSWNWPABCDEFVTWAWBWCWEWDWFWGWHWIWJWK $.
+      $( [13-May-2014] $) $( [6-Jun-2008] $)
   $}
 
   ${
-    $d x y z U $.  $d f w x y z D $.
+    $d f x y J $.  $d f j k x y D $.
     h2hl.1 $e |- U = <. <. +h , .h >. , normh >. $.
     h2hl.2 $e |- U e. NrmCVec $.
-    h2hl.4 $e |- ~H = ( BaseSet ` U ) $.
-    h2hl.3 $e |- D = ( IndMet ` U ) $.
-    $( The limit sequences of Hilbert space. $)
-    h2hlm $p |- ~~>v = ( ( ~~>m ` D ) |` ( ~H ^m NN ) ) $=
-      ( vf vw vx vy vz cn chil cv wcel wa clt wbr wral wss wf cc0 cle cfv co wi
-      cmv cno wrex cr copab cc cxp cz w3a cmap cres chli clm ffvelrn h2hmetdval
-      wb breq1d ibar adantr bitr3d sylan an32s imbi2d ralbidva rexbidv cuz nnuz
-      c1 eqimss2i nnssz cvg3i syl6bbr ralbidv pm5.32da fssxp nnsscn ssid xpss12
-      mp2an sstr sylancl biantrurd bitrd 3anass pm5.32i anass hlex elmap anbi1i
-      1z nnex 3bitr4i opabbii resopab eqtr4i df-hlim wceq cme cnv imsmet imsbai
-      ax-mp lmfval reseq1 3eqtr4i ) LMGNZUAZHNZMOZPZUBINZQRZJNKNZUCRZXSXLUDZXNU
-      GUEUHUDZXQQRZUFZKLSZJLUIZUFZIUJSZPZGHUKZXLULMUMZTZXOXRXTYAMOZYAXNAUEZXQQR
-      ZPZUFZKUNSJUNUIZUFZIUJSZUOZGHUKZMLUPUEZUQZURAUSUDZUUCUQZYJXLUUCOZUUAPZGHU
-      KUUDYIUUHGHXMXOYHPZPXMUUAPYIUUHXMUUIUUAXMUUIYLXOYTPZPZUUAXMUUIUUJUUKXMXOY
-      HYTXPYGYSIUJXPYFYRXRXPYFYQKLSZJLUIYRXPYEUULJLXPYDYQKLXPXSLOZPYCYPXTXMUUMX
-      OYCYPVBZXMUUMPYMXOUUNLMXSXLUTYMXOPZYOYCYPUUOYNYBXQQYAXNABCDEFVAVCYMYOYPVB
-      XOYMYOVDVEVFVGVHVIVJVKYPJKVNVNLLWPLVNVLUDVMVOZVPWPUUPVPVQVRVIVSVTXMYLUUJX
-      MXLLMUMZTUUQYKTZYLLMXLWALULTMMTUURWBMWCLULMMWDWEXLUUQYKWFWGWHWIYLXOYTWJVR
-      WKXMXOYHWLUUGXMUUAMLXLBMEWMWQWNWOWRWSUUAGHUUCWTXAIJKHGXBUUEUUBXCZUUFUUDXC
-      AXDOZUUSBXEOUUTDABFXFXHIHAGJKMABMEFDXGXIXHUUEUUBUUCXJXHXK $.
-      $( [6-Jun-2008] $)
+    h2hl.3 $e |- ~H = ( BaseSet ` U ) $.
+    h2hl.4 $e |- D = ( IndMet ` U ) $.
+    h2hl.5 $e |- J = ( MetOpen ` D ) $.
+    $( The limit sequences of Hilbert space.  (Revised by Mario Carneiro,
+       13-May-2014.) $)
+    h2hlm $p |- ~~>v = ( ( ~~>t ` J ) |` ( ~H ^m NN ) ) $=
+      ( vf vx vk vy vj chli cfv chil cn cv wcel wa wrel clm cmap co cres wf cmv
+      wceq cno clt wbr cuz wral wrex crp df-hlim relopabi relres cop hlex elmap
+      nnex anbi1i df-br c1 cvv h2hmetba cme cnv imsmet ax-mp a1i vex nnuz cz 1z
+      eqidd id lmmbrf wb uztrn2 ffvelrn h2hmetdval sylan breq1d sylan2 ralbidva
+      an32s anassrs rexbidva ralbidv pm5.32da bitrd syl5bbr pm5.32i anass ancom
+      bitr2i 3bitr4i copab eleq2i opabid bitri opelres eqrelriv mp2an ) NUACUBO
+      ZPQUCUDZUEZUANXIUHQPIRZUFZJRZPSZTZKRZXJOZXLUGUDUIOZLRZUJUKZKMRZULOZUMZMQU
+      NZLUOUMZTZIJNLMKJIUPZUQXGXHURIJNXIYEXJXLUSZXGSZXJXHSZTZYGNSZYGXISXKXMYDTZ
+      TZYIYHTZYEYJYNXKYHTYMYIXKYHPQXJBPFUTVBVAVCXKYHYLYHXJXLXGUKZXKYLXJXLXGVDXK
+      YOXMXPXLAUDZXRUJUKZKYAUMZMQUNZLUOUMZTYLXKLXPAXLMKXJCVEVFPQABDEFGVGHAVHSZX
+      KBVISUUAEABGVJVKVLXLVFSXKJVMZVLVNVEVOSXKVPVLXKXOQSZTZXPVQXKVRVSXKXMYTYDXN
+      YSYCLUOXNYRYBMQXNXTQSZTYQXSKYAXNUUEXOYASZYQXSVTZUUEUUFTXNUUCUUGVEXOXTQVNW
+      AXKUUCXMUUGUUDXMTYPXQXRUJUUDXPPSXMYPXQUHQPXOXJWBXPXLABDEFGWCWDWEWHWFWIWGW
+      JWKWLWMWNWOWRXKXMYDWPYHYIWQWSYKYGYEIJWTZSYENUUHYGYFXAYEIJXBXCXJXLXGXHUUBX
+      DWSXEXF $.
+      $( [13-May-2014] $) $( [6-Jun-2008] $)
   $}
 

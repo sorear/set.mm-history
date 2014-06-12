@@ -12,138 +12,194 @@ $)
   csu $a class sum_ k e. A B $.
 
   ${
-    $d k m n x y $.  $d A m n x y $.  $d B m n x y $.  $d C m n x y $.
+    $d k f m n x $.  $d A f m n x $.  $d B f m n x $.
     $( Define the sum of a series with an index set of integers ` A ` . ` k `
        is normally a free variable in ` B ` , i.e. ` B ` can be thought of as
-       ` B ( k ) ` .  The definition is meaningful when ` A ` is a finite set
-       of sequential integers (representing a finite sum over them) or a set of
-       upper integers (representing an infinite sum, when the sum converges).
-       The left-hand side of the union expresses the finite sum case, and the
-       right-hand side expresses the infinite sum case.  In either case, the
-       other side of the union equals the empty set.  Examples:
-       ` sum_ k e. ( 2 ... 4 ) ` ` k ` means 2 + 3 + 4 = 9, and
-       ` sum_ k e. NN ` ` ( 1 / ( 2 ^ k ) ) ` means 1/2 + 1/4 + 1/8 + ... = 1.
-       Note 1:  The restrictions to ` ZZ ` force the class abstractions to be
-       sets.  Note 2:  This definition is complex because it is "overloaded"
-       with both finite and infinite sums as disjoint sets.  An advantage is
-       that equality theorems, for example, need to be proved only once for
-       both cases. $)
-    df-sum $a |- sum_ k e. A B = (
-                     { x | E. m E. n e. ( ZZ>= ` m ) ( A = ( m ... n )
-   /\ x e. ( ( <. m , + >. seqz ( { <. k , y >. | y = B } |` ZZ ) ) ` n ) ) }
-   u. U. { x | E. m e. ZZ ( A = ( ZZ>= ` m ) /\
-    ( <. m , + >. seqz ( { <. k , y >. | y = B } |` ZZ ) ) ~~> x ) } ) $.
+       ` B ( k ) ` .  This definition is the result of a collection of
+       discussions over the most general definition for a sum that does not
+       need the index set to have a specified ordering.  This definition is in
+       two parts, one for finite sums and one for subsets of the upper
+       integers.  When summing over a subset of the upper integers, we extend
+       the index set to the upper integers by adding zero outside the domain,
+       and then sum the set in order, setting the result to the limit of the
+       partial sums, if it exists.  This means that conditionally convergent
+       sums can be evaluated meaningfully.  For finite sums, we are explicitly
+       order-independent, by picking any bijection to a 1-based finite sequence
+       and summing in the induced order.  These two methods of summation
+       produce the same result on their common region of definition (i.e.
+       finite subsets of the upper integers) by ~ summo .  Examples:
+       ` sum_ k e. { 1 , 2 , 4 } ` ` k ` means ` 1 + 2 + 4 = 7 ` , and
+       ` sum_ k e. NN ` ` ( 1 / ( 2 ^ k ) ) ` means 1/2 + 1/4 + 1/8 + ... =
+       1. $)
+    df-sum $a |- sum_ k e. A B = ( iota x ( E. m e. ZZ ( A C_ ( ZZ>= ` m ) /\
+      seq m ( + , ( k e. ZZ |-> if ( k e. A , B , 0 ) ) ) ~~> x ) \/
+      E. m e. NN E. f ( f : ( 1 ... m ) -1-1-onto-> A /\
+       x = ( seq 1 ( + , ( n e. NN |-> [_ ( f ` n ) / k ]_ B ) ) ` m ) ) ) ) $.
 
-    $( A sum is a set. $)
+    $( A sum is a set.  (Revised by Mario Carneiro, 13-Jul-2013.) $)
     sumex $p |- sum_ k e. A B e. _V $=
-      ( vm vn vx vy cv co wceq cz wcel wa wrex cab cvv zex abrexex2 eqeltri cc
-      csu cfz caddc cop copab cres cseqz cfv cuz wex cli wbr cuni df-sum 2rexuz
-      cun cle abbii fvex anass ancom bitr3i ssab2 eqsstri ssexi cnex vex climcl
-      abid2 mpan adantl ss2abi uniex unex ) ABCUAADHZEHZUBIJZFHZVPVOUCUDGHBJCGU
-      EKUFUGIZUHZLZMZEVOUIUHZNDUJZFOZAWCJZVSVRUKULZMZDKNFOZUMZUPPFGABCDEUNWEWJW
-      EVOVPUQULZWBMZEKNZDKNZFOPWDWNFWBDEUOURWMDFKQWLEFKQWLFOZVTVPVSUSWOWAWKVQMZ
-      MZFOVTWLWQFWLWPWAMWQWKVQWAUTWPWAVAVBURWPFVTVCVDVERRSWIWHDFKQWHFOVRTLZFOZW
-      STPFTVIVFSWHWRFWGWRWFVRPLWGWRFVGVRPVSVHVJVKVLVERVMVNS $.
-      $( [11-Dec-2005] $)
+      ( vm vx vf vn csu cv cuz cfv wss caddc cz cmpt cseq wa wrex c1 cn cc0 cif
+      wcel cli wbr cfz co wf1o csb wceq wex wo cio cvv df-sum iotaex eqeltri )
+      ABCHADIZJKLMCNCIAUCBUAUBOURPEIZUDUEQDNRSURUFUGAFIZUHUSURMGTCGIUTKBUIOSPKU
+      JQFUKDTRULZEUMUNEABFCDGUOVAEUPUQ $.
+      $( [13-Jul-2013] $) $( [11-Dec-2005] $)
 
-    $( Equality theorem for a sum. $)
+    $d C f m n x $.
+    sumeq1f.1 $e |- ( x e. A -> A. k x e. A ) $.
+    sumeq1f.2 $e |- ( x e. B -> A. k x e. B ) $.
+    $( Equality theorem for a sum.  (Revised by Mario Carneiro,
+       13-Jul-2013.) $)
+    sumeq1f $p |- ( A = B -> sum_ k e. A C = sum_ k e. B C ) $=
+      ( vm vf vn cv cfv caddc cz wcel cc0 cmpt wa wrex cn wceq cuz wss cif cseq
+      cli wbr c1 cfz co wf1o csb wex wo cio csu sseq1 hbeq simpl ifbid mpteq2da
+      eleq2d seqeq3d breq1d anbi12d rexbidv f1oeq3 anbi1d exbidv orbi12d df-sum
+      iotabidv 3eqtr4g ) BCUAZBHKZUBLZUCZMENEKZBOZDPUDZQZVOUEZAKZUFUGZRZHNSZUHV
+      OUIUJZBIKZUKZWCVOMJTEJKWHLDULQUHUELUAZRZIUMZHTSZUNZAUOCVPUCZMENVRCOZDPUDZ
+      QZVOUEZWCUFUGZRZHNSZWGCWHUKZWJRZIUMZHTSZUNZAUOBDEUPCDEUPVNWNXGAVNWFXBWMXF
+      VNWEXAHNVNVQWOWDWTBCVPUQVNWBWSWCUFVNWAWRMVOVNENVTWQEAABCFGURVNVRNOZRZVSWP
+      DPXIBCVRVNXHUSVBUTVAVCVDVEVFVNWLXEHTVNWKXDIVNWIXCWJBCWGWHVGVHVIVFVJVLABDI
+      EHJVKACDIEHJVKVM $.
+      $( [13-Jul-2013] $) $( [11-Dec-2005] $)
+  $}
+
+  ${
+    $d A k x $.  $d B k x $.  $d C x $.
+    $( Equality theorem for a sum.  (Revised by Mario Carneiro,
+       13-Jul-2013.) $)
     sumeq1 $p |- ( A = B -> sum_ k e. A C = sum_ k e. B C ) $=
-      ( vm vn vx vy wceq cv co cz cfv wa wrex wex cab cuni cun csu cfz cop cres
-      caddc copab cseqz wcel cuz cli eqeq1 anbi1d rexbidv exbidv abbidv uneq12d
-      wbr unieqd df-sum 3eqtr4g ) ABIZAEJZFJZUAKZIZGJZVBVAUDUBHJCIDHUELUCUFKZMU
-      GZNZFVAUHMZOZEPZGQZAVIIZVFVEUIUPZNZELOZGQZRZSBVCIZVGNZFVIOZEPZGQZBVIIZVNN
-      ZELOZGQZRZSACDTBCDTUTVLWCVRWHUTVKWBGUTVJWAEUTVHVTFVIUTVDVSVGABVCUJUKULUMU
-      NUTVQWGUTVPWFGUTVOWEELUTVMWDVNABVIUJUKULUNUQUOGHACDEFURGHBCDEFURUS $.
-      $( [11-Dec-2005] $)
+      ( vx cv wcel ax-17 sumeq1f ) EABCDEFZAGDHJBGDHI $.
+      $( [13-Jul-2013] $) $( [11-Dec-2005] $)
   $}
 
   ${
-    $d m n x y z A $.  $d m n x y z B $.  $d m n x y z k $.
+    $d f k m n x y A $.  $d f m n x y B $.
     hbsum1.1 $e |- ( x e. A -> A. k x e. A ) $.
-    $( Bound-variable hypothesis builder for sum. $)
+    $( Bound-variable hypothesis builder for sum.  (Revised by Mario Carneiro,
+       13-Jul-2013.) $)
     hbsum1 $p |- ( x e. sum_ k e. A B -> A. k x e. sum_ k e. A B ) $=
-      ( vm vn vy vz cv co wceq cz cseqz cfv wcel wa wrex cli ax-17 csu cfz cres
-      caddc cop copab cuz wex cab wbr cuni df-sum hbeq hbopab1 hbres hbopr hbfv
-      cun hban hbrex hbex hbab hbbr hbuni hbun hbxfreq ) DABCDUABFJZGJZUBKZLZHJ
-      ZVHVGUDUEZIJCLZDIUFZMUCZNKZOPZQZGVGUGOZRZFUHZHUIZBVSLZVPVKSUJZQZFMRZHUIZU
-      KZURHIBCDFGULDAWBWHWADHAVTDFVRDGVSVHVSPDTVJVQDDAABVIEAJZVIPDTUMDHVHVPDHVL
-      VONVKVLPDTVKNPDTDHVNMVMDIHUNVKMPDTUOUPVKVHPDTUQUSUTVAVBDAWGWFDHAWEDFMVGMP
-      DTWCWDDDAABVSEWIVSPDTUMDGVPVKSDGVLVONVHVLPDTVHNPDTDGVNMVMDIGUNVHMPDTUOUPV
-      HSPDTVHVKPDTVCUSUTVBVDVEVF $.
-      $( [11-Dec-2005] $)
+      ( vm vy vf vn cv cfv caddc cz wcel cmpt cseq cli c1 cn ax-17 csu cuz wrex
+      wss cc0 cif wbr wa cfz co wf1o csb wceq wex wo cio df-sum hbseq hbbr hban
+      hbmpt1 hbrex fvex hbcsb1 hbmpt hbfv hbeq hbex hbor hbiota hbxfreq ) DABCD
+      UABFJZUBKUDZLDMDJBNCUEUFZOZVLPZGJZQUGZUHZFMUCZRVLUIUJBHJZUKZVQVLLISDIJZWA
+      KZCULZOZRPZKZUMZUHZHUNZFSUCZUOZGUPGBCHDFIUQWMDGAVTWLDVSDFMVLMNDTVMVRDVMDT
+      DAVPVQQDALVOVLAJZVLNDTZWNLNDTZDAMVNVAURWNQNDTWNVQNDTZUSUTVBWKDFSVLSNDTWJD
+      HWBWIDWBDTDAAVQWHWQDAVLWGDALWFRWNRNDTWPDIASWEWNSNDTDAWDCWCWAVCWNWDNDTVDVE
+      URWOVFVGUTVHVBVIVJVK $.
+      $( [13-Jul-2013] $) $( [11-Dec-2005] $)
   $}
 
   ${
-    $d m n w y z A $.  $d m n w y z B $.  $d k m n w x y z $.
+    $d f k m n x y z $.  $d f m n y z A $.  $d f m n y z B $.
     hbsum.1 $e |- ( y e. A -> A. x y e. A ) $.
     hbsum.2 $e |- ( y e. B -> A. x y e. B ) $.
     $( Bound-variable hypothesis builder for sum: if ` x ` is (effectively) not
-       free in ` A ` and ` B ` , it is not free in ` sum_ k e. A B ` . $)
+       free in ` A ` and ` B ` , it is not free in ` sum_ k e. A B ` .
+       (Revised by Mario Carneiro, 13-Jul-2013.) $)
     hbsum $p |- ( y e. sum_ k e. A B -> A. x y e. sum_ k e. A B ) $=
-      ( vm vn vz vw cv co wceq cz cseqz wcel cli ax-17 hbeq csu cfz caddc copab
-      cop cres cfv cuz wrex wex cab wbr cuni cun df-sum hbopab hbres hbopr hbfv
-      wa hban hbrex hbex hbab hbbr hbuni hbun hbxfreq ) ABCDEUACHLZILZUBMZNZJLZ
-      VJVIUCUEZKLZDNZEKUDZOUFZPMZUGQZUTZIVIUHUGZUIZHUJZJUKZCWBNZVSVMRULZUTZHOUI
-      ZJUKZUMZUNJKCDEHIUOABWEWKWDAJBWCAHWAAIWBVJWBQASVLVTAABBCVKFBLZVKQASTAJVJV
-      SAJVNVRPVMVNQASVMPQASAJVQOVPEKAJABBVODWLVOQASGTZUPVMOQASUQURVMVJQASUSVAVB
-      VCVDABWJWIAJBWHAHOVIOQASWFWGAABBCWBFWLWBQASTABVSVMRABVNVRPWLVNQASWLPQASAB
-      VQOVPEKABWMUPWLOQASUQURWLRQASWLVMQASVEVAVBVDVFVGVH $.
-      $( [11-Dec-2005] $)
+      ( vm vz vf vn cv cfv caddc cz wcel cc0 c1 cn ax-17 csu cuz wss cif cli wa
+      cmpt cseq wbr wrex cfz co wf1o csb wceq wex wo cio df-sum hbss hbel hbmpt
+      hbif hbseq hbbr hban hbrex hbf1o cvv wal fvex hbcsbg ax-mp hbfv hbeq hbex
+      wi hbor hbiota hbxfreq ) ABCDEUACHLZUBMZUCZNEOELZCPZDQUDZUGZWAUHZILZUEUIZ
+      UFZHOUJZRWAUKULZCJLZUMZWIWANKSEKLZWNMZDUNZUGZRUHZMZUOZUFZJUPZHSUJZUQZIURI
+      CDJEHKUSXFAIBWLXEAWKAHOWAOPATWCWJAABCWBFBLZWBPATUTABWHWIUEABNWGWAXGWAPATZ
+      XGNPATZAEBOWFXGOPATWEABDQABBWDCXGWDPATFVAGXGQPATVCVBVDXGUEPATXGWIPATZVEVF
+      VGXDAHSWASPATXCAJWOXBAABWMCWNXGWNPATXGWMPATFVHABBWIXAXJABWAWTABNWSRXGRPAT
+      XIAKBSWRXGSPATWQVIPXGWRPZXKAVJVQWPWNVKAEBWQDVIXGWQPATGVLVMVBVDXHVNVOVFVPV
+      GVRVSVT $.
+      $( [13-Jul-2013] $) $( [11-Dec-2005] $)
   $}
 
   ${
-    $d k m n x y A $.  $d m n x y B $.  $d m n x y C $.
-    $( Equality theorem for sum. $)
+    $d f k m n x A $.  $d f m n x B $.  $d f m n x C $.
+    $( Equality theorem for sum, with the class expressions ` B ` and ` C `
+       guarded by ` _I ` to be always sets.  (Contributed by Mario Carneiro,
+       29-Mar-2014.) $)
+    sumeq2ii $p |- ( A. k e. A ( _I ` B ) = ( _I ` C ) ->
+                   sum_ k e. A B = sum_ k e. A C ) $=
+      ( vm vx vf vn cid cfv wceq cv caddc cz wcel cmpt wa cn csb eqid wral cseq
+      cuz wss cc0 cif cli wbr wrex c1 cfz co wf1o wex wo cio csu simpr hbra1 wi
+      adantr ifeq1 syl6 wn iffalse eqtr4d pm2.61d1 fvif 3eqtr4g mpteq2da fveq1d
+      ra4 fvmptex adantlr seqfeq breq1d anbi2d rexbidva simplr nnuz syl6eleq wf
+      f1of ffvelrn syl2anc simplll fvex ax-17 hbcsb1 hbeq csbeq1a eqeq12d rcla4
+      ad2antlr cvv csbfv2g ax-mp 3eqtr3g elfznn adantl fveq2 csbeq1d fvmpti syl
+      sylc 3eqtr4d seqfveq eqeq2d pm5.32da exbidv orbi12d iotabidv df-sum ) BIJ
+      ZCIJZKZDAUAZAELZUCJZUDZMDNDLZAOZBUEUFZPZXRUBZFLZUGUHZQZENUIZUJXRUKULZAGLZ
+      UMZYFXRMHRDHLZYKJZBSZPZUJUBJZKZQZGUNZERUIZUOZFUPXTMDNYBCUEUFZPZXRUBZYFUGU
+      HZQZENUIZYLYFXRMHRDYNCSZPZUJUBJZKZQZGUNZERUIZUOZFUPABDUQACDUQXQUUBUUPFXQY
+      IUUHUUAUUOXQYHUUGENXQXRNOZQZYGUUFXTUURYEUUEYFUGUURMFYDUUDXRXQUUQURXQYFXSO
+      ZYFYDJZYFUUDJZKUUQXQUUSQZYFDNYCIJZPZJYFDNUUCIJZPZJUUTUVAUVBYFUVDUVFXQUVDU
+      VFKUUSXQDNUVCUVEXPDAUSXQYANOZQZYBXNUEIJZUFZYBXOUVIUFZUVCUVEUVHYBUVJUVKKZU
+      VHYBXPUVLXQYBXPUTUVGXPDAVLVAYBXNXOUVIVBVCYBVDUVJUVIUVKYBXNUVIVEYBXOUVIVEV
+      FVGYBBUEIVHYBCUEIVHVIVJVAVKDNYCYFYDUVDYDTUVDTVMDNUUCYFUUDUVFUUDTUVFTVMVIV
+      NVOVPVQVRXQYTUUNERXQXRROZQZYSUUMGUVNYLYRUULUVNYLQZYQUUKYFUVOMFYPUUJUJXRUV
+      OXRRUJUCJXQUVMYLVSVTWAUVOYFYJOZQZDYFYKJZBSZIJZDUVRCSZIJZYFYPJZYFUUJJZUVQD
+      UVRXNSZDUVRXOSZUVTUWBUVQUVRAOZXQUWEUWFKZUVQYJAYKWBZUVPUWGYLUWIUVNUVPYJAYK
+      WCWNUVOUVPURYJAYFYKWDWEXQUVMYLUVPWFXPUWHDUVRADEEUWEUWFDEUVRXNYFYKWGZXRUVR
+      ODWHZWIDEUVRXOUWJUWKWIWJYAUVRKXNUWEXOUWFDUVRXNWKDUVRXOWKWLWMXEUVRWOOZUWEU
+      VTKUWJDUVRBWOIWPWQUWLUWFUWBKUWJDUVRCWOIWPWQWRUVQYFROZUWCUVTKUVPUWMUVOYFXR
+      WSWTZHYFYOUVSRYPYMYFKZDYNUVRBYMYFYKXAZXBYPTXCXDUVQUWMUWDUWBKUWNHYFUUIUWAR
+      UUJUWODYNUVRCUWPXBUUJTXCXDXFXGXHXIXJVRXKXLFABGDEHXMFACGDEHXMVI $.
+      $( [13-Jul-2013] $) $( [11-Dec-2005] $)
+  $}
+
+  ${
+    $d f k m n x A $.  $d f m n x B $.  $d f m n x C $.
+    $( Equality theorem for sum.  (Revised by Mario Carneiro, 13-Jul-2013.) $)
     sumeq2 $p |- ( A. k e. A B = C -> sum_ k e. A B = sum_ k e. A C ) $=
-      ( vm vn vx vy wceq co cz cres cseqz cfv wcel wa fvres cvv resfunexg mp2an
-      wral cv cfz caddc cop copab cuz wrex wex cab cli wbr cuni cun hbra1 ax-17
-      csu ra4 imp eqeq2d pm5.32da opabbid resopab 3eqtr4g adantr reseq2 3eqtr3d
-      adantl opreq2d fveq1d adantlr elfzelz syl eqtr4d rgen addex funopabeq zex
-      wfun oprex seqzfveq mpan2 ad2antlr 3eqtr4d eleq2d rexbidva exbidv eluzelz
-      abbidv fvex seqzeq breq1d unieqd uneq12d df-sum ) BCIZDAUAZAEUBZFUBZUCJZI
-      ZGUBZWSWRUDUEZHUBZBIZDHUFZKLZMJZNZOZPZFWRUGNZUHZEUIZGUJZAXLIZXHXBUKULZPZE
-      KUHZGUJZUMZUNXAXBWSXCXDCIZDHUFZKLZMJZNZOZPZFXLUHZEUIZGUJZXPYEXBUKULZPZEKU
-      HZGUJZUMZUNABDUQACDUQWQXOYKYAYPWQXNYJGWQXMYIEWQXKYHFXLWQWSXLOZPZXAXJYGYRX
-      APZXIYFXBYSWSXCXFWTLZMJZNZWSXCYCWTLZMJZNZXIYFWQXAUUBUUEIYQWQXAPZWSUUAUUDU
-      UFYTUUCXCMUUFXFALZYCALZYTUUCWQUUGUUHIZXAWQDUBAOZXEPZDHUFUUJYBPZDHUFUUGUUH
-      WQUUKUULDHWPDAUOWQHUPWQUUJXEYBWQUUJPBCXDWQUUJWPWPDAURUSUTVAVBXEDHAVCYBDHA
-      VCVDZVEXAUUGYTIWQAWTXFVFVHXAUUHUUCIWQAWTYCVFVHVGVIVJVKYQXIUUBIZWQXAYQXBXG
-      NZXBYTNZIZGWTUAUUNUUQGWTXBWTOZUUOXBXFNZUUPUURXBKOZUUOUUSIZXBWRWSVLZXBKXFQ
-      ZVMXBWTXFQVNVOUDGXGYTWRWSVPXFVSZKROZXGRODHBVQZVRXFKRSTZUVDWTROZYTROUVFWRW
-      SUCVTZXFWTRSTWAWBWCYQYFUUEIZWQXAYQXBYDNZXBUUCNZIZGWTUAUVJUVMGWTUURUVKXBYC
-      NZUVLUURUUTUVKUVNIZUVBXBKYCQZVMXBWTYCQVNVOUDGYDUUCWRWSVPYCVSZUVEYDRODHCVQ
-      ZVRYCKRSTZUVQUVHUUCROUVRUVIYCWTRSTWAWBWCWDWEVAWFWGWIWQXTYOWQXSYNGWQXRYMEK
-      WQWRKOZPZXPXQYLUWAXPPZXHYEXBUKUWBXCXFXLLZMJZXCYCXLLZMJZXHYEWQXPUWDUWFIUVT
-      WQXPPZUWCUWEXCMUWGUUGUUHUWCUWEWQUUIXPUUMVEXPUUGUWCIWQAXLXFVFVHXPUUHUWEIWQ
-      AXLYCVFVHVGVIVKUVTXHUWDIZWQXPUVTUUOXBUWCNZIZGXLUAUWHUWJGXLXBXLOZUUOUUSUWI
-      UWKUUTUVAWRXBWHZUVCVMXBXLXFQVNVOUDGXGUWCWRVPUVGUVDXLROZUWCROUVFWRUGWJZXFX
-      LRSTWKWBWCUVTYEUWFIZWQXPUVTUVKXBUWENZIZGXLUAUWOUWQGXLUWKUVKUVNUWPUWKUUTUV
-      OUWLUVPVMXBXLYCQVNVOUDGYDUWEWRVPUVSUVQUWMUWEROUVRUWNYCXLRSTWKWBWCWDWLVAWF
-      WIWMWNGHABDEFWOGHACDEFWOVD $.
-      $( [11-Dec-2005] $)
+      ( wceq wral cid cfv csu fveq2 ralimi sumeq2ii syl ) BCEZDAFBGHCGHEZDAFABD
+      IACDIENODABCGJKABCDLM $.
+      $( [13-Jul-2013] $) $( [11-Dec-2005] $)
   $}
 
   ${
-    $d m n x y A $.  $d m n x y B $.  $d m n x y C $.  $d j m n x y $.
-    $d k m n x y $.
-    cbvsum.1 $e |- ( x e. B -> A. k x e. B ) $.
-    cbvsum.2 $e |- ( x e. C -> A. j x e. C ) $.
-    cbvsum.3 $e |- ( j = k -> B = C ) $.
+    $d f j k m n x $.  $d f m n x A $.  $d f m n x B $.  $d f m n x C $.
+    cbvsum.1 $e |- ( j = k -> B = C ) $.
+    ${
+      cbvsum.2 $e |- ( x e. A -> A. k x e. A ) $.
+      cbvsum.3 $e |- ( x e. A -> A. j x e. A ) $.
+      cbvsum.4 $e |- ( x e. B -> A. k x e. B ) $.
+      cbvsum.5 $e |- ( x e. C -> A. j x e. C ) $.
+      $( Change bound variable in a sum.  (Contributed by Mario Carneiro,
+         13-Jul-2013.) $)
+      cbvsum $p |- sum_ j e. A B = sum_ k e. A C $=
+        ( vm vf vn wcel cc0 wa cn wceq wtru cuz cfv wss caddc cif cmpt cseq cli
+        cv cz wbr wrex c1 cfz co wf1o csb wex wo cio csu ax-17 hbel eleq1 eqidd
+        hbif ifbieq12d cbvmpt a1i seqeq3d breq1d anbi2d rexbidv cab hban eleq2d
+        eqeq1 anbi12d cbvex fvex 3eqtr4i mpteq2dva fveq1d eqeq2d exbidv orbi12d
+        abbii csb2 iotabidv trud df-sum ) BLUIZUAUBUCZUDEUJEUIZBOZCPUEZUFZWLUGZ
+        AUIZUHUKZQZLUJULZUMWLUNUOBMUIZUPZWSWLUDNRENUIZXCUBZCUQZUFZUMUGZUBZSZQZM
+        URZLRULZUSZAUTZWMUDFUJFUIZBOZDPUEZUFZWLUGZWSUHUKZQZLUJULZXDWSWLUDNRFXFD
+        UQZUFZUMUGZUBZSZQZMURZLRULZUSZAUTZBCEVABDFVAXPYNSTXOYMATXBYDXNYLTXAYCLU
+        JTWTYBWMTWRYAWSUHTWQXTUDWLWQXTSTEFAUJWPXSWOFACPFAAWNBWSWNOFVBHVCJWSPOZF
+        VBVFXREADPEAAXQBWSXQOEVBIVCKYOEVBVFWNXQSZWOXRCPDPWNXQBVDGYPPVEVGVHVIVJV
+        KVLVMTXMYKLRTXLYJMTXKYIXDTXJYHWSTWLXIYGTXHYFUDUMTNRXGYEXGYESTXEROQWNXFS
+        ZWSCOZQZEURZAVNXQXFSZWSDOZQZFURZAVNXGYEYTUUDAYSUUCEFYQYRFYQFVBJVOUUAUUB
+        EUUAEVBKVOYPYQUUAYRUUBWNXQXFVQYPCDWSGVPVRVSWGEAXFCXEXCVTZWHFAXFDUUEWHWA
+        VIWBVJWCWDVLWEVMWFWIWJABCMELNWKABDMFLNWKWA $.
+        $( [15-Jul-2013] $) $( [11-Dec-2005] $)
+    $}
+
+    $d A j k $.  $d B k $.  $d C j $.
+    $( Change bound variable in a sum.  (Contributed by Mario Carneiro,
+       13-Jul-2013.) $)
+    cbvsumv $p |- sum_ j e. A B = sum_ k e. A C $=
+      ( vx cv wcel ax-17 cbvsum ) GABCDEFGHZAIZEJMDJLBIEJLCIDJK $.
+      $( [13-Jul-2013] $) $( [11-Dec-2005] $)
+  $}
+
+  ${
+    $d j k x A $.  $d x B $.  $d x C $.
+    cbvsumi.1 $e |- ( x e. B -> A. k x e. B ) $.
+    cbvsumi.2 $e |- ( x e. C -> A. j x e. C ) $.
+    cbvsumi.3 $e |- ( j = k -> B = C ) $.
     $( Change bound variable in a sum. $)
     cbvsumi $p |- sum_ j e. A B = sum_ k e. A C $=
-      ( vm vn vy cv co wceq cz cseqz wa wrex cab cfz caddc cop cres cfv cuz wex
-      copab wcel cli wbr cuni cun csu hbeleq eqeq2d reseq1 ax-mp opreq2i fveq1i
-      cbvopab1 eleq2i anbi2i rexbii exbii breq1i unieqi uneq12i df-sum 3eqtr4i
-      abbii ) BJMZKMZUANOZLMZVMVLUBUCZAMZCOZEAUHZPUDZQNZUEZUIZRZKVLUFUEZSZJUGZL
-      TZBWEOZWAVOUJUKZRZJPSZLTZULZUMVNVOVMVPVQDOZFAUHZPUDZQNZUEZUIZRZKWESZJUGZL
-      TZWIWRVOUJUKZRZJPSZLTZULZUMBCEUNBDFUNWHXDWNXIWGXCLWFXBJWDXAKWEWCWTVNWBWSV
-      OVMWAWRVTWQVPQVSWPOVTWQOVRWOEAFFACGUOEADHUOEMFMOCDVQIUPVAVSWPPUQURUSZUTVB
-      VCVDVEVKWMXHWLXGLWKXFJPWJXEWIWAWRVOUJXJVFVCVDVKVGVHLABCEJKVILABDFJKVIVJ
-      $.
+      ( cv wcel ax-17 cbvsum ) ABCDEFIAJBKZFLNELGHM $.
       $( [11-Dec-2005] $)
   $}
 
   ${
+    $d k A $.  $d k B $.
     sumeq1i.1 $e |- A = B $.
     $( Equality inference for sum. $)
     sumeq1i $p |- sum_ k e. A C = sum_ k e. B C $=
@@ -161,7 +217,7 @@ $)
   $}
 
   ${
-    $d k A $.
+    $d k A $.  $d k B $.
     sumeq12i.1 $e |- A = B $.
     sumeq12i.2 $e |- ( k e. A -> C = D ) $.
     $( Equality inference for sum.  (Contributed by FL, 10-Dec-2006.) $)
@@ -171,6 +227,7 @@ $)
   $}
 
   ${
+    $d k A $.  $d k B $.
     sumeq1d.1 $e |- ( ph -> A = B ) $.
     $( Equality deduction for sum. $)
     sumeq1d $p |- ( ph -> sum_ k e. A C = sum_ k e. B C ) $=
@@ -193,8 +250,8 @@ $)
     sumeq2dv.1 $e |- ( ( ph /\ k e. A ) -> B = C ) $.
     $( Equality deduction for sum. $)
     sumeq2dv $p |- ( ph -> sum_ k e. A B = sum_ k e. A C ) $=
-      ( wceq wral csu ralrimiva sumeq2 syl ) ACDGZEBHBCEIBDEIGAMEBFJBCDEKL $.
-      $( [3-Jan-2006] $)
+      ( wceq ralrimiva sumeq2d ) ABCDEACDGEBFHI $.
+      $( [31-Jan-2014] $) $( [3-Jan-2006] $)
   $}
 
   ${
@@ -212,14 +269,13 @@ $)
     $( Equality deduction for double sum. $)
     2sumeq2dv $p |- ( ph ->
            sum_ j e. A sum_ k e. B C = sum_ j e. A sum_ k e. B D ) $=
-      ( csu wceq wral cv wcel wa 3expa ralrimiva sumeq2 ralimi syl ) ACDGIZCEGI
-      ZJZFBKZBTFIBUAFIJADEJZGCKZFBKUCAUEFBAFLBMZNUDGCAUFGLCMUDHOPPUEUBFBCDEGQRS
-      BTUAFQS $.
-      $( [3-Jan-2006] $)
+      ( csu wceq cv wcel wa 3expa ralrimiva sumeq2d ) ABCDGIZCEGIZFAQRJFBAFKBLZ
+      MZCDEGTDEJZGCASGKCLUAHNOPOP $.
+      $( [31-Jan-2014] $) $( [3-Jan-2006] $)
   $}
 
   ${
-    $d k A $.  $d k ph $.
+    $d k A $.  $d k B $.  $d k ph $.
     sumeq12dv.1 $e |- ( ph -> A = B ) $.
     sumeq12dv.2 $e |- ( ( ph /\ k e. A ) -> C = D ) $.
     $( Equality deduction for sum. $)
@@ -229,7 +285,7 @@ $)
   $}
 
   ${
-    $d k B $.  $d k ph $.
+    $d k A $.  $d k B $.  $d k ph $.
     sumeq12rdv.1 $e |- ( ph -> A = B ) $.
     sumeq12rdv.2 $e |- ( ( ph /\ k e. B ) -> C = D ) $.
     $( Equality deduction for sum. $)
@@ -239,14 +295,1993 @@ $)
   $}
 
   ${
-    $d y A $.  $d k y B $.  $d k C $.
-    sumeqfv.1 $e |- A e. _V $.
-    sumeqfv.2 $e |- F = { <. k , y >. | ( k e. B /\ y = A ) } $.
-    $( Convert a sum of function values to a sum of classes ` A ( k ) ` . $)
-    sumeqfv $p |- ( C C_ B -> sum_ k e. C ( F ` k ) = sum_ k e. C A ) $=
-      ( wss cv cfv wcel wa wceq ssel2 copab fveq1i cvv fvopab2 mpan2 syl5eq syl
-      sumeq2dv ) DCIZDEJZFKZBEUDUEDLMUECLZUFBNDCUEOUGUFUEUGAJBNMEAPZKZBUEFUHHQU
-      GBRLUIBNGEACBRSTUAUBUC $.
-      $( [10-May-2006] $)
+    $d k A $.
+    $( The second class argument to a sum can be chosen so that it is always a
+       set.  (Contributed by Mario Carneiro, 13-Jul-2013.) $)
+    sum2id $p |- sum_ k e. A B = sum_ k e. A ( _I ` B ) $=
+      ( cid cfv wceq csu sumeq2ii cv wcel cvv fvex fvi ax-mp eqcomi a1i mprg )
+      BDEZRDEZFZABCGARCGFCAABRCHTCIAJSRRKJSRFBDLRKMNOPQ $.
+      $( [13-Jul-2013] $) $( [11-Dec-2005] $)
   $}
+
+  ${
+    $d j k x A $.  $d j x B $.
+    $( A lemma to facilitate conversions from the function form to the
+       class-variable form of a sum.  (Contributed by Mario Carneiro,
+       12-Aug-2013.) $)
+    sumfc $p |- sum_ j e. A ( ( k e. A |-> B ) ` j ) = sum_ k e. A B $=
+      ( vx cmpt cfv csu cid eqid fvmpt2i sumeq2i hbmpt1 wcel ax-17 hbfv cbvsumi
+      cv fveq2 sum2id 3eqtr4i ) ADRZDABFZGZDHABIGZDHACRZUCGZCHABDHAUDUEDDABUCUC
+      JKLEAUGUDCDDEUFUCDEABMERZUFNDOPUHUDNCOUFUBUCSQABDTUA $.
+      $( [23-Apr-2014] $) $( [12-Aug-2013] $)
+  $}
+
+  ${
+    $d f A $.
+    $( A lemma for working with finite sums.  (Contributed by Mario Carneiro,
+       22-Apr-2014.) $)
+    fz1f1o $p |- ( A e. Fin -> ( A = (/) \/ ( ( # ` A ) e. NN /\
+                   E. f f : ( 1 ... ( # ` A ) ) -1-1-onto-> A ) ) ) $=
+      ( cfn wcel chash cfv cc0 wceq cn wo c0 c1 cfz co cv wf1o wex wa cn0 mpbid
+      hashcl elnn0 sylib orcomd hash0 cen wbr hashfz1 wb fzfi hashen mpan breng
+      syl biantrud orbi12d ) ACDZAEFZGHZURIDZJAKHZUTLURMNZABOPBQZRZJUQUTUSUQURS
+      DZUTUSJAUAZURUBUCUDUQUSVAUTVDAUEUQVCUTUQVBAUFUGZVCUQVBEFURHZVGUQVEVHVFURU
+      HUNVBCDUQVHVGUILURUJVBAUKULTVBACBUMTUOUPT $.
+      $( [22-Apr-2014] $)
+  $}
+
+  ${
+    $d f g i j k m n x y A $.  $d f g j k m n x y F $.  $d g i j k m n x y G $.
+    $d i x H $.  $d i j k m n x y K $.  $d k m n N $.  $d g i j k m n y ph $.
+    $d f j m n x y B $.  $d i j k m n x y M $.
+    summo.1 $e |- F = ( k e. ZZ |-> if ( k e. A , B , 0 ) ) $.
+    summo.2 $e |- ( ( ph /\ k e. A ) -> B e. CC ) $.
+    ${
+      sumrb.3 $e |- ( ph -> N e. ( ZZ>= ` M ) ) $.
+      $( Lemma for ~ sumrb . $)
+      sumrblem $p |- ( ( ph /\ A C_ ( ZZ>= ` N ) ) ->
+                     ( seq M ( + , F ) |` ( ZZ>= ` N ) ) = seq N ( + , F ) ) $=
+        ( vx cuz cfv cc cc0 wcel wceq cz syl c1 vn wa caddc cv co addid2 adantl
+        wss 0cn a1i adantr wf iftrue eqeltrd ex iffalse syl6eqel pm2.61d1 fmptd
+        cif a1d eluzelz ffvelrn syl2anc cmin cfz cdif simpr elfzelz oprex fznuz
+        wn cvv sylancr simplr zcn ad2antrr ax-1cn npcan sylancl fveq2d sseqtr4d
+        sseld mtod eldif sylanbrc ax-17 cmpt hbmpt1 hbxfreq fveq2 eqeq1d eldifi
+        hbfv hbeq eldifn fvmpt2 eqtrd vtoclgaf seqid ) ABGLMZUHZUBZUAUCNEFGOUAU
+        DZNPOXDUCUEXDQXCXDUFUGONPXCUIUJAGFLMPZXBJUKXCRNEULZGRPZGEMNPAXFXBADRDUD
+        ZBPZCOUTZNEAXJNPZXHRPZAXIXKAXIXKAXIUBXJCNXIXJCQAXICOUMUGIUNUOXIVLZXJONX
+        ICOUPZUIUQURVAHUSUKAXGXBAXEXGJFGVBSZUKRNGEVCVDXCXDFGTVEUEZVFUEPZUBZXDRB
+        VGZPZXDEMZOQZXRXDRPZXDBPZVLXTXRXQYCXCXQVHZXDFXPVISXRYDXDXPTUCUEZLMZPZXR
+        XPVMPXQYHVLGTVEVJYEXDFXPVMVKVNXRBYGXDXRBXAYGAXBXQVOXRYFGLXRGNPZTNPYFGQA
+        YIXBXQAXGYIXOGVPSVQVRGTVSVTWAWBWCWDXDRBWEWFXHEMZOQYBDKXDXSKUDZXDPDWGZDK
+        KYAODKXDEDKEDRXJWHHDKRXJWIWJYLWNYKOPDWGWOXHXDQYJYAOXHXDEWKWLXHXSPZYJXJO
+        YMXLXKYJXJQXHRBWMYMXJONYMXMXJOQXHRBWPXNSZUIUQDRXJNEHWQVDYNWRWSSWT $.
+        $( [12-Aug-2013] $)
+
+      fsumcvg.4 $e |- ( ph -> A C_ ( M ... N ) ) $.
+      $( The sequence of partial sums of a finite sum converges to the whole
+         sum.  (Contributed by Mario Carneiro, 20-Apr-2014.) $)
+      fsumcvg $p |- ( ph -> seq M ( + , F ) ~~> ( seq M ( + , F ) ` N ) ) $=
+        ( vn caddc cfv wcel cz syl cc cc0 wceq vm cseq cvv cuz eqid eluzelz a1i
+        seqex wf eluzel2 cv wral wa cif iftrue adantl eqeltrd ex wn iffalse 0cn
+        syl6eqel pm2.61d1 fvmpt2 syl2anr adantr ralrimiva fveq2 eleq1d rcla4cva
+        sylan serf ffvelrn syl2anc co addid1 simpr c1 cfz elfzuz sseld wi fznuz
+        cdif syld con2d imp eldif sylanbrc cmpt hbmpt1 hbxfreq hbfv hbeq eqeq1d
+        ax-17 eldifi eldifn vtoclgaf sylan2 adantlr seqid2 eqcomd climconst
+        eqtrd ) AGMEFUBZNZLXFGUCGUDNZXHUEAGFUDNZOZGPOZJFGUFQZXFUCOAMEFUHUGAXIRX
+        FUIXJXGROZAUAEFXIXIUEAXJFPOJFGUJQADUKZENZROZDXIULUAUKZXIOXQENZROZAXPDXI
+        AXNXIOZUMXOXNBOZCSUNZRXTXNPOZYBROZXOYBTZAFXNUFAYAYDAYAYDAYAUMYBCRYAYBCT
+        AYACSUOUPIUQURYAUSZYBSRYACSUTZVAVBVCZDPYBREHVDZVEAYDXTYHVFUQVGXPXSDXQXI
+        XNXQTZXOXRRXNXQEVHZVIVJVKVLJXIRGXFVMVNZALUKZXHOZUMZXGYMXFNYOUAMREGFYMSX
+        QROXQSMVOXQTYOXQVPUPAXJYNJVFAYNVQAXMYNYLVFAXQGVRMVOZYMVSVOOZXRSTZYNYQAX
+        QYPUDNOZYRXQYPYMVTAYSUMZXQPBWDZOZYRYTXQPOZXQBOZUSZUUBYSUUCAYPXQUFUPAYSU
+        UEAUUDYSAUUDXQFGVSVOZOZYSUSZABUUFXQKWAAXKUUGUUHWBXLXKUUGUUHXQFGPWCURQWE
+        WFWGXQPBWHWIXOSTYRDLXQUUAYMXQODWPZDLLXRSDLXQEDLEDPYBWJHDLPYBWKWLUUIWMYM
+        SODWPWNYJXOXRSYKWOXNUUAOZXOYBSUUJYCYDYEXNPBWQUUJYBSRUUJYFYBSTXNPBWRYGQZ
+        VAVBYIVNUUKXEWSQWTXAXBXCXD $.
+        $( [20-Apr-2014] $)
+    $}
+
+    ${
+      sumrb.4 $e |- ( ph -> M e. ZZ ) $.
+      sumrb.5 $e |- ( ph -> N e. ZZ ) $.
+      sumrb.6 $e |- ( ph -> A C_ ( ZZ>= ` M ) ) $.
+      sumrb.7 $e |- ( ph -> A C_ ( ZZ>= ` N ) ) $.
+      $( Rebase the starting point of a sum.  (Contributed by Mario Carneiro,
+         14-Jul-2013.) $)
+      sumrb $p |- ( ph ->
+                    ( seq M ( + , F ) ~~> x <-> seq N ( + , F ) ~~> x ) ) $=
+        ( wcel caddc cli wbr adantr cvv cuz cfv wo cseq cv wb cz uztric syl2anc
+        wa cres seqex vex climres mp3an23 syl wceq adantlr simpr sumrblem mpdan
+        wss cc breq1d bitr3d jaodan ) AHGUAUBZOZGHUAUBZOZUCZPFGUDZBUEZQRZPFHUDZ
+        VMQRZUFZAGUGOZHUGOZVKKLGHUHUIAVHVQVJAVHUJZVLVIUKZVMQRZVNVPVTVSWBVNUFZAV
+        SVHLSVSVLTOVMTOZWCPFGULBUMZVMVLHTTUNUOUPVTWAVOVMQVTCVIVBZWAVOUQAWFVHNSV
+        TCDEFGHIAEUECOZDVCOZVHJURAVHUSUTVAVDVEAVJUJZVOVGUKZVMQRZVNVPWIWJVLVMQWI
+        CVGVBZWJVLUQAWLVJMSWICDEFHGIAWGWHVJJURAVJUSUTVAVDWIVRWKVPUFZAVRVJKSVRVO
+        TOWDWMPFHULWEVMVOGTTUNUOUPVEVFVA $.
+        $( [9-Apr-2014] $) $( [12-Aug-2013] $)
+    $}
+
+    summo.3 $e |- G = ( n e. NN |-> [_ ( f ` n ) / k ]_ B ) $.
+    ${
+      summolem3.4 $e |- H = ( n e. NN |-> [_ ( K ` n ) / k ]_ B ) $.
+      summolem3.5 $e |- ( ph -> ( M e. NN /\ N e. NN ) ) $.
+      summolem3.6 $e |- ( ph -> f : ( 1 ... M ) -1-1-onto-> A ) $.
+      summolem3.7 $e |- ( ph -> K : ( 1 ... N ) -1-1-onto-> A ) $.
+      $( Lemma for ~ summo . $)
+      summolem3 $p |- ( ph ->
+                        ( seq 1 ( + , G ) ` M ) = ( seq 1 ( + , H ) ` N ) ) $=
+        ( wcel vm vj vy vi vx caddc c1 cseq cfv cc cv ccnv ccom wa addcl adantl
+        co wceq addcom w3a addass cn cuz simpld nnuz syl6eleq wf1o f1ocnv f1oco
+        cfz syl syl2anc wb chash cen wbr oprex f1oen cfn fzfi hashen sylibr cn0
+        mp2an simprd nnnn0 hashfz1 3syl 3eqtr3rd opreq2d f1oeq2 mpbird csb wral
+        elfznn wf f1of ffvelrn sylan ralrimiva adantr fvex ax-17 hbcsb1 csbeq1a
+        hbel eleq1d rcla4 sylc fveq2 csbeq1d fvmptg cid wfun f1ofun simpr fvco3
+        eqeltrd syl3anc fveq2d f1ocnvfv2 eqtr2d fvmpti 3eqtr4d serf1o eqtr3d )
+        AKUFIUGUHZUIKUFHUGUHUILYGUIAUAUBUCUFUJUDDUKZULZJUMZHIUGKUAUKZUJTZUBUKZU
+        JTZUNZYKYMUFUQZUJTAYKYMUOUPYOYPYMYKUFUQURAYKYMUSUPYLYNUCUKZUJTUTYPYQUFU
+        QYKYMYQUFUQUFUQURAYKYMYQVAUPAKVBUGVCUIAKVBTZLVBTZQVDZVEVFAUGKVJUQZUUAYJ
+        VGZUGLVJUQZUUAYJVGZABUUAYIVGZUUCBJVGZUUDAUUABYHVGZUUERUUABYHVHVKZSUUCBU
+        UAYIJVIVLZAUUAUUCURZUUBUUDVMAKLUGVJAUUCVNUIZUUAVNUIZLKAUUCUUAVOVPZUUKUU
+        LURZAUUDUUMUUIUUCUUAYJUGLVJVQVRVKUUCVSTUUAVSTUUNUUMVMUGLVTUGKVTUUCUUAWA
+        WDWBAYSLWCTUUKLURAYRYSQWELWFLWGWHAYRKWCTUULKURYTKWFKWGWHWIZWJZUUAUUCUUA
+        YJWKVKWLZAYKUUATZUNZYKHUIZEYKYHUIZCWMZUJUUSYKVBTZUVBUJTZUUTUVBURUURUVCA
+        YKKWOUPUUSUVABTZCUJTZEBWNZUVDAUUABYHWPZUURUVEAUUGUVHRUUABYHWQVKUUABYKYH
+        WRWSAUVGUURAUVFEBNWTXAUVFUVDEUVABEUEUEUVBUJEUEUVACYKYHXBUEUKZUVATEXCXDU
+        VIUJTEXCXFEUKUVAURCUVBUJEUVACXEXGXHXIZFYKEFUKZYHUIZCWMZUVBVBUJHUVKYKURE
+        UVLUVACUVKYKYHXJXKOXLVLUVJXRAUDUKZUUATZUNZEUVNJUIZCWMZXMUIZEUVNYJUIZYHU
+        IZCWMZXMUIZUVNIUIZUVTHUIZUVPUVRUWBXMUVPEUVQUWACUVPUWAUVQYIUIZYHUIZUVQUV
+        PUVTUWFYHUVPYIXNZUUABJWPZUVOUVTUWFURAUWHUVOAUUEUWHUUHBUUAYIXOVKXAAUWIUV
+        OAUUABJVGZUWIAUWJUUFSAUUJUWJUUFVMUUPUUAUUCBJWKVKWLUUABJWQVKZXAAUVOXPUUA
+        BUVNYIJXQXSXTUVPUUGUVQBTZUWGUVQURAUUGUVORXAAUWIUVOUWLUWKUUABUVNJWRWSUUA
+        BUVQYHYAVLYBXKXTUVPUVNVBTZUWDUVSURUVOUWMAUVNKWOUPFUVNEUVKJUIZCWMUVRVBIU
+        VKUVNUREUWNUVQCUVKUVNJXJXKPYCVKUVPUVTVBTZUWEUWCURUVPUVTUUATZUWOAUUAUUAY
+        JWPZUVOUWPAUUBUWQUUQUUAUUAYJWQVKUUAUUAUVNYJWRWSUVTKWOVKFUVTUVMUWBVBHUVK
+        UVTUREUVLUWACUVKUVTYHXJXKOYCVKYDYEAKLYGUUOXTYF $.
+        $( [29-Mar-2014] $)
+    $}
+
+    $d x ph $.
+    ${
+      summolem2.4 $e |- H = ( n e. NN |-> [_ ( K ` n ) / k ]_ B ) $.
+      summolem2.5 $e |- ( ph -> N e. NN ) $.
+      summolem2.6 $e |- ( ph -> M e. ZZ ) $.
+      summolem2.7 $e |- ( ph -> A C_ ( ZZ>= ` M ) ) $.
+      summolem2.8 $e |- ( ph -> f : ( 1 ... N ) -1-1-onto-> A ) $.
+      summolem2.9 $e |- ( ph -> K Isom < , < ( ( 1 ... ( # ` A ) ) , A ) ) $.
+      $( Lemma for ~ summo . $)
+      summolem2a $p |- ( ph -> seq M ( + , F ) ~~> ( seq 1 ( + , G ) ` N ) ) $=
+        ( vm vx caddc cseq cfv c1 cli cuz cfz co wf wcel wf1o clt wiso chash wb
+        wceq cen wbr cv oprex f1oen syl cfn fzfid cpw fvex elpw2 sylibr syl2anc
+        wss enfi mpbid hashen mpbird cn cn0 nnnn0 hashfz1 eqtr3d opreq2d isoeq4
+        3syl isof1o f1of nnuz syl6eleq eluzfz2 ffvelrn sseldd wa ssel2 cle ccnv
+        sylan f1ocnv wn adantr isorel syl12anc f1ocnvfv2 breq2d bitrd notbid cz
+        elfzle2 elfzelz nnz zre lenlt syl2an eluzelz 3bitr4d eluz elfzuzb ax-mp
+        cr cvv ex cc cc0 adantl 0cn cif iftrue syl6eqel ax-17 cmpt fveq2 csb wi
+        hbcsb1 hbif eleq1 csbeq1a eqidd ifbieq12d fvmptg sylanbrc ssrdv fsumcvg
+        addid2 addid1 addcl eleqtrrd eqeltrd iffalse pm2.61d1 fmptd cdif hbmpt1
+        a1i a1d hbxfreq hbfv hbeq eqeq1d eldifi eldifn eqtrd vtoclgaf hbel hbim
+        fvmpt2 eleq1d imbi2d vtoclf csbeq1 cbvmpt eqtri elfznn eqeltrrd csbeq1d
+        vex 3eqtr4rd seqcoll jca summolem3 eqtr4d breqtrd ) AUDGKUEZLJUFZUWCUFZ
+        LUDHUGUEUFZUHABCEGKUWDMNABKUIUFZUWDSAUGLUJUKZBJULZLUWHUMZUWDBUMAUWHBJUN
+        ZUWIAUWHBUOUOJUPZUWKAUGBUQUFZUJUKZBUOUOJUPZUWLUAAUWNUWHUSUWOUWLURAUWMLU
+        GUJAUWHUQUFZUWMLAUWPUWMUSZUWHBUTVAZAUWHBDVBZUNUWRTUWHBUWSUGLUJVCVDVEZAU
+        WHVFUMZBVFUMZUWQUWRURAUGLVGZAUXAUXBUXCABUWGVHZUMZUWRUXAUXBURABUWGVMZUXE
+        SBUWGKUIVIVJVKUWTUWHBUXDVNVLVOUWHBVPVLVQALVRUMZLVSUMUWPLUSQLVTLWAWEWBWC
+        ZUWNBUWHUOUOJWDVEVOZUWHBUOUOJWFVEZUWHBJWGVEALUGUIUFZUMUWJALVRUXKQWHWIUG
+        LWJVEZUWHBLJWKVLWLZAFBKUWDUJUKZAFVBZBUMZUXOUXNUMZAUXPWMZUXOUWGUMZUWDUXO
+        UIUFUMZUXQAUXFUXPUXSSBUWGUXOWNWQZUXRUXTUXOUWDWOVAZUXRUXOJWPZUFZLWOVAZUY
+        BUXRUYDUWHUMZUYEABUWHUYCULZUXPUYFAUWKBUWHUYCUNUYGUXJUWHBJWRBUWHUYCWGWEB
+        UWHUXOUYCWKWQZUYDUGLXHVEUXRLUYDUOVAZWSZUWDUXOUOVAZWSZUYEUYBUXRUYIUYKUXR
+        UYIUWDUYDJUFZUOVAZUYKUXRUWLUWJUYFUYIUYNURAUWLUXPUXIWTAUWJUXPUXLWTUYHUWH
+        BLUYDUOUOJXAXBUXRUYMUXOUWDUOAUWKUXPUYMUXOUSUXJUWHBUXOJXCWQXDXEXFUXRUYDX
+        GUMZLXGUMZUYEUYJURZUXRUYFUYOUYHUYDUGLXIVEAUYPUXPAUXGUYPQLXJVEWTUYOUYDXS
+        UMLXSUMUYQUYPUYDXKLXKUYDLXLXMVLUXRUXOXGUMZUWDXGUMZUYBUYLURZUXRUXSUYRUYA
+        KUXOXNVEZAUYSUXPAUWDUWGUMUYSUXMKUWDXNVEWTZUYRUXOXSUMUWDXSUMUYTUYSUXOXKU
+        WDXKUXOUWDXLXMVLXOVOUXRUYRUYSUXTUYBURVUAVUBUXOUWDXPVLVQUWDXTUMUXQUXSUXT
+        WMURLJVIXTUXOKUWDXQXRUUAYAUUBUUCAUWELUDIUGUEUFUWFABUDYBUBUCGJIKLYCUBVBZ
+        YBUMZYCVUCUDUKVUCUSAVUCUUDYDVUDVUCYCUDUKVUCUSAVUCUUEYDVUDUCVBZYBUMWMVUC
+        VUEUDUKYBUMAVUCVUEUUFYDYCYBUMAYEUUNUAALUWHUWNUXLUXHUUGSAXGYBGULVUCXGUMV
+        UCGUFZYBUMVUCKUWMJUFZUJUKZUMAEXGEVBZBUMZCYCYFZYBGAVUKYBUMZVUIXGUMZAVUJV
+        ULAVUJVULAVUJWMVUKCYBVUJVUKCUSAVUJCYCYGYDNUUHYAVUJWSZVUKYCYBVUJCYCUUIZY
+        EYHUUJZUUOMUUKVUCKVUGXIXGYBVUCGWKXMVUCVUHBUULZUMVUFYCUSZAVUIGUFZYCUSVUR
+        EFVUCVUQUXOVUCUMEYIZEFFVUFYCEFVUCGEFGEXGVUKYJZMEFXGVUKUUMUUPVUTUUQUXOYC
+        UMEYIZUURVUIVUCUSVUSVUFYCVUIVUCGYKUUSVUIVUQUMZVUSVUKYCVVCVUMVULVUSVUKUS
+        VVCVUIVUHUMVUMVUIVUHBUUTVUIKVUGXIVEVVCVUKYCYBVVCVUNVUKYCUSVUIVUHBUVAVUO
+        VEZYEYHEXGVUKYBGMUVFVLVVDUVBUVCYDAVUEUWNUMZWMZVUEJUFZBUMZEVVGCYLZYCYFZV
+        VIVVGGUFZVUEIUFZVVFVVHVVJVVIUSAUWNBJULZVVEVVHAUWOUWNBJUNVVMUAUWNBUOUOJW
+        FUWNBJWGWEUWNBVUEJWKWQZVVHVVIYCYGVEZVVFVVGXGUMZVVJYBUMZVVKVVJUSVVFVVGUW
+        GUMVVPVVFBUWGVVGAUXFVVESWTVVNWLKVVGXNVEAVVQVVEAVULYMAVVQYMEVVGAVVQEAEYI
+        EFFVVJYBVVHEFVVIYCVVHEYIEFVVGCVUEJVIZUXOVVGUMEYIYNVVBYOUXOYBUMEYIUVDUVE
+        VVRVUIVVGUSZVULVVQAVVSVUKVVJYBVVSVUJVVHCYCVVIYCVUIVVGBYPEVVGCYQVVSYCYRY
+        SUVGUVHVUPUVIWTZFVVGUXPEUXOCYLZYCYFZVVJXGYBGUXOVVGUSZUXPVVHVWAYCVVIYCUX
+        OVVGBYPEUXOVVGCUVJVWCYCYRYSGVVAFXGVWBYJMEFUBXGVUKVWBVUCVUKUMFYIUXPEUBVW
+        AYCUXPEYIEUBUXOCFUVPVUCUXOUMEYIYNVUCYCUMEYIYOVUIUXOUSZVUJUXPCYCVWAYCVUI
+        UXOBYPEUXOCYQVWDYCYRYSUVKUVLYTVLVVFVUEVRUMZVVIYBUMVVLVVIUSVVEVWEAVUEUWM
+        UVMYDVVFVVJVVIYBVVOVVTUVNFVUEEUXOJUFZCYLVVIVRYBIUXOVUEUSEVWFVVGCUXOVUEJ
+        YKUVOPYTVLUVQUVRABCDEFGHIJLLMNOPAUXGUXGQQUVSTUXJUVTUWAUWB $.
+        $( [20-Apr-2014] $) $( [3-Apr-2014] $)
+    $}
+
+    $d f ph $.
+    ${
+      $( Lemma for ~ summo . $)
+      summolem2 $p |- ( ( ph /\
+         E. m e. ZZ ( A C_ ( ZZ>= ` m ) /\ seq m ( + , F ) ~~> x ) ) ->
+       ( E. m e. NN E. f ( f : ( 1 ... m ) -1-1-onto-> A /\
+         y = ( seq 1 ( + , G ) ` m ) ) -> x = y ) ) $=
+        ( cv cfv wa cz wcel clt vj vg cuz wss caddc cseq cli wbr wrex c1 cfz co
+        wf1o wex cn wi fveq2 sseq2d seqeq1 breq1d anbi12d cbvrexv simplrr chash
+        wceq wiso wor cfn cr simplrl uzssz zssre syl6ss ltso soss ee10 fzfi cvv
+        sstri cen fvex ssexg sylancl simprr oprex f1oen syl enfi syl2anc fz1iso
+        wb mpbii csb cmpt simplll sylan eqid simprll simpllr simprlr summolem2a
+        expr exlimdv mpd vex climuni anassrs eqeq2 syl5ibrcom expimpd rexlimdva
+        cc ex imp sylan2b ) DHOZUCPZUDZUEJXPUFZBOZUGUHZQZHRUIADUAOZUCPZUDZUEJYC
+        UFZXTUGUHZQZUARUIZUJXPUKULZDFOZUMZCOZXPUEKUJUFZPZVEZQZFUNZHUOUIXTYMVEZU
+        PZYBYHHUARXPYCVEZXRYEYAYGUUAXQYDDXPYCUCUQURUUAXSYFXTUGUEJXPYCUSUTVAVBAY
+        IYTAYHYTUARAYCRSZQZYHYTUUCYHQZYRYSHUOUUDXPUOSZQZYQYSFUUFYLYPYSUUFYLQYSY
+        PXTYOVEZUUDUUEYLUUGUUDUUEYLQZQZYGYFYOUGUHZUUGUUCYEYGUUHVCUUIUJDVDPUKULD
+        TTUBOZVFZUBUNZUUJUUIDTVGZDVHSZUUMUUIDVIUDVITVGUUNUUIDYDVIUUCYEYGUUHVJZY
+        DRVIYCVKVLVSVMVNDVITVOVPUUIYJVHSZUUOUJXPVQUUIDVRSZYJDVTUHZUUQUUOWKUUIYE
+        YDVRSUURUUPYCUCWADYDVRWBWCUUIYLUUSUUDUUEYLWDYJDYKUJXPUKWEWFWGYJDVRWHWIW
+        LDTUBWJWIUUIUULUUJUBUUDUUHUULUUJUUDUUHUULQZQZDEFGIJKIUOGIOUUKPEWMWNZUUK
+        YCXPLUVAAGODSEXLSAUUBYHUUTWOMWPNUVBWQUUDUUEYLUULWRAUUBYHUUTWSUUCYEYGUUT
+        VJUUDUUEYLUULWTUUDUUHUULWDXAXBXCXDXTYOYFBXEXPYNWAXFWIXGYMYOXTXHXIXJXCXK
+        XMXKXNXO $.
+        $( [3-Apr-2014] $)
+    $}
+
+    $( A sum has at most one limit.  (Contributed by Mario Carneiro,
+       3-Apr-2014.) $)
+    summo $p |- ( ph -> E* x
+        ( E. m e. ZZ ( A C_ ( ZZ>= ` m ) /\ seq m ( + , F ) ~~> x ) \/
+          E. m e. NN E. f ( f : ( 1 ... m ) -1-1-onto-> A /\
+                            x = ( seq 1 ( + , G ) ` m ) ) ) ) $=
+      ( cv cfv wa cz wrex wceq cn vy vg vj cuz wss caddc cseq cli wbr c1 cfz co
+      wf1o wex wo wi wal fveq2 sseq2d seqeq1 breq1d anbi12d cbvrexv reeanv wcel
+      wmo simprlr cc simpll sylan simplrl simplrr simprll simprrl sumrb simprrr
+      mpbid vex climuni syl2anc rexlimdvv syl5bir expdimp syl5bi summolem2 jaod
+      exp31 eqcom syl6ib impancom csb wb opreq2 f1oeq2 syl eqeq2d exbidv f1oeq1
+      simpl fveq1d csbeq1d mpteq2dva syl5eq seqeq3d cbvexv syl6bb eeanv cbvmptv
+      cmpt an4 eqtri simplr simprl simprr summolem3 syl5ibrcom expimpd exlimdvv
+      eqeq12 ex jaodan alrimivv breq2 anbi2d rexbidv eqeq1 orbi12d mo4 sylibr )
+      ACGNZUDOZUEZUFIYJUGZBNZUHUIZPZGQRZUJYJUKULZCENZUMZYNYJUFJUJUGZOZSZPZEUNZG
+      TRZUOZYLYMUANZUHUIZPZGQRZYTUUHUUBSZPZEUNZGTRZUOZPYNUUHSZUPZUAUQBUQUUGBVFA
+      UURBUAAUUGUUPUUQAYQUUPUUQUPUUFAYQPZUUKUUQUUOUUKCHNZUDOZUEZUFIUUTUGZUUHUHU
+      IZPZHQRZUUSUUQUUJUVEGHQYJUUTSZYLUVBUUIUVDUVGYKUVACYJUUTUDURUSUVGYMUVCUUHU
+      HUFIYJUUTUTVAVBVCAYQUVFUUQYQUVFPYPUVEPZHQRGQRAUUQYPUVEGHQQVDAUVHUUQGHQQAY
+      JQVEZUUTQVEZPZUVHUUQAUVKPZUVHPZUVCYNUHUIZUVDUUQUVMYOUVNUVLYLYOUVEVGUVMBCD
+      FIYJUUTKUVMAFNCVEZDVHVEZAUVKUVHVILVJAUVIUVJUVHVKAUVIUVJUVHVLUVLYLYOUVEVMU
+      VLYPUVBUVDVNVOVQUVLYPUVBUVDVPYNUUHUVCBVRUAVRVSVTWGWAWBWCWDABUACDEFGHIJKLM
+      WEWFAUUFPZUUKUUQUUOAUUKUUFUUQAUUKPUUFUUHYNSUUQAUABCDEFGHIJKLMWEUUHYNWHWIW
+      JUUOUJUUTUKULZCUBNZUMZUUHUUTUFHTFUUTUVSOZDWKZXIZUJUGZOZSZPZUBUNZHTRZUVQUU
+      QUUNUWHGHTUVGUUNUVRCYSUMZUUHUUTUUAOZSZPZEUNUWHUVGUUMUWMEUVGYTUWJUULUWLUVG
+      YRUVRSYTUWJWLYJUUTUJUKWMYRUVRCYSWNWOUVGUUBUWKUUHYJUUTUUAURWPVBWQUWMUWGEUB
+      YSUVSSZUWJUVTUWLUWFUVRCYSUVSWRUWNUWKUWEUUHUWNUUTUUAUWDUWNJUWCUFUJUWNJHTFU
+      UTYSOZDWKZXIZUWCMUWNHTUWPUWBUWNUUTTVEZPZFUWOUWADUWSUUTYSUVSUWNUWRWSWTXAXB
+      XCXDWTWPVBXEXFVCAUUFUWIUUQUUFUWIPUUEUWHPZHTRGTRAUUQUUEUWHGHTTVDAUWTUUQGHT
+      TAYJTVEUWRPZUWTUUQUPUWTUUDUWGPZUBUNEUNAUXAPZUUQUUDUWGEUBXGUXCUXBUUQEUBUXB
+      YTUVTPZUUCUWFPZPUXCUUQYTUUCUVTUWFXJUXCUXDUXEUUQUXCUXDPZUUQUXEUUBUWESUXFCD
+      EFUCIJUWCUVSYJUUTKUXFAUVOUVPAUXAUXDVILVJJUWQUCTFUCNZYSOZDWKZXIMHUCTUWPUXI
+      UUTUXGSZFUWOUXHDUUTUXGYSURXAXHXKHUCTUWBFUXGUVSOZDWKUXJFUWAUXKDUUTUXGUVSUR
+      XAXHAUXAUXDXLUXCYTUVTXMUXCYTUVTXNXOYNUUBUUHUWEXSXPXQWDXRWBXTWAWBWCWDWFYAX
+      QYBUUGUUPBUAUUQYQUUKUUFUUOUUQYPUUJGQUUQYOUUIYLYNUUHYMUHYCYDYEUUQUUEUUNGTU
+      UQUUDUUMEUUQUUCUULYTYNUUHUUBYFYDWQYEYGYHYI $.
+      $( [3-Apr-2014] $) $( [14-Jul-2013] $)
+  $}
+
+  ${
+    $d f g i j k m n x A $.  $d j k n x F $.  $d f g i j k m x ph $.  $d k Z $.
+    $d f g i j m n x B $.  $d f g i j k m x M $.
+    zsum.1 $e |- Z = ( ZZ>= ` M ) $.
+    zsum.2 $e |- ( ph -> M e. ZZ ) $.
+    ${
+      zsum.3 $e |- ( ph -> A C_ Z ) $.
+      zsum.4 $e |- ( ( ph /\ k e. Z ) -> ( F ` k ) = if ( k e. A , B , 0 ) ) $.
+      zsum.5 $e |- ( ( ph /\ k e. A ) -> B e. CC ) $.
+      $( Series sum with index set a subset of the upper integers.
+         (Contributed by Mario Carneiro, 9-Apr-2014.) $)
+      zsum $p |- ( ph -> sum_ k e. A B = ( ~~> ` seq M ( + , F ) ) ) $=
+        ( vx vi cfv cz wcel cc0 wa wceq vm vf vn vg vj cv cuz wss cif cmpt cseq
+        caddc cli wbr wrex c1 cfz co wf1o cn csb wex wo cio csu vex hbcsb1 hbif
+        ax-17 eleq1 csbeq1a eqidd ifbieq12d cbvmpt simpll wral ralrimiva eleq1d
+        cc hbel rcla4 impcom sylan simplr ad2antrr simpr syl6sseq sumrb expimpd
+        syl5 biimpd rexlimdva chash clt wiso wor uzssz eqsstri zssre sstri ltso
+        cfn cr soss mp2 ee10 fzfi cpw cen wb cvv fvex eqeltri elpw2 oprex f1oen
+        sylibr adantl syl2anc mpbii fz1iso fveq2 csbeq1d csbcog syl6eqr cbvmptv
+        enfi ax-mp eqid simprl simprr summolem2a expr exlimdv syl5ibrcom adantr
+        mpd breq2 breq1d ex sseq2d seqeq1 anbi12d rcla4ev syl12anc impbid sseli
+        jaod orcd eleq2i iftrue eqeltrd wn iffalse 0cn syl6eqel pm2.61d1 fvmpt2
+        syl2anr eqtr4d sylan2br hbmpt1 hbfv hbeq eqeq12d seqfeq iotabidv df-sum
+        bitrd seqex fv4 3eqtr4g ) ABUAUFZUGOZUHZULDPDUFZBQZCRUIZUJZUVMUKZMUFZUM
+        UNZSZUAPUOZUPUVMUQURZBUBUFZUSZUWAUVMULUCUTDUCUFZUWFOZCVAZUJZUPUKOZTZSZU
+        BVBZUAUTUOZVCZMVDULEFUKZUWAUMUNZMVDBCDVEUWRUMOAUWQUWSMAUWQULUVSFUKZUWAU
+        MUNZUWSAUWQUXAAUWDUXAUWPAUWCUXAUAPAUVMPQZSZUVOUWBUXAUXCUVOSZUWBUXAUXDMB
+        DNUFZCVAZNUVSUVMFDNMPUVRUXEBQZUXFRUIUWAUVRQNVIUXGDMUXFRUXGDVIDMUXECNVFU
+        WAUXEQDVIVGZUWARQDVIVHUVPUXETZUVQUXGCRUXFRUVPUXEBVJDUXECVKZUXIRVLVMVNZU
+        XDAUXGUXFVSQZAUXBUVOVOUXGAUXLACVSQZDBVPUXGUXLAUXMDBLVQUXMUXLDUXEBDMMUXF
+        VSUXHUWAVSQDVIVTUXICUXFVSUXJVRWAWJWBZWCAUXBUVOWDAFPQZUXBUVOIWEUXCUVOWFA
+        BFUGOZUHZUXBUVOABGUXPJHWGZWEWHWKWIWLAUWOUXAUAUTAUVMUTQZSZUWNUXAUBUXTUWG
+        UWMUXAUXTUWGSZUXAUWMUWTUWLUMUNZUYAUPBWMOUQURBWNWNUDUFZWOZUDVBZUYBUYABWN
+        WPZBXBQZUYEUYABGUHZGWNWPZUYFAUYHUXSUWGJWEZGXCUHXCWNWPUYIGPXCGUXPPHFWQWR
+        ZWSWTXAGXCWNXDXEBGWNXDXFUYAUWEXBQZUYGUPUVMXGUYABGXHZQZUWEBXIUNZUYLUYGXJ
+        UYAUYHUYNUYJBGGUXPXKHFUGXLXMXNXQUWGUYOUXTUWEBUWFUPUVMUQXOXPXRUWEBUYMYGX
+        SXTBWNUDYAXSUYAUYDUYBUDUXTUWGUYDUYBUXTUWGUYDSZSZBUXFUBNUEUVSUWKUEUTNUEU
+        FZUYCOUXFVAUJZUYCFUVMUXKUYQAUXGUXLAUXSUYPVOUXNWCUCUEUTUWJNUYRUWFOZUXFVA
+        ZUWHUYRTZUWJDUYTCVAZVUAVUBDUWIUYTCUWHUYRUWFYBYCUYTXKQVUAVUCTUYRUWFXLDNU
+        YTCXKYDYHYEYFUYSYIAUXSUYPWDAUXOUXSUYPIWEAUXQUXSUYPUXRWEUXTUWGUYDYJUXTUW
+        GUYDYKYLYMYNYQUWAUWLUWTUMYRYOWIYNWLUUHAUXAUWQAUXASZUWDUWPVUDUXOUXQUXAUW
+        DAUXOUXAIYPAUXQUXAUXRYPAUXAWFUWCUXQUXASUAFPUVMFTZUVOUXQUWBUXAVUEUVNUXPB
+        UVMFUGYBUUAVUEUVTUWTUWAUMULUVSUVMFUUBYSUUCUUDUUEUUIYTUUFAUWTUWRUWAUMAUL
+        UEUVSEFIUYRUXPQZAUYRUVSOZUYREOZTZAUVPUVSOZUVPEOZTZDUXPVPVUFVUIAVULDUXPU
+        VPUXPQAUVPGQZVULGUXPUVPHUUJAVUMSVUJUVRVUKVUMUVPPQUVRVSQZVUJUVRTAGPUVPUY
+        KUUGAUVQVUNAUVQVUNAUVQSUVRCVSUVQUVRCTAUVQCRUUKXRLUULYTUVQUUMUVRRVSUVQCR
+        UUNUUOUUPUUQDPUVRVSUVSUVSYIUURUUSKUUTUVAVQVULVUIDUYRUXPDUCUCVUGVUHDUCUY
+        RUVSDUCPUVRUVBUWHUYRQDVIUVCUWHVUHQDVIUVDUVPUYRTVUJVUGVUKVUHUVPUYRUVSYBU
+        VPUYREYBUVEWAWJWBUVFYSUVIUVGMBCUBDUAUCUVHMUWRUMULEFUVJUVKUVL $.
+        $( [9-Apr-2014] $)
+    $}
+
+    isum.3 $e |- ( ( ph /\ k e. Z ) -> ( F ` k ) = B ) $.
+    isum.4 $e |- ( ( ph /\ k e. Z ) -> B e. CC ) $.
+    $( Series sum with an upper integer index set (i.e. an infinite series).
+       (Contributed by Mario Carneiro, 15-Jul-2013.) $)
+    isum $p |- ( ph -> sum_ k e. Z B = ( ~~> ` seq M ( + , F ) ) ) $=
+      ( wss ssid a1i cv wcel wa cfv cc0 cif wceq iftrue adantl eqtr4d zsum ) AF
+      BCDEFGHFFKAFLMACNZFOZPUEDQBUFBRSZIUFUGBTAUFBRUAUBUCJUD $.
+      $( [7-Apr-2014] $) $( [15-Jul-2013] $)
+  $}
+
+  ${
+    $d f i j m n x B $.  $d f k m x C $.  $d f k n F $.  $d f i j k m n x ph $.
+    $d f i j k m n x A $.  $d f k m n x G $.  $d f k m n x M $.
+    fsum.1 $e |- ( k = ( F ` n ) -> B = C ) $.
+    fsum.2 $e |- ( ph -> M e. NN ) $.
+    fsum.3 $e |- ( ph -> F : ( 1 ... M ) -1-1-onto-> A ) $.
+    fsum.4 $e |- ( ( ph /\ k e. A ) -> B e. CC ) $.
+    fsum.5 $e |- ( ( ph /\ n e. ( 1 ... M ) ) -> ( G ` n ) = C ) $.
+    $( The value of a sum over a nonempty finite set.  (Contributed by Mario
+       Carneiro, 20-Apr-2014.) $)
+    fsum $p |- ( ph -> sum_ k e. A B = ( seq 1 ( + , G ) ` M ) ) $=
+      ( vm vx cfv wcel cn wceq vf vj vi csu cuz wss caddc cc0 cif cmpt cseq cli
+      cv cz wbr wa wrex c1 cfz co wf1o csb wex wo cio df-sum cvv fvex wb wmo wi
+      ax-17 vex hbcsb1 hbif eleq1 csbeq1a eqidd ifbieq12d cbvmpt wral ralrimiva
+      cc hbel eleq1d rcla4 syl5 impcom fveq2 csbeq1d csbcog ax-mp syl6eqr summo
+      cbvmptv wf f1of syl oprex fex sylancl nnuz syl6eleq elfznn syl6eqelr eqid
+      adantl fvmpt2 syl2anc eqtr4d hbmpt1 hbfv eqeq12d seqfveq jca f1oeq1 simpl
+      hbeq fveq1d csbief syl6eq mpteq2dva seqeq3d eqeq2d anbi12d cla4egv opreq2
+      sylc f1oeq2 exbidv rcla4ev olcd breq2 anbi2d rexbidv eqeq1 orbi12d mpanl1
+      moi2 ancom2s expr syl5ibrcom impbid adantr iota5 mpan2 syl5eq ) ABCEUDBOU
+      MZUEQUFZUGEUNEUMZBRZCUHUIZUJZUUHUKZPUMZULUOZUPZOUNUQZURUUHUSUTZBUAUMZVAZU
+      UOUUHUGFSEFUMZUUTQZCVBZUJZURUKZQZTZUPZUAVCZOSUQZVDZPVEZIUGHURUKZQZPBCUAEO
+      FVFAUVOVGRZUVMUVOTIUVNVHZAUVLPUVOVGAUVLUUOUVOTZVIUVPAUVLUVRAUVLPVJZUUIUUN
+      UVOULUOZUPZOUNUQZUVAUVOUVGTZUPZUAVCZOSUQZVDZUVLUVRVKAPBEUBUMZCVBZUAUBOUCU
+      UMUVEEUBPUNUULUWHBRZUWIUHUIUUOUULRUBVLUWJEPUWIUHUWJEVLEPUWHCUBVMUUOUWHREV
+      LVNZUUOUHREVLVOUUJUWHTZUUKUWJCUHUWIUHUUJUWHBVPEUWHCVQZUWLUHVRVSVTUWJAUWIW
+      CRZACWCRZEBWAUWJUWNAUWOEBMWBUWOUWNEUWHBEPPUWIWCUWKUUOWCREVLWDUWLCUWIWCUWM
+      WEWFWGWHFUCSUVDUBUCUMZUUTQZUWIVBZUVBUWPTZUVDEUWQCVBZUWRUWSEUVCUWQCUVBUWPU
+      UTWIWJUWQVGRUWRUWTTUWPUUTVHEUBUWQCVGWKWLWMWOWNAUWFUWBAISRURIUSUTZBUUTVAZU
+      VOIUVFQZTZUPZUAVCZUWFKAGVGRZUXABGVAZUVOIUGFSDUJZURUKZQZTZUPZUXFAUXABGWPZU
+      XAVGRUXGAUXHUXNLUXABGWQWRURIUSWSUXABVGGWTXAAUXHUXLLAUGEHUXIURIAISURUEQKXB
+      XCUUJUXARZAUUJHQZUUJUXIQZTZAUVBHQZUVBUXIQZTZFUXAWAUXOUXRAUYAFUXAAUVBUXARZ
+      UPZUXSDUXTNUYCUVBSRZDVGRUXTDTUYBUYDAUVBIXDXGUYCDUXSVGNUVBHVHXEFSDVGUXIUXI
+      XFXHXIXJWBUYAUXRFUUJUXAFOOUXPUXQUUHUXPRFVLFOUUJUXIFOSDXKUUHUUJRFVLXLXRUVB
+      UUJTUXSUXPUXTUXQUVBUUJHWIUVBUUJUXIWIXMWFWGWHXNXOUXEUXMUAGVGUUTGTZUXBUXHUX
+      DUXLUXABUUTGXPUYEUXCUXKUVOUYEIUVFUXJUYEUVEUXIUGURUYEFSUVDDUYEUYDUPZUVDEUV
+      BGQZCVBDUYFEUVCUYGCUYFUVBUUTGUYEUYDXQXSWJEPUYGCDUVBGVHUUODREVLJXTYAYBYCXS
+      YDYEYFYHUWEUXFOISUUHITZUWDUXEUAUYHUVAUXBUWCUXDUYHUUSUXATUVAUXBVIUUHIURUSY
+      GUUSUXABUUTYIWRUYHUVGUXCUVOUUHIUVFWIYDYEYJYKXIYLZUVSUWGUVLUVRUVSUVLUWGUVR
+      UVPUVSUVLUWGUPUVRUVQUVLUWGPUVOVGUVRUURUWBUVKUWFUVRUUQUWAOUNUVRUUPUVTUUIUU
+      OUVOUUNULYMYNYOUVRUVJUWEOSUVRUVIUWDUAUVRUVHUWCUVAUUOUVOUVGYPYNYJYOYQZYSYR
+      YTUUAXIAUVLUVRUWGUYIUYJUUBUUCUUDUUEUUFUUG $.
+      $( [20-Apr-2014] $)
+  $}
+
+  $( Any sum over the empty set is zero.  (Contributed by Mario Carneiro,
+     12-Aug-2013.) $)
+  sum0 $p |- sum_ k e. (/) A = 0 $=
+    ( c0 csu caddc c1 cuz cfv cc0 cli wceq wtru cn nnuz cz wcel 1z a1i ax-mp cc
+    csn cxp cseq wss 0ss cv wa cif simpr syl6eleq 0z elexi fvconst2 syl wn noel
+    iffalse syl6eqr pm2.21i adantl zsum trud wfun wbr cdm wf fclim ffun funbrfv
+    serclim0 mp2 eqtri ) CABDZEFGHZIUAUBZFUCZJHZIVMVQKLCABVOFMNFOPZLQRCMUDLMUER
+    LBUFZMPZUGZVSVOHZIVSCPZAIUHZWAVSVNPWBIKWAVSMVNLVTUINUJVNIVSIOUKULZUMUNWCUOW
+    DIKVSUPZWCAIUQSURWCATPZLWCWGWFUSUTVAVBJVCZVPIJVDZVQIKJVEZTJVFWHVGWJTJVHSVRW
+    IQFVJSVPIJWEVIVKVL $.
+    $( [20-Apr-2014] $) $( [12-Aug-2013] $)
+
+  ${
+    $d f k n A $.  $d k M $.
+    $( Any sum of zero over a summable set is zero.  (Contributed by Mario
+       Carneiro, 12-Aug-2013.) $)
+    sumz $p |- ( ( A C_ ( ZZ>= ` M ) \/ A e. Fin ) -> sum_ k e. A 0 = 0 ) $=
+      ( vf vn cuz cfv cc0 wceq wcel cz wa cli cv cc 0cn adantl c0 cn c1 wss csu
+      cfn caddc csn cxp cseq eqid simpr simpl cif elexi fvconst2 ifid zsum wfun
+      syl6eqr a1i wbr cdm fclim ffun ax-mp serclim0 funbrfv mpsyl eqtrd cpw uzf
+      wf wn fdmi eleq2i notbii ndmfv sylbir sseq2d biimpac ss0 sumeq1 sum0 3syl
+      syl6eq pm2.61dan chash cfz co wf1o wex fz1f1o eqidd elfznn fsum nnuz ser0
+      wo syl adantr ex exlimdv imp jaoi ) ACFGZUAZAHBUBZHIZAUCJZXDCKJZXFXDXHLZX
+      EUDXCHUEZUFZCUGZMGZHXIAHBXKCXCXCUHXDXHUIXDXHUJBNZXCJZXNXKGZXNAJZHHUKZIXIX
+      OXPHXRXCHXNHOPULZUMXQHUNUQQHOJZXIXQLPURUOMUPZXIXLHMUSZXMHIMUTZOMVJYAVAYCO
+      MVBVCXHYBXDCVDQXLHMXSVEVFVGXDXHVKZLARUAZARIZXFYDXDYEYDXCRAYDCFUTZJZVKXCRI
+      YHXHYGKCKKVHFVIVLVMVNCFVOVPVQVRAVSYFXERHBUBHARHBVTHBWAWCZWBWDXGYFAWEGZSJZ
+      TYJWFWGZADNZWHZDWIZLZWPXFADWJYFXFYPYIYKYOXFYKYNXFDYKYNXFYKYNLZXEYJUDSXJUF
+      ZTUGGZHYQAHHBEYMYRYJXNENZYMGIHWKYKYNUJYKYNUIXTYQXQLPURYTYLJZYTYRGHIZYQUUA
+      YTSJUUBYTYJWLSHYTXSUMWQQWMYKYSHIYNTYJSWNWOWRVGWSWTXAXBWQXB $.
+      $( [20-Apr-2014] $) $( [12-Aug-2013] $)
+  $}
+
+  ${
+    $d f k m n A $.  $d f m n B $.  $d f m n C $.  $d f k m D $.  $d f m n F $.
+    $d k G $.  $d f k m n ph $.
+    fsumf1o.1 $e |- ( k = G -> B = D ) $.
+    fsumf1o.2 $e |- ( ph -> C e. Fin ) $.
+    fsumf1o.3 $e |- ( ph -> F : C -1-1-onto-> A ) $.
+    fsumf1o.4 $e |- ( ( ph /\ n e. C ) -> ( F ` n ) = G ) $.
+    fsumf1o.5 $e |- ( ( ph /\ k e. A ) -> B e. CC ) $.
+    $( Re-index a finite sum using a bijection.  (Contributed by Mario
+       Carneiro, 20-Apr-2014.) $)
+    fsumf1o $p |- ( ph -> sum_ k e. A B = sum_ n e. C D ) $=
+      ( vm c0 wceq cfv wcel syl vf chash cn c1 cfz co cv wf1o wex wa wo csu cfn
+      fz1f1o cc0 wfo f1oeq2 syl5ibcom imp fo00 simprbi 3syl sumeq1d sum0 syl6eq
+      f1ofo simpr eqtr4d ex cmpt caddc ccom cseq fveq2 fveq2d simprl cc wf f1of
+      simprr ffvelrn sylan eqid fmptd syldan adantlr wfun ffun ad2antrr simplrr
+      f1oco syl2anc fvco3 syl3anc f1ofun eqtrd fsum cid fvmpt2i adantl eqeltrrd
+      wral fvmpti ralrimiva hbmpt1 ax-17 hbfv hbeq eqeq12d syl5 impcom sumeq2dv
+      rcla4 adantr 3eqtr4rd sumfc 3eqtr3g expr exlimdv expimpd jaod mpd ) ADPQZ
+      DUBRZUCSZUDYDUEUFZDUAUGZUHZUAUIZUJZUKZBCFULZDEGULZQZADUMSYKKDUAUNTAYCYNYJ
+      AYCYNAYCUJZYLUOYMYOYLPCFULUOYOBPCFYOPBHUHZPBHUPZBPQZAYCYPADBHUHZYCYPLDPBH
+      UQURUSPBHVFYQHPQYRBHUTVAVBVCCFVDVEYOYMPEGULUOYODPEGAYCVGVCEGVDVEVHVIAYEYI
+      YNAYEUJYHYNUAAYEYHYNAYEYHUJZUJZBOUGZFBCVJZRZOULZDUUBGDEVJZRZOULZYLYMUUADU
+      UBHRZUUCRZOULYDVKUUCHYGVLZVLZUDVMRUUHUUEUUADUUJGUGZYGRZHRZUUCRZOGYGUULYDU
+      UBUUNQUUIUUOUUCUUBUUNHVNVOAYEYHVPZAYEYHVTZAUUBDSZUUJVQSZYTAUUSUUIBSZUUTAD
+      BHVRZUUSUVAAYSUVBLDBHVSTZDBUUBHWAWBABVQUUCVRZUVAUUTAFBCVQUUCAFUGBSCVQSNVI
+      UUCWCZWDZBVQUUIUUCWAWBWEWFUUAUUMYFSZUJZUUMUULRZUUMUUKRZUUCRZUUPUVHUUCWGZY
+      FBUUKVRZUVGUVIUVKQZAUVLYTUVGAUVDUVLUVFBVQUUCWHZTWIUVHYFBUUKUHZUVMUVHYSYHU
+      VPAYSYTUVGLWIZAYEYHUVGWJZYFDBHYGWKZWLYFBUUKVSZTUUAUVGVGZYFBUUMUUCUUKWMZWN
+      UVHUVJUUOUUCUVHHWGZYFDYGVRZUVGUVJUUOQUVHYSUWCUVQDBHWOTUVHYHUWDUVRYFDYGVST
+      UWAYFDUUMHYGWMWNVOWPWQUUADUUGUUJOAUUSUUGUUJQZYTUUSAUWEAUUMUUFRZUUMHRZUUCR
+      ZQZGDXBUUSUWEAUWIGDAUUMDSZUJZUWFEWRRZUWHUWJUWFUWLQAGDEUUFUUFWCWSWTUWKUWHI
+      UUCRZUWLUWKUWGIUUCMVOUWKIBSUWMUWLQUWKUWGIBMAUVBUWJUWGBSUVCDBUUMHWAWBXAFIC
+      EBUUCJUVEXCTWPVHXDUWIUWEGUUBDGUAUAUUGUUJGUAUUBUUFGUADEXEYGUUBSGXFXGYGUUJS
+      GXFXHUUMUUBQZUWFUUGUWHUUJUUMUUBUUFVNUWNUWGUUIUUCUUMUUBHVNVOXIXMXJXKWFXLUU
+      ABUUDUVKOGUUKUULYDUUBUVJUUCVNUUQUUAYSYHUVPAYSYTLXNUURUVSWLZUUAUVDUUBBSUUD
+      VQSAUVDYTUVFXNZBVQUUBUUCWAWBUVHUVLUVMUVGUVNUUAUVLUVGUUAUVDUVLUWPUVOTXNUUA
+      UVMUVGUUAUVPUVMUWOUVTTXNUWAUWBWNWQXOBCOFXPDEOGXPXQXRXSXTYAYB $.
+      $( [20-Apr-2014] $)
+  $}
+
+  ${
+    $d f k m n x A $.  $d f k m n x B $.  $d f m n x C $.  $d f k m n ph $.
+    $d k m x M $.
+    sumss.1 $e |- ( ph -> A C_ B ) $.
+    sumss.2 $e |- ( ( ph /\ k e. A ) -> C e. CC ) $.
+    sumss.3 $e |- ( ( ph /\ k e. ( B \ A ) ) -> C = 0 ) $.
+    ${
+      sumss.4 $e |- ( ph -> B C_ ( ZZ>= ` M ) ) $.
+      $( Change the index set to a subset in an upper integer sum.
+         (Contributed by Mario Carneiro, 21-Apr-2014.) $)
+      sumss $p |- ( ph -> sum_ k e. A C = sum_ k e. B C ) $=
+        ( vm vx wcel wceq wa cfv cc0 adantr cc c0 cz csu cv cmpt caddc cuz cseq
+        cif cli eqid simpr wss sstrd ax-17 hbfv hbif hbeq fveq2 eleq1 ifbieq12d
+        hbmpt1 eqidd eqeq12d fvmpt2i iftrue fveq2d sylan9eq eqtrd adantl eqtr4d
+        cid wn iffalse 0z fvi ax-mp syl6eq pm2.61dan vtoclgaf wf sseld wi eldif
+        ex cdif 0cn syl6eqel sylan2br expr pm2.61d syld fmptd ffvelrn zsum hbim
+        sylan imbi2d adantll ssel2 syl ad2antrl a1d expcom impcom adantlr sumfc
+        imp 3eqtr3g cdm cpw uzf fdmi eleq2i notbii sylbir sseq2d syl5ib sseqtrd
+        ndmfv ss0 sumeq1d ) AFUAMZBDEUBZCDEUBZNAYBOZBKUCZEBDUDZPZKUBZCYFECDUDZP
+        ZKUBZYCYDYEYIUEEFUFPZEUCZBMZDQUHZUDZFUGUIPYLYEBYHKYQFYMYMUJZAYBUKZABYMU
+        LYBABCYMGJUMRYFYMMZYFYQPZYFBMZYHQUHZNZYEYNYQPZYOYNYGPZQUHZNZUUDELYFYMLU
+        CZYFMEUNZELLUUAUUCELYFYQELYMYPVAUUJUOZUUBELYHQUUBEUNELYFYGELBDVAUUJUOUU
+        IQMEUNZUPUQYNYFNZUUEUUAUUGUUCYNYFYQURZUUMYOUUBUUFQYHQYNYFBUSYNYFYGURUUM
+        QVBZUTVCYNYMMZYOUUHUUPYOOUUEDVKPZUUGUUPYOUUEYPVKPZUUQEYMYPYQYQUJVDZYOYP
+        DVKYODQVEVFVGZYOUUGUUQNUUPYOUUGUUFUUQYOUUFQVEEBDYGYGUJZVDVHVIVJUUPYOVLZ
+        OUUEQUUGUUPUVBUUEUURQUUSUVBUURQVKPZQUVBYPQVKYODQVMVFQUAMUVCQNZVNQUAVOVP
+        VQVGZUVBUUGQNUUPYOUUFQVMVIVJVRVSVIYEBSYGVTZUUBYHSMAUVFYBAEBDSYGAYOYNCMZ
+        DSMZABCYNGWAAUVGUVHAUVGOYOUVHAYOUVHWBUVGAYOUVHHWDRAUVGUVBUVHUVGUVBOZAYN
+        CBWEMZUVHYNCBWCZAUVJOZDQSIWFWGWHWIWJWDZWKUVAWLRBSYFYGWMWPWNYECYKKYQFYMY
+        RYSACYMULZYBJRAYTUUAYFCMZYKQUHZNZYBYTAUVQAUUEUVGYNYJPZQUHZNZWBAUVQWBELY
+        FYMUUJAUVQEAEUNELLUUAUVPUUKUVOELYKQUVOEUNELYFYJELCDVAUUJUOUULUPUQWOUUMU
+        VTUVQAUUMUUEUUAUVSUVPUUNUUMUVGUVOUVRQYKQYNYFCUSYNYFYJURUUOUTVCWQAUUPUVT
+        AUUPOZYOUVTUWAYOOZUUEUUQUVSUUPYOUUEUUQNAUUTWRUWBUVGUVSUUQNZUWABCULZYOUV
+        GAUWDUUPGRBCYNWSWPUVGUVSUVRUUQUVGUVRQVEECDYJYJUJZVDVHZWTVJUWAUVBOUUEQUV
+        SUUPUVBUUEQNAUVEWRUWAUVBUVSQNZAUVBUWGWBZUUPAUVGUWHAUVGUVBUWGAUVIOUVSUUQ
+        QUVGUWCAUVBUWFXAUVIAUVJUUQQNUVKUVLUUQUVCQUVLDQVKIVFQSMUVDWFQSVOVPVQWHVH
+        WIAUVGVLZOUWGUVBUWIUWGAUVGUVRQVMVIXBVRRXGVJVRXCVSXDXEYECSYJVTZUVOYKSMAU
+        WJYBAECDSYJUVMUWEWLRCSYFYJWMWPWNVJBDKEXFCDKEXFXHAYBVLZOZBCDEUWLBTCUWLBT
+        ULBTNUWLBCTAUWDUWKGRUWLCTULZCTNUWKAUWMAUVNUWKUWMJUWKYMTCUWKFUFXIZMZVLYM
+        TNUWOYBUWNUAFUAUAXJUFXKXLXMXNFUFXSXOXPXQXDCXTWTZXRBXTWTUWPVJYAVR $.
+        $( [21-Apr-2014] $)
+    $}
+
+    fsumss.4 $e |- ( ph -> B e. Fin ) $.
+    $( Change the index set to a subset in a finite sum.  (Contributed by Mario
+       Carneiro, 21-Apr-2014.) $)
+    fsumss $p |- ( ph -> sum_ k e. A C = sum_ k e. B C ) $=
+      ( vm vn wceq cfv wcel c1 wa csu syl cc0 cc vf c0 chash cn cfz co wf1o wex
+      cv wo cfn fz1f1o wss adantr adantlr cdif cuz simpr 0ss eqsstrd sumss cmpt
+      a1i ex ccnv cima cdm cnvimass wf simprr f1of fdm syl5sseq wfn wb elpreima
+      ffn ffvelrn sylan adantrd sylbid imp wi wn syl6eqel sylan2br expr pm2.61d
+      eldif 0cn fmptd syldan eldifi sylan2 eldifn adantl biantrurd bitr4d mtbid
+      eqid sylanbrc difss resmpt ax-mp fveq1i fvres syl5eqr csn cz elexi elsnc2
+      cres 0z sylibr ad2antrr syl2anc elsni eqtr3d fzssuz fveq1d sumeq2dv fveq2
+      fzfid ssfi wf1 f1of1 f1ores wfo f1ofo foimacnv f1oeq3 mpbid ssel2 fsumf1o
+      eqtrd eqidd 3eqtr4d sumfc 3eqtr3g exlimdv expimpd jaod mpd ) ACUBLZCUCMZU
+      DNZOUUEUEUFZCUAUIZUGZUAUHZPZUJZBDEQZCDEQZLZACUKNUULICUAULRAUUDUUOUUKAUUDU
+      UOAUUDPZBCDESABCUMZUUDFUNAEUIZBNZDTNZUUDGUOAUURCBUPZNZDSLZUUDHUOUUPCUBSUQ
+      MZAUUDURUBUVDUMUUPUVDUSVCUTVAVDAUUFUUJUUOAUUFPUUIUUOUAAUUFUUIUUOAUUFUUIPZ
+      PZBJUIZEBDVBZMZJQZCUVGECDVBZMZJQZUUMUUNUVFUUHVEBVFZKUIZUUHMZUVKMZKQZUUGUV
+      QKQUVJUVMUVFUVNUUGUVQKOUVFUUHVGZUVNUUGUUHBVHUVFUUGCUUHVIZUVSUUGLUVFUUIUVT
+      AUUFUUIVJZUUGCUUHVKRZUUGCUUHVLRVMZUVFUVOUVNNZUVPCNZUVQTNZUVFUWDUWEUVFUWDU
+      VOUUGNZUVPBNZPZUWEUVFUUHUUGVNZUWDUWIVOZUVFUVTUWJUWBUUGCUUHVQRUUGUVOBUUHVP
+      RZUVFUWGUWEUWHUVFUWGUWEUVFUVTUWGUWEUWBUUGCUVOUUHVRVSZVDVTWAWBUVFCTUVKVIZU
+      WEUWFAUWNUVEAECDTUVKAUURCNZUUTAUWOPUUSUUTAUUSUUTWCUWOAUUSUUTGVDUNAUWOUUSW
+      DZUUTUWOUWPPAUVBUUTUURCBWIAUVBPZDSTHWJWEWFWGWHVDUVKWTWKUNZCTUVPUVKVRVSWLU
+      VFUVOUUGUVNUPNZPZUVPEUVADVBZMZUVQSUWTUVPUVANZUXBUVQLUWTUWEUWHWDUXCUWSUVFU
+      WGUWEUVOUUGUVNWMZUWMWNUWTUWDUWHUWSUWDWDUVFUVOUUGUVNWOWPUWTUWDUWIUWHUVFUWK
+      UWSUWLUNUWTUWGUWHUWSUWGUVFUXDWPWQWRWSUVPCBWIXAZUXCUXBUVPUVKUVAXLZMUVQUVPU
+      XFUXAUVACUMUXFUXALCBXBECUVADXCXDXEUVPUVAUVKXFXGRUWTUXBSXHZNZUXBSLUWTUVAUX
+      GUXAVIZUXCUXHAUXIUVEUWSAEUVADUXGUXAAUVBDUXGNZUWQUVCUXJHDSSXIXMXJXKXNVDUXA
+      WTWKXOUXEUVAUXGUVPUXAVRXPUXBSXQRXRUUGOUQMUMUVFOUUEXSVCVAUVFUVJBUVLJQUVRUV
+      FBUVIUVLJUVFUVGBNZPZUVGUVKBXLZMZUVIUVLUXLUVGUXMUVHUXLUUQUXMUVHLAUUQUVEUXK
+      FXOECBDXCRXTUXKUXNUVLLUVFUVGBUVKXFWPXRYAUVFBUVLUVNUVQJKUUHUVNXLZUVPUVGUVP
+      UVKYBZUVFUUGUKNUVNUUGUMZUVNUKNUVFOUUEYCZUWCUUGUVNYDXPUVFUVNUUHUVNVFZUXOUG
+      ZUVNBUXOUGZUVFUUGCUUHYEZUXQUXTUVFUUIUYBUWAUUGCUUHYFRUWCUUGCUVNUUHYGXPUVFU
+      XSBLZUXTUYAVOUVFUUGCUUHYHZUUQUYCUVFUUIUYDUWAUUGCUUHYIRAUUQUVEFUNZUUGCBUUH
+      YJXPUXSBUVNUXOYKRYLUWDUVOUXOMUVPLUVFUVOUVNUUHXFWPUVFUXKUVGCNZUVLTNZUVFUUQ
+      UXKUYFUYEBCUVGYMVSUVFUWNUYFUYGUWRCTUVGUVKVRVSZWLYNYOUVFCUVLUUGUVQJKUUHUVP
+      UXPUXRUWAUVFUWGPUVPYPUYHYNYQBDJEYRCDJEYRYSWGYTUUAUUBUUC $.
+      $( [21-Apr-2014] $)
+  $}
+
+  ${
+    $d j k m A $.  $d j k m B $.  $d j m C $.  $d m M $.
+    $( Change the index set of a sum by adding zeroes.  (Contributed by Mario
+       Carneiro, 15-Jul-2013.) $)
+    sumss2 $p |- ( ( ( A C_ B /\ A. k e. A C e. CC ) /\
+                    ( B C_ ( ZZ>= ` M ) \/ B e. Fin ) ) ->
+      sum_ k e. A C = sum_ k e. B if ( k e. A , C , 0 ) ) $=
+      ( vm vj wss cc wcel wa cv cc0 cif csu wceq simpll simplr adantl ax-17 cuz
+      wral cfv cfn wo csb iftrue vex hbcsb1 csbeq1a eleq1d rcla4 impcom eqeltrd
+      hbel sylan cdif eldifn iffalse syl simpr sumss fsumss jaodan sumeq2i hbif
+      wn eleq1 eqidd ifbieq12d cbvsumi eqtr3i 3eqtr4g ) ABHZCIJZDAUBZKZBEUAUCHZ
+      BUDJZUEKAFLZAJZDVTCUFZMNZFOZBWCFOZACDOZBDLZAJZCMNZDOVQVRWDWEPVSVQVRKZABWC
+      FEVNVPVRQWJVPWAWCIJZVNVPVRRVPWAKWCWBIWAWCWBPVPWAWBMUGSWAVPWBIJZVOWLDVTADG
+      GWBIDGVTCFUHGLZVTJDTUIZWMIJDTUOWGVTPZCWBIDVTCUJZUKULUMUNZUPVTBAUQJZWCMPZW
+      JWRWAVGWSVTBAURWAWBMUSUTZSVQVRVAVBVQVSKZABWCFVNVPVSQXAVPWAWKVNVPVSRWQUPWR
+      WSXAWTSVQVSVAVCVDAWIDOWFWDAWICDWHCMUGVEGAWIWCDFWMWIJFTZWADGWBMWADTWNWMMJD
+      TVFZWOWHWACMWBMWGVTAVHWPWOMVIVJZVKVLGBWIWCDFXBXCXDVKVM $.
+      $( [20-Apr-2014] $) $( [15-Jul-2013] $)
+  $}
+
+  ${
+    $d k m n x A $.  $d m n x B $.  $d k n x F $.  $d k m N $.  $d k m n ph $.
+    $d k m n M $.
+    fsumsers.1 $e |- ( ( ph /\ k e. ( ZZ>= ` M ) ) ->
+                       ( F ` k ) = if ( k e. A , B , 0 ) ) $.
+    fsumsers.2 $e |- ( ph -> N e. ( ZZ>= ` M ) ) $.
+    fsumsers.3 $e |- ( ( ph /\ k e. A ) -> B e. CC ) $.
+    fsumsers.4 $e |- ( ph -> A C_ ( M ... N ) ) $.
+    $( The sequence of partial sums of a finite sum converges to the whole
+       sum.  (Contributed by Mario Carneiro, 20-Apr-2014.) $)
+    fsumcvg2 $p |- ( ph -> seq M ( + , F ) ~~> ( seq M ( + , F ) ` N ) ) $=
+      ( vm vx cz wcel cc0 cfv ax-17 wceq cc vn caddc cv cif cmpt cli csb hbcsb1
+      cseq hbif eleq1 csbeq1a eqidd ifbieq12d cbvmpt wral ralrimiva hbel eleq1d
+      vex rcla4 impcom fsumcvg cuz eluzel2 syl wa eluzelz adantl iftrue eqeltrd
+      syl5 ex wn iffalse 0cn syl6eqel pm2.61d1 adantr eqid fvmpt2 eqtr4d hbmpt1
+      syl2anc hbfv hbeq fveq2 eqeq12d seqfeq fveq1d 3brtr4d ) AUBDNDUCZBOZCPUDZ
+      UEZFUIZGWPQUBEFUIZGWQQUFABDLUCZCUGZLWOFGDLMNWNWRBOZWSPUDMUCZWNOLRWTDMWSPW
+      TDRDMWRCLUTXAWRODRUHZXAPODRUJWLWRSZWMWTCPWSPWLWRBUKDWRCULZXCPUMUNUOWTAWST
+      OZACTOZDBUPWTXEAXFDBJUQXFXEDWRBDMMWSTXBXATODRURXCCWSTXDUSVAVLVBIKVCAUBUAE
+      WOFAGFVDQZOFNOIFGVEVFUAUCZXGOZAXHEQZXHWOQZSZAWLEQZWLWOQZSZDXGUPXIXLAXODXG
+      AWLXGOZVGZXMWNXNHXQWLNOZWNTOZXNWNSXPXRAFWLVHVIAXSXPAWMXSAWMXSAWMVGWNCTWMW
+      NCSAWMCPVJVIJVKVMWMVNWNPTWMCPVOVPVQVRVSDNWNTWOWOVTWAWDWBUQXOXLDXHXGDMMXJX
+      KXAXJODRDMXHWODMNWNWCXAXHODRWEWFWLXHSXMXJXNXKWLXHEWGWLXHWOWGWHVAVLVBWIZAG
+      WQWPXTWJWK $.
+      $( [20-Apr-2014] $)
+
+    $( Special case of series sum over a finite upper integer index set.
+       (Contributed by Mario Carneiro, 26-Jul-2013.) $)
+    fsumsers $p |- ( ph -> sum_ k e. A B = ( seq M ( + , F ) ` N ) ) $=
+      ( csu caddc cseq cli cfv cuz eqid wcel cc cz eluzel2 syl co fzssuz syl6ss
+      cfz zsum wfun wbr wceq fclim ffun ax-mp fsumcvg2 fvex funbrfv mpsyl eqtrd
+      cdm wf ) ABCDLMEFNZOPZGVBPZABCDEFFQPZVERAGVESFUASIFGUBUCABFGUGUDVEKFGUEUF
+      HJUHOUIZAVBVDOUJVCVDUKOUTZTOVAVFULVGTOUMUNABCDEFGHIJKUOVBVDOGVBUPUQURUS
+      $.
+      $( [21-Apr-2014] $) $( [26-Jul-2013] $)
+  $}
+
+  ${
+    $d k n A $.  $d k n F $.  $d k n M $.  $d k n ph $.
+    fsumcvg3.1 $e |- Z = ( ZZ>= ` M ) $.
+    fsumcvg3.2 $e |- ( ph -> M e. ZZ ) $.
+    fsumcvg3.3 $e |- ( ph -> A e. Fin ) $.
+    fsumcvg3.4 $e |- ( ph -> A C_ Z ) $.
+    fsumcvg3.5 $e |- ( ( ph /\ k e. Z ) ->
+                       ( F ` k ) = if ( k e. A , B , 0 ) ) $.
+    fsumcvg3.6 $e |- ( ( ph /\ k e. A ) -> B e. CC ) $.
+    $( A finite sum is convergent.  (Contributed by Mario Carneiro,
+       24-Apr-2014.) $)
+    fsumcvg3 $p |- ( ph -> seq M ( + , F ) e. dom ~~> ) $=
+      ( vn cfz wss wcel c0 wceq cr cv co cuz cfv wrex caddc cseq cli cdm cz syl
+      uzid 0ss opreq2 sseq2d rcla4ev sylancl rexbidv syl5ibrcom wne wa clt csup
+      sseq1 adantr syl6sseq wor cfn ltso simpr uzssz zssre sstri eqsstri syl6ss
+      w3a 3jca fisup2g sylancr sseldd cle wral fimaxre2 syl2anc suprub sylan wb
+      wbr ssel2 eluzelz elfz5 mpbird ex ssrdv pm2.61dne cc0 cif eleq2i sylan2br
+      adantlr simprl cc simprr fsumcvg2 seqex breldm expr rexlimdva mpd ) ABFNU
+      AZOUBZPZNFUCUDZUEZUFEFUGZUHUIQZAXNBRAXNBRSZRXKPZNXMUEZAFXMQZRFFOUBZPZXSAF
+      UJQXTIFULUKYAUMXRYBNFXMXJFSXKYARXJFFOUNUOUPUQXQXLXRNXMBRXKVDURUSABRUTZXNA
+      YCVAZBTVBVCZXMQZBFYEOUBZPZXNYDBXMYEYDBGXMABGPYCKVEZHVFZYDTVBVGBVHQZYCBTPZ
+      VPYEBQVIYDYKYCYLAYKYCJVEZAYCVJZYDBGTYIGXMTHXMUJTFVKVLVMVNVOZVQTBVBVRVSVTZ
+      YDDBYGYDDUAZBQZYQYGQZYDYRVAZYSYQYEWAWHZYDYLYCXJYQWAWHNBWBDTUEZVPYRUUAYDYL
+      YCUUBYOYNYDYLYKUUBYOYMDNBWCWDVQDNBYQWEWFYTYQXMQZYEUJQZYSUUAWGYDBXMPYRUUCY
+      JBXMYQWIWFYDUUDYRYDYFUUDYPFYEWJUKVEYQFYEWKWDWLWMWNXLYHNYEXMXJYESXKYGBXJYE
+      FOUNUOUPWDWMWOAXLXPNXMAXJXMQZXLXPAUUEXLVAZVAZXOXJXOUDZUHWHXPUUGBCDEFXJAUU
+      CYQEUDYRCWPWQSZUUFUUCAYQGQUUIGXMYQHWRLWSWTAUUEXLXAAYRCXBQUUFMWTAUUEXLXCXD
+      XOUUHUHUFEFXEXFUKXGXHXI $.
+      $( [24-Apr-2014] $)
+  $}
+
+  ${
+    $d k m F $.  $d k m M $.  $d k m N $.  $d k ph $.
+    fsumser.1 $e |- ( ( ph /\ k e. ( M ... N ) ) -> ( F ` k ) = A ) $.
+    fsumser.2 $e |- ( ph -> N e. ( ZZ>= ` M ) ) $.
+    fsumser.3 $e |- ( ( ph /\ k e. ( M ... N ) ) -> A e. CC ) $.
+    $( A finite sum expressed in terms of a partial sum of an infinite series.
+       The recursive definition of follows as ~ fsum1 and ~ fsump1i , which
+       should make our notation clear and from which, along with closure
+       ~ fsumcl , we will derive the basic properties of finite sums.  (Revised
+       by Mario Carneiro, 21-Apr-2014.) $)
+    fsumser $p |- ( ph -> sum_ k e. ( M ... N ) A =
+                          ( seq M ( + , F ) ` N ) ) $=
+      ( vm cfz caddc cfv cv wcel cc0 cif cseq wceq eqtrd co csu cuz eleq1 fveq2
+      cmpt eqidd ifbieq12d eqid fvex cz elexi ifex fvmpt ifeq1da sylan9eqr ssid
+      0z wss a1i fsumsers elfzuz syl iftrue adantl seqfveq ) AEFKUAZBCUBFLJEUCM
+      ZJNZVGOZVIDMZPQZUFZERMFLDERMAVGBCVMEFCNZVHOZAVNVMMZVNVGOZVNDMZPQZVQBPQJVN
+      VLVSVHVMVIVNSZVJVQVKPVRPVIVNVGUDVIVNDUEVTPUGUHVMUIVQVRPVNDUJPUKURULUMUNZA
+      VQVRBPGUOUPHIVGVGUSAVGUQUTVAALCVMDEFHVQVPVRSAVQVPVSVRVQVOVPVSSVNEFVBWAVCV
+      QVRPVDTVEVFT $.
+      $( [21-Apr-2014] $) $( [11-Dec-2005] $)
+  $}
+
+  ${
+    $d f k m x y A $.  $d f m x y B $.  $d f k m x y ph $.  $d f k x y S $.
+    fsumcllem.1 $e |- S C_ CC $.
+    fsumcllem.2 $e |- ( ( x e. S /\ y e. S ) -> ( x + y ) e. S ) $.
+    fsumcllem.3 $e |- ( ph -> A e. Fin ) $.
+    fsumcllem.4 $e |- ( ( ph /\ k e. A ) -> B e. S ) $.
+    ${
+      fsumcl2lem.5 $e |- ( ph -> A =/= (/) ) $.
+      $( - Lemma for finite sum closures.  (The "-" before "Lemma" forces the
+         math content to be displayed in the Statement List - NM 11-Feb-2008.)
+         (Contributed by Mario Carneiro, 3-Jun-2014.) $)
+      fsumcl2lem $p |- ( ph -> sum_ k e. A B e. S ) $=
+        ( vf vm cfv wcel c1 cv wa syl c0 wceq chash cn cfz co wex wo csu fz1f1o
+        wf1o cfn wne wn necon4bd caddc cmpt ccom cseq sumfc fveq2 simprl simprr
+        a1d cc wf eqid fmptd adantr ffvelrn sylan sseli wfun ffun ad2antrr f1of
+        ex simpr fvco3 syl3anc fsum syl5eqr cuz nnuz syl6eleq fco syl2anc seqcl
+        adantl eqeltrd expr exlimdv expimpd jaod mpd ) ADUAUBZDUCOZUDPZQWQUEUFZ
+        DMRZUKZMUGZSZUHZDEGUIZFPZADULPXDJDMUJTAWPXFXCAXFDUAADUAUMXFUNLVDUOAWRXB
+        XFAWRSXAXFMAWRXAXFAWRXASZSZXEWQUPGDEUQZWTURZQUSOZFXHXEDNRZXIOZNUIXKDENG
+        UTXHDXMBRZWTOZXIOZNBWTXJWQXLXOXIVAAWRXAVBZAWRXAVCZXHXLDPZSXMFPZXMVEPXHD
+        FXIVFZXSXTAYAXGAGDEFXIAGRDPEFPKVQXIVGVHZVIZDFXLXIVJVKFVEXMHVLTXHXNWSPZS
+        XIVMZWSDWTVFZYDXNXJOZXPUBAYEXGYDAYAYEYBDFXIVNTVOXHYFYDXHXAYFXRWSDWTVPTZ
+        VIXHYDVRWSDXNXIWTVSVTWAWBXHBCUPFXJQWQXHWQUDQWCOXQWDWEXHWSFXJVFZYDYGFPXH
+        YAYFYIYCYHWSDFXIWTWFWGWSFXNXJVJVKXNFPCRZFPSXNYJUPUFFPXHIWIWHWJWKWLWMWNW
+        O $.
+        $( [3-Jun-2014] $)
+    $}
+
+    fsumcllem.5 $e |- 0 e. S $.
+    $( - Lemma for finite sum closures.  (The "-" before "Lemma" forces the
+       math content to be displayed in the Statement List - NM 11-Feb-2008.)
+       (Contributed by Mario Carneiro, 22-Apr-2014.) $)
+    fsumcllem $p |- ( ph -> sum_ k e. A B e. S ) $=
+      ( csu wcel wi c0 wceq cc0 sumeq1 sum0 syl6eq syl6eqel a1d wne cfn adantlr
+      wa adantr cv simpr fsumcl2lem expcom pm2.61ine ) ADEGMZFNZODPDPQZUOAUPUNR
+      FUPUNPEGMRDPEGSEGTUALUBUCADPUDZUOAUQUGBCDEFGHIADUENUQJUHAGUIDNEFNUQKUFAUQ
+      UJUKULUM $.
+      $( [3-Jun-2014] $) $( [9-Nov-2005] $)
+  $}
+
+  ${
+    $d k x y A $.  $d x y B $.  $d k x y ph $.
+    fsumcl.1 $e |- ( ph -> A e. Fin ) $.
+    ${
+      fsumcl.2 $e |- ( ( ph /\ k e. A ) -> B e. CC ) $.
+      $( Closure of a finite sum of complex numbers ` A ( k ) ` . $)
+      fsumcl $p |- ( ph -> sum_ k e. A B e. CC ) $=
+        ( vx vy cc ssid cv ax-addcl 0cn fsumcllem ) AGHBCIDIJGKHKLEFMN $.
+        $( [22-Apr-2014] $) $( [9-Nov-2005] $)
+    $}
+
+    ${
+      fsumrecl.2 $e |- ( ( ph /\ k e. A ) -> B e. RR ) $.
+      $( Closure of a finite sum of reals. $)
+      fsumrecl $p |- ( ph -> sum_ k e. A B e. RR ) $=
+        ( vx vy cr ax-resscn cv ax-addrcl 0re fsumcllem ) AGHBCIDJGKHKLEFMN $.
+        $( [22-Apr-2014] $) $( [9-Nov-2005] $)
+    $}
+
+    fsumrpcl.2 $e |- ( ph -> A =/= (/) ) $.
+    fsumrpcl.3 $e |- ( ( ph /\ k e. A ) -> B e. RR+ ) $.
+    $( Closure of a finite sum of positive reals. $)
+    fsumrpcl $p |- ( ph -> sum_ k e. A B e. RR+ ) $=
+      ( vx vy crp cr cc rpssre ax-resscn sstri cv rpaddcl fsumcl2lem ) AHIBCJDJ
+      KLMNOHPIPQEGFR $.
+      $( [3-Jun-2014] $)
+  $}
+
+  ${
+    $d f k m n x A $.  $d f m n x B $.  $d f m n x C $.  $d f k m n ph $.
+    fsumadd.1 $e |- ( ph -> A e. Fin ) $.
+    fsumadd.2 $e |- ( ( ph /\ k e. A ) -> B e. CC ) $.
+    fsumadd.3 $e |- ( ( ph /\ k e. A ) -> C e. CC ) $.
+    $( The sum of two finite sums.  (Revised by Mario Carneiro,
+       22-Apr-2014.) $)
+    fsumadd $p |- ( ph -> sum_ k e. A ( B + C ) =
+                        ( sum_ k e. A B + sum_ k e. A C ) ) $=
+      ( vm vx c0 wceq cfv wcel c1 co wa caddc csu cc vf vn chash cn cfz cv wf1o
+      wex wo cfn fz1f1o syl wi cc0 00id sum0 opreq12i 3eqtr4ri opreq12d 3eqtr4a
+      sumeq1 a1i cmpt ccom cseq cuz simprl nnuz syl6eleq wf adantlr eqid simprr
+      ex fmptd f1of fco syl2anc ffvelrn sylan wral cvv oprex fvmpt2 mpan2 simpr
+      adantl eqtr4d ralrimiva ad2antrr hbmpt1 ax-17 hbfv hbopr hbeq fveq2 rcla4
+      eqeq12d sylc wfun addcl adantr fvco3 syl3anc 3eqtr4d seradd sumfc 3eqtr3g
+      ffun fsum expr exlimdv expimpd jaod mpd ) ABKLZBUCMZUDNZOXQUEPZBUAUFZUGZU
+      AUHZQZUIZBCDRPZESZBCESZBDESZRPZLZABUJNYDFBUAUKULAXPYJYCXPYJUMAXPKYEESZKCE
+      SZKDESZRPZYFYIUNUNRPUNYNYKUOYLUNYMUNRCEUPDEUPUQYEEUPURBKYEEVAXPYGYLYHYMRB
+      KCEVABKDEVAUSUTVBAXRYBYJAXRQYAYJUAAXRYAYJAXRYAQZQZBIUFZEBYEVCZMZISZBYQEBC
+      VCZMZISZBYQEBDVCZMZISZRPZYFYIYPXQRYRXTVDZOVEMXQRUUAXTVDZOVEMZXQRUUDXTVDZO
+      VEMZRPYTUUGYPUBUUIUUKUUHOXQYPXQUDOVFMAXRYAVGZVHVIYPXSTUUIVJZUBUFZXSNZUUOU
+      UIMZTNYPBTUUAVJZXSBXTVJZUUNYPEBCTUUAYPEUFZBNZCTNZAUVAUVBYOGVKZVNUUAVLZVOZ
+      YPYAUUSAXRYAVMZXSBXTVPULZXSBTUUAXTVQVRXSTUUOUUIVSVTYPXSTUUKVJZUUPUUOUUKMZ
+      TNYPBTUUDVJZUUSUVHYPEBDTUUDYPUVADTNZAUVAUVKYOHVKZVNUUDVLZVOZUVGXSBTUUDXTV
+      QVRXSTUUOUUKVSVTYPUUPQZUUOXTMZYRMZUVPUUAMZUVPUUDMZRPZUUOUUHMZUUQUVIRPUVOU
+      VPBNZUUTYRMZUUTUUAMZUUTUUDMZRPZLZEBWAZUVQUVTLZYPUUSUUPUWBUVGXSBUUOXTVSVTA
+      UWHYOUUPAUWGEBAUVAQZUWCYEUWFUVAUWCYELZAUVAYEWBNUWKCDRWCEBYEWBYRYRVLZWDWEW
+      GUWJUWDCUWEDRUWJUVAUVBUWDCLAUVAWFZGEBCTUUAUVDWDVRUWJUVAUVKUWEDLUWMHEBDTUU
+      DUVMWDVRUSWHWIWJUWGUWIEUVPBEJJUVQUVTEJUVPYREJBYEWKJUFZUVPNEWLZWMEJUVRUVSR
+      EJUVPUUAEJBCWKUWOWMUWNRNEWLEJUVPUUDEJBDWKUWOWMWNWOUUTUVPLZUWCUVQUWFUVTUUT
+      UVPYRWPUWPUWDUVRUWEUVSRUUTUVPUUAWPUUTUVPUUDWPUSWRWQWSUVOYRWTZUUSUUPUWAUVQ
+      LYPUWQUUPYPBTYRVJZUWQYPEBYETYRYPUVAYETNZYPUVAQUVBUVKUWSUVCUVLCDXAVRVNUWLV
+      OZBTYRXIULXBYPUUSUUPUVGXBZYPUUPWFZXSBUUOYRXTXCXDZUVOUUQUVRUVIUVSRUVOUUAWT
+      ZUUSUUPUUQUVRLYPUXDUUPYPUURUXDUVEBTUUAXIULXBUXAUXBXSBUUOUUAXTXCXDZUVOUUDW
+      TZUUSUUPUVIUVSLYPUXFUUPYPUVJUXFUVNBTUUDXIULXBUXAUXBXSBUUOUUDXTXCXDZUSXEXF
+      YPBYSUVQIUBXTUUHXQYQUVPYRWPUUMUVFYPUWRYQBNZYSTNUWTBTYQYRVSVTUXCXJYPUUCUUJ
+      UUFUULRYPBUUBUVRIUBXTUUIXQYQUVPUUAWPUUMUVFYPUURUXHUUBTNUVEBTYQUUAVSVTUXEX
+      JYPBUUEUVSIUBXTUUKXQYQUVPUUDWPUUMUVFYPUVJUXHUUETNUVNBTYQUUDVSVTUXGXJUSXEB
+      YEIEXGUUCYGUUFYHRBCIEXGBDIEXGUQXHXKXLXMXNXO $.
+      $( [22-Apr-2014] $) $( [14-Nov-2005] $)
+  $}
+
+  ${
+    $d k A $.  $d k B $.  $d k ph $.  $d k U $.
+    fsumsplit.1 $e |- ( ph -> ( A i^i B ) = (/) ) $.
+    fsumsplit.2 $e |- ( ph -> U = ( A u. B ) ) $.
+    fsumsplit.3 $e |- ( ph -> U e. Fin ) $.
+    fsumsplit.4 $e |- ( ( ph /\ k e. U ) -> C e. CC ) $.
+    $( Split a sum into two parts.  (Revised by Mario Carneiro,
+       22-Apr-2014.) $)
+    fsumsplit $p |- ( ph -> sum_ k e. U C =
+                          ( sum_ k e. A C + sum_ k e. B C ) ) $=
+      ( csu caddc co wcel cc0 wss cc wa wceq syl cv cif wral cuz cfv cfn wo cun
+      ssun1 syl5sseqr ssel2 sylan syldan ralrimiva olcd sumss2 syl2anc opreq12d
+      jca ssun2 ifcl sylancl fsumadd eleq2d elun syl6bb biimpa iftrue adantl wn
+      0cn wi noel cin elin syl5rbbr mtbii imnan sylibr imp iffalse addid1 eqtrd
+      c0 con2d addid2 jaodan sumeq2dv 3eqtr2rd ) ABDFKZCDFKZLMEFUAZBNZDOUBZFKZE
+      WLCNZDOUBZFKZLMEWNWQLMZFKEDFKAWJWOWKWRLABEPZDQNZFBUCZREOUDUEPZEUFNZUGZWJW
+      OSAWTXBABCUHZBEBCUIHUJZAXAFBAWMWLENZXAAWTWMXHXGBEWLUKULJUMZUNUSAXDXCIUOZB
+      EDFOUPUQACEPZXAFCUCZRXEWKWRSAXKXLAXFCECBUTHUJZAXAFCAWPXHXAAXKWPXHXMCEWLUK
+      ULJUMZUNUSXJCEDFOUPUQURAEWNWQFIAXHRZXAOQNZWNQNJVKWMDOQVAVBXOXAXPWQQNJVKWP
+      DOQVAVBVCAEWSDFAXHWMWPUGZWSDSZAXHXQAXHWLXFNXQAEXFWLHVDWLBCVEVFVGAWMXRWPAW
+      MRZWSDOLMZDXSWNDWQOLWMWNDSAWMDOVHVIXSWPVJZWQOSAWMYAAWMWPRZVJWMYAVLAWLWDNZ
+      YBWLVMYBWLBCVNZNAYCWLBCVOAYDWDWLGVDVPVQWMWPVRVSZVTWPDOWATURXSXAXTDSXIDWBT
+      WCAWPRZWSODLMZDYFWNOWQDLYFWMVJZWNOSAWPYHAWMWPYEWEVTWMDOWATWPWQDSAWPDOVHVI
+      URYFXAYGDSXNDWFTWCWGUMWHWI $.
+      $( [22-Apr-2014] $) $( [18-Aug-2013] $)
+  $}
+
+  ${
+    $d j m n A $.  $d j k m n B $.  $d j k m n M $.  $d j k m n V $.
+    fsum1.1 $e |- ( k = M -> A = B ) $.
+    $( A sum of a singleton is the term.  (Contributed by Mario Carneiro,
+       22-Apr-2014.) $)
+    sumsn $p |- ( ( M e. V /\ B e. CC ) -> sum_ k e. { M } A = B ) $=
+      ( vm vj wcel cc wa csn c1 cfv cv csb cn 1nn sylancr wceq vn csu caddc cop
+      cseq ax-17 vex hbcsb1 csbeq1a cbvsumi csbeq1 a1i wf1o cfz co simpl f1osng
+      wb cz fzsn ax-mp f1oeq2 sylibr elsni adantl csbeq1d a17d csbiegf ad2antrr
+      1z simplr eqeltrd elfz1eq fveq2d fvsng sylan9eqr simpr 3eqtr4rd fsum seq1
+      syl5eq eqtrd ) DEIZBJIZKZDLZACUBZMUCMBUDLZMUENZBWEWGWFCGOZAPZGUBWIHWFAWKC
+      GHOZAIGUFCHWJAGUGWLWJICUFUHCWJAUIUJWEWFWKCUAOZMDUDLZNZAPZGUAWNWHMCWJWOAUK
+      MQIZWERULWEMLZWFWNUMZMMUNUOZWFWNUMZWEWQWCWSRWCWDUPZMDQEUQSWTWRTZXAWSURMUS
+      IZXCVJMUTVAWTWRWFWNVBVAVCWEWJWFIZKZWKCDAPZJXFCWJDAXEWJDTWEWJDVDVEVFXFXGBJ
+      WCXGBTZWDXECHDABEWCWLBICVGFVHZVIWCWDXEVKVLVLWEWMWTIZKZXGBWPWMWHNZWCXHWDXJ
+      XIVIXKCWODAXJWEWOMWNNZDXJWMMWNWMMVMZVNWEWQWCXMDTRXBMDQEVOSVPVFXJWEXLMWHNZ
+      BXJWMMWHXNVNWEWQWDXOBTRWCWDVQMBQJVOSZVPVRVSWAWEWIXOBXDWIXOTVJUCWHMVTVAXPW
+      AWB $.
+      $( [22-Apr-2014] $)
+
+    $( The finite sum of ` A ( k ) ` from ` k = M ` to ` M ` (i.e. a sum with
+       only one term) is ` B ` i.e. ` A ( M ) ` .  (Revised by Mario Carneiro,
+       21-Apr-2014.) $)
+    fsum1 $p |- ( ( M e. ZZ /\ B e. CC ) -> sum_ k e. ( M ... M ) A = B ) $=
+      ( cz wcel cc wa cfz co csu csn wceq fzsn adantr sumeq1d sumsn eqtrd ) DFG
+      ZBHGZIZDDJKZACLDMZACLBUBUCUDACTUCUDNUADOPQABCDFERS $.
+      $( [21-Apr-2014] $) $( [8-Nov-2005] $)
+  $}
+
+  ${
+    $d n x A $.  $d k n x M $.  $d n V $.
+    $( A sum of a singleton is the term.  (Contributed by Mario Carneiro,
+       22-Apr-2014.) $)
+    sumsns $p |- ( ( M e. V /\ [_ M / k ]_ A e. CC ) ->
+                   sum_ k e. { M } A = [_ M / k ]_ A ) $=
+      ( vn vx wcel csb cc wa csn csu cv ax-17 vex hbcsb1 csbeq1a cbvsumi csbeq1
+      sumsn syl5eq ) CDGBCAHZIGJCKZABLUCBEMZAHZELUBFUCAUEBEFMZAGENBFUDAEOUFUDGB
+      NPBUDAQRUEUBECDBUDCASTUA $.
+      $( [22-Apr-2014] $)
+  $}
+
+  ${
+    $d k B $.  $d k M $.  $d k N $.  $d k ph $.
+    fsumm1.1 $e |- ( ph -> N e. ( ZZ>= ` M ) ) $.
+    fsumm1.2 $e |- ( ( ph /\ k e. ( M ... N ) ) -> A e. CC ) $.
+    ${
+      fsumm1.3 $e |- ( k = N -> A = B ) $.
+      $( Separate out the last term in a finite sum.  (Contributed by Mario
+         Carneiro, 26-Apr-2014.) $)
+      fsumm1 $p |- ( ph -> sum_ k e. ( M ... N ) A =
+                         ( sum_ k e. ( M ... ( N - 1 ) ) A + B ) ) $=
+        ( cfz co csu c1 cmin caddc wcel wceq cuz syl cc csn cin c0 eluzelz fzsn
+        cfv ineq2d cvv clt wbr oprex zre ltm1 fzdisj sylancr eqtr3d cun eluzel2
+        cz cr peano2zm zcn ax-1cn npcan sylancl fveq2d eleqtrrd eluzp1m1 fzsuc2
+        syl2anc recnd opreq2d sneqd uneq2d 3eqtr3d fzfid fsumsplit wral eluzfz2
+        ralrimiva cv eleq1d rcla4v sylc sumsn eqtrd ) AEFJKZBDLEFMNKZJKZBDLZFUA
+        ZBDLZOKWJCOKAWIWKBWGDAWIFFJKZUBZWIWKUBUCAWMWKWIAFUSPZWMWKQAFERUFZPZWOGE
+        FUDSZFUESUGAWHUHPWHFUIUJZWNUCQFMNUKAFUTPZWSAWOWTWRFULSZFUMSUHEWHFFUNUOU
+        PAEWHMOKZJKZWIXBUAZUQZWGWIWKUQAEUSPZWHEMNKZRUFPZXCXEQAWQXFGEFURSZAXGUSP
+        ZFXGMOKZRUFZPXHAXFXJXIEVASAFWPXLGAXKERAETPZMTPZXKEQAXFXMXIEVBSVCEMVDVEV
+        FVGXGFVHVJEWHVIVJAXBFEJAFTPXNXBFQAFXAVKVCFMVDVEZVLAXDWKWIAXBFXOVMVNVOAE
+        FVPHVQAWLCWJOAWQCTPZWLCQGAFWGPZBTPZDWGVRXPAWQXQGEFVSSAXRDWGHVTXRXPDFWGD
+        WAFQBCTIWBWCWDBCDFWPIWEVJVLWF $.
+        $( [26-Apr-2014] $)
+    $}
+
+    fsum1p.3 $e |- ( k = M -> A = B ) $.
+    $( Separate out the first term in a finite sum.  (Revised by Mario
+       Carneiro, 23-Apr-2014.) $)
+    fsum1p $p |- ( ph -> sum_ k e. ( M ... N ) A =
+                       ( B + sum_ k e. ( ( M + 1 ) ... N ) A ) ) $=
+      ( cfz co csu caddc cin c0 cz wcel wceq syl cc csn c1 cuz cfv eluzel2 fzsn
+      ineq1d cr zre clt wbr ltp1 fzdisj mpdan eqtr3d cun eluzfz1 fzsplit uneq1d
+      syl2anc eqtrd fzfid fsumsplit wral ralrimiva cv eleq1d sylc sumsn opreq1d
+      rcla4v ) AEFJKZBDLEUAZBDLZEUBMKZFJKZBDLZMKCVQMKAVMVPBVLDAEEJKZVPNZVMVPNOA
+      VRVMVPAEPQZVRVMRAFEUCUDZQZVTGEFUESZEUFSZUGAEUHQZVSORZAVTWEWCEUISWEEVOUJUK
+      WFEULUHEEVOFUMUNSUOAVLVRVPUPZVMVPUPAWBEVLQZVLWGRGAWBWHGEFUQSZWAEEFURUTAVR
+      VMVPWDUSVAAEFVBHVCAVNCVQMAVTCTQZVNCRWCAWHBTQZDVLVDWJWIAWKDVLHVEWKWJDEVLDV
+      FERBCTIVGVKVHBCDEPIVIUTVJVA $.
+      $( [23-Apr-2014] $) $( [3-Jan-2006] $)
+  $}
+
+  ${
+    $d k B $.  $d k M $.  $d k N $.  $d k ph $.
+    fsump1.1 $e |- ( ph -> N e. ( ZZ>= ` M ) ) $.
+    fsump1.2 $e |- ( ( ph /\ k e. ( M ... ( N + 1 ) ) ) -> A e. CC ) $.
+    fsump1.3 $e |- ( k = ( N + 1 ) -> A = B ) $.
+    $( The addition of the next term in a finite sum of ` A ( k ) ` is the
+       current term plus ` B ` i.e. ` A ( N + 1 ) ` .  (Revised by Mario
+       Carneiro, 21-Apr-2014.) $)
+    fsump1 $p |- ( ph -> sum_ k e. ( M ... ( N + 1 ) ) A =
+                       ( sum_ k e. ( M ... N ) A + B ) ) $=
+      ( c1 caddc co cfz csu cmin cuz cfv wcel syl cc peano2uz fsumm1 cz eluzelz
+      wceq zcn ax-1cn pncan sylancl opreq2d sumeq1d opreq1d eqtrd ) AEFJKLZMLBD
+      NEUNJOLZMLZBDNZCKLEFMLZBDNZCKLABCDEUNAFEPQZRZUNUTRGEFUASHIUBAUQUSCKAUPURB
+      DAUOFEMAFTRZJTRUOFUEAFUCRZVBAVAVCGEFUDSFUFSUGFJUHUIUJUKULUM $.
+      $( [21-Apr-2014] $) $( [4-Nov-2005] $)
+  $}
+
+  ${
+    $d k F $.  $d k M $.  $d k ph $.  $d k Z $.
+    isumclim.1 $e |- Z = ( ZZ>= ` M ) $.
+    isumclim.2 $e |- ( ph -> M e. ZZ ) $.
+    isumclim.3 $e |- ( ( ph /\ k e. Z ) -> ( F ` k ) = A ) $.
+    isumclim.4 $e |- ( ( ph /\ k e. Z ) -> A e. CC ) $.
+    ${
+      isumclim.5 $e |- ( ph -> B e. V ) $.
+      isumclim.6 $e |- ( ph -> seq M ( + , F ) ~~> B ) $.
+      $( An infinite sum equals the value its series converges to.
+         (Contributed by Mario Carneiro, 23-Apr-2014.) $)
+      isumclim $p |- ( ph -> sum_ k e. Z A = B ) $=
+        ( csu caddc cli wcel cc cvv cseq cfv isum wceq wbr cdm wfn wb fclim ffn
+        wf ax-mp a1i seqex breldmg sylancr fnbrfvbg syl3anc mpbird eqtrd ) AHBD
+        OPEFUAZQUBZCABDEFHIJKLUCAVBCUDZVACQUEZNAQQUFZUGZVAVERZCGRVCVDUHVFAVESQU
+        KVFUIVESQUJULUMAVATRVDVGPEFUNNVACTQUOUPMVEVACGQUQURUSUT $.
+        $( [23-Apr-2014] $) $( [25-Dec-2005] $)
+    $}
+
+    isumclim2.5 $e |- ( ph -> seq M ( + , F ) e. dom ~~> ) $.
+    $( A converging series converges to its infinite sum.  (Revised by Mario
+       Carneiro, 23-Apr-2014.) $)
+    isumclim2 $p |- ( ph -> seq M ( + , F ) ~~> sum_ k e. Z A ) $=
+      ( caddc cseq cli cfv csu cdm wcel wbr climdm sylib isum breqtrrd ) ALDEMZ
+      UDNOZFBCPNAUDNQRUDUENSKUDTUAABCDEFGHIJUBUC $.
+      $( [23-Apr-2014] $) $( [2-Jan-2006] $)
+  $}
+
+  ${
+    $d j m x A $.  $d j k m x M $.  $d j k m x ph $.  $d j k m x Z $.
+    $d j x F $.
+    isumclim3.1 $e |- Z = ( ZZ>= ` M ) $.
+    isumclim3.2 $e |- ( ph -> M e. ZZ ) $.
+    isumclim3.3 $e |- ( ph -> F e. dom ~~> ) $.
+    isumclim3.4 $e |- ( ( ph /\ k e. Z ) -> A e. CC ) $.
+    isumclim3.5 $e |- ( ( ph /\ j e. Z ) ->
+                        ( F ` j ) = sum_ k e. ( M ... j ) A ) $.
+    $( The sequence of partial finite sums of a converging infinite series
+       converge to the infinite sum of the series.  Note that ` j ` must not
+       occur in ` A ` .  (Revised by Mario Carneiro, 23-Apr-2014.) $)
+    isumclim3 $p |- ( ph -> F ~~> sum_ k e. Z A ) $=
+      ( vm vx cli cfv csu wcel wbr cc cdm climdm sylib caddc cmpt cseq cv sumfc
+      cid wa eqidd wf ex eqid fmptd ffvelrn sylan syl5eqr cio cvv seqex a1i vex
+      isum cfz co cres wss wceq cuz fzssuz sseqtr4i resmpt ax-mp fvres syl5reqr
+      fveq1i sumeq2i eqtri simpr syl6eleq simpl elfzuz syl6eleqr syl2an fsumser
+      eqtr2d climeq fvi syl breq1d bitr4d iotabidv fvex 3eqtr4g fveq2d breqtrrd
+      fv4 3eqtrd ) AEEOPZGBDQZOAEOUAZRZEWTOSJEUBUCAXAUDDGBUEZFUFZOPZEUIPZOPZWTA
+      XAGMUGZXDPZMQXFGBMDUHAXJMXDFGHIAXIGRZUJXJUKAGTXDULXKXJTRZADGBTXDADUGGRBTR
+      KUMXDUNUOGTXIXDUPUQZVDURAXENUGZOSZNUSXGXNOSZNUSXFXHAXOXPNAXOEXNOSXPAXNCXE
+      EFUTXBUTGHXEUTRAUDXDFVAZVBJXNUTRANVCVBIACUGZGRZUJZXREPFXRVEVFZBDQZXRXEPZL
+      XTYBYAXJMQZYCYDYAXIDYABUEZPZMQYBYAXJYFMXIYARZYFXIXDYAVGZPXJXIYHYEYAGVHYHY
+      EVIYAFVJPZGFXRVKHVLDGYABVMVNVQXIYAXDVOVPVRYABMDUHVSXTXJMXDFXRXTYGUJXJUKXT
+      XRGYIAXSVTHWAXTAXKXLYGAXSWBYGXIYIGXIFXRWCHWDXMWEWFURWGWHAXGEXNOAXCXGEVIJE
+      XBWIWJZWKWLWMNXEOXQWRNXGOEUIWNWRWOAXGEOYJWPWSWQ $.
+      $( [23-Apr-2014] $) $( [9-Jan-2006] $)
+  $}
+
+  ${
+    $d m x A $.  $d k m x B $.  $d k m x F $.  $d k m ph $.  $d k m x Z $.
+    $d k m M $.
+    isumcl.1 $e |- Z = ( ZZ>= ` M ) $.
+    isumcl.2 $e |- ( ph -> M e. ZZ ) $.
+    isumcl.3 $e |- ( ( ph /\ k e. Z ) -> ( F ` k ) = A ) $.
+    isumcl.4 $e |- ( ( ph /\ k e. Z ) -> A e. CC ) $.
+    ${
+      sumnul.5 $e |- ( ph -> -. seq M ( + , F ) e. dom ~~> ) $.
+      $( The sum of a non-convergent infinite series evaluates to the empty
+         set.  (Contributed by Paul Chapman, 04-Nov-2007.)  (Revised by Mario
+         Carneiro, 23-Apr-2014.) $)
+      sumnul $p |- ( ph -> sum_ k e. Z A = (/) ) $=
+        ( csu caddc cseq cli cfv c0 isum cdm wcel wn wceq ndmfv syl eqtrd ) AFB
+        CLMDENZOPZQABCDEFGHIJRAUFOSTUAUGQUBKUFOUCUDUE $.
+        $( [23-Apr-2014] $) $( [4-Nov-2007] $)
+    $}
+
+    isumcl.5 $e |- ( ph -> seq M ( + , F ) e. dom ~~> ) $.
+    $( The sum of a converging infinite series is a complex number.  (Revised
+       by Mario Carneiro, 23-Apr-2014.) $)
+    isumcl $p |- ( ph -> sum_ k e. Z A e. CC ) $=
+      ( csu caddc cseq cli cfv cc isum cdm wcel fclim ffvelrn sylancr eqeltrd
+      wf ) AFBCLMDENZOPZQABCDEFGHIJRAOSZQOUEUFUHTUGQTUAKUHQUFOUBUCUD $.
+      $( [23-Apr-2014] $) $( [13-Dec-2005] $)
+
+    summulc.6 $e |- ( ph -> B e. CC ) $.
+    $( An infinite sum multiplied by a constant.  (Contributed by Mario
+       Carneiro, 23-Apr-2014.) $)
+    isummulc2 $p |- ( ph ->
+                      ( B x. sum_ k e. Z A ) = sum_ k e. Z ( B x. A ) ) $=
+      ( vm vx cmul co cvv wcel cc csu cv cmpt cfv sumfc wa eqidd adantr syl2anc
+      wf mulcl ex eqid fmptd ffvelrn sylan oprex sumex isumclim2 wral ralrimiva
+      a1i eqeltrd wceq fveq2 eleq1d rcla4cva simpr fvmpt2 sylancl eqtr4d hbmpt1
+      opreq2d ax-17 hbfv hbeq eqeq12d rcla4 impcom isermulc2 isumclim syl5reqr
+      syl5 ) AGCBPQZDUAGNUBZDGWDUCZUDZNUACGBDUAZPQZGWDNDUEAWGWINWFFRGHIAWEGSZUF
+      WGUGAGTWFUJWJWGTSADGWDTWFADUBZGSZWDTSZAWLUFZCTSZBTSWMAWOWLMUHKCBUKUIULWFU
+      MZUNGTWEWFUOUPWIRSACWHPUQVBAWHCNEWFFRGHIWHRSAGBDURVBMABDEFGHIJKLUSAWKEUDZ
+      TSZDGUTWJWEEUDZTSZAWRDGWNWQBTJKVCVAWRWTDWEGWKWEVDZWQWSTWKWEEVEZVFVGUPWJAW
+      GCWSPQZVDZAWKWFUDZCWQPQZVDZDGUTWJXDAXGDGWNXEWDXFWNWLWDRSXEWDVDAWLVHCBPUQD
+      GWDRWFWPVIVJWNWQBCPJVMVKVAXGXDDWEGDOOWGXCDOWEWFDOGWDVLOUBZWESDVNVOXHXCSDV
+      NVPXAXEWGXFXCWKWEWFVEXAWQWSCPXBVMVQVRWCVSVTWAWB $.
+      $( [23-Apr-2014] $) $( [12-Nov-2005] $)
+
+    $( An infinite sum multiplied by a constant.  (Contributed by Mario
+       Carneiro, 23-Apr-2014.) $)
+    isummulc1 $p |- ( ph ->
+                      ( sum_ k e. Z A x. B ) = sum_ k e. Z ( A x. B ) ) $=
+      ( csu cmul co cc wcel wceq mulcom isummulc2 isumcl syl2anc cv wa sumeq2dv
+      adantr 3eqtr4d ) ACGBDNZOPZGCBOPZDNUICOPZGBCOPZDNABCDEFGHIJKLMUAAUIQRCQRZ
+      ULUJSABDEFGHIJKLUBMUICTUCAGUMUKDADUDGRZUEBQRUNUMUKSKAUNUOMUGBCTUCUFUH $.
+      $( [23-Apr-2014] $) $( [13-Nov-2005] $)
+
+    isumdivc.7 $e |- ( ph -> B =/= 0 ) $.
+    $( An infinite sum divided by a constant.  (Contributed by Mario Carneiro,
+       18-Aug-2013.) $)
+    isumdivc $p |- ( ph -> ( sum_ k e. Z A / B ) = sum_ k e. Z ( A / B ) ) $=
+      ( csu cdiv co cmul cc wcel c1 cc0 wne reccl syl2anc isummulc1 wceq isumcl
+      divrec syl3anc cv wa adantr sumeq2dv 3eqtr4d ) AGBDOZUACPQZRQZGBUQRQZDOUP
+      CPQZGBCPQZDOABUQDEFGHIJKLACSTZCUBUCZUQSTMNCUDUEUFAUPSTVBVCUTURUGABDEFGHIJ
+      KLUHMNUPCUIUJAGVAUSDADUKGTZULBSTVBVCVAUSUGKAVBVDMUMAVCVDNUMBCUIUJUNUO $.
+      $( [23-Apr-2014] $) $( [2-Jan-2006] $)
+  $}
+
+  ${
+    $d j A $.  $d j k F $.  $d j k M $.  $d j k ph $.  $d j k Z $.
+    isumrecl.1 $e |- Z = ( ZZ>= ` M ) $.
+    isumrecl.2 $e |- ( ph -> M e. ZZ ) $.
+    isumrecl.3 $e |- ( ( ph /\ k e. Z ) -> ( F ` k ) = A ) $.
+    isumrecl.4 $e |- ( ( ph /\ k e. Z ) -> A e. RR ) $.
+    isumrecl.5 $e |- ( ph -> seq M ( + , F ) e. dom ~~> ) $.
+    $( The sum of a converging infinite real series is a real number.
+       (Contributed by Mario Carneiro, 24-Apr-2014.) $)
+    isumrecl $p |- ( ph -> sum_ k e. Z A e. RR ) $=
+      ( vj csu caddc cseq cvv cv wcel cr cfv wa recnd isumclim2 eqeltrd ffvelrn
+      wf serfre sylan sumex a1i climrecl ) AFBCMZLNDEOZEPFGHABCDEFGHIACQZFRUAZB
+      JUBKUCAFSUMUFLQZFRUPUMTSRACDEFGHUOUNDTBSIJUDUGFSUPUMUEUHULPRAFBCUIUJUK $.
+      $( [24-Apr-2014] $)
+
+    isumge0.6 $e |- ( ( ph /\ k e. Z ) -> 0 <_ A ) $.
+    $( An infinite sum of nonnegative terms is nonnegative.  (Contributed by
+       Mario Carneiro, 28-Apr-2014.) $)
+    isumge0 $p |- ( ph -> 0 <_ sum_ k e. Z A ) $=
+      ( vj cc0 cv cfv csu cle caddc breqtrrd cseq wcel wa recnd isumclim2 fveq2
+      cli cbvsumv sumeq2dv syl5eq cr eqeltrd iserge0 breqtrd ) ANFMOZDPZMQZFBCQ
+      ZRAUQCDEFGHASDEUAURUQUGABCDEFGHIACOZFUBUCZBJUDKUEAUQFUSDPZCQURFUPVAMCUOUS
+      DUFUHAFVABCIUIUJZTUTVABUKIJULUTNBVARLITUMVBUN $.
+      $( [28-Apr-2014] $)
+  $}
+
+  ${
+    $d j k m F $.  $d j k m G $.  $d j k M $.  $d j k ph $.  $d j k m Z $.
+    $d j A $.  $d j B $.
+    isumadd.1 $e |- Z = ( ZZ>= ` M ) $.
+    isumadd.2 $e |- ( ph -> M e. ZZ ) $.
+    isumadd.3 $e |- ( ( ph /\ k e. Z ) -> ( F ` k ) = A ) $.
+    isumadd.4 $e |- ( ( ph /\ k e. Z ) -> A e. CC ) $.
+    isumadd.5 $e |- ( ( ph /\ k e. Z ) -> ( G ` k ) = B ) $.
+    isumadd.6 $e |- ( ( ph /\ k e. Z ) -> B e. CC ) $.
+    isumadd.7 $e |- ( ph -> seq M ( + , F ) e. dom ~~> ) $.
+    isumadd.8 $e |- ( ph -> seq M ( + , G ) e. dom ~~> ) $.
+    $( Addition of infinite sums.  (Contributed by Mario Carneiro,
+       18-Aug-2013.) $)
+    isumadd $p |- ( ph -> sum_ k e. Z ( A + B ) =
+                        ( sum_ k e. Z A + sum_ k e. Z B ) ) $=
+      ( caddc cfv wcel cc vm vj co csu cv cmpt cvv wa wceq simpr fveq2 opreq12d
+      eqid oprex fvmpt syl eqtrd addcl syl2anc a1i cseq sumex isumclim2 eqeltrd
+      seqex wf ffvelrn sylan cuz syl6eleq simpll elfzuz syl6eleqr adantl seradd
+      serf cfz climadd isumclim ) ABCQUCZHBDUDZHCDUDZQUCZDUAHUAUEZERZWDFRZQUCZU
+      FZGUGHIJADUEZHSZUHZWIWHRZWIERZWIFRZQUCZVTWKWJWLWOUIZAWJUJUAWIWGWOHWHWDWIU
+      IWEWMWFWNQWDWIEUKWDWIFUKULWHUMWMWNQUNUOZUPWKWMBWNCQKMULUQWKBTSCTSVTTSLNBC
+      URUSWCUGSAWAWBQUNUTAWAWBUBQEGVAZQFGVAZQWHGVAZGUGUGUGHIJWAUGSAHBDVBUTABDEG
+      HIJKLOVCWBUGSAHCDVBUTWTUGSAQWHGVEUTACDFGHIJMNPVCAHTWRVFUBUEZHSZXAWRRTSADE
+      GHIJWKWMBTKLVDZVPHTXAWRVGVHAHTWSVFXBXAWSRTSADFGHIJWKWNCTMNVDZVPHTXAWSVGVH
+      AXBUHZDEFWHGXAXEXAHGVIRZAXBUJIVJXEWIGXAVQUCSZUHZAWJWMTSAXBXGVKZXGWJXEXGWI
+      XFHWIGXAVLIVMVNZXCUSXHAWJWNTSXIXJXDUSXHWJWPXJWQUPVOVRVS $.
+      $( [23-Apr-2014] $) $( [18-Aug-2013] $)
+  $}
+
+  ${
+    $d k A $.  $d k B $.  $d k F $.  $d k G $.  $d k M $.  $d k ph $.
+    $d k Z $.
+    sumsplit.1 $e |- Z = ( ZZ>= ` M ) $.
+    sumsplit.2 $e |- ( ph -> M e. ZZ ) $.
+    sumsplit.3 $e |- ( ph -> ( A i^i B ) = (/) ) $.
+    sumsplit.4 $e |- ( ph -> ( A u. B ) C_ Z ) $.
+    sumsplit.5 $e |- ( ( ph /\ k e. Z ) ->
+                       ( F ` k ) = if ( k e. A , C , 0 ) ) $.
+    sumsplit.6 $e |- ( ( ph /\ k e. Z ) ->
+                       ( G ` k ) = if ( k e. B , C , 0 ) ) $.
+    sumsplit.7 $e |- ( ( ph /\ k e. ( A u. B ) ) -> C e. CC ) $.
+    sumsplit.8 $e |- ( ph -> seq M ( + , F ) e. dom ~~> ) $.
+    sumsplit.9 $e |- ( ph -> seq M ( + , G ) e. dom ~~> ) $.
+    $( Split a sum into two parts.  (Contributed by Mario Carneiro,
+       18-Aug-2013.) $)
+    sumsplit $p |- ( ph -> sum_ k e. ( A u. B ) C =
+                         ( sum_ k e. A C + sum_ k e. B C ) ) $=
+      ( cc0 wceq cv cun wcel cif csu caddc co wa elun1 sylan2 addid1 syl iftrue
+      cc adantl wn wi c0 noel cin elin eleq2d syl5rbbr mtbii sylibr imp iffalse
+      imnan opreq12d 3eqtr4rd elun2 eqeltrd 0cn pm2.61dan addid2 adantr opreq1d
+      syl6eqel wb biorf elun syl6rbbr ifbid sumeq2dv isumadd eqtrd wss wral cuz
+      wo cfv cfn ralrimiva eqimssi a1i orcd sumss2 syl21anc ssun1 ssun2 3eqtr4d
+      syl5ss ) AIEUAZBCUBZUCZDSUDZEUEZIXCBUCZDSUDZEUEZIXCCUCZDSUDZEUEZUFUGZXDDE
+      UEZBDEUEZCDEUEZUFUGAXGIXIXLUFUGZEUEXNAIXFXREAXFXRTZXCIUCZAXHXSAXHUHZDSUFU
+      GZDXRXFYADUNUCZYBDTXHAXEYCXCBCUIZPUJZDUKULYAXIDXLSUFXHXIDTAXHDSUMUOZYAXKU
+      PZXLSTAXHYGAXHXKUHZUPXHYGUQAXCURUCZYHXCUSYHXCBCUTZUCAYIXCBCVAAYJURXCLVBVC
+      VDXHXKVHVEVFXKDSVGZULVIXHXFDTZAXHXEYLYDXEDSUMULUOVJAXHUPZUHZSXLUFUGZXLXRX
+      FAYOXLTZYMAXLUNUCZYPAXKYQAXKUHXLDUNXKXLDTAXKDSUMUOXKAXEYCXCCBVKPUJZVLYGYQ
+      AYGXLSUNYKVMVRUOVNZXLVOULVPYNXISXLUFYMXISTAXHDSVGZUOVQYNXEXKDSYMXEXKVSAYM
+      XKXHXKWJXEXHXKVTXCBCWAWBUOWCVJVNVPWDAXIXLEFGHIJKNAXIUNUCZXTAXHUUAYAXIDUNY
+      FYEVLYMUUAAYMXISUNYTVMVRUOVNVPOAYQXTYSVPQRWEWFAXDIWGYCEXDWHIHWIWKZWGZIWLU
+      CZWJZXOXGTMAYCEXDPWMAUUCUUDUUCAIUUBJWNWOWPZXDIDEHWQWRAXPXJXQXMUFABIWGYCEB
+      WHUUEXPXJTABXDIBCWSMXBAYCEBYEWMUUFBIDEHWQWRACIWGYCECWHUUEXQXMTACXDICBWTMX
+      BAYCECYRWMUUFCIDEHWQWRVIXA $.
+      $( [23-Apr-2014] $) $( [18-Aug-2013] $)
+  $}
+
+  ${
+    $d k B $.  $d k K $.  $d k M $.  $d k N $.  $d k ph $.
+    fsump1i.1 $e |- Z = ( ZZ>= ` M ) $.
+    fsump1i.2 $e |- N = ( K + 1 ) $.
+    fsump1i.3 $e |- ( k = N -> A = B ) $.
+    fsump1i.4 $e |- ( ( ph /\ k e. Z ) -> A e. CC ) $.
+    fsump1i.5 $e |- ( ph -> ( K e. Z /\ sum_ k e. ( M ... K ) A = S ) ) $.
+    $( Optimized version of ~ fsump1 for making sums of a concrete number of
+       terms.  (Contributed by Mario Carneiro, 23-Apr-2014.) $)
+    fsump1i $p |- ( ph -> ( N e. Z /\
+                    sum_ k e. ( M ... N ) A = ( S + B ) ) ) $=
+      ( wcel cfz co csu caddc wceq c1 cuz cfv simpld syl6eleq peano2uz syl5eqel
+      syl6eleqr opreq2i sumeq1i cv cc elfzuz sylan2 eqeq2i sylbir fsump1 syl5eq
+      syl simprd opreq1d eqtrd jca ) AHIOGHPQZBERZDCSQZTAHFUASQZIKAFGUBUCZOZVGI
+      OAFIVHAFIOZGFPQBERZDTZNUDJUEZVIVGVHIGFUFJUHUSUGAVEVKCSQZVFAVEGVGPQZBERVNV
+      DVOBEHVGGPKUIUJABCEGFVMEUKZVOOZAVPIOBULOVQVPVHIVPGVGUMJUHMUNVPVGTVPHTBCTH
+      VGVPKUOLUPUQURAVKDCSAVJVLNUTVAVBVC $.
+      $( [23-Apr-2014] $)
+  $}
+
+  ${
+    $d j k m w x y z A $.  $d k m w x y z B $.  $d j k m w x y D $.
+    $d m w x y z C $.  $d j k m w z ph $.
+    fsum2d.1 $e |- ( z = <. j , k >. -> D = C ) $.
+    fsum2d.2 $e |- ( ph -> A e. Fin ) $.
+    fsum2d.3 $e |- ( ( ph /\ j e. A ) -> B e. Fin ) $.
+    fsum2d.4 $e |- ( ( ph /\ ( j e. A /\ k e. B ) ) -> C e. CC ) $.
+    ${
+      fsum2d.5 $e |- ( ph -> -. y e. x ) $.
+      fsum2d.6 $e |- ( ph -> ( x u. { y } ) C_ A ) $.
+      fsum2d.7 $e |- ( ps <-> sum_ j e. x sum_ k e. B C =
+                             sum_ z e. U_ j e. x ( { j } X. B ) D ) $.
+      $( Lemma for ~ fsum2d - induction step. $)
+      fsum2dlem $p |- ( ( ph /\ ps ) ->
+                        sum_ j e. ( x u. { y } ) sum_ k e. B C =
+                        sum_ z e. U_ j e. ( x u. { y } ) ( { j } X. B ) D ) $=
+        ( wceq wcel vm wa cv csu csn caddc co cxp csb cun simpr sylib ax-17 vex
+        ciun hbcsb1 hbsum csbeq1a adantr sumeq12dv cbvsumi cc ssun2 syl5ss snss
+        wss sylibr cfn wral ralrimiva hbel eleq1d rcla4 wi ralrimivva raleqbidv
+        sylc hbral ra4 syl imp fsumcl csbeq1 syl2anc c2nd cfv cres snfi sylancr
+        sumsn xpfi wf1o 2ndconst fvres adantl syl5 impcom fsumf1o cop elxp hban
+        wex hbex opeq1 eqeq2d eqtr2 eleq2d pm5.32da elsn anbi1i syl6rbbr anbi1d
+        eqeq1 bitrd anbi12d exbidv cbvex bitri fvex hbeq ad2antlr exlimd syl5bi
+        cvv wal syl5eq eqtrd c0 syldan fsumsplit wrex eliun xp1st elsni eqeltrd
+        cin elin sneq xpeq12d eqtri ax-mp ad2antrl fveq2 op2nd syl6req sumeq2dv
+        hbcsbg 3eqtrd expl eqtr4d opreq12d disjsn eqidd ssfi sseld anassrs c1st
+        wn simpl rexlimiva sylbi anim12i 3imtr4i noel pm2.21i syl6bi ss0 iunxun
+        ssrdv hbxp cbviun iunxsn uneq2i a1i iunfi simprl simprrl opeq1d simprrr
+        simpll syl12anc ex exlimdvv rexlimdva 3eqtr4d ) ABUBZCUCZGHKUDZJUDZDUCZ
+        UEZUWHJUDZUFUGZJUWGJUCZUEZGUHZUOZIEUDZUWKJUWJGUIZUHZIEUDZUFUGZUWGUWKUJZ
+        UWHJUDZJUXCUWPUOZIEUDZUWFUWIUWRUWLUXAUFUWFBUWIUWRSABUKRULAUWLUXASBAUWLU
+        WKJUAUCZGUIZJUXGHUIZKUDZUAUDZUXACUWKUWHUXJJUAUWGUWHTUAUMJCUXHUXIKJCUXGG
+        UAUNZUWGUXGTZJUMZUPZJCUXGHUXLUXNUPUQUWNUXGSZGUXHHUXIKJUXGGURZUXPHUXISKU
+        CZGTZJUXGHURUSUTVAAUXKUWSJUWJHUIZKUDZUXAAUWJFTZUYAVBTUXKUYASAUWKFVFUYBA
+        UWKUXCFUWKUWGVCQVDUWJFDUNZVEVGZAUWSUXTKAUYBGVHTZJFVIUWSVHTZUYDAUYEJFNVJ
+        UYEUYFJUWJFJCCUWSVHJCUWJGUYCUWGUWJTJUMZUPUWGVHTJUMVKUWNUWJSZGUWSVHJUWJG
+        URZVLVMVQZAUXRUWSTZUXTVBTZAUYLKUWSVIZUYKUYLVNAUYBHVBTZKGVIZJFVIUYMUYDAU
+        YNJKFGOVOUYOUYMJUWJFUYLJKUWSJKUWJGUYCUXRUWJTJUMUPZJCCUXTVBJCUWJHUYCUYGU
+        PZUWGVBTZJUMVKVRUYHUYNUYLKGUWSUYIUYHHUXTVBJUWJHURZVLVPVMVQZUYLKUWSVSVTW
+        AWBUXJUYAUAUWJFUXGUWJSZUXHUWSUXIUXTKJUXGUWJGWCZVUAUXIUXTSUXRUXHTJUXGUWJ
+        HWCUSUTWJWDAUYAUWSKUXGUXTUIZUAUDZUXACUWSUXTVUCKUAUWGUXTTUAUMKCUXGUXTUXL
+        UXMKUMUPZKUXGUXTURZVAAVUDUWTKEUCZWEWFZUXTUIZEUDUXAAUWSVUCUWTVUIUAEWEUWT
+        WGZVUHKUXGVUHUXTWCAUWKVHTUYFUWTVHTUWJWHUYJUWKUWSWKWIAUYBUWTUWSVUJWLUYDU
+        WJUWSFWMVTVUGUWTTZVUGVUJWFVUHSAVUGUWTWEWNWOUXGUWSTZAVUCVBTZAUYMVULVUMUY
+        TUYLVUMKUXGUWSKCCVUCVBVUEUYRKUMVKUXRUXGSUXTVUCVBVUFVLVMWPWQWRAUWTIVUIEA
+        VUKIVUISZVUKVUGUWNUXRWSZSZUYHUXSUBZUBZKXBZJXBZAVUNVUKVUGUXGUXRWSZSZUXGU
+        WKTZUYKUBZUBZKXBZUAXBVUTUAKVUGUWKUWSWTVVFVUSUAJVVEJKVVBVVDJVVBJUMVVCUYK
+        JVVCJUMUYPXAXAXCVUSUAUMUXGUWNSZVVEVURKVVGVVBVUPVVDVUQVVGVVAVUOVUGUXGUWN
+        UXRXDXEVVGVVDVUAUXSUBZVUQVVGVVHVUAUYKUBVVDVVGVUAUXSUYKVVGVUAUBZGUWSUXRV
+        VIUYHGUWSSUXGUWNUWJXFUYIVTXGXHVVCVUAUYKUAUWJXIXJXKVVGVUAUYHUXSUXGUWNUWJ
+        XMXLXNXOXPXQXRAVUSVUNJAJUMJCCIVUIUWGITZJUMVUHYDTUWGVUITZVVKJYEVNVUGWEXS
+        ZJKCVUHUXTYDUWGVUHTZJUMUYQUUGUUAXTAVURVUNKAKUMKCCIVUIVVJKUMKCVUHUXTVVLV
+        VMKUMUPXTAVUPVUQVUNAVUPUBZVUQUBZIHUXTVUIVUPIHSZAVUQLYAUYHHUXTSVVNUXSUYS
+        UUBVVOUXRVUHSZUXTVUISVUPVVQAVUQVUPVUHVUOWEWFUXRVUGVUOWEUUCUWNUXRJUNKUNU
+        UDUUEYAKVUHUXTURVTUUHUUIYBYBYCWAUUFUUJYFYGYFUSUUKAUXDUWMSBAUWGUWKUWHUXC
+        JAUWJUWGTUURUWGUWKYPZYHSPUWGUWJUULVGZAUXCUUMAFVHTUXCFVFUXCVHTZMQFUXCUUN
+        WDZAUWNUXCTZUWNFTZUWHVBTAVWBVWCAUXCFUWNQUUOWAZAVWCUBGHKNAVWCUXSUYNOUUPW
+        BYIYJUSAUXFUXBSBAUWQUWTIUXEEAUWQUWTYPZYHVFVWEYHSAEVWEYHVUGVWETZVUGUUQWF
+        ZVVRTZAVUGYHTZVUGUWQTZVUKUBVWGUWGTZVWGUWKTZUBVWFVWHVWJVWKVUKVWLVWJVUGUW
+        PTZJUWGYKVWKJVUGUWGUWPYLVWMVWKJUWGUWNUWGTZVWMUBVWGUWNUWGVWMVWGUWNSZVWNV
+        WMVWGUWOTVWOVUGUWOGYMVWGUWNYNVTWOVWNVWMUUSYOUUTUVAVUGUWKUWSYMUVBVUGUWQU
+        WTYQVWGUWGUWKYQUVCAVWHVWGYHTZVWIAVVRYHVWGVVSXGVWPVWIVWGUVDUVEUVFWPUVIVW
+        EUVGVTUXEUWQUWTUJZSAUXEUWQJUWKUWPUOZUJVWQJUWGUWKUWPUVHVWRUWTUWQVWRUAUWK
+        UXGUEZUXHUHZUOUWTJUACUWKUWPVWTUWGUWPTUAUMJCVWSUXHUWGVWSTJUMUXOUVJUXPUWO
+        VWSGUXHUWNUXGYRUXQYSUVKUAUWJVWTUWTUYCVUAVWSUWKUXHUWSUXGUWJYRVUBYSUVLYTU
+        VMYTUVNAVVTUWPVHTZJUXCVIUXEVHTVWAAVXAJUXCAVWBUBZUWOVHTUYEVXAUWNWHAVWBVW
+        CUYEVWDNYIUWOGWKWIVJJUXCUWPUVOWDAVUGUXETZIVBTZVXCVWMJUXCYKAVXDJVUGUXCUW
+        PYLAVWMVXDJUXCVWMVVBUXGUWOTZUXSUBZUBZKXBUAXBVXBVXDUAKVUGUWOGWTVXBVXGVXD
+        UAKVXBVXGVXDVXBVXGUBZIHVBVXHVUPVVPVXHVUGVVAVUOVXBVVBVXFUVPVXHUXGUWNUXRV
+        XHVXEVVGVXBVVBVXEUXSUVQUXGUWNYNVTUVRYGLVTVXHAVWCUXSUYNAVWBVXGUVTVXBVWCV
+        XGVWDUSVXBVVBVXEUXSUVSOUWAYOUWBUWCYCUWDYCWAYJUSUWE $.
+        $( [23-Apr-2014] $)
+    $}
+
+    $d x y ph $.
+    $( Write a double sum as a sum over a two-dimensional region.  Note that
+       ` B ( j ) ` is a function of ` j ` .  (Contributed by Mario Carneiro,
+       27-Apr-2014.) $)
+    fsum2d $p |- ( ph -> sum_ j e. A sum_ k e. B C =
+                         sum_ z e. U_ j e. A ( { j } X. B ) D ) $=
+      ( wss csu cv ciun wceq wcel wi c0 vw vx csn cxp ssid cfn cun sseq1 sumeq1
+      vy iuneq1 sumeq1d eqeq12d imbi12d imbi2d sum0 0iun sumeq1i 3eqtr4ri a1i12
+      cc0 wn wa ssun1 sstr mpan imim1i simpll syl sylan cc simpr biid fsum2dlem
+      simplr exp31 a2d syl5 expcom adantl findcard2s mpcom mpi ) ACCMZCDEHNZGNZ
+      GCGOZUCDUDZPZFBNZQZCUECUFRZAWDWKSZJAUAOZCMZWNWEGNZGWNWHPZFBNZQZSZSATCMZTW
+      EGNZGTWHPZFBNZQZSZSAUBOZCMZXGWEGNZGXGWHPZFBNZQZSZSZAXGUJOZUCZUGZCMZXQWEGN
+      ZGXQWHPZFBNZQZSZSZAWMSUAUBUJCWNTQZWTXFAYEWOXAWSXEWNTCUHYEWPXBWRXDWNTWEGUI
+      YEWQXCFBGWNTWHUKULUMUNUOWNXGQZWTXMAYFWOXHWSXLWNXGCUHYFWPXIWRXKWNXGWEGUIYF
+      WQXJFBGWNXGWHUKULUMUNUOWNXQQZWTYCAYGWOXRWSYBWNXQCUHYGWPXSWRYAWNXQWEGUIYGW
+      QXTFBGWNXQWHUKULUMUNUOWNCQZWTWMAYHWOWDWSWKWNCCUHYHWPWFWRWJWNCWEGUIYHWQWIF
+      BGWNCWHUKULUMUNUOAXAXETFBNVAXDXBFBUPXCTFBGWHUQURWEGUPUSUTXOXGRVBZXNYDSXGU
+      FRYIAXMYCAYIXMYCSXMXRXLSAYIVCZYCXRXHXLXGXQMXRXHXGXPVDXGXQCVEVFVGYJXRXLYBY
+      JXRXLYBYJXRVCZXLUBUJBCDEFGHIYKAWLAYIXRVHZJVIYKAWGCRZDUFRYLKVJYKAYMHODRVCE
+      VKRYLLVJAYIXRVOYJXRVLXLVMVNVPVQVRVSVQVTWAWBWC $.
+      $( [27-Apr-2014] $)
+  $}
+
+  ${
+    $d j k z A $.  $d j k z B $.  $d z C $.  $d j k D $.  $d j k z ph $.
+    fsumxp.1 $e |- ( z = <. j , k >. -> D = C ) $.
+    fsumxp.2 $e |- ( ph -> A e. Fin ) $.
+    fsumxp.3 $e |- ( ph -> B e. Fin ) $.
+    fsumxp.4 $e |- ( ( ph /\ ( j e. A /\ k e. B ) ) -> C e. CC ) $.
+    $( Combine two sums into a single sum over the cartesian product.
+       (Contributed by Mario Carneiro, 23-Apr-2014.) $)
+    fsumxp $p |- ( ph -> sum_ j e. A sum_ k e. B C =
+                         sum_ z e. ( A X. B ) D ) $=
+      ( csu cv csn cxp ciun cfn wcel adantr fsum2d xpiundir iunid xpeq1i eqtr3i
+      sumeq1i syl6eq ) ACDEHMGMGCGNZOZDPQZFBMCDPZFBMABCDEFGHIJADRSUHCSKTLUAUJUK
+      FBGCUIQZDPUJUKGCUIDUBULCDGCUCUDUEUFUG $.
+      $( [23-Apr-2014] $)
+  $}
+
+  ${
+    $d w x y z A $.  $d j k y B $.  $d j k x C $.  $d w x y z ph $.
+    $d x y D $.
+    fsumcnv.1 $e |- ( x = <. j , k >. -> B = D ) $.
+    fsumcnv.2 $e |- ( y = <. k , j >. -> C = D ) $.
+    fsumcnv.3 $e |- ( ph -> A e. Fin ) $.
+    fsumcnv.4 $e |- ( ph -> Rel A ) $.
+    fsumcnv.5 $e |- ( ( ph /\ x e. A ) -> B e. CC ) $.
+    $( Transform a region of summation by using the converse operation.
+       (Contributed by Mario Carneiro, 23-Apr-2014.) $)
+    fsumcnv $p |- ( ph -> sum_ x e. A B = sum_ y e. `' A C ) $=
+      ( vz ccnv cv csb wceq wcel csu c2nd cfv c1st csn cuni cmpt cop csbeq1a wa
+      fvex opex csbief opeq12 csbeq1d syl5eqr csbie2 syl6eqr cfn cen wbr wb cvv
+      ax-17 wf1o cnvexg syl wrel relcnv cnvf1o ax-mp dfrel2 sylib f1oeq3 f1oeng
+      mpbii syl2anc enfi mpbird 1st2nd mpan fveq2d id sneq cnveqd unieqd opswap
+      eqeltrrd syl6eq eqid fvmpt eqtrd adantl fsumf1o ancoms sumeq2i ) ADEBUADP
+      ZHCQZUBUCZIWRUDUCZGRRZCUAWQFCUAADEWQXABCOWQOQZUEZPZUFZUGZWSWTUHZBQZXGSEBX
+      GERZXABXGEUIHIWSWTGXIWRUBUKZWRUDUKZHQZWSSZIQZWTSZUJZGBXLXNUHZERXIBCXQEGXL
+      XNULWRGTBVDJUMXPBXQXGEXLXNWSWTUNUOUPUQURAWQUSTZDUSTZLAXSWQDUTVAZXRXSVBLAW
+      QVCTZWQDXFVEZXTAXSYALDUSVFVGAWQWQPZXFVEZYBWQVHZYDDVIZOWQVJVKAYCDSZYDYBVBA
+      DVHYGMDVLVMYCDWQXFVNVGVPZWQDVCXFVOVQWQDUSVRVQVSYHWRWQTZWRXFUCZXGSAYIYJWTW
+      SUHZXFUCZXGYIWRYKXFYEYIWRYKSZYFWRWQVTWAZWBYIYKWQTYLXGSYIWRYKWQYNYIWCWHOYK
+      XEXGWQXFXBYKSZXEYKUEZPZUFXGYOXDYQYOXCYPXBYKWDWEWFWTWSXKXJWGWIXFWJWSWTULWK
+      VGWLWMNWNWQFXACYIFCYKFRZXAYIYMFYRSYNCYKFUIVGHIWSWTGYRXJXKXPGCXNXLUHZFRYRC
+      BYSFGXNXLULXHGTCVDKUMXPCYSYKFXOXMYSYKSXNXLWTWSUNWOUOUPUQURWPUR $.
+      $( [23-Apr-2014] $)
+  $}
+
+  ${
+    $d j k m n x z A $.  $d k m n w x z C $.  $d j k m n w z ph $.
+    $d k m n x z B $.  $d j m n w x z D $.  $d m n w x z E $.
+    fsumcom2.1 $e |- ( ph -> A e. Fin ) $.
+    fsumcom2.2 $e |- ( ph -> C e. Fin ) $.
+    fsumcom2.3 $e |- ( ( ph /\ j e. A ) -> B e. Fin ) $.
+    fsumcom2.4 $e |- ( ph -> U_ j e. A ( { j } X. B ) =
+                          `' U_ k e. C ( { k } X. D ) ) $.
+    fsumcom2.5 $e |- ( ( ph /\ ( j e. A /\ k e. B ) ) -> E e. CC ) $.
+    $( Interchange order of summation.  Note that ` B ( j ) ` and ` D ( k ) `
+       are not necessarily constant expressions.  (Contributed by Mario
+       Carneiro, 28-Apr-2014.) $)
+    fsumcom2 $p |- ( ph -> sum_ j e. A sum_ k e. B E =
+                           sum_ k e. C sum_ j e. D E ) $=
+      ( vm vn vx csb wcel ax-17 wceq vz csu csn cxp ciun c2nd cfv c1st ccnv vex
+      vw cv hbcsb1 hbxp csbeq1a xpeq12d cbviun cnveqi 3eqtr3g sumeq1d cop fveq2
+      sneq op1st syl6eq csbeq1d cvv op2nd csbeq2dv mpan2 eqtrd cfn wral wa snfi
+      wss adantr wrex id snid syl6eqelr biantrurd opelxp syl6rbbr eleq2d rcla4e
+      bitrd eliun sylibr opelcnv adantl eleqtrrd sylib simpr simpld elsni simpl
+      syl eqeltrd rexlimiva expr ssrdv ssfi syl2anc xpfi sylancr ralrimiva wrel
+      iunfi relxp a1i rgen reliun mpbir cc xp2nd xp1st wi eqcomd biimpa rexlimi
+      sylbi ralrimivva hbel hbral eleq1d raleqbidv impcom syl5com csbeq1 rcla4v
+      rcla4 syl5 impr sylc fsum2d hbsum cbvsumi sumeq12dv syl5eq csbeq2d eqtr4d
+      syl12anc fvex fsumcnv 3eqtr4d wal hbcsbg ax-mp 3eqtr4g ) ABFNULZCQZGOULZF
+      UUKHQZQZOUBZNUBZDGUUMEQZUUONUBZOUBZBCHGUBZFUBDEHFUBZGUBANBUUKUCZUULUDZUEZ
+      GUAULZUFUGZFUVFUHUGZHQZQZUAUBZODUUMUCZUURUDZUEZGUKULZUHUGZFUVOUFUGZHQZQZU
+      KUBZUUQUUTAUVKUVNUIZUVJUAUBUVTAUVEUWAUVJUAAFBFULZUCZCUDZUEZGDGULZUCZEUDZU
+      EZUIZUVEUWALFNPBUWDUVDPULZUWDRNSFPUVCUULUWKUVCRFSFPUUKCNUJZUWKUUKRFSZUMZU
+      NUWBUUKTZUWCUVCCUULUWBUUKVCFUUKCUOZUPUQUWIUVNGOPDUWHUVMUWKUWHROSGPUVLUURU
+      WKUVLRGSGPUUMEOUJZUWKUUMRZGSZUMZUNUWFUUMTZUWGUVLEUURUWFUUMVCGUUMEUOZUPUQU
+      RUSUTAUKUAUVNUVSUVJUUOONUVOUUMUUKVAZTZUVSGUUMUVRQZUUOUXDGUVPUUMUVRUXDUVPU
+      XCUHUGUUMUVOUXCUHVBUUMUUKUWQVDVEVFUXDUUMVGRZUXEUUOTUWQUXDGUUMUVRUUNVGUXDF
+      UVQUUKHUXDUVQUXCUFUGUUKUVOUXCUFVBUUMUUKUWQUWLVHVEVFVIVJVKZUVFUUKUUMVAZTZU
+      VJGUUMUVIQZUUOUXIGUVGUUMUVIUXIUVGUXHUFUGUUMUVFUXHUFVBUUKUUMUWLUWQVHVEVFUX
+      IUXFUXJUUOTUWQUXIGUUMUVIUUNVGUXIFUVHUUKHUXIUVHUXHUHUGUUKUVFUXHUHVBUUKUUMU
+      WLVDVEVFVIVJVKZADVLRUVMVLRZODVMUVNVLRJAUXLODAUUMDRZVNZUVLVLRUURVLRZUXLUUM
+      VOUXNBVLRZUURBVPUXOAUXPUXMIVQUXNNUURBAUXMUUKUURRZUUKBRZAUXMUXQVNZVNZUXHUW
+      DRZFBVRZUXRUXTUXHUWERUYBUXTUXHUWJUWEUXSUXHUWJRZAUXSUXCUWIRZUYCUXSUXCUWHRZ
+      GDVRUYDUYEUXQGUUMDGNUUMEUWQUUKUUMRGSUMUXAUYEUUKERZUXQUXAUYFUUMUWGRZUYFVNU
+      YEUXAUYGUYFUXAUUMUWFUWGUXAVSUWFGUJVTWAWBUUMUUKUWGEUWLWCWDUXAEUURUUKUXBWEW
+      GWFGUXCDUWHWHWIUUKUUMUWIUWLUWQWJWIWKAUWEUWJTUXSLVQWLFUXHBUWDWHWMZUYAUXRFB
+      UWBBRZUYAVNZUUKUWBBUYJUUKUWCRZUUKUWBTUYJUYKUUMCRZUYJUYAUYKUYLVNZUYIUYAWNU
+      UKUUMUWCCUWQWCZWMWOUUKUWBWPZWRUYIUYAWQWSWTWRZXAXBBUURXCXDZUVLUURXEXFXGODU
+      VMXIXDUVNXHZAUYRUVMXHZODVMUYSODUYSUXMUVLUURXJXKXLODUVMXMXNXKAUVOUVNRZVNZU
+      VQGUVPEQZRZGUVPUUNQZXORZNVUBVMZUVSXORZVUAUVOUVMRZODVRZVUCVUAUYTVUIAUYTWNO
+      UVODUVMWHWMZVUHVUCODUXMVUHVNZUVQUURVUBVUHUVQUURRUXMUVOUVLUURXPWKVUKGUVPUU
+      MEVUKUVPUVLRZUVPUUMTVUHVULUXMUVOUVLUURXQWKUVPUUMWPWRZVFWLWTWRVUAUVPDRZUUO
+      XORZNUURVMZODVMZVUFVUAVUIVUNVUJVUHVUNODVUKUVPUUMDVUMUXMVUHWQWSWTWRAVUQUYT
+      AVUOONDUURUXTAUXRUUMUULRZVUOAUXSWQUYPUXTUYBVURUYHUYAVURFBFOUUKCUWLUUMUUKR
+      FSUMUYAVURXRUYIUYAUYMVURUYNUYKUYLVURUYKCUULUUMUYKUWOCUULTUYKUUKUWBUYOXSUW
+      PWRWEXTYBXKYAWRAUXRVURVUOAUXRVNUUNXORZGUULVMZVURVUOUXRAVUTAHXORZGCVMZFBVM
+      UXRVUTAVVAFGBCMYCVVBVUTFUUKBVUSFGUULFGUUKCUWLUWFUUKRFSUMFPPUUNXOFPUUKHUWL
+      UWMUMZUWKXORZFSYDYEUWOVVAVUSGCUULUWPUWOHUUNXOFUUKHUOZYFYGYLYMYHVUSVUOGUUM
+      UULGPPUUOXOGPUUMUUNUWQUWSUMZVVDGSYDUXAUUNUUOXOGUUMUUNUOZYFYLYIYNZUUCZYCVQ
+      VUPVUFOUVPDUUMUVPTZVUOVUENUURVUBGUUMUVPEYJVVJUUOVUDXOGUUMUVPUUNYJYFYGYKYO
+      VUEVUGNUVQVUBUUKUVQTZVUDUVSXOVVKUVPVGRVUDUVSTUVOUHUUDVVKGUVPUUNUVRVGVVKGS
+      FUUKUVQHYJUUAVJYFYKYOUUEUUBAUABUULUUOUVJNOUXKIUXRAUULVLRZACVLRZFBVMUXRVVL
+      AVVMFBKXGVVMVVLFUUKBFPPUULVLUWNUWKVLRFSYDUWOCUULVLUWPYFYLYMYHVVHYPAUKDUUR
+      UUOUVSONUXGJUYQVVIYPUUFPBUVAUUPFNUWKUVARNSFPUULUUOOUWNUXFUWKUUORZVVNFUUGX
+      RUWQFGPUUMUUNVGUWRFSVVCUUHUUIYQUWOUVACGUUMHQZOUBUUPPCHVVOGOUWKHRZOSGPUUMH
+      UWQUWSUMGUUMHUOYRUWOCUULVVOUUOOUWPUWOVVOUUOTZUYLUWOUXFVVQUWQUWOGUUMHUUNVG
+      VVEVIVJVQYSYTYRPDUVBUUSGOUWKUVBROSGPUURUUONUWTVVFYQUXAUVBEUUNNUBUUSPEHUUN
+      FNVVPNSVVCVVEYRUXAEUURUUNUUONUXBUXAUUNUUOTUYFVVGVQYSYTYRUUJ $.
+      $( [23-Apr-2014] $) $( [15-Nov-2005] $)
+  $}
+
+  ${
+    $d j k A $.  $d j k B $.  $d j k ph $.
+    fsumcom.1 $e |- ( ph -> A e. Fin ) $.
+    fsumcom.2 $e |- ( ph -> B e. Fin ) $.
+    fsumcom.3 $e |- ( ( ph /\ ( j e. A /\ k e. B ) ) -> C e. CC ) $.
+    $( Interchange order of summation.  (Revised by Mario Carneiro,
+       23-Apr-2014.) $)
+    fsumcom $p |- ( ph -> sum_ j e. A sum_ k e. B C =
+                          sum_ k e. B sum_ j e. A C ) $=
+      ( cfn wcel cv csn cxp ciun ccnv xpiundir iunid xpeq1i eqtr3i adantr cnvxp
+      wceq cnveqi 3eqtr4ri a1i fsumcom2 ) ABCCBEFDGHACJKELZBKHUAEBUHMZCNOZFCFLM
+      ZBNOZPZUCACBNZPBCNZUMUJCBUBULUNFCUKOZBNULUNFCUKBQUPCBFCRSTUDEBUIOZCNUJUOE
+      BUICQUQBCEBRSTUEUFIUG $.
+      $( [23-Apr-2014] $) $( [15-Nov-2005] $)
+  $}
+
+  ${
+    $d k m x A $.  $d j x B $.  $d j k m K $.  $d j k m x M $.  $d j k m x N $.
+    $d j k m ph $.
+    fsumrev.1 $e |- ( ph -> K e. ZZ ) $.
+    fsumrev.2 $e |- ( ph -> M e. ZZ ) $.
+    fsumrev.3 $e |- ( ph -> N e. ZZ ) $.
+    fsumrev.4 $e |- ( ( ph /\ j e. ( M ... N ) ) -> A e. CC ) $.
+    ${
+      fsumrev.5 $e |- ( j = ( K - k ) -> A = B ) $.
+      $( Reversal of a finite sum.  (Revised by Mario Carneiro,
+         24-Apr-2014.) $)
+      fsumrev $p |- ( ph -> sum_ j e. ( M ... N ) A =
+                            sum_ k e. ( ( K - N ) ... ( K - M ) ) B ) $=
+        ( co cmin wcel a1i wceq cz adantr cfz cmpt cfn fzfi wfn ccnv wf1o fnmpt
+        cv cvv eqid oprex mprg wa copab simprr simprl wb elfzelz fzrev syl22anc
+        syl mpbid eqeltrd opreq2d cc zcn nncan syl2an syl2anc eqtr2d jca fzrev2
+        impbida opabbidv df-mpt cnveqi cnvopab 3eqtr4g fneq1d mpbiri dff1o4 cfv
+        eqtri sylanbrc opreq2 fvmpt adantl fsumf1o ) AGHUANZBFHONZFGONZUANZCDED
+        WMFDUIZONZUBZFEUIZONZMWMUCPAWKWLUDQAWPWMUEZWPUFZWJUEZWMWJWPUGWSAWOUJPZW
+        SDWMDWMWOWPUJWPUKZUHXBWNWMPZFWNOULQUMQAXAEWJWRUBZWJUEZWRUJPZXFEWJEWJWRX
+        EUJXEUKUHXGWQWJPZFWQOULZQUMAWJWTXEAXDWQWORZUNZEDUOZXHWNWRRZUNZEDUOWTXEA
+        XKXNEDAXKXNAXKUNZXHXMXOWQWOWJAXDXJUPZXOXDWOWJPZAXDXJUQZXOGSPZHSPZFSPZWN
+        SPZXDXQURAXSXKJTAXTXKKTAYAXKITZXOXDYBXRWNWKWLUSVBZFWNGHUTVAVCVDXOWRFWOO
+        NZWNXOWQWOFOXPVEXOYAYBYEWNRZYCYDYAFVFPZWNVFPYFYBFVGZWNVGFWNVHVIVJVKVLAX
+        NUNZXDXJYIWNWRWMAXHXMUPZYIXHWRWMPZAXHXMUQZYIXSXTYAWQSPZXHYKURAXSXNJTAXT
+        XNKTAYAXNITZYIXHYMYLWQGHUSVBZFWQGHVMVAVCVDYIWOFWRONZWQYIWNWRFOYJVEYIYAY
+        MYPWQRZYNYOYAYGWQVFPYQYMYHWQVGFWQVHVIVJVKVLVNVOWTXKDEUOZUFXLWPYRDEWMWOV
+        PVQXKDEVRWDEDWJWRVPVSVTWAWMWJWPWBWEWQWMPWQWPWCWRRADWQWOWRWMWPWNWQFOWFXC
+        XIWGWHLWI $.
+        $( [24-Apr-2014] $) $( [26-Nov-2005] $)
+    $}
+
+    ${
+      fsumshft.5 $e |- ( j = ( k - K ) -> A = B ) $.
+      $( Index shift of a finite sum.  (Revised by Mario Carneiro,
+         24-Apr-2014.) $)
+      fsumshft $p |- ( ph -> sum_ j e. ( M ... N ) A =
+                             sum_ k e. ( ( M + K ) ... ( N + K ) ) B ) $=
+        ( co caddc cmin wcel wceq cz adantr cfz cmpt cfn fzfi a1i wfn ccnv wf1o
+        cv cvv eqid fnmpt oprex mprg wa copab simprr opreq1d simprl elfzelz syl
+        cc zcn npcan syl2an syl2anc eqtr2d eqeltrrd wb eqeltrd fzaddel syl22anc
+        zsubcl mpbird mpbid pncan impbida opabbidv df-mpt cnvopab eqtri 3eqtr4g
+        jca cnveqi fneq1d mpbiri dff1o4 sylanbrc opreq1 fvmpt adantl fsumf1o
+        cfv ) AGHUANZBGFONZHFONZUANZCDEDWQDUIZFPNZUBZEUIZFPNZMWQUCQAWOWPUDUEAWT
+        WQUFZWTUGZWNUFZWQWNWTUHXCAWSUJQZXCDWQDWQWSWTUJWTUKZULXFWRWQQZWRFPUMUEUN
+        UEAXEEWNXAFONZUBZWNUFZXIUJQZXKEWNEWNXIXJUJXJUKULXLXAWNQZXAFOUMUEUNAWNXD
+        XJAXHXAWSRZUOZEDUPZXMWRXIRZUOZEDUPXDXJAXOXREDAXOXRAXOUOZXMXQXSXMXIWQQZX
+        SWRXIWQXSXIWSFONZWRXSXAWSFOAXHXNUQZURXSWRSQZFSQZYAWRRZXSXHYCAXHXNUSZWRW
+        OWPUTVAZAYDXOITZYCWRVBQFVBQZYEYDWRVCFVCZWRFVDVEVFVGZYFVHXSGSQZHSQZXASQZ
+        YDXMXTVIZAYLXOJTAYMXOKTXSXAWSSYBXSYCYDWSSQYGYHWRFVMVFVJYHXAFGHVKZVLVNYK
+        WCAXRUOZXHXNYQWRXIWQAXMXQUQZYQXMXTAXMXQUSZYQYLYMYNYDYOAYLXRJTAYMXRKTYQX
+        MYNYSXAGHUTVAZAYDXRITZYPVLVOVJYQWSXIFPNZXAYQWRXIFPYRURYQYNYDUUBXARZYTUU
+        AYNXAVBQYIUUCYDXAVCYJXAFVPVEVFVGWCVQVRXDXODEUPZUGXPWTUUDDEWQWSVSWDXODEV
+        TWAEDWNXIVSWBWEWFWQWNWTWGWHXAWQQXAWTWMXBRADXAWSXBWQWTWRXAFPWIXGXAFPUMWJ
+        WKLWL $.
+        $( [24-Apr-2014] $) $( [27-Nov-2005] $)
+    $}
+
+    ${
+      fsumshftm.5 $e |- ( j = ( k + K ) -> A = B ) $.
+      $( Negative index shift of a finite sum.  (Revised by Mario Carneiro,
+         24-Apr-2014.) $)
+      fsumshftm $p |- ( ph -> sum_ j e. ( M ... N ) A =
+                              sum_ k e. ( ( M - K ) ... ( N - K ) ) B ) $=
+        ( vm vx co csu wcel cz cc cfz csb cmin ax-17 vex hbcsb1 csbeq1a cbvsumi
+        cneg caddc znegcl syl wral ralrimiva hbel wceq eleq1d rcla4 syl5 impcom
+        cv csbeq1 fsumshft zcn negsub syl2anc sumeq1d wa elfzelz subneg syl2anr
+        opreq12d csbeq1d oprex csbief syl6eq sumeq2dv 3eqtrd syl5eq ) AGHUAPZBD
+        QVTDNVAZBUBZNQZGFUCPZHFUCPZUAPZCEQZOVTBWBDNOVAZBRNUDDOWABNUEWHWARDUDUFZ
+        DWABUGZUHAWCGFUIZUJPZHWKUJPZUAPZDEVAZWKUCPZBUBZEQWFWQEQWGAWBWQNEWKGHAFS
+        RZWKSRIFUKULJKWAVTRZAWBTRZABTRZDVTUMWSWTAXADVTLUNXAWTDWAVTDOOWBTWIWHTRD
+        UDUODVAWAUPBWBTWJUQURUSUTDWAWPBVBVCAWNWFWQEAWLWDWMWEUAAGTRZFTRZWLWDUPAG
+        SRXBJGVDULAWRXCIFVDULZGFVEVFAHTRZXCWMWEUPAHSRXEKHVDULXDHFVEVFVLVGAWFWQC
+        EAWOWFRZVHZWQDWOFUJPZBUBCXGDWPXHBXFWOTRZXCWPXHUPAXFWOSRXIWOWDWEVIWOVDUL
+        XDWOFVJVKVMDOXHBCWOFUJVNWHCRDUDMVOVPVQVRVS $.
+        $( [24-Apr-2014] $) $( [28-Nov-2005] $)
+    $}
+  $}
+
+  ${
+    $d k A $.  $d j B $.  $d j k M $.  $d j k N $.  $d j k ph $.
+    fsumrev2.1 $e |- ( ph -> M e. ZZ ) $.
+    fsumrev2.2 $e |- ( ph -> N e. ZZ ) $.
+    fsumrev2.3 $e |- ( ( ph /\ j e. ( M ... N ) ) -> A e. CC ) $.
+    fsumrev2.4 $e |- ( j = ( ( M + N ) - k ) -> A = B ) $.
+    $( Reversal of a finite sum.  (Revised by Mario Carneiro, 24-Apr-2014.) $)
+    fsumrev2 $p |- ( ph -> sum_ j e. ( M ... N ) A =
+                           sum_ k e. ( M ... N ) B ) $=
+      ( cfz co csu cmin cz wcel syl2anc cc wceq caddc zaddcl fsumrev zcn pncan2
+      syl pncan opreq12d sumeq1d eqtrd ) AFGLMZBDNFGUAMZGOMZULFOMZLMZCENUKCENAB
+      CDEULFGAFPQZGPQZULPQHIFGUBRHIJKUCAUOUKCEAUMFUNGLAFSQZGSQZUMFTAUPURHFUDUFZ
+      AUQUSIGUDUFZFGUGRAURUSUNGTUTVAFGUERUHUIUJ $.
+      $( [24-Apr-2014] $) $( [27-Nov-2005] $)
+  $}
+
+  ${
+    $d f k m n x A $.  $d f m n x B $.  $d f k m n x C $.  $d f k m n ph $.
+    fsummulc2.1 $e |- ( ph -> A e. Fin ) $.
+    fsummulc2.2 $e |- ( ph -> C e. CC ) $.
+    fsummulc2.3 $e |- ( ( ph /\ k e. A ) -> B e. CC ) $.
+    $( A finite sum multiplied by a constant.  (Revised by Mario Carneiro,
+       24-Apr-2014.) $)
+    fsummulc2 $p |- ( ph ->
+                      ( C x. sum_ k e. A B ) = sum_ k e. A ( C x. B ) ) $=
+      ( vm vx wceq cfv wcel co wa csu cmul cc0 cc syl2anc vf vn c0 chash cn cfz
+      c1 cv wf1o wex wo cfn fz1f1o syl mul01 sumeq1 sum0 syl6eq opreq2d eqeq12d
+      syl5ibrcom cmpt caddc ccom cseq addcl adantl adantr adddi 3expb sylan cuz
+      simprl nnuz syl6eleq wf eqid fmptd ad2antrr simprr f1of fco simpr ffvelrn
+      ex wral mulcl fvmpt2 eqtr4d ralrimiva hbmpt1 ax-17 hbfv hbopr fveq2 rcla4
+      hbeq sylc wfun ffun fvco3 syl3anc 3eqtr4d serdistr 3eqtr4rd sumfc opreq2i
+      fsum 3eqtr3g expr exlimdv expimpd jaod mpd ) ABUCKZBUDLZUEMZUGXPUFNZBUAUH
+      ZUIZUAUJZOZUKZDBCEPZQNZBDCQNZEPZKZABULMYCFBUAUMUNAXOYHYBAYHXODRQNZRKZADSM
+      ZYJGDUOUNXOYEYIYGRXOYDRDQXOYDUCCEPRBUCCEUPCEUQURUSXOYGUCYFEPRBUCYFEUPYFEU
+      QURUTVAAXQYAYHAXQOXTYHUAAXQXTYHAXQXTOZOZDBIUHZEBCVBZLZIPZQNZBYNEBYFVBZLZI
+      PZYEYGYMXPVCYSXSVDZUGVELDXPVCYOXSVDZUGVELZQNUUAYRYMUBIDVCSQUUBUUCUGXPUBUH
+      ZSMZYNSMZOZUUEYNVCNZSMYMUUEYNVFVGYMYKUUHDUUIQNDUUEQNDYNQNVCNKZAYKYLGVHYKU
+      UFUUGUUJDUUEYNVIVJVKYMXPUEUGVLLAXQXTVMZVNVOYMUUEXRMZOZXRSUUCVPZUULUUEUUCL
+      ZSMUUMBSYOVPZXRBXSVPZUUNAUUPYLUULAEBCSYOAEUHZBMZCSMZHWEYOVQZVRZVSZUUMXTUU
+      QYMXTUULAXQXTVTZVHXRBXSWAUNZXRBSYOXSWBTYMUULWCZXRSUUEUUCWDTUUMUUEXSLZYSLZ
+      DUVGYOLZQNZUUEUUBLZDUUOQNUUMUVGBMZUURYSLZDUURYOLZQNZKZEBWFZUVHUVJKZUUMUUQ
+      UULUVLUVEUVFXRBUUEXSWDTAUVQYLUULAUVPEBAUUSOZUVMYFUVOUVSUUSYFSMZUVMYFKAUUS
+      WCZUVSYKUUTUVTAYKUUSGVHHDCWGTZEBYFSYSYSVQZWHTUVSUVNCDQUVSUUSUUTUVNCKUWAHE
+      BCSYOUVAWHTUSWIWJVSUVPUVREUVGBEJJUVHUVJEJUVGYSEJBYFWKJUHZUVGMEWLZWMEJDUVI
+      QUWDDMEWLUWDQMEWLEJUVGYOEJBCWKUWEWMWNWQUURUVGKZUVMUVHUVOUVJUURUVGYSWOUWFU
+      VNUVIDQUURUVGYOWOUSUTWPWRUUMYSWSZUUQUULUVKUVHKUUMBSYSVPZUWGAUWHYLUULAEBYF
+      SYSAUUSUVTUWBWEUWCVRZVSBSYSWTUNUVEUVFXRBUUEYSXSXAXBZUUMUUOUVIDQUUMYOWSZUU
+      QUULUUOUVIKUUMUUPUWKUVCBSYOWTUNUVEUVFXRBUUEYOXSXAXBZUSXCXDYMBYTUVHIUBXSUU
+      BXPYNUVGYSWOUUKUVDYMUWHYNBMZYTSMAUWHYLUWIVHBSYNYSWDVKUWJXHYMYQUUDDQYMBYPU
+      VIIUBXSUUCXPYNUVGYOWOUUKUVDYMUUPUWMYPSMAUUPYLUVBVHBSYNYOWDVKUWLXHUSXEYQYD
+      DQBCIEXFXGBYFIEXFXIXJXKXLXMXN $.
+      $( [24-Apr-2014] $) $( [12-Nov-2005] $)
+
+    $( A finite sum multiplied by a constant.  (Revised by Mario Carneiro,
+       24-Apr-2014.) $)
+    fsummulc1 $p |- ( ph ->
+                      ( sum_ k e. A B x. C ) = sum_ k e. A ( B x. C ) ) $=
+      ( csu cmul co fsummulc2 cc wcel wceq fsumcl mulcom syl2anc cv wa sumeq2dv
+      adantr 3eqtr4d ) ADBCEIZJKZBDCJKZEIUDDJKZBCDJKZEIABCDEFGHLAUDMNDMNZUGUEOA
+      BCEFHPGUDDQRABUHUFEAESBNZTCMNUIUHUFOHAUIUJGUBCDQRUAUC $.
+      $( [24-Apr-2014] $) $( [13-Nov-2005] $)
+
+    fsumdivc.4 $e |- ( ph -> C =/= 0 ) $.
+    $( A finite sum divided by a constant.  (Revised by Mario Carneiro,
+       24-Apr-2014.) $)
+    fsumdivc $p |- ( ph -> ( sum_ k e. A B / C ) = sum_ k e. A ( B / C ) ) $=
+      ( csu c1 cdiv co cmul cc wcel wceq divrec syl3anc adantr cc0 reccl fsumcl
+      wne syl2anc fsummulc1 cv wa sumeq2dv 3eqtr4d ) ABCEJZKDLMZNMZBCULNMZEJUKD
+      LMZBCDLMZEJABCULEFADOPZDUAUDZULOPGIDUBUEHUFAUKOPUQURUOUMQABCEFHUCGIUKDRSA
+      BUPUNEAEUGBPZUHCOPUQURUPUNQHAUQUSGTAURUSITCDRSUIUJ $.
+      $( [24-Apr-2014] $) $( [2-Jan-2006] $)
+  $}
+
+  ${
+    $d k A $.  $d k ph $.
+    fsumneg.1 $e |- ( ph -> A e. Fin ) $.
+    fsumneg.2 $e |- ( ( ph /\ k e. A ) -> B e. CC ) $.
+    $( Negation of a finite sum.  (Contributed by Scott Fenton, 12-Jun-2013.)
+       (Revised by Mario Carneiro, 24-Apr-2014.) $)
+    fsumneg $p |- ( ph -> sum_ k e. A -u B = -u sum_ k e. A B ) $=
+      ( c1 cneg csu cmul co cc wcel ax-1cn negcli a1i fsummulc2 wceq mulm1 syl
+      fsumcl cv wa sumeq2dv 3eqtr3rd ) AGHZBCDIZJKZBUFCJKZDIUGHZBCHZDIABCUFDEUF
+      LMAGNOPFQAUGLMUHUJRABCDEFUAUGSTABUIUKDADUBBMUCCLMUIUKRFCSTUDUE $.
+      $( [24-Apr-2014] $) $( [12-Jun-2013] $)
+
+    fsumsub.3 $e |- ( ( ph /\ k e. A ) -> C e. CC ) $.
+    $( Split a finite sum over a subtraction.  (Contributed by Scott Fenton,
+       12-Jun-2013.)  (Revised by Mario Carneiro, 24-Apr-2014.) $)
+    fsumsub $p |- ( ph -> sum_ k e. A ( B - C ) =
+                        ( sum_ k e. A B - sum_ k e. A C ) ) $=
+      ( cneg caddc co csu cmin cv wcel cc wceq negsub syl2anc fsumcl wa fsumadd
+      negcl syl fsumneg opreq2d eqtrd sumeq2dv 3eqtr3d ) ABCDIZJKZELZBCELZBDELZ
+      IZJKZBCDMKZELUMUNMKZAULUMBUJELZJKUPABCUJEFGAENBOUAZDPOZUJPOHDUCUDUBAUSUOU
+      MJABDEFHUEUFUGABUKUQEUTCPOVAUKUQQGHCDRSUHAUMPOUNPOUPURQABCEFGTABDEFHTUMUN
+      RSUI $.
+      $( [24-Apr-2014] $) $( [12-Jun-2013] $)
+  $}
+
+  ${
+    $d j k A $.  $d j k B $.  $d k C $.  $d j D $.  $d j k ph $.
+    fsum2mul.1 $e |- ( ph -> A e. Fin ) $.
+    fsum2mul.2 $e |- ( ph -> B e. Fin ) $.
+    fsum2mul.3 $e |- ( ( ph /\ j e. A ) -> C e. CC ) $.
+    fsum2mul.4 $e |- ( ( ph /\ k e. B ) -> D e. CC ) $.
+    $( Separate the nested sum of the product ` C ( j ) x. D ( k ) ` .
+       (Revised by Mario Carneiro, 24-Apr-2014.) $)
+    fsum2mul $p |- ( ph -> sum_ j e. A sum_ k e. B ( C x. D ) =
+                           ( sum_ j e. A C x. sum_ k e. B D ) ) $=
+      ( csu cmul co fsumcl fsummulc1 cv wcel wa cfn adantr cc adantlr fsummulc2
+      sumeq2dv eqtr2d ) ABDFLCEGLZMNBDUGMNZFLBCDEMNGLZFLABDUGFHACEGIKOJPABUHUIF
+      AFQBRZSCEDGACTRUJIUAJAGQCREUBRUJKUCUDUEUF $.
+      $( [24-Apr-2014] $) $( [13-Nov-2005] $)
+  $}
+
+  ${
+    $d f k n A $.  $d f k n B $.
+    $( The sum of constant terms ( ` k ` is not free in ` A ` ).  (Revised by
+       Mario Carneiro, 24-Apr-2014.) $)
+    fsumconst $p |- ( ( A e. Fin /\ B e. CC ) ->
+                      sum_ k e. A B = ( ( # ` A ) x. B ) ) $=
+      ( vf vn cfn wcel cc wa c0 wceq chash cfv cn c1 co cv csu cmul cc0 cfz wex
+      wf1o wo fz1f1o adantr mul02 adantl eqcomd sumeq1 sum0 syl6eq id wb mpbiri
+      0fin eleq1 hash0 syl mpbird opreq1d eqeq12d syl5ibrcom caddc csn cxp cseq
+      eqidd simprl simprr simpllr simplr elfznn fvconst2g sylan2 fsum ser1const
+      sylan syl2anc eqtrd expr exlimdv expimpd jaod mpd ) AFGZBHGZIZAJKZALMZNGZ
+      OWJUAPZADQZUCZDUBZIZUDZABCRZWJBSPZKZWFWQWGADUEUFWHWIWTWPWHWTWITTBSPZKWHXA
+      TWGXATKWFBUGUHUIWIWRTWSXAWIWRJBCRTAJBCUJBCUKULWIWJTBSWIWJTKZWIWIUMWIWFXBW
+      IUNWIWFJFGUPAJFUQUOAURUSUTVAVBVCWHWKWOWTWHWKIWNWTDWHWKWNWTWHWKWNIZIZWRWJV
+      DNBVEVFZOVGMZWSXDABBCEWMXEWJCQZEQZWMMKBVHWHWKWNVIZWHWKWNVJWFWGXCXGAGVKXDW
+      GXHWLGZXHXEMBKZWFWGXCVLZXJWGXHNGXKXHWJVMNBXHHVNVOVRVPXDWGWKXFWSKXLXIBWJVQ
+      VSVTWAWBWCWDWE $.
+      $( [24-Apr-2014] $) $( [24-Dec-2005] $)
+  $}
+
+  ${
+    $d k m x y z A $.  $d m x y z B $.  $d k C $.  $d k M $.  $d k m y z ph $.
+    fsumge0.1 $e |- ( ph -> A e. Fin ) $.
+    fsumge0.2 $e |- ( ( ph /\ k e. A ) -> B e. RR ) $.
+    fsumge0.3 $e |- ( ( ph /\ k e. A ) -> 0 <_ B ) $.
+    $( If all of the terms of a finite sum are nonnegative, so is the sum.
+       (Revised by Mario Carneiro, 24-Apr-2014.) $)
+    fsumge0 $p |- ( ph -> 0 <_ sum_ k e. A B ) $=
+      ( vx vy vz cc0 cv cle wbr cr wcel wa breq2 elrab sylanbrc csu crab ssrab2
+      cc ax-resscn sstri caddc co readdcl ad2ant2r addge0 an4s syl2anb mpbir2an
+      0re leidi fsumcllem simprbi syl ) ABCDUAZKHLZMNZHOUBZPZKUTMNZAIJBCVCDVCOU
+      DVBHOUCUEUFILZVCPVFOPZKVFMNZQZJLZOPZKVJMNZQZVFVJUGUHZVCPZVJVCPVBVHHVFOVAV
+      FKMRSVBVLHVJOVAVJKMRSVIVMQVNOPZKVNMNZVOVGVKVPVHVLVFVJUIUJVGVKVHVLVQVFVJUK
+      ULVBVQHVNOVAVNKMRSTUMEADLBPQCOPKCMNZCVCPFGVBVRHCOVACKMRSTKVCPKOPKKMNZVBVS
+      HKOVAKKMRSUOKUOUPUNUQVDUTOPVEVBVEHUTOVAUTKMRSURUS $.
+      $( [24-Apr-2014] $) $( [26-Dec-2005] $)
+
+    ${
+      fsumcmpss.4 $e |- ( ph -> C C_ A ) $.
+      $( A shorter sum of nonnegative terms is smaller than a longer one.  (The
+         proof was shortened by Mario Carneiro, 24-Apr-2014.) $)
+      fsumcmpss $p |- ( ph -> sum_ k e. C B <_ sum_ k e. A B ) $=
+        ( csu cle cc0 wbr cfn wcel wss ssfi cr sylan2 syl2anc caddc co difss cv
+        sylancl eldifi fsumge0 wb ssel2 sylan syldan fsumrecl addge01 mpbid cin
+        cdif c0 wceq disjdif a1i undif sylib eqcomd wa recnd fsumsplit breqtrrd
+        cun ) ADCEJZVIBDUPZCEJZUAUBZBCEJKALVKKMZVIVLKMZAVJCEABNOZVJBPVJNOFBDUCB
+        VJQUEZEUDZVJOZAVQBOZCROZVQBDUFZGSZVRAVSLCKMWAHSUGAVIROVKROVMVNUHADCEAVO
+        DBPZDNOFIBDQTAVQDOZVSVTAWCWDVSIDBVQUIUJGUKULAVJCEVPWBULVIVKUMTUNADVJCBE
+        DVJUOUQURADBUSUTADVJVHZBAWCWEBURIDBVAVBVCFAVSVDCGVEVFVG $.
+        $( [24-Apr-2014] $) $( [26-Dec-2005] $)
+    $}
+
+    ${
+      fsumge1.4 $e |- ( k = M -> B = C ) $.
+      fsumge1.5 $e |- ( ph -> M e. A ) $.
+      $( A sum of nonnegative numbers is greater than or equal to any one of
+         its terms.  (Contributed by Jeff Madsen, 2-Sep-2009.)  (The proof was
+         shortened by Mario Carneiro, 4-Jun-2014.) $)
+      fsumge1 $p |- ( ph -> C <_ sum_ k e. A B ) $=
+        ( csn csu cle wcel cc wceq wral cv wa recnd ralrimiva eleq1d sylc sumsn
+        rcla4v syl2anc snssd fsumcmpss eqbrtrrd ) AFLZCEMZDBCEMNAFBOZDPOZULDQKA
+        UMCPOZEBRUNKAUOEBAESZBOTCHUAUBUOUNEFBUPFQCDPJUCUFUDCDEFBJUEUGABCUKEGHIA
+        FBKUHUIUJ $.
+        $( [4-Jun-2014] $) $( [2-Sep-2009] $)
+    $}
+
+    $( A sum of nonnegative numbers is zero iff all terms are zero.
+       (Contributed by Jeff Madsen, 2-Sep-2009.)  (The proof was shortened by
+       Mario Carneiro, 24-Apr-2014.) $)
+    fsum00 $p |- ( ph -> ( sum_ k e. A B = 0 <-> A. k e. A B = 0 ) ) $=
+      ( vm vx csu cc0 wceq wral wa cv wcel cle wbr cr ax-17 wb ralrimiva adantr
+      csb jca hbcsb1 hbel hbbr csbeq1a eleq1d breq2d anbi12d rcla4 impcom sylan
+      vex hban simpld 0re letri3 sylancl csn cfn adantlr snssi adantl fsumcmpss
+      cc simpr recnd sumsns syl2anc simplr 3brtr3d simprd mpbir2and hbeq eqeq1d
+      wss cbvral sylibr ex wi cuz cfv sumz olcs sumeq2 syl5ibrcom syl impbid )
+      ABCDJZKLZCKLZDBMZAWMWOAWMNZDHOZCUDZKLZHBMWOWPWSHBWPWQBPZNZWSWRKQRZKWRQRZX
+      AWRSPZKSPWSXBXCNUAXAXDXCWPCSPZKCQRZNZDBMZWTXDXCNZAXHWMAXGDBADOZBPZNXEXFFG
+      UEUBUCWTXHXIXGXIDWQBXDXCDDIIWRSDIWQCHUPIOZWQPDTUFZXLSPDTUGDIKWRQXLKPDTZXL
+      QPDTXMUHUQXJWQLZXEXDXFXCXOCWRSDWQCUIZUJXOCWRKQXPUKULUMUNUOZURZUSWRKUTVAXA
+      WQVBZCDJZWLWRKQAWTXTWLQRWMAWTNBCXSDABVCPZWTEUCAXKXEWTFVDAXKXFWTGVDWTXSBVS
+      AWQBVEVFVGVDXAWTWRVHPXTWRLWPWTVIXAWRXRVJCDWQBVKVLAWMWTVMVNXAXDXCXQVOVPUBW
+      NWSDHBWNHTDIIWRKXMXNVQXOCWRKXPVRVTWAWBAYAWOWMWCEYAWMWOBKDJZKLZBKWDWEVSYAY
+      CBDKWFWGWOWLYBKBCKDWHVRWIWJWK $.
+      $( [24-Apr-2014] $) $( [2-Sep-2009] $)
+  $}
+
+  ${
+    $d k A $.  $d k ph $.
+    fsumcmp.1 $e |- ( ph -> A e. Fin ) $.
+    fsumcmp.2 $e |- ( ( ph /\ k e. A ) -> B e. RR ) $.
+    fsumcmp.3 $e |- ( ( ph /\ k e. A ) -> C e. RR ) $.
+    fsumcmp.4 $e |- ( ( ph /\ k e. A ) -> B <_ C ) $.
+    $( If all of the terms of finite sums compare, so do the sums.  (The proof
+       was shortened by Mario Carneiro, 24-Apr-2014.) $)
+    fsumcmp $p |- ( ph -> sum_ k e. A B <_ sum_ k e. A C ) $=
+      ( cc0 csu cmin co cle wbr wcel cr syl2anc wb subge0 cv wa resubcl fsumge0
+      mpbird recnd fsumsub breqtrd fsumrecl mpbid ) AJBDEKZBCEKZLMZNOZULUKNOZAJ
+      BDCLMZEKUMNABUPEFAEUABPUBZDQPZCQPZUPQPHGDCUCRUQJUPNOZCDNOZIUQURUSUTVASHGD
+      CTRUEUDABDCEFUQDHUFUQCGUFUGUHAUKQPULQPUNUOSABDEFHUIABCEFGUIUKULTRUJ $.
+      $( [24-Apr-2014] $) $( [11-Dec-2005] $)
+  $}
+
+  ${
+    $d k A $.  $d k ph $.
+    fsumlt.1 $e |- ( ph -> A e. Fin ) $.
+    fsumlt.2 $e |- ( ph -> A =/= (/) ) $.
+    fsumlt.3 $e |- ( ( ph /\ k e. A ) -> B e. RR ) $.
+    fsumlt.4 $e |- ( ( ph /\ k e. A ) -> C e. RR ) $.
+    fsumlt.5 $e |- ( ( ph /\ k e. A ) -> B < C ) $.
+    $( If every term in one finite sum is less than the corresponding term in
+       another, then the first sum is less than the second.  (Contributed by
+       Jeff Madsen, 2-Sep-2009.)  (Revised by Mario Carneiro, 3-Jun-2014.) $)
+    fsumlt $p |- ( ph -> sum_ k e. A B < sum_ k e. A C ) $=
+      ( csu clt wbr cc0 cmin co crp wcel cr wb cv wa difrp mpbid fsumrpcl rpgt0
+      syl2anc syl recnd fsumsub breqtrd fsumrecl posdif mpbird ) ABCEKZBDEKZLMZ
+      NUPUOOPZLMZANBDCOPZEKZURLAVAQRNVALMABUTEFGAEUABRUBZCDLMZUTQRZJVBCSRDSRVCV
+      DTHICDUCUGUDUEVAUFUHABDCEFVBDIUIVBCHUIUJUKAUOSRUPSRUQUSTABCEFHULABDEFIULU
+      OUPUMUGUN $.
+      $( [3-Jun-2014] $) $( [2-Sep-2009] $)
+  $}
+
+  ${
+    $d k w x y A $.  $d w x y B $.  $d k w x y ph $.
+    fsumabs.1 $e |- ( ph -> A e. Fin ) $.
+    fsumabs.2 $e |- ( ( ph /\ k e. A ) -> B e. CC ) $.
+    $( Generalized triangle inequality: the absolute value of a finite sum is
+       less than or equal to the sum of absolute values.  (Revised by Mario
+       Carneiro, 24-Apr-2014.) $)
+    fsumabs $p |- ( ph ->
+                    ( abs ` sum_ k e. A B ) <_ sum_ k e. A ( abs ` B ) ) $=
+      ( wss csu cabs cfv cle wbr wcel wi c0 wceq sumeq1 caddc cr cc vw ssid cfn
+      vx vy cv csn cun sseq1 fveq2d breq12d imbi12d imbi2d cc0 0re leidi fveq2i
+      sum0 abs0 eqtri 3brtr4i a1i12 wn wa ssun1 sstr mpan imim1i csb simpll syl
+      co wb simpr syl5ss syl2anc ssel2 sylan syldan fsumcl abscl fsumrecl ssun2
+      ssfi wral vex snss sylibr ralrimiva ax-17 hbcsb1 hbel csbeq1a eleq1d sylc
+      rcla4 leadd1 syl3anc cin simplr disjsn eqidd recnd fsumsplit cvv syl5eqel
+      csbfv2g ax-mp sumsns sylancr syl6eq opreq2d breq2d bitr4d eqbrtrd readdcl
+      eqtrd abstri letr mpand sylbid ex a2d syl5 expcom adantl findcard2s mpcom
+      mpi ) ABBGZBCDHZIJZBCIJZDHZKLZBUBBUCMZAYJYONZEAUAUFZBGZYRCDHZIJZYRYMDHZKL
+      ZNZNAOBGZOCDHZIJZOYMDHZKLZNZNAUDUFZBGZUUKCDHZIJZUUKYMDHZKLZNZNZAUUKUEUFZU
+      GZUHZBGZUVACDHZIJZUVAYMDHZKLZNZNZAYQNUAUDUEBYROPZUUDUUJAUVIYSUUEUUCUUIYRO
+      BUIUVIUUAUUGUUBUUHKUVIYTUUFIYROCDQUJYROYMDQUKULUMYRUUKPZUUDUUQAUVJYSUULUU
+      CUUPYRUUKBUIUVJUUAUUNUUBUUOKUVJYTUUMIYRUUKCDQUJYRUUKYMDQUKULUMYRUVAPZUUDU
+      VGAUVKYSUVBUUCUVFYRUVABUIUVKUUAUVDUUBUVEKUVKYTUVCIYRUVACDQUJYRUVAYMDQUKUL
+      UMYRBPZUUDYQAUVLYSYJUUCYOYRBBUIUVLUUAYLUUBYNKUVLYTYKIYRBCDQUJYRBYMDQUKULU
+      MAUUEUUIUNUNUUGUUHKUNUOUPUUGUNIJUNUUFUNICDURUQUSUTYMDURVAVBUUSUUKMVCZUURU
+      VHNUUKUCMZUVMAUUQUVGAUVMUUQUVGNUUQUVBUUPNAUVMVDZUVGUVBUULUUPUUKUVAGUVBUUL
+      UUKUUTVEZUUKUVABVFVGVHUVOUVBUUPUVFUVOUVBUUPUVFNUVOUVBVDZUUPUUNDUUSCVIZIJZ
+      RVLZUVEKLZUVFUVQUUPUVTUUOUVSRVLZKLZUWAUVQUUNSMZUUOSMUVSSMZUUPUWCVMUVQUUMT
+      MZUWDUVQUUKCDUVQYPUULUVNUVQAYPAUVMUVBVJZEVKZUVQUUKUVABUVPUVOUVBVNZVOZBUUK
+      WDVPZUVQDUFZUUKMZUWLBMZCTMZUVQUULUWMUWNUWJUUKBUWLVQVRUVQAUWNUWOUWGFVRZVSZ
+      VTZUUMWAVKZUVQUUKYMDUWKUVQUWMVDUWOYMSMZUWQCWAZVKWBUVQUVRTMZUWEUVQUUSBMZUW
+      ODBWEZUXBUVQUUTBGUXCUVQUUTUVABUUTUUKWCUWIVOUUSBUEWFZWGWHZUVQAUXDUWGAUWODB
+      FWIVKUWOUXBDUUSBDUDUDUVRTDUDUUSCUXEUUKUUSMDWJWKUUKTMDWJWLUWLUUSPCUVRTDUUS
+      CWMWNWPWOZUVRWAVKZUUNUUOUVSWQWRUVQUVEUWBUVTKUVQUVEUUOUUTYMDHZRVLUWBUVQUUK
+      UUTYMUVADUVQUVMUUKUUTWSOPAUVMUVBWTUUKUUSXAWHZUVQUVAXBZUVQYPUVBUVAUCMUWHUW
+      IBUVAWDVPZUVQUWLUVAMZVDZYMUXNUWOUWTUVQUXMUWNUWOUVQUVBUXMUWNUWIUVABUWLVQVR
+      UWPVSZUXAVKZXCXDUVQUXIUVSUUORUVQUXIDUUSYMVIZUVSUVQUUSXEMZUXQTMUXIUXQPUXEU
+      VQUXQUVSTUXRUXQUVSPUXEDUUSCXEIXGXHZUVQUVSUXHXCXFYMDUUSXEXIXJUXSXKXLXQXMXN
+      UVQUVDUVTKLZUWAUVFUVQUVDUUMUVRRVLZIJZUVTKUVQUVCUYAIUVQUVCUUMUUTCDHZRVLUYA
+      UVQUUKUUTCUVADUXJUXKUXLUXOXDUVQUYCUVRUUMRUVQUXCUXBUYCUVRPUXFUXGCDUUSBXIVP
+      XLXQUJUVQUWFUXBUYBUVTKLUWRUXGUUMUVRXRVPXOUVQUVDSMZUVTSMZUVESMUXTUWAVDUVFN
+      UVQUVCTMUYDUVQUVACDUXLUXOVTUVCWAVKUVQUWDUWEUYEUWSUXHUUNUVSXPVPUVQUVAYMDUX
+      LUXPWBUVDUVTUVEXSWRXTYAYBYCYDYEYCYFYGYHYI $.
+      $( [24-Apr-2014] $) $( [9-Nov-2005] $)
+  $}
+
+  ${
+    $d j A $.  $d k B $.  $d k C $.  $d j k M $.  $d j k N $.  $d j k ph $.
+    $d k D $.  $d k E $.
+    fsumtscop.1 $e |- ( k = j -> A = B ) $.
+    fsumtscop.2 $e |- ( k = ( j + 1 ) -> A = C ) $.
+    fsumtscop.3 $e |- ( k = M -> A = D ) $.
+    fsumtscop.4 $e |- ( k = ( N + 1 ) -> A = E ) $.
+    fsumtscop.5 $e |- ( ph -> N e. ( ZZ>= ` M ) ) $.
+    fsumtscop.6 $e |- ( ( ph /\ k e. ( M ... ( N + 1 ) ) ) -> A e. CC ) $.
+    $( Sum of a telescoping series.  (Contributed by Scott Fenton,
+       24-Apr-2014.)  (Revised by Mario Carneiro, 22-May-2014.) $)
+    fsumtscop $p |- ( ph -> sum_ j e. ( M ... N ) ( B - C ) = ( D - E ) ) $=
+      ( co c1 wcel cc cfz cmin csu caddc fzfid cv wral wss cuz cfv fzssp1 ssel2
+      wa syl sylan ralrimiva adantr wceq eleq1d rcla4v fzp1elp1 fsumsub cbvsumv
+      sylc syldan fsum1p syl5eqr cz 1z eluzel2 peano2zdi eluzelz fzp1ss syl2anc
+      a1i fsumshftm eluzp1p1 fsumm1 ax-1cn pncan sylancl opreq2d sumeq1d fsumcl
+      opreq1d peano2uz eluzfz2 addcom opreq12d 3eqtr3rd eluzfz1 pnpcan2 syl3anc
+      zcn 3eqtrd ) AIJUAQZCDUBQFUCWPCFUCZWPDFUCZUBQEIRUDQZJUAQZBGUCZUDQZHXAUDQZ
+      UBQZEHUBQZAWPCDFAIJUEAFUFZWPSZUMZXFIJRUDQZUAQZSZBTSZGXJUGZCTSZAWPXJUHZXGX
+      KAJIUIUJZSZXOOIJXPUKUNZWPXJXFULUOAXMXGAXLGXJPUPZUQZXLXNGXFXJGUFZXFURBCTKU
+      SUTVDXHXFRUDQZXJSZXMDTSZAXQXGYCOXPXFIJVAUOXTXLYDGYBXJYAYBURBDTLUSUTVDVBAW
+      QXBWRXCUBAWQWPBGUCXBWPBCGFKVCABEGIJOAYAWPSZYAXJSZXLAXOYEYFXRWPXJYAULUOPVE
+      MVFVGAWSXIUAQZBGUCZWSRUBQZXIRUBQZUAQZDFUCXCWRABDGFRWSXIRVHSAVIVOAIAXQIVHS
+      ZOIJVJUNZVKAJAXQJVHSZOIJVLUNZVKZAYAYGSZYFXLAYGXJUHZYQYFAYLXIVHSYRYMYPIXIV
+      HVMVNYGXJYAULUOPVEZLVPAYHWSYJUAQZBGUCZHUDQXAHUDQZXCABHGWSXIAXQXIWSUIUJSOI
+      JVQUNYSNVRAUUAXAHUDAYTWTBGAYJJWSUAAJTSZRTSZYJJURAYNUUCYOJWNUNVSJRVTWAZWBW
+      CWEAXATSZHTSZUUBXCURAWTBGAWSJUEAYAWTSZYQXLAWTYGUHZUUHYQAXQUUIOWSJXPUKUNWT
+      YGYAULUOYSVEWDZAXIXJSZXMUUGAXIXPSZUUKAXQUULOIJWFUNZIXIWGUNXSXLUUGGXIXJYAX
+      IURBHTNUSUTVDZXAHWHVNWOAYKWPDFAYIIYJJUAAITSZUUDYIIURAYLUUOYMIWNUNVSIRVTWA
+      UUEWIWCWJWIAETSZUUGUUFXDXEURAIXJSZXMUUPAUULUUQUUMIXIWKUNXSXLUUPGIXJYAIURB
+      ETMUSUTVDUUNUUJEHXAWLWMWO $.
+      $( [22-May-2014] $) $( [24-Apr-2014] $)
+  $}
+
+  ${
+    $d j k F $.  $d k G $.  $d j k M $.  $d j k N $.  $d j k ph $.
+    serre.1 $e |- ( ph -> N e. ( ZZ>= ` M ) ) $.
+    serre.2 $e |- ( ( ph /\ k e. ( M ... N ) ) -> ( F ` k ) e. CC ) $.
+    ${
+      serre.3 $e |- ( ( ph /\ k e. ( M ... N ) ) ->
+                       ( G ` k ) = ( Re ` ( F ` k ) ) ) $.
+      $( The real part of a series.  (Contributed by Paul Chapman,
+         9-Nov-2007.)  (Revised by Mario Carneiro, 24-Apr-2014.) $)
+      serre $p |- ( ph -> ( seq M ( + , G ) ` N ) =
+                   ( Re ` ( seq M ( + , F ) ` N ) ) ) $=
+        ( vj caddc cseq cfv cre cc cv wcel wa co adantl addcl wceq readd eqcomd
+        cfz seqhomo ) AFKCELMNMFKDELMABJKKOCDNEFBPZOQJPZOQRZUGUHKSZOQAUGUHUATHG
+        UIUJNMUGNMUHNMKSUBAUGUHUCTAUGEFUESQRUGDMUGCMNMIUDUFUD $.
+        $( [24-Apr-2014] $) $( [9-Nov-2007] $)
+    $}
+
+    ${
+      serim.3 $e |- ( ( ph /\ k e. ( M ... N ) ) ->
+                       ( G ` k ) = ( Im ` ( F ` k ) ) ) $.
+      $( The imaginary part of a series.  (Contributed by Paul Chapman,
+         9-Nov-2007.)  (Revised by Mario Carneiro, 24-Apr-2014.) $)
+      serim $p |- ( ph -> ( seq M ( + , G ) ` N ) =
+                   ( Im ` ( seq M ( + , F ) ` N ) ) ) $=
+        ( vj caddc cseq cfv cim cc cv wcel wa co adantl addcl wceq imadd eqcomd
+        cfz seqhomo ) AFKCELMNMFKDELMABJKKOCDNEFBPZOQJPZOQRZUGUHKSZOQAUGUHUATHG
+        UIUJNMUGNMUHNMKSUBAUGUHUCTAUGEFUESQRUGDMUGCMNMIUDUFUD $.
+        $( [24-Apr-2014] $) $( [9-Nov-2007] $)
+    $}
+
+    ${
+      sercj.3 $e |- ( ( ph /\ k e. ( M ... N ) ) ->
+                       ( G ` k ) = ( * ` ( F ` k ) ) ) $.
+      $( The complex conjugate of a series.  (Contributed by Paul Chapman,
+         9-Nov-2007.)  (Revised by Mario Carneiro, 24-Apr-2014.) $)
+      sercj $p |- ( ph -> ( seq M ( + , G ) ` N ) =
+                    ( * ` ( seq M ( + , F ) ` N ) ) ) $=
+        ( vj caddc cseq cfv ccj cc cv wcel wa co adantl addcl wceq cjadd eqcomd
+        cfz seqhomo ) AFKCELMNMFKDELMABJKKOCDNEFBPZOQJPZOQRZUGUHKSZOQAUGUHUATHG
+        UIUJNMUGNMUHNMKSUBAUGUHUCTAUGEFUESQRUGDMUGCMNMIUDUFUD $.
+        $( [24-Apr-2014] $) $( [9-Nov-2007] $)
+    $}
+  $}
+
+  ${
+    $d k F $.  $d k G $.  $d k M $.  $d k N $.  $d k ph $.
+    seqabs.1 $e |- ( ph -> N e. ( ZZ>= ` M ) ) $.
+    seqabs.2 $e |- ( ( ph /\ k e. ( M ... N ) ) -> ( F ` k ) e. CC ) $.
+    seqabs.3 $e |- ( ( ph /\ k e. ( M ... N ) ) ->
+                      ( G ` k ) = ( abs ` ( F ` k ) ) ) $.
+    $( Generalized triangle inequality: the absolute value of a finite sum is
+       less than or equal to the sum of absolute values.  (Contributed by Mario
+       Carneiro, 26-Mar-2014.) $)
+    seqabs $p |- ( ph ->
+              ( abs ` ( seq M ( + , F ) ` N ) ) <_ ( seq M ( + , G ) ` N ) ) $=
+      ( cfz co cv cfv csu cabs caddc cseq wcel fsumser cc cle fsumabs wa fveq2d
+      fzfid eqidd abscl recnd syl 3brtr3d ) AEFJKZBLZCMZBNZOMUKUMOMZBNFPCEQMZOM
+      FPDEQMUAAUKUMBAEFUEHUBAUNUPOAUMBCEFAULUKRUCZUMUFGHSUDAUOBDEFIGUQUMTRZUOTR
+      HURUOUMUGUHUISUJ $.
+      $( [27-May-2014] $) $( [26-Mar-2014] $)
+  $}
+
+  ${
+    $d k m n F $.  $d k n G $.  $d k m n M $.  $d k n ph $.  $d k m n Z $.
+    $d n A $.  $d n B $.
+    iserabs.1 $e |- Z = ( ZZ>= ` M ) $.
+    iserabs.2 $e |- ( ph -> seq M ( + , F ) ~~> A ) $.
+    iserabs.3 $e |- ( ph -> seq M ( + , G ) ~~> B ) $.
+    iserabs.4 $e |- ( ph -> A e. V ) $.
+    iserabs.5 $e |- ( ph -> M e. ZZ ) $.
+    iserabs.6 $e |- ( ( ph /\ k e. Z ) -> ( F ` k ) e. CC ) $.
+    iserabs.7 $e |- ( ( ph /\ k e. Z ) -> ( G ` k ) = ( abs ` ( F ` k ) ) ) $.
+    $( Generalized triangle inequality: the absolute value of an infinite sum
+       is less than or equal to the sum of absolute values.  (Contributed by
+       Paul Chapman, 10-Sep-2007.)  (Revised by Mario Carneiro,
+       27-May-2014.) $)
+    iserabs $p |- ( ph -> ( abs ` A ) <_ B ) $=
+      ( cabs cfv wcel cr vn vm cv caddc cseq cmpt cvv fvex a1i eqeltri mptex cc
+      cuz wf serf ffvelrn sylan wceq fveq2 fveq2d fvmpt adantl climabs wa abscl
+      eqid syl eqeltrd serfre cle simpr syl6eleq cfz co elfzuz syl6eleqr sylan2
+      adantlr seqabs eqbrtrd climcmp ) ABQRZCUAUBIUBUCZUDEGUEZRZQRZUFZUDFGUEZGU
+      GIJNWBUGSABQUHUIABUAWDWGGHUGIJKMWGUGSAUBIWFIGUMRZUGJGUMUHUJUKUINAIULWDUNU
+      AUCZISZWJWDRZULSZADEGIJNOUOIULWJWDUPUQZWKWJWGRZWLQRZURAUBWJWFWPIWGWCWJURW
+      EWLQWCWJWDUSUTWGVFWLQUHVAVBZVCLAWKVDZWOWPTWQWRWMWPTSWNWLVEVGVHAITWHUNWKWJ
+      WHRZTSADFGIJNADUCZISZVDZWTFRZWTERZQRZTPXBXDULSZXETSOXDVEVGVHVIITWJWHUPUQW
+      RWOWPWSVJWQWRDEFGWJWRWJIWIAWKVKJVLAWTGWJVMVNSZXFWKXGAXAXFXGWTWIIWTGWJVOJV
+      PZOVQVRAXGXCXEURZWKXGAXAXIXHPVQVRVSVTWA $.
+      $( [27-May-2014] $) $( [10-Sep-2007] $)
+  $}
+
+  ${
+    $d n A $.  $d n B $.  $d k m n x F $.  $d k m n x G $.  $d k m n x ph $.
+    $d k m n x M $.  $d k m n x N $.  $d k m n x Z $.
+    cvgcmp.1 $e |- Z = ( ZZ>= ` M ) $.
+    cvgcmp.2 $e |- ( ph -> N e. Z ) $.
+    cvgcmp.3 $e |- ( ( ph /\ k e. Z ) -> ( F ` k ) e. RR ) $.
+    cvgcmp.4 $e |- ( ( ph /\ k e. Z ) -> ( G ` k ) e. RR ) $.
+    ${
+      cvgcmp.5 $e |- ( ph -> seq M ( + , F ) e. dom ~~> ) $.
+      cvgcmp.6 $e |- ( ( ph /\ k e. ( ZZ>= ` N ) ) -> 0 <_ ( G ` k ) ) $.
+      cvgcmp.7 $e |- ( ( ph /\ k e. ( ZZ>= ` N ) ) ->
+                       ( G ` k ) <_ ( F ` k ) ) $.
+      $( A comparison test for convergence of a real infinite series.  Exercise
+         3 of [Gleason] p. 182.  (Contributed by Mario Carneiro,
+         24-Mar-2014.) $)
+      cvgcmp $p |- ( ph -> seq M ( + , G ) e. dom ~~> ) $=
+        ( vm vn wcel cfv wbr cr vx caddc cseq cvv seqex a1i cv cc cmin cabs clt
+        co wa cuz wral wrex crp cz cli cdm syl6eleq eluzel2 syl climcau syl2anc
+        wi wf serfre ffvelrn sylan recnd ralrimiva r19.29uz ex ralimdv mpd cmpt
+        cle simpll simprl uztrn2 simprr cfz elfzuz syl6eleqr wceq opreq12d eqid
+        fveq2 oprex adantl resubcl eqeltrd syl2an c1 cc0 peano2uz subge0 syldan
+        fvmpt wb mpbird breqtrrd sylan2 sermono sersub 3brtr3d lesubadd syl3anc
+        mpbid subsub lesub ad2antlr lelttr mpand letrd abssubge0 breq1d 3imtr4d
+        rpre anassrs adantld ralimdva reximdva adantr syld cau4 simpr biantrurd
+        0re syl5ib caurcvg2 ) AUAOPUBDEUCZEUDGHYMUDQAUBDEUEUFAPUGZYMRZUHQZYOOUG
+        ZYMRZUIULZUJRZUAUGZUKSZUMZPYQUNRZUOZOGUPZUAUQUOZYOTQZUUBUMZPUUDUOZOGUPZ
+        UAUQUOAYNUBCEUCZRZUHQZUUMYQUULRZUIULZUJRZUUAUKSZUMZPUUDUOZOGUPZUAUQUOZU
+        UGAUURPUUDUOOGUPZUAUQUOZUVBAEURQZUULUSUTQUVDAFEUNRZQUVEAFGUVFIHVAEFVBVC
+        ZLUAOPUULEGHVDVEAUVCUVAUAUQAUUNPGUOZUVCUVAVFAUUNPGAYNGQZUMZUUMAGTUULVGZ
+        UVIUUMTQZABCEGHUVGJVHZGTYNUULVIVJZVKVLUVHUVCUVAUUNUUROPEGHVMVNVCVOVPAUU
+        TOFUNRZUPZUAUQUOZUUEOUVOUPZUAUQUOZUVBUUGAUVPUVRUAUQAUUAUQQZUMZUVPUUBPUU
+        DUOZOUVOUPZUVRUWAUUTUWBOUVOUWAYQUVOQZUMZUUSUUBPUUDUWEYNUUDQZUMUURUUBUUN
+        UWAUWDUWFUURUUBVFUWAUWDUWFUMZUMZUUPUUAUKSZYSUUAUKSZUURUUBUWHYSUUPVRSZUW
+        IUWJUWHUUOUUMYSUIULZVRSZUWKUWHUUOUUMYOUIULZYRUBULZUWLVRUWHUUOYRUIULZUWN
+        VRSZUUOUWOVRSZUWHYQUBOGYQCRZYQDRZUIULZVQZEUCZRYNUXCRUWPUWNVRUWHBUXBYQEY
+        NUWHYQGUVFUWHFGQZUWDYQGQZUWHAUXDAUVTUWGVSZIVCZUWAUWDUWFVTZEYQFGHWAVEZHV
+        AZUWAUWDUWFWBZUWHABUGZGQZUXLUXBRZTQUXLEYNWCULQZUXFUXOUXLUVFGUXLEYNWDHWE
+        ZAUXMUMZUXNUXLCRZUXLDRZUIULZTUXMUXNUXTWFZAOUXLUXAUXTGUXBYQUXLWFUWSUXRUW
+        TUXSUIYQUXLCWIYQUXLDWIWGUXBWHUXRUXSUIWJWTWKZUXQUXRTQZUXSTQZUXTTQJKUXRUX
+        SWLVEWMWNUXLYQWOUBULZYNWCULQZUWHUXLUYEUNRQZWPUXNVRSZUXLUYEYNWDZUWHUYGUX
+        LUVOQZUYHUWHUYEUVOQZUYGUYJUWHUWDUYKUXHFYQWQVCFUXLUYEUVOUVOWHZWAVJZUWHAU
+        YJUYHUXFAUYJUMZWPUXTUXNVRUYNWPUXTVRSZUXSUXRVRSZNAUYJUXMUYOUYPXAZAUXDUYJ
+        UXMIEUXLFGHWAVJZUXQUYCUYDUYQJKUXRUXSWRVEWSXBAUYJUXMUYAUYRUYBWSXCVJWSXDX
+        EUWHBCDUXBEYQUXJUWHAUXMUXRUHQZUXLEYQWCULQZUXFUYTUXLUVFGUXLEYQWDHWEZUXQU
+        XRJVKZWNUWHAUXMUXSUHQZUYTUXFVUAUXQUXSKVKZWNUWHAUXMUYAUYTUXFVUAUYBWNXFUW
+        HBCDUXBEYNUWHYNGUVFUWHUXDYNUVOQZUVIUXGUWGVUEUWAFYNYQUVOUYLWAWKEYNFGHWAZ
+        VEZHVAUWHAUXMUYSUXOUXFUXPVUBWNUWHAUXMVUCUXOUXFUXPVUDWNUWHAUXMUYAUXOUXFU
+        XPUYBWNXFXGUWHUUOTQZYRTQZUWNTQZUWQUWRXAUWHUVKUXEVUHUWHAUVKUXFUVMVCUXIGT
+        YQUULVIVEZUWHGTYMVGZUXEVUIUWHAVULUXFABDEGHUVGKVHZVCUXIGTYQYMVIVEZUWHUVL
+        UUHVUJUWHAUVIUVLUXFVUGUVNVEZUWHAUVIUUHUXFVUGAVULUVIUUHVUMGTYNYMVIVJZVEZ
+        UUMYOWLVEUUOYRUWNXHXIXJUWHUUNYPYRUHQUWLUWOWFUWHUUMVUOVKUWHYOVUQVKUWHYRV
+        UNVKUUMYOYRXKXIXCUWHVUHUVLYSTQZUWMUWKXAVUKVUOUWHUUHVUIVURVUQVUNYOYRWLVE
+        ZUUOUUMYSXLXIXJUWHVURUUPTQZUUATQZUWKUWIUMUWJVFVUSUWHUVLVUHVUTVUOVUKUUMU
+        UOWLVEUVTVVAAUWGUUAXTXMYSUUPUUAXNXIXOUWHUUQUUPUUAUKUWHVUHUVLUUOUUMVRSUU
+        QUUPWFVUKVUOUWHBCYQEYNUXJUXKUWHAUXMUYCUXOUXFUXPJWNUWHUYFUYJWPUXRVRSZUYF
+        UWHUYGUYJUYIUYMXDUWHAUYJVVBUXFUYNWPUXSUXRWPTQUYNYJUFAUYJUXMUYDUYRKWSAUY
+        JUXMUYCUYRJWSMNXPVJWSXEUUOUUMXQXIXRUWHYTYSUUAUKUWHVUIUUHYRYOVRSYTYSWFVU
+        NVUQUWHBDYQEYNUXJUXKUWHAUXMUYDUXOUXFUXPKWNUYFUWHUYGWPUXSVRSZUYIUWHUYGUY
+        JVVCUYMUWHAUYJVVCUXFMVJWSXDXEYRYOXQXIXRXSYAYBYCYDUWAYPPUVOUOZUWCUVRVFAV
+        VDUVTAYPPUVOAVUEUVIYPAUXDVUEUVIIVUFVJUVJYOVUPVKWSVLYEVVDUWCUVRYPUUBOPFU
+        VOUYLVMVNVCYFYCAUXDUVBUVQXAIUAOPUULEFUVOGHUYLYGVCAUXDUUGUVSXAIUAOPYMEFU
+        VOGHUYLYGVCXSVPAUUFUUKUAUQAUUEUUJOGAUXEUMUUCUUIPUUDAUXEUWFUUCUUIVFZUXEU
+        WFUMAUVIVVEEYNYQGHWAUUCUUBUVJUUIYPUUBYHUVJUUHUUBVUPYIYKXDYAYCYDVOVPYL
+        $.
+        $( [24-Mar-2014] $) $( [1-May-2005] $)
+    $}
+
+    cvgcmpub.4 $e |- ( ph -> B e. V ) $.
+    cvgcmpub.5 $e |- ( ph -> seq M ( + , F ) ~~> A ) $.
+    cvgcmpub.6 $e |- ( ph -> seq M ( + , G ) ~~> B ) $.
+    cvgcmpub.7 $e |- ( ( ph /\ k e. Z ) -> ( G ` k ) <_ ( F ` k ) ) $.
+    $( An upper bound for the limit of a real infinite series.  This theorem
+       can also be used to compare two infinite series.  (Contributed by Mario
+       Carneiro, 24-Mar-2014.) $)
+    cvgcmpub $p |- ( ph -> B <_ A ) $=
+      ( wcel cr vn caddc cseq cuz cfv cz syl6eleq eluzel2 syl wf serfre ffvelrn
+      cv sylan wa simpr cfz co simpl elfzuz syl6eleqr syl2an cle sercmp climcmp
+      wbr ) ACBUAUBFGUCZUBEGUCZGIJKAHGUDUEZSGUFSAHJVILKUGGHUHUIZOQPAJTVGUJUAUMZ
+      JSZVKVGUETSADFGJKVJNUKJTVKVGULUNAJTVHUJVLVKVHUETSADEGJKVJMUKJTVKVHULUNAVL
+      UOZDFEGVKVMVKJVIAVLUPKUGVMADUMZJSZVNFUEZTSVNGVKUQURSZAVLUSZVQVNVIJVNGVKUT
+      KVAZNVBVMAVOVNEUEZTSVQVRVSMVBVMAVOVPVTVCVFVQVRVSRVBVDVE $.
+      $( [24-Mar-2014] $) $( [18-Mar-2005] $)
+  $}
+
+  ${
+    $d k m C $.  $d k m F $.  $d j k m n x G $.  $d k N $.  $d j k m n x Z $.
+    $d j k n x M $.  $d j k n x ph $.
+    cvgcmpce.1 $e |- Z = ( ZZ>= ` M ) $.
+    cvgcmpce.2 $e |- ( ph -> N e. Z ) $.
+    cvgcmpce.3 $e |- ( ( ph /\ k e. Z ) -> ( F ` k ) e. RR ) $.
+    cvgcmpce.4 $e |- ( ( ph /\ k e. Z ) -> ( G ` k ) e. CC ) $.
+    cvgcmpce.5 $e |- ( ph -> seq M ( + , F ) e. dom ~~> ) $.
+    cvgcmpce.6 $e |- ( ph -> C e. RR ) $.
+    cvgcmpce.7 $e |- ( ( ph /\ k e. ( ZZ>= ` N ) ) ->
+                       ( abs ` ( G ` k ) ) <_ ( C x. ( F ` k ) ) ) $.
+    $( A comparison test for convergence of a complex infinite series.
+       (Contributed by Mario Carneiro, 29-Mar-2014.) $)
+    cvgcmpce $p |- ( ph -> seq M ( + , G ) e. dom ~~> ) $=
+      ( cc wcel cfv syl cr vx vj vn vm caddc cseq cvv wf cv cz syl6eleq eluzel2
+      cuz serf ffvelrn sylan cabs cmpt cmin co clt wbr wral wrex crp cli cdm wa
+      cmul wceq fveq2 opreq2d oprex fvmpt adantl adantr remulcl syl2anc eqeltrd
+      eqid fveq2d fvex abscl a1i recnd climdm sylib isermulc2 breldm cc0 uztrn2
+      seqex cle absge0 breqtrrd syldan 3brtr4d cvgcmp wi serfre ad2antrr simprl
+      climcau resubcl 0re subcl cfz cdif csu cfn wss fzfid difss sylancl eldifi
+      ssfi simpll elfzuz syl6eleqr syl2an sylan2 fsumabs eqidd fsumser opreq12d
+      cin c0 disjdif cun undif2 fzss2 fsumsplit eqcomd wb fsumcl subadd syl3anc
+      mpbird eqtr3d ralimdva ad2antll ssequn1 syl5req letrd absid rpre ad2antlr
+      breq1d lelttr mpand sylbid anassrs reximdva mpd caucvg ) AUAUBUCUEEFUFZFU
+      GHIAHPUUPUHZUCUIZHQZUURUUPRZPQZACEFHIAGFUMRZQFUJQZAGHUVBJIUKFGULSZLUNZHPU
+      URUUPUOZUPAUURUEUDHUDUIZERZUQRZURZFUFZRZUBUIZUVKRZUSUTZUQRZUAUIZVAVBZUCUV
+      MUMRZVCZUBHVDZUAVEVCZUUTUVMUUPRZUSUTZUQRZUVQVAVBZUCUVSVCZUBHVDZUAVEVCAUVC
+      UVKVFVGZQUWBUVDACUDHBUVGDRZVIUTZURZUVJFGHIJACUIZHQZVHZUWMUWLRZBUWMDRZVIUT
+      ZTUWNUWPUWRVJZAUDUWMUWKUWRHUWLUVGUWMVJZUWJUWQBVIUVGUWMDVKVLUWLVTBUWQVIVMV
+      NVOZUWOBTQZUWQTQUWRTQAUXBUWNNVPKBUWQVQVRVSUWOUWMUVJRZUWMERZUQRZTUWNUXCUXE
+      VJZAUDUWMUVIUXEHUVJUWTUVHUXDUQUVGUWMEVKWAUVJVTUXDUQWBVNZVOZUWOUXDPQZUXETQ
+      LUXDWCZSVSZAUEUWLFUFZBUEDFUFZVFRZVIUTZVFVBUXLUWIQAUXNBCDUWLFUGHIUVDUXNUGQ
+      AUXMVFWBWDABNWEAUXMUWIQUXMUXNVFVBMUXMWFWGUWOUWQKWEUXAWHUXLUXOVFUEUWLFWLWI
+      SAUWMGUMRQZUWNWJUXCWMVBAGHQUXPUWNJFUWMGHIWKUPZUWOWJUXEUXCWMUWOUXIWJUXEWMV
+      BLUXDWNSUXHWOWPAUXPVHUXEUWRUXCUWPWMOAUXPUWNUXFUXQUXHWPAUXPUWNUWSUXQUXAWPW
+      QWRUAUBUCUVKFHIXCVRAUWAUWHUAVEAUVQVEQZVHZUVTUWGUBHUXSUVMHQZVHUVRUWFUCUVSU
+      XSUXTUURUVSQZUVRUWFWSUXSUXTUYAVHZVHZUVRUVOUVQVAVBZUWFUYCUVPUVOUVQVAUYCUVO
+      TQZWJUVOWMVBUVPUVOVJUYCUVLTQZUVNTQZUYEUYCHTUVKUHZUUSUYFAUYHUXRUYBACUVJFHI
+      UVDUXKWTXAZUYBUUSUXSFUURUVMHIWKVOZHTUURUVKUOVRUYCUYHUXTUYGUYIUXSUXTUYAXBZ
+      HTUVMUVKUOVRUVLUVNXDVRZUYCWJUWEUVOWJTQUYCXEWDUYCUWDPQZUWETQZUYCUVAUWCPQZU
+      YMUYCUUQUUSUVAAUUQUXRUYBUVEXAZUYJUVFVRUYCUUQUXTUYOUYPUYKHPUVMUUPUOVRUUTUW
+      CXFVRZUWDWCSZUYLUYCUYMWJUWEWMVBUYQUWDWNSUYCFUURXGUTZFUVMXGUTZXHZUXDCXIZUQ
+      RVUAUXECXIZUWEUVOWMUYCVUAUXDCUYCUYSXJQVUAUYSXKVUAXJQUYCFUURXLZUYSUYTXMUYS
+      VUAXPXNZUWMVUAQZUYCUWMUYSQZUXIUWMUYSUYTXOUYCAUWNUXIVUGAUXRUYBXQZVUGUWMUVB
+      HUWMFUURXRIXSZLXTZYAZYBUYCUWDVUBUQUYCUYSUXDCXIZUYTUXDCXIZUSUTZUWDVUBUYCVU
+      LUUTVUMUWCUSUYCUXDCEFUURUYCVUGVHZUXDYCUYCUURHUVBUYJIUKZVUJYDUYCUXDCEFUVMU
+      YCUWMUYTQZVHZUXDYCUYCUVMHUVBUYKIUKZUYCAUWNUXIVUQVUHVUQUWMUVBHUWMFUVMXRIXS
+      ZLXTZYDYEUYCVUNVUBVJZVUMVUBUEUTZVULVJZUYCVULVVCUYCUYTVUAUXDUYSCUYTVUAYFYG
+      VJUYCUYTUYSYHWDZUYCUYTVUAYIUYTUYSYIZUYSUYTUYSYJUYCUYTUYSXKZVVFUYSVJUYAVVG
+      UXSUXTUVMFUURYKUUAUYTUYSUUBWGUUCZVUDVUJYLYMUYCVULPQVUMPQVUBPQVVBVVDYNUYCU
+      YSUXDCVUDVUJYOUYCUYTUXDCUYCFUVMXLZVVAYOUYCVUAUXDCVUEVUKYOVULVUMVUBYPYQYRY
+      SWAUYCUYSUXECXIZUYTUXECXIZUSUTZUVOVUCUYCVVJUVLVVKUVNUSUYCUXECUVJFUURVUOUW
+      NUXFVUGUWNUYCVUIVOUXGSVUPVUOUXIUXEPQZVUJUXIUXEUXJWEZSZYDUYCUXECUVJFUVMVUR
+      UWNUXFVUQUWNUYCVUTVOUXGSVUSVURUXIVVMVVAVVNSZYDYEUYCVVLVUCVJZVVKVUCUEUTZVV
+      JVJZUYCVVJVVRUYCUYTVUAUXEUYSCVVEVVHVUDVVOYLYMUYCVVJPQVVKPQVUCPQVVQVVSYNUY
+      CUYSUXECVUDVVOYOUYCUYTUXECVVIVVPYOUYCVUAUXECVUEUYCVUFVHUXIVVMVUKVVNSYOVVJ
+      VVKVUCYPYQYRYSWQZUUDUVOUUEVRUUHUYCUWEUVOWMVBZUYDUWFVVTUYCUYNUYEUVQTQZVWAU
+      YDVHUWFWSUYRUYLUXRVWBAUYBUVQUUFUUGUWEUVOUVQUUIYQUUJUUKUULYTUUMYTUUNUUPUGQ
+      AUEEFWLWDUUO $.
+      $( [27-May-2014] $) $( [25-Apr-2005] $)
+  $}
+
+  ${
+    $d k F $.  $d k G $.  $d k M $.  $d k ph $.  $d k Z $.
+    abscvgcvg.1 $e |- Z = ( ZZ>= ` M ) $.
+    abscvgcvg.2 $e |- ( ph -> M e. ZZ ) $.
+    abscvgcvg.3 $e |- ( ( ph /\ k e. Z ) -> ( F ` k ) = ( abs ` ( G ` k ) ) )
+        $.
+    abscvgcvg.4 $e |- ( ( ph /\ k e. Z ) -> ( G ` k ) e. CC ) $.
+    abscvgcvg.5 $e |- ( ph -> seq M ( + , F ) e. dom ~~> ) $.
+    $( An absolutely convergent series is convergent.  (Contributed by Mario
+       Carneiro, 28-Apr-2014.) $)
+    abscvgcvg $p |- ( ph -> seq M ( + , G ) e. dom ~~> ) $=
+      ( c1 cfv wcel syl cr cc cle wbr wceq cz uzid syl6eleqr cv wa cabs eqeltrd
+      cuz abscl 1re a1i cmul eleq2i eqcomd eqle syl2anc recnd breqtrrd sylan2br
+      co mulid2 cvgcmpce ) ALBCDEEFGAEEUHMZFAEUANEVCNHEUBOGUCABUDZFNZUEZVDCMZVD
+      DMZUFMZPIVFVHQNVIPNZJVHUIOZUGZJKLPNAUJUKVDVCNAVEVILVGULUTZRSFVCVDGUMVFVIV
+      GVMRVFVJVIVGTVIVGRSVKVFVGVIIUNVIVGUOUPVFVGQNVMVGTVFVGVLUQVGVAOURUSVB $.
+      $( [28-Apr-2014] $)
+  $}
+
 
