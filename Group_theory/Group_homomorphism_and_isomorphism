@@ -1,8 +1,121 @@
 $(
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-                   Group homomorphism
+              Group homomorphism and isomorphism
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 $)
+
+  $c GrpHom $.
+
+  $( Extend class notation to include the class of group homomorphisms. $)
+  cghom $a class GrpHom $.
+
+  ${
+    $d f g h s x y $.
+    $( Define the set of group homomorphisms from ` g ` to ` h ` .
+       (Contributed by Paul Chapman, 25-Feb-2008.) $)
+    df-ghom $a |- GrpHom = { <. <. g , h >. , s >.
+     | ( ( g e. GrpOp /\ h e. GrpOp )
+        /\ s = { f | ( f : ran g --> ran h /\ A. x e. ran g A. y e. ran g
+                     ( ( f ` x ) h ( f ` y ) ) = ( f ` ( x g y ) ) ) } ) } $.
+  $}
+
+  $c GrpIso $.
+
+  $( Extend class notation to include the class of group isomorphisms. $)
+  cgiso $a class GrpIso $.
+
+  ${
+    $d f g h s $.
+    $( Define the set of group isomorphisms from ` g ` to ` h ` .  (Contributed
+       by Paul Chapman, 25-Feb-2008.) $)
+    df-giso $a |- GrpIso = { <. <. g , h >. , s >.
+      | ( ( g e. GrpOp /\ h e. GrpOp )
+        /\ s = { f e. ( g GrpHom h ) | f : ran g -1-1-onto-> ran h } ) } $.
+  $}
+
+  ${
+    $d F f x y $.  $d G f g h x y z $.  $d H f g h x y z $.  $d S h z $.
+    elghomlem1.1 $e |- S = { f | ( f : ran G --> ran H /\ A. x e. ran G
+      A. y e. ran G ( ( f ` x ) H ( f ` y ) ) = ( f ` ( x G y ) ) ) } $.
+    $( Lemma for ~ elghom . $)
+    elghomlem1 $p |- ( ( G e. GrpOp /\ H e. GrpOp ) -> ( G GrpHom H ) = S ) $=
+      ( vg vh cgr wcel cvv co wceq crn cv cfv wral wf wa vz cghom fabexg syl2an
+      rnexg cab rneq feq2d oveq fveq2d eqeq2d raleqbidv anbi12d abbidv feq3 syl
+      wb eqeq1d 2ralbidv syl6eqr df-ghom ov2g mpd3an3 ) EJKZFJKZCLKZEFUBMCNVDEO
+      ZLKFOZLKVFVEEJUEFJUEAPZDPZQZBPZVJQZFMZVIVLEMZVJQZNZBVGRAVGRZDVGVHLLCGUCUD
+      HIUAEFJJHPZOZIPZOZVJSZVKVMWAMZVIVLVSMZVJQZNZBVTRZAVTRZTZDUFCUBVGWBVJSZWDV
+      PNZBVGRZAVGRZTZDUFZLVSENZWJWODWQWCWKWIWNWQVTVGWBVJVSEUGZUHWQWHWMAVTVGWRWQ
+      WGWLBVTVGWRWQWFVPWDWQWEVOVJVIVLVSEUIUJUKULULUMUNWAFNZWPVGVHVJSZVRTZDUFCWS
+      WOXADWSWKWTWNVRWSWBVHNWKWTUQWAFUGWBVHVGVJUOUPWSWLVQABVGVGWSWDVNVPVKVMWAFU
+      IURUSUMUNGUTABDHIUAVAVBVC $.
+      $( [1-Dec-2010] $) $( [25-Feb-2008] $)
+
+    $( Lemma for ~ elghom . $)
+    elghomlem2 $p |- ( ( G e. GrpOp /\ H e. GrpOp ) -> ( F e. ( G GrpHom H )
+    <-> ( F : ran G --> ran H /\ A. x e. ran G A. y e. ran G
+          ( ( F ` x ) H ( F ` y ) ) = ( F ` ( x G y ) ) ) ) ) $=
+      ( cgr wcel wa co crn wf cv cfv wceq wral cvv fveq1 elghomlem1 eleq2d elex
+      cghom wb feq1 oveq12d eqeq12d 2ralbidv anbi12d elab2g biimpd mpcom wi fex
+      rnexg expcom syl adantrd biimprd syli impbid2 adantr bitrd ) FIJZGIJZKZEF
+      GUDLZJECJZFMZGMZENZAOZEPZBOZEPZGLZVMVOFLZEPZQZBVJRAVJRZKZVGVHCEABCDFGHUAU
+      BVEVIWBUEVFVEVIWBESJZVIWBECUCWCVIWBVJVKDOZNZVMWDPZVOWDPZGLZVRWDPZQZBVJRAV
+      JRZKWBDECSWDEQZWEVLWKWAVJVKWDEUFWLWJVTABVJVJWLWHVQWIVSWLWFVNWGVPGVMWDETVO
+      WDETUGVRWDETUHUIUJHUKZULUMWBVEWCVIVEVLWCWAVEVJSJZVLWCUNFIUPVLWNWCVJVKSEUO
+      UQURUSWCVIWBWMUTVAVBVCVD $.
+      $( [1-Dec-2010] $) $( [25-Feb-2008] $)
+  $}
+
+  ${
+    $d F f x y $.  $d G f x y $.  $d H f x y $.  $d X x y $.
+    elghom.1 $e |- X = ran G $.
+    elghom.2 $e |- W = ran H $.
+    $( Membership in the set of group homomorphisms from ` G ` to ` H ` .
+       (Contributed by Paul Chapman, 3-Mar-2008.) $)
+    elghom $p |- ( ( G e. GrpOp /\ H e. GrpOp ) ->
+      ( F e. ( G GrpHom H ) <-> ( F : X --> W /\ A. x e. X A. y e. X
+        ( ( F ` x ) H ( F ` y ) ) = ( F ` ( x G y ) ) ) ) ) $=
+      ( vf cgr wcel wa co crn wf cv cfv wceq wral eqid elghomlem2 feq23i raleqi
+      cghom cab ralbii bitri anbi12i syl6bbr ) DKLEKLMCDEUENLDOZEOZCPZAQZCRBQZC
+      RENUNUODNZCRSZBUKTZAUKTZMGFCPZUQBGTZAGTZMABUKULJQZPUNVCRUOVCRENUPVCRSBUKT
+      AUKTMJUFZJCDEVDUAUBUTUMVBUSGFUKULCHIUCVBURAGTUSVAURAGUQBGUKHUDUGURAGUKHUD
+      UHUIUJ $.
+      $( [1-Dec-2010] $) $( [25-Feb-2008] $)
+  $}
+
+  ${
+    $d A x y $.  $d B y $.  $d F x y $.  $d G x y $.  $d H x y $.  $d X x y $.
+    ghomlin.1 $e |- X = ran G $.
+    $( Linearity of a group homomorphism.  (Contributed by Paul Chapman,
+       3-Mar-2008.) $)
+    ghomlin $p |- ( ( ( G e. GrpOp /\ H e. GrpOp /\ F e. ( G GrpHom H ) ) /\
+                      ( A e. X /\ B e. X ) ) ->
+                    ( ( F ` A ) H ( F ` B ) ) = ( F ` ( A G B ) ) ) $=
+      ( vx vy cgr wcel co cv cfv wceq wral wa fveq2 fveq2d eqeq12d cghom w3a wf
+      crn eqid elghom biimp3a simprd oveq1d oveq1 oveq2d oveq2 rcla42v mpan9 )
+      DJKZEJKZCDEUALKZUBZHMZCNZIMZCNZELZUSVADLZCNZOZIFPHFPZAFKBFKQACNZBCNZELZAB
+      DLZCNZOZURFEUDZCUCZVGUOUPUQVOVGQHICDEVNFGVNUEUFUGUHVFVMVHVBELZAVADLZCNZOH
+      IABFFUSAOZVCVPVEVRVSUTVHVBEUSACRUIVSVDVQCUSAVADUJSTVABOZVPVJVRVLVTVBVIVHE
+      VABCRUKVTVQVKCVABADULSTUMUN $.
+      $( [3-Mar-2008] $)
+  $}
+
+  ${
+    $d F x y $.  $d G x y $.  $d H x y $.
+    ghomid.1 $e |- U = ( Id ` G ) $.
+    ghomid.2 $e |- T = ( Id ` H ) $.
+    $( A group homomorphism maps identity element to identity element.
+       (Contributed by Paul Chapman, 3-Mar-2008.) $)
+    ghomid $p |- ( ( G e. GrpOp /\ H e. GrpOp /\ F e. ( G GrpHom H ) ) ->
+                   ( F ` U ) = T ) $=
+      ( vx vy cgr wcel co cfv wceq crn wa eqid 3ad2ant1 mpdan cv cghom grpoidcl
+      w3a ghomlin grpolid fveq2d eqtrd wb wf wral elghom biimp3a simpld ffvelrn
+      jca syl2anc wi grpoid ex 3ad2ant2 mpd mpbird ) DJKZEJKZCDEUALKZUCZBCMZANZ
+      VGVGELZVGNZVFVIBBDLZCMZVGVFBDOZKZVNPVIVLNVFVNVNVCVDVNVEBDVMVMQZFUBZRZVQUO
+      BBCDEVMVOUDSVCVDVLVGNVEVCVKBCVCVNVKBNVPBBDVMVOFUESUFRUGVFVGEOZKZVHVJUHZVF
+      VMVRCUIZVNVSVFWAHTZCMITZCMELWBWCDLCMNIVMUJHVMUJZVCVDVEWAWDPHICDEVRVMVOVRQ
+      ZUKULUMVQVMVRBCUNUPVDVCVSVTUQVEVDVSVTVGAEVRWEGURUSUTVAVB $.
+      $( [3-Mar-2008] $)
+  $}
 
   ${
     $d w z C $.  $d b c w x y z F $.  $d c w x y z G $.  $d a b c w x y z ph $.

@@ -9,8 +9,13 @@ $)
   $c infw $.
   $c LatRel $.
 
+  $c TosetRel $.
+
   $( Extend class notation with the class of all posets. $)
   cps $a class PosetRel $.
+
+  $( Extend class notation with the class of all totally ordered sets. $)
+  ctsr $a class TosetRel $.
 
   $( Extend class notation with the supremum of an ordered set. $)
   cspw $a class supw $.
@@ -26,6 +31,10 @@ $)
      relation which is transitive, reflexive, and antisymmetric. $)
   df-ps $a |- PosetRel = { r | ( Rel r /\ ( r o. r ) C_ r /\
               ( r i^i `' r ) = ( _I |` U. U. r ) ) } $.
+  $( Define the class of all totally ordered sets.  (Contributed by FL,
+     3-Nov-2009.) $)
+  df-ts $a |- TosetRel = { r e. PosetRel |
+                ( U. U. r X. U. U. r ) C_ ( r u. `' r ) } $.
 
   ${
     $d r x y z w $.
@@ -64,6 +73,18 @@ $)
     ( cps wcel wrel ccom wss ccnv cin cid cuni cres wceq w3a isps ibi simp1 syl
     ) ABCZADZAAEAFZAAGHIAJJKLZMZSRUBBANOSTUAPQ $.
     $( [12-May-2008] $)
+  $( A poset is antisymmetric and reflexive.  (Contributed by FL,
+     3-Aug-2009.) $)
+  posanref $p |- ( R e. PosetRel -> ( R i^i `' R ) = ( _I |` U. U. R ) ) $=
+    ( cps wcel wrel ccom wss ccnv cin cid cuni cres wceq w3a isps ibi simp3d )
+    ABCZADZAAEAFZAAGHIAJJKLZQRSTMBANOP $.
+    $( [1-Dec-2010] $) $( [2-Aug-2009] $)
+
+  $( A poset is transitive.  (Contributed by FL, 3-Aug-2009.) $)
+  posreltr $p |- ( R e. PosetRel -> ( R o. R ) C_ R ) $=
+    ( cps wcel wrel ccom wss ccnv cin cid cuni cres wceq w3a isps ibi simp2d )
+    ABCZADZAAEAFZAAGHIAJJKLZQRSTMBANOP $.
+    $( [1-Dec-2010] $) $( [2-Aug-2009] $)
 
   ${
     $d x y z A $.  $d x y z B $.  $d x y z C $.  $d x y z R $.
@@ -131,6 +152,39 @@ $)
     QVEVQVSVBVCVQVDVBVCADUJZFZVQVBVCVHWAVBVLVCVHVMVOULABRDUKUMADVTVTUNUOUPOKVSV
     GVQUQVEACDURUSUTVA $.
     $( [12-May-2008] $)
+
+  ${
+    $d x y A $.  $d x y B $.  $d x y R $.
+    $( A quantifier-free way of expressing the total order predicate. $)
+    qfto $p |- ( ( A X. B ) C_ ( R u. `' R ) <->
+                 A. x e. A A. y e. B ( x R y \/ y R x ) ) $=
+      ( cv cop cxp wcel ccnv cun wi wal wa wbr wo wss wral vex opelxp brun wrel
+      df-br brcnv orbi2i 3bitr3i imbi12i 2albii relxp ssrel ax-mp r2al 3bitr4i
+      wb ) AFZBFZGZCDHZIZUQEEJZKZIZLZBMAMZUOCIUPDINZUOUPEOZUPUOEOZPZLZBMAMURVAQ
+      ZVHBDRACRVCVIABUSVEVBVHUOUPCDBSZTUOUPVAOVFUOUPUTOZPVBVHUOUPEUTUAUOUPVAUCV
+      LVGVFUOUPEASVKUDUEUFUGUHURUBVJVDUNCDUIABURVAUJUKVHABCDULUM $.
+      $( [22-Nov-2013] $)
+  $}
+
+  ${
+    $d R r x y $.  $d X r x y $.
+    istoset.1 $e |- X = U. U. R $.
+    $( The predicate is a toset.  (Contributed by FL, 3-Nov-2009.) $)
+    istoset $p |- ( R e. TosetRel <->
+        ( R e. PosetRel /\ ( X X. X ) C_ ( R u. `' R ) ) ) $=
+      ( vr cv cuni cxp ccnv cun wss cps ctsr wceq unieqd syl6eqr xpeq12 syl2anc
+      unieq id cnveq uneq12d sseq12d df-ts elrab2 ) DEZFZFZUGGZUEUEHZIZJBBGZAAH
+      ZIZJDAKLUEAMZUHUKUJUMUNUGBMZUOUHUKMUNUGAFZFBUNUFUPUEARNCOZUQUGBUGBPQUNUEA
+      UIULUNSUEATUAUBDUCUD $.
+      $( [22-Nov-2013] $) $( [1-Nov-2009] $)
+
+    $( The predicate is a toset.  (Contributed by FL, 3-Nov-2009.) $)
+    istoset3 $p |- ( R e. TosetRel <->
+        ( R e. PosetRel /\ A. x e. X A. y e. X ( x R y \/ y R x ) ) ) $=
+      ( ctsr wcel cps cxp ccnv cun wss wa cv wbr wo wral istoset qfto anbi2i
+      bitri ) CFGCHGZDDICCJKLZMUBANZBNZCOUEUDCOPBDQADQZMCDERUCUFUBABDDCSTUA $.
+      $( [22-Nov-2013] $) $( [1-Nov-2009] $)
+  $}
 
   ${
     $d r w x y z R $.  $d r w x y X $.  $d w x y z A $.

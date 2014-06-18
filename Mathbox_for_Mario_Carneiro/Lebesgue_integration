@@ -1,0 +1,85 @@
+$(
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+                       Lebesgue integration
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+$)
+
+  $( Introduce new constant symbols. $)
+  $c MblFn $. $( Measurable function $)
+  $c Itgbl $. $( Integrable function $)
+  $c S.1 $. $( Lebesgue integral, simple functions $)
+  $c S.2 $. $( Lebesgue integral, nonnegative functions $)
+  $c S. $. $( Lebesgue integral $)
+  $c _d $. $( differential 'd' for integral $)
+
+  $( Extend class notation with the class of measurable functions. $)
+  cmbf $a class MblFn $.
+
+  $( Extend class notation with the class of integrable functions. $)
+  cibl $a class Itgbl $.
+
+  $( Extend class notation with the Lebesgue integral for simple functions. $)
+  citg1 $a class S.1 $.
+
+  $( Extend class notation with the Lebesgue integral for nonnegative
+     functions. $)
+  citg2 $a class S.2 $.
+
+  $( Extend class notation with the general Lebesgue integral. $)
+  citg $a class S. A B _d x $.
+
+  ${
+    $d k A $.  $d k B $.  $d a f g k x y z $.
+    $( Define the class of measurable functions on the reals.  A real function
+       is measurable if the preimage of the sets ` ( x , +oo ) ` is a
+       measurable set (see ~ ismbl ) for each real ` x ` , and a complex
+       function is measurable if the real and imaginary parts of the function
+       is measurable. $)
+    df-mbf $a |- MblFn = { f e. ( CC ^pm RR ) | A. x e. RR
+               ( ( `' ( Re o. f ) " ( x (,) +oo ) ) e. dom vol /\
+                 ( `' ( Im o. f ) " ( x (,) +oo ) ) e. dom vol ) } $.
+
+    $( Define the Lebesgue integral for simple functions.  A simple function is
+       a finite positive linear combination of indicator functions for finitely
+       measurable sets, whose assigned value is the sum of the measures of the
+       sets times their respective weights. $)
+    df-itg1 $a |- S.1 = ( rec ( ( x e. _V |-> { f | E. g e. dom x E. a e. RR+
+                  E. y e. dom vol ( ( vol ` y ) e. RR /\ f =
+                    <. ( z e. RR |-> ( ( g ` z ) + if ( z e. y , a , 0 ) ) ) ,
+                       ( ( x ` g ) + ( a x. ( vol ` y ) ) ) >. ) } ) ,
+                  { ( RR X. { 0 } ) } ) " om ) $.
+
+    $( Define the Lebesgue integral for nonnegative functions.  A nonnegative
+       function's integral is the supremum of the integrals of all simple
+       functions that are less than the input function.  Note that this may be
+       ` +oo ` for functions that take the value ` +oo ` on a set of positive
+       measure or functions that are bounded below by a positive number on a
+       set of infinite measure. $)
+    df-itg2 $a |- S.2 = ( f e. ( ( 0 [,] +oo ) ^m RR ) |-> sup ( { x |
+                    E. g e. dom S.1 ( A. y e. RR ( g ` y ) <_ ( f ` y )
+                      /\ x = ( S.1 ` g ) ) } , RR* , < ) ) $.
+
+    $d y A $.  $d y B $.
+    $( Define the full Lebesgue integral, for complex-valued functions to
+       ` RR ` .  The syntax is designed to be suggestive of the standard
+       notation for integrals.  For example, our notation for the integral of
+       ` x ^ 2 ` from ` 0 ` to ` 1 ` is
+       ` S. ( 0 [,] 1 ) ( x ^ 2 ) _d x = ( 1 / 3 ) ` .  The only real function
+       of this definition is to break the integral up into nonnegative real
+       parts and send it off to ~ df-itg2 for further processing.  Note that
+       this definition cannot handle integrals which evaluate to infinity,
+       because addition and multiplication are not currently defined on
+       extended reals.  (You can use ~ df-itg2 directly for this use-case.) $)
+    df-itg $a |- S. A B _d x = sum_ k e. ( 0 ... 3 ) ( ( _i ^ k ) x.
+                ( S.2 ` ( x e. RR |-> [_ ( Re ` ( B / ( _i ^ k ) ) ) / y ]_
+                  if ( ( x e. A /\ 0 <_ y ) , y , 0 ) ) ) ) $.
+
+    $( Define the class of integrable functions on the reals.  A function is
+       integrable if it is measurable and the integrals of the pieces of the
+       function are all finite. $)
+    df-ibl $a |- Itgbl = { f e. MblFn | A. k e. ( 0 ... 3 )
+         ( S.2 ` ( x e. RR |-> [_ ( Re ` ( ( f ` k ) / ( _i ^ k ) ) ) / y ]_
+                 if ( ( x e. dom f /\ 0 <_ y ) , y , 0 ) ) ) e. RR } $.
+
+  $}
+
