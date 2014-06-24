@@ -31,23 +31,20 @@ $)
   ${
     $d k A $.  $d k B $.  $d a f g k x y z $.
     $( Define the class of measurable functions on the reals.  A real function
-       is measurable if the preimage of the sets ` ( x , +oo ) ` is a
-       measurable set (see ~ ismbl ) for each real ` x ` , and a complex
-       function is measurable if the real and imaginary parts of the function
-       is measurable. $)
-    df-mbf $a |- MblFn = { f e. ( CC ^pm RR ) | A. x e. RR
-               ( ( `' ( Re o. f ) " ( x (,) +oo ) ) e. dom vol /\
-                 ( `' ( Im o. f ) " ( x (,) +oo ) ) e. dom vol ) } $.
+       is measurable if the preimage of every open interval is a measurable set
+       (see ~ ismbl ) and a complex function is measurable if the real and
+       imaginary parts of the function is measurable. $)
+    df-mbf $a |- MblFn = { f e. ( CC ^pm RR ) | A. x e. ran (,)
+                           ( ( `' ( Re o. f ) " x ) e. dom vol /\
+                             ( `' ( Im o. f ) " x ) e. dom vol ) } $.
 
     $( Define the Lebesgue integral for simple functions.  A simple function is
        a finite positive linear combination of indicator functions for finitely
        measurable sets, whose assigned value is the sum of the measures of the
        sets times their respective weights. $)
-    df-itg1 $a |- S.1 = ( rec ( ( x e. _V |-> { f | E. g e. dom x E. a e. RR+
-                  E. y e. dom vol ( ( vol ` y ) e. RR /\ f =
-                    <. ( z e. RR |-> ( ( g ` z ) + if ( z e. y , a , 0 ) ) ) ,
-                       ( ( x ` g ) + ( a x. ( vol ` y ) ) ) >. ) } ) ,
-                  { ( RR X. { 0 } ) } ) " om ) $.
+    df-itg1 $a |- S.1 = ( f e. { g e. ( ( 0 [,) +oo ) ^m RR ) |
+      ( ran g e. Fin /\ A. x e. RR+ ( `' g " { x } ) e. ( `' vol " RR ) ) } |->
+        sum_ x e. ( ran f \ { 0 } ) ( x x. ( vol ` ( `' f " { x } ) ) ) ) $.
 
     $( Define the Lebesgue integral for nonnegative functions.  A nonnegative
        function's integral is the supremum of the integrals of all simple
@@ -80,6 +77,860 @@ $)
     df-ibl $a |- Itgbl = { f e. MblFn | A. k e. ( 0 ... 3 )
          ( S.2 ` ( x e. RR |-> [_ ( Re ` ( ( f ` k ) / ( _i ^ k ) ) ) / y ]_
                  if ( ( x e. dom f /\ 0 <_ y ) , y , 0 ) ) ) e. RR } $.
+  $}
 
+  ${
+    $d f x y F $.  $d x y z A $.  $d x y B $.  $d x C $.
+    $( The predicate " ` F ` is a measurable function".  This is more naturally
+       stated for functions on the reals, see ~ ismbf and ~ ismbfcn for the
+       decomposition of the real and imaginary parts.  (Contributed by Mario
+       Carneiro, 17-Jun-2014.) $)
+    ismbf1 $p |- ( F e. MblFn <-> ( F e. ( CC ^pm RR ) /\ A. x e. ran (,)
+                   ( ( `' ( Re o. F ) " x ) e. dom vol /\
+                     ( `' ( Im o. F ) " x ) e. dom vol ) ) ) $=
+      ( vf cre cv ccom ccnv cima cvol cdm wcel cim cioo crn wral cnveqd imaeq1d
+      wa coeq2 eleq1d cc cr cpm co cmbf wceq anbi12d ralbidv df-mbf elrab2 ) DC
+      EZFZGZAEZHZIJZKZLUKFZGZUNHZUPKZRZAMNZODBFZGZUNHZUPKZLBFZGZUNHZUPKZRZAVCOC
+      BUAUBUCUDUEUKBUFZVBVLAVCVMUQVGVAVKVMUOVFUPVMUMVEUNVMULVDUKBDSPQTVMUTVJUPV
+      MUSVIUNVMURVHUKBLSPQTUGUHACUIUJ $.
+      $( [17-Jun-2014] $)
+
+    $( A measurable function is a function into the complexes. $)
+    mbff $p |- ( F e. MblFn -> F : dom F --> CC ) $=
+      ( vx cmbf wcel cc cr cpm co cdm wf cre ccom ccnv cv cima cvol cim wa cioo
+      simplbi crn wral ismbf1 wss cnex reex elpm2 syl ) ACDZAEFGHDZAIZEAJZUIUJK
+      ALMBNZOPIZDQALMUMOUNDRBSUAUBBAUCTUJULUKFUDEFAUEUFUGTUH $.
+      $( [17-Jun-2014] $)
+
+    $( The domain of a measurable function is measurable.  (Contributed by
+       Mario Carneiro, 17-Jun-2014.) $)
+    mbfdm $p |- ( F e. MblFn -> dom F e. dom vol ) $=
+      ( vx cmbf wcel cre ccom ccnv cr cima cdm wf wceq cc syl cioo wral cmnf co
+      cpnf cxr cvol ref mbff fco sylancr fimacnv crn cv ioomax cxp wfn cpw ioof
+      ffn ax-mp mnfxr pnfxr fnovrn mp3an eqeltrri cim cpm ismbf1 simprbi ralimi
+      wa simpl imaeq2 eleq1d rcla4v mpsyl eqeltrrd ) ACDZEAFZGZHIZAJZUAJZVMVQHV
+      NKZVPVQLVMMHEKVQMAKVSUBAUCVQMHEAUDUEVQHVNUFNHOUGZDVMVOBUHZIZVRDZBVTPZVPVR
+      DZQSORZHVTUIOTTUJZUKZQTDSTDWFVTDWGHULZOKWHUMWGWIOUNUOUPUQTTQSOURUSUTVMWCV
+      AAFGWAIVRDZVFZBVTPZWDVMAMHVBRDWLBAVCVDWKWCBVTWCWJVGVENWCWEBHVTWAHLWBVPVRW
+      AHVOVHVIVJVKVL $.
+      $( [17-Jun-2014] $)
+
+    $( Lemma for ~ mbfconst . $)
+    mbfconstlem $p |- ( ( A e. dom vol /\ C e. RR ) ->
+                        ( `' ( A X. { C } ) " B ) e. dom vol ) $=
+      ( cvol cdm wcel cr wa csn cxp ccnv cima wss cnvimass a1i ad2antlr wceq c0
+      syl cin crn cnvimarndm wf fconstg frn snssi adantl sstrd imass2 syl5eqssr
+      eqssd fdm eqtrd simpll eqeltrd wn incom disjsn sylibr fimacnvdisj syl2anc
+      simpr syl5eq 0mbl syl6eqel pm2.61dan ) ADEZFZCGFZHZCBFZACIZJZKZBLZVGFVJVK
+      HZVOAVGVPVOVMEZAVPVOVQVOVQMVPVMBNOVPVQVNVMUAZLZVOVMUBVPVRBMVSVOMVPVRVLBVP
+      AVLVMUCZVRVLMVIVTVHVKACGUDZPZAVLVMUESVKVLBMVJCBUFUGUHVRBVNUISUJUKVPVTVQAQ
+      WBAVLVMULSUMVHVIVKUNUOVJVKUPZHZVORVGWDVTVLBTZRQVORQVIVTVHWCWAPWDWEBVLTZRV
+      LBUQWDWCWFRQVJWCVBBCURUSVCAVLBVMUTVAVDVEVF $.
+      $( [17-Jun-2014] $)
+
+    $( The predicate " ` F ` is a measurable function".  A function is
+       measurable iff the preimages of all open intervals are measurable sets
+       in the sense of ~ ismbl . $)
+    ismbf $p |- ( F : A --> RR -> ( F e. MblFn <->
+                  A. x e. ran (,) ( `' F " x ) e. dom vol ) ) $=
+      ( vy cr wf wcel cima cioo cxr wceq wa cc cre cim cfv cmpt syl fvex cc0 cv
+      cvol cdm cmbf ccnv crn wral mbfdm fdm eleq1d syl5ib wi cmnf co ioomax cxp
+      cpnf wfn cpw ioof ax-mp mnfxr pnfxr fnovrn eqeltrri imaeq2 rcla4v fimacnv
+      ffn mp3an wb cpm ccom wss simpl adantr dffn5v sylib feq1d mpbid ax-resscn
+      frn syl6ss fveq2 eqid mpbi fmptco coeq2d ffvelrn adantlr mpteq2dva eqtr4d
+      ref rere 3eqtr4rd cnveqd imaeq1d csn idi cvv imf fconstmpt syl6eqr 3eqtrd
+      reim0 simpr 0re mbfconstlem sylancl eqeltrd bitrd ralbidv fss mpan2 mblss
+      biantrud cnex reex elpm2r mpanl12 syl2an biantrurd syl6rbbr ex pm5.21ndd
+      ismbf1 ) BECFZBUBUCZGZCUDGZCUEZAUAZHZYHGZAIUFZUGZYJCUCZYHGYGYICUHYGYQBYHB
+      ECUIUJUKYPYKEHZYHGZYGYIEYOGYPYSULUMUQIUNZEYOUOIJJUPZURZUMJGUQJGYTYOGUUAEU
+      SZIFUUBUTUUAUUCIVIVAVBVCJJUMUQIVDVJVEYNYSAEYOYLEKYMYRYHYLEYKVFUJVGVAYGYRB
+      YHBECVHUJUKYGYIYJYPVKYGYILZYPCMEVLUNGZNCVMZUEZYLHZYHGZOCVMZUEZYLHZYHGZLZA
+      YOUGZLZYJUUDYPUUOUUPUUDYNUUNAYOUUDYNUUIUUNUUDYMUUHYHUUDYKUUGYLUUDCUUFUUDN
+      ABYLCPZQZVMZABUUQNPZQZUUFCUUDUURUFZMVNZUUSUVAKUUDUVBEMUUDBEUURFZUVBEVNUUD
+      YGUVDYGYIVOUUDBECUURUUDCBURZCUURKYGUVEYIBECVIVPABCVQVRZVSVTBEUURWBRWAWCZA
+      DBMUUQDUAZNPZUUTUURNUVAYLCSZUVHNSUUQNSUVHUUQNWDUURWEZNMURZNDMUVIQKMENFUVL
+      WMMENVIVADMNVQWFUVAWEWGRUUDCUURNUVFWHUUDCUURUVAUVFUUDABUUTUUQUUDYLBGZLZUU
+      QEGZUUTUUQKYGUVMUVOYIBEYLCWIWJZUUQWNRWKWLWOWPWQUJUUDUUMUUIUUDUULBTWRUPZUE
+      ZYLHZYHUUDUUKUVRYLUUDUUJUVQUUDUUJOUURVMZABUUQOPZQZUVQUUDCUUROUVFWHUUDUVCU
+      VTUWBKUUDUVCULUVGWSADBMUUQUVHOPZUWAUUROUWBUUQWTGUVJWSUVHOSUUQOSUVHUUQOWDU
+      VKOMURZODMUWCQKMEOFUWDXAMEOVIVADMOVQWFUWBWEWGRUUDUWBABTQUVQUUDABUWATUVNUV
+      OUWATKUVPUUQXERWKABTXBXCXDWPWQUUDYITEGUVSYHGYGYIXFXGBYLTXHXIXJXPXKXLUUDUU
+      EUUOYGBMCFZBEVNZUUEYIYGEMVNUWEWABEMCXMXNBXOMWTGEWTGUWEUWFLUUEXQXRMEBCWTWT
+      XSXTYAYBXKACYFYCYDYE $.
+      $( [17-Jun-2014] $)
+
+    $( A complex function is measurable iff the real and imaginary components
+       of the function are measurable. $)
+    ismbfcn $p |- ( F : A --> CC -> ( F e. MblFn <->
+                    ( ( Re o. F ) e. MblFn /\ ( Im o. F ) e. MblFn ) ) ) $=
+      ( vx cc wf cdm wcel cmbf cre ccom cim wa mbfdm fdm adantr cr syl wral cvv
+      wb cvol eleq1d syl5ib wceq ref fco mpan cpm co ccnv cv cima crn ismbf imf
+      cioo anbi12d r19.26 syl6bbr wss cnex reex elpm2r mpanl12 sylan2 biantrurd
+      mblss bitrd ismbf1 syl6rbbr ex pm5.21ndd ) ADBEZAUAFZGZBHGZIBJZHGZKBJZHGZ
+      LZVPBFZVNGVMVOBMVMWBAVNADBNUBUCWAVQFZVNGZVMVOVRWDVTVQMOVMWCAVNVMAPVQEZWCA
+      UDDPIEVMWEUEADPIBUFUGZAPVQNQUBUCVMVOVPWATVMVOLZWABDPUHUIGZVQUJCUKZULVNGZV
+      SUJWIULVNGZLCUPUMZRZLZVPWGWAWMWNWGWAWJCWLRZWKCWLRZLWMWGVRWOVTWPWGWEVRWOTV
+      MWEVOWFOCAVQUNQWGAPVSEZVTWPTVMWQVODPKEVMWQUOADPKBUFUGOCAVSUNQUQWJWKCWLURU
+      SWGWHWMVOVMAPUTZWHAVGDSGPSGVMWRLWHVAVBDPABSSVCVDVEVFVHCBVIVJVKVL $.
+      $( [17-Jun-2014] $)
+
+    $( Definitional property of a measurable function: the preimage of an open
+       right-unbounded interval is measurable.  (Contributed by Mario Carneiro,
+       17-Jun-2014.) $)
+    mbfima $p |- ( ( F e. MblFn /\ F : A --> RR ) ->
+                   ( `' F " ( B (,) C ) ) e. dom vol ) $=
+      ( vx cmbf wcel cr wf wa cxr ccnv cioo co cima cvol cdm cv crn c0 wral cxp
+      ismbf biimpac wfn cpw ioof ffn ax-mp fnovrn mp3an1 imaeq2 eleq1d rcla4cva
+      wceq syl2an wn ndmioo imaeq2d ima0 syl6eq 0mbl syl6eqel adantl pm2.61dan
+      ) DFGZAHDIZJZBKGZCKGZJZDLZBCMNZOZPQZGZVHVLERZOZVOGZEMSZUAZVMVTGZVPVKVGVFW
+      AEADUCUDMKKUBZUEZVIVJWBWCHUFZMIWDUGWCWEMUHUIKKBCMUJUKVSVPEVMVTVQVMUOVRVNV
+      OVQVMVLULUMUNUPVKUQZVPVHWFVNTVOWFVNVLTOTWFVMTVLBCURUSVLUTVAVBVCVDVE $.
+      $( [17-Jun-2014] $)
+
+    $( The preimage of any closed interval under a measurable function is
+       measurable.  (Contributed by Mario Carneiro, 18-Jun-2014.) $)
+    mbfimaicc $p |- ( ( ( F e. MblFn /\ F : A --> RR ) /\
+                        ( B e. RR /\ C e. RR ) ) ->
+                      ( `' F " ( B [,] C ) ) e. dom vol ) $=
+      ( wcel cr wa ccnv cima cmnf cioo cpnf cun cdif cdm wceq adantl wfun syl
+      co cmbf cicc cvol wss iccssre dfss4 sylib difreicc difeq2d eqtr3d imaeq2d
+      wf funcnvcnv ad2antlr imadif eqtrd fimacnv mbfdm fdm eleq1d biimpac sylan
+      ffun eqeltrd imaundi mbfima unmbl syl2anc syl5eqel difmbl adantr ) DUAEZA
+      FDULZGZBFECFEGZGZDHZBCUBTZIZVQFIZVQJBKTZCLKTZMZIZNZUCOZVPVSVQFWCNZIZWEVPV
+      RWGVQVPFFVRNZNZVRWGVPVRFUDZWJVRPVOWKVNBCUEQVRFUFUGVPWIWCFVOWIWCPVNBCUHQUI
+      UJUKVPVQHRZWHWEPVMWLVLVOVMDRWLAFDVCDUMSUNFWCVQUOSUPVNWEWFEZVOVNVTWFEWDWFE
+      WMVNVTAWFVMVTAPVLAFDUQQVLDOZWFEZVMAWFEZDURVMWOWPVMWNAWFAFDUSUTVAVBVDVNWDV
+      QWAIZVQWBIZMZWFVQWAWBVEVNWQWFEWRWFEWSWFEAJBDVFACLDVFWQWRVGVHVIVTWDVJVHVKV
+      D $.
+      $( [18-Jun-2014] $)
+
+    $( The preimage of a point under a measurable function is measurable.
+       (Contributed by Mario Carneiro, 18-Jun-2014.) $)
+    mbfimasn $p |- ( ( F e. MblFn /\ F : A --> RR /\ B e. RR ) ->
+                     ( `' F " { B } ) e. dom vol ) $=
+      ( cmbf wcel cr wf w3a ccnv cicc co cima csn cvol cdm wceq simp3 rexr ccid
+      cxr 3syl imaeq2d wa mbfimaicc anabsan2 3impa eqeltrrd ) CDEZAFCGZBFEZHZCI
+      ZBBJKZLZULBMZLNOZUKUMUOULUKUJBTEUMUOPUHUIUJQBRBSUAUBUHUIUJUNUPEZUHUIUCUJU
+      QABBCUDUEUFUG $.
+      $( [18-Jun-2014] $)
+
+    $( A constant function is measurable.  (Contributed by Mario Carneiro,
+       17-Jun-2014.) $)
+    mbfconst $p |- ( ( A e. dom vol /\ B e. CC ) ->
+                     ( A X. { B } ) e. MblFn ) $=
+      ( vy vx wcel cc wa cfv csn cxp wceq cr cre ccnv cima cim wf fvex syl cvv
+      cvol cdm cid cmbf fvi adantl sneqd xpeq2d cpm co ccom cv cioo wral fconst
+      crn wss simpr eqeltrd snssd sylancr simpl mblss cnex reex mpanl12 syl2anc
+      fss elpm2r frn fveq2 fconstmpt wfn cmpt ref ffn dffn5v mpbi fmptco cnveqd
+      imaeq1d recl mbfconstlem syldan imf imcl jca a1d ralrimiv ismbf1 sylanbrc
+      ax-mp eqeltrrd ) AUAUBZEZBFEZGZABUCHZIZJZABIZJUDWQWSXAAWQWRBWPWRBKZWOBFUE
+      ZUFUGUHWQWTFLUIUJEZMWTUKZNZCULZOZWNEZPWTUKZNZXGOZWNEZGZCUMUPZUNWTUDEWQAFW
+      TQZALUQZXDWQAWSWTQWSFUQXPAWRBUCRZUOWQWRFWQWRBFWQWPXBWOWPURZXCSXSUSZUTAWSF
+      WTVHVAZWQWOXQWOWPVBAVCSFTELTEXPXQGXDVDVEFLAWTTTVIVFVGWQXNCXOWQXNXGXOEWQXI
+      XMWQXHAWRMHZIJZNZXGOZWNWQXFYDXGWQXEYCWQWTUPFUQZXEYCKWQXPYFYAAFWTVJSZDCAFW
+      RXGMHZYBWTMYCXRXGMRWRMRXGWRMVKDAWRVLZMFVMZMCFYHVNKFLMQYJVOFLMVPWLCFMVQVRD
+      AYBVLVSSVTWAWOWPYBLEZYEWNEWQWRFEZYKXTWRWBSAXGYBWCWDUSWQXLAWRPHZIJZNZXGOZW
+      NWQXKYOXGWQXJYNWQYFXJYNKYGDCAFWRXGPHZYMWTPYNXRXGPRWRPRXGWRPVKYIPFVMZPCFYQ
+      VNKFLPQYRWEFLPVPWLCFPVQVRDAYMVLVSSVTWAWOWPYMLEZYPWNEWQYLYSXTWRWFSAXGYMWCW
+      DUSWGWHWICWTWJWKWM $.
+      $( [17-Jun-2014] $)
+
+    $( The identity function is measurable.  (Contributed by Mario Carneiro,
+       17-Jun-2014.) $)
+    mbfid $p |- ( A e. dom vol -> ( _I |` A ) e. MblFn ) $=
+      ( vx vy vz cvol wcel cid ccnv cv cima cioo wa cin eqtri cxr wrex cr wf wb
+      id cdm cres cmbf crn wral cnvresima cnvi imaeq1i imai ineq1i wceq cxp cpw
+      co wfn ioof ffn ovelrn mp2b ioombl syl6eqel rexlimivv sylbi inmbl syl2anr
+      wi a1i syl5eqel ralrimiva wss wf1o f1oi ax-mp mblss fss sylancr ismbf syl
+      f1of mpbird ) AEUAZFZGAUBZUCFZWCHBIZJZWAFZBKUDZUEZWBWGBWHWBWEWHFZLWFWEAMZ
+      WAWFGHZWEJZAMWKAWEGUFWMWEAWMGWEJWEWLGWEUGUHWEUINUJNWJWEWAFZWBWKWAFWBWJWEC
+      IZDIZKUNZUKZDOPCOPZWNOOULZQUMZKRKWTUOWJWSSUPWTXAKUQCDOOWEKURUSWRWNCDOOWRW
+      NVFWOOFWPOFLWRWEWQWAWRTWOWPUTVAVGVBVCWBTWEAVDVEVHVIWBAQWCRZWDWISWBAAWCRZA
+      QVJXBAAWCVKXCAVLAAWCVSVMAVNAAQWCVOVPBAWCVQVRVT $.
+      $( [17-Jun-2014] $)
+  $}
+
+  ${
+    $d x y z F $.  $d x y z ph $.  $d z A $.
+    ismbfd.1 $e |- ( ph -> F : A --> RR ) $.
+    ismbfd.2 $e |- ( ( ph /\ x e. RR* ) ->
+                     ( `' F " ( x (,) +oo ) ) e. dom vol ) $.
+    ismbfd.3 $e |- ( ( ph /\ x e. RR* ) ->
+                     ( `' F " ( -oo (,) x ) ) e. dom vol ) $.
+    $( Deduction to prove measurability of a real function.  The third
+       hypothesis is not necessary, but the proof of this requires countable
+       choice, so we derive this separately as ~ ismbf3d .  (Contributed by
+       Mario Carneiro, 18-Jun-2014.) $)
+    ismbfd $p |- ( ph -> F e. MblFn ) $=
+      ( vz vy wcel cima cioo co wceq cxr cpnf cmnf cle wbr syl2anc cmbf ccnv cv
+      cvol cdm crn wral wrex cxp cr cpw wf wfn wb ioof ffn ovelrn wa cin simprl
+      mp2b cif pnfxr a1i mnfxr simprr iooin syl22anc ifcl xrletri3 mnfle xrleid
+      sylancr breq1 ifboth ad2antrl xrmax1 sylancl mpbir2and xrmin2 pnfge breq2
+      ad2antll oveq12d eqtrd imaeq2d wfun adantr ffun inpreima eqtr3d ralrimiva
+      syl adantrr oveq2 eleq1d rcla4cva sylan adantrl eqeltrd imaeq2 syl5ibrcom
+      inmbl rexlimdvva syl5bi ralrimiv ismbf mpbird ) ADUAJZDUBZHUCZKZUDUEZJZHL
+      UFZUGZAXNHXOXKXOJZXKBUCZIUCZLMZNZIOUHBOUHZAXNOOUIZUJUKZLULLYCUMXQYBUNUOYC
+      YDLUPBIOOXKLUQVAAYAXNBIOOAXROJZXSOJZURZURZXNYAXJXTKZXMJYHYIXJXRPLMZKZXJQX
+      SLMZKZUSZXMYHXJYJYLUSZKZYIYNYHYOXTXJYHYOXRQRSZQXRVBZPXSRSZPXSVBZLMZXTYHYE
+      POJZQOJZYFYOUUANAYEYFUTZUUBYHVCVDUUCYHVEVDAYEYFVFZXRPQXSVGVHYHYRXRYTXSLYH
+      YRXRNZYRXRRSZXRYRRSZYHYROJZYEUUFUUGUUHURUNYHUUCYEUUIVEUUDYQQXROVIVMUUDYRX
+      RVJTYEUUGAYFYEQXRRSZXRXRRSZUUGXRVKXRVLYQUUJUUKUUGQXRQYRXRRVNXRYRXRRVNVOTV
+      PYHYEUUCUUHUUDVEXRQVQVRVSYHYTXSNZYTXSRSZXSYTRSZYHYTOJZYFUULUUMUUNURUNYHUU
+      BYFUUOVCUUEYSPXSOVIVMUUEYTXSVJTYHUUBYFUUMVCUUEPXSVTVMYFUUNAYEYFXSPRSZXSXS
+      RSZUUNXSWAXSVLYSUUPUUQUUNPXSPYTXSRWBXSYTXSRWBVOTWCVSWDWEWFYHDWGZYPYNNYHCU
+      JDULZUURAUUSYGEWHCUJDWIWMYJYLDWJWMWKYHYKXMJZYMXMJZYNXMJAYEUUTYFFWNAYFUVAY
+      EAXJQXRLMZKZXMJZBOUGYFUVAAUVDBOGWLUVDUVABXSOXRXSNZUVCYMXMUVEUVBYLXJXRXSQL
+      WOWFWPWQWRWSYKYMXCTWTYAXLYIXMXKXTXJXAWPXBXDXEXFAUUSXIXPUNEHCDXGWMXH $.
+      $( [18-Jun-2014] $)
+  $}
+
+  ${
+    $d x F $.  $d x ph $.
+    ismbf2d.1 $e |- ( ph -> F : A --> RR ) $.
+    ismbf2d.2 $e |- ( ph -> A e. dom vol ) $.
+    ismbf2d.3 $e |- ( ( ph /\ x e. RR ) ->
+                      ( `' F " ( x (,) +oo ) ) e. dom vol ) $.
+    ismbf2d.4 $e |- ( ( ph /\ x e. RR ) ->
+                     ( `' F " ( -oo (,) x ) ) e. dom vol ) $.
+    $( Deduction to prove measurability of a real function.  (Contributed by
+       Mario Carneiro, 18-Jun-2014.) $)
+    ismbf2d $p |- ( ph -> F e. MblFn ) $=
+      ( wcel cr cpnf wceq cmnf cioo co cima c0 oveq1 syl6eq imaeq2d cv cxr ccnv
+      w3o cvol cdm elxr iooid ima0 0mbl eqeltri syl6eqel adantl fimacnv eqeltrd
+      wf syl ioomax eleq1d syl5ibrcom imp 3jaodan sylan2b oveq2 ismbfd ) ABCDEB
+      UAZUBIZAVFJIZVFKLZVFMLZUDZDUCZVFKNOZPZUEUFZIZVFUGZAVHVPVIVJGVIVPAVIVNVLQP
+      ZVOVIVMQVLVIVMKKNOQVFKKNRKUHSTVRQVOVLUIUJUKZULUMAVJVPAVPVJVLJPZVOIZAVTCVO
+      ACJDUPVTCLECJDUNUQFUOZVJVNVTVOVJVMJVLVJVMMKNOZJVFMKNRURSTUSUTVAVBVCVGAVKV
+      LMVFNOZPZVOIZVQAVHWFVIVJHAVIWFAWFVIWAWBVIWEVTVOVIWDJVLVIWDWCJVFKMNVDURSTU
+      SUTVAVJWFAVJWEVRVOVJWDQVLVJWDMMNOQVFMMNVDMUHSTVSULUMVBVCVE $.
+      $( [18-Jun-2014] $)
+  $}
+
+  ${
+    $d x y F $.  $d x y A $.  $d x y G $.  $d x y ph $.
+    mbfeq.1 $e |- ( ph -> F e. MblFn ) $.
+    mbfeq.2 $e |- ( ph -> F : A --> RR ) $.
+    mbfeq.3 $e |- ( ph -> G : A --> RR ) $.
+    mbfeq.4 $e |- ( ph -> ( vol* `
+                    { x e. A | ( F ` x ) =/= ( G ` x ) } ) = 0 ) $.
+    $( If two functions are equal almost everywhere, then one is measurable iff
+       the other is.  (Contributed by Mario Carneiro, 18-Jun-2014.) $)
+    mbfeq $p |- ( ph -> G e. MblFn ) $=
+      ( vy wcel wa cr wb syl wss cfv wceq adantr syl2anc cmbf ccnv cv cima cvol
+      cdm cioo crn wral cin cdif inundif incom dfin4 eqtri ismbf mpbid r19.21bi
+      cun covol cc0 difss mblss syl5ss wne crab cnvimass sstri fdm syl5sseq jca
+      wf unss sylib wn symdif2 abeq2i eleq1 anbi2d wfn elpreima bibi12d syl5ibr
+      ffn 3syl necon3bd syl5bi imp ssrabdv sylibr simpld ssrab2 mbfdm ovolssnul
+      eqeltrrd syl3anc nulmbl difmbl syl5eqel eqsstrd unmbl syl5eqelr ralrimiva
+      simprd mpbird ) AEUAKZEUBJUCZUDZUEUFZKZJUGUHZUIZAXJJXKAXGXKKZLZXHXHDUBXGU
+      DZUJZXHXOUKZUSZXIXHXOULXNXPXIKXQXIKZXRXIKXNXPXOXOXHUKZUKZXIXPXOXHUJYAXHXO
+      UMXOXHUNUOXNXOXIKZXTXIKZYAXIKAYBJXKADUAKZYBJXKUIZFACMDVLZYDYENGJCDUPOUQUR
+      ZXNXTMPXTUTQVARZYCXNXTXOMXOXHVBZXNYBXOMPYGXOVCOVDXNXTBUCZDQZYJEQZVEZBCVFZ
+      PZYNMPZYNUTQVARZYHXNYOXQYNPZXNXTXQUSZYNPYOYRLXNYMBCYSXNXTCPZXQCPZLYSCPXNY
+      TUUAXNDUFZXTCXTXOUUBYIDXGVGVHAUUBCRZXMAYFUUCGCMDVIOZSVJXNEUFZXQCXQXHUUEXH
+      XOVBEXGVGVHZAUUECRZXMACMEVLZUUGHCMEVIOZSVJVKXTXQCVMVNXNYJYSKZYMUUJYJXOKZY
+      JXHKZNZVOZXNYMUUNBYSBXOXHVPVQXNUUMYKYLYKYLRZUUMXNYJCKZYKXGKZLZUUPYLXGKZLZ
+      NZUUOUUQUUSUUPYKYLXGVRVSAUUMUVANXMAUUKUURUULUUTAYFDCVTUUKUURNGCMDWDCYJXGD
+      WAWEAUUHECVTUULUUTNHCMEWDCYJXGEWAWEWBSWCWFWGWHWIXTXQYNVMWJZWKXNYNCMYMBCWL
+      ACMPZXMACXIKUVCAUUBCXIUUDAYDUUBXIKFDWMOWOCVCOZSVDZAYQXMISZXTYNWNWPXTWQTXO
+      XTWRTWSXNXQMPXQUTQVARZXSXNXQUUEMUUFAUUEMPXMAUUECMUUIUVDWTSVDXNYRYPYQUVGXN
+      YOYRUVBXDUVEUVFXQYNWNWPXQWQTXPXQXATXBXCAUUHXFXLNHJCEUPOXE $.
+      $( [17-Jun-2014] $)
+  $}
+
+  ${
+    $d x F $.  $d x A $.
+    $( The restriction of a measurable function is measurable.  (Contributed by
+       Mario Carneiro, 18-Jun-2014.) $)
+    mbfres $p |- ( ( F e. MblFn /\ A e. dom vol ) ->
+                   ( F |` A ) e. MblFn ) $=
+      ( vx cmbf wcel wa cre ccom cim cc wf co cr ccnv cima adantr sylancr inmbl
+      cin syl5eqel cvol cdm cres wb wss cpm cvv cnex a1i simpr cv cioo crn wral
+      ismbf1 simplbi pmresg syl3anc elpm2g mpbid simpld ismbfcn syl dmres mbfdm
+      ref fco id syl2anr cpnf resco cnveqi imaeq1i cnvresima eqtr3i mbff mbfima
+      ibi syl2anc sylan cmnf ismbf2d imf simprd mpbir2and ) BDEZAUAUBZEZFZBAUCZ
+      DEZGWJHZDEZIWJHZDEZWIWJUBZJWJKZWKWMWOFUDWIWQWPAUEZWIWJJAUFLEZWQWRFZWIJUGE
+      ZWHBJMUFLEZWSXAWIUHUIWFWHUJZWFXBWHWFXBGBHZNZCUKZOWGEIBHZNZXFOWGEFCULUMUNC
+      BUOUPPJAMBUGWGUQURWIXAWHWSWTUDUHXCJAWJUGWGUSQUTVAZWPWJVBVCWICWPWLWIJMGKZW
+      QWPMWLKVFXIWPJMGWJVGQWIWPABUBZSZWGBAVDWHWHXKWGEXLWGEWFWHVHBVEAXKRVITZWIWL
+      NZXFVJULLZOZWGEXFMEZWIXPXEXOOZASZWGXDAUCZNZXOOXPXSYAXNXOXTWLGBAVKVLZVMAXO
+      XDVNVOWFXRWGEZWHXSWGEWFXDDEZXKMXDKZYCWFYDXGDEZWFYDYFFZWFXKJBKZWFYGUDBVPZX
+      KBVBVCVRZVAZWFXJYHYEVFYIXKJMGBVGQZXKXFVJXDVQVSXRARVTTPWIXNWAXFULLZOZWGEXQ
+      WIYNXEYMOZASZWGYAYMOYNYPYAXNYMYBVMAYMXDVNVOWFYOWGEZWHYPWGEWFYDYEYQYKYLXKW
+      AXFXDVQVSYOARVTTPWBWICWPWNWIJMIKZWQWPMWNKWCXIWPJMIWJVGQXMWIWNNZXOOZWGEXQW
+      IYTXHXOOZASZWGXGAUCZNZXOOYTUUBUUDYSXOUUCWNIBAVKVLZVMAXOXGVNVOWFUUAWGEZWHU
+      UBWGEWFYFXKMXGKZUUFWFYDYFYJWDZWFYRYHUUGWCYIXKJMIBVGQZXKXFVJXGVQVSUUAARVTT
+      PWIYSYMOZWGEXQWIUUJXHYMOZASZWGUUDYMOUUJUULUUDYSYMUUEVMAYMXGVNVOWFUUKWGEZW
+      HUULWGEWFYFUUGUUMUUHUUIXKWAXFXGVQVSUUKARVTTPWBWE $.
+      $( [18-Jun-2014] $)
+  $}
+
+  ${
+    $d x A $.  $d x B $.  $d x C $.  $d x F $.  $d x ph $.
+    mbfres2.1 $e |- ( ph -> F : A --> RR ) $.
+    mbfres2.2 $e |- ( ph -> ( F |` B ) e. MblFn ) $.
+    mbfres2.3 $e |- ( ph -> ( F |` C ) e. MblFn ) $.
+    mbfres2.4 $e |- ( ph -> ( B u. C ) = A ) $.
+    $( Measurability of a piecewise function: if ` F ` is measurable on subsets
+       ` B ` and ` C ` of its domain, and these pieces make up all of ` A ` ,
+       then ` F ` is measurable on the whole domain.  (Contributed by Mario
+       Carneiro, 18-Jun-2014.) $)
+    mbfres2 $p |- ( ph -> F e. MblFn ) $=
+      ( vx cmbf wcel ccnv cima wral cres cun cr wf syl6eq cv cvol cdm cioo wceq
+      crn wa reseq2d wfn ffn fnresdm eqtr2d adantr resundi cnveqd cnvun imaeq1d
+      3syl imaundir wb ssun1 syl5sseq fssres syl2anc ismbf mpbid r19.21bi ssun2
+      wss syl unmbl eqeltrd ralrimiva mpbird ) AEKLZEMZJUAZNZUBUCZLZJUDUFZOZAVT
+      JWAAVQWALZUGZVRECPZMZVQNZEDPZMZVQNZQZVSWDVRWFWIQZVQNWKWDVPWLVQWDVPWEWHQZM
+      WLWDEWMWDEECDQZPZWMAEWOUEWCAWOEBPZEAWNBEIUHABRESZEBUIWPEUEFBREUJBEUKURULU
+      MECDUNTUOWEWHUPTUQWFWIVQUSTWDWGVSLZWJVSLZWKVSLAWRJWAAWEKLZWRJWAOZGACRWESZ
+      WTXAUTAWQCBVIXBFAWNCBCDVAIVBBRCEVCVDJCWEVEVJVFVGAWSJWAAWHKLZWSJWAOZHADRWH
+      SZXCXDUTAWQDBVIXEFAWNDBDCVHIVBBRDEVCVDJDWHVEVJVFVGWGWJVKVDVLVMAWQVOWBUTFJ
+      BEVEVJVN $.
+      $( [18-Jun-2014] $)
+  $}
+
+  ${
+    $d x A $.  $d x y z B $.  $d x z F $.  $d y z G $.  $d x y z ph $.
+    mbfmulc2.1 $e |- ( ph -> F : A --> RR ) $.
+    mbfmulc2.2 $e |- ( ph -> F e. MblFn ) $.
+    mbfmulc2.3 $e |- ( ph -> B e. RR ) $.
+    mbfmulc2.4 $e |- G = ( x e. A |-> ( B x. ( F ` x ) ) ) $.
+    $( Multiplication by a constant preserves measurability. $)
+    mbfmulc2 $p |- ( ph -> G e. MblFn ) $=
+      ( cc0 clt wbr wcel cr wa co syl wb bitr4d vy vz wceq w3o cmbf 0re sylancl
+      lttri4 wf cv cfv cmul adantr ffvelrn sylan remulcl syl2anc fmptd cvol cdm
+      fdm mbfdm eqeltrrd ccnv cpnf cioo cima cmnf cdiv fveq2 oveq2d ovex breq2d
+      fvmpt ad2antll ad2ant2rl simprl renegcl ad2antrr simplr lt0neg1 ltmuldiv2
+      cneg mpbid syl112anc cc recnd mulneg1 breq1d ltneg wne a1i syl3anc necomd
+      ltne div2neg 3bitr3rd cxr rexr elioopnf biantrurd wi idi redivcl elioomnf
+      3bitr4d anassrs pm5.32da wfn ffn elpreima mbfima eqeltrd ltdivmul 3bitr3d
+      eqrdv ismbf2d csn cxp cmpt oveq1 ad2antlr mul02 eqtrd mpteq2dva fconstmpt
+      adantlr 3eqtr4g 0cn mbfconst elrp sylanbrc rerpdivcl bitrd 3jaodan mpdan
+      crp ) ADKLMZDKUCZKDLMZUDZFUENZADONZKONZUUAIUFDKUHUGAYRUUBYSYTAYRPZUACFACO
+      FUIZYRABCDBUJZEUKZULQZOFAUUGCNZPZUUCUUHONZUUIONAUUCUUJIUMACOEUIZUUJUULGCO
+      UUGEUNUOZDUUHUPUQJURZUMACUSUTZNZYRAEUTZCUUPAUUMUURCUCGCOEVARAEUENZUURUUPN
+      HEVBRVCZUMUUEUAUJZONZPZFVDZUVAVEVFQZVGZEVDZVHUVADVIQZVFQZVGZUUPUVCUBUVFUV
+      JUVCUBUJZCNZUVKFUKZUVENZPZUVLUVKEUKZUVINZPZUVKUVFNZUVKUVJNZUVCUVLUVNUVQUU
+      EUVBUVLUVNUVQSUUEUVBUVLPZPZUVAUVMLMZUVPUVHLMZUVNUVQUWBUWCUVADUVPULQZLMZUW
+      DUWBUVMUWEUVALUVLUVMUWEUCZUUEUVBBUVKUUIUWECFUUGUVKUCUUHUVPDULUUGUVKEVJVKJ
+      DUVPULVLVNZVOZVMUWBDWCZUVPULQZUVAWCZLMZUVPUWLUWJVIQZLMZUWFUWDUWBUVPONZUWL
+      ONZUWJONZKUWJLMZUWMUWOSAUVLUWPYRUVBAUUMUVLUWPGCOUVKEUNUOZVPZUWBUVBUWQUUEU
+      VBUVLVQZUVAVRRZUWBUUCUWRAUUCYRUWAIVSZDVRRZUWBYRUWSAYRUWAVTZUWBUUCYRUWSSUX
+      DDWARWDZUVPUWLUWJWBWEUWBUWMUWEWCZUWLLMZUWFUWBUWKUXHUWLLUWBDWFNZUVPWFNUWKU
+      XHUCUWBDUXDWGZUWBUVPUXAWGDUVPWHUQZWIUWBUVBUWEONZUWFUXISUXBUWBUVMUWEOUWIAU
+      VLUVMONZYRUVBAUUFUVLUXNUUOCOUVKFUNUOZVPZVCZUVAUWEWJUQTUWBUWNUVHUVPLUWBUVA
+      WFNUXJDKWKZUWNUVHUCUWBUVAUXBWGUXKUWBKDUWBUUCUUDYRKDWKUXDUUDUWBUFWLUXFDKWO
+      WMWNZUVADWPWMZVMWQTUWBUVNUXNUWCPZUWCUWBUVAWRNZUVNUYASZUWBUVBUYBUXBUVAWSZR
+      ZUVAUVMWTZRUWBUXNUWCUXPXATUWBUVQUWPUWDPZUWDUWBUVHWRNZUVQUYGSZUWBUVHONZUYH
+      UWBUVBUUCUXRUYJUWBUVBXBUXBXCUXDUXSUVADXDWMUVHWSZRZUVHUVPXEZRUWBUWPUWDUXAX
+      ATXFXGXHUVCFCXIZUVSUVOSZAUYNYRUVBAUUFUYNUUOCOFXJRZVSZCUVKUVEFXKZRUVCECXIZ
+      UVTUVRSZAUYSYRUVBAUUMUYSGCOEXJRZVSZCUVKUVIEXKZRXFXPAUVJUUPNZYRUVBAUUSUUMV
+      UDHGCVHUVHEXLUQZVSXMUVCUVDVHUVAVFQZVGZUVGUVHVEVFQZVGZUUPUVCUBVUGVUIUVCUVL
+      UVMVUFNZPZUVLUVPVUHNZPZUVKVUGNZUVKVUINZUVCUVLVUJVULUUEUVBUVLVUJVULSUWBUVM
+      UVALMZUVHUVPLMZVUJVULUWBVUPUWEUVALMZVUQUWBUVMUWEUVALUWIWIUWBUWNUVPLMZUWLU
+      WKLMZVUQVURUWBUWQUWPUWRUWSVUSVUTSUXCUXAUXEUXGUWLUVPUWJXNWEUWBUWNUVHUVPLUX
+      TWIUWBVUTUWLUXHLMZVURUWBUWKUXHUWLLUXLVMUWBUXMUVBVURVVASUXQUXBUWEUVAWJUQTX
+      OTUWBVUJUXNVUPPZVUPUWBUYBVUJVVBSZUYEUVAUVMXEZRUWBUXNVUPUXPXATUWBVULUWPVUQ
+      PZVUQUWBUYHVULVVESZUYLUVHUVPWTZRUWBUWPVUQUXAXATXFXGXHUVCUYNVUNVUKSZUYQCUV
+      KVUFFXKZRUVCUYSVUOVUMSZVUBCUVKVUHEXKZRXFXPAVUIUUPNZYRUVBAUUSUUMVVLHGCUVHV
+      EEXLUQZVSXMXQAYSPZFCKXRXSZUEVVNBCUUIXTBCKXTFVVOVVNBCUUIKVVNUUJPZUUIKUUHUL
+      QZKYSUUIVVQUCAUUJDKUUHULYAYBVVPUUHWFNZVVQKUCAUUJVVRYSUUKUUHUUNWGYGUUHYCRY
+      DYEJBCKYFYHVVNUUQKWFNVVOUENAUUQYSUUTUMYICKYJUGXMAYTPZUACFAUUFYTUUOUMAUUQY
+      TUUTUMVVSUVBPZUVFVUIUUPVVTUBUVFVUIVVTUVOVUMUVSVUOVVTUVLUVNVULVVSUVBUVLUVN
+      VULSVVSUWAPZUWCVUQUVNVULVWAUWCUWFVUQVWAUVMUWEUVALUVLUWGVVSUVBUWHVOZVMVWAU
+      VBUWPUUCYTVUQUWFSVVSUVBUVLVQZAUVLUWPYTUVBUWTVPZAUUCYTUWAIVSZAYTUWAVTZUVAU
+      VPDXNWETVWAUVNUYAUWCVWAUYBUYCVWAUVBUYBVWCUYDRZUYFRVWAUXNUWCAUVLUXNYTUVBUX
+      OVPZXATVWAVULVVEVUQVWAUYHVVFVWAUYJUYHVWAUVBDYQNZUYJVWCVWAUUCYTVWIVWEVWFDY
+      KYLUVADYMUQUYKRZVVGRVWAUWPVUQVWDXATXFXGXHVVTUYNUYOAUYNYTUVBUYPVSZUYRRVVTU
+      YSVVJAUYSYTUVBVUAVSZVVKRXFXPAVVLYTUVBVVMVSXMVVTVUGUVJUUPVVTUBVUGUVJVVTVUK
+      UVRVUNUVTVVTUVLVUJUVQVVSUVBUVLVUJUVQSVWAVUPUWDVUJUVQVWAVUPVURUWDVWAUVMUWE
+      UVALVWBWIVWAUWPUVBUUCYTVURUWDSVWDVWCVWEVWFUVPUVADWBWEYNVWAVUJVVBVUPVWAUYB
+      VVCVWGVVDRVWAUXNVUPVWHXATVWAUVQUYGUWDVWAUYHUYIVWJUYMRVWAUWPUWDVWDXATXFXGX
+      HVVTUYNVVHVWKVVIRVVTUYSUYTVWLVUCRXFXPAVUDYTUVBVUEVSXMXQYOYP $.
+      $( [18-Jun-2014] $)
+  $}
+
+  ${
+    $d x A $.  $d x z F $.  $d x z G $.  $d y z H $.  $d x y z ph $.
+    mbfmax.1 $e |- ( ph -> F : A --> RR ) $.
+    mbfmax.2 $e |- ( ph -> F e. MblFn ) $.
+    mbfmax.3 $e |- ( ph -> G : A --> RR ) $.
+    mbfmax.4 $e |- ( ph -> G e. MblFn ) $.
+    mbfmax.5 $e |- H = ( x e. A |->
+      if ( ( F ` x ) <_ ( G ` x ) , ( G ` x ) , ( F ` x ) ) ) $.
+    $( The maximum of two functions is measurable. $)
+    mbfmax $p |- ( ph -> H e. MblFn ) $=
+      ( wbr cr wcel wa syl2anc cpnf wb syl clt vy vz cv cfv cle wf ffvelrn ifcl
+      cif sylan fmptd cxr ccnv cioo co cima cun cvol cdm wo adantr rexr xrmaxle
+      wn simpr syl3anc notbid ianor syl6bb w3a pnfxr elioo2 sylancl 3anass an12
+      bitri wceq fveq2 breq12d ifbieq12d fvex ifex fvmpt adantl eleq1d biantrud
+      ltpnf jca 3bitr4d xrltnle bitrd 3bitr2d orbi12d pm5.32da wfn ffn elpreima
+      andi elun syl6bbr eqrdv cmbf unmbl eqeltrd cmnf cin xrmaxlt mnfxr sylancr
+      mbfima df-3an mnflt biantrurd bitr4d anbi12d anandi elin inmbl ismbfd ) A
+      UACFABCBUCZDUDZXTEUDZUELZYBYAUIZMFAXTCNZOYBMNZYAMNZYDMNACMEUFZYEYFICMXTEU
+      GUJACMDUFZYEYGGCMXTDUGUJYCYBYAMUHPKUKZAUAUCZULNZOZFUMZYKQUNUOZUPZDUMZYOUP
+      ZEUMZYOUPZUQZURUSZYMUBYPUUAYMUBUCZYPNZUUCYRNZUUCYTNZUTZUUCUUANYMUUCCNZUUC
+      FUDZYONZOZUUHUUCDUDZYONZOZUUHUUCEUDZYONZOZUTZUUDUUGYMUUKUUHUUMUUPUTZOUURY
+      MUUHUUJUUSYMUUHOZUULUUOUELZUUOUULUIZYKUELZVDZUULYKUELZVDZUUOYKUELZVDZUTZU
+      UJUUSUUTUVDUVEUVGOZVDUVIUUTUVCUVJUUTUULULNZUUOULNZYLUVCUVJRUUTUULMNZUVKYM
+      YIUUHUVMAYIYLGVAZCMUUCDUGUJZUULVBSZUUTUUOMNZUVLYMYHUUHUVQAYHYLIVAZCMUUCEU
+      GUJZUUOVBSZYMYLUUHAYLVEVAZUULUUOYKVCVFVGUVEUVGVHVIUUTUUJYKUVBTLZUVDUUTUVB
+      YONZUWBUVBMNZUVBQTLZOZOZUUJUWBUUTUWCUWDUWBUWEVJZUWGUUTYLQULNZUWCUWHRUWAVK
+      YKQUVBVLVMUWHUWDUWBUWEOOUWGUWDUWBUWEVNUWDUWBUWEVOVPVIUUTUUIUVBYOUUHUUIUVB
+      VQYMBUUCYDUVBCFXTUUCVQZYCUVAYBYAUUOUULUWJYAUULYBUUOUEXTUUCDVRZXTUUCEVRZVS
+      UWLUWKVTKUVAUUOUULUUCEWAUUCDWAWBWCWDZWEUUTUWFUWBUUTUWDUWEUUTUVQUVMUWDUVSU
+      VOUVAUUOUULMUHPZUUTUWDUWEUWNUVBWGSWHWFWIUUTYLUVBULNZUWBUVDRUWAUUTUWDUWOUW
+      NUVBVBSYKUVBWJPWKUUTUUMUVFUUPUVHUUTUUMYKUULTLZUVMUULQTLZOZOZUWPUVFUUTUUMU
+      VMUWPUWQVJZUWSUUTYLUWIUUMUWTRUWAVKYKQUULVLVMUWTUVMUWPUWQOOUWSUVMUWPUWQVNU
+      VMUWPUWQVOVPVIUUTUWRUWPUUTUVMUWQUVOUUTUVMUWQUVOUULWGSWHWFUUTYLUVKUWPUVFRU
+      WAUVPYKUULWJPWLUUTUUPYKUUOTLZUVQUUOQTLZOZOZUXAUVHUUTUUPUVQUXAUXBVJZUXDUUT
+      YLUWIUUPUXERUWAVKYKQUUOVLVMUXEUVQUXAUXBOOUXDUVQUXAUXBVNUVQUXAUXBVOVPVIUUT
+      UXCUXAUUTUVQUXBUVSUUTUVQUXBUVSUUOWGSWHWFUUTYLUVLUXAUVHRUWAUVTYKUUOWJPWLWM
+      WIWNUUHUUMUUPWRVIYMFCWOZUUDUUKRAUXFYLACMFUFUXFYJCMFWPSVAZCUUCYOFWQSYMUUEU
+      UNUUFUUQYMDCWOZUUEUUNRYMYIUXHUVNCMDWPSZCUUCYODWQSYMECWOZUUFUUQRYMYHUXJUVR
+      CMEWPSZCUUCYOEWQSWMWIUUCYRYTWSWTXAAUUAUUBNZYLAYRUUBNZYTUUBNZUXLADXBNZYIUX
+      MHGCYKQDXJPAEXBNZYHUXNJICYKQEXJPYRYTXCPVAXDYMYNXEYKUNUOZUPZYQUXQUPZYSUXQU
+      PZXFZUUBYMUBUXRUYAYMUUCUXRNZUUCUXSNZUUCUXTNZOZUUCUYANYMUUHUUIUXQNZOZUUHUU
+      LUXQNZOZUUHUUOUXQNZOZOZUYBUYEYMUYGUUHUYHUYJOZOUYLYMUUHUYFUYMUUTUVBYKTLZUU
+      LYKTLZUUOYKTLZOZUYFUYMUUTUVKUVLYLUYNUYQRUVPUVTUWAUULUUOYKXGVFUUTUVBUXQNZU
+      WDXEUVBTLZOZUYNOZUYFUYNUUTUYRUWDUYSUYNVJZVUAUUTXEULNZYLUYRVUBRXHUWAXEYKUV
+      BVLXIUWDUYSUYNXKVIUUTUUIUVBUXQUWMWEUUTUYTUYNUUTUWDUYSUWNUUTUWDUYSUWNUVBXL
+      SWHXMWIUUTUYHUYOUYJUYPUUTUYHUVMXEUULTLZOZUYOOZUYOUUTUYHUVMVUDUYOVJZVUFUUT
+      VUCYLUYHVUGRXHUWAXEYKUULVLXIUVMVUDUYOXKVIUUTVUEUYOUUTUVMVUDUVOUUTUVMVUDUV
+      OUULXLSWHXMXNUUTUYJUVQXEUUOTLZOZUYPOZUYPUUTUYJUVQVUHUYPVJZVUJUUTVUCYLUYJV
+      UKRXHUWAXEYKUUOVLXIUVQVUHUYPXKVIUUTVUIUYPUUTUVQVUHUVSUUTUVQVUHUVSUUOXLSWH
+      XMXNXOWIWNUUHUYHUYJXPVIYMUXFUYBUYGRUXGCUUCUXQFWQSYMUYCUYIUYDUYKYMUXHUYCUY
+      IRUXICUUCUXQDWQSYMUXJUYDUYKRUXKCUUCUXQEWQSXOWIUUCUXSUXTXQWTXAAUYAUUBNZYLA
+      UXSUUBNZUXTUUBNZVULAUXOYIVUMHGCXEYKDXJPAUXPYHVUNJICXEYKEXJPUXSUXTXRPVAXDX
+      S $.
+      $( [18-Jun-2014] $)
+  $}
+
+  ${
+    $d u v w x y z F $.  $d x y z ph $.
+    ismbf3d.1 $e |- ( ph -> F : A --> RR ) $.
+    ismbf3d.2 $e |- ( ( ph /\ x e. RR ) ->
+                     ( `' F " ( x (,) +oo ) ) e. dom vol ) $.
+    $( Simplified form of ~ ismbfd .  (Contributed by Mario Carneiro,
+       18-Jun-2014.) $)
+    ismbf3d $p |- ( ph -> F e. MblFn ) $=
+      ( vy cr cima wceq syl cn cpnf cioo co wcel clt wbr wa cmnf vz vu ccnv cdm
+      vv vw cvol wf fimacnv cneg ciun imaiun wss wral ioossre rgenw iunss mpbir
+      cv wrex renegcl arch simpl biantrurd wb nnre ltnegcon1 sylan2 adantl rexr
+      cxr 3syl elioopnf 3bitr4d rexbidva mpbid eliun sylibr ssriv eqssi imaeq2i
+      eqtr3i ralrimiva imaeq2d eleq1d rcla4cva syl2an iunmbl syl5eqelr eqeltrrd
+      oveq1 c1 cdiv cmin cioc cle w3a 3simpb wi crp simpr nnrp ad2antrl rpreccl
+      adantr ltsubrp syl2anc nnrecre resubcl adantrr syl3anc anassrs imdistanda
+      simprr lelttr mpan2d syl5 mnfxr elioc2 sylancr elioomnf 3imtr4d rexlimdva
+      sylibd cc0 simplr simprl posdif ad2ant2r mnflt mpd cdif wfun ad2antrr cun
+      nnrecl a1i pnfxr cin c0 ltle mpbir3and expr reximdva impbid bitr4d syl5bb
+      ltsub13 eqrdv syl5eqr ffun funcnvcnv imadif ltpnf df-ioc xrltnle xrlelttr
+      ex df-ioo xrlttr ixxun syl32anc uncom ioomax 3eqtr3g incom ixxdisj syl5eq
+      mp3an13 uneqdifeq eqtr3d rcla4v sylc oveq2 cbvralv sylib r19.21bi ismbf2d
+      difmbl ) ABCDEADUCZHIZCUGUDZACHDUHZUWACJECHDUIKAUWAGLUVTGUSZUJZMNOZIZUKZU
+      WBUVTGLUWFUKZIUWHUWAGUVTLUWFULUWIHUVTUWIHUWIHUMUWFHUMZGLUNUWJGLUWEMUOUPGL
+      UWFHUQURUAHUWIUAUSZHPZUWKUWFPZGLUTZUWKUWIPUWLUWKUJZUWDQRZGLUTZUWNUWLUWOHP
+      UWQUWKVAUWOGVBKUWLUWPUWMGLUWLUWDLPZSZUWEUWKQRZUWLUWTSZUWPUWMUWSUWLUWTUWLU
+      WRVCVDUWRUWLUWDHPZUWPUWTVEUWDVFZUWKUWDVGVHUWSUWEVKPZUWMUXAVEUWSUXBUWEHPZU
+      XDUWRUXBUWLUXCVIUWDVAZUWEVJVLUWEUWKVMKVNVOVPGUWKLUWFVQVRVSVTWAWBAUWGUWBPZ
+      GLUNUWHUWBPAUXGGLAUVTBUSZMNOZIZUWBPZBHUNZUXEUXGUWRAUXKBHFWCZUWRUXBUXEUXCU
+      XFKUXKUXGBUWEHUXHUWEJZUXJUWGUWBUXNUXIUWFUVTUXHUWEMNWKWDWEWFWGWCUWGGWHKWIZ
+      WJFAUVTTUXHNOZIZUWBPZBHAUVTTUWKNOZIZUWBPZUAHUNUXRBHUNAUYAUAHAUWLSZGLUVTTU
+      WKWLUWDWMOZWNOZWOOZIZUKZUXTUWBUYBUYGUVTGLUYEUKZIUXTGUVTLUYEULUYBUYHUXSUVT
+      UYBBUYHUXSUXHUYHPUXHUYEPZGLUTZUYBUXHUXSPZGUXHLUYEVQUYBUYJUXHHPZUXHUWKQRZS
+      ZUYKUYBUYJUYNUYBUYJUYKUYNUYBUYIUYKGLUYBUWRSZUYLTUXHQRZUXHUYDWPRZWQZUYNUYI
+      UYKUYRUYLUYQSUYOUYNUYLUYPUYQWRUYOUYLUYQUYMUYBUWRUYLUYQUYMWSUYBUWRUYLSZSZU
+      YQUYDUWKQRZUYMUYTUWLUYCWTPZVUAUYBUWLUYSAUWLXAZXEZUYTUWDWTPZVUBUWRVUEUYBUY
+      LUWDXBXCUWDXDKUWKUYCXFXGUYTUYLUYDHPZUWLUYQVUASUYMWSUYBUWRUYLXNUYBUWRVUFUY
+      LUYBUWLUYCHPZVUFUWRVUCUWDXHZUWKUYCXIWGZXJVUDUXHUYDUWKXOXKXPXLXMXQUYOTVKPZ
+      VUFUYIUYRVEZXRVUITUYDUXHXSXTZUYBUYKUYNVEZUWRUYBUWKVKPZVUMUWLVUNAUWKVJVIUW
+      KUXHYAKZXEYBYCVUOYDUYBUYNUYJUYBUYNSZUYCUWKUXHWNOZQRZGLUTZUYJVUPVUQHPZYEVU
+      QQRZVUSVUPUWLUYLVUTAUWLUYNYFZUYBUYLUYMYGZUWKUXHXIXGVUPUYMVVAUYBUYLUYMXNVU
+      PUYLUWLUYMVVAVEVVCVVBUXHUWKYHXGVPVUQGYPXGVUPVURUYIGLVUPUWRVURUYIVUPUWRVUR
+      SZSZUYIUYLUYPUYQUYBUWRVUKUYNVURVULYIVUPUYLVVDVVCXEZVVEUYLUYPVVFUXHYJKVVEU
+      XHUYDQRZUYQVVEVURVVGVUPUWRVURXNVVEVUGUWLUYLVURVVGVEUWRVUGVUPVURVUHXCVUPUW
+      LVVDVVBXEVVFUYCUWKUXHUUHXKVPVVEUYLVUFVVGUYQWSVVFUYBUWRVUFUYNVURVUIYIUXHUY
+      DUUAXGYKUUBUUCUUDYKUURUUEVUOUUFUUGUUIWDUUJUYBUYFUWBPZGLUNUYGUWBPUYBVVHGLU
+      YOUWAUVTUYDMNOZIZYLZUYFUWBUYOUVTHVVIYLZIZVVKUYFUYODYMZUVTUCYMVVMVVKJUYOUW
+      CVVNAUWCUWLUWREYNCHDUUKKDUULHVVIUVTUUMVLUYOVVLUYEUVTUYOVVIUYEYOZHJZVVLUYE
+      JZUYOUYEVVIYOZTMNOZVVOHUYOVUJUYDVKPZMVKPZTUYDQRZUYDMQRZVVRVVSJVUJUYOXRYQU
+      YOVUFVVTVUIUYDVJZKVWAUYOYRYQUYOVUFVWBVUIUYDYJKUYOVUFVWCVUIUYDUUNKUBUEUFBT
+      UYDMNNQWPQQWOQQUBUEUFUUOZUBUEUFUUSZUYDUXHUUPZVWFUXHUYDMUUQTUYDUXHUUTUVAUV
+      BUYEVVIUVCUVDUVEUYOVVIHUMVVIUYEYSZYTJVVPVVQVEUYDMUOUYOVWHUYEVVIYSZYTVVIUY
+      EUVFUYOVUFVVTVWIYTJZVUIVWDVUJVVTVWAVWJXRYRUBUEUFBTUYDMNQWPQQWOVWEVWFVWGUV
+      GUVIVLUVHVVIUYEHUVJXTVPWDUVKUYOUWAUWBPZVVJUWBPZVVKUWBPAVWKUWLUWRUXOYNUYOV
+      UFUXLVWLVUIAUXLUWLUWRUXMYNUXKVWLBUYDHUXHUYDJZUXJVVJUWBVWMUXIVVIUVTUXHUYDM
+      NWKWDWEUVLUVMUWAVVJUVSXGWJWCUYFGWHKWJWCUYAUXRUABHUWKUXHJZUXTUXQUWBVWNUXSU
+      XPUVTUWKUXHTNUVNWDWEUVOUVPUVQUVR $.
+      $( [18-Jun-2014] $)
+  $}
+
+  ${
+    $d x A $.  $d x F $.
+    $( A continuous function is measurable.  (Contributed by Mario Carneiro,
+       18-Jun-2014.) $)
+    cnmbf $p |- ( ( A e. dom vol /\ F e. ( A -cn-> CC ) ) ->
+                    F e. MblFn ) $=
+      ( vx wcel cc ccncf co cmbf cre ccom cim wf wss cr syl cfv wi a1i eqid ex
+      cvol cdm wa wb mblss adantr ax-resscn syl6ss ssid mp3an2 sylancom ismbfcn
+      cncff ccnv cv cima cioo crn ctg cop csubsp ctb retopbas bastg ax-mp sseli
+      wral ctop ccn retop simpl stoig3 sylancr recncf cncfco cabs cmin cxp cres
+      simpr copn wceq tgioo cncfmet sylancl stioo oveq1d eqtr4d eleqtrd syl3anc
+      w3a cnima subopnmbl 3syld ralrimiv ref fco ismbf mpbird imcncf mpbir2and
+      imf ) AUAUBZDZBAEFGDZUCZBHDZIBJZHDZKBJZHDZXFAEBLZXGXIXKUCUDXDXEAEMZXLXFAN
+      EXDANMZXEAUEUFZUGUHZXMEEMZXEXLEUIZAEBUMUJUKZABULOXFXIXHUNCUOZUPZXCDZCUQUR
+      ZVGZXFYBCYCXFXTYCDZXTYCUSPZDZYAAYFUTVAPZDZYBYEYGQXFYCYFXTYCVBDYCYFMVCYCVD
+      VEVFRZXFYHVHDZYFVHDZXHYHYFVIGZDZYGYIQXFYLXDYKVJXDXEVKAYFXCVLVMZYLXFVJRZXF
+      XHANFGZYMXFAENBIXPXQXFXRRZNEMZXFUGRZXDXEVTZIENFGZDXFVNRVOXFYQVPVQJZAAVRVS
+      ZWAPZYFVIGZYMXFXMYSYQUUFWBXPUGANUUDUUCNNVRVSZUUEYFUUDSUUGSZUUESUUGUUGWAPZ
+      UUHUUISWCWDWEXFYHUUEYFVIXFXNYHUUEWBXOAWFOWGWHZWIYKYLYNWKYGYIXTXHYHYFWLTWJ
+      XDYIYBQXEXDYIYBAYAYHYHSZWMTUFWNWOXFANXHLZXIYDUDXFENILXLUULWPXSAENIBWQVMCA
+      XHWROWSXFXKXJUNXTUPZXCDZCYCVGZXFUUNCYCXFYEYGUUMYHDZUUNYJXFYKYLXJYMDZYGUUP
+      QYOYPXFXJYQYMXFAENBKXPYRYTUUAKUUBDXFWTRVOUUJWIYKYLUUQWKYGUUPXTXJYHYFWLTWJ
+      XDUUPUUNQXEXDUUPUUNAUUMYHUUKWMTUFWNWOXFANXJLZXKUUOUDXFENKLXLUURXBXSAENKBW
+      QVMCAXJWROWSXA $.
+      $( [18-Jun-2014] $)
+  $}
+
+  ${
+    $d g x y $.  $d f g x y z F $.  $d y A $.
+    $( The predicate " ` F ` is a simple function".  A simple function is a
+       finite nonnegative linear combination of indicator functions for
+       finitely measurable sets.  We use the idiom ` F e. dom S.1 ` to
+       represent this concept because ` S.1 ` is the first preparation function
+       for our final definition ` S. ` (see ~ df-itg ); unlike that operator,
+       which can integrate any function, this operator can only integrate
+       simple functions.  (Contributed by Mario Carneiro, 18-Jun-2014.) $)
+    isi1f $p |- ( F e. dom S.1 <-> ( F : RR --> ( 0 [,) +oo ) /\
+        ran F e. Fin /\ A. x e. RR+ ( `' F " { x } ) e. ( `' vol " RR ) ) ) $=
+      ( vg vy cc0 cpnf cico co cr wcel crn cfn ccnv cv csn cima cvol crp citg1
+      wa cmap wral wf cdm ovex reex elmap anbi1i wceq rneq eleq1d cnveq imaeq1d
+      w3a ralbidv anbi12d crab wfn cdif cfv cmul csu cvv df-itg1 fnmpt a1i mprg
+      sumex fndm ax-mp elrab2 3anass 3bitr4i ) BEFGHZIUAHZJZBKZLJZBMZANZOZPZQMI
+      PZJZARUBZTZTIVNBUCZWFTBSUDZJWGVRWEUNVPWGWFVNIBEFGUEUFUGUHCNZKZLJZWIMZWAPZ
+      WCJZARUBZTZWFCBVOWHWIBUIZWKVRWOWEWQWJVQLWIBUJUKWQWNWDARWQWMWBWCWQWLVSWAWI
+      BULUMUKUOUPSWPCVOUQZURZWHWRUIDNZKEOUSZVTWTMWAPQUTVAHZAVBZVCJZWSDWRDWRXCSV
+      CADCVDVEXDWTWRJXAXBAVHVFVGWRSVIVJVKWGVRWEVLVM $.
+      $( [18-Jun-2014] $)
+
+    $( Expand out the predicate ~ isi1f into a more explicit form.  A simple
+       function is a function with a finite range, such that the preimage of
+       each point in the range is measurable and finite (except zero, which
+       always has an unbounded measure).  (Contributed by Mario Carneiro,
+       18-Jun-2014.) $)
+    isi1f2 $p |- ( F e. dom S.1 <-> ( F : RR --> ( 0 [,) +oo ) /\
+      ran F e. Fin /\ A. x e. ran F ( x =/= 0 ->
+   ( ( `' F " { x } ) e. dom vol /\ ( vol ` ( `' F " { x } ) ) e. RR ) ) ) ) $=
+      ( wcel cr cc0 cpnf co wf cvol crp wral cfv wa wi cun c0 wceq sylib ax-mp
+      wn citg1 cdm cico crn cfn ccnv cv csn cima w3a wne isi1f cdif cin wfn ffn
+      dffn3 adantr eldifn adantl simpr eldifi rpne0 elsni necon3ai syl biantrud
+      3syl eldif syl6bbr mtbird disjsn sylibr fimacnvdisj syl2anc cicc elpreima
+      wb volf 0mbl covol mblvol ovol0 eqtri eqeltri mpbir2an syl6eqel ralrimiva
+      0re wal eldifsn imbi12i impexp bitri df-ral 3bitr4i bicomi ralunb 3bitr4g
+      albii wss frn cioo cxr clt wbr 0xr pnfxr ltpnf snunioo mp3an ioorp uneq2i
+      eqtr3i syl6sseq ssundif undif raleqdv bitr2d anbi2d pm5.32i 3anass ) BUAU
+      BCDEFUCGZBHZBUDZUECZBUFAUGZUHZUIZIUFDUIZCZAJKZUJZYDYFYGEUKZYIIUBZCYIILDCM
+      ZNZAYEKZUJZABULYDYFYLMZMYDYFYRMZMYMYSYDYTUUAYDYLYRYFYDYRYKAYEEUHZUMZJUUCU
+      MZOZKZYLYDYKAUUCKZUUGYKAUUDKZMYRUUFYDUUHUUGYDYKAUUDYDYGUUDCZMZYIPYJUUJDYE
+      BHZYEYHUNPQZYIPQYDUUKUUIYDBDUOUUKDYCBUPDBUQRURUUJYGYECZTUULUUJUUMYGUUCCZU
+      UIUUNTYDYGJUUCUSUTUUJUUMUUMYGUUBCZTZMUUNUUJUUPUUMUUJYNUUPUUJUUIYGJCYNYDUU
+      IVAYGJUUCVBYGVCVHUUOYGEYGEVDVEVFVGYGYEUUBVIVJVKYEYGVLVMDYEYHBVNVOPYJCZPYO
+      CZPILZDCZIYOUOZUUQUURUUTMVRYOEFVPGZIHUVAVSYOUVBIUPSZYOPDIVQSVTUUSEDUUSPWA
+      LZEUURUUSUVDQVTPWBSWCWDWIWEWFWGWHVGUUGYRUUNYKNZAWJUUMYQNZAWJUUGYRUVEUVFAU
+      VEUUMYNMZYPNUVFUUNUVGYKYPYGYEEWKUVAYKYPVRUVCYOYIDIVQSWLUUMYNYPWMWNWTYKAUU
+      CWOYQAYEWOWPWQYKAUUCUUDWRWSYDYKAUUEJYDUUCJXAZUUEJQYDYEUUBJOZXAUVHYDYEYCUV
+      IDYCBXBUUBEFXCGZOZYCUVIEXDCFXDCEFXEXFZUVKYCQXGXHEDCUVLWIEXISEFXJXKUVJJUUB
+      XLXMXNXOYEUUBJXPRUUCJXQRXRXSXTYAYDYFYLYBYDYFYRYBWPWN $.
+      $( [18-Jun-2014] $)
+
+    $( Lemma for ~ i1fmbf : the preimage of any set not containing zero is
+       measurable. $)
+    i1fmbflem $p |- ( ( F e. dom S.1 /\ -. 0 e. A ) ->
+                      ( `' F " A ) e. dom vol ) $=
+      ( vy citg1 cdm wcel cc0 wa cin cima ciun cvol wceq cr cfn wral syl adantr
+      wss sseli wn crn ccnv cv csn wfun cpnf cico co wf wne cfv wi simp1bi ffun
+      isi1f2 inpreima iunid imaiun eqtr3i cnvimarndm ineq2i cnvimass df-ss mpbi
+      imaeq2i eqtri 3eqtr3g simp2bi inss2 ssfi sylancl inss1 syl5ibcom necon3bd
+      adantl eleq1 imp an32s simpl simp3bi r19.21bi syl2an mpd simpld ralrimiva
+      finiunmbl syl2anc eqeltrrd ) BDEFZGAFZUAZHZCABUBZIZBUCZCUDZUEZJZKZWPAJZLE
+      ZWMBUFZWTXAMWJXCWLWJNGUGUHUIZBUJZXCWJXEWNOFZWQGUKZWSXBFZWSLULNFZHZUMZCWNP
+      ZCBUPZUNNXDBUOQRXCWPWOJZXAWPWNJZIZWTXAAWNBUQWPCWOWRKZJXNWTXQWOWPCWOURVFCW
+      PWOWRUSUTXPXABEZIZXAXOXRXABVAVBXAXRSXSXAMBAVCXAXRVDVEVGVHQWMWOOFZXHCWOPWT
+      XBFWMXFWOWNSXTWJXFWLWJXEXFXLXMVIRAWNVJZWNWOVKVLWMXHCWOWMWQWOFZHZXHXIYCXGX
+      JWJYBWLXGWJYBHZWLXGYDWKWQGYDWQAFZWQGMWKYBYEWJWOAWQAWNVMTVPWQGAVQVNVOVRVSW
+      MWJWQWNFXKYBWJWLVTWOWNWQYATWJXKCWNWJXEXFXLXMWAWBWCWDWEWFWOWSCWGWHWI $.
+      $( [18-Jun-2014] $)
+
+    $( Simple functions are measurable.  (Contributed by Mario Carneiro,
+       18-Jun-2014.) $)
+    i1fmbf $p |- ( F e. dom S.1 -> F e. MblFn ) $=
+      ( vx vy cdm wcel ccnv cv cima cvol cioo wa cc0 cdif wceq cpnf syl wss cxr
+      cr wf citg1 cmbf crn wral wfun cico co cfn wne csn wi isi1f2 simp1bi ffun
+      cfv funcnvcnv 3syl ad2antrr imadif cpw cxp frn ax-mp sseli elpwi ad2antlr
+      ioof dfss4 sylib imaeq2d eqtr3d 0re pnfxr icossre mp2an fss sylancl rembl
+      fimacnv syl6eqel wn simpll elndif adantl i1fmbflem syl2anc difmbl adantlr
+      eqeltrrd pm2.61dan ralrimiva wb ismbf mpbird ) AUADEZAUBEZAFZBGZHZIDZEZBJ
+      UCZUDZWOXABXBWOWRXBEZKZLWREZXAXEXFKZWQSHZWQSWRMZHZMZWSWTXGWQSXIMZHZXKWSXG
+      WQFUEZXMXKNWOXNXDXFWOSLOUFUGZATZAUEXNWOXPAUCZUHECGZLUIWQXRUJHZWTEXSIUOSEK
+      UKCXQUDCAULUMZSXOAUNAUPUQURSXIWQUSPXGXLWRWQXGWRSQZXLWRNXDYAWOXFXDWRSUTZEY
+      AXBYBWRRRVAZYBJTXBYBQVGYCYBJVBVCVDWRSVEPVFWRSVHVIVJVKXGXHWTEZXJWTEZXKWTEW
+      OYDXDXFWOXHSWTWOSSATZXHSNWOXPXOSQZYFXTLSEOREYGVLVMLOVNVOSXOSAVPVQZSSAVSPV
+      RVTURXGWOLXIEWAZYEWOXDXFWBXFYIXELWRSWCWDXIAWEWFXHXJWGWFWIWOXFWAXAXDWRAWEW
+      HWJWKWOYFWPXCWLYHBSAWMPWN $.
+      $( [18-Jun-2014] $)
+
+    $( The value of the integral on simple functions.  (Contributed by Mario
+       Carneiro, 18-Jun-2014.) $)
+    itg1val $p |- ( F e. dom S.1 -> ( S.1 ` F ) =
+           sum_ x e. ( ran F \ { 0 } ) ( x x. ( vol ` ( `' F " { x } ) ) ) ) $=
+      ( vg vf citg1 wcel cv crn ccnv csn cima cvol cr cc0 co cfv cdif cmul wceq
+      csu cdm cfn crp wral cpnf cico cmap crab wfn cvv df-itg1 fnmpt sumex mprg
+      a1i fndm ax-mp eleq2i rneq difeq1d imaeq1d fveq2d oveq2d adantr sumeq12dv
+      wa cnveq fvmpt sylbi ) BEUAZFBCGZHUBFVKIAGZJZKLIMKFAUCUDVFCNUEUFOMUGOUHZF
+      BEPBHZNJZQZVLBIZVMKZLPZROZATZSVJVNBEVNUIZVJVNSDGZHZVPQZVLWDIZVMKZLPZROZAT
+      ZUJFZWCDVNDVNWKEUJADCUKZULWLWDVNFWFWJAUMUOUNVNEUPUQURDBWKWBVNEWDBSZWFVQWJ
+      WAAWNWEVOVPWDBUSUTWNWJWASVLWFFWNWIVTVLRWNWHVSLWNWGVRVMWDBVGVAVBVCVDVEWMVQ
+      WAAUMVHVI $.
+      $( [18-Jun-2014] $)
+
+    $( Closure of the integral on simple functions.  (Contributed by Mario
+       Carneiro, 19-Jun-2014.) $)
+    itg1cl $p |- ( F e. dom S.1 -> ( S.1 ` F ) e. ( 0 [,) +oo ) ) $=
+      ( vx vy vz citg1 cdm wcel cfv cc0 csn cv cvol co cpnf cr wss 0re cle wbr
+      wa crn cdif ccnv cima cmul csu cico itg1val pnfxr icossre mp2an ax-resscn
+      cc cxr sstri ge0addcl cfn wf wi wral isi1f2 simp2bi difss sylancl eldifsn
+      wne ssfi simp1bi frn syl ssel2 sylan adantrr simp3bi r19.21bi impr simprd
+      covol simpld mblss ovolge0 3syl mblvol breqtrrd elrege0 sylanbrc ge0mulcl
+      wceq syl2anc sylan2b leidi mpbir2an fsumcllem eqeltrd ) AEFGZAEHAUAZIJZUB
+      ZBKZAUCWSJUDZLHZUEMZBUFINUGMZBAUHWOCDWRXBXCBXCOUMIOGZNUNGXCOPQUIINUJUKULU
+      OCKDKUPWOWPUQGZWRWPPWRUQGWOOXCAURZXEWSIVFZWTLFGZXAOGZTZUSZBWPUTZBAVAZVBWP
+      WQVCWPWRVGVDWSWRGWOWSWPGZXGTZXBXCGZWSWPIVEWOXOTZWSXCGZXAXCGZXPWOXNXRXGWOW
+      PXCPZXNXRWOXFXTWOXFXEXLXMVHOXCAVIVJWPXCWSVKVLVMXQXIIXARSXSXQXHXIWOXNXGXJW
+      OXKBWPWOXFXEXLXMVNVOVPZVQXQIWTVRHZXARXQXHWTOPIYBRSXQXHXIYAVSZWTVTWTWAWBXQ
+      XHXAYBWHYCWTWCVJWDXAWEWFWSXAWGWIWJIXCGXDIIRSIWEQIQWKWLWMWN $.
+      $( [19-Jun-2014] $)
+  $}
+
+  $( The zero function is simple.  (Contributed by Mario Carneiro,
+     18-Jun-2014.) $)
+  i1f0 $p |- ( RR X. { 0 } ) e. dom S.1 $=
+    ( vx cr cc0 csn cxp citg1 cdm wcel cpnf cico co wf cfn cvol wss mp2an ax-mp
+    0re wbr mpbir3an crn cv wne ccnv cima cfv wa wi isi1f2 elexi fconst cle clt
+    wral cxr w3a wb pnfxr elico2 idi leidi ltpnf snssi snfi rnxpss ssfi wceq wn
+    fss sseli elsni syl a1d necon1ad rgen ) BCDZEZFGHBCIJKZVQLZVQUAZMHZAUBZCUCV
+    QUDWBDUEZNGHWCNUFBHUGZUHZAVTUNAVQUIBVPVQLVPVROZVSBCCBRUJUKCVRHZWFWGCBHZCCUL
+    SZCIUMSZWHIUOHWGWHWIWJUPUQRURCICUSPWHRUTCRVAWHWJRCVBQTCVRVCQBVPVRVQVIPVPMHV
+    TVPOWACVDBVPVEZVPVTVFPWEAVTWBVTHZWDWBCWLWBCVGZWDVHWLWBVPHWMVTVPWBWKVJWBCVKV
+    LVMVNVOT $.
+    $( [18-Jun-2014] $)
+
+  $( The zero function has zero integral.  (Contributed by Mario Carneiro,
+     18-Jun-2014.) $)
+  itg10 $p |- ( S.1 ` ( RR X. { 0 } ) ) = 0 $=
+    ( vx cr cc0 csn cxp citg1 cfv crn cdif cv ccnv cima cvol cmul co csu c0 cdm
+    wcel wceq i1f0 itg1val ax-mp wss rnxpss ssdif0 mpbi sumeq1i sum0 3eqtri ) B
+    CDZEZFGZULHZUKIZAJZULKUPDLMGNOZAPZQUQAPCULFRSUMURTUAAULUBUCUOQUQAUNUKUDUOQT
+    BUKUEUNUKUFUGUHUQAUIUJ $.
+    $( [18-Jun-2014] $)
+
+  ${
+    $d x y A $.  $d y z F $.
+    i1f1.1 $e |- F = ( x e. RR |-> if ( x e. A , 1 , 0 ) ) $.
+    $( Lemma for ~ i1f1 and ~ itg11 . $)
+    i1f1lem $p |- ( F : RR --> { 0 , 1 } /\
+                    ( A e. dom vol -> ( `' F " { 1 } ) = A ) ) $=
+      ( vy cr cc0 c1 cpr wf cvol wcel wceq cv cif elexi wa eqeq1d wn syl6bb cdm
+      ccnv csn cima wral 1re prid2 0re prid1 ifcl mp2an rgenw fmpt mpbi cfv wfn
+      wi wb a1i fmptd ffn elpreima 3syl fvex elsnc eleq1 ifbid ifex wne ax-1ne0
+      fvmpt necomi iffalse necon3bbid mpbiri con4i iftrue impbii syl5bb pm5.32i
+      mblss sseld pm4.71rd bitr4d eqrdv pm3.2i ) FGHIZCJZBKUALZCUBHUCZUDZBMUQAN
+      ZBLZHGOZWGLZAFUEWHWOAFHWGLGWGLWOGHHFUFPZUGGHGFUHPZUIWMHGWGUJUKZULAFWGWNCD
+      UMUNWIEWKBWIENZWKLZWSFLZWSBLZQZXBWIWTXAWSCUOZWJLZQZXCWIWHCFUPWTXFURWIAFWN
+      WGCWOWIWLFLQWRUSDUTFWGCVAFWSWJCVBVCXAXEXBXEXDHMZXAXBXDHWSCVDVEXAXGXBHGOZH
+      MZXBXAXDXHHAWSWNXHFCWLWSMWMXBHGWLWSBVFVGDXBHGWPWQVHVKRXIXBXBXIXBSZXISGHVI
+      HGVJVLXJXIGHXJXHGHXBHGVMRVNVOVPXBHGVQVRTVSVTTWIXBXAWIBFWSBWAWBWCWDWEWF $.
+      $( [18-Jun-2014] $)
+
+    $( Base case simple functions are indicator functions of measurable sets.
+       (Contributed by Mario Carneiro, 18-Jun-2014.) $)
+    i1f1 $p |- ( ( A e. dom vol /\ ( vol ` A ) e. RR ) -> F e. dom S.1 ) $=
+      ( vy cvol cdm wcel cfv cr wa cc0 wf cfn cv c1 wceq 0re 1re mp2an cpnf crn
+      cico co wne ccnv csn cima wi citg1 cpr wss i1f1lem simpli cle wbr elrege0
+      wral leidi mpbir2an lt01 ltleii prssg ibi fss prfi elexi prid2 prid1 ifcl
+      a1i cif fmptd frn syl ssfi sylancr wo elpri wn simpr a1d necon1ad imaeq2d
+      simpri adantr sylan9eqr simpll eqeltrd fveq2d simplr jca jaodan ralrimiva
+      sneq sylan2 ssralv sylc isi1f2 syl3anbrc ) BFGZHZBFIZJHZKZJLUAUCUDZCMZCUB
+      ZNHZEOZLUEZCUFZXJUGZUHZXAHZXNFIZJHZKZUIZEXHURZCUJGHXGXEJLPUKZCMZYAXFULZXG
+      YBXBXLPUGZUHZBQZUIZABCDUMZUNLXFHZPXFHZYCYILJHLLUOUPLUQRLRUSUTYJPJHLPUOUPP
+      UQSLPRSVAVBUTYIYJKYCLPXFXFXFVCVDTJYAXFCVETVKXEYANHXHYAULZXILPVFXEYBYKXEAJ
+      AOZBHZPLVLZYACYNYAHZXEYLJHKPYAHLYAHYOLPPJSVGVHLPLJRVGVIYMPLYAVJTVKDVMJYAC
+      VNVOZYAXHVPVQXEYKXSEYAURXTYPXEXSEYAXJYAHXEXJLQZXJPQZVRXSXJLPVSXEYQXSYRXEY
+      QKZXRXJLYSYQXRVTXEYQWAWBWCXEYRKZXRXKYTXOXQYTXNBXAYRXEXNYEBYRXMYDXLXJPWOWD
+      XBYFXDYBYGYHWEWFWGZXBXDYRWHWIYTXPXCJYTXNBFUUAWJXBXDYRWKWIWLWBWMWPWNXSEXHY
+      AWQWRECWSWT $.
+      $( [18-Jun-2014] $)
+
+    $( The integral of an indicator function is the volume of the set. $)
+    itg11 $p |- ( ( A e. dom vol /\ ( vol ` A ) e. RR ) ->
+                  ( S.1 ` F ) = ( vol ` A ) ) $=
+      ( vy vz cvol wcel cfv cr citg1 wceq c0 cc0 ax-mp c1 syl a1i cmul wss 0mbl
+      cdm wa wi csn cxp itg10 covol mblvol ovol0 eqtri eqtr4i cmpt cv cif eleq2
+      wn mtbiri adantr iffalse mpteq2dva syl5eq fconstmpt syl6eqr fveq2 3eqtr4a
+      noel fveq2d wne wex n0 crn cdif ccnv cima co csu i1f1 itg1val cpr i1f1lem
+      wf simpli frn ssdif difprsn sstri mblss ssel2 sylan eleq1 ifbid 1re elexi
+      0re ifex fvmpt iftrue eqtrd wfn fnfvelrn sylancr eqeltrrd ax-1ne0 eldifsn
+      adantl ffn sylanbrc snssi sumeq1d cc simpri ad2antrr oveq2d simplr mulid2
+      eqssd recnd eqeltrd id sneq imaeq2d oveq12d syl2anc 3eqtrd exlimdv syl5bi
+      sumsn ex pm2.61dne ) BGUBZHZBGIZJHZUCZCKIZYMLZBMBMLZYQUDYOYRJNUEZUFZKIZMG
+      IZYPYMUUANUUBUGUUBMUHIZNMYKHUUBUUCLUAMUIOUJUKULYRCYTKYRCAJNUMZYTYRCAJAUNZ
+      BHZPNUOZUMUUDDYRAJUUGNYRUUEJHZUCUUFUQZUUGNLYRUUIUUHYRUUFUUEMHUUEVGBMUUEUP
+      URUSUUFPNUTQVAVBAJNVCVDVHBMGVEVFRBMVIEUNZBHZEVJYOYQEBVKYOUUKYQEYOUUKYQYOU
+      UKUCZYPCVLZYSVMZFUNZCVNZUUOUEZVOZGIZSVPZFVQZPUEZUUTFVQZYMUULCKUBHZYPUVALY
+      OUVDUUKABCDVRUSFCVSQUULUUNUVBUUTFUULUUNUVBUUNUVBTUULUUNNPVTZYSVMZUVBUUMUV
+      ETZUUNUVFTJUVECWBZUVGUVHYLUUPUVBVOZBLZUDZABCDWAZWCZJUVECWDOUUMUVEYSWEONPW
+      FWGRUULPUUNHZUVBUUNTUULPUUMHPNVIZUVNUULUUJCIZPUUMUULUVPUUKPNUOZPUULUUJJHZ
+      UVPUVQLYOBJTZUUKUVRYLUVSYNBWHUSBJUUJWIWJZAUUJUUGUVQJCUUEUUJLUUFUUKPNUUEUU
+      JBWKWLDUUKPNPJWMWNNJWOWNWPWQQUUKUVQPLYOUUKPNWRXFWSUULCJWTZUVRUVPUUMHUVHUW
+      AUVMJUVECXGOUVTJUUJCXAXBXCUVOUULXDRPUUMNXEXHPUUNXIQXQXJUULUVCPUVIGIZSVPZY
+      MUULPJHZUWCXKHUVCUWCLUWDUULWMRUULUWCYMXKUULUWCPYMSVPZYMUULUWBYMPSUULUVIBG
+      YLUVJYNUUKUVHUVKUVLXLXMVHXNUULYMXKHUWEYMLUULYMYLYNUUKXOXRZYMXPQWSZUWFXSUU
+      TUWCFPJUUOPLZUUOPUUSUWBSUWHXTUWHUURUVIGUWHUUQUVBUUPUUOPYAYBVHYCYHYDUWGWSY
+      EYIYFYGYJ $.
+      $( [18-Jun-2014] $)
+  $}
+
+  ${
+    $d y z A $.  $d u v w x y z F $.  $d u v w x y z G $.  $d x y z ph $.
+    $d y z H $.
+    i1fadd.1 $e |- H = ( x e. RR |-> ( ( F ` x ) + ( G ` x ) ) ) $.
+    i1fadd.2 $e |- ( ph -> F e. dom S.1 ) $.
+    i1fadd.3 $e |- ( ph -> G e. dom S.1 ) $.
+    $( Decompose the preimage of a sum.  (Contributed by Mario Carneiro,
+       19-Jun-2014.) $)
+    i1faddlem $p |- ( ( ph /\ A e. CC ) -> ( `' H " { A } ) =
+      U_ y e. ran G ( ( `' F " { ( A - y ) } ) i^i ( `' G " { y } ) ) ) $=
+      ( cc wcel wa cima cmin co cr wceq cvv sylancl vz ccnv csn crn cv cin ciun
+      wrex cfv wfn wb caddc fnmpt ovex a1i mprg simpr fniniseg sylancr cc0 cpnf
+      cico wf cfn wne cvol cdm wi wral citg1 w3a isi1f2 simp1d ffn syl ad2antrr
+      sylib simprl fnfvelrn syl2anc crp isi1f simprr fveq2 oveq12d fvmpt eqtr3d
+      oveq1d wss cxr 0re pnfxr icossre mp2an fss ax-resscn ffvelrn pncan eqtr2d
+      ad2antrl mpbir2and fvex eqidd sylanbrc oveq2 sneqd imaeq2d ineq12d eleq2d
+      elin sneq rcla4ev ex adantr anbi12d anandi simprrl simprrr eqeltrrd npcan
+      vex 3eqtrd jca syl5bir sylbid syl5bi rexlimdvw impbid bitrd eliun syl6bbr
+      eqrdv ) ADKLZMZUAGUBDUCNZCFUDZEUBZDCUEZOPZUCZNZFUBZYRUCZNZUFZUGZYNUAUEZYO
+      LZUUGUUELZCYPUHZUUGUUFLYNUUHUUGQLZUUGGUIZDRZMZUUJYNGQUJZYMUUHUUNUKBUEZEUI
+      ZUUPFUIZULPZSLZUUOBQBQUUSGSHUMUUTUUPQLUUQUURULUNUOUPAYMUQZQDUUGGKURUSYNUU
+      NUUJYNUUNUUJYNUUNMZUUGFUIZYPLZUUGYQDUVCOPZUCZNZUUBUVCUCZNZUFZLZUUJUVBFQUJ
+      ZUUKUVDAUVLYMUUNAQUTVAVBPZFVCZUVLAUVNYPVDLZYRUTVEUUDVFVGLUUDVFUIQLMVHCYPV
+      IZAFVJVGZLUVNUVOUVPVKJCFVLVQVMZQUVMFVNVOZVPZYNUUKUUMVRZQUUGFVSVTUVBUUGUVG
+      LZUUGUVILZUVKUVBUWBUUKUUGEUIZUVERZUVBEQUJZUVESLUWBUUKUWEMUKAUWFYMUUNAQUVM
+      EVCZUWFAUWGEUDVDLZYQUUPUCNVFUBQNLBWAVIZAEUVQLUWGUWHUWIVKIBEWBVQVMZQUVMEVN
+      VOZVPDUVCOUNQUVEUUGESURTUWAUVBUVEUWDUVCULPZUVCOPZUWDUVBDUWLUVCOUVBUULDUWL
+      YNUUKUUMWCUUKUULUWLRZYNUUMBUUGUUSUWLQGUUPUUGRUUQUWDUURUVCULUUPUUGEWDUUPUU
+      GFWDWEHUWDUVCULUNWFZWTWGWHUVBUWDKLZUVCKLZUWMUWDRUVBQKEVCZUUKUWPAUWRYMUUNA
+      QQEVCZQKWIZUWRAUWGUVMQWIZUWSUWJUTQLVAWJLUXAWKWLUTVAWMWNZQUVMQEWOTWPQQKEWO
+      TVPUWAQKUUGEWQVTUVBQKFVCZUUKUWQAUXCYMUUNAQQFVCZUWTUXCAUVNUXAUXDUVRUXBQUVM
+      QFWOTWPQQKFWOTZVPUWAQKUUGFWQZVTUWDUVCWRVTWSXAUVBUWCUUKUVCUVCRZUVBUVLUVCSL
+      UWCUUKUXGMUKUVTUUGFXBQUVCUUGFSURTUWAUVBUVCXCXAUUGUVGUVIXJXDUUIUVKCUVCYPYR
+      UVCRZUUEUVJUUGUXHUUAUVGUUDUVIUXHYTUVFYQUXHYSUVEYRUVCDOXEXFXGUXHUUCUVHUUBY
+      RUVCXKXGXHXIXLVTXMYNUUIUUNCYPUUIUUGUUALZUUGUUDLZMZYNUUNUUGUUAUUDXJYNUXKUU
+      KUWDYSRZMZUUKUVCYRRZMZMZUUNYNUXIUXMUXJUXOYNUWFYSSLUXIUXMUKAUWFYMUWKXNDYRO
+      UNQYSUUGESURTYNUVLYRSLUXJUXOUKAUVLYMUVSXNCYAQYRUUGFSURTXOUXPUUKUXLUXNMZMZ
+      YNUUNUUKUXLUXNXPYNUXRUUNYNUXRMZUUKUUMYNUUKUXQVRZUXSUULUWLYSYRULPZDUUKUWNY
+      NUXQUWOWTUXSUWDYSUVCYRULYNUUKUXLUXNXQYNUUKUXLUXNXRZWEUXSYMYRKLUYADRYNYMUX
+      RUVAXNUXSUVCYRKUYBUXSUXCUUKUWQAUXCYMUXRUXEVPUXTUXFVTXSDYRXTVTYBYCXMYDYEYF
+      YGYHYICUUGYPUUEYJYKYL $.
+      $( [19-Jun-2014] $)
+
+    $( The sum of two simple functions is a simple function.  (Contributed by
+       Mario Carneiro, 18-Jun-2014.) $)
+    i1fadd $p |- ( ph -> H e. dom S.1 ) $=
+      ( vz vu vv cr cc0 wcel cvol cfv wa wss wceq syl vy vw cpnf cico co wf crn
+      cfn cv wne ccnv csn cima cdm wral citg1 caddc cle wbr crp w3a isi1f sylib
+      simp1d ffvelrn sylan elrege0 simpld isi1f2 readdcl simprd addge0 syl22anc
+      wi syl2anc sylanbrc fmptd cmpt2 cxp wfo simp2d xpfi wfn eqid ovex fnmpt2i
+      dffn4 mpbi fofi sylancl wrex cab ffn fnfvelrn oveq1 eqeq2d oveq2 rcla42ev
+      mp3an3 eqeq1 2rexbidv elab sylibr frn rnmpt2 syl6sseqr ssfi cmin cin ciun
+      cc cxr 0re pnfxr ssel2 syl2an syldan adantr cmbf ad2antrr i1fmbf mbfimasn
+      fss syl3anc ralrimiva eqeltrd covol mblvol mblss adantrr simprr fveq2d wb
+      a1i simp3d r19.21bi eqeltrrd ovolsscl expr jca icossre mp2an sstri syl6ss
+      ax-resscn simpl i1faddlem simplrl sseldd inmbl finiunmbl csu inss1 oveq2d
+      resubcl subid1 eqtrd sneqd imaeq2d clt mpbid elrp cicc volf elpreima mp2b
+      ne0gt0 simprbi inss2 adantlr pm2.61dne fsumrecl syl5ss ovolfiniun eqbrtrd
+      impr ovollecl syl3anbrc ) ALMUCUDUEZEUFZEUGZUHNZUAUIZMUJZEUKUWCULZUMZOUNZ
+      NZUWFOPZLNZQZVNZUAUWAUOEUPUNZNABLBUIZCPZUWNDPZUQUEZUVSEAUWNLNZQZUWQLNZMUW
+      QURUSZUWQUVSNUWSUWOLNZUWPLNZUWTUWSUXBMUWOURUSZUWSUWOUVSNZUXBUXDQALUVSCUFZ
+      UWRUXEAUXFCUGZUHNZCUKZUWEUMZOUKLUMNZUAUTUOZACUWMNZUXFUXHUXLVAGUACVBVCZVDZ
+      LUVSUWNCVEVFUWOVGVCZVHZUWSUXCMUWPURUSZUWSUWPUVSNZUXCUXRQALUVSDUFZUWRUXSAU
+      XTDUGZUHNZIUIZMUJZDUKUYCULUMZUWGNZUYEOPZLNZQZVNZIUYAUOZADUWMNZUXTUYBUYKVA
+      HIDVIVCZVDZLUVSUWNDVEVFUWPVGVCZVHZUWOUWPVJVOZUWSUXBUXCUXDUXRUXAUXQUYPUWSU
+      XBUXDUXPVKUWSUXCUXRUYOVKUWOUWPVLVMUWQVGVPFVQZAJKUXGUYAJUIZKUIZUQUEZVRZUGZ
+      UHNZUWAVUCRUWBAUXGUYAVSZUHNZVUEVUCVUBVTZVUDAUXHUYBVUFAUXFUXHUXLUXNWAAUXTU
+      YBUYKUYMWAZUXGUYAWBVOVUBVUEWCVUGJKUXGUYAVUAVUBVUBWDZUYSUYTUQWEWFVUEVUBWGW
+      HVUEVUCVUBWIWJAUWAUBUIZVUASZKUYAWKJUXGWKZUBWLZVUCALVUMEUFUWAVUMRABLUWQVUM
+      EUWSUWQVUASZKUYAWKJUXGWKZUWQVUMNUWSUWOUXGNZUWPUYANZVUOACLWCZUWRVUPAUXFVUR
+      UXOLUVSCWMTLUWNCWNVFADLWCZUWRVUQAUXTVUSUYNLUVSDWMTLUWNDWNVFVUPVUQUWQUWQSZ
+      VUOUWQWDVUNVUTUWQUWOUYTUQUEZSJKUWOUWPUXGUYAUYSUWOSVUAVVAUWQUYSUWOUYTUQWOW
+      PUYTUWPSVVAUWQUWQUYTUWPUWOUQWQWPWRWSVOVULVUOUBUWQUWOUWPUQWEVUJUWQSVUKVUNJ
+      KUXGUYAVUJUWQVUAWTXAXBXCFVQLVUMEXDTJKUBUXGUYAVUAVUBVUIXEXFVUCUWAXGVOAUWLU
+      AUWAAUWCUWANZUWDUWKAVVBUWDQZQZUWHUWJVVDUWFIUYAUXIUWCUYCXHUEZULZUMZUYEXIZX
+      JZUWGAVVCUWCXKNZUWFVVISAUWAXKRVVBVVJVVCAUWAUVSXKAUVTUWAUVSRZUYRLUVSEXDTZU
+      VSLXKMLNUCXLNUVSLRZXMXNMUCUUAUUBZUUEUUCUUDVVBUWDUUFZUWAXKUWCXOXPZABIUWCCD
+      EFGHUUGXQZVVDUYBVVHUWGNZIUYAUOVVIUWGNAUYBVVCVUHXRZVVDVVRIUYAVVDUYCUYANZQZ
+      VVGUWGNZUYFVVRVWACXSNZLLCUFZVVELNZVWBVWAUXMVWCAUXMVVCVVTGXTCYATAVWDVVCVVT
+      AUXFVVMVWDUXOVVNLUVSLCYCWJXTVWAUWCLNZUYCLNZVWEVWAUWALUWCVWALLEUFZUWALRAVW
+      HVVCVVTABLUWQLEUYQFVQXTLLEXDTAVVBUWDVVTUUHUUIVVDUYALRZVVTVWGVVDLLDUFZVWIA
+      VWJVVCAUXTVVMVWJUYNVVNLUVSLDYCWJXRZLLDXDTUYALUYCXOVFZUWCUYCUUOVOLVVECYBYD
+      ZVWADXSNZVWJVWGUYFVWAUYLVWNAUYLVVCVVTHXTDYATVVDVWJVVTVWKXRVWLLUYCDYBYDZVV
+      GUYEUUJVOYEUYAVVHIUUKVOYFZVVDUWIUWFYGPZLVVDUWHUWIVWQSVWPUWFYHTVVDUWFLRZUY
+      AVVHYGPZIUULZLNVWQVWTURUSVWQLNVVDUWHVWRVWPUWFYITVVDUYAVWSIVVSVWAVWSLNZUYC
+      MVVDVVTUYCMSZVXAVVDVVTVXBQZQZVVHVVGRZVVGLRZVVGYGPZLNVXAVXEVXDVVGUYEUUMYNV
+      XDVWBVXFVVDVVTVWBVXBVWMYJZVVGYITVXDVVGOPZVXGLVXDVWBVXIVXGSVXHVVGYHTVXDVXI
+      UXJOPZLVXDVVGUXJOVXDVVFUWEUXIVXDVVEUWCVXDVVEUWCMXHUEZUWCVXDUYCMUWCXHVVDVV
+      TVXBYKUUNVXDVVJVXKUWCSVVDVVJVXCVVPXRUWCUUPTUUQUURUUSYLVVDVXJLNZVXCAVVCUWC
+      UTNZVXLVVDVWFMUWCUUTUSZVXMVVDVWFMUWCURUSZVVDUWCUVSNZVWFVXOQZAVVKVVBVXPVVC
+      VVLVVOUWAUVSUWCXOXPUWCVGVCZVHVVDUWDVXNAVVBUWDYKVVDVXQUWDVXNYMVXRUWCUVGTUV
+      AUWCUVBVPAVXMQUXKVXLAUXKUAUTAUXFUXHUXLUXNYOYPUXKUXJUWGNZVXLUWGMUCUVCUEZOU
+      FOUWGWCUXKVXSVXLQYMUVDUWGVXTOWMUWGUXJLOUVEUVFUVHTXQXRYFYQVVHVVGYRYDYSVVDV
+      VTUYDVXAVVDVVTUYDQZQZVVHUYERZUYELRZUYEYGPZLNVXAVYCVYBVVGUYEUVIZYNVVDVVTVY
+      DUYDVWAUYFVYDVWOUYEYITZYJVYBUYGVYELVYBUYFUYGVYESVYBUYFUYHAVYAUYIVVCAVVTUY
+      DUYIAUYJIUYAAUXTUYBUYKUYMYOYPUVPUVJZVHUYEYHTVYBUYFUYHVYHVKYQVVHUYEYRYDYSU
+      VKZUVLVVDVWQVVIYGPZVWTURVVDUWFVVIYGVVQYLVVDUYBVVHLRZVXAQZIUYAUOVYJVWTURUS
+      VVSVVDVYLIUYAVWAVYKVXAVWAVVHUYELVYFVYGUVMVYIYTYEUYAVVHIUVNVOUVOUWFVWTUVQY
+      DYFYTYSYEUAEVIUVR $.
+      $( [18-Jun-2014] $)
+$(
+    @( The integral of a sum of simple functions is the sum of the integrals.
+       @)
+    itg1add @p |- ( ph -> ( S.1 ` H ) = ( ( S.1 ` F ) + ( S.1 ` G ) ) ) @=
+      ? @.
+      @( [18-Jun-2014] @)
+  @}
+
+  @{
+    i1fmulc.1 @e |- G = ( x e. RR |-> ( A x. ( F ` x ) ) ) @.
+    i1fmulc.2 @e |- ( ph -> F e. dom S.1 ) @.
+    i1fmulc.3 @e |- ( ph -> A e. ( 0 [,) +oo ) ) @.
+    @( A nonnegative constant times a simple function gives another simple
+       function. @)
+    i1fmulc @p |- ( ph -> G e. dom S.1 ) @=
+      ? @.
+      @( [18-Jun-2014] @)
+
+    @( The integral of a constant times a simple function is the constant
+       times the original integral. @)
+    itg1mulc @p |- ( ph -> ( S.1 ` H ) = ( A x. ( S.1 ` F ) ) ) @=
+      ? @.
+      @( [18-Jun-2014] @)
+  @}
+
+  @{
+    @( If one simple function dominates another, then the integral of the
+       larger is also larger. @)
+    itg1le @p |- ( ( F e. dom S.1 /\ G e. dom S.1 /\
+                     A. x e. RR ( F ` x ) <_ ( G ` x ) ) ->
+                     ( S.1 ` F ) <_ ( S.1 ` G ) ) @=
+      ? @.
+$)
   $}
 

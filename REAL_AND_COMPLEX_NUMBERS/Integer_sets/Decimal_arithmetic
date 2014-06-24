@@ -1,0 +1,353 @@
+$(
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+                               Decimal arithmetic
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+$)
+
+  ${
+    deccl.1 $e |- A e. NN0 $.
+    $( Closure for a decimal integer (no units place).  NB:  We have chosen to
+       use the quaternary system (base 4) rather than the decimal system as a
+       semi-arbitrary choice, but it means that addition and multiplication
+       tables only need 16 entries instead of 100 (and actually much less than
+       that due to special cases for 0 and 1, etc.), while still being
+       relatively compact as a notational system.  (Contributed by Mario
+       Carneiro, 18-Feb-2014.) $)
+    deccl $p |- ( 4 x. A ) e. NN0 $=
+      ( c4 4nn0 nn0mulcli ) CADBE $.
+      $( [18-Feb-2014] $)
+
+    decnnclc.2 $e |- B e. NN $.
+    $( Closure for a decimal integer (with units place).  (Contributed by Mario
+       Carneiro, 18-Feb-2014.) $)
+    decnnclc $p |- ( ( 4 x. A ) + B ) e. NN $=
+      ( c4 cmul co cn0 wcel cn caddc deccl nn0nnaddcl mp2an ) EAFGZHIBJIOBKGJIA
+      CLDOBMN $.
+      $( [18-Feb-2014] $)
+  $}
+
+  ${
+    decnncl.1 $e |- A e. NN $.
+    $( Closure for a decimal integer (no units place).  (Contributed by Mario
+       Carneiro, 18-Feb-2014.) $)
+    decnncl $p |- ( 4 x. A ) e. NN $=
+      ( c4 4nn nnmulcli ) CADBE $.
+      $( [18-Feb-2014] $)
+  $}
+
+  ${
+    decclc.1 $e |- A e. NN0 $.
+    decclc.2 $e |- B e. NN0 $.
+    $( Closure for a decimal integer (with units place).  (Contributed by Mario
+       Carneiro, 18-Feb-2014.) $)
+    decclc $p |- ( ( 4 x. A ) + B ) e. NN0 $=
+      ( c4 cmul co deccl nn0addcli ) EAFGBACHDI $.
+      $( [18-Feb-2014] $)
+  $}
+
+  ${
+    dec0u.1 $e |- A e. NN0 $.
+    $( Add a zero in the units place.  (Contributed by Mario Carneiro,
+       18-Feb-2014.) $)
+    dec0u $p |- ( ( 4 x. A ) + 0 ) = ( 4 x. A ) $=
+      ( c4 cmul co deccl nn0cni addid1i ) CADEZIABFGH $.
+      $( [18-Feb-2014] $)
+
+    $( Add a zero in the higher places.  (Contributed by Mario Carneiro,
+       18-Feb-2014.) $)
+    dec0h $p |- ( ( 4 x. 0 ) + A ) = A $=
+      ( c4 cc0 cmul co caddc 4nn0 nn0cni mul01i oveq1i addid2i eqtri ) CDEFZAGF
+      DAGFANDAGCCHIJKAABILM $.
+      $( [18-Feb-2014] $)
+  $}
+
+  ${
+    declt.1 $e |- A e. NN0 $.
+    declt.2 $e |- B e. NN0 $.
+    ${
+      declt.3 $e |- C e. NN $.
+      declt.4 $e |- B < C $.
+      $( Comparing two decimal integers (equal higher places).  (Contributed by
+         Mario Carneiro, 18-Feb-2014.) $)
+      declt $p |- ( ( 4 x. A ) + B ) < ( ( 4 x. A ) + C ) $=
+        ( clt wbr c4 cmul co caddc nn0rei nnrei deccl ltadd2i mpbi ) BCHIJAKLZB
+        MLSCMLHIGBCSBENCFOSADPNQR $.
+        $( [18-Feb-2014] $)
+    $}
+
+    ${
+      decltc.3 $e |- C e. NN0 $.
+      decltc.4 $e |- D e. NN0 $.
+      decltc.5 $e |- C < 4 $.
+      decltc.6 $e |- A < B $.
+      $( Comparing two decimal integers (unequal higher places).  (Contributed
+         by Mario Carneiro, 18-Feb-2014.) $)
+      decltc $p |- ( ( 4 x. A ) + C ) < ( ( 4 x. B ) + D ) $=
+        ( c4 cmul co caddc clt wbr cle nn0rei 4re wcel c1 remulcli ltadd2i mpbi
+        recni ax-1cn adddii mulid1i oveq2i eqtri breqtrri cn0 wb nn0ltp1le 4pos
+        mp2an cc0 cr peano2re ax-mp lemul2i readdcli ltletri nn0addge1i ) KALMZ
+        CNMZKBLMZOPZVGVGDNMZQPVFVIOPVFKAUANMZLMZOPVKVGQPZVHVFVEKNMZVKOCKOPVFVMO
+        PICKVECGRZSKASAERZUBZUCUDVKVEKUALMZNMVMKAUAKSUEZAVOUEUFUGVQKVENKVRUHUIU
+        JUKVJBQPZVLABOPZVSJAULTBULTVTVSUMEFABUNUPUDUQKOPVSVLUMUOVJBKAURTVJURTVO
+        AUSUTZBFRZSVAUTUDVFVKVGVECVPVNVBZKVJSWAUBKBSWBUBZVCUPVGDWDHVDVFVGVIWCWD
+        VGDWDDHRVBVCUP $.
+        $( [18-Feb-2014] $)
+    $}
+
+    decsuc.3 $e |- C = ( B + 1 ) $.
+    decsuc.4 $e |- ( ( 4 x. A ) + B ) = N $.
+    $( The successor of a decimal integer (no carry).  (Contributed by Mario
+       Carneiro, 18-Feb-2014.) $)
+    decsuc $p |- ( ( 4 x. A ) + C ) = ( N + 1 ) $=
+      ( c4 cmul co caddc c1 oveq2i deccl nn0cni ax-1cn addassi oveq1i 3eqtr2i )
+      IAJKZCLKUABMLKZLKUABLKZMLKDMLKCUBUALGNUABMUAAEOPBFPQRUCDMLHST $.
+      $( [18-Feb-2014] $)
+  $}
+
+  ${
+    declti.1 $e |- A e. NN $.
+    declti.2 $e |- B e. NN0 $.
+    declti.3 $e |- C e. NN0 $.
+    declti.4 $e |- C < 4 $.
+    $( Comparing a digit to a decimal integer.  (Contributed by Mario Carneiro,
+       18-Feb-2014.) $)
+    declti $p |- C < ( ( 4 x. A ) + B ) $=
+      ( c4 cc0 cmul co caddc clt dec0h 0nn0 nnnn0i nngt0i decltc eqbrtrri ) HIJ
+      KCLKCHAJKBLKMCFNIACBOADPFEGADQRS $.
+      $( [18-Feb-2014] $)
+  $}
+
+  ${
+    decsucc.1 $e |- A e. NN0 $.
+    decsucc.2 $e |- B = ( A + 1 ) $.
+    decsucc.3 $e |- ( ( 4 x. A ) + 3 ) = N $.
+    $( The successor of a decimal integer (with carry).  (Contributed by Mario
+       Carneiro, 18-Feb-2014.) $)
+    decsucc $p |- ( 4 x. B ) = ( N + 1 ) $=
+      ( c4 cmul co c1 caddc oveq2i 4nn0 nn0cni ax-1cn adddii eqtri mulid1i 3nn0
+      c3 df-4 decsuc 3eqtri ) GBHIZGAHIZGJHIZKIZUEGKICJKIUDGAJKIZHIUGBUHGHELGAJ
+      GMNZADNOPQUFGUEKGUIRLATGCDSUAFUBUC $.
+      $( [18-Feb-2014] $)
+  $}
+
+  $( The successor of zero. $)
+  0p1e1 $p |- 1 = ( 0 + 1 ) $=
+    ( cc0 c1 caddc co ax-1cn addid2i eqcomi ) ABCDBBEFG $.
+    $( [18-Feb-2014] $)
+
+  $( The decimal form of 4.  NB:  In our presentations of large numbers later
+     on, we will use our symbols for 4-10 at the highest digits when
+     advantageous, because we can use these theorems to convert back to "long
+     form" (where each digit is in the range 0-3) with no extra effort.
+     However, we _cannot_ do this for lower digits while maintaining the ease
+     of use of the decimal system, since it requires nontrivial number
+     knowledge (more than just equality theorems) to convert back.
+     (Contributed by Mario Carneiro, 18-Feb-2014.) $)
+  dec4 $p |- ( ( 4 x. 1 ) + 0 ) = 4 $=
+    ( c4 c1 cmul co cc0 caddc 4nn nncni mulid1i oveq1i addid1i eqtri ) ABCDZEFD
+    AEFDAMAEFAAGHZIJANKL $.
+    $( [18-Feb-2014] $)
+
+  $( The decimal form of 5.  (Contributed by Mario Carneiro, 18-Feb-2014.) $)
+  dec5 $p |- ( ( 4 x. 1 ) + 1 ) = 5 $=
+    ( c4 c1 cmul co caddc c5 4nn nncni mulid1i oveq1i df-5 eqtr4i ) ABCDZBEDABE
+    DFMABEAAGHIJKL $.
+    $( [18-Feb-2014] $)
+
+  $( The decimal form of 6.  (Contributed by Mario Carneiro, 18-Feb-2014.) $)
+  dec6 $p |- ( ( 4 x. 1 ) + 2 ) = 6 $=
+    ( c4 c1 cmul co c2 caddc c6 4nn nncni mulid1i oveq1i 4p2e6 eqtri ) ABCDZEFD
+    AEFDGNAEFAAHIJKLM $.
+    $( [18-Feb-2014] $)
+
+  $( The decimal form of 7.  (Contributed by Mario Carneiro, 18-Feb-2014.) $)
+  dec7 $p |- ( ( 4 x. 1 ) + 3 ) = 7 $=
+    ( c4 c1 cmul co c3 caddc c7 4nn nncni mulid1i oveq1i 4p3e7 eqtri ) ABCDZEFD
+    AEFDGNAEFAAHIJKLM $.
+    $( [18-Feb-2014] $)
+
+  $( The decimal form of 8.  (Contributed by Mario Carneiro, 18-Feb-2014.) $)
+  dec8 $p |- ( ( 4 x. 2 ) + 0 ) = 8 $=
+    ( c4 c2 cmul co cc0 caddc c8 4t2e8 oveq1i 8nn nncni addid1i eqtri ) ABCDZEF
+    DGEFDGNGEFHIGGJKLM $.
+    $( [18-Feb-2014] $)
+
+  $( The decimal form of 9.  (Contributed by Mario Carneiro, 18-Feb-2014.) $)
+  dec9 $p |- ( ( 4 x. 2 ) + 1 ) = 9 $=
+    ( c4 c2 cmul co c1 caddc c8 c9 4t2e8 oveq1i df-9 eqtr4i ) ABCDZEFDGEFDHMGEF
+    IJKL $.
+    $( [18-Feb-2014] $)
+
+  $( The decimal form of 10.  (Contributed by Mario Carneiro, 18-Feb-2014.) $)
+  dec10 $p |- ( ( 4 x. 2 ) + 2 ) = 10 $=
+    ( c4 c2 cmul co caddc c8 c10 4t2e8 oveq1i 8p2e10 eqtri ) ABCDZBEDFBEDGLFBEH
+    IJK $.
+    $( [18-Feb-2014] $)
+
+  ${
+    decma.1 $e |- A e. NN0 $.
+    decma.2 $e |- B e. NN0 $.
+    decma.3 $e |- C e. NN0 $.
+    decma.4 $e |- D e. NN0 $.
+    decma.5 $e |- ( ( 4 x. A ) + B ) = M $.
+    decma.6 $e |- ( ( 4 x. C ) + D ) = N $.
+    ${
+      decma.7 $e |- P e. NN0 $.
+      decma.8 $e |- E = ( ( A x. P ) + C ) $.
+      decma.9 $e |- F = ( ( B x. P ) + D ) $.
+      $( Perform a multiply-add of two decimal integers ` M ` and ` N ` against
+         a fixed multiplicand ` P ` (no carry).  (Contributed by Mario
+         Carneiro, 18-Feb-2014.) $)
+      decma $p |- ( ( 4 x. E ) + F ) = ( ( M x. P ) + N ) $=
+        ( co caddc cmul oveq2i oveq12i 4nn0 nn0cni mulcli adddii mulassi oveq1i
+        c4 add4i eqtr4i adddiri 3eqtr4i 3eqtri ) UJFUASZGTSUJAEUASZCTSZUASZBEUA
+        SZDTSZTSZUJAUASZBTSZEUASZUJCUASZDTSZTSZHEUASZITSUPUSGVATFURUJUAQUBRUCVC
+        EUASZVFTSZVATSVJUTTSZVGTSVBVHVJVFUTDVCEUJAUJUDUEZAJUEZUFZEPUEZUFUJCVMCL
+        UEZUFBEBKUEZVPUFDMUEUKUSVKVATUSUJUQUASZVFTSVKUJUQCVMAEVNVPUFVQUGVJVSVFT
+        UJAEVMVNVPUHUIULUIVEVLVGTVCBEVOVRVPUMUIUNVEVIVGITVDHEUANUIOUCUO $.
+        $( [18-Feb-2014] $)
+    $}
+
+    ${
+      decmac.7 $e |- P e. NN0 $.
+      decmac.8 $e |- F e. NN0 $.
+      decmac.9 $e |- G e. NN0 $.
+      decmac.10 $e |- E = ( ( A x. P ) + ( C + G ) ) $.
+      decmac.11 $e |- ( ( 4 x. G ) + F ) = ( ( B x. P ) + D ) $.
+      $( Perform a multiply-add of two decimal integers ` M ` and ` N ` against
+         a fixed multiplicand ` P ` (with carry).  (Contributed by Mario
+         Carneiro, 18-Feb-2014.) $)
+      decmac $p |- ( ( 4 x. E ) + F ) = ( ( M x. P ) + N ) $=
+        ( c4 cmul caddc cmin wcel wceq 4nn0 nn0cni mulcli addassi eqtr4i addcli
+        co cc eqeltrri npcan mp2an oveq1i subcli eqtr3i subdii subadd2i 3eqtr2i
+        mpbir decma ) UBFUCUNZGUDUNZVGUBHUCUNZUEUNZVIGUDUNZUDUNZUBFHUEUNZUCUNZV
+        KUDUNIEUCUNJUDUNVJVIUDUNZGUDUNVHVLVOVGGUDVGUOUFVIUOUFVOVGUGUBFUBUHUIZAE
+        UCUNZCUDUNZHUDUNZFUOVSVQCHUDUNUDUNFVQCHAEAKUIEQUIUJZCMUIZHSUIZUKTULZVRH
+        VQCVTWAUMZWBUMUPZUJZUBHVPWBUJZVGVIUQURUSVJVIGVGVIWFWGUTWGGRUIUKVAVNVJVK
+        UDUBFHVPWEWBVBUSABCDEVMVKIJKLMNOPQVMVRUGVSFUGWCFHVRWEWBWDVCVEUAVFVD $.
+        $( [18-Feb-2014] $)
+    $}
+
+    ${
+      decma2c.7 $e |- P e. NN0 $.
+      decma2c.8 $e |- F e. NN0 $.
+      decma2c.9 $e |- G e. NN0 $.
+      decma2c.10 $e |- E = ( ( P x. A ) + ( C + G ) ) $.
+      decma2c.11 $e |- ( ( 4 x. G ) + F ) = ( ( P x. B ) + D ) $.
+      $( Perform a multiply-add of two decimal integers ` M ` and ` N ` against
+         a fixed multiplicand ` P ` (with carry).  (Contributed by Mario
+         Carneiro, 18-Feb-2014.) $)
+      decma2c $p |- ( ( 4 x. E ) + F ) = ( ( P x. M ) + N ) $=
+        ( c4 cmul co caddc nn0cni mulcomi oveq1i eqtri decmac decclc eqeltrri
+        cc ) UBFUCUDGUEUDIEUCUDZJUEUDEIUCUDZJUEUDABCDEFGHIJKLMNOPQRSFEAUCUDZCHU
+        EUDZUEUDAEUCUDZUQUEUDTUPURUQUEEAEQUFZAKUFUGUHUIUBHUCUDGUEUDEBUCUDZDUEUD
+        BEUCUDZDUEUDUAUTVADUEEBUSBLUFUGUHUIUJUNUOJUEIEUBAUCUDBUEUDZIUMOVBABKLUK
+        UFULUSUGUHUI $.
+        $( [18-Feb-2014] $)
+    $}
+
+    ${
+      decadd.7 $e |- E = ( A + C ) $.
+      decadd.8 $e |- F = ( B + D ) $.
+      $( Add two decimal integers ` M ` and ` N ` (no carry).  (Contributed by
+         Mario Carneiro, 18-Feb-2014.) $)
+      decadd $p |- ( ( 4 x. E ) + F ) = ( M + N ) $=
+        ( cmul co caddc c1 c4 1nn0 nn0cni mulid1i oveq1i eqtr4i decma cc decclc
+        eqeltrri eqtri ) UAEQRFSRGTQRZHSRGHSRABCDTEFGHIJKLMNUBEACSRATQRZCSROUMA
+        CSAAIUCUDUEUFFBDSRBTQRZDSRPUNBDSBBJUCUDUEUFUGULGHSGUAAQRBSRZGUHMUOABIJU
+        IUCUJUDUEUK $.
+        $( [18-Feb-2014] $)
+    $}
+
+    ${
+      decaddc.7 $e |- F e. NN0 $.
+      decaddc.8 $e |- E = ( ( A + C ) + 1 ) $.
+      decaddc.9 $e |- ( 4 + F ) = ( B + D ) $.
+      $( Add two decimal integers ` M ` and ` N ` (with carry).  (Contributed
+         by Mario Carneiro, 18-Feb-2014.) $)
+      decaddc $p |- ( ( 4 x. E ) + F ) = ( M + N ) $=
+        ( c4 co caddc cmin cmul 4nn0 nn0cni addcli ax-1cn eqeltri subcli mulcli
+        c1 cc addassi subdii mulid1i oveq2i eqtri oveq1i wcel wceq npcan eqcomi
+        mp2an subadd2i mpbir decadd 3eqtr3i ) REUJUASZUBSZRTSZFTSVHRFTSZTSREUBS
+        ZFTSGHTSVHRFRVGRUCUDZEUJEACTSZUJTSZUKPVMUJACAIUDCKUDUEZUFUEUGZUFUHUIVLF
+        OUDULVIVKFTVIVKRUASZRTSZVKVHVQRTVHVKRUJUBSZUASVQREUJVLVPUFUMVSRVKUARVLU
+        NUOUPUQVKUKURRUKURVRVKUSREVLVPUIVLVKRUTVBUPUQABCDVGVJGHIJKLMNVGVMUSVNEU
+        SEVNPVAEUJVMVPUFVOVCVDQVEVF $.
+        $( [18-Feb-2014] $)
+    $}
+  $}
+
+  ${
+    decmul1c.1 $e |- P e. NN0 $.
+    decmul1c.2 $e |- A e. NN0 $.
+    decmul1c.3 $e |- B e. NN0 $.
+    decmul1c.4 $e |- ( ( 4 x. A ) + B ) = N $.
+    decmul1c.5 $e |- D e. NN0 $.
+    decmul1c.6 $e |- E e. NN0 $.
+    ${
+      decmul1c.7 $e |- C = ( ( A x. P ) + E ) $.
+      decmul1c.8 $e |- ( ( 4 x. E ) + D ) = ( B x. P ) $.
+      $( The product of a decimal integer with a number.  (Contributed by Mario
+         Carneiro, 18-Feb-2014.) $)
+      decmul1c $p |- ( ( 4 x. C ) + D ) = ( N x. P ) $=
+        ( c4 cmul co caddc cc0 0nn0 dec0h nn0cni oveq2i eqtr4i nn0mulcli decmac
+        addid2i addid1i cn0 decclc eqeltrri eqtri ) PCQRDSRGEQRZTSRUNABTTECDFGT
+        IJUAUAKTUAUBHLMCAEQRZFSRUOTFSRZSRNUPFUOSFFMUCUHUDUEPFQRDSRBEQRZUQTSROUQ
+        UQBEJHUFUCUIUEUGUNUNGEPAQRBSRGUJKABIJUKULHUFUCUIUM $.
+        $( [18-Feb-2014] $)
+    $}
+
+    ${
+      decmul2c.7 $e |- C = ( ( P x. A ) + E ) $.
+      decmul2c.8 $e |- ( ( 4 x. E ) + D ) = ( P x. B ) $.
+      $( The product of a decimal integer with a number (with carry).
+         (Contributed by Mario Carneiro, 18-Feb-2014.) $)
+      decmul2c $p |- ( ( 4 x. C ) + D ) = ( P x. N ) $=
+        ( c4 cmul co caddc nn0cni mulcomi oveq1i eqtri decmul1c decclc eqeltrri
+        cc ) PCQRDSRGEQREGQRABCDEFGHIJKLMCEAQRZFSRAEQRZFSRNUHUIFSEAEHTZAITUAUBU
+        CPFQRDSREBQRBEQROEBUJBJTUAUCUDGEPAQRBSRZGUGKUKABIJUETUFUJUAUC $.
+        $( [18-Feb-2014] $)
+    $}
+  $}
+
+  $( 3 times 3 plus 2 is 11 (= 23 in base 4).  (Contributed by Mario Carneiro,
+     18-Feb-2014.) $)
+  3t3p2 $p |- ( ( 4 x. 2 ) + 3 ) = ( ( 3 x. 3 ) + 2 ) $=
+    ( c2 c1 cc0 c3 cmul co 2nn0 1nn0 0nn0 c4 caddc c9 dec9 3t3e9 eqtr4i addid1i
+    dec0h 2cn eqcomi df-3 ax-1cn addcomi eqtri decadd ) ABCAADDDEFZAGHIGJAEFBKF
+    LUEMNOAGQACKFAARPSDABKFBAKFTABRUAUBUCUD $.
+    $( [18-Feb-2014] $)
+
+  $( 3 times 3 plus 3 is 12 (= 30 in base 4).  (Contributed by Mario Carneiro,
+     18-Feb-2014.) $)
+  3t3p3 $p |- ( 4 x. 3 ) = ( ( 3 x. 3 ) + 3 ) $=
+    ( c3 cmul co c2 caddc c1 c4 3cn mulcli 2cn ax-1cn addassi 2nn0 df-3 decsucc
+    3t3p2 oveq2i 3eqtr4i ) AABCZDECZFECSDFECZECGABCSAECSDFAAHHIJKLDATMNPOAUASEN
+    QR $.
+    $( [18-Feb-2014] $)
+
+  ${
+    decbin.1 $e |- A e. NN0 $.
+    $( Decompose base 4 into base 2.  (Contributed by Mario Carneiro,
+       18-Feb-2014.) $)
+    decbin0 $p |- ( 4 x. A ) = ( 2 x. ( 2 x. A ) ) $=
+      ( c2 cmul co c4 2t2e4 oveq1i 2cn nn0cni mulassi eqtr3i ) CCDEZADEFADECCAD
+      EDEMFADGHCCAIIABJKL $.
+      $( [18-Feb-2014] $)
+
+    $( Decompose base 4 into base 2.  (Contributed by Mario Carneiro,
+       18-Feb-2014.) $)
+    decbin2 $p |- ( ( 4 x. A ) + 2 ) = ( 2 x. ( ( 2 x. A ) + 1 ) ) $=
+      ( c2 cmul co caddc 2cn mulid1i oveq2i nn0cni mulcli ax-1cn adddii decbin0
+      c1 c4 oveq1i 3eqtr4ri ) CCADEZDEZCODEZFETCFECSOFEDEPADEZCFEUACTFCGHICSOGC
+      AGABJKLMUBTCFABNQR $.
+      $( [18-Feb-2014] $)
+
+    $( Decompose base 4 into base 2.  (Contributed by Mario Carneiro,
+       18-Feb-2014.) $)
+    decbin3 $p |- ( ( 4 x. A ) + 3 ) = ( ( 2 x. ( ( 2 x. A ) + 1 ) ) + 1 ) $=
+      ( c2 c3 cmul co c1 caddc 2nn0 df-3 decbin2 decsuc ) ACDCCAEFGHFEFBIJABKL
+      $.
+      $( [18-Feb-2014] $)
+  $}
+
