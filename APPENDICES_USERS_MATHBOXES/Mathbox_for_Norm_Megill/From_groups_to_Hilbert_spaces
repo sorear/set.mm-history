@@ -41,17 +41,17 @@
     @d a b c e f g h i k m p q r s t u v w x y z @.
     @( Def. 8.5.14, p. 220. @)
     @( Define vector subtraction. @)
-    df-minusv @a |- -vNEW = ( v e. _V |-> ( x e. ( vbaseLMx ` v ) ,
-         y e. ( vbaseLMx ` v ) |-> ( x ( vaddLMx ` v )
- ( ( invg ` { <. 1 , ( vbaseLMx ` v ) >. ,
-         <. 2 , ( vaddLMx ` v ) >. } ) ` y ) ) ) ) @.
+    df-minusv @a |- -vNEW = ( v e. _V |-> ( x e. ( Base ` v ) ,
+         y e. ( Base ` v ) |-> ( x ( +g ` v )
+ ( ( invg ` { <. 1 , ( Base ` v ) >. ,
+         <. 2 , ( +g ` v ) >. } ) ` y ) ) ) ) @.
 
     @( Def. 8.5.15, p. 220. @)
     @( Define class of all right vector spaces. @)
     df-rvec @a |- RVecNEW = Struct ( 6 , f , ( f e. DivRingOLD  /\
       E. k E. p E. t E. v E. a E. s (
          ( k = ( Base ` f ) /\ p = ( +g ` f ) /\ t = ( .r ` f ) )
-      /\ ( v = ( vbaseLMx ` f ) /\ a = ( vaddLMx ` f ) /\ s = ( vscaLMx ` f ) )
+      /\ ( v = ( vbase ` f ) /\ a = ( vadd ` f ) /\ s = ( vsca ` f ) )
           /\ ( { <. 1 , v >. , <. 2 , a >. } e. AbelOLD
              /\ A. q e. k A. r e. k A. x e. v A. w e. v
                ( ( ( w s r ) e. v
@@ -63,47 +63,47 @@
     @( Def. 8.5.16, p. 221. @)
     @( Def. 8.5.17, p. 222. @)
     @( Define set of all subspaces of left vector space ` v ` . @)
-    df-sbsp @a |- SubSpNEW = ( v e. _V |-> { s e. ~P ( vbaseLMx ` v )
-     | ( ( 0vLMx ` v ) e. s /\ A. x e. s A. y e. s ( x ( vaddLMx ` v ) y ) e. s
-        /\ A. x e. ( Base ` v ) A. y e. s ( x ( vscaLMx ` v ) y ) e. s ) } ) @.
+    df-sbsp @a |- SubSpNEW = ( v e. _V |-> { s e. ~P ( vbase ` v )
+     | ( ( 0v ` v ) e. s /\ A. x e. s A. y e. s ( x ( vadd ` v ) y ) e. s
+        /\ A. x e. ( Base ` v ) A. y e. s ( x ( vsca ` v ) y ) e. s ) } ) @.
 
     @( Def. 8.5.18, p. 244. @)
     @( Define span of a set of vectors. @)
-    df-vspan @a |- spanNEW = ( v e. _V |-> ( m e. ~P ( vbaseLMx ` v ) |->
+    df-vspan @a |- spanNEW = ( v e. _V |-> ( m e. ~P ( vbase ` v ) |->
        |^| { s e. ( SubSpNEW ` v ) | m C_ s } ) ) @.
 
     @( Def. 8.5.19, p. 223. @)
     @( Define direct sum of two left vector spaces. @)
     df-oplus @a |- o+ = ( v e. _V , w e. _V |-> ( { <. 1 , ( Base ` v ) >. ,
        <. 2 , ( +g ` v ) >. , <. 3 , ( .r ` v ) >. } u. {
-       <. 4 , ( ( vbaseLMx ` v ) X. ( vbaseLMx ` w ) ) >. ,
-       <. 5 , ( x e. ( ( vbaseLMx ` v ) X. ( vbaseLMx ` w ) ) ,
-                y e. ( ( vbaseLMx ` v ) X. ( vbaseLMx ` w ) ) |->
-                  <. ( ( 1st ` x ) ( vaddLMx ` v ) ( 1st ` y ) ) ,
-                     ( ( 2nd ` x ) ( vaddLMx ` w ) ( 2nd ` y ) ) >. ) >. ,
+       <. 4 , ( ( vbase ` v ) X. ( vbase ` w ) ) >. ,
+       <. 5 , ( x e. ( ( vbase ` v ) X. ( vbase ` w ) ) ,
+                y e. ( ( vbase ` v ) X. ( vbase ` w ) ) |->
+                  <. ( ( 1st ` x ) ( vadd ` v ) ( 1st ` y ) ) ,
+                     ( ( 2nd ` x ) ( vadd ` w ) ( 2nd ` y ) ) >. ) >. ,
        <. 6 , ( k e. ( Base ` v ) ,
-                x e. ( ( vbaseLMx ` v ) X. ( vbaseLMx ` w ) ) |->
-                  <. ( k ( vscaLMx ` v ) ( 1st ` x ) ) ,
-                     ( k ( vscaLMx ` w ) ( 2nd ` x ) ) >. ) >. } ) ) @.
+                x e. ( ( vbase ` v ) X. ( vbase ` w ) ) |->
+                  <. ( k ( vsca ` v ) ( 1st ` x ) ) ,
+                     ( k ( vsca ` w ) ( 2nd ` x ) ) >. ) >. } ) ) @.
 
     @( Def. 8.5.20, p. 223. @)
     @( Define vector equivalence mod ` m ` . @)
     df-ev @a |- Ev = ( v e. _V , m e. _V |-> { <. x , y >. |
-       ( x e. ( vbaseLMx ` v ) /\ y e. ( vbaseLMx ` v ) /\
-       ( x ( -vNEW ` v ) y ) e. ( vbaseLMx ` m ) ) } ) @.
+       ( x e. ( vbase ` v ) /\ y e. ( vbase ` v ) /\
+       ( x ( -vNEW ` v ) y ) e. ( vbase ` m ) ) } ) @.
 
     @( Def. 8.5.21, p. 223. @)
     @( Define quotient space. @)
     df-quov @a |- /v = ( v e. _V , m e. _V |-> ( { <. 1 , ( Base ` v ) >. ,
        <. 2 , ( +g ` v ) >. , <. 3 , ( .r ` v ) >. } u. {
-       <. 4 , ( ( vbaseLMx ` v ) /. ( v Ev m ) ) >. ,
-       <. 5 , { <. <. a , b >. , c >. | E. x e. ( vbaseLMx ` v )
-          E. y e. ( vbaseLMx ` v ) ( a = [ x ] ( v Ev m )
+       <. 4 , ( ( vbase ` v ) /. ( v Ev m ) ) >. ,
+       <. 5 , { <. <. a , b >. , c >. | E. x e. ( vbase ` v )
+          E. y e. ( vbase ` v ) ( a = [ x ] ( v Ev m )
             /\ b = [ y ] ( v Ev m )
-            /\ c = [ ( x ( vaddLMx ` v ) y ) ] ( v Ev m ) ) } >. ,
+            /\ c = [ ( x ( vadd ` v ) y ) ] ( v Ev m ) ) } >. ,
        <. 6 , { <. <. a , b >. , c >. | ( a e. ( Base ` v ) /\
-          E. y e. ( vbaseLMx ` v ) ( b = [ y ] ( v Ev m )
-            /\ c = [ ( x ( vscaLMx ` v ) y ) ] ( v Ev m ) ) ) } >. } ) ) @.
+          E. y e. ( vbase ` v ) ( b = [ y ] ( v Ev m )
+            /\ c = [ ( x ( vsca ` v ) y ) ] ( v Ev m ) ) ) } >. } ) ) @.
 
     @( Def. 8.5.26, p. 226. @)
     @( Define norm of a vector. @)

@@ -4,21 +4,21 @@ $(
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 $)
 
-  $c HomLMx $. $( The class of linear mappings. $)
+  $c Hom $. $( The class of linear mappings. $)
 
   $( Extend class notation to include linear mappings. $)
-  clinmLMOLD $a class HomLMx $.
+  clinm $a class Hom $.
 
   ${
     $d m n f u v x $.
     $( Definition of a linear mapping. $)
-    df-linmLMOLD $a |- HomLMx = ( m e. LModLMx , n e. LModLMx |->
-      { f e. ( ( vbaseLMx ` n ) ^m ( vbaseLMx ` m ) ) |
-        ( A. u e. ( vbaseLMx ` m ) A. v e. ( vbaseLMx ` m )
-      ( f ` ( u ( vaddLMx ` m ) v ) ) = ( ( f ` u ) ( vaddLMx ` n ) ( f ` v ) )
-         /\ A. x e. ( Base ` m ) A. u e. ( vbaseLMx ` m )
-            ( f ` ( x ( vscaLMx ` m ) u ) )
-               = ( x ( vscaLMx ` n ) ( f ` u ) ) ) } ) $.
+    df-linm $a |- Hom = ( m e. LMod , n e. LMod |->
+      { f e. ( ( Base ` n ) ^m ( Base ` m ) ) |
+        ( A. u e. ( Base ` m ) A. v e. ( Base ` m )
+      ( f ` ( u ( +g ` m ) v ) ) = ( ( f ` u ) ( +g ` n ) ( f ` v ) )
+         /\ A. x e. ( Base ` m ) A. u e. ( Base ` m )
+            ( f ` ( x ( vsca ` m ) u ) )
+               = ( x ( vsca ` n ) ( f ` u ) ) ) } ) $.
   $}
 
   $( The definition df-mnd2 is not sound, since it redefines ` Mnd `
@@ -36,18 +36,17 @@ $(
   @}
 $)
 
-  $c ActionLMx $. $( The clas of actions. $)
+  $c Action $. $( The class of actions. $)
 
   $( Extend class notation to include actions. $)
-  cactLMOLD $a class ActionLMx $.
+  cact $a class Action $.
 
   ${
     $d f k v s r w $.
     $( Definition of an action law.  The action is the function ( k ^m ( v ^m
        v ).  Definitions equivalent through currying. $)
-    df-actLMOLD $a |- ActionLMx = { f | E. k E. v E. s ( ( k = ( Base ` f ) /\
-     v = ( vbaseLMx ` f )
-     /\ s = ( vscaLMx ` f ) )
+    df-act $a |- Action = { f | E. k E. v E. s
+    ( ( k = ( Base ` ( Scalar ` f ) ) /\ v = ( Base ` f ) /\ s = ( vsca ` f ) )
      /\ A. r e. k A. w e. v ( r s w ) e. v ) } $.
   $}
 
@@ -62,9 +61,8 @@ $)
   @{
     @d a f k r s v w x @.
     @( Definition of a group with operators. @)
-    df-grpwop @a |- GrpWOp = { f e. ActionLMx | ( E. k E. v E. a
-      ( k = ( Base ` f ) /\ v = ( vbaseLMx ` f ) /\ a = ( vaddLMx ` f ) )
-        /\ { <. ( Base ` ndx ) , v >. , <. ( +g ` ndx ) , a >. } e. Grp
+    df-grpwop @a |- GrpWOp = { f e. ( Grp i^i Action ) | ( E. k E. v E. a
+      ( k = ( Base ` ( Scalar ` f ) ) /\ v = ( Base ` f ) /\ a = ( +g ` f ) )
         /\ A. r e. k A. x e. v A. w e. v
               ( r s ( w a x ) ) = ( ( r s w ) a ( r s x ) ) ) } @.
   @}
