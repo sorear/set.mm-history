@@ -11,38 +11,112 @@ $)
   czeta $a class zeta $.
 
   ${
-    $d s n k $.
-    $( Define the Riemann zeta function. $)
-    df-zeta $a |- zeta = ( s e. ( CC \ { 1 } ) |-> ( sum_ n e. NN0
-        ( sum_ k e. ( 0 ... n ) ( ( ( -u 1 ^ k ) x. ( n _C k ) ) x.
-            ( exp ` ( ( log ` ( k + 1 ) ) x. s ) ) ) / ( 2 ^ ( n + 1 ) ) )
-        / ( 1 - ( exp ` ( ( log ` 2 ) x. ( 1 - s ) ) ) ) ) ) $.
+    $d f k n s $.
+    $( Define the Riemann zeta function.  This definition uses a series
+       expansion of the alternating zeta function ~ zetaalt that is convergent
+       everywhere except ` 1 ` , but going from the alternating zeta function
+       to the regular zeta function requires dividing by
+       ` 1 - 2 ^ ( 1 - s ) ` , which has zeroes other than ` 1 ` .  To extract
+       the correct value of the zeta function at these points, we extend the
+       divided alternating zeta function by continuity. $)
+    df-zeta $a |- zeta = ( iota_ f e. ( ( CC \ { 1 } ) -cn-> CC )
+      A. s e. ( CC \ { 1 } )
+        ( ( 1 - ( exp ` ( ( 1 - s ) x. ( log ` 2 ) ) ) ) x. ( f ` s ) ) =
+      sum_ n e. NN0 ( sum_ k e. ( 0 ... n ) ( ( ( -u 1 ^ k ) x. ( n _C k ) ) x.
+        ( exp ` ( s x. ( log ` ( k + 1 ) ) ) ) ) / ( 2 ^ ( n + 1 ) ) ) ) $.
   $}
 
   ${
-    $d k n s S $.
-    $( The value of the zeta function. $)
-    zetaval $p |- ( ( S e. CC /\ S =/= 1 ) -> ( zeta ` S ) =
-      ( sum_ n e. NN0
-        ( sum_ k e. ( 0 ... n ) ( ( ( -u 1 ^ k ) x. ( n _C k ) ) x.
-            ( exp ` ( ( log ` ( k + 1 ) ) x. S ) ) ) / ( 2 ^ ( n + 1 ) ) )
-        / ( 1 - ( exp ` ( ( log ` 2 ) x. ( 1 - S ) ) ) ) ) ) $=
-      ( vs cc wcel c1 czeta cfv cn0 cv co cexp cmul caddc csu cdiv cmin oveq2d
-      ce wne wa csn cdif cc0 cfz cneg cbc clog c2 wceq eldifsn fveq2d sumeq2sdv
-      oveq2 oveq1d oveq12d df-zeta ovex fvmpt sylbir ) AEFAGUAUBAEGUCUDZFAHIJUE
-      CKZUFLZGUGBKZMLVCVEUHLNLZVEGOLUIIZANLZTIZNLZBPZUJVCGOLMLZQLZCPZGUJUIIZGAR
-      LZNLZTIZRLZQLZUKAEGULDAJVDVFVGDKZNLZTIZNLZBPZVLQLZCPZGVOGWARLZNLZTIZRLZQL
-      VTVBHWAAUKZWGVNWKVSQWLJWFVMCWLWEVKVLQWLVDWDVJBWLWCVIVFNWLWBVHTWAAVGNUOUMS
-      UNUPUNWLWJVRGRWLWIVQTWLWHVPVONWAAGRUOSUMSUQBCDURVNVSQUSUTVA $.
-      $( [22-Dec-2013] $)
+    $d k m n S $.  $d k F $.  $d k m ph $.
+    zetacvg.1 $e |- ( ph -> S e. CC ) $.
+    zetacvg.2 $e |- ( ph -> 1 < ( Re ` S ) ) $.
+    zetacvg.3 $e |- ( ( ph /\ k e. NN ) ->
+      ( F ` k ) = ( exp ` ( -u S x. ( log ` k ) ) ) ) $.
+    $( The zeta series is convergent.  (Contributed by Mario Carneiro,
+       18-Jul-2014.) $)
+    zetacvg $p |- ( ph -> seq 1 ( + , F ) e. dom ~~> ) $=
+      ( cfv cmul co ce c1 wcel wceq cc syl cr syl2an cc0 wbr vn vm cn cneg clog
+      cre cv cmpt nnuz cz 1z wa cabs fveq2 oveq2d fveq2d eqid fvex fvmpt adantl
+      a1i negcl nnrp relogcl recnd mulcl absef cmin remul reneg oveqan12d reim0
+      crp cim rere imcl mul01 3syl sylan9eqr oveq12d recl renegcl subid1 3eqtrd
+      eqtr4d efcl eqeltrd cseq cli cdm cn0 c2 cexp cdiv 1re resubcl sylancr 2re
+      caddc 2pos elrpii ax-mp remulcl sylancl reefcl clt addid2 breqtrrd wb 0re
+      ltsubadd mp3an13 mpbird 1lt2 ef0 reeflog 3brtr4i eflt mp2an pm3.2i ltmul1
+      mpbir mp3an23 mpbid recni mul02i syl6breq eqtrd eqcomi 3brtr4d oveq2 efle
+      cle syl2anc adantr mulneg1 syl3anc oveq1d 2nn 3eqtr4d geolim seqex breldm
+      ovex rpefcl rpge0 nnre lep1 lt01 lttrd lemul2 syl112anc leneg nn0re mul12
+      peano2nn ax-1cn subdir negsub simpr relogexp mulid2 3eqtr4rd efexp eqcomd
+      nn0z reexplog nnexpcl mpan efadd climcnds abscvgcvg ) ACUAUCBUFHZUDZUAUGZ
+      UEHZIJZKHZUHZDLUCUILUJMAUKVAACUGZUCMZULZUVTUVSHZUVNUVTUEHZIJZKHZUVTDHZUMH
+      ZUWAUWCUWFNAUAUVTUVRUWFUCUVSUVOUVTNZUVQUWEKUWIUVPUWDUVNIUVOUVTUEUNUOUPUVS
+      UQZUWEKURUSUTZUWBUWHBUDZUWDIJZKHZUMHZUWMUFHZKHZUWFUWBUWGUWNUMGUPUWBUWMOMZ
+      UWOUWQNAUWLOMZUWDOMZUWRUWAABOMZUWSEBVBPZUWAUWDUWAUVTVMMZUWDQMZUVTVCZUVTVD
+      PZVEZUWLUWDVFRZUWMVGPUWBUWPUWEKUWBUWPUWLUFHZUWDUFHZIJZUWLVNHZUWDVNHZIJZVH
+      JZUWESVHJZUWEAUWSUWTUWPUXONUWAUXBUXGUWLUWDVIRUWBUXKUWEUXNSVHAUWAUXIUVNUXJ
+      UWDIAUXAUXIUVNNEBVJPUWAUXDUXJUWDNUXFUWDVOPVKUWAAUXNUXLSIJZSUWAUXMSUXLIUWA
+      UXDUXMSNUXFUWDVLPUOAUWSUXLOMUXQSNUXBUWSUXLUWLVPVEUXLVQVRVSVTUWBUWEOMZUXPU
+      WENAUVNOMUWTUXRUWAAUVNAUXAUVMQMZUVNQMZEBWAZUVMWBVRZVEUXGUVNUWDVFRUWEWCPWD
+      UPWDWEUWBUWGUWNOGUWBUWRUWNOMUXHUWMWFPWGAWSUVSLWHWIWJZMWSUAWKLUVMVHJZWLUEH
+      ZIJZKHZUVOWMJZUHZSWHZUYCMZAUYJLLUYGVHJWNJZWITUYKAUYGUBUYIAUYGAUYFQMZUYGQM
+      AUYDQMZUYEQMZUYMALQMZUXSUYNWOAUXAUXSEUYAPZLUVMWPWQZWLVMMZUYOWLWRWTXAZWLVD
+      XBZUYDUYEXCXDZUYFXEPVEAUYGSKHZUYGUMHZLXFAUYFSXFTZUYGVUCXFTZAUYFSUYEIJZSXF
+      AUYDSXFTZUYFVUGXFTZAVUHLSUVMWSJZXFTZALUVMVUJXFFAUVMOMZVUJUVMNAUXAVULEUXAU
+      VMUYAVEPZUVMXGPXHAUXSVUHVUKXIZUYQUYPUXSSQMZVUNWOXJLUVMSXKXLPXMAUYNVUHVUIX
+      IZUYRUYNVUOUYOSUYEXFTZULVUPXJUYOVUQVUAVUQVUCUYEKHZXFTZLWLVUCVURXFXNXOUYSV
+      URWLNUYTWLXPXBXQVUOUYOVUQVUSXIXJVUASUYEXRXSYBXTUYDSUYEYAYCPYDUYEUYEVUAYEZ
+      YFYGAUYMVUOVUEVUFXIVUBXJUYFSXRXDYDAVUDUYFUFHZKHZUYGAUYFOMZVUDVVBNAUYFVUBV
+      EZUYFVGPAVVAUYFKAUYMVVAUYFNVUBUYFVOPUPYHLVUCNAVUCLXOYIVAYJUBUGZWKMZVVEUYI
+      HZUYGVVEWMJZNAUAVVEUYHVVHWKUYIUVOVVEUYGWMYKUYIUQUYGVVEWMUUDUSUTZUUAUYJUYL
+      WIWSUYISUUBUUCPACUBUVSUYIUWBUWCUWFQUWKUWBUWEQMZUWFQMAUXTUXDVVJUWAUYBUXFUV
+      NUWDXCRZUWEXEPWGUWBSUWFUWCYMUWBVVJUWFVMMSUWFYMTVVKUWEUUEUWFUUFVRUWKXHUWBU
+      VNUVTLWSJZUEHZIJZKHZUWFVVLUVSHZUWCYMUWBVVNUWEYMTZVVOUWFYMTZUWBUVMVVMIJZUD
+      ZUVMUWDIJZUDZVVNUWEYMUWBVWAVVSYMTZVVTVWBYMTZUWBUWDVVMYMTZVWCUWAVWEAUWAVWE
+      UWDKHZVVMKHZYMTZUWAUVTVVLVWFVWGYMUWAUVTQMUVTVVLYMTUVTUUGUVTUUHPUWAUXCVWFU
+      VTNUXEUVTXPPUWAVVLVMMZVWGVVLNUWAVVLUCMZVWIUVTUUPZVVLVCZPVVLXPPYJUWAUXDVVM
+      QMZVWEVWHXIUXFUWAVWJVWIVWMVWKVWLVVLVDZVRZUWDVVMYLYNXMUTUWBUXDVWMUXSSUVMXF
+      TZVWEVWCXIUWAUXDAUXFUTUWBVWJVWIVWMUWAVWJAVWKUTZVWLVWNVRAUXSUWAUYQYOAVWPUW
+      AASLUVMVUOAXJVAUYPAWOVAUYQSLXFTAUUIVAFUUJYOUWDVVMUVMUUKUULYDUWBVWAQMZVVSQ
+      MZVWCVWDXIAUXSUXDVWRUWAUYQUXFUVMUWDXCRAUXSVWMVWSUWAUYQVWOUVMVVMXCRVWAVVSU
+      UMYNYDAVULVVMOMVVNVVTNUWAVUMUWAVVMVWOVEUVMVVMYPRAVULUWTUWEVWBNUWAVUMUXGUV
+      MUWDYPRYJUWBVVNQMZVVJVVQVVRXIAUXTVWMVWTUWAUYBVWOUVNVVMXCRVVKVVNUWEYLYNYDU
+      WBVWJVVPVVONVWQUAVVLUVRVVOUCUVSUVOVVLNZUVQVVNKVXAUVPVVMUVNIUVOVVLUEUNUOUP
+      UWJVVNKURUSPUWKYJAVVFULZVVHWLVVEWMJZUVNVXCUEHZIJZKHZIJZVVGVXCVXCUVSHZIJVX
+      BVVEUYFIJZKHZVVEUYEIJZVXEWSJZKHZVVHVXGVXBVXIVXLKVXBVXIUYDVXKIJZLVXKIJZUVM
+      VXKIJZVHJZVXLVXBVVEOMUYDOMZUYEOMZVXIVXNNVXBVVEVVFVVEQMZAVVEUUNZUTZVEAVXRV
+      VFAUYDUYRVEYOVXSVXBVUTVAVVEUYDUYEUUOYQVXBLOMZVULVXKOMZVXNVXQNVYCVXBUUQVAA
+      VULVVFVUMYOVXBVXKVXBVXTUYOVXKQMZVYBVUAVVEUYEXCZXDVEZLUVMVXKUURYQVXBVXKVXP
+      UDZWSJZVXKVXPVHJZVXLVXQVXBVYDVXPOMZVYIVYJNVYGAVULVYDVYKVVFVUMVVFVXKVVFVXT
+      UYOVYEVYAVUAVYFXDVEZUVMVXKVFRVXKVXPUUSYNVXBVXEVYHVXKWSVXBVXEUVNVXKIJZVYHV
+      XBVXDVXKUVNIVXBUYSVVEUJMZVXDVXKNUYTVXBVVFVYNAVVFUUTZVVEUVFZPZWLVVEUVAWQUO
+      AVULVYDVYMVYHNVVFVUMVYLUVMVXKYPRYHUOVXBVXOVXKVXPVHVXBVYDVXOVXKNVYGVXKUVBP
+      YRUVCWDUPVXBVXJVVHAVVCVYNVXJVVHNVVFVVDVYPUYFVVEUVDRUVEVXBVXGVXKKHZVXFIJZV
+      XMVXBVXCVYRVXFIVXBUYSVYNVXCVYRNUYTVYQWLVVEUVGWQYRVXBVYDVXEOMVXMVYSNVYGVXB
+      VXEAUXTVXDQMZVXEQMVVFUYBVVFVXCUCMZVXCVMMVYTWLUCMZVVFWUAYSWLVVEUVHZUVIVXCV
+      CVXCVDVRUVNVXDXCRVEVXKVXEUVJYNWEYTVVIVXBVXHVXFVXCIVXBWUAVXHVXFNVXBWUBVVFW
+      UAYSVYOWUCWQUAVXCUVRVXFUCUVSUVOVXCNZUVQVXEKWUDUVPVXDUVNIUVOVXCUEUNUOUPUWJ
+      VXEKURUSPUOYTUVKXMUVL $.
+      $( [18-Jul-2014] $)
   $}
 
   $(
+  @{
+    @d k n s S @.
+    @( The value of the zeta function. @)
+    zetacl @p |- ( ( S e. CC /\ S =/= 1 ) -> ( zeta ` S ) e. CC ) @=
+      ? @.
+  @}
+
+  @( Give an alternating sequence related to the zeta function. @)
+  zetaalt @p |- ( ( S e. CC /\ 0 < ( Re ` S ) ) ->
+    ( ( 1 - ( exp ` ( ( 1 - S ) x. ( log ` 2 ) ) ) ) x. ( zeta ` S ) ) =
+    sum_ n e. NN ( ( -u 1 ^ n ) x. ( exp ` ( -u S x. ( log ` n ) ) ) ) ) @=
+    ? @.
+
   @( Derive the standard expression for the zeta function. (This is usually
      quoted as the definition of the zeta function, but it is not convergent
      everywhere, unlike our definition.) @)
   zetaval2 @p |- ( ( S e. CC /\ 1 < ( Re ` S ) ) -> ( zeta ` S ) =
-    sum_ n e. NN ( exp ` ( ( log ` n ) x. -u S ) ) ) @=
+    sum_ n e. NN ( exp ` ( -u S x. ( log ` n ) ) ) ) @=
     ? @.
 
   @{
@@ -60,7 +134,7 @@ $)
 
   @( The value of the zeta function on the natural numbers. @)
   zetann @p |- ( S e. ( ZZ>= ` 2 ) ->
-    ( zeta ` S ) = sum_ n e. NN ( 1 / ( n ^ S ) ) ) @=
+    ( zeta ` S ) = sum_ n e. NN ( n ^ -u S ) ) @=
     ? @.
 
   @( The value of ` zeta ( 0 ) ` . @)
