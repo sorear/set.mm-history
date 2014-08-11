@@ -1,4 +1,4 @@
-$(
+  $(
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
                              Gamma function
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
@@ -6,19 +6,31 @@ $)
 
   $( Introduce new constant symbols. $)
   $c _G $. $( Gamma function (capital letter Gamma) $)
+  $c log_G $. $( logarithm of the Gamma function $)
 
   $( The Gamma function. $)
   cgam $a class _G $.
 
+  $( Logarithm of the Gamma function. $)
+  clgam $a class log_G $.
+
   ${
     $d z n m $.
-    $( Define the Gamma function.  This definition is attributed to Euler, and
-       unlike the usual integral definition is defined on the entire complex
-       plane except the nonpositive integers ` ZZ \ NN ` , where the function
-       has simple poles. $)
-    df-gam $a |- _G = ( z e. ( CC \ ( ZZ \ NN ) ) |-> ( ~~> ` ( n e. NN |->
-      ( ( ( exp ` ( z x. ( log ` n ) ) ) x. ( ! ` n ) ) /
-        ( seq 0 ( x. , ( m e. _V |-> ( z + m ) ) ) ` n ) ) ) ) ) $.
+    $( Define the log-Gamma function.  We can work with this form of the gamma
+       function a bit easier than the equivalent expression for the gamma
+       function itself, and moreover this function is not actually equal to
+       ` log ( _G ( x ) ) ` because the branch cuts are placed differently (we
+       do have ` exp ( log_G ( x ) ) = _G ( x ) ` , though).  This definition
+       is attributed to Euler, and unlike the usual integral definition is
+       defined on the entire complex plane except the nonpositive integers
+       ` ZZ \ NN ` , where the function has simple poles. $)
+    df-lgam $a |- log_G = ( z e. ( CC \ ( ZZ \ NN ) ) |-> ( ~~> ` ( n e. NN |->
+      ( ( ( z x. ( log ` n ) ) - ( log ` z ) ) -
+        sum_ m e. ( 1 ... n ) ( log ` ( ( z / m ) + 1 ) ) ) ) ) ) $.
+
+    $( Define the Gamma function.  See ~ df-lgam for more information about the
+       reason for this definition in terms of the log-gamma function. $)
+    df-gam $a |- _G = ( exp o. log_G ) $.
   $}
 
   $( Elementhood in the set of non-nonpositive integers. $)
@@ -46,6 +58,15 @@ $)
     Q $.
     $( [12-Jul-2014] $)
 
+  $(
+  @( Taylor series of the logarithm function. @)
+  logtlr @p |- ( ( A e. CC /\ ( abs ` A ) < 1 /\ N e. NN0 ) ->
+        ( abs ` ( ( log ` ( 1 + A ) ) - sum_ k e. ( 1 ... N )
+          ( ( ( -u 1 ^ ( k + 1 ) ) / k ) x. ( A ^ k ) ) ) ) <_
+      ( ( ( abs ` A ) ^ ( N + 1 ) ) / ( 1 - ( abs ` A ) ) ) ) @=
+    ? @.
+  $)
+
   ${
     $d m x y A $.  $d x y N $.
     gamcvg.1 $e |- S = seq 0 ( x. , ( m e. _V |-> ( A + m ) ) ) $.
@@ -67,7 +88,7 @@ $)
 
     $(
     gamcvg.2 @e |- F = ( n e. NN |->
-      ( ( ( exp ` ( A x. ( log ` n ) ) ) x. ( ! ` n ) ) / ( S ` n ) ) ) @.
+      ( ( ( n ^c A ) x. ( ! ` n ) ) / ( S ` n ) ) ) @.
     gamcvg.3 @e |- G = ( m e. ( ZZ>= ` 2 ) |->
       ( ( F ` m ) - ( F ` ( m - 1 ) ) ) ) @.
     @( The sequence ` F ` is convergent, and its convergent point is
