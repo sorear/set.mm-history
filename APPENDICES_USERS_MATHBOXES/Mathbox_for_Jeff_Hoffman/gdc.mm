@@ -52,12 +52,11 @@ $)
      Hoffman, 17-Jun-2008.) $)
   nndivlub $p |- ( ( A e. NN /\ B e. NN )
         -> ( ( A / B ) e. NN -> B <_ A ) ) $=
-    ( cn wcel wa cr cc0 clt wbr cdiv co cle wi nnre nngt0 jca anim12i ancoms c1
-    wb nnge1 lediv2 3anidm23 cc wne recn adantr 0re mp3an1 divid breq1d syl2anc
-    ltne adantl bitrd syl5ibr syl ) ACDZBCDZEBFDZGBHIZEZAFDZGAHIZEZEZABJKZCDZBA
-    LIZMUSURVFUSVBURVEUSUTVABNBOPURVCVDANAOPQRVHVIVFSVGLIZVGUAVFVIAAJKZVGLIZVJV
-    BVEVIVLTBAAUBUCVEVLVJTZVBVEAUDDZAGUEZVMVCVNVDAUFUGGFDVCVDVOUHGAUMUIVNVOEVKS
-    VGLAUJUKULUNUOUPUQ $.
+    ( cn wcel cr cc0 clt wbr wa cdiv co cle wi nnre nngt0 jca c1 nnge1 lediv2
+    wb 3anidm23 cc recn adantr gt0ne0 divid breq1d syl2anc adantl bitrd syl5ibr
+    wne syl2anr ) BCDZBEDZFBGHZIZAEDZFAGHZIZABJKZCDZBALHZMACDZUNUOUPBNBOPVDURUS
+    ANAOPVBVCUQUTIZQVALHZVARVEVCAAJKZVALHZVFUQUTVCVHTBAASUAUTVHVFTZUQUTAUBDZAFU
+    LZVIURVJUSAUCUDAUEVJVKIVGQVALAUFUGUHUIUJUKUM $.
     $( [17-Jun-2008] $)
 
   $c gcdOLD $. $( The greatest common divisor $)
