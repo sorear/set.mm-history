@@ -5,17 +5,40 @@ $(
 $)
 
   $c ~~> $.  $( Limit arrow. $)
+  $c ~~>r $.  $( Limit arrow with subscript r $)
+  $c O(1) $.  $( big-O of one $)
 
   $( Extend class notation with convergence relation for limits. $)
   cli $a class ~~> $.
 
+  $( Extend class notation with real convergence relation for limits. $)
+  crli $a class ~~>r $.
+
+  $( Extend class notation with the set of all eventually bounded functions. $)
+  co1 $a class O(1) $.
+
   ${
-    $d j k x y f $.
+    $d j k w x y z f $.
     $( Define the limit relation for complex number sequences.  See ~ clim for
        its relational expression. $)
     df-clim $a |- ~~> = { <. f , y >. | ( y e. CC /\
         A. x e. RR+ E. j e. ZZ A. k e. ( ZZ>= ` j )
           ( ( f ` k ) e. CC /\ ( abs ` ( ( f ` k ) - y ) ) < x ) ) } $.
+
+    $( Define the limit relation for complex number sequences.  See ~ clim for
+       its relational expression. $)
+    df-rlim $a |- ~~>r = { <. f , x >. | ( ( f e. ( CC ^pm RR ) /\ x e. CC ) /\
+      A. y e. RR+ E. z e. RR A. w e. dom f ( z <_ w ->
+      ( abs ` ( ( f ` w ) - x ) ) < y ) ) } $.
+
+    $( Define the set of eventually bounded functions.  We don't bother to
+       build the full conception of big-O notation, because we can represent
+       any big-O in terms of ` O(1) ` and division, and any little-O in terms
+       of a limit and division.  We could also use limsup for this, but it only
+       works on integer sequences, while this will work for real sequences or
+       integer sequences. $)
+    df-o1 $a |- O(1) = { f e. ( CC ^pm RR ) | E. x e. RR E. m e. RR
+      A. y e. ( dom f i^i ( x [,) +oo ) ) ( abs ` ( f ` y ) ) <_ m } $.
 
     $( The limit relation is a relation. $)
     climrel $p |- Rel ~~> $=
@@ -23,6 +46,13 @@ $)
       cz cli df-clim relopabi ) AFZGHBFCFIZGHUEUDJKLIDFMNOBEFPIQETRDSQOCAUADACE
       BUBUC $.
       $( [31-Jan-2014] $) $( [28-Aug-2005] $)
+
+    $( The limit relation is a relation. $)
+    rlimrel $p |- Rel ~~>r $=
+      ( vf vx vz vw vy cv cc cr cpm co wcel wa cle wbr cfv cmin cabs clt wral
+      wi cdm wrex crp crli df-rlim relopabi ) AFZGHIJKBFZGKLCFDFZMNUIUGOUHPJQOE
+      FRNTDUGUASCHUBEUCSLABUDBECDAUEUF $.
+      $( [25-Sep-2014] $)
   $}
 
   ${
@@ -51,7 +81,98 @@ $)
   $}
 
   ${
-    $d j k x A $.  $d j k x F $.  $d j k x V $.
+    $d z A $.  $d f w x y z C $.  $d f w x y z F $.  $d x y z ph $.
+    rlim.1 $e |- ( ph -> F : A --> CC ) $.
+    rlim.2 $e |- ( ph -> A C_ RR ) $.
+    rlim.3 $e |- ( ph -> C e. V ) $.
+    rlim.4 $e |- ( ( ph /\ z e. A ) -> ( F ` z ) = B ) $.
+    $( Express the predicate:  The limit of complex number function ` F ` is
+       ` C ` , or ` F ` converges to ` C ` , in the real sense.  This means
+       that for any real ` x ` , no matter how small, there always exists a
+       number ` y ` such that the absolute difference of any number in the
+       function beyond ` y ` and the limit is less than ` x ` .  (Contributed
+       by Mario Carneiro, 16-Sep-2014.) $)
+    rlim $p |- ( ph -> ( F ~~>r C <-> ( C e. CC /\ A. x e. RR+ E. y e. RR
+           A. z e. A ( y <_ z -> ( abs ` ( B - C ) ) < x ) ) ) ) $=
+      ( wbr cc cr wcel wral wa cvv vf vw crli cpm co cv cle cfv cmin clt wi cdm
+      cabs wrex crp wb wss reex ssexg sylancl syl2anc wceq eleq1 bi2anan9 simpl
+      fex dmeqd fveq1 oveq12 sylan fveq2d breq1d imbi2d rexbidv ralbidv anbi12d
+      wf raleqbidv df-rlim brabga anass syl6bb elpm2r mpanl12 biantrurd fdm syl
+      cnex raleqdv oveq1d ralbidva bitrd anbi2d 3bitr2d ) AHGUCNZHOPUDUEZQZGOQZ
+      CUFDUFZUGNZWSHUHZGUIUEZUMUHZBUFZUJNZUKZDHULZRZCPUNZBUORZSZSZXKWRWTFGUIUEZ
+      UMUHZXDUJNZUKZDERZCPUNZBUORZSAHTQZGIQZWOXLUPAEOHVQZETQZXTJAEPUQZPTQZYCKUR
+      EPTUSUTEOTHVFVALXTYASWOWQWRSZXJSZXLUAUFZWPQZUBUFZOQZSZWTWSYHUHZYJUIUEZUMU
+      HZXDUJNZUKZDYHULZRZCPUNZBUORZSYGUAUBHGUCTIYHHVBZYJGVBZSZYLYFUUAXJUUBYIWQU
+      UCYKWRYHHWPVCYJGOVCVDUUDYTXIBUOUUDYSXHCPUUDYQXFDYRXGUUDYHHUUBUUCVEVGUUDYP
+      XEWTUUDYOXCXDUJUUDYNXBUMUUBYMXAVBUUCYNXBVBWSYHHVHYMXAYJGUIVIVJVKVLVMVRVNV
+      OVPUBBCDUAVSVTWQWRXJWAWBVAAWQXKAYBYDWQJKOTQYEYBYDSWQWHUROPEHTTWCWDVAWEAXJ
+      XSWRAXIXRBUOAXHXQCPAXHXFDERXQAXFDXGEAYBXGEVBJEOHWFWGWIAXFXPDEAWSEQSZXEXOW
+      TUUEXCXNXDUJUUEXBXMUMUUEXAFGUIMWJVKVLVMWKWLVNVOWMWN $.
+      $( [16-Sep-2014] $)
+  $}
+
+  ${
+    $d w x y z A $.  $d w x y B $.  $d w x y z C $.  $d w x y z ph $.
+    $d w y z D $.
+    rlim2.1 $e |- ( ( ph /\ z e. A ) -> B e. CC ) $.
+    rlim2.2 $e |- ( ph -> A C_ RR ) $.
+    rlim2.3 $e |- ( ph -> C e. CC ) $.
+    $( Rewrite ~ rlim for a mapping operation.  (Contributed by Mario Carneiro,
+       16-Sep-2014.) $)
+    rlim2 $p |- ( ph -> ( ( z e. A |-> B ) ~~>r C <-> A. x e. RR+ E. y e. RR
+           A. z e. A ( y <_ z -> ( abs ` ( B - C ) ) < x ) ) ) $=
+      ( vw wbr cc wcel cfv cmin cabs clt wral ax-17 cmpt crli cv cle co wi wrex
+      cr crp wa eqid fmptd eqidd rlim biantrurd hbmpt1 hbfv hbov hbbr hbim wceq
+      oveq1d fveq2d breq1d imbi12d cbvral fvmpt2 syl2anc imbi2d ralbidva syl5bb
+      breq2 fveq2 simpr rexbidv ralbidv 3bitr2d ) ADEFUAZGUBLGMNZCUCZKUCZUDLZWA
+      VROZGPUEZQOZBUCZRLZUFZKESZCUHUGZBUISZUJWKVTDUCZUDLZFGPUEZQOZWFRLZUFZDESZC
+      UHUGZBUISABCKEWCGVRMADEFMVRHVRUKZULIJAWAENUJWCUMUNAVSWKJUOAWJWSBUIAWIWRCU
+      HWIWMWLVROZGPUEZQOZWFRLZUFZDESAWRWHXEKDEWBWGDWBDTDCWEWFRDCWDQVTQNDTDCWCGP
+      DCWAVRDCEFUPVTWANDTUQVTPNDTVTGNDTURUQVTRNDTVTWFNDTUSUTXEKTWAWLVAZWBWMWGXD
+      WAWLVTUDVLXFWEXCWFRXFWDXBQXFWCXAGPWAWLVRVMVBVCVDVEVFAXEWQDEAWLENZUJZXDWPW
+      MXHXCWOWFRXHXBWNQXHXAFGPXHXGFMNXAFVAAXGVNHDEFMVRWTVGVHVBVCVDVIVJVKVOVPVQ
+      $.
+      $( [16-Sep-2014] $)
+
+    $( Use strictly less-than in place of less equal in the real limit
+       predicate.  (Contributed by Mario Carneiro, 18-Sep-2014.) $)
+    rlim2lt $p |- ( ph -> ( ( z e. A |-> B ) ~~>r C <-> A. x e. RR+ E. y e. RR
+           A. z e. A ( y < z -> ( abs ` ( B - C ) ) < x ) ) ) $=
+      ( vw wbr cv wi wral cr crp cle wcel wa cmpt crli clt cmin cabs wrex rlim2
+      co cfv simplr sselda adantlr ltle syl2anc imim1d ralimdva reximdva sylbid
+      ralimdv c1 caddc ltp1 syl peano2re ltletr syl3anc mpand adantl wceq breq1
+      jctild imbi1d ralbidv rcla4ev syl6 rexlimdva sylibrd impbid ) ADEFUAGUBLZ
+      CMZDMZUCLZFGUDUHUEUIBMUCLZNZDEOZCPUFZBQOZAVSVTWARLZWCNZDEOZCPUFZBQOWGABCD
+      EFGHIJUGAWKWFBQAWJWECPAVTPSZTZWIWDDEWMWAESZTZWBWHWCWOWLWAPSZWBWHNAWLWNUJZ
+      AWNWPWLAEPWAIUKULZVTWAUMUNUOUPUQUSURAWGKMZWARLZWCNZDEOZKPUFZBQOVSAWFXCBQA
+      WEXCCPWMWEVTUTVAUHZPSZXDWARLZWCNZDEOZTXCWMWEXHXEWMWDXGDEWOXFWBWCWOVTXDUCL
+      ZXFWBWOWLXIWQVTVBVCWOWLXEWPXIXFTWBNWQWOWLXEWQVTVDZVCWRVTXDWAVEVFVGUOUPWLX
+      EAXJVHVKXBXHKXDPWSXDVIZXAXGDEXKWTXFWCWSXDWARVJVLVMVNVOVPUSABKDEFGHIJUGVQV
+      R $.
+      $( [18-Sep-2014] $)
+
+    rlim3.4 $e |- ( ph -> D e. RR ) $.
+    $( Restrict the range of the domain bound to reals greater than some
+       ` D e. RR ` . $)
+    rlim3 $p |- ( ph -> ( ( z e. A |-> B ) ~~>r C <-> A. x e. RR+
+   E. y e. ( D [,) +oo ) A. z e. A ( y <_ z -> ( abs ` ( B - C ) ) < x ) ) ) $=
+      ( wbr cle wi wral crp cr wcel wa vw cmpt crli cmin cabs cfv clt cpnf cico
+      cv co wrex rlim2 cif max2 sylan adantr simpr ifcl syl2anc wss sselda letr
+      syl3anc mpand imim1d ralimdva wb elicopnf syl max1 mpbir2and jctild breq1
+      wceq imbi1d ralbidv rcla4ev syl6 rexlimdva ralimdv sylbid icossre sylancl
+      cxr pnfxr ssrexv sylibrd impbid ) ADEFUBGUCMZCUJZDUJZNMZFGUDUKUEUFBUJUGMZ
+      OZDEPZCHUHUIUKZULZBQPZAWJUAUJZWLNMZWNOZDEPZUARULZBQPWSABUADEFGIJKUMAXDWRB
+      QAXCWRUARAWTRSZTZXCHWTNMZWTHUNZWQSZXHWLNMZWNOZDEPZTWRXFXCXLXIXFXBXKDEXFWL
+      ESZTZXJXAWNXNWTXHNMZXJXAXFXOXMAHRSZXEXOLHWTUOUPUQXNXEXHRSZWLRSXOXJTXAOXFX
+      EXMAXEURZUQXFXQXMXFXEXPXQXRAXPXELUQZXGWTHRUSUTZUQXFERWLAERVAXEJUQVBWTXHWL
+      VCVDVEVFVGXFXIXQHXHNMZXFXPXIXQYATVHXSHXHVIVJXTAXPXEYALHWTVKUPVLVMWPXLCXHW
+      QWKXHVOZWOXKDEYBWMXJWNWKXHWLNVNVPVQVRVSVTWAWBAWSWPCRULZBQPWJAWRYCBQAWQRVA
+      ZWRYCOAXPUHWESYDLWFHUHWCWDWPCWQRWGVJWAABCDEFGIJKUMWHWI $.
+      $( [16-Sep-2014] $)
+  $}
+
+  ${
+    $d f w x y z $.  $d j k x y z A $.  $d j k x y z F $.  $d j k x y z V $.
     $( Closure of the limit of a sequence of complex numbers. $)
     climcl $p |- ( ( A e. V /\ F ~~> A ) -> A e. CC ) $=
       ( vk vx vj wcel cli wbr wa cc cv cfv cmin co cabs clt wral cz cvv cuz crp
@@ -59,6 +180,35 @@ $)
       HIZJZAKGZDLZBMZKGURANOPMELQIJDFLUAMRFSUCEUBRZUOUNUPUSJUMUNUDUOEAURFDBTCUN
       BTGUMBAHUEUFUGUMUNUHUOUQSGJURUIUJUKUL $.
       $( [5-Nov-2013] $) $( [28-Aug-2005] $)
+
+    $( Closure of a function with a limit in the complex numbers. $)
+    rlimpm $p |- ( F ~~>r A -> F e. ( CC ^pm RR ) ) $=
+      ( vf vx vz vw vy crli wbr cdm cc cr cpm co wss cv wcel wa cfv wral cxp wi
+      cle cmin cabs clt wrex crp copab df-rlim opabssxp dmss ax-mp dmxpss sstri
+      eqsstri wrel rlimrel releldm mpan sseldi ) BAHIZHJZKLMNZBVCVDKUAZJZVDHVEO
+      VCVFOHCPZVDQDPZKQREPFPZUCIVIVGSVHUDNUESGPUFIUBFVGJTELUGGUHTZRCDUIVEDGEFCU
+      JVJCDVDKUKUPHVEULUMVDKUNUOHUQVBBVCQURBAHUSUTVA $.
+      $( [16-Sep-2014] $)
+
+    $( Closure of a function with a limit in the complex numbers. $)
+    rlimf $p |- ( F ~~>r A -> F : dom F --> CC ) $=
+      ( crli wbr cc cr cpm co wcel cdm rlimpm wss cnex reex elpm2 simplbi syl
+      wf ) BACDBEFGHIZBJZEBRZABKSUATFLEFBMNOPQ $.
+      $( [16-Sep-2014] $)
+
+    $( Domain closure of a function with a limit in the complex numbers. $)
+    rlimss $p |- ( F ~~>r A -> dom F C_ RR ) $=
+      ( crli wbr cc cr cpm co wcel cdm wss rlimpm cnex reex elpm2 simprbi syl
+      wf ) BACDBEFGHIZBJZFKZABLSTEBRUAEFBMNOPQ $.
+      $( [16-Sep-2014] $)
+
+    $( Closure of the limit of a sequence of complex numbers. $)
+    rlimcl $p |- ( ( A e. V /\ F ~~>r A ) -> A e. CC ) $=
+      ( vz vx vy wcel crli wbr wa cc cv cle cfv cmin co cabs wral cr adantl clt
+      wi cdm wrex crp simpr wf rlimf wss rlimss simpl eqidd rlim mpbid simpld )
+      ACGZBAHIZJZAKGZDLELZMIUTBNZAOPQNFLUAIUBEBUCZRDSUDFUERZURUQUSVCJUPUQUFURFD
+      EVBVAABCUQVBKBUGUPABUHTUQVBSUIUPABUJTUPUQUKURUTVBGJVAULUMUNUO $.
+      $( [16-Sep-2014] $)
   $}
 
   ${
@@ -133,6 +283,33 @@ $)
   $}
 
   ${
+    $d x y z A $.  $d x y B $.  $d x y z ph $.
+    rlim0.1 $e |- ( ( ph /\ z e. A ) -> B e. CC ) $.
+    rlim0.2 $e |- ( ph -> A C_ RR ) $.
+    $( Express the predicate ` B ( z ) ` converges to ` 0 ` .  (Contributed by
+       Mario Carneiro, 16-Sep-2014.) $)
+    rlim0 $p |- ( ph -> ( ( z e. A |-> B ) ~~>r 0 <-> A. x e. RR+ E. y e. RR
+           A. z e. A ( y <_ z -> ( abs ` B ) < x ) ) ) $=
+      ( cc0 wbr cv cabs cfv clt wi wral cr wrex crp wcel cmpt crli cle cmin 0cn
+      co cc a1i rlim2 wa wceq subid1 syl fveq2d breq1d ralbidva rexbidv ralbidv
+      imbi2d bitrd ) ADEFUAIUBJCKDKZUCJZFIUDUFZLMZBKZNJZOZDEPZCQRZBSPVBFLMZVENJ
+      ZOZDEPZCQRZBSPABCDEFIGHIUGTAUEUHUIAVIVNBSAVHVMCQAVGVLDEAVAETUJZVFVKVBVOVD
+      VJVENVOVCFLVOFUGTVCFUKGFULUMUNUOUSUPUQURUT $.
+      $( [16-Sep-2014] $)
+
+    $( Use strictly less-than in place of less equal in the real limit
+       predicate.  (Contributed by Mario Carneiro, 18-Sep-2014.) $)
+    rlim0lt $p |- ( ph -> ( ( z e. A |-> B ) ~~>r 0 <-> A. x e. RR+ E. y e. RR
+           A. z e. A ( y < z -> ( abs ` B ) < x ) ) ) $=
+      ( cc0 wbr cv clt cabs cfv wi wral cr wrex crp wcel cmpt crli cmin 0cn a1i
+      co cc rlim2lt wa subid1 syl fveq2d breq1d imbi2d ralbidva rexbidv ralbidv
+      wceq bitrd ) ADEFUAIUBJCKDKZLJZFIUCUFZMNZBKZLJZOZDEPZCQRZBSPVAFMNZVDLJZOZ
+      DEPZCQRZBSPABCDEFIGHIUGTAUDUEUHAVHVMBSAVGVLCQAVFVKDEAUTETUIZVEVJVAVNVCVIV
+      DLVNVBFMVNFUGTVBFURGFUJUKULUMUNUOUPUQUS $.
+      $( [18-Sep-2014] $)
+  $}
+
+  ${
     $d j k x A $.  $d j k x C $.  $d j k x F $.  $d j k x ph $.  $d j k x Z $.
     $d x B $.  $d j M $.
     climi.1 $e |- Z = ( ZZ>= ` M ) $.
@@ -175,6 +352,141 @@ $)
   $}
 
   ${
+    $d x y z A $.  $d x y B $.  $d x y z C $.  $d x y z ph $.  $d x y z R $.
+    $d z V $.
+    rlimi.1 $e |- ( ( ph /\ z e. A ) -> B e. V ) $.
+    rlimi.2 $e |- ( ph -> C e. W ) $.
+    rlimi.3 $e |- ( ph -> R e. RR+ ) $.
+    rlimi.4 $e |- ( ph -> ( z e. A |-> B ) ~~>r C ) $.
+    $( Convergence at infinity of a function on the reals.  (Contributed by
+       Mario Carneiro, 16-Sep-2014.) $)
+    rlimi $p |- ( ph -> E. y e. RR A. z e. A
+      ( y <_ z -> ( abs ` ( B - C ) ) < R ) ) $=
+      ( vx crp wcel wbr wral cr cc cv cle cmin co cabs cfv wi wrex cmpt crli wf
+      clt cdm rlimf syl wceq eqid fmptd feq2d mpbid fmpt sylibr r19.21bi rlimss
+      fdm wss eqsstr3d rlimcl syl2anc rlim2 breq2 imbi2d rexralbidv rcla4v sylc
+      ) AGOPBUACUAUBQZEFUCUDUEUFZNUAZULQZUGZCDRBSUHZNORZVPVQGULQZUGZCDRBSUHZLAC
+      DEUIZFUJQZWBMANBCDEFAETPZCDADTWFUKZWHCDRAWFUMZTWFUKZWIAWGWKMFWFUNUOAWJDTW
+      FADHWFUKWJDUPACDEHWFJWFUQZURDHWFVEUOZUSUTCDTEWFWLVAVBVCADWJSWMAWGWJSVFMFW
+      FVDUOVGAFIPWGFTPKMFWFIVHVIVJUTWAWENGOVRGUPZVTWDBCSDWNVSWCVPVRGVQULVKVLVMV
+      NVO $.
+      $( [16-Sep-2014] $)
+  $}
+
+  ${
+    $d m x y A $.  $d m x y B $.  $d m x y C $.  $d f m x y F $.  $d m x M $.
+    $( Elementhood in the set of eventually bounded functions.  (Contributed by
+       Mario Carneiro, 15-Sep-2014.) $)
+    elo1 $p |- ( F e. O(1) <-> ( F e. ( CC ^pm RR ) /\ E. x e. RR E. m e. RR
+      A. y e. ( dom F i^i ( x [,) +oo ) ) ( abs ` ( F ` y ) ) <_ m ) ) $=
+      ( vf cv cfv cabs cle wbr cdm cpnf cico co cin wral cr wrex cc cpm ineq1d
+      co1 wceq dmeq fveq1 fveq2d breq1d raleqbidv 2rexbidv df-o1 elrab2 ) BFZEF
+      ZGZHGZCFZIJZBUMKZAFLMNZOZPZCQRAQRULDGZHGZUPIJZBDKZUSOZPZCQRAQREDSQTNUBUMD
+      UCZVAVGACQQVHUQVDBUTVFVHURVEUSUMDUDUAVHUOVCUPIVHUNVBHULUMDUEUFUGUHUIABECU
+      JUK $.
+      $( [15-Sep-2014] $)
+
+    $( Elementhood in the set of eventually bounded functions.  (Contributed by
+       Mario Carneiro, 15-Sep-2014.) $)
+    elo12 $p |- ( ( F : A --> CC /\ A C_ RR ) -> ( F e. O(1) <-> E. x e. RR
+      E. m e. RR A. y e. A ( x <_ y -> ( abs ` ( F ` y ) ) <_ m ) ) ) $=
+      ( cc cr wa wcel cv cfv cle wbr co wral wrex wi wb cvv syl wf wss co1 cabs
+      cdm cpnf cico cin cpm cnex reex mpanl12 elo1 baib elin wceq fdm ad3antrrr
+      elpm2r eleq2d anbi1d simpllr elicopnf sselda bitr4d pm5.32da bitrd syl5bb
+      biantrurd imbi1d impexp syl6bb ralbidv2 rexbidva ) CFEUAZCGUBZHZEUCIZBJZE
+      KUDKDJZLMZBEUEZAJZUFUGNZUHZOZDGPZAGPZWCVSLMZWAQZBCOZDGPZAGPVQEFGUINIZVRWH
+      RFSIGSIVQWMUJUKFGCESSUSULVRWMWHABDEUMUNTVQWGWLAGVQWCGIZHZWFWKDGWOVTGIZHZW
+      AWJBWECWQVSWEIZWAQVSCIZWIHZWAQWSWJQWQWRWTWAWRVSWBIZVSWDIZHZWQWTVSWBWDUOWQ
+      XCWSXBHWTWQXAWSXBWQWBCVSVOWBCUPVPWNWPCFEUQURUTVAWQWSXBWIWQWSHZXBVSGIZWIHZ
+      WIXDWNXBXFRVQWNWPWSVBWCVSVCTXDXEWIWQCGVSVOVPWNWPVBVDVIVEVFVGVHVJWSWIWAVKV
+      LVMVNVNVG $.
+      $( [15-Sep-2014] $)
+
+    $( Sufficient condition for elementhood in the set of eventually bounded
+       functions. $)
+    elo12r $p |- ( ( ( F : A --> CC /\ A C_ RR ) /\ ( C e. RR /\ M e. RR ) /\
+      A. x e. A ( C <_ x -> ( abs ` ( F ` x ) ) <_ M ) ) -> F e. O(1) ) $=
+      ( vy vm cc cr wa wcel cv cle wbr cfv wi wral wrex wceq ralbidv wf wss w3a
+      cabs co1 breq1 imbi1d breq2 imbi2d rcla42ev 3expa 3adant1 wb elo12 mpbird
+      3ad2ant1 ) BHDUABIUBJZCIKZEIKZJZCALZMNZVADOUDOZEMNZPZABQZUCDUEKZFLZVAMNZV
+      CGLZMNZPZABQZGIRFIRZUTVFVNUQURUSVFVNVMVFVBVKPZABQFGCEIIVHCSZVLVOABVPVIVBV
+      KVHCVAMUFUGTVJESZVOVEABVQVKVDVBVJEVCMUHUITUJUKULUQUTVGVNUMVFFABGDUNUPUO
+      $.
+      $( [15-Sep-2014] $)
+
+    $( An eventually bounded function is a function. $)
+    o1f $p |- ( F e. O(1) -> F : dom F --> CC ) $=
+      ( vy vm vx co1 wcel cc cr cpm co cdm wf cv cfv cabs cle cpnf wrex simplbi
+      wbr cico cin wral elo1 wss cnex reex elpm2 syl ) AEFZAGHIJFZAKZGALZUJUKBM
+      ANONCMPTBULDMQUAJUBUCCHRDHRDBCAUDSUKUMULHUEGHAUFUGUHSUI $.
+      $( [15-Sep-2014] $)
+
+    $( An eventually bounded function's domain is a subset of the reals. $)
+    o1dm $p |- ( F e. O(1) -> dom F C_ RR ) $=
+      ( vy vm vx co1 wcel cc cr cpm co cdm wss cfv cabs cle wbr cpnf cico wrex
+      cv cin wral elo1 simplbi wf cnex reex elpm2 simprbi syl ) AEFZAGHIJFZAKZH
+      LZUKULBTAMNMCTOPBUMDTQRJUAUBCHSDHSDBCAUCUDULUMGAUEUNGHAUFUGUHUIUJ $.
+      $( [15-Sep-2014] $)
+
+    $( The defining property of an eventually bounded function. $)
+    o1bdd $p |- ( ( F e. O(1) /\ F : A --> CC ) -> E. x e. RR
+      E. m e. RR A. y e. A ( x <_ y -> ( abs ` ( F ` y ) ) <_ m ) ) $=
+      ( co1 wcel cc wf wa cv cle wbr cfv cabs wi wral cr wrex wss simpl wb wceq
+      simpr cdm fdm adantl o1dm adantr eqsstr3d elo12 syl2anc mpbid ) EFGZCHEIZ
+      JZUNAKBKZLMUQENONDKLMPBCQDRSARSZUNUOUAUPUOCRTUNURUBUNUOUDUPCEUEZRUOUSCUCU
+      NCHEUFUGUNUSRTUOEUHUIUJABCDEUKULUM $.
+      $( [15-Sep-2014] $)
+
+    $( A constant function is eventually bounded.  (Contributed by Mario
+       Carneiro, 15-Sep-2014.) $)
+    o1const $p |- ( ( A C_ RR /\ B e. CC ) -> ( A X. { B } ) e. O(1) ) $=
+      ( vx vy vm cr wss cc wcel wa cv cle wbr cfv cabs wi wral wrex cc0 wceq wf
+      csn cxp co1 0re a1i abscl adantl fvconst2g adantll fveq2d leid syl adantr
+      eqbrtrd a1d ralrimiva breq1 imbi1d ralbidv breq2 rcla42ev syl3anc fconstg
+      imbi2d wb simpr snssd fss syl2anc simpl elo12 mpbird ) AFGZBHIZJZABUBZUCZ
+      UDIZCKZDKZLMZWAVRNZONZEKZLMZPZDAQZEFRCFRZVPSFIZBONZFIZSWALMZWDWKLMZPZDAQZ
+      WIWJVPUEUFVOWLVNBUGUHZVPWODAVPWAAIZJZWNWMWSWDWKWKLWSWCBOVOWRWCBTVNABWAHUI
+      UJUKVPWKWKLMZWRVPWLWTWQWKULUMUNUOUPUQWHWPWMWFPZDAQCESWKFFVTSTZWGXADAXBWBW
+      MWFVTSWALURUSUTWEWKTZXAWODAXCWFWNWMWEWKWDLVAVEUTVBVCVPAHVRUAZVNVSWIVFVPAV
+      QVRUAZVQHGXDVOXEVNABHVDUHVPBHVNVOVGVHAVQHVRVIVJVNVOVKCDAEVRVLVJVM $.
+      $( [15-Sep-2014] $)
+  $}
+
+  ${
+    $d m w x y z A $.  $d m w y z B $.  $d m x y C $.  $d m x y ph $.
+    $d m x M $.
+    elo1mpt.1 $e |- ( ph -> A C_ RR ) $.
+    elo1mpt.2 $e |- ( ( ph /\ x e. A ) -> B e. CC ) $.
+    $( Elementhood in the set of eventually bounded functions.  (Contributed by
+       Mario Carneiro, 21-Sep-2014.) $)
+    elo1mpt $p |- ( ph -> ( ( x e. A |-> B ) e. O(1) <-> E. y e. RR
+      E. m e. RR A. x e. A ( y <_ x -> ( abs ` B ) <_ m ) ) ) $=
+      ( vz vw wcel cv cle wbr cfv cabs cr wrex cc ax-17 cmpt co1 wi wral wf wss
+      wb eqid fmptd elo12 syl2anc hbmpt1 hbfv hbbr hbim wceq breq2 fveq2 fveq2d
+      breq1d imbi12d cbvral simpr fvmpt2 imbi2d ralbidva syl5bb 2rexbidv bitrd
+      wa ) ABDEUAZUBKZCLZILZMNZVNVKOZPOZFLZMNZUCZIDUDZFQRCQRZVMBLZMNZEPOZVRMNZU
+      CZBDUDZFQRCQRADSVKUEDQUFVLWBUGABDESVKHVKUHZUIGCIDFVKUJUKAWAWHCFQQWAWDWCVK
+      OZPOZVRMNZUCZBDUDAWHVTWMIBDVOVSBVOBTBJVQVRMBJVPPJLZPKBTBJVNVKBJDEULWNVNKB
+      TUMUMWNMKBTWNVRKBTUNUOWMITVNWCUPZVOWDVSWLVNWCVMMUQWOVQWKVRMWOVPWJPVNWCVKU
+      RUSUTVAVBAWMWGBDAWCDKZVJZWLWFWDWQWKWEVRMWQWJEPWQWPESKWJEUPAWPVCHBDESVKWIV
+      DUKUSUTVEVFVGVHVI $.
+      $( [21-Sep-2014] $)
+
+    elo1d.3 $e |- ( ph -> C e. RR ) $.
+    elo1d.4 $e |- ( ph -> M e. RR ) $.
+    elo1d.5 $e |- ( ( ph /\ ( x e. A /\ C <_ x ) ) -> ( abs ` B ) <_ M ) $.
+    $( Sufficient condition for elementhood in the set of eventually bounded
+       functions.  (Contributed by Mario Carneiro, 21-Sep-2014.) $)
+    elo1d $p |- ( ph -> ( x e. A |-> B ) e. O(1) ) $=
+      ( vy vm wcel cv cle wbr wi wral cr cmpt co1 cabs wrex expr ralrimiva wceq
+      cfv breq1 imbi1d ralbidv breq2 imbi2d rcla42ev syl3anc elo1mpt mpbird ) A
+      BCDUAUBNLOZBOZPQZDUCUHZMOZPQZRZBCSZMTUDLTUDZAETNFTNEUSPQZVAFPQZRZBCSZVFIJ
+      AVIBCAUSCNVGVHKUEUFVEVJVGVCRZBCSLMEFTTUREUGZVDVKBCVLUTVGVCUREUSPUIUJUKVBF
+      UGZVKVIBCVMVCVHVGVBFVAPULUMUKUNUOABLCDMGHUPUQ $.
+      $( [21-Sep-2014] $)
+  $}
+
+  ${
     $d j k x A $.  $d j k x F $.  $d j M $.  $d j k x ph $.  $d j k Z $.
     climconst.1 $e |- Z = ( ZZ>= ` M ) $.
     climconst.2 $e |- ( ph -> M e. ZZ ) $.
@@ -192,6 +504,97 @@ $)
       TPABUPSZVMTUOKBUQULURVLUSUNWATVOUDOAVOUTVAVBVCVSWDNEGVQEUOZVPCVRGWGVRWEGV
       QEUEVDHVEVFVGVHVIAMBBNCDEFGHIJLKAWFCRGSKUNVJVK $.
       $( [31-Jan-2014] $) $( [28-Aug-2005] $)
+  $}
+
+  ${
+    $d x y z A $.  $d x y z B $.
+    $( A constant sequence converges to its value.  (Contributed by Mario
+       Carneiro, 16-Sep-2014.) $)
+    rlimconst $p |- ( ( A C_ RR /\ B e. CC ) -> ( A X. { B } ) ~~>r B ) $=
+      ( vx vz vy cr wcel wa crli wbr cv cle cabs cfv clt wi wral crp cc0 wceq
+      wss cc csn cxp cmpt fconstmpt cmin wrex 0re simpllr subid syl fveq2d abs0
+      syl6eq rpgt0 ad2antlr eqbrtrd a1d ralrimiva breq1 ralbidv rcla4ev sylancr
+      co imbi1d simplr simpl simpr rlim2 mpbird syl5eqbr ) AFUAZBUBGZHZABUCUDCA
+      BUEZBICABUFVOVPBIJDKZCKZLJZBBUGVEZMNZEKZOJZPZCAQZDFUHZERQVOWFERVOWBRGZHZS
+      FGSVRLJZWCPZCAQZWFUIWHWJCAWHVRAGZHZWCWIWMWASWBOWMWASMNSWMVTSMWMVNVTSTVMVN
+      WGWLUJBUKULUMUNUOWGSWBOJVOWLWBUPUQURUSUTWEWKDSFVQSTZWDWJCAWNVSWIWCVQSVRLV
+      AVFVBVCVDUTVOEDCABBVMVNWLVGVMVNVHVMVNVIVJVKVL $.
+      $( [16-Sep-2014] $)
+  $}
+
+  ${
+    $d j k w x y z F $.  $d j k M $.  $d j k w x y z ph $.  $d j k z Z $.
+    $d x A $.
+    rlimclim1.1 $e |- Z = ( ZZ>= ` M ) $.
+    rlimclim1.2 $e |- ( ph -> M e. ZZ ) $.
+    rlimclim1.3 $e |- ( ph -> F ~~>r A ) $.
+    rlimclim1.4 $e |- ( ph -> Z C_ dom F ) $.
+    $( Forward direction of ~ rlimclim .  (Contributed by Mario Carneiro,
+       16-Sep-2014.) $)
+    rlimclim1 $p |- ( ph -> F ~~> A ) $=
+      ( vx vk vw crli wbr wcel cfv cle cr cc syl vy vj vz cli cvv wi cv wa cmin
+      wal co cabs clt cuz wral crp cdm wf rlimf adantl adantr ffvelrn sylan vex
+      wrex a1i simpr cmpt wfn wceq ffn dffn5v sylib simplr eqbrtrrd rlimi caddc
+      cfl cif ad3antrrr flcl peano2zdi ad2antrl ifcl syl2anc zre max1 syl3anbrc
+      c1 eluz2 syl6eleqr wss uztrn2 sseldd simplrr simplrl eluzelre flltp1 ltle
+      cz mpdan mpd letrd eluzle breq2 fveq2 oveq1d fveq2d breq1d imbi12d rcla4v
+      max2 syl3c ralrimiva raleqdv rcla4ev expr rexlimdva cpm rlimpm eqidd mpan
+      rlimcl sselda syldan clim2c mpbird alrimiv cla4gv syl5com sylc syl5ibrcom
+      ex wn brprc pm2.61d ) ACBMNZCBUDNZHABUEOZYQYRUFZACJUGZMNZCUUAUDNZUFZJUJZY
+      SYTAUUDJAUUBUUCAUUBUHZUUCKUGZCPZUUAUIUKZULPZUAUGZUMNZKUBUGZUNPZUOZUBEVEZU
+      AUPUOUUFUUPUAUPUUFUUKUPOZUHZUCUGZLUGZQNZUUTCPZUUAUIUKZULPZUUKUMNZUFZLCUQZ
+      UOZUCRVEUUPUURUCLUVGUVBUUAUUKSUEUURUVGSCURZUUTUVGOUVBSOUUFUVIUUQUUBUVIAUU
+      ACUSUTZVAZUVGSUUTCVBVCUUAUEOZUURJVDZVFUUFUUQVGUURCLUVGUVBVHZUUAMUURCUVGVI
+      ZCUVNVJUURUVIUVOUVKUVGSCVKTLUVGCVLVMAUUBUUQVNVOVPUURUVHUUPUCRUURUUSROZUVH
+      UUPUURUVPUVHUHZUHZDUUSVRPZWIVQUKZQNZUVTDVSZEOZUULKUWBUNPZUOZUUPUVRUWBDUNP
+      ZEUVRDWTOZUWBWTOZDUWBQNZUWBUWFOAUWGUUBUUQUVQGVTZUVRUVTWTOZUWGUWHUVPUWKUUR
+      UVHUVPUVSUUSWAWBZWCZUWJUWAUVTDWTWDWEUVRDROZUVTROZUWIUVRUWGUWNUWJDWFTZUVRU
+      WKUWOUWMUVTWFZTDUVTWGWEDUWBWJWHFWKZUVRUULKUWDUVRUUGUWDOZUHZUUGUVGOZUVHUUS
+      UUGQNZUULUWTEUVGUUGUUFEUVGWLZUUQUVQUWSAUXCUUBIVAZVTUVRUWCUWSUUGEOZUWRDUUG
+      UWBEFWMVCWNUURUVPUVHUWSWOUWTUUSUWBUUGUURUVPUVHUWSWPZUWTUWOUWNUWBROUWTUVPU
+      WOUXFUVPUWKUWOUWLUWQTZTZUVRUWNUWSUWPVAZUWAUVTDRWDWEZUWSUUGROUVRUWBUUGWQUT
+      UWTUUSUVTUWBUXFUXHUXJUWTUVPUUSUVTQNZUXFUVPUUSUVTUMNZUXKUUSWRUVPUWOUXLUXKU
+      FUXGUUSUVTWSXAXBTUWTUWNUWOUVTUWBQNUXIUXHDUVTXLWEXCUWSUWBUUGQNUVRUWBUUGXDU
+      TXCUVFUXBUULUFLUUGUVGUUTUUGVJZUVAUXBUVEUULUUTUUGUUSQXEUXMUVDUUJUUKUMUXMUV
+      CUUIULUXMUVBUUHUUAUIUUTUUGCXFXGXHXIXJXKXMXNUUOUWEUBUWBEUUMUWBVJUULKUUNUWD
+      UUMUWBUNXFXOXPWEXQXRXBXNUUFUAUUAUUHUBKCDSRXSUKZEFAUWGUUBGVAACUXNOZUUBAYQU
+      XOHBCXTTZVAUUFUXEUHUUHYAUUBUUASOZAUVLUUBUXQUVMUUACUEYCYBUTUUFUXEUXAUUHSOZ
+      UUFEUVGUUGUXDYDUUFUVIUXAUXRUVJUVGSUUGCVBVCYEYFYGYMYHZUUDYTJBUEUUABVJUUBYQ
+      UUCYRUUABCMXEUUABCUDXEXJYIYJAYTYSYNZCCMNZCCUDNZUFZAUXOUUEUYCUXPUXSUUDUYCJ
+      CUXNUUACVJUUBUYAUUCUYBUUACCMXEUUACCUDXEXJYIYKUXTYQUYAYRUYBCBMYOCBUDYOXJYL
+      YPXB $.
+      $( [16-Sep-2014] $)
+  $}
+
+  ${
+    $d x A $.  $d k w x y z F $.  $d z M $.  $d k w x y z ph $.  $d k w z Z $.
+    rlimclim.1 $e |- Z = ( ZZ>= ` M ) $.
+    rlimclim.2 $e |- ( ph -> M e. ZZ ) $.
+    rlimclim.3 $e |- ( ph -> F : Z --> CC ) $.
+    $( A sequence on an upper integer set converges in the real sense iff it
+       converges in the integer sense. $)
+    rlimclim $p |- ( ph -> ( F ~~>r A <-> F ~~> A ) ) $=
+      ( vx vz crli wbr cli wa cz wcel cvv wi cv cfv vw vy vk adantr simpr cc wf
+      cdm wss wceq fdm eqimss2 3syl rlimclim1 ex wal cle cmin co cabs wral wrex
+      clt cr crp cuz uzssz eqsstri zssre sstri a1i vex eqidd rlim climcl adantl
+      mpan ad2antrr simplr climi2 simplrl sseldi simprl eluz2 syl3anbrc simplrr
+      simprr fveq2 oveq1d fveq2d breq1d rcla4v sylc expr ralrimiva ssrexv ax-mp
+      reximdva syl6 mpbir2and alrimiv breq2 imbi12d cla4gv syl5com fvex eqeltri
+      mpd wn fex sylancl brprc syl5ibrcom pm2.61d impbid ) ACBKLZCBMLZAXPXQAXPN
+      BCDEFADOPZXPGUDAXPUEAECUHZUIZXPAEUFCUGZXSEUJXTHEUFCUKEXSULUMUDUNUOABQPZXQ
+      XPRZACISZMLZCYDKLZRZIUPZYBYCAYGIAYEYFAYENZYFYDUFPZJSZUASZUQLZYLCTZYDURUSZ
+      UTTZUBSZVCLZRZUAEVAZJVDVBZUBVEVAYIUBJUAEYNYDCQAYAYEHUDEVDUIZYIEOVDEDVFTZO
+      FDVGVHZVIVJZVKYDQPZYIIVLZVKYIYLEPZNYNVMVNYEYJAUUFYEYJUUGYDCQVOVQVPYIUUAUB
+      VEYIYQVEPZNZUCSZCTZYDURUSZUTTZYQVCLZUCYKVFTZVAZJEVBZUUAUUJYDUULYQJUCCDQEF
+      AXRYEUUIGVRYIUUIUEUUJUUKEPNUULVMAYEUUIVSUUFUUJUUGVKVTUUJUURYTJEVBZUUAUUJU
+      UQYTJEUUJYKEPZUUQYTUUJUUTUUQNNZYSUAEUVAUUHYMYRUVAUUHYMNZNZYLUUPPZUUQYRUVC
+      YKOPYLOPYMUVDUVCEOYKUUDUUJUUTUUQUVBWAWBUVCEOYLUUDUVAUUHYMWCWBUVAUUHYMWGYK
+      YLWDWEUUJUUTUUQUVBWFUUOYRUCYLUUPUUKYLUJZUUNYPYQVCUVEUUMYOUTUVEUULYNYDURUU
+      KYLCWHWIWJWKWLWMWNWOWNWRUUBUUSUUARUUEYTJEVDWPWQWSXHWOWTUOXAZYGYCIBQYDBUJY
+      EXQYFXPYDBCMXBYDBCKXBXCXDXEAYCYBXIZCCMLZCCKLZRZACQPZYHUVJAYAEQPUVKHEUUCQF
+      DVFXFXGEUFQCXJXKUVFYGUVJICQYDCUJYEUVHYFUVIYDCCMXBYDCCKXBXCXDWMUVGXQUVHXPU
+      VICBMXLCBKXLXCXMXNXO $.
+      $( [16-Sep-2014] $)
   $}
 
   ${
@@ -295,6 +698,106 @@ $)
   $}
 
   ${
+    $d m x y z A $.  $d x y z B $.  $d m x y z F $.  $d x y z V $.
+    $( The restriction of a function converges if the original converges.
+       (Contributed by Mario Carneiro, 16-Sep-2014.) $)
+    rlimres $p |- ( ( A e. V /\ F ~~>r A ) -> ( F |` B ) ~~>r A ) $=
+      ( vy vz vx wcel wbr wa cres cc cv cfv wi wral cr crp wf adantl crli simpr
+      cle cmin co cabs clt cdm wrex cin inss1 ssralv ax-mp reximi ralimi anim2i
+      wss a1i rlimf rlimss simpl eqidd rlim fssres sylancl wceq wfn ffn fnresdm
+      resres 3syl reseq1 syl syl5eqr feq1d mpbid syl5ss inss2 sseli 3imtr4d mpd
+      fvres ) ADHZCAUAIZJZWDCBKZAUAIZWCWDUBWEALHZEMFMZUCIWICNZAUDUEUFNGMUGIOZFC
+      UHZPZEQUIZGRPZJZWHWKFWLBUJZPZEQUIZGRPZJZWDWGWPXAOWEWOWTWHWNWSGRWMWREQWQWL
+      UQZWMWROWLBUKZWKFWQWLULUMUNUOUPURWEGEFWLWJACDWDWLLCSZWCACUSTZWDWLQUQWCACU
+      TTZWCWDVAZWEWIWLHJWJVBVCWEGEFWQWJAWFDWEWQLCWQKZSZWQLWFSWEXDXBXIXEXCWLLWQC
+      VDVEWEWQLXHWFWEXHCWLKZBKZWFCWLBVJWEXJCVFZXKWFVFWEXDCWLVGXLXEWLLCVHWLCVIVK
+      XJCBVLVMVNVOVPWEWQWLQXCXFVQXGWIWQHZWIWFNWJVFZWEXMWIBHXNWQBWIWLBVRVSWIBCWB
+      VMTVCVTWA $.
+      $( [16-Sep-2014] $)
+
+    $( The restriction of an eventually bounded function is eventually
+       bounded.  (Contributed by Mario Carneiro, 15-Sep-2014.) $)
+    o1res $p |- ( F e. O(1) -> ( F |` A ) e. O(1) ) $=
+      ( vx vy vm wcel cres cv cle wbr cfv cabs wi wral cr wrex cc wf wceq syl
+      co1 cdm cin o1f o1bdd mpdan inss1 ssralv ax-mp inss2 fveq2d breq1d imbi2d
+      wss sseli ralbiia sylibr reximi wb fssres sylancl resres wfn fnresdm 3syl
+      fvres ffn reseq1 syl5eqr feq1d mpbid o1dm syl5ss elo12 syl2anc mpbird ) B
+      UAFZBAGZUAFZCHDHZIJZVTVRKZLKZEHZIJZMZDBUBZAUCZNZEOPZCOPZVQWAVTBKZLKZWDIJZ
+      MZDWGNZEOPZCOPZWKVQWGQBRZWRBUDZCDWGEBUEUFWQWJCOWPWIEOWPWODWHNZWIWHWGUNZWP
+      XAMWGAUGZWODWHWGUHUIWFWODWHVTWHFZWEWNWAXDWCWMWDIXDWBWLLXDVTAFWBWLSWHAVTWG
+      AUJUOVTABVFTUKULUMUPUQURURTVQWHQVRRZWHOUNVSWKUSVQWHQBWHGZRZXEVQWSXBXGWTXC
+      WGQWHBUTVAVQWHQXFVRVQXFBWGGZAGZVRBWGAVBVQXHBSZXIVRSVQWSBWGVCXJWTWGQBVGWGB
+      VDVEXHBAVHTVIVJVKVQWHWGOXCBVLVMCDWHEVRVNVOVP $.
+      $( [15-Sep-2014] $)
+  $}
+
+  ${
+    $d x A $.  $d x B $.
+    rlimres2.1 $e |- ( ph -> A C_ B ) $.
+    rlimres2.2 $e |- ( ph -> D e. V ) $.
+    rlimres2.3 $e |- ( ph -> ( x e. B |-> C ) ~~>r D ) $.
+    $( The restriction of a function converges if the original converges.
+       (Contributed by Mario Carneiro, 16-Sep-2014.) $)
+    rlimres2 $p |- ( ph -> ( x e. A |-> C ) ~~>r D ) $=
+      ( cmpt cres crli wss wceq resmpt syl wcel wbr rlimres syl2anc eqbrtrrd )
+      ABDEKZCLZBCEKZFMACDNUDUEOHBDCEPQAFGRUCFMSUDFMSIJFCUCGTUAUB $.
+      $( [16-Sep-2014] $)
+  $}
+
+  ${
+    $d x y z A $.  $d x y z B $.  $d x y z C $.  $d x y z F $.  $d x y z ph $.
+    rlimresb.1 $e |- ( ph -> F : A --> CC ) $.
+    rlimresb.2 $e |- ( ph -> A C_ RR ) $.
+    rlimresb.3 $e |- ( ph -> C e. V ) $.
+    rlimresb.4 $e |- ( ph -> B e. RR ) $.
+    $( The restriction of a function to an unbounded-above interval converges
+       iff the original converges.  (Contributed by Mario Carneiro,
+       16-Sep-2014.) $)
+    rlimresb $p |- ( ph -> ( F ~~>r C <-> ( F |` ( B [,) +oo ) ) ~~>r C ) ) $=
+      ( vx vz vy wcel crli wbr wi syl wa cr cc cpnf cico co rlimcl ex wb cv cfv
+      cres cmpt cin cle cmin cabs clt wral wrex crp adantr elicopnf wss simprrl
+      sseldd biimpa adantrr simpld simprd simprrr letrd mpbir2and anassrs biimt
+      pm5.74da bi2.04 syl6bb elin imbi1i impexp bitri syl6bbr ralbidv2 rexbidva
+      ralbidv ffvelrn sylan adantlr simpr rlim3 inss1 sylan2 syl5ss 3bitr4d wfn
+      wf sseli wceq dffn5v sylib breq1d fnresdm reseq1 3syl resres resmpt ax-mp
+      ffn syl6eq syl5eq eqtr3d pm5.21ndd ) ADUANZEDOPZECUBUCUDZUJZDOPZADFNZXMXL
+      QIXQXMXLDEFUEUFRAXQXPXLQIXQXPXLDXOFUEUFRAXLXMXPUGAXLSZKBKUHZEUIZUKZDOPZKB
+      XNULZXTUKZDOPZXMXPXRLUHZXSUMPZXTDUNUDUOUIMUHUPPZQZKBUQZLXNURZMUSUQYIKYCUQ
+      ZLXNURZMUSUQYBYEXRYKYMMUSXRYJYLLXNXRYFXNNZSZYIYIKBYCYOXSBNZYIQYPXSXNNZYIQ
+      ZQZXSYCNZYIQZYOYPYIYRYOYPSZYIYGYQYHQZQYRUUBYGYHUUCUUBYGSYQYHUUCUGYOYPYGYQ
+      XRYNYPYGSZYQXRYNUUDSZSZYQXSTNZCXSUMPZUUFCTNZYQUUGUUHSUGXRUUIUUEAUUIXLJUTZ
+      UTZCXSVARUUFBTXSXRBTVBZUUEAUULXLHUTZUTXRYNYPYGVCVDZUUFCYFXSUUKUUFYFTNZCYF
+      UMPZXRYNUUOUUPSZUUDXRYNUUQXRUUIYNUUQUGUUJCYFVARVEVFZVGUUNUUFUUOUUPUURVHXR
+      YNYPYGVIVJVKVLVLYQYHVMRVNYGYQYHVOVPVNUUAYPYQSZYIQYSYTUUSYIXSBXNVQVRYPYQYI
+      VSVTWAWBWCWDXRMLKBXTDCAYPXTUANZXLABUAEWOZYPUUTGBUAXSEWEWFWGZUUMAXLWHZUUJW
+      IXRMLKYCXTDCYTXRYPUUTYCBXSBXNWJZWPUVBWKXRYCBTUVDUUMWLUVCUUJWIWMXREYADOXRE
+      BWNZEYAWQZXRUVAUVEAUVAXLGUTBUAEXGRZKBEWRWSZWTXRXOYDDOXREBUJZXNUJZXOYDXRUV
+      EUVIEWQUVJXOWQUVGBEXAUVIEXNXBXCXRUVJEYCUJZYDEBXNXDXRUVKYAYCUJZYDXRUVFUVKU
+      VLWQUVHEYAYCXBRYCBVBUVLYDWQUVDKBYCXTXEXFXHXIXJWTWMUFXK $.
+      $( [16-Sep-2014] $)
+  $}
+
+  ${
+    rlimuni.1 $e |- B e. _V $.
+    rlimuni.2 $e |- C e. _V $.
+    rlimuni.3 $e |- Z = ( ZZ>= ` M ) $.
+    rlimuni.4 $e |- ( ph -> M e. ZZ ) $.
+    rlimuni.5 $e |- ( ph -> F : A --> CC ) $.
+    rlimuni.6 $e |- ( ph -> Z C_ A ) $.
+    rlimuni.7 $e |- ( ph -> F ~~>r B ) $.
+    rlimuni.8 $e |- ( ph -> F ~~>r C ) $.
+    $( An real function whose domain contains an upper integer set (or more
+       generally is unbounded above) converges to at most one limit.
+       (Contributed by Mario Carneiro, 16-Sep-2014.) $)
+    rlimuni $p |- ( ph -> B = C ) $=
+      ( cli wbr crli cvv cc cres wceq wcel rlimres sylancr wss syl2anc rlimclim
+      wf fssres mpbid climuni ) AEGUAZCPQZUMDPQZCDUBAUMCRQZUNACSUCECRQUPHNCGESU
+      DUEACUMFGJKABTEUIGBUFGTUMUILMBTGEUJUGZUHUKAUMDRQZUOADSUCEDRQURIODGESUDUEA
+      DUMFGJKUQUHUKCDUMHIULUG $.
+      $( [16-Sep-2014] $)
+  $}
+
+  ${
     $d k x y A $.  $d k x y F $.  $d k x y G $.  $d k x y ph $.  $d k y Z $.
     $d y M $.
     climeq.1 $e |- Z = ( ZZ>= ` M ) $.
@@ -310,6 +813,33 @@ $)
       wa crp bitr4d ) ADBUASBUBTCUCZEUDZUBTURBUEUFUGUDQUCUHSUNCRUCUIUDUJRJUKQUO
       UJUNEBUASAQBURRCDFGIJKOLPNULAQBURRCEFHIJKOMAUQJTUNURUMNULUP $.
       $( [31-Jan-2014] $) $( [5-Nov-2013] $)
+  $}
+
+  ${
+    $d x A $.  $d x D $.  $d x ph $.
+    rlimeq.1 $e |- ( ( ph /\ x e. A ) -> B e. CC ) $.
+    rlimeq.2 $e |- ( ( ph /\ x e. A ) -> C e. CC ) $.
+    rlimeq.3 $e |- ( ph -> D e. RR ) $.
+    rlimeq.4 $e |- ( ph -> E e. V ) $.
+    rlimeq.5 $e |- ( ( ph /\ ( x e. A /\ D <_ x ) ) -> B = C ) $.
+    $( Two functions that are eventually equal to one another have the same
+       limit. $)
+    rlimeq $p |- ( ph ->
+      ( ( x e. A |-> B ) ~~>r E <-> ( x e. A |-> C ) ~~>r E ) ) $=
+      ( cr wss crli cc wceq cres wcel cmpt wbr cdm rlimss wf eqid fmptd fdm syl
+      sseq1d syl5ib wb wa cpnf cico co cin cle simpr elin sylib simpld elicopnf
+      simprd biimpa syldan jca mpteq2dva inss1 resmpt ax-mp 3eqtr4g resres ssid
+      cv reseq1 mp2b 3eqtr3g breq1d adantr rlimresb 3bitr4d ex pm5.21ndd ) ACNO
+      ZBCDUAZGPUBZBCEUAZGPUBZWGWFUCZNOAWEGWFUDAWJCNACQWFUEZWJCRABCDQWFIWFUFUGZC
+      QWFUHUIUJUKWIWHUCZNOAWEGWHUDAWMCNACQWHUEZWMCRABCEQWHJWHUFUGZCQWHUHUIUJUKA
+      WEWGWIULAWEUMZWFFUNUOUPZSZGPUBZWHWQSZGPUBZWGWIAWSXAULWEAWRWTGPAWFCSZWQSZW
+      HCSZWQSZWRWTAWFCWQUQZSZWHXFSZXCXEABXFDUAZBXFEUAZXGXHABXFDEABVOZXFTZXKCTZF
+      XKURUBZUMDERAXLUMZXMXNXOXMXKWQTZXOXLXMXPUMAXLUSXKCWQUTVAZVBXOXKNTZXNAXLXP
+      XRXNUMZXOXMXPXQVDAXPXSAFNTZXPXSULKFXKVCUIVEVFVDVGMVFVHXFCOZXGXIRCWQVIZBCX
+      FDVJVKYAXHXJRYBBCXFEVJVKVLWFCWQVMWHCWQVMVLCCOZXBWFRXCWRRCVNZBCCDVJXBWFWQV
+      PVQYCXDWHRXEWTRYDBCCEVJXDWHWQVPVQVRVSVTWPCFGWFHAWKWEWLVTAWEUSZAGHTWELVTZA
+      XTWEKVTZWAWPCFGWHHAWNWEWOVTYEYFYGWAWBWCWD $.
+      $( [16-Sep-2014] $)
   $}
 
   ${
@@ -329,6 +859,7 @@ $)
         USDQZUGUPUTVBVABUSURVAHDUQUSCUHJUSCSUIUJUKUL $.
         $( [31-Jan-2014] $)
     $}
+
     $d k G $.
     2clim.2 $e |- ( ph -> M e. ZZ ) $.
     2clim.3 $e |- ( ph -> G e. V ) $.
@@ -356,6 +887,26 @@ $)
       CFJVTVOZWAYQXEYTAYKWSWHWBWRCXGWSWCWDWEWFWGWIWJWFWKWLWMWNAUACWRDEGHIKLMNAY
       CTWRVEUUAPWOWP $.
       $( [31-Jan-2014] $) $( [24-Dec-2005] $)
+  $}
+
+  ${
+    $d k m F $.  $d k m Z $.  $d k ph $.  $d m n F $.  $d n A $.  $d n Z $.
+    $d n ph $.
+    climmpt2.1 $e |- Z = ( ZZ>= ` M ) $.
+    climmpt2.2 $e |- ( ph -> M e. ZZ ) $.
+    climmpt2.3 $e |- ( ph -> F e. V ) $.
+    climmpt2.4 $e |- ( ph -> A e. W ) $.
+    climmpt2.5 $e |- ( ( ph /\ k e. Z ) -> ( F ` k ) e. CC ) $.
+    $( Relate an integer limit on a not-quite-function to a real limit.
+       (Contributed by Mario Carneiro, 17-Sep-2014.) $)
+    climmpt2 $p |- ( ph ->
+                    ( F ~~> A <-> ( n e. Z |-> ( F ` n ) ) ~~>r A ) ) $=
+      ( vm wbr cv cfv wcel cc cli cmpt crli eqid climmpt syl3anc wral ralrimiva
+      cz wceq fveq2 eleq1d cbvralv bitri sylib r19.21bi fmptd rlimclim bitr4d
+      wb ) AEBUAPZDIDQZERZUBZBUAPZVDBUCPAFUISEGSBHSVAVEUTKLMBDEVDFGHIJVDUDZUEUF
+      ABVDFIJKADIVCTVDAVCTSZDIACQZERZTSZCIUGZVGDIUGZAVJCINUHVKOQZERZTSZOIUGVLVJ
+      VOCOIVHVMUJVIVNTVHVMEUKULUMVOVGODIVMVBUJVNVCTVMVBEUKULUMUNUOUPVFUQURUS $.
+      $( [17-Sep-2014] $)
   $}
 
   ${
@@ -511,6 +1062,89 @@ $)
   $}
 
   ${
+    $d c w x y A $.  $d c v w x y z F $.  $d c v w x y z G $.  $d c w x y ph $.
+    $d c w x y z C $.  $d c v w z X $.
+    rlimcn1.1 $e |- ( ph -> G : A --> X ) $.
+    rlimcn1.2 $e |- ( ph -> C e. X ) $.
+    rlimcn1.3 $e |- ( ph -> G ~~>r C ) $.
+    rlimcn1.4 $e |- ( ph -> F : X --> CC ) $.
+    rlimcn1.5 $e |- ( ( ph /\ x e. RR+ ) -> E. y e. RR+ A. z e. X
+                    ( ( abs ` ( z - C ) ) < y ->
+                      ( abs ` ( ( F ` z ) - ( F ` C ) ) ) < x ) ) $.
+    $( Image of a limit under a continuous map.  (Contributed by Mario
+       Carneiro, 17-Sep-2014.) $)
+    rlimcn1 $p |- ( ph -> ( F o. G ) ~~>r ( F ` C ) ) $=
+      ( vw vc cfv wcel cc wbr vv ccom cv cmpt crli wf ffvelrn sylan wfn ffn syl
+      wceq dffn5v sylib fveq2 fmptco cle cmin co cabs clt wi wral cr crp wa cdm
+      wrex rlimf feq2d mpbid ad2antrr simpr eqbrtrrd rlimi simpll simplrr oveq1
+      fdm fveq2d breq1d oveq1d imbi12d rcla4v sylc imim2d ralimdva reximdv expr
+      mpid rexlimdva mpd ralrimiva syldan rlimss eqsstr3d syl2anc rlim2 eqbrtrd
+      wss mpbird ) AGHUBOEOUCZHQZGQZUDZFGQZUEAOUAEIXCUAUCZGQZXDHGAEIHUFZXBERZXC
+      IRZJEIXBHUGUHZAHEUIZHOEXCUDZULAXIXMJEIHUJUKOEHUMUNZAGIUIZGUAIXHUDULAISGUF
+      ZXPMISGUJUKUAIGUMUNXGXCGUOUPAXEXFUETPUCXBUQTZXDXFURUSZUTQZBUCZVATZVBZOEVC
+      ZPVDVHZBVEVCAYEBVEAYAVERZVFZDUCZFURUSZUTQZCUCZVATZYHGQZXFURUSZUTQZYAVATZV
+      BZDIVCZCVEVHYENYGYRYECVEYGYKVERZVFZYRXRXCFURUSZUTQZYKVATZVBZOEVCZPVDVHZYE
+      YTPOEXCFYKSIYTESHUFZXJXCSRAUUGYFYSAHVGZSHUFZUUGAHFUETZUUILFHVIUKAUUHESHAX
+      IUUHEULJEIHVSUKZVJVKVLESXBHUGUHAFIRZYFYSKVLYGYSVMAXNFUETYFYSAHXNFUEXOLVNV
+      LVOYGYSYRUUFYEVBYGYSYRVFZVFZUUEYDPVDUUNUUDYCOEUUNXJVFZUUCYBXRUUOXKYRUUCYB
+      VBZUUNAXJXKAYFUUMVPXLUHYGYSYRXJVQYQUUPDXCIYHXCULZYLUUCYPYBUUQYJUUBYKVAUUQ
+      YIUUAUTYHXCFURVRVTWAUUQYOXTYAVAUUQYNXSUTUUQYMXDXFURYHXCGUOWBVTWAWCWDWEWFW
+      GWHWIWJWKWLWMABPOEXDXFAXJXKXDSRZXLAXQXKUURMISXCGUGUHWNAEUUHVDUUKAUUJUUHVD
+      WTLFHWOUKWPAXQUULXFSRMKISFGUGWQWRXAWS $.
+      $( [17-Sep-2014] $)
+  $}
+
+  ${
+    $d a b c r s x z A $.  $d a b c r s u v x z F $.  $d a b c r s u v x z R $.
+    $d a b c r s u v x B $.  $d a b c r s x z ph $.  $d a b c r s u v x z S $.
+    $d a b c r s v x C $.  $d a b u z X $.  $d a b u v z Y $.
+    rlimcn2.1a $e |- ( ( ph /\ z e. A ) -> B e. X ) $.
+    rlimcn2.1b $e |- ( ( ph /\ z e. A ) -> C e. Y ) $.
+    rlimcn2.2a $e |- ( ph -> R e. X ) $.
+    rlimcn2.2b $e |- ( ph -> S e. Y ) $.
+    rlimcn2.3a $e |- ( ph -> ( z e. A |-> B ) ~~>r R ) $.
+    rlimcn2.3b $e |- ( ph -> ( z e. A |-> C ) ~~>r S ) $.
+    rlimcn2.4 $e |- ( ph -> F : ( X X. Y ) --> CC ) $.
+    rlimcn2.5 $e |- ( ( ph /\ x e. RR+ ) ->
+      E. r e. RR+ E. s e. RR+ A. u e. X A. v e. Y
+        ( ( ( abs ` ( u - R ) ) < r /\ ( abs ` ( v - S ) ) < s ) ->
+          ( abs ` ( ( u F v ) - ( R F S ) ) ) < x ) ) $.
+    $( Image of a limit under a continuous map, two-arg version.  (Contributed
+       by Mario Carneiro, 17-Sep-2014.) $)
+    rlimcn2 $p |- ( ph -> ( z e. A |-> ( B F C ) ) ~~>r ( R F S ) ) $=
+      ( vc va vb co cmpt crli wbr cv cle cmin cabs cfv clt wi wral cr wrex wcel
+      crp adantlr adantr simprl rlimi simprr reeanv r19.26 prth simplrl simplrr
+      wa cif wb wss cdm wceq eqid fmptd fdm syl rlimss eqsstr3d ad2antrr sselda
+      wf maxle syl3anc imbi1d syl5ibr ralimdva jca fveq2d breq1d anbi1d imbi12d
+      oveq1 oveq1d anbi2d oveq2 rcla42va sylan imim2d an32s ifcl ad2antlr breq1
+      ancoms jctild ralbidv rcla4ev syl6 ex com23 syl5bir rexlimdvva mp2and imp
+      syld syldan ralrimiva cxp cc fovrn rlim2 mpbird ) ACFGHKUGZUHIJKUGZUIUJUD
+      UKZCUKZULUJZYHYIUMUGZUNUOZBUKZUPUJZUQZCFURZUDUSUTZBVBURAYSBVBAYOVBVAEUKZI
+      UMUGZUNUOZOUKZUPUJZDUKZJUMUGZUNUOZNUKZUPUJZVMZYTUUEKUGZYIUMUGZUNUOZYOUPUJ
+      ZUQZDMURELURZNVBUTOVBUTZYSUCAUUQYSAUUPYSONVBVBAUUCVBVAZUUHVBVAZVMZVMZUEUK
+      ZYKULUJZGIUMUGZUNUOZUUCUPUJZUQZCFURZUEUSUTZUFUKZYKULUJZHJUMUGZUNUOZUUHUPU
+      JZUQZCFURZUFUSUTZUUPYSUQZUVAUECFGIUUCLLAYKFVAZGLVAZUUTPVCZAILVAZUUTRVDAUU
+      RUUSVEACFGUHZIUIUJZUUTTVDVFUVAUFCFHJUUHMMAUVSHMVAZUUTQVCZAJMVAZUUTSVDAUUR
+      UUSVGACFHUHJUIUJUUTUAVDVFUVIUVQVMUVHUVPVMZUFUSUTUEUSUTUVAUVRUVHUVPUEUFUSU
+      SVHUVAUWHUVRUEUFUSUSUWHUVGUVOVMZCFURZUVAUVBUSVAZUVJUSVAZVMZVMZUVRUVGUVOCF
+      VIUWNUWJUVBUVJULUJZUVJUVBVNZYKULUJZUVFUVNVMZUQZCFURZUVRUWNUWIUWSCFUWIUWSU
+      WNUVSVMZUVCUVKVMZUWRUQUVCUVFUVKUVNVJUXAUWQUXBUWRUXAUWKUWLYKUSVAUWQUXBVOUV
+      AUWKUWLUVSVKUVAUWKUWLUVSVLUWNFUSYKAFUSVPUUTUWMAFUWCVQZUSAFLUWCWGUXCFVRACF
+      GLUWCPUWCVSVTFLUWCWAWBAUWDUXCUSVPTIUWCWCWBWDZWEWFUVBUVJYKWHWIWJWKWLUWNUUP
+      UWTYSUWNUUPUWTYSUQUWNUUPVMZUWTUWPUSVAZUWQYPUQZCFURZVMYSUXEUWTUXHUXFUVAUUP
+      UWTUXHUQUWMUVAUUPVMUWSUXGCFUVAUVSUUPUWSUXGUQUVAUVSVMZUUPVMUWRYPUWQUXIUVTU
+      WEVMUUPUWRYPUQZUXIUVTUWEUWAUWFWMUUOUXJUVFUUIVMZGUUEKUGZYIUMUGZUNUOZYOUPUJ
+      ZUQEDGHLMYTGVRZUUJUXKUUNUXOUXPUUDUVFUUIUXPUUBUVEUUCUPUXPUUAUVDUNYTGIUMWRW
+      NWOWPUXPUUMUXNYOUPUXPUULUXMUNUXPUUKUXLYIUMYTGUUEKWRWSWNWOWQUUEHVRZUXKUWRU
+      XOYPUXQUUIUVNUVFUXQUUGUVMUUHUPUXQUUFUVLUNUUEHJUMWRWNWOWTUXQUXNYNYOUPUXQUX
+      MYMUNUXQUXLYHYIUMUUEHGKXAWSWNWOWQXBXCXDXEWLVCUWMUXFUVAUUPUWLUWKUXFUWOUVJU
+      VBUSXFXIXGXJYRUXHUDUWPUSYJUWPVRZYQUXGCFUXRYLUWQYPYJUWPYKULXHWJXKXLXMXNXOX
+      TXPXQXPXRXQXSYAYBABUDCFYHYIAUVSVMLMYCYDKWGZUVTUWEYHYDVAAUXSUVSUBVDPQGHYDL
+      MKYEWIUXDAUXSUWBUWGYIYDVAUBRSIJYDLMKYEWIYFYG $.
+      $( [17-Sep-2014] $)
+  $}
+
+  ${
     $d j k x y z A $.  $d j k z B $.  $d j k y z G $.  $d j k x H $.  $d j M $.
     $d j k x y z F $.  $d j k x y z ph $.  $d j k y Z $.
     climcn1.1 $e |- Z = ( ZZ>= ` M ) $.
@@ -591,7 +1225,7 @@ $)
   $}
 
   ${
-    $d u v w y z A $.  $d u v w y z B $.  $d u v w y z C $.
+    $d u v w y z A $.  $d u v w y z B $.  $d u v w y z C $.  $d y z T $.
     $( Complex number addition is a continuous function.  Part of Proposition
        14-4.16 of [Gleason] p. 243.  (We write out the definition directly
        because ~ df-cn and ~ df-cncf are not yet available to us.  See ~ addcn
@@ -688,6 +1322,220 @@ $)
       CJUIDJUIABYRYPHHUUOYRXAZUUTVVBDCJJVVCUUSVVAUULVVCUUPUUDUURUUOYRUUCNYBYCYD
       YEUUQYPXAZVVBUUMDCJJVVDVVAUUIUULVVDUURUUHUUDUUQYPUUGNYBYFYDYEYGVR $.
       $( [31-Jan-2014] $)
+
+    reccn2.t $e |- T = ( if ( 1 <_ ( ( abs ` A ) x. B ) , 1 ,
+      ( ( abs ` A ) x. B ) ) x. ( ( abs ` A ) / 2 ) ) $.
+    $( The reciprocal function is continuous.  (Contributed by Mario Carneiro,
+       9-Feb-2014.) $)
+    reccn2 $p |- ( ( A e. ( CC \ { 0 } ) /\ B e. RR+ ) -> E. y e. RR+
+      A. z e. ( CC \ { 0 } ) ( ( abs ` ( z - A ) ) < y ->
+        ( abs ` ( ( 1 / z ) - ( 1 / A ) ) ) < B ) ) $=
+      ( cc wcel crp co clt wbr c1 cdiv cmul syl syl2anc wceq syl3anc cr cc0 csn
+      cdif wa cv cmin cabs cfv wi wral wrex cle cif 1rp wne simpl eldifsn sylib
+      c2 absrpcl rpmulcl sylancom sylancr rphalfcl syl5eqel adantr simpld mulcl
+      simprl mulne0 divsubdir syl112anc mulid1 oveq1d ax-1cn a1i divcan5 eqtr3d
+      ifcl mulcom oveq12d eqtrd fveq2d subcl absdiv abscl eqeltrd rpre ad2antlr
+      abssub elrp remulcl simprr eqbrtrd 1re min2 wb mpbid syl5eqbr caddc recnd
+      lemul1 2halves resubcl abs2dif min1 mulid2 breqtrd ltletrd lelttrd ltadd1
+      ltsubadd2 mpbird ltmul2 absmul mul32 breqtrrd lttrd expr ralrimiva imbi1d
+      ltdivmul breq2 ralbidv rcla4ev ) CGUAUBUCZHZDIHZUDZEIHZBUEZCUFJZUGUHZEKLZ
+      MYKNJZMCNJZUFJZUGUHZDKLZUIZBYFUJZYMAUEZKLZYSUIZBYFUJZAIUKYIEMCUGUHZDOJZUL
+      LZMUUGUMZUUFUSNJZOJZIFYIUUIIHZUUJIHZUUKIHYIMIHUUGIHZUULUNYGYHUUFIHZUUNYIC
+      GHZCUAUOZUDZUUOYIYGUURYGYHUPCGUAUQURZCUTPZUUFDVAVBZUUHMUUGIVSVCZYIUUOUUMU
+      UTUUFVDPZUUIUUJVAQVEZYIYTBYFYIYKYFHZYNYSYIUVEYNUDZUDZYRCYKUFJZUGUHZCYKOJZ
+      UGUHZNJZDKUVGUVHUVJNJZUGUHZYRUVLUVGUVMYQUGUVGUVMCUVJNJZYKUVJNJZUFJZYQUVGU
+      UPYKGHZUVJGHZUVJUAUOZUVMUVQRUVGUUPUUQYIUURUVFUUSVFZVGZUVGUVRYKUAUOZUVGUVE
+      UVRUWCUDZYIUVEYNVIYKGUAUQURZVGZUVGUUPUVRUVSUWBUWFCYKVHQZUVGUURUWDUVTUWAUW
+      ECYKVJQZCYKUVJVKVLUVGUVOYOUVPYPUFUVGCMOJZUVJNJZUVOYOUVGUWICUVJNUVGUUPUWIC
+      RUWBCVMPVNUVGMGHZUWDUURUWJYORUWKUVGVOVPZUWEUWAMYKCVQSVRUVGYKMOJZYKCOJZNJZ
+      UVPYPUVGUWMYKUWNUVJNUVGUVRUWMYKRUWFYKVMPUVGUVRUUPUWNUVJRUWFUWBYKCVTQWAUVG
+      UWKUURUWDUWOYPRUWLUWAUWEMCYKVQSVRWAWBWCUVGUVHGHZUVSUVTUVNUVLRUVGUUPUVRUWP
+      UWBUWFCYKWDQUWGUWHUVHUVJWESVRUVGUVLDKLZUVIUVKDOJZKLZUVGUVIEUWRUVGUVIYMTUV
+      GUUPUVRUVIYMRUWBUWFCYKWJQZUVGYLGHZYMTHUVGUVRUUPUXAUWFUWBYKCWDQYLWFPWGZUVG
+      YJETHYIYJUVFUVDVFEWHPZUVGUVKTHZDTHZUWRTHUVGUXDUAUVKKLZUVGUVKIHZUXDUXFUDZU
+      VGUVSUVTUXGUWGUWHUVJUTQUVKWKURZVGYHUXEYGUVFDWHWIZUVKDWLQZUVGUVIYMEKUWTYIU
+      VEYNWMWNZUVGEUUGUUJOJZUWRUXCUVGUUGTHZUUJTHZUXMTHUVGUXNUAUUGKLZUVGUUNUXNUX
+      PUDZYIUUNUVFUVAVFUUGWKURZVGZUVGUXOUAUUJKLZUVGUUMUXOUXTUDZYIUUMUVFUVCVFUUJ
+      WKURZVGZUUGUUJWLQUXKUVGEUUKUXMULFUVGUUIUUGULLZUUKUXMULLZUVGMTHZUXNUYDWOUX
+      SMUUGWPVCUVGUUITHZUXNUYAUYDUYEWQUVGUULUYGYIUULUVFUVBVFUUIWHPZUXSUYBUUIUUG
+      UUJXBSWRWSUVGUXMUUGYKUGUHZOJZUWRKUVGUUJUYIKLZUXMUYJKLZUVGUYKUUJUUJWTJZUYI
+      UUJWTJZKLZUVGUYMUUFUYNKUVGUUFGHZUYMUUFRUVGUUFUVGUUPUUFTHZUWBCWFPZXAZUUFXC
+      PUVGUUFUYIUFJZUUJKLZUUFUYNKLZUVGUYTUVIUUJUVGUYQUYITHZUYTTHUYRUVGUVRVUCUWF
+      YKWFPZUUFUYIXDQUXBUYCUVGUUPUVRUYTUVIULLUWBUWFCYKXEQUVGUVIEUUJUXBUXCUYCUXL
+      UVGEMUUJOJZUUJULUVGEUUKVUEULFUVGUUIMULLZUUKVUEULLZUVGUYFUXNVUFWOUXSMUUGXF
+      VCUVGUYGUYFUYAVUFVUGWQUYHUYFUVGWOVPUYBUUIMUUJXBSWRWSUVGUUJGHVUEUUJRUVGUUJ
+      UYCXAUUJXGPXHXIXJUVGUYQVUCUXOVUAVUBWQUYRVUDUYCUUFUYIUUJXLSWRWNUVGUXOVUCUX
+      OUYKUYOWQUYCVUDUYCUUJUYIUUJXKSXMUVGUXOVUCUXQUYKUYLWQUYCVUDUXRUUJUYIUUGXNS
+      WRUVGUWRUUFUYIOJZDOJZUYJUVGUVKVUHDOUVGUUPUVRUVKVUHRUWBUWFCYKXOQVNUVGUYPUY
+      IGHDGHVUIUYJRUYSUVGUYIVUDXAUVGDUXJXAUUFUYIDXPSWBXQXJXRUVGUVITHUXEUXHUWQUW
+      SWQUXBUXJUXIUVIDUVKYBSXMWNXSXTUUEUUAAEIUUBERZUUDYTBYFVUJUUCYNYSUUBEYMKYCY
+      AYDYEQ $.
+      $( [22-Sep-2014] $) $( [9-Feb-2014] $)
+  $}
+
+  ${
+    $d a b m n x y z F $.  $d a b m n x y z G $.  $d a b m n x y z R $.
+    $d x y z M $.
+    o1of2.1 $e |- ( ( m e. RR /\ n e. RR ) -> M e. RR ) $.
+    o1of2.2 $e |- ( ( x e. CC /\ y e. CC ) -> ( x R y ) e. CC ) $.
+    o1of2.3 $e |- ( ( ( m e. RR /\ n e. RR ) /\ ( x e. CC /\ y e. CC ) ) ->
+                    ( ( ( abs ` x ) <_ m /\ ( abs ` y ) <_ n ) ->
+                      ( abs ` ( x R y ) ) <_ M ) ) $.
+    $( Show that a binary operation preserves eventual boundedness.
+       (Contributed by Mario Carneiro, 15-Sep-2014.) $)
+    o1of2 $p |- ( ( F e. O(1) /\ G e. O(1) ) -> ( F oF R G ) e. O(1) ) $=
+      ( vz wcel wa cle wbr cfv cabs cr cc va vb co1 cv wi cdm wral wrex cof o1f
+      co wf o1bdd mpdan adantr adantl reeanv cin wss inss1 ssralv ax-mp anim12i
+      inss2 r19.26 sylibr cif prth simplrl simplrr o1dm ad3antrrr syl5ss sselda
+      maxle syl3anc biimpd sseli ffvelrn syl2an simpllr syl ralrimivva ad2antlr
+      wb wceq fveq2 breq1d anbi1d oveq1 fveq2d imbi12d anbi2d rcla42va syl21anc
+      oveq2 cvv wfn ffn reex ssexg sylancl dmexg eqidd sylibrd imim12d ralimdva
+      eqid syl5 off ifcl syl2anc elo12r 3expia syl22anc syld rexlimdvva syl5bir
+      ofval mp2and ) FUCMZGUCMZNZUAUDZLUDZOPZYEFQZRQZDUDZOPZUEZLFUFZUGZDSUHZUAS
+      UHZUBUDZYEOPZYEGQZRQZEUDZOPZUEZLGUFZUGZESUHZUBSUHZFGCUIUKZUCMZYAYOYBYAYLT
+      FULZYOFUJZUALYLDFUMUNUOYBUUFYAYBUUCTGULZUUFGUJZUBLUUCEGUMUNUPYOUUFNYNUUEN
+      ZUBSUHUASUHYCUUHYNUUEUAUBSSUQYCUUMUUHUAUBSSUUMYMUUDNZESUHDSUHYCYDSMZYPSMZ
+      NZNZUUHYMUUDDESSUQUURUUNUUHDESSUUNYKUUBNZLYLUUCURZUGZUURYISMYTSMNZNZUUHUU
+      NYKLUUTUGZUUBLUUTUGZNUVAYMUVDUUDUVEUUTYLUSYMUVDUEYLUUCUTZYKLUUTYLVAVBUUTU
+      UCUSUUDUVEUEYLUUCVDZUUBLUUTUUCVAVBVCYKUUBLUUTVEVFUVCUVAYDYPOPZYPYDVGZYEOP
+      ZYEUUGQZRQZHOPZUEZLUUTUGZUUHUVCUUSUVNLUUTUUSYFYQNZYJUUANZUEUVCYEUUTMZNZUV
+      NYFYJYQUUAVHUVSUVJUVPUVQUVMUVSUVJUVPUVSUUOUUPYESMUVJUVPWEUVCUUOUVRYCUUOUU
+      PUVBVIZUOUVCUUPUVRYCUUOUUPUVBVJZUOUVCUUTSYEUVCUUTYLSUVFYAYLSUSZYBUUQUVBFV
+      KVLZVMZVNYDYPYEVOVPVQUVSUVQYGYRCUKZRQZHOPZUVMUVSYGTMZYRTMZAUDZRQZYIOPZBUD
+      ZRQZYTOPZNZUWJUWMCUKZRQZHOPZUEZBTUGATUGZUVQUWGUEZUVCUUIYEYLMZUWHUVRYAUUIY
+      BUUQUVBUUJVLZUUTYLYEUVFVRYLTYEFVSVTUVCUUKYEUUCMZUWIUVRUVCYBUUKYAYBUUQUVBW
+      AZUULWBZUUTUUCYEUVGVRUUCTYEGVSVTUVBUXAUURUVRUVBUWTABTTKWCWDUWTUXBYJUWONZY
+      GUWMCUKZRQZHOPZUEABYGYRTTUWJYGWFZUWPUXHUWSUXKUXLUWLYJUWOUXLUWKYHYIOUWJYGR
+      WGWHWIUXLUWRUXJHOUXLUWQUXIRUWJYGUWMCWJWKWHWLUWMYRWFZUXHUVQUXKUWGUXMUWOUUA
+      YJUXMUWNYSYTOUWMYRRWGWHWMUXMUXJUWFHOUXMUXIUWERUWMYRYGCWPWKWHWLWNWOUVSUVLU
+      WFHOUVSUVKUWERUVCYLUUCYGYRCUUTFGWQWQYEUVCUUIFYLWRUXDYLTFWSWBUVCUUKGUUCWRU
+      XGUUCTGWSWBUVCUWBSWQMYLWQMUWCWTYLSWQXAXBZUVCYBUUCWQMUXFGUCXCWBZUUTXHZUVCU
+      XCNYGXDUVCUXENYRXDXSWKWHXEXFXIXGUVCUUTTUUGULZUUTSUSZUVISMZHSMZUVOUUHUEUVC
+      ABYLUUCUUTCTTTFGWQWQUWJTMUWMTMNUWQTMUVCJUPUXDUXGUXNUXOUXPXJUWDUVCUUPUUOUX
+      SUWAUVTUVHYPYDSXKXLUVBUXTUURIUPUXQUXRNUXSUXTNUVOUUHLUUTUVIUUGHXMXNXOXPXIX
+      QXRXQXRXT $.
+      $( [15-Sep-2014] $)
+  $}
+
+  ${
+    $d a b m n w x y z F $.  $d a b m n x y z G $.
+    $( The sum of two eventually bounded functions is eventually bounded.
+       (Contributed by Mario Carneiro, 15-Sep-2014.) $)
+    o1add $p |- ( ( F e. O(1) /\ G e. O(1) ) -> ( F oF + G ) e. O(1) ) $=
+      ( vm vn vx vy caddc cv co readdcl cr wcel wa cc cabs cfv cle abscl adantl
+      wbr addcl ad2antrl ad2antll simpll simplr le2add abstri syl syl2an adantr
+      wi syl22anc letr syl3anc mpand syld o1of2 ) CDGEFABEHZFHZGIZURUSJZCHZDHZU
+      AZURKLZUSKLZMZVBNLZVCNLZMZMZVBOPZURQTVCOPZUSQTMZVLVMGIZUTQTZVBVCGIZOPZUTQ
+      TZVKVLKLZVMKLZVEVFVNVPUKVHVTVGVIVBRZUBVIWAVGVHVCRZUCVEVFVJUDVEVFVJUEVLVMU
+      RUSUFULVKVRVOQTZVPVSVJWDVGVBVCUGSVKVRKLZVOKLZUTKLZWDVPMVSUKVJWEVGVJVQNLWE
+      VDVQRUHSVJWFVGVHVTWAWFVIWBWCVLVMJUISVGWGVJVAUJVRVOUTUMUNUOUPUQ $.
+      $( [15-Sep-2014] $)
+
+    $( The product of two eventually bounded functions is eventually bounded.
+       (Contributed by Mario Carneiro, 15-Sep-2014.) $)
+    o1mul $p |- ( ( F e. O(1) /\ G e. O(1) ) -> ( F oF x. G ) e. O(1) ) $=
+      ( vx vy vm vn cmul cv co cr wcel wa cc cabs cfv cle wbr cc0 abscl absge0
+      remulcl mulcl w3a wceq absmul 3ad2ant2 simp3 simp2l jca syl simp1l simp2r
+      wi simp1r lemul12a syl22anc mpd eqbrtrd 3expia o1of2 ) CDGEFABEHZFHZGIZVA
+      VBUACHZDHZUBVAJKZVBJKZLZVDMKZVEMKZLZVDNOZVAPQVENOZVBPQLZVDVEGINOZVCPQVHVK
+      VNUCZVOVLVMGIZVCPVKVHVOVQUDVNVDVEUEUFVPVNVQVCPQZVHVKVNUGVPVLJKZRVLPQZLZVF
+      VMJKZRVMPQZLZVGVNVRUMVPVIWAVHVIVJVNUHVIVSVTVDSVDTUIUJVFVGVKVNUKVPVJWDVHVI
+      VJVNULVJWBWCVESVETUIUJVFVGVKVNUNVLVAVMVBUOUPUQURUSUT $.
+      $( [15-Sep-2014] $)
+
+    $( The difference of two eventually bounded functions is eventually
+       bounded.  (Contributed by Mario Carneiro, 15-Sep-2014.) $)
+    o1sub $p |- ( ( F e. O(1) /\ G e. O(1) ) -> ( F oF - G ) e. O(1) ) $=
+      ( vx vy vm vn cmin cv caddc co cr wcel wa cabs cfv cle wbr abscl adantl
+      cc readdcl subcl wi ad2antrl ad2antll simpll simplr le2add syl22anc negcl
+      cneg abstri sylan2 negsub fveq2d wceq absneg oveq2d 3brtr3d syl2an adantr
+      syl letr syl3anc mpand syld o1of2 ) CDGEFABEHZFHZIJZVHVIUAZCHZDHZUBZVHKLZ
+      VIKLZMZVLTLZVMTLZMZMZVLNOZVHPQVMNOZVIPQMZWBWCIJZVJPQZVLVMGJZNOZVJPQZWAWBK
+      LZWCKLZVOVPWDWFUCVRWJVQVSVLRZUDVSWKVQVRVMRZUEVOVPVTUFVOVPVTUGWBWCVHVIUHUI
+      WAWHWEPQZWFWIVTWNVQVTVLVMUKZIJZNOZWBWONOZIJZWHWEPVSVRWOTLWQWSPQVMUJVLWOUL
+      UMVTWPWGNVLVMUNUOVTWRWCWBIVSWRWCUPVRVMUQSURUSSWAWHKLZWEKLZVJKLZWNWFMWIUCV
+      TWTVQVTWGTLWTVNWGRVBSVTXAVQVRWJWKXAVSWLWMWBWCUAUTSVQXBVTVKVAWHWEVJVCVDVEV
+      FVG $.
+      $( [15-Sep-2014] $)
+
+    $( Any function with a finite limit is eventually bounded.  (Contributed by
+       Mario Carneiro, 18-Sep-2014.) $)
+    rlimo1 $p |- ( F ~~>r A -> F e. O(1) ) $=
+      ( vx vy vz vw crli wbr wcel cv cle cfv wi cr c1 cc syl wa adantr syl2anc
+      cdm co1 wrel rlimrel releldm mpan wex eldmg ibi cabs wral wrex cmin co wf
+      clt rlimf ffvelrn sylan cvv vex rlimcl crp 1rp a1i cmpt wceq dffn5v sylib
+      wfn ffn id eqbrtrrd rlimi caddc adantlr abs2dif abscl resubcl 1re syl3anc
+      subcl lelttr mpand wb ltsubadd2 sylibd peano2re ltle syld imim2d ralimdva
+      jctild breq2 imbi2d ralbidv rcla4ev syl6 reximdva mpd rlimss elo12 mpbird
+      wss exlimiv ) BAGHZBGUAZIZBUBIZGUCXFXHUDBAGUEUFXHBCJZGHZCUGZXIXHXLCBGXGUH
+      UIXKXICXKXIDJZEJZKHZXNBLZUJLZFJZKHZMZEBUAZUKZFNULZDNULZXKXOXPXJUMUNZUJLZO
+      UPHZMZEYAUKZDNULYDXKDEYAXPXJOPPXKYAPBUOZXNYAIZXPPIZXJBUQZYAPXNBURUSZXJUTI
+      XKXJPIZCVAXJBUTVBUFZOVCIXKVDVEXKBEYAXPVFZXJGXKBYAVJZBYQVGXKYJYRYMYAPBVKQE
+      YABVHVIXKVLVMVNXKYIYCDNXKXMNIZRZYIXJUJLZOVOUNZNIZXOXQUUBKHZMZEYAUKZRYCYTY
+      IUUFUUCYTYHUUEEYAYTYKRZYGUUDXOUUGYGXQUUBUPHZUUDUUGYGXQUUAUMUNZOUPHZUUHUUG
+      UUIYFKHZYGUUJUUGYLYOUUKXKYKYLYSYNVPZYTYOYKXKYOYSYPSZSZXPXJVQTUUGUUINIZYFN
+      IZONIZUUKYGRUUJMUUGXQNIZUUANIZUUOUUGYLUURUULXPVRQZYTUUSYKYTYOUUSUUMXJVRQZ
+      SZXQUUAVSTUUGYEPIZUUPUUGYLYOUVCUULUUNXPXJWBTYEVRQUUQUUGVTVEZUUIYFOWCWAWDU
+      UGUURUUSUUQUUJUUHWEUUTUVBUVDXQUUAOWFWAWGUUGUURUUCUUHUUDMUUTYTUUCYKYTUUSUU
+      CUVAUUAWHQZSXQUUBWITWJWKWLUVEWMYBUUFFUUBNXRUUBVGZXTUUEEYAUVFXSUUDXOXRUUBX
+      QKWNWOWPWQWRWSWTXKYJYANXDXIYDWEYMXJBXADEYAFBXBTXCXEQQ $.
+      $( [18-Sep-2014] $)
+
+    $( The product of a eventually bounded function and a function of limit
+       zero has limit zero.  (Contributed by Mario Carneiro, 15-Sep-2014.) $)
+    o1rlimmul $p |- ( ( F e. O(1) /\ G ~~>r 0 ) -> ( F oF x. G ) ~~>r 0 ) $=
+      ( vx wcel cc0 wbr wa cmul co cfv cvv cc adantr syl cr cle wi wral syl2anc
+      clt vz vy va vm vb co1 crli cof cdm cin cv cmpt wf wfn o1f ffn adantl wss
+      rlimf o1dm reex ssexg sylancl rlimss eqid eqidd cabs wrex crp o1bdd mpdan
+      offval ad2antrr cmin c1 caddc cdiv fvex a1i simplr recn ad2antll peano2re
+      0cn abscl 0re absge0 ltp1 lelttrd elrp sylanbrc rpdivcl wceq dffn5v sylib
+      simpr eqbrtrrd rlimi inss1 ssralv ax-mp anim12i r19.26 sylibr prth ralimi
+      cif inss2 wb simplrl simprl syl5ss ad3antrrr simprr sseldd syl3anc biimpd
+      maxle sseli ffvelrn subid1 fveq2d breq1d rpre ltle sylbid anim2d lemul12a
+      jca simplrr syl22anc absmul wne recnd syl112anc remulcl mpbird mpd syl2an
+      rpcn rpne0 divass leabs ltmul1 mpbid ltdivmul mulcl lelttr mpan2d sylbird
+      3syld imim12d anassrs ifcl jctild breq1 imbi1d ralbidv rcla4ev exp3acom23
+      ralimdva syl56 rexlimdva rexlimdvva ralrimiva rlim0 eqbrtrd ) AUFDZBEUGFZ
+      GZABHUHICAUIZBUIZUJZCUKZAJZUVNBJZHIZULZEUGUVJCUVKUVLUVOUVPHUVMABKKUVJUVKL
+      AUMZAUVKUNUVHUVSUVIAUOZMZUVKLAUPNUVJUVLLBUMZBUVLUNZUVIUWBUVHEBUSUQZUVLLBU
+      PNZUVJUVKOURZOKDZUVKKDUVHUWFUVIAUTMZVAUVKOKVBVCUVJUVLOURZUWGUVLKDUVIUWIUV
+      HEBVDUQVAUVLOKVBVCUVMVEUVJUVNUVKDZGUVOVFUVJUVNUVLDZGUVPVFVLUVJUVREUGFUAUK
+      ZUVNPFZUVQVGJZUBUKZTFZQZCUVMRZUAOVHZUBVIRUVJUWSUBVIUVJUWOVIDZGZUCUKZUVNPF
+      ZUVOVGJZUDUKZPFZQZCUVKRZUDOVHUCOVHZUWSUVHUXIUVIUWTUVHUVSUXIUVTUCCUVKUDAVJ
+      VKVMUXAUXHUWSUCUDOOUXAUXBODZUXEODZGZGZUEUKZUVNPFZUVPEVNIZVGJZUWOUXEVGJZVO
+      VPIZVQIZTFZQZCUVLRZUEOVHUXHUWSQZUXMUECUVLUVPEUXTKLUVPKDUXMUWKGUVNBVRVSELD
+      UXMWDVSUXMUWTUXSVIDZUXTVIDZUVJUWTUXLVTZUXMUXSODZEUXSTFZUYEUXMUXRODZUYHUXM
+      UXELDZUYJUXKUYKUXAUXJUXEWAWBZUXEWENZUXRWCNZUXMEUXRUXSEODUXMWFVSUYMUYNUXMU
+      YKEUXRPFUYLUXEWGNUXMUYJUXRUXSTFZUYMUXRWHNZWIZUXSWJWKZUWOUXSWLSZUVJCUVLUVP
+      ULZEUGFUWTUXLUVJBUYTEUGUVJUWCBUYTWMUWECUVLBWNWOUVHUVIWPWQVMWRUXMUYCUYDUEO
+      UXMUXNODZGZUXHUYCUWSUXHUYCGZUXCUXOGZUXFUYAGZQZCUVMRZVUBUXBUXNPFZUXNUXBXGZ
+      ODZVUIUVNPFZUWPQZCUVMRZGUWSVUCUXGUYBGZCUVMRZVUGVUCUXGCUVMRZUYBCUVMRZGVUOU
+      XHVUPUYCVUQUVMUVKURUXHVUPQUVKUVLWSZUXGCUVMUVKWTXAUVMUVLURUYCVUQQUVKUVLXHZ
+      UYBCUVMUVLWTXAXBUXGUYBCUVMXCXDVUNVUFCUVMUXCUXFUXOUYAXEXFNVUBVUGVUMVUJVUBV
+      UFVULCUVMUXMVUAUVNUVMDZVUFVULQUXMVUAVUTGZGZVUKVUDVUEUWPVVBVUKVUDVVBUXJVUA
+      UVNODVUKVUDXIUXAUXJUXKVVAXJUXMVUAVUTXKVVBUVMOUVNUVJUVMOURUWTUXLVVAUVJUVMU
+      VKOVURUWHXLZXMUXMVUAVUTXNZXOUXBUXNUVNXRXPXQVVBVUEUXFUVPVGJZUXTPFZGZUXDVVE
+      HIZUXEUXTHIZPFZUWPVVBUYAVVFUXFVVBUYAVVEUXTTFZVVFVVBUXQVVEUXTTVVBUXPUVPVGV
+      VBUVPLDZUXPUVPWMVVBUWBUWKVVLUVJUWBUWTUXLVVAUWDXMVVBVUTUWKVVDUVMUVLUVNVUSX
+      SZNUVLLUVNBXTZSZUVPYANYBYCVVBVVEODZUXTODZVVKVVFQVVBVVLVVPVVOUVPWENZVVBUYF
+      VVQUXMUYFVVAUYSMUXTYDNZVVEUXTYESYFYGVVBUXDODZEUXDPFZGUXKVVPEVVEPFZGVVQVVG
+      VVJQVVBVVTVWAVVBUVOLDZVVTVVBUVSUWJVWCUVJUVSUWTUXLVVAUWAXMVVBVUTUWJVVDUVMU
+      VKUVNVURXSZNUVKLUVNAXTZSZUVOWENVVBVWCVWAVWFUVOWGNYIUXAUXJUXKVVAYJZVVBVVPV
+      WBVVRVVBVVLVWBVVOUVPWGNYIVVSUXDUXEVVEUXTYHYKVVBVVJUWNVVIPFZUWPVVBUWNVVHVV
+      IPVVBVWCVVLUWNVVHWMVWFVVOUVOUVPYLSYCVVBVWHVVIUWOTFZUWPVVBUXEUWOHIZUXSVQIZ
+      VVIUWOTVVBUYKUWOLDUXSLDZUXSEYMZVWKVVIWMVVBUXEVWGYNVVBUWOVVBUWTUWOODZUXMUW
+      TVVAUYGMZUWOYDNZYNVVBUYEVWLUXMUYEVVAUYRMZUXSYTNVVBUYEVWMVWQUXSUUANUXEUWOU
+      XSUUBYOVVBVWKUWOTFZVWJUXSUWOHITFZVVBUXEUXSTFZVWSVVBUXEUXRUXSVWGUXMUYJVVAU
+      YMMUXMUYHVVAUYNMZVVBUXKUXEUXRPFVWGUXEUUCNUXMUYOVVAUYPMWIVVBUXKUYHVWNEUWOT
+      FGZVWTVWSXIVWGVXAVVBUWTVXBVWOUWOWJWOUXEUXSUWOUUDXPUUEVVBVWJODZVWNUYHUYIVW
+      RVWSXIVVBUXKVWNVXCVWGVWPUXEUWOYPSVWPVXAUXMUYIVVAUYQMVWJUWOUXSUUFYOYQWQVVB
+      UWNODZVVIODZVWNVWHVWIGUWPQVVBUVQLDZVXDVVBVWCVVLVXFVWFVVOUVOUVPUUGZSUVQWEN
+      VVBUXKVVQVXEVWGVVSUXEUXTYPSVWPUWNVVIUWOUUHXPUUIUUJUUKUULUUMUVAVUBVUAUXJVU
+      JUXMVUAWPUXAUXJUXKVUAXJVUHUXNUXBOUUNSUUOUWRVUMUAVUIOUWLVUIWMZUWQVULCUVMVX
+      HUWMVUKUWPUWLVUIUVNPUUPUUQUURUUSUVBUUTUVCYRUVDYRUVEUVJUBUACUVMUVQUVJVUTGV
+      WCVVLVXFUVJUVSUWJVWCVUTUWAVWDVWEYSUVJUWBUWKVVLVUTUWDVVMVVNYSVXGSVVCUVFYQU
+      VG $.
+      $( [18-Sep-2014] $)
   $}
 
   ${
@@ -853,57 +1701,197 @@ $)
         $( [1-Feb-2014] $) $( [10-Sep-2007] $)
     $}
 
+    climsqz.5 $e |- ( ph -> G e. W ) $.
+    climsqz.6 $e |- ( ( ph /\ k e. Z ) -> ( F ` k ) e. RR ) $.
+    climsqz.7 $e |- ( ( ph /\ k e. Z ) -> ( G ` k ) e. RR ) $.
     ${
-      climsqueeze.5 $e |- ( ph -> G e. W ) $.
-      climsqueeze.6 $e |- ( ( ph /\ k e. Z ) -> ( F ` k ) e. RR ) $.
-      climsqueeze.7 $e |- ( ( ph /\ k e. Z ) -> ( G ` k ) e. RR ) $.
-      ${
-        climsqueeze.8 $e |- ( ( ph /\ k e. Z ) -> ( F ` k ) <_ ( G ` k ) ) $.
-        climsqueeze.9 $e |- ( ( ph /\ k e. Z ) -> ( G ` k ) <_ A ) $.
-        $( Convergence of a sequence sandwiched between another converging
-           sequence and its limit.  (Revised by Mario Carneiro, 3-Feb-2014.) $)
-        climsqueeze $p |- ( ph -> G ~~> A ) $=
-          ( wbr wcel vx vj cli cv cfv cmin co cabs clt cuz wral wrex crp adantr
-          wa cz simpr eqidd climi2 wi uztrn2 cr wb climrecl lesub2 syl3anc wceq
-          cle mpbid abssuble0 letrd 3brtr4d adantlr cc ad2antrr resubcl syl2anc
-          recnd abscl syl rpre ad2antlr lelttr sylan2 anassrs ralimdva reximdva
-          mpand mpd ralrimiva clim2c mpbird ) AEBUCSCUDZEUEZBUFUGZUHUEZUAUDZUIS
-          ZCUBUDZUJUEZUKZUBIULZUAUMUKAXBUAUMAWQUMTZUOZWMDUEZBUFUGZUHUEZWQUISZCW
-          TUKZUBIULXBXDBXEWQUBCDFGIJAFUPTXCKUNAXCUQXDWMITZUOZXEURADBUCSXCMUNABG
-          TXCLUNUSXDXIXAUBIXDWSITZUOXHWRCWTXDXLWMWTTZXHWRUTZXLXMUOXDXJXNFWMWSIJ
-          VAXKWPXGVHSZXHWRAXJXOXCAXJUOZBWNUFUGZBXEUFUGZWPXGVHXPXEWNVHSZXQXRVHSZ
-          QXPXEVBTZWNVBTZBVBTZXSXTVCOPAYCXJABCDFGIJKMOLVDZUNZXEWNBVEVFVIXPYBYCW
-          NBVHSWPXQVGPYERWNBVJVFXPYAYCXEBVHSXGXRVGOYEXPXEWNBOPYEQRVKXEBVJVFVLVM
-          XKWPVBTZXGVBTZWQVBTZXOXHUOWRUTXKWOVNTYFXKWOXKYBYCWOVBTAXJYBXCPVMAYCXC
-          XJYDVOZWNBVPVQVRWOVSVTXKXFVNTYGXKXFXKYAYCXFVBTAXJYAXCOVMYIXEBVPVQVRXF
-          VSVTXCYHAXJWQWAWBWPXGWQWCVFWHWDWEWFWGWIWJAUABWNUBCEFHIJKNXPWNURABYDVR
-          XPWNPVRWKWL $.
-          $( [3-Feb-2014] $) $( [6-Feb-2008] $)
-      $}
+      climsqz.8 $e |- ( ( ph /\ k e. Z ) -> ( F ` k ) <_ ( G ` k ) ) $.
+      climsqz.9 $e |- ( ( ph /\ k e. Z ) -> ( G ` k ) <_ A ) $.
+      $( Convergence of a sequence sandwiched between another converging
+         sequence and its limit.  (Revised by Mario Carneiro, 3-Feb-2014.) $)
+      climsqz $p |- ( ph -> G ~~> A ) $=
+        ( wbr wcel vx vj cli cv cfv cmin co cabs clt cuz wral wrex wa cz adantr
+        crp simpr eqidd climi2 wi uztrn2 cle cr wb climrecl lesub2 syl3anc wceq
+        mpbid abssuble0 letrd 3brtr4d adantlr cc ad2antrr resubcl syl2anc recnd
+        abscl syl rpre ad2antlr lelttr mpand sylan2 ralimdva reximdva ralrimiva
+        anassrs mpd clim2c mpbird ) AEBUCSCUDZEUEZBUFUGZUHUEZUAUDZUISZCUBUDZUJU
+        EZUKZUBIULZUAUPUKAXBUAUPAWQUPTZUMZWMDUEZBUFUGZUHUEZWQUISZCWTUKZUBIULXBX
+        DBXEWQUBCDFGIJAFUNTXCKUOAXCUQXDWMITZUMZXEURADBUCSXCMUOABGTXCLUOUSXDXIXA
+        UBIXDWSITZUMXHWRCWTXDXLWMWTTZXHWRUTZXLXMUMXDXJXNFWMWSIJVAXKWPXGVBSZXHWR
+        AXJXOXCAXJUMZBWNUFUGZBXEUFUGZWPXGVBXPXEWNVBSZXQXRVBSZQXPXEVCTZWNVCTZBVC
+        TZXSXTVDOPAYCXJABCDFGIJKMOLVEZUOZXEWNBVFVGVIXPYBYCWNBVBSWPXQVHPYERWNBVJ
+        VGXPYAYCXEBVBSXGXRVHOYEXPXEWNBOPYEQRVKXEBVJVGVLVMXKWPVCTZXGVCTZWQVCTZXO
+        XHUMWRUTXKWOVNTYFXKWOXKYBYCWOVCTAXJYBXCPVMAYCXCXJYDVOZWNBVPVQVRWOVSVTXK
+        XFVNTYGXKXFXKYAYCXFVCTAXJYAXCOVMYIXEBVPVQVRXFVSVTXCYHAXJWQWAWBWPXGWQWCV
+        GWDWEWIWFWGWJWHAUABWNUBCEFHIJKNXPWNURABYDVRXPWNPVRWKWL $.
+        $( [3-Feb-2014] $) $( [6-Feb-2008] $)
+    $}
 
-      ${
-        climsqueeze2.8 $e |- ( ( ph /\ k e. Z ) -> ( G ` k ) <_ ( F ` k ) ) $.
-        climsqueeze2.9 $e |- ( ( ph /\ k e. Z ) -> A <_ ( G ` k ) ) $.
-        $( Convergence of a sequence sandwiched between another converging
-           sequence and its limit.  (Revised by Mario Carneiro, 3-Feb-2014.) $)
-        climsqueeze2 $p |- ( ph -> G ~~> A ) $=
-          ( wbr wcel vx vj cli cv cfv cmin co cabs clt cuz wral wrex crp adantr
-          wa cz simpr eqidd climi2 wi uztrn2 cr wb climrecl lesub1 syl3anc wceq
-          cle mpbid abssubge0 letrd 3brtr4d adantlr cc ad2antrr resubcl syl2anc
-          recnd abscl syl rpre ad2antlr lelttr sylan2 anassrs ralimdva reximdva
-          mpand mpd ralrimiva clim2c mpbird ) AEBUCSCUDZEUEZBUFUGZUHUEZUAUDZUIS
-          ZCUBUDZUJUEZUKZUBIULZUAUMUKAXBUAUMAWQUMTZUOZWMDUEZBUFUGZUHUEZWQUISZCW
-          TUKZUBIULXBXDBXEWQUBCDFGIJAFUPTXCKUNAXCUQXDWMITZUOZXEURADBUCSXCMUNABG
-          TXCLUNUSXDXIXAUBIXDWSITZUOXHWRCWTXDXLWMWTTZXHWRUTZXLXMUOXDXJXNFWMWSIJ
-          VAXKWPXGVHSZXHWRAXJXOXCAXJUOZWOXFWPXGVHXPWNXEVHSZWOXFVHSZQXPWNVBTZXEV
-          BTZBVBTZXQXRVCPOAYAXJABCDFGIJKMOLVDZUNZWNXEBVEVFVIXPYAXSBWNVHSWPWOVGY
-          CPRBWNVJVFXPYAXTBXEVHSXGXFVGYCOXPBWNXEYCPORQVKBXEVJVFVLVMXKWPVBTZXGVB
-          TZWQVBTZXOXHUOWRUTXKWOVNTYDXKWOXKXSYAWOVBTAXJXSXCPVMAYAXCXJYBVOZWNBVP
-          VQVRWOVSVTXKXFVNTYEXKXFXKXTYAXFVBTAXJXTXCOVMYGXEBVPVQVRXFVSVTXCYFAXJW
-          QWAWBWPXGWQWCVFWHWDWEWFWGWIWJAUABWNUBCEFHIJKNXPWNURABYBVRXPWNPVRWKWL
-          $.
-          $( [3-Feb-2014] $) $( [14-Feb-2008] $)
-      $}
+    ${
+      climsqz2.8 $e |- ( ( ph /\ k e. Z ) -> ( G ` k ) <_ ( F ` k ) ) $.
+      climsqz2.9 $e |- ( ( ph /\ k e. Z ) -> A <_ ( G ` k ) ) $.
+      $( Convergence of a sequence sandwiched between another converging
+         sequence and its limit.  (Revised by Mario Carneiro, 3-Feb-2014.) $)
+      climsqz2 $p |- ( ph -> G ~~> A ) $=
+        ( wbr wcel vx vj cli cv cfv cmin co cabs clt cuz wral wrex wa cz adantr
+        crp simpr eqidd climi2 wi uztrn2 cle cr wb climrecl lesub1 syl3anc wceq
+        mpbid abssubge0 letrd 3brtr4d adantlr cc ad2antrr resubcl syl2anc recnd
+        abscl syl rpre ad2antlr lelttr mpand sylan2 ralimdva reximdva ralrimiva
+        anassrs mpd clim2c mpbird ) AEBUCSCUDZEUEZBUFUGZUHUEZUAUDZUISZCUBUDZUJU
+        EZUKZUBIULZUAUPUKAXBUAUPAWQUPTZUMZWMDUEZBUFUGZUHUEZWQUISZCWTUKZUBIULXBX
+        DBXEWQUBCDFGIJAFUNTXCKUOAXCUQXDWMITZUMZXEURADBUCSXCMUOABGTXCLUOUSXDXIXA
+        UBIXDWSITZUMXHWRCWTXDXLWMWTTZXHWRUTZXLXMUMXDXJXNFWMWSIJVAXKWPXGVBSZXHWR
+        AXJXOXCAXJUMZWOXFWPXGVBXPWNXEVBSZWOXFVBSZQXPWNVCTZXEVCTZBVCTZXQXRVDPOAY
+        AXJABCDFGIJKMOLVEZUOZWNXEBVFVGVIXPYAXSBWNVBSWPWOVHYCPRBWNVJVGXPYAXTBXEV
+        BSXGXFVHYCOXPBWNXEYCPORQVKBXEVJVGVLVMXKWPVCTZXGVCTZWQVCTZXOXHUMWRUTXKWO
+        VNTYDXKWOXKXSYAWOVCTAXJXSXCPVMAYAXCXJYBVOZWNBVPVQVRWOVSVTXKXFVNTYEXKXFX
+        KXTYAXFVCTAXJXTXCOVMYGXEBVPVQVRXFVSVTXCYFAXJWQWAWBWPXGWQWCVGWDWEWIWFWGW
+        JWHAUABWNUBCEFHIJKNXPWNURABYBVRXPWNPVRWKWL $.
+        $( [3-Feb-2014] $) $( [14-Feb-2008] $)
+    $}
+  $}
+
+  ${
+    $d v w x y z A $.  $d v w y z C $.  $d u v w x y z D $.  $d v w x y z ph $.
+    $d u v w y z B $.  $d u v w x y z E $.
+    rlimadd.1 $e |- ( ph -> D e. V ) $.
+    rlimadd.2 $e |- ( ph -> E e. V ) $.
+    rlimadd.3 $e |- ( ( ph /\ x e. A ) -> B e. V ) $.
+    rlimadd.4 $e |- ( ( ph /\ x e. A ) -> C e. V ) $.
+    rlimadd.5 $e |- ( ph -> ( x e. A |-> B ) ~~>r D ) $.
+    rlimadd.6 $e |- ( ph -> ( x e. A |-> C ) ~~>r E ) $.
+    $( Limit of the sum of two converging functions.  Proposition 12-2.1(a) of
+       [Gleason] p. 168.  (Contributed by Mario Carneiro, 22-Sep-2014.) $)
+    rlimadd $p |- ( ph -> ( x e. A |-> ( B + C ) ) ~~>r ( D + E ) ) $=
+      ( cc wcel wf wral wbr cv vy vv vu vw vz caddc cmpt cdm crli syl ralrimiva
+      rlimf wceq dmmptg feq2d mpbid eqid fmpt sylibr r19.21bi syl2anc ax-addopr
+      rlimcl cxp a1i crp wa cmin co cabs cfv clt wi simpr adantr addcn2 syl3anc
+      wrex rlimcn2 ) AUABUBUCCDEFGUFOOUDUEADOPZBCACOBCDUGZQZVTBCRAWAUHZOWAQZWBA
+      WAFUISZWDMFWAULUJAWCCOWAADHPZBCRWCCUMAWFBCKUKBCDHUNUJUOUPBCODWAWAUQURUSUT
+      AEOPZBCACOBCEUGZQZWGBCRAWHUHZOWHQZWIAWHGUISZWKNGWHULUJAWJCOWHAEHPZBCRWJCU
+      MAWMBCLUKBCEHUNUJUOUPBCOEWHWHUQURUSUTAFHPWEFOPZIMFWAHVCVAZAGHPWLGOPZJNGWH
+      HVCVAZMNOOVDOUFQAVBVEAUATZVFPZVGWSWNWPUCTZFVHVIVJVKUETVLSUBTZGVHVIVJVKUDT
+      VLSVGWTXAUFVIFGUFVIVHVIVJVKWRVLSVMUBORUCORUDVFVRUEVFVRAWSVNAWNWSWOVOAWPWS
+      WQVOUEUDUBUCWRFGVPVQVS $.
+      $( [22-Sep-2014] $)
+
+    $( Limit of the difference of two converging functions.  Proposition
+       12-2.1(b) of [Gleason] p. 168.  (Contributed by Mario Carneiro,
+       22-Sep-2014.) $)
+    rlimsub $p |- ( ph -> ( x e. A |-> ( B - C ) ) ~~>r ( D - E ) ) $=
+      ( cmin cc wcel wf wral wbr vy vv vu vw cmpt cdm crli rlimf wceq ralrimiva
+      vz syl dmmptg feq2d mpbid eqid fmpt sylibr r19.21bi rlimcl syl2anc subopr
+      cxp a1i cv crp wa co cabs cfv wi wrex simpr adantr subcn2 syl3anc rlimcn2
+      clt ) AUABUBUCCDEFGOPPUDUKADPQZBCACPBCDUEZRZVSBCSAVTUFZPVTRZWAAVTFUGTZWCM
+      FVTUHULAWBCPVTADHQZBCSWBCUIAWEBCKUJBCDHUMULUNUOBCPDVTVTUPUQURUSAEPQZBCACP
+      BCEUEZRZWFBCSAWGUFZPWGRZWHAWGGUGTZWJNGWGUHULAWICPWGAEHQZBCSWICUIAWLBCLUJB
+      CEHUMULUNUOBCPEWGWGUPUQURUSAFHQWDFPQZIMFVTHUTVAZAGHQWKGPQZJNGWGHUTVAZMNPP
+      VCPORAVBVDAUAVEZVFQZVGWRWMWOUCVEZFOVHVIVJUKVEVRTUBVEZGOVHVIVJUDVEVRTVGWSW
+      TOVHFGOVHOVHVIVJWQVRTVKUBPSUCPSUDVFVLUKVFVLAWRVMAWMWRWNVNAWOWRWPVNUKUDUBU
+      CWQFGVOVPVQ $.
+      $( [22-Sep-2014] $)
+
+    $( Limit of the product of two converging functions.  Proposition 12-2.1(c)
+       of [Gleason] p. 168.  (Contributed by Mario Carneiro, 22-Sep-2014.) $)
+    rlimmul $p |- ( ph -> ( x e. A |-> ( B x. C ) ) ~~>r ( D x. E ) ) $=
+      ( cc wcel wf wral wbr cv vy vv vu vw vz cmul cmpt cdm crli rlimf syl wceq
+      ralrimiva dmmptg feq2d mpbid eqid fmpt sylibr r19.21bi rlimcl syl2anc cxp
+      ax-mulopr a1i crp wa cmin co cabs cfv wi wrex simpr adantr mulcn2 syl3anc
+      clt rlimcn2 ) AUABUBUCCDEFGUFOOUDUEADOPZBCACOBCDUGZQZVTBCRAWAUHZOWAQZWBAW
+      AFUISZWDMFWAUJUKAWCCOWAADHPZBCRWCCULAWFBCKUMBCDHUNUKUOUPBCODWAWAUQURUSUTA
+      EOPZBCACOBCEUGZQZWGBCRAWHUHZOWHQZWIAWHGUISZWKNGWHUJUKAWJCOWHAEHPZBCRWJCUL
+      AWMBCLUMBCEHUNUKUOUPBCOEWHWHUQURUSUTAFHPWEFOPZIMFWAHVAVBZAGHPWLGOPZJNGWHH
+      VAVBZMNOOVCOUFQAVDVEAUATZVFPZVGWSWNWPUCTZFVHVIVJVKUETVRSUBTZGVHVIVJVKUDTV
+      RSVGWTXAUFVIFGUFVIVHVIVJVKWRVRSVLUBORUCORUDVFVMUEVFVMAWSVNAWNWSWOVOAWPWSW
+      QVOUEUDUBUCWRFGVPVQVS $.
+      $( [22-Sep-2014] $)
+
+    rlimdiv.7 $e |- ( ph -> E =/= 0 ) $.
+    rlimdiv.8 $e |- ( ( ph /\ x e. A ) -> C =/= 0 ) $.
+    $( Limit of the quotient of two converging functions.  Proposition
+       12-2.1(a) of [Gleason] p. 168.  (Contributed by Mario Carneiro,
+       22-Sep-2014.) $)
+    rlimdiv $p |- ( ph -> ( x e. A |-> ( B / C ) ) ~~>r ( D / E ) ) $=
+      ( cdiv co cc wcel vy vz vw vv cmul cmpt crli wbr rlimcl syl2anc cc0 reccl
+      c1 wne wf wral cdm rlimf syl wceq ralrimiva dmmptg feq2d eqid fmpt sylibr
+      mpbid r19.21bi cv wa csn cdif cfv eldifsn sylanbrc fmptd sylbi adantl crp
+      ccom cmin cabs clt wi wrex cle cif c2 reccn2 sylan oveq2 fvmpt oveqan12rd
+      fveq2d breq1d imbi2d ralbidva rexbidv biimpar syldan rlimcn1 eqidd fmptco
+      ovex 3brtr3d rlimmul divrec syl3anc mpteq2dva 3brtr4d ) ABCDUMEQRZUERZUFF
+      UMGQRZUERZBCDEQRZUFFGQRZUGABCDXKFXMSAFHTBCDUFZFUGUHZFSTZIMFXQHUIUJZAGSTZG
+      UKUNZXMSTAGHTBCEUFZGUGUHZYAJNGYCHUIUJZOGULUJADSTZBCACSXQUOZYFBCUPAXQUQZSX
+      QUOZYGAXRYIMFXQURUSAYHCSXQADHTZBCUPYHCUTAYJBCKVABCDHVBUSVCVGBCSDXQXQVDVEV
+      FVHZABVICTVJZESTZEUKUNZXKSTAYMBCACSYCUOZYMBCUPAYCUQZSYCUOZYOAYDYQNGYCURUS
+      AYPCSYCAEHTZBCUPYPCUTAYRBCLVABCEHVBUSVCVGBCSEYCYCVDZVEVFVHZPEULUJMAUASUKV
+      KVLZUMUAVIZQRZUFZYCVTGUUDVMZBCXKUFXMUGAUBUCUDCGUUDYCUUAABCEUUAYCYLYMYNEUU
+      ATYTPESUKVNVOZYSVPAYAYBGUUATZYEOGSUKVNVOZNAUAUUAUUCSUUDUUBUUATZUUCSTZAUUI
+      UUBSTUUBUKUNVJUUJUUBSUKVNUUBULVQVRUUDVDZVPAUBVIZVSTZUDVIZGWARWBVMUCVIWCUH
+      ZUMUUNQRZXMWARZWBVMZUULWCUHZWDZUDUUAUPZUCVSWEZUUOUUNUUDVMZUUEWARZWBVMZUUL
+      WCUHZWDZUDUUAUPZUCVSWEZAUUGUUMUVBUUHUCUDGUULUMGWBVMZUULUERZWFUHUMUVKWGUVJ
+      WHQRUERZUVLVDWIWJAUVIUVBAUVHUVAUCVSAUVGUUTUDUUAAUUNUUATZVJZUVFUUSUUOUVNUV
+      EUURUULWCUVNUVDUUQWBUVMAUVCUUPUUEXMWAUAUUNUUCUUPUUAUUDUUBUUNUMQWKUUKUMUUN
+      QXDWLAUUGUUEXMUTUUHUAGUUCXMUUAUUDUUBGUMQWKUUKUMGQXDWLUSZWMWNWOWPWQWRWSWTX
+      AABUACUUAEUUCXKYCUUDUUFAYCXBAUUDXBUUBEUMQWKXCUVOXEXFABCXOXLYLYFYMYNXOXLUT
+      YKYTPDEXGXHXIAXSYAYBXPXNUTXTYEOFGXGXHXJ $.
+      $( [22-Sep-2014] $)
+  $}
+
+  ${
+    $d x y z A $.  $d y z B $.  $d y z C $.  $d x y z D $.  $d x y z ph $.
+    rlimsqzlem.1 $e |- ( ph -> D e. V ) $.
+    rlimsqzlem.2 $e |- ( ph -> ( x e. A |-> B ) ~~>r D ) $.
+    rlimsqzlem.3 $e |- ( ( ph /\ x e. A ) -> B e. CC ) $.
+    rlimsqzlem.4 $e |- ( ( ph /\ x e. A ) -> C e. CC ) $.
+    rlimsqzlem.5 $e |- ( ( ph /\ x e. A ) ->
+      ( abs ` ( C - D ) ) <_ ( abs ` ( B - D ) ) ) $.
+    $( Lemma for ~ rlimsqz and ~ rlimsqz2 . $)
+    rlimsqzlem $p |- ( ph -> ( x e. A |-> C ) ~~>r D ) $=
+      ( vz vy wbr wral cr crp wcel cc cmpt crli cv cle cmin co cabs cfv wi wrex
+      clt wa adantlr rlimcl syl2anc adantr subcl abscl syl rpre ad2antlr lelttr
+      syl3anc mpand imim2d ralimdva reximdv cdm wf wceq eqid fmptd fdm eqsstr3d
+      wss rlimss rlim2 3imtr4d mpd ) ABCDUAZFUBOZBCEUAFUBOZIAMUCBUCZUDOZDFUEUFZ
+      UGUHZNUCZUKOZUIZBCPZMQUJZNRPWDEFUEUFZUGUHZWGUKOZUIZBCPZMQUJZNRPWAWBAWKWQN
+      RAWGRSZULZWJWPMQWSWIWOBCWSWCCSZULZWHWNWDXAWMWFUDOZWHWNAWTXBWRLUMXAWMQSZWF
+      QSZWGQSZXBWHULWNUIAWTXCWRAWTULZWLTSZXCXFETSFTSZXGKAXHWTAFGSWAXHHIFVTGUNUO
+      ZUPZEFUQUOWLURUSUMAWTXDWRXFWETSZXDXFDTSXHXKJXJDFUQUOWEURUSUMWRXEAWTWGUTVA
+      WMWFWGVBVCVDVEVFVGVFANMBCDFJACVTVHZQACTVTVIXLCVJABCDTVTJVTVKVLCTVTVMUSAWA
+      XLQVOIFVTVPUSVNZXIVQANMBCEFKXMXIVQVRVS $.
+      $( [18-Sep-2014] $)
+  $}
+
+  ${
+    $d x A $.  $d x D $.  $d x ph $.
+    rlimsqz.1 $e |- ( ph -> D e. RR ) $.
+    rlimsqz.2 $e |- ( ph -> ( x e. A |-> B ) ~~>r D ) $.
+    rlimsqz.3 $e |- ( ( ph /\ x e. A ) -> B e. RR ) $.
+    rlimsqz.4 $e |- ( ( ph /\ x e. A ) -> C e. RR ) $.
+    ${
+      rlimsqz.5 $e |- ( ( ph /\ x e. A ) -> B <_ C ) $.
+      rlimsqz.6 $e |- ( ( ph /\ x e. A ) -> C <_ D ) $.
+      $( Convergence of a sequence sandwiched between another converging
+         sequence and its limit.  (Contributed by Mario Carneiro,
+         18-Sep-2014.) $)
+      rlimsqz $p |- ( ph -> ( x e. A |-> C ) ~~>r D ) $=
+        ( cr wcel recnd cmin co cle wbr syl3anc cv wa cabs cfv wb adantr lesub2
+        mpbid wceq abssuble0 letrd 3brtr4d rlimsqzlem ) ABCDEFMGHABUACNZUBZDIOU
+        OEJOUOFEPQZFDPQZEFPQUCUDZDFPQUCUDZRUODERSZUPUQRSZKUODMNZEMNZFMNZUTVAUEI
+        JAVDUNGUFZDEFUGTUHUOVCVDEFRSURUPUIJVELEFUJTUOVBVDDFRSUSUQUIIVEUODEFIJVE
+        KLUKDFUJTULUM $.
+        $( [18-Sep-2014] $)
+    $}
+
+    ${
+      rlimsqz2.5 $e |- ( ( ph /\ x e. A ) -> C <_ B ) $.
+      rlimsqz2.6 $e |- ( ( ph /\ x e. A ) -> D <_ C ) $.
+      $( Convergence of a sequence sandwiched between another converging
+         sequence and its limit.  (Revised by Mario Carneiro, 3-Feb-2014.) $)
+      rlimsqz2 $p |- ( ph -> ( x e. A |-> C ) ~~>r D ) $=
+        ( cr wcel recnd cmin co cle wbr syl3anc cv wa cabs cfv wb adantr lesub1
+        mpbid wceq abssubge0 letrd 3brtr4d rlimsqzlem ) ABCDEFMGHABUACNZUBZDIOU
+        OEJOUOEFPQZDFPQZUPUCUDZUQUCUDZRUOEDRSZUPUQRSZKUOEMNZDMNZFMNZUTVAUEJIAVD
+        UNGUFZEDFUGTUHUOVDVBFERSURUPUIVEJLFEUJTUOVDVCFDRSUSUQUIVEIUOFEDVEJILKUK
+        FDUJTULUM $.
+        $( [18-Sep-2014] $)
     $}
   $}
 

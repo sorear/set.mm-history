@@ -1,0 +1,1039 @@
+$(
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+        Number-theoretical functions
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+$)
+
+  $c theta $.
+  $c ppi $.
+  $c mmu $.
+  $c sigma $.
+
+  $( Extend class notation with the first Chebyshev function. $)
+  ccht $a class theta $.
+
+  $( Extend class notation with the prime Pi function. $)
+  cppi $a class ppi $.
+
+  $( Extend class notation with the M&ouml;bius function. $)
+  cmu $a class mmu $.
+
+  $( Extend class notation with the divisor function. $)
+  csgm $a class sigma $.
+
+  ${
+    $d p x $.
+    $( Define the first Chebyshev function, which adds up the logarithms of all
+       primes less than ` x ` .  The symbol used to represent this function is
+       sometimes the variant greek letter theta shown here and sometimes the
+       greek letter psi, &psi;; however, this notation can also refer to the
+       second Chebyshev function, which adds up the logarithms of prime powers
+       instead.  See ~ https://en.wikipedia.org/wiki/Chebyshev_function for a
+       discussion of the two functions. $)
+    df-cht $a |- theta = ( x e. RR |->
+      sum_ p e. ( ( 0 [,] x ) i^i Prime ) ( log ` p ) ) $.
+
+    $( Define the prime &pi; function, which counts the number of primes less
+       than or equal to ` x ` . $)
+    df-ppi $a |- ppi = ( x e. RR |-> ( # ` ( ( 0 [,] x ) i^i Prime ) ) ) $.
+
+    $( Define the M&ouml;bius function, which is zero for non-squarefree
+       numbers and is ` -u 1 ` or ` 1 ` for squarefree numbers according as to
+       the number of prime divisors of the number is even or odd. $)
+    df-mu $a |- mmu = ( x e. NN |-> if ( E. p e. Prime ( p ^ 2 ) || x , 0 ,
+      ( -u 1 ^ ( # ` { p e. Prime | p || x } ) ) ) ) $.
+
+    $( Define the divisor function, which counts the number of divisors of
+       ` x ` . $)
+    df-sgm $a |- sigma = ( x e. NN |-> ( # ` { p e. NN | p || x } ) ) $.
+  $}
+
+  ${
+    $d p x y z A $.  $d p x y z B $.  $d p x M $.  $d p N $.  $d p P $.
+    $( The set of primes less than ` A ` expressed using a finite set of
+       integers. $)
+    ppisval $p |- ( A e. RR ->
+      ( ( 0 [,] A ) i^i Prime ) = ( ( 2 ... ( |_ ` A ) ) i^i Prime ) ) $=
+      ( vx cr wcel cc0 cicc co cprime cin c2 cfl cfv syl cz cle wbr 0re wss a1i
+      wb cfz cv cuz inss2 simpr sseldi prmuz2 prmz flcl adantr w3a inss1 elicc2
+      simpl sylancr mpbid simp3d flge syldan eluz2 syl3anbrc fvex elfzuzb ax-mp
+      wa cvv sylanbrc elin ex ssrdv wceq 2z fzval2 2re reflcl 2pos ltleii iccss
+      id flle syl222anc syl5ss eqsstrd ssrin eqssd ) ACDZEAFGZHIZJAKLZUAGZHIZWF
+      BWHWKWFBUBZWHDZWLWKDZWFWMVEZWLWJDZWLHDZWNWOWLJUCLDZWIWLUCLDZWPWOWQWRWOWHH
+      WLWGHUDWFWMUEZUFZWLUGMWOWLNDZWINDZWLWIOPZWSWOWQXBXAWLUHMZWFXCWMAUIZUJWOWL
+      AOPZXDWOWLCDZEWLOPZXGWOWLWGDZXHXIXGUKZWOWHWGWLWGHULWTUFWOECDZWFXJXKTQWFWM
+      UNEAWLUMUOUPUQWFWMXBXGXDTXEAWLURUSUPWLWIUTVAWIVFDWPWRWSVETAKVBVFWLJWIVCVD
+      VGXAWLWJHVHVGVIVJWFWJWGRWKWHRWFWJJWIFGZNIZWGWFJNDXCWJXNVKVLXFJWIVMUOWFXNX
+      MWGXMNULWFXLWFJCDZWICDEJOPZWIAOPXMWGRXLWFQSWFVSXOWFVNSAVOXPWFEJQVNVPVQSAV
+      TEAJWIVRWAWBWCWJWGHWDMWE $.
+      $( [22-Sep-2014] $)
+
+    $( The set of primes less than ` A ` expressed using a finite set of
+       integers. $)
+    ppisval2 $p |- ( ( A e. RR /\ 2 e. ( ZZ>= ` M ) ) ->
+      ( ( 0 [,] A ) i^i Prime ) = ( ( M ... ( |_ ` A ) ) i^i Prime ) ) $=
+      ( vx cr wcel c2 cuz cfv wa cc0 co cprime cin cfl cfz wss cvv syl sylanbrc
+      elin cicc wceq ppisval adantr fzss1 mpan2 adantl ssrin simpr sylib simprd
+      fvex cv prmuz2 simpld elfzuz3 sylancr wb elfzuzb ax-mp ssrdv eqssd eqtrd
+      ex ) ADEZFBGHEZIZJAUAKLMZFANHZOKZLMZBVIOKZLMZVEVHVKUBVFAUCUDVGVKVMVGVJVLP
+      ZVKVMPVFVNVEVFVIQEZVNANULZFBVIQUEUFUGVJVLLUHRVGCVMVKVGCUMZVMEZVQVKEZVGVRI
+      ZVQVJEZVQLEZVSVTVQFGHEZVIVQGHEZWAVTWBWCVTVQVLEZWBVTVRWEWBIVGVRUIVQVLLTUJZ
+      UKZVQUNRVTVOWEWDVPVTWEWBWFUOQVQBVIUPUQVOWAWCWDIURVPQVQFVIUSUTSWGVQVJLTSVD
+      VAVBVC $.
+      $( [22-Sep-2014] $)
+
+    $( The set of primes less than ` A ` is a finite set. $)
+    ppifi $p |- ( A e. RR -> ( ( 0 [,] A ) i^i Prime ) e. Fin ) $=
+      ( cr wcel cc0 cicc co cprime cin c2 cfl cfv cfz cfn ppisval wss fzfi ssfi
+      inss1 mp2an syl6eqel ) ABCDAEFGHIAJKZLFZGHZMANUBMCUCUBOUCMCIUAPUBGRUBUCQS
+      T $.
+      $( [15-Sep-2014] $)
+
+    $( Domain and range of the Chebyshev function. $)
+    chtf $p |- theta : RR --> RR $=
+      ( vx vp cc0 cv cicc co cprime cin clog cfv csu cr wcel wral ccht wf ppifi
+      wa cn crp inss2 simpr sseldi prmnn nnrp relogcl 3syl fsumrecl rgen df-cht
+      syl fmpt mpbi ) CADZEFZGHZBDZIJZBKZLMZALNLLOPUTALUNLMZUPURBUNQVAUQUPMZRZU
+      QSMZUQTMURLMVCUQGMVDVCUPGUQUOGUAVAVBUBUCUQUDUKUQUEUQUFUGUHUIALLUSOABUJULU
+      M $.
+      $( [15-Sep-2014] $)
+
+    $( Real closure of the Chebyshev function. $)
+    chtcl $p |- ( A e. RR -> ( theta ` A ) e. RR ) $=
+      ( cr ccht chtf ffvelrni ) BBACDE $.
+      $( [15-Sep-2014] $)
+
+    $( Value of the Chebyshev function.  (Contributed by Mario Carneiro,
+       15-Sep-2014.) $)
+    chtval $p |- ( A e. RR -> ( theta ` A ) =
+      sum_ p e. ( ( 0 [,] A ) i^i Prime ) ( log ` p ) ) $=
+      ( vx cc0 cv cicc co cprime cin clog cfv cr ccht wceq oveq2 ineq1d sumeq1d
+      csu df-cht sumex fvmpt ) CADCEZFGZHIZBEJKZBRDAFGZHIZUEBRLMUBANZUDUGUEBUHU
+      CUFHUBADFOPQCBSUGUEBTUA $.
+      $( [15-Sep-2014] $)
+
+    $( The Chebyshev function is closed in the log-integers.  (Contributed by
+       Mario Carneiro, 22-Sep-2014.) $)
+    efchtcl $p |- ( A e. RR -> ( exp ` ( theta ` A ) ) e. NN ) $=
+      ( vx vp cr wcel cfv cv ce cn cc0 co cprime cc wa wceq fveq2 elrab eqeltrd
+      eleq1d syl vy vz ccht crab cicc cin csu chtval wss ssrab2 ax-resscn sstri
+      clog a1i caddc simpll simprl readdcl syl2anc recnd efadd nnmulcl ad2ant2l
+      cmul sylanbrc syl2anb adantl ppifi crp inss2 simpr sseldi relogcl reeflog
+      prmnn nnrp c1 ef0 syl6eq 0re 1nn mpbir2an fsumcllem simprbi ) ADEZAUCFZBG
+      ZHFZIEZBDUDZEZWFHFZIEZWEWFJAUEKZLUFZCGZUMFZCUGWJACUHWEUAUBWOWQWJCWJMUIWEW
+      JDMWIBDUJUKULUNUAGZWJEZUBGZWJEZNWRWTUOKZWJEZWEWSWRDEZWRHFZIEZNZWTDEZWTHFZ
+      IEZNZXCXAWIXFBWRDWGWROWHXEIWGWRHPSQWIXJBWTDWGWTOWHXIIWGWTHPSQXGXKNZXBDEZX
+      BHFZIEZXCXLXDXHXMXDXFXKUPZXGXHXJUQZWRWTURUSXLXNXEXIVDKZIXLWRMEWTMEXNXROXL
+      WRXPUTXLWTXQUTWRWTVAUSXFXJXRIEXDXHXEXIVBVCRWIXOBXBDWGXBOWHXNIWGXBHPSQVEVF
+      VGAVHWEWPWOEZNZWQDEZWQHFZIEZWQWJEXTWPVIEZYAXTWPIEZYDXTWPLEYEXTWOLWPWNLVJW
+      EXSVKVLWPVOTZWPVPTZWPVMTXTYBWPIXTYDYBWPOYGWPVNTYFRWIYCBWQDWGWQOWHYBIWGWQH
+      PSQVEJWJEZWEYHJDEVQIEZWIYIBJDWGJOZWHVQIYJWHJHFVQWGJHPVRVSSQVTWAWBUNWCRWKW
+      FDEWMWIWMBWFDWGWFOWHWLIWGWFHPSQWDT $.
+      $( [22-Sep-2014] $)
+
+    $( The Chebyshev function is always positive. $)
+    chtge0 $p |- ( A e. RR -> 0 <_ ( theta ` A ) ) $=
+      ( vp cr wcel cc0 cicc co cprime cin cv clog cfv csu ccht cle ppifi wa crp
+      wbr syl cn c1 clt cuz inss2 simpr sseldi prmuz2 eluz2b2 sylib simpld nnrp
+      c2 relogcl 3syl nnre simprd rplogcl syl2anc rpge0 fsumge0 chtval breqtrrd
+      ) ACDZEEAFGZHIZBJZKLZBMANLOVDVFVHBAPVDVGVFDZQZVGUADZVGRDVHCDVJVKUBVGUCSZV
+      JVGUMUDLDZVKVLQVJVGHDVMVJVFHVGVEHUEVDVIUFUGVGUHTVGUIUJZUKZVGULVGUNUOVJVHR
+      DZEVHOSVJVGCDZVLVPVJVKVQVOVGUPTVJVKVLVNUQVGURUSVHUTTVAABVBVC $.
+      $( [15-Sep-2014] $)
+
+    $( Value of the prime pi function.  (Contributed by Mario Carneiro,
+       15-Sep-2014.) $)
+    ppival $p |- ( A e. RR ->
+      ( ppi ` A ) = ( # ` ( ( 0 [,] A ) i^i Prime ) ) ) $=
+      ( vx cc0 cv cicc co cprime cin chash cfv cr cppi wceq oveq2 ineq1d fveq2d
+      df-ppi fvex fvmpt ) BACBDZEFZGHZIJCAEFZGHZIJKLTAMZUBUDIUEUAUCGTACENOPBQUD
+      IRS $.
+      $( [15-Sep-2014] $)
+
+    $( Value of the prime pi function.  (Contributed by Mario Carneiro,
+       18-Sep-2014.) $)
+    ppival2 $p |- ( A e. ZZ ->
+      ( ppi ` A ) = ( # ` ( ( 2 ... A ) i^i Prime ) ) ) $=
+      ( cz wcel cppi cfv cc0 cicc co cprime cin chash c2 cfz cr wceq zre ppival
+      syl cfl eqtrd ppisval flid oveq2d ineq1d fveq2d ) ABCZADEZFAGHIJZKEZLAMHZ
+      IJZKEUFANCZUGUIOAPZAQRUFUHUKKUFUHLASEZMHZIJZUKUFULUHUPOUMAUARUFUOUJIUFUNA
+      LMAUBUCUDTUET $.
+      $( [18-Sep-2014] $)
+
+    $( Value of the prime pi function.  (Contributed by Mario Carneiro,
+       21-Sep-2014.) $)
+    ppival2g $p |- ( ( A e. ZZ /\ 2 e. ( ZZ>= ` M ) ) ->
+      ( ppi ` A ) = ( # ` ( ( M ... A ) i^i Prime ) ) ) $=
+      ( cz wcel c2 cuz cfv wa cppi cc0 cicc co cprime cin chash cfz wceq adantr
+      cr eqtrd zre ppival syl cfl ppisval2 sylan flid oveq2d ineq1d fveq2d ) AC
+      DZEBFGDZHZAIGZJAKLMNZOGZBAPLZMNZOGUMASDZUNUPQUKUSULAUAZRAUBUCUMUOUROUMUOB
+      AUDGZPLZMNZURUKUSULUOVCQUTABUEUFUKVCURQULUKVBUQMUKVAABPAUGUHUIRTUJT $.
+      $( [22-Sep-2014] $)
+
+    $( Domain and range of the prime pi function. $)
+    ppif $p |- ppi : RR --> NN0 $=
+      ( vx cc0 cv cicc co cprime cin chash cfv cn0 wcel cr wral cppi cfn hashcl
+      wf ppifi syl rgen df-ppi fmpt mpbi ) BACZDEFGZHIZJKZALMLJNQUGALUDLKUEOKUG
+      UDRUEPSTALJUFNAUAUBUC $.
+      $( [15-Sep-2014] $)
+
+    $( Real closure of the prime pi function. $)
+    ppicl $p |- ( A e. RR -> ( ppi ` A ) e. NN0 ) $=
+      ( cr cn0 cppi ppif ffvelrni ) BCADEF $.
+      $( [15-Sep-2014] $)
+
+    $( The value of the M&ouml;bius function.  (Contributed by Mario Carneiro,
+       22-Sep-2014.) $)
+    muval $p |- ( A e. NN -> ( mmu ` A ) = if ( E. p e. Prime ( p ^ 2 ) || A ,
+      0 , ( -u 1 ^ ( # ` { p e. Prime | p || A } ) ) ) ) $=
+      ( vx cv c2 cexp co cdivides wbr cprime wrex cc0 c1 cneg crab chash cfv cn
+      cif breq2 cmu wceq rexbidv rabbidv fveq2d oveq2d ifbieq2d df-mu 0cn elexi
+      cc ovex ifex fvmpt ) CABDZEFGZCDZHIZBJKZLMNZUOUQHIZBJOZPQZFGZSUPAHIZBJKZL
+      UTUOAHIZBJOZPQZFGZSRUAUQAUBZUSVFVDVJLVKURVEBJUQAUPHTUCVKVCVIUTFVKVBVHPVKV
+      AVGBJUQAUOHTUDUEUFUGCBUHVFLVJLUKUIUJUTVIFULUMUN $.
+      $( [22-Sep-2014] $)
+
+    $( The value of the M&ouml;bius function at a non-squarefree number.
+       (Contributed by Mario Carneiro, 22-Sep-2014.) $)
+    muval1 $p |- ( ( A e. NN /\ P e. ( ZZ>= ` 2 ) /\ ( P ^ 2 ) || A ) ->
+      ( mmu ` A ) = 0 ) $=
+      ( vp cn wcel c2 cfv cexp co cdivides wbr cprime wrex c1 wceq wa adantl cz
+      cc0 syl cuz w3a cmu cv cneg chash cif muval 3ad2ant1 exprmfct 3ad2ant2 wb
+      crab prmnn clt simpl2 eluz2b2 sylib simpld dvdssqlem syl2anc simpl3 zsqcl
+      wi prmz eluzelz 3syl simpl1 nnz dvdstr syl3anc mpan2d sylbid reximdva mpd
+      iftrue eqtrd ) ADEZBFUAGEZBFHIZAJKZUBZAUCGZCUDZFHIZAJKZCLMZSNUEWDAJKCLUMU
+      FGHIZUGZSVRVSWCWIOWAACUHUIWBWGWISOWBWDBJKZCLMZWGVSVRWKWABCUJUKWBWJWFCLWBW
+      DLEZPZWJWEVTJKZWFWMWDDEZBDEZWJWNULWLWOWBWDUNQWMWPNBUOKZWMVSWPWQPVRVSWAWLU
+      PZBUQURUSWDBUTVAWMWNWAWFVRVSWAWLVBWMWEREZVTREZAREZWNWAPWFVDWMWDREZWSWLXBW
+      BWDVEQWDVCTWMVSBREWTWRFBVFBVCVGWMVRXAVRVSWAWLVHAVITWEVTAVJVKVLVMVNVOWGSWH
+      VPTVQ $.
+      $( [21-Sep-2014] $)
+
+    $( The set of divisors of a number is a subset of a finite set.
+       (Contributed by Mario Carneiro, 22-Sep-2014.) $)
+    sgmss $p |- ( A e. NN -> { p e. NN | p || A } C_ ( 1 ... A ) ) $=
+      ( cn wcel cv cdivides wbr c1 cfz co wi wral crab wss wa cle cz nnz id wb
+      dvdsle syl2anr ibar adantl adantr bitr4d sylibd ralrimiva rabss sylibr
+      fznn ) ACDZBEZAFGZUMHAIJZDZKZBCLUNBCMUONULUQBCULUMCDZOZUNUMAPGZUPURUMQDUL
+      UNUTKULUMRULSUMAUAUBUSUTURUTOZUPURUTVATULURUTUCUDULUPVATURUMAUKUEUFUGUHUN
+      BCUOUIUJ $.
+      $( [22-Sep-2014] $)
+
+    $( The M&ouml;bius function is a function into the integers.  (Contributed
+       by Mario Carneiro, 22-Sep-2014.) $)
+    muf $p |- mmu : NN --> ZZ $=
+      ( vp vx cv c2 cexp co cdivides wbr cprime cc0 c1 crab cz cn cmu ax-mp cfn
+      wcel wss sylancr wrex cneg chash cfv cif wral wf 0z cn0 znegcl fzfi prmnn
+      cfz ssriv rabss2 sgmss syl5ss ssfi hashcl syl zexpcl ifcl rgen df-mu fmpt
+      1z mpbi ) ACZDEFBCZGHAIUAZJKUBZVHVIGHZAILZUCUDZEFZUEZMRZBNUFNMOUGVQBNVINR
+      ZJMRVOMRZVQUHVRVKMRZVNUIRZVSKMRVTVFKUJPVRVMQRZWAVRKVIUMFZQRVMWCSWBKVIUKVR
+      VMVLANLZWCINSVMWDSAINVHULUNVLAINUOPVIAUPUQWCVMURTVMUSUTVKVNVATVJJVOMVBTVC
+      BNMVPOBAVDVEVG $.
+      $( [22-Sep-2014] $)
+
+    $( Closure of the M&ouml;bius function. $)
+    mucl $p |- ( A e. NN -> ( mmu ` A ) e. ZZ ) $=
+      ( cn cz cmu muf ffvelrni ) BCADEF $.
+      $( [22-Sep-2014] $)
+
+    $( The value of the divisor function. $)
+    sgmval $p |- ( A e. NN -> ( sigma ` A ) = ( # ` { p e. NN | p || A } ) ) $=
+      ( vx cv cdivides wbr crab chash cfv csgm wceq breq2 rabbidv fveq2d df-sgm
+      cn fvex fvmpt ) CABDZCDZEFZBPGZHISAEFZBPGZHIPJTAKZUBUDHUEUAUCBPTASELMNCBO
+      UDHQR $.
+      $( [22-Sep-2014] $)
+
+    $( The divisor function is a function into the positive integers.
+       (Contributed by Mario Carneiro, 22-Sep-2014.) $)
+    sgmf $p |- sigma : NN --> NN $=
+      ( vp vx cv cdivides wbr crab chash cfv wcel wral csgm cle cfn wss sylancr
+      cn c1 syl 1nn sylanbrc wf cn0 cfz fzfi sgmss ssfi hashcl csn wceq hashsng
+      co ax-mp cdom snfi a1i cz 1dvds breq1 elrab snssd ssdomg mpsyl wb hashdom
+      nnz mpbird syl5eqbrr elnnnn0c rgen df-sgm fmpt mpbi ) ACZBCZDEZAPFZGHZPIZ
+      BPJPPKUAVRBPVNPIZVQUBIZQVQLEVRVSVPMIZVTVSQVNUCUKZMIVPWBNWAQVNUDVNAUEWBVPU
+      FOZVPUGRVSQQUHZGHZVQLQPIZWEQUISQPUJULVSWEVQLEZWDVPUMEZWDMIZVSWDVPNWHQUNZV
+      SQVPVSWFQVNDEZQVPIWFVSSUOVSVNUPIWKVNVEVNUQRVOWKAQPVMQVNDURUSTUTWDVPMVAVBV
+      SWIWAWGWHVCWJWCWDVPVDOVFVGVQVHTVIBPPVQKBAVJVKVL $.
+      $( [22-Sep-2014] $)
+
+    $( Closure of the divisor function. $)
+    sgmcl $p |- ( A e. NN -> ( sigma ` A ) e. NN ) $=
+      ( cn csgm sgmf ffvelrni ) BBACDE $.
+      $( [22-Sep-2014] $)
+
+    $( The M&ouml;bius function takes on values in magnitude at most ` 1 ` .
+       (Together with ~ mucl , this implies that it takes a value in
+       ` { -u 1 , 0 , 1 } ` for every natural number.) $)
+    mule1 $p |- ( A e. NN -> ( abs ` ( mmu ` A ) ) <_ 1 ) $=
+      ( vp cn wcel cexp co cdivides wbr cprime cfv cabs c1 cle wa crab sylan9eq
+      cc0 1re wceq wss cv wrex cmu cneg chash cif muval iftrue fveq2d abs0 lt01
+      c2 0re ltleii eqbrtri syl6eqbr wn iffalse cn0 ax-1cn negcli cfn cfz prmnn
+      cc fzfi ssriv rabss2 ax-mp sgmss syl5ss sylancr hashcl syl absexp absnegi
+      ssfi cr absid mp2an eqtri oveq1i nn0z 1exp 3syl syl5eq eqtrd adantr leidi
+      cz pm2.61dan ) ACDZBUAZULEFAGHBIUBZAUCJZKJZLMHWLWNNZWPQKJZLMWQWOQKWLWNWOW
+      NQLUDZWMAGHZBIOZUEJZEFZUFZQABUGZWNQXCUHPUIWRQLMUJQLUMRUKUNZUOUPWLWNUQZNZW
+      PLLMXHWPXCKJZLXHWOXCKWLXGWOXDXCXEWNQXCURPUIWLXILSXGWLXIWSKJZXBEFZLWLWSVED
+      XBUSDZXIXKSLUTVAWLXAVBDZXLWLLAVCFZVBDXAXNTXMLAVFWLXAWTBCOZXNICTXAXOTBICWM
+      VDVGWTBICVHVIABVJVKXNXAVQVLXAVMVNZWSXBVOVLWLXKLXBEFZLXJLXBEXJLKJZLLUTVPLV
+      RDQLMHXRLSRXFLVSVTWAWBWLXLXBWJDXQLSXPXBWCXBWDWEWFWGWHWGLRWIUPWK $.
+      $( [22-Sep-2014] $)
+
+    $( The Chebyshev function does not change off the integers.  (Contributed
+       by Mario Carneiro, 22-Sep-2014.) $)
+    chtfl $p |- ( A e. RR -> ( theta ` ( |_ ` A ) ) = ( theta ` A ) ) $=
+      ( vp cr wcel cc0 cfl cfv cicc co cprime cin csu ccht cfz wceq ppisval syl
+      c2 3eqtr4d chtval cv clog flidm oveq2d ineq1d reflcl sumeq1d ) ACDZEAFGZH
+      IJKZBUAUBGZBLZEAHIJKZUKBLUIMGZAMGUHUJUMUKBUHRUIFGZNIZJKZRUINIZJKUJUMUHUPU
+      RJUHUOUIRNAUCUDUEUHUICDZUJUQOAUFZUIPQAPSUGUHUSUNULOUTUIBTQABTS $.
+      $( [22-Sep-2014] $)
+
+    $( The prime pi function at a prime.  (Contributed by Mario Carneiro,
+       19-Sep-2014.) $)
+    ppiprm $p |- ( ( A e. ZZ /\ ( A + 1 ) e. Prime ) ->
+      ( ppi ` ( A + 1 ) ) = ( ( ppi ` A ) + 1 ) ) $=
+      ( cz wcel c1 caddc co cprime wa cfz cin cun chash cfv wceq adantr syl cuz
+      c2 cn ax-1cn csn cppi cfn wn wss fzfid inss1 ssfi sylancl cle wbr clt zre
+      cr ltp1 peano2z ltnle syl2anc mpbid sseli elfzle2 nsyl cvv ovex hashunsng
+      wb wi ax-mp ppival2 cmin 2z zcn pncan prmuz2 adantl uz2m1nn eqeltrrd nnuz
+      cc 2cn 1p1e2 subaddrii fveq2i eqtr4i syl6eleq fzsuc2 sylancr ineq1d indir
+      syl6eq simpr snssd df-ss sylib uneq2d eqtrd fveq2d oveq1d 3eqtr4d ) ABCZA
+      DEFZGCZHZRAIFZGJZXAUAZKZLMZXELMZDEFZXAUBMZAUBMZDEFXCXEUCCZXAXECZUDZXHXJNZ
+      XCXDUCCXEXDUEXMXCRAUFXDGUGZXDXEUHUIXCXAAUJUKZXNXCAXAULUKZXRUDZXCAUNCZXSWT
+      YAXBAUMOZAUOPXCYAXAUNCZXSXTVFYBXCXABCZYCWTYDXBAUPOZXAUMPAXAUQURUSXNXAXDCX
+      RXEXDXAXQUTXARAVAPVBXAVCCXMXOHXPVGADEVDXEXAVCVEVHURXCXKRXAIFZGJZLMZXHXCYD
+      XKYHNYEXAVIPXCYGXGLXCYGXEXFGJZKZXGXCYGXDXFKZGJYJXCYFYKGXCRBCARDVJFZQMZCYF
+      YKNVKXCASYMXCXADVJFZASXCAVSCZDVSCYNANWTYOXBAVLOTADVMUIXCXARQMCZYNSCXBYPWT
+      XAVNVOXAVPPVQSDQMYMVRYLDQRDDVTTTWAWBWCWDWERAWFWGWHXDXFGWIWJXCYIXFXEXCXFGU
+      EYIXFNXCXAGWTXBWKWLXFGWMWNWOWPWQWPXCXLXIDEWTXLXINXBAVIOWRWS $.
+      $( [19-Sep-2014] $)
+
+    $( The prime pi function at a non-prime.  (Contributed by Mario Carneiro,
+       19-Sep-2014.) $)
+    ppinprm $p |- ( ( A e. ZZ /\ -. ( A + 1 ) e. Prime ) ->
+      ( ppi ` ( A + 1 ) ) = ( ppi ` A ) ) $=
+      ( vx cz wcel c1 caddc co cprime wn wa c2 cfz cin chash cfv wceq cn adantr
+      cuz ax-1cn cppi cv csn wne inss2 simprr sseldi simprl nelne2 syl2anc elsn
+      necon3bbii sylibr cun wo inss1 cmin 2z zcn pncan sylancl cvv ovex elfzuz2
+      cc sylancr uz2m1nn syl eqeltrrd nnuz 2cn subaddrii fveq2i eqtr4i syl6eleq
+      1p1e2 eleqtrd elun sylib ord mt3d elin sylanbrc expr ssrdv wss simpl uzid
+      fzsuc2 peano2uz 3syl fzss2 ssrin eqssd fveq2d peano2z ppival2 3eqtr4d ) A
+      CDZAEFGZHDIZJZKWTLGZHMZNOZKALGZHMZNOZWTUAOZAUAOZXBXDXGNXBXDXGXBBXDXGWSXAB
+      UBZXDDZXKXGDZWSXAXLJZJZXKXFDZXKHDZXMXOXPXKWTUCZDZXOXKWTUDZXSIXOXQXAXTXOXD
+      HXKXCHUEWSXAXLUFZUGZWSXAXLUHXKWTHUIUJXSXKWTBWTUKULUMXOXPXSXOXKXFXRUNZDXPX
+      SUOXOXKXCYCXOXDXCXKXCHUPYAUGZXOKCDAKEUQGZSOZDXCYCPURXOAQYFXOWTEUQGZAQXOAV
+      EDZEVEDYGAPWSYHXNAUSRTAEUTVAXOWTKSODZYGQDXOWTVBDXKXCDYIAEFVCYDVBXKKWTVDVF
+      WTVGVHVIQESOYFVJYEESKEEVKTTVPVLVMVNVOKAWIVFVQXKXFXRVRVSVTWAYBXKXFHWBWCWDW
+      EXBWTASOZDZXFXCWFXGXDWFXBWSAYJDYKWSXAWGAWHAAWJWKAKWTWLXFXCHWMWKWNWOXBWTCD
+      ZXIXEPWSYLXAAWPRWTWQVHWSXJXHPXAAWQRWR $.
+      $( [19-Sep-2014] $)
+
+    $( The Chebyshev function at a prime.  (Contributed by Mario Carneiro,
+       22-Sep-2014.) $)
+    chtprm $p |- ( ( A e. ZZ /\ ( A + 1 ) e. Prime ) ->
+      ( theta ` ( A + 1 ) ) = ( ( theta ` A ) + ( log ` ( A + 1 ) ) ) ) $=
+      ( vp cz wcel c1 caddc co cprime cfv c2 cfz cin csu cr wceq adantr syl cuz
+      eqtrd cn wa ccht cv clog csn cc0 cicc peano2z zre chtval cfl ppisval flid
+      oveq2d ineq1d sumeq1d wn c0 cle wbr clt ltp1 wb ltnle syl2anc mpbid inss1
+      sseli elfzle2 nsyl disjsn sylibr cun cmin 2z cc zcn ax-1cn sylancl prmuz2
+      pncan adantl uz2m1nn eqeltrrd nnuz 1p1e2 subaddrii fveq2i eqtr4i syl6eleq
+      2cn fzsuc2 sylancr indir syl6eq simpr snssd df-ss sylib uneq2d fzfid ssfi
+      wss cfn inss2 sseldi prmnn nnrp relogcl 3syl recnd fsumsplit eqtr2d fveq2
+      crp sumsn oveq12d 3eqtrd ) ACDZAEFGZHDZUAZXTUBIZJXTKGZHLZBUCZUDIZBMZJAKGZ
+      HLZYGBMZXTUEZYGBMZFGAUBIZXTUDIZFGYBYCUFXTUGGHLZYGBMZYHYBXTNDZYCYQOYBXTCDZ
+      YRXSYSYAAUHPZXTUIQZXTBUJQYBYPYEYGBYBYPJXTUKIZKGZHLZYEYBYRYPUUDOUUAXTULQYB
+      UUCYDHYBUUBXTJKYBYSUUBXTOYTXTUMQUNUOSUPSYBYJYLYGYEBYBXTYJDZUQYJYLLUROYBXT
+      AUSUTZUUEYBAXTVAUTZUUFUQZYBANDZUUGXSUUIYAAUIPZAVBQYBUUIYRUUGUUHVCUUJUUAAX
+      TVDVEVFUUEXTYIDUUFYJYIXTYIHVGVHXTJAVIQVJYJXTVKVLYBYEYJYLHLZVMZYJYLVMYBYEY
+      IYLVMZHLUULYBYDUUMHYBJCDAJEVNGZRIZDYDUUMOVOYBATUUOYBXTEVNGZATYBAVPDZEVPDU
+      UPAOXSUUQYAAVQPVRAEWAVSYBXTJRIDZUUPTDYAUURXSXTVTWBXTWCQWDTERIUUOWEUUNERJE
+      EWKVRVRWFWGWHWIWJJAWLWMUOYIYLHWNWOYBUUKYLYJYBYLHXCUUKYLOYBXTHXSYAWPWQYLHW
+      RWSWTSYBYDXDDYEYDXCYEXDDYBJXTXAYDHVGYDYEXBVSYBYFYEDZUAZYGUUTYFTDZYFXODYGN
+      DUUTYFHDUVAUUTYEHYFYDHXEYBUUSWPXFYFXGQYFXHYFXIXJXKXLYBYKYNYMYOFYBYNUFAUGG
+      HLZYGBMZYKYBUUIYNUVCOUUJABUJQYBUVBYJYGBYBUVBJAUKIZKGZHLZYJYBUUIUVBUVFOUUJ
+      AULQYBUVEYIHYBUVDAJKXSUVDAOYAAUMPUNUOSUPXMYBXTTDZYOVPDYMYOOYAUVGXSXTXGWBZ
+      YBYOYBUVGXTXODYONDUVHXTXHXTXIXJXKYGYOBXTTYFXTUDXNXPVEXQXR $.
+      $( [22-Sep-2014] $)
+
+    $( The prime pi function at a non-prime.  (Contributed by Mario Carneiro,
+       19-Sep-2014.) $)
+    chtnprm $p |- ( ( A e. ZZ /\ -. ( A + 1 ) e. Prime ) ->
+      ( theta ` ( A + 1 ) ) = ( theta ` A ) ) $=
+      ( vp vx cz wcel c1 co cprime wa cin cfv c2 cfz cuz wceq adantr ax-1cn syl
+      cn 3syl caddc wn cc0 cicc cv clog csu ccht cfl inss2 simprr sseldi simprl
+      csn wne nelne2 syl2anc elsn necon3bbii sylibr cun wo inss1 cmin 2z cc zcn
+      pncan sylancl cvv ovex elfzuz2 sylancr uz2m1nn eqeltrrd nnuz 1p1e2 fveq2i
+      2cn subaddrii eqtr4i syl6eleq fzsuc2 eleqtrd elun sylib ord mt3d sylanbrc
+      elin expr ssrdv simpl uzid peano2uz fzss2 ssrin eqssd peano2z flid oveq2d
+      wss ineq1d 3eqtr4d cr zre peano2re ppisval sumeq1d chtval ) ADEZAFUAGZHEU
+      BZIZUCXLUDGHJZBUEUFKZBUGZUCAUDGHJZXPBUGZXLUHKZAUHKZXNXOXRXPBXNLXLUIKZMGZH
+      JZLAUIKZMGZHJZXOXRXNLXLMGZHJZLAMGZHJZYDYGXNYIYKXNCYIYKXKXMCUEZYIEZYLYKEZX
+      KXMYMIZIZYLYJEZYLHEZYNYPYQYLXLUNZEZYPYLXLUOZYTUBYPYRXMUUAYPYIHYLYHHUJXKXM
+      YMUKZULZXKXMYMUMYLXLHUPUQYTYLXLCXLURUSUTYPYQYTYPYLYJYSVAZEYQYTVBYPYLYHUUD
+      YPYIYHYLYHHVCUUBULZYPLDEALFVDGZNKZEYHUUDOVEYPASUUGYPXLFVDGZASYPAVFEZFVFEU
+      UHAOXKUUIYOAVGPQAFVHVIYPXLLNKEZUUHSEYPXLVJEYLYHEUUJAFUAVKUUEVJYLLXLVLVMXL
+      VNRVOSFNKUUGVPUUFFNLFFVSQQVQVTVRWAWBLAWCVMWDYLYJYSWEWFWGWHUUCYLYJHWJWIWKW
+      LXNXLANKZEZYJYHXBYKYIXBXNXKAUUKEUULXKXMWMAWNAAWOTALXLWPYJYHHWQTWRXNYCYHHX
+      NYBXLLMXNXLDEZYBXLOXKUUMXMAWSPXLWTRXAXCXNYFYJHXNYEALMXKYEAOXMAWTPXAXCXDXN
+      AXEEZXLXEEZXOYDOXKUUNXMAXFPZAXGZXLXHTXNUUNXRYGOUUPAXHRXDXIXNUUNUUOXTXQOUU
+      PUUQXLBXJTXNUUNYAXSOUUPABXJRXD $.
+      $( [19-Sep-2014] $)
+
+    $( The Chebyshev function is weakly increasing.  (Contributed by Mario
+       Carneiro, 22-Sep-2014.) $)
+    chtwordi $p |- ( ( A e. RR /\ B e. RR /\ A <_ B ) ->
+      ( theta ` A ) <_ ( theta ` B ) ) $=
+      ( vp cr wcel cle wbr cc0 cicc co cprime cin cfv csu ccht syl wss 0re a1i
+      wa w3a cv clog cfn simp2 ppifi crp c1 clt cn c2 inss2 simpr sseldi prmuz2
+      cuz eluz2b2 sylib simpld nnre simprd rplogcl rpre rpge0 simp1 leidi simp3
+      syl2anc iccss syl222anc ssrin fsumless wceq chtval 3brtr4d ) ADEZBDEZABFG
+      ZUAZHAIJZKLZCUBZUCMZCNZHBIJZKLZWCCNZAOMZBOMZFVSWFWCWACVSVQWFUDEVPVQVRUEZB
+      UFPVSWBWFEZTZWCUGEZWCDEWLWBDEZUHWBUIGZWMWLWBUJEZWNWLWPWOWLWBUKUPMEZWPWOTW
+      LWBKEWQWLWFKWBWEKULVSWKUMUNWBUOPWBUQURZUSWBUTPWLWPWOWRVAWBVBVHZWCVCPWLWMH
+      WCFGWSWCVDPVSVTWEQZWAWFQVSHDEZVQXAVPHHFGZVRWTXAVSRSZWJXCVPVQVRVEZXBVSHRVF
+      SVPVQVRVGHBHAVIVJVTWEKVKPVLVSVPWHWDVMXDACVNPVSVQWIWGVMWJBCVNPVO $.
+      $( [22-Sep-2014] $)
+
+    $( The difference of the Chebyshev function at two points sums the
+       logarithms of the primes in an interval.  (Contributed by Mario
+       Carneiro, 22-Sep-2014.) $)
+    chtdif $p |- ( N e. ( ZZ>= ` M ) -> ( ( theta ` N ) - ( theta ` M ) ) =
+      sum_ p e. ( ( ( M + 1 ) ... N ) i^i Prime ) ( log ` p ) ) $=
+      ( cfv wcel co c2 wbr cfz cprime cin csu cr wceq syl cz sylancl syl2anc c0
+      cfn cuz ccht cmin cle cif cv clog c1 cc0 cicc eluzelre chtval cfl eluzel2
+      caddc 2z ifcl a1i zre min2 eluz2 syl3anbrc ppisval2 eluzelz oveq2d ineq1d
+      2re flid eqtrd sumeq1d clt fzdisj inindir incom in0 eqtri 3eqtr3g elfzuzb
+      ltp1 cun min1 id mpbir2and fzsplit mpdan indir syl6eq fzfid inss1 ssfi wa
+      wss crp inss2 simpr sseldi prmnn nnrp relogcl 3syl recnd fsumsplit 3eqtrd
+      cn oveq12d fzfi mp2an ssun1 syl5sseqr sselda syldan fsumcl ssun2 pncan2
+      cc ) BAUADZEZBUBDZAUBDZUCFAGUDHZAGUEZAIFZJKZCUFZUGDZCLZAUHUOFZBIFZJKZYECL
+      ZUOFZYFUCFZYJXQXRYKXSYFUCXQXRUIBUJFJKZYECLZYABIFZJKZYECLYKXQBMEZXRYNNABUK
+      ZBCULOXQYMYPYECXQYMYABUMDZIFZJKZYPXQYQGYAUADZEZYMUUANYRXQYAPEZGPEZYAGUDHZ
+      UUCXQAPEZUUEUUDABUNZUPXTAGPUQQZUUEXQUPURXQAMEZGMEZUUFXQUUGUUJUUHAUSOZVGAG
+      UTQYAGVAVBZBYAVCRXQYTYOJXQYSBYAIXQBPEYSBNABVDBVHOVEVFVIVJXQYCYIYEYPCXQYBY
+      HKZJKSJKZYCYIKSXQUUNSJXQUUGAYGVKHZUUNSNUUHXQUUJUUPUULAVSOPYAAYGBVLRVFYBYH
+      JVMUUOJSKSSJVNJVOVPVQXQYPYBYHVTZJKYCYIVTZXQYOUUQJXQAYOEZYOUUQNXQUUSAUUBEZ
+      XQXPAYABVRXQUUDUUGYAAUDHZUUTUUIUUHXQUUJUUKUVAUULVGAGWAQYAAVAVBXQWBWCXPAYA
+      BWDWEVFYBYHJWFWGZXQYOTEYPYOWLYPTEXQYABWHYOJWIYOYPWJQXQYDYPEZWKZYEUVDYDXDE
+      ZYDWMEYEMEUVDYDJEUVEUVDYPJYDYOJWNXQUVCWOWPYDWQOYDWRYDWSWTXAZXBXCXQXSUIAUJ
+      FJKZYECLZYFXQUUJXSUVHNUULACULOXQUVGYCYECXQUVGYAAUMDZIFZJKZYCXQUUJUUCUVGUV
+      KNUULUUMAYAVCRXQUVJYBJXQUVIAYAIXQUUGUVIANUUHAVHOVEVFVIVJVIXEXQYFXOEYJXOEY
+      LYJNXQYCYECYCTEZXQYBTEYCYBWLUVLYAAXFYBJWIYBYCWJXGURXQYDYCEUVCYEXOEZXQYCYP
+      YDXQUURYCYPYCYIXHUVBXIXJUVFXKXLXQYIYECYITEZXQYHTEYIYHWLUVNYGBXFYHJWIYHYIW
+      JXGURXQYDYIEUVCUVMXQYIYPYDXQUURYIYPYIYCXMUVBXIXJUVFXKXLYFYJXNRVI $.
+      $( [22-Sep-2014] $)
+
+    $( The exponentiated Chebyshev function forms a divisibility chain between
+       any two points.  (Contributed by Mario Carneiro, 22-Sep-2014.) $)
+    efchtdvds $p |- ( ( A e. RR /\ B e. RR /\ A <_ B ) ->
+      ( exp ` ( theta ` A ) ) || ( exp ` ( theta ` B ) ) ) $=
+      ( vx vp cr wcel cfv ce co cz cn cc wceq cprime syl fveq2 eleq1d elrab cc0
+      wa vy cle wbr ccht cdivides cdiv cmin chtcl 3ad2ant2 recnd 3ad2ant1 efsub
+      vz w3a syl2anc cv crab cfl c1 caddc cfz cin csu chtfl oveq12d cuz flwordi
+      clog flcl eluz2 syl3anbrc chtdif eqtr3d wss ssrab2 ax-resscn sstri simpll
+      a1i simprl readdcl efadd nnmulcl ad2ant2l eqeltrd sylanbrc syl2anb adantl
+      cmul cfn fzfid inss1 sylancl crp inss2 simpr sseldi prmnn relogcl reeflog
+      ssfi nnrp ef0 0re 1nn mpbir2an fsumcllem simprbi eqeltrrd nnz wne efchtcl
+      syl6eq wb nnne0 divides2 syl3anc mpbird ) AEFZBEFZABUBUCZUNZAUDGZHGZBUDGZ
+      HGZUEUCZYFYDUFIZJFZYBYHKFYIYBYEYCUGIZHGZYHKYBYELFYCLFYKYHMYBYEXTXSYEEFYAB
+      UHUIUJYBYCXSXTYCEFYAAUHUKUJYEYCULUOYBYJCUPZHGZKFZCEUQZFZYKKFZYBYJAURGZUSU
+      TIZBURGZVAIZNVBZDUPZVHGZDVCZYOYBYTUDGZYRUDGZUGIZYJUUEYBUUFYEUUGYCUGXTXSUU
+      FYEMYABVDUIXSXTUUGYCMYAAVDUKVEYBYTYRVFGFZUUHUUEMYBYRJFZYTJFZYRYTUBUCUUIXS
+      XTUUJYAAVIUKXTXSUUKYABVIUIABVGYRYTVJVKYRYTDVLOVMYBUAUMUUBUUDYODYOLVNYBYOE
+      LYNCEVOVPVQVSUAUPZYOFZUMUPZYOFZTUULUUNUTIZYOFZYBUUMUULEFZUULHGZKFZTZUUNEF
+      ZUUNHGZKFZTZUUQUUOYNUUTCUULEYLUULMYMUUSKYLUULHPQRYNUVDCUUNEYLUUNMYMUVCKYL
+      UUNHPQRUVAUVETZUUPEFZUUPHGZKFZUUQUVFUURUVBUVGUURUUTUVEVRZUVAUVBUVDVTZUULU
+      UNWAUOUVFUVHUUSUVCWIIZKUVFUULLFUUNLFUVHUVLMUVFUULUVJUJUVFUUNUVKUJUULUUNWB
+      UOUUTUVDUVLKFUURUVBUUSUVCWCWDWEYNUVICUUPEYLUUPMYMUVHKYLUUPHPQRWFWGWHYBUUA
+      WJFUUBUUAVNUUBWJFYBYSYTWKUUANWLUUAUUBXAWMYBUUCUUBFZTZUUDEFZUUDHGZKFZUUDYO
+      FUVNUUCWNFZUVOUVNUUCKFZUVRUVNUUCNFUVSUVNUUBNUUCUUANWOYBUVMWPWQUUCWROZUUCX
+      BOZUUCWSOUVNUVPUUCKUVNUVRUVPUUCMUWAUUCWTOUVTWEYNUVQCUUDEYLUUDMYMUVPKYLUUD
+      HPQRWFSYOFZYBUWBSEFUSKFZYNUWCCSEYLSMZYMUSKUWDYMSHGUSYLSHPXCXMQRXDXEXFVSXG
+      WEYPYJEFYQYNYQCYJEYLYJMYMYKKYLYJHPQRXHOXIYHXJOYBYDJFZYDSXKZYFJFZYGYIXNYBY
+      DKFZUWEXSXTUWHYAAXLUKZYDXJOYBUWHUWFUWIYDXOOYBYFKFZUWGXTXSUWJYABXLUIYFXJOY
+      DYFXPXQXR $.
+      $( [22-Sep-2014] $)
+  $}
+
+  $( The prime pi function does not change off the integers.  (Contributed by
+     Mario Carneiro, 15-Sep-2014.) $)
+  ppifl $p |- ( A e. RR -> ( ppi ` ( |_ ` A ) ) = ( ppi ` A ) ) $=
+    ( cr wcel cc0 cicc co cprime cin chash cfv c2 cfl cfz ppisval fveq2d ppival
+    cppi cz wceq flcl ppival2 syl 3eqtr4rd ) ABCZDAEFGHZIJKALJZMFGHZIJZAQJUFQJZ
+    UDUEUGIANOAPUDUFRCUIUHSATUFUAUBUC $.
+    $( [18-Sep-2014] $)
+
+  $( The prime pi function cannot locally increase faster than the identity
+     function.  (Contributed by Mario Carneiro, 21-Sep-2014.) $)
+  ppip1le $p |- ( A e. RR -> ( ppi ` ( A + 1 ) ) <_ ( ( ppi ` A ) + 1 ) ) $=
+    ( cr wcel cfl cfv c1 caddc co cppi cle cz wbr wa wceq peano2re adantr ppicl
+    cn0 syl nn0re flcl cprime zre 3syl ppiprm eqle syl2anc ppinprm lep1 eqbrtrd
+    wn pm2.61dan 1z fladdz mpan2 fveq2d ppifl eqtr3d oveq1d 3brtr3d ) ABCZADEZF
+    GHZIEZVBIEZFGHZAFGHZIEZAIEZFGHJVAVBKCZVDVFJLZAUAVJVCUBCZVKVJVLMZVDBCZVDVFNV
+    KVMVCBCZVDRCVNVJVOVLVJVBBCZVOVBUCZVBOSPVCQVDTUDVBUEVDVFUFUGVJVLUKZMZVDVEVFJ
+    VBUHVSVEBCZVEVFJLVJVTVRVJVPVERCVTVQVBQVETUDPVEUISUJULSVAVGDEZIEZVDVHVAWAVCI
+    VAFKCWAVCNUMAFUNUOUPVAVGBCWBVHNAOVGUQSURVAVEVIFGAUQUSUT $.
+    $( [21-Sep-2014] $)
+
+  $( The prime pi function is weakly increasing.  (Contributed by Mario
+     Carneiro, 19-Sep-2014.) $)
+  ppiwordi $p |- ( ( A e. RR /\ B e. RR /\ A <_ B ) ->
+    ( ppi ` A ) <_ ( ppi ` B ) ) $=
+    ( cr wcel cle wbr cc0 cicc co cprime cin chash cfv cppi cfn wss syl 0re a1i
+    ppifi w3a cdom simp1 simp2 leidi simp3 iccss syl222anc ssrin ssdomg sylc wb
+    hashdom syl2anc mpbird wceq ppival 3brtr4d ) ACDZBCDZABEFZUAZGAHIZJKZLMZGBH
+    IZJKZLMZANMZBNMZEVBVEVHEFZVDVGUBFZVBVDODZVDVGPZVLVBUSVMUSUTVAUCZATQZVBVCVFP
+    ZVNVBGCDZUTVRUSGGEFZVAVQVRVBRSZUSUTVAUDZVTVOVSVBGRUESUSUTVAUFGBGAUGUHVCVFJU
+    IQVDVGOUJUKVBVMVGODZVKVLULVPVBUTWBWABTQVDVGUMUNUOVBUSVIVEUPVOAUQQVBUTVJVHUP
+    WABUQQUR $.
+    $( [19-Sep-2014] $)
+
+  $( The difference of the prime pi function at two points counts the number of
+     primes in an interval.  (Contributed by Mario Carneiro, 21-Sep-2014.) $)
+  ppidif $p |- ( N e. ( ZZ>= ` M ) -> ( ( ppi ` N ) - ( ppi ` M ) ) =
+    ( # ` ( ( ( M + 1 ) ... N ) i^i Prime ) ) ) $=
+    ( cfv wcel cmin co c2 cle wbr cfz cprime cin chash wceq sylancl syl syl2anc
+    cz c0 cfn cuz cppi cif c1 caddc cun eluzelz eluzel2 2z ifcl a1i cr zre min2
+    2re eluz2 syl3anbrc ppival2g elfzuzb min1 id mpbir2and fzsplit mpdan ineq1d
+    indir syl6eq fveq2d clt ltp1 inindir incom in0 eqtri 3eqtr3g wss fzfi inss1
+    fzdisj ssfi mp2an hashun mp3an12 3eqtrd oveq12d cc cn0 hashcl nn0cni pncan2
+    ax-mp ) BAUACZDZBUBCZAUBCZEFAGHIZAGUCZAJFZKLZMCZAUDUEFZBJFZKLZMCZUEFZWTEFZX
+    DWMWNXEWOWTEWMWNWQBJFZKLZMCZWSXCUFZMCZXEWMBRDGWQUACZDZWNXINABUGWMWQRDZGRDZW
+    QGHIZXMWMARDZXOXNABUHZUIWPAGRUJOZXOWMUIUKWMAULDZGULDZXPWMXQXTXRAUMPZUOAGUNO
+    WQGUPUQZBWQURQWMXHXJMWMXHWRXBUFZKLXJWMXGYDKWMAXGDZXGYDNWMYEAXLDZWMWLAWQBUSW
+    MXNXQWQAHIZYFXSXRWMXTYAYGYBUOAGUTOWQAUPUQWMVAVBWLAWQBVCVDVEWRXBKVFVGVHWMWSX
+    CLZSNZXKXENZWMWRXBLZKLSKLZYHSWMYKSKWMXQAXAVIIZYKSNXRWMXTYMYBAVJPRWQAXABVSQV
+    EWRXBKVKYLKSLSSKVLKVMVNVOWSTDZXCTDZYIYJWRTDWSWRVPYNWQAVQWRKVRWRWSVTWAZXBTDX
+    CXBVPYOXABVQXBKVRXBXCVTWAZWSXCWBWCPWDWMXQXMWOWTNXRYCAWQURQWEWTWFDXDWFDXFXDN
+    WTYNWTWGDYPWSWHWKWIXDYOXDWGDYQXCWHWKWIWTXDWJWAVG $.
+    $( [21-Sep-2014] $)
+
+  $( The prime pi function at ` 1 ` . $)
+  ppi1 $p |- ( ppi ` 1 ) = 0 $=
+    ( c1 cppi cfv c2 cfz co cprime cin chash c0 cc0 cz wcel wceq 1z ppival2 clt
+    ax-mp wbr 3eqtri 1lt2 wb 2z fzn mp2an mpbi ineq1i incom in0 fveq2i hash0 )
+    ABCZDAEFZGHZICZJICKALMZULUONOAPRUNJIUNJGHGJHJUMJGADQSZUMJNZUADLMUPUQURUBUCO
+    DAUDUEUFUGJGUHGUITUJUKT $.
+    $( [21-Sep-2014] $)
+
+  $( The Chebyshev function at ` 1 ` . $)
+  cht1 $p |- ( theta ` 1 ) = 0 $=
+    ( vp c1 ccht cfv cc0 co cprime cin csu c0 wcel 1re ax-mp c2 cfz cz 1z eqtri
+    wceq 3eqtri cicc cv clog cr chtval cfl ppisval flid oveq2i clt wbr 1lt2 fzn
+    wb 2z mp2an mpbi ineq1i incom in0 sumeq1i sum0 ) BCDZEBUAFGHZAUBUCDZAIZJVEA
+    IEBUDKZVCVFSLBAUEMVDJVEAVDNBUFDZOFZGHZJVGVDVJSLBUGMVJJGHGJHJVIJGVINBOFZJVHB
+    NOBPKZVHBSQBUHMUIBNUJUKZVKJSZULNPKVLVMVNUNUOQNBUMUPUQRURJGUSGUTTRVAVEAVBT
+    $.
+    $( [22-Sep-2014] $)
+
+  ${
+    ppi1i.m $e |- M e. NN0 $.
+    ppi1i.n $e |- N = ( M + 1 ) $.
+    ppi1i.p $e |- ( ppi ` M ) = K $.
+    ${
+      ppi1i.1 $e |- N e. Prime $.
+      $( Inference form of ~ ppiprm .  (Contributed by Mario Carneiro,
+         21-Sep-2014.) $)
+      ppi1i $p |- ( ppi ` N ) = ( K + 1 ) $=
+        ( cppi cfv c1 caddc co fveq2i cz wcel cprime wceq nn0zi eqeltrri ppiprm
+        mp2an oveq1i 3eqtri ) CHIBJKLZHIZBHIZJKLZAJKLCUDHEMBNOUDPOUEUGQBDRCUDPE
+        GSBTUAUFAJKFUBUC $.
+        $( [21-Sep-2014] $)
+    $}
+
+    ${
+      ppi2i.1 $e |- -. N e. Prime $.
+      $( Inference form of ~ ppinprm .  (Contributed by Mario Carneiro,
+         21-Sep-2014.) $)
+      ppi2i $p |- ( ppi ` N ) = K $=
+        ( cppi cfv c1 caddc co fveq2i cz wcel cprime wn wceq nn0zi eleq1i mp2an
+        mtbi ppinprm 3eqtri ) CHIBJKLZHIZBHIZACUEHEMBNOUEPOZQUFUGRBDSCPOUHGCUEP
+        ETUBBUCUAFUD $.
+        $( [21-Sep-2014] $)
+    $}
+  $}
+
+  $( The prime pi function at ` 2 ` . $)
+  ppi2 $p |- ( ppi ` 2 ) = 1 $=
+    ( c2 cppi cfv cc0 c1 caddc co 1nn0 df-2 ppi1 2prm ppi1i 0p1e1 eqtr4i ) ABCD
+    EFGEDEAHIJKLMN $.
+    $( [21-Sep-2014] $)
+
+  $( The prime pi function at ` 3 ` . $)
+  ppi3 $p |- ( ppi ` 3 ) = 2 $=
+    ( c3 cppi cfv c1 caddc co c2 2nn0 df-3 ppi2 3prm ppi1i df-2 eqtr4i ) ABCDDE
+    FGDGAHIJKLMN $.
+    $( [21-Sep-2014] $)
+
+  $( The Chebyshev function at ` 2 ` . $)
+  cht2 $p |- ( theta ` 2 ) = ( log ` 2 ) $=
+    ( c2 ccht c1 caddc co clog df-2 fveq2i cz wcel cprime wceq 1z 2prm eqeltrri
+    cfv chtprm mp2an cc0 cht1 eqcomi oveq12i crp cr 2re 2pos elrpii ax-mp recni
+    relogcl addid2i eqtr3i 3eqtri ) ABPCCDEZBPZCBPZUNFPZDEZAFPZAUNBGHCIJUNKJUOU
+    RLMAUNKGNOCQRSUSDEURUSSUPUSUQDUPSTUAAUNFGHUBUSUSAUCJUSUDJAUEUFUGAUJUHUIUKUL
+    UM $.
+    $( [22-Sep-2014] $)
+
+  $( The Chebyshev function at ` 3 ` . $)
+  cht3 $p |- ( theta ` 3 ) = ( log ` 6 ) $=
+    ( c3 ccht c2 c1 caddc co clog c6 df-3 fveq2i cz wcel cprime wceq mp2an cmul
+    cfv crp elrpii eqtr3i 3prm eqeltrri chtprm cht2 eqcomi oveq12i 2re 2pos 3re
+    2z 3pos relogmul 3cn 2cn mulcomi 3t2e6 3eqtri ) ABQCDEFZBQZCBQZURGQZEFZHGQZ
+    AURBIJCKLURMLUSVBNUJAURMIUAUBCUCOCGQZAGQZEFZVBVCVDUTVEVAEUTVDUDUEAURGIJUFCA
+    PFZGQZVFVCCRLARLVHVFNCUGUHSAUIUKSCAULOVGHGACPFVGHACUMUNUOUPTJTTUQ $.
+    $( [22-Sep-2014] $)
+
+  $( Closure of the prime pi function in the positive integers.  (Contributed
+     by Mario Carneiro, 21-Sep-2014.) $)
+  ppinncl $p |- ( ( A e. RR /\ 2 <_ A ) -> ( ppi ` A ) e. NN ) $=
+    ( cr wcel c2 cle wbr wa cppi cfv cz c1 cn cn0 adantr nn0z syl ppi2 ppiwordi
+    ppicl 2re mp3an1 syl5eqbrr elnnz1 sylanbrc ) ABCZDAEFZGZAHIZJCZKUHEFUHLCUGU
+    HMCZUIUEUJUFASNUHOPUGKDHIZUHEQDBCUEUFUKUHEFTDARUAUBUHUCUD $.
+    $( [21-Sep-2014] $)
+
+  $( Closure of the Chebyshev function in the positive reals.  (Contributed by
+     Mario Carneiro, 22-Sep-2014.) $)
+  chtrpcl $p |- ( ( A e. RR /\ 2 <_ A ) -> ( theta ` A ) e. RR+ ) $=
+    ( cr wcel c2 cle wbr ccht cfv cc0 clt crp chtcl adantr clog 0re a1i 2re syl
+    wa c1 1lt2 rplogcl mp2an rpre rpgt0 cht2 chtwordi mp3an1 syl5eqbrr sylanbrc
+    ltletrd elrp ) ABCZDAEFZSZAGHZBCZIUPJFUPKCUMUQUNALMZUOIDNHZUPIBCUOOPUOUSKCZ
+    USBCUTUODBCZTDJFUTQUADUBUCPZUSUDRURUOUTIUSJFVBUSUERUOUSDGHZUPEUFVAUMUNVCUPE
+    FQDAUGUHUIUKUPULUJ $.
+    $( [22-Sep-2014] $)
+
+  $( The prime pi function is zero iff its argument is less than ` 2 ` .
+     (Contributed by Mario Carneiro, 22-Sep-2014.) $)
+  ppieq0 $p |- ( A e. RR -> ( ( ppi ` A ) = 0 <-> A < 2 ) ) $=
+    ( cr wcel cppi cfv cc0 wceq c2 clt wbr wn cle wb wa syl ex c1 adantr a1i cz
+    wne 2re lenlt mpan cn ppinncl nnne0 sylbird necon4bd cfl reflcl caddc co 2z
+    1re fllt mpan2 biimpa df-2 syl6breq flcl 1z zleltp1 sylancl mpbird ppiwordi
+    syl3anc ppifl ppi1 3brtr3d cn0 ppicl nn0le0eq0 mpbid impbid ) ABCZADEZFGZAH
+    IJZVPVSVQFVPVSKZHALJZVQFUAZHBCVPWAVTMUBHAUCUDVPWAWBVPWANVQUECWBAUFVQUGOPUHU
+    IVPVSVRVPVSNZVQFLJZVRWCAUJEZDEZQDEZVQFLWCWEBCZQBCZWEQLJZWFWGLJVPWHVSAUKRWIW
+    CUOSWCWJWEQQULUMZIJZWCWEHWKIVPVSWEHIJZVPHTCVSWMMUNAHUPUQURUSUTWCWETCZQTCWJW
+    LMVPWNVSAVARVBWEQVCVDVEWEQVFVGVPWFVQGVSAVHRWGFGWCVISVJWCVQVKCZWDVRMVPWOVSAV
+    LRVQVMOVNPVO $.
+    $( [22-Sep-2014] $)
+
+  $( The prime pi function is strictly less than the identity. $)
+  ppiltx $p |- ( A e. RR+ -> ( ppi ` A ) < A ) $=
+    ( wcel cfl cfv cn cc0 wceq clt wbr cn0 cr cle wa adantr syl c2 c1 cfn mp2an
+    cppi crp wo rpre rpge0 flge0nn0 syl2anc elnn0 sylib ppicl nn0re 3syl reflcl
+    cfz cprime cin chash csdm wpss fzfi wss inss1 wne cuz cvv nnuz eleqtri fvex
+    co 2nn fzss1 a1i wn simpr syl6eleq eluzfz1 1lt2 1re 2re ltnlei mpbi elfzle1
+    nelne1 sylancl necomd df-pss sylanbrc sspsstr sylancr php3 wb ssfi hashsdom
+    mto sylibr cz flcl ppival2 ppifl eqtr3d hashfz1 3brtr3d flle ltletrd fveq2d
+    2pos 0re ppieq0 ax-mp mpbir syl6eq rpgt0 eqbrtrd jaodan mpdan ) AUABZACDZEB
+    ZXPFGZUBZATDZAHIZXOXPJBZXSXOAKBZFALIYBAUCZAUDAUEUFZXPUGUHXOXQYAXRXOXQMZXTXP
+    AXOXTKBZXQXOYCXTJBYGYDAUIXTUJUKNXOXPKBZXQXOYCYHYDAULONXOYCXQYDNZYFPXPUMVHZU
+    NUOZUPDZQXPUMVHZUPDZXTXPHYFYKYMUQIZYLYNHIZYFYMRBZYKYMURZYOQXPUSZYFYKYJUTZYJ
+    YMURZYRYJUNVAZYFYJYMUTZYJYMVBUUAUUCYFPQVCDZBXPVDBUUCPEUUDVIVEVFACVGPQXPVDVJ
+    SVKYFYMYJYFQYMBZQYJBZVLYMYJVBYFXPUUDBUUEYFXPEUUDXOXQVMVEVNQXPVOOUUFPQLIZQPH
+    IUUGVLVPQPVQVRVSVTQPXPWAWMQYMYJWBWCWDYJYMWEWFYKYJYMWGWHYMYKWIWHYKRBZYQYPYOW
+    JYJRBYTUUHPXPUSUUBYJYKWKSYSYKYMWLSWNXOYLXTGXQXOXPTDZYLXTXOYCXPWOBUUIYLGYDAW
+    PXPWQUKXOYCUUIXTGZYDAWROZWSNXOYNXPGZXQXOYBUULYEXPWTONXAYFYCXPALIYIAXBOXCXOX
+    RMZXTFAHUUMUUIXTFXOUUJXRUUKNUUMUUIFTDZFUUMXPFTXOXRVMXDUUNFGZFPHIZXEFKBUUOUU
+    PWJXFFXGXHXIXJWSXOFAHIXRAXKNXLXMXN $.
+    $( [22-Sep-2014] $)
+
+  ${
+    $d k n p $.  $d k p A $.  $d k F $.
+    prmorcht.1 $e |- F = ( n e. NN |-> if ( n e. Prime , n , 1 ) ) $.
+    $( Relate the primorial (product of the first ` n ` primes) to the
+       Chebyshev function.  (Contributed by Mario Carneiro, 22-Sep-2014.) $)
+    prmorcht $p |- ( A e. NN ->
+      ( exp ` ( theta ` A ) ) = ( seq 1 ( x. , F ) ` A ) ) $=
+      ( vk cn wcel cfv ce caddc cprime clog cc0 cif c1 co csu wceq syl cc vp cv
+      ccht cmpt cseq cmul cfz cin cicc cr nnre chtval cfl cuz 2nn nnuz ppisval2
+      c2 eleqtri sylancl cz nnz flid oveq2d ineq1d eqtrd sumeq1d wss wral inss1
+      sseli crp elfznn adantl nnrp relogcl 3syl recnd sylan2 ralrimiva cfn fzfi
+      wa wo sumss2 mpan2 sylancr 3eqtrd baibr ifbid sumeq2i syl6eqr eleq1 fveq2
+      olci elin eqidd ifbieq12d eqid fvex 0cn elexi fvmpt elnnuz biimpi fsumser
+      ifex ifcl fveq2d addcl eqeltrd efadd 1nn reeflog fvif log1 ifeq2 ax-mp id
+      eqtri vex 3eqtr4d seqhomo ) AFGZAUCHZIHAJBFBUBZKGZYFLHZMNZUDZOUEHZIHAUFCO
+      UEHYDYEYKIYDYEOAUGPZEUBZKGZYMLHZMNZEQZYKYDYEYLYMYLKUHZGZYOMNZEQZYQYDYEMAU
+      IPKUHZYOEQZYRYOEQZUUAYDAUJGZYEUUCRAUKZAEULSYDUUBYRYOEYDUUBOAUMHZUGPZKUHZY
+      RYDUUEUROUNHZGUUBUUIRUUFURFUUJUOUPUSAOUQUTYDUUHYLKYDUUGAOUGYDAVAGUUGARAVB
+      AVCSVDVEVFVGYDYRYLVHZYOTGZEYRVIZUUDUUARZYLKVJZYDUULEYRYSYDYMYLGZUULYRYLYM
+      UUOVKYDUUPWCZYOUUQYMFGZYMVLGYOUJGUUPUURYDYMAVMVNZYMVOYMVPVQVRZVSVTUUKUUMW
+      CYLUUJVHZYLWAGZWDUUNUVBUVAOAWBWOYRYLYOEOWEWFWGWHYLYPYTEUUPYNYSYOMYSUUPYNY
+      MYLKWPWIWJWKWLYDYPEYJOAUUQUURYMYJHZYPRUUSBYMYIYPFYJYFYMRZYGYNYHMYOMYFYMKW
+      MZYFYMLWNUVDMWQWRYJWSYNYOMYMLWTMTXAXBXGXCSZYDAUUJGAXDXEZUUQUULMTGYPTGUUTX
+      AYNYOMTXHUTZXFVFXIYDEUAJUFTYJCIOAYMTGUAUBZTGWCZYMUVIJPZTGYDYMUVIXJVNUUQUV
+      CYPTUVFUVHXKUVGUVJUVKIHYMIHUVIIHUFPRYDYMUVIXLVNUUQYNYMONZLHZIHZUVLUVCIHYM
+      CHZUUQUVLFGZUVLVLGUVNUVLRUUQUUROFGUVPUUSXMYNYMOFXHUTUVLVOUVLXNVQUUQUVCUVM
+      IUUQUVCYPUVMUVFUVMYNYOOLHZNZYPYNYMOLXOUVQMRUVRYPRXPYNUVQMYOXQXRXTWLXIUUQU
+      URUVOUVLRUUSBYMYGYFONUVLFCUVDYGYNYFOYMOUVEUVDXSUVDOWQWRDYNYMOEYAOFXMXBXGX
+      CSYBYCVF $.
+      $( [22-Sep-2014] $)
+  $}
+
+  $(
+  @( The M&ouml;bius function is a multiplicative function. This is one of
+     the primary interests of the M&ouml;bius function as an arithmetic
+     function. @)
+  mumul @p |- ( ( A e. NN /\ B e. NN /\ ( A gcd B ) = 1 ) ->
+    ( mmu ` ( A x. B ) ) = ( ( mmu ` A ) x. ( mmu ` B ) ) ) @=
+    ? @.
+
+  @( The divisor function is a multiplicative function. @)
+  sgmmul @p |- ( ( A e. NN /\ B e. NN /\ ( A gcd B ) = 1 ) ->
+    ( sigma ` ( A x. B ) ) = ( ( sigma ` A ) x. ( sigma ` B ) ) ) @=
+    ? @.
+  $)
+
+  $( A prime greater than ` 3 ` does not divide ` 2 ` or ` 3 ` , so its residue
+     ` mod 6 ` is ` 1 ` or ` 5 ` . $)
+  ppiublem $p |- ( ( P e. Prime /\ 4 <_ P ) -> ( P mod 6 ) e. { 1 , 5 } ) $=
+    ( wcel c4 cle wbr c6 co cc0 wceq c1 caddc c5 oveq1i wb ax-mp c2 cdivides 2z
+    cfz c3 cprime wa cmo wo cpr cmin cz prmz adantr 6nn zmodfz sylancl df-6 5nn
+    cn cc nncni ax-1cn pncan mp2an eqtri oveq2i syl6eleq cuz cfv nnnn0i eleqtri
+    cn0 nn0uz elfzp12 sylib dvds0 breq2 mpbiri 2nn w3a cmul nnzi dvdsmul2 3t2e6
+    3nn breqtri dvdsmod mpan2 mp3an12 syl uzid simpl dvdsprm sylancr syl5ibrcom
+    bitrd simpr clt wn 2lt4 2re 4re ltnlei mpbi pm2.21i syl6 sylbid syl5 eleq2i
+    0p1e1 nnuz bitr3i wi elexi prid1 syl6eqel a1i df-2 eluz1i 5re 2lt5 mpbir2an
+    id ltleii iddvds df-3 3re 3lt5 dvdsmul1 peano2uz eqeltri 3lt4 df-4 4nn 4lt5
+    2t2e4 elfz1eq cr prid2 df-5 eqcomi eleq2s jaod syl5bi mpd ) AUABZCADEZUBZAF
+    UCGZHIZUUEHJKGZLSGZBZUDZUUEJLUEZBZUUDUUEHLSGZBZUUJUUDUUEHFJUFGZSGZUUMUUDAUG
+    BZFUOBZUUEUUPBUUBUUQUUCAUHUIZUJAFUKULUUOLHSUUOLJKGZJUFGZLFUUTJUFUMMLUPBJUPB
+    UVALILUNUQURLJUSUTVAVBVCLHVDVEZBUUNUUJNLVHUVBLUNVFVIVGUUEHLVJOVKUUDUUFUULUU
+    IUUFPUUEQEZUUDUULUUFUVCPHQEZPUGBZUVDRPVLOUUEHPQVMVNUUDUVCPAIZUULUUDUVCPAQEZ
+    UVFUUDUUQUVCUVGNZUUSPUOBZUURUUQUVHVOUJUVIUURUUQVPPFQEUVHPTPVQGZFQTUGBZUVEPU
+    VJQETWAVRZRTPVSUTVTWBPAFWCWDWEWFUUDPPVDVEZBZUUBUVGUVFNUVEUVNRPWGOZUUBUUCWHZ
+    APWIWJWLUUDUVFCPDEZUULUUDUVQUVFUUCUUBUUCWMZPACDVMWKUVQUULPCWNEUVQWOWPPCWQWR
+    WSWTXAXBXCZXDUUIUUEJIZUUEJJKGZLSGZBZUDZUUDUULUUIUUEJLSGZBZUWDUWEUUHUUEJUUGL
+    SXFMXELJVDVEZBUWFUWDNLUOUWGUNXGVGUUEJLVJOXHUUDUVTUULUWCUVTUULXIUUDUVTUUEJUU
+    KUVTXSJLJUPURXJXKXLXMUWCUUEPIZUUEPJKGZLSGZBZUDZUUDUULUWCUUEPLSGZBZUWLUWMUWB
+    UUEPUWALSXNMXELUVMBZUWNUWLNUWOLUGBZPLDEPLRXOLUNVRZPLWQXPXQXTXRUUEPLVJOXHUUD
+    UWHUULUWKUWHUVCUUDUULUWHUVCPPQEZUVEUWRRPYAOUUEPPQVMVNUVSXDUWKUUETIZUUETJKGZ
+    LSGZBZUDZUUDUULUWKUUETLSGZBZUXCUXDUWJUUETUWILSYBMXELTVDVEBZUXEUXCNUXFUWPTLD
+    ETLUVLXOUWQTLYCXPYDXTXRUUETLVJOXHUUDUWSUULUXBUWSTUUEQEZUUDUULUWSUXGTTQEZUVK
+    UXHUVLTYAOUUETTQVMVNUUDUXGTAIZUULUUDUXGTAQEZUXIUUDUUQUXGUXJNZUUSTUOBZUURUUQ
+    UXKWAUJUXLUURUUQVPTFQEUXKTUVJFQUVKUVETUVJQEUVLRTPYEUTVTWBTAFWCWDWEWFUUDTUVM
+    BUUBUXJUXINTUWIUVMYBUVNUWIUVMBUVOPPYFOYGUVPATWIWJWLUUDUXICTDEZUULUUDUXMUXIU
+    UCUVRTACDVMWKUXMUULTCWNEUXMWOYHTCYCWRWSWTXAXBXCXDUXBUUECIZUUECJKGZLSGZBZUDZ
+    UUDUULUXBUUECLSGZBZUXRUXSUXAUUECUWTLSYIMXELCVDVEBZUXTUXRNUYAUWPCLDECLCYJVRX
+    OUWQCLWRXPYKXTXRUUECLVJOXHUUDUXNUULUXQUXNUVCUUDUULUXNUVCPCQEPPPVQGZCQUVEUVE
+    PUYBQERRPPYEUTYLWBUUECPQVMVNUVSXDUXQUULXIUUDUULUUELLSGZUXPUUEUYCBUUELUUKUUE
+    LYMJLLYNXPXJYOXLUXOLLSLUXOYPYQMYRXMYSYTYSYTYSYTYSYTYSUUA $.
+    $( [12-Mar-2014] $)
+
+  ${
+    $d k N $.
+    $( An upper bound on the Gauss prime ` pi ` function, which counts the
+       number of primes less than ` N ` .  (Contributed by Mario Carneiro,
+       13-Mar-2014.) $)
+    ppiub $p |- ( ( N e. RR /\ 0 <_ N ) ->
+                  ( ppi ` N ) <_ ( ( N / 3 ) + 2 ) ) $=
+      ( vk cr wcel cc0 cle wbr cfv c3 cdiv co c2 caddc a1i cmin c6 c1 c5 wceq
+      wb wa cppi 3re simpl cmo c4 cfl cfz crab chash cn0 syl adantr 2re resubcl
+      sylancl cfn wss ssrab2 ssfi mp2an ax-mp 3nn nndivre mpan2 cprime cin ppi3
+      cn oveq12d cuz cz nnzi flcl df-4 oveq1i fveq2i mpbir reflcl peano2rem 6nn
+      wi flle 1re lesub1 syl3anc mpbid clt 6pos lediv1 syl112anc letrd peano2re
+      6re 5re rabbiia eqtr4i c0 wne eqtri mp3an cdivides 0re ltleii modid mp4an
+      eqeq2i 1z moddvds mp3an13 syl5bbr cc 3cn ax-1cn pncan hashdvds syl5eq 2cn
+      nnne0i flbi 2nn nngt0i cmul nncni pm3.2i breqtri mpbir2an oveq2i zcn 3syl
+      eqtrd 5nn cneg eqtr3i mpbi addcomi recnd mpanr12 syl2anc oveq1d cpr ppicl
+      nn0re fzfi hashcl nn0rei ppifl flge biimpa eluz2 syl3anbrc ppidif syl6eqr
+      cv ineq1i eqtr3d cdom inss1 dfin5 elfzle1 ppiublem expcom ss2rabi eqsstri
+      ssdomg mp2 hashdom syl6eqbr leadd1 le2add syl22anc mp2and ovex elpr unrab
+      cun wo inrab wn rabeq0 1lt5 ltneii necomi necon3ai mprgbir hashun elfzelz
+      eqtr2 crp nnrp lt01 1lt6 syl6eleqr df-3 redivcli 0z divgt0ii 2lt6 mulid1i
+      4nn breqtrri ltdivmul 0p1e1 subid1 negsubdi2i 3p2e5 pncan2 negeqi 3eqtr2i
+      divneg renegcli znegcl lenegi ltnegi negidi negcli 3eqtr4ri subneg 2times
+      5lt6 neg0 df-6 addsub4 mulcl sylancr divsubdir mp3an23 3t2e6 mulcomi 3ne0
+      divcan5 dividi divdir mp3an3 3eqtr3d npcan addass 3brtr4d adantlr readdcl
+      lesubadd ad2antrr ppiwordi mp3an2 syl6breq 3pos divge0 addge02 lecasei )
+      ACDZEAFGZUAZAUBHZAIJKZLMKZFGZIAICDZVULUCNVUJVUKUDVUJIAFGZVUPVUKVUJVURUAZV
+      UMLOKZVUNFGZVUPVUSVUTBUUNZPUEKZQRUUADZBUFAUGHZUHKZUIZUJHZVUNVUSVUMCDZLCDZ
+      VUTCDVUJVVIVURVUJVUMUKDVVIAUUBVUMUUCULZUMZUNVUMLUOUPVVHCDVUSVVHVVGUQDZVVH
+      UKDVVFUQDZVVGVVFURVVMUFVVEUUDZVVDBVVFUSVVFVVGUTVAZVVGUUEVBUUFNVUJVUNCDZVU
+      RVUJIVIDVVQVCAIVDVEZUMZVUSVUTVVFVFVGZUJHZVVHFVUSVVEUBHZIUBHZOKZVUTVWAVUSV
+      WBVUMVWCLOVUJVWBVUMSVURAUUGUMVWCLSVUSVHNVJVUSVWDIQMKZVVEUHKZVFVGZUJHZVWAV
+      USVVEIVKHZDZVWDVWHSVUSIVLDZVVEVLDZIVVEFGZVWJVWKVUSIVCVMZNVUJVWLVURAVNUMVU
+      JVURVWMVUJVWKVURVWMTVWNAIUUHVEUUIIVVEUUJUUKZIVVEUULULVVTVWGUJVVFVWFVFUFVW
+      EVVEUHVOVPUUOVQUUMUUPVWAVVHFGZVVTVVGUUQGZVVTUQDZVVTVVGURVWQVVNVVTVVFURVWR
+      VVOVVFVFUURVVFVVTUTVAZVVTVVBVFDZBVVFUIVVGBVVFVFUUSVWTVVDBVVFVVBVVFDZUFVVB
+      FGZVWTVVDWBVVBUFVVEUUTVWTVXBVVDVVBUVAUVBULUVCUVDVVTVVGUQUVEUVFVWRVVMVWPVW
+      QTVWSVVPVVTVVGUVGVAVRUVHVUSVVEQOKZPJKZUGHZVVEROKZPJKZUGHZQMKZMKZAQOKZPJKZ
+      AROKZPJKZQMKZMKZVVHVUNFVUSVXEVXLFGZVXIVXOFGZVXJVXPFGZVUSVXEVXDVXLVUSVXDCD
+      ZVXECDZVUSVXCCDZPVIDZVXTVUSVVECDZVYBVUJVYDVURAVSUMZVVEVTULZWAVXCPVDUPZVXD
+      VSULZVYGVUSVXKCDZVYCVXLCDZVUJVYIVURAVTUMZWAVXKPVDUPZVUSVXTVXEVXDFGVYGVXDW
+      CULVUSVXCVXKFGZVXDVXLFGZVUSVVEAFGZVYMVUJVYOVURAWCUMZVUSVYDVUJQCDZVYOVYMTV
+      YEVUJVURUDZVYQVUSWDNZVVEAQWEWFWGVUSVYBVYIPCDZEPWHGZVYMVYNTVYFVYKVYTVUSWNN
+      ZWUAVUSWINZVXCVXKPWJWKWGWLVUSVXHVXNFGZVXRVUSVXHVXGVXNVUSVXGCDZVXHCDZVUSVX
+      FCDZVYCWUEVUSVYDRCDZWUGVYEWOVVERUOUPZWAVXFPVDUPZVXGVSULZWUJVUSVXMCDZVYCVX
+      NCDZVUSVUJWUHWULVYRWOARUOUPZWAVXMPVDUPZVUSWUEVXHVXGFGWUJVXGWCULVUSVXFVXMF
+      GZVXGVXNFGZVUSVYOWUPVYPVUSVYDVUJWUHVYOWUPTVYEVYRWUHVUSWONVVEARWEWFWGVUSWU
+      GWULVYTWUAWUPWUQTWUIWUNWUBWUCVXFVXMPWJWKWGWLVUSWUFWUMVYQWUDVXRTWUKWUOVYSV
+      XHVXNQUVIWFWGVUSVYAVXICDZVYJVXOCDZVXQVXRUAVXSWBVYHVUSWUFWURWUKVXHWMULVYLV
+      USWUMWUSWUOVXNWMULVXEVXIVXLVXOUVJUVKUVLVUSVVHVVCQSZBVVFUIZUJHZVVCRSZBVVFU
+      IZUJHZMKZVXJVVHWVAWVDUVPZUJHZWVFVVGWVGUJVVGWUTWVCUVQZBVVFUIWVGVVDWVIBVVFV
+      VDWVITVXAVVCQRVVBPUEUVMUVNNWPWUTWVCBVVFUVOWQVQWVAUQDZWVDUQDZWVAWVDVGZWRSW
+      VHWVFSVVNWVAVVFURWVJVVOWUTBVVFUSVVFWVAUTVAVVNWVDVVFURWVKVVOWVCBVVFUSVVFWV
+      DUTVAWVLWUTWVCUAZBVVFUIZWRWUTWVCBVVFUVRWVNWRSWVMUVSZBVVFWVMBVVFUVTWVOVXAQ
+      RWSWVORQQRWDWOUWAUWBUWCWVMQRVVCQRUWHUWDVBNUWEWTWVAWVDUWFXAWTVUSWVBVXEWVEV
+      XIMVUSWVBVXEUFQOKZQOKZPJKZUGHZOKZVXEVUSWVBPVVBQOKXBGZBVVFUIZUJHWVTWVAWWBU
+      JWUTWWABVVFVXAVVBVLDZWUTWWATVVBUFVVEUWGZWUTVVCQPUEKZSZWWCWWAWWEQVVCVYQPUW
+      IDZEQFGQPWHGWWEQSWDVYCWWGWAPUWJVBZEQXCWDUWKXDUWLQPXEXFXGVYCWWCQVLDZWWFWWA
+      TWAXHVVBQPXIXJXKULWPVQVUSBUFVVEQPVYCVUSWANZUFVLDVUSUFUWTVMNZVUSVVEVWIWVPV
+      KHVWOWVPIVKWVPVWEQOKZIUFVWEQOVOVPIXLDZQXLDZWWLISXMXNIQXOVAWTZVQUWMZWWIVUS
+      XHNXPXQVUSWVTVXEEOKZVXEWVSEVXEOWVSLPJKZUGHZEWVRWWRUGWVQLPJWVQLQMKZQOKZLWV
+      PWWTQOWVPIWWTWWOUWNWTVPLXLDZWWNWXALSXRXNLQXOVAWTVPVQWWSESZEWWRFGZWWREQMKZ
+      WHGZWWRCDEVLDWXCWXDWXFUATLPUNWNPWAXSZUWOZUWPWWREXTVAEWWRXCWXHLPUNWNLYAYBW
+      IUWQZXDWWRQWXEWHWWRQWHGZLPQYCKZWHGZLPWXKWHUWRPPWAYDZUWSUXAVVJVYQVYTWUAUAW
+      XJWXLTUNWDVYTWUAWNWIYELQPUXBXAVRZUXCYFYGWTYHVUSVXEVLDZVXEXLDWWQVXESVUSVXT
+      WXOVYGVXDVNULVXEYIVXEUXDYJXQYKVUSWVEVXHWVPROKZPJKZUGHZOKZVXIVUSWVEPVVBROK
+      XBGZBVVFUIZUJHWXSWVDWYAUJWVCWXTBVVFVXAWWCWVCWXTTWWDWVCVVCRPUEKZSZWWCWXTWY
+      BRVVCWUHWWGERFGRPWHGWYBRSWOWWHERXCWORYLYBXDUXTRPXEXFXGVYCWWCRVLDZWYCWXTTW
+      ARYLVMZVVBRPXIXJXKULWPVQVUSBUFVVERPWWJWWKWWPWYDVUSWYENXPXQVUSWXSVXHQYMZOK
+      ZVXIWXRWYFVXHOWXRWWRYMZUGHZWYFWXQWYHUGWXQLYMZPJKZWYHWXPWYJPJWXPIROKRIOKZY
+      MWYJWVPIROWWOVPRIRYLYDZXMUXEWYLLILMKZIOKZWYLLWYNRIOUXFVPWWMWXBWYOLSXMXRIL
+      UXGVAYNUXHUXIVPWXBPXLDZPEWSZWYHWYKSXRWXMWXGLPUXJXAWQVQWYIWYFSZWYFWYHFGZWY
+      HWYFQMKZWHGZWYHCDWYFVLDZWYRWYSXUAUATWWRWXHUXKWWIXUBXHQUXLVBWYHWYFXTVAWWRQ
+      FGWYSWWRQWXHWDWXNXDWWRQWXHWDUXMYOWYHEYMZWYTWHEWWRWHGWYHXUCWHGWXIEWWRXCWXH
+      UXNYOQWYFMKEWYTXUCQXNUXOWYFQQXNUXPXNYPUYAUXQYFYGWTYHVUSVXHXLDZWWNWYGVXISV
+      USWUEVXHVLDXUDWUJVXGVNVXHYIYJXNVXHQUXRUPXQYKVJXQVUSVUNQOKZQMKZVXLVXNMKZQM
+      KZVUNVXPVUSXUEXUGQMVUSLAYCKZPOKZPJKZVXKVXMMKZPJKZXUEXUGVUSXUJXULPJVUSXUJA
+      AMKZQRMKZOKZXULVUSXUIXUNPXUOOVUSAXLDZXUIXUNSVUSAVYRYQZAUXSULPXUOSVUSPRQMK
+      XUOUYBRQWYMXNYPWTNVJVUSXUQXUQXUPXULSZXURXURXUQXUQUAWWNRXLDXUSXNWYMAAQRUYC
+      YRYSYKYTVUSXUKXUIPJKZPPJKZOKZXUEVUSXUIXLDZXUKXVBSZVUSWXBXUQXVCXRXURLAUYDU
+      YEXVCWYPWYPWYQUAZXVDWXMWYPWYQWXMWXGYEZXUIPPUYFUYGULVUSXUTVUNXVAQOVUSXUTXU
+      ILIYCKZJKZVUNPXVGXUIJILYCKPXVGUYHILXMXRUYIYNYHVUSXUQXVHVUNSZXURXUQWWMIEWS
+      ZUAWXBLEWSZUAXVIWWMXVJXMUYJYEWXBXVKXRLYAXSYEAILUYKUYGULXQXVAQSVUSPWXMWXGU
+      YLNVJYKVUSVXKXLDZVXMXLDZXUMXUGSZVUSVXKVYKYQVUSVXMWUNYQXVLXVMXVEXVNXVFVXKV
+      XMPUYMUYNYSUYOYTVUSVUNXLDWWNXUFVUNSVUSVUNVVSYQXNVUNQUYPUPVUSVXLXLDVXNXLDW
+      WNXUHVXPSVUSVXLVYLYQVUSVXNWUOYQWWNVUSXNNVXLVXNQUYQWFUYOUYRWLVUSVVIVVJVVQV
+      VAVUPTVVLVVJVUSUNNVVSVUMLVUNVUAWFWGUYSVULAIFGZUAZVUMLVUOVUJVVIVUKXVOVVKVU
+      BVVJXVPUNNXVPVVQVVJVUOCDVUJVVQVUKXVOVVRVUBZUNVUNLUYTUPXVPVUMVWCLFVUJXVOVU
+      MVWCFGZVUKVUJVUQXVOXVRUCAIVUCVUDUYSVHVUEXVPEVUNFGZLVUOFGZVULXVSXVOVULVUQE
+      IWHGXVSUCVUFAIVUGYRUMXVPVVJVVQXVSXVTTUNXVQLVUNVUHUYEWGWLVUI $.
+      $( [12-Mar-2014] $)
+  $}
+
+  ${
+    $d p A $.  $d k n p x N $.
+    $( Upper bound on the ` theta ` function.  (Contributed by Mario Carneiro,
+       22-Sep-2014.) $)
+    chtleppi $p |- ( A e. RR+ ->
+      ( theta ` A ) <_ ( ( ppi ` A ) x. ( log ` A ) ) ) $=
+      ( vp crp wcel cc0 co cprime clog cfv csu cle cr syl sseldi relogcl adantr
+      cmul wbr ce wceq cicc cin cv ccht cppi rpre ppifi wa cn inss2 simpr prmnn
+      cfn nnrp w3a inss1 wb elicc2 sylancr biimpa syldan simp3d reeflog 3brtr4d
+      3syl 0re syl2anc mpbird fsumle chtval chash ppival oveq1d recnd fsumconst
+      efle cc eqtr4d ) ACDZEAUAFZGUBZBUCZHIZBJZWAAHIZBJZAUDIZAUEIZWEQFZKVSWAWCW
+      EBVSALDZWAUMDZAUFZAUGMZVSWBWADZUHZWBCDZWCLDZWOWBGDWBUIDWPWOWAGWBVTGUJVSWN
+      UKZNWBULWBUNVEZWBOMZVSWELDZWNAOZPZWOWCWEKRZWCSIZWESIZKRZWOWBAXEXFKWOWBLDZ
+      EWBKRZWBAKRZVSWNWBVTDZXHXIXJUOZWOWAVTWBVTGUPWRNVSXKXLVSELDWJXKXLUQVFWLEAW
+      BURUSUTVAVBWOWPXEWBTWSWBVCMVSXFATWNAVCPVDWOWQXAXDXGUQWTXCWCWEVPVGVHVIVSWJ
+      WGWDTWLABVJMVSWIWAVKIZWEQFZWFVSWHXMWEQVSWJWHXMTWLAVLMVMVSWKWEVQDWFXNTWMVS
+      WEXBVNWAWEBVOVGVRVD $.
+      $( [22-Sep-2014] $)
+
+    $( Lemma for ~ chtub .  (Contributed by Mario Carneiro, 13-Mar-2014.) $)
+    chtublem $p |- ( N e. NN -> ( theta ` ( ( 2 x. N ) - 1 ) ) <_
+                ( ( theta ` N ) + ( ( log ` 4 ) x. ( N - 1 ) ) ) ) $=
+      ( cn wcel c2 cmul co c1 cmin cfv caddc cr syl cc0 cc wceq cn0 cle syl2anc
+      wbr adantr vp vn vk ccht cbc clog c4 2nn nnmulcl mpan peano2rem chtcl crp
+      nnre cfz df-2 oveq1i ax-1cn pncan mp2an eqtri oveq2i subsub mp3an23 subdi
+      nncn 2cn mp3an13 mulid1i syl6eq oveq1d eqtr4d 2nn0 sylancr nnnn0 nnge1 wb
+      1re a1i leadd2 syl3anc mpbid 2times breqtrrd relogcl readdcl 4re nn0re ce
+      cdivides cv cpc cprime wa cif iftrue adantl wi pccl breq2d syl5ibrcom cfa
+      wn cuz cz nnz eluz syl2anr mpbird faccl iffalse nn0cn eqtrd fveq2d oveq2d
+      cdiv wne nnne0 jca pcmul 3eqtrd mtod pceq0 1nn0 nn0ge0 cmpt prmorcht cexp
+      pm2.61d ralrimiva pcmpt efchtcl 3brtr4d recnd efle csu wss eqeltrrd oveq2
+      mulcom syl5eqr nnm1nn0 nn0mulcl nn0p1nn eqeltrd leaddsub elfz2nn0 biimpar
+      w3a syl13anc bccl2 nnrp 4pos elrpii ax-mp remulcl wral nn0addge1 ad2antlr
+      simpr simprl prmz dvdsfac id pcelnn ad2antll addid2 bcval2 addsubass nn0z
+      prmnn pncan2 pcdiv simprr prmfac1 3expia simpld dvdsmultr1 facnn2 sylibrd
+      zcn sylan oveq12d 00id subid1 expr eqbrtrd ex 0nn0 keepel nn0addcl breq1d
+      cseq eqid ifeq1d mpteq2ia eqcomi eqidd simpl pc2dvds dvdsle efadd reeflog
+      exp1 mpd fzfid elfzelz syl2an nn0uz syl6eleq fzss1 mpancom fzss2 fsumless
+      bccl sstrd bccmpl fsum1 npcan uzid peano2uz sselda syldan fsumm1 3eqtr4rd
+      3syl binom11 expp1 expmul sq2 3brtr3d clt reexpcl 2re pm3.2i lemul1 recni
+      2pos reexplog letrd ) ABCZDAEFZGHFZUDIZAUDIZVUCAUEFZUFIZJFZVUEUGUFIZAGHFZ
+      EFZJFZVUAVUCKCZVUDKCZVUAVUBKCZVUMVUAVUBBCZVUODBCVUAVUPUHDAUIUJZVUBUNLZVUB
+      UKLZVUCULLZVUAVUEKCZVUGKCZVUHKCZVUAAKCZVVAAUNZAULLZVUAVUFUMCZVVBVUAVUFBCZ
+      VVGVUAVUCBCZAMVUCUOFZCZVVHVUAVUCDVUJEFZGJFZBVUAVUCVUBDGHFZHFZVVMVVNGVUBHV
+      VNGGJFZGHFZGDVVPGHUPUQGNCZVVRVVQGOURURGGUSUTVAVBVUAVVOVUBDHFZGJFZVVMVUAVU
+      BNCZVVOVVTOZVUAVUPVWAVUQVUBVFLVWADNCZVVRVWBVGURVUBDGVCVDLVUAVVLVVSGJVUAVV
+      LVUBDGEFZHFZVVSVUAANCZVVLVWEOZAVFZVWCVWFVVRVWGVGURDAGVEVHLVWDDVUBHDVGVIVB
+      VJVKVLUUAZVUAVVLPCZVVMBCVUADPCZVUJPCZVWJVMAUUBZDVUJUUCVNZVVLUUDLUUEZVUAVU
+      CPCZAPCZVWPAVUCQSZVVKVUAVVIVWPVWOVUCVOLZAVOZVWSVUAAGJFZVUBQSZVWRVUAVXAAAJ
+      FZVUBQVUAGAQSZVXAVXCQSZAVPVUAGKCZVVDVVDVXDVXEVQVXFVUAVRVSZVVEVVEGAAVTWAWB
+      VUAVWFVUBVXCOVWHAWCLZWDVUAVVDVXFVUOVXBVWRVQVVEVXGVURAGVUBUUFWAWBZVWPVVKVW
+      QVWPVWRUUIPAVUCUUGUUHUUJZAVUCBUUKRZVUFUULLZVUFWELZVUEVUGWFRZVUAVVAVUKKCZV
+      ULKCVVFVUAVUIKCZVUJKCZVXOUGUMCZVXPUGWGUUMUUNZUGWEUUOZVUAVWLVXQVWMVUJWHLVU
+      IVUJUUPVNZVUEVUKWFRVUAVUDVUHQSZVUDWIIZVUHWIIZQSZVUAVYCVUEWIIZVUFEFZVYDQVU
+      AVYCVYGWJSZVYCVYGQSZVUAVYHUAWKZVYCWLFZVYJVYGWLFZQSZUAWMUUQZVUAVYMUAWMVUAV
+      YJWMCZWNZVYJVUCQSZGMWOZVYJAQSZGMWOZVYJVUFWLFZJFZVYKVYLQVYPVYQVYRWUBQSZVYP
+      VYQWUCVYPVYQWNZVYRGWUBQVYQVYRGOVYPVYQGMWPWQWUDVYSGWUBQSZVYPVYSWUEWRVYQVYP
+      WUEVYSGGWUAJFZQSZVYPVXFWUAPCZWUGVRVYPVYOVVHWUHVUAVYOUUTZVUAVVHVYOVXKTZVYJ
+      VUFWSRZGWUAUURVNVYSWUBWUFGQVYSVYTGWUAJVYSGMWPVKWTXATVYPVYQVYSXCZWUEVYPVYQ
+      WULWNZWNZGVYJVUCXBIZWLFZWUBQWUNWUPBCZGWUPQSWUNWUQVYJWUOWJSZWUNVYJBCZVUCVY
+      JXDICZWURVYOWUSVUAWUMVYJUVKUUSWUNWUTVYQVYPVYQWULUVAVYPWUTVYQVQZWUMVYOVYJX
+      ECZVUCXECZWVAVUAVYJUVBZVUAVVIWVCVWOVUCXFLZVYJVUCXGXHTXIVYJVUCUVCRVYPWUQWU
+      RVQZWUMVYOVYOWUOBCZWVFVUAVYOUVDZVUAVWPWVGVWSVUCXJLZVYJWUOUVEXHTXIWUPVPLWU
+      NWUBMWUAJFZWUAWUPWULWUBWVJOVYPVYQWULVYTMWUAJVYSGMXKVKUVFVYPWVJWUAOZWUMVYP
+      WUANCZWVKVYPWUHWVLWUKWUAXLLWUAUVGLTWUNWUAWUPVYJVUJXBIZWLFZVYJAXBIZWLFZJFZ
+      HFZWUPMHFZWUPVYPWUAWVROWUMVYPWUAVYJWUOWVMWVOEFZXPFZWLFZWUPVYJWVTWLFZHFZWV
+      RVYPVUFWWAVYJWLVUAVUFWWAOVYOVUAVUFWUOVUCAHFZXBIZWVOEFZXPFZWWAVUAVWPVVKVUF
+      WWHOVWSVXJAVUCPUVHRVUAWWGWVTWUOXPVUAWWFWVMWVOEVUAWWEVUJXBVUAWWEAVUJJFZAHF
+      ZVUJVUAVUCWWIAHVUAVUCVXCGHFZWWIVUAVUBVXCGHVXHVKVUAVWFVWFVVRWWKWWIOVWHVWHV
+      VRVUAURVSZAAGUVIWAXMVKVUAVWFVUJNCZWWJVUJOVWHVUAVUJXECZWWMVUAVWLWWNVWMVUJU
+      VJLZVUJUWALZAVUJUVLRXMZXNVKXOXMTXOVYPVYOWUOXECZWUOMXQZWNZWVTBCZWWBWWDOWUI
+      VUAWWTVYOVUAWVGWWTWVIWVGWWRWWSWUOXFWUOXRXSLTVUAWXAVYOVUAWVMBCZWVOBCZWXAVU
+      AVWLWXBVWMVUJXJLZVUAVWQWXCVWTAXJLZWVMWVOUIRTWUOWVTVYJUVMWAVYPWWCWVQWUPHVY
+      PVYOWVMXECZWVMMXQZWNZWVOXECZWVOMXQZWNZWWCWVQOWUIVUAWXHVYOVUAWXBWXHWXDWXBW
+      XFWXGWVMXFWVMXRXSLTZVUAWXKVYOVUAWXCWXKWXEWXCWXIWXJWVOXFWVOXRXSLTWVMWVOVYJ
+      XTWAXOYATWUNWVQMWUPHWUNWVQMMJFMWUNWVNMWVPMJWUNWVNMOZVYJWVMWJSZXCZWUNWXNVY
+      JWVOWJSZWUNWXPVYSVYPVYQWULUVNVYPWXPVYSWRZWUMVUAVWQVYOWXQVWTVWQVYOWXPVYSVY
+      JAUVOUVPUWBTYBZVYPWXNWXPWRWUMVYPWXNVYJWVMAEFZWJSZWXPVYPWVBWXFAXECZWXNWXTW
+      RVYOWVBVUAWVDWQVYPWXFWXGWXLUVQVUAWYAVYOAXFZTVYJWVMAUVRWAVYPWVOWXSVYJWJVUA
+      WVOWXSOVYOAUVSTWTUVTTYBVYPWXMWXOVQZWUMVYOVYOWXBWYCVUAWVHWXDVYJWVMYCXHTXIW
+      UNWVPMOZWXPXCZWXRVYPWYDWYEVQZWUMVYOVYOWXCWYFVUAWVHWXEVYJWVOYCXHTXIUWCUWDV
+      JXOVYPWVSWUPOZWUMVYPWUPNCZWYGVYPWUPPCZWYHVYOVYOWVGWYIVUAWVHWVIVYJWUOWSXHW
+      UPXLLWUPUWELTYAYAWDUWFYIUWGUWHVYPWUCVYQXCZMWUBQSZVYPWUBPCZWYKVYPVYTPCWUHW
+      YLVYSGMPYDUWIUWJWUKVYTWUAUWKVNWUBYELWYJVYRMWUBQVYQGMXKUWLXAYIVYPVYKVYJVUC
+      EUBBUBWKZWMCZWYMGWOZYFZGUWMZIZWLFZVYRVUAVYKWYSOVYOVUAVYCWYRVYJWLVUAVVIVYC
+      WYROVWOVUCUBWYPWYPUWNZYGLXOTVYPGGVYJUBWYPVUCUBBWYNWYMGYHFZGWOZYFWYPUBBXUB
+      WYOWYMBCZWYNXUAWYMGXUCWYMNCXUAWYMOWYMVFWYMUXDLUWOUWPUWQZVYPGPCZUBWMXUEVYP
+      WYNWNYDVSYJZVUAVVIVYOVWOTWUIWYMVYJOGUWRZYKXMVYPVYLVYJVYFWLFZWUAJFZWUBVYPV
+      YOVYFXECZVYFMXQZWNZVUFXECZVUFMXQZWNZVYLXUIOWUIVYPVYFBCZXULVUAXUPVYOVUAVVD
+      XUPVVEAYLLZTXUPXUJXUKVYFXFVYFXRXSLVYPVVHXUOWUJVVHXUMXUNVUFXFVUFXRXSLVYFVU
+      FVYJXTWAVYPXUHVYTWUAJVYPXUHVYJAWYQIZWLFZVYTVUAXUHXUSOVYOVUAVYFXURVYJWLAUB
+      WYPWYTYGXOTVYPGGVYJUBWYPAXUDXUFVUAVYOUWSWUIXUGYKXMVKXMYMYJVUAVYCBCZVYGBCZ
+      VYHVYNVQVUAVUMXUTVUSVUCYLLZVUAXUPVVHXVAXUQVXKVYFVUFUIRZVYCVYGUAUWTRXIVUAV
+      YCXECZXVAVYHVYIWRVUAXUTXVDXVBVYCXFLXVCVYCVYGUXARUXEVUAVYDVYFVUGWIIZEFZVYG
+      VUAVUENCVUGNCVYDXVFOVUAVUEVVFYNVUAVUGVXMYNVUEVUGUXBRVUAXVEVUFVYFEVUAVVGXV
+      EVUFOVXLVUFUXCLZXOXMWDVUAVUNVVCVYBVYEVQVUTVXNVUDVUHYORXIVUAVUGVUKQSZVUHVU
+      LQSZVUAXVHXVEVUKWIIZQSZVUAVUFUGVUJYHFZXVEXVJQVUAVUFXVLQSZVUFDEFZXVLDEFZQS
+      ZVUADVUFEFZDVUCYHFZXVNXVOQVUAVUJAUOFZVUCUCWKZUEFZUCYPZVVJXWAUCYPZXVQXVRQV
+      UAVVJXWAXVSUCVUAMVUCUXFVUAXVTVVJCZWNZXWAPCZXWAKCVUAVWPXVTXECXWFXWDVWSXVTM
+      VUCUXGXVTVUCUXOUXHZXWAWHLZXWEXWFMXWAQSXWGXWAYELVUAXVSMAUOFZVVJVUJMXDIZCVU
+      AXVSXWIYQVUAVUJPXWJVWMUXIUXJVUJMABUXKUXLVUAVUCAXDICZXWIVVJYQVUAXWKVWRVXIV
+      UAWYAWVCXWKVWRVQWYBWVEAVUCXGRXIAMVUCUXMLUXPZUXNVUAVUJVUJUOFXWAUCYPZVUFJFV
+      UFVUFJFZXWBXVQVUAXWMVUFVUFJVUAXWMVUCVUJUEFZVUFVUAWWNXWONCXWMXWOOWWOVUAVUF
+      XWONVUAVUFVUCWWEUEFZXWOVUAVWPWYAVUFXWPOVWSWYBAVUCUXQRVUAWWEVUJVUCUEWWQXOX
+      MZVUAVVHVUFNCZVXKVUFVFLZYRXWAXWOUCVUJXVTVUJVUCUEYSUXRRXWQVLVKVUAXWAVUFUCV
+      UJAVUAVUJGJFZAVUJXDIZVUAVWFVVRXWTAOVWHWWLAGUXSRVUAWWNVUJXXACXWTXXACWWOVUJ
+      UXTVUJVUJUYAUYFYRVUAXVTXVSCXWDXWANCVUAXVSVVJXVTXWLUYBXWEXWAXWHYNUYCXVTAVU
+      CUEYSUYDVUAXWRXVQXWNOXWSVUFWCLUYEVUAVWPXVRXWCOVWSUCVUCUYGLYMVUAVWCXWRXVQX
+      VNOVGXWSDVUFYTVNVUAXVRDVVMYHFZDVVLYHFZDEFZXVOVUAVUCVVMDYHVWIXOVUAVWCVWJXX
+      BXXDOVGVWNDVVLUYHVNVUAXXCXVLDEVUAXXCDDYHFZVUJYHFZXVLVUAVWCVWKVWLXXCXXFOVW
+      CVUAVGVSVWKVUAVMVSVWMDDVUJUYIWAXXEUGVUJYHUYJUQVJVKYAUYKVUAVUFKCZXVLKCZDKC
+      ZMDUYLSZWNZXVMXVPVQVUAVVHXXGVXKVUFUNLVUAUGKCVWLXXHWGVWMUGVUJUYMVNXXKVUAXX
+      IXXJUYNUYRUYOVSVUFXVLDUYPWAXIXVGVUAXVJVUJVUIEFZWIIZXVLVUAVUKXXLWIVUAVUINC
+      WWMVUKXXLOVUIVXTUYQWWPVUIVUJYTVNXNVUAVXRWWNXVLXXMOVXSWWOUGVUJUYSVNVLYMVUA
+      VVBVXOXVHXVKVQVXMVYAVUGVUKYORXIVUAVVBVXOVVAXVHXVIVQVXMVYAVVFVUGVUKVUEVTWA
+      WBUYT $.
+      $( [13-Mar-2014] $)
+
+    $( An upper bound on the Chebyshev function.  (Contributed by Mario
+       Carneiro, 13-Mar-2014.)  (Revised 22-Sep-2014.) $)
+    chtub $p |- ( ( N e. RR /\ 2 < N ) ->
+                    ( theta ` N ) < ( ( log ` 2 ) x. ( ( 2 x. N ) - 3 ) ) ) $=
+      ( vk cr wcel c2 clt wbr cfv wceq c1 caddc co cmul cmin cle a1i adantr syl
+      c3 wb vx vn wa cfl cuz wo ccht clog cz 2z flcl 2re ltle mpan mpan2 sylibd
+      wi flge imp fveq2 cc0 crp mp2an mpbi recni mulid1i c4 2pos ltmul2 syl3anc
+      eqtri syl5eqbrr 3re 1re remulcl sylancr resubcl sylancl eqbrtrrd ad2antrr
+      mpbid chtcl simpr df-3 fveq2i cfz cv wral eluzfz2 3nn oveq2 raleqdv c6 c8
+      elrpii fveq2d syl6eq oveq2d oveq1d 3cn oveq1i cc pncan cexp ax-mp mulcomi
+      relogexp cdiv eluzelz df-2 2ne0 eluzle zltp1le mp3an13 cn ltadd1 syl5eqbr
+      2cn recnd breq12d rcla4v ax-1cn adddi mp3an23 eqtrd eqcomi oveq2i subsub3
+      subaddrii breq2d 3syl zmulcl syl5eq zre syl2anc syld jaodan mpdan lemul2
+      wn syl3anbrc uzp1 1lt2 rplogcl elrp simpli cht2 eqtr4i syl6reqr sylan9eqr
+      eluz2 chtfl 2t2e4 df-4 simplr pm3.2i ltaddsub2 reflcl syl6eleqr nnzi 6lt8
+      6re 6pos 8re 8pos logltb elfz1eq cht3 2timesi relogcl cu2 3eqtr2i 3brtr4d
+      simpl rgen csn zeo peano2z elfz mp3an2 syl2anr dividi mpbird eluzelre 2nn
+      ltdiv1 nndivre adantl mpd leadd2 2halves breqtrd divcan2 oveq12d syl5reqr
+      mpbir2and elfzuz nnuz uztrn2 nnre peano2rem 2times addsub 3eqtr2rd eqtr3d
+      wne zcn 3bitrd chtublem addsubass 3eqtr3i mulass 3brtr3d peano2uz readdcl
+      sq2 3eqtrd lelttr mpand sylbid ltp1 ltsub1 axlttrn mpan2d cprime cdivides
+      divides2 mp3an12 2lt3 ltnlei breq2 mtbii con2i uzid dvdsprm con2d sylbird
+      mtbird ex chtnprm breq1d sylibrd wsbc ralsn sbcie bitri syl6ibr ancld cun
+      ovex ralun fzsuc syl5ibr uzind4i sylc flle lesub1 ltletrd ) ACDZEAFGZUCZA
+      UDHZEIZVVBEJKLZUEHZDZUFZAUGHZEUHHZEAMLZSNLZMLZFGZVVAVVBEUEHZDZVVGVVAEUIDZ
+      VVBUIDZEVVBOGZVVOVVPVVAUJPVUSVVQVUTAUKQVUSVUTVVRVUSVUTEAOGZVVRECDZVUSVUTV
+      VSUQULEAUMUNVUSVVPVVSVVRTUJAEURUOUPUSEVVBUUKUUAEVVBUUBRVVAVVCVVMVVFVVAVVC
+      UCZVVIJMLZVVHVVLFVVCVVAVWBVVBUGHZVVHVVCVWCEUGHZVWBVVBEUGUTVWBVVIVWDVVIVVI
+      VVICDZVAVVIFGZVVIVBDZVWEVWFUCZVVTJEFGVWGULUUCEUUDVCVVIUUEVDZUUFZVEVFUUGUU
+      HUUIVUSVWCVVHIZVUTAUULQZUUJVWAJVVKFGZVWBVVLFGZVWASJKLZVVJFGZVWMVWAVWOEEML
+      ZVVJFVWQVGVWOUUMUUNVKVWAVUTVWQVVJFGZVUSVUTVVCUUOVWAVVTVUSVVTVAEFGZUCZVUTV
+      WRTVVTVWAULPVVAVUSVVCVUSVUTUVNZQVWTVWAVVTVWSULVHUUPZPEAEVIVJWAVLVWASCDZJC
+      DZVVJCDZVWPVWMTVXCVWAVMPVXDVWAVNPZVVAVXEVVCVVAVVTVUSVXEULVXAEAVOVPZQSJVVJ
+      UUQVJWAVWAVXDVVKCDZVWHVWMVWNTVXFVVAVXHVVCVVAVXEVXCVXHVXGVMVVJSVQVRZQVWHVW
+      AVWIPJVVKVVIVIVJWAVSVVAVVFUCZVVHVVIEVVBMLZSNLZMLZVVLVUSVVHCDVUTVVFAWBVTVX
+      JVWEVXLCDZVXMCDVWJVXJVXKCDZVXCVXNVXJVVTVVBCDZVXOULVUSVXPVUTVVFAUURVTZEVVB
+      VOVPZVMVXKSVQVRZVVIVXLVOVPVXJVWEVXHVVLCDVWJVVAVXHVVFVXIQZVVIVVKVOVPVXJVWC
+      VVHVXMFVVAVWKVVFVWLQVXJVVBSUEHZDZVWCVXMFGZVXJVVBVVEVYAVVAVVFWCSVVDUEWDWEU
+      USVYBVVBSVVBWFLZDBWGZUGHZVVIEVYEMLZSNLZMLZFGZBVYDWHZVYCSVVBWIVYJBSUAWGZWF
+      LZWHVYJBSSWFLZWHVYJBSUBWGZWFLZWHZVYJBSVYOJKLZWFLZWHZVYKUAUBSVVBSWJUUTZVYL
+      SIVYJBVYMVYNVYLSSWFWKWLVYLVYOIVYJBVYMVYPVYLVYOSWFWKWLVYLVYRIVYJBVYMVYSVYL
+      VYRSWFWKWLVYLVVBIVYJBVYMVYDVYLVVBSWFWKWLVYJBVYNVYEVYNDZWMUHHZWNUHHZVYFVYI
+      FWUCWUDFGZWUBWMWNFGZWUEUVAWMVBDWNVBDWUFWUETWMUVBUVCWOWNUVDUVEWOWMWNUVFVCV
+      DPWUBVYFSUGHWUCWUBVYESUGVYESUVGZWPUVHWQWUBVYIVVISMLZWUDWUBVYHSVVIMWUBVYHE
+      SMLZSNLZSWUBVYGWUISNWUBVYESEMWUGWRWSWUJSSKLZSNLZSWUIWUKSNSWTUVIXASXBDZWUM
+      WULSIWTWTSSXCVCVKWQWRWUHSVVIMLZESXDLZUHHZWUDVVISVVIEVBDZVWEEULVHWOZEUVJXE
+      ZVEZWTXFWUQSUIDZWUPWUNIWURWUAESXGVCWUOWNUHUVKWEUVLWQUVMUVOVYOVYADZVYQVYQV
+      YJBVYRUVPZWHZUCZVYTWVBVYQWVDWVBVYQVYRUGHZVVIEVYRMLZSNLZMLZFGZWVDWVBVYOEXH
+      LZUIDZVYREXHLUIDZUFZVYQWVJUQZWVBVYOUIDZWVNSVYOXIZVYOUVQRWVBWVLWVOWVMWVBWV
+      LUCZVYQWVKJKLZUGHZVVIEWVSMLZSNLZMLZFGZWVJWVRWVSVYPDZVYQWWDUQWVRWWESWVSOGZ
+      WVSVYOOGZWVLWVSUIDZWVPWWEWWFWWGUCTZWVBWVKUVRZWVQWWHWVAWVPWWIWUAWVSSVYOUVS
+      UVTUWAWVRSVVDWVSOWDWVREWVSFGZVVDWVSOGZWVBWWKWVLWVBEJJKLZWVSFXJWVBJWVKFGZW
+      WMWVSFGZWVBJEEXHLZWVKFEXRXKUWBWVBEVYOFGZWWPWVKFGZWVBWWQVVDVYOOGZWVBVVDSVY
+      OOWDSVYOXLVLWVBVVPWVPWWQWWSTUJWVQEVYOXMVPUWCWVBVYOCDZWWQWWRTZSVYOUWDZVVTW
+      WTVWTWXAULVXBEVYOEUWFXNRWAVLZWVBWVKCDZWWNWWOTZWVBWWTEXODWXDWXBUWEVYOEUWGV
+      RZVXDWXDVXDWXEVNVNJWVKJXPXNRWAXQQWVRVVPWWHWWKWWLTUJWVLWWHWVBWWJUWHEWVSXMV
+      PWAXQWVBWWGWVLWVBWVSWVKWVKKLZVYOOWVBJWVKOGZWVSWXGOGZWVBWWNWXHWXCWVBVXDWXD
+      WWNWXHUQVNWXFJWVKUMVPUWIWVBVXDWXDWXDWXHWXITVXDWVBVNPWXFWXFJWVKWVKUWJVJWAW
+      VBVYOXBDZWXGVYOIWVBVYOWXBXSZVYOUWKRUWLQUWPZVYJWWDBWVSVYPVYEWVSIZVYFWVTVYI
+      WWCFVYEWVSUGUTWXMVYHWWBVVIMWXMVYGWWASNVYEWVSEMWKWSWRXTYARWVRWWDWVTVVIVYOM
+      LZKLZWVIFGZWVJWVRWWDWVTVVIVYOJNLZMLZFGZWXOWXRWXNKLZFGZWXPWVRWWCWXRWVTFWVR
+      WWBWXQVVIMWVRWWBVYOEKLZSNLZWXQWVRWWAWYBSNWVRWWAEWVKMLZEJMLZKLZWYBWVRWVKXB
+      DZWWAWYFIZWVBWYGWVLWVBWVKWXFXSQZEXBDZWYGJXBDZWYHXRYBEWVKJYCXNRWVRWYDVYOWY
+      EEKWVRWXJWYDVYOIZWVBWXJWVLWXKQZWXJWYJEVAUXFZWYLXRXKVYOEUWMYDRZWYEEIWVREXR
+      VFZPUWNYEZWSWVRWXQVYOSENLZNLZWYCWYRJVYONSEJWTXRYBSVVDWDYFYIZYGWVRWXJWYSWY
+      CIZWYMWXJWUMWYJXUAWTXRVYOSEYHYDRUWOYEWRYJWVRWVTCDZWXRCDZWXNCDZWXSWYATWVRW
+      VSXODZWVSCDXUBWVRSXODWVSVYADZXUEWJWVRWWEXUFWXLWVSSVYOUWQRJWVSSXOUWRUWSVPZ
+      WVSUWTWVSWBYKZWVRVWEWXQCDZXUCWUSWVRWWTXUIWVBWWTWVLWXBQZVYOUXARZVVIWXQVOVP
+      WVRVWEWWTXUDWUSXUJVVIVYOVOVPZWVTWXRWXNXPVJWVRWXTWVIWXOFWVRVVIWXQVYOKLZMLZ
+      WXTWVIWVRVVIXBDZWXQXBDWXJXUNWXTIXUOWVRWUTPZWVRWXQXUKXSWYMVVIWXQVYOYCVJWVR
+      XUMWVHVVIMWVRWVHEVYOMLZEKLZSNLZXUQWYRNLZXUMWVRWVGXURSNWVRWVGXUQWYEKLZXURW
+      VRWXJWVGXVAIZWYMWYJWXJWYKXVBXRYBEVYOJYCXNRWYEEXUQKWYPYGWQWSWVRXUQXBDZXUTX
+      USIZWVBXVCWVLWVBXUQUIDZXVCWVBVVPWVPXVEUJWVQEVYOYLVPZXUQUXGRQXVCWUMWYJXVDW
+      TXRXUQSEYHYDRWVRXUTXUQJNLZXUMWYRJXUQNWYTYGWVRXVGVYOVYOKLZJNLZXUMWVRXUQXVH
+      JNWVRWXJXUQXVHIWYMVYOUXBRWSWVRWXJWXJWYKXVIXUMIWYMWYMWYKWVRYBPVYOVYOJUXCVJ
+      YEYMUXDWRUXEYJUXHWVRWVFWXOOGZWXPWVJWVRWWAJNLZUGHZWVTVGUHHZWVSJNLZMLZKLZWV
+      FWXOOWVRXUEXVLXVPOGXUGWVSUXIRWVRXVKVYRUGWVRXVKWYBJNLZVYRWVRWWAWYBJNWYQWSW
+      VRXVQVYOEJNLZKLZVYRWVRWXJXVQXVSIZWYMWXJWYJWYKXVTXRYBVYOEJUXJYDRXVRJVYOKEJ
+      JXRYBYBEWWMXJYFYIYGWQYEWPWVRXVOWXNWVTKWVRXVOXVMWVKMLZVVIWYDMLZWXNWVRXVNWV
+      KXVMMWVRWYGWYKXVNWVKIWYIYBWVKJXCVRWRWVRXWAVVIEMLZWVKMLZXWBXVMXWCWVKMEEXDL
+      ZUHHZEVVIMLZXVMXWCWUQVVPXWFXWGIWURUJEEXGVCXWEVGUHUXPWEEVVIXRWUTXFUXKXAWVR
+      XUOWYJWYGXWDXWBIXUPWYJWVRXRPWYIVVIEWVKUXLVJYMWVRWYDVYOVVIMWYOWRUXQWRUXMWV
+      RWVFCDZWXOCDZWVICDZXVJWXPUCWVJUQWVRVYRCDZXWHWVBXWKWVLWVBVYRVYADZVYRUIDZXW
+      KSVYOUXNZSVYRXIZVYRYNYKZQVYRWBRWVRXUBXUDXWIXUHXULWVTWXNUXOYOWVRVWEWVHCDZX
+      WJWUSWVBXWQWVLWVBWVGCDZVXCXWQWVBWVGUIDZXWRWVBVVPXWMXWSUJWVBXWLXWMXWNXWORZ
+      EVYRYLVPWVGYNRZVMWVGSVQVRZQVVIWVHVOZVPWVFWXOWVIUXRVJUXSUXTYPWVBWVMUCZVYQV
+      YOUGHZVVIXUQSNLZMLZFGZWVJWVBVYQXXHUQZWVMWVBVYOVYPDXXISVYOWIVYJXXHBVYOVYPV
+      YEVYOIZVYFXXEVYIXXGFVYEVYOUGUTXXJVYHXXFVVIMXXJVYGXUQSNVYEVYOEMWKWSWRXTYAR
+      QXXDXXHXXEWVIFGZWVJWVBXXHXXKUQWVMWVBXXHXXGWVIFGZXXKWVBXXFWVHFGZXXLWVBXUQW
+      VGFGZXXMWVBVYOVYRFGZXXNWVBWWTXXOWXBVYOUYARWVBWWTXWKVWTXXOXXNTWXBXWPVWTWVB
+      VXBPVYOVYREVIVJWAWVBXUQCDZXWRVXCXXNXXMTWVBXVEXXPXVFXUQYNRZXXAVXCWVBVMPXUQ
+      WVGSUYBVJWAWVBXXFCDZXWQVWHXXMXXLTWVBXXPVXCXXRXXQVMXUQSVQVRZXXBVWHWVBVWIPX
+      XFWVHVVIVIVJWAWVBXXECDZXXGCDZXWJXXHXXLUCXXKUQWVBWWTXXTWXBVYOWBRWVBVWEXXRX
+      YAWUSXXSVVIXXFVOVPWVBVWEXWQXWJWUSXXBXXCVPXXEXXGWVIUYCVJUYDQXXDWVFXXEWVIFX
+      XDWVPVYRUYEDZYTZWVFXXEIWVBWVPWVMWVQQWVBWVMXYCWVBWVMEVYRUYFGZXYCWVBXWMXYDW
+      VMTZXWTVVPWYNXWMXYEUJXKEVYRUYGUYHRWVBXYBXYDWVBXYBXYDYTWVBXYBUCZXYDEVYRIZW
+      VBXYGYTZXYBWVBXWLSVYROGZXYHXWNSVYRXLXYGXYIXYGSEOGZXYIESFGXYJYTUYIESULVMUY
+      JVDEVYRSOUYKUYLUYMYKQXYFEVVNDZXYBXYDXYGTVVPXYKUJEUYNXEWVBXYBWCVYREUYOVPUY
+      RUYSUYPUYQUSVYOUYTYOVUAVUBYPYQYRWVDVYJBVYRVUCWVJVYJBVYRVYOJKVUJZVUDVYJWVJ
+      BVYRXYLVYEVYRIZVYFWVFVYIWVIFVYEVYRUGUTXYMVYHWVHVVIMXYMVYGWVGSNVYEVYREMWKW
+      SWRXTVUEVUFVUGVUHWVEVYTWVBVYJBVYPWVCVUIZWHVYJBVYPWVCVUKWVBVYJBVYSXYNSVYOV
+      ULWLVUMYPVUNVYJVYCBVVBVYDVYEVVBIZVYFVWCVYIVXMFVYEVVBUGUTXYOVYHVXLVVIMXYOV
+      YGVXKSNVYEVVBEMWKWSWRXTYAVUORVSVXJVXLVVKOGZVXMVVLOGZVXJVXKVVJOGZXYPVXJVVB
+      AOGZXYRVUSXYSVUTVVFAVUPVTVXJVXPVUSVWTXYSXYRTVXQVVAVUSVVFVXAQVWTVXJVXBPVVB
+      AEYSVJWAVXJVXOVXEVXCXYRXYPTVXRVVAVXEVVFVXGQVXCVXJVMPVXKVVJSVUQVJWAVXJVXNV
+      XHVWHXYPXYQTVXSVXTVWHVXJVWIPVXLVVKVVIYSVJWAVURYQYR $.
+      $( [13-Mar-2014] $)
+  $}
+
