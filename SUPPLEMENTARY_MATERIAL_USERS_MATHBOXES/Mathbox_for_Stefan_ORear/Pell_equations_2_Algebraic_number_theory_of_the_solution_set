@@ -1,0 +1,651 @@
+$(
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+    Pell equations 2: Algebraic number theory of the solution set
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+$)
+
+
+  $c Pell1QR Pell14QR Pell1234QR PellFund []NN $.
+
+  ${
+    $d a b c d e f g A $.  $d a b c d e f g B $.  $d a b c d e f g C $.
+    $d a b c d e f g D $.  $d a b c d e f g E $.  $d a b c d e f g F $.
+    $d a b c d e f g u $.  $d a b c d e f g v $.  $d a b c d e f g w $.
+    $d a b c d e f g x $.  $d a b c d e f g y $.  $d a b c d e f g z $.
+    $d a b c d e f g ph $.
+
+    $( define image of ZZ or NN $)
+    $( prove non-denseness $)
+    $( use logarithms to show all elements are powers of a base $)
+    $( value of PellFund ` a*a-1 $)
+    $( define Ak, Bk $)
+    $( Lucas sequence $)
+
+    $( Extend class notation to include the class of quadrant-1 Pell
+       solutions. $)
+    cpell1qr $a class Pell1QR $.
+    $( Extend class notation to include the class of any-quadrant Pell
+       solutions. $)
+    cpell1234qr $a class Pell1234QR $.
+    $( Extend class notation to include the class of positive Pell
+       solutions. $)
+    cpell14qr $a class Pell14QR $.
+    $( Extend class notation to include the Pell-equation fundamental solution
+       function. $)
+    cpellfund $a class PellFund $.
+    $( Extend class notation to include the set of square natural numbers. $)
+    csquarenn $a class []NN $.
+
+    $( Define the set of square natural numbers. $)
+    df-squarenn $a |- []NN = { x e. NN | ( sqr ` x ) e. QQ } $.
+
+    ${
+      $d x y z w $.
+      $( Define the solutions of a Pell equation in the first quadrant.  To
+         avoid pair pain, we represent this via the canonical embedding into
+         the reals. $)
+      df-pell1qr $a |- Pell1QR = ( x e. ( NN \ []NN ) |-> { y e. RR | E. z e.
+          NN0 E. w e. NN0 ( y = ( z + ( ( sqr ` x ) x. w ) ) /\ ( ( z ^ 2 ) - (
+          x x. ( w ^ 2 ) ) ) = 1 ) } ) $.
+      $( Define the positive solutions of a Pell equation. $)
+      df-pell14qr $a |- Pell14QR = ( x e. ( NN \ []NN ) |-> { y e. RR | E. z e.
+          NN0 E. w e. ZZ ( y = ( z + ( ( sqr ` x ) x. w ) ) /\ ( ( z ^ 2 ) - (
+          x x. ( w ^ 2 ) ) ) = 1 ) } ) $.
+      $( Define the general solutions of a Pell equation. $)
+      df-pell1234qr $a |- Pell1234QR = ( x e. ( NN \ []NN ) |-> { y e. RR | E.
+          z e. ZZ E. w e. ZZ ( y = ( z + ( ( sqr ` x ) x. w ) ) /\ ( ( z ^ 2 )
+          - ( x x. ( w ^ 2 ) ) ) = 1 ) } ) $.
+      $( A function mapping Pell discriminants to the corresponding fundamental
+         solution. $)
+      df-pellfund $a |- PellFund = ( x e. ( NN \ []NN ) |-> sup ( { z e. (
+          Pell14QR ` x ) | 1 < z } , RR , `' < ) ) $.
+    $}
+
+    ${
+      $d y z w D $.  $d y z w A $.
+      $( Value of the set of first-quadrant Pell solutions.  (Contributed by
+         Stefan O'Rear, 17-Sep-2014.) $)
+      pell1qrval $p |- ( D e. ( NN \ []NN ) -> ( Pell1QR ` D ) = { y e. RR | E.
+          z e. NN0 E. w e. NN0 ( y = ( z + ( ( sqr ` D ) x. w ) ) /\ ( ( z ^ 2
+          ) - ( D x. ( w ^ 2 ) ) ) = 1 ) } ) $=
+        ( va cv csqr cfv cmul co caddc wceq c2 cexp cmin c1 wa cn0 wrex cr crab
+        csquarenn cdif cpell1qr fveq2 oveq1d oveq2d eqeq2d oveq1 eqeq1d anbi12d
+        cn 2rexbidv rabbidv df-pell1qr reex rabex fvmpt ) EDAFZBFZEFZGHZCFZIJZK
+        JZLZUTMNJZVAVCMNJZIJZOJZPLZQZCRSBRSZATUAUSUTDGHZVCIJZKJZLZVGDVHIJZOJZPL
+        ZQZCRSBRSZATUAULUBUCUDVADLZVMWBATWCVLWABCRRWCVFVQVKVTWCVEVPUSWCVDVOUTKW
+        CVBVNVCIVADGUEUFUGUHWCVJVSPWCVIVRVGOVADVHIUIUGUJUKUMUNEABCUOWBATUPUQUR
+        $.
+        $( [17-Sep-2014] $)
+
+      $( Membership in a first-quadrant Pell solution set.  (Contributed by
+         Stefan O'Rear, 17-Sep-2014.) $)
+      elpell1qr $p |- ( D e. ( NN \ []NN ) -> ( A e. ( Pell1QR ` D ) <-> ( A e.
+          RR /\ E. z e. NN0 E. w e. NN0 ( A = ( z + ( ( sqr ` D ) x. w ) ) /\ (
+          ( z ^ 2 ) - ( D x. ( w ^ 2 ) ) ) = 1 ) ) ) ) $=
+        ( va cn csquarenn cdif wcel cfv cv cmul co wceq c2 cexp wa cn0 wrex cr
+        cpell1qr csqr caddc cmin c1 crab pell1qrval eleq2d eqeq1 2rexbidv elrab
+        anbi1d syl6bb ) DFGHIZCDUAJZICEKZAKZDUBJBKZLMUCMZNZUQOPMDUROPMLMUDMUENZ
+        QZBRSARSZETUFZICTICUSNZVAQZBRSARSZQUNUOVDCEABDUGUHVCVGECTUPCNZVBVFABRRV
+        HUTVEVAUPCUSUIULUJUKUM $.
+        $( [17-Sep-2014] $)
+
+      $( Value of the set of positive Pell solutions.  (Contributed by Stefan
+         O'Rear, 17-Sep-2014.) $)
+      pell14qrval $p |- ( D e. ( NN \ []NN ) -> ( Pell14QR ` D ) = { y e. RR |
+          E. z e. NN0 E. w e. ZZ ( y = ( z + ( ( sqr ` D ) x. w ) ) /\ ( ( z ^
+          2 ) - ( D x. ( w ^ 2 ) ) ) = 1 ) } ) $=
+        ( va cv csqr cfv cmul co caddc wceq c2 cexp cmin c1 cz wrex cn0 cr crab
+        wa cn csquarenn cdif cpell14qr fveq2 oveq1d oveq2d eqeq2d oveq1 anbi12d
+        eqeq1d 2rexbidv rabbidv df-pell14qr reex rabex fvmpt ) EDAFZBFZEFZGHZCF
+        ZIJZKJZLZVAMNJZVBVDMNJZIJZOJZPLZUBZCQRBSRZATUAUTVADGHZVDIJZKJZLZVHDVIIJ
+        ZOJZPLZUBZCQRBSRZATUAUCUDUEUFVBDLZVNWCATWDVMWBBCSQWDVGVRVLWAWDVFVQUTWDV
+        EVPVAKWDVCVOVDIVBDGUGUHUIUJWDVKVTPWDVJVSVHOVBDVIIUKUIUMULUNUOEABCUPWCAT
+        UQURUS $.
+        $( [17-Sep-2014] $)
+
+      $( Membership in the set of positive Pell solutions.  (Contributed by
+         Stefan O'Rear, 17-Sep-2014.) $)
+      elpell14qr $p |- ( D e. ( NN \ []NN ) -> ( A e. ( Pell14QR ` D ) <-> ( A
+          e. RR /\ E. z e. NN0 E. w e. ZZ ( A = ( z + ( ( sqr ` D ) x. w ) ) /\
+          ( ( z ^ 2 ) - ( D x. ( w ^ 2 ) ) ) = 1 ) ) ) ) $=
+        ( va cn csquarenn wcel cfv cv cmul co wceq c2 cexp wa cz wrex cn0 cr c1
+        cdif cpell14qr csqr caddc cmin pell14qrval eleq2d eqeq1 anbi1d 2rexbidv
+        crab elrab syl6bb ) DFGUBHZCDUCIZHCEJZAJZDUDIBJZKLUELZMZURNOLDUSNOLKLUF
+        LUAMZPZBQRASRZETULZHCTHCUTMZVBPZBQRASRZPUOUPVECEABDUGUHVDVHECTUQCMZVCVG
+        ABSQVIVAVFVBUQCUTUIUJUKUMUN $.
+        $( [17-Sep-2014] $)
+
+      $( Value of the set of general Pell solutions.  (Contributed by Stefan
+         O'Rear, 17-Sep-2014.) $)
+      pell1234qrval $p |- ( D e. ( NN \ []NN ) -> ( Pell1234QR ` D ) = { y e.
+          RR | E. z e. ZZ E. w e. ZZ ( y = ( z + ( ( sqr ` D ) x. w ) ) /\ ( (
+          z ^ 2 ) - ( D x. ( w ^ 2 ) ) ) = 1 ) } ) $=
+        ( vd cv csqr cfv cmul co caddc wceq c2 cexp cmin c1 wa cz wrex cr fveq2
+        crab cn csquarenn cpell1234qr oveq1d oveq2d eqeq2d oveq1 eqeq1d anbi12d
+        cdif 2rexbidv rabbidv df-pell1234qr reex rabex fvmpt ) EDAFZBFZEFZGHZCF
+        ZIJZKJZLZUTMNJZVAVCMNJZIJZOJZPLZQZCRSBRSZATUBUSUTDGHZVCIJZKJZLZVGDVHIJZ
+        OJZPLZQZCRSBRSZATUBUCUDULUEVADLZVMWBATWCVLWABCRRWCVFVQVKVTWCVEVPUSWCVDV
+        OUTKWCVBVNVCIVADGUAUFUGUHWCVJVSPWCVIVRVGOVADVHIUIUGUJUKUMUNEABCUOWBATUP
+        UQUR $.
+        $( [17-Sep-2014] $)
+
+      $( Membership in the set of general Pell solutions.  (Contributed by
+         Stefan O'Rear, 17-Sep-2014.) $)
+      elpell1234qr $p |- ( D e. ( NN \ []NN ) -> ( A e. ( Pell1234QR ` D ) <->
+          ( A e. RR /\ E. z e. ZZ E. w e. ZZ ( A = ( z + ( ( sqr ` D ) x. w ) )
+          /\ ( ( z ^ 2 ) - ( D x. ( w ^ 2 ) ) ) = 1 ) ) ) ) $=
+        ( va cn csquarenn cdif wcel cfv cv cmul co wceq c2 cexp wa cz wrex cr
+        cpell1234qr csqr caddc cmin c1 crab pell1234qrval eleq2d eqeq1 2rexbidv
+        anbi1d elrab syl6bb ) DFGHIZCDUAJZICEKZAKZDUBJBKZLMUCMZNZUQOPMDUROPMLMU
+        DMUENZQZBRSARSZETUFZICTICUSNZVAQZBRSARSZQUNUOVDCEABDUGUHVCVGECTUPCNZVBV
+        FABRRVHUTVEVAUPCUSUIUKUJULUM $.
+        $( [17-Sep-2014] $)
+
+    $}
+
+    $( General Pell solutions are (coded as) real numbers.  (Contributed by
+       Stefan O'Rear, 17-Sep-2014.) $)
+    pell1234qrre $p |- ( ( D e. ( NN \ []NN ) /\ A e. ( Pell1234QR ` D ) ) -> A
+        e. RR ) $=
+      ( va vb cn csquarenn cdif wcel cpell1234qr cfv cr cv csqr cmul co wceq c2
+      cexp cz wrex caddc cmin c1 wa elpell1234qr simprbda ) BEFGHABIJHAKHACLZBM
+      JDLZNOUAOPUGQROBUHQRONOUBOUCPUDDSTCSTCDABUEUF $.
+      $( [17-Sep-2014] $)
+
+    $( No solution to a Pell equation is zero.  (Contributed by Stefan O'Rear,
+       17-Sep-2014.) $)
+    pell1234qrne0 $p |- ( ( D e. ( NN \ []NN ) /\ A e. ( Pell1234QR ` D ) ) ->
+        A =/= 0 ) $=
+      ( va vb cn wcel cc0 wne cmul co wceq c2 cexp cmin c1 wa cz cc syl syl2anc
+      csquarenn cdif cpell1234qr cfv cr cv csqr caddc wrex elpell1234qr ax-1ne0
+      simprl simpl eldifi nncn 3syl ad3antrrr sqrcl zcn ad2antll ad2antrr sqmul
+      sqrth oveq1d eqtr2d oveq2d ad2antrl mulcl subsq eqtrd simpr subcl 3eqtr3d
+      simplr mul02 ex necon3d mpi adantrl eqnetrd rexlimdvva expimpd sylbid imp
+      ) BEUAUBFZABUCUDFZAGHZWEWFAUEFZACUFZBUGUDZDUFZIJZUHJZKZWILMJZBWKLMJZIJZNJ
+      ZOKZPZDQUICQUIZPWGCDABUJWEWHXAWGWEWHPZWTWGCDQQXBWIQFZWKQFZPZPZWTWGXFWTPAW
+      MGXFWNWSULXFWSWMGHZWNXFWSPZOGHXGUKXHWMGOGXHWMGKZOGKXHXIPZWRWMWIWLNJZIJZOG
+      XJWRWOWLLMJZNJZXLXJWQXMWONXJXMWJLMJZWPIJZWQXJWJRFZWKRFZXMXPKXJBRFZXQXBXSX
+      EWSXIXBWEBEFXSWEWHUMBEUAUNBUOUPUQZBURSZXFXRWSXIXDXRXBXCWKUSUTVAZWJWKVBTXJ
+      XOBWPIXJXSXOBKXTBVCSVDVEVFXJWIRFZWLRFZXNXLKXFYCWSXIXCYCXBXDWIUSVGVAZXJXQX
+      RYDYAYBWJWKVHTZWIWLVITVJXFWSXIVNXJXLGXKIJZGXJWMGXKIXHXIVKVDXJXKRFZYGGKXJY
+      CYDYHYEYFWIWLVLTXKVOSVJVMVPVQVRVSVTVPWAWBWCWD $.
+      $( [17-Sep-2014] $)
+
+    $( General solutions of the Pell equation are closed under reciprocals.
+       (Contributed by Stefan O'Rear, 18-Sep-2014.) $)
+    pell1234qrreccl $p |- ( ( D e. ( NN \ []NN ) /\ A e. ( Pell1234QR ` D ) )
+        -> ( 1 / A ) e. ( Pell1234QR ` D ) ) $=
+      ( vc vd va wcel wa c1 co cmul caddc wceq c2 cexp cz syl2anc syl cc oveq2d
+      cmin vb cn csquarenn cdif cpell1234qr cdiv cr cv csqr elpell1234qr biimpa
+      cfv wrex cc0 wne pell1234qrre pell1234qrne0 rereccl ad2antrr cneg simplrl
+      simplrr znegcl eldifi nncn ad3antrrr sqrcl zcn sqmul oveq1d eqtr2d simprr
+      sqrth adantr ad2antlr mulcl subsq 3eqtr3d recnd recid simprl negsub eqtrd
+      mulneg2 oveq12d 3eqtr4d wb negcl addcl mulcan syl112anc mpbid sqneg oveq1
+      weq eqeq2d eqeq1d anbi12d oveq2 rcla42ev jca ex rexlimdvva adantld mpbird
+      mpd ) BUBUCUDFZABUEULZFZGZHAUFIZXHFZXKUGFZXKCUHZBUIULZDUHZJIZKIZLZXNMNIZB
+      XPMNIZJIZTIZHLZGZDOUMCOUMZGZXJAUGFZAEUHZXOUAUHZJIZKIZLZYIMNIZBYJMNIZJIZTI
+      ZHLZGZUAOUMEOUMZGZYGXGXIUUAEUAABUJUKXJYTYGYHXJYSYGEUAOOXJYIOFZYJOFZGZGZYS
+      YGUUEYSGZXMYFXJXMUUDYSXJYHAUNUOZXMABUPZABUQZAURPZUSUUFUUBYJUTZOFZXKYIXOUU
+      KJIZKIZLZYNBUUKMNIZJIZTIZHLZYFXJUUBUUCYSVAUUFUUCUULXJUUBUUCYSVBZYJVCQUUFA
+      XKJIZAUUNJIZLZUUOUUFHYLYIYKTIZJIZUVAUVBUUFYQYNYKMNIZTIZHUVEUUFYPUVFYNTUUF
+      UVFXOMNIZYOJIZYPUUFXORFZYJRFZUVFUVILUUFBRFZUVJXGUVLXIUUDYSXGBUBFUVLBUBUCV
+      DBVEQVFZBVGQZUUFUUCUVKUUTYJVHQZXOYJVIPUUFUVHBYOJUUFUVLUVHBLUVMBVMQVJVKSUU
+      EYMYRVLZUUFYIRFZYKRFZUVGUVELUUDUVQXJYSUUBUVQUUCYIVHVNVOZUUFUVJUVKUVRUVNUV
+      OXOYJVPPZYIYKVQPVRUUFARFZUUGUVAHLXJUWAUUDYSXJAUUHVSUSZXJUUGUUDYSUUIUSZAVT
+      PUUFAYLUUNUVDJUUEYMYRWAUUFUUNYIYKUTZKIZUVDUUFUUMUWDYIKUUFUVJUVKUUMUWDLUVN
+      UVOXOYJWDPSUUFUVQUVRUWEUVDLUVSUVTYIYKWBPWCWEWFUUFXKRFZUUNRFZUWAUUGUVCUUOW
+      GXJUWFUUDYSXJXKUUJVSUSUUFUVQUUMRFZUWGUVSUUFUVJUUKRFZUWHUVNUUFUVKUWIUVOYJW
+      HQXOUUKVPPYIUUMWIPUWBUWCXKUUNAWJWKWLUUFUURYQHUUFUUQYPYNTUUFUUPYOBJUUFUVKU
+      UPYOLUVOYJWMQSSUVPWCYEUUOUUSGXKYIXQKIZLZYNYBTIZHLZGCDYIUUKOOCEWOZXSUWKYDU
+      WMUWNXRUWJXKXNYIXQKWNWPUWNYCUWLHUWNXTYNYBTXNYIMNWNVJWQWRXPUUKLZUWKUUOUWMU
+      USUWOUWJUUNXKUWOXQUUMYIKXPUUKXOJWSSWPUWOUWLUURHUWOYBUUQYNTUWOYAUUPBJXPUUK
+      MNWNSSWQWRWTWKXAXBXCXDXFXGXLYGWGXICDXKBUJVNXE $.
+      $( [18-Sep-2014] $)
+
+    $( General solutions of the Pell equation are closed under multiplication.
+       (Contributed by Stefan O'Rear, 18-Sep-2014.) $)
+    pell1234qrmulcl $p |- ( ( D e. ( NN \ []NN ) /\ A e. ( Pell1234QR ` D ) /\
+        B e. ( Pell1234QR ` D ) ) -> ( A x. B ) e. ( Pell1234QR ` D ) ) $=
+      ( wcel cmul co wa caddc wceq c2 cexp cmin c1 cz ad3antrrr syl2anc oveq12d
+      cc mulcl oveq2d va vb vc vd ve vf cn csquarenn cdif cpell1234qr cfv cr cv
+      csqr wrex simplr remulcl syl simprl simplrl zmulcl simpll eldifi nnz 3syl
+      wi simplrr simprr zaddcl ad2antrr zcn ad2antrl nncn sqrcl ad2antll adantr
+      ad2antlr adantl muladd mul4 sqval sqrth eqtr3d oveq1d eqtrd mul12 syl3anc
+      syl22anc adddi eqcomd 3eqtrd addcl sqmul eqtr2d subsq mulsub subcl ax-1cn
+      mulid2i a1i jca oveq1 eqeq2d eqeq1d anbi12d oveq2 rexlimdvva elpell1234qr
+      rcla42ev ex imp3a an4 syl6bb 3imtr4d 3impib ) CUGUHUIDZACUJUKZDZBXQDZABEF
+      ZXQDZXPAULDZBULDZGZAUAUMZCUNUKZUBUMZEFZHFZIZYEJKFZCYGJKFZEFZLFZMIZGZUBNUO
+      UANUOZBUCUMZYFUDUMZEFZHFZIZYRJKFZCYSJKFZEFZLFZMIZGZUDNUOUCNUOZGZGZXTULDZX
+      TUEUMZYFUFUMZEFZHFZIZUUMJKFZCUUNJKFZEFZLFZMIZGZUFNUOUENUOZGZXRXSGZYAXPYDU
+      UJUVEXPYDUUJUVEVFXPYDGZYQUUIUVEUVGYPUUIUVEVFZUAUBNNUVGYENDZYGNDZGZGZYPUVH
+      UVLYPGZUUHUVEUCUDNNUVMYRNDZYSNDZGZGZUUHUVEUVQUUHGZUULUVDUVRYDUULUVLYDYPUV
+      PUUHXPYDUVKUPOABUQURUVRYEYREFZCYSYGEFZEFZHFZNDZYEYSEFZYRYGEFZHFZNDZXTUWBY
+      FUWFEFZHFZIZUWBJKFZCUWFJKFZEFZLFZMIZGZUVDUVRUVSNDZUWANDZUWCUVRUVIUVNUWQUV
+      LUVIYPUVPUUHUVGUVIUVJUSOZUVMUVNUVOUUHUTZYEYRVAPUVRCNDZUVTNDZUWRUVLUXAYPUV
+      PUUHUVLXPCUGDZUXAXPYDUVKVBZCUGUHVCZCVDVEOUVRUVOUVJUXBUVMUVNUVOUUHVGZUVLUV
+      JYPUVPUUHUVGUVIUVJVHOZYSYGVAPCUVTVAPUVSUWAVIPUVRUWDNDZUWENDZUWGUVRUVIUVOU
+      XHUWSUXFYEYSVAPUVRUVNUVJUXIUWTUXGYRYGVAPUWDUWEVIPUVRUWJUWOUVRXTYIUUAEFZUV
+      SYTYHEFZHFZYEYTEFZYRYHEFZHFZHFZUWIUVRAYIBUUAEUVMYJUVPUUHUVLYJYOUSVJUVQUUB
+      UUGUSQUVRYERDZYHRDZYRRDZYTRDZUXJUXPIUVLUXQYPUVPUUHUVIUXQUVGUVJYEVKVLOZUVR
+      YFRDZYGRDZUXRUVRCRDZUYBUVLUYDYPUVPUUHUVLXPUXCUYDUXDUXECVMVEOZCVNURZUVLUYC
+      YPUVPUUHUVJUYCUVGUVIYGVKVOOZYFYGSPZUVPUXSUVMUUHUVNUXSUVOYRVKVPVQZUVRUYBYS
+      RDZUXTUYFUVPUYJUVMUUHUVOUYJUVNYSVKVRVQZYFYSSPZYEYHYRYTVSWHZUVRUXLUWBUXOUW
+      HHUVRUXKUWAUVSHUVRUXKYFYFEFZUVTEFZUWAUVRUYBUYJUYBUYCUXKUYOIUYFUYKUYFUYGYF
+      YSYFYGVTWHUVRUYNCUVTEUVRYFJKFZUYNCUVRUYBUYPUYNIUYFYFWAURUVRUYDUYPCIUYECWB
+      URZWCWDWETZUVRUXOYFUWDEFZYFUWEEFZHFZUWHUVRUXMUYSUXNUYTHUVRUXQUYBUYJUXMUYS
+      IUYAUYFUYKYEYFYSWFWGUVRUXSUYBUYCUXNUYTIUYIUYFUYGYRYFYGWFWGQUVRUWHVUAUVRUY
+      BUWDRDZUWERDZUWHVUAIUYFUVRUXQUYJVUBUYAUYKYEYSSPZUVRUXSUYCVUCUYIUYGYRYGSPZ
+      YFUWDUWEWIWGWJWEZQZWKUVRUWNUXJYEYHLFZYRYTLFZEFZEFZYKUYPYLEFZLFZUUCUYPUUDE
+      FZLFZEFZMUVRUWNUWKUWHJKFZLFZUWIUWBUWHLFZEFZVUKUVRUWMVUQUWKLUVRVUQUYPUWLEF
+      ZUWMUVRUYBUWFRDZVUQVVAIUYFUVRVUBVUCVVBVUDVUEUWDUWEWLPZYFUWFWMPUVRUYPCUWLE
+      UYQWDWNTUVRUWBRDZUWHRDZVURVUTIUVRUVSRDZUWARDZVVDUVRUXQUXSVVFUYAUYIYEYRSPU
+      VRUYDUVTRDZVVGUYEUVRUYJUYCVVHUYKUYGYSYGSPCUVTSPUVSUWAWLPUVRUYBVVBVVEUYFVV
+      CYFUWFSPUWBUWHWOPUVRUWIUXJVUSVUJEUVRUXJUXPUWIUYMVUGWNUVRVUJUXLUXOLFZVUSUV
+      RUXQUXRUXSUXTVUJVVIIUYAUYHUYIUYLYEYHYRYTWPWHUVRUXLUWBUXOUWHLUYRVUFQWNQWKU
+      VRVUKYIVUHEFZUUAVUIEFZEFZYKYHJKFZLFZUUCYTJKFZLFZEFZVUPUVRYIRDZUUARDZVUHRD
+      ZVUIRDZVUKVVLIUVRUXQUXRVVRUYAUYHYEYHWLPUVRUXSUXTVVSUYIUYLYRYTWLPUVRUXQUXR
+      VVTUYAUYHYEYHWQPUVRUXSUXTVWAUYIUYLYRYTWQPYIUUAVUHVUIVTWHUVRVVQVVLUVRVVNVV
+      JVVPVVKEUVRUXQUXRVVNVVJIUYAUYHYEYHWOPUVRUXSUXTVVPVVKIUYIUYLYRYTWOPQWJUVRV
+      VNVUMVVPVUOEUVRVVMVULYKLUVRUYBUYCVVMVULIUYFUYGYFYGWMPTUVRVVOVUNUUCLUVRUYB
+      UYJVVOVUNIUYFUYKYFYSWMPTQWKUVRVUPYNUUFEFMMEFZMUVRVUMYNVUOUUFEUVRVULYMYKLU
+      VRUYPCYLEUYQWDTUVRVUNUUEUUCLUVRUYPCUUDEUYQWDTQUVRYNMUUFMEUVMYOUVPUUHUVLYJ
+      YOVHVJUVQUUBUUGVHQVWBMIUVRMWRWSWTWKWKXAUVCUWPXTUWBUUOHFZIZUWKUUTLFZMIZGUE
+      UFUWBUWFNNUUMUWBIZUUQVWDUVBVWFVWGUUPVWCXTUUMUWBUUOHXBXCVWGUVAVWEMVWGUURUW
+      KUUTLUUMUWBJKXBWDXDXEUUNUWFIZVWDUWJVWFUWOVWHVWCUWIXTVWHUUOUWHUWBHUUNUWFYF
+      EXFTXCVWHVWEUWNMVWHUUTUWMUWKLVWHUUSUWLCEUUNUWFJKXBTTXDXEXIWGXAXJXGXJXGXKX
+      JXKXPUVFYBYQGZYCUUIGZGUUKXPXRVWIXSVWJUAUBACXHUCUDBCXHXEYBYQYCUUIXLXMUEUFX
+      TCXHXNXO $.
+      $( [18-Sep-2014] $)
+
+    $( [ Characterize the right branch Pell14 as the positive elements ] $)
+
+    $( A positive Pell solution is a general Pell solution.  (Contributed by
+       Stefan O'Rear, 18-Sep-2014.) $)
+    pell14qrss1234 $p |- ( D e. ( NN \ []NN ) -> ( Pell14QR ` D ) C_ (
+        Pell1234QR ` D ) ) $=
+      ( va vb vc cn csquarenn cdif wcel cpell14qr cv cmul co wceq c2 cexp wa cz
+      cfv wrex cn0 cpell1234qr cr csqr caddc cmin c1 a1i anim1d reximdv2 anim2d
+      wi nn0z elpell14qr elpell1234qr 3imtr4d ssrdv ) AEFGHZBAIRZAUARZUQBJZUBHZ
+      UTCJZAUCRDJZKLUDLMVBNOLAVCNOLKLUELUFMPDQSZCTSZPVAVDCQSZPUTURHUTUSHUQVEVFV
+      AUQVDVDCTQUQVBTHZVBQHZVDVGVHUKUQVBULUGUHUIUJCDUTAUMCDUTAUNUOUP $.
+      $( [18-Sep-2014] $)
+
+    $( A positive Pell solution is a real number.  (Contributed by Stefan
+       O'Rear, 18-Sep-2014.) $)
+    pell14qrre $p |- ( ( D e. ( NN \ []NN ) /\ A e. ( Pell14QR ` D ) ) -> A e.
+        RR ) $=
+      ( cn csquarenn cdif cpell14qr cfv cpell1234qr pell14qrss1234 pell1234qrre
+      wcel cr sselda syldan ) BCDEKZABFGZKABHGZKALKOPQABIMABJN $.
+      $( [18-Sep-2014] $)
+
+    $( A positive Pell solution is a nonzero number.  (Contributed by Stefan
+       O'Rear, 17-Sep-2014.) $)
+    pell14qrne0 $p |- ( ( D e. ( NN \ []NN ) /\ A e. ( Pell14QR ` D ) ) -> A
+        =/= 0 ) $=
+      ( cn csquarenn cdif wcel cpell14qr cfv cpell1234qr cc0 wne pell14qrss1234
+      sselda pell1234qrne0 syldan ) BCDEFZABGHZFABIHZFAJKPQRABLMABNO $.
+      $( [17-Sep-2014] $)
+
+    $( A positive Pell solution is a positive number.  (Contributed by Stefan
+       O'Rear, 18-Sep-2014.) $)
+    pell14qrgt0 $p |- ( ( D e. ( NN \ []NN ) /\ A e. ( Pell14QR ` D ) ) -> 0 <
+        A ) $=
+      ( va vb wcel cfv cc0 clt wbr cr cmul co wceq c2 cexp syl syl2anc ad2antlr
+      wa cc cn csquarenn cdif cpell14qr cv csqr caddc cmin c1 cz cn0 elpell14qr
+      wrex cabs 0cn a1i cle eldifi ad3antrrr nnre nnnn0 nn0ge0 3syl resqrcl zre
+      adantl remulcl recnd abssub subid1 fveq2d eqtrd absresq sqrcl sqmul sqrth
+      oveq1d 3eqtrd simpr breqtrrd wb resqcl nn0re adantr posdif mpbird eqbrtrd
+      lt01 abscl absge0 lt2sq syl22anc 0re absdiflt syl3anc mpbid simprd addcom
+      nn0cn adantrl simprl ex rexlimdvva expimpd sylbid imp ) BUAUBUCEZABUDFEZG
+      AHIZXGXHAJEZACUEZBUFFZDUEZKLZUGLZMZXKNOLZBXMNOLZKLZUHLZUIMZSZDUJUMCUKUMZS
+      XICDABULXGXJYCXIXGXJSZYBXICDUKUJYDXKUKEZXMUJEZSZSZYBXIYHYBSGXOAHYHYAGXOHI
+      XPYHYASZGXNXKUGLZXOHYIXNXKUHLGHIZGYJHIZYIGXNUHLUNFZXKHIZYKYLSZYIYMXNUNFZX
+      KHYIYMXNGUHLZUNFZYPYIGTEZXNTEZYMYRMYSYIUOUPYIXNYIXLJEZXMJEZXNJEZYIBJEZGBU
+      QIZUUAYIBUAEZUUDXGUUFXJYGYABUAUBURUSZBUTPZYIUUFBUKEUUEUUGBVABVBVCBVDQYGUU
+      BYDYAYFUUBYEXMVEVFZRZXLXMVGQZVHZGXNVIQYIYQXNUNYIYTYQXNMUULXNVJPVKVLYIYPXK
+      HIZYPNOLZXQHIZYIUUNXSXQHYIUUNXNNOLZXLNOLZXRKLZXSYIUUCUUNUUPMUUKXNVMPYIXLT
+      EZXMTEZUUPUURMYIBTEZUUSYIBUUHVHZBVNPYGUUTYDYAYGXMUUIVHRXLXMVOQYIUUQBXRKYI
+      UVAUUQBMUVBBVPPVQVRYIXSXQHIZGXTHIZYIGUIXTHGUIHIYIWHUPYHYAVSVTYIXSJEZXQJEZ
+      UVCUVDWAYIUUDXRJEZUVEUUHYIUUBUVGUUJXMWBPBXRVGQYIXKJEZUVFYGUVHYDYAYEUVHYFX
+      KWCWDRZXKWBPXSXQWEQWFWGYIYPJEZGYPUQIZUVHGXKUQIZUUMUUOWAYIYTUVJUULXNWIPYIY
+      TUVKUULXNWJPUVIYGUVLYDYAYEUVLYFXKVBWDRYPXKWKWLWFWGYIGJEZUUCUVHYNYOWAUVMYI
+      WMUPUUKUVIGXNXKWNWOWPWQYIXKTEZYTXOYJMYGUVNYDYAYEUVNYFXKWSWDRUULXKXNWRQVTW
+      TYHXPYAXAVTXBXCXDXEXF $.
+      $( [18-Sep-2014] $)
+
+    $( A positive Pell solution is a positive real.  (Contributed by Stefan
+       O'Rear, 19-Sep-2014.) $)
+    pell14qrrp $p |- ( ( D e. ( NN \ []NN ) /\ A e. ( Pell14QR ` D ) ) -> A e.
+        RR+ ) $=
+      ( cn csquarenn cdif wcel cpell14qr cfv cc0 clt wbr pell14qrre pell14qrgt0
+      wa cr crp elrp sylanbrc ) BCDEFABGHFNAOFIAJKAPFABLABMAQR $.
+      $( [19-Sep-2014] $)
+
+    $( A general Pell solution is either a positive solution, or its negation
+       is.  (Contributed by Stefan O'Rear, 18-Sep-2014.) $)
+    pell1234qrdich $p |- ( ( D e. ( NN \ []NN ) /\ A e. ( Pell1234QR ` D ) ) ->
+        ( A e. ( Pell14QR ` D ) \/ -u A e. ( Pell14QR ` D ) ) ) $=
+      ( va vb vc wcel cneg cmul co caddc wceq c2 cexp cmin c1 wa wrex ad3antrrr
+      cz cn0 vd cn csquarenn cdif cpell1234qr cpell14qr wo cr csqr elpell1234qr
+      cfv cv elznn0 simprbi adantl elpell14qr adantr simplr ad2antrr weq eqeq2d
+      wi wb oveq1 oveq1d eqeq1d anbi12d rexbidv rcla4ev adantll mpbir2and exp31
+      orcd renegcl syl simpllr znegcl ad2antlr simprl negeqd cc zcn eldifi nncn
+      sqrcl mulcl syl2anc negdi mulneg2 eqcomd oveq2d 3eqtrd sqneg simprr eqtrd
+      oveq12d oveq2 rcla42ev syl112anc olcd ex rexlimdva mpd expimpd sylbid imp
+      jaod ) BUBUCUDFZABUEUKFZABUFUKZFZAGZXJFZUGZXHXIAUHFZACULZBUIUKZDULZHIZJIZ
+      KZXPLMIZBXRLMIZHIZNIZOKZPZDSQZCSQZPXNCDABUJXHXOYIXNXHXOPZYHXNCSYJXPSFZPZX
+      PTFZXPGZTFZUGZYHXNVBZYKYPYJYKXPUHFYPXPUMUNUOYLYMYQYOYLYMYHXNYLYMPYHPZXKXM
+      YRXKXOAEULZXSJIZKZYSLMIZYDNIZOKZPZDSQZETQZYJXKXOUUGPVCZYKYMYHXHUUHXOEDABU
+      PUQRYLXOYMYHXHXOYKURZUSYMYHUUGYLUUFYHEXPTECUTZUUEYGDSUUJUUAYAUUDYFUUJYTXT
+      AYSXPXSJVDVAUUJUUCYEOUUJUUBYBYDNYSXPLMVDVEVFVGVHVIVJVKVMVLYLYOYQYLYOPZYGX
+      NDSUUKXRSFZPZYGXNUUMYGPZXMXKUUNXMXLUHFZXLYSXQUAULZHIZJIZKZUUBBUUPLMIZHIZN
+      IZOKZPZUASQETQZYLXMUUOUVEPVCZYOUULYGXHUVFXOYKEUAXLBUPUSRUUNXOUUOYLXOYOUUL
+      YGUUIRAVNVOUUNYOXRGZSFZXLYNXQUVGHIZJIZKZYNLMIZBUVGLMIZHIZNIZOKZUVEYLYOUUL
+      YGVPUULUVHUUKYGXRVQVRUUNXLXTGZYNXSGZJIZUVJUUNAXTUUMYAYFVSVTUUNXPWAFZXSWAF
+      ZUVQUVSKYLUVTYOUULYGYKUVTYJXPWBUORZUUNXQWAFZXRWAFZUWAUUNBWAFZUWCYLUWEYOUU
+      LYGXHUWEXOYKXHBUBFUWEBUBUCWCBWDVOUSRBWEVOZUULUWDUUKYGXRWBVRZXQXRWFWGXPXSW
+      HWGUUNUVRUVIYNJUUNUWCUWDUVRUVIKUWFUWGUWCUWDPUVIUVRXQXRWIWJWGWKWLUUNUVOYEO
+      UUNUVLYBUVNYDNUUNUVTUVLYBKUWBXPWMVOUUNUVMYCBHUUNUWDUVMYCKUWGXRWMVOWKWPUUM
+      YAYFWNWOUVDUVKUVPPXLYNUUQJIZKZUVLUVANIZOKZPEUAYNUVGTSYSYNKZUUSUWIUVCUWKUW
+      LUURUWHXLYSYNUUQJVDVAUWLUVBUWJOUWLUUBUVLUVANYSYNLMVDVEVFVGUUPUVGKZUWIUVKU
+      WKUVPUWMUWHUVJXLUWMUUQUVIYNJUUPUVGXQHWQWKVAUWMUWJUVOOUWMUVAUVNUVLNUWMUUTU
+      VMBHUUPUVGLMVDWKWKVFVGWRWSVKWTXAXBXAXGXCXBXDXEXF $.
+      $( [18-Sep-2014] $)
+
+    $( A number is a positive Pell solution iff it is positive and a Pell
+       solution, justifying our name choice.  (Contributed by Stefan O'Rear,
+       19-Oct-2014.) $)
+    elpell14qr2 $p |- ( D e. ( NN \ []NN ) -> ( A e. ( Pell14QR ` D ) <-> ( A
+        e. ( Pell1234QR ` D ) /\ 0 < A ) ) ) $=
+      ( cn csquarenn cdif wcel cpell14qr cfv cpell1234qr cc0 clt pell14qrss1234
+      wbr wa sselda pell14qrgt0 wn cr wi adantrr jca wo 0re pell1234qrre ltnsym
+      cneg sylancr impr wb lt0neg1 syl mtbid ex adantr mtod pell1234qrdich sylc
+      orel2 impbida ) BCDEFZABGHZFZABIHZFZJAKMZNZUTVBNVDVEUTVAVCABLOABPUAUTVFNZ
+      AUFZVAFZQVBVIUBZVBVGVIJVHKMZVGAJKMZVKUTVDVEVLQZUTVDNJRFARFZVEVMSUCABUDZJA
+      UEUGUHVGVNVLVKUIUTVDVNVEVOTAUJUKULUTVIVKSVFUTVIVKVHBPUMUNUOUTVDVJVEABUPTV
+      IVBURUQUS $.
+      $( [19-Oct-2014] $)
+
+    $( Positive Pell solutions are closed under multiplication.  (Contributed
+       by Stefan O'Rear, 17-Sep-2014.) $)
+    pell14qrmulcl $p |- ( ( D e. ( NN \ []NN ) /\ A e. ( Pell14QR ` D ) /\ B e.
+        ( Pell14QR ` D ) ) -> ( A x. B ) e. ( Pell14QR ` D ) ) $=
+      ( cn csquarenn cdif wcel cpell14qr cfv cmul co cpell1234qr cc0 clt wbr wa
+      cr pell1234qrre syldan elpell14qr2 simprll simprrl pell1234qrmulcl mulgt0
+      simpl syl3anc simprlr simprrr syl22anc jca ex anbi12d 3imtr4d 3impib ) CD
+      EFGZACHIZGZBUPGZABJKZUPGZUOACLIZGZMANOZPZBVAGZMBNOZPZPZUSVAGZMUSNOZPZUQUR
+      PUTUOVHVKUOVHPZVIVJVLUOVBVEVIUOVHUEUOVBVCVGUAZUOVDVEVFUBZABCUCUFVLAQGZVCB
+      QGZVFVJUOVHVBVOVMACRSUOVBVCVGUGUOVHVEVPVNBCRSUOVDVEVFUHABUDUIUJUKUOUQVDUR
+      VGACTBCTULUSCTUMUN $.
+      $( [17-Sep-2014] $)
+
+    $( Positive Pell solutions are closed under reciprocal.  (Contributed by
+       Stefan O'Rear, 18-Sep-2014.) $)
+    pell14qrreccl $p |- ( ( D e. ( NN \ []NN ) /\ A e. ( Pell14QR ` D ) ) -> (
+        1 / A ) e. ( Pell14QR ` D ) ) $=
+      ( cn csquarenn cdif wcel cpell14qr cfv c1 cdiv co cpell1234qr cc0 clt wbr
+      wa pell1234qrreccl adantrr cr elpell14qr2 pell1234qrre simprr syl2anc jca
+      recgt0 ex 3imtr4d imp ) BCDEFZABGHZFZIAJKZUJFZUIABLHZFZMANOZPZULUNFZMULNO
+      ZPZUKUMUIUQUTUIUQPZURUSUIUOURUPABQRVAASFZUPUSUIUOVBUPABUARUIUOUPUBAUEUCUD
+      UFABTULBTUGUH $.
+      $( [18-Sep-2014] $)
+
+    $( Positive Pell solutions are closed under division.  (Contributed by
+       Stefan O'Rear, 18-Sep-2014.) $)
+    pell14qrdivcl $p |- ( ( D e. ( NN \ []NN ) /\ A e. ( Pell14QR ` D ) /\ B e.
+        ( Pell14QR ` D ) ) -> ( A / B ) e. ( Pell14QR ` D ) ) $=
+      ( cn csquarenn cdif wcel cpell14qr cfv w3a cdiv co c1 cmul cc0 pell14qrre
+      cc wa recnd 3adant2 wceq 3adant3 pell14qrne0 divrec syl3anc pell14qrreccl
+      wne pell14qrmulcl syld3an3 eqeltrd ) CDEFGZACHIZGZBULGZJZABKLZAMBKLZNLZUL
+      UOAQGZBQGZBOUGZUPURUAUKUMUSUNUKUMRAACPSUBUKUNUTUMUKUNRBBCPSTUKUNVAUMBCUCT
+      ABUDUEUKUMUNUQULGZURULGUKUNVBUMBCUFTAUQCUHUIUJ $.
+      $( [18-Sep-2014] $)
+
+    $( Lemma for ~ pell14qrexpcl . $)
+    pell14qrexpclnn0 $p |- ( ( D e. ( NN \ []NN ) /\ A e. ( Pell14QR ` D ) /\ B
+        e. NN0 ) -> ( A ^ B ) e. ( Pell14QR ` D ) ) $=
+      ( va vb cn wcel cn0 cexp co cv wi cc0 c1 wceq oveq2 eleq1d imbi2d syl2anc
+      eqeltrd csquarenn cdif cpell14qr cfv wa caddc weq cdiv cc pell14qrre exp0
+      recnd syl wne pell14qrne0 eqtr4d pell14qrdivcl 3anidm23 w3a cmul 3ad2ant2
+      divid simp1 expp1 simp2l simp2r pell14qrmulcl syl3anc 3exp a2d exp3acom3r
+      simp3 nn0ind 3imp ) CFUAUBGZACUCUDZGZBHGZABIJZVPGZVRVOVQVTVOVQUEZADKZIJZV
+      PGZLWAAMIJZVPGZLWAAEKZIJZVPGZLWAAWGNUFJZIJZVPGZLWAVTLDEBWBMOZWDWFWAWMWCWE
+      VPWBMAIPQRDEUGZWDWIWAWNWCWHVPWBWGAIPQRWBWJOZWDWLWAWOWCWKVPWBWJAIPQRWBBOZW
+      DVTWAWPWCVSVPWBBAIPQRWAWEAAUHJZVPWAWENWQWAAUIGZWENOWAAACUJULZAUKUMWAWRAMU
+      NWQNOWSACUOAVBSUPVOVQWQVPGAACUQURTWGHGZWAWIWLWTWAWIWLWTWAWIUSZWKWHAUTJZVP
+      XAWRWTWKXBOWAWTWRWIWSVAWTWAWIVCAWGVDSXAVOWIVQXBVPGWTVOVQWIVEWTWAWIVLWTVOV
+      QWIVFWHACVGVHTVIVJVMVKVN $.
+      $( [18-Sep-2014] $)
+
+    $( Positive Pell solutions are closed under integer powers.  (Contributed
+       by Stefan O'Rear, 18-Sep-2014.) $)
+    pell14qrexpcl $p |- ( ( D e. ( NN \ []NN ) /\ A e. ( Pell14QR ` D ) /\ B e.
+        ZZ ) -> ( A ^ B ) e. ( Pell14QR ` D ) ) $=
+      ( cn csquarenn cdif wcel cpell14qr cfv co cn0 wa simplll pell14qrexpclnn0
+      cexp simpllr simpr syl3anc cc recnd cz cr cneg wo c1 cdiv wceq pell14qrre
+      elznn0 ad2antrr simplr expneg2 pell14qrreccl syl2anc jaodan syl5bi 3impia
+      eqeltrd expl ) CDEFGZACHIZGZBUAGZABOJZVAGZVCBUBGZBKGZBUCZKGZUDZLUTVBLZVEB
+      UIVKVFVJVEVKVFLZVGVEVIVLVGLUTVBVGVEUTVBVFVGMUTVBVFVGPVLVGQABCNRVLVILZVDUE
+      AVHOJZUFJZVAVMASGZBSGVIVDVOUGVKVPVFVIVKAACUHTUJVMBVKVFVIUKTVLVIQZABULRVMU
+      TVNVAGZVOVAGUTVBVFVIMZVMUTVBVIVRVSUTVBVFVIPVQAVHCNRVNCUMUNURUOUSUPUQ $.
+      $( [18-Sep-2014] $)
+
+    $( First-quadrant Pell solutions are a subset of the positive solutions.
+       (Contributed by Stefan O'Rear, 18-Sep-2014.) $)
+    pell1qrss14 $p |- ( D e. ( NN \ []NN ) -> ( Pell1QR ` D ) C_ ( Pell14QR ` D
+        ) ) $=
+      ( va vc vb cn csquarenn cdif wcel cpell1qr cfv cv cmul co wceq c2 cexp wa
+      cn0 wrex cz cpell14qr cr csqr caddc cmin nn0z a1i anim1d reximdv2 reximdv
+      c1 wi anim2d elpell1qr elpell14qr 3imtr4d ssrdv ) AEFGHZBAIJZAUAJZURBKZUB
+      HZVACKZAUCJDKZLMUDMNVCOPMAVDOPMLMUEMUKNQZDRSZCRSZQVBVEDTSZCRSZQVAUSHVAUTH
+      URVGVIVBURVFVHCRURVEVEDRTURVDRHZVDTHZVEVJVKULURVDUFUGUHUIUJUMCDVAAUNCDVAA
+      UOUPUQ $.
+      $( [18-Sep-2014] $)
+
+    $( A positive Pell solution is either in the first quadrant, or its
+       reciprocal is.  (Contributed by Stefan O'Rear, 18-Sep-2014.) $)
+    pell14qrdich $p |- ( ( D e. ( NN \ []NN ) /\ A e. ( Pell14QR ` D ) ) -> ( A
+        e. ( Pell1QR ` D ) \/ ( 1 / A ) e. ( Pell1QR ` D ) ) ) $=
+      ( va vb wcel wa cmul co caddc wceq cexp cmin cn0 adantr ad3antrrr syl2anc
+      c2 c1 cc oveq2d vc cn csquarenn cdif cpell14qr cfv cr cv csqr cz cpell1qr
+      wrex cdiv wo elpell14qr biimpa cneg simplrr elznn0 simprd simplr ad2antrr
+      sylib simprl simpr ra42e syl3anc jca ex elpell1qr sylibrd cc0 pell14qrne0
+      wb wne simpll rereccl pell14qrre recnd recid simprr nn0cn ad2antrl eldifi
+      nncn syl sqrcl zcn ad2antll mulcl subsq sqmul sqrth oveq1d eqtr2d mulneg2
+      negsub eqcomd oveq12d 3eqtr4d adantrr 3eqtr2d reccl negcl addcl syl112anc
+      eqtr4d mulcan mpbid sqneg eqtrd oveq2 eqeq2d oveq1 eqeq1d anbi12d rcla4ev
+      ra4e orim12d mpd rexlimdvva expimpd ) BUBUCUDEZABUEUFEZFZAUGEZACUHZBUIUFZ
+      DUHZGHZIHZJZYGQKHZBYIQKHZGHZLHZRJZFZDUJULCMULZFZABUKUFZEZRAUMHZUUAEZUNZYC
+      YDYTCDABUOUPYEYFYSUUEYEYFFZYRUUECDMUJUUFYGMEZYIUJEZFZFZYRUUEUUJYRFZYIMEZY
+      IUQZMEZUNZUUEUUKYIUGEZUUOUUKUUHUUPUUOFUUFUUGUUHYRURYIUSVCUTUUKUULUUBUUNUU
+      DUUKUULYFYRDMULCMULZFZUUBUUKUULUURUUKUULFZYFUUQUUJYFYRUULYEYFUUIVAZVBUUSU
+      UGUULYRUUQUUJUUGYRUULUUFUUGUUHVDZVBUUKUULVEUUJYRUULVAYRCDMMVFVGVHVIYEUUBU
+      URVNZYFUUIYRYCUVBYDCDABVJNOVKUUKUUNUUCUGEZUUCYGYHUAUHZGHZIHZJZYMBUVDQKHZG
+      HZLHZRJZFZUAMULZCMULZFZUUDUUKUUNUVOUUKUUNFZUVCUVNUVPYFAVLVOZUVCUUJYFYRUUN
+      UUTVBUVPYCYDUVQUUFYCUUIYRUUNYCYDYFVPOUUFYDUUIYRUUNYCYDYFVAOABVMZPAVQPUVPU
+      UGUVMUVNUUJUUGYRUUNUVAVBUVPUUNUUCYGYHUUMGHZIHZJZYMBUUMQKHZGHZLHZRJZFZUVMU
+      UKUUNVEUVPUWAUWEUUKUWAUUNUUKAUUCGHZAUVTGHZJZUWAUUKUWGRYPUWHYEUWGRJZYFUUIY
+      RYEASEZUVQUWJYEAABVRVSZUVRAVTPOUUJYLYQWAUUJYLYPUWHJYQUUJYLFZYMYJQKHZLHZYK
+      YGYJLHZGHZYPUWHUWMYGSEZYJSEZUWOUWQJUUJUWRYLUUGUWRUUFUUHYGWBWCZNUUJUWSYLUU
+      JYHSEZYISEZUWSUUJBSEZUXAYCUXCYDYFUUIYCBUBEUXCBUBUCWDBWEWFOZBWGWFZUUHUXBUU
+      FUUGYIWHWIZYHYIWJPZNYGYJWKPUUJYPUWOJYLUUJYOUWNYMLUUJUWNYHQKHZYNGHZYOUUJUX
+      AUXBUWNUXIJUXEUXFYHYIWLPUUJUXHBYNGUUJUXCUXHBJUXDBWMWFWNWOTNUWMAYKUVTUWPGU
+      UJYLVEUUJUVTUWPJYLUUJUVTYGYJUQZIHZUWPUUJUVSUXJYGIUUJUXAUXBUVSUXJJUXEUXFYH
+      YIWPPTUUJUWRUWSUWPUXKJUWTUXGUWRUWSFUXKUWPYGYJWQWRPXGNWSWTXAXBUUKUUCSEZUVT
+      SEZUWKUVQUWIUWAVNYEUXLYFUUIYRYEUWKUVQUXLUWLUVRAXCPOUUJUXMYRUUJUWRUVSSEZUX
+      MUWTUUJUXAUUMSEZUXNUXEUUJUXBUXOUXFYIXDWFYHUUMWJPYGUVSXEPNYEUWKYFUUIYRUWLO
+      YEUVQYFUUIYRUVROUUCUVTAXHXFXINUVPUWDYPRUVPUWCYOYMLUVPUWBYNBGUVPUXBUWBYNJU
+      UJUXBYRUUNUXFVBYIXJWFTTUUJYLYQUUNURXKVHUVLUWFUAUUMMUVDUUMJZUVGUWAUVKUWEUX
+      PUVFUVTUUCUXPUVEUVSYGIUVDUUMYHGXLTXMUXPUVJUWDRUXPUVIUWCYMLUXPUVHUWBBGUVDU
+      UMQKXNTTXOXPXQPUVMCMXRPVHVIYEUUDUVOVNZYFUUIYRYCUXQYDCUAUUCBVJNOVKXSXTVIYA
+      YBXT $.
+      $( [18-Sep-2014] $)
+
+    $( A Pell solution in the first quadrant is at least 1.  (Contributed by
+       Stefan O'Rear, 17-Sep-2014.) $)
+    pell1qrge1 $p |- ( ( D e. ( NN \ []NN ) /\ A e. ( Pell1QR ` D ) ) -> 1 <_ A
+        ) $=
+      ( va vb wcel c1 cle wbr cr co wceq c2 wa cn0 a1i nn0re syl cc0 syl2anc cc
+      cn csquarenn cdif cpell1qr cfv cv csqr cmul caddc cexp cmin elpell1qr 1re
+      wrex simplrl simplll eldifi nnnn0 nn0ge0 resqrcl simplrr remulcl nn0expcl
+      3syl readdcl 2nn0 nn0mulcl wb addge02 mpbid sq1 ad2antrl sqcl simpll nncn
+      nn0cn ad2antll mulcl ax-1cn subadd syl3anc biimpa eqcomd 3brtr4d syl22anc
+      1nn0 nn0ge0i le2sq mpbird sqrge0 mulge0 addge01 letrd adantrl breqtrrd ex
+      simprl rexlimdvva expimpd sylbid imp ) BUAUBUCEZABUDUEEZFAGHZXBXCAIEZACUF
+      ZBUGUEZDUFZUHJZUIJZKZXFLUJJZBXHLUJJZUHJZUKJFKZMZDNUNCNUNZMXDCDABULXBXEXQX
+      DXBXEMZXPXDCDNNXRXFNEZXHNEZMZMZXPXDYBXPMFXJAGYBXOFXJGHXKYBXOMZFXFXJFIEZYC
+      UMOZYCXSXFIEZXRXSXTXOUOZXFPQZYCYFXIIEZXJIEYHYCXGIEZXHIEZYIYCBIEZRBGHZYJYC
+      BNEZYLYCXBBUAEZYNXBXEYAXOUPBUAUBUQZBURVDZBPQZYCYNYMYQBUSQZBUTSZYCXTYKXRXS
+      XTXOVAZXHPQZXGXHVBSZXFXIVESYCFXFGHZFLUJJZXLGHZYCFXNFUIJZUUEXLGYCRXNGHZFUU
+      GGHZYCXNNEZUUHYCYNXMNEZUUJYQYCXTLNEZUUKUUAUULYCVFOXHLVCSBXMVGSZXNUSQYCYDX
+      NIEZUUHUUIVHYEYCUUJUUNUUMXNPQFXNVISVJUUEFKYCVKOYCUUGXLYBXOUUGXLKZYBXLTEZX
+      NTEZFTEZXOUUOVHYBXFTEZUUPXSUUSXRXTXFVPVLXFVMQYBBTEZXMTEZUUQYBXBYOUUTXBXEY
+      AVNYPBVOVDYBXHTEZUVAXTUVBXRXSXHVPVQXHVMQBXMVRSUURYBVSOXLXNFVTWAWBWCWDYCYD
+      RFGHZYFRXFGHZUUDUUFVHYEUVCYCFWFWGOYHYCXSUVDYGXFUSQFXFWHWEWIYCRXIGHZXFXJGH
+      ZYCYJRXGGHZYKRXHGHZUVEYTYCYLYMUVGYRYSBWJSUUBYCXTUVHUUAXHUSQXGXHWKWEYCYFYI
+      UVEUVFVHYHUUCXFXIWLSVJWMWNYBXKXOWQWOWPWRWSWTXA $.
+      $( [17-Sep-2014] $)
+
+    $( 1 is a Pell solution and in the first quadrant as one.  (Contributed by
+       Stefan O'Rear, 17-Sep-2014.) $)
+    pell1qr1 $p |- ( D e. ( NN \ []NN ) -> 1 e. ( Pell1QR ` D ) ) $=
+      ( va vb cn wcel c1 cmul co caddc wceq c2 cexp cmin cn0 a1i cc0 syl oveq2d
+      wa oveq1 csquarenn cdif cpell1qr cfv cr csqr wrex elpell1qr 1re 1nn0 0nn0
+      cv cc eldifi sqrcl mul01 ax-1cn addid1i syl6req sq1 oveq2i syl5eq oveq12d
+      nncn subid1i syl6eq eqeq2d oveq1d eqeq1d anbi12d oveq2 rcla42ev syl112anc
+      sq0 mpbir2and ) ADUAUBEZFAUCUDEFUEEZFBULZAUFUDZCULZGHZIHZJZVRKLHZAVTKLHZG
+      HZMHZFJZSZCNUGBNUGZBCFAUHVQVPUIOVPFNEZPNEZFFVSPGHZIHZJZFKLHZAPKLHZGHZMHZF
+      JZWJWKVPUJOWLVPUKOVPWNFPIHFVPWMPFIVPVSUMEZWMPJVPAUMEZXAVPADEXBADUAUNAVDQZ
+      AUOQVSUPQRFUQURUSVPWSFPMHFVPWPFWRPMWPFJVPUTOVPWRAPGHZPWQPAGVNVAVPXBXDPJXC
+      AUPQVBVCFUQVEVFWIWOWTSFFWAIHZJZWPWFMHZFJZSBCFPNNVRFJZWCXFWHXHXIWBXEFVRFWA
+      ITVGXIWGXGFXIWDWPWFMVRFKLTVHVIVJVTPJZXFWOXHWTXJXEWNFXJWAWMFIVTPVSGVKRVGXJ
+      XGWSFXJWFWRWPMXJWEWQAGVTPKLTRRVIVJVLVMVO $.
+      $( [17-Sep-2014] $)
+
+    $( The first quadrant solutions are precisely the positive Pell solutions
+       which are at least one.  (Contributed by Stefan O'Rear, 18-Sep-2014.) $)
+    elpell1qr2 $p |- ( D e. ( NN \ []NN ) -> ( A e. ( Pell1QR ` D ) <-> ( A e.
+        ( Pell14QR ` D ) /\ 1 <_ A ) ) ) $=
+      ( wcel cfv c1 cle wbr wa pell1qrge1 clt wceq wo cr wb 1re syl2anc cdiv co
+      a1i adantr csquarenn cpell1qr cpell14qr pell1qrss14 sselda jca pell14qrre
+      cn cdif leloe wn ltnle biimpa ax-1cn div1i eqcomi breq2d pell14qrgt0 lt01
+      cc0 lerec2 syl22anc bitrd mtbid simplll simpr mtand pell14qrdich pell1qr1
+      orel2 sylc ad2antrr eqeltrrd jaodan ex sylbid impr impbida ) BUHUAUICZABU
+      BDZCZABUCDZCZEAFGZHVSWAHWCWDVSVTWBABUDUEABIUFVSWCWDWAVSWCHZWDEAJGZEAKZLZW
+      AWEEMCZAMCZWDWHNWIWEOSZABUGZEAUJPWEWHWAWEWFWAWGWEWFHZEAQRZVTCZUKWAWOLZWAW
+      MWOEWNFGZWMAEFGZWQWEWFWRUKZWEWIWJWFWSNWKWLEAULPUMWMWRAEEQRZFGZWQWMEWTAFEW
+      TKWMWTEEUNUOUPSUQWMWJUTAJGZWIUTEJGZXAWQNWEWJWFWLTWEXBWFABURTWIWMOSXCWMUSS
+      AEVAVBVCVDWMWOHVSWOWQVSWCWFWOVEWMWOVFWNBIPVGWEWPWFABVHTWOWAVJVKWEWGHEAVTW
+      EWGVFVSEVTCWCWGBVIVLVMVNVOVPVQVR $.
+      $( [18-Sep-2014] $)
+
+    $( Lemma for ~ pell1qrgap . $)
+    pell1qrgaplem $p |- ( ( ( D e. NN /\ ( A e. NN0 /\ B e. NN0 ) ) /\ ( 1 < (
+        A + ( ( sqr ` D ) x. B ) ) /\ ( ( A ^ 2 ) - ( D x. ( B ^ 2 ) ) ) = 1 )
+        ) -> ( ( sqr ` ( D + 1 ) ) + ( sqr ` D ) ) <_ ( A + ( ( sqr ` D ) x. B
+        ) ) ) $=
+      ( wcel c1 cmul co caddc wbr cmin wceq cr a1i syl2anc syl cle cc cc0 mpbid
+      wb cn cn0 wa csqr cfv clt cexp crp nnrp ad2antrr 1rp rpaddcl rpsqrcl rpre
+      c2 readdcl nn0re adantl ad2antlr remulcl adantr rpcn mulid1 simplrr elnn0
+      wo sylib nnge1 simplrl oveq1 sq0 eqtrd oveq2d mul01 recnd sqcl subid1 sq1
+      eqcomi 3eqtr3d nn0ge0 1re 1nn0 nn0ge0i sq11 syl22anc simpr oveq12d ax-1cn
+      addid1i breqtrd ltnri pm2.24 jaodan mpdan rpgt0 lemul2 syl112anc eqbrtrrd
+      wn sylc leadd2 syl3anc le2sq resqcl suble0 mpbird resubcl 0re nngt0 sqrth
+      simprr eqcomd mulcl subdi oveq1d eqtr2d 3eqtrd addid1 3brtr4d rpge0 letrd
+      addsub12 leadd1 ) CUADZAUBDZBUBDZUCZUCZEACUDUEZBFGZHGZUFIZAUOUGGZCBUOUGGZ
+      FGZJGZEKZUCZUCZCEHGZUDUEZYJHGZUUBYKHGZYLYTUUBLDZYJLDZUUCLDYTUUBUHDZUUEYTU
+      UAUHDZUUGYTCUHDZEUHDZUUHYEUUIYHYSCUIUJZUUJYTUKMCEULNZUUAUMOZUUBUNOZYTYJUH
+      DZUUFYTUUIUUOUUKCUMOZYJUNOZUUBYJUPNYTUUEYKLDZUUDLDUUNYTUUFBLDZUURUUQYHUUS
+      YEYSYGUUSYFBUQURUSZYJBUTNZUUBYKUPNYTALDZUURYLLDYHUVBYEYSYFUVBYGAUQVAUSZUV
+      AAYKUPNYTYJYKPIZUUCUUDPIZYTYJEFGZYJYKPYTYJQDZUVFYJKYTUUOUVGUUPYJVBOZYJVCO
+      YTEBPIZUVFYKPIZYTBUADZBRKZVFZUVIYTYGUVMYEYFYGYSVDBVEVGYTUVKUVIUVLUVKUVIYT
+      BVHURYTUVLUCZEEUFIZUVOWTZUVIUVNEYLEUFYIYMYRUVLVIUVNYLERHGZEUVNAEYKRHUVNYN
+      EUOUGGZKZAEKZUVNYQEYNUVRYIYMYRUVLVDUVNYQYNRJGZYNUVNYPRYNJUVNYPCRFGZRUVNYO
+      RCFUVNYORUOUGGZRUVLYOUWCKYTBRUOUGVJURUWCRKUVNVKMVLVMUVNCQDZUWBRKZYTUWDUVL
+      YTUUIUWDUUKCVBOZVACVNZOVLVMUVNYNQDZUWAYNKYTUWHUVLYTAQDUWHYTAUVCVOAVPOZVAY
+      NVQOVLEUVRKUVNUVREVRVSMVTYTUVSUVTTZUVLYTUVBRAPIZELDZREPIZUWJUVCYHUWKYEYSY
+      FUWKYGAWAVAUSZUWLYTWBMZUWMYTEWCWDMZAEWEWFVASUVNYKYJRFGZRUVNBRYJFYTUVLWGVM
+      UVNUVGUWQRKYTUVGUVLUVHVAYJVNOVLWHUVQEKUVNEWIWJMVLWKUVPUVNEWBWLMUVOUVIWMXA
+      WNWOZYTUWLUUSUUFRYJUFIZUVIUVJTUWOUUTUUQYTUUOUWSUUPYJWPOEBYJWQWRSWSYTUUFUU
+      RUUEUVDUVETUUQUVAUUNYJYKUUBXBXCSYTUUBAPIZUUDYLPIZYTUWTUUBUOUGGZYNPIZYTYNC
+      EYOJGZFGZHGZYNUWBHGZUXBYNPYTUXEUWBPIZUXFUXGPIZYTUXDRPIZUXHYTUXJEYOPIZYTUV
+      REYOPUVREKYTVRMYTUVIUVRYOPIZUWRYTUWLUWMUUSRBPIZUVIUXLTUWOUWPUUTYHUXMYEYSY
+      GUXMYFBWAURUSEBXDWFSWSYTUWLYOLDZUXJUXKTUWOYTUUSUXNUUTBXEOZEYOXFNXGYTUXDLD
+      ZRLDZCLDZRCUFIZUXJUXHTYTUWLUXNUXPUWOUXOEYOXHNZUXQYTXIMZYTUUIUXRUUKCUNOZYE
+      UXSYHYSCXJUJUXDRCWQWRSYTUXELDZUWBLDZYNLDZUXHUXITYTUXRUXPUYCUYBUXTCUXDUTNY
+      TUXRUXQUYDUYBUYACRUTNYTUVBUYEUVCAXEOUXEUWBYNXBXCSYTUXBUUACYQHGZUXFYTUUAQD
+      ZUXBUUAKYTUUHUYGUULUUAVBOUUAXKOYTEYQCHYTYQEYIYMYRXLXMVMYTUYFYNCYPJGZHGZUX
+      FYTUWDUWHYPQDZUYFUYIKUWFUWIYTUWDYOQDZUYJUWFYTBQDUYKYTBUUTVOBVPOZCYOXNNCYN
+      YPYCXCYTUYHUXEYNHYTUXECEFGZYPJGZUYHYTUWDEQDUYKUXEUYNKUWFYTEUWOVOUYLCEYOXO
+      XCYTUYMCYPJYTUWDUYMCKUWFCVCOXPXQVMVLXRYTUXGYNRHGZYNYTUWBRYNHYTUWDUWEUWFUW
+      GOVMYTUWHUYOYNKUWIYNXSOXQXTYTUUERUUBPIZUVBUWKUWTUXCTUUNYTUUGUYPUUMUUBYAOU
+      VCUWNUUBAXDWFXGYTUUEUVBUURUWTUXATUUNUVCUVAUUBAYKYDXCSYB $.
+      $( [18-Sep-2014] $)
+
+    $( First-quadrant Pell solutions are bounded away from 1.  (This particular
+       bound allows us to prove exact values for the fundamental solution
+       later.)  (Contributed by Stefan O'Rear, 18-Sep-2014.) $)
+    pell1qrgap $p |- ( ( D e. ( NN \ []NN ) /\ A e. ( Pell1QR ` D ) /\ 1 < A )
+        -> ( ( sqr ` ( D + 1 ) ) + ( sqr ` D ) ) <_ A ) $=
+      ( va vb cn csquarenn wcel cfv c1 clt wbr caddc co csqr cle wa cv cmul cn0
+      wceq cdif cpell1qr wi cr cexp cmin wrex elpell1qr adantr eldifi ad3antrrr
+      c2 simplr simpr simprl breqtrd pell1qrgaplem syl22anc breqtrrd rexlimdvva
+      wb simprr ex expimpd sylbid com23 3imp ) BEFUAGZABUBHGZIAJKZBILMNHBNHZLMZ
+      AOKZVHVJVIVMVHVJVIVMUCVHVJPZVIAUDGZACQZVKDQZRMLMZTZVPULUEMBVQULUEMRMUFMIT
+      ZPZDSUGCSUGZPZVMVHVIWCVAVJCDABUHUIVNVOWBVMVNVOPZWAVMCDSSWDVPSGVQSGPZPZWAV
+      MWFWAPZVLVRAOWGBEGZWEIVRJKVTVLVROKVNWHVOWEWAVHWHVJBEFUJUIUKWDWEWAUMWGIAVR
+      JVNVJVOWEWAVHVJUNUKWFVSVTUOZUPWFVSVTVBVPVQBUQURWIUSVCUTVDVEVCVFVG $.
+      $( [18-Sep-2014] $)
+
+    $( Positive Pell solutions are bounded away from 1.  (Contributed by Stefan
+       O'Rear, 18-Sep-2014.) $)
+    pell14qrgap $p |- ( ( D e. ( NN \ []NN ) /\ A e. ( Pell14QR ` D ) /\ 1 < A
+        ) -> ( ( sqr ` ( D + 1 ) ) + ( sqr ` D ) ) <_ A ) $=
+      ( cn csquarenn cdif wcel cpell1qr cfv cpell14qr c1 clt wbr caddc csqr cle
+      co w3a wa wb cr elpell1qr2 3ad2ant1 wi 1re pell14qrre ltle sylancr 3impia
+      simp2 mpbir2and pell1qrgap syld3an2 ) BCDEFZABGHFZABIHFZJAKLZBJMPNHBNHMPA
+      OLUMUOUPQUNUOJAOLZUMUOUNUOUQRSUPABUAUBUMUOUPUIUMUOUPUQUMUORJTFATFUPUQUCUD
+      ABUEJAUFUGUHUJABUKUL $.
+      $( [18-Sep-2014] $)
+
+    $( Positive Pell solutions are bounded away from 1, with a friendlier
+       bound.  (Contributed by Stefan O'Rear, 18-Sep-2014.) $)
+    pell14qrgapw $p |- ( ( D e. ( NN \ []NN ) /\ A e. ( Pell14QR ` D ) /\ 1 < A
+        ) -> 2 < A ) $=
+      ( cn wcel cfv c1 clt wbr c2 caddc co cr a1i crp syl 1re cexp cle wceq wb
+      csquarenn cdif cpell14qr w3a csqr 2re eldifi 3ad2ant1 1rp rpaddcl syl2anc
+      nnrp rpsqrcl rpre readdcl pell14qrre 3adant3 df-2 readdcli peano2re nnge1
+      nnre ltp1 lelttrd sq1 cc nncn peano2cn sqrth 3brtr4d cc0 1nn0 rpge0 lt2sq
+      nn0ge0i syl22anc mpbird ltadd1 syl3anc mpbid ltletrd syl5eqbr pell14qrgap
+      le2sq leadd2 ) BCUAUBDZABUCEDZFAGHZUDZIBFJKZUEEZBUEEZJKZAILDWIUFMWIWKLDZW
+      LLDZWMLDWIWKNDZWNWIWJNDZWPWIBNDZFNDZWQWIBCDZWRWFWGWTWHBCUAUGUHZBULOZWSWIU
+      IMBFUJUKWJUMOZWKUNOZWIWLNDZWOWIWRXEXBBUMOZWLUNOZWKWLUOUKZWFWGALDWHABUPUQW
+      IIFFJKZWMGURWIXIWKFJKZWMXILDWIFFPPUSMWIWNXJLDXDWKUTOXHWIFWKGHZXIXJGHZWIXK
+      FIQKZWKIQKZGHZWIFWJXMXNGWIFBWJFLDZWIPMZWIWTBLDZXABVBOZWIXRWJLDXSBUTOWIWTF
+      BRHXABVAOZWIXRBWJGHXSBVCOVDXMFSWIVEMZWIWJVFDZXNWJSWIBVFDZYBWIWTYCXABVGOZB
+      VHOWJVIOVJWIXPVKFRHZWNVKWKRHZXKXOTXQYEWIFVLVOMZXDWIWPYFXCWKVMOFWKVNVPVQWI
+      XPWNXPXKXLTXQXDXQFWKFVRVSVTWIFWLRHZXJWMRHZWIYHXMWLIQKZRHZWIFBXMYJRXTYAWIY
+      CYJBSYDBVIOVJWIXPYEWOVKWLRHZYHYKTXQYGXGWIXEYLXFWLVMOFWLWDVPVQWIXPWOWNYHYI
+      TXQXGXDFWLWKWEVSVTWAWBABWCWA $.
+      $( [18-Sep-2014] $)
+
+    $( Condition for a calculated real to be a Pell solution.  (Contributed by
+       Stefan O'Rear, 19-Sep-2014.) $)
+    pellqrexplicit $p |- ( ( ( D e. ( NN \ []NN ) /\ A e. NN0 /\ B e. NN0 ) /\
+        ( ( A ^ 2 ) - ( D x. ( B ^ 2 ) ) ) = 1 ) -> ( A + ( ( sqr ` D ) x. B )
+        ) e. ( Pell1QR ` D ) ) $=
+      ( va vb cn wcel cn0 c2 cexp co cmul cmin c1 wceq wa caddc cr oveq1 oveq2d
+      csquarenn cdif w3a csqr cfv cpell1qr cv wrex wb elpell1qr 3ad2ant1 adantr
+      nn0re 3ad2ant2 crp eldifi nnrp rpsqrcl rpre 3syl 3ad2ant3 remulcl syl2anc
+      syl readdcl simpl2 simpl3 eqidd simpr eqeq2d oveq1d eqeq1d oveq2 rcla42ev
+      anbi12d syl112anc mpbir2and ) CFUAUBGZAHGZBHGZUCZAIJKZCBIJKZLKZMKZNOZPZAC
+      UDUEZBLKZQKZCUFUEGZWJRGZWJDUGZWHEUGZLKZQKZOZWMIJKZCWNIJKZLKZMKZNOZPZEHUHD
+      HUHZWAWKWLXDPUIZWFVRVSXEVTDEWJCUJUKULWAWLWFWAARGZWIRGZWLVSVRXFVTAUMUNWAWH
+      RGZBRGZXGWACUOGZWHUOGXHWACFGZXJVRVSXKVTCFUAUPUKCUQVDCURWHUSUTVTVRXIVSBUMV
+      AWHBVBVCAWIVEVCULWGVSVTWJWJOZWFXDVRVSVTWFVFVRVSVTWFVGWGWJVHWAWFVIXCXLWFPW
+      JAWOQKZOZWBWTMKZNOZPDEABHHWMAOZWQXNXBXPXQWPXMWJWMAWOQSVJXQXAXONXQWRWBWTMW
+      MAIJSVKVLVOWNBOZXNXLXPWFXRXMWJWJXRWOWIAQWNBWHLVMTVJXRXOWENXRWTWDWBMXRWSWC
+      CLWNBIJSTTVLVOVNVPVQ $.
+      $( [19-Sep-2014] $)
+  $}
+

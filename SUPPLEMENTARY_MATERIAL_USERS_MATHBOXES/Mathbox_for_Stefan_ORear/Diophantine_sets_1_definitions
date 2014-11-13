@@ -1,0 +1,343 @@
+$(
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+    Diophantine sets 1: definitions
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+$)
+
+  $c Dioph $.
+  $( Extend class notation to include the family of Diophantine sets. $)
+  cdioph $a class Dioph $.
+
+  ${
+    $d n d k p t u $.
+    $( A Diophantine set is a set of natural numbers which is a projection of
+       the zero set of some polynomial.  This definition somewhat awkwardly
+       mixes ` ZZ ` (via ` mzPoly ` ) and ` NN0 ` (to define the zero sets);
+       the former could be avoided by considering coincidence sets of ` NN0 `
+       polynomials at the cost of requiring two, and the second is driven by
+       consistency with our mu-recursive functions and the requirements of the
+       DPRM proof.  Both are avoidable at a complexity cost.  In particular, it
+       is a consequence of ~ 4sq that implicitly restricting variables to
+       ` NN0 ` adds no expressive power over allowing them to range over
+       ` ZZ ` .  While this definition stipulates a specific index set for the
+       polynomials, there is actually flexibility here, see ~ eldioph2b . $)
+    df-dioph $a |- Dioph = ( n e. NN0 |-> { d | E. k e. ( ZZ>= ` n ) E. p e. (
+        mzPoly ` ( 1 ... k ) ) d = { t | E. u e. ( NN0 ^m ( 1 ... k ) ) ( t =
+        ( u |` ( 1 ... n ) ) /\ ( p ` u ) = 0 ) } } ) $.
+  $}
+
+  ${
+    $d D n d k p $.  $d N n d k p t u $.
+    $( Initial expression of Diophantine property of a set.  (Contributed by
+       Stefan O'Rear, 5-Oct-2014.) $)
+    eldiophb $p |- ( D e. ( Dioph ` N ) <-> ( N e. NN0 /\ E. k e. ( ZZ>= ` N )
+        E. p e. (
+        mzPoly ` ( 1 ... k ) ) D = { t | E. u e. ( NN0 ^m ( 1 ... k ) ) ( t =
+        ( u |` ( 1 ... N ) ) /\ ( p ` u ) = 0 ) } ) ) $=
+      ( vn vd cdioph cfv wcel cn0 cv c1 cfz co wceq wrex cab cuz cres cmap cmzp
+      cc0 cdm df-dioph dmmptss elfvdm sseldi fveq2 oveq2 reseq2d eqeq2d rexbidv
+      wa anbi1d abbidv rexeqbidv fvex ab2rexex fvmpt eleq2d cvv wi ovex abrexex
+      simpl reximi ss2abi ssexi eleq1a ax-mp rexlimivw 2rexbidv syl6bb biadan2
+      eqeq1 elab3 ) CEIJZKZELKZCBMZAMZNEOPZUAZQZWCFMJUDQZUOZALNDMOPZUBPZRZBSZQZ
+      FWIUCJZRZDETJZRZVTIUELEGLHMZWBWCNGMZOPZUAZQZWGUOZAWJRZBSZQZFWNRZDWSTJZRZH
+      SZIABDGFHUFZUGCEIUHUIWAVTCWRWLQZFWNRZDWPRZHSZKWQWAVSXOCGEXJXOLIWSEQZXIXNH
+      XPXGXMDXHWPWSETUJXPXFXLFWNXPXEWLWRXPXDWKBXPXCWHAWJXPXBWFWGXPXAWEWBXPWTWDW
+      CWSENOUKULUMUPUNUQUMUNURUQXKDFHWPWNWLETUSWIUCUSUTVAVBXNWQHCWOCVCKZDWPWMXQ
+      FWNWLVCKWMXQVDWLWFAWJRZBSABWJWELWIUBVEVFWKXRBWHWFAWJWFWGVGVHVIVJWLVCCVKVL
+      VMVMWRCQXLWMDFWPWNWRCWLVQVNVRVOVP $.
+      $( [5-Oct-2014] $)
+  $}
+
+  ${
+    $d N k p t u $.  $d K k p t u $.  $d P k p t u $.
+    $( Condition for a set to be Diophantine (unpacking existential quantifier)
+       (Contributed by Stefan O'Rear, 5-Oct-2014.) $)
+    eldioph $p |- ( ( N e. NN0 /\ K e. ( ZZ>= ` N ) /\ P e. ( mzPoly ` ( 1 ...
+        K ) ) ) ->
+        { t | E. u e. ( NN0 ^m ( 1 ... K ) ) ( t = ( u |` ( 1 ... N ) ) /\ ( P
+        ` u ) = 0 ) } e. ( Dioph ` N ) ) $=
+      ( vp vk cn0 wcel cfv c1 cfz co cmzp cv wceq cc0 cmap wrex cab cuz cres wa
+      cdioph simp1 simp2 simp3 eqidd fveq1 eqeq1d anbi2d rexbidv abbidv rcla4ev
+      eqeq2d syl2anc oveq2 fveq2d oveq2d rexeqdv rexeqbidv eldiophb sylanbrc
+      w3a ) EHIZDEUAJZIZCKDLMZNJZIZVDZVEBOAOZKELMUBPZVLCJZQPZUCZAHVHRMZSZBTZVMV
+      LFOZJZQPZUCZAHKGOZLMZRMZSZBTZPZFWENJZSZGVFSZVSEUDJIVEVGVJUEVKVGVSWCAVQSZB
+      TZPZFVISZWLVEVGVJUFVKVJVSVSPZWPVEVGVJUGVKVSUHWOWQFCVIVTCPZWNVSVSWRWMVRBWR
+      WCVPAVQWRWBVOVMWRWAVNQVLVTCUIUJUKULUMUOUNUPWKWPGDVFWDDPZWIWOFWJVIWSWEVHNW
+      DDKLUQZURWSWHWNVSWSWGWMBWSWCAWFVQWSWEVHHRWTUSUTUMUOVAUNUPABVSGEFVBVC $.
+      $( [5-Oct-2014] $)
+  $}
+
+  ${
+    $d S a b c d $.  $d T a b c d $.  $d M a b c d $.  $d O a b c d $.
+    $d P b c d $.
+    $( Renaming and adding unused witness variables does not change the
+       Diophantine set coded by a polynomial.  (Contributed by Stefan O'Rear,
+       7-Oct-2014.) $)
+    diophrw $p |- ( ( S e. _V /\ M : T -1-1-> S /\ ( M |` O ) = ( _I |` O ) )
+        -> { a | E. b e. ( NN0 ^m S ) ( a = ( b |` O ) /\ ( ( d e. ( ZZ ^m S )
+        |-> ( P ` ( d o. M ) ) ) ` b ) = 0 ) } = { a | E. c e. ( NN0 ^m T ) ( a
+        = ( c |` O ) /\ ( P ` c ) = 0 ) } ) $=
+      ( cvv wcel cres wceq cz ccom cc0 cn0 wf a1i c0 wf1 cid w3a cv cmap co cfv
+      cmpt wa wrex simpr nn0ex simp1 adantr elmapg sylancr mpbid simp2 ad2antrr
+      f1f syl fco syl2anc f1dmex mpbird simprl resco simpll3 coeq2d wrel simplr
+      wb simpll1 frel coires1 3syl 3eqtrd eqtr4d wss oveq2 sseq12d nn0ssz mapss
+      zex ax-mp vtoclg sseldd coeq1 fveq2d eqid fvex fvmpt simprr eqtr3d reseq1
+      vex weq eqeq2d eqeq1d anbi12d rcla4ev syl12anc ex rexlimdva ccnv crn cdif
+      fveq2 csn cxp cun cin wf1o f1cnv 0z elexi fconst disjdif fun syl21anc frn
+      f1of undif sylib 0nn0 snssi ssequn2 mpbi feq23d resundir simpl3 cima wfun
+      cnveqd simpl2 eqtrd cdm syl5eq uneq12d un0 df-f1 simprbi funcnvres df-ima
+      rneqd rnresi reseq2d cnvresid 3eqtr3d dmres snnz dmxp ineq2i inss1 eqtr2d
+      wne rnss eqsstrd syl5ss inssdif0 relres reldm0 sylibr 3eqtrrd fss sylancl
+      resss coundir coass f1cocnv1 ineq1i incom 3eqtri coeq0 mpbir fcoi1 impbid
+      abbidv ) BJKZCBDUAZDELZUBELZMZUCZFUDZGUDZELZMZUWFINBUEUFZIUDZDOZAUGZUHZUG
+      ZPMZUIZGQBUEUFZUJZUWEHUDZELZMZUWSAUGZPMZUIZHQCUEUFZUJZFUWDUWRUXFUWDUWPUXF
+      GUWQUWDUWFUWQKZUIZUWPUXFUXHUWPUIZUWFDOZUXEKZUWEUXJELZMZUXJAUGZPMZUXFUXIUX
+      KCQUXJRZUXIBQUWFRZCBDRZUXPUXHUXQUWPUXHUXGUXQUWDUXGUKUXHQJKZUVSUXGUXQVLZUL
+      UWDUVSUXGUVSUVTUWCUMZUNQBUWFJJUOZUPUQUNUWDUXRUXGUWPUWDUVTUXRUVSUVTUWCURZC
+      BDUTZVAUSCBQUWFDVBVCUXIUXSCJKZUXKUXPVLULUWDUYEUXGUWPUWDUVTUVSUYEUYCUYACBJ
+      DVDVCZUSQCUXJJJUOUPVEUXIUWEUWGUXLUXHUWHUWOVFUXIUXLUWFUWAOZUWFUWBOZUWGUXLU
+      YGMUXIUWFDEVGSUXIUWAUWBUWFUVSUVTUWCUXGUWPVHVIUXIUXQUWFVJUYHUWGMUXIUXGUXQU
+      WDUXGUWPVKZUXIUXSUVSUXTULUVSUVTUWCUXGUWPVMZUYBUPUQBQUWFVNUWFEVOVPVQVRUXIU
+      WNUXNPUXIUWFUWIKUWNUXNMUXIUWQUWIUWFUXIUVSUWQUWIVSZUYJQUWEUEUFZNUWEUEUFZVS
+      ZUYKFBJUWEBMUYLUWQUYMUWIUWEBQUEVTUWEBNUEVTWAQNVSZUYNWBQNUWEWDFWPWCWEWFVAU
+      YIWGIUWFUWLUXNUWIUWMIGWQUWKUXJAUWJUWFDWHWIUWMWJZUXJAWKWLVAUXHUWHUWOWMWNUX
+      DUXMUXOUIHUXJUXEUWSUXJMZUXAUXMUXCUXOUYQUWTUXLUWEUWSUXJEWOWRUYQUXBUXNPUWSU
+      XJAXHWSWTXAXBXCXDUWDUXDUWRHUXEUWDUWSUXEKZUIZUXDUWRUYSUXDUIZUWSDXEZOZBDXFZ
+      XGZPXIZXJZXKZUWQKZUWEVUGELZMZVUGUWMUGZPMZUWRUYTVUHBQVUGRZUYTVUCVUDXKZQVUE
+      XKZVUGRZVUMUYTVUCQVUBRZVUDVUEVUFRZVUCVUDXLZTMZVUPUYTCQUWSRZVUCCVUARZVUQUY
+      SVVAUXDUYSUYRVVAUWDUYRUKUYSUXSUYEUYRVVAVLULUWDUYEUYRUYFUNQCUWSJJUOUPUQZUN
+      ZUYTUVTVUCCVUAXMVVBUWDUVTUYRUXDUYCUSZCBDXNVUCCVUAYBVPZVUCCQUWSVUAVBVCVURU
+      YTVUDPPNXOXPZXQSZVUTUYTVUCBXRZSZVUCVUDQVUEVUBVUFXSXTUYTVUNVUOBQVUGUYTVUCB
+      VSZVUNBMUWDVVKUYRUXDUWDUVTUXRVVKUYCUYDCBDYAVPUSVUCBYCYDZVUOQMZUYTVUEQVSZV
+      VMPQKVVNYEPQYFWEVUEQYGYHSYIUQUWDVUHVUMVLZUYRUXDUWDUXSUVSVVOULUYAQBVUGJJUO
+      UPUSVEUYTUWEUWTVUIUYSUXAUXCVFUYSUWTVUIMUXDUYSVUIVUBELZVUFELZXKZUWTTXKZUWT
+      VUIVVRMUYSVUBVUFEYJSUYSVVPUWTVVQTUYSVVPUWSVUAELZOZUWSUWBOZUWTVVPVWAMUYSUW
+      SVUAEVGSUYSVVTUWBUWSUYSUWAXEZUWBXEZVVTUWBUYSUWAUWBUVSUVTUWCUYRYKZYNUYSVWC
+      VUADEYLZLZVVTUYSUVTVUAYMZVWCVWGMUVSUVTUWCUYRYOUVTUXRVWHCBDUUAUUBEDUUCVPUY
+      SVWFEVUAUYSVWFUWAXFZUWBXFZEVWFVWIMUYSDEUUDSUYSUWAUWBVWEUUEZVWJEMUYSEUUFSZ
+      VQUUGYPVWDUWBMUYSEUUHSUUIVIUYSVVAUWSVJVWBUWTMVVCCQUWSVNUWSEVOVPVQUYSVVQYQ
+      ZTMZVVQTMZUYSVWMEVUFYQZXLZTVUFEUUJUYSVWQEVUDXLZTVWPVUDEVUETUUPVWPVUDMPVVG
+      UUKVUDVUEUULWEZUUMUYSEBXLZVUCVSVWRTMUYSVWTEVUCEBUUNUYSEVWIVUCUYSVWIVWJEVW
+      KVWLUUOUYSUWADVSZVWIVUCVSVXAUYSDEUVGSUWADUUQVAUURUUSEBVUCUUTYDYRYRVVQVJVW
+      OVWNVLVUFEUVAVVQUVBWEUVCYSVVSUWTMUYSUWTYTSUVDUNYPUYTVUKVUGDOZAUGZUXBPUYTV
+      UGUWIKZVUKVXCMUYTVXDBNVUGRZUYTVUNNVUEXKZVUGRZVXEUYTVUCNVUBRZVURVUTVXGUYTC
+      NUWSRZVVBVXHUYSVXIUXDUYSVVAUYOVXIVVCWBCQNUWSUVEUVFUNVVFVUCCNUWSVUAVBVCVVH
+      VVJVUCVUDNVUEVUBVUFXSXTUYTVUNVXFBNVUGVVLVXFNMZUYTVUENVSZVXJPNKVXKXOPNYFWE
+      VUENYGYHSYIUQUWDVXDVXEVLZUYRUXDUWDNJKUVSVXLWDUYANBVUGJJUOUPUSVEIVUGUWLVXC
+      UWIUWMUWJVUGMUWKVXBAUWJVUGDWHWIUYPVXBAWKWLVAUYTVXBUWSAUYTVXBVUBDOZVUFDOZX
+      KZUWSUBCLZOZTXKZUWSVXBVXOMUYTVUBVUFDUVHSUYTVXMVXQVXNTUYTVXMUWSVUADOZOZVXQ
+      UWSVUADUVIUYTUVTVXTVXQMVVEUVTVXSVXPUWSCBDUVJVIVAYRVXNTMZUYTVYAVWPVUCXLZTM
+      VYBVUDVUCXLVUSTVWPVUDVUCVWSUVKVUDVUCUVLVVIUVMVUFDUVNUVOSYSUYTVXRVXQUWSVXQ
+      YTUYTVVAVXQUWSMVVDCQUWSUVPVAYRVQWIUYSUXAUXCWMVQUWPVUJVULUIGVUGUWQUWFVUGMZ
+      UWHVUJUWOVULVYCUWGVUIUWEUWFVUGEWOWRVYCUWNVUKPUWFVUGUWMXHWSWTXAXBXCXDUVQUV
+      R $.
+      $( [7-Oct-2014] $)
+  $}
+
+  ${
+    $d A a d e $.  $d N a d e $.  $d a b c d e $.
+    $( Lemma for ~ eldioph2 .  Construct necessary renaming function for one
+       direction. $)
+    eldioph2lem1 $p |- ( ( N e. NN0 /\ A e. Fin /\ ( 1 ... N ) C_ A ) -> E. d
+        e. ( ZZ>= ` N ) E. e e. _V ( e : ( 1 ... d ) -1-1-onto-> A /\ ( e |` (
+        1 ... N ) ) = ( _I |` ( 1 ... N ) ) ) ) $=
+      ( wcel cfn c1 cfz co chash cfv wf1o wceq cvv wbr cun c0 a1i syl wb va cn0
+      wss w3a caddc cdif cv wex cres cid wa wrex cuz cc cr nn0re 3ad2ant1 recnd
+      cen ax-1cn addcom sylancl diffi 3ad2ant2 fzfid incom disjdif eqtri hashun
+      cin syl3anc uncom simp3 undif sylib syl5eq fveq2d hashfz1 3eqtr3d oveq12d
+      oveq2d cz 1z hashcl nn0z fzen ovex ensym fzfi hashen mp2an sylibr sylancr
+      3eqtrd mpbid breng cle simpl1 simpl2 nn0addge2 syl2anc breqtrrd syl3anbrc
+      adantr eluz2 vex resiexg ax-mp unex simpr f1oi ltp1 fzdisj f1oun syl22anc
+      clt fzsplit1nn0 syl6reqr simpl3 f1oeq23 resundir dmres f1odm adantl eqtrd
+      cdm ineq2d relres reldm0 residm uneq12d oveq2 f1oeq2 anbi1d f1oeq1 reseq1
+      wrel un0 eqeq1d anbi12d rcla42ev syl112anc ex exlimdv mpd ) CUBEZAFEZGCHI
+      ZAUCZUDZCGUEIZAJKZHIZAUUHUFZUAUGZLZUAUHZGDUGZHIZABUGZLZUUTUUHUIZUJUUHUIZM
+      ZUKZBNULDCUMKZULZUUJUUMUUNUSOZUUQUUJUUMJKZUUNJKZMZUVHUUJUVIGCUEIZUVJCUEIZ
+      HIZJKZGUVJHIZJKZUVJUUJUUMUVNJUUJUUKUVLUULUVMHUUJCUNEGUNEUUKUVLMUUJCUUFUUG
+      CUOEZUUICUPZUQZURUTCGVAVBUUJUUNUUHPZJKZUVJUUHJKZUEIZUULUVMUUJUUNFEZUUHFEU
+      UNUUHVJZQMZUWBUWDMUUGUUFUWEUUIAUUHVCVDZUUJGCVEUWGUUJUWFUUHUUNVJQUUNUUHVFU
+      UHAVGVHZRUUNUUHVIVKUUJUWAAJUUJUWAUUHUUNPZAUUNUUHVLZUUJUUIUWJAMZUUFUUGUUIV
+      MUUHAVNZVOVPVQUUJUWCCUVJUEUUFUUGUWCCMUUICVRUQWAVSZVTVQUUJUVNUVPUSOZUVOUVQ
+      MZUUJUVPUVNUSOZUWOUUJGWBEZUVJWBEZCWBEZUWQUWRUUJWCRUUJUVJUBEZUWSUUJUWEUXAU
+      WHUUNWDSZUVJWESUUFUUGUWTUUICWEZUQCGUVJWFVKUVPUVNUVLUVMHWGWHSUVNFEUVPFEUWP
+      UWOTUVLUVMWIGUVJWIUVNUVPWJWKWLUUJUXAUVQUVJMUXBUVJVRSWNUUJUUMFEUWEUVKUVHTU
+      UKUULWIUWHUUMUUNWJWMWOUUJUWEUVHUUQTUWHUUMUUNFUAWPSWOUUJUUPUVGUAUUJUUPUVGU
+      UJUUPUKZUULUVFEZUUOUVCPZNEZGUULHIZAUXFLZUXFUUHUIZUVCMZUVGUXDUWTUULWBEZCUU
+      LWQOZUXEUXDUUFUWTUUFUUGUUIUUPWRZUXCSUXDUULUBEZUXLUXDUUGUXOUUFUUGUUIUUPWSA
+      WDSZUULWESUUJUXMUUPUUJCUVMUULWQUUJUVRUXACUVMWQOUVTUXBCUVJWTXAUWNXBXDZCUUL
+      XEXCUXGUXDUUOUVCUAXFUUHNEUVCNEGCHWGUUHNXGXHXIRUXDUUMUUHPZUWAUXFLZUXIUXDUU
+      PUUHUUHUVCLZUUMUUHVJZQMUWGUXSUUJUUPXJUXTUXDUUHXKRUXDUYAUUHUUMVJZQUUMUUHVF
+      UXDUUFCUUKXPOZUYBQMUXNUXDUVRUYCUXDUUFUVRUXNUVSSCXLSUBGCUUKUULXMXAZVPUWGUX
+      DUWIRUUMUUNUUHUUHUUOUVCXNXOUXDUXRUXHMUWAAMUXSUXITUXDUXHUUHUUMPZUXRUXDUUFU
+      XOUXMUXHUYEMUXNUXPUXQCUULXQVKUUMUUHVLXRUXDUWAUWJAUWKUXDUUIUWLUUFUUGUUIUUP
+      XSUWMVOVPUXRUXHUWAAUXFXTXAWOUXDUXJUUOUUHUIZUVCUUHUIZPZQUVCPZUVCUXJUYHMUXD
+      UUOUVCUUHYARUXDUYFQUYGUVCUXDUYFYFZQMZUYFQMZUXDUYJUUHUUOYFZVJZQUUOUUHYBUXD
+      UYNUYBQUXDUYMUUMUUHUUPUYMUUMMUUJUUMUUNUUOYCYDYGUYDYEVPUYFYQUYLUYKTUUOUUHY
+      HUYFYIXHWLUYGUVCMUXDUJUUHYJRYKUYIUVCMUXDUYIUVCQPUVCQUVCVLUVCYRVHRWNUVEUXI
+      UXKUKUXHAUUTLZUVDUKDBUULUXFUVFNUURUULMZUVAUYOUVDUYPUUSUXHMUVAUYOTUURUULGH
+      YLUUSUXHAUUTYMSYNUUTUXFMZUYOUXIUVDUXKUXHAUUTUXFYOUYQUVBUXJUVCUUTUXFUUHYPY
+      SYTUUAUUBUUCUUDUUE $.
+      $( [8-Oct-2014] $)
+  $}
+
+  ${
+    $d N a b c $.  $d S a b c $.  $d A a b c $.
+    $( Lemma for ~ eldioph2 .  Construct necessary renaming function for one
+       direction. $)
+    eldioph2lem2 $p |- ( ( ( N e. NN0 /\ -. S e. Fin ) /\ ( ( 1 ... N ) C_ S /\
+        A e. ( ZZ>= ` N ) ) ) -> E. c ( c : ( 1 ... A ) -1-1-> S /\ ( c |` ( 1
+        ... N ) ) = ( _I |` ( 1 ... N ) ) ) ) $=
+      ( va wcel cfn wa c1 cfz wss wf1 cres wceq cun cin c0 adantl a1i syl wn co
+      cn0 cuz cfv cdif cv wex cid simplr difinf sylancl diffi ax-mp isinffi crn
+      fzfi wf1o f1f1orn incom disjdif eqtri wf f1f frn ssrin syl6sseq ss0 f1oun
+      f1oi syl22anc f1of1 wb uncom simplrr fzss2 undif sylib syl5eq f1eq2 mpbid
+      difss syl6ss simplrl unssd f1ss syl2anc resundir dmres f1dm ineq1d syl6eq
+      cdm wrel relres reldm0 sylibr residm uneq12d un0 3eqtrd vex cvv ovex unex
+      resiexg f1eq1 reseq1 eqeq1d anbi12d cla4ev ex exlimdv mpd ) CUCFZBGFUAZHZ
+      ICJUBZBKZACUDUEFZHZHZIAJUBZXRUFZBXRUFZEUGZLZEUHZYCBDUGZLZYIXRMZUIXRMZNZHZ
+      DUHZYBYEGFUAZYDGFZYHYBXPXRGFYPXOXPYAUJICUQBXRUKULYCGFYQIAUQYCXRUMUNYEYDEU
+      OULYBYGYOEYBYGYOYBYGHZYCBYFYLOZLZYSXRMZYLNZYOYRYCYFUPZXROZYSLZUUDBKYTYRYD
+      XROZUUDYSLZUUEYRUUFUUDYSURZUUGYRYDUUCYFURZXRXRYLURZYDXRPZQNZUUCXRPZQNZUUH
+      YGUUIYBYDYEYFUSRUUJYRXRVJSUULYRUUKXRYDPQYDXRUTXRYCVAVBZSYRUUMQKUUNYRUUMYE
+      XRPZQYRUUCYEKZUUMUUPKYGUUQYBYGYDYEYFVCUUQYDYEYFVDYDYEYFVETZRUUCYEXRVFTUUP
+      XRYEPQYEXRUTXRBVAVBVGUUMVHTYDUUCXRXRYFYLVIVKUUFUUDYSVLTYRUUFYCNUUGUUEVMYR
+      UUFXRYDOZYCYDXRVNYRXRYCKZUUSYCNYRXTUUTXQXSXTYGVOCIAVPTXRYCVQVRVSUUFYCUUDY
+      SVTTWAYRUUCXRBYGUUCBKYBYGUUCYEBUURBXRWBWCRXQXSXTYGWDWEYCUUDBYSWFWGYRUUAYF
+      XRMZYLXRMZOZQYLOZYLUUAUVCNYRYFYLXRWHSYRUVAQUVBYLYRUVAWMZQNZUVAQNZYRUVEXRY
+      FWMZPZQYFXRWIYRUVIUVHXRPZQXRUVHUTYRUVJUUKQYRUVHYDXRYGUVHYDNYBYDYEYFWJRWKU
+      UOWLVSVSUVAWNUVGUVFVMYFXRWOUVAWPUNWQUVBYLNYRUIXRWRSWSUVDYLNYRUVDYLQOYLQYL
+      VNYLWTVBSXAYNYTUUBHDYSYFYLEXBXRXCFYLXCFICJXDXRXCXFUNXEYIYSNZYJYTYMUUBYCBY
+      IYSXGUVKYKUUAYLYIYSXRXHXIXJXKWGXLXMXN $.
+      $( [8-Oct-2014] $)
+  $}
+
+  ${
+    $d P a b c e t u g h $.  $d S a b c d e t u g h $.
+    $d N a b c d e f t u g h $.
+    $( Construct a Diophantine set from a polynomial with witness variables
+       drawn from any set whatsoever, via ~ mzpcompact2 .  (Contributed by
+       Stefan O'Rear, 8-Oct-2014.) $)
+    eldioph2 $p |- ( ( N e. NN0 /\ ( S e. _V /\ ( 1 ... N ) C_ S ) /\ P e. (
+        mzPoly ` S ) ) ->
+        { t | E. u e. ( NN0 ^m S ) ( t = ( u |` ( 1 ... N ) ) /\ ( P ` u ) = 0
+        ) } e. ( Dioph ` N ) ) $=
+      ( va ve wcel cvv co wss wa cfv cv cres wceq wrex cfn cc0 ccom vb vc vd vg
+      vh cn0 c1 cfz cmzp w3a cz cmap cmpt cab cdioph mzpcompact2 3ad2ant3 fveq1
+      eqeq1d anbi2d rexbidv abbidv ad2antll wi cun wf1o cid cuz simplll simplrl
+      fzfi unfi sylancl a1i eldioph2lem1 syl3anc ccnv wfun wrel elmapfun funrel
+      ssun2 coires1 eqcomd 3syl adantl f1ococnv2 ad2antrl reseq1d ssun1 resabs1
+      ax-mp syl6req resco syl6eq adantr coeq2d eqcomi 3eqtrd fveq2d ovex simprl
+      coass wf ad2antrr ad3antrrr simpr wf1 f1of1 simprr unssd f1ss syl2anc f1f
+      syl mapco2g syl22anc coeq1 eqid fvex fvmpt eqtr4d mpteq2dva diophrw eqtrd
+      fveq1d simpll simplrr f1ocnv f1of mzprename eldioph eqeltrd ex rexlimdvva
+      fssres mpd exp31 3adant3 imp31 adantrr ) EUFHZDIHZUGEUHJZDKZLZCDUIMHZUJZF
+      NZDKZCGUKDULJZGNZUUIOZUANZMZUMZPZLZUAUUIUIMZQFRQZBNZANZUUDOPZUVBCMZSPZLZA
+      UFDULJZQZBUNZEUOMZHZUUGUUBUUTUUFCDFUAGUPUQUUHUURUVKFUARUUSUUHUUIRHZUUNUUS
+      HZLZLZUURUVKUVOUURLUVIUVCUVBUUPMZSPZLZAUVGQZBUNZUVJUUQUVIUVTPUVOUUJUUQUVH
+      UVSBUUQUVFUVRAUVGUUQUVEUVQUVCUUQUVDUVPSUVBCUUPURUSUTVAVBVCUVOUUJUVTUVJHZU
+      UQUUHUVNUUJUWAUUBUUFUVNUUJUWAVDVDUUGUUBUUFLZUVNUUJUWAUWBUVNLZUUJLZUGUBNZU
+      HJZUUIUUDVEZUCNZVFZUWHUUDOVGUUDOPZLZUCIQUBEVHMZQZUWAUWDUUBUWGRHZUUDUWGKZU
+      WMUUBUUFUVNUUJVIUWDUVLUUDRHUWNUWBUVLUVMUUJVJUGEVKUUIUUDVLVMUWOUWDUUDUUIWB
+      VNUWGUCEUBVOVPUWDUWKUWAUBUCUWLIUWDUWEUWLHZUWHIHZLZLZUWKUWAUWSUWKLZUVTUVAU
+      DNZUUDOPUXAUEUKUWFULJZUENZUWHVQZUUIOZTZUUNMZUMZMSPLUDUFUWFULJQBUNZUVJUWTU
+      VTUVCUVBGUUKUULUWHTZUXHMZUMZMZSPZLZAUVGQZBUNZUXIUWTUVSUXPBUWTUVRUXOAUVGUW
+      TUVQUXNUVCUWTUVPUXMSUWTUVBUUPUXLUWTGUUKUUOUXKUWTUULUUKHZLZUUOUXJUXETZUUNM
+      ZUXKUXSUUMUXTUUNUXSUUMUULVGUUIOZTZUULUWHUXETZTZUXTUXRUUMUYCPZUWTUXRUULVRU
+      ULVSZUYFUULUKDVTUULWAUYGUYCUUMUULUUIWCWDWEWFUXSUYBUYDUULUWTUYBUYDPUXRUWTU
+      YBUWHUXDTZUUIOZUYDUWTUYIVGUWGOZUUIOZUYBUWTUYHUYJUUIUWIUYHUYJPUWSUWJUWFUWG
+      UWHWGWHWIUUIUWGKZUYKUYBPUUIUUDWJZVGUUIUWGWKWLWMUWHUXDUUIWNWOWPWQUYEUXTPUX
+      SUXTUYEUULUWHUXEXCWRVNWSWTUXSUXJUXBHZUXKUYAPUXSUWFIHZUUCUXRUWFDUWHXDZUYNU
+      YOUXSUGUWEUHXAZVNUWDUUCUWRUWKUXRUWBUUCUVNUUJUUBUUCUUEXBXEXFUWTUXRXGUWTUYP
+      UXRUWTUWFDUWHXHZUYPUWTUWFUWGUWHXHZUWGDKZUYRUWIUYSUWSUWJUWFUWGUWHXIWHUWDUY
+      TUWRUWKUWDUUIUUDDUWCUUJXGUWBUUEUVNUUJUUBUUCUUEXJXEXKXEUWFUWGDUWHXLXMZUWFD
+      UWHXNXOWPUULUKDUWHUWFXPXQUEUXJUXGUYAUXBUXHUXCUXJPUXFUXTUUNUXCUXJUXEXRWTUX
+      HXSUXTUUNXTYAXOYBYCYFUSUTVAVBUWTUUCUYRUWJUXQUXIPUWCUUCUUJUWRUWKUUBUUCUUEU
+      VNVJXFVUAUWSUWIUWJXJUXHDUWFUWHUUDBAUDGYDVPYEUWTUUBUWPUXHUWFUIMHZUXIUVJHUW
+      CUUBUUJUWRUWKUUBUUFUVNYGXFUWDUWPUWQUWKVJUWTUYOUVMUUIUWFUXEXDZVUBUYOUWTUYQ
+      VNUWDUVMUWRUWKUWBUVLUVMUUJYHXEUWIVUCUWSUWJUWIUWGUWFUXDXDZUYLVUCUWIUWGUWFU
+      XDVFVUDUWFUWGUWHYIUWGUWFUXDYJXOUYMUWGUWFUUIUXDYPVMWHUEUXEUUNUUIUWFYKVPUDB
+      UXHUWEEYLVPYMYNYOYQYRYSYTUUAYMYNYOYQ $.
+      $( [8-Oct-2014] $)
+  $}
+
+  ${
+    $d A a b p $.  $d N a b c d e u t p $.  $d S a b c d e u t p $.
+    $( While Diophantine sets were defined to have a finite number of witness
+       variables consequtively following the observable variables, this is not
+       necessary; they can equivalently be taken to use any witness set
+       ` ( S \ ( 1 ... N ) ) ` .  For instance, in ~ diophin we use this to
+       take the two input sets to have disjoint witness sets.  (Contributed by
+       Stefan O'Rear, 8-Oct-2014.) $)
+    eldioph2b $p |- ( ( ( N e. NN0 /\ S e. _V ) /\ ( -. S e. Fin /\ ( 1 ... N )
+        C_ S ) ) -> ( A e. ( Dioph ` N ) <->
+        E. p e. ( mzPoly ` S ) A = { t | E. u e. ( NN0 ^m S ) ( t = ( u |` ( 1
+        ... N ) ) /\ ( p ` u ) = 0 ) } ) ) $=
+      ( vd vb va vc ve wcel cvv wa co cfv cv cres wceq wrex cn0 cfn cfz wss cc0
+      wn c1 cdioph cmap cab cuz eldiophb wf1 cid simplll simplrl simplrr simprl
+      cmzp eldioph2lem2 syl22anc rexv sylibr cz ccom wf simplr ad3antrrr simprr
+      wex ad2antrr f1f syl mzprename syl3anc diophrw eqcomd fveq1 eqeq1d anbi2d
+      cmpt w3a rexbidv abbidv eqeq2d rcla4ev syl2anc rexlimdva eqeq1 syl5ibrcom
+      ex mpd rexlimdvva adantld syl5bi simpr simpllr eldioph2 syl121anc eqeltrd
+      adantr impbid ) EUALZDMLZNZDUBLUFZUGEUCOZDUDZNZNZCEUHPZLZCBQZAQZXGRSZXNFQ
+      ZPZUESZNZAUADUIOZTZBUJZSZFDUSPZTZXLXCCXMGQZXGRSYFHQZPUESNGUAUGIQZUCOZUIOT
+      BUJZSZHYIUSPZTIEUKPZTZNXJYEGBCIEHULXJYNYEXCXJYKYEIHYMYLXJYHYMLZYGYLLZNZNZ
+      YEYKYJYBSZFYDTZYRYIDJQZUMZUUAXGRUNXGRSZNZJMTZYTYRUUDJVJZUUEYRXCXFXHYOUUFX
+      CXDXIYQUOXEXFXHYQUPXEXFXHYQUQXJYOYPURYHDEJUTVAUUDJVBVCYRUUDYTJMYRUUAMLZNZ
+      UUDYTUUHUUDNZKVDDUIOKQUUAVEYGPWAZYDLZYJXOXNUUJPZUESZNZAXTTZBUJZSZYTUUIXDY
+      PYIDUUAVFZUUKXJXDYQUUGUUDXCXDXIVGVHZYRYPUUGUUDXJYOYPVIVKUUIUUBUURUUHUUBUU
+      CURZYIDUUAVLVMKUUAYGYIDVNVOUUIXDUUBUUCUUQUUSUUTUUHUUBUUCVIXDUUBUUCWBUUPYJ
+      YGDYIUUAXGBAGKVPVQVOYSUUQFUUJYDXPUUJSZYBUUPYJUVAYAUUOBUVAXSUUNAXTUVAXRUUM
+      XOUVAXQUULUEXNXPUUJVRVSVTWCWDWEWFWGWKWHWLYKYCYSFYDCYJYBWIWCWJWMWNWOXJYCXL
+      FYDXJXPYDLZNZYCXLUVCYCNCYBXKUVCYCWPUVCYBXKLZYCUVCXCXDXHUVBUVDXCXDXIUVBUOX
+      CXDXIUVBWQXEXFXHUVBUQXJUVBWPABXPDEWRWSXAWTWKWHXB $.
+      $( [8-Oct-2014] $)
+  $}
+
+  ${
+    $d A a b c d $.  $d B a b c d $.
+    $( Remove antecedent on ` B ` from Diophantine set contructors.
+       (Contributed by Stefan O'Rear, 10-Oct-2014.) $)
+    eldiophelnn0 $p |- ( A e. ( Dioph ` B ) -> B e. NN0 ) $=
+      ( vc vd va vb cdioph cfv wcel cn0 cv c1 cfz co cres wceq cc0 wa cmap wrex
+      cab cmzp cuz eldiophb simplbi ) ABGHIBJIACKDKZLBMNOPUFEKHQPRDJLFKMNZSNTCU
+      APEUGUBHTFBUCHTDCAFBEUDUE $.
+      $( [10-Oct-2014] $)
+  $}
+
+  ${
+    $d A p t u $.  $d N p t u $.
+    $( Define Diophantine sets in terms of polynomials with variables indexed
+       by ` NN ` .  This avoids a quantifier over the number of witness
+       variables and will be easier to use than ~ eldiophb in most cases.
+       (Contributed by Stefan O'Rear, 10-Oct-2014.) $)
+    eldioph3b $p |- ( A e. ( Dioph ` N ) <-> ( N e. NN0 /\
+        E. p e. ( mzPoly ` NN ) A = { t | E. u e. ( NN0 ^m NN ) ( t = ( u |` (
+        1 ... N ) ) /\ ( p ` u ) = 0 ) } ) ) $=
+      ( cdioph cfv wcel cn0 cv c1 co wceq wa cn wrex cvv wb cfn com cfz cc0 cab
+      cres cmap cmzp eldiophelnn0 nnex wss ominf cen wbr omex nnenom enfi mp2an
+      wn mtbir elfznn ssriv eldioph2b mpanr12 mpan2 biadan2 ) CDFGHZDIHZCBJAJZK
+      DUALZUDMVGEJZGUBMNAIOUELPBUCMEOUFGPZCDUGVFOQHZVEVJRZUHVFVKNOSHZUQVHOUIVLV
+      MTSHZUJTQHOTUKULVMVNRUMUNOTQUOUPUREVHOVIDUSUTABCODEVAVBVCVD $.
+      $( [10-Oct-2014] $)
+  $}
+
+  $( could maybe shorten a LOT of these with a canned substitution huh? $)
+  ${
+    $d A a b p t u $.  $d N a b p t u $.  $d P a b p t u $.
+    $( Inference version of ~ eldioph3b with quantifier expanded.  (Contributed
+       by Stefan O'Rear, 10-Oct-2014.) $)
+    eldioph3 $p |- ( ( N e. NN0 /\ P e. ( mzPoly ` NN ) ) -> { t | E. u e. (
+        NN0 ^m NN ) ( t = ( u |` ( 1 ... N ) ) /\ ( P ` u ) = 0 ) } e. ( Dioph
+        ` N ) ) $=
+      ( va vb vp cn0 wcel cn cfv wa cv co cres wceq cc0 wrex cab eqeq1d cmzp c1
+      cfz cdioph simpl simpr eqidd fveq1 anbi2d rexbidv abbidv weq eqeq1 anbi1d
+      cmap reseq1 eqeq2d anbi12d cbvrexv syl6bb cbvabv syl6eq rcla4ev eldioph3b
+      fveq2 syl2anc sylanbrc ) DHIZCJUAKZIZLZVHBMZAMZUBDUCNZOZPZVMCKZQPZLZAHJUO
+      NZRZBSZEMZFMZVNOZPZWDGMZKZQPZLZFVTRZESZPZGVIRZWBDUDKIVHVJUEVKVJWBWBPZWNVH
+      VJUFVKWBUGWMWOGCVIWGCPZWLWBWBWPWLWFWDCKZQPZLZFVTRZESWBWPWKWTEWPWJWSFVTWPW
+      IWRWFWPWHWQQWDWGCUHTUIUJUKWTWAEBEBULZWTVLWEPZWRLZFVTRWAXAWSXCFVTXAWFXBWRW
+      CVLWEUMUNUJXCVSFAVTFAULZXBVPWRVRXDWEVOVLWDVMVNUPUQXDWQVQQWDVMCVETURUSUTVA
+      VBUQVCVFFEWBDGVDVG $.
+      $( [10-Oct-2014] $)
+  $}
+

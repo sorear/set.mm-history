@@ -1,0 +1,558 @@
+$(
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+    Multivariate polynomials over the integers
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+$)
+
+  $c mzPolyCld $.
+  $c mzPoly $.
+  $( Extend class notation to include pre-polynomial rings. $)
+  cmzpcl $a class mzPolyCld $.
+  $( Extend class notation to include polynomial rings. $)
+  cmzp $a class mzPoly $.
+
+  ${
+    $d f g i j p v x $.
+    $( Define the polynomially closed function rings over an arbitrary index
+       set ` v ` .  The set ` ( mzPolyCld `` v ) ` contains all sets of
+       functions from ` ( ZZ ^m v ) ` to ` ZZ ` which include all constants and
+       projections and are closed under addition and multiplication.  This is a
+       "temporary" set used to define the polynomial function ring itself
+       ` ( mzPoly `` v ) ` ; see ~ df-mzp . $)
+    df-mzpcl $a |- mzPolyCld = ( v e. _V |-> { p | ( p C_ ( ZZ ^m ( ZZ ^m v ) )
+        /\
+        ( ( A. i e. ZZ ( ( ZZ ^m v ) X. { i } ) e. p
+           /\ A. j e. v ( x e. ( ZZ ^m v ) |-> ( x ` j ) ) e. p )
+        /\ A. f e. p A. g e. p ( ( f oF + g ) e. p /\ ( f oF x. g ) e. p ) ) )
+        } ) $.
+
+    $( Polynomials over ` ZZ ` with an arbitrary index set, that is, the
+       smallest ring of functions containing all constant functions and all
+       projections.  This is almost the most general reasonable definition; to
+       reach full generality, we would need to be able to replace ZZ with an
+       arbitrary (semi-)ring (and a coordinate subring), but rings have not
+       been defined yet. $)
+    df-mzp $a |- mzPoly = ( v e. _V |-> |^| ( mzPolyCld ` v ) ) $.
+  $}
+
+  ${
+    $d V v p f g a b c $.  $d V v p i a b c $.  $d V v p j x a b c $.
+    $( Substitution lemma for ` mzPolyCld ` .  (Contributed by Stefan O'Rear,
+       4-Oct-2014.) $)
+    mzpclval $p |- ( V e. _V -> ( mzPolyCld ` V ) = { p | ( p C_ ( ZZ ^m ( ZZ
+        ^m V ) ) /\
+        ( ( A. i e. ZZ ( ( ZZ ^m V ) X. { i } ) e. p
+           /\ A. j e. V ( x e. ( ZZ ^m V ) |-> ( x ` j ) ) e. p )
+        /\ A. f e. p A. g e. p ( ( f oF + g ) e. p /\ ( f oF x. g ) e. p ) ) )
+        } ) $=
+      ( va vc vb cvv wcel cfv cv cz cmap co wral cmpt wa cmzpcl wss csn cxp cof
+      caddc cmul cab wceq oveq2d sseq2d xpeq1d eleq1d ralbidv mpteq1 raleqbi1dv
+      vv oveq2 syl anbi12d anbi1d abbidv df-mzpcl ovex abssexg ax-mp fvmpt sneq
+      xpeq2d cbvralv fveq2 mpteq2dv cbvmptv eleq1i syl6bb anbi12i anbi1i anbi2i
+      weq fveq1 abbii syl6eq ) FKLFUAMGNZOOFPQZPQZUBZWDHNZUCZUDZWCLZHORZIWDJNZI
+      NZMZSZWCLZJFRZTZBNZCNZUFUEQWCLWSWTUGUEQWCLTCWCRBWCRZTZTZGUHZWFWDDNZUCZUDZ
+      WCLZDORZAWDENZANZMZSZWCLZEFRZTZXATZTZGUHUQFWCOOUQNZPQZPQZUBZXTWHUDZWCLZHO
+      RZIXTWNSZWCLZJXSRZTZXATZTZGUHXDKUAXSFUIZYKXCGYLYBWFYJXBYLYAWEWCYLXTWDOPXS
+      FOPURZUJUKYLYIWRXAYLYEWKYHWQYLYDWJHOYLYCWIWCYLXTWDWHYMULUMUNYGWPJXSFYLYFW
+      OWCYLXTWDUIYFWOUIYMIXTWDWNUOUSUMUPUTVAUTVBIUQBCHJGVCWEKLXDKLOWDPVDXBGWEKV
+      EVFVGXCXRGXBXQWFWRXPXAWKXIWQXOWJXHHDOHDVSZWIXGWCYNWHXFWDWGXEVHVIUMVJWPXNJ
+      EFJEVSZWPIWDXJWMMZSZWCLXNYOWOYQWCYOIWDWNYPWLXJWMVKVLUMYQXMWCIAWDYPXLXJWMX
+      KVTVMVNVOVJVPVQVRWAWB $.
+      $( [4-Oct-2014] $)
+  $}
+
+  ${
+    $d V v p f g $.  $d V v p i $.  $d V v p j x $.  $d P v p f g $.
+    $d P v p i $.  $d P v p j x $.
+    $( Double substitution lemma for ` mzPolyCld ` .  (Contributed by Stefan
+       O'Rear, 4-Oct-2014.) $)
+    elmzpcl $p |- ( ( V e. _V /\ P e. _V ) -> ( P e. ( mzPolyCld ` V ) <-> ( P
+        C_ ( ZZ ^m ( ZZ ^m V ) ) /\
+        ( ( A. i e. ZZ ( ( ZZ ^m V ) X. { i } ) e. P
+           /\ A. j e. V ( x e. ( ZZ ^m V ) |-> ( x ` j ) ) e. P )
+        /\ A. f e. P A. g e. P ( ( f oF + g ) e. P /\ ( f oF x. g ) e. P ) ) )
+        ) ) $=
+      ( vp cvv wcel cfv cv cz cmap co wss wral wa eleq2 anbi12d cmzpcl csn cmpt
+      cxp caddc cof cmul mzpclval eleq2d wceq sseq1 ralbidv raleqbi1dv sylan9bb
+      cab elabg ) GIJZBGUAKZJBHLZMMGNOZNOZPZUTELUBUDZUSJZEMQZAUTFLALKUCZUSJZFGQ
+      ZRZCLZDLZUEUFOZUSJZVJVKUGUFOZUSJZRZDUSQZCUSQZRZRZHUOZJBIJBVAPZVCBJZEMQZVF
+      BJZFGQZRZVLBJZVNBJZRZDBQZCBQZRZRZUQURWABACDEFGHUHUIVTWNHBIUSBUJZVBWBVSWMU
+      SBVAUKWOVIWGVRWLWOVEWDVHWFWOVDWCEMUSBVCSULWOVGWEFGUSBVFSULTVQWKCUSBVPWJDU
+      SBWOVMWHVOWIUSBVLSUSBVNSTUMUMTTUPUN $.
+      $( [4-Oct-2014] $)
+  $}
+
+  ${
+    $d V v p f g a b $.  $d P v p f g a b $.  $d F v p f g a b $.
+    $d G v p f g a b $.
+    $( The set of all functions with the signature of a polynomial is a
+       polynomially closed set.  This is a lemma to show that the intersection
+       in ~ df-mzp is well defined.  (Contributed by Stefan O'Rear,
+       4-Oct-2014.) $)
+    mzpclall $p |- ( V e. _V -> ( ZZ ^m ( ZZ ^m V ) ) e. ( mzPolyCld ` V ) ) $=
+      ( vv vf vg va vb cz cv cmap co cmzpcl cfv wcel cvv wral wa caddc wf elmap
+      zex wceq oveq2 oveq2d fveq2 eleq12d wss csn cxp cmpt cof cmul wb vex ovex
+      elmzpcl mp2an ssid constmap rgen ffvelrn sylanb ancoms eqid sylibr pm3.2i
+      wel fmptd zaddcl adantl simpl simpr a1i off zmulcl anbi12i 3imtr4i rgen2a
+      inidm jca mpbir2an vtoclg ) GGBHZIJZIJZWBKLZMZGGAIJZIJZAKLZMBANWBAUAZWDWH
+      WEWIWJWCWGGIWBAGIUBUCWBAKUDUEWFWDWDUFZWCCHZUGUHWDMZCGOZDWCWLDHZLZUIZWDMZC
+      WBOZPZWLWOQUJJZWDMZWLWOUKUJJZWDMZPZDWDOCWDOZPZWBNMWDNMWFWKXGPULBUMZGWCIUN
+      DWDCDCCWBUOUPWDUQWTXFWNWSWMCGWCWLGGWBIUNZCUMTURUSWRCWBCBVFZWCGWQRWRXJDWCW
+      PGWQWOWCMZXJWPGMZXKWBGWORXJXLGWBWOTXHSWBGWLWOUTVAVBWQVCVGGWCWQTXISVDUSVEX
+      ECDWDWCGWLRZWCGWORZPZWCGXARZWCGXCRZPWLWDMZWOWDMZPXEXOXPXQXOEFWCWCWCQGGGWL
+      WONNEHZGMFHZGMPZXTYAQJGMXOXTYAVHVIXMXNVJZXMXNVKZWCNMXOXIVLZYEWCVRZVMXOEFW
+      CWCWCUKGGGWLWONNYBXTYAUKJGMXOXTYAVNVIYCYDYEYEYFVMVSXRXMXSXNGWCWLTXISGWCWO
+      TXISVOXBXPXDXQGWCXATXISGWCXCTXISVOVPVQVEVTWA $.
+      $( [4-Oct-2014] $)
+
+    $( Corrolary of ~ mzpclall :  Polynomially closed function sets are not
+       empty.  (Contributed by Stefan O'Rear, 4-Oct-2014.) $)
+    mzpcln0 $p |- ( V e. _V -> ( mzPolyCld ` V ) =/= (/) ) $=
+      ( cvv wcel cz cmap co cmzpcl cfv c0 wne mzpclall ne0i syl ) ABCDDAEFEFZAG
+      HZCOIJAKONLM $.
+      $( [4-Oct-2014] $)
+
+    $( Defining property 1 of a polynomially closed function set ` P ` : it
+       contains all constant functions.  (Contributed by Stefan O'Rear,
+       4-Oct-2014.) $)
+    mzpcl1 $p |- ( ( V e. _V /\ P e. ( mzPolyCld ` V ) /\ F e. ZZ ) -> ( ( ZZ
+        ^m V ) X. { F } ) e. P ) $=
+      ( vf vg cvv wcel cmzpcl cfv cz w3a cmap co cv csn cxp wral wa cof syl2anc
+      simp3 wss cmpt caddc cmul simp2 simp1 elex 3ad2ant2 elmzpcl mpbid simprll
+      wb syl wceq sneq xpeq2d eleq1d rcla4va ) CFGZACHIZGZBJGZKZVCJCLMZDNZOZPZA
+      GZDJQZVEBOZPZAGZUTVBVCUAVDAJVELMUBZVJEVEVFENZIUCAGDCQZRVFVOUDSMAGVFVOUESM
+      AGREAQDAQZRRZVJVDVBVRUTVBVCUFVDUTAFGZVBVRUMUTVBVCUGVBUTVSVCAVAUHUIEADEDDC
+      UJTUKVNVJVPVQULUNVIVMDBJVFBUOZVHVLAVTVGVKVEVFBUPUQURUST $.
+      $( [4-Oct-2014] $)
+
+    $( Defining property 2 of a polynomially closed function set ` P ` : it
+       contains all projections.  (Contributed by Stefan O'Rear,
+       4-Oct-2014.) $)
+    mzpcl2 $p |- ( ( V e. _V /\ P e. ( mzPolyCld ` V ) /\ F e. V ) -> ( g e. (
+        ZZ ^m V ) |-> ( g ` F ) ) e. P ) $=
+      ( vf cvv wcel cmzpcl cfv w3a cz cmap co cv cmpt wral simp3 wa cof syl2anc
+      wss csn cxp caddc cmul simp2 wb simp1 elex 3ad2ant2 elmzpcl mpbid simprlr
+      syl wceq fveq2 mpteq2dv eleq1d rcla4va ) DFGZADHIZGZCDGZJZVCBKDLMZENZBNZI
+      ZOZAGZEDPZBVECVGIZOZAGZUTVBVCQVDAKVELMUAZVEVFUBUCAGEKPZVKRVFVGUDSMAGVFVGU
+      ESMAGRBAPEAPZRRZVKVDVBVRUTVBVCUFVDUTAFGZVBVRUGUTVBVCUHVBUTVSVCAVAUIUJBAEB
+      EEDUKTULVOVPVKVQUMUNVJVNECDVFCUOZVIVMAVTBVEVHVLVFCVGUPUQURUST $.
+      $( [4-Oct-2014] $)
+
+    $( Defining properties 2 of a polynomially closed function set ` P ` : it
+       is closed under pointwise addition and multiplication.  (Contributed by
+       Stefan O'Rear, 4-Oct-2014.) $)
+    mzpcl34 $p |- ( ( V e. _V /\ P e. ( mzPolyCld ` V ) /\ ( F e. P /\ G e. P )
+        ) -> ( ( F oF + G ) e. P /\ ( F oF x. G ) e. P ) ) $=
+      ( vf vg cvv wcel cfv wa cv cof co wral cz cmap syl2anc wceq oveq1 eleq1d
+      cmzpcl w3a caddc cmul simp3 wss csn cxp cmpt simp2 wb simp1 elex 3ad2ant2
+      elmzpcl mpbid simprr syl anbi12d oveq2 rcla42va ) DGHZADUAIZHZBAHCAHJZUBZ
+      VEEKZFKZUCLZMZAHZVGVHUDLZMZAHZJZFANEANZBCVIMZAHZBCVLMZAHZJZVBVDVEUEVFAOOD
+      PMZPMUFZWBVGUGUHAHEONFWBVGVHIUIAHEDNJZVPJJZVPVFVDWEVBVDVEUJVFVBAGHZVDWEUK
+      VBVDVEULVDVBWFVEAVCUMUNFAEFEEDUOQUPWCWDVPUQURVOWABVHVIMZAHZBVHVLMZAHZJEFB
+      CAAVGBRZVKWHVNWJWKVJWGAVGBVHVISTWKVMWIAVGBVHVLSTUSVHCRZWHVRWJVTWLWGVQAVHC
+      BVIUTTWLWIVSAVHCBVLUTTUSVAQ $.
+      $( [4-Oct-2014] $)
+  $}
+
+  ${
+    $d V v p f g a b $.
+    $( Value of the ` mzPoly ` function.  (Contributed by Stefan O'Rear,
+       4-Oct-2014.) $)
+    mzpval $p |- ( V e. _V -> ( mzPoly ` V ) = |^| ( mzPolyCld ` V ) ) $=
+      ( vv cvv wcel cmzpcl cfv cint cmzp wceq c0 wne mzpcln0 intex sylib inteqd
+      cv fveq2 df-mzp fvmptg mpdan ) ACDZAEFZGZCDZAHFUCIUAUBJKUDALUBMNBABPZEFZG
+      UCCCHUEAIUFUBUEAEQOBRST $.
+      $( [4-Oct-2014] $)
+
+    $( ` mzPoly ` is defined for all index sets which are sets.  This is used
+       with ~ elfvdm to eliminate sethood antecedents.  (Contributed by Stefan
+       O'Rear, 4-Oct-2014.) $)
+    dmmzp $p |- dom mzPoly = _V $=
+      ( vv cmzp cdm cvv cv cmzpcl cfv cint cmpt df-mzp dmeqi wcel dmmptg c0 wne
+      wceq mzpcln0 intex sylib mprg eqtri ) BCADAEZFGZHZIZCZDBUEAJKUDDLZUFDPADA
+      DUDDMUBDLUCNOUGUBQUCRSTUA $.
+      $( [4-Oct-2014] $)
+
+    $( Polynomial closedness is a universal first-order property and passes to
+       intersections.  This is where the closure properties of the polynomial
+       ring itself are proved.  (Contributed by Stefan O'Rear, 4-Oct-2014.) $)
+    mzpincl $p |- ( V e. _V -> ( mzPoly ` V ) e. ( mzPolyCld ` V ) ) $=
+      ( vf vg va cvv wcel cfv cz cmap co cv wral wa cof simpll simplr ralrimiva
+      simpr ovex elint2 cmzp cmzpcl cint mzpval wss csn cxp cmpt caddc mzpclall
+      cmul intss1 syl mzpcl1 syl3anc snex xpex sylibr mzpcl2 jca mzpcl34 3expia
+      mptex wel ralimdva r19.26 3imtr3g vex anbi12i 3imtr4g ralrimivv jca32 wne
+      wb c0 mzpcln0 intex sylib elmzpcl mpdan mpbird eqeltrd ) AEFZAUAGAUBGZUCZ
+      WDAUDWCWEWDFZWEHHAIJZIJZUEZWGBKZUFZUGZWEFZBHLZCWGWJCKZGZUHZWEFZBALZMZWJWO
+      UINZJZWEFZWJWOUKNZJZWEFZMZCWELBWELZMMZWCWIWTXHWCWHWDFWIAUJWHWDULUMWCWNWSW
+      CWMBHWCWJHFZMZWLDKZFZDWDLWMXKXMDWDXKXLWDFZMWCXNXJXMWCXJXNOXKXNRWCXJXNPXLW
+      JAUNUOQDWLWDWGWKHAISZWJUPUQTURQWCWRBAWCWJAFZMZWQXLFZDWDLWRXQXRDWDXQXNMWCX
+      NXPXRWCXPXNOXQXNRWCXPXNPXLCWJAUSUOQDWQWDCWGWPXOVCTURQUTWCXGBCWEWEWCBDVDZD
+      WDLZCDVDZDWDLZMZXBXLFZDWDLZXEXLFZDWDLZMZWJWEFZWOWEFZMXGWCXSYAMZDWDLYDYFMZ
+      DWDLYCYHWCYKYLDWDWCXNYKYLXLWJWOAVAVBVEXSYADWDVFYDYFDWDVFVGYIXTYJYBDWJWDBV
+      HTDWOWDCVHTVIXCYEXFYGDXBWDWJWOXASTDXEWDWJWOXDSTVIVJVKVLWCWEEFZWFXIVNWCWDV
+      OVMYMAVPWDVQVRCWEBCBBAVSVTWAWB $.
+      $( [4-Oct-2014] $)
+  $}
+
+  $( Constant functions are polynomial.  See also ~ mzpconstmpt .  (Contributed
+     by Stefan O'Rear, 4-Oct-2014.) $)
+  mzpconst $p |- ( ( V e. _V /\ C e. ZZ ) -> ( ( ZZ ^m V ) X. { C } ) e. (
+      mzPoly ` V ) ) $=
+    ( cvv wcel cz wa cmzp cfv cmzpcl cmap co csn cxp simpl mzpincl adantr simpr
+    mzpcl1 syl3anc ) BCDZAEDZFTBGHZBIHDZUAEBJKALMUBDTUANTUCUABOPTUAQUBABRS $.
+    $( [4-Oct-2014] $)
+
+  $( A polynomial function is a function from the coordinate space to the
+     integers.  (Contributed by Stefan O'Rear, 5-Oct-2014.) $)
+  mzpf $p |- ( F e. ( mzPoly ` V ) -> F : ( ZZ ^m V ) --> ZZ ) $=
+    ( cmzp cfv wcel cz cmap co wf cvv wss cdm elfvdm dmmzp syl6eleq cmzpcl cint
+    mzpval mzpclall syl intss1 eqsstrd sselda anidms zex ovex elmap sylib ) ABC
+    DZEZAFFBGHZGHZEZUKFAIUJUMUJUIULAUJBJEZUIULKUJBCLJABCMNOUNUIBPDZQZULBRUNULUO
+    EUPULKBSULUOUATUBTUCUDFUKAUEFBGUFUGUH $.
+    $( [5-Oct-2014] $)
+
+  ${
+    $d X g $.  $d V g $.
+    $( A projection function is polynomial.  (Contributed by Stefan O'Rear,
+       4-Oct-2014.) $)
+    mzpproj $p |- ( ( V e. _V /\ X e. V ) -> ( g e. ( ZZ ^m V ) |-> ( g ` X ) )
+        e. ( mzPoly ` V ) ) $=
+      ( cvv wcel wa cmzp cfv cmzpcl cz cmap co cmpt simpl mzpincl adantr mzpcl2
+      cv simpr syl3anc ) BDEZCBEZFUABGHZBIHEZUBAJBKLCARHMUCEUAUBNUAUDUBBOPUAUBS
+      UCACBQT $.
+      $( [4-Oct-2014] $)
+  $}
+
+  $( The pointwise sum of two polynomial functions is a polynomial function.
+     See also ~ mzpaddmpt .  (Contributed by Stefan O'Rear, 4-Oct-2014.) $)
+  mzpadd $p |- ( ( A e. ( mzPoly ` V ) /\ B e. ( mzPoly ` V ) ) -> ( A oF + B )
+      e. ( mzPoly ` V ) ) $=
+    ( cmzp cfv wcel wa caddc cof co cvv cmzpcl cdm elfvdm dmmzp syl6eleq adantr
+    cmul mzpincl syl id mzpcl34 syl3anc simpld ) ACDEZFZBUEFZGZABHIJUEFZABRIJUE
+    FZUHCKFZUECLEFZUHUIUJGUFUKUGUFCDMKACDNOPQZUHUKULUMCSTUHUAUEABCUBUCUD $.
+    $( [4-Oct-2014] $)
+
+  $( The pointwise product of two polynomial functions is a polynomial
+     function.  See also ~ mzpmulmpt .  (Contributed by Stefan O'Rear,
+     4-Oct-2014.) $)
+  mzpmul $p |- ( ( A e. ( mzPoly ` V ) /\ B e. ( mzPoly ` V ) ) -> ( A oF x. B
+      ) e. ( mzPoly ` V ) ) $=
+    ( cmzp cfv wcel wa caddc cof co cvv cmzpcl cdm elfvdm dmmzp syl6eleq adantr
+    cmul mzpincl syl id mzpcl34 syl3anc simprd ) ACDEZFZBUEFZGZABHIJUEFZABRIJUE
+    FZUHCKFZUECLEFZUHUIUJGUFUKUGUFCDMKACDNOPQZUHUKULUMCSTUHUAUEABCUBUCUD $.
+    $( [4-Oct-2014] $)
+
+  ${
+    $d V x a b $.  $d C x $.  $d D x a b $.  $d A a b $.
+
+    $( A constant function expressed in maps-to notation is polynomial.  This
+       theorem and the several that follow ( ~ mzpaddmpt , ~ mzpmulmpt ,
+       ~ mzpnegmpt , ~ mzpsubmpt , ~ mzpexpmpt ) can be used to build proofs
+       that functions which are "manifestly polynomial", in the sense of being
+       a maps-to containing constants, projections, and simple arithmetic
+       operations, are actually polynomial functions.  There is no mzpprojmpt
+       because ~ mzpproj is already expressed using maps-to notation.
+       (Contributed by Stefan O'Rear, 5-Oct-2014.) $)
+    mzpconstmpt $p |- ( ( V e. _V /\ C e. ZZ ) -> ( x e. ( ZZ ^m V ) |-> C ) e.
+        ( mzPoly ` V ) ) $=
+      ( cvv wcel cz wa cmap cmpt csn cxp cmzp cfv fconstmpt mzpconst syl5eqelr
+      co ) CDEBFEGAFCHQZBIRBJKCLMARBNBCOP $.
+      $( [5-Oct-2014] $)
+
+    $( Sum of polynomial functions is polynomial.  Maps-to version of
+       ~ mzpadd .  (Contributed by Stefan O'Rear, 5-Oct-2014.) $)
+    mzpaddmpt $p |- ( ( ( x e. ( ZZ ^m V ) |-> A ) e. ( mzPoly ` V ) /\ ( x e.
+        ( ZZ ^m V ) |-> B ) e. ( mzPoly ` V ) ) ->
+        ( x e. ( ZZ ^m V ) |-> ( A + B ) ) e. ( mzPoly ` V ) ) $=
+      ( cz cmap co cmpt cmzp cfv wcel wa caddc cof wfn wf mzpf ffn syl cvv wceq
+      ovex ofmpteq mp3an1 syl2an mzpadd eqeltrrd ) AEDFGZBHZDIJZKZAUHCHZUJKZLUI
+      ULMNGZAUHBCMGHZUJUKUIUHOZULUHOZUNUOUAZUMUKUHEUIPUPUIDQUHEUIRSUMUHEULPUQUL
+      DQUHEULRSUHTKUPUQUREDFUBAUHBCMTUCUDUEUIULDUFUG $.
+      $( [5-Oct-2014] $)
+
+    $( Product of polynomial functions is polynomial.  Maps-to version of
+       ~ mzpmulmpt .  (Contributed by Stefan O'Rear, 5-Oct-2014.) $)
+    mzpmulmpt $p |- ( ( ( x e. ( ZZ ^m V ) |-> A ) e. ( mzPoly ` V ) /\ ( x e.
+        ( ZZ ^m V ) |-> B ) e. ( mzPoly ` V ) ) ->
+        ( x e. ( ZZ ^m V ) |-> ( A x. B ) ) e. ( mzPoly ` V ) ) $=
+      ( cz cmap co cmpt cmzp cfv wcel wa cmul cof wfn wf mzpf ffn syl cvv wceq
+      ovex ofmpteq mp3an1 syl2an mzpmul eqeltrrd ) AEDFGZBHZDIJZKZAUHCHZUJKZLUI
+      ULMNGZAUHBCMGHZUJUKUIUHOZULUHOZUNUOUAZUMUKUHEUIPUPUIDQUHEUIRSUMUHEULPUQUL
+      DQUHEULRSUHTKUPUQUREDFUBAUHBCMTUCUDUEUIULDUFUG $.
+      $( [5-Oct-2014] $)
+
+    ${
+      $d B a $.
+      $( The difference of two polynomial functions is polynomial.
+         (Contributed by Stefan O'Rear, 10-Oct-2014.) $)
+      mzpsubmpt $p |- ( ( ( x e. ( ZZ ^m V ) |-> A ) e. ( mzPoly ` V ) /\ ( x
+          e. ( ZZ ^m V ) |-> B ) e. ( mzPoly ` V ) ) ->
+          ( x e. ( ZZ ^m V ) |-> ( A - B ) ) e. ( mzPoly ` V ) ) $=
+        ( va cz co cmpt cmzp wcel wa c1 cneg caddc hbmpt1 cv hbel cc wceq zsscn
+        cmap cfv cmin cmul ax-17 hban wf mzpf ad2antlr simpr mptfcl sylc sseldi
+        mulm1 syl oveq2d ad2antrr negsub syl2anc eqtr2d mpteq2da cvv cdm elfvdm
+        dmmzp syl6eleq nn0negzi mzpconstmpt sylancl mzpmulmpt mpancom mzpaddmpt
+        1nn0 sylan2 eqeltrd ) AFDUAGZBHZDIUBZJZAVPCHZVRJZKZAVPBCUCGZHAVPBLMZCUD
+        GZNGZHZVRWBAVPWCWFVSWAAAEEVQVRAEVPBOEPVRJAUEZQAEEVTVRAEVPCOWHQUFWBAPVPJ
+        ZKZWFBCMZNGZWCWJWEWKBNWJCRJZWEWKSWJFRCTWJVPFVTUGZWICFJWAWNVSWIVTDUHUIWB
+        WIUJZAVPCFUKULUMZCUNUOUPWJBRJWMWLWCSWJFRBTWJVPFVQUGZWIBFJVSWQWAWIVQDUHU
+        QWOAVPBFUKULUMWPBCURUSUTVAWAVSAVPWEHVRJZWGVRJAVPWDHVRJZWAWRWADVBJWDFJWS
+        WADIVCVBVTDIVDVEVFLVMVGAWDDVHVIAWDCDVJVKABWEDVLVNVO $.
+        $( [10-Oct-2014] $)
+    $}
+
+    $( Negation of a polynomial function.  (Contributed by Stefan O'Rear,
+       11-Oct-2014.) $)
+    mzpnegmpt $p |- ( ( x e. ( ZZ ^m V ) |-> A ) e. ( mzPoly ` V ) -> ( x e. (
+        ZZ ^m V ) |-> -u A ) e. ( mzPoly ` V ) ) $=
+      ( cz cmap co cmpt cmzp cfv wcel cneg cc0 cmin df-neg mpteq2i elfvdm dmmzp
+      cvv cdm syl6eleq 0z mzpconstmpt sylancl mzpsubmpt mpancom syl5eqel ) ADCE
+      FZBGZCHIZJZAUGBKZGAUGLBMFZGZUIAUGUKULBNOAUGLGUIJZUJUMUIJUJCRJLDJUNUJCHSRU
+      HCHPQTUAALCUBUCALBCUDUEUF $.
+      $( [11-Oct-2014] $)
+
+    $( Raise a polynomial function to a (fixed) exponent.  (Contributed by
+       Stefan O'Rear, 5-Oct-2014.) $)
+    mzpexpmpt $p |- ( ( ( x e. ( ZZ ^m V ) |-> A ) e. ( mzPoly ` V ) /\ D e.
+        NN0 ) ->
+        ( x e. ( ZZ ^m V ) |-> ( A ^ D ) ) e. ( mzPoly ` V ) ) $=
+      ( va vb wcel cz co cmpt cmzp cexp wi c1 wceq oveq2 mpteq2dv eleq1d imbi2d
+      cc cn0 cmap cfv cv cc0 caddc weq wral wf wss mzpf zsscn sylancl eqid fmpt
+      fss sylibr hbra1 wa ra4 imp syl mpteq2da cvv cdm elfvdm dmmzp syl6eleq 1z
+      exp0 mzpconstmpt eqeltrd w3a cmul 3ad2ant2 simp1 ax-17 hban adantlr expp1
+      simplr syl2anc simp3 simp2 mzpmulmpt 3exp a2d nn0ind impcom ) CUAGAHDUBIZ
+      BJZDKUCZGZAWJBCLIZJZWLGZWMAWJBEUDZLIZJZWLGZMWMAWJBUELIZJZWLGZMWMAWJBFUDZL
+      IZJZWLGZMWMAWJBXDNUFIZLIZJZWLGZMWMWPMEFCWQUEOZWTXCWMXLWSXBWLXLAWJWRXAWQUE
+      BLPQRSEFUGZWTXGWMXMWSXFWLXMAWJWRXEWQXDBLPQRSWQXHOZWTXKWMXNWSXJWLXNAWJWRXI
+      WQXHBLPQRSWQCOZWTWPWMXOWSWOWLXOAWJWRWNWQCBLPQRSWMXBAWJNJZWLWMBTGZAWJUHZXB
+      XPOWMWJTWKUIZXRWMWJHWKUIHTUJXSWKDUKULWJHTWKUPUMAWJTBWKWKUNUOUQZXRAWJXANXQ
+      AWJURZXRAUDWJGZUSXQXANOXRYBXQXQAWJUTVAZBVJVBVCVBWMDVDGNHGXPWLGWMDKVEVDWKD
+      KVFVGVHVIANDVKUMVLXDUAGZWMXGXKYDWMXGXKYDWMXGVMZXJAWJXEBVNIZJZWLYEXRYDXJYG
+      OWMYDXRXGXTVOYDWMXGVPXRYDUSZAWJXIYFXRYDAYAYDAVQVRYHYBUSXQYDXIYFOXRYBXQYDY
+      CVSXRYDYBWABXDVTWBVCWBYEXGWMYGWLGYDWMXGWCYDWMXGWDAXEBDWEWBVLWFWGWHWI $.
+      $( [5-Oct-2014] $)
+
+  $}
+
+  ${
+    $d ph x f g $.  $d ps f g $.  $d ch x $.  $d th x $.  $d ta x $.
+    $d et x $.  $d ze x $.  $d si x $.  $d rh x $.  $d V x f g a b $.
+    $d A x $.
+    mzpindd.co $e |- ( ( ph /\ f e. ZZ ) -> ch ) $.
+    mzpindd.pr $e |- ( ( ph /\ f e. V ) -> th ) $.
+    mzpindd.ad $e |- ( ( ph /\ ( f : ( ZZ ^m V ) --> ZZ /\ ta ) /\ ( g : ( ZZ
+        ^m V ) --> ZZ /\ et ) ) -> ze ) $.
+    mzpindd.mu $e |- ( ( ph /\ ( f : ( ZZ ^m V ) --> ZZ /\ ta ) /\ ( g : ( ZZ
+        ^m V ) --> ZZ /\ et ) ) -> si ) $.
+    mzpindd.1 $e |- ( x = ( ( ZZ ^m V ) X. { f } ) -> ( ps <-> ch ) ) $.
+    mzpindd.2 $e |- ( x = ( g e. ( ZZ ^m V ) |-> ( g ` f ) ) -> ( ps <-> th ) )
+        $.
+    mzpindd.3 $e |- ( x = f -> ( ps <-> ta ) ) $.
+    mzpindd.4 $e |- ( x = g -> ( ps <-> et ) ) $.
+    mzpindd.5 $e |- ( x = ( f oF + g ) -> ( ps <-> ze ) ) $.
+    mzpindd.6 $e |- ( x = ( f oF x. g ) -> ( ps <-> si ) ) $.
+    mzpindd.7 $e |- ( x = A -> ( ps <-> rh ) ) $.
+    $( "Structural" induction to prove properties of all polynomial functions.
+       (Contributed by Stefan O'Rear, 4-Oct-2014.) $)
+    mzpindd $p |- ( ( ph /\ A e. ( mzPoly ` V ) ) -> rh ) $=
+      ( va vb cmzp cfv wcel wa cz cmap co crab cvv elfvdm dmmzp syl6eleq adantl
+      cdm cmzpcl cint wceq mzpval wss cv csn cxp wral cmpt caddc cof ssrab2 a1i
+      cmul ovex vex zex constmap elrab sylanbrc ralrimiva adantr simpllr elmapg
+      wf simpr biimpa syl21anc simplr ffvelrn syl2anc eqid fmptd sylibr adantlr
+      elmap jca zaddcl simpl inidm off ad2ant2r 3expb zmulcl ex anbi12i 3imtr4g
+      jca32 anbi1i ralrimivv wb rabex elmzpcl mpan2 mpbird intss1 eqsstrd an32s
+      syl sselda mpdan simprbi ) AKNUHUIZUJZUKZKBJULULNUMUNZUMUNZUOZUJZIYGNUPUJ
+      ZYKYFYLAYFNUHVAUPKNUHUQURUSUTAYLYFYKAYLUKZYEYJKYMYENVBUIZVCZYJYLYEYOVDANV
+      EUTYMYJYNUJZYOYJVFYMYPYJYIVFZYHLVGZVHVIZYJUJZLULVJZMYHYRMVGZUIZVKZYJUJZLN
+      VJZUKZYRUUBVLVMUNZYJUJZYRUUBVPVMUNZYJUJZUKZMYJVJLYJVJZUKUKZYMYQUUGUUMYQYM
+      BJYIVNVOYMUUAUUFAUUAYLAYTLULAYRULUJZUKYSYIUJZCYTUUOUUPAYHYRULULNUMVQZLVRV
+      SVTUTOBCJYSYISWAWBWCWDYMUUELNYMYRNUJZUKZUUDYIUJZDUUEUUSYHULUUDWGUUTUUSMYH
+      UUCULUUDUUSUUBYHUJZUKZNULUUBWGZUURUUCULUJUVBULUPUJZYLUVAUVCUVDUVBVSVOAYLU
+      URUVAWEUUSUVAWHUVDYLUKUVAUVCULNUUBUPUPWFWIWJYMUURUVAWKNULYRUUBWLWMUUDWNWO
+      ULYHUUDVSUUQWRWPAUURDYLPWQBDJUUDYITWAWBWCWSAUUMYLAUULLMYJYJAYRYIUJZEUKZUU
+      BYIUJZFUKZUKZUUHYIUJZGUKZUUJYIUJZHUKZUKZYRYJUJZUUBYJUJZUKUULAYHULYRWGZEUK
+      ZYHULUUBWGZFUKZUKZYHULUUHWGZGUKZYHULUUJWGZHUKZUKZUVIUVNAUWAUWFAUWAUKZUWCU
+      WDHUWGUWBGUWAUWBAUVQUVSUWBEFUVQUVSUKZUFUGYHYHYHVLULULULYRUUBUPUPUFVGZULUJ
+      UGVGZULUJUKZUWIUWJVLUNULUJUWHUWIUWJWTUTUVQUVSXAZUVQUVSWHZYHUPUJUWHUUQVOZU
+      WNYHXBZXCXDUTAUVRUVTGQXEWSUWAUWDAUVQUVSUWDEFUWHUFUGYHYHYHVPULULULYRUUBUPU
+      PUWKUWIUWJVPUNULUJUWHUWIUWJXFUTUWLUWMUWNUWNUWOXCXDUTAUVRUVTHRXEXJXGUVFUVR
+      UVHUVTUVEUVQEULYHYRVSUUQWRXKUVGUVSFULYHUUBVSUUQWRXKXHUVKUWCUVMUWEUVJUWBGU
+      LYHUUHVSUUQWRXKUVLUWDHULYHUUJVSUUQWRXKXHXIUVOUVFUVPUVHBEJYRYIUAWABFJUUBYI
+      UBWAXHUUIUVKUUKUVMBGJUUHYIUCWABHJUUJYIUDWAXHXIXLWDXJYLYPUUNXMZAYLYJUPUJUW
+      PBJYIULYHUMVQXNMYJLMLLNXOXPUTXQYJYNXRYAXSYBXTYCYKKYIUJIBIJKYIUEWAYDYA $.
+      $( [4-Oct-2014] $)
+  $}
+
+  ${
+    $d W a b c x y $.  $d F a b c x $.  $d V a b c x y $.  $d G a b c x $.
+
+    $( Substituting polynomials for the variables of a polynomial results in a
+       polynomial. ` G ` is expected to depend on ` y ` and provide the
+       polynomials which are being substituted.  (Contributed by Stefan O'Rear,
+       5-Oct-2014.) $)
+    mzpsubst $p |- ( ( W e. _V /\ F e. ( mzPoly ` V ) /\ A. y e. V G e. (
+        mzPoly ` W ) ) ->
+        ( x e. ( ZZ ^m W ) |-> ( F ` ( y e. V |-> ( G ` x ) ) ) ) e. ( mzPoly `
+        W ) ) $=
+      ( va vb vc cvv wcel cfv cz co cmpt wa wceq fveq1 eleq1d mpteq2dv cmzp w3a
+      wral cmap cv simp1 cdm elfvdm dmmzp syl6eleq 3ad2ant2 simp3 simp2 csn cxp
+      caddc cof cmul simpr simpll3 simpll2 wf mzpf ffvelrn sylan expcom ralimdv
+      imp eqid fmpt sylib adantr wb zex elmapg sylancr mpbird syl21anc fvconst2
+      vex syl mpteq2dva mzpconstmpt 3ad2antl1 eqeltrd csb fvex fvmpt simplr weq
+      csbeq1 fveq1d ax-17 wel hbcsb1 csbeq1a cbvmpt fvmptg sylancl eqtrd simpl3
+      hbfv wfn ax17el hbel rcla4 sylc dffn5v eqtr4d simp2l simp3l simp13 simp12
+      ffn 3syl simplll simpllr ovex a1i simplrl simplrr fnfvof simp2r mzpaddmpt
+      syl22anc simp3r syl2anc mzpmulmpt mzpindd syl31anc ) FJKZCEUALKZDFUALZKZB
+      EUCZUBYKEJKZYOYLAMFUDNZBEAUEZDLZOZCLZOZYMKZYKYLYOUFYLYKYPYOYLEUAUGJCEUAUH
+      UIUJUKYKYLYOULYKYLYOUMYKYPYOUBZAYQYTGUEZLZOZYMKAYQYTMEUDNZHUEZUNUOZLZOZYM
+      KAYQYTIUUHUUIIUEZLZOZLZOZYMKAYQYTUUILZOZYMKZAYQYTUUMLZOZYMKZAYQYTUUIUUMUP
+      UQNZLZOZYMKAYQYTUUIUUMURUQNZLZOZYMKUUCGCHIEUUDUUIMKZPZUULAYQUUIOZYMUVKAYQ
+      UUKUUIUVKYRYQKZPZYTUUHKZUUKUUIQUVNUVMYOYPUVOUVKUVMUSYKYPYOUVJUVMUTYKYPYOU
+      VJUVMVAUVMYOPZYPPZUVOEMYTVBZUVPUVRYPUVPYSMKZBEUCZUVRUVMYOUVTUVMYNUVSBEYNU
+      VMUVSYNYQMDVBUVMUVSDFVCYQMYRDVDVEVFVGZVHBEMYSYTYTVIVJZVKVLUVQMJKZYPUVOUVR
+      VMZVNUVPYPUSMEYTJJVOZVPVQZVRUUHUUIYTHVTZVSWAWBYKYPUVJUVLYMKYOAUUIFWCWDWEU
+      UDUUIEKZPZUUQBUUIDWFZYMUWIUUQAYQYRUWJLZOZUWJUWIAYQUUPUWKUWIUVMPZUUPUUIYTL
+      ZUWKUWMUVOUUPUWNQUWMUVMYOYPUVOUWIUVMUSYKYPYOUWHUVMUTYKYPYOUWHUVMVAUWFVRIY
+      TUUNUWNUUHUUOUUIUUMYTRUUOVIUUIYTWGWHWAUWMUWHUWKJKUWNUWKQUUDUWHUVMWIYRUWJW
+      GGUUIYRBUUEDWFZLZUWKEJYTGHWJZYRUWOUWJBUUEUUIDWKWLBGIEYSUWPUUMYSKGWMBIYRUW
+      OBIUUEDGVTIGWNBWMWOIAWNBWMXBBGWJYRDUWOBUUEDWPWLWQWRWSWTWBUWIUWJYQXCZUWJUW
+      LQUWIUWJYMKZYQMUWJVBUWRUWIUWHYOUWSUUDUWHUSYKYPYOUWHXAYNUWSBUUIEBGGUWJYMBG
+      UUIDUWGGHBXDWOUUEYMKBWMXEBHWJDUWJYMBUUIDWPSXFXGZUWJFVCYQMUWJXNXOAYQUWJXHV
+      KXIUWTWEUUDUUHMUUIVBZUUTPZUUHMUUMVBZUVCPZUBZUVFAYQUURUVAUPNZOZYMUXEUUIUUH
+      XCZUUMUUHXCZYOYPUVFUXGQUXEUXAUXHUUDUXAUUTUXDXJUUHMUUIXNWAZUXEUXCUXIUUDUXB
+      UXCUVCXKUUHMUUMXNWAZYKYPYOUXBUXDXLZYKYPYOUXBUXDXMZUXHUXIPZYOYPPZPZAYQUVEU
+      XFUXPUVMPZUXHUXIUUHJKZUVOUVEUXFQUXHUXIUXOUVMXPZUXHUXIUXOUVMXQZUXRUXQMEUDX
+      RXSZUXQUVOUVRUXQUVTUVRUXQUVMYOUVTUXPUVMUSUXNYOYPUVMXTUWAXGUWBVKUXQUWCYPUW
+      DVNUXNYOYPUVMYAUWEVPVQZUUHUPUUIUUMJYTYBYEWBYEUXEUUTUVCUXGYMKUUDUXAUUTUXDY
+      CZUUDUXBUXCUVCYFZAUURUVAFYDYGWEUXEUVIAYQUURUVAURNZOZYMUXEUXHUXIYOYPUVIUYF
+      QUXJUXKUXLUXMUXPAYQUVHUYEUXQUXHUXIUXRUVOUVHUYEQUXSUXTUYAUYBUUHURUUIUUMJYT
+      YBYEWBYEUXEUUTUVCUYFYMKUYCUYDAUURUVAFYHYGWEUUEUUJQZUUGUULYMUYGAYQUUFUUKYT
+      UUEUUJRTSUUEUUOQZUUGUUQYMUYHAYQUUFUUPYTUUEUUORTSUWQUUGUUSYMUWQAYQUUFUURYT
+      UUEUUIRTSGIWJZUUGUVBYMUYIAYQUUFUVAYTUUEUUMRTSUUEUVDQZUUGUVFYMUYJAYQUUFUVE
+      YTUUEUVDRTSUUEUVGQZUUGUVIYMUYKAYQUUFUVHYTUUEUVGRTSUUECQZUUGUUBYMUYLAYQUUF
+      UUAYTUUECRTSYIYJ $.
+      $( [5-Oct-2014] $)
+  $}
+
+  ${
+    $d W x a b $.  $d F x a b $.  $d R x a b $.  $d V a x $.
+    $( Simplified version of ~ mzpsubst to simply relabel variables in a
+       polynomial.  (Contributed by Stefan O'Rear, 5-Oct-2014.) $)
+    mzprename $p |- ( ( W e. _V /\ F e. ( mzPoly ` V ) /\ R : V --> W ) ->
+        ( x e. ( ZZ ^m W ) |-> ( F ` ( x o. R ) ) ) e. ( mzPoly ` W ) ) $=
+      ( va vb cvv wcel cmzp cfv wf w3a cz cv cmpt wceq wa syl2anc mpteq2dva zex
+      cmap co ccom simpr wb simpll elmapg sylancr mpbid simplr fcompt eqid fvex
+      fveq1 fvmpt ad2antlr eqcomd eqtrd fveq2d 3adant2 simpl1 ffvelrn 3ad2antl3
+      wral mzpproj ralrimiva mzpsubst syld3an3 eqeltrd ) EHIZCDJKIZDEBLZMZANEUB
+      UCZAOZBUDZCKZPZAVOFDVPGVOFOZBKZGOZKZPZKZPZCKZPZEJKZVKVMVSWHQVLVKVMRZAVOVR
+      WGWJVPVOIZRZVQWFCWLVQFDWAVPKZPZWFWLENVPLZVMVQWNQWLWKWOWJWKUEWLNHIVKWKWOUF
+      UAVKVMWKUGNEVPHHUHUIUJVKVMWKUKFVPBDENULSWLFDWMWEWLVTDIZRWEWMWKWEWMQWJWPGV
+      PWCWMVOWDWAWBVPUOWDUMWAVPUNUPUQURTUSUTTVAVKVLVMWDWIIZFDVEWHWIIVNWQFDVNWPR
+      VKWAEIZWQVKVLVMWPVBVMVKWPWRVLDEVTBVCVDGEWAVFSVGAFCWDDEVHVIVJ $.
+      $( [5-Oct-2014] $)
+  $}
+
+  ${
+    $d W x $.  $d F x $.  $d V x $.
+    $( A polynomial is a polynomial over all larger index sets.  (Contributed
+       by Stefan O'Rear, 5-Oct-2014.) $)
+    mzpresrename $p |- ( ( W e. _V /\ V C_ W /\ F e. ( mzPoly ` V ) ) -> ( x e.
+        ( ZZ ^m W ) |-> ( F ` ( x |` V ) ) ) e. ( mzPoly ` W ) ) $=
+      ( cvv wcel wss cmzp cfv w3a cz cmap co cv cres cmpt cid ccom wa wf elmapi
+      wrel wceq 3ad2antl1 frel coires1 3syl eqcomd fveq2d mpteq2dva simp1 simp3
+      wf1o f1oi f1of ax-mp fss mpan 3ad2ant2 mzprename syl3anc eqeltrd ) DEFZCD
+      GZBCHIFZJZAKDLMZANZCOZBIZPAVGVHQCOZRZBIZPZDHIZVFAVGVJVMVFVHVGFZSZVIVLBVQV
+      LVIVQDKVHTZVHUBVLVIUCVCVDVPVRVEVHKDUAUDDKVHUEVHCUFUGUHUIUJVFVCVECDVKTZVNV
+      OFVCVDVEUKVCVDVEULVDVCVSVECCVKTZVDVSCCVKUMVTCUNCCVKUOUPCCDVKUQURUSAVKBCDU
+      TVAVB $.
+      $( [5-Oct-2014] $)
+  $}
+
+
+  ${
+    $d A a b d e f g h i j k l $.  $d B a b c d e f g h i j k l $.
+    mzpcompact2lem.i $e |- B e. _V $.
+    $( Lemma for ~ mzpcompact2 . $)
+    mzpcompact2lem $p |- ( A e. ( mzPoly ` B ) -> E. a e. Fin E. b e. ( mzPoly
+        ` a ) ( a C_ B /\ A = ( c e. ( ZZ ^m B ) |-> ( b ` ( c |` a ) ) ) ) )
+        $=
+      ( vd cmzp cfv wcel cv cz co cmpt wceq wa wrex cfn c0 anbi2d ve vf vg cmap
+      vh vi vj vk vl wss cres wtru tru csn cxp caddc cof cmul 0fin cvv mzpconst
+      0ex 0ss a1i simpr elmapssres syl3anc vex fvconst2 syl mpteq2dva fconstmpt
+      syl6reqr fveq1 mpteq2dv eqeq2d rcla4ev syl12anc fveq2 sseq1 reseq2 fveq2d
+      mpan anbi12d rexeqbidv sylancr snfi snex snid mzpproj mp2an snssi cbvmptv
+      adantl simpl snssd eqid fvex fvmpt fvres ax-mp syl6req syl5eq w3a simplll
+      wf cun simprll unfi syl2anc unex ssun1 simpllr mzpresrename ssun2 simprlr
+      mzpaddmpt simplr wfn ovex mzpf ffn 3syl ofmpteq zex elmap oveq12d resabs1
+      wi reseq1 fveq2i oveq12i eqtrd eqeq1d rexbidv 2rexbidv weq cbvrexv syl6bb
+      eqeq1 simprr unssd biimpi fssres syl2anr sylibr adantlrr adantrrr simplrr
+      mzpmulmpt simprrr mpbird r19.40 exp32 rexlimdvv ex rexlimivv imp ad2ant2l
+      3adant1 simpld simprd mzpindd eqeq2i anbi2i 2rexbii sylib ) ABHIZJZCKZBUJ
+      ZAGLBUDMZGKZUVJUKZDKZIZNZOZPZDUVJHIZQCRQZUVKAEUVLEKZUVJUKZUVOIZNZOZPZDUVT
+      QCRQULUVIUWAUMULUVKUAKZUVQOZPZDUVTQCRQZUVKUVLUBKZUNZUOZUVQOZPZDUVTQZCRQZU
+      VKUCUVLUWLUCKZIZNZUVQOZPZDUVTQZCRQZUEKZBUJZUWLGUVLUVMUXFUKZUFKZIZNZOZPZUF
+      UXFHIZQZUERQZUGKZBUJZUWSGUVLUVMUXQUKZUHKZIZNZOZPZUHUXQHIZQZUGRQZUVKUWLUWS
+      UPUQZMZUVQOZPZDUVTQZCRQZUVKUWLUWSURUQZMZUVQOZPZDUVTQZCRQZUWAUAAUBUCBUWLLJ
+      ZUWRULUYTSRJSBUJZUWNGUVLUVMSUKZUVOIZNZOZPZDSHIZQZUWRUSUYTLSUDMZUWMUOZVUGJ
+      ZVUAUWNGUVLVUBVUJIZNZOZVUHSUTJUYTVUKVBUWLSVAWCVUAUYTBVCZVDUYTVUMGUVLUWLNU
+      WNUYTGUVLVULUWLUYTUVMUVLJZPZVUBVUIJZVULUWLOVUQVUPVUABUTJZVURUYTVUPVEVUAVU
+      QVUOVDVUSVUQFVDUVMLBSVFVGVUIUWLVUBUBVHZVIVJVKGUVLUWLVLVMVUFVUAVUNPDVUJVUG
+      UVOVUJOZVUEVUNVUAVVAVUDVUMUWNVVAGUVLVUCVULVUBUVOVUJVNVOVPTVQVRUWQVUHCSRUV
+      JSOZUWPVUFDUVTVUGUVJSHVSVVBUVKVUAUWOVUEUVJSBVTVVBUVQVUDUWNVVBGUVLUVPVUCVV
+      BUVNVUBUVOUVJSUVMWAWBVOVPWDWEVQWFWNUWLBJZUXEULVVCUWMRJUWMBUJZUXAGUVLUVMUW
+      MUKZUVOIZNZOZPZDUWMHIZQZUXEUWLWGVVCUCLUWMUDMZUWTNZVVJJZVVDUXAGUVLVVEVVMIZ
+      NZOZVVKVVNVVCUWMUTJUWLUWMJZVVNUWLWHUWLVUTWIZUCUWMUWLWJWKVDUWLBWLVVCUXAGUV
+      LUWLUVMIZNVVPUCGUVLUWTVVTUWLUWSUVMVNWMVVCGUVLVVTVVOVVCVUPPZVVOUWLVVEIZVVT
+      VWAVVEVVLJZVVOVWBOVWAVUPVVDVUSVWCVVCVUPVEVWAUWLBVVCVUPWOWPVUSVWAFVDUVMLBU
+      WMVFVGUCVVEUWTVWBVVLVVMUWLUWSVVEVNVVMWQUWLVVEWRWSVJVVRVWBVVTOVVSUWLUWMUVM
+      WTXAXBVKXCVVIVVDVVQPDVVMVVJUVOVVMOZVVHVVQVVDVWDVVGVVPUXAVWDGUVLVVFVVOVVEU
+      VOVVMVNVOVPTVQVRUXDVVKCUWMRUVJUWMOZUXCVVIDUVTVVJUVJUWMHVSVWEUVKVVDUXBVVHU
+      VJUWMBVTVWEUVQVVGUXAVWEGUVLUVPVVFVWEUVNVVEUVOUVJUWMUVMWAWBVOVPWDWEVQWFWNU
+      LUVLLUWLXFZUXPPZUVLLUWSXFZUYGPZXDZUYMUYSVWGVWIUYMUYSPZULUXPUYGVWKVWFVWHUX
+      PUYGVWKUXMUYGVWKYIZUEUFRUXNUXFRJZUXIUXNJZPZUXMVWLVWOUXMPZUYDVWKUGUHRUYEVW
+      PUXQRJZUXTUYEJZPZUYDVWKVWPVWSUYDPZPZUYLUYRPZCRQZVWKVXAVXCUVKUXKUYBUYHMZUV
+      QOZPZDUVTQZUVKUXKUYBUYNMZUVQOZPZDUVTQZPZCRQZVWPVWSUXRVXMUYCVWOUXGVWSUXRPZ
+      VXMUXLVWOUXGPZVXNPZUXFUXQXGZRJZVXQBUJZVXDGUVLUVMVXQUKZUVOIZNZOZPZDVXQHIZQ
+      ZVXSVXHVYBOZPZDVYEQZVXMVXPVWMVWQVXRVWMVWNUXGVXNXEVXOVWQVWRUXRXHUXFUXQXIXJ
+      VXPUILVXQUDMZUIKZUXFUKZUXIIZVYKUXQUKZUXTIZUPMZNZVYEJZVXSVXDGUVLVXTVYQIZNZ
+      OZVYFVXPUIVYJVYMNVYEJZUIVYJVYONVYEJZVYRVXPVXQUTJZUXFVXQUJZVWNWUBWUDVXPUXF
+      UXQUEVHUGVHXKZVDZWUEVXPUXFUXQXLZVDVWMVWNUXGVXNXMZUIUXIUXFVXQXNVGZVXPWUDUX
+      QVXQUJZVWRWUCWUGWUKVXPUXQUXFXOZVDVXOVWQVWRUXRXPZUIUXTUXQVXQXNVGZUIVYMVYOV
+      XQXQXJVXPUXFUXQBVWOUXGVXNXRZVXOVWSUXRUUAZUUBZVXPVXDGUVLUXJUYAUPMZNZVYTVXP
+      UVLUTJZUXKUVLXSZUYBUVLXSZVXDWUSOWUTVXPLBUDXTVDZVXPUXKUVHJZUVLLUXKXFWVAVXP
+      VUSUXGVWNWVDVUSVXPFVDZWUOWUIGUXIUXFBXNVGUXKBYAUVLLUXKYBYCZVXPUYBUVHJZUVLL
+      UYBXFWVBVXPVUSUXRVWRWVGWVEWUPWUMGUXTUXQBXNVGUYBBYAUVLLUYBYBYCZGUVLUXJUYAU
+      PUTYDVGVXPGUVLWURVYSVXPVUPPZVYSVXTUXFUKZUXIIZVXTUXQUKZUXTIZUPMZWURWVIVXTV
+      YJJZVYSWVNOWVIVXQLVXTXFZWVOVUPBLUVMXFZVXSWVPVXPVUPWVQLBUVMYEFYFUUCWUQBLVX
+      QUVMUUDUUELVXQVXTYEWUFYFUUFZUIVXTVYPWVNVYJVYQVYKVXTOZVYMWVKVYOWVMUPWVSVYL
+      WVJUXIVYKVXTUXFYJWBZWVSVYNWVLUXTVYKVXTUXQYJWBZYGVYQWQWVKWVMUPXTWSVJWVKUXJ
+      WVMUYAUPWVJUXHUXIWUEWVJUXHOWUHUVMUXFVXQYHXAYKZWVLUXSUXTWUKWVLUXSOWULUVMUX
+      QVXQYHXAYKZYLXBVKYMVYDVXSWUAPDVYQVYEUVOVYQOZVYCWUAVXSWWDVYBVYTVXDWWDGUVLV
+      YAVYSVXTUVOVYQVNVOVPTVQVRVXPUIVYJVYMVYOURMZNZVYEJZVXSVXHGUVLVXTWWFIZNZOZV
+      YIVXPWUBWUCWWGWUJWUNUIVYMVYOVXQUUJXJWUQVXPVXHGUVLUXJUYAURMZNZWWIVXPWUTWVA
+      WVBVXHWWLOWVCWVFWVHGUVLUXJUYAURUTYDVGVXPGUVLWWKWWHWVIWWHWVKWVMURMZWWKWVIW
+      VOWWHWWMOWVRUIVXTWWEWWMVYJWWFWVSVYMWVKVYOWVMURWVTWWAYGWWFWQWVKWVMURXTWSVJ
+      WVKUXJWVMUYAURWWBWWCYLXBVKYMVYHVXSWWJPDWWFVYEUVOWWFOZVYGWWJVXSWWNVYBWWIVX
+      HWWNGUVLVYAWWHVXTUVOWWFVNVOVPTVQVRVXLVYFVYIPCVXQRUVJVXQOZVXGVYFVXKVYIWWOV
+      XFVYDDUVTVYEUVJVXQHVSZWWOUVKVXSVXEVYCUVJVXQBVTZWWOUVQVYBVXDWWOGUVLUVPVYAW
+      WOUVNVXTUVOUVJVXQUVMWAWBVOZVPWDWEWWOVXJVYHDUVTVYEWWPWWOUVKVXSVXIVYGWWQWWO
+      UVQVYBVXHWWRVPWDWEWDVQVRUUGUUHVXAVXBVXLCRVXAUYLVXGUYRVXKVXAUYKVXFDUVTVXAU
+      YJVXEUVKVXAUYIVXDUVQVXAUWLUXKUWSUYBUYHVWOUXGUXLVWTUUIZVWPVWSUXRUYCUUKZYGY
+      NTYOVXAUYQVXJDUVTVXAUYPVXIUVKVXAUYOVXHUVQVXAUWLUXKUWSUYBUYNWWSWWTYGYNTYOW
+      DYOUULUYLUYRCRUUMVJUUNUUOUUPUUQUURUUSUUTZUVAVWJUYMUYSWXAUVBUWHUWNOZUWJUWP
+      CDRUVTWXBUWIUWOUVKUWHUWNUVQYTTYPUWHUXAOZUWJUXCCDRUVTWXCUWIUXBUVKUWHUXAUVQ
+      YTTYPUAUBYQZUWKUVKUWLUVQOZPZDUVTQZCRQUXPWXDUWJWXFCDRUVTWXDUWIWXEUVKUWHUWL
+      UVQYTTYPWXGUXOCUERCUEYQZWXGUXGUWLGUVLUXHUVOIZNZOZPZDUXNQUXOWXHWXFWXLDUVTU
+      XNUVJUXFHVSWXHUVKUXGWXEWXKUVJUXFBVTWXHUVQWXJUWLWXHGUVLUVPWXIWXHUVNUXHUVOU
+      VJUXFUVMWAWBVOVPWDWEWXLUXMDUFUXNDUFYQZWXKUXLUXGWXMWXJUXKUWLWXMGUVLWXIUXJU
+      XHUVOUXIVNVOVPTYRYSYRYSUAUCYQZUWKUVKUWSUVQOZPZDUVTQZCRQUYGWXNUWJWXPCDRUVT
+      WXNUWIWXOUVKUWHUWSUVQYTTYPWXQUYFCUGRCUGYQZWXQUXRUWSGUVLUXSUVOIZNZOZPZDUYE
+      QUYFWXRWXPWYBDUVTUYEUVJUXQHVSWXRUVKUXRWXOWYAUVJUXQBVTWXRUVQWXTUWSWXRGUVLU
+      VPWXSWXRUVNUXSUVOUVJUXQUVMWAWBVOVPWDWEWYBUYDDUHUYEDUHYQZWYAUYCUXRWYCWXTUY
+      BUWSWYCGUVLWXSUYAUXSUVOUXTVNVOVPTYRYSYRYSUWHUYIOZUWJUYKCDRUVTWYDUWIUYJUVK
+      UWHUYIUVQYTTYPUWHUYOOZUWJUYQCDRUVTWYEUWIUYPUVKUWHUYOUVQYTTYPUWHAOZUWJUVSC
+      DRUVTWYFUWIUVRUVKUWHAUVQYTTYPUVCWCUVSUWGCDRUVTUVRUWFUVKUVQUWEAGEUVLUVPUWD
+      GEYQUVNUWCUVOUVMUWBUVJYJWBWMUVDUVEUVFUVG $.
+      $( [9-Oct-2014] $)
+  $}
+
