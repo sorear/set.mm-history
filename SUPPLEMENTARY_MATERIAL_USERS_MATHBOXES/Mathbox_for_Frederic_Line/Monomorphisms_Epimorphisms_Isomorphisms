@@ -4,12 +4,12 @@ $(
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 $)
 
-  $c Epi $. $( The class of all epimorphisms. $)
+  $c Epic $. $( The class of all epimorphisms. $)
   $c Monic $. $( The class of all monomorphisms. $)
   $c Iso $. $( The class of all isomorphisms. $)
 
   $( Extend class notation with the class of all epimorphisms. $)
-  cepi $a class Epi $.
+  cepi $a class Epic $.
 
   $( Extend class notation with the class of all monomorphisms. $)
   cmon $a class Monic $.
@@ -34,7 +34,7 @@ $)
     $d x y f g h $.
     $( Function returning the epimorphisms of the category ` x ` .  JFM CAT_1
        def. 11. $)
-    df-epi $a |- Epi = { <. x , y >. |
+    df-epi $a |- Epic = { <. x , y >. |
     ( x e. Cat /\ y = { f | ( f e. dom ( dom_ ` x ) /\
       A. g e. dom ( dom_ ` x ) A. h e. dom ( dom_ ` x )
         ( ( ( ( cod_ ` x ) ` g ) = ( ( cod_ ` x ) ` h ) /\
@@ -45,10 +45,12 @@ $)
 
   ${
     $d x y f g $.
-    $( Function returning the isomorphisms of the category ` x ` . $)
+    $( Function returning the isomorphisms of the category ` x ` .  The Joy of
+       Cats p. 28. $)
     df-isoc $a |- Iso = { <. x , y >. | ( x e. Cat /\
     y = { f e. dom ( dom_ ` x ) | E. g e. dom ( dom_ ` x ) (
-     ( dom_ ` g ) = ( cod_ ` f ) /\ ( cod_ ` g ) = ( dom_ ` f ) /\
+     ( ( dom_ ` x ) ` g ) = ( ( cod_ ` x ) ` f ) /\
+     ( ( cod_ ` x ) ` g ) = ( ( dom_ ` x ) ` f ) /\
      ( ( f ( o_ ` x ) g ) = ( ( id_ ` x ) ` ( ( dom_ ` x ) ` g ) ) /\
      ( g ( o_ ` x ) f ) = ( ( id_ ` x ) ` ( ( dom_ ` x ) ` f ) ) ) ) } ) } $.
   $}
@@ -389,7 +391,7 @@ $)
     isepia.3 $e |- C = ( cod_ ` T ) $.
     isepia.4 $e |- R = ( o_ ` T ) $.
     $( Epimorphisms of a category ` T ` .  (Contributed by FL, 8-Aug-2008.) $)
-    isepia $p |- ( T e. Cat -> ( Epi ` T ) = { f | ( f e. M /\
+    isepia $p |- ( T e. Cat -> ( Epic ` T ) = { f | ( f e. M /\
       A. g e. M A. h e. M
         ( ( ( C ` g ) = ( C ` h ) /\
             ( D ` g ) = ( C ` f ) /\
@@ -420,7 +422,7 @@ $)
     isepib.3 $e |- C = ( cod_ ` T ) $.
     isepib.4 $e |- R = ( o_ ` T ) $.
     $( The predicate "is an epimorphism".  (Contributed by FL, 8-Aug-2008.) $)
-    isepib $p |- ( ( T e. Cat /\ F e. A ) -> ( F e. ( Epi ` T )
+    isepib $p |- ( ( T e. Cat /\ F e. A ) -> ( F e. ( Epic ` T )
       <-> ( F e. M /\ A. g e. M A. h e. M
         ( ( ( C ` g ) = ( C ` h ) /\
             ( D ` g ) = ( C ` F ) /\
@@ -444,7 +446,7 @@ $)
     isepib1.3 $e |- C = ( cod_ ` T ) $.
     isepib1.4 $e |- R = ( o_ ` T ) $.
     $( The predicate "is an epimorphism".  (Contributed by FL, 10-Aug-2008.) $)
-    isepib1 $p |- ( ( T e. Cat /\ F e. M ) -> ( F e. ( Epi ` T ) <->
+    isepib1 $p |- ( ( T e. Cat /\ F e. M ) -> ( F e. ( Epic ` T ) <->
       A. g e. M A. h e. M
         ( ( ( C ` g ) = ( C ` h ) /\
             ( D ` g ) = ( C ` F ) /\
@@ -466,7 +468,7 @@ $)
     $( An epimorphism is a right-cancelable morphism.  (Contributed by FL,
        10-Aug-2008.) $)
     isepib2 $p |- ( ( T e. Cat /\ ( F e. M /\ G e. M /\ J e. M ) ) ->
-      ( F e. ( Epi ` T ) ->
+      ( F e. ( Epic ` T ) ->
         ( ( ( C ` G ) = ( C ` J ) /\
             ( D ` G ) = ( C ` F ) /\
             ( D ` J ) = ( C ` F ) ) ->
@@ -553,7 +555,7 @@ $)
     $( The predicate "is an epimorphism" when the morphism belongs to a
        homset.  (Contributed by FL, 27-Oct-2008.) $)
     isepic $p |- ( ( T e. Cat /\ ( A e. O /\ B e. O ) /\
-      F e. ( H ` <. A , B >. ) ) -> ( F e. ( Epi ` T ) <->
+      F e. ( H ` <. A , B >. ) ) -> ( F e. ( Epic ` T ) <->
         A. c e. O A. g e. ( H ` <. B , c >. ) A. h e. ( H ` <. B , c >. )
         ( ( g R F ) = ( h R F ) -> g = h ) ) ) $=
       ( wcel wa cfv w3a wceq wi wral ccat cop cepi cdom_ cdm cv ccod_ co isepib
@@ -579,6 +581,38 @@ $)
       VAYESBYBUVAUVJYEYDBYBVNVKVLVPVSVRWAWBWCWEWDWFVAWGWHWIWCWJWQWAWAWKWKWLWMVQ
       WNYOUUFJITUUHYNUUFJIYGEFYMYMWRWOUUFJIWPWSWTWCABCDEFGHIJKLMXAXBXC $.
       $( [17-Nov-2008] $) $( [27-Oct-2008] $)
+  $}
+
+  ${
+    $d f g x y T $.  $d f M $.
+    isiso.1 $e |- M = dom ( dom_ ` T ) $.
+    isiso.2 $e |- D = ( dom_ ` T ) $.
+    isiso.3 $e |- C = ( cod_ ` T ) $.
+    isiso.4 $e |- R = ( o_ ` T ) $.
+    isiso.5 $e |- J = ( id_ ` T ) $.
+    $( Isomorphisms of a category.  (Contributed by FL, 9-Jun-2014.) $)
+    isiso $p |- ( T e. Cat -> ( Iso ` T ) = { f e. M | E. g e. M
+      ( ( D ` g ) = ( C ` f ) /\
+        ( C ` g ) = ( D ` f ) /\
+        ( ( f R g ) = ( J ` ( D ` g ) ) /\ ( g R f ) = ( J ` ( D ` f ) ) )
+      ) } ) $=
+      ( wcel cfv wceq co cvv fveq1d eqeq12d vx vy ccat ciso cv cdom_ ccod_ cid_
+      co_ wa w3a cdm wrex crab fvex a1i dmexg rabexg fveq2 dmeqd eleq2d fveq12d
+      syl oveqd anbi12d 3anbi123d rexbidv2 rabeqbidv df-isoc mpdan eqcomi eqtrd
+      fvopab4g ) DUCNZDUDOZFUEZDUFOZOZEUEZDUGOZOZPZVPVTOZVSVQOZPZVSVPDUIOZQZVRD
+      UHOZOZPZVPVSWFQZWDWHOZPZUJZUKZFVQULZUMZEWPUNZVPBOZVSAOZPZVPAOZVSBOZPZVSVP
+      CQZWSGOZPZVPVSCQZXCGOZPZUJZUKZFHUMZEHUNVNWRRNZVOWRPVNWPRNZXNVNVQRNZXOXPVN
+      DUFUOUPVQRUQVCWQEWPRURVCUAUBDVPUAUEZUFOZOZVSXQUGOZOZPZVPXTOZVSXROZPZVSVPX
+      QUIOZQZXSXQUHOZOZPZVPVSYFQZYDYHOZPZUJZUKZFXRULZUMZEYPUNWRUCRUDXQDPZYQWQEY
+      PWPYRXRVQXQDUFUSZUTZYRYOWOFYPWPYRVPYPNVPWPNZYOWOYRYPWPVPYTVAYRYBWBYEWEYNW
+      NYRXSVRYAWAYRVPXRVQYSSZYRVSXTVTXQDUGUSZSTYRYCWCYDWDYRVPXTVTUUCSYRVSXRVQYS
+      SZTYRYJWJYMWMYRYGWGYIWIYRYFWFVSVPXQDUIUSZVDYRXSVRYHWHXQDUHUSZUUBVBTYRYKWK
+      YLWLYRYFWFVPVSUUEVDYRYDWDYHWHUUFUUDVBTVEVFVEVGVHUAUBEFVIVMVJVNWQXMEWPHWPH
+      PVNHWPIVKUPZVNWOXLFWPHVNUUAVPHNWOXLVNWPHVPUUGVAVNWBXAWEXDWNXKVNVRWSWAWTVN
+      VPVQBVQBPVNBVQJVKUPZSZVNVSVTAVTAPVNAVTKVKUPZSTVNWCXBWDXCVNVPVTAUUJSVNVSVQ
+      BUUHSZTVNWJXGWMXJVNWGXEWIXFVNWFCVSVPWFCPVNCWFLVKUPZVDVNVRWSWHGWHGPVNGWHMV
+      KUPZUUIVBTVNWKXHWLXIVNWFCVPVSUULVDVNWDXCWHGUUMUUKVBTVEVFVEVGVHVL $.
+      $( [27-Jun-2014] $)
   $}
 
   $c cinv $.
