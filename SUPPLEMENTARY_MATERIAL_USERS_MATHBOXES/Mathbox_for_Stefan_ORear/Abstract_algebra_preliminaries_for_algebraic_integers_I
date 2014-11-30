@@ -1,0 +1,771 @@
+$(
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+    Abstract algebra preliminaries for algebraic integers I
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+$)
+
+  ${
+    $d ph a b c d e $.  $d K a b c d e $.  $d L a b c d e $.
+    grppropd.a $e |- ( ph -> ( Base ` K ) = ( Base ` L ) ) $.
+    grppropd.b $e |- ( ph -> ( +g ` K ) = ( +g ` L ) ) $.
+    $( If two structures have the same group components (properties), one is a
+       group iff the other one is.  (Contributed by Stefan O'Rear,
+       27-Nov-2014.) $)
+    grppropd $p |- ( ph -> ( K e. Grp <-> L e. Grp ) ) $=
+      ( va vb vc vd ve cv cfv co wcel wceq wa wral wrex oveqd raleqbidv eleq12d
+      cplusg cbs eqidd oveq123d eqeq12d anbi12d eqeq1d rexeqbidv isgrp2 3bitr4g
+      cgrp eqid ) AFKZGKZBUBLZMZBUCLZNZUQHKZUPMZUNUOUTUPMZUPMZOZPZHURQZGURQZFUR
+      QZIKZUNUPMZUNOZJKZUNUPMZVIOZJURRZPZFURQZIURRZPUNUOCUBLZMZCUCLZNZVTUTVSMZU
+      NUOUTVSMZVSMZOZPZHWAQZGWAQZFWAQZVIUNVSMZUNOZVLUNVSMZVIOZJWARZPZFWAQZIWARZ
+      PBULNCULNAVHWJVRWRAVGWIFURWADAVFWHGURWADAVEWGHURWADAUSWBVDWFAUQVTURWAAUPV
+      SUNUOESZDUAAVAWCVCWEAUQVTUTUTUPVSEWSAUTUDUEAUNUNVBWDUPVSEAUNUDAUPVSUOUTES
+      UEUFUGTTTAVQWQIURWADAVPWPFURWADAVKWLVOWOAVJWKUNAUPVSVIUNESUHAVNWNJURWADAV
+      MWMVIAUPVSVLUNESUHUIUGTUIUGURUPIJBFGHURUMUPUMUJWAVSIJCFGHWAUMVSUMUJUK $.
+      $( [27-Nov-2014] $)
+  $}
+
+  ${
+    $d x y z $.  $d B z $.  $d C z $.  $d D z $.
+    reldmmpt2.a $e |- A = ( x e. B , y e. C |-> D ) $.
+    $( The domain of an operation defined by maps-to notation is a relation.
+       (Contributed by Stefan O'Rear, 27-Nov-2014.) $)
+    reldmmpt2 $p |- Rel dom A $=
+      ( vz cdm wrel cv wcel wa wceq copab2 reldmoprab cmpt2 df-mpt2 eqtri dmeqi
+      releqi mpbir ) CIZJAKDLBKELMHKFNMZABHOZIZJUDABHPUCUFCUECABDEFQUEGABHDEFRS
+      TUAUB $.
+      $( [27-Nov-2014] $)
+  $}
+
+  $c |`s SubRing RingSpan ringLMod CCfld LFinGen subringAlg $.
+
+  $( Extend class notation with the extensible structure builder restriction
+     operator. $)
+  cress $a class |`s $.
+
+  $( Extend class notation with all subrings of a ring. $)
+  csubrg $a class SubRing $.
+
+  $( Extend class notation with span of a set of elements over a ring. $)
+  crgspn $a class RingSpan $.
+
+  $( Extend class notation with the left module induced by a ring over
+     itself. $)
+  crglmod $a class ringLMod $.
+
+  $( Extend class notation with the field of complex numbers. $)
+  ccnfld $a class CCfld $.
+
+  $( Extend class notation with the class of finitely generated left
+     modules. $)
+  clfig $a class LFinGen $.
+
+  $( Extend class notation with the subring algebra generator. $)
+  csra $a class subringAlg $.
+
+  ${
+    $d a w s t $.
+    $( Define a multifunction restriction operator for extensible structures,
+       which can be used to turn statements about rings into statements about
+       subrings, modules into submodules, etc.  This definition knows nothing
+       about individual structures and merely truncates the ` Base ` set while
+       leaving operators alone; this will do the right thing for structures
+       like ` Ring ` where the operators are ignored outside of the base set,
+       but will not currently (2014-Nov-26) do the right thing for structures
+       like ` TopSp ` because the topology slot is not changed.  (We could
+       change the use of ` TopSp ` to restrict the topology to the base set
+       before use, which could be a good idea if this definition gains
+       traction.)
+
+       (Credit for this operator goes to Mario Carneiro).
+
+       See ~ ressbase for the altered base set, and ~ resslem2 ( ~ subrg0 ,
+       ~ ressplusg , ~ subrg1 , ~ ressmulr ) for the (un)altered other
+       operations. $)
+    df-ress $a |- |`s = ( w e. _V , a e. _V |-> if ( ( Base ` w ) C_ a , w ,
+        ( ( w |` ( _V \ { ( Base ` ndx ) } ) ) u. { <. ( Base ` ndx ) ,
+            ( a i^i ( Base ` w ) ) >. } ) ) ) $.
+
+    $( Define a subring of a ring as a set of elements that is a ring in its
+       own right and contains the multiplicative identity.
+
+       The additional constraint is necessary because the multiplicative
+       identity of a ring, unlike the additive identity of a ring/group or the
+       multiplicative identity of a field, cannot be identified by a local
+       property.  Thus it is possible for a subset of a ring to be a ring while
+       not containing the true identity if it contains a false identity.  For
+       instance, the subset ` ( ZZ X. { 0 } ) ` of ` ( ZZ X. ZZ ) ` (where
+       multiplication is component-wise) contains the false identity
+       ` <. 1 , 0 >. ` which preserves every element of the subset and thus
+       appears to be the identity of the subset, but is not the identity of the
+       larger ring. $)
+    df-subrg $a |- SubRing = ( w e. _V |->
+        { a e. ~P ( Base ` w ) | ( ( w |`s a ) e. Ring /\
+            ( 1r ` w ) e. a ) } ) $.
+
+    $( The ring-span of a set of elements in a ring is the smallest subring
+       which contains all of them. $)
+    df-rgspn $a |- RingSpan = ( w e. _V |-> ( s e. ~P ( Base ` w ) |->
+        |^| { t e. ( SubRing ` w ) | s C_ t } ) ) $.
+
+    $( Every ring can be viewed as a left module over itself. $)
+    df-rgmod $a |- ringLMod = ( w e. _V |-> ( {
+        <. ( Base ` ndx ) , ( Base ` w ) >. , <. ( +g ` ndx ) , ( +g ` w ) >. ,
+          <. ( Scalar ` ndx ) , w >. } u.
+      { <. ( vsca ` ndx ) , ( .r ` w ) >. } ) ) $.
+
+    $( The field of complex numbers.  Other number fields and rings can be
+       constructed by applying the ` |``s ` restriction operator, for instance
+       ` ( CCfld |`` AA ) ` is the field of algebraic numbers.
+
+       The contract of this set is defined entirely by ~ cnfldex , ~ cnfldadd ,
+       ~ cnfldmul , and ~ cnfldbas .  We may add additional members to this in
+       the future, e.g. a topology. $)
+    df-cnfld $a |- CCfld = { <. ( Base ` ndx ) , CC >. ,
+        <. ( +g ` ndx ) , + >. , <. ( .r ` ndx ) , x. >. } $.
+
+    $( Define the class of finitely generated left modules.  Finite generation
+       of subspaces can be intepreted using ` |``s ` . $)
+    df-lfig $a |- LFinGen = { w e. LMod | ( Base ` w ) e. ( ( LSpan ` w ) "
+        ( ~P ( Base ` w ) i^i Fin ) ) } $.
+
+    $( Given any subring of a ring, we can construct a left-algebra by
+       regarding the elements of the subring as scalars and the ring itself as
+       a set of vectors. $)
+    df-sra $a |- subringAlg = ( w e. _V |-> ( s e. ~P ( Base ` w ) |->
+        ( { <. ( Base ` ndx ) , ( Base ` w ) >. , <. ( +g ` ndx ) ,
+            ( +g ` w ) >. , <. ( .r ` ndx ) , ( .r ` w ) >. } u.
+          { <. ( Scalar ` ndx ) , ( w |`s s ) >. ,
+            <. ( vsca ` ndx ) , ( .r ` w ) >. } ) ) ) $.
+  $}
+
+  ${
+    $( Function value of the empty set.  (Contributed by Stefan O'Rear,
+       26-Nov-2014.) $)
+    fv01 $p |- ( (/) ` A ) = (/) $=
+      ( c0 cdm wcel wn cfv wceq noel dm0 eleq2i mtbir ndmfv ax-mp ) ABCZDZEABFB
+      GOABDAHNBAIJKABLM $.
+      $( [26-Nov-2014] $)
+
+    str0.a $e |- F = ( s e. _V |-> ( s ` I ) ) $.
+    $( All components of the empty set are empty sets.  (Contributed by Stefan
+       O'Rear, 27-Nov-2014.) $)
+    str0 $p |- ( F ` (/) ) = (/) $=
+      ( c0 cvv wcel cfv wceq 0ex cv fveq1 fv01 syl6eq fvmpt ax-mp ) EFGEAHEIJCE
+      BCKZHZEFAQEIRBEHEBQELBMNDJOP $.
+      $( [27-Nov-2014] $)
+  $}
+
+  ${
+    $d W a w s t $.  $d A a w s t $.
+    $( Value of structure restriction.  (Contributed by Stefan O'Rear,
+       29-Nov-2014.) $)
+    ressval $p |- ( ( W e. X /\ A e. Y ) -> ( W |`s A ) =
+        if ( ( Base ` W ) C_ A , W , ( ( W |` ( _V \ { ( Base ` ndx ) } ) ) u.
+            { <. ( Base ` ndx ) , ( A i^i ( Base ` W ) ) >. } ) ) ) $=
+      ( vw va wcel cvv cress cbs cfv wss csn cres cin cop cun cif wceq elex cnx
+      co cdif wa resexg adantr snex unexg sylancl syldan cv fveq2 sseq1d reseq1
+      ifcl id ineq2d opeq2d sneqd uneq12d ifbieq12d sseq2 ineq1 uneq2d ifbieq2d
+      df-ress ovmpt2g mpd3an3 syl2an ) BCGBHGZAHGZBAIUBBJKZALZBBHUAJKZMUCZNZVNA
+      VLOZPZMZQZRZSZADGBCTADTVJVKWAHGZWBVJVKVTHGZWCVJVKUDVPHGZVSHGWDVJWEVKBVOHU
+      EUFVRUGVPVSHHUHUIVMBVTHUOUJEFBAHHEUKZJKZFUKZLZWFWFVONZVNWHWGOZPZMZQZRWAIV
+      LWHLZBVPVNWHVLOZPZMZQZRHWFBSZWIWOWFWNBWSWTWGVLWHWFBJULZUMWTUPWTWJVPWMWRWF
+      BVOUNWTWLWQWTWKWPVNWTWGVLWHXAUQURUSUTVAWHASZWOVMWSVTBWHAVLVBXBWRVSVPXBWQV
+      RXBWPVQVNWHAVLVCURUSVDVEEFVFVGVHVI $.
+      $( [29-Nov-2014] $)
+
+    $( General behavior of trivial restriction.  (Contributed by Stefan O'Rear,
+       29-Nov-2014.) $)
+    ressid2 $p |- ( ( ( Base ` W ) C_ A /\ W e. X /\ A e. Y ) ->
+          ( W |`s A ) = W ) $=
+      ( cbs cfv wss wcel cress co wceq wa cvv cnx csn cdif cres cin cop cun cif
+      ressval iftrue sylan9eqr 3impb ) BEFZAGZBCHZADHZBAIJZBKUHUILUGUJUGBBMNEFZ
+      OPQUKAUFRSOTZUABABCDUBUGBULUCUDUE $.
+      $( [29-Nov-2014] $)
+
+    $( Value of nontrivial structure restriction.  (Contributed by Stefan
+       O'Rear, 29-Nov-2014.) $)
+    ressval2 $p |- ( ( -. ( Base ` W ) C_ A /\ W e. X /\ A e. Y ) ->
+        ( W |`s A ) = ( { <. ( Base ` ndx ) , ( A i^i ( Base ` W ) ) >. } u.
+           ( W |` ( _V \ { ( Base ` ndx ) } ) ) ) ) $=
+      ( cbs cfv wss wn wcel cress co cnx cin cop csn cvv cdif cres cun wa uncom
+      wceq cif ressval iffalse sylan9eqr syl6eq 3impb ) BEFZAGZHZBCIZADIZBAJKZL
+      EFZAUIMNOZBPUOOQRZSZUBUKULUMTZTUNUQUPSZURUSUKUNUJBUTUCUTABCDUDUJBUTUEUFUQ
+      UPUAUGUH $.
+      $( [29-Nov-2014] $)
+
+    $( The structure restriction is a proper operator, so it can be used with
+       ~ ovprc1 .  (Contributed by Stefan O'Rear, 29-Nov-2014.) $)
+    reldmress $p |- Rel dom |`s $=
+      ( vw va cress cvv cbs cfv wss cnx csn cdif cres cin cop cun cif reldmmpt2
+      cv df-ress ) ABCDDAQZEFZBQZGSSDHEFZIJKUBUATLMINOABRP $.
+      $( [29-Nov-2014] $)
+
+    ${
+      $d F f a w $.  $d A f $.  $d W f $.
+      ressbase.a $e |- R = ( W |`s A ) $.
+      $( Base set of a finite structure restriction.  (Contributed by Stefan
+         O'Rear, 26-Nov-2014.) $)
+      ressbase $p |- ( A e. V -> ( A i^i ( Base ` W ) ) = ( Base ` R ) ) $=
+        ( va vw vs vf wcel cbs cfv cin cress co cvv wceq cv fveq2d c0 fveq2 wss
+        ineq2d oveq1 eqeq12d ineq1 oveq2 incom df-ss biimpi vex ressid2 mp3an23
+        syl5eq eqtr4d wn cnx ovex baseid strfvn cop csn cdif cres ressval2 fvex
+        cun fveq1d inex1 eqid fvsnun1 syl5req pm2.61i vtocl2g fv01 0ex 3eqtr4ri
+        syl6eq fvprc reldmress ovprc1 3eqtr4a adantr pm2.61ian fveq2i syl6eqr
+        in0 ) ACJZADKLZMZDANOZKLZBKLDPJZWHWJWLQZFRZGRZKLZMZWPWONOZKLZQZWOWIMZDW
+        ONOZKLZQWNGFDAPCWPDQZWRXBWTXDXEWQWIWOWPDKUAUCXEWSXCKWPDWONUDSUEWOAQZXBW
+        JXDWLWOAWIUFXFXCWKKWOADNUGSUEWQWOUBZXAXGWRWQWTXGWRWQWOMZWQWOWQUHXGXHWQQ
+        WQWOUIUJUNXGWSWPKXGWPPJZWOPJZWSWPQGUKZFUKZWOWPPPULUMSUOXGUPZWTUQKLZWSLZ
+        WRWSKXNHWPWONURHUSUTXMXOXNXNWRVAVBWPPXNVBVCVDVGZLWRXMXNWSXPXMXIXJWSXPQX
+        KXLWOWPPPVEUMVHXNWRPWPXPUQKVFWOWQXLVIXPVJVKVRVLVMVNWMUPZWNWHXQATMZTKLZW
+        JWLXNTLTXSXRXNVOTKXNIVPIUSUTAWGVQXQWITADKVSUCXQWKTKDANVTWASWBWCWDBWKKEW
+        EWF $.
+        $( [26-Nov-2014] $)
+    $}
+
+    ${
+      $d F f a w $.  $d A f $.  $d W f $.
+      resslem.r $e |- R = ( W |`s A ) $.
+      resslem.e $e |- E = ( F ` W ) $.
+      resslem.f $e |- F = ( f e. _V |-> ( f ` ( F ` ndx ) ) ) $.
+      resslem.d $e |- -. ( F ` ndx ) e. { ( Base ` ndx ) } $.
+      $( Other elements of a finite structure restriction. $)
+      resslem $p |- ( A e. V -> E = ( F ` R ) ) $=
+        ( va wcel cfv cress cvv wceq wa cnx c0 co cv oveq2 fveq1d eqeq1d imbi2d
+        wi cbs wss vex ressid2 mp3an3 wn cin cop csn cdif cres cun w3a ressval2
+        eldif fvex inex1 eqid fvsnun2 ax-mp syl6eq pm2.61ian vtoclg impcom ovex
+        mpbir2an strfvn a1i fveq1 fvmpt adantr 3eqtr4rd reldmress ovprc1 fveq2d
+        str0 fvprc fveq2i 3eqtr4g ) AFMZGENZGAOUAZENZDBENGPMZWGWHWJQZWKWGRZSENZ
+        WINZWNGNZWJWHWGWKWOWPQZWKWNGLUBZOUAZNZWPQZUGWKWQUGLAFWRAQZXAWQWKXBWTWOW
+        PXBWNWSWIWRAGOUCUDUEUFGUHNZWRUIZWKXAXDWKRWNWSGXDWKWRPMZWSGQLUJZWRGPPUKU
+        LUDXDUMZWKRWTWNSUHNZWRXCUNZUOUPGPXHUPZUQZURUSZNZWPXGWKXEWTXMQXFXGWKXEUT
+        WNWSXLWRGPPVAUDULWNXKMZXMWPQXNWNPMWNXJMUMWNPXJVBSEVCKVMXHXIPWNGXLSUHVCW
+        RXCXFVDXLVEVFVGVHVIVJVKWJWOQWMWIEWNCGAOVLJVNVOWKWHWPQWGCGWNCUBZNWPPEWNX
+        OGVPJWNGVCVQVRVSWKUMZWLWGXPTENZTWJWHXQTQXPEWNCJWCVOXPWITEGAOVTWAWBGEWDV
+        SVRVIIBWIEHWEWF $.
+        $( [26-Nov-2014] $)
+
+      $( Other elements of a finite structure restriction. $)
+      resslem2 $p |- E = ( F ` R ) $=
+        ( cvv wcel cfv wceq resslem wn cress co syl5eq c0 ovprc2 eqid cnx fvprc
+        fveq2d str0 eqcomi reldmress ovprc1 3eqtr4a pm2.61i syl6reqr ) AKLZDBEM
+        ZNABCDEKFGHIJOUMPZUNFFQRZEMZDUOBUPEUOBFAQRUPGFAQUASUEFKLZDUQNFUPCDEKFUP
+        UBHIJOURPZTTEMZDUQUTTEUCEMCIUFUGUSDFEMTHFEUDSUSUPTEFFQUHUIUEUJUKULUK $.
+        $( [27-Nov-2014] $)
+    $}
+
+    ${
+      $d R a b $.  $d W a $.  $d A a $.  $d M a $.  $d P a $.
+      ressbasess.a $e |- ( ph -> R = ( W |`s A ) ) $.
+      $( The base set of a restriction is a subset of the base set of the
+         original structure.  (Contributed by Stefan O'Rear, 27-Nov-2014.) $)
+      ressbasess1 $p |- ( ph -> ( Base ` R ) C_ ( Base ` W ) ) $=
+        ( va cbs cfv cress co fveq2d wss cvv wcel cin eqid ressbase inss2 a1i
+        c0 eqsstr3d wn reldmress ovprc1 cnx baseid str0 eqsstri eqsstrd pm2.61i
+        0ss ovprc2 sseq1d mpbiri ) ACGHDBIJZGHZDGHZACUOGEKUPUQLZABMNZURUSUPBUQO
+        ZUQBUOMDUOPQUTUQLUSBUQRSUAUSUBZURDDIJZGHZUQLZDMNZVDVEVCDUQOZUQDVBMDVBPQ
+        VFUQLVEDUQRSUAVEUBZVCTGHZUQVGVBTGDDIUCUDKVHUQLVGVHTUQGUEGHFFUFUGUQUKUHS
+        UIUJVAUPVCUQVAUOVBGDBIULKUMUNUJSUI $.
+        $( [27-Nov-2014] $)
+
+      ${
+        ressplusg.b $e |- ( ph -> P = ( +g ` W ) ) $.
+        $( ` +g ` is unaffected by restriction.  (Contributed by Stefan O'Rear,
+           27-Nov-2014.) $)
+        ressplusg $p |- ( ph -> P = ( +g ` R ) ) $=
+          ( va cplusg cfv cress co wceq eqid plusgid grplem resslem2 a1i fveq2d
+          3eqtr4d ) AEIJZEBKLZIJZCDIJUAUCMABUBHUAIEUBNUANHOPQRGADUBIFST $.
+          $( [27-Nov-2014] $)
+      $}
+
+      ${
+        ressmulr.b $e |- ( ph -> M = ( .r ` W ) ) $.
+        $( ` .r ` is unaffected by restriction.  (Contributed by Stefan O'Rear,
+           27-Nov-2014.) $)
+        ressmulr $p |- ( ph -> M = ( .r ` R ) ) $=
+          ( va cmulr cfv cress co eqid mulrid cnx cbs csn wcel cplusg cpr sseli
+          rnglem snsspr1 mto resslem2 fveq2d 3eqtr4a ) AEIJZEBKLZIJDCIJBUIHUHIE
+          UIMUHMHNOIJZOPJZQZRUJUKOSJZTZRUBULUNUJUKUMUCUAUDUEGACUIIFUFUG $.
+          $( [27-Nov-2014] $)
+      $}
+    $}
+
+    $( Behavior of trivial restriction.  (Contributed by Stefan O'Rear,
+       29-Nov-2014.) $)
+    ressid $p |- ( W e. X -> ( W |`s ( Base ` W ) ) = W ) $=
+      ( cbs cfv wss wcel cvv cress co wceq ssid fvex ressid2 mp3an13 ) ACDZOEAB
+      FOGFAOHIAJOKACLOABGMN $.
+      $( [29-Nov-2014] $)
+
+    $( All restrictions of the null set are trivial.  (Contributed by Stefan
+       O'Rear, 29-Nov-2014.) $)
+    ress0 $p |- ( (/) |`s A ) = (/) $=
+      ( vs cvv wcel c0 cress co wceq cbs cfv wss cnx baseid 0ss eqsstri ressid2
+      str0 0ex mp3an12 wn ovprc2 mp3an syl6eq pm2.61i ) ACDZEAFGZEHZEIJZAKECDZU
+      EUGUHEAILIJBBMQZANORAECCPSUETUFEEFGZEEAFUAUHEKUIUIUKEHUHEEUJENORREECCPUBU
+      CUD $.
+      $( [29-Nov-2014] $)
+
+    $( Restriction only cares about the part of the second set which intersects
+       the base of the first.  (Contributed by Stefan O'Rear, 29-Nov-2014.) $)
+    ressinbase $p |- ( A e. X -> ( W |`s A ) =
+        ( W |`s ( A i^i ( Base ` W ) ) ) ) $=
+      ( wcel cvv cress co cbs cfv cin wceq elex wss ressid2 syl3an eqtr4d 3expb
+      w3a wn csn wa ssid incom biimpi syl5eq syl5sseqr inex1g cnx cop cdif cres
+      df-ss cun inass inidm ineq2i eqtr2i opeq2i sneqi uneq1i inss1 mpan2 con3i
+      ressval2 sstr 3eqtr4a pm2.61ian c0 reldmress ovprc1 adantr syl ) ACDAEDZB
+      AFGZBABHIZJZFGZKZACLBEDZVMVRVOAMZVSVMUAVRVTVSVMVRVTVSVMRVNBVQABEENVTVOVPM
+      ZVSVSVMVPEDZVQBKVTVOVOVPVOUBVTVPVOAJZVOAVOUCVTWCVOKVOAULUDUEUFBELZAVOEUGZ
+      VPBEENOPQVTSZVSVMVRWFVSVMRUHHIZVPUIZTZBEWGTUJUKZUMWGVPVOJZUIZTZWJUMZVNVQW
+      IWMWJWHWLVPWKWGWKAVOVOJZJVPAVOVOUNWOVOAVOUOUPUQURUSUTABEEVDWFWASVSVSVMWBV
+      QWNKWAVTWAVPAMVTAVOVAVOVPAVEVBVCWDWEVPBEEVDOVFQVGVSSZVRVMWPVNVHVQBAFVIVJB
+      VPFVIVJPVKVGVL $.
+      $( [29-Nov-2014] $)
+
+    ${
+      $d A a b c w $.  $d B a b c w $.  $d W a b c w $.
+      ressabs.a $e |- ( ph -> A e. X ) $.
+      ressabs.b $e |- ( ph -> B e. Y ) $.
+      ressabs.c $e |- ( ph -> ( A i^i B ) = C ) $.
+      $( Absorbing law for restrictions.  (Contributed by Stefan O'Rear,
+         29-Nov-2014.) $)
+      ressabs $p |- ( ph -> ( ( W |`s A ) |`s B ) = ( W |`s C ) ) $=
+        ( cress co cin wcel wceq oveq2d cvv wss cun c0 va vb vw cv oveq2 oveq1d
+        ineq1 eqeq12d ineq2 oveq1 cbs cfv wn cnx cop csn cdif cres incom ineq1i
+        inass vex eqid ressbase ax-mp ineq2i 3eqtrri opeq2i sneqi resundir fvex
+        wa snid elndif ressnop0 uneq1i uncom un0 residm 3eqtri uneq12i ressval2
+        mp2b ovex mp3an23 reseq1d uneq2d sylan9eq inss1 sstr mpan2 con3i adantl
+        inex1 3eqtr4a ex ressid2 eqtr2i eqcomi sseq1i biimpi df-ss sylib syl5eq
+        syl ressinbase 3eqtr4g eqtrd inindir inss2 inidm ssrin syl5eqssr syl5ss
+        syl5reqr eqtr4d pm2.61ii vtoclg ress0 reldmress pm2.61i vtocl2g syl2anc
+        ovprc1 ) AEBKLZCKLZEBCMZKLZEDKLABFNCGNYFYHOZHIEUAUDZKLZUBUDZKLZEYJYLMZK
+        LZOZYEYLKLZEBYLMZKLZOYIUAUBBCFGYJBOZYMYQYOYSYTYKYEYLKYJBEKUEUFYTYNYREKY
+        JBYLUGPUHYLCOZYQYFYSYHYLCYEKUEUUAYRYGEKYLCBUIPUHEQNZYPUCUDZYJKLZYLKLZUU
+        CYNKLZOZYPUCEQUUCEOZUUEYMUUFYOUUHUUDYKYLKUUCEYJKUJUFUUCEYNKUJUHUUDUKULZ
+        YLRZUUCUKULZYJRZUUGUUJUMZUULUMZUUGUUMUUNVLUNUKULZYLUUIMZUOZUPZUUOYJUUKM
+        ZUOUPZUUCQUUOUPZUQZURZSZUVBURZSZUUOYNUUKMZUOZUPZUVCSZUUEUUFUURUVIUVEUVC
+        UUQUVHUUPUVGUUOUVGYLYJMZUUKMZYLUUSMZUUPYNUVKUUKYJYLUSUTZYLYJUUKVAZUUSUU
+        IYLYJQNZUUSUUIOUAVBZYJUUDQUUCUUDVCVDVEZVFVGVHVIUVEUUTUVBURZUVCUVBURZSTU
+        VTSZUVCUUTUVCUVBVJUVSTUVTUUOUVANUUOUVBNUMUVSTOUUOUNUKVKVMUUOUVAQVNUUOUU
+        SUVBVOWCVPUWAUVTTSUVTUVCTUVTVQUVTVRUUCUVBVSVTVTWAUUMUUNUUEUURUUDUVBURZS
+        ZUVFUUMUUDQNZYLQNZUUEUWCOUUCYJKWDZUBVBZYLUUDQQWBWEUUNUWBUVEUURUUNUUDUVD
+        UVBUUNUUCQNZUVPUUDUVDOUCVBZUVQYJUUCQQWBWEWFWGWHUUNUUFUVJOZUUMUUNUUKYNRZ
+        UMZUWJUWKUULUWKYNYJRUULYJYLWIUUKYNYJWJWKWLUWLUWHYNQNZUWJUWIYJYLUVQWNZYN
+        UUCQQWBWEXEWMWOWPUUJUUEUUDUUFUUJUWDUWEUUEUUDOUWFUWGYLUUDQQWQWEUUJUUCUUS
+        KLZUUCUVGKLZUUDUUFUUJUUSUVGUUCKUUJUVGUVMUUSUVGUVLUVMUVNUVOWRUUJUVMUUSYL
+        MZUUSYLUUSUSUUJUUSYLRZUWQUUSOUUJUWRUUIUUSYLUUSUUIUVRWSWTXAUUSYLXBXCXDXO
+        PUVPUUDUWOOUVQYJUUCQXFVEUWMUUFUWPOUWNYNUUCQXFVEZXGXHUULUUEUUCYLKLZUUFUU
+        LUUDUUCYLKUULUWHUVPUUDUUCOUWIUVQYJUUCQQWQWEUFUULUWPUUCYLUUKMZKLZUUFUWTU
+        ULUVGUXAUUCKUULUVGUUSUXAMZUXAYJYLUUKXIUULUXCUXAUUSMZUXAUUSUXAUSUULUXAUU
+        SRUXDUXAOUULUXAUUKUUSYLUUKXJUULUUKUUKUUKMUUSUUKXKUUKYJUUKXLXMXNUXAUUSXB
+        XCXDXDPUWSUWEUWTUXBOUWGYLUUCQXFVEXGXPXQXRUUBUMZTYLKLTYMYOYLXSUXEYKTYLKE
+        YJKXTYDUFEYNKXTYDWOYAYBYCAYGDEKJPXH $.
+        $( [29-Nov-2014] $)
+    $}
+
+    $d X a b c $.  $d Y a b c $.
+
+    $( The base set of the field of complex numbers.  TODO: this and the
+       following may largely obsolete ~ qrng et al, as the ring of rationals
+       can be constructed as ` ( CCfld |``s QQ ) ` .  (Contributed by Stefan
+       O'Rear, 27-Nov-2014.) $)
+    cnfldbas $p |- CC = ( Base ` CCfld ) $=
+      ( cc cvv wcel ccnfld cbs cfv wceq cnex caddc cmul df-cnfld rngbase ax-mp
+      ) ABCADEFGHAIDJBKLM $.
+      $( [27-Nov-2014] $)
+
+    $( The addition operation of the field of complex numbers.  (Contributed by
+       Stefan O'Rear, 27-Nov-2014.) $)
+    cnfldadd $p |- + = ( +g ` CCfld ) $=
+      ( caddc cvv wcel ccnfld cplusg wceq addex cc cmul df-cnfld rngplusg ax-mp
+      cfv ) ABCADEMFGHADIBJKL $.
+      $( [27-Nov-2014] $)
+
+    $( The multiplication operation of the field of complex numbers.
+       (Contributed by Stefan O'Rear, 27-Nov-2014.) $)
+    cnfldmul $p |- x. = ( .r ` CCfld ) $=
+      ( cmul cvv wcel ccnfld cmulr cfv wceq mulex caddc df-cnfld rngmulr ax-mp
+      cc ) ABCADEFGHMIDABJKL $.
+      $( [27-Nov-2014] $)
+
+    $( The field of complex numbers is a set.  (Contributed by Stefan O'Rear,
+       27-Nov-2014.) $)
+    cnfldex $p |- CCfld e. _V $=
+      ( ccnfld cnx cbs cfv cc cop cplusg caddc cmulr cmul ctp cvv df-cnfld tpex
+      eqeltri ) ABCDEFZBGDHFZBIDJFZKLMPQRNO $.
+      $( [27-Nov-2014] $)
+
+    $( The complex numbers form a ring.  (Contributed by Stefan O'Rear,
+       27-Nov-2014.) $)
+    cnrng $p |- CCfld e. Ring $=
+      ( va vb vc ccnfld wcel wtru cc caddc cmul c1 cfv cnfldbas a1i cnfldadd cv
+      wceq cc0 co addcom adantl crg cbs cmulr cnfldmul cabel cneg cnfldex addcl
+      cplusg cnnvdemo 0cn addid2 negcl mpancom negid eqtrd isgrpi mulcl 3adant1
+      isabli w3a mulass adddi adddir ax-1cn mulid2 mulid1 isrngd trud ) DUAEFAB
+      CGHDIJGDUBKPFLMHDUIKPFNMIDUCKPFUDMDUEEFABGHDABCGHDAOZUFZQUGLNVJBOZUHVJVLC
+      OZUJUKVJULVJUMZVJGEZVKVJHRZVJVKHRZQVKGEVOVPVQPVNVKVJSUNVJUOUPUQLNVJVLSUTM
+      VOVLGEZVJVLIRZGEFVJVLURUSVOVRVMGEVAZVSVMIRVJVLVMIRZIRPFVJVLVMVBTVTVJVLVMH
+      RIRVSVJVMIRZHRPFVJVLVMVCTVTVJVLHRVMIRWBWAHRPFVJVLVMVDTJGEFVEMVOJVJIRVJPFV
+      JVFTVOVJJIRVJPFVJVGTVHVI $.
+      $( [27-Nov-2014] $)
+
+    $( The zero element of the field of complex numbers.  (Contributed by
+       Stefan O'Rear, 27-Nov-2014.) $)
+    cnfld0 $p |- 0 = ( 0g ` CCfld ) $=
+      ( ccnfld c0g cfv cc0 caddc co wceq 00id cgrp cc wb crg cnrng rnggrp ax-mp
+      wcel 0cnALT cnfldbas cnfldadd eqid1 grpid mp2an mpbi eqcomi ) ABCZDDDEFDG
+      ZUEDGZHAIPZDJPUFUGKALPUHMANOQJEAUEDRSUETUAUBUCUD $.
+      $( [27-Nov-2014] $)
+
+    $( The unit element of the field of complex numbers.  (Contributed by
+       Stefan O'Rear, 27-Nov-2014.) $)
+    cnfld1 $p |- 1 = ( 1r ` CCfld ) $=
+      ( va ccnfld cur cfv c1 cc wcel cv cmul wceq wral ax-1cn mulid2 mulid1 jca
+      co wa rgen pm3.2i crg wb cnrng cnfldbas cnfldmul eqid isrngid mpbi eqcomi
+      ax-mp ) BCDZEEFGZEAHZIPULJZULEIPULJZQZAFKZQZUJEJZUKUPLUOAFULFGUMUNULMULNO
+      RSBTGUQURUAUBAFBIUJEUCUDUJUEUFUIUGUH $.
+      $( [27-Nov-2014] $)
+
+    $( The additive inverse in the field of complex numbers.  (Contributed by
+       Stefan O'Rear, 27-Nov-2014.) $)
+    cnfldneg $p |- ( X e. CC -> ( ( invg ` CCfld ) ` X ) = -u X ) $=
+      ( cc wcel ccnfld cminusg cfv cneg wceq caddc co negid wb negcl cgrp cnrng
+      cc0 crg rnggrp ax-mp cnfldbas cnfldadd cnfld0 eqid grpinvid1 mp3an1 mpdan
+      mpbird ) ABCZADEFZFAGZHZAUJIJPHZAKUHUJBCZUKULLZAMDNCZUHUMUNDQCUOODRSBIDUI
+      PAUJTUAUBUIUCUDUEUFUG $.
+      $( [27-Nov-2014] $)
+
+    $( The complex numbers form a division ring.  (Contributed by Stefan
+       O'Rear, 27-Nov-2014.) $)
+    cndrng $p |- CCfld e. DivRing $=
+      ( va vb ccnfld cdr wcel wtru cc cmul c1 cv cdiv co cc0 cbs cfv a1i wne wa
+      wceq adantl cnfldbas cmulr c0g cnfld0 cur cnfld1 crg cnrng mulne0 3adant1
+      cnfldmul ax-1ne0 reccl recne0 recid2 isdrngd trud ) CDEFABGCHIIAJZKLZMGCN
+      OSFUAPHCUBOSFUKPMCUCOSFUDPICUEOSFUFPCUGEFUHPURGEURMQRZBJZGEVAMQRURVAHLMQF
+      URVAUIUJIMQFULPUTUSGEFURUMTUTUSMQFURUNTUTUSURHLISFURUOTUPUQ $.
+      $( [27-Nov-2014] $)
+
+    $( The division operation in the field of complex numbers.  (Contributed by
+       Stefan O'Rear, 27-Nov-2014.) $)
+    cnflddiv $p |- ( ( X e. CC /\ Y e. CC /\ Y =/= 0 ) ->
+        ( X ( /r ` CCfld ) Y ) = ( X / Y ) ) $=
+      ( cc wcel cc0 wne w3a ccnfld cdvr cfv cmul cdiv wceq cnfldbas cnfld0 eqid
+      co cdr cndrng a1i simp1 simp2 simp3 drngdvcl syld3an1 cnfldmul drngdvcan1
+      divcan4 oveq1d eqtr3d ) ACDZBCDZBEFZGZABHIJZQZBKQZBLQZUPABLQUPCDULUKUMURU
+      PMUNCUOHEABNOUOPZHRDUNSTZUKULUMUAZUKULUMUBZUKULUMUCZUDUPBUHUEUNUQABLUNCUO
+      HKEABNUFOUSUTVAVBVCUGUIUJ $.
+      $( [27-Nov-2014] $)
+  $}
+
+  ${
+    $d S a b $.  $d R a b $.
+    issubrg.b $e |- B = ( Base ` R ) $.
+    issubrg.i $e |- I = ( 1r ` R ) $.
+    $( The subring predicate.  (Contributed by Stefan O'Rear, 27-Nov-2014.) $)
+    issubrg $p |- ( S e. ( SubRing ` R ) <-> ( S C_ B /\
+          ( R |`s S ) e. Ring /\ I e. S ) ) $=
+      ( va vb csubrg cfv wcel cress co crg c0 wceq cur cbs wa eleq1d cvv elfvdm
+      wss w3a cdm elex syl wn reldmress ovprc1 noel cnx baseid str0 eqcomi eqid
+      rngidcl mto eleq1 mtbiri con4i 3ad2ant2 cv crab fveq2 pweqd oveq1 anbi12d
+      cpw rabeqbidv df-subrg fvex pwex rabex fvmpt eleq2d oveq2 eleq2 elrab a1i
+      elpw2 sseq2i bitr4i eleq1i anbi2i anbi12i 3anass syl6bbr 3bitrd pm5.21nii
+      wb ) CBIJZKZBUAKZCAUCZBCLMZNKZDCKZUDZWMBIUEZKWNCBIUBBWTUFUGWQWOWNWRWNWQWN
+      UHWPOPZWQUHBCLUIUJXAWQONKZXBOQJZOKXCUKOOXCORJORULRJGGUMUNUOXCUPUQURWPONUS
+      UTUGVAVBWNWMCBHVCZLMZNKZBQJZXDKZSZHBRJZVIZVDZKZCXKKZWQXGCKZSZSZWSWNWLXLCG
+      BGVCZXDLMZNKZXRQJZXDKZSZHXRRJZVIZVDXLUAIXRBPZYCXIHYEXKYFYDXJXRBRVEVFYFXTX
+      FYBXHYFXSXENXRBXDLVGTYFYAXGXDXRBQVETVHVJGHVKXIHXKXJBRVLZVMVNVOVPXMXQWKWNX
+      IXPHCXKXDCPZXFWQXHXOYHXEWPNXDCBLVQTXDCXGVRVHVSVTWNXQWOWQWRSZSZWSXQYJWKWNX
+      NWOXPYIXNCXJUCWOCXJYGWAAXJCEWBWCXOWRWQXGDCDXGFUOWDWEWFVTWOWQWRWGWHWIWJ $.
+      $( [27-Nov-2014] $)
+  $}
+
+  ${
+    subrgss.a $e |- B = ( Base ` R ) $.
+    $( A subring is a subset.  (Contributed by Stefan O'Rear, 27-Nov-2014.) $)
+    subrgss $p |- ( S e. ( SubRing ` R ) -> S C_ B ) $=
+      ( csubrg cfv wcel wss cress co crg cur eqid issubrg simp1bi ) CBEFGCAHBCI
+      JKGBLFZCGABCPDPMNO $.
+      $( [27-Nov-2014] $)
+  $}
+
+  ${
+    $( A subring is a ring.  (Contributed by Stefan O'Rear, 27-Nov-2014.) $)
+    subrgring $p |- ( S e. ( SubRing ` R ) -> ( R |`s S ) e. Ring ) $=
+      ( csubrg cfv wcel cbs wss cress co crg cur eqid issubrg simp2bi ) BACDEBA
+      FDZGABHIJEAKDZBEOABPOLPLMN $.
+      $( [27-Nov-2014] $)
+  $}
+
+  ${
+    $d R x $.  $d S x $.  $d A x $.
+    subgrpid.r $e |- ( ph -> R e. Grp ) $.
+    subgrpid.s $e |- ( ph -> S e. Grp ) $.
+    subgrpid.i $e |- ( ph -> I = ( 0g ` R ) ) $.
+    subgrpid.j $e |- ( ph -> J = ( 0g ` S ) ) $.
+    subgrpid.a $e |- ( ph -> S = ( R |`s A ) ) $.
+    $( A subset of a group which is a group must have the same identity.
+       (Contributed by Stefan O'Rear, 27-Nov-2014.) $)
+    subgrpid $p |- ( ph -> I = J ) $=
+      ( c0g cfv cplusg co wceq eqid cgrp wcel cbs eqidd ressplusg oveqd grpidcl
+      wb syl grpid syl2anc mpbiri eqtrd ressbasess1 sseldd mpbid 3eqtr4d ) ACLM
+      ZDLMZEFAUPUPCNMZOZUPPZUOUPPZAURUPUPDNMZOZUPAUQVAUPUPABUQDCKAUQUAUBUCAVBUP
+      PZUPUPPZUPQZADRSZUPDTMZSZVCVDUEHAVFVHHVGDUPVGQZVEUDUFZVGVADUPUPVIVAQVEUGU
+      HUIUJACRSUPCTMZSUSUTUEGAVGVKUPABDCKUKVJULVKUQCUOUPVKQUQQUOQUGUHUMIJUN $.
+      $( [27-Nov-2014] $)
+  $}
+
+  ${
+    subrg0.a $e |- ( ph -> A e. ( SubRing ` R ) ) $.
+    subrg0.b $e |- ( ph -> S = ( R |`s A ) ) $.
+    subrg0.c $e |- ( ph -> I = ( 0g ` R ) ) $.
+    subrg0.d $e |- ( ph -> R e. Ring ) $.
+    $( A subring always has the same additive identity.  (Contributed by Stefan
+       O'Rear, 27-Nov-2014.) $)
+    subrg0 $p |- ( ph -> I = ( 0g ` S ) ) $=
+      ( c0g cfv crg wcel cgrp rnggrp syl cress co csubrg subrgring subgrpid
+      eqeltrd eqidd ) ABCDEDJKZACLMCNMICOPADLMDNMADCBQRZLGABCSKMUELMFCBTPUBDOPH
+      AUDUCGUA $.
+      $( [27-Nov-2014] $)
+  $}
+
+  ${
+    subrg1el.a $e |- I = ( 1r ` R ) $.
+    $( A subring contains the multiplicative identity.  (Contributed by Stefan
+       O'Rear, 27-Nov-2014.) $)
+    subrg1el $p |- ( S e. ( SubRing ` R ) -> I e. S ) $=
+      ( csubrg cfv wcel cbs wss cress co crg eqid issubrg simp3bi ) BAEFGBAHFZI
+      ABJKLGCBGPABCPMDNO $.
+      $( [27-Nov-2014] $)
+  $}
+
+  ${
+    subrgbase.a $e |- ( ph -> A e. ( SubRing ` R ) ) $.
+    subrgbase.b $e |- ( ph -> S = ( R |`s A ) ) $.
+    $( Base set of a subring structure.  (Contributed by Stefan O'Rear,
+       27-Nov-2014.) $)
+    subrgbase $p |- ( ph -> A = ( Base ` S ) ) $=
+      ( cbs cfv cress cin fveq2d csubrg wcel wceq eqid ressbase syl wss subrgss
+      co df-ss sylib 3eqtr2rd ) ADGHCBITZGHZBCGHZJZBADUDGFKABCLHZMZUGUENEBUDUHC
+      UDOPQABUFRZUGBNAUIUJEUFCBUFOSQBUFUAUBUC $.
+      $( [27-Nov-2014] $)
+  $}
+
+  ${
+    $d S x $.  $d R x $.  $d A x $.  $d ph x $.
+    subrg1.a $e |- ( ph -> A e. ( SubRing ` R ) ) $.
+    subrg1.b $e |- ( ph -> S = ( R |`s A ) ) $.
+    subrg1.c $e |- ( ph -> I = ( 1r ` R ) ) $.
+    subrg1.d $e |- ( ph -> R e. Ring ) $.
+    $( A subring always has the same multiplicative identity.  (Contributed by
+       Stefan O'Rear, 27-Nov-2014.) $)
+    subrg1 $p |- ( ph -> I = ( 1r ` S ) ) $=
+      ( vx cur cfv wcel co wceq wa wral crg syl eqid cbs cmulr csubrg subrgring
+      cv wb cress eqeltrd isrngid subrgbase subrg1el ressbasess1 eqidd ressmulr
+      eqcomd wss oveqd eqeq1d anbi12d ralbidv anbi2d bitr3d mpbii simprd ssralv
+      sylc mpbi2and eqtr4d ) AECKLZDKLZHAVIDUALZMZVIJUEZDUBLZNZVMOZVMVIVNNZVMOZ
+      PZJVKQZVJVIOZADRMVLVTPWAUFADCBUGNZRGABCUCLZMWBRMFCBUDSUHJVKDVNVJVIVKTVNTV
+      JTUISAVKWCMVLAVKBWCABVKABCDFGUJUOFUHCVKVIVITZUKSAVKCUALZUPVSJWEQZVTABDCGU
+      LAVIWEMZWFAVIVIOZWGWFPZWDAWGVIVMCUBLZNZVMOZVMVIWJNZVMOZPZJWEQZPZWHWIACRMW
+      QWHUFIJWECWJVIVIWETWJTWDUISAWPWFWGAWOVSJWEAWLVPWNVRAWKVOVMAWJVNVIVMABDWJC
+      GAWJUMUNZUQURAWMVQVMAWJVNVMVIWRUQURUSUTVAVBVCVDVSJVKWEVEVFVGVH $.
+      $( [27-Nov-2014] $)
+  $}
+
+  ${
+    algpart.a $e |- A = ( { <. ( Base ` ndx ) , B >. , <. ( +g ` ndx ) , P >. ,
+        <. ( .r ` ndx ) , T >. } u. { <. ( Scalar ` ndx ) , S >. ,
+          <. ( vsca ` ndx ) , M >. } ) $.
+
+    ${
+      algpart.b $e |- D = ( { ( Base ` ndx ) , ( +g ` ndx ) , ( .r ` ndx ) } u.
+          { ( Scalar ` ndx ) , ( vsca ` ndx ) } ) $.
+      $( Lemma to shorten proofs of ~ algbase through ~ algvsca .  (Contributed
+         by Stefan O'Rear, 27-Nov-2014.) $)
+      algfn $p |- A Fn D $=
+        ( va cnx cfv cun wcel c5 wceq wne ltneii neeqtrri c6 cbs cmulr ctp csca
+        cplusg csn cop cvsca fvex eqid eqid1 rngfn w3o w3a 1re 5re 1lt5 basendx
+        wn c1 c2 2re 2lt5 df-plusg 2nn ndxarg 3re 3lt5 df-mulr 3pm3.2i ne3anior
+        c3 3nn mpbi df-sca eleq1i cn elexi eltp bitri mtbir fnunsn df-pr uneq2i
+        5nn cpr unass 3eqtr4i 6re 1lt6 2lt6 3lt6 6nn 5lt6 elsnc nemtbir pm3.2ni
+        wo df-vsca elun ) KUALZKUELZKUBLZUCZKUDLZUFZMZCXABUGXBDUGXCFUGUCZXEEUGZ
+        UFZMZAKUHLZGKUHUIXDXGXHXKXEEKUDUIBXDDXHFXHUJXDUKULXKUJXGUJXEXDNZOXAPOXB
+        POXCPUMZOXAQZOXBQZOXCQZUNXNUSXOXPXQOUTXAUTOUOUPUQRURSOVAXBVAOVBUPVCRUEV
+        AJJVDVEVFZSOVLXCVLOVGUPVHRUBVLJJVIVMVFZSVJOXAOXBOXCVKVNXMOXDNXNXEOXDUDO
+        JJVOWEVFZVPOXAXBXCOVQWEVRVSVTWAWBXHXIXLGUGZWFZMXHXJYAUFZMZMAXKYCMYBYDXH
+        XIYAWCWDHXHXJYCWGWHXDXEXLWFZMXDXFXLUFZMZMCXGYFMYEYGXDXEXLWCWDIXDXFYFWGW
+        HXLXGNZTXDNZTXFNZWRZYIYJYITXAPTXBPTXCPUMZTXAQZTXBQZTXCQZUNYLUSYMYNYOTUT
+        XAUTTUOWIWJRURSTVAXBVATVBWIWKRXRSTVLXCVLTVGWIWLRXSSVJTXATXBTXCVKVNTXAXB
+        XCTVQWMVRZVSWAYJTXETOXEOTUPWIWNRXTSTXEYPWOWPWQYHTXGNYKXLTXGUHTJJWSWMVFV
+        PTXDXFWTVTWAWB $.
+        $( [27-Nov-2014] $)
+    $}
+
+    $( Lemma to shorten proofs of ~ algbase through ~ algvsca .  (Contributed
+       by Stefan O'Rear, 27-Nov-2014.) $)
+    algfun $p |- Fun A $=
+      ( cnx cbs cfv cplusg cmulr ctp csca cvsca cpr cun wfn wfun eqid algfn
+      fnfun ax-mp ) AHIJHKJHLJMHNJHOJPQZRASABUDCDEFGUDTUAUDAUBUC $.
+      $( [27-Nov-2014] $)
+
+    $d A a $.  $d B a $.  $d P a $.  $d T a $.  $d S a $.  $d M a $.
+
+    $( The base set of a constructed algebra.  (Contributed by Stefan O'Rear,
+       27-Nov-2014.) $)
+    algbase $p |- ( B e. V -> B = ( Base ` A ) ) $=
+      ( va cbs cnx cfv cop cplusg cmulr ctp csca cvsca cpr wcel cun cvv eqeltri
+      tpex prex unex algfun baseid opex tpid1 elun1 ax-mp eleqtrri strfv ) BAJG
+      IAKJLZBMZKNLCMZKOLEMZPZKQLDMZKRLFMZSZUAZUBHUSVBUPUQURUDUTVAUEUFUCABCDEFHU
+      GIUHUPVCAUPUSTUPVCTUPUQURUOBUIUJUPUSVBUKULHUMUN $.
+      $( [27-Nov-2014] $)
+
+    $( The additive operation of a constructed algebra.  (Contributed by Stefan
+       O'Rear, 27-Nov-2014.) $)
+    algaddg $p |- ( P e. V -> P = ( +g ` A ) ) $=
+      ( va cplusg cnx cbs cfv cop cmulr ctp csca cvsca cpr wcel cun cvv eqeltri
+      tpex prex unex algfun plusgid opex tpid2 elun1 ax-mp eleqtrri strfv ) CAJ
+      GIAKLMBNZKJMZCNZKOMENZPZKQMDNZKRMFNZSZUAZUBHUSVBUOUQURUDUTVAUEUFUCABCDEFH
+      UGIUHUQVCAUQUSTUQVCTUOUQURUPCUIUJUQUSVBUKULHUMUN $.
+      $( [27-Nov-2014] $)
+
+    $( The multiplicative operation of a constructed algebra.  (Contributed by
+       Stefan O'Rear, 27-Nov-2014.) $)
+    algmulr $p |- ( T e. V -> T = ( .r ` A ) ) $=
+      ( va cmulr cnx cbs cfv cop cplusg ctp csca cvsca cpr wcel cun cvv eqeltri
+      tpex prex unex algfun mulrid opex tpid3 elun1 ax-mp eleqtrri strfv ) EAJG
+      IAKLMBNZKOMCNZKJMZENZPZKQMDNZKRMFNZSZUAZUBHUSVBUOUPURUDUTVAUEUFUCABCDEFHU
+      GIUHURVCAURUSTURVCTUOUPURUQEUIUJURUSVBUKULHUMUN $.
+      $( [27-Nov-2014] $)
+
+    $( The set of scalars of a constructed algebra.  (Contributed by Stefan
+       O'Rear, 27-Nov-2014.) $)
+    algsca $p |- ( S e. V -> S = ( Scalar ` A ) ) $=
+      ( va csca cnx cbs cfv cop cplusg cmulr ctp cvsca cpr wcel cun cvv eqeltri
+      tpex prex unex algfun scaid opex prid1 elun2 ax-mp eleqtrri strfv ) DAJGI
+      AKLMBNZKOMCNZKPMENZQZKJMZDNZKRMFNZSZUAZUBHURVBUOUPUQUDUTVAUEUFUCABCDEFHUG
+      IUHUTVCAUTVBTUTVCTUTVAUSDUIUJUTVBURUKULHUMUN $.
+      $( [27-Nov-2014] $)
+
+    $( The scalar product operation of a constructed algebra.  (Contributed by
+       Stefan O'Rear, 27-Nov-2014.) $)
+    algvsca $p |- ( M e. V -> M = ( vsca ` A ) ) $=
+      ( va cvsca cnx cbs cfv cop cplusg cmulr ctp csca cpr wcel cun cvv eqeltri
+      tpex prex unex algfun vscaid opex prid2 elun2 ax-mp eleqtrri strfv ) FAJG
+      IAKLMBNZKOMCNZKPMENZQZKRMDNZKJMZFNZSZUAZUBHURVBUOUPUQUDUSVAUEUFUCABCDEFHU
+      GIUHVAVCAVAVBTVAVCTUSVAUTFUIUJVAVBURUKULHUMUN $.
+      $( [27-Nov-2014] $)
+  $}
+
+  ${
+    $d W w s $.  $d S w s $.  $d ph w s a $.
+    $( Lemma for ~ srabase through ~ sravsca . $)
+    sraval $p |- ( ( W e. V /\ S C_ ( Base ` W ) ) ->
+        ( ( subringAlg ` W ) ` S ) = ( { <. ( Base ` ndx ) , ( Base ` W ) >. ,
+            <. ( +g ` ndx ) , ( +g ` W ) >. ,
+            <. ( .r ` ndx ) , ( .r ` W ) >. } u.
+          { <. ( Scalar ` ndx ) , ( W |`s S ) >. ,
+            <. ( vsca ` ndx ) , ( .r ` W ) >. } ) ) $=
+      ( vs vw wcel cbs cfv csra cnx cop cplusg cmulr cress cpr cun fveq2 opeq2d
+      co wceq wss cpw ctp csca cvsca cmpt cvv elex pweqd tpeq123d oveq1 preq12d
+      cv uneq12d mpteq12dv df-sra fvex pwex mptex fvmpt syl fveq1d elpw2 preq1d
+      oveq2 uneq2d eqid tpex prex unex sylbir sylan9eq ) CBFZACGHZUAZACIHZHADVN
+      UBZJGHZVNKZJLHZCLHZKZJMHZCMHZKZUCZJUDHZCDUMZNSZKZJUEHZWDKZOZPZUFZHZWFWGCA
+      NSZKZWLOZPZVMAVPWOVMCUGFVPWOTCBUHECDEUMZGHZUBZVRXBKZVTXALHZKZWCXAMHZKZUCZ
+      WGXAWHNSZKZWKXGKZOZPZUFWOUGIXACTZDXCXNVQWNXOXBVNXACGQZUIXOXIWFXMWMXOXDVSX
+      FWBXHWEXOXBVNVRXPRXOXEWAVTXACLQRXOXGWDWCXACMQZRUJXOXKWJXLWLXOXJWIWGXACWHN
+      UKRXOXGWDWKXQRULUNUOEDUPDVQWNVNCGUQZURUSUTVAVBVOAVQFWPWTTAVNXRVCDAWNWTVQW
+      OWHATZWMWSWFXSWJWRWLXSWIWQWGWHACNVERVDVFWOVGWFWSVSWBWEVHWRWLVIVJUTVKVL $.
+      $( [27-Nov-2014] $)
+
+    srapart.a $e |- ( ph -> A = ( ( subringAlg ` W ) ` S ) ) $.
+    srapart.s $e |- ( ph -> S C_ ( Base ` W ) ) $.
+    $( Base set of a subring algebra.  (Contributed by Stefan O'Rear,
+       27-Nov-2014.) $)
+    srabase $p |- ( ph -> ( Base ` W ) = ( Base ` A ) ) $=
+      ( vw cbs cfv csra wceq cvv wcel cnx cop cplusg cmulr fveq2d c0 fvprc csca
+      wss wa ctp cress co cvsca cpr cun sraval fvex eqid algbase ax-mp syl6reqr
+      wn fveq1d fv01 fveq2i c1 df-base eqtri syl6eq eqtr4d adantr pm2.61ian syl
+      str0 ) ADHIZCDJIZIZHIZBHIACVIUBZVIVLKZFDLMZVMVNVOVMUCZVLNHIVIONPIDPIZONQI
+      DQIZOUDNUAIDCUEUFZONUGIVROUHUIZHIZVIVPVKVTHCLDUJRVILMVIWAKDHUKVTVIVQVSVRV
+      RLVTULUMUNUOVOUPZVNVMWBVISVLDHTWBVLCSIZHIZSWBVKWCHWBCVJSDJTUQRWDSHISWCSHC
+      URUSHUTGGVAVHVBVCVDVEVFVGABVKHERVD $.
+      $( [27-Nov-2014] $)
+
+    $( Additive operation of a subring algebra.  (Contributed by Stefan O'Rear,
+       27-Nov-2014.) $)
+    sraaddg $p |- ( ph -> ( +g ` W ) = ( +g ` A ) ) $=
+      ( vw cplusg cfv csra cbs wceq cvv wcel cnx cop cmulr fveq2d c0 fvprc csca
+      wss wa ctp cress co cvsca cpr cun sraval fvex eqid algaddg ax-mp syl6reqr
+      wn fveq1d fv01 fveq2i c2 df-plusg str0 syl6eq eqtr4d adantr pm2.61ian syl
+      eqtri ) ADHIZCDJIZIZHIZBHIACDKIZUBZVIVLLZFDMNZVNVOVPVNUCZVLOKIVMPOHIVIPOQ
+      IDQIZPUDOUAIDCUEUFZPOUGIVRPUHUIZHIZVIVQVKVTHCMDUJRVIMNVIWALDHUKVTVMVIVSVR
+      VRMVTULUMUNUOVPUPZVOVNWBVISVLDHTWBVLCSIZHIZSWBVKWCHWBCVJSDJTUQRWDSHISWCSH
+      CURUSHUTGGVAVBVHVCVDVEVFVGABVKHERVD $.
+      $( [27-Nov-2014] $)
+
+    $( Multiplicative operation of a subring algebra.  (Contributed by Stefan
+       O'Rear, 27-Nov-2014.) $)
+    sramulr $p |- ( ph -> ( .r ` W ) = ( .r ` A ) ) $=
+      ( vs cmulr cfv csra cbs wceq cvv wcel cnx cop cplusg fveq2d c0 fvprc csca
+      wss wa ctp cress co cvsca cpr cun sraval fvex eqid algmulr ax-mp syl6reqr
+      wn fveq1d fv01 fveq2i c3 df-mulr eqtri syl6eq eqtr4d adantr pm2.61ian syl
+      str0 ) ADHIZCDJIZIZHIZBHIACDKIZUBZVIVLLZFDMNZVNVOVPVNUCZVLOKIVMPOQIDQIZPO
+      HIVIPUDOUAIDCUEUFZPOUGIVIPUHUIZHIZVIVQVKVTHCMDUJRVIMNVIWALDHUKVTVMVRVSVIV
+      IMVTULUMUNUOVPUPZVOVNWBVISVLDHTWBVLCSIZHIZSWBVKWCHWBCVJSDJTUQRWDSHISWCSHC
+      URUSHUTGGVAVHVBVCVDVEVFVGABVKHERVD $.
+      $( [27-Nov-2014] $)
+
+    $( The set of scalars of a subring algebra.  (Contributed by Stefan O'Rear,
+       27-Nov-2014.) $)
+    srasca $p |- ( ph -> ( W |`s S ) = ( Scalar ` A ) ) $=
+      ( vs cress csra cfv csca cbs wceq cvv wcel cnx cop cplusg fveq2d c0 co wa
+      wss cmulr ctp cvsca cpr cun sraval ovex eqid algsca syl6reqr wn reldmress
+      ax-mp ovprc1 fvprc fveq1d fv01 fveq2i c5 df-sca str0 syl6eq eqtr4d adantr
+      eqtri pm2.61ian syl ) ADCHUAZCDIJZJZKJZBKJACDLJZUCZVKVNMZFDNOZVPVQVRVPUBZ
+      VNPLJVOQPRJDRJZQPUDJDUDJZQUEPKJVKQPUFJWAQUGUHZKJZVKVSVMWBKCNDUISVKNOVKWCM
+      DCHUJWBVOVTVKWAWANWBUKULUPUMVRUNZVQVPWDVKTVNDCHUOUQWDVNCTJZKJZTWDVMWEKWDC
+      VLTDIURUSSWFTKJTWETKCUTVAKVBGGVCVDVHVEVFVGVIVJABVMKESVF $.
+      $( [27-Nov-2014] $)
+
+    $( The scalar product operation of a subring algebra.  (Contributed by
+       Stefan O'Rear, 27-Nov-2014.) $)
+    sravsca $p |- ( ph -> ( .r ` W ) = ( vsca ` A ) ) $=
+      ( vs cmulr cfv csra cvsca cbs wceq cvv wcel cnx cop cplusg fveq2d c0 csca
+      wss wa ctp cress co cpr cun sraval fvex eqid algvsca ax-mp syl6reqr fvprc
+      wn fveq1d fv01 fveq2i c6 df-vsca eqtri syl6eq eqtr4d adantr pm2.61ian syl
+      str0 ) ADHIZCDJIZIZKIZBKIACDLIZUBZVIVLMZFDNOZVNVOVPVNUCZVLPLIVMQPRIDRIZQP
+      HIVIQUDPUAIDCUEUFZQPKIVIQUGUHZKIZVIVQVKVTKCNDUISVINOVIWAMDHUJVTVMVRVSVIVI
+      NVTUKULUMUNVPUPZVOVNWBVITVLDHUOWBVLCTIZKIZTWBVKWCKWBCVJTDJUOUQSWDTKITWCTK
+      CURUSKUTGGVAVHVBVCVDVEVFVGABVKKESVD $.
+      $( [27-Nov-2014] $)
+  $}
+
+  ${
+    $d W a b c $.  $d S a b c $.  $d A a b c $.
+    sralmod.a $e |- A = ( ( subringAlg ` W ) ` S ) $.
+    $( The subring algebra is a left module.  (Contributed by Stefan O'Rear,
+       27-Nov-2014.) $)
+    sralmod $p |- ( ( W e. Ring /\ S e. ( SubRing ` W ) ) -> A e. LMod ) $=
+      ( va vb vc crg wcel cfv wa co wceq eqid adantl eqidd w3a sseldi syl13anc
+      cv csubrg cplusg cbs cin cmulr cur cress csra a1i subrgss srabase sraaddg
+      wss srasca sravsca ressbase ressplusg ressmulr simpr simpl subrgring cgrp
+      subrg1 rnggrp adantr grppropd mpbid simp1l inss2 sseli simp3 rngcl simpll
+      3ad2ant2 syl3anc simpr1 simpr2 simpr3 rngdi rngdir rngass rnglidm adantlr
+      islmodd ) CHIZBCUAJZIZKZEFGCUBJZBCUCJZUDZWICUEJZWLCUFJZCBUGLZWJAWHABCABCU
+      HJJMWHDUIZWGBWJUMWEWJCBWJNZUJOZUKZWHABCWOWQULZWHABCWOWQUNWHABCWOWQUOWGWKW
+      NUCJMWEBWNWFCWNNUPOWHBWIWNCWHWNPZWHWIPUQWHBWNWLCWTWHWLPURWHBCWNWMWEWGUSWT
+      WHWMPWEWGUTVCWGWNHIWECBVAOWHCVBIZAVBIWEXAWGCVDVEWHCAWRWSVFVGWHETZWKIZFTZW
+      JIZQWEXBWJIZXEXBXDWLLZWJIWEWGXCXEVHXCWHXFXEWKWJXBBWJVIZVJVNWHXCXEVKWJCWLX
+      BXDWPWLNZVLVOWHXCXEGTZWJIZQZKZWEXFXEXKXBXDXJWILWLLXGXBXJWLLZWILMWEWGXLVMX
+      MWKWJXBXHWHXCXEXKVPRWHXCXEXKVQWHXCXEXKVRWJWICWLXBXDXJWPWINZXIVSSWHXCXDWKI
+      ZXKQZKZWEXFXEXKXBXDWILXJWLLXNXDXJWLLZWILMWEWGXQVMZXRWKWJXBXHWHXCXPXKVPRZX
+      RWKWJXDXHWHXCXPXKVQRZWHXCXPXKVRZWJWICWLXBXDXJWPXOXIVTSXRWEXFXEXKXGXJWLLXB
+      XSWLLMXTYAYBYCWJCWLXBXDXJWPXIWASWEXFWMXBWLLXBMWGWJCWLWMXBWPXIWMNWBWCWD $.
+      $( [27-Nov-2014] $)
+
+    $(
+    @( The subring algebra is a left vector space. @)
+    sralvec @p |- ( ( W e. Ring /\ S e. ( SubRing ` W ) /\
+        ( W |`s S ) e. DivRing ) -> A e. LVec ) @=
+      ? @.
+    $)
+  $}
+
