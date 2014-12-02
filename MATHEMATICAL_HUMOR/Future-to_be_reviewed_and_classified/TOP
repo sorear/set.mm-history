@@ -4,4 +4,154 @@ $(
 #*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#
 $)
 
+  $c prod_ $. $( Product sign. $)
+
+  $( Extend class notation to include finite products/sums. $)
+  cprd $a class prod_ k e. A G B $.
+
+  ${
+    $d x m n k $.  $d x m n A $.  $d x m n G $.  $d x m n B $.
+    $( Define the composite for the law ` G ` of a finite sequence of elements
+       whose values are defined by the expression ` B ` and whose set of
+       indices is ` A ` . ` A ` may be empty.  It may be thougt as a product
+       (if ` G ` is a multiplication), a sum (if ` G ` is an addition) or
+       whatever.  The variable ` k ` is normally a free variable in ` B `
+       ( i.e. ` B ` can be thought of as ` B ( k ) ` ).  The definition is
+       meaningful when ` A ` is a finite set of sequential integers and ` G `
+       is an internal operation.  Our definition corresponds to the first part
+       of the definition of ~ df-sum .  The operation ` + ` has been replaced
+       by the generic operation ` G ` .  The reference to the concept of limit
+       has been removed because one wants to use the product in contexts where
+       limits are irrelevant.  I could be still more generic and replace
+       ` ( m ... n ) ` by a finite totally ordered set.  I would then get the
+       definition given by Bourbaki in the first chapter of the algebra book of
+       his treatise ( A I.3 def.4 ).  I don't because the present definition is
+       easier to deal with and because there exists an order isomorphism
+       between any finite totally ordered set and any finite sets of integers.
+       I don't specify anything about ` G ` because nothing is required of
+       ` g ` in the definition of ` seq ` .  I hope it will be ok.  Otherwise
+       one could add ` G e. Magma ` . $)
+    df-prod $a |- prod_ k e. A G B = if ( A = (/) , ( Id ` G ) ,
+                  { x | E. m E. n e. ( ZZ>= ` m ) ( A = ( m ... n ) /\
+                    x e. ( seq m ( G , ( k e. _V |-> B ) ) ` n ) ) } ) $.
+    $(
+    df-prod @a |- prod_ k e. A G B =
+      if ( A. k e. A B = ( 0g ` G ) , ( 0g ` G ) ,
+      if ( A e. ran ... ,
+        ( iota x E. m E. n e. ( ZZ>= ` m ) ( A = ( m ... n ) /\
+          x = ( seq m ( ( +g ` G ) , ( k e. _V |-> B ) ) ` n ) ) ) ,
+      [_ ( z e. ( ( ~P A i^i Fin ) \ { (/) } ) |->
+        ( iota x E. m e. NN E. f ( f : ( 1 ... m ) -1-1-onto-> z /\
+          x = ( seq 1 ( ( +g ` G ) ,
+            ( n e. NN |-> [_ ( f ` n ) / k ]_ B ) ) ` m ) ) ) ) / j ]_
+        if ( { x e. A | B =/= ( 0g ` G ) } e. Fin ,
+          ( j ` { x e. A | B =/= ( 0g ` G ) } ) ,
+        U. ( ( ( TopOpen ` G ) fLimf { x |
+          E. z e. ( ( ~P A i^i Fin ) \ { (/) } ) x =
+          { y e. ( ( ~P A i^i Fin ) \ { (/) } ) | z C_ y } } ) ` j ) ) ) ) @.
+    $)
+
+  $}
+
+  $c |`s SubRing RingSpan ringLMod CCfld LFinGen subringAlg $.
+
+  $( Extend class notation with the extensible structure builder restriction
+     operator. $)
+  cress $a class |`s $.
+
+  $( Extend class notation with all subrings of a ring. $)
+  csubrg $a class SubRing $.
+
+  $( Extend class notation with span of a set of elements over a ring. $)
+  crgspn $a class RingSpan $.
+
+  $( Extend class notation with the left module induced by a ring over
+     itself. $)
+  crglmod $a class ringLMod $.
+
+  $( Extend class notation with the field of complex numbers. $)
+  ccnfld $a class CCfld $.
+
+  $( Extend class notation with the class of finitely generated left
+     modules. $)
+  clfig $a class LFinGen $.
+
+  $( Extend class notation with the subring algebra generator. $)
+  csra $a class subringAlg $.
+
+  ${
+    $d a w s t $.
+    $( Define a multifunction restriction operator for extensible structures,
+       which can be used to turn statements about rings into statements about
+       subrings, modules into submodules, etc.  This definition knows nothing
+       about individual structures and merely truncates the ` Base ` set while
+       leaving operators alone; this will do the right thing for structures
+       like ` Ring ` where the operators are ignored outside of the base set,
+       but will not currently (2014-Nov-26) do the right thing for structures
+       like ` TopSp ` because the topology slot is not changed.  (We could
+       change the use of ` TopSp ` to restrict the topology to the base set
+       before use, which could be a good idea if this definition gains
+       traction.)
+
+       (Credit for this operator goes to Mario Carneiro).
+
+       See ~ ressbase for the altered base set, and ~ resslem2 ( ~ subrg0 ,
+       ~ ressplusg , ~ subrg1 , ~ ressmulr ) for the (un)altered other
+       operations. $)
+    df-ress $a |- |`s = ( w e. _V , a e. _V |-> if ( ( Base ` w ) C_ a , w ,
+        ( ( w |` ( _V \ { ( Base ` ndx ) } ) ) u. { <. ( Base ` ndx ) ,
+            ( a i^i ( Base ` w ) ) >. } ) ) ) $.
+
+    $( Define a subring of a ring as a set of elements that is a ring in its
+       own right and contains the multiplicative identity.
+
+       The additional constraint is necessary because the multiplicative
+       identity of a ring, unlike the additive identity of a ring/group or the
+       multiplicative identity of a field, cannot be identified by a local
+       property.  Thus it is possible for a subset of a ring to be a ring while
+       not containing the true identity if it contains a false identity.  For
+       instance, the subset ` ( ZZ X. { 0 } ) ` of ` ( ZZ X. ZZ ) ` (where
+       multiplication is component-wise) contains the false identity
+       ` <. 1 , 0 >. ` which preserves every element of the subset and thus
+       appears to be the identity of the subset, but is not the identity of the
+       larger ring. $)
+    df-subrg $a |- SubRing = ( w e. _V |->
+        { a e. ~P ( Base ` w ) | ( ( w |`s a ) e. Ring /\
+            ( 1r ` w ) e. a ) } ) $.
+
+    $( The ring-span of a set of elements in a ring is the smallest subring
+       which contains all of them. $)
+    df-rgspn $a |- RingSpan = ( w e. _V |-> ( s e. ~P ( Base ` w ) |->
+        |^| { t e. ( SubRing ` w ) | s C_ t } ) ) $.
+
+    $( Every ring can be viewed as a left module over itself. $)
+    df-rgmod $a |- ringLMod = ( w e. _V |-> ( {
+        <. ( Base ` ndx ) , ( Base ` w ) >. , <. ( +g ` ndx ) , ( +g ` w ) >. ,
+          <. ( Scalar ` ndx ) , w >. } u.
+      { <. ( vsca ` ndx ) , ( .r ` w ) >. } ) ) $.
+
+    $( The field of complex numbers.  Other number fields and rings can be
+       constructed by applying the ` |``s ` restriction operator, for instance
+       ` ( CCfld |`` AA ) ` is the field of algebraic numbers.
+
+       The contract of this set is defined entirely by ~ cnfldex , ~ cnfldadd ,
+       ~ cnfldmul , and ~ cnfldbas .  We may add additional members to this in
+       the future, e.g. a topology. $)
+    df-cnfld $a |- CCfld = { <. ( Base ` ndx ) , CC >. ,
+        <. ( +g ` ndx ) , + >. , <. ( .r ` ndx ) , x. >. } $.
+
+    $( Define the class of finitely generated left modules.  Finite generation
+       of subspaces can be intepreted using ` |``s ` . $)
+    df-lfig $a |- LFinGen = { w e. LMod | ( Base ` w ) e. ( ( LSpan ` w ) "
+        ( ~P ( Base ` w ) i^i Fin ) ) } $.
+
+    $( Given any subring of a ring, we can construct a left-algebra by
+       regarding the elements of the subring as scalars and the ring itself as
+       a set of vectors. $)
+    df-sra $a |- subringAlg = ( w e. _V |-> ( s e. ~P ( Base ` w ) |->
+        ( { <. ( Base ` ndx ) , ( Base ` w ) >. , <. ( +g ` ndx ) ,
+            ( +g ` w ) >. , <. ( .r ` ndx ) , ( .r ` w ) >. } u.
+          { <. ( Scalar ` ndx ) , ( w |`s s ) >. ,
+            <. ( vsca ` ndx ) , ( .r ` w ) >. } ) ) ) $.
+  $}
 

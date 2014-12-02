@@ -10,41 +10,79 @@ $)
   cdr $a class DivRing $.
 
   $( Define class of all division rings.  A division ring is a ring in which
-     multiplication forms a group on the base set minus the ring zero element.
-     Note that we construct an explicit 2-element group structure member to
-     specify this condition. $)
+     the set of units is exactly the nonzero elements of the ring. $)
   df-drng $a |- DivRing = { r e. Ring |
-    { <. ( Base ` ndx ) , ( ( Base ` r ) \ { ( 0g ` r ) } ) >. ,
-           <. ( +g ` ndx ) , ( .r ` r ) >. } e. Grp } $.
+    ( Unit ` r ) = ( ( Base ` r ) \ { ( 0g ` r ) } ) } $.
 
   ${
-    $d r G $.  $d r R $.
-    isdivrng.b $e |- B = ( Base ` R ) $.
-    isdivrng.t $e |- T = ( .r ` R ) $.
-    isdivrng.z $e |- Z = ( 0g ` R ) $.
-    isdivrng.g $e |- G = { <. ( Base ` ndx ) , ( B \ { Z } ) >. ,
-          <. ( +g ` ndx ) , T >. } $.
-    $( The predicate "is a division ring". $)
-    isdrng $p |- ( R e. DivRing <-> ( R e. Ring /\ G e. Grp ) ) $=
-      ( vr cbs cfv c0g csn cop cmulr cgrp wcel fveq2 syl6eqr cnx cv cdif cplusg
-      cpr crg cdr wceq sneqd sneqi opeq2d preq12d eleq1d eleq1i syl6bbr df-drng
-      difeq12d elrab2 ) UAKLZJUBZKLZUTMLZNZUCZOZUAUDLZUTPLZOZUEZQRZDQRZJBUFUGUT
-      BUHZVJUSAENZUCZOZVFCOZUEZQRVKVLVIVQQVLVEVOVHVPVLVDVNUSVLVAAVCVMVLVABKLAUT
-      BKSFTVLVCBMLZNVMVLVBVRUTBMSUIEVRHUJTUQUKVLVGCVFVLVGBPLCUTBPSGTUKULUMDVQQI
-      UNUOJUPUR $.
-      $( [18-Oct-2012] $)
+    $d r B $.  $d r R $.  $d r U $.  $d r Z $.
+    isdrng.b $e |- B = ( Base ` R ) $.
+    isdrng.u $e |- U = ( Unit ` R ) $.
+    isdrng.z $e |- Z = ( 0g ` R ) $.
+    $( The predicate "is a division ring".  (Revised by Mario Carneiro,
+       2-Dec-2014.) $)
+    isdrng $p |- ( R e. DivRing <-> ( R e. Ring /\ U = ( B \ { Z } ) ) ) $=
+      ( vr cv cui cfv cbs c0g csn cdif wceq crg cdr fveq2 syl6eqr sneqd eqeq12d
+      difeq12d df-drng elrab2 ) HIZJKZUFLKZUFMKZNZOZPCADNZOZPHBQRUFBPZUGCUKUMUN
+      UGBJKCUFBJSFTUNUHAUJULUNUHBLKAUFBLSETUNUIDUNUIBMKDUFBMSGTUAUCUBHUDUE $.
+      $( [2-Dec-2014] $) $( [18-Oct-2012] $)
+
+    $( Elementhood in the set of units when ` R ` is a division ring. $)
+    drngunit $p |- ( R e. DivRing -> ( X e. U <-> ( X e. B /\ X =/= Z ) ) ) $=
+      ( cdr wcel csn cdif wne wa crg wceq isdrng simprbi eleq2d eldifsn syl6bb
+      ) BIJZDCJDAEKLZJDAJDEMNUBCUCDUBBOJCUCPABCEFGHQRSDAETUA $.
+      $( [2-Dec-2014] $)
   $}
 
   $( A division ring is a ring. $)
   drngrng $p |- ( R e. DivRing -> R e. Ring ) $=
-    ( cdr wcel crg cnx cbs cfv c0g csn cdif cop cplusg cmulr cpr isdrng simplbi
-    cgrp eqid ) ABCADCEFGAFGZAHGZIJKELGAMGZKNZQCSAUAUBTSRUARTRUBROP $.
+    ( cdr wcel crg cui cfv cbs c0g csn cdif wceq eqid isdrng simplbi ) ABCADCAE
+    FZAGFZAHFZIJKPAOQPLOLQLMN $.
     $( [8-Sep-2011] $)
 
   $( A division ring is a group. $)
   drnggrp $p |- ( R e. DivRing -> R e. Grp ) $=
     ( cdr wcel crg cgrp drngrng rnggrp syl ) ABCADCAECAFAGH $.
     $( [8-Sep-2011] $)
+
+  ${
+    $d x y B $.  $d x y G $.  $d x y R $.  $d y T $.  $d x Z $.
+    isdrng2.b $e |- B = ( Base ` R ) $.
+    isdrng2.u $e |- T = ( .r ` R ) $.
+    isdrng2.z $e |- Z = ( 0g ` R ) $.
+    isdrng2.g $e |- G =
+      { <. ( Base ` ndx ) , ( B \ { Z } ) >. , <. ( +g ` ndx ) , T >. } $.
+    $( A division ring can equivalently be defined as a ring such that the
+       nonzero elements form a group under multiplication (from which it
+       follows that this is the same group as the group of units).
+       (Contributed by Mario Carneiro, 2-Dec-2014.) $)
+    isdrng2 $p |- ( R e. DivRing <-> ( R e. Ring /\ G e. Grp ) ) $=
+      ( vx vy wcel cfv wceq wa eqid cbs adantr co cvv cdr crg cui csn cdif cgrp
+      isdrng cnx cop cplusg cpr simpr opeq2d preq1d syl6eqr unitgrp eqeltrrd cv
+      wne unitcl adantlr c0g cdvr eqeltri difexg ax-mp grpbase grpidcl ad2antlr
+      fvex eldifsn sylib simprd simpll simpld rngdvcan1 rngdvcl syl2anc 3netr4d
+      rngrz oveq2 necon3i syl sylanbrc ex ssrdv cur wrex isunit ad2antrr eldifi
+      wb adantl cminusg grpinvcl adantll cmulr grpplusg grprinv rngidcl rnglidm
+      mpdan 1unit sseldd grpid mpbid eqtrd grplinv eqeq1d oveq1 anbi12d rcla4ev
+      syl12anc mpbir2and eqssd impbida pm5.32i bitri ) BUALBUBLZBUCMZAEUDZUEZNZ
+      OZXSDUFLZOZABXTEFXTPZHUGXSYCYEXSYCYEYDUHQMZXTUIZUHUJMCUIZUKZDUFYDYKYHYBUI
+      ZYJUKDYDYIYLYJYDXTYBYHXSYCULUMUNIUOXSYKUFLYCBCXTYKYGGYKPUPRUQYFXTYBYFJXTY
+      BYFJURZXTLZYMYBLZYFYNOZYMALZYMEUSZYOXSYNYQYEABXTUBYMFYGUTVAYPDVBMZYMBVCMZ
+      SZYMCSZUUAECSZUSYRYPYSEUUBUUCYPYSALZYSEUSZYPYSYBLZUUDUUEOYEUUFXSYNYBDYSYB
+      TLZYBDQMNATLUUGABQMTFBQVJVDAYATVEVFYBCDTIVGVFZYSPZVHVIYSAEVKVLZVMYPAYTBCX
+      TYSYMFYGYTPZXSYEYNVNZYPUUDUUEUUJVOZYFYNULZGVPYPXSUUAALUUCENUULYPAYTBXTYSY
+      MFYGUUKUULUUMUUNVQABCUUAEFGHVTVRVSYMEUUBUUCYMEUUACWAWBWCYMAEVKWDWEWFZYFJY
+      BXTYFYOYNYFYOOZYNYQYMKURZCSZBWGMZNZUUQYMCSZUUSNZOZKAWHZXSYNYQUVDOWLYEYOKA
+      BCXTUUSUBYMYGUUSPZFGWIWJYOYQYFYMAYAWKWMUUPYMDWNMZMZALZYMUVGCSZUUSNZUVGYMC
+      SZUUSNZUVDUUPUVGYBLZUVHYEYOUVMXSYBDUVFYMUUHUVFPZWOWPUVGAYAWKWCUUPUVIYSUUS
+      YEYOUVIYSNXSYBCDUVFYSYMUUHCTLCDUJMNCBWQMTGBWQVJVDYBCDTIWRVFZUUIUVNWSWPYFY
+      SUUSNZYOYFUUSUUSCSUUSNZUVPXSUVQYEXSUUSALUVQABUUSFUVEWTABCUUSUUSFGUVEXAXBR
+      YFYEUUSYBLUVQUVPWLXSYEULYFXTYBUUSUUOXSUUSXTLYEBXTUUSYGUVEXCRXDYBCDYSUUSUU
+      HUVOUUIXEVRXFRZXGUUPUVKYSUUSYEYOUVKYSNXSYBCDUVFYSYMUUHUVOUUIUVNXHWPUVRXGU
+      VCUVJUVLOKUVGAUUQUVGNZUUTUVJUVBUVLUVSUURUVIUUSUUQUVGYMCWAXIUVSUVAUVKUUSUU
+      QUVGYMCXJXIXKXLXMXNWEWFXOXPXQXR $.
+      $( [2-Dec-2014] $)
+  $}
 
   ${
     $d u x K $.  $d u x L $.
@@ -56,15 +94,15 @@ $)
     drngprop $p |- ( K e. DivRing <-> L e. DivRing ) $=
       ( vu vx cvv wcel cdr wn cbs cfv c0 wceq cgrp syl cop wa eqid wb con3i wne
       elex fvprc drnggrp grpn0 necon2bi 2falsed eqcomi crg cnx c0g cplusg cmulr
-      csn cdif cpr isdrng cv co wral crio grpidval adantr adantl eqtr4d difeq2d
-      sneqd opeq2d preq1d eleq1d anbi2d rngprop anbi1i 3bitr4g syl5bb ecase ) A
-      HIZBHIZAJIZBJIZUAVSKZWAWBWAVSAJUDUBWCALMZNOWBKALUEWBWDNWBBPIWDNUCBUFWDBCU
-      GQUHQUIVTKZWAWBWEBLMZNOWAKBLUEWAWFNWAAPIWFNUCAUFWFAWDWFCUJUGQUHQWBVTBJUDU
-      BUIWAAUKIZULLMZWDAUMMZUPZUQZRZULUNMAUOMZRZURZPIZSZVSVTSZWBWDAWMWOWIWDTZWM
-      TWITZWOTUSWRBUKIZWPSXAWHWDBUMMZUPZUQZRZWNURZPIZSWQWBWRWPXGXAWRWOXFPWRWLXE
-      WNWRWKXDWHWRWJXCWDWRWIXBWRWIFUTGUTZAUNMZVAXHOGWDVBFWDVCZXBVSWIXJOVTGWDXIF
-      AWIHWSXITWTVDVEVTXBXJOVSGWDXIFBXBHCDXBTZVDVFVGVIVHVJVKVLVMWGXAWPABCDEVNVO
-      WDBWMXFXBCEXKXFTUSVPVQVR $.
+      csn cdif cpr isdrng2 cv co wral crio grpidval adantr adantl sneqd difeq2d
+      eqtr4d opeq2d preq1d eleq1d anbi2d rngprop anbi1i 3bitr4g syl5bb ecase )
+      AHIZBHIZAJIZBJIZUAVSKZWAWBWAVSAJUDUBWCALMZNOWBKALUEWBWDNWBBPIWDNUCBUFWDBC
+      UGQUHQUIVTKZWAWBWEBLMZNOWAKBLUEWAWFNWAAPIWFNUCAUFWFAWDWFCUJUGQUHQWBVTBJUD
+      UBUIWAAUKIZULLMZWDAUMMZUPZUQZRZULUNMAUOMZRZURZPIZSZVSVTSZWBWDAWMWOWIWDTZW
+      MTWITZWOTUSWRBUKIZWPSXAWHWDBUMMZUPZUQZRZWNURZPIZSWQWBWRWPXGXAWRWOXFPWRWLX
+      EWNWRWKXDWHWRWJXCWDWRWIXBWRWIFUTGUTZAUNMZVAXHOGWDVBFWDVCZXBVSWIXJOVTGWDXI
+      FAWIHWSXITWTVDVEVTXBXJOVSGWDXIFBXBHCDXBTZVDVFVIVGVHVJVKVLVMWGXAWPABCDEVNV
+      OWDBWMXFXBCEXKXFTUSVPVQVR $.
       $( [11-Oct-2013] $)
   $}
 
@@ -91,24 +129,24 @@ $)
         3expib eleq2d anbi12d eleq12d 3imtr4d 3impib 3adant2r 3adant3r sylanbrc
         rngcl oveqd syl3an3b syl3an2b eldifi 3anim123i wi ex 3anbi123d oveq123d
         rngass eqeq12d imp sylan2 rngidcl mpbird rnglidm eqeq1d adantrr sylan2b
-        eqidd cur isgrpd mpbi2and isdrng sylibr ) AEUBTZUCUDUEZEUDUEZEUFUEZUGZU
-        HZUIZUCUJUEZEUKUEZUIZULZUMTZUNZEUOTAXOXPDIUGZUHZUIZYBFUIZULZUMTZYGAYMYF
-        XOAYLYEUMAYJYAYKYDAYIXTXPADXQYHXSJAIXRLUPUQURAFYCYBKURUSUTVANABCUAYIFYL
-        HGADVBTYIVBTYIYLUDUEVCADXQVBJEUDVDVEDYHVBVGYIFYLVBYLVFZVHVIAFVBTFYLUJUE
-        VCAFYCVBKEUKVDVEYIFYLVBYNVJVKYLVBTAYJYKVLVMBVNZYITZAYODTZYOIVOZUNZCVNZY
-        ITZYOYTFVPZYITZYODIVQZUUAAYSYTDTZYTIVOZUNZUUCYTDIVQAYSUUGVRUUBDTZUUBIVO
-        UUCAYSUUEUUHUUFAYQUUEUUHYRAYQUUEUUHAYOXQTZYTXQTZUNYOYTYCVPZXQTZYQUUEUNU
-        UHAUUIUUJUULAXOUUIUUJUULNXQEYCYOYTXQVFZYCVFZWIVSVTAYQUUIUUEUUJADXQYOJWA
-        ZADXQYTJWAZWBAUUBUUKDXQAFYCYOYTKWJZJWCWDWEWFWGOUUBDIVQWHWKWLYPUUAUAVNZY
-        ITZVRAYQUUEUURDTZVRZUUBUURFVPZYOYTUURFVPZFVPZVCZYPYQUUAUUEUUSUUTYODYHWM
-        YTDYHWMUURDYHWMWNAUVAUVEAUUIUUJUURXQTZVRZUUKUURYCVPZYOYTUURYCVPZYCVPZVC
-        ZUVAUVEAXOUVGUVKWONXOUVGUVKXQEYCYOYTUURUUMUUNWSWPVKAYQUUIUUEUUJUUTUVFUU
-        OUUPADXQUURJWAWQAUVBUVHUVDUVJAUUBUUKUURUURFYCKUUQAUURXIWRAYOYOUVCUVIFYC
-        KAYOXIZAFYCYTUURKWJWRWTWDXAXBAGDTZGIVOGYITAUVMEXJUEZXQTZAXOUVONXQEUVNUU
-        MUVNVFZXCVKAGUVNDXQMJWCXDPGDIVQWHYPAYSGYOFVPZYOVCZUUDAYQUVRYRAYQUVRAUUI
-        UVNYOYCVPZYOVCZYQUVRAXOUUIUVTWONXOUUIUVTXQEYCUVNYOUUMUUNUVPXEWPVKUUOAUV
-        QUVSYOAGUVNYOYOFYCKMUVLWRXFWDXAXGXHYPAYSHYITZUUDAYSUNHDTHIVOUWAQRHDIVQW
-        HXHYPAYSHYOFVPGVCUUDSXHXKXLXQEYCYEXRUUMUUNXRVFYEVFXMXN $.
+        eqidd cur isgrpd mpbi2and isdrng2 sylibr ) AEUBTZUCUDUEZEUDUEZEUFUEZUGZ
+        UHZUIZUCUJUEZEUKUEZUIZULZUMTZUNZEUOTAXOXPDIUGZUHZUIZYBFUIZULZUMTZYGAYMY
+        FXOAYLYEUMAYJYAYKYDAYIXTXPADXQYHXSJAIXRLUPUQURAFYCYBKURUSUTVANABCUAYIFY
+        LHGADVBTYIVBTYIYLUDUEVCADXQVBJEUDVDVEDYHVBVGYIFYLVBYLVFZVHVIAFVBTFYLUJU
+        EVCAFYCVBKEUKVDVEYIFYLVBYNVJVKYLVBTAYJYKVLVMBVNZYITZAYODTZYOIVOZUNZCVNZ
+        YITZYOYTFVPZYITZYODIVQZUUAAYSYTDTZYTIVOZUNZUUCYTDIVQAYSUUGVRUUBDTZUUBIV
+        OUUCAYSUUEUUHUUFAYQUUEUUHYRAYQUUEUUHAYOXQTZYTXQTZUNYOYTYCVPZXQTZYQUUEUN
+        UUHAUUIUUJUULAXOUUIUUJUULNXQEYCYOYTXQVFZYCVFZWIVSVTAYQUUIUUEUUJADXQYOJW
+        AZADXQYTJWAZWBAUUBUUKDXQAFYCYOYTKWJZJWCWDWEWFWGOUUBDIVQWHWKWLYPUUAUAVNZ
+        YITZVRAYQUUEUURDTZVRZUUBUURFVPZYOYTUURFVPZFVPZVCZYPYQUUAUUEUUSUUTYODYHW
+        MYTDYHWMUURDYHWMWNAUVAUVEAUUIUUJUURXQTZVRZUUKUURYCVPZYOYTUURYCVPZYCVPZV
+        CZUVAUVEAXOUVGUVKWONXOUVGUVKXQEYCYOYTUURUUMUUNWSWPVKAYQUUIUUEUUJUUTUVFU
+        UOUUPADXQUURJWAWQAUVBUVHUVDUVJAUUBUUKUURUURFYCKUUQAUURXIWRAYOYOUVCUVIFY
+        CKAYOXIZAFYCYTUURKWJWRWTWDXAXBAGDTZGIVOGYITAUVMEXJUEZXQTZAXOUVONXQEUVNU
+        UMUVNVFZXCVKAGUVNDXQMJWCXDPGDIVQWHYPAYSGYOFVPZYOVCZUUDAYQUVRYRAYQUVRAUU
+        IUVNYOYCVPZYOVCZYQUVRAXOUUIUVTWONXOUUIUVTXQEYCUVNYOUUMUUNUVPXEWPVKUUOAU
+        VQUVSYOAGUVNYOYOFYCKMUVLWRXFWDXAXGXHYPAYSHYITZUUDAYSUNHDTHIVOUWAQRHDIVQ
+        WHXHYPAYSHYOFVPGVCUUDSXHXKXLXQEYCYEXRUUMUUNXRVFYEVFXMXN $.
         $( [2-Aug-2013] $)
     $}
 
@@ -151,7 +189,7 @@ $)
                           <. ( +g ` ndx ) , T >. } $.
     $( A division ring contains a multiplicative group. $)
     drngmgrp $p |- ( R e. DivRing -> G e. Grp ) $=
-      ( cdr wcel crg cgrp isdrng simprbi ) BJKBLKDMKABCDEFGHINO $.
+      ( cdr wcel crg cgrp isdrng2 simprbi ) BJKBLKDMKABCDEFGHINO $.
       $( [8-Sep-2011] $)
   $}
 
@@ -170,35 +208,19 @@ $)
   $}
 
   ${
-    divrngid.b $e |- B = ( Base ` R ) $.
-    divrngid.t $e |- T = ( .r ` R ) $.
-    divrngid.z $e |- Z = ( 0g ` R ) $.
-    divrngid.u $e |- U = ( 1r ` R ) $.
-    divrngid.g $e |- G = { <. ( Base ` ndx ) , ( B \ { Z } ) >. ,
+    drngid.b $e |- B = ( Base ` R ) $.
+    drngid.t $e |- T = ( .r ` R ) $.
+    drngid.z $e |- Z = ( 0g ` R ) $.
+    drngid.u $e |- U = ( 1r ` R ) $.
+    drngid.g $e |- G = { <. ( Base ` ndx ) , ( B \ { Z } ) >. ,
                           <. ( +g ` ndx ) , T >. } $.
-    $( Lemma for ~ drngid and ~ drngunz . $)
-    drngidlem $p |- ( R e. DivRing -> U =/= Z ) $=
-      ( wcel cfv wne cvv cbs wceq 3syl co syl2anc cdr c0g cgrp csn cdif eqeltri
-      drngmgrp fvex difexg grpbase mp2b eqid grpidcl eldifsn simprbi wa drngrng
-      crg eldifi rnglidm oveq1 sylan9req rnglz adantr eqtrd ex necon3d mpd ) BU
-      ALZEUBMZFNZDFNVIEUCLZVJAFUDZUEZLZVKABCEFGHIKUGZVNEVJAOLVNOLVNEPMQABPMOGBP
-      UHUFAVMOUIVNCEOKUJUKVJULUMZVOVJALZVKVJAFUNUORVIDFVJFVIDFQZVJFQVIVSUPVJFVJ
-      CSZFVIVSVJDVJCSZVTVIBURLZVRWAVJQBUQZVIVLVOVRVPVQVJAVMUSRZABCDVJGHJUTTDFVJ
-      CVAVBVIVTFQZVSVIWBVRWEWCWDABCVJFGHIVCTVDVEVFVGVH $.
-      $( [8-Sep-2011] $)
-
     $( A division ring's unit is the identity element of its multiplicative
        group. $)
     drngid $p |- ( R e. DivRing -> U = ( 0g ` G ) ) $=
-      ( wcel cfv co wceq cvv cbs fvex ax-mp syl cdr c0g crg drngrng csn eqeltri
-      cdif cgrp difexg grpbase eqid grpidcl eldifi rnglidm syl2anc cplusg cmulr
-      drngmgrp grpplusg grplid eqtr4d wb wn rngidcl drngidlem df-ne sylib elsni
-      wne nsyl eldif sylanbrc grprcan syl13anc mpbid ) BUALZDEUBMZCNZVQVQCNZOZD
-      VQOZVPVRVQVSVPBUCLZVQALZVRVQOBUDZVPVQAFUEZUGZLZWCVPEUHLZWGABCEFGHIKURZWFE
-      VQWFPLZWFEQMOAPLWJABQMPGBQRUFAWEPUISWFCEPKUJSZVQUKZULTZVQAWEUMTABCDVQGHJU
-      NUOVPWHWGVSVQOWIWMWFCEVQVQWKCPLCEUPMOCBUQMPHBUQRUFWFCEPKUSSZWLUTUOVAVPWHD
-      WFLZWGWGVTWAVBWIVPDALZDWELZVCWOVPWBWPWDABDGJVDTVPDFOZWQVPDFVIWRVCABCDEFGH
-      IJKVEDFVFVGDFVHVJDAWEVKVLWMWMWFCEDVQVQWKWNVMVNVO $.
+      ( cdr wcel cnx cfv cop cpr c0g wceq eqid cbs cui cplusg drngrng unitgrpid
+      crg syl csn cdif isdrng simprbi opeq2d preq1d syl6eqr fveq2d eqtrd ) BLMZ
+      DNUAOZBUBOZPZNUCOCPZQZROZEROUQBUFMZDVCSBUDBCUSVBDUSTZHVBTJUEUGUQVBERUQVBU
+      RAFUHUIZPZVAQEUQUTVGVAUQUSVFURUQVDUSVFSABUSFGVEIUJUKULUMKUNUOUP $.
       $( [7-Sep-2011] $)
   $}
 
@@ -207,8 +229,9 @@ $)
     divrngunz.u $e |- U = ( 1r ` R ) $.
     $( A division ring's unit is different from its zero. $)
     drngunz $p |- ( R e. DivRing -> U =/= Z ) $=
-      ( cbs cfv cmulr cnx csn cdif cop cplusg cpr eqid drngidlem ) AFGZAAHGZBIF
-      GQCJKLIMGRLNZCQORODESOP $.
+      ( cdr wcel cbs cfv wne cui wa crg drngrng 1unit syl drngunit mpbid simprd
+      eqid ) AFGZBAHIZGZBCJZUABAKIZGZUCUDLUAAMGUFANAUEBUETZEOPUBAUEBCUBTUGDQRS
+      $.
       $( [8-Sep-2011] $)
   $}
 
@@ -231,66 +254,27 @@ $)
       $( [11-Oct-2013] $)
   $}
 
-  $c invr $.
-
-  $( Extend class notation with multiplicative inverse. $)
-  cinvr $a class invr $.
-
-  $( Define multiplicative inverse. $)
-  df-invr $a |- invr = ( r e. _V |-> ( invg `
-      { <. ( Base ` ndx ) , ( ( Base ` r ) \ { ( 0g ` r ) } ) >. ,
-        <. ( +g ` ndx ) , ( .r ` r ) >. } ) ) $.
-
-  ${
-    $d r N $.  $d r R $.
-    invrfval.b $e |- B = ( Base ` R ) $.
-    invrfval.z $e |- Z = ( 0g ` R ) $.
-    invrfval.t $e |- T = ( .r ` R ) $.
-    invrfval.4 $e |- G =
-           { <. ( Base ` ndx ) , ( B \ { Z } ) >. , <. ( +g ` ndx ) , T >. } $.
-    invrfval.n $e |- N = ( invg ` G ) $.
-    invrfval.i $e |- I = ( invr ` R ) $.
-    $( Multiplicative inverse function for a division ring. $)
-    invrfval $p |- ( R e. A -> I = N ) $=
-      ( vr cfv cbs cop cminusg syl6eqr wcel cinvr cvv wceq elex cnx cv c0g cdif
-      csn cplusg cmulr cpr fveq2 difeq12d opeq2d preq12d fveq2d df-invr eqeltri
-      sneqd fvex fvmpt syl syl5eq ) CAUAZFCUBPZGNVFCUCUAVGGUDCAUEOCUFQPZOUGZQPZ
-      VIUHPZUJZUIZRZUFUKPZVIULPZRZUMZSPZGUCUBVICUDZVSESPZGVTVRESVTVRVHBHUJZUIZR
-      ZVODRZUMEVTVNWDVQWEVTVMWCVHVTVJBVLWBVTVJCQPBVICQUNITVTVKHVTVKCUHPHVICUHUN
-      JTVAUOUPVTVPDVOVTVPCULPDVICULUNKTUPUQLTURMTOUSGWAUCMESVBUTVCVDVE $.
-      $( [21-Sep-2011] $)
-  $}
-
   ${
     invrcl.b $e |- B = ( Base ` R ) $.
     invrcl.z $e |- Z = ( 0g ` R ) $.
     invrcl.i $e |- I = ( invr ` R ) $.
-    $( Closure of the multiplicative inverse in a division ring. $)
-    invrcllem $p |- ( ( R e. DivRing /\ X e. ( B \ { Z } ) )
-             -> ( I ` X ) e. ( B \ { Z } ) ) $=
-      ( cdr wcel csn cdif wa cfv cnx cbs cop wceq eqid cvv cplusg cmulr cminusg
-      cpr invrfval fveq1d adantr cgrp drngmgrp fvex eqeltri difexg grpbase mp2b
-      grpinvcl sylan eqeltrd ) BIJZDAEKZLZJZMDCNZDOPNUTQOUANBUBNZQUDZUCNZNZUTUR
-      VBVFRVAURDCVEIABVCVDCVEEFGVCSZVDSZVESZHUEUFUGURVDUHJVAVFUTJABVCVDEFVGGVHU
-      IUTVDVEDATJUTTJUTVDPNRABPNTFBPUJUKAUSTULUTVCVDTVHUMUNVIUOUPUQ $.
-      $( [21-Sep-2011] $)
-
     $( Closure of the multiplicative inverse in a division ring.  ( ~ reccl
        analog.) $)
     drnginvrcl $p |- ( ( R e. DivRing /\ X e. B /\ X =/= Z )
              -> ( I ` X ) e. B ) $=
-      ( cdr wcel wne cfv wa csn cdif eldifsn invrcllem eldifi syl sylan2br
-      3impb ) BIJZDAJZDEKZDCLZAJZUCUDMUBDAENZOZJZUFDAEPUBUIMUEUHJUFABCDEFGHQUEA
-      UGRSTUA $.
+      ( cdr wcel wne cfv wa cui eqid drngunit crg wi drngrng rnginvcl ex 3impib
+      syl sylbird ) BIJZDAJZDEKZDCLAJZUEUFUGMDBNLZJZUHABUIDEFUIOZGPUEBQJZUJUHRB
+      SULUJUHABUICDUKHFTUAUCUDUB $.
       $( [19-Apr-2014] $)
 
     $( The multiplicative inverse in a division ring is nonzero.  ( ~ recne0
        analog.) $)
     drnginvrn0 $p |- ( ( R e. DivRing /\ X e. B /\ X =/= Z )
              -> ( I ` X ) =/= Z ) $=
-      ( cdr wcel wne cfv wa csn cdif eldifsn invrcllem simprbi syl sylan2br
-      3impb ) BIJZDAJZDEKZDCLZEKZUCUDMUBDAENOZJZUFDAEPUBUHMUEUGJZUFABCDEFGHQUIU
-      EAJUFUEAEPRSTUA $.
+      ( cdr wcel wne w3a cfv wa cui crg wi drngrng eqid drngunit ex syl 3imtr3d
+      unitinvcl 3impib simprd ) BIJZDAJZDEKZLDCMZAJZUJEKZUGUHUIUKULNZUGDBOMZJZU
+      JUNJZUHUINUMUGBPJZUOUPQBRUQUOUPBUNCDUNSZHUDUAUBABUNDEFURGTABUNUJEFURGTUCU
+      EUF $.
       $( [19-Apr-2014] $)
   $}
 
@@ -304,28 +288,18 @@ $)
        analog.) $)
     drnginvrl $p |- ( ( R e. DivRing /\ X e. B /\ X =/= Z )
              -> ( ( I ` X ) T X ) = U ) $=
-      ( cdr wcel cbs cfv wceq eqid 3ad2ant1 cvv wne w3a cnx csn cdif cop cplusg
-      cpr cminusg co c0g cgrp drngmgrp simp2 simp3 eldifsn sylanbrc fvex difexg
-      eqeltri grpbase mp2b cmulr grpplusg ax-mp grplinv syl2anc invrfval fveq1d
-      oveq1d drngid 3eqtr4d ) BMNZFANZFGUAZUBZFUCOPAGUDZUEZUFUCUGPCUFUHZUIPZPZF
-      CUJZVSUKPZFEPZFCUJZDVPVSULNZFVRNZWBWCQVMVNWFVOABCVSGHJIVSRZUMSVPVNVOWGVMV
-      NVOUNVMVNVOUOFAGUPUQVRCVSVTWCFATNVRTNVRVSOPQABOPTHBOURUTAVQTUSVRCVSTWHVAV
-      BCTNCVSUGPQCBVCPTJBVCURUTVRCVSTWHVDVEWCRVTRZVFVGVMVNWEWBQVOVMWDWAFCVMFEVT
-      MABCVSEVTGHIJWHWILVHVIVJSVMVNDWCQVOABCDVSGHJIKWHVKSVL $.
+      ( cdr wcel wne cfv co wceq wa cui drngunit crg wi drngrng unitlinv ex syl
+      eqid sylbird 3impib ) BMNZFANZFGOZFEPFCQDRZUKULUMSFBTPZNZUNABUOFGHUOUHZIU
+      AUKBUBNZUPUNUCBUDURUPUNBCUOEDFUQLJKUEUFUGUIUJ $.
       $( [19-Apr-2014] $)
 
     $( Property of the multiplicative inverse in a division ring.  ( ~ recid
        analog.) $)
     drnginvrr $p |- ( ( R e. DivRing /\ X e. B /\ X =/= Z )
              -> ( X T ( I ` X ) ) = U ) $=
-      ( cdr wcel cbs cfv wceq eqid 3ad2ant1 cvv wne w3a cnx csn cdif cop cplusg
-      cpr cminusg co c0g cgrp drngmgrp simp2 simp3 eldifsn sylanbrc fvex difexg
-      eqeltri grpbase mp2b cmulr grpplusg ax-mp grprinv syl2anc invrfval fveq1d
-      oveq2d drngid 3eqtr4d ) BMNZFANZFGUAZUBZFFUCOPAGUDZUEZUFUCUGPCUFUHZUIPZPZ
-      CUJZVSUKPZFFEPZCUJZDVPVSULNZFVRNZWBWCQVMVNWFVOABCVSGHJIVSRZUMSVPVNVOWGVMV
-      NVOUNVMVNVOUOFAGUPUQVRCVSVTWCFATNVRTNVRVSOPQABOPTHBOURUTAVQTUSVRCVSTWHVAV
-      BCTNCVSUGPQCBVCPTJBVCURUTVRCVSTWHVDVEWCRVTRZVFVGVMVNWEWBQVOVMWDWAFCVMFEVT
-      MABCVSEVTGHIJWHWILVHVIVJSVMVNDWCQVOABCDVSGHJIKWHVKSVL $.
+      ( cdr wcel wne cfv co wceq wa cui drngunit crg wi drngrng unitrinv ex syl
+      eqid sylbird 3impib ) BMNZFANZFGOZFFEPCQDRZUKULUMSFBTPZNZUNABUOFGHUOUHZIU
+      AUKBUBNZUPUNUCBUDURUPUNBCUOEDFUQLJKUEUFUGUIUJ $.
       $( [19-Apr-2014] $)
   $}
 
@@ -365,90 +339,5 @@ $)
       ) AFGDOEPFEPZGEPZQZUIABCDEFGHIJKLMRAGESZUKUITZNULUJUAZUMGEUBUNUKUIUJUIUCU
       IUJUDUEUFUGUH $.
       $( [8-Oct-2014] $)
-  $}
-
-  $c /r $.
-
-  $( Extend class notation with ring division. $)
-  cdvr $a class /r $.
-
-  ${
-    $d r x y $.
-    $( Define ring division. $)
-    df-drngdv $a |- /r = ( r e. _V
-     |-> ( x e. ( Base ` r ) , y e. ( ( Base ` r ) \ { ( 0g ` r ) } )
-         |-> ( x ( .r ` r ) ( ( invr ` r ) ` y ) ) ) ) $.
-  $}
-
-  ${
-    $d r x y B $.  $d r I $.  $d r x y O $.  $d r x y R $.  $d r T $.
-    drngdvval.b $e |- B = ( Base ` R ) $.
-    drngdvval.t $e |- T = ( .r ` R ) $.
-    drngdvval.o $e |- O = ( 0g ` R ) $.
-    drngdvval.i $e |- I = ( invr ` R ) $.
-    drngdvval.d $e |- D = ( /r ` R ) $.
-    drngdvval.r $e |- ( ph -> R e. V ) $.
-    $( Division operation for a division ring. $)
-    drngdvfval $p |- ( ph
-          -> D = ( x e. B , y e. ( B \ { O } ) |-> ( x T ( I ` y ) ) ) ) $=
-      ( wcel cvv cfv cbs vr csn cdif cv co cmpt2 wceq elex cdvr c0g cinvr cmulr
-      fveq2 syl6eqr sneqd difeq12d eqidd oveq123d mpt2eq123dv df-drngdv eqeltri
-      fveq1d fvex difexg ax-mp mpt2ex fvmpt syl5eq 3syl ) AFJQFRQZEBCDDIUBZUCZB
-      UDZCUDZHSZGUEZUFZUGPFJUHVJEFUISVQOUAFBCUAUDZTSZVSVRUJSZUBZUCZVMVNVRUKSZSZ
-      VRULSZUEZUFVQRUIVRFUGZBCVSWBWFDVLVPWGVSFTSZDVRFTUMKUNZWGVSDWAVKWIWGVTIWGV
-      TFUJSIVRFUJUMMUNUOUPWGVMVMWDVOWEGWGWEFULSGVRFULUMLUNWGVMUQWGVNWCHWGWCFUKS
-      HVRFUKUMNUNVBURUSBCUAUTBCDVLVPDWHRKFTVCVAZDRQVLRQWJDVKRVDVEVFVGVHVI $.
-      $( [2-Jul-2014] $)
-
-    $d x y I $.  $d x y T $.  $d x y X $.  $d y Y $.
-    drngdvval.x $e |- ( ph -> X e. B ) $.
-    drngdvval.y $e |- ( ph -> Y e. B ) $.
-    drngdvval.n $e |- ( ph -> Y =/= O ) $.
-    $( Division operation for a division ring. $)
-    drngdvval $p |- ( ph -> ( X D Y ) = ( X T ( I ` Y ) ) ) $=
-      ( co vx vy csn cdif cfv cmpt2 drngdvfval oveqd wcel wceq wne c0g cvv fvex
-      cv eqeltri elsnc2 necon3bbii sylibr eldif sylanbrc oveq1 oveq2d eqid ovex
-      wn fveq2 ovmpt2 syl2anc eqtrd ) AIJCTIJUAUBBBGUCZUDZUAUOZUBUOZFUEZETZUFZT
-      ZIJFUEZETZACVQIJAUAUBBCDEFGHKLMNOPUGUHAIBUIJVLUIZVRVTUJQAJBUIJVKUIZVFZWAR
-      AJGUKWCSWBJGJGGDULUEUMMDULUNUPUQURUSJBVKUTVAUAUBIJBVLVPVTVQIVOETVMIVOEVBV
-      NJUJVOVSIEVNJFVGVCVQVDIVSEVEVHVIVJ $.
-      $( [2-Jul-2014] $)
-  $}
-
-  ${
-    drngdvcl.b $e |- B = ( Base ` R ) $.
-    drngdvcl.o $e |- O = ( 0g ` R ) $.
-    drngdvcl.d $e |- D = ( /r ` R ) $.
-    drngdvcl.r $e |- ( ph -> R e. DivRing ) $.
-    drngdvcl.x $e |- ( ph -> X e. B ) $.
-    drngdvcl.y $e |- ( ph -> Y e. B ) $.
-    drngdvcl.n $e |- ( ph -> Y =/= O ) $.
-    $( Closure of division operation. $)
-    drngdvcl $p |- ( ph -> ( X D Y ) e. B ) $=
-      ( co cfv cdr eqid wcel syl3anc cinvr drngdvval crg drngrng syl drnginvrcl
-      cmulr wne rngcl eqeltrd ) AFGCOFGDUAPZPZDUGPZOZBABCDUMUKEQFGHUMRZIUKRZJKL
-      MNUBADUCSZFBSULBSZUNBSADQSZUQKDUDUELAUSGBSGEUHURKMNBDUKGEHIUPUFTBDUMFULHU
-      OUITUJ $.
-      $( [2-Jul-2014] $)
-  $}
-
-  ${
-    drngdvcan1.b $e |- B = ( Base ` R ) $.
-    drngdvcan1.t $e |- T = ( .r ` R ) $.
-    drngdvcan1.o $e |- O = ( 0g ` R ) $.
-    drngdvcan1.d $e |- D = ( /r ` R ) $.
-    drngdvcan1.r $e |- ( ph -> R e. DivRing ) $.
-    drngdvcan1.x $e |- ( ph -> X e. B ) $.
-    drngdvcan1.y $e |- ( ph -> Y e. B ) $.
-    drngdvcan1.n $e |- ( ph -> Y =/= O ) $.
-    $( A cancellation law for division.  ( ~ divcan1 analog.) $)
-    drngdvcan1 $p |- ( ph -> ( ( X D Y ) T Y ) = X ) $=
-      ( co cfv wcel wceq cinvr cdr eqid drngdvval oveq1d crg drngrng drnginvrcl
-      syl wne syl3anc rngass syl13anc drnginvrl oveq2d rngridm syl2anc eqtrd
-      cur ) AGHCQZHEQGHDUARZRZEQZHEQZGAUTVCHEABCDEVAFUBGHIJKVAUCZLMNOPUDUEAVDGV
-      BHEQZEQZGADUFSZGBSZVBBSZHBSZVDVGTADUBSZVHMDUGUIZNAVLVKHFUJZVJMOPBDVAHFIKV
-      EUHUKOBDEGVBHIJULUMAVGGDUSRZEQZGAVFVOGEAVLVKVNVFVOTMOPBDEVOVAHFIKJVOUCZVE
-      UNUKUOAVHVIVPGTVMNBDEVOGIJVQUPUQURURUR $.
-      $( [2-Jul-2014] $)
   $}
 

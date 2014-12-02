@@ -36,125 +36,6 @@ $)
       $( [27-Nov-2014] $)
   $}
 
-  $c |`s SubRing RingSpan ringLMod CCfld LFinGen subringAlg $.
-
-  $( Extend class notation with the extensible structure builder restriction
-     operator. $)
-  cress $a class |`s $.
-
-  $( Extend class notation with all subrings of a ring. $)
-  csubrg $a class SubRing $.
-
-  $( Extend class notation with span of a set of elements over a ring. $)
-  crgspn $a class RingSpan $.
-
-  $( Extend class notation with the left module induced by a ring over
-     itself. $)
-  crglmod $a class ringLMod $.
-
-  $( Extend class notation with the field of complex numbers. $)
-  ccnfld $a class CCfld $.
-
-  $( Extend class notation with the class of finitely generated left
-     modules. $)
-  clfig $a class LFinGen $.
-
-  $( Extend class notation with the subring algebra generator. $)
-  csra $a class subringAlg $.
-
-  ${
-    $d a w s t $.
-    $( Define a multifunction restriction operator for extensible structures,
-       which can be used to turn statements about rings into statements about
-       subrings, modules into submodules, etc.  This definition knows nothing
-       about individual structures and merely truncates the ` Base ` set while
-       leaving operators alone; this will do the right thing for structures
-       like ` Ring ` where the operators are ignored outside of the base set,
-       but will not currently (2014-Nov-26) do the right thing for structures
-       like ` TopSp ` because the topology slot is not changed.  (We could
-       change the use of ` TopSp ` to restrict the topology to the base set
-       before use, which could be a good idea if this definition gains
-       traction.)
-
-       (Credit for this operator goes to Mario Carneiro).
-
-       See ~ ressbase for the altered base set, and ~ resslem2 ( ~ subrg0 ,
-       ~ ressplusg , ~ subrg1 , ~ ressmulr ) for the (un)altered other
-       operations. $)
-    df-ress $a |- |`s = ( w e. _V , a e. _V |-> if ( ( Base ` w ) C_ a , w ,
-        ( ( w |` ( _V \ { ( Base ` ndx ) } ) ) u. { <. ( Base ` ndx ) ,
-            ( a i^i ( Base ` w ) ) >. } ) ) ) $.
-
-    $( Define a subring of a ring as a set of elements that is a ring in its
-       own right and contains the multiplicative identity.
-
-       The additional constraint is necessary because the multiplicative
-       identity of a ring, unlike the additive identity of a ring/group or the
-       multiplicative identity of a field, cannot be identified by a local
-       property.  Thus it is possible for a subset of a ring to be a ring while
-       not containing the true identity if it contains a false identity.  For
-       instance, the subset ` ( ZZ X. { 0 } ) ` of ` ( ZZ X. ZZ ) ` (where
-       multiplication is component-wise) contains the false identity
-       ` <. 1 , 0 >. ` which preserves every element of the subset and thus
-       appears to be the identity of the subset, but is not the identity of the
-       larger ring. $)
-    df-subrg $a |- SubRing = ( w e. _V |->
-        { a e. ~P ( Base ` w ) | ( ( w |`s a ) e. Ring /\
-            ( 1r ` w ) e. a ) } ) $.
-
-    $( The ring-span of a set of elements in a ring is the smallest subring
-       which contains all of them. $)
-    df-rgspn $a |- RingSpan = ( w e. _V |-> ( s e. ~P ( Base ` w ) |->
-        |^| { t e. ( SubRing ` w ) | s C_ t } ) ) $.
-
-    $( Every ring can be viewed as a left module over itself. $)
-    df-rgmod $a |- ringLMod = ( w e. _V |-> ( {
-        <. ( Base ` ndx ) , ( Base ` w ) >. , <. ( +g ` ndx ) , ( +g ` w ) >. ,
-          <. ( Scalar ` ndx ) , w >. } u.
-      { <. ( vsca ` ndx ) , ( .r ` w ) >. } ) ) $.
-
-    $( The field of complex numbers.  Other number fields and rings can be
-       constructed by applying the ` |``s ` restriction operator, for instance
-       ` ( CCfld |`` AA ) ` is the field of algebraic numbers.
-
-       The contract of this set is defined entirely by ~ cnfldex , ~ cnfldadd ,
-       ~ cnfldmul , and ~ cnfldbas .  We may add additional members to this in
-       the future, e.g. a topology. $)
-    df-cnfld $a |- CCfld = { <. ( Base ` ndx ) , CC >. ,
-        <. ( +g ` ndx ) , + >. , <. ( .r ` ndx ) , x. >. } $.
-
-    $( Define the class of finitely generated left modules.  Finite generation
-       of subspaces can be intepreted using ` |``s ` . $)
-    df-lfig $a |- LFinGen = { w e. LMod | ( Base ` w ) e. ( ( LSpan ` w ) "
-        ( ~P ( Base ` w ) i^i Fin ) ) } $.
-
-    $( Given any subring of a ring, we can construct a left-algebra by
-       regarding the elements of the subring as scalars and the ring itself as
-       a set of vectors. $)
-    df-sra $a |- subringAlg = ( w e. _V |-> ( s e. ~P ( Base ` w ) |->
-        ( { <. ( Base ` ndx ) , ( Base ` w ) >. , <. ( +g ` ndx ) ,
-            ( +g ` w ) >. , <. ( .r ` ndx ) , ( .r ` w ) >. } u.
-          { <. ( Scalar ` ndx ) , ( w |`s s ) >. ,
-            <. ( vsca ` ndx ) , ( .r ` w ) >. } ) ) ) $.
-  $}
-
-  ${
-    $( Function value of the empty set.  (Contributed by Stefan O'Rear,
-       26-Nov-2014.) $)
-    fv01 $p |- ( (/) ` A ) = (/) $=
-      ( c0 cdm wcel wn cfv wceq noel dm0 eleq2i mtbir ndmfv ax-mp ) ABCZDZEABFB
-      GOABDAHNBAIJKABLM $.
-      $( [26-Nov-2014] $)
-
-    str0.a $e |- F = ( s e. _V |-> ( s ` I ) ) $.
-    $( All components of the empty set are empty sets.  (Contributed by Stefan
-       O'Rear, 27-Nov-2014.) $)
-    str0 $p |- ( F ` (/) ) = (/) $=
-      ( c0 cvv wcel cfv wceq 0ex cv fveq1 fv01 syl6eq fvmpt ax-mp ) EFGEAHEIJCE
-      BCKZHZEFAQEIRBEHEBQELBMNDJOP $.
-      $( [27-Nov-2014] $)
-  $}
-
   ${
     $d W a w s t $.  $d A a w s t $.
     $( Value of structure restriction.  (Contributed by Stefan O'Rear,
@@ -445,15 +326,21 @@ $)
       $( [27-Nov-2014] $)
 
     $( The division operation in the field of complex numbers.  (Contributed by
-       Stefan O'Rear, 27-Nov-2014.) $)
-    cnflddiv $p |- ( ( X e. CC /\ Y e. CC /\ Y =/= 0 ) ->
-        ( X ( /r ` CCfld ) Y ) = ( X / Y ) ) $=
-      ( cc wcel cc0 wne w3a ccnfld cdvr cfv cmul cdiv wceq cnfldbas cnfld0 eqid
-      co cdr cndrng a1i simp1 simp2 simp3 drngdvcl syld3an1 cnfldmul drngdvcan1
-      divcan4 oveq1d eqtr3d ) ACDZBCDZBEFZGZABHIJZQZBKQZBLQZUPABLQUPCDULUKUMURU
-      PMUNCUOHEABNOUOPZHRDUNSTZUKULUMUAZUKULUMUBZUKULUMUCZUDUPBUHUEUNUQABLUNCUO
-      HKEABNUFOUSUTVAVBVCUGUIUJ $.
-      $( [27-Nov-2014] $)
+       Stefan O'Rear, 27-Nov-2014.)  (Revised by Mario Carneiro,
+       2-Dec-2014.) $)
+    cnflddiv $p |- / = ( /r ` CCfld ) $=
+      ( va vb vc cc cc0 cv cmul co wceq cmpt2 ccnfld cdiv wcel syl3anc cnfldbas
+      cfv wa eqid a1i cnfldmul csn cdif crio cinvr cdvr wne simpl simpr eldifsn
+      sylib simpld simprd divval cui cdr cndrng idi cnfld0 isdrng simprbi ax-mp
+      crg eqcomi cnrng rngdvcan1 oveq1d rngdvcl eqtr3d rngdvval eqtrd mpt2eq3ia
+      divcan4 df-div wtru rngdvfval trud 3eqtr4i ) ABDDEUAUBZBFZCFGHAFZICDUCZJA
+      BDVRVTVSKUDPZPGHZJZLKUEPZABDVRWAWCVTDMZVSVRMZQZWAVTVSWEHZWCWHVTVSLHZWAWIW
+      HWFVSDMZVSEUFZWJWAIWFWGUGZWHWKWLWHWGWKWLQWFWGUHZVSDEUIUJZUKZWHWKWLWOULZCV
+      TVSUMNWHWIVSGHZVSLHZWJWIWHWRVTVSLWHDWEKGVRVTVSOKUNPZVRKUOMZWTVRIZXAUPUQXA
+      KVBMZXBDKWTEOWTRURUSUTVAVCZWERZXCWHVDSZWMWNTVEVFWHWIDMWKWLWSWIIWHDWEKVRVT
+      VSOXDXEXFWMWNVGWPWQWIVSVLNVHVHWHDWEKGVRWBUOVTVSOTXDWBRZXEXAWHUPSWMWNVIVJV
+      KABCVMWEWDIVNABDWEKGVRWBVBOTXDXGXEXCVNVDSVOVPVQ $.
+      $( [2-Dec-2014] $) $( [27-Nov-2014] $)
   $}
 
   ${

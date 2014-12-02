@@ -1,0 +1,89 @@
+$(
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+                         Univariate Polynomials
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+$)
+
+  $( Introduce new constant symbols. $)
+  $c PwSer1 $. $( Univariate power series $)
+  $c var1 $. $( Univariate power series variable $)
+  $c Poly1 $. $( Univariate polynomial $)
+  $c evalSub1 $. $( Evaluation in a subring $)
+  $c eval1 $. $( Evaluation of a univariate polynomial $)
+  $c deg1 $. $( Univariate polynomial degree $)
+  $c coe1 $. $( Multivariate -> univariate $)
+  $c toPoly1 $. $( Univariate -> multivariate $)
+  $c Monic1 $. $( Monic polynomial $)
+
+  $( Univariate power series. $)
+  cps1 $a class PwSer1 $.
+
+  $( The base variable of a univariate power series. $)
+  cv1 $a class var1 $.
+
+  $( Univariate polynomials. $)
+  cpl1 $a class Poly1 $.
+
+  $( Evaluation in a subring. $)
+  ces1 $a class evalSub1 $.
+
+  $( Evaluation of a univariate polynomial. $)
+  ce1 $a class eval1 $.
+
+  $( Univariate polynomial degree. $)
+  cdg1 $a class deg1 $.
+
+  $( Convert a multivariate polynomial representation to univariate. $)
+  cco1 $a class coe1 $.
+
+  $( Convert a univariate polynomial representation to multivariate. $)
+  ctp1 $a class toPoly1 $.
+
+  $( Monic polynomials. $)
+  cmn1 $a class Monic1 $.
+
+  ${
+    $d b f n r s x y $.
+    $( Define the algebra of univariate power series. $)
+    df-psr1 $a |- PwSer1 = ( r e. _V |-> ( 1o mPwSer r ) ) $.
+
+    $( Define the base element of a univariate power series (the ` X ` element
+       of the set ` R [ X ] ` ). $)
+    df-pbs1 $a |- var1 = ( r e. _V |-> ( ( 1o mVar r ) ` (/) ) ) $.
+
+    $( Define the algebra of univariate polynomials. $)
+    df-ply1 $a |- Poly1 = ( r e. _V |-> ( 1o mPoly r ) ) $.
+
+    $( Define the evaluation map for the univariate polynomial algebra.  The
+       function ` ( S evalSub1 R ) : V --> ( S ^m S ) ` makes sense when ` S `
+       is a ring and ` R ` is a subring of ` S ` , and where ` V ` is the set
+       of polynomials in ` ( Poly1 `` R ) ` .  This function maps an element of
+       the formal polynomial algebra (with coefficients in ` R ` ) to a
+       function from assignments to the variable from ` S ` into an element of
+       ` S ` formed by evaluating the polynomial with the given assignment. $)
+    df-evls1 $a |- evalSub1 = ( s e. _V , r e. ~P ( Base ` s ) |->
+      [_ ( Base ` s ) / b ]_ ( ( x e. ( b ^m ( b ^m 1o ) ) |-> ( x o.
+        ( y e. b |-> ( 1o X. { y } ) ) ) ) o. ( ( 1o evalSub s ) ` r ) ) ) $.
+
+    $( A simplication of ` evalSub1 ` when the evaluation ring is the same as
+       the coefficient ring. $)
+    df-evl1 $a |- eval1 = ( r e. _V |-> ( r evalSub1 ( Base ` r ) ) ) $.
+
+    $( Define the degree of a univariate polynomial. $)
+    df-deg1 $a |- deg1 = ( r e. _V , f e. ( Poly1 ` r ) |->
+      ( ( 1o mDeg r ) ` f ) ) $.
+
+    $( Define the coefficient function for a univariate polynomial. $)
+    df-coe1 $a |- coe1 = ( f e. _V |-> ( n e. NN0 |->
+      ( f ` ( 1o X. { n } ) ) ) ) $.
+
+    $( Define a function which maps a coefficient function for a univariate
+       polynomial to the corresponding polynomial object. $)
+    df-toply1 $a |- toPoly1 = ( f e. _V |-> ( n e. ( NN0 ^m 1o ) |->
+      ( f ` ( n ` (/) ) ) ) ) $.
+
+    $( Define the set of monic univariate polynomials. $)
+    df-mon1 $a |- Monic1 = ( r e. _V |-> { f e. ( Poly1 ` r ) |
+      ( ( coe1 ` f ) ` ( r deg1 f ) ) = ( 1r ` r ) } ) $.
+  $}
+

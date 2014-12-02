@@ -1,0 +1,165 @@
+$(
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+                         <i>p</i>-adic number fields
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+$)
+
+  $( Introduce new constant symbols. $)
+  $c Q2Ring $. $( Map the rationals into a field $)
+  $c Z/nZ $. $( Integers mod n $)
+  $c <Z/nZ $. $( Order on Z/nZ $)
+  $c ZRing $. $( Integral elements of a ring $)
+  $c GF $. $( Galois finite field $)
+  $c GF_oo $. $( Galois limit field $)
+  $c ~Qp $. $( Equivalence relation for Qp $)
+  $c /Qp $. $( Representative of equivalence relation $)
+  $c Qp $. $( p-adic rational numbers $)
+  $c <Qp $. $( Order on Qp $)
+  $c Zp $. $( p-adic integers $)
+  $c _Qp $. $( Algebraic completion of Qp $)
+  $c Cp $. $( Metric completion of _Qp $)
+
+  $( Map the rationals into a field, or the integers into a ring. $)
+  cq2r $a class Q2Ring $.
+
+  $( The ring of integers modulo ` n ` . $)
+  czn $a class Z/nZ $.
+
+  $( Order on Z/nZ $)
+  cltzn $a class <Z/nZ $.
+
+  $( Integral elements of a ring. $)
+  czr $a class ZRing $.
+
+  $( Galois finite field. $)
+  cgf $a class GF $.
+
+  $( Galois limit field. $)
+  cgfo $a class GF_oo $.
+
+  $( Equivalence relation for ~ df-qp . $)
+  ceqp $a class ~Qp $.
+
+  $( Equivalence relation representatives for ~ df-qp . $)
+  crqp $a class /Qp $.
+
+  $( The set of ` p ` -adic rational numbers. $)
+  cqp $a class Qp $.
+
+  $( Ordering relation on ~ df-qp . $)
+  cltqp $a class <Qp $.
+
+  $( The set of ` p ` -adic integers.  (Not to be confused with ~ czn .) $)
+  czp $a class Zp $.
+
+  $( Algebraic completion of the ` p ` -adic rational numbers. $)
+  cqpa $a class _Qp $.
+
+  $( Metric completion of ` _Qp ` . $)
+  ccp $a class Cp $.
+
+  ${
+    $d b d f g h i k n p r s x y z $.
+    $( Define the maximal homomorphism from a subring of the rational numbers
+       to a ring or field.  This encodes the usual notation of
+       ` n = 1r + 1r + ... + 1r ` for integers, and also includes rational
+       numbers if, say, there is an element ` x ` such that ` x + x = 1r ` ; in
+       this element would be mapped to ` 1 / 2 ` .  If the input structure is a
+       field, then all rational numbers will be represented. $)
+    df-q2r $a |- Q2Ring = ( r e. _V |->
+      U. ( ( CCfld |`s U. { x e. ( ( SubRing ` CCfld ) i^i ~P QQ ) |
+        ( ( CCfld |`s x ) RingHom r ) =/= (/) } ) RingHom r ) ) $.
+
+    $( Define the ring of integers ` mod n ` . $)
+    df-zn $a |- Z/nZ = ( n e. NN0 |-> [_ ( CCfld |`s ZZ ) / z ]_
+      ( z /s ( z ~QG ( ( RSpan ` z ) ` { n } ) ) ) ) $.
+
+    $( Define a total order on the ring of integers ` mod n ` . $)
+    df-ltzn $a |- <Z/nZ = ( n e. NN |-> [_ ( ( Q2Ring ` ( Z/nZ ` n ) ) |`
+      ( 0 ... ( n - 1 ) ) ) / f ]_ ( ( f o. < ) o. `' f ) ) $.
+
+    $( Define the subring of integral elements in a ring. $)
+    df-zrng $a |- ZRing = ( r e. _V |->
+      ( r IntgRing ( ( Q2Ring ` r ) " ZZ ) ) ) $.
+
+    $( Define the Galois finite field of order ` p ^ n ` . $)
+    df-gf $a |- GF = ( p e. Prime , n e. NN |-> [_ ( Z/nZ ` p ) / r ]_
+    ( ( 1st o. 1st ) ` ( ( <Z/nZ ` p ) ( splitFld ` r )
+      { [_ ( Poly1 ` r ) / s ]_ [_ ( var1 ` r ) / x ]_
+        ( prod_ i e. ( 1 ... ( p ^ n ) ) ( .r ` s ) x ( -g ` s ) x ) } ) ) ) $.
+
+    $( Define the Galois field of order ` p ^ +oo ` , as a direct limit of the
+       Galois finite fields. $)
+    df-gfoo $a |- GF_oo = ( p e. Prime |-> ( [_ ( Z/nZ ` p ) / r ]_
+      ( r polySplitLim ( n e. NN |->
+      { [_ ( Poly1 ` r ) / s ]_ [_ ( var1 ` r ) / x ]_
+        ( prod_ i e. ( 1 ... ( p ^ n ) ) ( .r ` s ) x ( -g ` s ) x ) } ) ) `
+        ( <Z/nZ ` p ) ) ) $.
+
+    $( Define an equivalence relation on ` ZZ ` -indexed sequences of integers
+       such that two sequences are equivalent iff the difference is equivalent
+       to zero, and a sequence is equivalent to zero iff the sum
+       ` sum_ k <_ n f ( k ) ( p ^ k ) ` is a multiple of ` p ^ ( n + 1 ) ` for
+       every ` n ` . $)
+    df-eqp $a |- ~Qp = ( p e. Prime |->
+      { <. f , g >. | ( { f , g } C_ ( ZZ ^m ZZ ) /\
+       A. n e. ZZ sum_ k e. ( ZZ>= ` -u n ) ( ( ( f ` -u k ) - ( g ` -u k ) ) /
+        ( p ^ ( k + ( n + 1 ) ) ) ) e. ZZ ) } ) $.
+
+    $( There is a unique element of ` ( ZZ ^m ( 0 ... ( p - 1 ) ) ) ` ` ~Qp `
+       -equivalent to any element of ` ( ZZ ^m ZZ ) ` , if the sequences are
+       zero for sufficiently large negative values; this function selects that
+       element. $)
+    df-rqp $a |- /Qp = ( p e. Prime |-> ( ~Qp i^i [_ { f e. ( ZZ ^m ZZ ) |
+      E. x e. ran ZZ>= ( `' f " ( ZZ \ { 0 } ) ) C_ x } / y ]_
+        ( y X. ( y i^i ( ZZ ^m ( 0 ... ( p - 1 ) ) ) ) ) ) ) $.
+
+    $( Define the ` p ` -adic completion of the rational numbers, as a normed
+       field structure. $)
+    df-qp $a |- Qp = ( p e. Prime |->
+        [_ { h e. ( ZZ ^m ( 0 ... ( p - 1 ) ) ) |
+          E. x e. ran ZZ>= ( `' h " ( ZZ \ { 0 } ) ) C_ x } / b ]_
+    ( { <. ( Base ` ndx ) , b >. ,
+        <. ( +g ` ndx ) ,
+          ( f e. b , g e. b |-> ( ( /Qp ` p ) ` ( f oF + g ) ) ) >. ,
+        <. ( .r ` ndx ) ,
+          ( f e. b , g e. b |-> ( ( /Qp ` p ) ` ( n e. ZZ |->
+           sum_ k e. ZZ ( ( f ` k ) x. ( g ` ( n - k ) ) ) ) ) ) >. }
+        toNrmRing ( f e. b |-> if ( f = ( ZZ X. { 0 } ) , 0 ,
+        ( p ^ -u sup ( ( `' f " ( ZZ \ { 0 } ) ) , RR , `' < ) ) ) ) ) ) $.
+
+    $( There is a strict order on the ` p ` -adic rationals, although it does
+       not match the usual order on ` QQ ` and does not respect addition and
+       multiplication. $)
+    df-ltqp $a |- <Qp = ( p e. Prime |-> { <. f , g >. |
+      ( { f , g } C_ ( Base ` ( Qp ` p ) ) /\
+        sum_ k e. ZZ ( ( f ` -u k ) x. ( ( p + 1 ) ^ -u k ) ) <
+        sum_ k e. ZZ ( ( g ` -u k ) x. ( ( p + 1 ) ^ -u k ) ) ) } ) $.
+
+    $( Define the ` p ` -adic integers, as a subset of the ` p ` -adic
+       rationals. $)
+    df-zp $a |- Zp = ( ZRing o. Qp ) $.
+
+    $( Define the completion of the ` p ` -adic rationals.  Here we simply
+       define it as the splitting field of a dense sequence of polynomials
+       (using as the ` n ` -th set the collection of polynomials with degree
+       less than ` n ` and with coefficients ` < ( p ^ n ) ` ).  Krensel's
+       lemma will then show that all monic polynomials have splitting fields
+       isomorphic to a sufficiently close Eisenstein polynomial from the list,
+       and unramified extensions are generated by the polynomial
+       ` x ^ ( p ^ n ) - x ` , which is in the list.  Thus every finite
+       extension of ` Qp ` is a subfield of this field extension, so it is
+       algebraically closed. $)
+    df-qpa $a |- _Qp = ( p e. Prime |-> [_ ( Qp ` p ) / r ]_
+      ( ( r polySplitLim ( n e. NN |-> { f e. ( Poly1 ` r ) |
+        ( ( r deg1 f ) <_ n /\ A. d e. ran ( coe1 ` f )
+          ( `' d " ( ZZ \ { 0 } ) ) C_ ( 0 ... n ) ) } ) ) ` ( <Qp ` r ) ) ) $.
+
+    $( Define the metric completion of the algebraic completion of the ` p `
+       -adic rationals. $)
+    df-cp $a |- Cp = ( cplMetSp o. _Qp ) $.
+  $}
+
+$( (End of Mario Carneiro's mathbox.) $)
+
+

@@ -1,0 +1,203 @@
+$(
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+                         Splitting fields
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+$)
+
+  $( Introduce new constant symbols. $)
+  $c IntgRing $. $( Integral subring of a ring $)
+  $c normNEW $. $( Norm of a normed ring $)
+  $c NrmRing $. $( Normed ring $)
+  $c cplMetSp $. $( Completion of a metric space $)
+  $c toNrmRing $. $( norm + ring = normed ring $)
+  $c HomLimB $. $( Direct limit auxiliaries $)
+  $c HomLim $. $( Direct limit structure $)
+  $c polyFld $. $( Polynomial extension field $)
+  $c <PF $. $( Order on polynomial fields $)
+  $c splitFld1 $. $( Splitting field for a polynomial auxiliary $)
+  $c splitFld $. $( Splitting field for a polynomial $)
+  $c polySplitLim $. $( Splitting field for a sequence of polynomials $)
+
+  $( Integral subring of a ring. $)
+  citr $a class IntgRing $.
+
+  $( Norm of a normed ring. $)
+  cnmMEW $a class normNEW $.
+
+  $( Normed ring. $)
+  cnmrg $a class NrmRing $.
+
+  $( Completion of a metric space. $)
+  ccpms $a class cplMetSp $.
+
+  $( Make a normed ring from a norm and a ring. $)
+  ctnr $a class toNrmRing $.
+
+  $( Embeddings for a direct limit. $)
+  chlb $a class HomLimB $.
+
+  $( Direct limit structure. $)
+  chlm $a class HomLim $.
+
+  $( Polynomial extension field. $)
+  cpfl $a class polyFld $.
+
+  $( Order on polynomial extension fields. $)
+  cltpf $a class <PF $.
+
+  $( Splitting field for a single polynomial (auxiliary). $)
+  csf1 $a class splitFld1 $.
+
+  $( Splitting field for a finite set of polynomials. $)
+  csf $a class splitFld $.
+
+  $( Splitting field for a sequence of polynomials. $)
+  cpsl $a class polySplitLim $.
+
+  ${
+    $d b d e f g h i j m n o p q r s t v w x y z $.
+    $( Define the subring of elements of ` r ` integral over ` s ` in a
+       ring. $)
+    df-irng $a |- IntgRing = ( r e. _V , s e. _V |->
+      U_ f e. ( Monic1 ` ( r |`s s ) ) ( `' f " { ( 0g ` r ) } ) ) $.
+
+    $( Define the norm on a group or ring (when it makes sense) in terms of the
+       distance to zero. $)
+    df-nmNEW $a |- normNEW = ( w e. _V |-> ( x e. ( Base ` w ) |->
+      ( ( 0g ` w ) ( dist ` w ) x ) ) ) $.
+
+    $( A normed ring is a ring with an induced topology and metric such that
+       the metric is translation-invariant and the norm (distance from 0) is an
+       absolute value on the ring. $)
+    df-nrr $a |- NrmRing = { w e. ( Ring i^i MetSp ) |
+      ( [ ( Base ` w ) / v ] A. x e. v A. y e. v
+      ( x ( dist ` w ) y ) = ( ( normNEW ` w ) ` ( x ( -g ` w ) y ) ) /\
+        ( normNEW ` w ) e. ( AbsVal ` w ) ) } $.
+
+    $( A function which completes the given metric space. $)
+    df-cplmet $a |- cplMetSp = ( w e. _V |->
+      [_ ( ( X.s ` ( NN X. { w } ) ) |`s ( Cau ` ( dist ` w ) ) ) / r ]_
+      [_ ( Base ` r ) / v ]_ [_ { <. f , g >. | ( { f , g } C_ v /\
+        A. x e. RR+ E. j e. ZZ ( f |` ( ZZ>= ` j ) ) :
+          ( ZZ>= ` j ) --> ( ( g ` j ) ( ball ` ( dist ` w ) ) x ) ) } / e ]_
+      ( ( r /s e ) sSet { <. ( dist ` ndx ) , { <. <. x , y >. , z >. |
+        E. p e. v E. q e. v ( ( x = [ p ] e /\ y = [ q ] e ) /\
+          ( p oF ( dist ` r ) q ) ~~> z ) } >. } ) ) $.
+
+    $( Define a function that fills in the topology and metric components of a
+       structure given a ring and a norm on it. $)
+    df-tnr $a |- toNrmRing = ( r e. _V , f e. _V |-> ( r sSet
+       [_ ( x e. dom f , y e. dom f |-> ( f ` ( x ( -g ` r ) y ) ) ) / d ]_
+         { <. ( TopOpen ` ndx ) , ( MetOpen ` d ) >. ,
+           <. ( dist ` ndx ) , d >. } ) ) $.
+
+    $( The input to this function is a sequence (on ` NN ` ) of structures
+       ` R ( n ) ` and homomorphisms ` F ( n ) : R ( n ) --> R ( n + 1 ) ` .
+       The resulting structure is the direct limit of the direct system so
+       defined.  This function returns the pair ` <. S , G >. ` where ` S ` is
+       the terminal object and ` G ` is a sequence of functions such that
+       ` G ( n ) : R ( n ) --> S ` and
+       ` G ( n ) = F ( n ) o. G ( n + 1 ) ` . $)
+    df-homlimb $a |- HomLimB = ( r e. _V , f e. _V |->
+     [_ U_ n e. NN ( { n } X. dom ( f ` n ) ) / v ]_
+     [_ |^| { s | ( Er s /\ ( x e. v |-> <. ( ( 1st ` x ) + 1 ) ,
+          ( ( f ` ( 1st ` x ) ) ` ( 2nd ` x ) ) >. ) C_ s ) } / e ]_
+    <. ( v /. e ) , ( n e. NN |->
+       ( x e. dom ( f ` n ) |-> [ <. n , x >. ] e ) ) >. ) $.
+
+    $( The input to this function is a sequence (on ` NN ` ) of structures
+       ` R ( n ) ` and homomorphisms ` F ( n ) : R ( n ) --> R ( n + 1 ) ` .
+       The resulting structure is the direct limit of the direct system so
+       defined, and maintains any structures that were present in the original
+       objects.  TODO: generalize to directed sets? $)
+    df-homlim $a |- HomLim = ( r e. _V , f e. _V |->
+     [_ ( r HomLimB f ) / e ]_ [_ ( 1st ` e ) / v ]_ [_ ( 2nd ` e ) / g ]_
+    ( { <. ( Base ` ndx ) , v >. ,
+        <. ( +g ` ndx ) , U_ n e. NN ran ( x e. dom ( g ` n ) ,
+        y e. dom ( g ` n ) |-> <. <. ( g ` x ) , ( g ` y ) >. ,
+          ( g ` ( x ( +g ` ( r ` n ) ) y ) ) >. ) >. ,
+        <. ( .r ` ndx ) , U_ n e. NN ran ( x e. dom ( g ` n ) ,
+        y e. dom ( g ` n ) |-> <. <. ( g ` x ) , ( g ` y ) >. ,
+          ( g ` ( x ( .r ` ( r ` n ) ) y ) ) >. ) >. } u.
+      { <. ( TopOpen ` ndx ) , { s e. ~P v |
+           A. n e. NN ( `' ( g ` n ) " s ) e. ( TopOpen ` ( r ` n ) ) } >. ,
+        <. ( dist ` ndx ) , U_ n e. NN ran ( x e. dom ( g ` n ) ,
+        y e. dom ( g ` n ) |-> <. <. ( g ` x ) , ( g ` y ) >. ,
+          ( x ( dist ` ( r ` n ) ) y ) >. ) >. } ) ) $.
+
+    $( Define the field extension that augments a field with the root of the
+       given irreducible polynomial, and extends the norm if one exists and the
+       extension is unique. $)
+    df-plfl $a |- polyFld = ( r e. _V , p e. _V |-> [_ ( Poly1 ` r ) / s ]_
+      [_ ( ( RSpan ` s ) ` { p } ) / i ]_
+      [_ ( x e. ( Base ` r ) |->
+           [ ( x ( vsca ` s ) ( 1r ` s ) ) ] ( s ~QG i ) ) / f ]_
+      <. <. r , [_ ( s /s ( s ~QG i ) ) / t ]_ ( t toNrmRing ( iota_ n e.
+        ( AbsVal ` t ) ( n o. f ) = ( normNEW ` r ) ) ) >. , f >. ) $.
+
+    $( Extend a strict order on ` r ` to a strict order on
+       ` ( r polyFld p ) ` . $)
+    df-ltpf $a |- <PF = ( r e. _V , p e. _V |->
+      ( o e. ~P ( ( Base ` r ) X. ( Base ` r ) ) |->
+      [_ ( x e. ( r polyFld p ) |->
+        ( iota_ f e. x ( r deg1 f ) < ( r deg1 p ) ) ) / g ]_
+      { <. x , y >. | ( { x , y } C_ ( r polyFld p ) /\
+       ( g ` x ) ( (/) ( 1o <ser r ) o ) ( g ` y ) ) } ) ) $.
+
+    $( Temporary construction for the splitting field of a polynomial.  The
+       inputs are a field ` r ` and a polynomial ` p ` that we want to split,
+       along with a tuple ` j ` in the same format as the output.  The output
+       is a tuple ` <. <. S , T >. , F >. ` where ` S ` is the splitting field,
+       ` T ` is a total order on ` S ` , and ` F ` is an injective homomorphism
+       from the original field ` r ` .
+
+       The function works by repeatedly finding the smallest monic irreducible
+       factor, and extending the field by that factor using the ` polyFld `
+       construction.  We keep track of a total order throughout the process so
+       that we can pick an element definably without needing global choice. $)
+    df-sfl1 $a |- splitFld1 = ( r e. _V , j e. _V |-> ( p e. ( Poly1 ` r ) |->
+        ( rec ( ( e e. _V , f e. _V |->
+        [_ ( 1st ` e ) / s ]_ [_ ( mPoly ` s ) / m ]_
+        [_ { g e. ( ( Monic1 ` s ) i^i ( Irred ` m ) ) |
+             ( g ( ||r ` m ) ( p o. f ) /\ 1 < ( s deg1 g ) ) } / b ]_
+        if ( ( ( p o. f ) = ( 0g ` m ) \/ b = (/) ) , <. e , f >. ,
+          [_ U. { x e. b | A. y e. b -. y ( (/) ( 1o <ser s )
+             ( 2nd ` e ) ) x } / h ]_ [_ ( s polyFld h ) / t ]_
+          <. <. ( 2nd ` ( 1st ` t ) ) , ( ( s <PF h ) ` ( 2nd ` e ) ) >. ,
+             ( f o. ( 2nd ` t ) ) >. ) ) , j ) `
+        ( card ` ( 1 ... ( r deg1 p ) ) ) ) ) ) $.
+
+    $( Define the splitting field of a finite collection of polynomials, given
+       a total order on the base set.  The output is a tuple
+       ` <. <. S , T >. , F >. ` where ` S ` is the splitting field, ` T ` is a
+       total order on ` S ` , and ` F ` is an injective homomorphism from the
+       original field ` r ` . $)
+    df-sfl $a |- splitFld = ( r e. _V |->
+      ( o e. ~P ( ( Base ` r ) X. ( Base ` r ) ) ,
+        p e. ( ~P ( Base ` r ) i^i Fin ) |->
+        ( iota x E. f ( f Isom < , o ( ( 1 ... ( # ` p ) ) , p ) /\
+          x = ( seq 0 ( ( e e. _V , g e. _V |->
+            ( ( r splitFld1 e ) ` g ) ) , ( f u.
+        { <. 0 , <. <. r , o >. , ( _I |` ( Base ` r ) ) >. >. } ) ) `
+          ( # ` p ) ) ) ) ) ) $.
+
+    $( Define the direct limit of an increasing sequence of fields produced by
+       pasting together the splitting fields for each sequence of polynomials.
+       That is, given a ring ` r ` , a strict order on ` r ` , and a sequence
+       ` p : NN --> ( ~P r i^i Fin ) ` of finite sets of polynomials to split,
+       we construct the direct limit system of field extensions by splitting
+       one set at a time and passing the resulting construction to
+       ` HomLim ` . $)
+    df-psl $a |- polySplitLim = ( r e. _V ,
+      p e. ( ( ~P ( Base ` r ) i^i Fin ) ^m NN ) |->
+      ( o e. ~P ( ( Base ` r ) X. ( Base ` r ) ) |->
+    [_ ( 1st o. seq 0 ( ( g e. _V , q e. _V |->
+      [_ ( 1st ` g ) / e ]_ [_ ( ( 1st o. 1st ) ` e ) / s ]_
+      [_ ( ( ( 2nd o. 1st ) ` e ) ( splitFld ` s )
+        ran ( x e. q |-> ( x o. ( 2nd ` g ) ) ) ) / f ]_
+        <. f , ( ( 2nd ` g ) o. ( 2nd ` f ) ) >. ) ,
+        ( p u. { <. 0 , <. <. <. r , o >. , (/) >. ,
+          ( _I |` ( Base ` r ) ) >. >. } ) ) ) / f ]_
+      ( ( ( 1st o. 1st ) o. ( f shift 1 ) ) HomLim ( 2nd o. f ) ) ) ) $.
+  $}
+
