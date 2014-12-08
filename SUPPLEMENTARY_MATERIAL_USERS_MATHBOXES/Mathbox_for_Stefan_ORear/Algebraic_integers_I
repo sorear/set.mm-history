@@ -14,11 +14,12 @@ $)
 
   ${
     $d x p s $.
+
     $( A complex number is said to be integral over a subset if it is the root
        of a monic polynomial with coefficients from the subset.  This
        definition is typically not used for fields but it works there, see
        ~ aaitgo .  This definition could work for subsets of an arbitrary ring
-       with a more general definition of polynomials. $)
+       with a more general definition of polynomials.  TODO: use ` Monic ` $)
     df-itgo $a |- IntgOver = ( s e. ~P CC |-> { x e. CC | E. p e. ( Poly ` s )
         ( ( p ` x ) = 0 /\ ( ( coeff ` p ) ` ( deg ` p ) ) = 1 ) } ) $.
 
@@ -83,14 +84,452 @@ $)
 
   $}
 
+  ${
+    $d ph a b $.  $d X a b $.  $d Y a b $.  $d S a b $.
+    cnsrexpcl.s $e |- ( ph -> S e. ( SubRing ` CCfld ) ) $.
+    cnsrexpcl.x $e |- ( ph -> X e. S ) $.
+    cnsrexpcl.y $e |- ( ph -> Y e. NN0 ) $.
+    $( Exponentiation is closed in number rings. $)
+    cnsrexpcl $p |- ( ph -> ( X ^ Y ) e. S ) $=
+      ( wcel cexp co wi cc0 c1 wceq oveq2 eleq1d imbi2d cc ccnfld syl va vb cn0
+      caddc csubrg cfv wss cnfldbas subrgss sseldd exp0 cnfld1 subrg1cl eqeltrd
+      cv cmul 3ad2ant2 simp1 expp1 syl2anc simp3 cnfldmul subrgmcl syl3anc 3exp
+      w3a a2d nn0ind mpcom ) DUCHACDIJZBHZGACUAUOZIJZBHZKACLIJZBHZKACUBUOZIJZBH
+      ZKACVQMUDJZIJZBHZKAVKKUAUBDVLLNZVNVPAWCVMVOBVLLCIOPQVLVQNZVNVSAWDVMVRBVLV
+      QCIOPQVLVTNZVNWBAWEVMWABVLVTCIOPQVLDNZVNVKAWFVMVJBVLDCIOPQAVOMBACRHZVOMNA
+      BRCABSUEUFHZBRUGEBRSUHUITFUJZCUKTAWHMBHEBSMULUMTUNVQUCHZAVSWBWJAVSWBWJAVS
+      VFZWAVRCUPJZBWKWGWJWAWLNAWJWGVSWIUQWJAVSURCVQUSUTWKWHVSCBHZWLBHAWJWHVSEUQ
+      WJAVSVAAWJWMVSFUQBSUPVRCVBVCVDUNVEVGVHVI $.
+      $( [30-Nov-2014] $)
+  $}
+
+  ${
+    $d ph k a b $.  $d A k a b $.  $d B a b $.  $d S k a b $.
+    fsumcnsrcl.s $e |- ( ph -> S e. ( SubRing ` CCfld ) ) $.
+    fsumcnsrcl.a $e |- ( ph -> A e. Fin ) $.
+    fsumcnsrcl.b $e |- ( ( ph /\ k e. A ) -> B e. S ) $.
+    $( Finite sums are closed in number rings. $)
+    fsumcnsrcl $p |- ( ph -> sum_ k e. A B e. S ) $=
+      ( va vb ccnfld csubrg cfv wcel cc wss syl cv caddc cc0 cnfldbas subrgsubg
+      subrgss wa cnfldadd subrgacl 3expb sylan csubg cnfld0 subg0cl fsumcllem
+      co ) AIJBCDEADKLMNZDOPFDOKUAUCQAUNIRZDNZJRZDNZUDUOUQSUMDNZFUNUPURUSDSKUOU
+      QUEUFUGUHGHAUNTDNZFUNDKUIMNUTDKUBDKTUJUKQQUL $.
+      $( [30-Nov-2014] $)
+  $}
+
+  ${
+    $d P k $.  $d ph k $.  $d X k $.  $d S k $.  $d C k $.
+    cnsrplycl.s $e |- ( ph -> S e. ( SubRing ` CCfld ) ) $.
+    cnsrplycl.p $e |- ( ph -> P e. ( Poly ` C ) ) $.
+    cnsrplycl.x $e |- ( ph -> X e. S ) $.
+    cnsrplycl.c $e |- ( ph -> C C_ S ) $.
+    $( Polynomials are closed in number rings. $)
+    cnsrplycl $p |- ( ph -> ( P ` X ) e. S ) $=
+      ( vk cfv cc0 co wcel cc wss ccnfld syl syl2anc adantr cdgr ccoe cexp cmul
+      cfz cv csu cply wceq csubrg cnfldbas subrgss plyss sseldd coeid2 fzfid wa
+      eqid cn0 wf csubg subrgsubg cnfld0 subg0cl coef2 elfznn0 adantl cnsrexpcl
+      ffvelrn cnfldmul subrgmcl syl3anc fsumcnsrcl eqeltrd ) AECKZLCUAKZUEMZJUF
+      ZCUBKZKZEVRUCMZUDMZJUGZDACDUHKZNZEONVOWCUIABUHKZWDCABDPDOPZWFWDPIADQUJKNZ
+      WGFDOQUKULRZBDUMSGUNZADOEWIHUNVSDJCVPEVSURZVPURUOSAVQWBDJFALVPUPAVRVQNZUQ
+      ZWHVTDNZWADNWBDNAWHWLFTZWMUSDVSUTZVRUSNZWNAWPWLAWELDNZWPWJAWHWRFWHDQVAKNW
+      RDQVBDQLVCVDRRVSDCWKVESTWLWQAVRVPVFVGZUSDVRVSVISWMDEVRWOAEDNWLHTWSVHDQUDV
+      TWAVJVKVLVMVN $.
+      $( [30-Nov-2014] $)
+  $}
+
+  ${
+    $d ph a b t $.  $d R a b t $.  $d B a b t $.  $d A a b t $.  $d S t $.
+    rgspnval.r $e |- ( ph -> R e. Ring ) $.
+    rgspnval.b $e |- ( ph -> B = ( Base ` R ) ) $.
+    rgspnval.ss $e |- ( ph -> A C_ B ) $.
+    rgspnval.n $e |- ( ph -> N = ( RingSpan ` R ) ) $.
+    rgspnval.sp $e |- ( ph -> U = ( N ` A ) ) $.
+    $( Value of the ring-span of a set of elements in a ring. $)
+    rgspnval $p |- ( ph -> U = |^| { t e. ( SubRing ` R ) | A C_ t } ) $=
+      ( vb va cfv wss cbs wcel cvv wceq crgspn csubrg crab cint fveq1d cpw cmpt
+      crg elex fveq2 pweqd rabeq syl inteqd mpteq12dv df-rgspn fvex mptex fvmpt
+      cv pwex 3syl sseqtrd elpw2 sylibr wrex eqid subrgid eqeltrd sseq2 rcla4ev
+      syl2anc intexrab sylib sseq1 rabbidv fvmptg eqtrd 3eqtrd ) AFCGOCEUAOZOZC
+      BUTZPZBEUBOZUCZUDZLACGVTKUEAWACMEQOZUFZMUTZWBPZBWDUCZUDZUGZOZWFACVTWMAEUH
+      RZESRVTWMTHEUHUINEMNUTZQOZUFZWJBWPUBOZUCZUDZUGWMSUAWPETZMWRXAWHWLXBWQWGWP
+      EQUJUKXBWTWKXBWSWDTWTWKTWPEUBUJWJBWSWDULUMUNUONBMUPMWHWLWGEQUQZVAURUSVBUE
+      ACWHRZWFSRZWNWFTACWGPXDACDWGJIVCCWGXCVDVEAWCBWDVFZXEADWDRCDPZXFADWGWDIAWO
+      WGWDRHWGEWGVGVHUMVIJWCXGBDWDWBDCVJVKVLWCBWDVMVNMCWLWFWHSWMWICTZWKWEXHWJWC
+      BWDWICWBVOVPUNWMVGVQVLVRVS $.
+      $( [7-Dec-2014] $) $( [30-Nov-2014] $)
+
+    $( The ring-span of a set is a subring. $)
+    rgspncl $p |- ( ph -> U e. ( SubRing ` R ) ) $=
+      ( vt cv wss csubrg cfv crab cint wcel eqeltrd rgspnval c0 wne ssrab2 wrex
+      cbs crg eqid subrgid sseq2 rcla4ev syl2anc rabn0 sylibr subrgint sylancr
+      syl ) AEBLMZNZLDOPZQZRZUTALBCDEFGHIJKUAAVAUTNVAUBUCZVBUTSUSLUTUDAUSLUTUEZ
+      VCACUTSBCNZVDACDUFPZUTHADUGSVFUTSGVFDVFUHUIUQTIUSVELCUTURCBUJUKULUSLUTUMU
+      NDVAUOUPT $.
+      $( [7-Dec-2014] $) $( [30-Nov-2014] $)
+
+    $( The ring-span of a set contains the set. $)
+    rgspnssid $p |- ( ph -> A C_ U ) $=
+      ( vt cv wss csubrg cfv crab cint ssintub rgspnval syl5sseqr ) ABLMNLDOPZQ
+      RBELBUBSALBCDEFGHIJKTUA $.
+      $( [30-Nov-2014] $)
+
+    rgspnmin.sr $e |- ( ph -> S e. ( SubRing ` R ) ) $.
+    rgspnmin.ss $e |- ( ph -> A C_ S ) $.
+    $( The ring-span is contained in all subspaces which contain all the
+       generators. $)
+    rgspnmin $p |- ( ph -> U C_ S ) $=
+      ( vt cv wss csubrg cfv wcel crab rgspnval sseq2 elrab sylanbrc intss1 syl
+      cint eqsstrd ) AFBOPZQZODRSZUAZUHZEAOBCDFGHIJKLUBAEUMTZUNEQAEULTBEQZUOMNU
+      KUPOEULUJEBUCUDUEEUMUFUGUI $.
+      $( [30-Nov-2014] $)
+  $}
+
+  ${
+    rgspnid.r $e |- ( ph -> R e. Ring ) $.
+    rgspnid.sr $e |- ( ph -> A e. ( SubRing ` R ) ) $.
+    rgspnid.sp $e |- ( ph -> S = ( ( RingSpan ` R ) ` A ) ) $.
+    $( The span of a subring is itself. $)
+    rgspnid $p |- ( ph -> S = A ) $=
+      ( cbs cfv crgspn eqidd csubrg wcel wss eqid subrgss syl ssid a1i rgspnmin
+      rgspnssid eqssd ) ADBABCHIZCBDCJIZEAUCKZABCLIMBUCNFBUCCUCOPQZAUDKZGFBBNAB
+      RSTABUCCDUDEUEUFUGGUAUB $.
+      $( [30-Nov-2014] $)
+  $}
+
+  ${
+    $d ph a b c d e p $.  $d B a b c d e p $.  $d X a b c d e p $.
+    $d V a b c d e p $.
+    rngunsnply.b $e |- ( ph -> B e. ( SubRing ` CCfld ) ) $.
+    rngunsnply.x $e |- ( ph -> X e. CC ) $.
+    rngunsnply.s $e |- ( ph -> S = ( ( RingSpan ` CCfld ) `
+        ( B u. { X } ) ) ) $.
+    $( Adjoining one element to a ring results in a set of polynomial
+       evaluations. $)
+    rngunsnply $p |- ( ph -> ( V e. S <->
+        E. p e. ( Poly ` B ) V = ( p ` X ) ) ) $=
+      ( va wcel ccnfld cfv wceq wrex cc syl caddc co cmul vb vc ve vd crgspn cv
+      csn cun cply eleq2d cab crg cnrng a1i cbs cnfldbas csubrg wss snssd unssd
+      subrgss eqidd cress c1 cc0 cnfld0 cplusg cnfldadd wa plyf ffvelrn syl2anr
+      wf eleq1 syl5ibrcom rexlimdva ss2abdv abid2 eqtri syl6sseq plyconst sylan
+      c0g cxp adantr vex fvconst2 eqcomd fveq1 eqeq2d rcla4ev syl2anc syl5eqssr
+      csubg subrgsubg subg0cl sseldd w3a biid eqeq1 rexbidv cbvrexv syl6bb elab
+      ex wi cof simplr simpr subrgacl 3expb adantlr plyadd wfn cvv ffn ad2antlr
+      adantl cnex ad2antrr fnfvof syl22anc oveq2 eqeq1d oveq1 3imp syl3anb ovex
+      imbi2d sylibr cneg cnfldneg ax-mp cnfld1 cnfldmul plymul fvex cidp syl5ss
+      cminusg ax-1cn subrg1cl eqid subginvcl eqeltrrd negex oveq1d mulm1 eqtr2d
+      subrgmcl fnconstg 3eqtr4d fveq2 imp sylan2b cur cmulr issubrngd2 cid cres
+      plyid df-idp fveq1i fvresi syl5req elabg mpbird rgspnmin mpbiri rexlimivw
+      wb sseld elab3 syl6ib rgspncl ssun2 rgspnssid snidg ssun1 cnsrplycl bitrd
+      impbid ) ADCKDBEUGZUHZLUEMZMZKZDEFUFZMZNZFBUIMZOZACUWFDIUJAUWGUWLAUWGDJUF
+      ZUWINZFUWKOZJUKZKUWLAUWFUWPDAUWDPLUWPUWFUWELULKAUMUNZPLUOMZNAUPUNZABUWCPA
+      BLUQMZKZBPURZGBPLUPVAQZAEPHUSUTZAUWEVBZAUWFVBZAUAUBUWPRLUWPVCSZTLVDVEAUXG
+      VBVELWCMNAVFUNRLVGMNAVHUNAUWPUWMPKZJUKZUWRAUWOUXHJAUWNUXHFUWKAUWHUWKKZVIZ
+      UXHUWNUWIPKZUXJPPUWHVMEPKZUXLABUWHVJHPPEUWHVKVLUWMUWIPVNVOVPVQUXIPUWRJPVR
+      UPVSVTABUWPVEABUWMBKZJUKUWPJBVRAUXNUWOJAUXNUWOAUXNVIZPUWMUGWDZUWKKZUWMEUX
+      PMZNZUWOAUXBUXNUXQUXCUWMBWAWBUXOUXRUWMUXOUXMUXRUWMNAUXMUXNHWEPUWMEJWFWGQW
+      HUWNUXSFUXPUWKUWHUXPNUWIUXRUWMEUWHUXPWIWJWKWLXEVQWMZABLWNMKZVEBKAUXAUYAGB
+      LWOQZBLVEVFWPQWQAUAUFZUWPKZUBUFZUWPKZWRZUYCUYERSZUWINZFUWKOZUYHUWPKAAUYDU
+      YCEUCUFZMZNZUCUWKOZUYFUYEEUDUFZMZNZUDUWKOZUYJAWSZUWOUYNJUYCUAWFUWMUYCNZUW
+      OUYCUWINZFUWKOUYNUYTUWNVUAFUWKUWMUYCUWIWTXAVUAUYMFUCUWKUWHUYKNUWIUYLUYCEU
+      WHUYKWIWJXBXCXDZUWOUYRJUYEUBWFUWMUYENZUWOUYEUWINZFUWKOUYRVUCUWNVUDFUWKUWM
+      UYEUWIWTXAVUDUYQFUDUWKUWHUYONUWIUYPUYEEUWHUYOWIWJXBXCXDZAUYNUYRUYJAUYMUYR
+      UYJXFZUCUWKAUYKUWKKZVIZVUFUYMUYRUYLUYERSZUWINZFUWKOZXFVUHUYQVUKUDUWKVUHUY
+      OUWKKZVIZVUKUYQUYLUYPRSZUWINZFUWKOZVUMUYKUYORXGSZUWKKVUNEVUQMZNZVUPVUMJUA
+      BUYKUYOAVUGVULXHZVUHVULXIZVUHUXNUYCBKZVIZUWMUYCRSBKZVULAVVCVVDVUGAUXAVVCV
+      VDGUXAUXNVVBVVDBRLUWMUYCVHXJXKWBXLZXLZXMVUMVURVUNVUMUYKPXNZUYOPXNZPXOKZUX
+      MVURVUNNVUGVVGAVULVUGPPUYKVMZVVGBUYKVJZPPUYKXPQZXQZVULVVHVUHVULPPUYOVMVVH
+      BUYOVJPPUYOXPQXRZVVIVUMXSUNZAUXMVUGVULHXTZPRUYKUYOXOEYAYBWHVUOVUSFVUQUWKU
+      WHVUQNUWIVURVUNEUWHVUQWIWJWKWLUYQVUJVUOFUWKUYQVUIVUNUWIUYEUYPUYLRYCYDXAVO
+      VPUYMUYJVUKUYRUYMUYIVUJFUWKUYMUYHVUIUWIUYCUYLUYERYEYDXAYIVOVPYFYGUWOUYJJU
+      YHUYCUYERYHUWMUYHNUWNUYIFUWKUWMUYHUWIWTXAXDYJAUYDVIUYCLYTMZMZUWINZFUWKOZV
+      VRUWPKUYDAUYNVVTVUBAUYNVVTAUYMVVTUCUWKVUHVVTUYMUYLVVQMZUWINZFUWKOZVUHPVDY
+      KZUGWDZUYKTXGZSZUWKKVWAEVWGMZNZVWCVUHJUABVWEUYKAVWEUWKKZVUGAUXBVWDBKVWJUX
+      CAVDVVQMZVWDBVWKVWDNZAVDPKVWLUUAVDYLYMUNAUYAVDBKZVWKBKUYBAUXAVWMGBLVDYNUU
+      BQZBLVVQVDVVQUUCUUDWLUUEVWDBWAWLWEAVUGXIVVEAVVCUWMUYCTSBKZVUGAUXAVVCVWOGU
+      XAUXNVVBVWOBLTUWMUYCYOUUJXKWBXLZYPVUHUYLYKZEVWEMZUYLTSZVWAVWHVUHVWSVWDUYL
+      TSZVWQVUHVWRVWDUYLTVUHUXMVWRVWDNAUXMVUGHWEZPVWDEVDUUFZWGQUUGVUHUYLPKZVWTV
+      WQNVUGVVJUXMVXCAVVKHPPEUYKVKVLZUYLUUHQUUIVUHVXCVWAVWQNVXDUYLYLQVUHVWEPXNZ
+      VVGVVIUXMVWHVWSNVXEVUHVWDXOKVXEVXBPVWDXOUUKYMUNVUGVVGAVVLXRVVIVUHXSUNVXAP
+      TVWEUYKXOEYAYBUULVWBVWIFVWGUWKUWHVWGNUWIVWHVWAEUWHVWGWIWJWKWLUYMVVSVWBFUW
+      KUYMVVRVWAUWIUYCUYLVVQUUMYDXAVOVPUUNUUOUWOVVTJVVRUYCVVQYQUWMVVRNUWNVVSFUW
+      KUWMVVRUWIWTXAXDYJVDLUUPMNAYNUNTLUUQMNAYOUNABUWPVDUXTVWNWQUYGUYCUYETSZUWI
+      NZFUWKOZVXFUWPKAAUYDUYNUYFUYRVXHUYSVUBVUEAUYNUYRVXHAUYMUYRVXHXFZUCUWKVUHV
+      XIUYMUYRUYLUYETSZUWINZFUWKOZXFVUHUYQVXLUDUWKVUMVXLUYQUYLUYPTSZUWINZFUWKOZ
+      VUMUYKUYOVWFSZUWKKVXMEVXPMZNZVXOVUMJUABUYKUYOVUTVVAVVFVUHVVCVWOVULVWPXLYP
+      VUMVXQVXMVUMVVGVVHVVIUXMVXQVXMNVVMVVNVVOVVPPTUYKUYOXOEYAYBWHVXNVXRFVXPUWK
+      UWHVXPNUWIVXQVXMEUWHVXPWIWJWKWLUYQVXKVXNFUWKUYQVXJVXMUWIUYEUYPUYLTYCYDXAV
+      OVPUYMVXHVXLUYRUYMVXGVXKFUWKUYMVXFVXJUWIUYCUYLUYETYEYDXAYIVOVPYFYGUWOVXHJ
+      VXFUYCUYETYHUWMVXFNUWNVXGFUWKUWMVXFUWIWTXAXDYJUWQUURABUWCUWPUXTAEUWPAEUWP
+      KZEUWINZFUWKOZAYRUWKKZEEYRMZNZVYAAUXBVWMVYBUXCVWNBUVAWLAVYCEUUSPUUTZMZEEY
+      RVYEUVBUVCAUXMVYFENHPEUVDQUVEVXTVYDFYRUWKUWHYRNUWIVYCEEUWHYRWIWJWKWLAUXMV
+      XSVYAUVKHUWOVYAJEPUWMENUWNVXTFUWKUWMEUWIWTXAUVFQUVGUSUTUVHUVLUWOUWLJDUWJD
+      XOKZFUWKUWJVYGUWIXOKEUWHYQDUWIXOVNUVIUVJUWMDNUWNUWJFUWKUWMDUWIWTXAUVMUVNA
+      UWJUWGFUWKUXKUWGUWJUWIUWFKUXKBUWHUWFEAUWFUWTKUXJAUWDPLUWFUWEUWQUWSUXDUXEU
+      XFUVOWEAUXJXIAEUWFKUXJAUWCUWFEAUWCUWDUWFUWCBUVPAUWDPLUWFUWEUWQUWSUXDUXEUX
+      FUVQZYSAUXMEUWCKHEPUVRQWQWEABUWFURUXJABUWDUWFBUWCUVSVYHYSWEUVTDUWIUWFVNVO
+      VPUWBUWA $.
+      $( [30-Nov-2014] $)
+  $}
+
+  ${
+    $d ph i j $.  $d F i $.  $d S i j $.  $d K i j $.  $d B j k $.  $d i j k $.
+    flcidc.f $e |- ( ph -> F = ( j e. S |-> if ( j = K , 1 , 0 ) ) ) $.
+    flcidc.s $e |- ( ph -> S e. Fin ) $.
+    flcidc.k $e |- ( ph -> K e. S ) $.
+    flcidc.b $e |- ( ( ph /\ i e. S ) -> B e. CC ) $.
+    $( Finite linear combinations with an indicator function. $)
+    flcidc $p |- ( ph -> sum_ i e. S ( ( F ` i ) x. B ) = [_ K / i ]_ B ) $=
+      ( cmul wcel wa c1 wceq cc0 cc syl eqtrd vk csn cv cfv co csu csb cif cmpt
+      fveq1d adantr snssd sselda eqeq1 ifbid eqid ax-1cn elexi ifex fvmpt elsni
+      weq 0cn iftrue adantl oveq1d syldan mulid2 sumeq2dv keepel syl6eqel mulcl
+      syl2anc cdif eldifi wn eldifn sylnib iffalse mul02 fsumss wi eleq1 anbi2d
+      elsn csbeq1 eleq1d imbi12d ax-17 vex wel hbcsb1 hbel csbeq1a chvar vtoclg
+      hbim anabsi7 mpdan sumsns 3eqtr3d ) AGUBZDUCZFUDZBLUEZDUFXBBDUFZCXEDUFDGB
+      UGZAXBXEBDAXCXBMZNZXEOBLUEZBXIXDOBLXIXDXCGPZOQUHZOXIXDXCECEUCZGPZOQUHZUIZ
+      UDZXLAXDXQPZXHAXCFXPHUJZUKXIXCCMZXQXLPZAXBCXCAGCJULZUMZEXCXOXLCXPEDVBXNXK
+      OQXMXCGUNUOXPUPXKOQORUQURQRVCURUSUTZSTZXHXLOPZAXHXKYFXCGVAXKOQVDSVETVFXIB
+      RMZXJBPAXHXTYGYCKVGZBVHSTVIAXBCXEDYBXIXDRMYGXERMXIXDXLRYEXKOQRUQVCVJVKYHX
+      DBVLVMAXCCXBVNMZNZXEQBLUEZQYJXDQBLYJXDXLQYJXDXQXLAXRYIXSUKYJXTYAYIXTAXCCX
+      BVOVEZYDSTYIXLQPZAYIXKVPYMYIXHXKXCCXBVQDGWEVRXKOQVSSVETVFYJYGYKQPAYIXTYGY
+      LKVGBVTSTIWAAGCMZXGRMZXFXGPJAYNYOJAYNYOAXMCMZNZDXMBUGZRMZWBZAYNNZYOWBEGCX
+      NYQUUAYSYOXNYPYNAXMGCWCWDXNYRXGRDXMGBWFWGWHAXTNZYGWBYTDEYQYSDYQDWIDUAEYRR
+      DUAXMBEWJUAEWKDWIWLXMRMDWIWMWQDEVBZUUBYQYGYSUUCXTYPAXCXMCWCWDUUCBYRRDXMBW
+      NWGWHKWOWPWRWSBDGCWTVMXA $.
+      $( [5-Dec-2014] $)
+  $}
+
+  ${
+    $d ph i f a b c d e g h $.  $d B i f a b c d e g h $.
+    $d G i f a b c d e g h $.  $d F i f a b c d e g h $.
+    $d A i f a b c d e g h $.  $d X i f a b c d e g h $.
+    $d S i f a b c d e g h $.
+    cnfispn.b $e |- ( ph -> B e. ( SubRing ` CCfld ) ) $.
+    cnfispn.a $e |- ( ph -> A = ( ( subringAlg ` CCfld ) ` B ) ) $.
+    cnfispn.g $e |- ( ph -> G e. Fin ) $.
+    cnfispn.f $e |- ( ph -> F : G --> CC ) $.
+    cnfispn.s $e |- ( ph -> S = ( ( LSpan ` A ) ` ran F ) ) $.
+    $( Finite spans of numbers in terms of finite sums. $)
+    cnfispn $p |- ( ph -> ( X e. S <-> E. f e. ( B ^m G ) X =
+        sum_ i e. G ( ( f ` i ) x. ( F ` i ) ) ) ) $=
+      ( wcel cmul co wceq cc cc0 va vb vc vd vh vg cv cfv csu cmap wrex cab crn
+      clspn clmod clss wss ccnfld csra csubrg eqid sralmod syl eqeltrd cvv fvex
+      a1i caddc cress subrgss srasca subrgbas cnfldbas syl5eq cnfldadd cnfldmul
+      cbs cplusg eqidd vex eqeq1 rexbidv elab wa wf sylan adantr sseqtr4d mpdan
+      syl2anc simprl simprr adantlr cfn wb elmapg ffvelrn wfn ffn sseldd cnfld0
+      ad2antrr crg eleq1 syl5ibrcom rexlimdva csn cxp fconst fss sylancr mpbird
+      fvconst2 adantl oveq1d eqtrd eqtr2d fveq1 sumeq2sdv eqeq2d rcla4ev sylibr
+      sumeq2dv w3a cbvrexv bitri cof 3expb mpbid ad3antrrr mulcl simpr syl22anc
+      wi off fnfvof syl3anc oveq2 eleq1d c1 srabase sraaddg cmulr cvsca sravsca
+      frn sseqtrd lspcl lssss lssvacld csca lspssid fnfvelrn lssvscld c0g cnrng
+      biimpa sralmod0 fsumcllem syl5bi ssrdv c0 wne cz 0z elexi csubg subrgsubg
+      lss0cld subg0cl 3syl snssd mul02 cuz wo olcd sumz ne0i 3anbi123i subrgacl
+      subrgmcl snssi ad2antlr inidm syl6sseqr sselda fsummulc2 fsumadd fnconstg
+      biid ax-mp offn adddir mulass 3eqtrrd 3eqtr2d ovex expr rexlimdv ex 3imp2
+      imbi2d sylan2b islssd abid2 fvelrnb cif cmpt cnfld1 subrg1cl fmptd flcidc
+      ifcl csbfvg syl5ibcom sylbid ss2abdv syl5eqssr lspssp eqsstrd sseld sumex
+      csb mpbiri rexlimivw elab3 syl6ib impbid ) AIDOZIHFUGZEUGZUHZUYJGUHZPQZFU
+      IZRZECHUJQZUKZAUYIIUAUGZUYORZEUYQUKZUAULZOUYRADVUBIADGUMZBUNUHZUHZVUBNABU
+      OOZVUBBUPUHZOZVUCVUBUQVUEVUBUQABCURUSUHZUHZUOKACURUTUHZOZVUJUOOJVUJCURVUJ
+      VAVBVCVDZABVEOZVUHABVUJVEKVUJVEOACVUIVFVGVDZAUBCVHVUGPVUBURCVIQZSBVEUCUDA
+      BCURKAVULCURVQUHZUQJCVUQURVUQVAVJVCZVKZAVULCVUPVQUHRZJCURVUPVUPVAVLVCZASV
+      UQBVQUHZVMABCURKVURUUAVNZAVHURVRUHBVRUHZVOABCURKVURUUBVNZAPURUUCUHBUUDUHZ
+      VPABCURKVURUUEVNZAVUGVSZAUBVUBSUBUGZVUBOVVIUYORZEUYQUKZAVVISOZVUAVVKUAVVI
+      UBVTZUYSVVIRUYTVVJEUYQUYSVVIUYOWAWBWCAVVJVVLEUYQAUYKUYQOZWDZVVLVVJUYOSOVV
+      ODSUYOADSUQZVVNADVUGOZVVPADVUEVUGNAVUFVUCVVBUQZVUEVUGOVUMAVUCSVVBAHSGWEZV
+      UCSUQMHSGUUFVCVVCUUGZVUGVUCVUDVVBBVVBVAZVUGVAZVUDVAZUUHWJVDZAVVQWDDVVBSAV
+      UNVVQDVVBUQVUOVUGDVVBBVEVWAVWBUUIWFASVVBRVVQVVCWGWHWIWGZVVOUAUBHUYNDFVWEA
+      UYSDOZVVIDOZWDZUYSVVIVHQDOVVNAVWHWDZVHVUGDBUYSVVIAVHVVDRVWHVVEWGVWIVUGVSA
+      VUFVWHVUMWGAVVQVWHVWDWGAVWFVWGWKAVWFVWGWLUUJWMAHWNOZVVNLWGVVOUYJHOZWDZCVU
+      GPDVUPBUYLUYMAVUPBUUKUHRVVNVWKVUSXBAPVVFRVVNVWKVVGXBAVUTVVNVWKVVAXBVWLVUG
+      VSAVUFVVNVWKVUMXBAVVQVVNVWKVWDXBVVOHCUYKWEZVWKUYLCOAVVNVWMAVULVWJVVNVWMWO
+      JLCHUYKVUKWNWPWJUUQHCUYJUYKWQWFAVWKUYMDOVVNAVWKWDZVUCDUYMAVUCDUQVWKAVUCVU
+      EDAVUFVVRVUCVUEUQVUMVVTVUCVUDVVBBVWAVWCUULWJNWHWGAGHWRZVWKUYMVUCOAVVSVWOM
+      HSGWSVCZHUYJGUUMWFWTWMUUNATDOVVNAVUGDBTABCXCURTKTURUUOUHRAXAVGVURURXCOAUU
+      PVGUURVVHVUMVWDUVIWGUUSZWTVVIUYOSXDXEXFUUTUVAATVUBOZVUBUVBUVCATUYORZEUYQU
+      KZVWRAHTXGZXHZUYQOZTHUYJVXBUHZUYMPQZFUIZRZVWTAVXCHCVXBWEZAHVXAVXBWEVXACUQ
+      VXHHTTUVDUVEUVFZXIATCAVULCURUVGUHOTCOZJCURUVHCURTXAUVJUVKZUVLHVXACVXBXJXK
+      AVULVWJVXCVXHWOJLCHVXBVUKWNWPWJXLAVXFHTFUIZTAHVXETFVWNVXETUYMPQZTVWNVXDTU
+      YMPVWKVXDTRAHTUYJVXIXMXNXOVWNUYMSOZVXMTRAVVSVWKVXNMHSUYJGWQZWFZUYMUVMVCXP
+      YCAHTUVNUHUQZVWJUVOVXLTRAVWJVXQLUVPHFTUVQVCXQVWSVXGEVXBUYQUYKVXBRZUYOVXFT
+      VXRHUYNVXEFVXRUYLVXDUYMPUYJUYKVXBXRXOXSXTYAWJVUAVWTUATVXIUYSTRUYTVWSEUYQU
+      YSTUYOWAWBWCYBVUBTUVRVCVVICOZUCUGZVUBOZUDUGZVUBOZYDAVXSVXTHUYJUEUGZUHZUYM
+      PQZFUIZRZUEUYQUKZVYBHUYJUFUGZUHZUYMPQZFUIZRZUFUYQUKZYDVVIVXTPQZVYBVHQZVUB
+      OZVXSVXSVYAVYIVYCVYOVXSUWJVYAVXTUYORZEUYQUKZVYIVUAVYTUAVXTUCVTUYSVXTRUYTV
+      YSEUYQUYSVXTUYOWAWBWCVYSVYHEUEUYQUYKVYDRZUYOVYGVXTWUAHUYNVYFFWUAUYLVYEUYM
+      PUYJUYKVYDXRXOXSXTYEYFVYCVYBUYORZEUYQUKZVYOVUAWUCUAVYBUDVTUYSVYBRUYTWUBEU
+      YQUYSVYBUYOWAWBWCWUBVYNEUFUYQUYKVYJRZUYOVYMVYBWUDHUYNVYLFWUDUYLVYKUYMPUYJ
+      UYKVYJXRXOXSXTYEYFUVSAVXSVYIVYOVYRAVXSVYIVYOVYRYNZYNAVXSWDZVYHWUEUEUYQWUF
+      VYDUYQOZWDZWUEVYHVYOVVIVYGPQZVYBVHQZVUBOZYNWUHVYNWUKUFUYQWUFWUGVYJUYQOZVY
+      NWUKYNWUFWUGWULWDZWDZWUKVYNWUIVYMVHQZVUBOZWUNWUOUYORZEUYQUKZWUPWUNHVVIXGZ
+      XHZVYDPYGQZVYJVHYGQZUYQOZWUOHUYJWVBUHZUYMPQZFUIZRZWURWUNWVCHCWVBWEZWUNUAU
+      CHHHVHCCCWVAVYJWNWNWUFUYSCOZVXTCOZWDZUYSVXTVHQCOZWUMAWVKWVLVXSAVULWVKWVLJ
+      VULWVIWVJWVLCVHURUYSVXTVOUVTYHWFWMWMWUNUAUCHHHPCCCWUTVYDWNWNWUFWVKUYSVXTP
+      QCOZWUMAWVKWVMVXSAVULWVKWVMJVULWVIWVJWVMCURPUYSVXTVPUWAYHWFWMWMWUNHWUSWUT
+      WEWUSCUQZHCWUTWEHVVIVVMXIVXSWVNAWUMVVICUWBUWCHWUSCWUTXJXKWUNWUGHCVYDWEZWU
+      FWUGWULWKAWUGWVOWOZVXSWUMAVULVWJWVPJLCHVYDVUKWNWPWJXBYIZAVWJVXSWUMLXBZWVR
+      HUWDZYOWUNWULHCVYJWEZWUFWUGWULWLAWULWVTWOZVXSWUMAVULVWJWWAJLCHVYJVUKWNWPW
+      JXBYIZWVRWVRWVSYOAWVCWVHWOZVXSWUMAVULVWJWWCJLCHWVBVUKWNWPWJXBXLWUNWUOHVVI
+      VYFPQZFUIZVYMVHQHWWDVYLVHQZFUIWVFWUNWUIWWEVYMVHWUNHVYFVVIFWVRWUFVVLWUMACS
+      VVIACVUQSVURVMUWEZUWFZWGWUNVWKWDZVYESOZVXNVYFSOZWWICSVYEACSUQVXSWUMVWKWWG
+      YJZWUNWVOVWKVYECOWVQHCUYJVYDWQWFWTZWUFVWKVXNWUMAVWKVXNVXSVXPWMWMZVYEUYMYK
+      WJZUWGXOWUNHWWDVYLFWVRWWIVVLWWKWWDSOWUFVVLWUMVWKWWHXBZWWOVVIVYFYKWJWWIVYK
+      SOZVXNVYLSOWWICSVYKWWLWUNWVTVWKVYKCOWWBHCUYJVYJWQWFWTZWWNVYKUYMYKWJUWHWUN
+      HWWFWVEFWWIWVEVVIVYEPQZVYKVHQZUYMPQZWWSUYMPQZVYLVHQZWWFWWIWVDWWTUYMPWWIWV
+      DUYJWVAUHZVYKVHQZWWTWWIWVAHWRZVYJHWRZVWJVWKWVDWXERWUNWXFVWKWUNHHPHWUTVYDW
+      NWNWUTHWRZWUNVVIVEOWXHVVMHVVIVEUWIUWKZVGWUNWVOVYDHWRZWVQHCVYDWSZVCWVRWVRW
+      VSUWLWGWUNWXGVWKWUNWVTWXGWWBHCVYJWSVCWGAVWJVXSWUMVWKLYJZWUNVWKYLZHVHWVAVY
+      JWNUYJYPYMWWIWXDWWSVYKVHWWIWXDUYJWUTUHZVYEPQZWWSWWIWXHWXJVWJVWKWXDWXORWXH
+      WWIWXIVGWWIWVOWXJWUNWVOVWKWVQWGWXKVCWXLWXMHPWUTVYDWNUYJYPYMWWIWXNVVIVYEPV
+      WKWXNVVIRWUNHVVIUYJVVMXMXNXOXPXOXPXOWWIWWSSOZWWQVXNWXAWXCRWWIVVLWWJWXPWWP
+      WWMVVIVYEYKWJWWRWWNWWSVYKUYMUWMYQWWIWXBWWDVYLVHWWIVVLWWJVXNWXBWWDRWWPWWMW
+      WNVVIVYEUYMUWNYQXOUWOYCUWPWUQWVGEWVBUYQUYKWVBRZUYOWVFWUOWXQHUYNWVEFWXQUYL
+      WVDUYMPUYJUYKWVBXRXOXSXTYAWJVUAWURUAWUOWUIVYMVHUWQUYSWUORUYTWUQEUYQUYSWUO
+      UYOWAWBWCYBVYNWUJWUOVUBVYBVYMWUIVHYRYSXEUWRUWSVYHVYRWUKVYOVYHVYQWUJVUBVYH
+      VYPWUIVYBVHVXTVYGVVIPYRXOYSUXBXEXFUWTUXAUXCUXDWIAVUCUYSVUCOZUAULVUBUAVUCU
+      XEAWXRVUAUAAWXRVVIGUHZUYSRZUBHUKZVUAAVWOWXRWYAWOVWPUBHUYSGUXFVCAWXTVUAUBH
+      AVVIHOZWDZWXSUYORZEUYQUKZWXTVUAWYCUCHVXTVVIRZYTTUXGZUXHZUYQOZWXSHUYJWYHUH
+      ZUYMPQZFUIZRZWYEAWYIWYBAWYIHCWYHWEZAUCHWYGCWYHAWYGCOZVXTHOAYTCOZVXJWYOAVU
+      LWYPJCURYTUXIUXJVCVXKWYFYTTCUXMWJWGWYHVAUXKAVULVWJWYIWYNWOJLCHWYHVUKWNWPW
+      JXLWGWYCWYLFVVIUYMUYCZWXSWYCUYMHFUCWYHVVIWYCWYHVSAVWJWYBLWGAWYBYLWYCVVSVW
+      KVXNAVVSWYBMWGVXOWFUXLWYBWYQWXSRAFVVIHGUXNXNXQWYDWYMEWYHUYQUYKWYHRZUYOWYL
+      WXSWYRHUYNWYKFWYRUYLWYJUYMPUYJUYKWYHXRXOXSXTYAWJWXTWYDUYTEUYQWXSUYSUYOWAW
+      BUXOXFUXPUXQUXRVUGVUCVUBVUDBVWBVWCUXSYQUXTUYAVUAUYRUAIUYPIVEOZEUYQUYPWYSU
+      YOVEOHUYNFUYBIUYOVEXDUYDUYEUYSIRUYTUYPEUYQUYSIUYOWAWBUYFUYGAUYPUYIEUYQVVO
+      UYIUYPUYODOVWQIUYODXDXEXFUYH $.
+      $( [6-Dec-2014] $)
+  $}
+
   $(
   @{
-    itgofg.s @e |- S = ( ( RingSpan ` CCfld ) ` ( B u. { X } ) ) @.
-    itgofg.a @e |- A = ( ( subringAlg ` ( CCfld |` S ) ) ` B ) @.
+    @d ph i a b c @.  @d B i a b c @.  @d G i a b c @.  @d F i a b c @.
+    cnplyspn.b @e |- ( ph -> B e. ( SubRing ` CCfld ) ) @.
+    cnplyspn.a @e |- ( ph -> A = ( ( subringAlg ` CCfld ) ` B ) ) @.
+    cnplyspn.s @e |- ( ph -> S = ( ( LSpan ` A ) ` ran F ) ) @.
+    cnplyspn.f @e |- ( ph -> F = ( j e. ( 0 ... ( K - 1 ) ) |-> ( R ^ j ) ) )
+        @.
+    @( Finite spans of powers are the values of limited-degree polynomials. @)
+    cnplyspn @p |- ( ph -> ( X e. S <->
+        E. f e. ( B Poly< K ) X = ( f ` R ) ) ) @=
+      ? @.
+  @}
+
+    @( TODO @)
+    @( Finite spans in terms of limited degree polynomials. @)
+    @( Patch monic definition into itgo. @)
+    @( Transitivity of finite spans. @)
+    @( Forward itgofg. @)
+    @( Reverse using ac6sfi. @)
+    @( itgofg2 and lemmas @)
+    @( start on Noetherian @)
+
+  @{
+    Xitgofglem5.b @e |- ( ph -> B e. ( SubRing ` CCfld ) ) @.
+    Xitgofglem5.x @e |- ( ph -> X e. CC ) @.
+    Xitgofglem5.u @e |- ( ph -> U e. ( Poly ` B ) ) @.
+    Xitgofglem5.d @e |- ( ph -> D e. NN0 ) @.
+    Xitgofglem5.d2 @e |- ( ph -> ( deg ` U ) < D ) @.
+    Xitgofglem5.a @e |- A = ( ( subringAlg ` CCfld ) ` B ) @.
+    Xitgofglem5.q @e |- Q = { x | E. i e. ( 0 ... ( D - 1 ) ) x = ( X ^ i ) }
+        @.
+    @( Lemma for ~ itgofg .  The span of the first ` D ` powers of ` X `
+       contains all evaluations of polynomials with degree at most ` D ` . @)
+    Xitgofglem5 @p |- ( ph -> ( U ` X ) e. ( ( LSpan ` A ) ` Q ) ) @=
+      ? @.
+  @}
+
+  @{
+    Xitgofglem4.b @e |- ( ph -> B e. ( SubRing ` CCfld ) ) @.
+    Xitgofglem4.p @e |- ( ph -> P e. ( Monic ` B ) ) @.
+    Xitgofglem4.x @e |- ( ph -> X e. CC ) @.
+    Xitgofglem4.x0 @e |- ( ph -> ( P ` X ) = 0 ) @.
+    Xitgofglem4.u @e |- ( ph -> U e. ( Poly ` B ) ) @.
+    Xitgofglem4.f @e |- A = ( ( subringAlg ` CCfld ) ` B ) @.
+    Xitgofglem4.g @e |- Q = { x | E. i e. ( 0 ... ( ( deg ` P ) - 1 ) )
+        x = ( X ^ i ) } @.
+    @( Lemma for ~ itgofg .  Use the polynomial identity to inductively prove
+       that the span of Q contains all polynomial evaluations. @)
+    Xitgofglem4 @p |- ( ph -> ( U ` X ) e. ( ( LSpan ` A ) ` Q ) ) @=
+      ? @.
+  @}
+
+  @{
+    Xitgofglem3.a @e |- ( ph -> B e. ( SubRing ` CCfld ) ) @.
+    Xitgofglem3.b @e |- ( ph -> P e. ( Monic ` B ) ) @.
+    Xitgofglem3.c @e |- ( ph -> X e. CC ) @.
+    Xitgofglem3.d @e |- ( ph -> ( P ` X ) = 0 ) @.
+    Xitgofglem3.e @e |- S = ( ( RingSpan ` CCfld ) ` ( B u. { X } ) ) @.
+    Xitgofglem3.f @e |- A = ( ( subringAlg ` ( CCfld |` S ) ) ` B ) @.
+    Xitgofglem3.g @e |- Q = { x | E. i e. ( 0 ... ( deg ` P ) )
+        x = ( X ^ i ) } @.
+    @( Lemma for ~ itgofg .  Given a polynomial witnessing the integrality of
+       ` X ` , demonstrate the finite generation of ` A ` . @)
+    Xitgofglem3 @p |- ( ph -> ( ( LSpan ` A ) ` Q ) = S ) @=
+      ? @.
+  @}
+
+  @{
+    Xitgofg.s @e |- S = ( ( RingSpan ` CCfld ) ` ( B u. { X } ) ) @.
+    Xitgofg.a @e |- A = ( ( subringAlg ` ( CCfld |` S ) ) ` B ) @.
+    @( Lemma for ~ itgofg . @)
+    Xitgofglem2 @p |- ( ( B e. ( SubRing ` CCfld ) /\ A e. LFinGen ) ->
+          X e. ( IntgOver ` B ) ) @=
+      ? @.
+
+    @( Lemma for ~ itgofg . @)
+    Xitgofglem1 @p |- ( ( B e. ( SubRing ` CCfld ) /\ X e. ( IntgOver ` B ) )
+        ->
+          A e. LFinGen ) @=
+      ? @.
+
     @( An element is finitely generated over a ring if and only adjoining it to
-       the base ring results in a finitely spanned algebra. @)
+       the base ring results in a finitely spanned algebra.
+
+       Both directions:  The ring span of a ring R and a singleton is the
+       R-linear span of the powers of the singleton.  It is also the set of
+       values of R-polynomials evaluated at the singleton.
+
+       Forward:  If X is algebraic, it is the root of a monic polynomial P with
+       degree D. The span of the finite set of powers (X^0 ...  X^D) is
+       finitely spanned, and it is equal to the span of all the powers: it is a
+       subset because the ring span is a ring which contains all the powers,
+       and it also a superset, because it is a linear subspace that contains
+       all of the powers (by induction).
+
+       Reverse:  Suppose the ring of polynomial values is finitely spanned,
+       that is, there is a finite set of polynomials P(i) such that any linear
+       subspace that contains P(i)(X) contains all polynomials of X. Let N be
+       one more than the supremum of the degrees of P(i).  By assumption (X^N)
+       is in the span of P(i)(X), so there is an R-linear combination of
+       P(i)(X) equal to (X^N); but an R-linear combination of R-polynomials
+       with degree less than N is an R-polynomial with degree less than N, so
+       let Q be an R-polynomial such that Q(X) = (X^N) and deg(Q) < N. Then
+       (X^N) - Q(X) is a monic R-polynomial with X as a root, i.e.  X is
+       algebraic. @)
     itgofg @p |- ( B e. ( SubRing ` CCfld ) -> ( X e. ( IntgOver ` B ) <->
           A e. LFinGen ) ) @=
+      ? @.
+  @}
+
+  @{
+    rgspnchn.r @e |- ( ph -> R e. Ring ) @.
+    rgspnchn.s @e |- ( ph -> S = ( RingSpan ` R ) ) @.
+    rgspnchn.b @e |- ( ph -> B = ( Base ` R ) ) @.
+    rgspnchn.x @e |- ( ph -> X C_ B ) @.
+    rgspnchn.a @e |- ( ph -> A C_ B ) @.
+    @( Chaining lemma for ring spans. @)
+    rgspnchn @p |- ( ph -> ( R ` ( ( R ` X ) u. A ) ) = ( R ` ( X u. A ) ) ) @=
+      ? @.
+  @}
+
+  @{
+    itgofg2.ba @e |- ( ph -> B e. ( SubRing ` CCfld ) ) @.
+    itgofg2.fi @e |- ( ph -> F e. Fin ) @.
+    itgofg2.ss @e |- ( ph -> F C_ ( IntgOver ` B ) ) @.
+    itgofg2.sp @e |- ( ph -> S = ( ( RingSpan ` CCfld ) ` ( B u. F ) ) ) @.
+    itgofg2.al @e |- ( ph -> A = ( ( subringAlg ` ( CCfld |` S ) ) ` B ) ) @.
+    @( Adjoining finitely many integral elements to a ring still gives a finite
+       extension. @)
+    itgofg2 @p |- ( ph -> A e. LFinGen ) @=
       ? @.
   @}
 
@@ -107,4 +546,7 @@ $)
       ? @.
   @}
   $)
+
+$( (End of Stefan O'Rear's mathbox.) $)
+
 

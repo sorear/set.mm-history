@@ -39,12 +39,21 @@ $)
 
   $c ndx $.
   $c sSet $.
+  $c Base $.
+  $c |`s $.
 
   $( Extend class notation with the structure component index extractor. $)
   cnx $a class ndx $.
 
   $( Set components of a structure. $)
   csts $a class sSet $.
+
+  $( Extend class notation with the class of all base set extractors. $)
+  cbs $a class Base $.
+
+  $( Extend class notation with the extensible structure builder restriction
+     operator. $)
+  cress $a class |`s $.
 
   $( Define the structure component index extractor.  See theorem ~ ndxarg to
      understand its purpose.  The restriction to ` NN ` allows ` ndx ` to exist
@@ -54,11 +63,37 @@ $)
      ( ~ df-om ). $)
   df-ndx $a |- ndx = ( _I |` NN ) $.
 
+  $( Define the base set extractor for posets and related structures.  Note
+     that the function argument can be any set, although it is meaningful only
+     if it is a member of ` Poset ` ( ~ df-poset ) when used for posets or of
+     ` Grp ` ( ~ df-grp ) when used from groups. $)
+  df-base $a |- Base = ( p e. _V |-> ( p ` 1 ) ) $.
+
   ${
-    $d e s $.
+    $d e s w x $.
     $( Set one or more components of a structure. $)
     df-sets $a |- sSet = ( s e. _V , e e. _V |->
-      ( ( s |` ( _V \ dom e ) ) u. e ) ) $.
+      ( ( s |` ( _V \ dom { e } ) ) u. { e } ) ) $.
+
+    $( Define a multifunction restriction operator for extensible structures,
+       which can be used to turn statements about rings into statements about
+       subrings, modules into submodules, etc.  This definition knows nothing
+       about individual structures and merely truncates the ` Base ` set while
+       leaving operators alone; this will do the right thing for structures
+       like ` Ring ` where the operators are ignored outside of the base set,
+       but will not currently (2014-Nov-26) do the right thing for structures
+       like ` TopSp ` because the topology slot is not changed.  (We could
+       change the use of ` TopSp ` to restrict the topology to the base set
+       before use, which could be a good idea if this definition gains
+       traction.)
+
+       (Credit for this operator goes to Mario Carneiro).
+
+       See ~ ressbas for the altered base set, and ~ resslem2 ( ~ subrg0 ,
+       ~ ressplusg , ~ subrg1 , ~ ressmulr ) for the (un)altered other
+       operations.  (Contributed by Stefan O'Rear, 26-Nov-2014.) $)
+    df-ress $a |- |`s = ( w e. _V , x e. _V |-> if ( ( Base ` w ) C_ x , w ,
+        ( w sSet <. ( Base ` ndx ) , ( x i^i ( Base ` w ) ) >. ) ) ) $.
   $}
 
   ${
@@ -90,18 +125,55 @@ $)
   $}
 
   ${
-    $d e s E $.  $d e s S $.
-    setsval.1 $e |- E e. _V $.
+    $d e s A $.  $d e s B $.  $d e s S $.
     $( Value of the structure replacement function.  (Contributed by Mario
        Carneiro, 1-Dec-2014.) $)
-    setsval $p |- ( S e. V -> ( S sSet E ) =
-      ( ( S |` ( _V \ dom E ) ) u. E ) ) $=
-      ( vs ve wcel cvv cdm cdif cres cun csts co wceq elex resexg unexg sylancl
-      cv reseq1 dmeq difeq2d reseq2 syl sylan9eq simpr uneq12d df-sets ovmpt2ga
-      wa mp3an2 syl2anc ) ACGZAHGZAHBIZJZKZBLZHGZABMNUSOZACPUNURHGBHGZUTAUQCQDU
-      RBHHRSUOVBUTVADEFABHHETZHFTZIZJZKZVDLUSMHVCAOZVDBOZUKVGURVDBVHVIVGAVFKZUR
-      VCAVFUAVIVFUQOVJUROVIVEUPHVDBUBUCVFUQAUDUEUFVHVIUGUHFEUIUJULUM $.
+    setsval $p |- ( S e. V -> ( S sSet <. A , B >. ) =
+      ( ( S |` ( _V \ { A } ) ) u. { <. A , B >. } ) ) $=
+      ( vs ve wcel cvv csn cdif cres cop cun csts co wceq elex resexg cv cdm wa
+      snex unexg sylancl opex reseq1 sneq dmsnop syl6eq difeq2d reseq2 sylan9eq
+      dmeqd syl simpr sneqd uneq12d df-sets ovmpt2ga mp3an2 syl2anc ) CDGZCHGZC
+      HAIZJZKZABLZIZMZHGZCVGNOVIPZCDQVBVFHGVHHGVJCVEDRVGUBVFVHHHUCUDVCVGHGVJVKA
+      BUEEFCVGHHESZHFSZIZTZJZKZVNMVINHVLCPZVMVGPZUAZVQVFVNVHVRVSVQCVPKZVFVLCVPU
+      FVSVPVEPWAVFPVSVOVDHVSVOVHTVDVSVNVHVMVGUGUMABUHUIUJVPVECUKUNULVTVMVGVRVSU
+      OUPUQFEURUSUTVA $.
       $( [1-Dec-2014] $)
+  $}
+
+  $( Replacing the same components twice yields the same as the second setting
+     only.  (Contributed by Mario Carneiro, 2-Dec-2014.) $)
+  setsabs $p |- ( S e. V -> ( ( S sSet <. A , B >. ) sSet <. A , C >. ) =
+    ( S sSet <. A , C >. ) ) $=
+    ( wcel cop csts co cvv csn cres cun wceq setsval ax-mp c0 cdm cin 3eqtri wb
+    cdif reseq1d resundir residm dmres dmsnop ineq2i incom disjdif eqtri relres
+    ovex wrel reldm0 mpbir uneq12i un0 syl6eq uneq1d eqtr4d syl5eq ) DEFZDABGZH
+    IZACGZHIZVEJAKZUBZLZVFKZMZDVFHIZVEJFVGVLNDVDHUMACVEJOPVCVLDVILZVKMVMVCVJVNV
+    KVCVJVNVDKZMZVILZVNVCVEVPVIABDEOUCVQVNVILZVOVILZMVNQMVNVNVOVIUDVRVNVSQDVIUE
+    VSQNZVSRZQNZWAVIVORZSZQVOVIUFWDVIVHSVHVISQWCVHVIABUGUHVIVHUIVHJUJTUKVSUNVTW
+    BUAVOVIULVSUOPUPUQVNURTUSUTACDEOVAVB $.
+    $( [2-Dec-2014] $)
+
+  ${
+    setscom.1 $e |- A e. _V $.
+    setscom.2 $e |- B e. _V $.
+    $( Component-setting is commutative when the x-values are different.
+       (Contributed by Mario Carneiro, 5-Dec-2014.) $)
+    setscom $p |- ( ( S e. V /\ A =/= B ) ->
+       ( ( S sSet <. A , C >. ) sSet <. B , D >. ) =
+       ( ( S sSet <. B , D >. ) sSet <. A , C >. ) ) $=
+      ( wcel cop csts co cvv csn cres cun setsval wss wceq ax-mp wa cdif rescom
+      wne uneq1i un23 eqtri reseq1d resundir wrel cdm relsnop dmsnop c0 disjsn2
+      cin wb ssv reldisj sylib syl5eqss relssres sylancr uneq2d syl5eq sylan9eq
+      uneq1d ssconb mp2an 3eqtr4a ovex 3eqtr4g ) EFIZABUDZUAZEACJZKLZMBNZUBZOZB
+      DJZNZPZEWAKLZMANZUBZOZVPNZPZVQWAKLZWDVPKLZVOEWFOZVSOZWHPZWBPZEVSOZWFOZWBP
+      ZWHPZWCWIWOWQWHPZWBPWSWNWTWBWMWQWHEWFVSUCUEUEWQWHWBUFUGVOVTWNWBVMVNVTWLWH
+      PZVSOZWNVMVQXAVSACEFQUHVNXBWMWHVSOZPWNWLWHVSUIVNXCWHWMVNWHUJWHUKZVSRXCWHS
+      ACGULVNXDWEVSACUMVNWEVRUPUNSZWEVSRZABUOWEMRZXEXFUQWEURZWEVRMUSTUTZVAWHVSV
+      BVCVDVEVFVGVOWGWRWHVMVNWGWPWBPZWFOZWRVMWDXJWFBDEFQUHVNXKWQWBWFOZPWRWPWBWF
+      UIVNXLWBWQVNWBUJWBUKZWFRXLWBSBDHULVNXMVRWFBDUMVNXFVRWFRZXIXGVRMRXFXNUQXHV
+      RURWEVRMVHVIUTVAWBWFVBVCVDVEVFVGVJVQMIWJWCSEVPKVKBDVQMQTWDMIWKWISEWAKVKAC
+      WDMQTVL $.
+      $( [5-Dec-2014] $)
   $}
 
   ${
@@ -119,43 +191,41 @@ $)
       ( wcel cfv cnx strfvn cop wceq wfun wi funopfvg mpan2 mpi syl5req ) ADJZB
       CKLCKZBKZABCUCEFHMUBUCANBJZUDAOZIUBBPUEUFQGUCADBRSTUA $.
       $( [6-Oct-2013] $)
-
-    $d s S $.  $d s W $.
-    $( Value of the structure replacement function at a replaced index.
-       (Contributed by Mario Carneiro, 1-Dec-2014.) $)
-    setsid $p |- ( ( W e. A /\ C e. V ) -> C = ( E ` ( W sSet S ) ) ) $=
-      ( wcel cfv wceq cnx cvv cres cun c0 ax-mp wa csts co strfv adantl setsval
-      cdm cdif fveq2d resexg unexg sylancl cv fveq1 fvex fvmpt syl eqtrd strfvn
-      resundir resres incom disjdif eqtri reseq2i res0 3eqtri wrel funrel resdm
-      cin wfun uneq12i uncom un0 fveq1i cop opeldm fvres 3eqtr2i syl6eqr adantr
-      eqtr4d ) FALZBELZUABCDMZFCUBUCZDMZWEBWFNWDBCDEGHIJKUDUEWDWHWFNWEWDWHODMZF
-      PCUGZUHZQZCRZMZWFWDWHWMDMZWNWDWGWMDFCAHUFUIWDWMPLZWOWNNWDWLPLCPLWPFWKAUJH
-      WLCPPUKULGWMWIGUMZMWNPDWIWQWMUNJWIWMUOUPUQURWFWICMWIWMWJQZMZWNCDWIGHJUSWI
-      WRCWRWLWJQZCWJQZRSCRZCWLCWJUTWTSXACWTFWKWJVKZQFSQSFWKWJVAXCSFXCWJWKVKSWKW
-      JVBWJPVCVDVEFVFVGCVHZXACNCVLXDICVITCVJTVMXBCSRCSCVNCVOVDVGVPWIWJLZWSWNNWI
-      BVQCLXEKWIBCODUOVRTWIWJWMVSTVTWAWBWC $.
-      $( [1-Dec-2014] $)
   $}
 
   ${
-    $d s E $.  $d s S $.  $d s W $.
-    setsnid.s $e |- S e. _V $.
-    setsnid.d $e |- dom S = D $.
-    setsnid.e $e |- E = ( s e. _V |-> ( s ` ( E ` ndx ) ) ) $.
-    setsnid.n $e |- -. ( E ` ndx ) e. D $.
+    $d s C $.  $d s D $.  $d s E $.  $d s W $.
+    setsid.e $e |- E = ( s e. _V |-> ( s ` ( E ` ndx ) ) ) $.
+    $( Value of the structure replacement function at a replaced index.
+       (Contributed by Mario Carneiro, 1-Dec-2014.) $)
+    setsid $p |- ( ( W e. A /\ C e. V ) ->
+      C = ( E ` ( W sSet <. ( E ` ndx ) , C >. ) ) ) $=
+      ( wcel cnx cfv cvv csn cres cun wceq fvex c0 cin eqtri 3eqtri cdif cop co
+      csts snid fvres ax-mp resundir resres incom disjdif reseq2i res0 wrel cdm
+      wss relsnop dmsnop eqimssi relssres mp2an uneq12i uncom un0 fveq1i eqtr3i
+      fvsng mpan syl5req setsval fveq2d resexg unexg sylancl cv fveq1 fvmpt syl
+      snex eqtr2d sylan9eqr ) BDHZEAHZBICJZEKWDLZUAZMZWDBUBZLZNZJZEWHUDUCZCJZWB
+      WKWDWIJZBWDWJWEMZJZWKWNWDWEHWPWKOWDICPZUEWDWEWJUFUGWDWOWIWOWGWEMZWIWEMZNQ
+      WINZWIWGWIWEUHWRQWSWIWREWFWERZMEQMQEWFWEUIXAQEXAWEWFRQWFWEUJWEKUKSULEUMTW
+      IUNWIUOZWEUPWSWIOWDBWQUQXBWEWDBURUSWIWEUTVAVBWTWIQNWIQWIVCWIVDSTVEVFWDKHW
+      BWNBOWQWDBKDVGVHVIWCWMWJCJZWKWCWLWJCWDBEAVJVKWCWJKHZXCWKOWCWGKHWIKHXDEWFA
+      VLWHVSWGWIKKVMVNFWJWDFVOZJWKKCWDXEWJVPGWDWJPVQVRVTWA $.
+      $( [1-Dec-2014] $)
+
+    setsnid.n $e |- ( E ` ndx ) =/= D $.
     $( Value of the structure replacement function at an untouched index.
        (Contributed by Mario Carneiro, 1-Dec-2014.) $)
-    setsnid $p |- ( W e. V -> ( E ` W ) = ( E ` ( W sSet S ) ) ) $=
-      ( wcel cfv cnx cvv wceq fvex cres cun c0 ax-mp csts co cv fveq1 fvmpt syl
-      elex cdm cdif setsval fveq1d resundir residm cin dmres incom disjdif wrel
-      3eqtri wb relres reldm0 mpbir uneq12i fveq1i wn mpbir2an difeq2i eleqtrri
-      un0 eldif fvres 3eqtr3i syl6eq eqtr4d ovex syl6eqr ) EDKZECLZMCLZEBUAUBZL
-      ZWACLZVRVSVTELZWBVRENKVSWDOEDUGFEVTFUCZLZWDNCVTWEEUDIVTEPUEUFVRWBVTENBUHZ
-      UIZQZBRZLZWDVRVTWAWJEBDGUJUKVTWJWHQZLZVTWILZWKWDVTWLWIWLWIWHQZBWHQZRWISRW
-      IWIBWHULWOWIWPSEWHUMWPSOZWPUHZSOZWRWHWGUNWGWHUNSBWHUOWHWGUPWGNUQUSWPURWQW
-      SUTBWHVAWPVBTVCVDWIVJUSVEVTWHKZWMWKOVTNAUIZWHVTXAKVTNKVTAKVFVTNAVKMCPJVGW
-      GANHVHVIZVTWHWJVLTWTWNWDOXBVTWHEVLTVMVNVOWANKWCWBOEBUAVPFWAWFWBNCVTWEWAUD
-      IVTWAPUETVQ $.
+    setsnid $p |- ( W e. V -> ( E ` W ) = ( E ` ( W sSet <. D , C >. ) ) ) $=
+      ( wcel cfv cnx csts cvv wceq fvex cres cun c0 cin ax-mp cop co elex fveq1
+      fvmpt syl csn cdif setsval fveq1d resundir residm cdm dmres dmsnop ineq2i
+      cv eqtri incom disjdif 3eqtri wrel relres reldm0 mpbir uneq12i un0 fveq1i
+      wb wne eldifsn mpbir2an fvres 3eqtr3i syl6eq eqtr4d ovex syl6eqr ) EDIZEC
+      JZKCJZEBAUAZLUBZJZWCCJZVSVTWAEJZWDVSEMIVTWFNEDUCFEWAFUQZJZWFMCWAWGEUDGWAE
+      OUEUFVSWDWAEMBUGZUHZPZWBUGZQZJZWFVSWAWCWMBAEDUIUJWAWMWJPZJZWAWKJZWNWFWAWO
+      WKWOWKWJPZWLWJPZQWKRQWKWKWLWJUKWRWKWSREWJULWSRNZWSUMZRNZXAWJWISZWIWJSRXAW
+      JWLUMZSXCWLWJUNXDWIWJBAUOUPURWJWIUSWIMUTVAWSVBWTXBVIWLWJVCWSVDTVEVFWKVGVA
+      VHWAWJIZWPWNNXEWAMIWABVJWAMBVKKCOHVLZWAWJWMVMTXEWQWFNXFWAWJEVMTVNVOVPWCMI
+      WEWDNEWBLVQFWCWHWDMCWAWGWCUDGWAWCOUETVR $.
       $( [1-Dec-2014] $)
   $}
 
@@ -181,9 +251,197 @@ $)
     str0.a $e |- F = ( s e. _V |-> ( s ` I ) ) $.
     $( All components of the empty set are empty sets.  (Contributed by Stefan
        O'Rear, 27-Nov-2014.) $)
-    str0 $p |- ( F ` (/) ) = (/) $=
-      ( c0 cvv wcel cfv wceq 0ex cv fveq1 fv01 syl6eq fvmpt ax-mp ) EFGEAHEIJCE
-      BCKZHZEFAQEIRBEHEBQELBMNDJOP $.
+    str0 $p |- (/) = ( F ` (/) ) $=
+      ( c0 cfv cvv wcel wceq 0ex cv fveq1 fv01 syl6eq fvmpt ax-mp eqcomi ) EAFZ
+      EEGHREIJCEBCKZFZEGASEITBEFEBSELBMNDJOPQ $.
+      $( [7-Dec-2014] $) $( [27-Nov-2014] $)
+  $}
+
+  ${
+    $d p K $.
+    baseval.k $e |- K e. _V $.
+    $( Value of the base set extractor.  (Normally it is preferred to work with
+       ` ( Base `` ndx ) ` rather than the hard-coded ` 1 ` in order to make
+       structure theorems portable.  This is an example of how to obtain it
+       when needed.) $)
+    baseval $p |- ( Base ` K ) = ( K ` 1 ) $=
+      ( vs cbs c1 df-base strfvn ) ADECBCFG $.
+      $( [4-Sep-2011] $)
+  $}
+
+  $( Utility theorem: index-independent form of ~ df-base . $)
+  baseid $p |- Base = ( f e. _V |-> ( f ` ( Base ` ndx ) ) ) $=
+    ( cbs c1 df-base 1nn ndxid ) BCAADEF $.
+    $( [20-Oct-2012] $)
+
+  $( Index value of the base set extractor.  (Normally it is preferred to work
+     with ` ( Base `` ndx ) ` rather than the hard-coded ` 1 ` in order to make
+     structure theorems portable.  This is an example of how to obtain it when
+     needed.) $)
+  basendx $p |- ( Base ` ndx ) = 1 $=
+    ( vs cbs c1 df-base 1nn ndxarg ) BCAADEF $.
+    $( [2-Aug-2013] $)
+
+  ${
+    $d a w A $.  $d a w W $.
+    $( The structure restriction is a proper operator, so it can be used with
+       ~ ovprc1 .  (Contributed by Stefan O'Rear, 29-Nov-2014.) $)
+    reldmress $p |- Rel dom |`s $=
+      ( vw va cvv cv cbs cfv wss cnx cin cop csts cif cress df-ress reldmmpt2
+      co ) ABCCADZEFZBDZGQQHEFSRIJKPLMBANO $.
+      $( [29-Nov-2014] $)
+  $}
+
+  ${
+    $d a s w A $.  $d a s w B $.  $d a s w W $.
+    ressbas.r $e |- R = ( W |`s A ) $.
+    ressbas.b $e |- B = ( Base ` W ) $.
+    $( Value of structure restriction.  (Contributed by Stefan O'Rear,
+       29-Nov-2014.) $)
+    ressval $p |- ( ( W e. X /\ A e. Y ) -> R = if ( B C_ A , W ,
+            ( W sSet <. ( Base ` ndx ) , ( A i^i B ) >. ) ) ) $=
+      ( vw va wcel wa cress co wss cbs cfv csts cvv wceq cnx cin cop elex simpl
+      cif ovex ifcl sylancl fveq2d syl6eqr simpr sseq12d ineq12d opeq2d oveq12d
+      cv ifbieq12d df-ress ovmpt2ga mpd3an3 syl2an syl5eq ) DEKZAFKZLCDAMNZBAOZ
+      DDUAPQZABUBZUCZRNZUFZGVDDSKZASKZVFVLTZVEDEUDAFUDVMVNVLSKZVOVMVNLVMVKSKVPV
+      MVNUEDVJRUGVGDVKSUHUIIJDASSIUQZPQZJUQZOZVQVQVHVSVRUBZUCZRNZUFVLMSVQDTZVSA
+      TZLZVTVGVQWCDVKWFVRBVSAWFVRDPQBWFVQDPWDWEUEZUJHUKZWDWEULZUMWGWFVQDWBVJRWG
+      WFWAVIVHWFVSAVRBWIWHUNUOUPURJIUSUTVAVBVC $.
+      $( [29-Nov-2014] $)
+
+    $( General behavior of trivial restriction.  (Contributed by Stefan O'Rear,
+       29-Nov-2014.) $)
+    ressid2 $p |- ( ( B C_ A /\ W e. X /\ A e. Y ) -> R = W ) $=
+      ( wss wcel wceq wa cnx cbs cfv cin cop csts co cif iftrue sylan9eqr 3impb
+      ressval ) BAIZDEJZAFJZCDKUFUGLUECUEDDMNOABPQRSZTDABCDEFGHUDUEDUHUAUBUC $.
+      $( [29-Nov-2014] $)
+
+    $( Value of nontrivial structure restriction.  (Contributed by Stefan
+       O'Rear, 29-Nov-2014.) $)
+    ressval2 $p |- ( ( -. B C_ A /\ W e. X /\ A e. Y ) -> R = ( W sSet
+        <. ( Base ` ndx ) , ( A i^i B ) >. ) ) $=
+      ( wss wn wcel cnx cbs cfv cin cop csts co wceq wa ressval sylan9eqr 3impb
+      cif iffalse ) BAIZJZDEKZAFKZCDLMNABOPQRZSUHUITUGCUFDUJUDUJABCDEFGHUAUFDUJ
+      UEUBUC $.
+      $( [29-Nov-2014] $)
+
+    $( Base set of a finite structure restriction.  (Contributed by Stefan
+       O'Rear, 26-Nov-2014.) $)
+    ressbas $p |- ( A e. V -> ( A i^i B ) = ( Base ` R ) ) $=
+      ( vs vf cvv wcel cin cbs cfv wceq w3a fveq2d 3eqtr4a 3expib c0 wa sseqin2
+      wss wi simp1 sylib ressid2 wn cnx csts co simp2 fvex eqeltri inex2 baseid
+      cop setsid sylancl ressval2 eqtr4d pm2.61i fv01 0ex strfvn 3eqtr4ri fvprc
+      in0 syl5eq ineq2d cress reldmress ovprc1 adantr pm2.61ian ) EJKZADKZABLZC
+      MNZOZBAUCZVPVQUAVTUDWAVPVQVTWAVPVQPZBEMNZVRVSGWBWAVRBOWAVPVQUEBAUBUFWBCEM
+      ABCEJDFGUGQRSWAUHZVPVQVTWDVPVQPZVREUIMNZVRUQUJUKZMNZVSWEVPVRJKVRWHOWDVPVQ
+      ULBABWCJGEMUMUNUOJVRMJEHHUPURUSWECWGMABCEJDFGUTQVASVBVPUHZVTVQWIATLZTMNZV
+      RVSWFTNTWKWJWFVCTMWFIVDIUPVEAVHVFWIBTAWIBWCTGEMVGVIVJWICTMWICEAVKUKTFEAVK
+      VLVMVIQRVNVO $.
+      $( [26-Nov-2014] $)
+
+    $( Base set of a finite structure restriction.  (Contributed by Mario
+       Carneiro, 2-Dec-2014.) $)
+    ressbas2 $p |- ( A C_ B -> A = ( Base ` R ) ) $=
+      ( wss cin cbs cfv wceq df-ss biimpi wcel fvex eqeltri ssexg mpan2 ressbas
+      cvv syl eqtr3d ) ABGZABHZACIJZUCUDAKABLMUCATNZUDUEKUCBTNUFBDIJTFDIOPABTQR
+      ABCTDEFSUAUB $.
+      $( [2-Dec-2014] $)
+
+    $( The base set of a restriction is a subset of the base set of the
+       original structure.  (Contributed by Stefan O'Rear, 27-Nov-2014.) $)
+    ressbasss $p |- ( Base ` R ) C_ B $=
+      ( vx cvv wcel cbs cfv wss cin ressbas inss2 a1i eqsstr3d wn cress c0 eqid
+      co reldmress ovprc1 fveq2d cnx baseid 0ss eqsstr3i eqsstrd pm2.61i ovprc2
+      str0 syl5eq sseq1d mpbiri ) AHIZCJKZBLZUQURABMZBABCHDEFNUTBLUQABOPQUQRZUS
+      DDSUBZJKZBLZDHIZVDVEVCDBMZBDBVBHDVBUAFNVFBLVEDBOPQVERZVCTJKZBVGVBTJDDSUCU
+      DUEVHBLVGVHTBJUFJKGGUGUMBUHUIPUJUKVAURVCBVACVBJVACDASUBVBEDASULUNUEUOUPUK
+      $.
       $( [27-Nov-2014] $)
   $}
+
+  ${
+    $d s A $.  $d s E $.  $d s W $.
+    resslem.r $e |- R = ( W |`s A ) $.
+    resslem.e $e |- C = ( E ` W ) $.
+    resslem.f $e |- E = ( s e. _V |-> ( s ` ( E ` ndx ) ) ) $.
+    resslem.d $e |- -. ( E ` ndx ) e. { ( Base ` ndx ) } $.
+    $( Other elements of a finite structure restriction.  (Revised by Mario
+       Carneiro, 2-Dec-2014.) $)
+    resslem $p |- ( A e. V -> C = ( E ` R ) ) $=
+      ( wcel cfv cvv wceq cbs fveq2d wn cnx c0 wss wa wi w3a eqid eqcomd 3expib
+      ressid2 cin cop csts csn wne fvex elsnc necon3bbii mpbi 3ad2ant2 ressval2
+      co setsnid eqtr4d pm2.61i str0 fvprc cress reldmress ovprc1 syl5eq adantr
+      3eqtr4a pm2.61ian ) AELZBFDMZCDMZIFNLZVMVNVOOZFPMZAUAZVPVMUBVQUCVSVPVMVQV
+      SVPVMUDZFCDVTCFAVRCFNEHVRUEZUHUFQUGVSRZVPVMVQWBVPVMUDZVNFSPMZAVRUIZUJUKUT
+      ZDMZVOVPWBVNWGOVMWEWDDNFGJSDMZWDULLZRWHWDUMKWIWHWDWHWDSDUNUOUPUQVAURWCCWF
+      DAVRCFNEHWAUSQVBUGVCVPRZVQVMWJTTDMVNVODWHGJVDFDVEWJCTDWJCFAVFUTTHFAVFVGVH
+      VIQVKVJVLVI $.
+      $( [2-Dec-2014] $) $( [26-Nov-2014] $)
+
+    $( Other elements of a finite structure restriction. $)
+    resslem2 $p |- C = ( E ` R ) $=
+      ( cvv wcel cfv wceq resslem wn cress co syl5eq c0 ovprc2 fveq2d eqid str0
+      cnx fvprc reldmress ovprc1 3eqtr4a pm2.61i syl6reqr ) AKLZBCDMZNABCDKEFGH
+      IJOULPZUMEEQRZDMZBUNCUODUNCEAQRUOGEAQUASUBEKLZBUPNEBUODKEFUOUCHIJOUQPZTTD
+      MBUPDUEDMFIUDURBEDMTHEDUFSURUOTDEEQUGUHUBUIUJUKUJ $.
+      $( [27-Nov-2014] $)
+  $}
+
+  $( All restrictions of the null set are trivial.  (Contributed by Stefan
+     O'Rear, 29-Nov-2014.) $)
+  ress0 $p |- ( (/) |`s A ) = (/) $=
+    ( vs cvv wcel c0 cress co wceq wss 0ss 0ex eqid cbs cnx baseid str0 ressid2
+    cfv mp3an12 wn ovprc2 mp3an syl6eq pm2.61i ) ACDZEAFGZEHZEAIECDZUEUGAJKAEUF
+    ECCUFLMNMRBBOPZQSUETUFEEFGZEEAFUAEEIUHUHUJEHEJKKEEUJECCUJLUIQUBUCUD $.
+    $( [29-Nov-2014] $)
+
+  ${
+    ressid.1 $e |- B = ( Base ` W ) $.
+    $( Behavior of trivial restriction.  (Contributed by Stefan O'Rear,
+       29-Nov-2014.) $)
+    ressid $p |- ( W e. X -> ( W |`s B ) = W ) $=
+      ( wss wcel cvv cress wceq ssid cbs cfv fvex eqeltri eqid ressid2 mp3an13
+      co ) AAEBCFAGFBAHRZBIAJABKLGDBKMNAASBCGSODPQ $.
+      $( [29-Nov-2014] $)
+
+    $( Restriction only cares about the part of the second set which intersects
+       the base of the first.  (Contributed by Stefan O'Rear, 29-Nov-2014.) $)
+    ressinbas $p |- ( A e. X -> ( W |`s A ) = ( W |`s ( A i^i B ) ) ) $=
+      ( wcel cvv cress co cin wceq elex wss w3a eqid ressid2 syl3an eqtr4d csts
+      wn wa ssid incom df-ss biimpi syl5eq syl5sseqr inex1g 3expb cnx cbs inass
+      cfv cop inidm ineq2i eqtr2i opeq2i oveq2i ressval2 inss1 sstr mpan2 con3i
+      3eqtr4a pm2.61ian c0 reldmress ovprc1 adantr syl ) ADFAGFZCAHIZCABJZHIZKZ
+      ADLCGFZVLVPBAMZVQVLUAVPVRVQVLVPVRVQVLNVMCVOABVMCGGVMOZEPVRBVNMZVQVQVLVNGF
+      ZVOCKVRBBVNBUBVRVNBAJZBABUCVRWBBKBAUDUEUFUGCGLZABGUHZVNBVOCGGVOOZEPQRUIVR
+      TZVQVLVPWFVQVLNCUJUKUMZVNUNZSICWGVNBJZUNZSIZVMVOWHWJCSVNWIWGWIABBJZJVNABB
+      ULWLBABUOUPUQURUSABVMCGGVSEUTWFVTTVQVQVLWAVOWKKVTVRVTVNAMVRABVABVNAVBVCVD
+      WCWDVNBVOCGGWEEUTQVEUIVFVQTZVPVLWMVMVGVOCAHVHVICVNHVHVIRVJVFVK $.
+      $( [29-Nov-2014] $)
+  $}
+
+  $( Restriction composition law.  (Contributed by Stefan O'Rear,
+     29-Nov-2014.)  (The proof was shortened by Mario Carneiro, 2-Dec-2014.) $)
+  ressress $p |- ( ( A e. X /\ B e. Y ) ->
+    ( ( W |`s A ) |`s B ) = ( W |`s ( A i^i B ) ) ) $=
+    ( cvv wcel wa cress co cin wceq cbs cfv wss wn cop csts eqid syl wi w3a cnx
+    simplr simpr1 simpr2 syl3anc inass in12 eqtri ressbas ineq2d syl5req opeq2d
+    ressval2 oveq12d setsabs eqtrd simpll ovex a1i simpr3 inss1 sstr mpan2 nsyl
+    inex1g 3eqtr4d exp31 ressid2 mp3an2 3ad2antr3 in32 simpl df-ss sylib oveq2d
+    eqsstrd ressinbas ex 3adant3r3 oveq1d inss2 syl5ss pm2.61ii 3expib c0 ress0
+    sseqin2 reldmress ovprc1 3eqtr4a a1d pm2.61i ) CFGZADGZBEGZHZCAIJZBIJZCABKZ
+    IJZLZUAWOWPWQXCWSMNZBOZCMNZAOZWOWPWQUBZXCUAXEPZXGPZXHXCXIXJHZXHHZWSUCMNZBXD
+    KZQZRJZCXMXAXFKZQZRJZWTXBXLXPCXMAXFKZQRJZXRRJZXSXLWSYAXOXRRXLXJWOWPWSYALXIX
+    JXHUDZXKWOWPWQUEZXKWOWPWQUFZAXFWSCFDWSSZXFSZUOUGXLXNXQXMXLXQBXTKZXNXQABXFKZ
+    KZYHABXFUHZABXFUIUJXLXTXDBXLWPXTXDLZYEAXFWSDCYFYGUKZTULUMUNUPXLWOYBXSLYDXMX
+    TXQCFUQTURXLXIWSFGZWQWTXPLXIXJXHUSYNXLCAIUTZVAXKWOWPWQVBBXDWTWSFEWTSZXDSZUO
+    UGXLXFXAOZPWOXAFGZXBXSLXLXGYRYCYRXAAOXGABVCXFXAAVDVEVFYDXLWPYSYEABDVGZTXAXF
+    XBCFFXBSYGUOUGVHVIXEXHXCXEXHHZWTWSXBXEWOWQWTWSLZWPXEYNWQUUBYOBXDWTWSFEYPYQV
+    JVKVLUUACXTIJZCXQIJZWSXBUUAXTXQCIUUAXQXTBKZXTABXFVMUUAXTBOUUEXTLUUAXTXDBUUA
+    WPYLXEWOWPWQUFZYMTXEXHVNVRXTBVOVPUMVQUUAWPWSUUCLUUFAXFCDYGVSTUUAYSXBUUDLZUU
+    AWPYSUUFYTTXAXFCFYGVSZTVHURVTXGXHXCXGXHHZWTCBIJZXBUUIWSCBIXGWOWPWSCLWQAXFWS
+    CFDYFYGVJWAWBUUICYIIJZUUDUUJXBUUIYIXQCIUUIXQYJYIYKUUIYIAOYJYILUUIYIXFABXFWC
+    XGXHVNWDYIAWIVPUMVQUUIWQUUJUUKLXGWOWPWQVBBXFCEYGVSTUUIYSUUGUUIWPYSXGWOWPWQU
+    FYTTUUHTVHURVTWEWFWOPZXCWRUULWGBIJWGWTXBBWHUULWSWGBICAIWJWKWBCXAIWJWKWLWMWN
+    $.
+    $( [2-Dec-2014] $) $( [29-Nov-2014] $)
 

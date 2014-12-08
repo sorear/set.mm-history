@@ -4,21 +4,12 @@ $(
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 $)
 
-  $c Base $.
-  $c le $.
-
   $c Poset $.
   $c lt $.
   $c lub $.
   $c glb $.
   $c join $.
   $c meet $.
-
-  $( Extend class notation with the class of all base set extractors. $)
-  cbs $a class Base $.
-
-  $( Extend class notation with less-than-or-equal for posets. $)
-  cple $a class le $.
 
   $( Extend class notation with the class of posets. $)
   cpo $a class Poset $.
@@ -37,85 +28,6 @@ $)
 
   $( Extend class notation with poset meet. $)
   cmee $a class meet $.
-
-  $( Define the base set extractor for posets and related structures.  Note
-     that the function argument can be any set, although it is meaningful only
-     if it is a member of ` Poset ` ( ~ df-poset ) when used for posets or of
-     ` Grp ` ( ~ df-grp ) when used from groups. $)
-  df-base $a |- Base = ( p e. _V |-> ( p ` 1 ) ) $.
-
-  ${
-    $d p K $.
-    baseval.k $e |- K e. _V $.
-    $( Value of the base set extractor.  (Normally it is preferred to work with
-       ` ( Base `` ndx ) ` rather than the hard-coded ` 1 ` in order to make
-       structure theorems portable.  This is an example of how to obtain it
-       when needed.) $)
-    baseval $p |- ( Base ` K ) = ( K ` 1 ) $=
-      ( vs cbs c1 df-base strfvn ) ADECBCFG $.
-      $( [4-Sep-2011] $)
-  $}
-
-  $( Utility theorem: index-independent form of ~ df-base . $)
-  baseid $p |- Base = ( f e. _V |-> ( f ` ( Base ` ndx ) ) ) $=
-    ( cbs c1 df-base 1nn ndxid ) BCAADEF $.
-    $( [20-Oct-2012] $)
-
-  $( Index value of the base set extractor.  (Normally it is preferred to work
-     with ` ( Base `` ndx ) ` rather than the hard-coded ` 1 ` in order to make
-     structure theorems portable.  This is an example of how to obtain it when
-     needed.) $)
-  basendx $p |- ( Base ` ndx ) = 1 $=
-    ( vs cbs c1 df-base 1nn ndxarg ) BCAADEF $.
-    $( [2-Aug-2013] $)
-
-  $( Def. 8.4.2 p. 204. $)
-  $( Define less-than-or-equal ordering extractor for posets and related
-     structures.  We use ` 10 ` for the index to avoid conflict with ` 1 `
-     through ` 9 ` used for other purposes. $)
-  df-ple $a |- le = ( p e. _V |-> ( p ` 10 ) ) $.
-
-  $( Utility theorem: self-referencing, index-independent form of ~ df-ple . $)
-  pleid $p |- le = ( f e. _V |-> ( f ` ( le ` ndx ) ) ) $=
-    ( cple c10 df-ple 10nn ndxid ) BCAADEF $.
-    $( [9-Nov-2012] $)
-
-  $( Utility lemma for constructing a (2-element) poset structure without
-     direct reference to component indices.  This lemma lets us add a second
-     element to a singleton using ~ fnunsn . $)
-  poslem $p |- -. ( le ` ndx ) e. { ( Base ` ndx ) } $=
-    ( vs cnx cple cfv cbs csn wcel wceq wne wn c10 df-ple 10nn ndxarg 1re 1lt10
-    c1 10re ltneii basendx neeqtrri eqnetri df-ne mpbi elsni mto ) BCDZBEDZFGUG
-    UHHZUGUHIUIJUGKUHCKAALMNKQUHQKORPSTUAUBUGUHUCUDUGUHUEUF $.
-    $( [1-Oct-2013] $)
-
-  ${
-    posfn.g $e |- P = { <. ( Base ` ndx ) , B >. , <. ( le ` ndx ) , L >. } $.
-    ${
-      posfn.d $e |- D = { ( Base ` ndx ) , ( le ` ndx ) } $.
-      $( A constructed poset is a function with domain ` D ` .  (We include the
-         domain for use with later structures that extend the domain.) $)
-      posfn $p |- P Fn D $=
-        ( cnx cbs cfv csn cop cple fvex fnsn cpr cun df-pr eqtri poslem fnunsn
-        ) GHIZJZBUAAKZJZCGLIZDGLMUAAGHMNCUCUEDKZOUDUFJPEUCUFQRBUAUEOUBUEJPFUAUE
-        QRST $.
-        $( [4-Oct-2013] $)
-    $}
-
-    $( The base set of a constructed poset. $)
-    posbase $p |- ( B e. V -> B = ( Base ` P ) ) $=
-      ( vs cbs cnx cfv cop cple cpr cvv prex eqeltri wfn wfun eqid posfn fnfun
-      ax-mp baseid opex prid1 eleqtrri strfv ) ABGDFBHGIZAJZHKIZCJZLZMEUHUJNOBU
-      GUILZPBQAULBCEULRSULBTUAFUBUHUKBUHUJUGAUCUDEUEUF $.
-      $( [4-Oct-2013] $)
-
-    $( The order relation of a constructed poset. $)
-    posle $p |- ( L e. V -> L = ( le ` P ) ) $=
-      ( vs cple cnx cbs cfv cop cpr cvv prex eqeltri wfn wfun eqid posfn fnfun
-      ax-mp pleid opex prid2 eleqtrri strfv ) CBGDFBHIJZAKZHGJZCKZLZMEUHUJNOBUG
-      UILZPBQAULBCEULRSULBTUAFUBUJUKBUHUJUICUCUDEUEUF $.
-      $( [4-Oct-2013] $)
-  $}
 
   ${
     $d f b r x y z $.

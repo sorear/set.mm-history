@@ -1,0 +1,391 @@
+$(
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+                   Slot definitions
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+$)
+
+  $c +g $.
+  $c .r $.
+  $c Scalar $.
+  $c vsca $.
+  $c TopOpen $.
+  $c le $.
+
+  $( Extend class notation with group (addition) operation. $)
+  cplusg $a class +g $.
+
+  $( Extend class notation with ring multiplication. $)
+  cmulr $a class .r $.
+
+  $( Extend class notation with scalar field. $)
+  csca $a class Scalar $.
+
+  $( Extend class notation with scalar product. $)
+  cvsca $a class vsca $.
+
+  $( Extend class notation with the topology component of a topological
+     space. $)
+  cts $a class TopOpen $.
+
+  $( Extend class notation with less-than-or-equal for posets. $)
+  cple $a class le $.
+
+  $( Define group operation. $)
+  df-plusg $a |- +g = ( g e. _V |-> ( g ` 2 ) ) $.
+
+  $( Define ring multiplication. $)
+  df-mulr $a |- .r = ( r e. _V |-> ( r ` 3 ) ) $.
+
+  $( Def. 8.5.12, p. 219. $)
+  $( Define scalar field component of a vector space ` v ` . $)
+  df-sca $a |- Scalar = ( v e. _V |-> ( v ` 5 ) ) $.
+
+  $( Def. 8.5.12, p. 219. $)
+  $( Define scalar product. $)
+  df-vsca $a |- vsca = ( v e. _V |-> ( v ` 6 ) ) $.
+
+  $( Define the topology component of a topological space (structure). $)
+  df-topset $a |- TopOpen = ( f e. _V |-> ( f ` 9 ) ) $.
+
+  $( Def. 8.4.2 p. 204. $)
+  $( Define less-than-or-equal ordering extractor for posets and related
+     structures.  We use ` 10 ` for the index to avoid conflict with ` 1 `
+     through ` 9 ` used for other purposes. $)
+  df-ple $a |- le = ( p e. _V |-> ( p ` 10 ) ) $.
+
+  $( Utility theorem: index-independent form of ~ df-plusg . $)
+  plusgid $p |- +g = ( f e. _V |-> ( f ` ( +g ` ndx ) ) ) $=
+    ( cplusg c2 df-plusg 2nn ndxid ) BCAADEF $.
+    $( [20-Oct-2012] $)
+
+  $( Utility lemma for constructing a (2-element) group structure without
+     direct reference to component indices.  This lemma lets us add a second
+     element to a singleton using ~ fnunsn . $)
+  grplem $p |- -. ( +g ` ndx ) e. { ( Base ` ndx ) } $=
+    ( vs cnx cplusg cfv cbs csn wcel wceq wne wn c2 df-plusg 2nn ndxarg 1re 2re
+    c1 1lt2 ltneii basendx neeqtrri eqnetri df-ne mpbi elsni mto ) BCDZBEDZFGUG
+    UHHZUGUHIUIJUGKUHCKAALMNKQUHQKOPRSTUAUBUGUHUCUDUGUHUEUF $.
+    $( [1-Oct-2013] $)
+
+  ${
+    grpfn.g $e |- G = { <. ( Base ` ndx ) , B >. , <. ( +g ` ndx ) , P >. } $.
+    ${
+      grpfn.d $e |- D = { ( Base ` ndx ) , ( +g ` ndx ) } $.
+      $( A constructed group is a function with domain ` D ` .  (We include the
+         domain for use with later structures that extend the domain.) $)
+      grpfn $p |- G Fn D $=
+        ( cnx cbs cfv csn cop cplusg fvex fnsn cpr df-pr eqtri grplem fnunsn
+        cun ) GHIZJZBUAAKZJZDGLIZCGLMUAAGHMNDUCUECKZOUDUFJTEUCUFPQBUAUEOUBUEJTF
+        UAUEPQRS $.
+        $( [28-Sep-2013] $)
+    $}
+
+    $( The base set of a constructed group. $)
+    grpbase $p |- ( B e. V -> B = ( Base ` G ) ) $=
+      ( cbs cnx cfv cop cplusg cpr cvv prex eqeltri wfn wfun eqid grpfn fnfun
+      vs ax-mp baseid opex prid1 eleqtrri strfv ) ACFDTCGFHZAIZGJHZBIZKZLEUHUJM
+      NCUGUIKZOCPAULBCEULQRULCSUATUBUHUKCUHUJUGAUCUDEUEUF $.
+      $( [2-Aug-2013] $)
+
+    $( The operation of a constructed group. $)
+    grpplusg $p |- ( P e. V -> P = ( +g ` G ) ) $=
+      ( cplusg cnx cbs cfv cop cpr cvv prex eqeltri wfn wfun eqid grpfn fnfun
+      vs ax-mp plusgid opex prid2 eleqtrri strfv ) BCFDTCGHIZAJZGFIZBJZKZLEUHUJ
+      MNCUGUIKZOCPAULBCEULQRULCSUATUBUJUKCUHUJUIBUCUDEUEUF $.
+      $( [2-Aug-2013] $)
+  $}
+
+  ${
+    $d x A $.  $d x G $.
+    ressplusg.1 $e |- H = ( G |`s A ) $.
+    ressplusg.2 $e |- P = ( +g ` G ) $.
+    $( ` +g ` is unaffected by restriction.  (Contributed by Stefan O'Rear,
+       27-Nov-2014.) $)
+    ressplusg $p |- P = ( +g ` H ) $=
+      ( vx cplusg plusgid grplem resslem2 ) ABDHCGEFGIJK $.
+      $( [27-Nov-2014] $)
+  $}
+
+  ${
+    grpstrx.b $e |- B e. _V $.
+    grpstrx.p $e |- P e. _V $.
+    grpstrx.g $e |- G = { <. 1 , B >. , <. 2 , P >. } $.
+    $( The base of an explicitly given group.  Note:  This theorem has
+       hard-coded structure indices for demonstration purposes.  It is not
+       intended for general use; use ~ grpbase instead. $)
+    grpbasex $p |- B = ( Base ` G ) $=
+      ( vs cvv wcel cbs cfv wceq c1 cop c2 cpr cnx cplusg basendx opeq1i ndxarg
+      df-plusg 2nn preq12i eqtr4i grpbase ax-mp ) AHIACJKLDABCHCMANZOBNZPQJKZAN
+      ZQRKZBNZPFUKUHUMUIUJMASTULOBROGGUBUCUATUDUEUFUG $.
+      $( [17-Oct-2012] $)
+
+    $( The operation of an explicitly given group.  Note:  This theorem has
+       hard-coded structure indices for demonstration purposes.  It is not
+       intended for general use; use ~ grpplusgx instead. $)
+    grpplusgx $p |- P = ( +g ` G ) $=
+      ( vs cvv wcel cplusg cfv wceq c1 cop c2 cpr cnx cbs basendx opeq1i ndxarg
+      df-plusg 2nn preq12i eqtr4i grpplusg ax-mp ) BHIBCJKLEABCHCMANZOBNZPQRKZA
+      NZQJKZBNZPFUKUHUMUIUJMASTULOBJOGGUBUCUATUDUEUFUG $.
+      $( [17-Oct-2012] $)
+  $}
+
+  $( Utility theorem: index-independent form of ~ df-mulr . $)
+  mulrid $p |- .r = ( f e. _V |-> ( f ` ( .r ` ndx ) ) ) $=
+    ( cmulr c3 df-mulr 3nn ndxid ) BCAADEF $.
+    $( [8-Jun-2013] $)
+
+  $( Utility theorem for constructing a ring (or generally, 3-element)
+     structure without direct reference to component indices.  This theorem
+     extends ~ grplem to a third element. $)
+  rnglem $p |- -. ( .r ` ndx ) e. { ( Base ` ndx ) , ( +g ` ndx ) } $=
+    ( vs cnx cmulr cfv cbs cplusg cpr wcel wceq wo wne wa c3 ndxarg c1 neeqtrri
+    3re ltneii eqnetri c2 wn df-mulr 3nn 1re 1lt3 basendx 2re 2lt3 df-plusg 2nn
+    pm3.2i neanior mpbi elpri mto ) BCDZBEDZBFDZGHUPUQIUPURIJZUPUQKZUPURKZLUSUA
+    UTVAUPMUQCMAAUBUCNZMOUQOMUDQUERUFPSUPMURVBMTURTMUGQUHRFTAAUIUJNPSUKUPUQUPUR
+    ULUMUPUQURUNUO $.
+    $( [30-Sep-2013] $)
+
+  ${
+    rngfn.r $e |- R
+               = { <. ( Base ` ndx ) , B >. , <. ( +g ` ndx ) , P >. ,
+                   <. ( .r ` ndx ) , T >. } $.
+    ${
+      rngfn.d $e |- D = { ( Base ` ndx ) , ( +g ` ndx ) , ( .r ` ndx ) } $.
+      $( A constructed ring is a function. $)
+      rngfn $p |- R Fn D $=
+        ( cnx cbs cfv cplusg cpr cop cmulr eqid ctp csn cun df-tp eqtri rnglem
+        fvex grpfn fnunsn ) HIJZHKJZLZBUEAMZUFCMZLZDHNJZEHNUBAUGCUJUJOUGOUCDUHU
+        IUKEMZPUJULQRFUHUIULSTBUEUFUKPUGUKQRGUEUFUKSTUAUD $.
+        $( [28-Sep-2013] $)
+    $}
+
+    $( The base set of a constructed ring. $)
+    rngbase $p |- ( B e. V -> B = ( Base ` R ) ) $=
+      ( vs cbs cnx cfv cop cplusg cmulr ctp cvv tpex eqeltri wfn wfun eqid opex
+      rngfn fnfun ax-mp baseid tpid1 eleqtrri strfv ) ACHEGCIHJZAKZILJZBKZIMJZD
+      KZNZOFUJULUNPQCUIUKUMNZRCSAUPBCDFUPTUBUPCUCUDGUEUJUOCUJULUNUIAUAUFFUGUH
+      $.
+      $( [2-Oct-2013] $)
+
+    $( The additive operation of a constructed ring. $)
+    rngplusg $p |- ( P e. V -> P = ( +g ` R ) ) $=
+      ( vs cplusg cnx cbs cfv cop cmulr ctp cvv tpex eqeltri wfn wfun eqid opex
+      rngfn fnfun ax-mp plusgid tpid2 eleqtrri strfv ) BCHEGCIJKZALZIHKZBLZIMKZ
+      DLZNZOFUJULUNPQCUIUKUMNZRCSAUPBCDFUPTUBUPCUCUDGUEULUOCUJULUNUKBUAUFFUGUH
+      $.
+      $( [2-Oct-2013] $)
+
+    $( The muliplicative operation of a constructed ring. $)
+    rngmulr $p |- ( T e. V -> T = ( .r ` R ) ) $=
+      ( vs cmulr cnx cbs cfv cop cplusg ctp cvv tpex eqeltri wfn wfun eqid opex
+      rngfn fnfun ax-mp mulrid tpid3 eleqtrri strfv ) DCHEGCIJKZALZIMKZBLZIHKZD
+      LZNZOFUJULUNPQCUIUKUMNZRCSAUPBCDFUPTUBUPCUCUDGUEUNUOCUJULUNUMDUAUFFUGUH
+      $.
+      $( [2-Oct-2013] $)
+  $}
+
+  ${
+    $d x A $.  $d x R $.
+    ressmulr.1 $e |- S = ( R |`s A ) $.
+    ressmulr.2 $e |- T = ( .r ` R ) $.
+    $( ` .r ` is unaffected by restriction.  (Contributed by Stefan O'Rear,
+       27-Nov-2014.) $)
+    ressmulr $p |- T = ( .r ` S ) $=
+      ( cmulr mulrid cnx cfv cbs csn wcel cplusg cpr rnglem snsspr1 sseli mto
+      vx resslem2 ) ADCGBTEFTHIGJZIKJZLZMUBUCINJZOZMPUDUFUBUCUEQRSUA $.
+      $( [27-Nov-2014] $)
+  $}
+
+  $( Utility theorem: index-independent form of scalar ~ df-sca . $)
+  scaid $p |- Scalar = ( f e. _V |-> ( f ` ( Scalar ` ndx ) ) ) $=
+    ( csca c5 df-sca 5nn ndxid ) BCAADEF $.
+    $( [19-Jun-2014] $)
+
+  $( Utility theorem: index-independent form of scalar product ~ df-vsca . $)
+  vscaid $p |- vsca = ( f e. _V |-> ( f ` ( vsca ` ndx ) ) ) $=
+    ( cvsca c6 df-vsca 6nn ndxid ) BCAADEF $.
+    $( [19-Jun-2014] $) $( [2-Oct-2013] $)
+
+  $( Utility lemma for constructing a left module or left vector space. $)
+  lmodlem1 $p |- -. ( Scalar ` ndx )
+        e. { ( Base ` ndx ) , ( +g ` ndx ) } $=
+    ( vx cnx csca cfv cbs cplusg cpr wcel wceq wo wne wa c5 ndxarg 5re neeqtrri
+    c1 ltneii eqnetri c2 wn df-sca 5nn 1re 1lt5 basendx 2re df-plusg 2nn pm3.2i
+    2lt5 neanior mpbi fvex elpr mtbir ) BCDZBEDZBFDZGHUQURIUQUSIJZUQURKZUQUSKZL
+    UTUAVAVBUQMURCMAAUBUCNZMQURQMUDOUERUFPSUQMUSVCMTUSTMUGOUKRFTAAUHUINPSUJUQUR
+    UQUSULUMUQURUSBCUNUOUP $.
+    $( [19-Jun-2014] $) $( [30-Sep-2013] $)
+
+  $( Utility lemma for constructing a left module or left vector space. $)
+  lmodlem2 $p |- -. ( vsca ` ndx )
+        e. { ( Base ` ndx ) , ( +g ` ndx ) , ( Scalar ` ndx ) } $=
+    ( vx cnx cvsca cfv cbs cplusg csca ctp wcel c6 wceq wne 6re ltneii neeqtrri
+    c1 c2 ndxarg c5 6nn w3o w3a 1re 1lt6 basendx 2re 2lt6 df-plusg 2nn 5re 5lt6
+    wn df-sca 5nn 3pm3.2i ne3anior mpbi df-vsca eleq1i elexi eltp bitri mtbir
+    cn ) BCDZBEDZBFDZBGDZHZIZJVFKJVGKJVHKUAZJVFLZJVGLZJVHLZUBVKULVLVMVNJPVFPJUC
+    MUDNUEOJQVGQJUFMUGNFQAAUHUIROJSVHSJUJMUKNGSAAUMUNROUOJVFJVGJVHUPUQVJJVIIVKV
+    EJVICJAAURTRUSJVFVGVHJVDTUTVAVBVC $.
+    $( [19-Jun-2014] $) $( [30-Sep-2013] $)
+
+  ${
+    lvecfn.w $e |- W = ( { <. ( Base ` ndx ) , B >. , <. ( +g ` ndx ) , P >. ,
+              <. ( Scalar ` ndx ) , F >. } u. { <. ( vsca ` ndx ) , S >. } ) $.
+    ${
+      lvecfn.d $e |- D = ( { ( Base ` ndx ) , ( +g ` ndx ) , ( Scalar ` ndx ) }
+                           u. { ( vsca ` ndx ) } ) $.
+      $( A constructed left module or left vector space is a function on
+         ` D ` .  Starting from ~ grpfn (which has 2 members), we chain
+         ~ fnunsn 2 times, each time adding an ordered pair to the function, to
+         get all 4 members. $)
+      lmodfn $p |- W Fn D $=
+        ( cnx cbs cfv csca ctp cop cvsca fvex cpr eqid df-tp fnunsn lmodlem1
+        cplusg grpfn lmodlem2 ) IJKZIUBKZILKZMZBUEANZUFCNZUGENZMZFIOKDIOPUEUFQZ
+        UHUIUJQZULUGEILPAUMCUNUNRUMRUCUIUJUKSUEUFUGSUATGHUDT $.
+        $( [19-Jun-2014] $) $( [1-Oct-2013] $)
+    $}
+
+    $( Lemma to shorten proofs of ~ lmodbase through ~ lmodvsca . $)
+    lmodfun $p |- Fun W $=
+      ( cnx cbs cfv cplusg csca ctp cvsca csn cun wfn wfun eqid lmodfn fnfun
+      ax-mp ) EGHIGJIGKILGMINOZPEQAUBBCDEFUBRSUBETUA $.
+      $( [19-Jun-2014] $) $( [4-Oct-2013] $)
+
+    $( The base set of a constructed left vector space. $)
+    lmodbase $p |- ( B e. X -> B = ( Base ` W ) ) $=
+      ( vx cbs cnx cfv cop cplusg csca ctp cvsca csn cun cvv tpex eqeltri ssun1
+      snex unex lmodfun baseid sseqtr4i opex tpid1 sselii strfv ) AEIFHEJIKZALZ
+      JMKBLZJNKDLZOZJPKCLZQZRZSGUPURUMUNUOTUQUCUDUAABCDEGUEHUFUPEUMUPUSEUPURUBG
+      UGUMUNUOULAUHUIUJUK $.
+      $( [19-Jun-2014] $) $( [2-Oct-2013] $)
+
+    $( The additive operation of a constructed left vector space. $)
+    lmodplusg $p |- ( P e. X -> P = ( +g ` W ) ) $=
+      ( vx cplusg cnx cbs cfv cop csca ctp cvsca csn cun cvv tpex eqeltri ssun1
+      snex unex lmodfun plusgid sseqtr4i opex tpid2 sselii strfv ) BEIFHEJKLAMZ
+      JILZBMZJNLDMZOZJPLCMZQZRZSGUPURULUNUOTUQUCUDUAABCDEGUEHUFUPEUNUPUSEUPURUB
+      GUGULUNUOUMBUHUIUJUK $.
+      $( [19-Jun-2014] $) $( [2-Oct-2013] $)
+
+    $( The set of scalars of a constructed left vector space. $)
+    lmodsca $p |- ( F e. X -> F = ( Scalar ` W ) ) $=
+      ( vx csca cnx cbs cfv cop cplusg ctp cvsca csn cun cvv tpex eqeltri scaid
+      snex unex lmodfun ssun1 sseqtr4i opex tpid3 sselii strfv ) DEIFHEJKLAMZJN
+      LBMZJILZDMZOZJPLCMZQZRZSGUPURULUMUOTUQUCUDUAABCDEGUEHUBUPEUOUPUSEUPURUFGU
+      GULUMUOUNDUHUIUJUK $.
+      $( [19-Jun-2014] $) $( [2-Oct-2013] $)
+
+    $( The scalar product operation of a constructed left vector space. $)
+    lmodvsca $p |- ( S e. X -> S = ( vsca ` W ) ) $=
+      ( vx cvsca cnx cbs cfv cop cplusg csca ctp csn cun cvv tpex snexALT ssun2
+      unex eqeltri lmodfun vscaid sseqtr4i opex snid sselii strfv ) CEIFHEJKLAM
+      ZJNLBMZJOLDMZPZJILZCMZQZRZSGUOURULUMUNTUQUAUCUDABCDEGUEHUFUREUQURUSEURUOU
+      BGUGUQUPCUHUIUJUK $.
+      $( [19-Jun-2014] $) $( [2-Oct-2013] $)
+  $}
+
+  ${
+    $d x A $.  $d x G $.
+    resssca.1 $e |- H = ( G |`s A ) $.
+    ${
+      resssca.2 $e |- F = ( Scalar ` G ) $.
+      $( ` Scalar ` is unaffected by restriction.  (Contributed by Mario
+         Carneiro, 7-Dec-2014.) $)
+      resssca $p |- F = ( Scalar ` H ) $=
+        ( csca scaid cnx cfv cbs csn wcel cplusg cpr lmodlem1 snsspr1 sseli mto
+        vx resslem2 ) ABDGCTEFTHIGJZIKJZLZMUBUCINJZOZMPUDUFUBUCUEQRSUA $.
+        $( [7-Dec-2014] $)
+    $}
+
+    ressvsca.2 $e |- S = ( vsca ` G ) $.
+    $( ` vsca ` is unaffected by restriction.  (Contributed by Mario Carneiro,
+       7-Dec-2014.) $)
+    ressvsca $p |- S = ( vsca ` H ) $=
+      ( vx cvsca vscaid cnx cfv cbs csn wcel cplusg csca lmodlem2 snsstp1 sseli
+      ctp mto resslem2 ) ABDHCGEFGIJHKZJLKZMZNUCUDJOKZJPKZTZNQUEUHUCUDUFUGRSUAU
+      B $.
+      $( [7-Dec-2014] $)
+  $}
+
+  $( Utility theorem: index-independent form of ~ df-topset . $)
+  topsetid $p |- TopOpen = ( f e. _V |-> ( f ` ( TopOpen ` ndx ) ) ) $=
+    ( cts c9 df-topset 9nn ndxid ) BCAADEF $.
+    $( [20-Oct-2012] $)
+
+  $( Utility lemma for constructing topological spaces without direct reference
+     to the actual component indices. $)
+  tpslem $p |- -. ( TopOpen ` ndx ) e. { ( Base ` ndx ) } $=
+    ( vs cnx cts cfv cbs csn wcel wceq wne wn df-topset 9nn ndxarg 1re 9re 1lt9
+    c9 c1 ltneii basendx neeqtrri eqnetri df-ne mpbi elsni mto ) BCDZBEDZFGUGUH
+    HZUGUHIUIJUGQUHCQAAKLMQRUHRQNOPSTUAUBUGUHUCUDUGUHUEUF $.
+    $( [2-Oct-2013] $)
+
+  ${
+    tpsfn.k $e |- K
+         = { <. ( Base ` ndx ) , B >. , <. ( TopOpen ` ndx ) , J >. } $.
+    ${
+      tpsfn.d $e |- D = { ( Base ` ndx ) , ( TopOpen ` ndx ) } $.
+      $( A constructed topology is a function. $)
+      tpsfn $p |- K Fn D $=
+        ( cnx cbs cfv csn cop cts fvex fnsn cpr cun df-pr eqtri tpslem fnunsn )
+        GHIZJZBUAAKZJZDGLIZCGLMUAAGHMNDUCUECKZOUDUFJPEUCUFQRBUAUEOUBUEJPFUAUEQR
+        ST $.
+        $( [28-Sep-2013] $)
+    $}
+
+    $( The base set of a constructed topology. $)
+    tpsbase $p |- ( B e. V -> B = ( Base ` K ) ) $=
+      ( vs cbs cnx cfv cop cts cpr cvv prex eqeltri wfn wfun eqid tpsfn fnfun
+      ax-mp baseid opex prid1 eleqtrri strfv ) ACGDFCHGIZAJZHKIZBJZLZMEUHUJNOCU
+      GUILZPCQAULBCEULRSULCTUAFUBUHUKCUHUJUGAUCUDEUEUF $.
+      $( [2-Oct-2013] $)
+
+    $( The open sets of a constructed topology. $)
+    tpstopset $p |- ( J e. V -> J = ( TopOpen ` K ) ) $=
+      ( vs cts cnx cbs cfv cop cpr cvv prex eqeltri wfn wfun eqid tpsfn fnfun
+      ax-mp topsetid opex prid2 eleqtrri strfv ) BCGDFCHIJZAKZHGJZBKZLZMEUHUJNO
+      CUGUILZPCQAULBCEULRSULCTUAFUBUJUKCUHUJUIBUCUDEUEUF $.
+      $( [2-Oct-2013] $)
+  $}
+
+  $( Utility theorem: self-referencing, index-independent form of ~ df-ple . $)
+  pleid $p |- le = ( f e. _V |-> ( f ` ( le ` ndx ) ) ) $=
+    ( cple c10 df-ple 10nn ndxid ) BCAADEF $.
+    $( [9-Nov-2012] $)
+
+  $( Utility lemma for constructing a (2-element) poset structure without
+     direct reference to component indices.  This lemma lets us add a second
+     element to a singleton using ~ fnunsn . $)
+  poslem $p |- -. ( le ` ndx ) e. { ( Base ` ndx ) } $=
+    ( vs cnx cple cfv cbs csn wcel wceq wne wn c10 df-ple 10nn ndxarg 1re 1lt10
+    c1 10re ltneii basendx neeqtrri eqnetri df-ne mpbi elsni mto ) BCDZBEDZFGUG
+    UHHZUGUHIUIJUGKUHCKAALMNKQUHQKORPSTUAUBUGUHUCUDUGUHUEUF $.
+    $( [1-Oct-2013] $)
+
+  ${
+    posfn.g $e |- P = { <. ( Base ` ndx ) , B >. , <. ( le ` ndx ) , L >. } $.
+    ${
+      posfn.d $e |- D = { ( Base ` ndx ) , ( le ` ndx ) } $.
+      $( A constructed poset is a function with domain ` D ` .  (We include the
+         domain for use with later structures that extend the domain.) $)
+      posfn $p |- P Fn D $=
+        ( cnx cbs cfv csn cop cple fvex fnsn cpr cun df-pr eqtri poslem fnunsn
+        ) GHIZJZBUAAKZJZCGLIZDGLMUAAGHMNCUCUEDKZOUDUFJPEUCUFQRBUAUEOUBUEJPFUAUE
+        QRST $.
+        $( [4-Oct-2013] $)
+    $}
+
+    $( The base set of a constructed poset. $)
+    posbase $p |- ( B e. V -> B = ( Base ` P ) ) $=
+      ( vs cbs cnx cfv cop cple cpr cvv prex eqeltri wfn wfun eqid posfn fnfun
+      ax-mp baseid opex prid1 eleqtrri strfv ) ABGDFBHGIZAJZHKIZCJZLZMEUHUJNOBU
+      GUILZPBQAULBCEULRSULBTUAFUBUHUKBUHUJUGAUCUDEUEUF $.
+      $( [4-Oct-2013] $)
+
+    $( The order relation of a constructed poset. $)
+    posle $p |- ( L e. V -> L = ( le ` P ) ) $=
+      ( vs cple cnx cbs cfv cop cpr cvv prex eqeltri wfn wfun eqid posfn fnfun
+      ax-mp pleid opex prid2 eleqtrri strfv ) CBGDFBHIJZAKZHGJZCKZLZMEUHUJNOBUG
+      UILZPBQAULBCEULRSULBTUAFUBUJUKBUHUJUICUCUDEUEUF $.
+      $( [4-Oct-2013] $)
+  $}
+

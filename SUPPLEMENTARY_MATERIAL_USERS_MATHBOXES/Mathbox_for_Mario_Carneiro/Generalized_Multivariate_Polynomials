@@ -10,10 +10,11 @@ $)
   $c mPoly $. $( Multivariate polynomial $)
   $c evalSub $. $( Evaluation in a subring $)
   $c eval $. $( Evaluation of a multivariate polynomial $)
+  $c selectVars $. $( Treat polynomial as a polynomial of polynomials $)
   $c mDeg $. $( Multivariate polynomial degree $)
   $c AlgInd $. $( Algebraically independent $)
   $c <bag $. $( Order on terms $)
-  $c <ser $. $( Order on power series $)
+  $c ordPwSer $. $( Order on power series $)
 
   $( Multivariate power series. $)
   cmps $a class mPwSer $.
@@ -30,6 +31,9 @@ $)
   $( Evaluation of a multivariate polynomial. $)
   cevl $a class eval $.
 
+  $( Select a subset of variables in a multivariate polynomial. $)
+  cslv $a class selectVars $.
+
   $( Multivariate polynomial degree. $)
   cmdg $a class mDeg $.
 
@@ -39,11 +43,11 @@ $)
   $( Ordering on terms of a multivariate polynomial. $)
   cltb $a class <bag $.
 
-  $( Ordering on power series. $)
-  clts $a class <ser $.
+  $( Ordered set of power series. $)
+  copws $a class ordPwSer $.
 
   ${
-    $d b d f g h i j k r s v w x y z $.
+    $d b c d f g h i j k r s v w x y z $.
     $( Define the algebra of power series over the index set ` i ` and with
        coefficients from the ring ` r ` . $)
     df-psr $a |- mPwSer = ( i e. _V , r e. _V |->
@@ -80,15 +84,28 @@ $)
        evaluating the polynomial with the given assignments. $)
     df-evls $a |- evalSub = ( i e. _V , s e. _V |-> [_ ( Base ` s ) / b ]_
       ( r e. ~P b |-> [_ ( i mPoly ( s |`s r ) ) / w ]_ [_ ( Base ` w ) / v ]_
-        ( iota_ f e. ( ( b ^m ( b ^m i ) ) ^m v )
-      ( A. k e. b ( x e. v |-> ( ( f ` x ) ` k ) ) e. ( w RingHom s ) /\
+        ( iota_ f e. ( w RingHom ( s ^s ( b ^m i ) ) )
         A. x e. i ( f ` ( ( i mVar ( s |`s r ) ) ` x ) ) =
-          ( g e. ( b ^m i ) |-> ( g ` x ) ) ) ) ) ) $.
+          ( g e. ( b ^m i ) |-> ( g ` x ) ) ) ) ) $.
 
     $( A simplication of ` evalSub ` when the evaluation ring is the same as
        the coefficient ring. $)
     df-evl $a |- eval = ( i e. _V , r e. _V |->
       ( ( i evalSub r ) ` ( Base ` r ) ) ) $.
+
+    $( Define the "variable selection" function.  The function
+       ` ( ( I selectVars R ) `` J ) ` maps elements of ` ( I mPoly R )
+       ` bijectively onto ` ( J mPoly ( ( I \ J ) mPoly R ) )
+       ` in the natural way, for example if ` I = { x , y } ` and ` J = { y }
+       ` it would map ` 1 + x + y + x y e.  ( { x , y } mPoly ZZ ) ` to ` ( 1 +
+       x ) + ( 1 + x ) y e.  ( { y } mPoly ( { x } mPoly ZZ ) )
+` . This, for example, allows one to treat a multivariate polynomial as a univariate polynomial with coefficients in a polynomial ring with one less variable. $)
+    df-selv $a |- selectVars = ( i e. _V , r e. _V |->
+      ( j e. ~P i |-> ( f e. ( i mPoly r ) |->
+      [_ ( ( i \ j ) mPoly r ) / s ]_ [_ ( const ` s ) / c ]_
+        ( ( ( ( i evalSub s ) ` ( c "s r ) ) ` ( c o. f ) ) `
+          ( x e. i |-> if ( x e. j , ( ( j mVar ( ( i \ j ) mPoly r ) ) ` x ) ,
+            ( c o. ( ( ( i \ j ) mVar r ) ` x ) ) ) ) ) ) ) ) $.
 
     $( Define the degree of a polynomial. $)
     df-mdeg $a |- mDeg = ( i e. _V , r e. _V |-> ( f e. ( i mPoly r ) |->
@@ -111,14 +128,14 @@ $)
            U. { x e. b | A. y e. b -. y r x } / j ]
         ( f ` j ) < ( g ` j ) ) } ) $.
 
-    $( Define a strict order on the set of all power series in ` s ` from the
-       index set ` i ` given a wellordering ` r ` of ` i ` and a strict order
-       ` k ` of ` s ` . $)
-    df-ltser $a |- <ser = ( i e. _V , s e. _V |->
-      [_ ( Base ` s ) / b ]_ ( r e. ~P ( i X. i ) , k e. ~P ( b X. b ) |->
-       { <. f , g >. | ( { f , g } C_ ( Base ` ( i mPwSer s ) ) /\ f =/= g /\
+    $( Define a total order on the set of all power series in ` s ` from the
+       index set ` i ` given a wellordering ` r ` of ` i ` and a totally
+       ordered base ring ` s ` . $)
+    df-ordpsr $a |- ordPwSer = ( i e. _V , s e. _V |-> [_ ( Base ` s ) / b ]_
+      ( r e. ~P ( i X. i ) |-> ( ( i mPwSer s ) sSet <. ( le ` ndx ) ,
+       { <. f , g >. | ( { f , g } C_ ( Base ` ( i mPwSer s ) ) /\ ( f = g \/
         [ [_ { z e. dom f | ( f ` z ) =/= ( g ` z ) } / v ]_
            U. { x e. v | A. y e. v -. y ( r <bag i ) x } / j ]
-        ( f ` j ) k ( g ` j ) ) } ) ) $.
+        ( f ` j ) ( le ` s ) ( g ` j ) ) ) } >. ) ) ) $.
   $}
 

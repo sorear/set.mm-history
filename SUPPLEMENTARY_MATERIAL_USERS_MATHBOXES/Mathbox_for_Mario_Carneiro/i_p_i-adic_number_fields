@@ -7,14 +7,12 @@ $)
   $( Introduce new constant symbols. $)
   $c Q2Ring $. $( Map the rationals into a field $)
   $c Z/nZ $. $( Integers mod n $)
-  $c <Z/nZ $. $( Order on Z/nZ $)
   $c ZRing $. $( Integral elements of a ring $)
   $c GF $. $( Galois finite field $)
   $c GF_oo $. $( Galois limit field $)
   $c ~Qp $. $( Equivalence relation for Qp $)
   $c /Qp $. $( Representative of equivalence relation $)
   $c Qp $. $( p-adic rational numbers $)
-  $c <Qp $. $( Order on Qp $)
   $c Zp $. $( p-adic integers $)
   $c _Qp $. $( Algebraic completion of Qp $)
   $c Cp $. $( Metric completion of _Qp $)
@@ -24,9 +22,6 @@ $)
 
   $( The ring of integers modulo ` n ` . $)
   czn $a class Z/nZ $.
-
-  $( Order on Z/nZ $)
-  cltzn $a class <Z/nZ $.
 
   $( Integral elements of a ring. $)
   czr $a class ZRing $.
@@ -45,9 +40,6 @@ $)
 
   $( The set of ` p ` -adic rational numbers. $)
   cqp $a class Qp $.
-
-  $( Ordering relation on ~ df-qp . $)
-  cltqp $a class <Qp $.
 
   $( The set of ` p ` -adic integers.  (Not to be confused with ~ czn .) $)
   czp $a class Zp $.
@@ -72,11 +64,9 @@ $)
 
     $( Define the ring of integers ` mod n ` . $)
     df-zn $a |- Z/nZ = ( n e. NN0 |-> [_ ( CCfld |`s ZZ ) / z ]_
-      ( z /s ( z ~QG ( ( RSpan ` z ) ` { n } ) ) ) ) $.
-
-    $( Define a total order on the ring of integers ` mod n ` . $)
-    df-ltzn $a |- <Z/nZ = ( n e. NN |-> [_ ( ( Q2Ring ` ( Z/nZ ` n ) ) |`
-      ( 0 ... ( n - 1 ) ) ) / f ]_ ( ( f o. < ) o. `' f ) ) $.
+      [_ ( z /s ( z ~QG ( ( RSpan ` z ) ` { n } ) ) ) / s ]_
+      ( s sSet <. ( le ` ndx ) , [_ ( ( Q2Ring ` s ) |`
+      ( 0 ... ( n - 1 ) ) ) / f ]_ ( ( f o. < ) o. `' f ) >. ) ) $.
 
     $( Define the subring of integral elements in a ring. $)
     df-zrng $a |- ZRing = ( r e. _V |->
@@ -84,17 +74,15 @@ $)
 
     $( Define the Galois finite field of order ` p ^ n ` . $)
     df-gf $a |- GF = ( p e. Prime , n e. NN |-> [_ ( Z/nZ ` p ) / r ]_
-    ( ( 1st o. 1st ) ` ( ( <Z/nZ ` p ) ( splitFld ` r )
-      { [_ ( Poly1 ` r ) / s ]_ [_ ( var1 ` r ) / x ]_
+    ( 1st ` ( r splitFld { [_ ( Poly1 ` r ) / s ]_ [_ ( var1 ` r ) / x ]_
         ( prod_ i e. ( 1 ... ( p ^ n ) ) ( .r ` s ) x ( -g ` s ) x ) } ) ) ) $.
 
     $( Define the Galois field of order ` p ^ +oo ` , as a direct limit of the
        Galois finite fields. $)
-    df-gfoo $a |- GF_oo = ( p e. Prime |-> ( [_ ( Z/nZ ` p ) / r ]_
+    df-gfoo $a |- GF_oo = ( p e. Prime |-> [_ ( Z/nZ ` p ) / r ]_
       ( r polySplitLim ( n e. NN |->
       { [_ ( Poly1 ` r ) / s ]_ [_ ( var1 ` r ) / x ]_
-        ( prod_ i e. ( 1 ... ( p ^ n ) ) ( .r ` s ) x ( -g ` s ) x ) } ) ) `
-        ( <Z/nZ ` p ) ) ) $.
+        ( prod_ i e. ( 1 ... ( p ^ n ) ) ( .r ` s ) x ( -g ` s ) x ) } ) ) ) $.
 
     $( Define an equivalence relation on ` ZZ ` -indexed sequences of integers
        such that two sequences are equivalent iff the difference is equivalent
@@ -115,26 +103,22 @@ $)
         ( y X. ( y i^i ( ZZ ^m ( 0 ... ( p - 1 ) ) ) ) ) ) ) $.
 
     $( Define the ` p ` -adic completion of the rational numbers, as a normed
-       field structure. $)
+       field structure with a total order (that is not compatible with the
+       operations). $)
     df-qp $a |- Qp = ( p e. Prime |->
         [_ { h e. ( ZZ ^m ( 0 ... ( p - 1 ) ) ) |
           E. x e. ran ZZ>= ( `' h " ( ZZ \ { 0 } ) ) C_ x } / b ]_
-    ( { <. ( Base ` ndx ) , b >. ,
+  ( ( { <. ( Base ` ndx ) , b >. ,
         <. ( +g ` ndx ) ,
           ( f e. b , g e. b |-> ( ( /Qp ` p ) ` ( f oF + g ) ) ) >. ,
         <. ( .r ` ndx ) ,
           ( f e. b , g e. b |-> ( ( /Qp ` p ) ` ( n e. ZZ |->
-           sum_ k e. ZZ ( ( f ` k ) x. ( g ` ( n - k ) ) ) ) ) ) >. }
+           sum_ k e. ZZ ( ( f ` k ) x. ( g ` ( n - k ) ) ) ) ) ) >. } u.
+      { <. ( le ` ndx ) , { <. f , g >. | ( { f , g } C_ b /\
+        sum_ k e. ZZ ( ( f ` -u k ) x. ( ( p + 1 ) ^ -u k ) ) <
+        sum_ k e. ZZ ( ( g ` -u k ) x. ( ( p + 1 ) ^ -u k ) ) ) } >. } )
         toNrmRing ( f e. b |-> if ( f = ( ZZ X. { 0 } ) , 0 ,
         ( p ^ -u sup ( ( `' f " ( ZZ \ { 0 } ) ) , RR , `' < ) ) ) ) ) ) $.
-
-    $( There is a strict order on the ` p ` -adic rationals, although it does
-       not match the usual order on ` QQ ` and does not respect addition and
-       multiplication. $)
-    df-ltqp $a |- <Qp = ( p e. Prime |-> { <. f , g >. |
-      ( { f , g } C_ ( Base ` ( Qp ` p ) ) /\
-        sum_ k e. ZZ ( ( f ` -u k ) x. ( ( p + 1 ) ^ -u k ) ) <
-        sum_ k e. ZZ ( ( g ` -u k ) x. ( ( p + 1 ) ^ -u k ) ) ) } ) $.
 
     $( Define the ` p ` -adic integers, as a subset of the ` p ` -adic
        rationals. $)
@@ -151,9 +135,9 @@ $)
        extension of ` Qp ` is a subfield of this field extension, so it is
        algebraically closed. $)
     df-qpa $a |- _Qp = ( p e. Prime |-> [_ ( Qp ` p ) / r ]_
-      ( ( r polySplitLim ( n e. NN |-> { f e. ( Poly1 ` r ) |
+      ( r polySplitLim ( n e. NN |-> { f e. ( Poly1 ` r ) |
         ( ( r deg1 f ) <_ n /\ A. d e. ran ( coe1 ` f )
-          ( `' d " ( ZZ \ { 0 } ) ) C_ ( 0 ... n ) ) } ) ) ` ( <Qp ` r ) ) ) $.
+          ( `' d " ( ZZ \ { 0 } ) ) C_ ( 0 ... n ) ) } ) ) ) $.
 
     $( Define the metric completion of the algebraic completion of the ` p `
        -adic rationals. $)

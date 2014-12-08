@@ -8,11 +8,14 @@ $)
   $c Irred $. $( Ring irreducible $)
   $c RingHom $. $( Ring homomorphism $)
   $c RingIso $. $( Ring isomorphism $)
+  $c const $. $( Algebra constant map $)
   $c ~QG $. $( Quotient group equivalence $)
   $c "s $. $( Image structure $)
   $c /s $. $( Quotient structure $)
-  $c X.s $. $( Product structure $)
-  $c RSpan $. $( Ring span function $)
+  $c X_s $. $( Product structure $)
+  $c X_m $. $( Product module $)
+  $c X.s $. $( Binary product structure $)
+  $c ^s $. $( Power structure $)
   $c AssAlg $. $( Associative algebra $)
   $c AlgSpan $. $( Algebraic span $)
 
@@ -25,6 +28,9 @@ $)
   $( Ring isomorphisms. $)
   crs $a class RingIso $.
 
+  $( Alegbra mapping into the constants. $)
+  ccns $a class const $.
+
   $( Quotient group equivalence class. $)
   cqg $a class ~QG $.
 
@@ -35,10 +41,16 @@ $)
   cqus $a class /s $.
 
   $( Product structure function. $)
-  cprs $a class X.s $.
+  cprs $a class X_s $.
 
-  $( Ring span function. $)
-  crsp $a class RSpan $.
+  $( Product module function. $)
+  cprm $a class X_m $.
+
+  $( Binary product structure function. $)
+  cxps $a class X.s $.
+
+  $( Structure exponentiation function. $)
+  cpws $a class ^s $.
 
   $( Associative algebra. $)
   casa $a class AssAlg $.
@@ -64,6 +76,12 @@ $)
     df-rngiso $a |- RingIso = ( r e. _V , s e. _V |->
       { f e. ( r RingHom s ) | `' f e. ( s RingHom r ) } ) $.
 
+    $( Define the natural embedding of a ring of scalars into its parent
+       algebra.  For a polynomial algebra, this maps a number to the
+       corresponding constant function. $)
+    df-cnst $a |- const = ( r e. _V |-> ( x e. ( Scalar ` r ) |->
+      ( x ( vsca ` r ) ( 1r ` r ) ) ) ) $.
+
     $( Define the equivalence relation in a quotient ring or quotient group
        (where ` i ` is a two-sided ideal or a normal subgroup). $)
     df-eqg $a |- ~QG = ( r e. _V , i e. ~P ( Base ` r ) |-> { <. x , y >. |
@@ -75,19 +93,23 @@ $)
        well-definedness condition ` f ( a ) = f ( c ) /\ f ( b ) = f ( d ) -> `
        ` f ( a + c ) = f ( b + d ) ` for each relevant operation. $)
     df-imas $a |- "s = ( f e. _V , r e. _V |-> [_ ( Base ` r ) / v ]_
-    ( { <. ( Base ` ndx ) , ran f >. ,
+  ( ( { <. ( Base ` ndx ) , ran f >. ,
         <. ( +g ` ndx ) , U_ p e. v U_ q e. v
      { <. <. ( f ` p ) , ( f ` q ) >. , ( f ` ( p ( +g ` r ) q ) ) >. } >. ,
         <. ( .r ` ndx ) , U_ p e. v U_ q e. v
      { <. <. ( f ` p ) , ( f ` q ) >. , ( f ` ( p ( .r ` r ) q ) ) >. } >. } u.
-      { <. ( TopOpen ` ndx ) , { s e. ~P ran f |
-           ( `' f " s ) e. ( TopOpen ` r ) } >. ,
-        <. ( dist ` ndx ) , ( x e. ran f , y e. ran f |-> sup ( U_ n e. NN
+      { <. ( Scalar ` ndx ) , ( Scalar ` r ) >. ,
+        <. ( vsca ` ndx ) , U_ q e. v ( p e. ( Scalar ` r ) ,
+           x e. { ( f ` q ) } |-> ( f ` ( p ( vsca ` r ) q ) ) ) >. ,
+        <. ( TopOpen ` ndx ) , { s e. ~P ran f |
+           ( `' f " s ) e. ( TopOpen ` r ) } >. } ) u.
+      { <. ( dist ` ndx ) , ( x e. ran f , y e. ran f |-> sup ( U_ n e. NN
          ran ( g e. { h e. ( ( dom f X. dom f ) ^m ( 1 ... n ) ) |
          ( ( 1st ` ( h ` 1 ) ) = x /\ ( 2nd ` ( h ` n ) ) = y /\
          A. i e. ( 1 ... ( n - 1 ) ) ( f ` ( 2nd ` ( h ` i ) ) ) =
            ( f ` ( 1st ` ( h ` ( i + 1 ) ) ) ) ) } |-> sum_ i e. dom g
-           ( ( dist ` r ) ` ( g ` i ) ) ) , RR , `' < ) ) >. } ) ) $.
+           ( ( dist ` r ) ` ( g ` i ) ) ) , RR , `' < ) ) >. ,
+        <. ( le ` ndx ) , ( ( f o. ( le ` r ) ) o. `' f ) >. } ) ) $.
 
     $( Define a quotient ring (or quotient group), which is a special case of
        an image structure ~ df-imas where the image function is
@@ -97,7 +119,7 @@ $)
 
     $( Define a structure product.  In usual usage ` r ` will be a function
        from some index set to a structure like ` Ring ` or ` TopSp ` . $)
-    df-prd $a |- X.s = ( r e. _V |->
+    df-prd $a |- X_s = ( r e. _V |->
       [_ X_ x e. dom r ( Base ` ( r ` x ) ) / v ]_
     ( { <. ( Base ` ndx ) , v >. ,
         <. ( +g ` ndx ) , ( f e. v , g e. v |-> ( x e. dom r |->
@@ -106,10 +128,25 @@ $)
           ( ( f ` x ) ( .r ` ( r ` x ) ) ( g ` x ) ) ) ) >. } u.
       { <. ( TopOpen ` ndx ) , ( tP ` ( TopOpen o. r ) ) >. ,
         <. ( dist ` ndx ) , ( f e. v , g e. v |-> sup ( ran ( x e. dom r |->
-       ( ( f ` x ) ( dist ` ( r ` x ) ) ( g ` x ) ) ) , RR* , < ) ) >. } ) ) $.
+       ( ( f ` x ) ( dist ` ( r ` x ) ) ( g ` x ) ) ) , RR* , < ) ) >. ,
+        <. ( le ` ndx ) , { <. f , g >. | ( { f , g } C_ v /\
+       A. x e. dom r ( f ` x ) ( le ` ( r ` x ) ) ( g ` x ) ) } >. } ) ) $.
 
-    $( Define the linear span function in a ring. $)
-    df-rsp $a |- RSpan = ( LSpan o. ringLMod ) $.
+    $( Define a module product, which is like the structure product but with an
+       externally specified ring of scalars. $)
+    df-modp $a |- X_m = ( s e. _V , r e. _V |->
+      ( ( ( X_s ` r ) sSet <. ( Scalar ` ndx ) , s >. )
+        sSet <. ( vsca ` ndx ) , ( f e. s , g e. ( Base ` ( X_s ` r ) ) |->
+        ( x e. dom r |-> ( f ( vsca ` ( r ` x ) ) ( g ` x ) ) ) ) >. ) ) $.
+
+    $( Define a binary product on structures. $)
+    df-xps $a |- X.s = ( r e. _V , s e. _V |->
+        ( `' ( x e. ( Base ` r ) , y e. ( Base ` s ) |->
+      { <. (/) , x >. , <. 1o , y >. } ) "s ( X_s ` ( { r } +c { s } ) ) ) ) $.
+
+    $( Define a structure power, which is just a structure product where all
+       the factors are the same. $)
+    df-pws $a |- ^s = ( r e. _V , i e. _V |-> ( X_s ` ( i X. { r } ) ) ) $.
 
     $( A (unital) associative algebra is a vector space that also contains a
        multiplication operation on the vectors, which is bilinear under the
@@ -121,7 +158,7 @@ $)
 
     $( Define the algebraic span of a set of vectors in an algebra. $)
     df-algsp $a |- AlgSpan = ( w e. AssAlg |-> ( s e. ~P ( Base ` w ) |->
-      |^| { t e. ( SubRing ` w ) | ( ( w |`s s ) e. AssAlg /\ s C_ t ) } ) ) $.
+      |^| { t e. ( SubRing ` w ) | ( ( w |`s t ) e. AssAlg /\ s C_ t ) } ) ) $.
   $}
 
   ${
@@ -131,28 +168,290 @@ $)
     irred.3 $e |- I = ( Irred ` R ) $.
     irred.4 $e |- N = ( B \ U ) $.
     irred.5 $e |- T = ( .r ` R ) $.
-    $( Define an irreducible element of a ring, which is a non-unit that is not
-       the product of two non-units.  (Contributed by Mario Carneiro,
-       2-Dec-2014.) $)
-    irredval $p |- ( R e. V -> I =
-      { z e. N | A. x e. N A. y e. N ( x T y ) =/= z } ) $=
-      ( wcel cvv cv cfv cbs vr vb co wne wral crab wceq elex cir cui cdif cmulr
-      csb fvex difexg ax-mp a1i simpr simpl fveq2d syl6eqr difeq12d eqtrd oveqd
-      neeq1d raleqbidv rabeqbidv csbied df-irred eqeltri rabex fvmpt syl5eq syl
-      wa ) EJPEQPZHARZBRZFUCZCRZUDZBIUEZAIUEZCIUFZUGEJUHVPHEUISWDMUAEUBUARZTSZW
-      EUJSZUKZVQVRWEULSZUCZVTUDZBUBRZUEZAWLUEZCWLUFZUMWDQUIWEEUGZUBWHWOWDQWHQPZ
-      WPWFQPWQWETUNWFWGQUOUPUQWPWLWHUGZVOZWNWCCWLIWSWLWHIWPWRURWSWHDGUKZIWSWFDW
-      GGWSWFETSZDWSWEETWPWRUSZUTKVAWSWGEUJSGWSWEEUJXBUTLVAVBNVAVCZWSWMWBAWLIXCW
-      SWKWABWLIXCWSWJVSVTWSWIFVQVRWSWIEULSFWSWEEULXBUTOVAVDVEVFVFVGVHABCUAUBVIW
-      CCIIWTQNDQPWTQPDXAQKETUNVJDGQUOUPVJVKVLVMVN $.
+    $( An irreducible element of a ring is a non-unit that is not the product
+       of two non-units.  (Contributed by Mario Carneiro, 4-Dec-2014.) $)
+    isirred $p |- ( X e. I <-> ( X e. N /\
+      A. x e. N A. y e. N ( x T y ) =/= X ) ) $=
+      ( vz wcel cvv wral cfv cbs vr vb cv co wne cir cdm elfvdm eleq2s elex syl
+      wa cdif eldifi syl6eleq 3syl adantr crab cui cmulr wceq fvex difexg ax-mp
+      csb a1i simpr simpl fveq2d syl6eqr eqtrd oveqd neeq1d raleqbidv rabeqbidv
+      difeq12d csbied df-irred eqeltri rabex fvmpt syl5eq eleq2d neeq2 2ralbidv
+      elrab syl6bb pm5.21nii ) IGPZDQPZIHPZAUCZBUCZEUDZIUEZBHRAHRZULZWIDUFUGZPZ
+      WJWSIDUFSZGIDUFUHLUIDWRUJUKWKWJWPWKIDTSZPDTUGZPWJWKICXAICPICFUMZHICFUNMUI
+      JUOIDTUHDXBUJUPUQWJWIIWNOUCZUEZBHRZAHRZOHURZPWQWJGXHIWJGWTXHLUADUBUAUCZTS
+      ZXIUSSZUMZWLWMXIUTSZUDZXDUEZBUBUCZRZAXPRZOXPURZVEXHQUFXIDVAZUBXLXSXHQXLQP
+      ZXTXJQPYAXITVBXJXKQVCVDVFXTXPXLVAZULZXRXGOXPHYCXPXLHXTYBVGYCXLXCHYCXJCXKF
+      YCXJXACYCXIDTXTYBVHZVIJVJYCXKDUSSFYCXIDUSYDVIKVJVPMVJVKZYCXQXFAXPHYEYCXOX
+      EBXPHYEYCXNWNXDYCXMEWLWMYCXMDUTSEYCXIDUTYDVINVJVLVMVNVNVOVQABOUAUBVRXGOHH
+      XCQMCQPXCQPCXAQJDTVBVSCFQVCVDVSVTWAWBWCXGWPOIHXDIVAXEWOABHHXDIWNWDWEWFWGW
+      H $.
       $( [2-Dec-2014] $)
 
-    $( Value of the divides relation. $)
-    isirred $p |- ( R e. V -> ( X e. I <-> ( X e. N /\
-      A. x e. N A. y e. N ( x T y ) =/= X ) ) ) $=
-      ( vz wcel cv wne wral co crab irredval eleq2d neeq2 2ralbidv elrab syl6bb
-      wa wceq ) DIQZJGQJARBREUAZPRZSZBHTAHTZPHUBZQJHQULJSZBHTAHTZUIUKGUPJABPCDE
-      FGHIKLMNOUCUDUOURPJHUMJUJUNUQABHHUMJULUEUFUGUH $.
+    $( The property of being a non-irreducible (reducible) element in a ring.
+       (Contributed by Mario Carneiro, 4-Dec-2014.) $)
+    isnirred $p |- ( X e. B -> ( -. X e. I <-> ( X e. U \/
+      E. x e. N E. y e. N ( x T y ) = X ) ) ) $=
+      ( wcel cv wrex wn wa wral co wceq ioran wne cdif eleq2i eldif bitri baibr
+      wo df-ne ralbii ralnex bitr2i a1i anbi12d isirred syl6bbr syl5bb con1bid
+      wb ) ICOZIFOZAPBPEUAZIUBZBHQZAHQZUJZIGOZVHRVCRZVGRZSZVBVIVCVGUCVBVLIHOZVD
+      IUDZBHTZAHTZSVIVBVJVMVKVPVMVBVJVMICFUEZOVBVJSHVQIMUFICFUGUHUIVKVPVAVBVPVF
+      RZAHTVKVOVRAHVOVERZBHTVRVNVSBHVDIUKULVEBHUMUHULVFAHUMUNUOUPABCDEFGHIJKLMN
+      UQURUSUT $.
+      $( [4-Dec-2014] $)
+  $}
+
+  ${
+    $d x y B $.  $d x y R $.  $d x y U $.  $d x y X $.
+    isirred2.1 $e |- B = ( Base ` R ) $.
+    isirred2.2 $e |- U = ( Unit ` R ) $.
+    isirred2.3 $e |- I = ( Irred ` R ) $.
+    isirred2.4 $e |- T = ( .r ` R ) $.
+    $( Expand out the set differences from ~ isirred .  (Contributed by Mario
+       Carneiro, 4-Dec-2014.) $)
+    isirred2 $p |- ( X e. I <-> ( X e. B /\ -. X e. U /\
+      A. x e. B A. y e. B ( ( x T y ) = X -> ( x e. U \/ y e. U ) ) ) ) $=
+      ( wcel cv wral wa wn wi eldif wal cdif co wne wceq w3a anbi12i an4 imbi1i
+      bitri impexp pm4.56 df-ne imbi12i con34b bitr4i imbi2i 3bitri 2albii r2al
+      wo 3bitr4i eqid isirred df-3an ) HCFUAZMZANZBNZEUBZHUCZBVEOAVEOZPHCMZHFMQ
+      ZPZVIHUDZVGFMZVHFMZUTZRZBCOACOZPHGMVLVMVTUEVFVNVKVTHCFSVGVEMZVHVEMZPZVJRZ
+      BTATVGCMZVHCMZPZVSRZBTATVKVTWDWHABWDWGVPQZVQQZPZPZVJRWGWKVJRZRWHWCWLVJWCW
+      EWIPZWFWJPZPWLWAWNWBWOVGCFSVHCFSUFWEWIWFWJUGUIUHWGWKVJUJWMVSWGWMVRQZVOQZR
+      VSWKWPVJWQVPVQUKVIHULUMVOVRUNUOUPUQURVJABVEVEUSVSABCCUSVAUFABCDEFGVEHIJKV
+      EVBLVCVLVMVTVDVA $.
+      $( [4-Dec-2014] $)
+  $}
+
+  ${
+    $d x I $.  $d y z R $.  $d x y z S $.
+    opprirred.1 $e |- S = ( oppR ` R ) $.
+    opprirred.2 $e |- I = ( Irred ` R ) $.
+    $( Irreducibility is symmetric, so the irreducible elements of the opposite
+       ring are the same as the original ring.  (Contributed by Mario Carneiro,
+       4-Dec-2014.) $)
+    opprirred $p |- I = ( Irred ` S ) $=
+      ( vx vz vy cir cfv cv wcel cmulr co wne wral wa eldifi eqid isirred bitri
+      cbs cui cdif ralcom opprmul neeq1d syl2an ralbidva ralbiia anbi2i opprbas
+      wb opprunit 3bitr4i eqriv ) FCBIJZFKZAUBJZAUCJZUDZLZGKZHKZAMJZNZUROZHVAPG
+      VAPZQVBVDVCBMJZNZUROZGVAPZHVAPZQURCLURUQLVHVMVBVHVGGVAPZHVAPVMVGGHVAVAUEV
+      NVLHVAVDVALZVGVKGVAVOVDUSLZVCUSLZVGVKUMVCVALVDUSUTRVCUSUTRVPVQQVFVJURUSAV
+      EVIBVDVCUSSZVESZDVISZUFUGUHUIUJUAUKGHUSAVEUTCVAURVRUTSZEVASZVSTHGUSBVIUTU
+      QVAURUSABDVRULABUTWADUNUQSWBVTTUOUP $.
       $( [2-Dec-2014] $)
+  $}
+
+  ${
+    $d x y z R $.  $d x y z T $.  $d x y z U $.  $d x y z X $.  $d x y z Y $.
+    $d x y B $.  $d x y I $.  $d x y Z $.
+    irredn0.i $e |- I = ( Irred ` R ) $.
+    ${
+      irredn0.z $e |- Z = ( 0g ` R ) $.
+      $( The additive identity is not irreducible.  (Contributed by Mario
+         Carneiro, 4-Dec-2014.) $)
+      irredn0 $p |- ( ( R e. Ring /\ X e. I ) -> X =/= Z ) $=
+        ( vx vy crg wcel wa wn cfv cv co wceq wrex eqid adantr eqeq1d wne cmulr
+        cui cdif wo rng0cl anim1i eldif sylibr rnglz mpdan oveq1 oveq2 rcla42ev
+        cbs syl3anc ex orrd wb isnirred syl mpbird simpr syl5ibcom necon3bd mpd
+        eleq1 ) AIJZCBJZKZDBJZLZCDUAVHVLVIVHVLDAUCMZJZGNZHNZAUBMZOZDPZHAUOMZVMU
+        DZQGWAQZUEZVHVNWBVHVNLZWBVHWDKZDWAJZWFDDVQOZDPZWBWEDVTJZWDKWFVHWIWDVTAD
+        VTRZFUFZUGDVTVMUHUIZWLVHWHWDVHWIWHWKVTAVQDDWJVQRZFUJUKSVSWHDVPVQOZDPGHD
+        DWAWAVODPVRWNDVODVPVQULTVPDPWNWGDVPDDVQUMTUNUPUQURVHWIVLWCUSWKGHVTAVQVM
+        BWADWJVMREWARWMUTVAVBSVJVKCDVJVICDPVKVHVIVCCDBVGVDVEVF $.
+        $( [4-Dec-2014] $)
+    $}
+
+    ${
+      irredcl.b $e |- B = ( Base ` R ) $.
+      $( An irreducible element is in the ring.  (Contributed by Mario
+         Carneiro, 4-Dec-2014.) $)
+      irredcl $p |- ( X e. I -> X e. B ) $=
+        ( vx vy wcel cui cfv wn cv cmulr co wceq wo wi wral eqid isirred2
+        simp1bi ) DCIDAIDBJKZILGMZHMZBNKZODPUDUCIUEUCIQRHASGASGHABUFUCCDFUCTEUF
+        TUAUB $.
+        $( [4-Dec-2014] $)
+    $}
+
+    ${
+      irrednu.u $e |- U = ( Unit ` R ) $.
+      $( An irreducible element is not a unit.  (Contributed by Mario Carneiro,
+         4-Dec-2014.) $)
+      irrednu $p |- ( X e. I -> -. X e. U ) $=
+        ( vx vy wcel cbs cfv wn cv cmulr co wceq wo wi wral eqid isirred2
+        simp2bi ) DCIDAJKZIDBILGMZHMZANKZODPUDBIUEBIQRHUCSGUCSGHUCAUFBCDUCTFEUF
+        TUAUB $.
+        $( [4-Dec-2014] $)
+    $}
+
+    ${
+      irredn1.o $e |- O = ( 1r ` R ) $.
+      $( The multiplicative identity is not irreducible.  (Contributed by Mario
+         Carneiro, 4-Dec-2014.) $)
+      irredn1 $p |- ( ( R e. Ring /\ X e. I ) -> X =/= O ) $=
+        ( crg wcel wne cui wn eqid irrednu wceq 1unit eleq1 syl5ibrcom necon3bd
+        cfv syl5 imp ) AGHZDBHZDCIZUCDAJSZHZKUBUDAUEBDEUELZMUBUFDCUBUFDCNCUEHAU
+        ECUGFODCUEPQRTUA $.
+        $( [4-Dec-2014] $)
+    $}
+
+    ${
+      irredrmul.u $e |- U = ( Unit ` R ) $.
+      irredrmul.t $e |- T = ( .r ` R ) $.
+      $( The product of an irreducible element and a unit is irreducible.
+         (Contributed by Mario Carneiro, 4-Dec-2014.) $)
+      irredrmul $p |- ( ( R e. Ring /\ X e. I /\ Y e. U ) ->
+        ( X T Y ) e. I ) $=
+        ( vx vy vz wcel co cv wceq wrex wn eqid syl3anc crg w3a cbs cfv cdif wo
+        simp2 cdvr simp1 simp3 unitdvcl 3com23 3expia syl2anc irredcl rngdvcan3
+        wi 3ad2ant2 eleq1d sylibd wa ad2antrr eldifi ad2antrl rngdvcl unitmulcl
+        eldifn rngdvcan1 mtod sylanbrc simprr oveq1d ad2antlr rngdvass syl13anc
+        eldif 3eqtr3d oveq2 eqeq1d rcla4ev rexlimdva reximdva orim12d wb unitcl
+        expr 3ad2ant3 rngcl isnirred syl 3imtr4d mt4d ) AUAMZEDMZFCMZUBZWNEFBNZ
+        DMZWMWNWOUGWPWQCMZJOZKOZBNZWQPZKAUCUDZCUEZQZJXEQZUFZECMZWTLOZBNZEPZLXEQ
+        ZJXEQZUFZWRRZWNRZWPWSXIXGXNWPWSWQFAUHUDZNZCMZXIWPWMWOWSXTUQWMWNWOUIZWMW
+        NWOUJZWMWOWSXTWMWSWOXTXDXRACWQFXDSZHXRSZUKULUMUNWPXSECWPWMEXDMZWOXSEPZY
+        AWNWMYEWOXDADEGYCUOURZYBXDXRABCEFYCHYDIUPTZUSUTWPXFXMJXEWPWTXEMZVAZXCXM
+        KXEYJXAXEMZXCXMYJYKXCVAZVAZXAFXRNZXEMZWTYNBNZEPZXMYMYNXDMZYNCMZRYOYMWMX
+        AXDMZWOYRWPWMYIYLYAVBZYKYTYJXCXAXDCVCVDZWPWOYIYLYBVBZXDXRACXAFYCHYDVETY
+        MYSXACMZYKUUDRYJXCXAXDCVGVDYMYSYNFBNZCMZUUDYMWMWOYSUUFUQUUAUUCWMWOYSUUF
+        WMYSWOUUFABCYNFHIVFULUMUNYMUUEXACYMWMYTWOUUEXAPUUAUUBUUCXDXRABCXAFYCHYD
+        IVHTUSUTVIYNXDCVPVJYMXBFXRNZXSYPEYMXBWQFXRYJYKXCVKVLYMWMWTXDMZYTWOUUGYP
+        PUUAYIUUHWPYLWTXDCVCVMUUBUUCXDXRABCWTXAFYCHYDIVNVOWPYFYIYLYHVBVQXLYQLYN
+        XEXJYNPXKYPEXJYNWTBVRVSVTUNWFWAWBWCWPWQXDMZXPXHWDWPWMYEFXDMZUUIYAYGWOWM
+        UUJWNXDACFYCHWEWGXDABEFYCIWHTJKXDABCDXEWQYCHGXESZIWIWJWPYEXQXOWDYGJLXDA
+        BCDXEEYCHGUUKIWIWJWKWL $.
+        $( [4-Dec-2014] $)
+
+      $( The product of a unit and an irreducible element is irreducible.
+         (Contributed by Mario Carneiro, 4-Dec-2014.) $)
+      irredlmul $p |- ( ( R e. Ring /\ X e. U /\ Y e. I ) ->
+        ( X T Y ) e. I ) $=
+        ( crg wcel w3a co coppr cfv cmulr wceq cbs eqid irredcl opprmul syl2anr
+        unitcl 3adant1 opprrng opprirred opprunit irredrmul syl3an1 eqeltrd
+        3com23 ) AJKZECKZFDKZLEFBMZFEANOZPOZMZDUMUNUOURQZULUNFAROZKEUTKUSUMUTAD
+        FGUTSZTUTACEVAHUCUTABUQUPFEVAIUPSZUQSZUAUBUDULUNUMURDKZULUPJKUNUMVDAUPV
+        BUEUPUQCDFEAUPDVBGUFAUPCHVBUGVCUHUIUKUJ $.
+        $( [4-Dec-2014] $)
+    $}
+
+    ${
+      irredmul.b $e |- B = ( Base ` R ) $.
+      irredmul.u $e |- U = ( Unit ` R ) $.
+      irredmul.t $e |- T = ( .r ` R ) $.
+      $( If product of two elements is irreducible, then one of the elements
+         must be a unit.  (Contributed by Mario Carneiro, 4-Dec-2014.) $)
+      irredmul $p |- ( ( X e. B /\ Y e. B /\ ( X T Y ) e. I ) ->
+        ( X e. U \/ Y e. U ) ) $=
+        ( vx vy wcel co wo cv wceq wi wral wa isirred2 simp3bi eqid oveq1 eleq1
+        wn eqeq1d orbi1d imbi12d oveq2 orbi2d rcla42v mpii syl5 3impia ) FANZGA
+        NZFGCOZENZFDNZGDNZPZUTLQZMQZCOZUSRZVDDNZVEDNZPZSZMATLATZUQURUAZVCUTUSAN
+        USDNUGVLLMABCDEUSIJHKUBUCVMVLUSUSRZVCUSUDVKVNVCSFVECOZUSRZVAVIPZSLMFGAA
+        VDFRZVGVPVJVQVRVFVOUSVDFVECUEUHVRVHVAVIVDFDUFUIUJVEGRZVPVNVQVCVSVOUSUSV
+        EGFCUKUHVSVIVBVAVEGDUFULUJUMUNUOUP $.
+        $( [4-Dec-2014] $)
+    $}
+
+    ${
+      irredneg.n $e |- N = ( invg ` R ) $.
+      $( The negative of an irreducible element is irreducible.  (Contributed
+         by Mario Carneiro, 4-Dec-2014.) $)
+      irredneg $p |- ( ( R e. Ring /\ X e. I ) -> ( N ` X ) e. I ) $=
+        ( crg wcel wa cur cfv cmulr cbs eqid simpl irredcl adantl rngnegr cui
+        co 1unit unitnegcl mpdan adantr irredrmul mpd3an3 eqeltrrd ) AGHZDBHZIZ
+        DAJKZCKZALKZTZDCKBUJAMKZAUMUKCDUONZUMNZUKNZFUHUIOUIDUOHUHUOABDEUPPQRUHU
+        IULASKZHZUNBHUHUTUIUHUKUSHUTAUSUKUSNZURUAAUSCUKVAFUBUCUDAUMUSBDULEVAUQU
+        EUFUG $.
+        $( [4-Dec-2014] $)
+
+      irrednegb.b $e |- B = ( Base ` R ) $.
+      $( An element is irreducible iff its negative is.  (Contributed by Mario
+         Carneiro, 4-Dec-2014.) $)
+      irrednegb $p |- ( ( R e. Ring /\ X e. B ) ->
+        ( X e. I <-> ( N ` X ) e. I ) ) $=
+        ( crg wcel cfv irredneg adantlr wceq cgrp rnggrp grpinvinv sylan adantr
+        wa eqeltrrd impbida ) BIJZEAJZTZECJZEDKZCJZUCUFUHUDBCDEFGLMUEUHTUGDKZEC
+        UEUIENZUHUCBOJUDUJBPABDEHGQRSUCUHUICJUDBCDUGFGLMUAUB $.
+        $( [4-Dec-2014] $)
+    $}
+  $}
+
+  ${
+    $d x y A $.  $d x y I $.  $d x y Z $.
+    prmirred.1 $e |- Z = ( CCfld |`s ZZ ) $.
+    prmirred.2 $e |- I = ( Irred ` Z ) $.
+    $( A natural number is irreducible over ` ZZ ` iff it is a prime number. $)
+    prmirredlem $p |- ( A e. NN -> ( A e. I <-> A e. Prime ) ) $=
+      ( vy wcel cprime wa cfv wbr c1 wceq cz co cmul cc0 wb ad2antrr syl vx cuz
+      cn c2 cv cdivides wo wral wne crg ccnfld csubrg zsubrg subrgrng ax-mp cur
+      wi cnfld1 subrg1 irredn1 mpan anim2i eluz2b3 sylibr cui cdiv nnz ad2antrl
+      simprr nnne0 divides2 syl3anc cc zcn nncn divcan2 simplr eqeltrd subrgbas
+      mpbid cbs eqid cnfldmul ressmulr irredmul cabs zrngunit baib cn0 nnnn0 cr
+      cle nn0re nn0ge0 absid syl2anc eqeq1d bitrd nnre simprl nndivre clt nngt0
+      3syl divge0 syl22anc ax-1cn a1i divmul syl112anc mulid1 orbi12d ralrimiva
+      3bitrd expr isprm2 sylanbrc wn prmz wnel 1nprm df-nel mpbi prmnn id eleq1
+      syl5ibcom adantld syl5bi mtoi simpr simplrr mul02 oveq1 sylib eqeq1 abscl
+      3netr4d mpbird recnd necon3i simplrl abs00 necon3bid df-ne nn0abscl elnn0
+      ord simprbi dvdsmul1 ad2antlr breqtrd absdvdsb breq1 imbi12d rcla4v syl3c
+      mulcan absmul fveq2d eqtrd eqtr3d eqeq12d eqcom syl6bb 3bitr2d ralrimivva
+      mt3d ex isirred2 syl3anbrc adantl impbida ) AUCGZABGZAHGZUVNUVOIZAUDUBJGZ
+      FUEZAUFKZUVSLMZUVSAMZUGZUQZFUCUHZUVPUVQUVNALUIZIUVRUVOUWFUVNCUJGZUVOUWFNU
+      KULJGZUWGUMNUKCDUNUOCBLAEUWHLCUPJMUMNUKCLDURUSUOUTVAVBAVCVDUVQUWDFUCUVQUV
+      SUCGZUVTUWCUVQUWIUVTIZIZUVSCVEJZGZAUVSVFOZUWLGZUGZUWCUWKUVSNGZUWNNGZUVSUW
+      NPOZBGUWPUWIUWQUVQUVTUVSVGVHZUWKUVTUWRUVQUWIUVTVIUWKUWQUVSQUIZANGZUVTUWRR
+      UWTUWIUXAUVQUVTUVSVJVHZUVNUXBUVOUWJAVGSZUVSAVKVLVTZUWKUWSABUWKAVMGZUVSVMG
+      ZUXAUWSAMUWKUXBUXFUXDAVNTZUWIUXGUVQUVTUVSVOVHZUXCAUVSVPVLUVNUVOUWJVQVRNCP
+      UWLBUVSUWNEUWHNCWAJMUMNUKCDVSUOZUWLWBZNUKCPDWCWDZWEVLUWKUWMUWAUWOUWBUWKUW
+      MUVSWFJZLMZUWAUWKUWQUWMUXNRZUWTUWMUWQUXNUVSCDWGWHZTUWKUXMUVSLUWIUXMUVSMZU
+      VQUVTUWIUVSWIGZUXQUVSWJZUXRUVSWKGZQUVSWLKUXQUVSWMZUVSWNUVSWOWPTVHWQWRUWKU
+      WOUWNWFJZLMZUWBUWKUWRUWOUYCRUXEUWOUWRUYCUWNCDWGWHTUWKUYCUWNLMZUVSLPOZAMZU
+      WBUWKUYBUWNLUWKUWNWKGZQUWNWLKZUYBUWNMUWKAWKGZUWIUYGUVNUYIUVOUWJAWSSZUVQUW
+      IUVTWTZAUVSXAWPUWKUYIQAWLKZUXTQUVSXBKZUYHUYJUVNUYLUVOUWJUVNAWIGZUYLAWJZAW
+      NZTSUWKUWIUXRUXTUYKUXSUYAXDUWIUYMUVQUVTUVSXCVHAUVSXEXFUWNWOWPWQUWKUXFLVMG
+      ZUXGUXAUYDUYFRUXHUYQUWKXGXHUXIUXCALUVSXIXJUWKUYEUVSAUWKUXGUYEUVSMUXIUVSXK
+      TWQXNWRXLVTXOXMFAXPZXQUVPUVOUVNUVPUXBAUWLGZXRUAUEZUVSPOZAMZUYTUWLGZUWMUGZ
+      UQZFNUHUANUHUVOAXSZUVPUYSLHGZLHXTVUGXRYALHYBYCUYSUXBAWFJZLMZIUVPVUGACDWGU
+      VPVUIVUGUXBUVPVUHHGVUIVUGUVPVUHAHUVPUVNUYNVUHAMZAYDZUYOUYNUYIUYLVUJAWMUYP
+      AWOWPXDZUVPYEVRVUHLHYFYGYHYIYJUVPVUEUAFNNUVPUYTNGZUWQIZIZVUBVUDVUOVUBIZVU
+      DUYTWFJZLMZVUQAMZUGZVUPVUQUCGZUWEVUQAUFKZVUTVUPVVAVUQQMZVUPVUQQUIZVVCXRVU
+      PVVDUYTQUIZVUPVUAQUVSPOZUIVVEVUPAQVUAVVFVUPUVNAQUIUVPUVNVUNVUBVUKSAVJTVUO
+      VUBYKZVUPUXGVVFQMVUPUWQUXGUVPVUMUWQVUBYLZUVSVNTZUVSYMTYRUYTQVUAVVFUYTQUVS
+      PYNUUATVUPVUQQUYTQVUPUYTVMGZVVCUYTQMRVUPVUMVVJUVPVUMUWQVUBUUBZUYTVNTZUYTU
+      UCTUUDYSZVUQQUUEYOVUPVVAVVCVUPVUQWIGZVVAVVCUGVUPVUMVVNVVKUYTUUFTVUQUUGYOU
+      UHUVHUVPUWEVUNVUBUVPUVRUWEUYRUUISVUPUYTAUFKZVVBVUPUYTVUAAUFVUNUYTVUAUFKUV
+      PVUBUYTUVSUUJUUKVVGUULVUPVUMUXBVVOVVBRVVKUVPUXBVUNVUBVUFSUYTAUUMWPVTUWDVV
+      BVUTUQFVUQUCUVSVUQMZUVTVVBUWCVUTUVSVUQAUFUUNVVPUWAVURUWBVUSUVSVUQLYPUVSVU
+      QAYPXLUUOUUPUUQVUPVUCVURUWMVUSVUPVUMVUCVURRVVKVUCVUMVURUYTCDWGWHTVUPUWMUX
+      NVUQUXMPOZVUQLPOZMZVUSVUPUWQUXOVVHUXPTVUPUXMVMGUYQVUQVMGZVVDVVSUXNRVUPUXM
+      VUPUXGUXMWKGVVIUVSYQTYTUYQVUPXGXHVUPVUQVUPVVJVUQWKGVVLUYTYQTYTZVVMUXMLVUQ
+      UURXJVUPVVSAVUQMVUSVUPVVQAVVRVUQVUPVUAWFJZVVQAVUPVVJUXGVWBVVQMVVLVVIUYTUV
+      SUUSWPVUPVWBVUHAVUPVUAAWFVVGUUTUVPVUJVUNVUBVULSUVAUVBVUPVVTVVRVUQMVWAVUQX
+      KTUVCAVUQUVDUVEUVFXLYSUVIUVGUAFNCPUWLBAUXJUXKEUXLUVJUVKUVLUVM $.
+      $( [5-Dec-2014] $)
+
+    $( The positive irreducible elements of ` ZZ ` are the prime numbers.  This
+       is an alternative way to define ` Prime ` .  (Contributed by Mario
+       Carneiro, 5-Dec-2014.) $)
+    dfprime2 $p |- Prime = ( NN i^i I ) $=
+      ( vx cprime cn cin cv wcel wa prmirredlem pm5.32i prmnn pm4.71ri 3bitr4ri
+      elin eqriv ) EFGAHZEIZGJZTAJZKUATFJZKTSJUCUAUBUCTABCDLMTGAQUCUATNOPR $.
+      $( [5-Dec-2014] $)
+
+    $( The irreducible elements of ` ZZ ` are exactly the prime numbers (and
+       their negatives).  (Contributed by Mario Carneiro, 5-Dec-2014.) $)
+    prmirred $p |- ( A e. I <-> ( A e. ZZ /\ ( abs ` A ) e. Prime ) ) $=
+      ( wcel cz wa cfv cprime ccnfld wceq zsubrg ax-mp wb cc0 wi mpan cle wbr
+      cabs csubrg cbs subrgbas irredcl pm4.71ri cn0 cr cn elznn0nn biimpi elnn0
+      cneg wo ax-1 crg wne subrgrng csubg c0g subrgsubg cnfld0 irredn0 necon2bi
+      subg0 pm2.21d jaoi sylbi prmnn prmirredlem pm5.21ndd nn0re nn0ge0 syl2anc
+      a1i absid eleq1d bitr4d adantl cminusg eqid irrednegb subginv cc cnfldneg
+      zcn syl eqtr3d bitrd adantr zre nnnn0 le0neg1 mpbird absnid 3bitr4d mpdan
+      adantrl jaodan pm5.32i bitri ) ABFZAGFZXBHXCAUAIZJFZHXBXCGCBAEGKUBIFZGCUC
+      ILMGKCDUDNZUEUFXCXBXEXCAUGFZAUHFZAUMZUIFZHZUNZXBXEOZXCXMAUJUKXCXHXNXLXHXN
+      XCXHXBAJFZXEXHAUIFZXBXOXHXPAPLZUNXBXPQZAULXPXRXQXPXBUOXQXBXPXBAPCUPFZXBAP
+      UQXFXSMGKCDURNZCBAPEGKUSIFZPCUTILXFYAMGKVANZGKCPDVBVENVCRVDVFVGVHXOXPQXHA
+      VIVOXPXBXOOQXHABCDEVJVOVKXHXDAJXHXIPASTXDALAVLAVMAVPVNVQVRVSXCXKXNXIXCXKH
+      ZXJBFZXJJFZXBXEXKYDYEOXCXJBCDEVJVSXCXBYDOXKXCXBACVTIZIZBFZYDXSXCXBYHOXTGC
+      BYFAEYFWAZXGWBRXCYGXJBXCAKVTIZIZYGXJYAXCYKYGLYBGKCYJYFADYJWAYIWCRXCAWDFYK
+      XJLAWFAWEWGWHVQWIWJYCXDXJJYCXIAPSTZXDXJLXCXIXKAWKWJZYCYLPXJSTZXKYNXCXKXJU
+      GFYNXJWLXJVMWGVSYCXIYLYNOYMAWMWGWNAWOVNVQWPWRWSWQWTXA $.
+      $( [5-Dec-2014] $)
   $}
 
