@@ -4,6 +4,55 @@ $(
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 $)
 
+  $c prod_ $. $( Product sign. $)
+
+  $( Extend class notation to include finite products/sums. $)
+  cprd $a class prod_ k e. A G B $.
+
+  ${
+    $d x m n k $.  $d x m n A $.  $d x m n G $.  $d x m n B $.
+    $( Define the composite for the law ` G ` of a finite sequence of elements
+       whose values are defined by the expression ` B ` and whose set of
+       indices is ` A ` . ` A ` may be empty.  It may be thougt as a product
+       (if ` G ` is a multiplication), a sum (if ` G ` is an addition) or
+       whatever.  The variable ` k ` is normally a free variable in ` B `
+       ( i.e. ` B ` can be thought of as ` B ( k ) ` ).  The definition is
+       meaningful when ` A ` is a finite set of sequential integers and ` G `
+       is an internal operation.  Our definition corresponds to the first part
+       of the definition of ~ df-sum .  The operation ` + ` has been replaced
+       by the generic operation ` G ` .  The reference to the concept of limit
+       has been removed because one wants to use the product in contexts where
+       limits are irrelevant.  I could be still more generic and replace
+       ` ( m ... n ) ` by a finite totally ordered set.  I would then get the
+       definition given by Bourbaki in the first chapter of the algebra book of
+       his treatise ( A I.3 def.4 ).  I don't because the present definition is
+       easier to deal with and because there exists an order isomorphism
+       between any finite totally ordered set and any finite sets of integers.
+       I don't specify anything about ` G ` because nothing is required of
+       ` g ` in the definition of ` seq ` .  I hope it will be ok.  Otherwise
+       one could add ` G e. Magma ` . $)
+    df-prod $a |- prod_ k e. A G B = if ( A = (/) , ( Id ` G ) ,
+                  { x | E. m E. n e. ( ZZ>= ` m ) ( A = ( m ... n ) /\
+                    x e. ( seq m ( G , ( k e. _V |-> B ) ) ` n ) ) } ) $.
+    $(
+    df-prod @a |- prod_ k e. A G B =
+      if ( A. k e. A B = ( 0g ` G ) , ( 0g ` G ) ,
+      if ( A e. ran ... ,
+        ( iota x E. m E. n e. ( ZZ>= ` m ) ( A = ( m ... n ) /\
+          x = ( seq m ( ( +g ` G ) , ( k e. _V |-> B ) ) ` n ) ) ) ,
+      [_ ( z e. ( ( ~P A i^i Fin ) \ { (/) } ) |->
+        ( iota x E. m e. NN E. f ( f : ( 1 ... m ) -1-1-onto-> z /\
+          x = ( seq 1 ( ( +g ` G ) ,
+            ( n e. NN |-> [_ ( f ` n ) / k ]_ B ) ) ` m ) ) ) ) / j ]_
+        if ( { x e. A | B =/= ( 0g ` G ) } e. Fin ,
+          ( j ` { x e. A | B =/= ( 0g ` G ) } ) ,
+        U. ( ( ( TopOpen ` G ) fLimf { x |
+          E. z e. ( ( ~P A i^i Fin ) \ { (/) } ) x =
+          { y e. ( ( ~P A i^i Fin ) \ { (/) } ) | z C_ y } } ) ` j ) ) ) ) @.
+    $)
+
+  $}
+
   $c prod2_ $. $( Product sign. $)
 
   $( Extend class notation to include finite supports products/sums. $)
@@ -49,6 +98,395 @@ $)
           { k e. ( Base ` A ) | B =/= ( 0g ` G ) } ) /\
               x = ( seq 1 ( ( +g ` G ) ,
                 ( n e. NN |-> [_ ( f ` n ) / k ]_ B ) ) ` m ) ) ) ) $.
+  $}
+
+  ${
+    $d A m n x y $.  $d B m n x y $.  $d G m n x y $.  $d k m n x y $.
+    $( A finite composite is a set.  (Contributed by FL, 19-Sep-2011.)
+       (Revised by Mario Carneiro, 26-May-2014.) $)
+    prodex $p |- prod_ k e. A G B e. _V $=
+      ( vm vn vx cprd wceq cgi cfv cv cvv wa wrex cab fvex cz zex eqeltri c0 co
+      cfz cmpt cseq cuz wex cif df-prod cle wbr 2rexuz abbii simprr abssi ssexi
+      wcel ab2rexex2 ifex ) ABCDHAUAIZDJKZAELZFLZUCUBIZGLVCDCMBUDVBUEZKZUQZNZFV
+      BUFKOEUGZGPZUHMGABCEFDUIUTVAVJDJQVJVBVCUJUKZVHNZFROEROZGPMVIVMGVHEFULUMVL
+      EFGRRSSVLGPVFVCVEQVLGVFVKVDVGUNUOUPURTUST $.
+      $( [26-May-2014] $) $( [19-Sep-2011] $)
+
+    $( The value of ` prod_ k e. (/) G B ` .  (Contributed by FL,
+       19-Sep-2011.) $)
+    prod0 $p |- prod_ k e. (/) G B = ( Id ` G ) $=
+      ( vm vn vx c0 cprd wceq cgi cfv cv cfz co cvv cmpt cseq wcel wa cuz ax-mp
+      wrex wex cab cif df-prod eqid iftrue eqtri ) GABCHGGIZCJKZGDLZELZMNIFLUMC
+      BOAPULQKRSEULTKUBDUCFUDZUEZUKFGABDECUFUJUOUKIGUGUJUKUNUHUAUI $.
+      $( [26-May-2014] $) $( [19-Sep-2011] $)
+  $}
+
+  ${
+    $d A m n x y $.  $d B m n x y $.  $d C m n x y $.  $d G m n x y $.
+    $d k m n x y $.
+    $( Equality theorem for a composite.  (Contributed by FL, 19-Sep-2011.) $)
+    prodeq1 $p |- ( A = B -> prod_ k e. A G C = prod_ k e. B G C ) $=
+      ( vm vn vx wceq c0 cfv cv wa wrex wex cab cif cprd eqeq1 df-prod cgi cmpt
+      cfz co cvv cseq wcel cuz anbi1d rexbidv exbidv abbidv ifbieq2d 3eqtr4g )
+      ABIZAJIZEUAKZAFLZGLZUCUDZIZHLUSEDUECUBURUFKUGZMZGURUHKZNZFOZHPZQBJIZUQBUT
+      IZVBMZGVDNZFOZHPZQACDERBCDERUOUPVHVGVMUQABJSUOVFVLHUOVEVKFUOVCVJGVDUOVAVI
+      VBABUTSUIUJUKULUMHACDFGETHBCDFGETUN $.
+      $( [26-May-2014] $) $( [19-Sep-2011] $)
+  $}
+
+  ${
+    $d A m n x y $.  $d C m n x y $.  $d G m n x y $.  $d H m n x y $.
+    $d k m n x y $.
+    $( Equality theorem for a composite.  (Contributed by FL, 19-Sep-2011.) $)
+    prodeq2 $p |- ( G = H -> prod_ k e. A G C = prod_ k e. A H C ) $=
+      ( vm vn vx wceq cgi cfv cv cseq wcel wa wrex wex cab cif cprd c0 cfz cmpt
+      co cvv cuz fveq2 seqeq2 fveq1d eleq2d anbi2d rexbidv exbidv abbidv ifeq12
+      syl2anc df-prod 3eqtr4g ) DEIZAUAIZDJKZAFLZGLZUBUDIZHLZVCDCUEBUCZVBMZKZNZ
+      OZGVBUFKZPZFQZHRZSZUTEJKZVDVEVCEVFVBMZKZNZOZGVKPZFQZHRZSZABCDTABCETUSVAVP
+      IVNWCIVOWDIDEJUGUSVMWBHUSVLWAFUSVJVTGVKUSVIVSVDUSVHVRVEUSVCVGVQDEVFVBUHUI
+      UJUKULUMUNUTVAVPVNWCUOUPHABCFGDUQHABCFGEUQUR $.
+      $( [26-May-2014] $) $( [19-Sep-2011] $)
+  $}
+
+  ${
+    $d A k m n x y $.  $d B m n x y $.  $d C m n x y $.  $d G m n x y $.
+    $( Equality theorem for a composite.  (Contributed by Mario Carneiro,
+       26-May-2014.) $)
+    prodeq3ii $p |- ( A. k e. A ( _I ` B ) = ( _I ` C ) ->
+      prod_ k e. A G B = prod_ k e. A G C ) $=
+      ( vm vn vx cid cfv wceq cv cvv cmpt cseq wcel wa wrex wex cab wral c0 cgi
+      cfz co cuz cif cprd simplr eleq2 biimprd simpl hbmpt1 ax-17 hbfv hbeq vex
+      wb eqid fvmpt2i eqeq12d ax-mp fveq2 syl5bbr rcla4 syl5com sylan9r seqfveq
+      imp eleq2d pm5.32da rexbidva exbidv abbidv ifeq2d df-prod 3eqtr4g ) BIJZC
+      IJZKZDAUAZAUBKZEUCJZAFLZGLZUDUEZKZHLZWEEDMBNZWDOJZPZQZGWDUFJZRZFSZHTZUGWB
+      WCWGWHWEEDMCNZWDOJZPZQZGWMRZFSZHTZUGABDEUHACDEUHWAWBWPXCWCWAWOXBHWAWNXAFW
+      AWLWTGWMWAWEWMPZQZWGWKWSXEWGQZWJWRWHXFEHWIWQWDWEWAXDWGUIXFWHWFPZWHWIJZWHW
+      QJZKZWGXGWHAPZXEXJWGXKXGAWFWHUJUKXEWAXKXJWAXDULVTXJDWHADFFXHXIDFWHWIDFMBU
+      MWDWHPDUNZUODFWHWQDFMCUMXLUOUPVTDLZWIJZXMWQJZKZXMWHKZXJXMMPZXPVTURDUQXRXN
+      VRXOVSDMBWIWIUSUTDMCWQWQUSUTVAVBXQXNXHXOXIXMWHWIVCXMWHWQVCVAVDVEVFVGVIVHV
+      JVKVLVMVNVOHABDFGEVPHACDFGEVPVQ $.
+      $( [26-May-2014] $) $( [19-Sep-2011] $)
+  $}
+
+  ${
+    $d A k m n x y $.  $d B m n x y $.  $d C m n x y $.  $d G m n x y $.
+    $( Equality theorem for a composite.  (Contributed by FL, 19-Sep-2011.)
+       (The proof was shortened by Mario Carneiro, 26-May-2014.) $)
+    prodeq3 $p |- ( A. k e. A B = C ->
+      prod_ k e. A G B = prod_ k e. A G C ) $=
+      ( wceq wral cid cfv cprd fveq2 ralimi prodeq3ii syl ) BCFZDAGBHICHIFZDAGA
+      BDEJACDEJFOPDABCHKLABCDEMN $.
+      $( [26-May-2014] $) $( [19-Sep-2011] $)
+  $}
+
+  ${
+    $d A k m n x y $.  $d B m n x y $.  $d G k m n x y $.
+    hbprod1.1 $e |- ( x e. A -> A. k x e. A ) $.
+    $( Bound-variable hypothesis builder for ` prod_ ` .  (Contributed by FL,
+       14-Sep-2010.) $)
+    hbprod1 $p |- ( x e. prod_ k e. A G B ->
+      A. k x e. prod_ k e. A G B ) $=
+      ( vm vn vy cprd c0 wceq cgi cfv cv cfz co cvv wcel ax-17 cmpt cseq wa cuz
+      wrex wex cab df-prod hbmpt1 hbseq hbfv hban hbrex hbex hbab hbif hbxfreq
+      cif ) DABCDEJBKLZEMNZBGOZHOZPQLZIOZVBEDRCUAZVAUBZNSZUCZHVAUDNZUEZGUFZIUGZ
+      URIBCDGHEUHUSDAUTVLUSDTAOUTSDTVKDIAVJDGVHDHVIVBVISDTVCVGDVCDTDIVBVFDIEVEV
+      AVDVASDTVDESDTDIRCUIUJVDVBSDTUKULUMUNUOUPUQ $.
+      $( [14-Sep-2010] $)
+  $}
+
+  ${
+    $d A m n y z $.  $d B m n y z $.  $d G m n y z $.  $d k m n x y z $.
+    hbprod.1 $e |- ( y e. A -> A. x y e. A ) $.
+    hbprod.2 $e |- ( y e. G -> A. x y e. G ) $.
+    hbprod.3 $e |- ( y e. B -> A. x y e. B ) $.
+    $( Bound-variable hypothesis builder for ` prod_ ` .  If ` x ` is
+       (effectively) not free in ` A ` , ` G ` and ` B ` , it is not free in
+       ` prod_ k e. A G B ` .  (Contributed by FL, 19-Sep-2011.) $)
+    hbprod $p |- ( y e. prod_ k e. A G B -> A. x y e. prod_ k e. A G B ) $=
+      ( vm vn vz c0 wceq cgi cfv cv cvv wcel ax-17 cprd cfz co cmpt cseq wa cuz
+      wrex wex cab cif df-prod hbeq hbfv hbmpt hbseq hblem hban hbrex hbex hbab
+      hbif hbxfreq ) ABCDEFUACMNZFOPZCJQZKQZUBUCZNZLQZVGFERDUDZVFUEZPSZUFZKVFUG
+      PZUHZJUIZLUJZUKLCDEJKFULVDABVEVRABBCMGBQZMSATUMABFOVSOSATHUNVQALBVPAJVNAK
+      VOVGVOSATVIVMAABBCVHGVSVHSATUMALVGVLABLVLABFVKVFVSVFSATHAEBRDVSRSATIUOUPU
+      QVJVGSATUNURUSUTVAVBVC $.
+      $( [19-Sep-2011] $)
+  $}
+
+  ${
+    $d A m n x y $.  $d B m n x y $.  $d C m n x y $.  $d G m n x y $.
+    $d j m n x y $.  $d k m n x y $.
+    cbvprod.1 $e |- ( x e. B -> A. k x e. B ) $.
+    cbvprod.2 $e |- ( x e. C -> A. j x e. C ) $.
+    cbvprod.3 $e |- ( j = k -> B = C ) $.
+    $( Change bound variable in a finite composite.  (Contributed by FL,
+       19-Sep-2011.) $)
+    cbvprodi $p |- prod_ j e. A G B = prod_ k e. A G C $=
+      ( vm vn wceq cfv cv cvv cmpt cseq wcel wa c0 cgi cfz cuz wrex wex cab cif
+      co cprd cbvmpt seqeq3 ax-mp fveq1i eleq2i anbi2i rexbii exbii abbii ifeq2
+      df-prod 3eqtr4i ) BUAMZGUBNZBKOZLOZUCUIMZAOZVFGEPCQZVERZNZSZTZLVEUDNZUEZK
+      UFZAUGZUHZVCVDVGVHVFGFPDQZVERZNZSZTZLVNUEZKUFZAUGZUHZBCEGUJBDFGUJVQWFMVRW
+      GMVPWEAVOWDKVMWCLVNVLWBVGVKWAVHVFVJVTVIVSMVJVTMEFAPCDHIJUKGVIVSVEULUMUNUO
+      UPUQURUSVCVQWFVDUTUMABCEKLGVAABDFKLGVAVB $.
+      $( [26-May-2014] $) $( [19-Sep-2011] $)
+  $}
+
+  ${
+    prodeq1d.1 $e |- ( ph -> A = B ) $.
+    $( Conditions for two composites to be equal.  (Contributed by FL,
+       5-Sep-2010.) $)
+    prodeq1d $p |- ( ph -> prod_ k e. A G C = prod_ k e. B G C ) $=
+      ( wceq cprd prodeq1 syl ) ABCHBDEFICDEFIHGBCDEFJK $.
+      $( [5-Sep-2010] $)
+  $}
+
+  ${
+    prodeq2d.2 $e |- ( ph -> G = H ) $.
+    $( Conditions for two composites to be equal.  (Contributed by FL,
+       5-Sep-2010.) $)
+    prodeq2d $p |- ( ph -> prod_ k e. A G C = prod_ k e. A H C ) $=
+      ( wceq cprd prodeq2 syl ) AEFHBCDEIBCDFIHGBCDEFJK $.
+      $( [5-Sep-2010] $)
+  $}
+
+  ${
+    $d A k $.
+    prodeq3d.3 $e |- ( ph -> A. k e. A C = D ) $.
+    $( Conditions for two composites to be equal.  (Contributed by FL,
+       5-Sep-2010.) $)
+    prodeq3d $p |- ( ph -> prod_ k e. A G C = prod_ k e. A G D ) $=
+      ( wceq wral cprd prodeq3 syl ) ACDHEBIBCEFJBDEFJHGBCDEFKL $.
+      $( [26-May-2014] $) $( [5-Sep-2010] $)
+  $}
+
+  ${
+    $d A k $.
+    prodeq123d.1 $e |- ( ph -> A = B ) $.
+    prodeq123d.2 $e |- ( ph -> G = H ) $.
+    prodeq123d.3 $e |- ( ph -> A. k e. A C = D ) $.
+    $( Conditions for two composites to be equal.  (Contributed by FL,
+       5-Sep-2010.) $)
+    prodeq123d $p |- ( ph -> prod_ k e. A G C = prod_ k e. B H D ) $=
+      ( cprd prodeq3d prodeq2d prodeq1d 3eqtrd ) ABDFGLBEFGLBEFHLCEFHLABDEFGKMA
+      BEFGHJNABCEFHIOP $.
+      $( [26-May-2014] $) $( [5-Sep-2010] $)
+  $}
+
+  ${
+    $d A k $.
+    prodeq123i.1 $e |- A = B $.
+    prodeq123i.2 $e |- G = H $.
+    prodeq123i.3 $e |- ( k e. A -> C = D ) $.
+    $( Conditions for two composites to be equal.  (Contributed by FL,
+       6-Sep-2010.) $)
+    prodeq123i $p |- prod_ k e. A G C = prod_ k e. B H D $=
+      ( cprd wceq wtru a1i wral rgen prodeq123d trud ) ACEFKBDEGKLMABCDEFGABLMH
+      NFGLMINCDLZEAOMSEAJPNQR $.
+      $( [26-May-2014] $) $( [6-Sep-2010] $)
+  $}
+
+  ${
+    $d k m $.  $d k B $.  $d k x C $.  $d m x F $.  $d x G $.
+    prodeqfv.2 $e |- F = ( k e. B |-> A ) $.
+    $( Convert a composite of function values to a composite of classes
+       ` A ( k ) ` .  (Contributed by FL, 19-Sep-2011.) $)
+    prodeqfv $p |- ( C C_ B -> prod_ m e. C G ( F ` m ) = prod_ k e. C G A ) $=
+      ( vx wss cv cfv cprd wcel ax-17 cid wceq cvv syl5eq syl cmpt hbxfreq hbfv
+      hbmpt1 fveq2 cbvprodi wral wa ssel2 fvi ax-mp fvmpt2i ralrimiva prodeq3ii
+      fvex ) CBJZCEKZFLZEGMCDKZFLZDGMZCADGMZICURUTEDGDIUQFDIFDBAUAHDIBAUDUBIKZU
+      QNDOUCVCUTNEOUQUSFUEUFUPUTPLZAPLZQZDCUGVAVBQUPVFDCUPUSCNUHUSBNZVFCBUSUIVG
+      VDUTVEUTRNVDUTQUSFUOUTRUJUKDBAFHULSTUMCUTADGUNTS $.
+      $( [26-May-2014] $) $( [19-Sep-2011] $)
+  $}
+
+  ${
+    $d A m n x y $.  $d G m n x y $.  $d M m n x y $.  $d N m n x y $.
+    $d k m n x y $.
+    $( Special case of composite over a finite index set.  (Contributed by FL,
+       5-Sep-2010.)  (The proof was shortened by Mario Carneiro,
+       26-May-2014.) $)
+    dffprod $p |- ( N e. ( ZZ>= ` M ) -> prod_ k e. ( M ... N ) G A =
+                    ( seq M ( G , ( k e. _V |-> A ) ) ` N ) ) $=
+      ( vm vn vx cuz cfv wcel cfz co cv wceq cvv cseq wa wrex eleq2d wex cab c0
+      cprd cmpt cgi cif df-prod wn eluzfz1 n0i iffalse 3syl syl5eq wi wb fzopth
+      vex mpan2 simpl seqeq1d simpr fveq12d biimprd syl6bi rexlimdvw exlimdv cz
+      imp3a eluzel2 adantr eqcomd biantrurd bitr3d rcla4ev eqeq2d seqeq1 fveq1d
+      oveq2 fveq2 oveq1 anbi12d rexeqbidv cla4egv sylc ex impbid abbi1dv eqtrd
+      ) EDIJZKZDELMZABCUDZWLFNZGNZLMZOZHNZWOCBPAUEZWNQZJZKZRZGWNIJZSZFUAZHUBZEC
+      WSDQZJZWKWMWLUCOZCUFJZXGUGZXGHWLABFGCUHWKDWLKXJUIXLXGODEUJWLDUKXJXKXGULUM
+      UNWKXFHXIWKXFWRXIKZWKXEXMFWKXCXMGXDWKWQXBXMWKWQDWNOZEWOOZRZXBXMUOWKWOPKWQ
+      XPUPGURPWNWODEUQUSXPXMXBXPXIXAWRXPEWOXHWTXPDWNCWSXNXOUTVAXNXOVBVCTVDVEVIV
+      FVGWKXMXFWKXMRDVHKZWLDWOLMZOZWRWOXHJZKZRZGWJSZXFWKXQXMDEVJVKYBXMGEWJWOEOZ
+      YAYBXMYDXSYAYDXRWLWOEDLVSVLVMYDXTXIWRWOEXHVTTVNVOXEYCFDVHWNDOZXCYBGXDWJWN
+      DIVTYEWQXSXBYAYEWPXRWLWNDWOLWAVPYEXAXTWRYEWOWTXHCWSWNDVQVRTWBWCWDWEWFWGWH
+      WI $.
+      $( [26-May-2014] $) $( [5-Sep-2010] $)
+  $}
+
+  ${
+    $d k m F $.  $d m M $.  $d m N $.
+    $( A finite composite expressed in terms of a partial composite of an
+       infinite series.  (Contributed by FL, 5-Sep-2010.)  (Revised by Mario
+       Carneiro, 26-May-2014.) $)
+    fprodser $p |- ( N e. ( ZZ>= ` M ) ->
+      prod_ k e. ( M ... N ) G ( F ` k ) = ( seq M ( G , F ) ` N ) ) $=
+      ( vm cuz cfv wcel cfz co cv cprd cvv cmpt cseq dffprod eluzel2 wceq wa
+      vex fveq2 eqid fvex fvmpt ax-mp a1i seqfeq fveq1d eqtrd ) EDGHZIZDEJKALZB
+      HZACMECANUNOZDPZHECBDPZHUNACDEQULEUPUQULCFUOBDDERFLZUOHURBHZSZULURUKITURN
+      IUTFUAAURUNUSNUOUMURBUBUOUCURBUDUEUFUGUHUIUJ $.
+      $( [26-May-2014] $) $( [5-Sep-2010] $)
+
+  $}
+
+  ${
+    $d F j x $.  $d G x $.  $d M x $.  $d N x $.  $d j k x $.
+    fprodserf.1 $e |- ( x e. F -> A. k x e. F ) $.
+    $( Version of ~ fprodser with a bound-variable hypothesis instead of a
+       distinct variable condition.  (Contributed by FL, 5-Sep-2010.) $)
+    fprodserf $p |- ( N e. ( ZZ>= ` M ) ->
+      prod_ k e. ( M ... N ) G ( F ` k ) = ( seq M ( G , F ) ` N ) ) $=
+      ( vj cuz cfv wcel cfz co cv cprd cseq ax-17 hbfv fveq2 cbvprodi fprodser
+      syl5eq ) FEIJKEFLMZBNZCJZBDOUCHNZCJZHDOFDCEPJAUCUEUGBHDANZUEKHQBAUFCGUHUF
+      KBQRUDUFCSTHCDEFUAUB $.
+      $( [5-Sep-2010] $)
+  $}
+
+  ${
+    $d A x y $.  $d B k y $.  $d G x $.  $d M k x y $.
+    fprod1.1 $e |- ( k = M -> A = B ) $.
+    $( The finite composite of ` A ( k ) ` from ` k = M ` to ` M ` (i.e. a
+       composite with only one term) is ` B ` i.e. ` A ( M ) ` .  (Contributed
+       by FL, 5-Sep-2010.) $)
+    fprod1i $p |- ( ( M e. ZZ /\ B e. V ) ->
+                   prod_ k e. ( M ... M ) G A = B ) $=
+      ( cz wcel wa cfz co cprd cvv cmpt cseq cfv cuz wceq adantr uzid seq1 elex
+      dffprod syl eqid fvmptg sylan 3eqtrd ) EHIZBFIZJZEEKLACDMZEDCNAOZEPQZEUNQ
+      ZBULEERQIZUMUOSUJUQUKEUATACDEEUDUEUJUOUPSUKDUNEUBTUJENIUKUPBSEHUCCEABNFUN
+      GUNUFUGUHUI $.
+      $( [26-May-2014] $) $( [5-Sep-2010] $)
+  $}
+
+  ${
+    $d A x y $.  $d B k y $.  $d G x $.  $d M k x $.  $d N k x y $.
+    fprodp1.1 $e |- ( k = ( N + 1 ) -> A = B ) $.
+    $( The composite of the next term in a finite composite of ` A ( k ) ` is
+       the previous term composed with ` A ( N + 1 ) = B ` .  (Contributed by
+       Mario Carneiro, 26-May-2014.) $)
+    fprodp1 $p |- ( ( N e. ( ZZ>= ` M ) /\ B e. V ) ->
+                    prod_ k e. ( M ... ( N + 1 ) ) G A =
+                  ( prod_ k e. ( M ... N ) G A G B ) ) $=
+      ( cuz cfv wcel c1 caddc co cvv cfz cprd wceq adantr dffprod wa cmpt seqp1
+      cseq peano2uz syl ovex eqid fvmptg mpan adantl eqcomd oveq12d 3eqtr4d ) F
+      EIJZKZBGKZUAZFLMNZDCOAUBZEUDZJZFVAJZUSUTJZDNZEUSPNACDQZEFPNACDQZBDNUPVBVE
+      RUQDUTEFUCSURUSUOKZVFVBRUPVHUQEFUESACDEUSTUFURVGVCBVDDUPVGVCRUQACDEFTSURV
+      DBUQVDBRZUPUSOKUQVIFLMUGCUSABOGUTHUTUHUIUJUKULUMUN $.
+      $( [26-May-2014] $)
+
+    fprodp1i.2 $e |- B e. _V $.
+    $( The composite of the next term in a finite composite of ` A ( k ) ` is
+       the previous term composed with ` A ( N + 1 ) = B ` .  (Contributed by
+       FL, 5-Sep-2010.) $)
+    fprodp1i $p |- ( N e. ( ZZ>= ` M ) -> prod_ k e. ( M ... ( N + 1 ) ) G A =
+                ( prod_ k e. ( M ... N ) G A G B ) ) $=
+      ( cuz cfv wcel cvv c1 caddc co cfz cprd wceq fprodp1 mpan2 ) FEIJKBLKEFMN
+      OPOACDQEFPOACDQBDORHABCDEFLGST $.
+      $( [26-May-2014] $) $( [5-Sep-2010] $)
+  $}
+
+  ${
+    $d k m x $.  $d m x A $.  $d x G $.  $d m x M $.
+    $( The finite composite of a sequence ` A ( k ) ` from ` M ` to ` M ` (i.e.
+       a composite with only one term) is ` A ( M ) ` .  (Contributed by FL,
+       5-Sep-2010.)  (Revised by Mario Carneiro, 26-May-2014.) $)
+    fprod1s $p |- ( ( M e. ZZ /\ [_ M / k ]_ A e. V ) ->
+                  prod_ k e. ( M ... M ) G A = [_ M / k ]_ A ) $=
+      ( vm vx cz wcel csb wa cfz co cprd ax-17 vex hbcsb1OLD csbeq1a cbvprodi
+      cv csbeq1 fprod1i syl5eq ) DHIBDAJZEIKDDLMZABCNUEBFTZAJZFCNUDGUEAUGBFCGTZ
+      AIFOBGUFAFPUHUFIBOQBUFARSUGUDFCDEBUFDAUAUBUC $.
+      $( [26-May-2014] $) $( [5-Sep-2010] $)
+  $}
+
+  ${
+    $d x B $.  $d k x M $.
+    fprod1fi.1 $e |- ( x e. B -> A. k x e. B ) $.
+    fprod1fi.2 $e |- ( k = M -> A = B ) $.
+    $( The finite composite of a term ` A ( k ) ` from ` M ` to ` M ` (i.e. a
+       composite with only one term) is ` A ( M ) = B ` , where ` k ` is
+       effectively not free in ` B ` .  (Contributed by FL, 5-Sep-2010.) $)
+    fprod1fi $p |- ( ( M e. ZZ /\ B e. V )
+       -> prod_ k e. ( M ... M ) G A = B ) $=
+      ( cz wcel wa cfz co cprd csb wceq cv wal wi csbiegf simpr eqeltrd fprod1s
+      a1i adantr syldan eqtrd ) FJKZCGKZLZFFMNBDEOZDFBPZCUIUJUMGKULUMQUKUMCGUIU
+      MCQUJDAFBCJARCKZUNDSTUIHUEIUAUFZUIUJUBUCBDEFGUDUGUOUH $.
+      $( [26-May-2014] $) $( [5-Sep-2010] $)
+  $}
+
+  ${
+    $d k m x $.  $d m x A $.  $d x G $.  $d m x M $.  $d m x N $.
+    $( The composite of the next term in a finite sum of ` A ( k ) ` is the
+       previous term composed with ` A ( N + 1 ) ` .  (Contributed by FL,
+       19-Sep-2011.) $)
+    fprodp1s $p |- ( ( N e. ( ZZ>= ` M ) /\ [_ ( N + 1 ) / k ]_ A e. V ) ->
+                     prod_ k e. ( M ... ( N + 1 ) ) G A =
+                   ( prod_ k e. ( M ... N ) G A G [_ ( N + 1 ) / k ]_ A ) ) $=
+      ( vm vx cuz cfv wcel c1 caddc co csb cfz cv cprd ax-17 cbvprodi wa csbeq1
+      fprodp1 vex hbcsb1OLD csbeq1a oveq1i 3eqtr4g ) EDIJKBELMNZAOZFKUADUIPNZBG
+      QZAOZGCRDEPNZUMGCRZUJCNUKABCRUNABCRZUJCNUMUJGCDEFBULUIAUBUCHUKAUMBGCHQZAK
+      GSZBHULAGUDUQULKBSUEZBULAUFZTUPUOUJCHUNAUMBGCURUSUTTUGUH $.
+      $( [26-May-2014] $) $( [19-Sep-2011] $)
+  $}
+
+  ${
+    $d k x $.  $d x B $.  $d k N $.
+    fprodp1fi.1 $e |- B e. _V $.
+    fprodp1fi.2 $e |- ( x e. B -> A. k x e. B ) $.
+    fprodp1fi.3 $e |- ( k = ( N + 1 ) -> A = B ) $.
+    $( The composite of the next term in a finite composite of ` A ( k ) ` is
+       the previous term composed with ` A ( N + 1 ) = B ` .  (Contributed by
+       FL, 5-Sep-2010.) $)
+    fprodp1fi $p |- ( N e. ( ZZ>= ` M ) -> prod_ k e. ( M ... ( N + 1 ) ) G A =
+                ( prod_ k e. ( M ... N ) G A G B ) ) $=
+      ( cuz cfv wcel c1 caddc co cfz cprd csb cvv csbief eqeltri fprodp1s mpan2
+      wceq ovex oveq2i syl6eq ) GFKLMZFGNOPZQPBDERZFGQPBDERZDUJBSZEPZULCEPUIUMT
+      MUKUNUEUMCTDAUJBCGNOUFIJUAZHUBBDEFGTUCUDUMCULEUOUGUH $.
+      $( [26-May-2014] $) $( [5-Sep-2010] $)
+  $}
+
+  ${
+    $d m n A $.  $d k m n M $.  $d k n N $.
+    $( Relation between ` sum_ ` and ` prod_ ` .  (Contributed by FL,
+       5-Sep-2010.)  (Revised by Mario Carneiro, 26-May-2014.) $)
+    fsumprd $p |- ( A. k e. ( M ... N ) A e. CC ->
+        sum_ k e. ( M ... N ) A = prod_ k e. ( M ... N ) + A ) $=
+      ( vn vm cc wcel cfz co wral csu caddc cprd wceq wi c0 cfv sumeq1 cv prod0
+      cc0 cgi cnid sum0 3eqtr4i prodeq1 3eqtr4a a1d cz wne fz2ex cuz wex n0 cvv
+      wrex vex elfzuz2 mpan exlimiv sylbi wa cmpt cseq eqidd simpl wf eqid fmpt
+      simpr sylib ffvelrn sylan fsumser fprodser adantr sumfc wss ssid prodeqfv
+      eqtr4d ax-mp 3eqtr3g ex syl neeq1 raleq eqeq12d imbi12d 3imtr4d rexlimivw
+      a1i pm2.61ine ) AGHZBCDIJZKZWPABLZWPABMNZOZPZWPQWPQOZWTWQXBQABLZQABMNZWRW
+      SUBMUCRXCXDUDABUEABMUAUFWPQABSWPQABMUGUHUIWPCETZIJZOZEUJUQWPQUKZXAPZECDUL
+      XGXIEUJXGXFQUKZWOBXFKZXFABLZXFABMNZOZPZXHXAXJXOPXGXJXECUMRHZXOXJBTZXFHZBU
+      NXPBXFUOXRXPBXEUPHXRXPEURUPXQCXEUSUTVAVBXPXKXNXPXKVCZXFFTZBXFAVDZRZFLZXFY
+      BFMNZXLXMXSYCXEMYACVERZYDXSYBFYACXEXSXTXFHZVCYBVFXPXKVGXSXFGYAVHZYFYBGHXS
+      XKYGXPXKVKBXFGAYAYAVIZVJVLXFGXTYAVMVNVOXPYDYEOXKFYAMCXEVPVQWBXFAFBVRXFXFV
+      SYDXMOXFVTAXFXFBFYAMYHWAWCWDWEWFWMWPXFQWGXGWQXKWTXNWOBWPXFWHXGWRXLWSXMWPX
+      FABSWPXFABMUGWIWJWKWLWCWN $.
+      $( [26-May-2014] $) $( [5-Sep-2010] $)
+  $}
+
+  ${
+    $d B1 k $.  $d B2 a k $.  $d C k $.  $d M k $.
+    fprod2.1 $e |- ( k = M -> A = B1 ) $.
+    fprod2.2 $e |- ( k = ( M + 1 ) -> A = B2 ) $.
+    $( The finite composite of ` A ( k ) ` from ` k = M ` to ` ( M + 1 ) `
+       (i.e. a composite with two terms) is ` ( B1 G B2 ) ` i.e.
+       ` ( A ( M ) G A ( M + 1 ) ) ` .  (Contributed by FL, 22-Nov-2010.) $)
+    fprod2 $p |- ( ( M e. ZZ /\ B1 e. V /\ B2 e. W ) ->
+                   prod_ k e. ( M ... ( M + 1 ) ) G A = ( B1 G B2 ) ) $=
+      ( cz wcel w3a c1 caddc co cfz cprd cuz wceq uzid 3ad2ant1 fprodp1 syl2anc
+      cfv simp3 fprod1i 3adant3 oveq1d eqtrd ) DKLZGELZHFLZMZDDNOPQPABCRZDDQPAB
+      CRZHCPZGHCPUNDDSUELZUMUOUQTUKULURUMDUAUBUKULUMUFAHBCDDFJUCUDUNUPGHCUKULUP
+      GTUMAGBCDEIUGUHUIUJ $.
+      $( [26-May-2014] $) $( [22-Nov-2010] $)
   $}
 
 
