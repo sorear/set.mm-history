@@ -4,31 +4,62 @@ $(
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 $)
 
+  $c CMnd $.
   $c Abel $.
+
+  $( Extend class notation with class of all commutative monoids. $)
+  ccmn $a class CMnd $.
 
   $( Extend class notation with class of all Abelian groups. $)
   cabel $a class Abel $.
 
   ${
     $d a b g $.
-    $( Define class of all Abelian groups. $)
-    df-abl $a |- Abel = { g e. Grp | A. a e. ( Base ` g )
+    $( Define class of all commutative monoids. $)
+    df-cmn $a |- CMnd = { g e. Mnd | A. a e. ( Base ` g )
       A. b e. ( Base ` g ) ( a ( +g ` g ) b ) = ( b ( +g ` g ) a ) } $.
   $}
 
+  $( Define class of all Abelian groups. $)
+  df-abl $a |- Abel = ( Grp i^i CMnd ) $.
+
+  $( The predicate "is an Abelian (commutative) group." $)
+  isabl $p |- ( G e. Abel <-> ( G e. Grp /\ G e. CMnd ) ) $=
+    ( cabel wcel cgrp ccmn cin wa df-abl eleq2i elin bitri ) ABCADEFZCADCAECGBL
+    AHIADEJK $.
+    $( [17-Oct-2011] $)
+
+  $( An Abelian group is a group. $)
+  ablgrp $p |- ( G e. Abel -> G e. Grp ) $=
+    ( cabel wcel cgrp ccmn isabl simplbi ) ABCADCAECAFG $.
+    $( [26-Aug-2011] $)
+
+  $( An Abelian group is a commutative monoid. $)
+  ablcmn $p |- ( G e. Abel -> G e. CMnd ) $=
+    ( cabel wcel cgrp ccmn isabl simprbi ) ABCADCAECAFG $.
+    $( [6-Jan-2015] $)
+
   ${
     $d g x y B $.  $d g x y G $.  $d g P $.
-    isabl.b $e |- B = ( Base ` G ) $.
-    isabl.p $e |- P = ( +g ` G ) $.
-    $( The predicate "is an Abelian (commutative) group." $)
-    isabl $p |- ( G e. Abel <-> ( G e. Grp /\
+    iscmn.b $e |- B = ( Base ` G ) $.
+    iscmn.p $e |- P = ( +g ` G ) $.
+    $( The predicate "is a commutative monoid." $)
+    iscmn $p |- ( G e. CMnd <-> ( G e. Mnd /\
              A. x e. B A. y e. B ( x P y ) = ( y P x ) ) ) $=
-      ( vg cv cplusg cfv co wceq cbs wral cgrp cabel fveq2 syl6eqr oveqd wb syl
-      raleq raleqbi1dv eqeq12d 2ralbidv bitrd df-abl elrab2 ) AIZBIZHIZJKZLZUKU
-      JUMLZMZBULNKZOZAUQOZUJUKDLZUKUJDLZMZBCOACOZHEPQULEMZUSUPBCOZACOZVCVDUQCMU
-      SVFUAVDUQENKCULENRFSURVEAUQCUPBUQCUCUDUBVDUPVBABCCVDUNUTUOVAVDUMDUJUKVDUM
-      EJKDULEJRGSZTVDUMDUKUJVGTUEUFUGHABUHUI $.
-      $( [17-Oct-2011] $)
+      ( vg cv cplusg cfv co wceq cbs wral cmnd ccmn fveq2 syl6eqr oveqd eqeq12d
+      wb raleq raleqbi1dv syl 2ralbidv bitrd df-cmn elrab2 ) AIZBIZHIZJKZLZUKUJ
+      UMLZMZBULNKZOZAUQOZUJUKDLZUKUJDLZMZBCOACOZHEPQULEMZUSUPBCOZACOZVCVDUQCMUS
+      VFUBVDUQENKCULENRFSURVEAUQCUPBUQCUCUDUEVDUPVBABCCVDUNUTUOVAVDUMDUJUKVDUME
+      JKDULEJRGSZTVDUMDUKUJVGTUAUFUGHABUHUI $.
+      $( [6-Jan-2015] $)
+
+    $( The predicate "is an Abelian (commutative) group." $)
+    isabl2 $p |- ( G e. Abel <-> ( G e. Grp /\
+             A. x e. B A. y e. B ( x P y ) = ( y P x ) ) ) $=
+      ( cabel wcel cgrp ccmn wa cv co wceq wral isabl cmnd wb grpmnd iscmn baib
+      syl pm5.32i bitri ) EHIEJIZEKIZLUFAMZBMZDNUIUHDNOBCPACPZLEQUFUGUJUFERIZUG
+      UJSETUGUKUJABCDEFGUAUBUCUDUE $.
+      $( [6-Jan-2015] $) $( [17-Oct-2011] $)
   $}
 
   ${
@@ -37,17 +68,25 @@ $)
     ablpropd.2 $e |- ( ph -> B = ( Base ` L ) ) $.
     ablpropd.3 $e |- ( ( ph /\ ( x e. B /\ y e. B ) ) ->
       ( x ( +g ` K ) y ) = ( x ( +g ` L ) y ) ) $.
+    $( If two structures have the same group components (properties), one is a
+       commutative monoid iff the other one is.  (Contributed by Mario
+       Carneiro, 6-Jan-2015.) $)
+    cmnpropd $p |- ( ph -> ( K e. CMnd <-> L e. CMnd ) ) $=
+      ( vu vv cmnd wcel cv cfv co wceq wral wa eqid cplusg cbs mndpropd proplem
+      ancom2s eqeq12d 2ralbidva raleqdv raleqbidv 3bitr3d anbi12d iscmn 3bitr4g
+      ccmn ) AELMZJNZKNZEUAOZPZUQUPURPZQZKEUBOZRZJVBRZSFLMZUPUQFUAOZPZUQUPVFPZQ
+      ZKFUBOZRZJVJRZSEUNMFUNMAUOVEVDVLABCDEFGHIUCAVAKDRZJDRVIKDRZJDRVDVLAVAVIJK
+      DDAUPDMZUQDMZSSUSVGUTVHABCDDURVFUPUQIUDAVPVOUTVHQABCDDURVFUQUPIUDUEUFUGAV
+      MVCJDVBGAVAKDVBGUHUIAVNVKJDVJHAVIKDVJHUHUIUJUKJKVBUREVBTURTULJKVJVFFVJTVF
+      TULUM $.
+      $( [6-Jan-2015] $)
+
     $( If two structures have the same group components (properties), one is an
        Abelian group iff the other one is.  (Contributed by Mario Carneiro,
        6-Dec-2014.) $)
     ablpropd $p |- ( ph -> ( K e. Abel <-> L e. Abel ) ) $=
-      ( vu vv cgrp wcel cv cfv co wceq wral wa eqid cplusg cbs grppropd proplem
-      cabel ancom2s eqeq12d 2ralbidva raleqdv raleqbidv 3bitr3d anbi12d 3bitr4g
-      isabl ) AELMZJNZKNZEUAOZPZUQUPURPZQZKEUBOZRZJVBRZSFLMZUPUQFUAOZPZUQUPVFPZ
-      QZKFUBOZRZJVJRZSEUEMFUEMAUOVEVDVLABCDEFGHIUCAVAKDRZJDRVIKDRZJDRVDVLAVAVIJ
-      KDDAUPDMZUQDMZSSUSVGUTVHABCDDURVFUPUQIUDAVPVOUTVHQABCDDURVFUQUPIUDUFUGUHA
-      VMVCJDVBGAVAKDVBGUIUJAVNVKJDVJHAVIKDVJHUIUJUKULJKVBUREVBTURTUNJKVJVFFVJTV
-      FTUNUM $.
+      ( cgrp wcel ccmn wa cabel grppropd cmnpropd anbi12d isabl 3bitr4g ) AEJKZ
+      ELKZMFJKZFLKZMENKFNKATUBUAUCABCDEFGHIOABCDEFGHIPQERFRS $.
       $( [6-Dec-2014] $)
   $}
 
@@ -66,17 +105,30 @@ $)
 
   ${
     $d x y B $.  $d x y G $.  $d x y ph $.
-    isabld.g $e |- ( ph -> G e. Grp ) $.
+    iscmnd.b $e |- ( ph -> B = ( Base ` G ) ) $.
+    iscmnd.p $e |- ( ph -> P = ( +g ` G ) ) $.
+    iscmnd.g $e |- ( ph -> G e. Mnd ) $.
+    iscmnd.c $e |- ( ( ph /\ x e. B /\ y e. B ) -> ( x P y ) = ( y P x ) ) $.
+    $( Properties that determine a commutative monoid. $)
+    iscmnd $p |- ( ph -> G e. CMnd ) $=
+      ( cmnd wcel cv cfv co wceq wral oveqd raleqbidv eqid cplusg cbs wa anbi2d
+      ccmn eqeq12d 3expib ralrimivv mpbi2and iscmn sylibr ) AFKLZBMZCMZFUANZOZU
+      NUMUOOZPZCFUBNZQZBUSQZUCZFUELAULUMUNEOZUNUMEOZPZCDQZBDQZVBAVGVAULAVFUTBDU
+      SGAVEURCDUSGAVCUPVDUQAEUOUMUNHRAEUOUNUMHRUFSSUDIAVEBCDDAUMDLUNDLVEJUGUHUI
+      BCUSUOFUSTUOTUJUK $.
+      $( [6-Aug-2013] $)
+  $}
+
+  ${
+    $d x y B $.  $d x y G $.  $d x y ph $.
     isabld.b $e |- ( ph -> B = ( Base ` G ) ) $.
     isabld.p $e |- ( ph -> P = ( +g ` G ) ) $.
+    isabld.g $e |- ( ph -> G e. Grp ) $.
     isabld.c $e |- ( ( ph /\ x e. B /\ y e. B ) -> ( x P y ) = ( y P x ) ) $.
     $( Properties that determine an Abelian group. $)
     isabld $p |- ( ph -> G e. Abel ) $=
-      ( cgrp wcel cv cfv co wceq wral oveqd raleqbidv eqid cplusg cabel eqeq12d
-      cbs wa anbi2d 3expib ralrimivv mpbi2and isabl sylibr ) AFKLZBMZCMZFUANZOZ
-      UNUMUOOZPZCFUDNZQZBUSQZUEZFUBLAULUMUNEOZUNUMEOZPZCDQZBDQZVBAVGVAULAVFUTBD
-      USHAVEURCDUSHAVCUPVDUQAEUOUMUNIRAEUOUNUMIRUCSSUFGAVEBCDDAUMDLUNDLVEJUGUHU
-      IBCUSUOFUSTUOTUJUK $.
+      ( cgrp wcel ccmn cabel cmnd grpmnd syl iscmnd isabl sylanbrc ) AFKLZFMLFN
+      LIABCDEFGHAUAFOLIFPQJRFST $.
       $( [6-Aug-2013] $)
   $}
 
@@ -88,52 +140,56 @@ $)
     isabli.c $e |- ( ( x e. B /\ y e. B ) -> ( x P y ) = ( y P x ) ) $.
     $( Properties that determine an Abelian group. $)
     isabli $p |- G e. Abel $=
-      ( cabel wcel cgrp cv co wceq wral isabl rgen2a mpbir2an ) EJKELKAMZBMZDNU
-      ATDNOZBCPACPABCDEGHQFUBABCIRS $.
+      ( cabel wcel cgrp cv co wceq wral isabl2 rgen2a mpbir2an ) EJKELKAMZBMZDN
+      UATDNOZBCPACPABCDEGHQFUBABCIRS $.
       $( [4-Sep-2011] $)
   $}
 
   ${
-    $d x y G $.
-    $( An Abelian group is a group. $)
-    ablgrp $p |- ( G e. Abel -> G e. Grp ) $=
-      ( vx vy cabel wcel cgrp cv cplusg cfv co wceq cbs wral eqid isabl simplbi
+    $d x y z B $.  $d x y z G $.  $d x y z P $.  $d x y z W $.  $d x y z X $.
+    $d x y z Y $.  $d x y z Z $.
+    $( A commutative monoid is a monoid. $)
+    cmnmnd $p |- ( G e. CMnd -> G e. Mnd ) $=
+      ( vx vy ccmn wcel cmnd cv cplusg cfv co wceq cbs wral eqid iscmn simplbi
       ) ADEAFEBGZCGZAHIZJRQSJKCALIZMBTMBCTSATNSNOP $.
-      $( [26-Aug-2011] $)
-  $}
+      $( [6-Jan-2015] $)
 
-  ${
-    $d x y B $.  $d x y G $.  $d x y P $.  $d x y X $.  $d y Y $.
     ablcom.b $e |- B = ( Base ` G ) $.
     ablcom.p $e |- P = ( +g ` G ) $.
+    $( An commutative monoid is commutative. $)
+    cmncom $p |- ( ( G e. CMnd /\ X e. B /\ Y e. B ) ->
+                 ( X P Y ) = ( Y P X ) ) $=
+      ( vx vy ccmn wcel co wceq cv wral wa cmnd iscmn simprbi ra42 imp caovcomg
+      sylan 3impb ) CJKZDAKEAKDEBLEDBLMUEHIDEABUEHNZINZBLUGUFBLMZIAOHAOZUFAKUGA
+      KPZUHUECQKUIHIABCFGRSUIUJUHUHHIAATUAUCUBUD $.
+      $( [6-Jan-2015] $)
+
     $( An Abelian group operation is commutative. $)
     ablcom $p |- ( ( G e. Abel /\ X e. B /\ Y e. B ) ->
                  ( X P Y ) = ( Y P X ) ) $=
-      ( vx vy cabel wcel co wceq cv wral wa cgrp oveq1 oveq2 eqeq12d simprbi
-      isabl rcla42v syl5com 3impib ) CJKZDAKZEAKZDEBLZEDBLZMZUFHNZINZBLZUMULBLZ
-      MZIAOHAOZUGUHPUKUFCQKUQHIABCFGUBUAUPUKDUMBLZUMDBLZMHIDEAAULDMUNURUOUSULDU
-      MBRULDUMBSTUMEMURUIUSUJUMEDBSUMEDBRTUCUDUE $.
+      ( cabel wcel ccmn co wceq ablcmn cmncom syl3an1 ) CHICJIDAIEAIDEBKEDBKLCM
+      ABCDEFGNO $.
       $( [26-Aug-2011] $)
 
     $( Commutative/associative law for Abelian groups. $)
-    abl32 $p |- ( ( G e. Abel /\ ( X e. B /\ Y e. B /\ Z e. B ) ) ->
+    cmn32 $p |- ( ( G e. CMnd /\ ( X e. B /\ Y e. B /\ Z e. B ) ) ->
                  ( ( X P Y ) P Z ) = ( ( X P Z ) P Y ) ) $=
-      ( cabel wcel w3a wa co wceq ablcom 3adant3r1 oveq2d cgrp ablgrp grpass
-      sylan adantr simpr1 simpr3 simpr2 syl13anc 3eqtr4d ) CIJZDAJZEAJZFAJZKZLZ
-      DEFBMZBMZDFEBMZBMZDEBMFBMZDFBMEBMZUMUNUPDBUHUJUKUNUPNUIABCEFGHOPQUHCRJZUL
-      URUONCSZABCDEFGHTUAUMUTUIUKUJUSUQNUHUTULVAUBUHUIUJUKUCUHUIUJUKUDUHUIUJUKU
-      EABCDFEGHTUFUG $.
+      ( vx vy vz ccmn wcel w3a wa simpr1 simpr2 cv co wceq simpr3 3expb adantlr
+      cmncom cmnd cmnmnd adantr mndass sylan caov32d ) CLMZDAMZEAMZFAMZNZOZIJKD
+      EFABUKULUMUNPUKULUMUNQUKULUMUNUAUKIRZAMZJRZAMZOUQUSBSZUSUQBSTZUOUKURUTVBA
+      BCUQUSGHUDUBUCUPCUEMZURUTKRZAMNVAVDBSUQUSVDBSBSTUKVCUOCUFUGABCUQUSVDGHUHU
+      IUJ $.
       $( [4-Feb-2014] $)
 
     $( Commutative/associative law for Abelian groups. $)
-    abl4 $p |- ( ( G e. Abel /\ ( X e. B /\ Y e. B ) /\ ( Z e. B /\ W e. B ) )
+    cmn4 $p |- ( ( G e. CMnd /\ ( X e. B /\ Y e. B ) /\ ( Z e. B /\ W e. B ) )
        -> ( ( X P Y ) P ( Z P W ) ) = ( ( X P Z ) P ( Y P W ) ) ) $=
-      ( cabel wcel wa w3a co wceq simp1 syl13anc grpcl syl3anc grpass 3ad2ant1
-      simp2l simp2r simp3l abl32 oveq1d cgrp ablgrp simp3r 3eqtr3d ) CJKZEAKZFA
-      KZLZGAKZDAKZLZMZEFBNZGBNZDBNZEGBNZFBNZDBNZUSGDBNBNZVBFDBNBNZURUTVCDBURUKU
-      LUMUOUTVCOUKUNUQPUKULUMUQUBZUKULUMUQUCZUKUNUOUPUDZABCEFGHIUEQUFURCUGKZUSA
-      KZUOUPVAVEOUKUNVJUQCUHUAZURVJULUMVKVLVGVHABCEFHIRSVIUKUNUOUPUIZABCUSGDHIT
-      QURVJVBAKZUMUPVDVFOVLURVJULUOVNVLVGVIABCEGHIRSVHVMABCVBFDHITQUJ $.
+      ( vx vy vz wcel wa w3a cv co wceq 3expb sylan simp2l simp2r simp3l cmncom
+      ccmn 3ad2antl1 cmnd cmnmnd 3ad2ant1 mndass simp3r mndcl caov4d ) CUEMZEAM
+      ZFAMZNZGAMZDAMZNZOZJKLEFGDABUNUOUPUTUAUNUOUPUTUBUNUQURUSUCUNUQJPZAMZKPZAM
+      ZNZVBVDBQZVDVBBQRZUTUNVCVEVHABCVBVDHIUDSUFVACUGMZVCVELPZAMOVGVJBQVBVDVJBQ
+      BQRUNUQVIUTCUHUIZABCVBVDVJHIUJTUNUQURUSUKVAVIVFVGAMZVKVIVCVEVLABCVBVDHIUL
+      STUM $.
       $( [4-Feb-2014] $)
   $}
 
@@ -173,15 +229,15 @@ $)
     ablsub4 $p |- ( ( G e. Abel /\ ( X e. B /\ Y e. B ) /\ ( Z e. B /\ W e. B )
         ) -> ( ( X P Y ) M ( Z P W ) ) = ( ( X M Z ) P ( Y M W ) ) ) $=
       ( wcel wa co cfv wceq grpcl syl3anc grpsubval syl2anc cminusg cgrp ablgrp
-      cabel 3ad2ant1 simp2l simp2r simp3l simp3r eqid simp1 simp2 grpinvcl abl4
-      w3a syl112anc ablinvadd oveq2d oveq12d 3eqtr4d eqtrd ) CUDLZFALZGALZMZHAL
-      ZEALZMZUOZFGBNZHEBNZDNZVJVKCUAOZOZBNZFHDNZGEDNZBNZVIVJALZVKALZVLVOPVICUBL
-      ZVCVDVSVBVEWAVHCUCUEZVBVCVDVHUFZVBVCVDVHUGZABCFGIJQRVIWAVFVGVTWBVBVEVFVGU
-      HZVBVEVFVGUIZABCHEIJQRABCVMDVJVKIJVMUJZKSTVIVJHVMOZEVMOZBNZBNZFWHBNZGWIBN
-      ZBNZVOVRVIVBVEWHALZWIALZWKWNPVBVEVHUKZVBVEVHULVIWAVFWOWBWEACVMHIWGUMTVIWA
-      VGWPWBWFACVMEIWGUMTABCWIFGWHIJUNUPVIVNWJVJBVIVBVFVGVNWJPWQWEWFABCVMHEIJWG
-      UQRURVIVPWLVQWMBVIVCVFVPWLPWCWEABCVMDFHIJWGKSTVIVDVGVQWMPWDWFABCVMDGEIJWG
-      KSTUSUTVA $.
+      cabel w3a 3ad2ant1 simp2l simp2r simp3l simp3r eqid ccmn simp1 ablcmn syl
+      simp2 grpinvcl cmn4 syl112anc ablinvadd oveq2d oveq12d 3eqtr4d eqtrd ) CU
+      DLZFALZGALZMZHALZEALZMZUEZFGBNZHEBNZDNZVMVNCUAOZOZBNZFHDNZGEDNZBNZVLVMALZ
+      VNALZVOVRPVLCUBLZVFVGWBVEVHWDVKCUCUFZVEVFVGVKUGZVEVFVGVKUHZABCFGIJQRVLWDV
+      IVJWCWEVEVHVIVJUIZVEVHVIVJUJZABCHEIJQRABCVPDVMVNIJVPUKZKSTVLVMHVPOZEVPOZB
+      NZBNZFWKBNZGWLBNZBNZVRWAVLCULLZVHWKALZWLALZWNWQPVLVEWRVEVHVKUMZCUNUOVEVHV
+      KUPVLWDVIWSWEWHACVPHIWJUQTVLWDVJWTWEWIACVPEIWJUQTABCWLFGWKIJURUSVLVQWMVMB
+      VLVEVIVJVQWMPXAWHWIABCVPHEIJWJUTRVAVLVSWOVTWPBVLVFVIVSWOPWFWHABCVPDFHIJWJ
+      KSTVLVGVJVTWPPWGWIABCVPDGEIJWJKSTVBVCVD $.
       $( [31-Mar-2014] $)
 
     $( Abelian group addition/subtraction law. $)
@@ -230,46 +286,49 @@ $)
     mulgdi.b $e |- B = ( Base ` G ) $.
     mulgdi.m $e |- T = ( .g ` G ) $.
     mulgdi.p $e |- P = ( +g ` G ) $.
-    $( Group multiple of a sum, for positive multiples. $)
-    mulgnndi $p |- ( ( G e. Abel /\ ( M e. NN /\ X e. B /\ Y e. B ) ) ->
+    $( Group multiple of a sum, for nonnegative multiples. $)
+    mulgnn0di $p |- ( ( G e. CMnd /\ ( M e. NN0 /\ X e. B /\ Y e. B ) ) ->
       ( M T ( X P Y ) ) = ( ( M T X ) P ( M T Y ) ) ) $=
-      ( wcel cn wa co csn cxp c1 cfv cv wceq vx vy vz vk cabel cseq cgrp ablgrp
-      w3a adantr grpcl 3expb ablcom adantlr grpass cuz simpr1 nnuz syl6eleq cfz
-      sylan simpr2 elfznn syl2an eqeltrd simpr3 syl3anc oveq12d eqtr4d seqcaopr
-      fvconst2g eqid mulgnn syl2anc 3eqtr4d ) DUEKZELKZFAKZGAKZUIZMZEBLFGBNZOPZ
-      QUFZRZEBLFOPZQUFZRZEBLGOPZQUFZRZBNEWBCNZEFCNZEGCNZBNWAUAUBUCBAUDWFWIWCQEW
-      ADUGKZUASZAKZUBSZAKZMZWPWRBNZAKZVPWOVTDUHUJZWOWQWSXBABDWPWRHJUKULVAVPWTXA
-      WRWPBNTZVTVPWQWSXDABDWPWRHJUMULUNWAWOWQWSUCSZAKUIXAXEBNWPWRXEBNBNTXCABDWP
-      WRXEHJUOVAWAELQUPRVPVQVRVSUQZURUSWAUDSZQEUTNKZMZXGWFRZFAWAVRXGLKZXJFTXHVP
-      VQVRVSVBZXGEVCZLFXGAVKVDZWAVRXHXLUJVEXIXGWIRZGAWAVSXKXOGTXHVPVQVRVSVFZXML
-      GXGAVKVDZWAVSXHXPUJVEXIXGWCRZWBXJXOBNWAWBAKZXKXRWBTXHWAWOVRVSXSXCXLXPABDF
-      GHJUKVGZXMLWBXGAVKVDXIXJFXOGBXNXQVHVIVJWAVQXSWLWETXFXTABWDCDEWBHJIWDVLVMV
-      NWAWMWHWNWKBWAVQVRWMWHTXFXLABWGCDEFHJIWGVLVMVNWAVQVSWNWKTXFXPABWJCDEGHJIW
-      JVLVMVNVHVO $.
+      ( wcel wa cn cc0 wceq co c1 cfv cv eqid vx vy vz vk ccmn cn0 w3a wo elnn0
+      simpr1 sylib csn cxp cseq cmnmnd ad2antrr mndcl 3expb sylan simpll cmncom
+      cmnd mndass cuz simpr syl6eleq cfz simplr2 elfznn fvconst2g syl2an adantr
+      nnuz eqeltrd simplr3 syl3anc oveq12d seqcaopr syl2anc 3eqtr4d c0g a1i cbs
+      eqtr4d mulgnn mndidcl mndlid mpdan syl mulg0 3eqtr4rd oveq1d eqtrd jaodan
+      ) DUEKZEUFKZFAKZGAKZUGZLZEMKZENOZUHZEFGBPZCPZEFCPZEGCPZBPZOZWTWPXCWOWPWQW
+      RUJEUIUKWTXAXIXBWTXALZEBMXDULUMZQUNZRZEBMFULUMZQUNZRZEBMGULUMZQUNZRZBPXEX
+      HXJUAUBUCBAUDXNXQXKQEXJDVBKZUASZAKZUBSZAKZLZYAYCBPZAKZWOXTWSXADUOZUPZXTYB
+      YDYGABDYAYCHJUQURUSXJWOYEYFYCYABPOZWOWSXAUTWOYBYDYJABDYAYCHJVAURUSXJXTYBY
+      DUCSZAKUGYFYKBPYAYCYKBPBPOYIABDYAYCYKHJVCUSXJEMQVDRWTXAVEZVMVFXJUDSZQEVGP
+      KZLZYMXNRZFAXJWQYMMKZYPFOYNWPWQWRWOXAVHZYMEVIZMFYMAVJVKZXJWQYNYRVLVNYOYMX
+      QRZGAXJWRYQUUAGOYNWPWQWRWOXAVOZYSMGYMAVJVKZXJWRYNUUBVLVNYOYMXKRZXDYPUUABP
+      XJXDAKZYQUUDXDOYNXJXTWQWRUUEYIYRUUBABDFGHJUQZVPZYSMXDYMAVJVKYOYPFUUAGBYTU
+      UCVQWDVRXJXAUUEXEXMOYLUUGABXLCDEXDHJIXLTWEVSXJXFXPXGXSBXJXAWQXFXPOYLYRABX
+      OCDEFHJIXOTWEVSXJXAWRXGXSOYLUUBABXRCDEGHJIXRTWEVSVQVTWTXBLZNXDCPZDWARZUUJ
+      BPZXEXHUUHUUJUUJUUKUUIUUJUUJOUUHUUJTZWBWOUUKUUJOZWSXBWOXTUUMYHXTUUJDWCRZK
+      UUMUUNDUUJUUNTZUULWFUUNBDUUJUUJUUOJUULWGWHWIUPUUHUUEUUIUUJOUUHXTWQWRUUEWO
+      XTWSXBYHUPWPWQWRWOXBVHZWPWQWRWOXBVOZUUFVPACDUUJXDHUULIWJWIWKUUHENXDCWTXBV
+      EZWLUUHXFUUJXGUUJBUUHXFNFCPZUUJUUHENFCUURWLUUHWQUUSUUJOUUPACDUUJFHUULIWJW
+      IWMUUHXGNGCPZUUJUUHENGCUURWLUUHWRUUTUUJOUUQACDUUJGHUULIWJWIWMVQVTWNWH $.
       $( [13-Dec-2014] $)
 
     $( Group multiple of a sum. $)
     mulgdi $p |- ( ( G e. Abel /\ ( M e. ZZ /\ X e. B /\ Y e. B ) ) ->
       ( M T ( X P Y ) ) = ( ( M T X ) P ( M T Y ) ) ) $=
-      ( wcel wa cc0 wceq co syl cfv adantr oveq1 syl3anc cabel cz w3a cn simpr1
-      cneg w3o cr elz simprbi c0g cgrp ablgrp grpidcl grplid mpdan simpr2 mulg0
-      eqid sylan9eqr simpr3 oveq12d grpcl 3eqtr4rd simpll simpr simplr2 simplr3
-      mulgnndi syl13anc cminusg mulgneg simpl mulgcl ablinvadd eqtr4d grpinvinv
-      3eqtr3d fveq2d syl2anc 3jaodan ) DUAKZEUBKZFAKZGAKZUCZLZEMNZEUDKZEUFZUDKZ
-      UGZEFGBOZCOZEFCOZEGCOZBOZNZWGWCWLWBWCWDWEUEZWCEUHKWLEUIUJPWGWHWRWIWKWGWHL
-      ZDUKQZXABOZXAWQWNWGXBXANZWHWGDULKZXCWBXDWFDUMRZXDXAAKXCADXAHXAUSZUNABDXAX
-      AHJXFUOUPPRWTWOXAWPXABWHWGWOMFCOZXAEMFCSWGWDXGXANWBWCWDWEUQZACDXAFHXFIURP
-      UTWHWGWPMGCOZXAEMGCSWGWEXIXANWBWCWDWEVAZACDXAGHXFIURPUTVBWHWGWNMWMCOZXAEM
-      WMCSWGWMAKZXKXANWGXDWDWEXLXEXHXJABDFGHJVCTZACDXAWMHXFIURPUTVDWGWILWBWIWDW
-      EWRWBWFWIVEWGWIVFWCWDWEWBWIVGWCWDWEWBWIVHABCDEFGHIJVIVJWGWKLZWNDVKQZQZXOQ
-      ZWQXOQZXOQZWNWQXNXPXRXOXNXPWOXOQZWPXOQZBOZXRXNWJWMCOZWJFCOZWJGCOZBOZXPYBX
-      NWBWKWDWEYCYFNWBWFWKVEWGWKVFWGWDWKXHRWGWEWKXJRABCDWJFGHIJVIVJWGYCXPNZWKWG
-      XDWCXLYGXEWSXMACDXOEWMHIXOUSZVLTRWGYFYBNWKWGYDXTYEYABWGXDWCWDYDXTNXEWSXHA
-      CDXOEFHIYHVLTWGXDWCWEYEYANXEWSXJACDXOEGHIYHVLTVBRVRWGXRYBNZWKWGWBWOAKZWPA
-      KZYIWBWFVMWGXDWCWDYJXEWSXHACDEFHIVNTZWGXDWCWEYKXEWSXJACDEGHIVNTZABDXOWOWP
-      HJYHVOTRVPVSXNXDWNAKZXQWNNWGXDWKXERZWGYNWKWGXDWCXLYNXEWSXMACDEWMHIVNTRADX
-      OWNHYHVQVTXNXDWQAKZXSWQNYOWGYPWKWGXDYJYKYPXEYLYMABDWOWPHJVCTRADXOWQHYHVQV
-      TVRWAUP $.
+      ( wcel wa co wceq syl cfv adantr syl3anc mulgneg mulgcl cabel cz w3a cneg
+      cn0 wo simpr1 elznn0 simprbi ccmn simpll ablcmn simplr2 simplr3 mulgnn0di
+      cr simpr syl13anc cminusg simpr2 simpr3 cgrp ablgrp grpcl oveq12d 3eqtr3d
+      eqid simpl ablinvadd eqtr4d fveq2d grpinvinv syl2anc jaodan mpdan ) DUAKZ
+      EUBKZFAKZGAKZUCZLZEUEKZEUDZUEKZUFZEFGBMZCMZEFCMZEGCMZBMZNZWAVQWEVPVQVRVSU
+      GZVQEUPKWEEUHUIOWAWBWKWDWAWBLZDUJKZWBVRVSWKWMVPWNVPVTWBUKDULZOWAWBUQVQVRV
+      SVPWBUMVQVRVSVPWBUNABCDEFGHIJUOURWAWDLZWGDUSPZPZWQPZWJWQPZWQPZWGWJWPWRWTW
+      QWPWRWHWQPZWIWQPZBMZWTWPWCWFCMZWCFCMZWCGCMZBMZWRXDWPWNWDVRVSXEXHNWPVPWNVP
+      VTWDUKWOOWAWDUQWAVRWDVPVQVRVSUTZQWAVSWDVPVQVRVSVAZQABCDWCFGHIJUOURWAXEWRN
+      ZWDWADVBKZVQWFAKZXKVPXLVTDVCQZWLWAXLVRVSXMXNXIXJABDFGHJVDRZACDWQEWFHIWQVG
+      ZSRQWAXHXDNWDWAXFXBXGXCBWAXLVQVRXFXBNXNWLXIACDWQEFHIXPSRWAXLVQVSXGXCNXNWL
+      XJACDWQEGHIXPSRVEQVFWAWTXDNZWDWAVPWHAKZWIAKZXQVPVTVHWAXLVQVRXRXNWLXIACDEF
+      HITRZWAXLVQVSXSXNWLXJACDEGHITRZABDWQWHWIHJXPVIRQVJVKWPXLWGAKZWSWGNWAXLWDX
+      NQZWAYBWDWAXLVQXMYBXNWLXOACDEWFHITRQADWQWGHXPVLVMWPXLWJAKZXAWJNYCWAYDWDWA
+      XLXRXSYDXNXTYAABDWHWIHJVDRQADWQWJHXPVLVMVFVNVO $.
       $( [13-Dec-2014] $)
   $}
 
@@ -299,12 +358,12 @@ $)
     $( A subgroup of an abelian group is also abelian.  (Contributed by Mario
        Carneiro, 3-Dec-2014.) $)
     subgabl $p |- ( ( G e. Abel /\ S e. ( SubGrp ` G ) ) -> H e. Abel ) $=
-      ( vx vy cabel wcel csubg cfv wa cplusg cgrp adantl wceq eqid cv co sseldd
-      cbs subggrp subgbas ressplusg a1i w3a simp1l wss simp1r subgss syl ablcom
-      simp2 simp3 syl3anc isabld ) BGHZABIJHZKZEFABLJZCUQCMHUPABCDUANUQACTJOUPA
-      BCDUBNUSCLJOURAUSBCDUSPZUCUDUREQZAHZFQZAHZUEZUPVABTJZHVCVFHVAVCUSRVCVAUSR
-      OUPUQVBVDUFVEAVFVAVEUQAVFUGUPUQVBVDUHVFABVFPZUIUJZURVBVDULSVEAVFVCVHURVBV
-      DUMSVFUSBVAVCVGUTUKUNUO $.
+      ( vx vy cabel wcel csubg cfv wa cplusg cbs wceq subgbas adantl eqid cv co
+      sseldd ressplusg a1i subggrp w3a simp1l wss simp1r subgss syl simp2 simp3
+      cgrp ablcom syl3anc isabld ) BGHZABIJHZKZEFABLJZCUQACMJNUPABCDOPUSCLJNURA
+      USBCDUSQZUAUBUQCULHUPABCDUCPURERZAHZFRZAHZUDZUPVABMJZHVCVFHVAVCUSSVCVAUSS
+      NUPUQVBVDUEVEAVFVAVEUQAVFUFUPUQVBVDUGVFABVFQZUHUIZURVBVDUJTVEAVFVCVHURVBV
+      DUKTVFUSBVAVCVGUTUMUNUO $.
       $( [3-Dec-2014] $)
   $}
 
@@ -335,11 +394,11 @@ $)
        ` Base ` and ` +g ` is defined.  Note:  This theorem is deprecated in
        favor of ~ cnrng . $)
     cnaddabl $p |- G e. Abel $=
-      ( vx vy vz cc caddc cc0 cnx cbs cfv cop cplusg cvv wcel wceq ax-mp addcom
-      cv co cneg cpr prex eqeltri grpbase addex grpplusg ax-addcl addass addid2
-      cnex 0cn negcl mpdan negid eqtr3d isgrpi isabli ) CDFGACDEFGACSZUAZHAIJKF
-      LZIMKGLZUBNBVAVBUCUDFNOFAJKPUKFGANBUEQZGNOGAMKPUFFGANBUGQZUSDSZUHUSVEESUI
-      ULUSUJUSUMZUSFOZUSUTGTZUTUSGTZHVGUTFOVHVIPVFUSUTRUNUSUOUPUQVCVDUSVERUR $.
+      ( vx vy vz cc caddc cv cneg cc0 cvv wcel cbs cfv wceq cnex grpbase addcom
+      ax-mp co cplusg addex grpplusg addass 0cn addid2 negcl mpdan negid eqtr3d
+      ax-addcl isgrpi isabli ) CDFGACDEFGACHZIZJFKLFAMNOPFGAKBQSZGKLGAUANOUBFGA
+      KBUCSZUNDHZUKUNUREHUDUEUNUFUNUGZUNFLZUNUOGTZUOUNGTZJUTUOFLVAVBOUSUNUORUHU
+      NUIUJULUPUQUNURRUM $.
       $( [20-Oct-2012] $)
   $}
 

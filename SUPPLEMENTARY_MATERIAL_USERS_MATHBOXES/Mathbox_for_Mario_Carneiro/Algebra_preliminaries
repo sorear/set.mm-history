@@ -8,7 +8,6 @@ $)
   $c Irred $. $( Ring irreducible $)
   $c RingHom $. $( Ring homomorphism $)
   $c RingIso $. $( Ring isomorphism $)
-  $c const $. $( Algebra constant map $)
   $c ~QG $. $( Quotient group equivalence $)
   $c "s $. $( Image structure $)
   $c /s $. $( Quotient structure $)
@@ -27,9 +26,6 @@ $)
 
   $( Ring isomorphisms. $)
   crs $a class RingIso $.
-
-  $( Alegbra mapping into the constants. $)
-  ccns $a class const $.
 
   $( Quotient group equivalence class. $)
   cqg $a class ~QG $.
@@ -76,12 +72,6 @@ $)
     df-rngiso $a |- RingIso = ( r e. _V , s e. _V |->
       { f e. ( r RingHom s ) | `' f e. ( s RingHom r ) } ) $.
 
-    $( Define the natural embedding of a ring of scalars into its parent
-       algebra.  For a polynomial algebra, this maps a number to the
-       corresponding constant function. $)
-    df-cnst $a |- const = ( r e. _V |-> ( x e. ( Scalar ` r ) |->
-      ( x ( vsca ` r ) ( 1r ` r ) ) ) ) $.
-
     $( Define the equivalence relation in a quotient ring or quotient group
        (where ` i ` is a two-sided ideal or a normal subgroup). $)
     df-eqg $a |- ~QG = ( r e. _V , i e. ~P ( Base ` r ) |-> { <. x , y >. |
@@ -117,27 +107,31 @@ $)
     df-divs $a |- /s = ( r e. _V , e e. _V |->
       ( ( x e. ( Base ` r ) |-> [ x ] e ) "s r ) ) $.
 
-    $( Define a structure product.  In usual usage ` r ` will be a function
-       from some index set to a structure like ` Ring ` or ` TopSp ` . $)
-    df-prd $a |- X_s = ( r e. _V |->
+    $( Define a module product, which is a structure product with an externally
+       specified ring of scalars.  This can be a product of groups, rings,
+       modules, or ordered topological fields; any unused components will have
+       garbage in them but this usually not relevant for the purpos of
+       inheriting the structures present in the factors. $)
+    df-prdm $a |- X_m = ( s e. _V , r e. _V |->
       [_ X_ x e. dom r ( Base ` ( r ` x ) ) / v ]_
-    ( { <. ( Base ` ndx ) , v >. ,
+  ( ( { <. ( Base ` ndx ) , v >. ,
         <. ( +g ` ndx ) , ( f e. v , g e. v |-> ( x e. dom r |->
           ( ( f ` x ) ( +g ` ( r ` x ) ) ( g ` x ) ) ) ) >. ,
         <. ( .r ` ndx ) , ( f e. v , g e. v |-> ( x e. dom r |->
           ( ( f ` x ) ( .r ` ( r ` x ) ) ( g ` x ) ) ) ) >. } u.
+      { <. ( Scalar ` ndx ) , s >. ,
+        <. ( vsca ` ndx ) , ( f e. s , g e. v |->
+        ( x e. dom r |-> ( f ( vsca ` ( r ` x ) ) ( g ` x ) ) ) ) >. } ) u.
       { <. ( TopOpen ` ndx ) , ( tP ` ( TopOpen o. r ) ) >. ,
         <. ( dist ` ndx ) , ( f e. v , g e. v |-> sup ( ran ( x e. dom r |->
        ( ( f ` x ) ( dist ` ( r ` x ) ) ( g ` x ) ) ) , RR* , < ) ) >. ,
         <. ( le ` ndx ) , { <. f , g >. | ( { f , g } C_ v /\
        A. x e. dom r ( f ` x ) ( le ` ( r ` x ) ) ( g ` x ) ) } >. } ) ) $.
 
-    $( Define a module product, which is like the structure product but with an
-       externally specified ring of scalars. $)
-    df-modp $a |- X_m = ( s e. _V , r e. _V |->
-      ( ( ( X_s ` r ) sSet <. ( Scalar ` ndx ) , s >. )
-        sSet <. ( vsca ` ndx ) , ( f e. s , g e. ( Base ` ( X_s ` r ) ) |->
-        ( x e. dom r |-> ( f ( vsca ` ( r ` x ) ) ( g ` x ) ) ) ) >. ) ) $.
+    $( Define a structure product.  This is defined in terms of the module
+       product, but the scalar ring is ignored so we can set it to anything
+       (here we use the empty set). $)
+    df-prd $a |- X_s = ( r e. _V |-> ( (/) X_m r ) ) $.
 
     $( Define a binary product on structures. $)
     df-xps $a |- X.s = ( r e. _V , s e. _V |->
@@ -146,15 +140,17 @@ $)
 
     $( Define a structure power, which is just a structure product where all
        the factors are the same. $)
-    df-pws $a |- ^s = ( r e. _V , i e. _V |-> ( X_s ` ( i X. { r } ) ) ) $.
+    df-pws $a |- ^s = ( r e. _V , i e. _V |->
+      ( ( Scalar ` r ) X_m ( i X. { r } ) ) ) $.
 
-    $( A (unital) associative algebra is a vector space that also contains a
-       multiplication operation on the vectors, which is bilinear under the
-       scalar product. $)
-    df-assa $a |- AssAlg = { w e. ( LMod i^i Ring ) |
-    A. r e. ( Base ` ( Scalar ` w ) ) A. x e. ( Base ` w ) A. y e. ( Base ` w )
-      [ ( vsca ` w ) / s ] [ ( .r ` w ) / t ]
-      { ( r s ( x t y ) ) , ( ( r s x ) t y ) , ( x t ( r s y ) ) } ~~ 1o } $.
+    $( A (unital) associative algebra is a vector space over a commutative ring
+       that also contains a multiplication operation on the vectors, which is
+       bilinear under the scalar product. $)
+    df-assa $a |- AssAlg = { w e. ( LMod i^i Ring ) | [ ( Scalar ` w ) / f ]
+      ( f e. CRing /\ A. r e. ( Base ` f ) A. x e. ( Base ` w )
+      A. y e. ( Base ` w ) [ ( vsca ` w ) / s ] [ ( .r ` w ) / t ]
+      ( ( ( r s x ) t y ) = ( r s ( x t y ) ) /\
+        ( x t ( r s y ) ) = ( r s ( x t y ) ) ) ) } $.
 
     $( Define the algebraic span of a set of vectors in an algebra. $)
     df-algsp $a |- AlgSpan = ( w e. AssAlg |-> ( s e. ~P ( Base ` w ) |->
@@ -452,6 +448,125 @@ $)
       BYFAEYFWAZXGWBRXCYGXJBXCAKVTIZIZYGXJYAXCYKYGLYBGKCYJYFADYJWAYIWCRXCAWDFYK
       XJLAWFAWEWGWHVQWIWJYCXDXJJYCXIAPSTZXDXJLXCXIXKAWKWJZYCYLPXJSTZXKYNXCXKXJU
       GFYNXJWLXJVMWGVSYCXIYLYNOYMAWMWGWNAWOVNVQWPWRWSWQWTXA $.
+      $( [5-Dec-2014] $)
+  $}
+
+  ${
+    $d r x y A $.  $d f r w B $.  $d f r w F $.  $d f r w x y V $.  $d x y X $.
+    $d f r s t w x y S $.  $d f r s t w x y T $.  $d f r s t w x y W $.
+    $d y Y $.
+    isassa.v $e |- V = ( Base ` W ) $.
+    isassa.f $e |- F = ( Scalar ` W ) $.
+    isassa.b $e |- B = ( Base ` F ) $.
+    isassa.s $e |- S = ( vsca ` W ) $.
+    isassa.t $e |- T = ( .r ` W ) $.
+    $( The properties of an associative algebra. $)
+    isassa $p |- ( W e. AssAlg <-> ( ( W e. LMod /\ W e. Ring /\ F e. CRing )
+                   /\ A. r e. B A. x e. V A. y e. V
+      ( ( ( r S x ) T y ) = ( r S ( x T y ) ) /\
+        ( x T ( r S y ) ) = ( r S ( x T y ) ) ) ) ) $=
+      ( wcel cv co wceq wa cfv vf vs vt casa clmod crg cin ccrg wral cmulr wsbc
+      vw w3a cvsca cbs csca cvv fvex fveq2 syl6eqr simpr eleq1d fveq2d ad2antrr
+      a1i wb eqtrd simplr oveqd eqidd oveq123d eqeq12d anbi12d sbcied raleqbidv
+      adantr sbcied2 df-assa elrab2 anass elin anbi1i df-3an bitr4i 3bitr2i ) H
+      UDOHUEUFUGZOZFUHOZIPZAPZDQZBPZEQZWIWJWLEQZDQZRZWJWIWLDQZEQZWORZSZBGUIZAGU
+      IZICUIZSZSWGWHSZXCSHUEOZHUFOZWHUMZXCSUAPZUHOZWIWJUBPZQZWLUCPZQZWIWJWLXMQZ
+      XKQZRZWJWIWLXKQZXMQZXPRZSZUCULPZUJTZUKZUBYBUNTZUKZBYBUOTZUIZAYGUIZIXIUOTZ
+      UIZSZUAYBUPTZUKXDULHWFUDYBHRZYLXDUAYMFUQYMUQOYNYBUPURVEYNYMHUPTFYBHUPUSKU
+      TYNXIFRZSZXJWHYKXCYPXIFUHYNYOVAZVBYPYIXBIYJCYPYJFUOTCYPXIFUOYQVCLUTYNYIXB
+      VFYOYNYHXAAYGGYNYGHUOTGYBHUOUSJUTZYNYFWTBYGGYRYNYDWTUBYEUQYEUQOYNYBUNURVE
+      YNXKYERZSZYAWTUCYCUQYCUQOYTYBUJURVEYTXMYCRZSZXQWPXTWSUUBXNWMXPWOUUBXLWKWL
+      WLXMEUUBXMYCEYTUUAVAUUBYCHUJTZEYNYCUUCRYSUUAYBHUJUSVDNUTVGZUUBXKDWIWJUUBX
+      KYEDYNYSUUAVHUUBYEHUNTZDYNYEUUERYSUUAYBHUNUSVDMUTVGZVIUUBWLVJVKUUBWIWIXOW
+      NXKDUUFUUBWIVJUUBXMEWJWLUUDVIVKZVLUUBXSWRXPWOUUBWJWJXRWQXMEUUDUUBWJVJUUBX
+      KDWIWLUUFVIVKUUGVLVMVNVNVOVOVPVOVMVQABULUCUAUBIVRVSWGWHXCVTXEXHXCXEXFXGSZ
+      WHSXHWGUUHWHHUEUFWAWBXFXGWHWCWDWBWE $.
+      $( [29-Dec-2014] $)
+
+    $( The properties of an associative algebra. $)
+    assalem $p |- ( ( W e. AssAlg /\ ( A e. B /\ X e. V /\ Y e. V ) ) ->
+      ( ( ( A S X ) T Y ) = ( A S ( X T Y ) ) /\
+        ( X T ( A S Y ) ) = ( A S ( X T Y ) ) ) ) $=
+      ( vr wcel co wceq oveq1 eqeq12d vx vy casa cv wa wral w3a crg ccrg isassa
+      clmod simprbi oveq1d oveq2d anbi12d oveq2 rcla43v impcom sylan ) GUCPZOUD
+      ZUAUDZCQZUBUDZDQZVAVBVDDQZCQZRZVBVAVDCQZDQZVGRZUEZUBFUFUAFUFOBUFZABPHFPIF
+      PUGZAHCQZIDQZAHIDQZCQZRZHAICQZDQZVRRZUEZUTGUKPGUHPEUIPUGVMUAUBBCDEFGOJKLM
+      NUJULVNVMWCVLWCAVBCQZVDDQZAVFCQZRZVBAVDCQZDQZWFRZUEVOVDDQZAHVDDQZCQZRZHWH
+      DQZWMRZUEOUAUBAHIBFFVAARZVHWGVKWJWQVEWEVGWFWQVCWDVDDVAAVBCSUMVAAVFCSZTWQV
+      JWIVGWFWQVIWHVBDVAAVDCSUNWRTUOVBHRZWGWNWJWPWSWEWKWFWMWSWDVOVDDVBHACUPUMWS
+      VFWLACVBHVDDSUNZTWSWIWOWFWMVBHWHDSWTTUOVDIRZWNVSWPWBXAWKVPWMVRVDIVODUPXAW
+      LVQACVDIHDUPUNZTXAWOWAWMVRXAWHVTHDVDIACUPUNXBTUOUQURUS $.
+      $( [29-Dec-2014] $)
+
+    $( Left-associative property of an associative algebra. $)
+    assaass $p |- ( ( W e. AssAlg /\ ( A e. B /\ X e. V /\ Y e. V ) ) ->
+      ( ( A S X ) T Y ) = ( A S ( X T Y ) ) ) $=
+      ( casa wcel w3a wa co wceq assalem simpld ) GOPABPHFPIFPQRAHCSIDSAHIDSCSZ
+      THAICSDSUCTABCDEFGHIJKLMNUAUB $.
+      $( [29-Dec-2014] $)
+
+    $( Right-associative property of an associative algebra. $)
+    assaassr $p |- ( ( W e. AssAlg /\ ( A e. B /\ X e. V /\ Y e. V ) ) ->
+      ( X T ( A S Y ) ) = ( A S ( X T Y ) ) ) $=
+      ( casa wcel w3a wa co wceq assalem simprd ) GOPABPHFPIFPQRAHCSIDSAHIDSCSZ
+      THAICSDSUCTABCDEFGHIJKLMNUAUB $.
+      $( [29-Dec-2014] $)
+  $}
+
+  ${
+    $d x y z W $.  $d z F $.
+    $( An associative algebra is a left module. $)
+    assalmod $p |- ( W e. AssAlg -> W e. LMod ) $=
+      ( vz vx vy casa wcel clmod crg csca cfv ccrg w3a cv cvsca cmulr wceq wral
+      co cbs eqid wa isassa simplbi simp1d ) AEFZAGFZAHFZAIJZKFZUEUFUGUILBMZCMZ
+      ANJZRDMZAOJZRUJUKUMUNRULRZPUKUJUMULRUNRUOPUADASJZQCUPQBUHSJZQCDUQULUNUHUP
+      ABUPTUHTUQTULTUNTUBUCUD $.
+      $( [5-Dec-2014] $)
+
+    $( An associative algebra is a ring. $)
+    assarng $p |- ( W e. AssAlg -> W e. Ring ) $=
+      ( vz vx vy casa wcel clmod crg csca cfv ccrg w3a cv cvsca cmulr wceq wral
+      co cbs eqid wa isassa simplbi simp2d ) AEFZAGFZAHFZAIJZKFZUEUFUGUILBMZCMZ
+      ANJZRDMZAOJZRUJUKUMUNRULRZPUKUJUMULRUNRUOPUADASJZQCUPQBUHSJZQCDUQULUNUHUP
+      ABUPTUHTUQTULTUNTUBUCUD $.
+      $( [5-Dec-2014] $)
+
+    assasca.f $e |- F = ( Scalar ` W ) $.
+    $( An associative algebra's scalar field is a commutative ring. $)
+    assasca $p |- ( W e. AssAlg -> F e. CRing ) $=
+      ( vz vx vy casa wcel clmod crg ccrg w3a cv cvsca cfv wceq cbs wral eqid
+      co cmulr wa isassa simplbi simp3d ) BGHZBIHZBJHZAKHZUFUGUHUILDMZEMZBNOZTF
+      MZBUAOZTUJUKUMUNTULTZPUKUJUMULTUNTUOPUBFBQOZREUPRDAQOZREFUQULUNAUPBDUPSCU
+      QSULSUNSUCUDUE $.
+      $( [7-Jan-2015] $)
+  $}
+
+  ${
+    $d r x y B $.  $d r x y ph $.  $d x y V $.  $d r x y W $.
+    isassad.v $e |- ( ph -> V = ( Base ` W ) ) $.
+    isassad.f $e |- ( ph -> F = ( Scalar ` W ) ) $.
+    isassad.b $e |- ( ph -> B = ( Base ` F ) ) $.
+    isassad.s $e |- ( ph -> S = ( vsca ` W ) ) $.
+    isassad.t $e |- ( ph -> T = ( .r ` W ) ) $.
+    isassad.1 $e |- ( ph -> W e. LMod ) $.
+    isassad.2 $e |- ( ph -> W e. Ring ) $.
+    isassad.3 $e |- ( ph -> F e. CRing ) $.
+    isassad.4 $e |- ( ( ph /\ ( r e. B /\ x e. V /\ y e. V ) ) ->
+      ( ( r S x ) T y ) = ( r S ( x T y ) ) ) $.
+    isassad.5 $e |- ( ( ph /\ ( r e. B /\ x e. V /\ y e. V ) ) ->
+      ( x T ( r S y ) ) = ( r S ( x T y ) ) ) $.
+    $( Sufficient condition for being an associative algebra. $)
+    isassad $p |- ( ph -> W e. AssAlg ) $=
+      ( clmod wcel crg csca cfv ccrg w3a cv cvsca co cmulr wceq wa cbs eqeltrrd
+      wral casa 3jca jca ralrimivvva eqtrd oveqd eqidd oveq123d eqeq12d anbi12d
+      fveq2d raleqbidv mpbid eqid isassa sylanbrc ) AIUAUBZIUCUBZIUDUEZUFUBZUGJ
+      UHZBUHZIUIUEZUJZCUHZIUKUEZUJZVQVRWAWBUJZVSUJZULZVRVQWAVSUJZWBUJZWEULZUMZC
+      IUNUEZUPZBWKUPZJVOUNUEZUPZIUQUBAVMVNVPPQAGVOUFLRUOURAVQVREUJZWAFUJZVQVRWA
+      FUJZEUJZULZVRVQWAEUJZFUJZWSULZUMZCHUPZBHUPZJDUPWOAXDJBCDHHAVQDUBVRHUBWAHU
+      BUGUMWTXCSTUSUTAXFWMJDWNADGUNUEWNMAGVOUNLVGVAAXEWLBHWKKAXDWJCHWKKAWTWFXCW
+      IAWQWCWSWEAWPVTWAWAFWBOAEVSVQVRNVBAWAVCVDAVQVQWRWDEVSNAVQVCAFWBVRWAOVBVDZ
+      VEAXBWHWSWEAVRVRXAWGFWBOAVRVCAEVSVQWANVBVDXGVEVFVHVHVHVIBCWNVSWBVOWKIJWKV
+      JVOVJWNVJVSVJWBVJVKVL $.
       $( [5-Dec-2014] $)
   $}
 
