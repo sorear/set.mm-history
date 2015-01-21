@@ -1,0 +1,679 @@
+$(
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+                   Subgroups and Quotient groups
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+$)
+
+  $c ~QG $.
+  $c SubGrp $.
+  $c NrmSGrp $.
+
+  $( Extend class notation with all subgroups of a group. $)
+  csubg $a class SubGrp $.
+
+  $( Extend class notation with all normal subgroups of a group. $)
+  cnsg $a class NrmSGrp $.
+
+  $( Quotient group equivalence class. $)
+  cqg $a class ~QG $.
+
+  ${
+    $d b i p r s w x y $.
+    $( Define a subgroup of a group as a set of elements that is a group in its
+       own right. $)
+    df-subg $a |- SubGrp = ( w e. Grp |->
+        { s e. ~P ( Base ` w ) | ( w |`s s ) e. Grp } ) $.
+
+    $( A normal subgroup of a group is a subgroup whose normalizer is the whole
+       group. $)
+    df-nsg $a |- NrmSGrp = ( w e. Grp |-> { s e. ( SubGrp ` w ) |
+       [ ( Base ` w ) / b ] [ ( +g ` w ) / p ] A. x e. b A. y e. b
+        ( ( x p y ) e. s <-> ( y p x ) e. s ) } ) $.
+
+    $( Define the equivalence relation in a quotient ring or quotient group
+       (where ` i ` is a two-sided ideal or a normal subgroup).  For non-normal
+       subgroups this generates the left cosets. $)
+    df-eqg $a |- ~QG = ( r e. _V , i e. _V |-> { <. x , y >. |
+      ( { x , y } C_ ( Base ` r ) /\
+        ( ( ( invg ` r ) ` x ) ( +g ` r ) y ) e. i ) } ) $.
+  $}
+
+  ${
+    $d s w B $.  $d s w G $.  $d s S $.
+    issubg.b $e |- B = ( Base ` G ) $.
+    $( The subgroup predicate.  (Contributed by Mario Carneiro, 2-Dec-2014.) $)
+    issubg $p |- ( S e. ( SubGrp ` G ) <->
+      ( G e. Grp /\ S C_ B /\ ( G |`s S ) e. Grp ) ) $=
+      ( vw vs csubg cfv wcel cgrp wss cress co cv cbs cpw crab wa wceq eleq1d
+      w3a cdm df-subg dmmptss elfvdm sseldi simp1 fveq2 syl6eqr pweqd rabeqbidv
+      oveq1 fvex eqeltri pwex rabex fvmpt eleq2d oveq2 elrab elpw2 anbi1i bitri
+      cvv syl6bb ibar bitrd 3anass syl6bbr pm5.21nii ) BCGHZIZCJIZVMBAKZCBLMZJI
+      ZUAZVLGUBJCEJENZFNZLMZJIZFVROHZPZQZGEFUCZUDBCGUEUFVMVNVPUGVMVLVMVNVPRZRZV
+      QVMVLWFWGVMVLBCVSLMZJIZFAPZQZIZWFVMVKWKBECWDWKJGVRCSZWAWIFWCWJWMWBAWMWBCO
+      HZAVRCOUHDUIUJWMVTWHJVRCVSLULTUKWEWIFWJAAWNVDDCOUMUNZUOUPUQURWLBWJIZVPRWF
+      WIVPFBWJVSBSWHVOJVSBCLUSTUTWPVNVPBAWOVAVBVCVEVMWFVFVGVMVNVPVHVIVJ $.
+      $( [2-Dec-2014] $)
+
+    $( A subgroup is a subset.  (Contributed by Mario Carneiro, 2-Dec-2014.) $)
+    subgss $p |- ( S e. ( SubGrp ` G ) -> S C_ B ) $=
+      ( csubg cfv wcel cgrp wss cress co issubg simp2bi ) BCEFGCHGBAICBJKHGABCD
+      LM $.
+      $( [2-Dec-2014] $)
+
+    $( A group is a subgroup of itself.  (Contributed by Mario Carneiro,
+       7-Dec-2014.) $)
+    subgid $p |- ( G e. Grp -> B e. ( SubGrp ` G ) ) $=
+      ( cgrp wcel wss cress co csubg cfv id a1i ressid eqeltrd issubg syl3anbrc
+      ssid ) BDEZRAAFZBAGHZDEABIJERKZSRAQLRTBDABDCMUANAABCOP $.
+      $( [7-Dec-2014] $)
+  $}
+
+  ${
+    subggrp.h $e |- H = ( G |`s S ) $.
+    $( A subgroup is a group.  (Contributed by Mario Carneiro, 2-Dec-2014.) $)
+    subggrp $p |- ( S e. ( SubGrp ` G ) -> H e. Grp ) $=
+      ( csubg cfv wcel cress co cgrp cbs wss eqid issubg simp3bi syl5eqel ) ABE
+      FGZCBAHIZJDQBJGABKFZLRJGSABSMNOP $.
+      $( [2-Dec-2014] $)
+
+    $( The base of the restricted group in a subgroup.  (Contributed by Mario
+       Carneiro, 2-Dec-2014.) $)
+    subgbas $p |- ( S e. ( SubGrp ` G ) -> S = ( Base ` H ) ) $=
+      ( csubg cfv wcel cbs wss wceq eqid subgss ressbas2 syl ) ABEFGABHFZIACHFJ
+      OABOKZLAOCBDPMN $.
+      $( [2-Dec-2014] $)
+  $}
+
+  $( Reverse closure for the subgroup predicate.  (Contributed by Mario
+     Carneiro, 2-Dec-2014.) $)
+  subgrcl $p |- ( S e. ( SubGrp ` G ) -> G e. Grp ) $=
+    ( csubg cfv wcel cgrp cbs wss cress co eqid issubg simp1bi ) ABCDEBFEABGDZH
+    BAIJFENABNKLM $.
+    $( [2-Dec-2014] $)
+
+  ${
+    $d R x $.  $d S x $.  $d A x $.
+    subg0.h $e |- H = ( G |`s S ) $.
+    ${
+      subg0.i $e |- O = ( 0g ` G ) $.
+      $( A subgroup of a group must have the same identity as the group.
+         (Contributed by Stefan O'Rear, 27-Nov-2014.)  (Revised by Mario
+         Carneiro, 2-Dec-2014.) $)
+      subg0 $p |- ( S e. ( SubGrp ` G ) -> O = ( 0g ` H ) ) $=
+        ( cfv wcel c0g cplusg co wceq cgrp cbs subggrp eqid grpidcl syl syl2anc
+        csubg ressplusg grplid wb subgrcl subgss subgbas eleqtrrd sseldd grpid
+        mpbid ) ABTGHZCIGZULBJGZKULLZDULLZUKCMHZULCNGZHZUNABCEOZUKUPURUSUQCULUQ
+        PZULPZQRZUQUMCULULUTAUMBCEUMPZUAVAUBSUKBMHULBNGZHUNUOUCABUDUKAVDULVDABV
+        DPZUEUKULUQAVBABCEUFUGUHVDUMBDULVEVCFUISUJ $.
+        $( [2-Dec-2014] $) $( [27-Nov-2014] $)
+    $}
+
+    subginv.i $e |- I = ( invg ` G ) $.
+    subginv.j $e |- J = ( invg ` H ) $.
+    $( The inverse of an element in a subgroup is the same as the inverse in
+       the larger group. $)
+    subginv $p |- ( ( S e. ( SubGrp ` G ) /\ X e. S ) ->
+      ( I ` X ) = ( J ` X ) ) $=
+      ( csubg cfv wcel wceq c0g cgrp cbs adantr eleq2d eqid sselda wa cplusg co
+      subggrp subgbas biimpa ressplusg grprinv syl2anc eqtr4d wb subgrcl subgss
+      subg0 wi grpinvcl ex syl 3imtr4d imp syldan grpinvid1 syl3anc mpbird ) AB
+      JKLZFALZUAZFDKFEKZMZFVHBUBKZUCZBNKZMZVGVKCNKZVLVGCOLZFCPKZLZVKVNMVEVOVFAB
+      CGUDZQVEVFVQVEAVPFABCGUEZRZUFVPVJCEVNFVPSZAVJBCGVJSZUGVNSIUHUIVEVLVNMVFAB
+      CVLGVLSZUNQUJVGBOLZFBPKZLVHWELZVIVMUKVEWDVFABULQVEAWEFWEABWESZUMZTVEVFVHA
+      LZWFVEVFWIVEVQVHVPLZVFWIVEVOVQWJUOVRVOVQWJVPCEFWAIUPUQURVTVEAVPVHVSRUSUTV
+      EAWEVHWHTVAWEVJBDVLFVHWGWBWCHVBVCVD $.
+      $( [2-Dec-2014] $)
+  $}
+
+  ${
+    subg0cl.i $e |- O = ( 0g ` G ) $.
+    $( The group identity is an element of any subgroup.  (Contributed by Mario
+       Carneiro, 2-Dec-2014.) $)
+    subg0cl $p |- ( S e. ( SubGrp ` G ) -> O e. S ) $=
+      ( csubg cfv wcel cress co c0g cbs cgrp eqid subggrp grpidcl subg0 subgbas
+      syl eleq12d mpbird ) ABEFGZCAGBAHIZJFZUBKFZGZUAUBLGUEABUBUBMZNUDUBUCUDMUC
+      MORUACUCAUDABUBCUFDPABUBUFQST $.
+      $( [2-Dec-2014] $) $( [27-Nov-2014] $)
+  $}
+
+  ${
+    subginvcl.i $e |- I = ( invg ` G ) $.
+    $( The inverse of an element is closed in a subgroup. $)
+    subginvcl $p |- ( ( S e. ( SubGrp ` G ) /\ X e. S ) -> ( I ` X ) e. S ) $=
+      ( csubg cfv wcel wa cress cminusg cbs cgrp eqid subggrp adantr simpr wceq
+      co subgbas eleqtrd grpinvcl syl2anc subginv eleq12d mpbird ) ABFGHZDAHZIZ
+      DCGZAHDBAJSZKGZGZUKLGZHZUIUKMHZDUNHUOUGUPUHABUKUKNZOPUIDAUNUGUHQUGAUNRUHA
+      BUKUQTPZUAUNUKULDUNNULNZUBUCUIUJUMAUNABUKCULDUQEUSUDURUEUF $.
+      $( [2-Dec-2014] $)
+  $}
+
+  ${
+    subgcl.p $e |- P = ( +g ` G ) $.
+    $( A subgroup is closed under group operation.  (Contributed by Mario
+       Carneiro, 2-Dec-2014.) $)
+    subgcl $p |- ( ( S e. ( SubGrp ` G ) /\ X e. S /\ Y e. S ) ->
+      ( X P Y ) e. S ) $=
+      ( csubg cfv wcel w3a co cress cbs cgrp eqid subggrp 3ad2ant1 wceq eleqtrd
+      simp2 subgbas simp3 ressplusg grpcl syl3anc eleqtrrd ) BCGHIZDBIZEBIZJZDE
+      AKZCBLKZMHZBUJULNIZDUMIEUMIUKUMIUGUHUNUIBCULULOZPQUJDBUMUGUHUITUGUHBUMRUI
+      BCULUOUAQZSUJEBUMUGUHUIUBUPSUMAULDEUMOBACULUOFUCUDUEUPUF $.
+      $( [2-Dec-2014] $)
+  $}
+
+  ${
+    subgsubcl.p $e |- M = ( -g ` G ) $.
+    $( A subgroup is closed under group subtraction.  (Contributed by Mario
+       Carneiro, 18-Jan-2015.) $)
+    subgsubcl $p |- ( ( S e. ( SubGrp ` G ) /\ X e. S /\ Y e. S ) ->
+      ( X M Y ) e. S ) $=
+      ( csubg cfv wcel w3a co cminusg cplusg cbs wceq wss subgss sseldd syl2anc
+      eqid 3ad2ant1 simp2 simp3 grpsubval simp1 wi idi subginvcl subgcl syl3anc
+      eqeltrd ) ABGHIZDAIZEAIZJZDECKZDEBLHZHZBMHZKZAUODBNHZIEVAIUPUTOUOAVADULUM
+      AVAPUNVAABVATZQUAZULUMUNUBZRUOAVAEVCULUMUNUCZRVAUSBUQCDEVBUSTZUQTZFUDSUOU
+      LUMURAIZUTAIULUMUNUEZVDUOULUNVHUOULUFVIUGVEABUQEVGUHSUSABDURVFUIUJUK $.
+      $( [18-Jan-2015] $)
+  $}
+
+  ${
+    $d x y G $.  $d x y N $.  $d x y S $.  $d x T $.  $d x y X $.
+    subgmulgcl.t $e |- T = ( .g ` G ) $.
+    $( Closure of the group multiple (exponentiation) operation in a
+       subgroup. $)
+    subgmulgcl $p |- ( ( S e. ( SubGrp ` G ) /\ N e. ZZ /\ X e. S ) ->
+      ( N T X ) e. S ) $=
+      ( vx vy csubg cfv wcel cbs cplusg cminusg cgrp c0g eqid subgrcl subgss cv
+      subgcl subg0cl subginvcl mulgsubcl ) ACIJKGHCLJZCMJZABCCNJZDOECPJZUEQZFUF
+      QZACRUEACUISUFACGTZHTUJUAUHQZACUHULUBUGQZACUGUKUMUCUD $.
+      $( [13-Jan-2015] $)
+
+    subgmulg.h $e |- H = ( G |`s S ) $.
+    subgmulg.t $e |- M = ( .g ` H ) $.
+    $( A group multiple is the same if evaluated in a subgroup. $)
+    subgmulg $p |- ( ( S e. ( SubGrp ` G ) /\ N e. ZZ /\ X e. S ) ->
+      ( N T X ) = ( N M X ) ) $=
+      ( cfv wcel cc0 wceq clt wbr cif co eqid syl2anc cz w3a c0g cplusg csn cxp
+      csubg cn c1 cseq cneg cminusg subg0 3ad2ant1 ifeq1d wn wa wo cr simp2 zre
+      wb syl 0re axlttri sylancl ioran syl6bb biimpar simpl1 cbs adantr lt0neg1
+      znegcl biimpa elnnz sylanbrc wss subgss sseldd mulgnn subgmulgcl eqeltrrd
+      syl3anc subginv anassrs ifeq2da mulgval subgbas eleqtrd ressplusg 3eqtr4d
+      simp3 syldan eqtrd ) ACUGKLZFUALZGALZUBZFMNZCUCKZMFOPZFCUDKZUHGUEUFUIUJZK
+      ZFUKZXDKZCULKZKZQZQZWTDUCKZXBXEXGDULKZKZQZQZFGBRZFGERZWSXKWTXLXJQXPWSWTXA
+      XLXJWPWQXAXLNWRACDXAIXASZUMUNUOWSWTXJXOXLWSWTUPZUQXBXIXNXEWSXTXBUPZXIXNNZ
+      WSXTYAUQZFMOPZYBWSYDYCWSYDWTXBURUPZYCWSFUSLZMUSLYDYEVBWSWQYFWPWQWRUTZFVAV
+      CZVDFMVEVFWTXBVGVHVIWSYDUQZWPXGALYBWPWQWRYDVJZYIXFGBRZXGAYIXFUHLZGCVKKZLZ
+      YKXGNYIXFUALZMXFOPZYLYIWQYOWSWQYDYGVLFVNVCZWSYDYPWSYFYDYPVBYHFVMVCVOXFVPV
+      QWSYNYDWSAYMGWPWQAYMVRWRYMACYMSZVSUNWPWQWRWMZVTZVLYMXCXDBCXFGYRXCSZHXDSZW
+      ATYIWPYOWRYKALYJYQWSWRYDYSVLABCXFGHWBWDWCACDXHXMXGIXHSZXMSZWETWNWFWGWGWOW
+      SWQYNXQXKNYGYTYMXCXDBCXHFXAGYRUUAXSUUCHUUBWHTWSWQGDVKKZLXRXPNYGWSGAUUEYSW
+      PWQAUUENWRACDIWIUNWJUUEXCXDEDXMFXLGUUESAXCCDIUUAWKXLSUUDJUUBWHTWL $.
+      $( [15-Jan-2015] $)
+  $}
+
+  ${
+    $d u v w x y G $.  $d u v w x y I $.  $d u v w x y P $.  $d u v w x y S $.
+    $d u v w B $.  $d u v w O $.
+    issubg2.b $e |- B = ( Base ` G ) $.
+    issubg2.p $e |- P = ( +g ` G ) $.
+    issubg2.i $e |- I = ( invg ` G ) $.
+    $( Characterize the subgroups of a group by closure properties.
+       (Contributed by Mario Carneiro, 2-Dec-2014.) $)
+    issubg2 $p |- ( G e. Grp -> ( S e. ( SubGrp ` G ) <-> ( S C_ B /\ S =/= (/)
+      /\ A. x e. S ( A. y e. S ( x P y ) e. S /\ ( I ` x ) e. S ) ) ) ) $=
+      ( vu wcel cfv cv co wral wa syl wceq eleq1d vv vw csubg wss c0 wne subgss
+      cgrp w3a cress eqid subgbas subggrp grpbn0 eqnetrd subgcl 3expa ralrimiva
+      cbs subginvcl jca 3jca simpr1 c0g ressbas2 cplusg ressplusg simpr3 ralimi
+      simpl a1i oveq1 oveq2 rcla42v syl5com 3impib 3anim123d imp grpass adantlr
+      sseld syldan wex simpr2 n0 sylib sselda simpr fveq2 rcla4cva sylan adantr
+      grplinv rcla42va syl21anc eqeltrrd ex exlimdv mpd grplid isgrpd syl3anbrc
+      issubg impbid2 ) FUHLZEFUCMLZECUDZEUEUFZANZBNZDOZELZBEPZXIGMZELZQZAEPZUIZ
+      XFXGXHXQCEFHUGXFEFEUJOZUSMZUEEFXSXSUKZULXFXSUHLZXTUEUFEFXSYAUMXTXSXTUKUNR
+      UOXFXPAEXFXIELZQZXMXOYDXLBEXFYCXJELXLDEFXIXJIUPUQUREFGXIJUTVAURVBXEXRXFXE
+      XRQZXEXGYBXFXEXRVJXEXGXHXQVCZYEKUAUBEDXSKNZGMZFVDMZYEXGEXTSYFECXSFYAHVERD
+      XSVFMSYEEDFXSYAIVGVKYEYGELZUANZELZYGYKDOZELZYEXMAEPZYJYLQYNYEXQYOXEXGXHXQ
+      VHZXPXMAEXMXOVJVIRZXLYNYGXJDOZELABYGYKEEXIYGSZXKYREXIYGXJDVLTXJYKSYRYMEXJ
+      YKYGDVMTVNVOVPYEYJYLUBNZELZUIZYGCLZYKCLZYTCLZUIZYMYTDOYGYKYTDODOSZYEUUBUU
+      FYEYJUUCYLUUDUUAUUEYEECYGYFWAYEECYKYFWAYEECYTYFWAVQVRXEUUFUUGXRCDFYGYKYTH
+      IVSVTWBYEYJKWCZYIELZYEXHUUHXEXGXHXQWDKEWEWFYEYJUUIKYEYJUUIYEYJQZYHYGDOZYI
+      EYEYJUUCUUKYISZYEECYGYFWGZXEUUCUULXRCDFGYIYGHIYIUKZJWMVTWBZUUJYHELZYJYOUU
+      KELZYEXOAEPZYJUUPYEXQUURYPXPXOAEXMXOWHVIRXOUUPAYGEYSXNYHEXIYGGWITWJWKZYEY
+      JWHYEYOYJYQWLXLUUQYHXJDOZELABYHYGEEXIYHSXKUUTEXIYHXJDVLTXJYGSUUTUUKEXJYGY
+      HDVMTWNWOWPWQWRWSYEYJUUCYIYGDOYGSZUUMXEUUCUVAXRCDFYIYGHIUUNWTVTWBUUSUUOXA
+      CEFHXCXBWQXD $.
+      $( [2-Dec-2014] $)
+  $}
+
+  ${
+    subsubg.h $e |- H = ( G |`s S ) $.
+    $( A subgroup of a subgroup is a subgroup.  (Contributed by Mario Carneiro,
+       18-Jan-2015.) $)
+    subsubg $p |- ( S e. ( SubGrp ` G ) -> ( A e. ( SubGrp ` H ) <->
+      ( A e. ( SubGrp ` G ) /\ A C_ S ) ) ) $=
+      ( csubg cfv wcel wss wa cgrp cbs cress co adantr eqid subgss wceq subggrp
+      adantl subgrcl subgbas sseqtr4d sstrd oveq1i ssexg ancoms ressress syldan
+      cin cvv simpr sseqin2 sylib oveq2d eqtrd syl5eq eqeltrrd issubg syl3anbrc
+      jca simprr sseqtrd adantrl ad2antrl eqeltrd impbida ) BCFGZHZADFGHZAVHHZA
+      BIZJZVIVJJZVKVLVNCKHZACLGZICAMNZKHZVKVIVOVJBCUAOVNABVPVNADLGZBVJAVSIZVIVS
+      ADVSPZQTVIBVSRZVJBCDEUBZOUCZVIBVPIVJVPBCVPPZQOUDVNDAMNZVQKVIVJVLWFVQRZWDV
+      IVLJZWFCBMNZAMNZVQDWIAMEUEWHWJCBAUJZMNZVQVIVLAUKHZWJWLRVLVIWMABVHUFUGBACV
+      HUKUHUIWHWKACMWHVLWKARVIVLULABUMUNUOUPUQZUIVJWFKHZVIADWFWFPSTURVPACWEUSUT
+      WDVAVIVMJZDKHZVTWOVJVIWQVMBCDESOWPABVSVIVKVLVBVIWBVMWCOVCWPWFVQKVIVLWGVKW
+      NVDVKVRVIVLACVQVQPSVEVFVSADWAUSUTVG $.
+      $( [19-Jan-2015] $)
+  $}
+
+  ${
+    $d g x y G $.  $d g x y S $.
+    $( The intersection of a nonempty collection of subgroups is a subgroup.
+       (Contributed by Mario Carneiro, 7-Dec-2014.) $)
+    subgint $p |- ( ( S C_ ( SubGrp ` G ) /\ S =/= (/) ) ->
+      |^| S e. ( SubGrp ` G ) ) $=
+      ( vx vy vg cfv wss c0 wne wcel wral adantlr eqid syl ralrimiva sylibr c0g
+      wa cv elint2 csubg cint cbs cplusg co cminusg cuni intssuni adantl subgss
+      ssel2 unissb sstrd subg0cl fvex simprl elinti sylan simprr subgcl syl3anc
+      ne0i imp ovex anassrs adantll subginvcl syl2anc jca cgrp w3a ssn0 subgrcl
+      wb wex n0 exlimiv sylbi issubg2 3syl mpbir3and ) ABUAFZGZAHIZRZAUBZWBJZWF
+      BUCFZGZWFHIZCSZDSZBUDFZUEZWFJZDWFKZWKBUFFZFZWFJZRZCWFKZWEWFAUGZWHWDWFXBGW
+      CAUHUIWEESZWHGZEAKXBWHGWEXDEAWEXCAJZRZXCWBJZXDWCXEXGWDAWBXCUKLZWHXCBWHMZU
+      JNOEAWHULPUMWEBQFZWFJZWJWEXJXCJZEAKXKWEXLEAXFXGXLXHXCBXJXJMUNNOEXJABQUOTP
+      WFXJVBNWEWTCWFWEWKWFJZRZWPWSXNWODWFWEXMWLWFJZWOWEXMXORZRZWNXCJZEAKWOXQXRE
+      AXQXERXGWKXCJZWLXCJZXRWEXEXGXPXHLXQXMXEXSWEXMXOUPXMXEXSWKAXCUQVCZURXQXOXE
+      XTWEXMXOUSXOXEXTWLAXCUQVCURWMXCBWKWLWMMZUTVAOEWNAWKWLWMVDTPVEOXNWRXCJZEAK
+      WSXNYCEAXNXERXGXSYCWEXEXGXMXHLXMXEXSWEYAVFXCBWQWKWQMZVGVHOEWRAWKWQUOTPVIO
+      WEWBHIZBVJJZWGWIWJXAVKVNAWBVLYEXGEVOYFEWBVPXGYFEXCBVMVQVRCDWHWMWFBWQXIYBY
+      DVSVTWA $.
+      $( [7-Dec-2014] $)
+  $}
+
+  ${
+    $d G a b $.  $d Z a b $.
+    0subg.z $e |- Z = ( 0g ` G ) $.
+    $( The zero subgroup of an arbitrary group.  (Contributed by Stefan O'Rear,
+       10-Dec-2014.) $)
+    0subg $p |- ( G e. Grp -> { Z } e. ( SubGrp ` G ) ) $=
+      ( va vb wcel csn c0g cfv cv co wral wa eqid fvex wceq elsnc sylibr eleq1d
+      wsbc cgrp csubg sneqi cbs wss c0 cplusg cminusg grpidcl snssd snnz grplid
+      wne a1i mpdan ovex grpinvid ralsn oveq1 ralbidv fveq2 anbi12d sbcie oveq2
+      bitri anbi1i 3bitri sylanbrc issubg2 mpbir3and syl5eqel ) AUAFZBGAHIZGZAU
+      BIZBVMCUCVLVNVOFVNAUDIZUEVNUFUMZDJZEJZAUGIZKZVNFZEVNLZVRAUHIZIZVNFZMZDVNL
+      ZVLVMVPVPAVMVPNZVMNZUIZUJVQVLVMAHOZUKUNVLVMVMVTKZVNFZVMWDIZVNFZWHVLWMVMPZ
+      WNVLVMVPFWQWKVPVTAVMVMWIVTNZWJULUOWMVMVMVMVTUPQRVLWOVMPWPAWDVMWJWDNZUQWOV
+      MVMWDOQRWHWGDVMTVMVSVTKZVNFZEVNLZWPMZWNWPMWGDVMWLURWGXCDVMWLVRVMPZWCXBWFW
+      PXDWBXAEVNXDWAWTVNVRVMVSVTUSSUTXDWEWOVNVRVMWDVASVBVCXBWNWPXBXAEVMTWNXAEVM
+      WLURXAWNEVMWLVSVMPWTWMVNVSVMVMVTVDSVCVEVFVGVHDEVPVTVNAWDWIWRWSVIVJVK $.
+      $( [10-Dec-2014] $)
+  $}
+
+  ${
+    $d m n s u v F $.  $d m n s u v x G $.  $d x S $.  $d x T $.  $d m n x X $.
+    $d m n s x A $.
+    cycsubg.x $e |- X = ( Base ` G ) $.
+    cycsubg.t $e |- T = ( .g ` G ) $.
+    cycsubg.f $e |- F = ( x e. ZZ |-> ( x T A ) ) $.
+    $( The cyclic subgroup generated by an element ` A ` is a subgroup
+       containing ` A ` .  (Contributed by Mario Carneiro, 13-Jan-2015.) $)
+    cycsubgcl $p |- ( ( G e. Grp /\ A e. X ) ->
+      ( ran F e. ( SubGrp ` G ) /\ A e. ran F ) ) $=
+      ( vv wcel wa cfv cv co cz syl c1 wceq oveq1 vu vm vn crn csubg wss c0 wne
+      cgrp cplusg wral cminusg wf mulgcl 3expa an32s fmptd frn ovex fvmpt ax-mp
+      1z mulg1 adantl syl5eq wfn ffn fnfvelrn sylancl eqeltrrd caddc w3a df-3an
+      ne0i eqid mulgdir sylan2br anassrs zaddcl ad2antrl oveq12d 3eqtr4d syl2an
+      ad2antll ralrimiva wb oveq2 eleq1d ralrn adantr mpbird cneg znegcl fveq2d
+      mulgneg jca ralbidv fveq2 anbi12d cbs idi issubg2 mpbir3and ) EUIKZBFKZLZ
+      DUDZEUEMKZBXGKZXFXHXGFUFZXGUGUHZUANZJNZEUJMZOZXGKZJXGUKZXLEULMZMZXGKZLZUA
+      XGUKZXFPFDUMZXJXFAPANZBCOZFDXDYDPKZXEYEFKZXDYFXEYGFCEYDBGHUNUOUPIUQZPFDUR
+      QXFXIXKXFRDMZBXGXFYIRBCOZBRPKZYIYJSVBARYEYJPDYDRBCTIRBCUSUTVAXEYJBSXDFCEB
+      GHVCVDVEXFDPVFZYKYIXGKXFYCYLYHPFDVGQZVBPRDVHVIVJZXGBVNQXFYBUBNZDMZXMXNOZX
+      GKZJXGUKZYPXRMZXGKZLZUBPUKZXFUUBUBPXFYOPKZLZYSUUAUUEYSYPUCNZDMZXNOZXGKZUC
+      PUKZUUEUUIUCPXFUUDUUFPKZUUIXFUUDUUKLZLZYOUUFVKOZDMZUUHXGUUMUUNBCOZYOBCOZU
+      UFBCOZXNOZUUOUUHXDUULXEUUPUUSSZXDUULXEUUTUULXELXDUUDUUKXEVLUUTUUDUUKXEVMF
+      XNCEYOUUFBGHXNVOZVPVQVRUPUUMUUNPKZUUOUUPSUULUVBXFYOUUFVSZVDAUUNYEUUPPDYDU
+      UNBCTIUUNBCUSUTQUUMYPUUQUUGUURXNUUDYPUUQSZXFUUKAYOYEUUQPDYDYOBCTIYOBCUSUT
+      ZVTUUKUUGUURSXFUUDAUUFYEUURPDYDUUFBCTIUUFBCUSUTWDWAWBXFYLUVBUUOXGKUULYMUV
+      CPUUNDVHWCVJVRWEXFYSUUJWFZUUDXFYLUVFYMYRUUIJUCPDXMUUGSYQUUHXGXMUUGYPXNWGW
+      HWIQWJWKUUEYOWLZDMZYTXGUUEUVGBCOZUUQXRMZUVHYTXDUUDXEUVIUVJSZXDUUDXEUVKFCE
+      XRYOBGHXRVOZWOUOUPUUEUVGPKZUVHUVISUUDUVMXFYOWMZVDAUVGYEUVIPDYDUVGBCTIUVGB
+      CUSUTQUUEYPUUQXRUUDUVDXFUVEVDWNWBXFYLUVMUVHXGKUUDYMUVNPUVGDVHWCVJWPWEXFYL
+      YBUUCWFYMYAUUBUAUBPDXLYPSZXQYSXTUUAUVOXPYRJXGUVOXOYQXGXLYPXMXNTWHWQUVOXSY
+      TXGXLYPXRWRWHWSWIQWKXDXHXJXKYBVLWFXEUAJFXNXGEXRFEWTMSGXAUVAUVLXBWJXCYNWP
+      $.
+      $( [13-Jan-2015] $)
+
+    $( The cyclic subgroup generated by an element ` A ` is a subset of any
+       subgroup containing ` A ` .  (Contributed by Mario Carneiro,
+       13-Jan-2015.) $)
+    cycsubgss $p |- ( ( S e. ( SubGrp ` G ) /\ A e. S ) -> ran F C_ S ) $=
+      ( csubg cfv wcel wa cz wf crn wss cv co subgmulgcl 3expa an32s fmptd frn
+      syl ) CFKLMZBCMZNZOCEPEQCRUIAOASZBDTZCEUGUJOMZUHUKCMZUGULUHUMCDFUJBIUAUBU
+      CJUDOCEUEUF $.
+      $( [13-Jan-2015] $)
+
+    $( Two ways to write the cyclic subgroup generated by an element ` A ` . $)
+    cycsubg $p |- ( ( G e. Grp /\ A e. X ) ->
+      ran F = |^| { s e. ( SubGrp ` G ) | A e. s } ) $=
+      ( cgrp wcel wa crn cv csubg cfv crab cint wss cab wi wal cycsubgss ax-gen
+      ssintab mpbir df-rab inteqi sseqtr4i a1i cycsubgcl eleq2 elrab sylibr syl
+      intss1 eqssd ) EKLBFLMZDNZBGOZLZGEPQZRZSZUTVETUSUTVAVCLVBMZGUAZSZVEUTVHTV
+      FUTVATUBZGUCVIGABVACDEFHIJUDUEVFGUTUFUGVDVGVBGVCUHUIUJUKUSUTVDLZVEUTTUSUT
+      VCLBUTLZMVJABCDEFHIJULVBVKGUTVCVAUTBUMUNUOUTVDUQUPUR $.
+      $( [13-Jan-2015] $)
+  $}
+
+  ${
+    $d x y A $.  $d b g p s x y z G $.  $d b g p s x y z P $.  $d s x y z S $.
+    $d y B $.  $d b g p s x y z X $.
+    isnsg.1 $e |- X = ( Base ` G ) $.
+    isnsg.2 $e |- P = ( +g ` G ) $.
+    $( Property of being a normal subgroup. $)
+    isnsg $p |- ( S e. ( NrmSGrp ` G ) <-> ( S e. ( SubGrp ` G ) /\
+      A. x e. X A. y e. X ( ( x P y ) e. S <-> ( y P x ) e. S ) ) ) $=
+      ( vg vp vs vb cnsg cfv wcel cgrp csubg cv co wral wb cdm cplusg wsbc crab
+      wa cbs df-nsg dmmptss elfvdm sseldi subgrcl adantr wceq fveq2 cvv syl6eqr
+      fvex a1i simpl fveq2d simplr simpr oveqd eleq1d bibi12d raleqbidv sbcied2
+      rabeqbidv rabex fvmpt eleq2d eleq2 2ralbidv elrab syl6bb pm5.21nii ) DEMN
+      ZOZEPOZDEQNZOZARZBRZCSZDOZWDWCCSZDOZUAZBFTAFTZUFZVSMUBPEIPWCWDJRZSZKRZOZW
+      DWCWLSZWNOZUAZBLRZTZAWSTZJIRZUCNZUDZLXBUGNZUDZKXBQNZUEZMABIKJLUHZUIDEMUJU
+      KWBVTWJDEULUMVTVSDWEWNOZWGWNOZUAZBFTZAFTZKWAUEZOWKVTVRXODIEXHXOPMXBEUNZXF
+      XNKXGWAXBEQUOXPXDXNLXEFUPXEUPOXPXBUGURUSXPXEEUGNFXBEUGUOGUQXPWSFUNZUFZXAX
+      NJXCCUPXCUPOXRXBUCURUSXRXCEUCNCXRXBEUCXPXQUTVAHUQXRWLCUNZUFZWTXMAWSFXPXQX
+      SVBZXTWRXLBWSFYAXTWOXJWQXKXTWMWEWNXTWLCWCWDXRXSVCZVDVEXTWPWGWNXTWLCWDWCYB
+      VDVEVFVGVGVHVHVIXIXNKWAEQURVJVKVLXNWJKDWAWNDUNZXLWIABFFYCXJWFXKWHWNDWEVMW
+      NDWGVMVFVNVOVPVQ $.
+      $( [18-Jan-2015] $)
+
+    $( Weaken the condition of ~ isnsg to only one side of the implication. $)
+    isnsg2 $p |- ( S e. ( NrmSGrp ` G ) <-> ( S e. ( SubGrp ` G ) /\
+      A. x e. X A. y e. X ( ( x P y ) e. S -> ( y P x ) e. S ) ) ) $=
+      ( vz wcel cv co wral wa wi ralbii bitri wceq oveq2 eleq1d cfv csubg isnsg
+      cnsg wb dfbi2 r19.26-2 oveq1 imbi12d cbvralv ralcom ralbidv anbi12i anidm
+      3bitri anbi2i ) DEUDUAJDEUBUAJZAKZIKZCLZDJZUSURCLZDJZUEZIFMZAFMZNUQURBKZC
+      LZDJZVGURCLZDJZOZBFMZAFMZNAICDEFGHUCVFVNUQVFVAVCOZIFMZAFMZVCVAOZIFMAFMZNZ
+      VNVNNVNVFVOVRNZIFMZAFMVTVEWBAFVDWAIFVAVCUFPPVOVRAIFFUGQVQVNVSVNVPVMAFVOVL
+      IBFUSVGRZVAVIVCVKWCUTVHDUSVGURCSTWCVBVJDUSVGURCUHTUIUJPVSVRAFMZIFMZVNVRAI
+      FFUKWEUSVGCLZDJZVGUSCLZDJZOZBFMZIFMVNWDWKIFVRWJABFURVGRZVCWGVAWIWLVBWFDUR
+      VGUSCSTWLUTWHDURVGUSCUHTUIUJPWKVMIAFUSURRZWJVLBFWMWGVIWIVKWMWFVHDUSURVGCU
+      HTWMWHVJDUSURVGCSTUIULUJQQUMVNUNUOUPQ $.
+      $( [18-Jan-2015] $)
+
+    $( Defining property of a normal subgroup. $)
+    nsgbi $p |- ( ( S e. ( NrmSGrp ` G ) /\ A e. X /\ B e. X ) ->
+                  ( ( A P B ) e. S <-> ( B P A ) e. S ) ) $=
+      ( vx vy cfv wcel co wb cv wral wceq oveq1 eleq1d oveq2 cnsg csubg simprbi
+      wa isnsg bibi12d rcla42v syl5com 3impib ) DEUAKLZAFLZBFLZABCMZDLZBACMZDLZ
+      NZUJIOZJOZCMZDLZUSURCMZDLZNZJFPIFPZUKULUDUQUJDEUBKLVEIJCDEFGHUEUCVDUQAUSC
+      MZDLZUSACMZDLZNIJABFFURAQZVAVGVCVIVJUTVFDURAUSCRSVJVBVHDURAUSCTSUFUSBQZVG
+      UNVIUPVKVFUMDUSBACTSVKVHUODUSBACRSUFUGUHUI $.
+      $( [18-Jan-2015] $)
+  $}
+
+  ${
+    $d w x y z D $.  $d w x y z G $.  $d w x y z P $.  $d w x y z S $.
+    $d w x y z X $.
+    $( A normal subgroup is a subgroup. $)
+    nsgsubg $p |- ( S e. ( NrmSGrp ` G ) -> S e. ( SubGrp ` G ) ) $=
+      ( vx vy cnsg cfv wcel csubg cv cplusg co wb cbs wral eqid isnsg simplbi )
+      ABEFGABHFGCIZDIZBJFZKAGSRTKAGLDBMFZNCUANCDTABUAUAOTOPQ $.
+      $( [18-Jan-2015] $)
+
+    isnsg3.1 $e |- X = ( Base ` G ) $.
+    isnsg3.2 $e |- P = ( +g ` G ) $.
+    isnsg3.3 $e |- D = ( -g ` G ) $.
+    $( A subgroup is normal iff the conjugation of all the elements of the
+       subgroup is in the subgroup. $)
+    isnsg3 $p |- ( S e. ( NrmSGrp ` G ) <-> ( S e. ( SubGrp ` G ) /\
+      A. x e. X A. y e. S ( ( x P y ) D x ) e. S ) ) $=
+      ( vz vw cfv wcel cv co wral wa wceq syl2anc cnsg csubg nsgsubg adantr syl
+      cgrp subgrcl simprl wss subgss simprr sseldd grpaddsubass syl3anc eqeltrd
+      syl13anc grpnpcan wb simpl grpsubcl nsgbi mpbid ralrimivva jca wi cminusg
+      c0g ad2antrr simprll eqid grplinv oveq1d grpinvcl grpass grplid grpsubval
+      simprlr 3eqtr3d grpinvinv oveq2d 3eqtrd simplr oveq1 oveq12d eleq1d oveq2
+      id rcla42va syl21anc eqeltrrd expr isnsg2 sylanbrc impbii ) EFUAMNZEFUBMN
+      ZAOZBOZDPZWQCPZENZBEQAGQZRZWOWPXBEFUCZWOXAABGEWOWQGNZWRENZRZRZWTWQWRWQCPZ
+      DPZEXHFUFNZXEWRGNZXEWTXJSXHWPXKWOWPXGXDUDZEFUGZUEZWOXEXFUHZXHEGWRXHWPEGUI
+      XMGEFHUJUEWOXEXFUKZULZXPGDFCWQWRWQHIJUMUPXHXIWQDPZENZXJENZXHXSWREXHXKXLXE
+      XSWRSXOXRXPGDFCWRWQHIJUQUNXQUOXHWOXIGNZXEXTYAURWOXGUSXHXKXLXEYBXOXRXPGFCW
+      RWQHJUTUNXPXIWQDEFGHIVAUNVBUOVCVDXCWPKOZLOZDPZENZYDYCDPZENZVEZLGQKGQWOWPX
+      BUSXCYIKLGGXCYCGNZYDGNZRZYFYHXCYLYFRZRZYCFVFMZMZYEDPZYPCPZYGEYNYRYDYPCPZY
+      DYPYOMZDPZYGYNYQYDYPCYNYPYCDPZYDDPZFVGMZYDDPZYQYDYNUUBUUDYDDYNXKYJUUBUUDS
+      WPXKXBYMXNVHZXCYJYKYFVIZGDFYOUUDYCHIUUDVJZYOVJZVKTVLYNXKYPGNZYJYKUUCYQSUU
+      FYNXKYJUUJUUFUUGGFYOYCHUUIVMTZUUGXCYJYKYFVQZGDFYPYCYDHIVNUPYNXKYKUUEYDSUU
+      FUULGDFUUDYDHIUUHVOTVRVLYNYKUUJYSUUASUULUUKGDFYOCYDYPHIUUIJVPTYNYTYCYDDYN
+      XKYJYTYCSUUFUUGGFYOYCHUUIVSTVTWAYNUUJYFXBYRENZUUKXCYLYFUKWPXBYMWBXAUUMYPW
+      RDPZYPCPZENABYPYEGEWQYPSZWTUUOEUUPWSUUNWQYPCWQYPWRDWCUUPWGWDWEWRYESZUUOYR
+      EUUQUUNYQYPCWRYEYPDWFVLWEWHWIWJWKVCKLDEFGHIWLWMWN $.
+      $( [18-Jan-2015] $)
+  $}
+
+  ${
+    $d x z A $.  $d z B $.  $d u w x y z G $.  $d u w z N $.  $d u w x y z P $.
+    $d w z H $.  $d u w x y z S $.  $d u w x y z X $.
+    elnmz.1 $e |- N = { x e. X |
+      A. y e. X ( ( x P y ) e. S <-> ( y P x ) e. S ) } $.
+    $( Elementhood in the normalizer. $)
+    elnmz $p |- ( A e. N <-> ( A e. X /\
+      A. z e. X ( ( A P z ) e. S <-> ( z P A ) e. S ) ) ) $=
+      ( cv co wcel wb wral wceq oveq2 eleq1d oveq1 bibi12d cbvralv ralbidv
+      syl5bb elrab2 ) AJZBJZEKZFLZUEUDEKZFLZMZBHNZDCJZEKZFLZULDEKZFLZMZCHNZADHG
+      UKUDULEKZFLZULUDEKZFLZMZCHNUDDOZURUJVCBCHUEULOZUGUTUIVBVEUFUSFUEULUDEPQVE
+      UHVAFUEULUDERQSTVDVCUQCHVDUTUNVBUPVDUSUMFUDDULERQVDVAUOFUDDULEPQSUAUBIUC
+      $.
+      $( [18-Jan-2015] $)
+
+    $( Defining property of the normalizer. $)
+    nmzbi $p |- ( ( A e. N /\ B e. X ) ->
+      ( ( A P B ) e. S <-> ( B P A ) e. S ) ) $=
+      ( vz wcel cv co wb wral elnmz simprbi wceq oveq2 eleq1d bibi12d rcla4cva
+      oveq1 sylan ) CGKZCJLZEMZFKZUFCEMZFKZNZJHOZDHKCDEMZFKZDCEMZFKZNZUECHKULAB
+      JCEFGHIPQUKUQJDHUFDRZUHUNUJUPURUGUMFUFDCESTURUIUOFUFDCEUCTUAUBUD $.
+      $( [18-Jan-2015] $)
+
+    nmzsubg.2 $e |- X = ( Base ` G ) $.
+    nmzsubg.3 $e |- P = ( +g ` G ) $.
+    $( The normalizer N_G(S) of a subset ` S ` of the group is a subgroup. $)
+    nmzsubg $p |- ( G e. Grp -> N e. ( SubGrp ` G ) ) $=
+      ( vz vu wcel co wral wb eleq1d wceq grpass syl2anc cgrp csubg cfv wss wne
+      vw c0 cv cminusg wa crab ssrab2 eqsstri a1i c0g eqid grplid grprid eqtr4d
+      grpidcl ralrimiva elnmz sylanbrc syl w3a sseli grpcl syl3an simpl1 simpl2
+      ne0i id sseldi simpl3 simpr syl13anc syl3anc nmzbi 3bitrd grpinvcl sylan2
+      3expa simplr ad2antrr adantr grprinv oveq1d 3eqtr3d grplinv oveq2d 3eqtrd
+      eqtrd 3bitr3rd jca issubg2 mpbir3and ) EUAMZFEUBUCMFGUDZFUGUEZKUHZUFUHZCN
+      ZFMZUFFOZWTEUIUCZUCZFMZUJZKFOWRWQFAUHZBUHZCNDMXJXICNDMPBGOZAGUKGHXKAGULUM
+      ZUNWQEUOUCZFMZWSWQXMGMXMWTCNZDMWTXMCNZDMPZKGOXNGEXMIXMUPZUTWQXQKGWQWTGMZU
+      JZXOXPDXTXOWTXPGCEXMWTIJXRUQGCEXMWTIJXRURUSQVAABKXMCDFGHVBVCFXMVKVDWQXHKF
+      WQWTFMZUJZXDXGYBXCUFFWQYAXAFMZXCWQYAYCVEZXBGMZXBLUHZCNZDMZYFXBCNZDMZPZLGO
+      XCWQWQYAXSYCXAGMZYEWQVLZFGWTXLVFZFGXAXLVFGCEWTXAIJVGVHYDYKLGYDYFGMZUJZYHW
+      TXAYFCNZCNZDMZYFWTCNZXACNZDMZYJYPYGYRDYPWQXSYLYOYGYRRWQYAYCYOVIZYPFGWTXLW
+      QYAYCYOVJZVMZYPFGXAXLWQYAYCYOVNZVMZYDYOVOZGCEWTXAYFIJSVPQYPYSYQWTCNZDMZXA
+      YTCNZDMZUUBYPYAYQGMZYSUUJPUUDYPWQYLYOUUMUUCUUGUUHGCEXAYFIJVGVQABWTYQCDFGH
+      VRTYPUUIUUKDYPWQYLYOXSUUIUUKRUUCUUGUUHUUEGCEXAYFWTIJSVPQYPYCYTGMZUULUUBPU
+      UFYPWQYOXSUUNUUCUUHUUEGCEYFWTIJVGVQABXAYTCDFGHVRTVSYPUUAYIDYPWQYOXSYLUUAY
+      IRUUCUUHUUEUUGGCEYFWTXAIJSVPQVSVAABLXBCDFGHVBVCWBVAYBXFGMZXFYFCNZDMZYFXFC
+      NZDMZPZLGOXGYAWQXSUUOYNGEXEWTIXEUPZVTWAZYBUUTLGYBYOUJZWTXFUURCNZCNZDMZUVD
+      WTCNZDMZUUSUUQUVCYAUVDGMZUVFUVHPWQYAYOWCZUVCWQUUOUURGMZUVIWQWQYAYOYMWDZYB
+      UUOYOUVBWEZUVCWQYOUUOUVKUVLYBYOVOZUVMGCEYFXFIJVGVQZGCEXFUURIJVGVQABWTUVDC
+      DFGHVRTUVCUVEUURDUVCWTXFCNZUURCNZXMUURCNZUVEUURUVCUVPXMUURCUVCWQXSUVPXMRU
+      VLUVCYAXSUVJYNVDZGCEXEXMWTIJXRUVAWFTWGUVCWQXSUUOUVKUVQUVERUVLUVSUVMUVOGCE
+      WTXFUURIJSVPUVCWQUVKUVRUURRUVLUVOGCEXMUURIJXRUQTWHQUVCUVGUUPDUVCUVGXFUURW
+      TCNZCNZUUPUVCWQUUOUVKXSUVGUWARUVLUVMUVOUVSGCEXFUURWTIJSVPUVCUVTYFXFCUVCUV
+      TYFXFWTCNZCNZYFXMCNZYFUVCWQYOUUOXSUVTUWCRUVLUVNUVMUVSGCEYFXFWTIJSVPUVCUWB
+      XMYFCUVCWQXSUWBXMRUVLUVSGCEXEXMWTIJXRUVAWITWJUVCWQYOUWDYFRUVLUVNGCEXMYFIJ
+      XRURTWKWJWLQWMVAABLXFCDFGHVBVCWNVAKUFGCFEXEIJUVAWOWP $.
+      $( [18-Jan-2015] $)
+
+    $( A subgroup is a subset of its normalizer. $)
+    ssnmz $p |- ( S e. ( SubGrp ` G ) -> S C_ N ) $=
+      ( vw cfv wcel wa co wceq syl eqid syl2anc syl3anc vz csubg cv wral subgss
+      wb sselda simpll cminusg c0g subgrcl wss simplrl sseldd grplinv subginvcl
+      cgrp oveq1d simplrr grpass syl13anc grplid simpr subgcl eqeltrrd grppncan
+      3eqtr3d csg subgsubcl impbida anassrs ralrimiva elnmz sylanbrc ex ssrdv )
+      DEUBLMZUADFVQUAUCZDMZVRFMZVQVSNZVRGMZVRKUCZCOZDMZWCVRCOZDMZUFZKGUDVTVQDGV
+      RGDEIUEZUGZWAWHKGVQVSWCGMZWHVQVSWKNZNZWEWGWMWENZVQWCDMZVSWGVQWLWEUHZWNVRE
+      UILZLZWDCOZWCDWNWRVRCOZWCCOZEUJLZWCCOZWSWCWNWTXBWCCWNEUQMZWBWTXBPWNVQXDWP
+      DEUKZQZWNDGVRWNVQDGULWPWIQZVQVSWKWEUMZUNZGCEWQXBVRIJXBRZWQRZUOSURWNXDWRGM
+      WBWKXAWSPXFWNDGWRXGWNVQVSWRDMZWPXHDEWQVRXKUPSZUNXIVQVSWKWEUSZGCEWRVRWCIJU
+      TVAWNXDWKXCWCPXFXNGCEXBWCIJXJVBSVGWNVQXLWEWSDMWPXMWMWEVCCDEWRWDJVDTVEXHCD
+      EWCVRJVDTWMWGNZVQVSWOWEVQWLWGUHZVQVSWKWGUMZXOWFVREVHLZOZWCDXOXDWKWBXSWCPX
+      OVQXDXPXEQVQVSWKWGUSXOVQVSWBXPXQWJSGCEXRWCVRIJXRRZVFTXOVQWGVSXSDMXPWMWGVC
+      XQDEXRWFVRXTVITVECDEVRWCJVDTVJVKVLABKVRCDFGHVMVNVOVP $.
+      $( [18-Jan-2015] $)
+
+    $( A subgroup is normal iff its normalizer is the entire group. $)
+    isnsg4 $p |- ( S e. ( NrmSGrp ` G ) <->
+                   ( S e. ( SubGrp ` G ) /\ N = X ) ) $=
+      ( cnsg cfv wcel csubg cv co wb wral wa wceq eqeq2i rabid2 3bitri anbi2i
+      isnsg crab eqcom bitr4i ) DEKLMDENLMZAOZBOZCPDMUKUJCPDMQBGRZAGRZSUIFGTZSA
+      BCDEGIJUEUNUMUIUNGFTGULAGUFZTUMFGUGFUOGHUAULAGUBUCUDUH $.
+      $( [18-Jan-2015] $)
+
+    nmznsg.4 $e |- H = ( G |`s N ) $.
+    $( Any subgroup is a normal subgroup of its normalizer. $)
+    nmznsg $p |- ( S e. ( SubGrp ` G ) -> S e. ( NrmSGrp ` H ) ) $=
+      ( vz vw cfv wcel cv co wb wral csubg cbs cnsg id ssnmz wa subgrcl nmzsubg
+      wss cgrp syl subsubg mpbir2and crab ssrab2 eqsstri sseli nmzbi rgen2 wceq
+      sylan2 subgbas raleqdv raleqbidv mpbii eqid ressplusg isnsg sylanbrc ) DE
+      UAOZPZDFUAOPZMQZNQZCRDPVNVMCRDPSZNFUBOZTZMVPTZDFUCOPVKVLVKDGUIZVKUDABCDEG
+      HIJKUEVKGVJPZVLVKVSUFSVKEUJPVTDEUGABCDEGHIJKUHUKZDGEFLULUKUMVKVONGTZMGTVR
+      VOMNGGVNGPVMGPVNHPVOGHVNGAQZBQZCRDPWDWCCRDPSBHTZAHUNHIWEAHUOUPUQABVMVNCDG
+      HIURVAUSVKWBVQMGVPVKVTGVPUTWAGEFLVBUKZVKVONGVPWFVCVDVEMNCDFVPVPVFGCEFLKVG
+      VHVI $.
+      $( [19-Jan-2015] $)
+  $}
+
+  ${
+    $d x y A $.  $d x y B $.  $d g s x y G $.  $d g s x y N $.  $d g s x y P $.
+    $d g s x y S $.  $d g s x y X $.
+    eqgval.x $e |- X = ( Base ` G ) $.
+    eqgval.n $e |- N = ( invg ` G ) $.
+    eqgval.p $e |- P = ( +g ` G ) $.
+    eqgval.r $e |- R = ( G ~QG S ) $.
+    $( Value of the subgroup left coset equivalence relation.  (Contributed by
+       Mario Carneiro, 15-Jan-2015.) $)
+    eqgfval $p |- ( ( G e. V /\ S C_ X ) -> R = { <. x , y >. |
+      ( { x , y } C_ X /\ ( ( N ` x ) P y ) e. S ) } ) $=
+      ( vg wcel cvv cv cfv wa cbs vs cpr wss copab wceq elex fvex eqeltri ssexg
+      co mpan2 cminusg cplusg simpl fveq2d syl6eqr sseq2d fveq1d eqidd oveq123d
+      cqg simpr eleq12d anbi12d opabbidv df-eqg xpex prss sylibr ssopab2i df-xp
+      cxp vex sseqtr4i ssexi ovmpt2a syl5eq syl2an ) FHOFPOZEPOZDAQZBQZUBZIUCZW
+      AGRZWBCUJZEOZSZABUDZUEEIUCZFHUFWJIPOVTIFTRZPJFTUGUHZEIPUIUKVSVTSDFEVAUJWI
+      MNUAFEPPWCNQZTRZUCZWAWMULRZRZWBWMUMRZUJZUAQZOZSZABUDWIVAWMFUEZWTEUEZSZXBW
+      HABXEWOWDXAWGXEWNIWCXEWNWKIXEWMFTXCXDUNZUOJUPUQXEWSWFWTEXEWQWEWBWBWRCXEWR
+      FUMRCXEWMFUMXFUOLUPXEWAWPGXEWPFULRGXEWMFULXFUOKUPURXEWBUSUTXCXDVBVCVDVEAB
+      UANVFWIIIVLZIIWLWLVGWIWAIOWBIOSZABUDXGWHXHABWHWDXHWDWGUNWAWBIAVMBVMVHVIVJ
+      ABIIVKVNVOVPVQVR $.
+      $( [15-Jan-2015] $)
+
+    $( Value of the subgroup left coset equivalence relation.  (Contributed by
+       Mario Carneiro, 15-Jan-2015.) $)
+    eqgval $p |- ( ( G e. V /\ S C_ X /\ B e. W ) -> ( A R B <->
+      ( A e. X /\ B e. X /\ ( ( N ` A ) P B ) e. S ) ) ) $=
+      ( vx vy wcel wa wceq wi wss w3a wbr cv cpr co copab eqgfval 3adant3 breqd
+      cfv cvv relopab brrelexi a1i elex 3ad2ant1 wb prss eleq1 bi2anan9 syl5bbr
+      vex fveq2 id oveqan12d eleq1d anbi12d df-3an syl6bbr eqid brabga 3ad2ant3
+      expcom pm5.21ndd bitrd ) FHQZEJUAZBIQZUBZABDUCABOUDZPUDZUEJUAZWAGUKZWBCUF
+      ZEQZRZOPUGZUCZAJQZBJQZAGUKZBCUFZEQZUBZVTDWHABVQVRDWHSVSOPCDEFGHJKLMNUHUIU
+      JVTAULQZWIWOWIWPTVTABWHWGOPUMUNUOWOWPTVTWJWKWPWNAJUPUQUOVSVQWPWIWOURZTVRW
+      PVSWQWGWOOPABWHULIWAASZWBBSZRZWGWJWKRZWNRWOWTWCXAWFWNWCWAJQZWBJQZRWTXAWAW
+      BJOVCPVCUSWRXBWJWSXCWKWAAJUTWBBJUTVAVBWTWEWMEWRWSWDWLWBBCWAAGVDWSVEVFVGVH
+      WJWKWNVIVJWHVKVLVNVMVOVP $.
+      $( [15-Jan-2015] $)
+  $}
+
+  ${
+    $d x A $.  $d x y z G $.  $d x y z R $.  $d x y z X $.  $d x y z Y $.
+    eqger.x $e |- X = ( Base ` G ) $.
+    eqger.r $e |- R = ( G ~QG Y ) $.
+    $( The subgroup coset equivalence relation is an equivalence relation.
+       (Contributed by Mario Carneiro, 15-Jan-2015.) $)
+    eqger $p |- ( Y e. ( SubGrp ` G ) -> ( Er R /\ dom R = X ) ) $=
+      ( cfv wcel wbr wa co w3a cgrp wb cvv eqgval syl2anc wceq adantr syl3anc
+      vx vy vz csubg cminusg cplusg wss subgrcl subgss vex mp3an3 biimpa simp2d
+      cv eqid simp1d grpinvcl grpinvadd grpinvinv oveq2d eqtrd simp3d subginvcl
+      syldan eqeltrrd mpbir3and adantrr simprr grpcl grpass syl13anc c0g oveq1d
+      grprinv grplid 3eqtr3d simpl subgcl grplinv sylan subg0cl pm4.71rd df-3an
+      eqeltrd ex anidm anbi1i ancom 3bitri syl6bb bitr4d iser2d ) DBUDGHZUAUBUC
+      CAWMUAUNZUBUNZAIZJZWOWNAIZWOCHZWNCHZWOBUEGZGZWNBUFGZKZDHZWQWTWSWNXAGZWOXC
+      KZDHZWMWPWTWSXHLZWMBMHZDCUGZWPXINZDBUHZCDBEUIZXJXKWOOHXLUBUJWNWOXCADBXAMO
+      CEXAUOZXCUOZFPUKQULZUMZWQWTWSXHXQUPZWQXGXAGZXDDWQXTXBXFXAGZXCKZXDWQXJXFCH
+      ZWSXTYBRWMXJWPXMSZWQXJWTYCYDXSCBXAWNEXOUQZQXRCXCBXAXFWOEXPXOURTWQYAWNXBXC
+      WQXJWTYAWNRYDXSCBXAWNEXOUSQUTVAWMWPXHXTDHWQWTWSXHXQVBZDBXAXGXOVCVDVEWQXJX
+      KWTWRWSWTXELNYDWMXKWPXNSXSWOWNXCADBXAMCCEXOXPFPTVFWMWPWOUCUNZAIZJZJZWNYGA
+      IZWTYGCHZXFYGXCKZDHZWMWPWTYHXSVGZYJWSYLXBYGXCKZDHZWMYIYHWSYLYQLZWMWPYHVHW
+      MYHYRWMXJXKYHYRNZXMXNXJXKYGOHYSUCUJWOYGXCADBXAMOCEXOXPFPUKQULVDZUMZYJXGYP
+      XCKZYMDYJUUBXFWOYPXCKZXCKZYMYJXJYCWSYPCHZUUBUUDRWMXJYIXMSZYJXJWTYCUUFYOYE
+      QWMWPWSYHXRVGZYJXJXBCHZYLUUEUUFYJXJWSUUHUUFUUGCBXAWOEXOUQQZUUACXCBXBYGEXP
+      VITCXCBXFWOYPEXPVJVKYJUUCYGXFXCYJWOXBXCKZYGXCKZBVLGZYGXCKZUUCYGYJUUJUULYG
+      XCYJXJWSUUJUULRUUFUUGCXCBXAUULWOEXPUULUOZXOVNQVMYJXJWSUUHYLUUKUUCRUUFUUGU
+      UIUUACXCBWOXBYGEXPVJVKYJXJYLUUMYGRUUFUUACXCBUULYGEXPUUNVOQVPUTVAYJWMXHYQU
+      UBDHWMYIVQWMWPXHYHYFVGYJWSYLYQYTVBXCDBXGYPXPVRTVEYJXJXKYLYKWTYLYNLNUUFWMX
+      KYIXNSUUAWNYGXCADBXAMCCEXOXPFPTVFWMWTXFWNXCKZDHZWTJZWNWNAIZWMWTUUPWMWTUUP
+      WMWTJUUOUULDWMXJWTUUOUULRXMCXCBXAUULWNEXPUUNXOVSVTWMUULDHWTDBUULUUNWASWDW
+      EWBWMUURWTWTUUPLZUUQWMXJXKUURUUSNZXMXNXJXKWNOHUUTUAUJWNWNXCADBXAMOCEXOXPF
+      PUKQUUSWTWTJZUUPJWTUUPJUUQWTWTUUPWCUVAWTUUPWTWFWGWTUUPWHWIWJWKWL $.
+      $( [13-Jan-2015] $)
+
+    $( Each coset is equipotent to the subgroup itself (which is also the coset
+       containing the identity).  (Contributed by Mario Carneiro,
+       15-Jan-2015.) $)
+    eqgen $p |- ( ( Y e. ( SubGrp ` G ) /\ A e. ( X /. R ) ) -> Y ~~ A ) $=
+      ( vx vz wbr cfv wcel eqid wa co cvv wceq syl2anc wb adantrr vy cv cec cen
+      csubg cqs breq2 cplusg cminusg elex adantr simplr subgrcl ad2antrr subgss
+      cgrp wss sselda grpcl syl3anc c0g grplinv oveq1d grpinvcl grpass syl13anc
+      grplid 3eqtr3d simpr eqeltrd w3a eqgval mp3an3 mpbir3and elexi vex sylibr
+      ovex elec biimpa simp3d syl5bi anbi2i eqeq2d eqcom syl6bb adantrl grplcan
+      ex simp2d bitr3d en3d ectocld ) EHUBZBUCZUDJEAUDJECUEKZLZHADBDBUFZWRMWOAE
+      UDUGWQWNDLZNZUAIEWOWNUAUBZCUHKZOZWNCUIKZKZIUBZXBOZWQEPLWSEWPUJUKWTXAELZXC
+      WOLZWTXHNZWNXCBJZXIXJXKWSXCDLZXEXCXBOZELZWQWSXHULZXJCUPLZWSXADLZXLWQXPWSX
+      HECUMZUNZXOWTEDXAWQEDUQZWSDECFUOZUKURZDXBCWNXAFXBMZUSUTZXJXMXAEXJXEWNXBOZ
+      XAXBOZCVAKZXAXBOZXMXAXJYEYGXAXBXJXPWSYEYGQXSXODXBCXDYGWNFYCYGMZXDMZVBRVCX
+      JXPXEDLZWSXQYFXMQXSXJXPWSYKXSXODCXDWNFYJVDZRXOYBDXBCXEWNXAFYCVEVFXJXPXQYH
+      XAQXSYBDXBCYGXAFYCYIVGRVHZWTXHVIVJWQXKWSXLXNVKSZWSXHWQXPXTYNXRYAXPXTXCPLY
+      NWNXAXBVRZWNXCXBBECXDUPPDFYJYCGVLVMRUNVNXCWNBXCPYOVOHVPZVSVQWIXFWOLZWNXFB
+      JZWTXGELZXFWNBIVPZYPVSZWTYRYSWTYRNZWSXFDLZYSWTYRWSUUCYSVKZWQYRUUDSZWSWQXP
+      XTUUEXRYAXPXTXFPLUUEYTWNXFXBBECXDUPPDFYJYCGVLVMRUKVTZWAWIWBXHYQNXHYRNZWTX
+      AXGQZXFXCQZSZYQYRXHUUAWCWTUUGUUJWTUUGNZXGXMQZUUHUUIUUKUULXGXAQUUHUUKXMXAX
+      GWTXHXMXAQYRYMTWDXGXAWEWFUUKXPUUCXLYKUULUUISWTXHXPYRXSTZWTYRUUCXHUUBWSUUC
+      YSUUFWJWGWTXHXLYRYDTUUKXPWSYKUUMWTXHWSYRXOTYLRDXBCXFXCXEFYCWHVFWKWIWBWLWM
+      $.
+      $( [13-Jan-2015] $)
+  $}
+
+  ${
+    $d x ph $.  $d x R $.  $d x X $.  $d x Y $.
+    lagsubg.1 $e |- X = ( Base ` G ) $.
+    ${
+      lagsubg.2 $e |- R = ( G ~QG Y ) $.
+      lagsubg.3 $e |- ( ph -> Y e. ( SubGrp ` G ) ) $.
+      lagsubg.4 $e |- ( ph -> X e. Fin ) $.
+      $( Lagrange's theorem for Groups: the order of a group is equal to the
+         product of the order of a subgroup with the index of the subgroup,
+         defined as the number of left cosets of the subgroup.  (Contributed by
+         Mario Carneiro, 11-Jul-2014.) $)
+      lagsubg2 $p |- ( ph -> ( # ` X ) =
+        ( ( # ` ( X /. R ) ) x. ( # ` Y ) ) ) $=
+        ( vx chash cfv cvv wi wceq wcel syl idi cfn syl2anc cqs cv csu cmul wer
+        co cdm csubg wa eqger simpld simprd cqg ovex eqeltri a1i qshash cen wbr
+        eqgen sylan wb wss subgss ssfi adantr qsss sselda elpwi hashen sumeq2dv
+        cpw mpbird cc pwfi sylib cn0 hashcl nn0cn fsumconst 3eqtr2d ) ADKLDBUAZ
+        JUBZKLZJUCWBEKLZJUCZWBKLWEUDUFZAJDBMABUEZNAWHBUGDOZAECUHLPZWHWIUIHBCDEF
+        GUJQZUKZRAWINAWHWIWKULZRABMPZNWNABCEUMUFMGCEUMUNUOUPZRADSPZNIRUQAWBWEWD
+        JAWCWBPZUIZWEWDOZEWCURUSZAWJWQWTHWCBCDEFGUTVAWRESPZWCSPZWSWTVBAXAWQAWPE
+        DVCZXAIAWJXCHDECFVDQDEVETZVFWRWPWCDVCZXBAWPWQIVFWRWCDVLZPXEAWBXFWCADBMW
+        LWMWOVGZVHWCDVIQDWCVETEWCVJTVMVKAWBSPZWEVNPZWFWGOAXFSPZWBXFVCXHAWPXJIDV
+        OVPXGXFWBVETAWEVQPZXIAXAXKXDEVRQWEVSQWBWEJVTTWA $.
+        $( [11-Jul-2014] $)
+    $}
+
+    $( Lagrange theorem for Groups: the order of any subgroup of a finite group
+       is a divisor of the order of the group.  (Contributed by Mario Carneiro,
+       11-Jul-2014.)  (Revised by Mario Carneiro, 2-Dec-2014.) $)
+    lagsubg $p |- ( ( Y e. ( SubGrp ` G ) /\ X e. Fin ) ->
+                    ( # ` Y ) || ( # ` X ) ) $=
+      ( cfv wcel cfn wa chash cqg cdivides cn0 wss cvv ssfi syl2anc hashcl nn0z
+      co cz csubg cqs cmul wbr cpw simpr pwfi sylib wer wceq eqid adantr simpld
+      cdm eqger simprd ovex qsss 3syl id subgss syl2anr dvdsmul2 simpl lagsubg2
+      a1i breqtrrd ) CAUAEFZBGFZHZCIEZBACJSZUBZIEZVKUCSZBIEKVJVNTFZVKTFZVKVOKUD
+      VJVMGFZVNLFVPVJBUEZGFZVMVSMVRVJVIVTVHVIUFZBUGUHVJBVLNVJVLUIZVLUNBUJZVHWBW
+      CHVIVLABCDVLUKZUOULZUMVJWBWCWEUPVLNFVJACJUQVFURVSVMOPVMQVNRUSVJCGFZVKLFVQ
+      VIVICBMWFVHVIUTBCADVABCOVBCQVKRUSVNVKVCPVJVLABCDWDVHVIVDWAVEVG $.
+      $( [2-Dec-2014] $) $( [11-Jul-2014] $)
+  $}
+

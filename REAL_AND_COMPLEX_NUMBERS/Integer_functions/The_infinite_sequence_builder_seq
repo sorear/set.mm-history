@@ -454,15 +454,40 @@ $)
 
   ${
     $d P x y $.  $d F x y $.  $d M x y $.
-    $( Define a recursive sequence builder operation that starts at an
-       arbitrary integer index.  See ~ seq1 and ~ seqp1 for its initial and
-       successor values.
+    $( Define a general-purpose operation that builds an recursive sequence
+       (i.e. a function on the natural numbers ` NN ` or some other upper
+       integer set) whose value at an index is a function of its previous value
+       and the value of an input sequence at that index.  This definition is
+       complicated, but fortunately it is not intended to be used directly.
+       Instead, the only purpose of this definition is to provide us with an
+       object that has the properties expressed by ~ seq1 and ~ seqp1 .
+       Typically, those are the main theorems that would be used in practice.
 
-       The ` rec ` function generates as its values a set of ordered pairs
-       starting at ` <. M , ( F `` M ) >. ` , with the first member of each
-       pair incremented by one in each successive value.  So, the range of
-       ` rec ` is exactly the sequence we want, and we just extract the range
-       (restricted to omega) and throw away the domain. $)
+       The first operand in the parentheses is the operation that is applied to
+       the previous value and the value of the input sequence (second
+       operand).  The operand to the left of the parenthesis is the integer to
+       start from.  For example, for the operation ` + ` , an input sequence
+       ` F ` with values 1, 1/2, 1/4, 1/8,... would be transformed into the
+       output sequence ` seq 1 ( + , F ) ` with values 1, 3/2, 7/4, 15/8,.., so
+       that ` ( seq 1 ( + , F ) `` 1 ) = 1 ` , ` ( seq 1 ( + , F ) `` 2 ) = `
+       3/2, etc.  In other words, ` seq M ( + , F ) ` transforms a sequence
+       ` F ` into an infinite series. ` seq M ( + , F ) ~~> 2 ` means "the sum
+       of F(n) from n = M to infinity is 2."  Since limits are unique
+       ( ~ climuni ), by ~ climdm the "sum of F(n) from n = 1 to infinity" can
+       be expressed as ` ( ~~> `` seq 1 ( + , F ) ) ` (provided the sequence
+       converges) and evaluates to 2 in this example.
+
+       Internally, the ` rec ` function generates as its values a set of
+       ordered pairs starting at ` <. M , ( F `` M ) >. ` , with the first
+       member of each pair incremented by one in each successive value.  So,
+       the range of ` rec ` is exactly the sequence we want, and we just
+       extract the range (restricted to omega) and throw away the domain.
+
+       This definition has its roots in a series of theorems from ~ om2uz0i
+       through ~ om2uzf1oi , originally proved by Raph Levien for use with
+       ~ df-exp and later generalized for arbitrary recursive sequences.
+       Definition ~ df-sum extracts the summation values from partial (finite)
+       and complete (infinite) series. $)
     df-seq $a |- seq M ( P , F ) = ( rec (
         ( x e. _V , y e. _V |-> <. ( x + 1 ) , ( y P ( F ` ( x + 1 ) ) ) >. ) ,
           <. M , ( F ` M ) >. ) " om ) $.
