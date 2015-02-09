@@ -1,0 +1,209 @@
+$(
+#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#
+           Presets and directed sets using extensible structures
+#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#
+$)
+
+  $c Preset Dirset $.
+
+  $( Extend class notation with the class of all presets. $)
+  cpreset $a class Preset $.
+
+  $( Extend class notation with the class of all directed sets. $)
+  cdrs $a class Dirset $.
+
+  ${
+    $d f b r x y z $.
+    $( Define the class of preordered sets (presets).  A preset is a set
+       equipped with a transitive and reflexive relation.
+
+       Preorders are a natural generalization of order for sets where there is
+       a well-defined ordering, but it in some sense "fails to capture the
+       whole story", in that there may be pairs of elements which are
+       indistinguishable under the order.  Two elements which are not equal but
+       are less-or-equal to each other behave the same under all order
+       operations and may be thought of as "tied".
+
+       A preorder can naturally be strengthened by requiring that there are no
+       ties, resulting in a partial order, or by stating that all comparable
+       pairs of elements _are_ tied, resulting in an equivalence relation.
+       Every preorder naturally factors into these two types; the tied relation
+       on a preorder is an equivalence relation and the quotient under that
+       relation is a partial order.
+
+       (Contributed by FL, 17-Nov-2014.)  (Revised by Stefan O'Rear,
+       31-Jan-2015.) $)
+    df-preset $a |- Preset = { f | [ ( Base ` f ) / b ] [ ( le ` f ) / r ]
+                A. x e. b A. y e. b A. z e. b ( x r x
+                 /\ ( ( x r y /\ y r z ) -> x r z ) ) } $.
+
+    $( Define the class of directed sets.  A directed set is a nonempty
+       preordered set where every pair of elements have some upper bound.  Note
+       that it is not required that there exist a _least_ upper bound.
+
+       There is no consensus in the literature over whether directed sets are
+       allowed to be empty.  It is slightly more convenient for us if they are
+       not. $)
+    df-drs $a |- Dirset = { f e. Preset | [ ( Base ` f ) / b ]
+        [ ( le ` f ) / r ] ( b =/= (/) /\ A. x e. b A. y e. b E. z e. b
+            ( x r z /\ y r z ) ) } $.
+  $}
+
+  ${
+    $d K f b r x y z $.  $d B f b r x y z $.  $d L f b r x y z $.
+    $d X x y z $.  $d Y x y z $.  $d Z x y z $.
+    isprs.b $e |- B = ( Base ` K ) $.
+    isprs.l $e |- L = ( le ` K ) $.
+    $( Property of being a preordered set.  (Contributed by Stefan O'Rear,
+       31-Jan-2015.) $)
+    isprs $p |- ( K e. Preset <-> ( K e. _V /\ A. x e. B A. y e. B A. z e. B
+          ( x L x /\ ( ( x L y /\ y L z ) -> x L z ) ) ) ) $=
+      ( vr vb cv wbr wa wral cple cfv wsbc cbs wceq wb vf wi cpreset dfsbcq syl
+      fveq2 sbcbidv bitrd eqtr3 mpan2 raleq raleqbi1dv anbi12d imbi12d 2ralbidv
+      fvex breq ralbidv sylan9bb sbc2ie syl6bb df-preset elab4g ) AKZVDIKZLZVDB
+      KZVELZVGCKZVELZMZVDVIVELZUBZMZCJKZNZBVONZAVONZIUAKZOPZQZJVSRPZQZVDVDFLZVD
+      VGFLZVGVIFLZMZVDVIFLZUBZMZCDNZBDNADNZUAEUCVSESZWCVRIEOPZQZJERPZQZWLWMWCWA
+      JWPQZWQWMWBWPSWCWRTVSERUFWAJWBWPUDUEWMWAWOJWPWMVTWNSWAWOTVSEOUFVRIVTWNUDU
+      EUGUHVRWLJIWPWNERUPEOUPVOWPSZVRVNCDNZBDNZADNZVEWNSZWLWSVODSZVRXBTWSDWPSXD
+      GVODWPUIUJVQXAAVODVPWTBVODVNCVODUKULULUEXCVEFSZXBWLTXCFWNSXEHVEFWNUIUJXEW
+      TWKABDDXEVNWJCDXEVFWDVMWIVDVDVEFUQXEVKWGVLWHXEVHWEVJWFVDVGVEFUQVGVIVEFUQU
+      MVDVIVEFUQUNUMURUOUEUSUTVAABCUAIJVBVC $.
+      $( [31-Jan-2015] $)
+
+    $( Lemma for ~ prsref and ~ prstr . $)
+    prslem $p |- ( ( K e. Preset /\ ( X e. B /\ Y e. B /\ Z e. B ) ) ->
+        ( X L X /\ ( ( X L Y /\ Y L Z ) -> X L Z ) ) ) $=
+      ( vx vy vz wcel wbr wa wi cv wral wceq breq1 breq2 w3a cpreset simprbi wb
+      cvv isprs breq12 anidms anbi1d imbi12d anbi12d imbi1d anbi2d rcla43v syl5
+      impcom ) DALEALFALUAZBUBLZDDCMZDECMZEFCMZNZDFCMZOZNZURIPZVFCMZVFJPZCMZVHK
+      PZCMZNZVFVJCMZOZNZKAQJAQIAQZUQVEURBUELVPIJKABCGHUFUCVOVEUSDVHCMZVKNZDVJCM
+      ZOZNUSUTEVJCMZNZVSOZNIJKDEFAAAVFDRZVGUSVNVTWDVGUSUDVFDVFDCUGUHWDVLVRVMVSW
+      DVIVQVKVFDVHCSUIVFDVJCSUJUKVHERZVTWCUSWEVRWBVSWEVQUTVKWAVHEDCTVHEVJCSUKUL
+      UMVJFRZWCVDUSWFWBVBVSVCWFWAVAUTVJFECTUMVJFDCTUJUMUNUOUP $.
+      $( [1-Feb-2015] $)
+
+    $( Less-or-equal is reflexive in a preset.  (Contributed by Stefan O'Rear,
+       1-Feb-2015.) $)
+    prsref $p |- ( ( K e. Preset /\ X e. B ) -> X L X ) $=
+      ( cpreset wcel wa wbr wi w3a id1 3jca prslem sylan2 simpld ) BGHZDAHZIDDC
+      JZTTITKZSRSSSLTUAISSSSSMZUBUBNABCDDDEFOPQ $.
+      $( [1-Feb-2015] $)
+
+    $( Less-or-equal is transitive in a preset.  (Contributed by Stefan O'Rear,
+       1-Feb-2015.) $)
+    prstr $p |- ( ( K e. Preset /\ ( X e. B /\ Y e. B /\ Z e. B ) /\
+          ( X L Y /\ Y L Z ) ) -> X L Z ) $=
+      ( cpreset wcel w3a wbr wa wi prslem simprd 3impia ) BIJZDAJEAJFAJKZDECLEF
+      CLMZDFCLZRSMDDCLTUANABCDEFGHOPQ $.
+      $( [1-Feb-2015] $)
+  $}
+
+  ${
+    $d K f b r x y z $.  $d B f b r x y z $.  $d L f b r x y z $.
+    $d X x y z $.  $d Y x y z $.
+    isdrs.b $e |- B = ( Base ` K ) $.
+    isdrs.l $e |- L = ( le ` K ) $.
+    $( Property of being a directed set.  (Contributed by Stefan O'Rear,
+       1-Feb-2015.) $)
+    isdrs $p |- ( K e. Dirset <-> ( K e. Preset /\ B =/= (/) /\
+          A. x e. B A. y e. B E. z e. B ( x L z /\ y L z ) ) ) $=
+      ( vb vr vf cv wbr wa wral cple cfv wsbc cbs wceq cdrs wcel cpreset c0 wne
+      wrex w3a wb fveq2 syl6eqr dfsbcq syl sbcbidv bitrd cvv fvex eqeltri neeq1
+      adantr rexeq raleqbi1dv breq anbi12d 2ralbidv sbc2ie syl6bb df-drs elrab2
+      rexbidv sylan9bb 3anass bitr4i ) EUAUBEUCUBZDUDUEZALZCLZFMZBLZVPFMZNZCDUF
+      ZBDOADOZNZNVMVNWBUGILZUDUEZVOVPJLZMZVRVPWFMZNZCWDUFZBWDOZAWDOZNZJKLZPQZRZ
+      IWNSQZRZWCKEUCUAWNETZWRWMJFRZIDRZWCWSWRWPIDRZXAWSWQDTWRXBUHWSWQESQZDWNESU
+      IGUJWPIWQDUKULWSWPWTIDWSWOFTWPWTUHWSWOEPQZFWNEPUIHUJWMJWOFUKULUMUNWMWCIJD
+      FDXCUOGESUPUQFXDUOHEPUPUQWDDTZWFFTZNWEVNWLWBXEWEVNUHXFWDDUDURUSXEWLWICDUF
+      ZBDOZADOXFWBWKXHAWDDWJXGBWDDWICWDDUTVAVAXFXGWAABDDXFWIVTCDXFWGVQWHVSVOVPW
+      FFVBVRVPWFFVBVCVIVDVJVCVEVFABCKJIVGVHVMVNWBVKVL $.
+      $( [1-Feb-2015] $)
+
+    $( Direction of a directed set.  (Contributed by Stefan O'Rear,
+       1-Feb-2015.) $)
+    drsdir $p |- ( ( K e. Dirset /\ X e. B /\ Y e. B ) ->
+        E. z e. B ( X L z /\ Y L z ) ) $=
+      ( vx vy cdrs wcel cv wbr wa wrex wral wceq breq1 rexbidv cpreset c0 isdrs
+      wne simp3bi anbi1d anbi2d rcla42v syl5com 3impib ) CKLZEBLZFBLZEAMZDNZFUN
+      DNZOZABPZUKIMZUNDNZJMZUNDNZOZABPZJBQIBQZULUMOURUKCUALBUBUDVEIJABCDGHUCUEV
+      DURUOVBOZABPIJEFBBUSERZVCVFABVGUTUOVBUSEUNDSUFTVAFRZVFUQABVHVBUPUOVAFUNDS
+      UGTUHUIUJ $.
+      $( [1-Feb-2015] $)
+  $}
+
+  ${
+    $d K x y z $.  $d B x y z $.
+
+    $( A directed set is a preset.  (Contributed by Stefan O'Rear,
+       1-Feb-2015.) $)
+    drsprs $p |- ( K e. Dirset -> K e. Preset ) $=
+      ( vx vz vy cdrs wcel cpreset cbs cfv c0 wne cv cple wbr wa wrex wral eqid
+      isdrs simp1bi ) AEFAGFAHIZJKBLCLZAMIZNDLUBUCNOCUAPDUAQBUAQBDCUAAUCUARUCRS
+      T $.
+      $( [1-Feb-2015] $)
+
+    drsbn0.b $e |- B = ( Base ` K ) $.
+    $( The base of a directed set is not empty.  (Contributed by Stefan O'Rear,
+       1-Feb-2015.) $)
+    drsbn0 $p |- ( K e. Dirset -> B =/= (/) ) $=
+      ( vx vz vy cdrs wcel cpreset c0 wne cv cple cfv wbr wrex wral eqid isdrs
+      wa simp2bi ) BGHBIHAJKDLELZBMNZOFLUBUCOTEAPFAQDAQDFEABUCCUCRSUA $.
+      $( [1-Feb-2015] $)
+
+    drsdirfi.l $e |- L = ( le ` K ) $.
+    $d K a b c x y z $.  $d L a b c x y z $.  $d B a b c x y z $.
+    $d X a b c x y z $.
+    $( Any _finite_ number of elements in a directed set have a common upper
+       bound.  Here is where the non-emptiness constraint in ~ df-drs first
+       comes into play; without it we would need an additional constraint that
+       ` X ` not be empty.  (Contributed by Stefan O'Rear, 1-Feb-2015.) $)
+    drsdirfi $p |- ( ( K e. Dirset /\ X C_ B /\ X e. Fin ) ->
+        E. y e. B A. z e. X z L y ) $=
+      ( va vb vc wcel wss cv wbr wral wrex wa wi c0 cdrs cfn csn cun wceq sseq1
+      anbi2d raleq rexbidv imbi12d weq wne drsbn0 wex ral0 jctr eximi n0 df-rex
+      3imtr4i adantr ssun1 sstr mpan anim2i breq2 ralbidv cbvrexv simpll simprl
+      syl vex snss sylibr ad2antlr drsdir syl3anc simplrr wel cpreset ad3antrrr
+      ssun2 drsprs ad2antrr sselda simplr simpr simprrl prstr ralimdva adantlrr
+      syl132anc mpd simprrr ralsn breq1 sbcie bitri ralun syl2anc expr reximdva
+      ex wsb rexlimdva syl5bi embantd com12 a1i findcard2 3impia ) DUALZFCMZFUB
+      LZBNZANZEOZBFPZACQZXNXLXMRZXSXLINZCMZRZXQBYAPZACQZSXLTCMZRZXQBTPZACQZSXLJ
+      NZCMZRZXQBYJPZACQZSZXLYJKNZUCZUDZCMZRZXQBYRPZACQZSZXTXSSIJKFYATUEZYCYGYEY
+      IUUDYBYFXLYATCUFUGUUDYDYHACXQBYATUHUIUJIJUKZYCYLYEYNUUEYBYKXLYAYJCUFUGUUE
+      YDYMACXQBYAYJUHUIUJYAYRUEZYCYTYEUUBUUFYBYSXLYAYRCUFUGUUFYDUUAACXQBYAYRUHU
+      IUJYAFUEZYCXTYEXSUUGYBXMXLYAFCUFUGUUGYDXRACXQBYAFUHUIUJXLYIYFXLCTULZYICDG
+      UMXPCLZAUNUUIYHRZAUNUUHYIUUIUUJAUUIYHXQBUOUPUQACURYHACUSUTVKVAYOUUCSYJUBL
+      YTYOUUBYTYLYNUUBYSYKXLYJYRMYSYKYJYQVBYJYRCVCVDZVEYNXOYAEOZBYJPZICQYTUUBYM
+      UUMAICAIUKXQUULBYJXPYAXOEVFVGVHYTUUMUUBICYTYACLZUUMUUBYTUUNUUMRZRZYAXPEOZ
+      YPXPEOZRZACQZUUBUUPXLUUNYPCLZUUTXLYSUUOVIYTUUNUUMVJYSUVAXLUUOYSYQCMZUVAYQ
+      YRMYSUVBYQYJWBYQYRCVCVDYPCKVLZVMVNVOACDEYAYPGHVPVQUUPUUSUUAACUUPUUIUUSUUA
+      UUPUUIUUSRZRZYMXQBYQPZUUAUVEUUMYMYTUUNUUMUVDVRYTUUNUVDUUMYMSUUMYTUUNRZUVD
+      RZUULXQBYJUVHBJVSZRZUULXQUVJUULRDVTLZXOCLZUUNUUIUULUUQXQUVHUVKUVIUULXLUVK
+      YSUUNUVDDWCWAWDUVJUVLUULUVHYJCXOUVGYKUVDYSYKXLUUNUUKVOVAWEVAUVHUUNUVIUULY
+      TUUNUVDWFWDUVHUUIUVIUULUVGUUIUUSVJWDUVJUULWGUVHUUQUVIUULUVGUUIUUQUURWHWDC
+      DEXOYAXPGHWIWLXCWJWKWMUVEUURUVFUUPUUIUUQUURWNUVFXQBKXDUURXQBYPUVCWOXQUURB
+      YPUVCXOYPXPEWPWQWRVNXQBYJYQWSWTXAXBWMXAXEXFXGXHXIXJXHXK $.
+      $( [1-Feb-2015] $)
+
+    $( Directed sets may be defined in terms of finite subsets.  Again, without
+       nonemptiness we would need to restrict to nonempty subsets here.
+       (Contributed by Stefan O'Rear, 1-Feb-2015.) $)
+    isdrs2 $p |- ( K e. Dirset <-> ( K e. Preset /\
+          A. x e. ( ~P B i^i Fin ) E. y e. B A. z e. x z L y ) ) $=
+      ( va vb wcel cv wbr wral wrex cfn wa syl adantl c0 cpreset cpw cin drsprs
+      cdrs wss simpl inss1 sseli elpwi inss2 drsdirfi syl3anc ralrimiva jca wne
+      0elpw 0fin elin mpbir2an wceq raleq rexbidv rcla4v ax-mp rexn0 cpr zfpair
+      wi prssi elpw sylibr prfi a1i sylanbrc simplr rcla4va syl2anc ralpr breq1
+      wsb sbcie anbi12i bitri biimpi reximi ralrimivva isdrs syl3anbrc impbii
+      vex ) EUEKZEUAKZCLZBLZFMZCALZNZBDOZADUBZPUCZNZQZWLWMXBEUDWLWSAXAWLWQXAKZQ
+      WLWQDUFZWQPKZWSWLXDUGXDXEWLXDWQWTKXEXAWTWQWTPUHUIWQDUJRSXDXFWLXAPWQWTPUKU
+      ISBCDEFWQGHULUMUNUOXCWMDTUPZILZWOFMZJLZWOFMZQZBDOZJDNIDNWLWMXBUGXBXGWMXBW
+      PCTNZBDOZXGTXAKZXBXOVIXPTWTKTPKDUQURTWTPUSUTWSXOATXAWQTVAWRXNBDWPCWQTVBVC
+      VDVEXNBDVFRSXCXMIJDDXCXHDKXJDKQZQZWPCXHXJVGZNZBDOZXMXRXSXAKZXBYAXQYBXCXQX
+      SWTKZXSPKZYBXQXSDUFYCXHXJDVJXSDIJVHVKVLYDXQXHXJVMVNXSWTPUSVOSWMXBXQVPWSYA
+      AXSXAWQXSVAWRXTBDWPCWQXSVBVCVQVRXTXLBDXTXLXTWPCIWAZWPCJWAZQXLWPCXHXJIWKZJ
+      WKZVSYEXIYFXKWPXICXHYGWNXHWOFVTWBWPXKCXJYHWNXJWOFVTWBWCWDWEWFRWGIJBDEFGHW
+      HWIWJ $.
+      $( [1-Feb-2015] $)
+  $}
+
+
