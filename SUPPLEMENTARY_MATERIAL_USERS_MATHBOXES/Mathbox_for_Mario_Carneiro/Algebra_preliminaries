@@ -6,6 +6,8 @@ $)
 
   $( Introduce new constant symbols. $)
   $c Irred $. $( Ring irreducible $)
+  $c RPrime $. $( Ring prime element $)
+  $c UFD $. $( Unique factorization domain $)
   $c RingHom $. $( Ring homomorphism $)
   $c RingIso $. $( Ring isomorphism $)
   $c "s $. $( Image structure $)
@@ -16,6 +18,12 @@ $)
 
   $( Ring irreducibles. $)
   cir $a class Irred $.
+
+  $( Ring primes. $)
+  crpm $a class RPrime $.
+
+  $( Unique factorization domain. $)
+  cufd $a class UFD $.
 
   $( Ring homomorphisms. $)
   crh $a class RingHom $.
@@ -45,8 +53,23 @@ $)
       [_ ( ( Base ` w ) \ ( Unit ` w ) ) / b ]_
         { z e. b | A. x e. b A. y e. b ( x ( .r ` w ) y ) =/= z } ) $.
 
+    $d b d p w x y $.
+    $( Define the set of prime elements in a ring.  A prime element is a
+       nonzero non-unit that satisfies an equivalent of Euclid's lemma
+       ~ euclemma . $)
+    df-rprm $a |- RPrime = ( w e. _V |-> [_ ( Base ` w ) / b ]_
+        { p e. ( b \ ( ( Unit ` w ) u. { ( 0g ` w ) } ) ) | A. x e. b A. y e. b
+    [ ( ||r ` w ) / d ] ( p d ( x ( .r ` w ) y ) -> ( p d x \/ p d y ) ) } ) $.
+
+    $( Define a unique factorization domain, which is a commutative ring with
+       an absolute value (from ~ abvtriv this is equivalent to being a domain)
+       such that every prime ideal contains a prime element (this is a
+       characterization due to Kaplansky). $)
+    df-ufd $a |- UFD = { r e. CRing | ( ( AbsVal ` r ) =/= (/) /\
+      A. i e. ( PrIdl ` r ) ( i i^i ( RPrime ` r ) ) =/= (/) ) } $.
+
     $( Define the set of ring homomorphisms from ` r ` to ` s ` . $)
-    df-rnghom $a |- RingHom = ( r e. _V , s e. _V |->
+    df-rnghom $a |- RingHom = ( r e. Ring , s e. Ring |->
       [_ ( Base ` r ) / v ]_ [_ ( Base ` s ) / w ]_
    { f e. ( w ^m v ) | ( ( f ` ( 1r ` r ) ) = ( 1r ` s ) /\ A. x e. v A. y e. v
    ( ( f ` ( x ( +g ` r ) y ) ) = ( ( f ` x ) ( +g ` s ) ( f ` y ) ) /\
@@ -547,6 +570,53 @@ $)
       WIZYGAEYDYMXKYAYCYEWJWIZXTXMXNXOXLEFYBYDIXQXMRZXRXSWEWFYGWMYAYHYIYBXTYDXN
       OXOOYJQYKYLYNYOXTXMXNXOXLEFYBYDIXQYPXRXSWGWFWKWHWL $.
       $( [7-Jan-2015] $)
+  $}
+
+  ${
+    $d r w x y z K $.  $d r w x y z L $.  $d r w x y z P $.  $d r w x y z ph $.
+    $d w x y z B $.
+    assapropd.1 $e |- ( ph -> B = ( Base ` K ) ) $.
+    assapropd.2 $e |- ( ph -> B = ( Base ` L ) ) $.
+    assapropd.3 $e |- ( ( ph /\ ( x e. B /\ y e. B ) ) ->
+      ( x ( +g ` K ) y ) = ( x ( +g ` L ) y ) ) $.
+    assapropd.4 $e |- ( ( ph /\ ( x e. B /\ y e. B ) ) ->
+      ( x ( .r ` K ) y ) = ( x ( .r ` L ) y ) ) $.
+    assapropd.5 $e |- ( ph -> F = ( Scalar ` K ) ) $.
+    assapropd.6 $e |- ( ph -> F = ( Scalar ` L ) ) $.
+    assapropd.7 $e |- P = ( Base ` F ) $.
+    assapropd.8 $e |- ( ( ph /\ ( x e. P /\ y e. B ) ) ->
+      ( x ( vsca ` K ) y ) = ( x ( vsca ` L ) y ) ) $.
+    $( If two structures have the same components (properties), one is an
+       associative algebra iff the other one is. $)
+    assapropd $p |- ( ph -> ( K e. AssAlg <-> L e. AssAlg ) ) $=
+      ( wcel co wceq wral vr vz vw clmod crg wa casa assalmod assarng lmodpropd
+      wi jca a1i syl5ibr rngpropd jcad wb csca cfv ccrg w3a cv cvsca cbs eqtr3d
+      cmulr eleq1d 3anbi123d adantr simpll simplrl simprl fveq2d syl5eq eleqtrd
+      syl simprrl eqid lmodvscl syl3anc eleqtrrd simprrr proplem syl12anc eqtrd
+      oveq1d simplrr rngcl eqeq12d anbi12d anassrs 2ralbidva ralbidva raleqbidv
+      oveq2d raleqdv 3bitr3d isassa 3bitr4g ex pm5.21ndd ) AGUDQZGUEQZUFZGUGQZH
+      UGQZXEXDUKAXEXBXCGUHGUIULUMAXFXBXCXFXBAHUDQZHUHABCDEFGHIJKMNOPUJZUNXFXCAH
+      UEQZHUIABCDGHIJKLUOZUNUPAXDXEXFUQAXDUFZXBXCGURUSZUTQZVAZUAVBZUBVBZGVCUSZR
+      ZUCVBZGVFUSZRZXOXPXSXTRZXQRZSZXPXOXSXQRZXTRZYCSZUFZUCGVDUSZTZUBYITZUAXLVD
+      USZTZUFXGXIHURUSZUTQZVAZXOXPHVCUSZRZXSHVFUSZRZXOXPXSYSRZYQRZSZXPXOXSYQRZY
+      SRZUUBSZUFZUCHVDUSZTZUBUUHTZUAYNVDUSZTZUFXEXFXKXNYPYMUULAXNYPUQXDAXBXGXCX
+      IXMYOXHXJAXLYNUTAFXLYNMNVEVGVHVIXKYHUCDTZUBDTZUAETUUGUCDTZUBDTZUAETYMUULX
+      KUUNUUPUAEXKXOEQZUFYHUUGUBUCDDXKUUQXPDQZXSDQZUFZYHUUGUQXKUUQUUTUFZUFZYDUU
+      CYGUUFUVBYAYTYCUUBUVBYAXRXSYSRZYTUVBAXRDQUUSYAUVCSAXDUVAVJZUVBXRYIDUVBXBX
+      OYLQZXPYIQZXRYIQAXBXCUVAVKZUVBXOEYLXKUUQUUTVLZUVBAEYLSZUVDAEFVDUSZYLOAFXL
+      VDMVMVNZVPVOZUVBXPDYIXKUUQUURUUSVQZUVBADYISZUVDIVPZVOZXOXQXLYLYIGXPYIVRZX
+      LVRZXQVRZYLVRZVSVTUVOWAXKUUQUURUUSWBZABCDDXTYSXRXSLWCWDUVBXRYRXSYSUVBAUUQ
+      UURXRYRSUVDUVHUVMABCEDXQYQXOXPPWCWDWFWEUVBYCXOYBYQRZUUBUVBAUUQYBDQYCUWBSU
+      VDUVHUVBYBYIDUVBXCUVFXSYIQZYBYIQAXBXCUVAWGUVPUVBXSDYIUWAUVOVOZYIGXTXPXSUV
+      QXTVRZWHVTUVOWAABCEDXQYQXOYBPWCWDUVBYBUUAXOYQUVBAUURUUSYBUUASUVDUVMUWAABC
+      DDXTYSXPXSLWCWDWOWEZWIUVBYFUUEYCUUBUVBYFXPYEYSRZUUEUVBAUURYEDQYFUWGSUVDUV
+      MUVBYEYIDUVBXBUVEUWCYEYIQUVGUVLUWDXOXQXLYLYIGXSUVQUVRUVSUVTVSVTUVOWAABCDD
+      XTYSXPYELWCWDUVBYEUUDXPYSUVBAUUQUUSYEUUDSUVDUVHUWAABCEDXQYQXOXSPWCWDWOWEU
+      WFWIWJWKWLWMXKUUNYKUAEYLAUVIXDUVKVIXKUUMYJUBDYIAUVNXDIVIZXKYHUCDYIUWHWPWN
+      WNXKUUPUUJUAEUUKAEUUKSXDAEUVJUUKOAFYNVDNVMVNVIXKUUOUUIUBDUUHADUUHSXDJVIZX
+      KUUGUCDUUHUWIWPWNWNWQWJUBUCYLXQXTXLYIGUAUVQUVRUVTUVSUWEWRUBUCUUKYQYSYNUUH
+      HUAUUHVRYNVRUUKVRYQVRYSVRWRWSWTXA $.
+      $( [8-Feb-2015] $)
   $}
 
   ${

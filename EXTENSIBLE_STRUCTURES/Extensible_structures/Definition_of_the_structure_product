@@ -5,7 +5,7 @@ $(
 $)
 
   $c topGen $.
-  $c tP $.
+  $c Xt_ $.
 
   $( Extend class notation with a function that converts a basis to its
      corresponding topology. $)
@@ -13,7 +13,7 @@ $)
 
   $( Extend class notation with a function whose value is a product
      topology. $)
-  cpt $a class tP $.
+  cpt $a class Xt_ $.
 
   ${
     $d f u x y z $.
@@ -24,13 +24,14 @@ $)
     df-topgen $a |- topGen = ( x e. _V |->
                                { y | y C_ U. ( x i^i ~P y ) } ) $.
 
+    $d f g x y z $.
     $( Define the product topology on a collection of topologies.  For
        convenience, it is defined on arbitrary collections of sets, expressed
        as a function from some index set to the subbases of each factor
        space. $)
-    df-pt $a |- tP = ( f e. { f | Fun f } |-> ( topGen ` ( fi ` { x |
-                       E. y e. dom f E. u e. ( f ` y ) x = X_ z e. dom f
-                         if ( z = y , u , U. ( f ` z ) ) } ) ) ) $.
+    df-pt $a |- Xt_ = ( f e. _V |-> ( topGen ` { x | E. g ( ( g Fn dom f /\
+      A. y e. dom f ( g ` y ) e. ( f ` y ) /\ E. z e. Fin A. y e. ( dom f \ z )
+       ( g ` y ) = U. ( f ` y ) ) /\ x = X_ y e. dom f ( g ` y ) ) } ) ) $.
   $}
 
   $c Xm_ Xs_ ^s $.
@@ -61,7 +62,7 @@ $)
       { <. ( Scalar ` ndx ) , s >. ,
         <. ( vsca ` ndx ) , ( f e. ( Base ` s ) , g e. v |->
         ( x e. dom r |-> ( f ( vsca ` ( r ` x ) ) ( g ` x ) ) ) ) >. } ) u.
-      { <. ( TopOpen ` ndx ) , ( tP ` ( TopOpen o. r ) ) >. ,
+      { <. ( TopOpen ` ndx ) , ( Xt_ ` ( TopOpen o. r ) ) >. ,
         <. ( le ` ndx ) , { <. f , g >. | ( { f , g } C_ v /\
         A. x e. dom r ( f ` x ) ( le ` ( r ` x ) ) ( g ` x ) ) } >. ,
         <. ( dist ` ndx ) , ( f e. v , g e. v |-> sup ( ran ( x e. dom r |->
@@ -77,65 +78,6 @@ $)
        the factors are the same. $)
     df-pws $a |- ^s = ( r e. _V , i e. _V |->
       ( ( Scalar ` r ) Xm_ ( i X. { r } ) ) ) $.
-  $}
-
-  $( Structure definition utility lemma.  To prove that an explicit function is
-     a function using O(n) steps, exploit the order properties of the index
-     set.  Zero-pair case.  (Contributed by Stefan O'Rear, 3-Jan-2015.) $)
-  strlemor0 $p |- ( Fun (/) /\ dom (/) C_ ( 1 ... 0 ) ) $=
-    ( c0 wfun cdm c1 cc0 cfz co wss fun0 dm0 0ss eqsstri pm3.2i ) ABACZDEFGZHIN
-    AOJOKLM $.
-    $( [3-Jan-2015] $)
-
-  ${
-    strlemor.o $e |- I < J $.
-    strlemor.i $e |- I e. NN0 $.
-    strlemor.j $e |- J e. NN $.
-    strlemor.f $e |- ( Fun F /\ dom F C_ ( 1 ... I ) ) $.
-    ${
-      strlemor1.g $e |- G = ( F u. { <. J , X >. } ) $.
-      $( Add one element to the end of a structure.  (Contributed by Stefan
-         O'Rear, 3-Jan-2015.) $)
-      strlemor1 $p |- ( Fun G /\ dom G C_ ( 1 ... J ) ) $=
-        ( wfun cdm c1 cfz co wss csn c0 wcel wbr cop cun wa cin simpli cn elexi
-        wceq funsn pm3.2i dmsnop ineq2i wn cle nn0rei nnrei ltnlei mpbi elfzle2
-        clt mto simpri sseli disjsn mpbir eqtri funun mp2an funeqi dmun cuz cfv
-        dmeqi nn0zi nnzi ltleii eluz2 mpbir3an fzss2 ax-mp sstri elfz1end snssi
-        cz eqsstri unssi ) BKZBLZMDNOZPWGADEUAQZUBZKZAKZWJKZUCALZWJLZUDZRUHWLWM
-        WNWMWOMCNOZPZIUEDEDUFHUGUIUJWQWODQZUDZRWPWTWODEUKZULXARUHDWOSZUMXCDWRSZ
-        XDDCUNTZCDUTTXEUMFCDCGUOZDHUPZUQURDMCUSVAWOWRDWMWSIVBZVCVAWODVDVEVFAWJV
-        GVHBWKJVIVEWHWOWPUBZWIWHWKLXIBWKJVMAWJVJVFWOWPWIWOWRWIXHDCVKVLSZWRWIPXJ
-        CWDSDWDSCDUNTCGVNDHVOCDXFXGFVPCDVQVRCMDVSVTWAWPWTWIXBDWISZWTWIPDUFSXKHD
-        WBURDWIWCVTWEWFWEUJ $.
-        $( [3-Jan-2015] $)
-    $}
-
-    strlemor2.o $e |- J < K $.
-    strlemor2.k $e |- K e. NN $.
-    ${
-      strlemor2.g $e |- G = ( F u. { <. J , X >. , <. K , Y >. } ) $.
-      $( Add one element to the end of a structure.  (Contributed by Stefan
-         O'Rear, 3-Jan-2015.) $)
-      strlemor2 $p |- ( Fun G /\ dom G C_ ( 1 ... K ) ) $=
-        ( cop csn cun nnnn0i eqid strlemor1 cpr df-pr uneq2i unass 3eqtr4i ) AD
-        FOZPZQZBDEGLDJRMAUHCDFHIJKUHSTAUFEGOZUAZQAUGUIPZQZQBUHUKQUJULAUFUIUBUCN
-        AUGUKUDUET $.
-        $( [3-Jan-2015] $)
-    $}
-
-    strlemor3.o $e |- K < L $.
-    strlemor3.l $e |- L e. NN $.
-    ${
-      strlemor3.g $e |- G = ( F u. { <. J , X >. , <. K , Y >. ,
-          <. L , Z >. } ) $.
-      $( Add three elements to the end of a structure.  (Contributed by Stefan
-         O'Rear, 3-Jan-2015.) $)
-      strlemor3 $p |- ( Fun G /\ dom G C_ ( 1 ... L ) ) $=
-        ( cop cun cpr nnnn0i strlemor2 ctp df-tp uneq2i unass 3eqtr4i strlemor1
-        eqid csn ) ADGSZEHSZUAZTZBEFIPEOUBQAUOCDEGHJKLMNOUOUJUCAULUMFISZUDZTAUN
-        UPUKZTZTBUOURTUQUSAULUMUPUEUFRAUNURUGUHUI $.
-        $( [3-Jan-2015] $)
-    $}
   $}
 
   ${
@@ -167,7 +109,7 @@ $)
         ( ( f ` x ) ( .r ` ( R ` x ) ) ( g ` x ) ) ) ) $.
     prdmval.m $e |- M = ( f e. ( Base ` S ) , g e. B |-> ( x e. dom R |->
         ( f ( vsca ` ( R ` x ) ) ( g ` x ) ) ) ) $.
-    prdmval.o $e |- O = ( tP ` ( TopOpen o. R ) ) $.
+    prdmval.o $e |- O = ( Xt_ ` ( TopOpen o. R ) ) $.
     prdmval.l $e |- L = { <. f , g >. | ( { f , g } C_ B /\
         A. x e. dom R ( f ` x ) ( le ` ( R ` x ) ) ( g ` x ) ) } $.
     prdmval.d $e |- D = ( f e. B , g e. B |-> sup ( ran ( x e. dom R |->
